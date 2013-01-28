@@ -1,0 +1,67 @@
+<div class="performanceItem {f:if(condition:'{iteration.total}==1', then: 'open')}">
+	<div class="performance short">
+		<div class="performanceHeader clearfix">
+			<div class="infos city">
+				<div class="inside">
+					<div class="mobile"><b><f:translate key="tx_t3events_domain_model_eventlocation.place" /></b> </div>
+					{performance.eventLocation.place}
+				</div>
+			</div>
+			<div class="infos location">
+				<div class="inside">
+					<div class="mobile"><b><f:translate key="tx_t3events_domain_model_eventlocation" /></b> </div>
+					{performance.eventLocation.name}
+				</div>
+			</div>
+			<div class="infos date">
+				<div class="inside">
+					<div class="mobile"><b><f:translate key="tx_t3events.date" />, <f:translate key="tx_t3events.time" />:</b> </div>
+					<f:cObject typoscriptObjectPath="lib.dateMe" >
+						<f:format.date format="U">{performance.date}</f:format.date>
+					</f:cObject>
+					<f:format.date format="H:i">@{performance.begin}</f:format.date>
+				</div>
+			</div>
+			<div title="{performance.status.title}" class="infos ticketSignal">
+				<div class="inside">
+					<div class="mobile"><b><f:translate key="tx_t3events.tickets" />:</b> </div>
+					<span class="{performance.status.cssClass}"></span><f:translate key="tx_t3events.tickets" />
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="performance long">
+		<f:comment>Status</f:comment>
+		<f:if condition="{performance.statusInfo}">
+			<div class="performance statusInfo id{performance.uid}">
+				<p class="statusInfo">{performance.statusInfo}</p>
+			</div>
+		</f:if>					
+
+		<f:comment>Ticket Classes</f:comment>
+		<f:if condition="{performance.ticketClass}">
+			<f:render partial="TicketClass/List" arguments="{event: event, performance: performance}" />
+		</f:if>
+		
+		<f:comment>Seating plan</f:comment>
+		<f:if condition="{performance.plan}">
+			<f:image 
+				src="uploads/tx_t3events/{performance.plan}"
+				width="{settings.event.single.plan.image.width}" 
+				height="{settings.event.single.plan.image.height}"
+				alt="{f:translate(key: 'tx_t3events_domain_model_performance.plan')}"
+				title="{f:translate(key: 'tx_t3events_domain_model_performance.plan')}"
+				class="performancePlan"
+			/>
+		</f:if>	
+		
+		<f:comment>Location</f:comment>
+		<f:if condition="{performance.eventLocation}">
+			<f:render partial="EventLocation/Item" arguments="{eventLocation: performance.eventLocation}" />
+		</f:if>
+		<f:comment>Organizer</f:comment>
+		<f:if condition="{event.organizer}">
+			<f:render partial="Organizer/Item" arguments="{organizer: event.organizer}" />
+		</f:if>
+	</div>
+</div>

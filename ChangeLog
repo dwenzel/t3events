@@ -1,0 +1,49 @@
+2013-01-27 Dirk Wenzel	<wenzel@webfox01.de>
+	0.3.0	- extension renamed to t3events
+			- dependency for static_info_tables_extbase removed (not available/necessary in 6.0 any more)
+			- added documentation in manual.sxw (not yet completed)
+			- minor template changes
+			- localization for be added (plugin)
+2013-01-26 Dirk Wenzel	<wenzel@webfox01.de>
+	0.2.3	- set list action non-cachable to prevent error with sort menu 
+				caused by cached content
+			- use lazy loading for relations to improve performance
+			- code cleanup
+			- add a wrap around highlights and teasers in teaser list
+			- implemented type 'lowestPrice' for ts:event.performances view helper
+2013-01-26 Michael Kasten  <kasten@webfox01.de>
+  	0.2.2 	- add an id to the quickmenu select and submit, in the quickmenu template: Event/Quickmenu.html
+	 	    - add an id, label and fieldset html tags to the sorting form in the list template : Event/List.html
+	      	- change to the correct version number in emconf :)
+2013-01-25 Dirk Wenzel    <wenzel@webfox01.de>
+  	0.2.1   - set list action non-cachable to prevent error with sort menu 
+             caused by cached content
+            - use lazy loading for relations to improve performance
+            - code cleanup
+            - add a wrap around highlights and teasers in teaser list
+2013-01-25 Dirk Wenzel    <wenzel@webfox01.de>
+    0.2.0   - sorting for list completed (direction added)
+            - localized strings added
+            - header removed from quick menu template
+2013-01-25 Dirk Wenzel    <wenzel@webfox01.de>
+    0.1.5   - quick search improved
+            - sorting for list view implemented
+2013-01-25 Michael Kasten  <kasten@webfox01.de>
+  0.1.4 - edit the teaser list item template
+2013-01-25 Dirk Wenzel    <wenzel@webfox01.de>
+    0.1.3   - quick search implemented
+            - plugin configuration improved
+            - CSS cleanup (custom code removed)
+2013-01-17 Dirk Wenzel    <wenzel@webfox01.de>
+    0.1.2   - prepare for search changes in teaser and event repositories and controllers
+            - sorting for teasers and events implemented 
+2013-01-15 Dirk Wenzel    <wenzel@webfox01.de>
+    0.1.1   - made debug statement in TicketClass/Item and Teaser/List templates conditional
+2013-01-15 Dirk Wenzel    <wenzel@webfox01.de>
+    0.1.0   - main functions implemented - beta status
+2012-12-18 Dirk Wenzel    <wenzel@webfox01.de>
+    0.0.3   - templates and styling almost finished
+2012-12-05 Dirk Wenzel  <wenzel@webfox01.de>
+    0.0.2   - teaser viewhelper partly implemented
+2012-11-11 Dirk Wenzel  <wenzel@webfox01.de>
+    0.0.1   - initial code: DB, model, TCA

@@ -1,0 +1,68 @@
+{namespace ts=Tx_T3events_ViewHelpers}
+
+<div class="eventWrap lightGrayBack">
+	<div class="eventImg">
+		<f:link.action action="show" arguments="{event: event}" pageUid="{settings.event.single.pid}">
+			<f:if condition="{event.image}">
+				<f:then>
+					<f:image src="uploads/tx_t3events/{event.image}"
+						width="{settings.event.list.image.width}"
+						height="{settings.event.list.image.height}"
+						alt="{event.headline}" />
+				</f:then>
+				<f:else>
+					<f:image src="{settings.event.list.dummyImage}"
+						width="{settings.event.list.image.width}"
+						height="{settings.event.list.image.height}"
+						alt="{event.headline}" />
+				</f:else>
+			</f:if>
+		</f:link.action>
+	</div>
+	<div class="eventDescription">
+		<f:link.action action="show" arguments="{event: event}"  pageUid="{settings.event.single.pid}"
+			class="buttonTicket blueGradient">
+			<ts:event.performances event="{event}" type="crucialStatus"
+				class="ticketSignal" tagName="span" classChildren="status" />
+			<f:translate key="tx_t3events.tickets" />
+
+		</f:link.action>
+		<h2 class="eventHeader">
+			<f:link.action action="show" arguments="{event: event}" pageUid="{settings.event.single.pid}">
+			{event.headline}
+		</f:link.action>
+		</h2>
+
+
+		<p class="eventSubtitle">
+			<f:link.action action="show" arguments="{event: event}" pageUid="{settings.event.single.pid}">
+			{event.subtitle}
+		</f:link.action>
+		</p>
+		<f:if condition="{event.performances->f:count()}>1">						
+			<f:then>
+
+				<f:comment>locations</f:comment>					
+				<p class="locations">
+					<f:translate key="@todo: label_multiple_locations">
+					verschiedene Spielstätten
+				</f:translate>
+				</p>
+				
+				<f:comment>dates</f:comment>
+				<ts:event.performances event="{event}" type="dateRange"
+					class="date range" tagName="p"
+				/>
+			</f:then>
+			<f:else>
+				<f:for each="{event.performances}" as="performance">
+						<ts:event.performances event="{event}" type="uniqueLocationsList"
+					class="locations single" tagName="p" />
+					<p class="date single">
+						<f:format.date format="d.m.Y">{performance.date}</f:format.date>
+					</p>
+				</f:for>
+			</f:else>
+		</f:if>
+	</div>
+</div>

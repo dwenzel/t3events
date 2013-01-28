@@ -1,0 +1,185 @@
+<T3DataStructure>
+	<meta>
+        <langDisable>1</langDisable>
+    </meta>
+ <sheets>
+  <sDEF>
+   <ROOT>
+     <TCEforms>
+      <sheetTitle>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_tab.settings</sheetTitle>
+     </TCEforms>
+     <type>array</type>
+     <el>
+      <switchableControllerActions>
+       <TCEforms>
+         <label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.mode</label>
+          <onChange>reload</onChange>
+		  <config>
+          <type>select</type>
+          <items>
+            
+            <numIndex index="0">
+             <numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.mode.teaser</numIndex>
+             <numIndex index="1">Teaser->list;Teaser->showEvent;Event->show</numIndex>
+            </numIndex>
+            
+            <numIndex index="1">
+             <numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.mode.event_list</numIndex>
+             <numIndex index="1">Event->list;Event->show</numIndex>
+            </numIndex>
+            
+            	<numIndex index="2">
+             <numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.mode.quick_menu</numIndex>
+             <numIndex index="1">Event->quickMenu</numIndex>
+            </numIndex>
+           </items>
+         </config>
+       </TCEforms>
+      </switchableControllerActions>
+            <settings.sortBy>
+      	<TCEforms>
+	      	<label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.sortBy</label>
+			<displayCond>FIELD:switchableControllerActions:!=:Event->quickMenu</displayCond>
+		    <config>
+			  <type>select</type>
+			  <items type="array">
+			    <numIndex index="0" type="array">
+			      <numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.date</numIndex>
+			      <numIndex index="1">date</numIndex>
+			    </numIndex>
+			    <numIndex index="1" type="array">
+			      <numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.title</numIndex>
+			      <numIndex index="1">title</numIndex>
+			    </numIndex>
+			  </items>
+			</config>
+      	</TCEforms>
+      </settings.sortBy>
+      
+      <!-- sort direction  -->
+		<settings.sortDirection>
+		    <TCEforms>
+		        <label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.sortDirection</label>
+		        <displayCond>FIELD:switchableControllerActions:!=:Event->quickMenu</displayCond>
+		        <config>
+		            <type>select</type>
+		            <items>
+		                <numIndex index="0">
+		                    <numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.ascending</numIndex>
+		                    <numIndex index="1">asc</numIndex>
+		                </numIndex>
+		                <numIndex index="1">
+		                    <numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.descending</numIndex>
+		                    <numIndex index="1">desc</numIndex>
+		                </numIndex>
+		            </items>
+		        </config>
+		    </TCEforms>
+		</settings.sortDirection>      
+	<settings.highlightsToTop>
+      	<TCEforms>
+      		<label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.highlightsToTop</label>
+      		<displayCond>FIELD:switchableControllerActions:=:Teaser->list;Teaser->showEvent;Event->show</displayCond>
+                <config>
+      			<type>check</type>
+      			<default>1</default>
+      		</config>
+      		<onChange>reload</onChange>
+      	</TCEforms>
+      </settings.highlightsToTop>
+
+      <settings.maxItems>
+      	<TCEforms>
+      		<label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.maxItems</label>
+      		<displayCond>FIELD:switchableControllerActions:=:Teaser->list;Teaser->showEvent;Event->show</displayCond>
+            <config>
+  				<type>input</type>
+  				<size>3</size>
+  				<range>
+  					<upper>10000</upper>
+  					<lower>0</lower>
+  				</range>
+  				<eval>int,trim</eval>
+			</config>
+      	</TCEforms>
+      </settings.maxItems>
+      
+      <!-- highlighted count -->
+      <settings.maxHighlighted>
+      	<TCEforms>
+      		<label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.maxHighlighted</label>
+      		<config>
+  				<type>input</type>
+  				<size>3</size>
+  				<range>
+  					<upper>10000</upper>
+  					<lower>0</lower>
+  				</range>
+  				<eval>int,trim</eval>
+			</config>
+			<displayCond>FIELD:settings.highlightsToTop:=:1</displayCond>
+      	</TCEforms>
+      </settings.maxHighlighted>
+      
+      <!-- venues -->
+	<settings.venues>
+	    <TCEforms>
+	        <label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.venues</label>
+	        <displayCond>FIELD:switchableControllerActions:=:Teaser->list;Teaser->showEvent;Event->show</displayCond>
+            <config>
+	            <type>group</type>
+	            <internal_type>db</internal_type>
+	            <allowed>tx_t3events_domain_model_venue</allowed>
+	            <size>5</size>
+	            <autoSizeMax>20</autoSizeMax>
+	            <minitems>0</minitems>
+	            <maxitems>20</maxitems>
+	        </config>
+	    </TCEforms>
+	</settings.venues>
+	
+	<settings.quickMenuType>
+		<TCEforms>
+			<label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.quick_menu.type</label>
+	        <displayCond>FIELD:switchableControllerActions:=:Event->quickMenu</displayCond>
+	        <onChange>reload</onChange>
+				<config>
+		        		<type>select</type>
+		            <items>
+		                <numIndex index="0">
+		                    <numIndex index="0"></numIndex>
+		                    <numIndex index="1"></numIndex>
+		                </numIndex>
+		                <numIndex index="1">
+		                    <numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.quick_menu.type.genres</numIndex>
+		                    <numIndex index="1">genres</numIndex>
+		                </numIndex>
+		               <!-- <numIndex index="2">
+		                    <numIndex index="0">Einrichtungen</numIndex>
+		                    <numIndex index="1">venues</numIndex>
+		             </numIndex>-->
+		            </items>
+		        </config>
+		</TCEforms>
+	</settings.quickMenuType>
+	<!-- Genres -->
+	<settings.genres>
+		<TCEforms>
+			<label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.quick_menu.type.genres</label>
+			<displayCond>FIELD:settings.quickMenuType:=:genres</displayCond>
+			<config>
+				<type>group</type>
+				<internal_type>db</internal_type>
+				<allowed>tx_t3events_domain_model_genre</allowed>
+				<size>5</size>
+				<autoSizeMax>20</autoSizeMax>
+				<minitems>0</minitems>
+				<maxitems>40</maxitems>
+			</config>
+		</TCEforms>
+	</settings.genres>
+     </el>
+   </ROOT>
+  </sDEF>
+ </sheets>
+</T3DataStructure>

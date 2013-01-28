@@ -1,0 +1,11 @@
+<div class="organizer">
+	<br />
+	<h4><f:translate key="tx_t3events_domain_model_organizer" /></h4>
+	<f:if condition="{organizer.name}">
+		<span class="name">{organizer.name}</span>
+	</f:if>
+	<f:if condition="{organizer.link}">
+		<span class="link">
+			<f:link.external uri="http://{organizer.link}" target="_blank">{organizer.link}</f:link.external></span>
+	</f:if>
+</div>

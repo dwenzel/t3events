@@ -1,0 +1,117 @@
+{namespace ts=Tx_T3events_ViewHelpers}
+
+<f:for each="{teasers}" as="teaser">
+	<f:comment>
+		<f:debug title="single teaser">{teaser}</f:debug>
+	</f:comment>
+
+	<div class="ticketWrap ">
+
+		<div class="ticketImg">
+			<f:link.action action="show" controller="Event"
+				arguments="{event : teaser.event}"
+				pageUid="{settings.event.single.pid}">
+				<f:if condition="{teaser.image}">
+					<f:then>
+						<f:image src="uploads/tx_t3events/{teaser.image}"
+							width="{settings.teaser.image.width}"
+							height="{settings.teaser.image.height}"
+							alt="{teaser.event.headline}" />
+					</f:then>
+					<f:else>
+						<f:image src="{settings.teaser.dummyImage}"
+							width="{settings.teaser.image.width}"
+							height="{settings.teaser.image.height}"
+							alt="{teaser.event.headline}" />
+					</f:else>
+				</f:if>
+			</f:link.action>
+		</div>
+		<div class="ticketDesc">
+			<f:if condition="{teaser.inheritData}=TRUE">
+				<f:then>
+
+					<div class="teaser-headline">
+						<f:link.action action="show" controller="Event"
+							arguments="{event: teaser.event}"
+							pageUid="{settings.event.single.pid}">
+							<h3>{teaser.event.headline}</h3>
+						</f:link.action>
+					</div>
+					<div class="teaser-price">
+						<h4>
+							<f:translate key="tx_t3events.label.ticketsFrom" />
+							<f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">
+								<ts:event.performances event="{teaser.event}" type="lowestPrice"/>
+							</f:format.currency>
+						</h4>
+
+					</div>
+					<div class="teaser-details">
+						<f:if condition="{teaser.event.performances->f:count()}>1">
+							<f:comment>multiple performances</f:comment>
+							<f:then>
+								<f:comment>locations list</f:comment>
+								<ts:event.performances event="{teaser.event}"
+									type="uniqueLocationsList" class="locations unique-list"
+									tagName="p" />
+
+								<f:comment>dates</f:comment>
+								<ts:event.performances event="{teaser.event}" type="dateRange"
+									class="date range" tagName="p" />
+							</f:then>
+
+							<f:comment>single performance</f:comment>
+							<f:else>
+								<f:comment>location</f:comment>
+								<ts:event.performances event="{teaser.event}"
+									type="uniqueLocationsList" class="locations single" tagName="p" />
+
+								<f:comment>date</f:comment>
+								<f:for each="{teaser.event.performances}" as="performance">
+									<p class="date single">
+										<f:format.date format="d.m.Y">{performance.date}</f:format.date>
+									</p>
+								</f:for>
+							</f:else>
+						</f:if>
+					</div>
+
+
+					<div class="teaser-buttons">
+						<f:link.action action="show" controller="Event"
+							arguments="{event: teaser.event}"
+							pageUid="{settings.event.single.pid}"
+							class="button blueGradient whiteColor">
+							<f:translate key="tx_t3events.tickets" />
+						</f:link.action>
+						<a class="button-2" href="#">In den Kalender eintragen</a>
+					</div>
+
+				</f:then>
+				<f:else>
+					<div class="teaser-headline">
+						<f:link.action action="show" arguments="{teaser : teaser}"
+							pageUid="{settings.event.single.pid}">
+							<h3>{teaser.title}</h3>
+						</f:link.action>
+					</div>
+					<div class="teaser-price">
+						<h4>Tickets ab ###</h4>
+					</div>
+					<div class="teaser-details">
+						<p>
+							#Event Locations##{teaser.event.headline}<br /> #First Date# -
+							#Last Date# <br />
+						</p>
+					</div>
+
+					<div class="teaser-buttons">
+						<a class="button-1" href="#">Tickets</a> <a class="button-2"
+							href="#">In den Kalender</a>
+					</div>
+				</f:else>
+			</f:if>
+		</div>
+	</div>
+</f:for>

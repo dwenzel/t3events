@@ -1,0 +1,43 @@
+{namespace ts=Tx_T3events_ViewHelpers}
+
+<f:layout name="Default" />
+
+This Template is responsible for creating a quick menu (selectbox).
+
+<f:section name="main">
+	<f:if condition="{settings.debug.settings}">
+		<f:debug title="settings">{settings}</f:debug>
+	</f:if>
+	<f:comment><f:debug title="session">{session}</f:debug></f:comment>
+	<f:if condition="{settings.debug.quickMenu.entries}">
+		<f:debug title="genres">{genres}</f:debug>
+	</f:if>
+	<f:if condition="{settings.debug.quickMenu.demand}">
+		<f:debug title="overwriteDemand">{overwriteDemand}</f:debug>
+	</f:if>
+	<f:flashMessages />
+	
+	<div class="quickMenu">
+		<div class="text">
+			<f:translate key="tx_t3events.searchAllEventsByGenre.hint" />
+		</div>
+		<div class="selectbox">
+			<f:form name="overwriteDemand" action="list"
+				pageUid="{settings.event.list.pid}">
+				<f:form.select 
+				  id="tx_t3eventsQuickMenue"
+					name="overwriteDemand[genre]" 
+					options="{genres}"
+					optionValueField="uid" 
+					optionLabelField="title"
+					value="{overwriteDemand.genre}"
+				/>
+				<f:form.submit 
+				  id="tx_t3eventsQuickMenueSubmit"
+					name="submit" 
+					value="{f:translate(key: 'tx_t3events.button.label.search', default: 'Suchen')}"
+				/>
+			</f:form>
+		</div>
+	</div>
+</f:section>

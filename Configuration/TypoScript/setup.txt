@@ -1,0 +1,120 @@
+plugin.tx_t3events {
+
+	# prevent exception #1313855175 with two plugins at the same page (http://forge.typo3.org/issues/31322):
+	mvc.callDefaultActionIfActionCantBeResolved = 1
+	
+	view {
+		templateRootPath = {$plugin.tx_t3events.view.templateRootPath}
+		partialRootPath = {$plugin.tx_t3events.view.partialRootPath}
+		layoutRootPath = {$plugin.tx_t3events.view.layoutRootPath}
+		# set root path for paginate widget view helper
+		widget.Tx_T3events_ViewHelpers_Widget_PaginateViewHelper.templateRootPath = {$plugin.tx_t3events.view.templateRootPath}
+
+	}
+	persistence {
+		storagePid = {$plugin.tx_t3events.persistence.storagePid}
+	}
+	features {
+		# uncomment the following line to enable the new Property Mapper.
+		# rewrittenPropertyMapper = 1
+	}
+}
+
+plugin.tx_t3events{
+
+	settings {
+		teaser {
+			dummyImage = EXT:t3events/Resources/Public/Images/dummy-image.png
+			image {
+				width = 93
+				height = 93
+			}
+		}
+		event {
+			list {
+				dummyImage = EXT:t3events/Resources/Public/Images/dummy-image.png
+				image {
+					width = 120
+					height = 120
+				}
+				paginate = 1
+			} // list
+			single {
+				dummyImage = EXT:t3events/Resources/Public/Images/dummy-image.png
+				image {
+					width = 200
+					height = 200
+				}
+				eventLocation {
+					image {
+						width = 290m
+						height = 200
+					}
+				}
+				plan {
+					image {
+						width = 290m
+						height = 450
+					}
+				}
+			} // single
+		} // event
+		search {
+			teasers {
+				fields = venue
+			}
+			events {
+				fields =
+			}
+		}// search
+	}// settings
+	_CSS_DEFAULT_STYLE (
+		input.f3-form-error {
+			background-color:#FF9F9F;
+			border: 1px #FF0000 solid;
+		}
+	
+		.tx-t3events table {
+			border-collapse:separate;
+			border-spacing:10px;
+		}
+	
+		.tx-t3events table th {
+			font-weight:bold;
+		}
+	
+		.tx-t3events table td {
+			vertical-align:top;
+		}
+	)
+}
+####################
+# config extbase to use a different template root path for paginate widget
+# this setting is part of a workaround for the limits of <f:widget.paginate /> view helper - specially the missing option to localize its output 
+config.tx_extbase.view.widget.Tx_Fluid_ViewHelpers_Widget_PaginateViewHelper.templateRootPath = {$plugin.tx_t3events.view.templateRootPath}
+config.tx_extbase.objects {
+Tx_Fluid_ViewHelpers_Widget_Controller_PaginateController {
+className = Tx_T3events_ViewHelpers_Widget_Controller_PaginateController
+}
+}
+####################
+# include CSS and JS
+
+page.includeCSS.t3eventsBasic = EXT:t3events/Resources/Public/Css/t3eventsBasic.css
+
+page.includeJSFooter.ticketingAccordion = EXT:t3events/Resources/Public/Js/accordion.js
+
+####################
+# date format helper
+# provides a workaround for missing localization of <f:format.date /> view helper
+lib.dateMe = TEXT
+lib.dateMe {
+	current = 1
+	strftime = %a, %d.%m.%y
+}
+
+####################
+# TEST Session Data
+#lib.FEsession = TEXT
+#lib.FEsession.value= hallo
+#lib.FEsession.data = TSFE:fe_user|sesData | products

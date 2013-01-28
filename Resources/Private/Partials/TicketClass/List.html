@@ -1,0 +1,45 @@
+<f:comment>Renders a list of ticketClass items</f:comment>
+<div class="ticketClassList">
+	<div class="ticketClass row clearfix">
+		<div class="description col fl"><b><f:translate key="tx_t3events_domain_model_ticketclass" /></b></div>
+		<div class="price col fl"><b><f:translate key="tx_t3events.price" />*</b></div>
+		<div class="quantity col fl"><b><f:translate key="tx_t3events.count" /></b></div>
+	</div>
+	
+	<f:for each="{performance.ticketClass}" as="ticketClass">
+		<f:render partial="TicketClass/Item" arguments="{ticketClass: ticketClass, performance: performance, event: event}" />
+	</f:for>
+	<div class="small">
+		<f:translate key="tx_t3events.hint.advanceBookingFee" />
+	</div>
+	
+	<f:if condition="{performance.priceNotice}" >
+		<div class="small priceNotice">
+			{performance.priceNotice}
+		</div>
+	</f:if>
+	
+	<f:comment>Links</f:comment>
+	<f:if condition="{performance.externalProviderLink}">
+		<div class="performance externalProviderLink">
+			<p class="infos externalProviderLink">
+				<f:translate key="tx_t3events_domain_model_performance.hint.external_provider_link" />
+			</p>
+			<f:link.external 
+				uri="{performance.externalProviderLink}"
+				target="_blank"
+				class="button blueGradient whiteColor"
+			>
+				<f:translate key="tx_t3events.label.print" />
+			</f:link.external>
+		</div>
+		
+		<f:comment>
+		<f:translate key="tx_t3events_domain_model_performance.additional_link" />
+		{performance.additionalLink}
+		<f:translate key="tx_t3events_domain_model_performance.provider_type" />
+		{performance.providerType}
+		</f:comment>
+		
+	</f:if>
+</div>

@@ -1,0 +1,47 @@
+<div class="eventLocation">
+	<h4><f:translate key="tx_t3events_domain_model_eventlocation" /></h4>
+	<f:if condition="{eventLocation.name}">
+		<span class="name">
+			<b>{eventLocation.name}</b>
+		</span>
+		<br>
+	</f:if>
+	<f:if condition="{eventLocation.address}">
+		<b>Adresse:</b>
+		<span class="address">
+			{eventLocation.address}
+		</span>
+	</f:if>
+	<f:if condition="{eventLocation.zip}">
+		<span class="zip">
+			{eventLocation.zip}						
+		</span>
+	</f:if>
+	<f:if condition="{eventLocation.place}">
+		<span class="place">
+			{eventLocation.place}
+		</span><br />
+	</f:if>					
+	<f:comment>@todo: get country value from static info table
+	<f:if condition="{eventLocation.country}">
+		<span class="name">
+			{eventLocation.country}
+		</span>
+	</f:if>
+	</f:comment>
+	<f:if condition="{eventLocation.image}">
+		<br />
+		<f:image src="uploads/tx_t3events/{eventLocation.image}"
+			width="{settings.event.single.eventLocation.image.width}"
+			height="{settings.event.single.eventLocation.image.height}"
+			alt="{eventLocation.name}"
+			title="{eventLocation.name}" 
+		/>
+		<br />
+	</f:if>
+	<f:if condition="{eventLocation.details}">
+		<span class="details">
+			{eventLocation.details}						
+		</span>
+	</f:if>					
+</div>

@@ -1,0 +1,49 @@
+<f:if condition="{settings.debug.ticketClass}" >
+	<f:debug title="ticketClass">{ticketClass}</f:debug>
+</f:if>
+<div class="ticketClass row clearfix">
+	<div class="description col fl">
+		<span style="background: {ticketClass.color};" class="ticketClassSign">&nbsp;</span>
+		{ticketClass.title}
+		<span class="ticketClassLabel">
+			<f:if condition="{ticketClass.type}==0">
+				<f:translate key="tx_t3events_domain_model_ticketclass.normal" />
+			</f:if>
+			<f:if condition="{ticketClass.type}==1">
+				<f:translate key="tx_t3events_domain_model_ticketclass.reduced" />
+			</f:if>
+			<f:if condition="{ticketClass.type}==2">
+				<f:translate key="tx_t3events_domain_model_ticketclass.special" />
+			</f:if>
+		</span>
+	</div>
+	<div class="price col fl">
+		<f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">
+			{ticketClass.price}
+		</f:format.currency>
+				
+		
+	</div>
+	<f:if condition="{settings.order.useWtcart}">
+		<form action="{f:uri.page(pageUid: '{settings.order.checkoutPid}')}" method="post">
+			<div class="quantity col fl">
+				<input type="number" name="qty" />
+			</div>
+			<input type="hidden" name="puid" value="{ticketClass.uid}" />
+			<input 
+					type="hidden" 
+					name="title" 
+					value="{event.headline}, 
+							{event.subtitle},
+							{f:format.date(format: 'd.m.Y', date: '{performance.date}')},  
+							{ticketClass.title} {f:translate(key: 'tx_t3events_domain_model_ticketclass.type.{ticketClass.type}')}
+							"
+				/>
+			<input type="hidden" name="gtsprice" value="{ticketClass.price}" />
+			<input type="hidden" name="gtsNoHandlingFee" value="{performance.noHandlingFee}" />
+			<div class="button col fl">
+				<input type="submit" class="button blueGradient whiteColor" value="In den Warenkorb" name="submit" />
+			</div>
+		</form>
+	</f:if>
+</div>
