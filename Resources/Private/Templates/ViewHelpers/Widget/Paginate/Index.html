@@ -31,11 +31,14 @@
 			<li>...</li>
 		</f:if>
 		<f:for each="{pagination.pages}" as="page">
+		<f:debug title="pagination">{pagination}</f:debug>
 			<f:if condition="{page.isCurrent}">
 				<f:then>
-					<li class="current">
-						{page.number}
-					</li>
+					<f:if condition="{pagination.numberOfPages}>1">
+						<li class="current">
+							{page.number}
+						</li>
+					</f:if>
 				</f:then>
 				<f:else>
 					<li>

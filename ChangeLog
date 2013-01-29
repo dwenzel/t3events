@@ -1,3 +1,6 @@
+2013-01-29 Dirk Wenzel	<wenzel@webfox01.de>
+	0.3.1	- pagination template changed: don't show page number when only one page is visible
+		- added some documentation
 2013-01-27 Dirk Wenzel	<wenzel@webfox01.de>
 	0.3.0	- extension renamed to t3events
 			- dependency for static_info_tables_extbase removed (not available/necessary in 6.0 any more)
