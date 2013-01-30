@@ -31,7 +31,6 @@
 			<li>...</li>
 		</f:if>
 		<f:for each="{pagination.pages}" as="page">
-		<f:debug title="pagination">{pagination}</f:debug>
 			<f:if condition="{page.isCurrent}">
 				<f:then>
 					<f:if condition="{pagination.numberOfPages}>1">

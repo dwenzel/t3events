@@ -1,3 +1,8 @@
+2013-01-30 	Dirk Wenzel <wenzel@webfox01.de>
+	0.3.4	- removed debug view helper from pagination template
+			- teaser item template changed to respect 'inheritData' settings
+			- BE label for performances now contains date and name of event location
+			- extension icon added
 2013-01-29 Dirk Wenzel	<wenzel@webfox01.de>
 	0.3.1	- pagination template changed: don't show page number when only one page is visible
 		- added some documentation
