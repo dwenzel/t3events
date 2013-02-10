@@ -239,6 +239,7 @@ $TCA['tx_t3events_domain_model_performance'] = array(
 				'type' => 'inline',
 				'foreign_table' => 'tx_t3events_domain_model_ticketclass',
 				'foreign_field' => 'performance',
+				'foreign_sortby' => 'sorting',
 				'maxitems'      => 9999,
 				'appearance' => array(
 					'collapseAll' => 0,
