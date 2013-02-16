@@ -45,6 +45,19 @@ class Tx_T3events_Domain_Repository_EventRepository extends Tx_Extbase_Persisten
 		
 		// collect all constraints
 		
+		// period
+		switch ($demand->getPeriod()){
+			case 'futureOnly':
+				$query->matching($query->logicalAnd($query->greaterThanOrEqual('performances.date', time())));
+				break;
+			case 'pastOnly':
+				$query->matching($query->logicalAnd($query->lessThanOrEqual('performances.date', time())));
+				break;
+			default:
+				break;		
+		}
+		 
+		// genre		
 		if($demand->getGenre()){
 			$constraints = array();
 			$genres= t3lib_div::intExplode(',',$demand->getGenre());
@@ -54,6 +67,7 @@ class Tx_T3events_Domain_Repository_EventRepository extends Tx_Extbase_Persisten
 			$query->matching($query->logicalOr($constraints));
 		}
 		
+		// sort direction
 		switch ($demand->getSortDirection()) {
 			case 'asc':
 				$sortOrder = Tx_Extbase_Persistence_QueryInterface::ORDER_ASCENDING;				
@@ -67,6 +81,7 @@ class Tx_T3events_Domain_Repository_EventRepository extends Tx_Extbase_Persisten
 			break;
 		}
 		//@todo implement a search class (like in news -> NewsRepository/Search.php) which holds search field and word
+		// sorting
 		if($demand->getSortBy() !== '') {
 			$query->setOrderings(
 				array(
@@ -74,6 +89,7 @@ class Tx_T3events_Domain_Repository_EventRepository extends Tx_Extbase_Persisten
 				)
 			);
 		}
+		// limit
 		if($demand->getLimit()) {
 			$query->setLimit($demand->getLimit());
 		}

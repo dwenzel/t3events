@@ -35,6 +35,10 @@
  
  class Tx_T3events_Domain_Model_AbstractDemand extends Tx_Extbase_DomainObject_AbstractEntity {
 	/**
+	 * @var  A time limit
+	 */
+	protected $period;
+	/**
 	 * @var int A Limit for the demand
 	 */
 	protected $limit = 100;
@@ -72,11 +76,27 @@
 	}
 	
 	/**
+	 * @return string The time limit for the demand
+	 */
+	public function getPeriod() {
+		return $this->period;
+	}
+	
+	/**
+	 * @param string A time limit for the demand
+	 * @return void
+	 */
+	public function setPeriod ($period = '') {
+		$this->period = $period;
+	}
+	
+	/**
 	 * @return int The limit for the demand
 	 */
 	public function getLimit() {
 		return $this->limit;
 	}
+	
 	
 	/**
 	 * @param in An offset for the demand

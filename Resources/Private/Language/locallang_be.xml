@@ -16,6 +16,10 @@
 			<label index="flexforms_general.sortBy">sort by</label>
 			<label index="flexforms_general.date">Date</label>
 			<label index="flexforms_general.title">Title</label>
+			<label index="flexforms_general.period">Period</label>
+			<label index="flexforms_general.period.all">all</label>
+			<label index="flexforms_general.period.futureOnly">future only</label>
+			<label index="flexforms_general.period.pastOnly">past only</label>
 			<label index="flexforms_general.sortDirection">Sort Direction</label>
 			<label index="flexforms_general.ascending">ascending</label>
 			<label index="flexforms_general.descending">descending</label>
@@ -39,6 +43,10 @@
 			<label index="flexforms_general.sortBy">sortiere nach</label>
 			<label index="flexforms_general.date">Datum</label>
 			<label index="flexforms_general.title">Titel</label>
+			<label index="flexforms_general.period">Zeitabschnitt</label>
+			<label index="flexforms_general.period.all">alle</label>
+			<label index="flexforms_general.period.futureOnly">nur zukünftige</label>
+			<label index="flexforms_general.period.pastOnly">nur vergangene</label>
 			<label index="flexforms_general.sortDirection">Sortierreihenfolge</label>
 			<label index="flexforms_general.ascending">aufsteigend</label>
 			<label index="flexforms_general.descending">absteigend</label>

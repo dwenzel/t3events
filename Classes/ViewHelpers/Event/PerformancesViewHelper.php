@@ -100,7 +100,9 @@ class Tx_T3events_ViewHelpers_Event_PerformancesViewHelper extends Tx_Fluid_Core
 				$status = $this->getCrucialStatus();
 	            $title = $status['title'];
 	            $this->class .= ' ' . $status['cssClass'];
-	            $content = '&nbsp';
+	            if($this->renderChildren() == NULL) {
+	            	$content = $status['title'];
+	            }
 	            break;
 			case 'lowestPrice':
 				//return raw number to allow using <f:format.currency />
@@ -114,6 +116,7 @@ class Tx_T3events_ViewHelpers_Event_PerformancesViewHelper extends Tx_Fluid_Core
 		$this->tag->forceClosingTag(TRUE);
 		$this->renderChildren();
 		$content = $this->tag->render();
+		$content .= $this->renderChildren();
         return $content;
     }
     
@@ -214,11 +217,11 @@ class Tx_T3events_ViewHelpers_Event_PerformancesViewHelper extends Tx_Fluid_Core
 		foreach ($this->performances as $performance) {
 			$ticketClasses = $performance->getTicketClass();
 			foreach ($ticketClasses as $ticketClass){
-				$prices[] = $ticketClass->getPrice();
+				$prices[] = ($ticketClass->getPrice())?$ticketClass->getPrice():0;
 			}
 		}
 		sort($prices);
-		return $prices[0];
+		return (float)$prices[0];
 	}
 	
     /**

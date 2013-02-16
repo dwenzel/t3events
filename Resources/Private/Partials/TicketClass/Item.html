@@ -21,8 +21,6 @@
 		<f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">
 			{ticketClass.price}
 		</f:format.currency>
-				
-		
 	</div>
 	<f:if condition="{settings.order.useWtcart}">
 		<form action="{f:uri.page(pageUid: '{settings.order.checkoutPid}')}" method="post">

@@ -47,6 +47,8 @@ class Tx_T3events_Controller_TeaserController extends Tx_Extbase_MVC_Controller_
 	 * @return void
 	 */
 	public function listAction() {
+		$highlights = '';
+        $teasers = '';
         $sortBy = $this->settings['sortBy'];
         $sortDirection = $this->settings['sortDirection'];
         $maxItems = (int)$this->settings['maxItems'];
@@ -55,51 +57,48 @@ class Tx_T3events_Controller_TeaserController extends Tx_Extbase_MVC_Controller_
         $venues = explode(',',$this->settings['venues']);
         
         // common demand settings
-        //$demand = t3lib_div::makeInstance('Tx_T3events_Domain_Model_TeaserDemand');
         $demand = $this->objectManager->get('Tx_T3events_Domain_Model_TeaserDemand');
         
-       switch ($this->settings['sortBy']) {
-        	case 'date':
-        		$demand->setSortBy('event.performances.date');
-        	break;
-        	case 'title':
-        		$demand->setSortBy('event.headline');
-        		break;
-        		
-        	default:
-        		$demand->setSortBy('event.performances.date');
-        	break;
+        switch ($this->settings['sortBy']) {
+	    	case 'date':
+	        	$demand->setSortBy('event.performances.date');
+	        	break;
+	        case 'title':
+	        	$demand->setSortBy('event.headline');
+	        	break;
+	        default:
+	        	$demand->setSortBy('event.performances.date');
+	        	break;
         }
-        
-		if($maxItems) {
-			$demand->setLimit($maxItems);
-		}
-		if($venues){
-			$demand->setVenues($venues);
-		}
-		
-		// demands for highlighted
-        if($highlightsToTop){
+
+		if ($venues) $demand->setVenues($venues);
+
+		if($highlightsToTop){
             // find only highlighted teasers:
             $highlightsDemand = clone $demand;
 			$highlightsDemand->setHighlights(TRUE);
-			if($maxHighlighted){
-				$highlightsDemand->setLimit($maxHighlighted);
-			}
-			$this->view->assign('highlights', $this->teaserRepository->findDemanded($highlightsDemand));
-          	
+			($maxHighlighted)?$highlightsDemand->setLimit($maxHighlighted):$highlightsDemand->setLimit($maxHighlighted);	
+			$highlights = $this->teaserRepository->findDemanded($highlightsDemand);
+			$highlightsCount = $highlights->count();
+
           	// find only not highlighted teasers
             $notHighlightsDemand = clone $demand;
             $notHighlightsDemand->setHighlights(FALSE);
-            if($maxItems) {
-                $demand->setLimit($maxItems-$maxHighlighted);
-            }
+            
+            if($maxItems-$highlightsCount >=1) $notHighlightsDemand->setLimit(maxItems-$highlightsCount);
+
             $teasers =$this->teaserRepository->findDemanded($notHighlightsDemand);
-            $this->view->assign('teasers', $teasers);
-        }else{
-            $teasers = $this->teaserRepository->findDemanded($demand);
-            $this->view->assign('teasers', $teasers);    
         }
+        else {
+			// maxItems empty and not highlightsToTop - show all teasers
+        	if($maxItems) $demand->setLimit($maxItems);
+			
+        	// maxItems set and not highlightsToTop - show all
+        	$teasers = $this->teaserRepository->findDemanded($demand);
+        }
+        
+        $this->view->assign('highlights', $this->teaserRepository->findDemanded($highlightsDemand));
+        $this->view->assign('teasers', $teasers);
 	}
 
 	/**

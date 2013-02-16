@@ -73,8 +73,7 @@ class Tx_T3events_Controller_EventController extends Tx_Extbase_MVC_Controller_A
 	 * @return void
 	 */
 	public function listAction( $overwriteDemand = NULL) {
-	
-		$demand = $this->getDemandFromSettings($overwriteDemand);
+        $demand = $this->getDemandFromSettings($overwriteDemand);
         $events = $this->eventRepository->findDemanded($demand);
         if (!$events->count()) {
         	$this->flashMessageContainer->add(
@@ -127,6 +126,7 @@ class Tx_T3events_Controller_EventController extends Tx_Extbase_MVC_Controller_A
 	 */
 	private function getDemandFromSettings($overwriteDemand = NULL) {
 		$demand = $this->objectManager->get('Tx_T3events_Domain_Model_EventDemand');
+        
         if (!is_null($overwriteDemand)) {
         	$demand->setGenre($overwriteDemand['genre']);
         	
@@ -181,6 +181,7 @@ class Tx_T3events_Controller_EventController extends Tx_Extbase_MVC_Controller_A
         if(!$demand->getLimit() && (int)$this->settings['maxItems']) {
             $demand->setLimit((int)$this->settings['maxItems']);
         }
+        $demand->setPeriod($this->settings['period']);
         return $demand;
 	}
 }

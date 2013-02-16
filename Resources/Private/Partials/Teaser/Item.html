@@ -64,23 +64,25 @@
 					<h3>
 						<f:if condition="{teaser.inheritData}">
 							<f:comment>teaser which inherit their data from event</f:comment>
-							<f:then>{teaser.event.headline} (from event)</f:then>
+							<f:then>{teaser.event.headline}</f:then>
 							
 							<f:comment>title from teaser</f:comment>
-							<f:else>{teaser.title} (from teaser)</f:else>
+							<f:else>{teaser.title}</f:else>
 						</f:if>
 					</h3>
 				</f:link.action>
 			</div>
-			<div class="teaser-price">
-				<h4>
-					<f:translate key="tx_t3events.label.ticketsFrom" />
-					<f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">
-						<ts:event.performances event="{teaser.event}" type="lowestPrice"/>
-					</f:format.currency>
-				</h4>
-
-			</div>
+			<f:if condition="{ts:event.performances(event: '{teaser.event}', type: 'lowestPrice')}">
+				<div class="teaser-price">
+					<h4>
+						<f:translate key="tx_t3events.label.ticketsFrom" />
+						<f:format.currency currencySign="€" decimalSeparator="," thousandsSeparator=".">
+							<ts:event.performances event="{teaser.event}" type="lowestPrice"/>
+						</f:format.currency>
+					</h4>
+				</div>
+			</f:if>
+			
 			<div class="teaser-details">
 				<f:if condition="{teaser.event.performances->f:count()}>1">
 					<f:comment>multiple performances</f:comment>

@@ -36,7 +36,30 @@
          </config>
        </TCEforms>
       </switchableControllerActions>
-            <settings.sortBy>
+      <settings.period>
+      		<TCEforms>
+      			<label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.period</label>
+      			<displayCond>FIELD:switchableControllerActions:=:Event->list;Event->show</displayCond>
+      			<config>
+      				<type>select</type>
+      				<items type="array">
+      					<numIndex index="0" type="array">
+      						<numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.period.all</numIndex>
+      						<numIndex index="1">all</numIndex>
+      					</numIndex>
+      					<numIndex index="1" type="array">
+      						<numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.period.futureOnly</numIndex>
+      						<numIndex index="1">futureOnly</numIndex>
+      					</numIndex>
+      					<numIndex index="2" type="array">
+      						<numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.period.pastOnly</numIndex>
+      						<numIndex index="1">pastOnly</numIndex>
+      					</numIndex>
+      				</items>
+      			</config>
+      		</TCEforms>
+      </settings.period>
+      <settings.sortBy>
       	<TCEforms>
 	      	<label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.sortBy</label>
 			<displayCond>FIELD:switchableControllerActions:!=:Event->quickMenu</displayCond>
@@ -57,25 +80,25 @@
       </settings.sortBy>
       
       <!-- sort direction  -->
-		<settings.sortDirection>
-		    <TCEforms>
-		        <label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.sortDirection</label>
-		        <displayCond>FIELD:switchableControllerActions:!=:Event->quickMenu</displayCond>
-		        <config>
-		            <type>select</type>
-		            <items>
-		                <numIndex index="0">
-		                    <numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.ascending</numIndex>
-		                    <numIndex index="1">asc</numIndex>
-		                </numIndex>
-		                <numIndex index="1">
-		                    <numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.descending</numIndex>
-		                    <numIndex index="1">desc</numIndex>
-		                </numIndex>
-		            </items>
-		        </config>
-		    </TCEforms>
-		</settings.sortDirection>      
+	<settings.sortDirection>
+	    <TCEforms>
+	        <label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.sortDirection</label>
+	        <displayCond>FIELD:switchableControllerActions:!=:Event->quickMenu</displayCond>
+	        <config>
+	            <type>select</type>
+	            <items>
+	                <numIndex index="0">
+	                    <numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.ascending</numIndex>
+	                    <numIndex index="1">asc</numIndex>
+	                </numIndex>
+	                <numIndex index="1">
+	                    <numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.descending</numIndex>
+	                    <numIndex index="1">desc</numIndex>
+	                </numIndex>
+	            </items>
+	        </config>
+	    </TCEforms>
+	</settings.sortDirection>      
 	<settings.highlightsToTop>
       	<TCEforms>
       		<label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.highlightsToTop</label>

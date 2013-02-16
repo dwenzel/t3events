@@ -1,3 +1,18 @@
+2013-02-16	Dirk Wenzel <wenzel@webfox01.de>
+	0.3.9 	- fixed bug which prevented teaser plugin from showing correct amount of teasers (please adapt your plugin settings!) [Bug #45525]
+			- documentation improved
+2013-02-15	Dirk Wenzel <wenzel@webfox01.de>
+	0.3.8	- fixed bug which prevented quick menu from working
+			- debug messages from teaser template removed  
+2013-02-14	Dirk Wenzel <wenzel@webfox01.de>
+	0.3.6	- made TicketClass title and color exclude fields
+2013-02-12	Dirk Wenzel <wenzel@webfox01.de>
+	0.3.6	- PerformancesViewhelper:getLowestPrice() now allways returns float as expected. Partial Teaser/Item changed: displays price only when at least one performance with one ticketClass is available [Bug #45457] 
+2013-02-12	Dirk Wenzel <wenzel@webfox01.de>
+	0.3.5	- Plugin is now configurable to show only past, only future or all events (list view)
+			- fancy icons for records added
+2013-02-11 	Dirk Wenzel <wenzel@webfox01.de>
+			- PerformancesViewHelper: type 'crucialStatus' renders title when tag has no children
 2013-01-30 	Dirk Wenzel <wenzel@webfox01.de>
 	0.3.4	- removed debug view helper from pagination template
 			- teaser item template changed to respect 'inheritData' settings
@@ -5,7 +20,7 @@
 			- extension icon added
 2013-01-29 Dirk Wenzel	<wenzel@webfox01.de>
 	0.3.1	- pagination template changed: don't show page number when only one page is visible
-		- added some documentation
+			- added some documentation
 2013-01-27 Dirk Wenzel	<wenzel@webfox01.de>
 	0.3.0	- extension renamed to t3events
 			- dependency for static_info_tables_extbase removed (not available/necessary in 6.0 any more)

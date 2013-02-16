@@ -94,7 +94,7 @@ $TCA['tx_t3events_domain_model_ticketclass'] = array(
 			),
 		),
 		'title' => array(
-			'exclude' => 0,
+			'exclude' => 1,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_ticketclass.title',
 			'config' => array(
 				'type' => 'input',
@@ -103,7 +103,7 @@ $TCA['tx_t3events_domain_model_ticketclass'] = array(
 			),
 		),
 		'color' => array(
-			'exclude' => 0,
+			'exclude' => 1,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_ticketclass.color',
 			'config' => array(
 				'type' => 'input',
