@@ -1,6 +1,6 @@
 2013-02-26 	Dirk Wenzel <wenzel@webfox01.de>
 	0.4.0	- New Features - Please update your database
-			- events now contain new field venue
+			- Events now contain new field venue
 			- Quick Menu allows filtering event list by venues (template file QuickMenu.html changed!). 
 			- some test cases added 
 2013-02-17	Dirk Wenzel <wenzel@webfox01.de>
