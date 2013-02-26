@@ -141,9 +141,8 @@ $TCA['tx_t3events_domain_model_ticketclass'] = array(
 	),
 );
 
-## EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder
 
-# field order
+// field order
 $TCA['tx_t3events_domain_model_ticketclass']['types'] = array(
         '1' => array('showitem' => '
         ;;;;1-1-1, 
@@ -163,16 +162,16 @@ $TCA['tx_t3events_domain_model_ticketclass']['palettes'] = array(
     ),
     'palettePrices' => array(
         'showitem' => 'price,type',
-        'canNotCollapse' => true,
+        'canNotCollapse' => TRUE,
     ),
 );
-# title
+// title
 $TCA['tx_t3events_domain_model_ticketclass']['columns']['title']['config'] = array(
     'type' => 'input',
     'size' => 10,
     'eval' => 'trim'    
 );
-# color
+// color
 $TCA['tx_t3events_domain_model_ticketclass']['columns']['color']['config'] = array(
     'type' => 'input',
     'size' => 4,
@@ -189,7 +188,7 @@ $TCA['tx_t3events_domain_model_ticketclass']['columns']['color']['config'] = arr
         )
     ),    
 );
-# type
+// type
 $TCA['tx_t3events_domain_model_ticketclass']['columns']['type']['config'] = array(
 	'type' => 'radio',
 	'items' => array(
@@ -199,6 +198,6 @@ $TCA['tx_t3events_domain_model_ticketclass']['columns']['type']['config'] = arra
 	),
 	'default' => 0,
 );
-# price
+// price
 $TCA['tx_t3events_domain_model_ticketclass']['columns']['price']['config']['size'] = 5;
 ?>

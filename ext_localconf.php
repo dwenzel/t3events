@@ -18,5 +18,4 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 	)
 );
 
-## EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder
 ?>

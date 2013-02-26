@@ -58,9 +58,9 @@ class Tx_T3events_Domain_Model_TicketClass extends Tx_Extbase_DomainObject_Abstr
 	/**
 	 * type
 	 *
-	 * @var integer
+	 * @var integer;
 	 */
-	protected $type;
+	protected $type = 0;
 
 	/**
 	 * Returns the title

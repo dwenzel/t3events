@@ -91,7 +91,7 @@ class Tx_T3events_Domain_Model_PerformanceStatusTest extends Tx_Extbase_Tests_Un
 	 */
 	public function getPriorityReturnsInitialValueForInteger() { 
 		$this->assertSame(
-			0,
+			2147483647,
 			$this->fixture->getPriority()
 		);
 	}

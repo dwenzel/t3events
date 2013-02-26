@@ -204,7 +204,7 @@ class Tx_T3events_Domain_Model_PerformanceTest extends Tx_Extbase_Tests_Unit_Bas
 	 */
 	public function getNoHandlingFeeReturnsInitialValueForBoolean() { 
 		$this->assertSame(
-			TRUE,
+			FALSE,
 			$this->fixture->getNoHandlingFee()
 		);
 	}
@@ -290,14 +290,14 @@ class Tx_T3events_Domain_Model_PerformanceTest extends Tx_Extbase_Tests_Unit_Bas
 	/**
 	 * @test
 	 */
-	public function addTicketClasToObjectStorageHoldingTicketClass() {
-		$ticketClas = new Tx_T3events_Domain_Model_TicketClass();
-		$objectStorageHoldingExactlyOneTicketClas = new Tx_Extbase_Persistence_ObjectStorage();
-		$objectStorageHoldingExactlyOneTicketClas->attach($ticketClas);
-		$this->fixture->addTicketClas($ticketClas);
+	public function addTicketClassToObjectStorageHoldingTicketClass() {
+		$ticketClass = new Tx_T3events_Domain_Model_TicketClass();
+		$objectStorageHoldingExactlyOneTicketClass = new Tx_Extbase_Persistence_ObjectStorage();
+		$objectStorageHoldingExactlyOneTicketClass->attach($ticketClass);
+		$this->fixture->addTicketClass($ticketClass);
 
 		$this->assertEquals(
-			$objectStorageHoldingExactlyOneTicketClas,
+			$objectStorageHoldingExactlyOneTicketClass,
 			$this->fixture->getTicketClass()
 		);
 	}
@@ -305,13 +305,13 @@ class Tx_T3events_Domain_Model_PerformanceTest extends Tx_Extbase_Tests_Unit_Bas
 	/**
 	 * @test
 	 */
-	public function removeTicketClasFromObjectStorageHoldingTicketClass() {
-		$ticketClas = new Tx_T3events_Domain_Model_TicketClass();
+	public function removeTicketClassFromObjectStorageHoldingTicketClass() {
+		$ticketClass = new Tx_T3events_Domain_Model_TicketClass();
 		$localObjectStorage = new Tx_Extbase_Persistence_ObjectStorage();
-		$localObjectStorage->attach($ticketClas);
-		$localObjectStorage->detach($ticketClas);
-		$this->fixture->addTicketClas($ticketClas);
-		$this->fixture->removeTicketClas($ticketClas);
+		$localObjectStorage->attach($ticketClass);
+		$localObjectStorage->detach($ticketClass);
+		$this->fixture->addTicketClass($ticketClass);
+		$this->fixture->removeTicketClass($ticketClass);
 
 		$this->assertEquals(
 			$localObjectStorage,

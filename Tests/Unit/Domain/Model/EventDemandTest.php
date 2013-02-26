@@ -38,14 +38,14 @@
   * @author Dirk Wenzel <wenzel@webfox01.de>
   * @author Michael Kasten <kasten@webfox01.de>
   */
- class Tx_T3events_Domain_Model_AbstractDemandTest extends Tx_Extbase_Tests_Unit_BaseTestCase {
+ class Tx_T3events_Domain_Model_EventDemandTest extends Tx_T3events_Domain_Model_AbstractDemandTest {
 	/**
-	 * @var Tx_T3events_Domain_Model_AbstractDemand
+	 * @var Tx_T3events_Domain_Model_EventDemand
 	 */
 	protected $fixture;
 	
 	public function setUp(){
-		$this->fixture = new Tx_T3events_Domain_Model_AbstractDemand();
+		$this->fixture = new Tx_T3events_Domain_Model_EventDemand();
 	}
 	
 	public function tearDown() {
@@ -55,45 +55,31 @@
 	/**
 	 * @test
 	 */
-	public function getLimitReturnsInitialValueForInteger(){
-		$this->assertSame(100, $this->fixture->getLimit());
+	public function getGenreReturnsInitialNull(){
+		$this->assertSame(NULL, $this->fixture->getGenre());
 	}
 	
 	/**
 	* @test
 	*/
-	public function setLimitForIntegerSetsLimit(){
-		$this->fixture->setLimit(3);
-		$this->assertSame(3, $this->fixture->getLimit());
-	}
-	/**
-	* @test
-	*/
-	public function getOffsetReturnsInitialNull(){
-		$this->assertNull($this->fixture->getOffset());
+	public function setGenreForStringSetsGenre(){
+		$this->fixture->setGenre('1');
+		$this->assertSame('1', $this->fixture->getGenre());
 	}
 	
 	/**
-	*@test
-	*/
-	public function getSearchWordReturnsInitialNull(){
-		$this->assertSame(NULL, $this->fixture->getSearchWord);
+	 * @test
+	 */
+	public function getVenueReturnsInitialNull(){
+		$this->assertSame(NULL, $this->fixture->getVenue);
 	}
 	
 	/**
-	* @test
-	*/
-	public function setSearchWordForStringSetsSearchWord(){
-		$this->fixture->setSearchWord('search word');
-		$this->assertSame( 'search word', $this->fixture->getSearchWord() );
-	}
-	
-	/**
-	* @test
-	*/
-	public function setSortByForStringSetsSortBy() {
-		$this->fixture->setSortBy('my.sort.string.with.dots');
-		$this->assertSame('my.sort.string.with.dots', $this->fixture->getSortBy() );
+	 * @test
+	 */
+	public function setVenueForStringSetsVenue(){
+		$this->fixture->setVenue('1');
+		$this->assertSame('1', $this->fixture->getVenue());
 	}
 }
 ?>

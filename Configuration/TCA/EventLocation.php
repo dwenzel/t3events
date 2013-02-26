@@ -182,16 +182,15 @@ $TCA['tx_t3events_domain_model_eventlocation'] = array(
 	),
 );
 
-## EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder
 
-# name
+// name
 $TCA['tx_t3events_domain_model_eventlocation']['columns']['name']['config'] = array(
 		'type' => 'input',
 		'size' => 30,
 		'eval' => 'required,trim', 
 	);
 
-# address
+// address
 $TCA['tx_t3events_domain_model_eventlocation']['columns']['address']['config'] = array(
 		'type' => 'text',
 		'cols' => 32,
@@ -199,7 +198,7 @@ $TCA['tx_t3events_domain_model_eventlocation']['columns']['address']['config'] =
 		'eval' => 'trim'
 	);
 
-# detail
+// detail
 $TCA['tx_t3events_domain_model_eventlocation']['columns']['details']['config'] = array(
 		'type' => 'text',
 		'cols' => 32,
@@ -207,7 +206,7 @@ $TCA['tx_t3events_domain_model_eventlocation']['columns']['details']['config'] =
 		'eval' => 'trim'
 	);
 
-# image
+// image
 $TCA['tx_t3events_domain_model_eventlocation']['columns']['image']['config'] = array(
 		'type' => 'group',
 		'internal_type' => 'file',
@@ -218,7 +217,7 @@ $TCA['tx_t3events_domain_model_eventlocation']['columns']['image']['config'] = a
 		'show_thumbs' => 'true',
 		'disable_controls' => 'list',
 );
-# country
+// country
 $TCA['tx_t3events_domain_model_eventlocation']['columns']['country'] = array(
 	'exclude' => 0,
 	'displayCond' => 'EXT:static_info_tables:LOADED:true',

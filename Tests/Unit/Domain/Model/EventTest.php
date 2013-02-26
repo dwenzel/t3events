@@ -198,12 +198,70 @@ class Tx_T3events_Domain_Model_EventTest extends Tx_Extbase_Tests_Unit_BaseTestC
 	/**
 	 * @test
 	 */
+	public function getVenueReturnsInitialValueForObjectStorageContainingTx_T3events_Domain_Model_Venue() { 
+		$newObjectStorage = new Tx_Extbase_Persistence_ObjectStorage();
+		$this->assertEquals(
+			$newObjectStorage,
+			$this->fixture->getVenue()
+		);
+	}
+	
+	/**
+	 * @test
+	 */
+	public function setVenueForObjectStorageContainingTx_T3events_Domain_Model_VenueSetsVenue() {
+		$venue = new Tx_T3events_Domain_Model_Venue();
+		$objectStorageHoldingExactlyOneVenue = new Tx_Extbase_Persistence_ObjectStorage();
+		$objectStorageHoldingExactlyOneVenue->attach($venue);
+		$this->fixture->setVenue($objectStorageHoldingExactlyOneVenue);
+		
+		$this->assertSame(
+				$objectStorageHoldingExactlyOneVenue,
+				$this->fixture->getVenue()
+		);
+	}
+	
+	/**
+	 * @test
+	 */	
+	public function addVenueToObjectStorageHoldingVenue() {
+		$venue = new Tx_T3events_Domain_Model_Venue();
+		$objectStorageHoldingExactlyOneVenue = new Tx_Extbase_Persistence_ObjectStorage();
+		$objectStorageHoldingExactlyOneVenue->attach($venue);
+		$this->fixture->addVenue($venue);
+		
+		$this->assertEquals(
+			$objectStorageHoldingExactlyOneVenue, 
+			$this->fixture->getVenue()
+		);
+	}
+	
+	/**
+	 * @test
+	 */
+	public function removeVenueFromObjectStorageHoldingVenue() {
+		$venue = new Tx_T3events_Domain_Model_Venue();
+		$localObjectStorage = new Tx_Extbase_Persistence_ObjectStorage();
+		$localObjectStorage->attach($venue);
+		$localObjectStorage->detach($venue);
+		$this->fixture->addVenue($venue);
+		$this->fixture->removeVenue($venue);
+		
+		$this->assertEquals(
+			$localObjectStorage,
+			$this->fixture->getVenue()
+		);
+	}
+	/**
+	 * @test
+	 */
 	public function getEventTypeReturnsInitialValueForTx_T3events_Domain_Model_EventType() { 
 		$this->assertEquals(
 			NULL,
 			$this->fixture->getEventType()
 		);
 	}
+	
 
 	/**
 	 * @test

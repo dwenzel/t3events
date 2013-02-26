@@ -44,9 +44,18 @@ class Tx_T3events_Controller_EventController extends Tx_Extbase_MVC_Controller_A
 	/**
 	* genreRepository
 	*
-	* @var Tx_Gtesticketserviec_Domain_Repository_GenreRepository
+	* @var Tx_T3events_Domain_Repository_GenreRepository
 	*/
 	protected $genreRepository;
+	
+	/**
+	* venueRepository
+	*
+	* @var Tx_T3events_Domain_Repository_VenueRepository
+	*/
+	protected $venueRepository;
+	
+		
 	/**
 	 * injectEventRepository
 	 *
@@ -58,7 +67,7 @@ class Tx_T3events_Controller_EventController extends Tx_Extbase_MVC_Controller_A
 	}
 	
 	/**
-	 * injectEventRepository
+	 * injectGenreRepository
 	 *
 	 * @param Tx_T3events_Domain_Repository_GenreRepository $genreRepository
 	 * @return void
@@ -67,7 +76,17 @@ class Tx_T3events_Controller_EventController extends Tx_Extbase_MVC_Controller_A
 		$this->genreRepository = $genreRepository;
 	}
 	
+
 	/**
+	 * injectVenueRepository
+	 *
+	 * @param Tx_T3events_Domain_Repository_VenueRepository $venueRepository
+	 * @return void
+	 */
+	public function injectVenueRepository(Tx_T3events_Domain_Repository_VenueRepository $venueRepository) {
+		$this->venueRepository = $venueRepository;
+	}
+		/**
 	 * action list
 	 * @param array $overwriteDemand
 	 * @return void
@@ -110,13 +129,20 @@ class Tx_T3events_Controller_EventController extends Tx_Extbase_MVC_Controller_A
 		$sessionData = $GLOBALS['TSFE']->fe_user->getKey('ses', 'tx_t3events_overwriteDemand');
 		$this->view->assign('overwriteDemand', unserialize($sessionData));
 		
-		// get settings from plugin
-		$genres = $this->genreRepository->findMultipleByUid($this->settings['genres']);
+		// get genres from plugin
+		$genres = $this->genreRepository->findMultipleByUid($this->settings['genres'], 'title');
+		
+		// get venues from plugin
+		$venues = $this->venueRepository->findMultipleByUid($this->settings['venues'], 'title');
 		
 		// Build a fake entry for empty first option (The form.select viewhelper doesn't allow an empty option yet)
-		$fakeEntry = $this->objectManager->get('Tx_T3events_Domain_Model_Genre');
-		$fakeEntry->setTitle(Tx_Extbase_Utility_Localization::translate('tx_t3events.allGenres', $this->extensionName));
-		$this->view->assign('genres', array_merge(array(0=>$fakeEntry), $genres->toArray()));
+		$fakeGenre = $this->objectManager->get('Tx_T3events_Domain_Model_Genre');
+		$fakeGenre->setTitle(Tx_Extbase_Utility_Localization::translate('tx_t3events.allGenres', $this->extensionName));
+		$this->view->assign('genres', array_merge(array(0=>$fakeGenre), $genres->toArray()));
+		
+		$fakeVenue = $this->objectManager->get('Tx_T3events_Domain_Model_Venue');
+		$fakeVenue->setTitle(Tx_Extbase_Utility_Localization::translate('tx_t3events.allVenues', $this->extensionName));
+		$this->view->assign('venues', array_merge(array(0=>$fakeVenue), $venues->toArray()));
 	}
 	
 	/**
@@ -129,6 +155,7 @@ class Tx_T3events_Controller_EventController extends Tx_Extbase_MVC_Controller_A
         
         if (!is_null($overwriteDemand)) {
         	$demand->setGenre($overwriteDemand['genre']);
+        	$demand->setVenue($overwriteDemand['venue']);
         	
         	// set sort criteria
         	switch ($overwriteDemand['sortBy']) {

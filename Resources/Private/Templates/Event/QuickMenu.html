@@ -6,11 +6,12 @@ This Template is responsible for creating a quick menu (selectbox).
 
 <f:section name="main">
 	<f:if condition="{settings.debug.settings}">
-		<f:debug title="settings">{settings}</f:debug>
+		<f:debug title="settings (QuickMenu)">{settings}</f:debug>
 	</f:if>
 	<f:comment><f:debug title="session">{session}</f:debug></f:comment>
 	<f:if condition="{settings.debug.quickMenu.entries}">
 		<f:debug title="genres">{genres}</f:debug>
+		<f:debug title="venues">{venues}</f:debug>
 	</f:if>
 	<f:if condition="{settings.debug.quickMenu.demand}">
 		<f:debug title="overwriteDemand">{overwriteDemand}</f:debug>
@@ -24,14 +25,50 @@ This Template is responsible for creating a quick menu (selectbox).
 		<div class="selectbox">
 			<f:form name="overwriteDemand" action="list"
 				pageUid="{settings.event.list.pid}">
-				<f:form.select 
-				  id="tx_t3eventsQuickMenue"
-					name="overwriteDemand[genre]" 
-					options="{genres}"
-					optionValueField="uid" 
-					optionLabelField="title"
-					value="{overwriteDemand.genre}"
-				/>
+				
+				<f:comment>show genres only</f:comment>
+				<f:if condition="{0: settings.quickMenuType}=={0: 'genres'}">
+					<f:form.select 
+						id="tx_t3eventsQuickMenue"
+						name="overwriteDemand[genre]" 
+						options="{genres}"
+						optionValueField="uid" 
+						optionLabelField="title"
+						value="{overwriteDemand.genre}"
+					/>
+				</f:if>
+				
+				<f:comment>show venues only</f:comment>
+				<f:if condition="{0:settings.quickMenuType}=={0: 'venues'}"> 
+					<f:form.select 
+					  id="tx_t3eventsQuickMenue"
+						name="overwriteDemand[venue]" 
+						options="{venues}"
+						optionValueField="uid" 
+						optionLabelField="title"
+						value="{overwriteDemand.venue}"
+					/>
+				</f:if>
+				
+				<f:comment>show genres and venues</f:comment>
+				<f:if condition="{0:settings.quickMenuType}=={0: ''}">
+					<f:form.select 
+						id="tx_t3eventsQuickMenue"
+						name="overwriteDemand[genre]" 
+						options="{genres}"
+						optionValueField="uid" 
+						optionLabelField="title"
+						value="{overwriteDemand.genre}"
+					/>
+					<f:form.select 
+					  id="tx_t3eventsQuickMenue"
+						name="overwriteDemand[venue]" 
+						options="{venues}"
+						optionValueField="uid" 
+						optionLabelField="title"
+						value="{overwriteDemand.venue}"
+					/>				
+				</f:if>
 				<f:form.submit 
 				  id="tx_t3eventsQuickMenueSubmit"
 					name="submit" 

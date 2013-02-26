@@ -9,7 +9,7 @@ Tx_Extbase_Utility_Extension::registerPlugin(
 	'Events'
 );
 
-$pluginSignature = str_replace('_','',$_EXTKEY) . '_events';
+$pluginSignature = str_replace('_', '', $_EXTKEY) . '_events';
 $TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
 t3lib_extMgm::addPiFlexFormValue($pluginSignature, 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/flexform_events.xml');
 
@@ -38,7 +38,7 @@ $TCA['tx_t3events_domain_model_event'] = array(
 			'starttime' => 'starttime',
 			'endtime' => 'endtime',
 		),
-		'searchFields' => 'headline,subtitle,description,keywords,image,genre,event_type,performances,organizer,',
+		'searchFields' => 'headline,subtitle,description,keywords,image,genre,venue,event_type,performances,organizer,',
 		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY) . 'Configuration/TCA/Event.php',
 		'iconfile' => t3lib_extMgm::extRelPath($_EXTKEY) . 'Resources/Public/Icons/tx_t3events_domain_model_event.gif'
 	),
@@ -224,7 +224,7 @@ $tmp_t3events_columns = array(
 
 );
 
-t3lib_extMgm::addTCAcolumns('static_countries',$tmp_t3events_columns);
+t3lib_extMgm::addTCAcolumns('static_countries', $tmp_t3events_columns);
 
 $TCA['static_countries']['columns'][$TCA['static_countries']['ctrl']['type']]['config']['items'][] = array('LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:static_countries.tx_extbase_type.Tx_T3events_Country','Tx_T3events_Country');
 

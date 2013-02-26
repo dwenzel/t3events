@@ -11,6 +11,7 @@
 			<label index="tx_t3events.sortDirection.asc">ascending</label>
 			<label index="tx_t3events.sortDirection.desc">descending</label>
 			<label index="tx_t3events.allGenres">All Genres</label>
+			<label index="tx_t3events.allVenues">All Venues</label>
 			<label index="tx_t3events.quickSearch">Quick Search</label>
 			<label index="tx_t3events.searchAllEventsByGenre.hint">Search all events by genre:</label>
 			<label index="tx_t3events.noEventsForSelectionMessage">Sorry, there are no events matching your selection</label>
@@ -112,6 +113,7 @@
 			<label index="tx_t3events.noEventsForSelectionMessage">Zu Ihrer Auswahl konnten leider keine Veranstaltungen gefunden werden.</label>
 			<label index="tx_t3events.noEventsForSelectionTitle">Keine Veranstaltungen</label>
 			<label index="tx_t3events.allGenres">Alle Genre</label>
+			<label index="tx_t3events.allVenues">Alle Einrichtungen</label>
 			<label index="tx_t3events.button.label.search">Suchen</label>
 			<label index="tx_t3events.ticket">Ticket</label>
 			<label index="tx_t3events.tickets">Tickets</label>

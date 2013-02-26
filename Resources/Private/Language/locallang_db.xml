@@ -13,6 +13,7 @@
 			<label index="tx_t3events_domain_model_event.keywords">Keywords</label>
 			<label index="tx_t3events_domain_model_event.image">Image</label>
 			<label index="tx_t3events_domain_model_event.genre">Genre</label>
+			<label index="tx_t3events_domain_model_event.venue">Venue</label>
 			<label index="tx_t3events_domain_model_event.event_type">Event Type</label>
 			<label index="tx_t3events_domain_model_event.performances">Performances</label>
 			<label index="tx_t3events_domain_model_event.organizer">Organizer</label>
@@ -41,7 +42,7 @@
 			<label index="tx_t3events_domain_model_teaser">Teaser</label>
 			<label index="tx_t3events_domain_model_teaser.title">Title</label>
 			<label index="tx_t3events_domain_model_teaser.details">Details</label>
-			<label index="tx_t3events_domain_model_teaser.inherit_data">Inherit Data</label>
+			<label index="tx_t3events_domain_model_teaser.inherit_data">Inherit data from event</label>
 			<label index="tx_t3events_domain_model_teaser.image">Image</label>
 			<label index="tx_t3events_domain_model_teaser.is_highlight">Is Highlight</label>
 			<label index="tx_t3events_domain_model_teaser.location">Location</label>
@@ -120,7 +121,7 @@
 			<label index="tx_t3events_domain_model_teaser">Teaser</label>
 			<label index="tx_t3events_domain_model_teaser.title">Titel</label>
 			<label index="tx_t3events_domain_model_teaser.details">Details</label>
-			<label index="tx_t3events_domain_model_teaser.inherit_data">Daten übernehmen</label>
+			<label index="tx_t3events_domain_model_teaser.inherit_data">Daten aus Event übernehmen</label>
 			<label index="tx_t3events_domain_model_teaser.image">Bild</label>
 			<label index="tx_t3events_domain_model_teaser.is_highlight">hervorheben</label>
 			<label index="tx_t3events_domain_model_teaser.location">Ort</label>

@@ -56,16 +56,25 @@ class Tx_T3events_Domain_Repository_EventRepository extends Tx_Extbase_Persisten
 			default:
 				break;		
 		}
-		 
-		// genre		
+
+		// gather constraints
+		$constraints = array();
+		
 		if($demand->getGenre()){
-			$constraints = array();
-			$genres= t3lib_div::intExplode(',',$demand->getGenre());
+			$genres= t3lib_div::intExplode(',', $demand->getGenre());
 			foreach ($genres as $genre){
 				$constraints[] = $query->contains('genre', $genre);
 			}
-			$query->matching($query->logicalOr($constraints));
 		}
+		// venue
+		if($demand->getVenue()){
+			$venues= t3lib_div::intExplode(',', $demand->getVenue());
+			foreach ($venues as $venue){
+				$constraints[] = $query->contains('venue', $venue);
+			}
+		}
+				
+		count($constraints)?$query->matching($query->logicalOr($constraints)):NULL;
 		
 		// sort direction
 		switch ($demand->getSortDirection()) {

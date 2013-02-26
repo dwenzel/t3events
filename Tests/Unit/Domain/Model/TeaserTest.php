@@ -130,7 +130,7 @@ class Tx_T3events_Domain_Model_TeaserTest extends Tx_Extbase_Tests_Unit_BaseTest
 	 */
 	public function getIsHighlightReturnsInitialValueForBoolean() { 
 		$this->assertSame(
-			TRUE,
+			FALSE,
 			$this->fixture->getIsHighlight()
 		);
 	}

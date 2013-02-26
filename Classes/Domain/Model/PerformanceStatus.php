@@ -51,12 +51,12 @@ class Tx_T3events_Domain_Model_PerformanceStatus extends Tx_Extbase_DomainObject
 	protected $cssClass;
 
 	/**
-	 * priority
+	 * priority max allowed 2147483647
 	 *
 	 * @var integer
 	 * @validate NotEmpty
 	 */
-	protected $priority;
+	protected $priority = 2147483647;
 
 	/**
 	 * Returns the title

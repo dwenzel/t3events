@@ -1,3 +1,14 @@
+2013-02-26 	Dirk Wenzel <wenzel@webfox01.de>
+	0.4.0	- New Features - Please update your database
+			- events now contain new field venue
+			- Quick Menu allows filtering event list by venues (template file QuickMenu.html changed!). 
+			- some test cases added 
+2013-02-17	Dirk Wenzel <wenzel@webfox01.de>
+	0.3.11	- failing unit tests fixed
+			- fatal error of teaser plugin fixed
+			- code cleanup
+2013-02-17	Dirk Wenzel <wenzel@webfox01.de>
+	0.3.10 	- code cleanup (rules compliance improved)
 2013-02-16	Dirk Wenzel <wenzel@webfox01.de>
 	0.3.9 	- fixed bug which prevented teaser plugin from showing correct amount of teasers (please adapt your plugin settings!) [Bug #45525]
 			- documentation improved

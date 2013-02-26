@@ -45,7 +45,7 @@ overwriteSettings:
       Repository: merge
 
   Configuration:
-    TCA: merge
+    TCA: keep
     TypoScript: keep
     FlexForms: keep
 
@@ -59,7 +59,7 @@ overwriteSettings:
 
   ext_icon.gif: keep
 
-  ext_localconf.php: merge
+  ext_localconf.php: keep
 
 #  ext_tables.php: merge
 

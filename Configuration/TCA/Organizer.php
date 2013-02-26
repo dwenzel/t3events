@@ -114,5 +114,4 @@ $TCA['tx_t3events_domain_model_organizer'] = array(
 	),
 );
 
-## EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder
 ?>

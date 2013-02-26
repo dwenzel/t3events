@@ -6,7 +6,7 @@ if (!defined ('TYPO3_MODE')) {
 $TCA['tx_t3events_domain_model_event'] = array(
 	'ctrl' => $TCA['tx_t3events_domain_model_event']['ctrl'],
 	'interface' => array(
-		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, headline, subtitle, description, keywords, image, genre, event_type, performances, organizer',
+		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, headline, subtitle, description, keywords, image, genre, venue, event_type, performances, organizer',
 	),
 	'types' => array(
 		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, headline, subtitle, description, keywords, image, genre, event_type, performances, organizer,--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,starttime, endtime'),
@@ -180,6 +180,20 @@ $TCA['tx_t3events_domain_model_event'] = array(
 				),
 			),
 		),
+		
+		'venue' => array(
+			'exclude' => 0,
+			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_event.venue',
+			'config' => array(
+				'type' => 'select',
+				'foreign_table' => 'tx_t3events_domain_model_venue',
+				'MM' => 'tx_t3events_event_venue_mm',
+				'size' => 5,
+				'autoSizeMax' => 30,
+				'maxitems' => 9999,
+				'multiple' => 0,  
+			),
+		),
 		'event_type' => array(
 			'exclude' => 0,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_event.event_type',
@@ -234,29 +248,28 @@ $TCA['tx_t3events_domain_model_event'] = array(
 	),
 );
 
-## EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder
-# field order
+// field order
 $TCA['tx_t3events_domain_model_event']['types'] = array(
     '1' => array(
     'showitem' => '
     	;;;;1-1-1,
     	 event_type,headline, subtitle, description,image,
     	--div--;LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_event.extended,
-    	sys_language_uid,organizer, genre, keywords,
+    	sys_language_uid,organizer, genre, venue, keywords,
     	--div--;LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_event.performances,
     	performances,
     	l10n_parent, l10n_diffsource, ;;1, 
     	,--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,hidden,starttime, endtime'),
 );
 
-# palettes
+// palettes
 $TCA['tx_t3events_domain_model_event']['palettes'] = array(
 	'palettePerformance' => array(
 		'showitem' => 'performances',
-		'canNotCollapse' => true,
+		'canNotCollapse' => TRUE,
 	),
 );
-# image
+// image
 $TCA['tx_t3events_domain_model_event']['columns']['image']['config'] = array(
 	'type' => 'group',
 	'internal_type' => 'file',
@@ -266,21 +279,21 @@ $TCA['tx_t3events_domain_model_event']['columns']['image']['config'] = array(
 	'allowed' => $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'],
 	'disallowed' => '',
 );
-# keywords
+// keywords
 $TCA['tx_t3events_domain_model_event']['columns']['keywords']['config'] =array(
     'type' => 'text',
     'cols' => 32,
     'rows' => 5,
     'eval' => 'trim'
 );
-# description
+// description
 $TCA['tx_t3events_domain_model_event']['columns']['description']['config'] =array(
     'type' => 'text',
     'cols' => 32,
     'rows' => 10,
     'eval' => 'trim'
 );
-# organizer
+// organizer
 $TCA['tx_t3events_domain_model_event']['columns']['organizer']['config'] = array(
 	'type' => 'select',
 	'foreign_table' => 'tx_t3events_domain_model_organizer',
@@ -294,7 +307,7 @@ $TCA['tx_t3events_domain_model_event']['columns']['organizer']['config'] = array
 		'showAllLocalizationLink' => 1
 	),
 );
-# performance 
+// performance 
 $TCA['tx_t3events_domain_model_event']['columns']['performances']['config'] = array(
     'type' => 'inline',
     'foreign_table' => 'tx_t3events_domain_model_performance',
@@ -314,7 +327,7 @@ $TCA['tx_t3events_domain_model_event']['columns']['performances']['config'] = ar
         ),
     ),
 );
-#event_type
+//event_type
 $TCA['tx_t3events_domain_model_event']['columns']['event_type']['config'] = array(
     'type' => 'select',
     'foreign_table' => 'tx_t3events_domain_model_eventtype',
@@ -322,7 +335,7 @@ $TCA['tx_t3events_domain_model_event']['columns']['event_type']['config'] = arra
     'maxitems' => 1,        
 );
 
-#image
+//image
 $TCA['tx_t3events_domain_model_event']['columns']['image']['config'] = array(
 	'type' => 'group',
 	'internal_type' => 'file',

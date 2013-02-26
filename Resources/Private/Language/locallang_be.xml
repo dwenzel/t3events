@@ -11,7 +11,7 @@
 			<label index="flexforms_tab.settings">Settings</label>
 			<label index="flexforms_general.mode">What to display</label>
 			<label index="flexforms_general.mode.teaser">Teaser</label>
-			<label index="flexforms_general.mode.event_list">Event List</label>
+			<label index="flexforms_general.mode.event_list">Events: List/Detail</label>
 			<label index="flexforms_general.mode.quick_menu">Quick Menu</label>
 			<label index="flexforms_general.sortBy">sort by</label>
 			<label index="flexforms_general.date">Date</label>
@@ -29,7 +29,7 @@
 			<label index="flexforms_general.venues">Venues</label>
 			<label index="flexforms_general.quick_menu.type">Quick Menu: Type</label>
 			<label index="flexforms_general.quick_menu.type.genres">Genres</label>
-
+			<label index="flexforms_general.quick_menu.type.venues">Venues</label>
 		</languageKey>
 		
 		<!-- german -->
@@ -38,7 +38,7 @@
 			<label index="flexforms_tab.settings">Einstellungen</label>
 			<label index="flexforms_general.mode">Anzeige</label>
 			<label index="flexforms_general.mode.teaser">Teaser</label>
-			<label index="flexforms_general.mode.event_list">Veranstaltungsliste</label>
+			<label index="flexforms_general.mode.event_list">Veranstaltungen: Liste/Detail</label>
 			<label index="flexforms_general.mode.quick_menu">Schnellmenü</label>
 			<label index="flexforms_general.sortBy">sortiere nach</label>
 			<label index="flexforms_general.date">Datum</label>
@@ -56,7 +56,7 @@
 			<label index="flexforms_general.venues">Einrichtungen</label>
 			<label index="flexforms_general.quick_menu.type">Schnellmenü: Typ</label>
 			<label index="flexforms_general.quick_menu.type.genres">Genres</label>
-			
+			<label index="flexforms_general.quick_menu.type.venues">Einrichtungen</label>
 		</languageKey>
 	</data>
 </T3locallang>

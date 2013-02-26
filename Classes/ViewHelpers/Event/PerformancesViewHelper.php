@@ -90,7 +90,7 @@ class Tx_T3events_ViewHelpers_Event_PerformancesViewHelper extends Tx_Fluid_Core
 		$content = '';
 		$title = '';
 		switch ($type) {
-			case "uniqueLocationsList":
+			case 'uniqueLocationsList':
 				$content= $this->renderChildrenList($this->getLocationsArr());
 				break;
 			case 'dateRange':
@@ -135,7 +135,8 @@ class Tx_T3events_ViewHelpers_Event_PerformancesViewHelper extends Tx_Fluid_Core
     	}
     	
     	// add separator
-    	for($i=0; $i<count($contentArr)-1; $i++){
+    	$contentArrCount = count($contentArr);
+    	for($i=0; $i<$contentArrCount-1; $i++){
     		$contentArr[$i] = $contentArr[$i] . $this->arguments['childSeparator'];
     	}
     	$contentArr = ($unique)?array_values(array_unique($contentArr)): $contentArr;

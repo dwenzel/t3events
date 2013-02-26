@@ -3,7 +3,7 @@
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
+ *  (c) 2013 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
  *  Michael Kasten <kasten@webfox01.de>, Agentur Webfox
  *  
  *  All rights reserved
@@ -32,54 +32,8 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
- 
- class Tx_T3events_Domain_Model_EventDemand extends Tx_T3events_Domain_Model_AbstractDemand{
- 	/**
- 	 * @var string Genre
- 	 */
- 	protected $genre;
- 	
- 	/**
- 	 * @var string Venue
- 	 */
- 	protected $venue;
- 	
- 	/**
-	 * Returns the genre
-	 *
-	 * @return string $genre
-	 */
-	public function getGenre() {
-		return $this->genre;
-	}
 
-	/**
-	 * Sets the genre
-	 *
-	 * @param string $genre
-	 * @return void
-	 */
-	public function setGenre($genre) {
-		$this->genre = $genre;
-	}
- 
- 	/**
-	 * Returns the venue
-	 *
-	 * @return string $venue
-	 */
-	public function getVenue() {
-		return $this->venue;
-	}
+class Tx_T3events_Domain_Repository_VenueRepository extends Tx_T3events_Domain_Repository_AbstractRepository {
+}
 
-	/**
-	 * Sets the venue
-	 *
-	 * @param string $venue
-	 * @return void
-	 */
-	public function setVenue($venue) {
-		$this->venue = $venue;
-	}
-  }
- ?>
+?>

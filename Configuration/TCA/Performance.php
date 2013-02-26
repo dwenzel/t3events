@@ -276,12 +276,12 @@ $TCA['tx_t3events_domain_model_performance'] = array(
 );
 
 ## EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder
-# field order
+
+// field order
 
 $TCA['tx_t3events_domain_model_performance']['ctrl']['type'] = 'provider_type'; 
 $TCA['tx_t3events_domain_model_performance']['types'] = array(
-   # '1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, date, event_location, admission, begin, end, status_info, ticketmaster_link, tixoo_link, ticketonline_link, image, plan, no_handling_fee, status, ticket_class, price_notice, --div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,starttime, endtime'),
-	'0' => array('showitem' => '
+   '0' => array('showitem' => '
 		sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource;;1, 
         --palette--;;paletteTitle,
         --palette--;;paletteTime, 
@@ -316,12 +316,12 @@ $TCA['tx_t3events_domain_model_performance']['palettes'] = array(
     ),
     'paletteTicketsHead' => array(
         'showitem' => 'plan,price_notice,',
-        'canNotCollapse' => true,
+        'canNotCollapse' => TRUE,
     ),
 );
 
-##### fields
-# image
+//fields
+// image
 $TCA['tx_t3events_domain_model_performance']['columns']['image']['config'] = array(
 	'type' => 'group',
 	'internal_type' => 'file',
@@ -334,7 +334,7 @@ $TCA['tx_t3events_domain_model_performance']['columns']['image']['config'] = arr
 	'disable_controls' => 'list',
 );
 
-# provider_type
+// provider_type
 $TCA['tx_t3events_domain_model_performance']['columns']['provider_type']['config'] = array(
 	'type' => 'select',
 	'items' => array(
@@ -346,11 +346,11 @@ $TCA['tx_t3events_domain_model_performance']['columns']['provider_type']['config
 	'eval' => ''
 );
 
-# external_provider_link
-# (show only if provider type is external)
-#$TCA['tx_t3events_domain_model_performance']['columns']['external_provider_link']['displayCond'] = 'FIELD:provider_type:=:1';
+/**
+ * external_provider_link (show only if provider type is external)
+ */ 
 
-# plan
+// plan
 $TCA['tx_t3events_domain_model_performance']['columns']['plan']['config'] = array(
 	'type' => 'group',
 	'internal_type' => 'file',
@@ -362,21 +362,21 @@ $TCA['tx_t3events_domain_model_performance']['columns']['plan']['config'] = arra
 	'disallowed' => '',
 	'disable_controls' => 'list',
 );
-# status
+// status
 $TCA['tx_t3events_domain_model_performance']['columns']['status']['config'] = array(
     'type' => 'select',
     'foreign_table' => 'tx_t3events_domain_model_performancestatus',
     'minitems' => 0,
     'maxitems' => 1,
 );
-# status_info
+// status_info
 $TCA['tx_t3events_domain_model_performance']['columns']['status_info']['config'] = array(
     'type' => 'text',
     'columns' => 30,
     'rows' => 5,
     'eval' => 'trim',
 );
-# price_notice
+// price_notice
 $TCA['tx_t3events_domain_model_performance']['columns']['price_notice']['config'] = array(
     'type' => 'text',
     'columns' => 20,
@@ -384,7 +384,7 @@ $TCA['tx_t3events_domain_model_performance']['columns']['price_notice']['config'
     'eval' => 'trim',
 );
 
-# event_location
+// event_location
 $TCA['tx_t3events_domain_model_performance']['columns']['event_location']['config'] = array(
     'type' => 'select',
     'foreign_table' => 'tx_t3events_domain_model_eventlocation',

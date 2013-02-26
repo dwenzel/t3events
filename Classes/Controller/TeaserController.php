@@ -54,7 +54,7 @@ class Tx_T3events_Controller_TeaserController extends Tx_Extbase_MVC_Controller_
         $maxItems = (int)$this->settings['maxItems'];
         $maxHighlighted = (int)$this->settings['maxHighlighted'];
         $highlightsToTop = $this->settings['highlightsToTop'];
-        $venues = explode(',',$this->settings['venues']);
+        $venues = explode(',', $this->settings['venues']);
         
         // common demand settings
         $demand = $this->objectManager->get('Tx_T3events_Domain_Model_TeaserDemand');
@@ -84,8 +84,8 @@ class Tx_T3events_Controller_TeaserController extends Tx_Extbase_MVC_Controller_
           	// find only not highlighted teasers
             $notHighlightsDemand = clone $demand;
             $notHighlightsDemand->setHighlights(FALSE);
-            
-            if($maxItems-$highlightsCount >=1) $notHighlightsDemand->setLimit(maxItems-$highlightsCount);
+            t3lib_div::devlog('TeaserController', 'events', 1 , array('maxItems' => $maxItems, 'highlightsCount' => $highlightsCount));
+            if($maxItems-$highlightsCount >=1) $notHighlightsDemand->setLimit($maxItems-$highlightsCount);
 
             $teasers =$this->teaserRepository->findDemanded($notHighlightsDemand);
         }

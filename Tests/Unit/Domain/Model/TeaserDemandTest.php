@@ -56,7 +56,7 @@
 	 * @test
 	 */
 	public function getHighlightsReturnsInitialNull(){
-		$this->assertSame(NULL,$this->fixture->getHighlights());
+		$this->assertSame(NULL, $this->fixture->getHighlights());
 	}
 	
 	/**

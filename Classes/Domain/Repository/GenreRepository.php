@@ -33,24 +33,7 @@
  *
  */
 
-class Tx_T3events_Domain_Repository_GenreRepository extends Tx_Extbase_Persistence_Repository {
-	/**
-	 * @var string A comma separated string containing uids
-	 * @return Tx_Extbase_Persistence_QueryResult Matching Genres
-	 */
-	public function findMultipleByUid($genres) {
-		$uids = t3lib_div::intExplode(',', $genres, TRUE);
-		$constraints = array();
-		
-		$query = $this->createQuery();
-		
-		foreach ($uids as $uid) {
-			$constraints[] = $query->equals('uid', $uid);
-		}
-		$query->matching($query->logicalOr($constraints));
-		$query->setOrderings(array('title' => Tx_Extbase_Persistence_QueryInterface::ORDER_ASCENDING));
-        return $query->execute();
-	}
+class Tx_T3events_Domain_Repository_GenreRepository extends Tx_T3events_Domain_Repository_AbstractRepository {
 }
 
 ?>

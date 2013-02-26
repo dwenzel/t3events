@@ -76,6 +76,13 @@ class Tx_T3events_Domain_Model_Event extends Tx_Extbase_DomainObject_AbstractEnt
 	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_T3events_Domain_Model_Genre>
 	 */
 	protected $genre;
+	
+	/**
+	 * venue
+	 * @lazy
+	 * @var Tx_Extbase_Persistence_ObjectStorage>Tx_T3events_Domain_Model_Venue>
+	 */
+	protected $venue;
 
 	/**
 	 * eventType
@@ -120,7 +127,7 @@ class Tx_T3events_Domain_Model_Event extends Tx_Extbase_DomainObject_AbstractEnt
 		 * You may modify the constructor of this class instead
 		 */
 		$this->genre = new Tx_Extbase_Persistence_ObjectStorage();
-		
+		$this->venue = new Tx_Extbase_Persistence_ObjectStorage();
 		$this->performances = new Tx_Extbase_Persistence_ObjectStorage();
 	}
 
@@ -237,6 +244,45 @@ class Tx_T3events_Domain_Model_Event extends Tx_Extbase_DomainObject_AbstractEnt
 	 */
 	public function setGenre(Tx_Extbase_Persistence_ObjectStorage $genre) {
 		$this->genre = $genre;
+	}
+	
+	/**
+	 * Returns the venue
+	 * 
+	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_T3events_Domain_Model_Venue> $venue
+	 */
+	public function getVenue() {
+		return $this->venue;
+	}
+	
+	/**
+	 * Sets a venue
+	 * 
+	 * @param Tx_Extbase_Persistence_ObjectStorage<Tx_T3events_Domain_Model_Venue> $venue
+	 * @return void
+	 */
+	public function setVenue(Tx_Extbase_Persistence_ObjectStorage $venue) {
+		$this->venue = $venue;
+	}
+	
+	/**
+	 * Adds a venue
+	 * 
+	 * @param Tx_T3events_Domain_Model_Venue $venue
+	 * @return void
+	 */
+	public function addVenue(Tx_T3events_Domain_Model_Venue $venue){
+		$this->venue->attach($venue);
+	}
+	
+	/**
+	 * Removes a venue
+	 * 
+	 * @param Tx_T3events_Domain_Model_Venue $venueToRemove The Venue to be removed
+	 * @return void
+	 */
+	public function removeVenue(Tx_T3events_Domain_Model_Venue $venueToRemove) {
+		$this->venue->detach($venueToRemove);
 	}
 
 	/**

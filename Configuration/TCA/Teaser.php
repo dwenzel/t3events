@@ -178,10 +178,9 @@ $TCA['tx_t3events_domain_model_teaser'] = array(
 	),
 );
 
-## EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder
 
-## fields
-# image
+// fields
+// image
 $TCA['tx_t3events_domain_model_teaser']['columns']['image']['config'] = array(
     'type' => 'group',
     'internal_type' => 'file',
@@ -192,8 +191,8 @@ $TCA['tx_t3events_domain_model_teaser']['columns']['image']['config'] = array(
     'disallowed' => '',
 );
 
-# location
-# event_location
+// location
+// event_location
 $TCA['tx_t3events_domain_model_teaser']['columns']['location']['config'] = array(
     'type' => 'select',
     'foreign_table' => 'tx_t3events_domain_model_venue',
@@ -202,7 +201,7 @@ $TCA['tx_t3events_domain_model_teaser']['columns']['location']['config'] = array
     'eval' => 'required',
 );
 
-# event
+// event
 $TCA['tx_t3events_domain_model_teaser']['columns']['event']['config'] = array(
 	'type' => 'group',
 	'foreign_table' => 'tx_t3events_domain_model_event',

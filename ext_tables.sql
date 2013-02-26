@@ -12,6 +12,7 @@ CREATE TABLE tx_t3events_domain_model_event (
 	keywords text NOT NULL,
 	image text NOT NULL,
 	genre int(11) unsigned DEFAULT '0' NOT NULL,
+	venue int(11) unsigned DEFAULT '0' NOT NULL,
 	event_type int(11) unsigned DEFAULT '0',
 	performances int(11) unsigned DEFAULT '0' NOT NULL,
 	organizer int(11) unsigned DEFAULT '0',
@@ -470,6 +471,19 @@ CREATE TABLE tx_t3events_domain_model_performance (
 # Table structure for table 'tx_t3events_event_genre_mm'
 #
 CREATE TABLE tx_t3events_event_genre_mm (
+	uid_local int(11) unsigned DEFAULT '0' NOT NULL,
+	uid_foreign int(11) unsigned DEFAULT '0' NOT NULL,
+	sorting int(11) unsigned DEFAULT '0' NOT NULL,
+	sorting_foreign int(11) unsigned DEFAULT '0' NOT NULL,
+
+	KEY uid_local (uid_local),
+	KEY uid_foreign (uid_foreign)
+);
+
+#
+# Table structure for table 'tx_t3events_event_venue_mm'
+#
+CREATE TABLE tx_t3events_event_venue_mm (
 	uid_local int(11) unsigned DEFAULT '0' NOT NULL,
 	uid_foreign int(11) unsigned DEFAULT '0' NOT NULL,
 	sorting int(11) unsigned DEFAULT '0' NOT NULL,

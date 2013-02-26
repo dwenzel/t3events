@@ -3,7 +3,7 @@
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
+ *  (c) 2013 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
  *  Michael Kasten <kasten@webfox01.de>, Agentur Webfox
  *  
  *  All rights reserved
@@ -32,54 +32,28 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
- 
- class Tx_T3events_Domain_Model_EventDemand extends Tx_T3events_Domain_Model_AbstractDemand{
- 	/**
- 	 * @var string Genre
- 	 */
- 	protected $genre;
- 	
- 	/**
- 	 * @var string Venue
- 	 */
- 	protected $venue;
- 	
- 	/**
-	 * Returns the genre
-	 *
-	 * @return string $genre
-	 */
-	public function getGenre() {
-		return $this->genre;
-	}
 
+class Tx_T3events_Domain_Repository_AbstractRepository extends Tx_Extbase_Persistence_Repository {
 	/**
-	 * Sets the genre
-	 *
-	 * @param string $genre
-	 * @return void
+	 * @var string A comma separated string containing uids $recordList
+	 * @var string Sort by field $sortField
+	 * @return Tx_Extbase_Persistence_QueryResult Matching Records
 	 */
-	public function setGenre($genre) {
-		$this->genre = $genre;
+	public function findMultipleByUid($recordList, $sortField='uid') {
+		$uids = t3lib_div::intExplode(',', $recordList, TRUE);
+		$constraints = array();
+		
+		$query = $this->createQuery();
+		
+		foreach ($uids as $uid) {
+			$constraints[] = $query->equals('uid', $uid);
+		}
+		
+		count($constraints)?$query->matching($query->logicalOr($constraints)):FALSE;
+		
+		$query->setOrderings(array($sortField => Tx_Extbase_Persistence_QueryInterface::ORDER_ASCENDING));
+        return $query->execute();
 	}
- 
- 	/**
-	 * Returns the venue
-	 *
-	 * @return string $venue
-	 */
-	public function getVenue() {
-		return $this->venue;
-	}
+}
 
-	/**
-	 * Sets the venue
-	 *
-	 * @param string $venue
-	 * @return void
-	 */
-	public function setVenue($venue) {
-		$this->venue = $venue;
-	}
-  }
- ?>
+?>
