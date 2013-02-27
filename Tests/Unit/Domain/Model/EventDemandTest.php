@@ -81,5 +81,27 @@
 		$this->fixture->setVenue('1');
 		$this->assertSame('1', $this->fixture->getVenue());
 	}
+	
+	/**
+	 * @test
+	 */
+	public function getEventTypeReturnsInitialNull() {
+		$this->assertEquals(
+				NULL,
+				$this->fixture->getEventType()
+			);
+	}
+	
+	/**
+	 * @test
+	 */
+	public function setEventTypeForStringSetsEventType(){
+		$this->fixture->setEventType('1,2,3');
+		
+		$this->assertSame(
+				'1,2,3',
+				$this->fixture->getEventType()
+				);
+	}
 }
 ?>

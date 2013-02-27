@@ -112,9 +112,3 @@ lib.dateMe {
 	current = 1
 	strftime = %a, %d.%m.%y
 }
-
-####################
-# TEST Session Data
-#lib.FEsession = TEXT
-#lib.FEsession.value= hallo
-#lib.FEsession.data = TSFE:fe_user|sesData | products

@@ -275,8 +275,6 @@ $TCA['tx_t3events_domain_model_performance'] = array(
 	),
 );
 
-## EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder
-
 // field order
 
 $TCA['tx_t3events_domain_model_performance']['ctrl']['type'] = 'provider_type'; 

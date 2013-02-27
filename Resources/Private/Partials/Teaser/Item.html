@@ -1,16 +1,12 @@
 {namespace ts=Tx_T3events_ViewHelpers}
 
 <f:for each="{teasers}" as="teaser">
-	<f:comment>
-		<f:debug title="single teaser">{teaser}</f:debug>
-	</f:comment>
-
-	<div class="ticketWrap ">
+	<div class="teaserWrap ">
 		<div class="ticketImg">
 			<f:link.action action="show" controller="Event"
 				arguments="{event : teaser.event}"
 				pageUid="{settings.event.single.pid}">
-
+	
 				<f:if condition="{teaser.inheritData}">
 					
 					<f:then>
@@ -55,7 +51,7 @@
 				
 			</f:link.action>
 		</div>
-		<div class="ticketDesc">
+		<div class="teaserDesc">
 			<div class="teaser-headline">
 				<f:link.action action="show" controller="Event"
 					arguments="{event: teaser.event}"
@@ -91,18 +87,18 @@
 						<ts:event.performances event="{teaser.event}"
 							type="uniqueLocationsList" class="locations unique-list"
 							tagName="p" />
-
+	
 						<f:comment>dates</f:comment>
 						<ts:event.performances event="{teaser.event}" type="dateRange"
 							class="date range" tagName="p" />
 					</f:then>
-
+	
 					<f:comment>single performance</f:comment>
 					<f:else>
 						<f:comment>location</f:comment>
 						<ts:event.performances event="{teaser.event}"
 							type="uniqueLocationsList" class="locations single" tagName="p" />
-
+	
 						<f:comment>date</f:comment>
 						<f:for each="{teaser.event.performances}" as="performance">
 							<p class="date single">
@@ -112,18 +108,19 @@
 					</f:else>
 				</f:if>
 			</div>
-
-
+	
+	
 			<div class="teaser-buttons">
 				<f:link.action action="show" controller="Event"
 					arguments="{event: teaser.event}"
 					pageUid="{settings.event.single.pid}"
-					class="button blueGradient whiteColor">
+					class="button">
 					<f:translate key="tx_t3events.tickets" />
 				</f:link.action>
-				<a class="button-2" href="#">In den Kalender eintragen</a>
-			</div>
-				
+				<f:if condition="{teaser.externalLink}">
+					<f:link.external uri="{teaser.externalLink}"><f:translate key="tx_t3events.externalLinkLabel">external Link</f:translate></f:link.external>
+				</f:if>
+			</div>			
 		</div>
 	</div>
 </f:for>

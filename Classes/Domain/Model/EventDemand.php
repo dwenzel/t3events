@@ -35,14 +35,25 @@
  
  class Tx_T3events_Domain_Model_EventDemand extends Tx_T3events_Domain_Model_AbstractDemand{
  	/**
+ 	 * Genre
+ 	 * 
  	 * @var string Genre
  	 */
  	protected $genre;
  	
  	/**
+ 	 * Venue
+ 	 * 
  	 * @var string Venue
  	 */
  	protected $venue;
+
+ 	/**
+ 	 * Event Type
+ 	 * 
+ 	 * @var string
+ 	 */
+ 	protected $eventType;
  	
  	/**
 	 * Returns the genre
@@ -80,6 +91,25 @@
 	 */
 	public function setVenue($venue) {
 		$this->venue = $venue;
+	}
+	
+	/**
+	 * Returns the Event Type
+	 * 
+	 * @return string $eventType
+	 */
+	public function getEventType() {
+		return $this->eventType;
+	}
+	
+	/**
+	 * Set event type
+	 * 
+	 * @param string $eventType
+	 * @return void
+	 */
+	public function setEventType($eventType) {
+		$this->eventType = $eventType;
 	}
   }
  ?>

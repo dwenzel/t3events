@@ -9,14 +9,26 @@
 	<languageKey index="default" type="array">
 	   
 			<label index="headline.description">Enter a title.</label>
-			<label index="subtitle.description">subtitle</label>
-			<label index="description.description">description</label>
-			<label index="keywords.description">keywords</label>
-			<label index="image.description">image</label>
-			<label index="genre.description">genre</label>
-			<label index="event_type.description">eventType</label>
-			<label index="performances.description">performances</label>
-			<label index="organizer.description">organizer</label>
+			<label index="subtitle.description">Subtitle</label>
+			<label index="description.description">Description</label>
+			<label index="keywords.description">Keywords</label>
+			<label index="image.description">Image</label>
+			<label index="genre.description">Choose Genres</label>
+			<label index="event_type.description">Event type</label>
+			<label index="performances.description">Add performances</label>
+			<label index="organizer.description">Organizer</label>
+		</languageKey>
+		<languageKey index="de" type="array">
+	   
+			<label index="headline.description">Titel</label>
+			<label index="subtitle.description">Untertitel</label>
+			<label index="description.description">Beschreibung</label>
+			<label index="keywords.description">Schlagworte</label>
+			<label index="image.description">Bild</label>
+			<label index="genre.description">Wählen Sie Genres aus.</label>
+			<label index="event_type.description">Veranstaltungstyp</label>
+			<label index="performances.description">Fügen Sie Veranstaltungen hinzu.</label>
+			<label index="organizer.description">Veranstalter</label>
 		</languageKey>
 	</data>
 </T3locallang>

@@ -45,8 +45,9 @@
 			<label index="tx_t3events_domain_model_teaser.inherit_data">Inherit data from event</label>
 			<label index="tx_t3events_domain_model_teaser.image">Image</label>
 			<label index="tx_t3events_domain_model_teaser.is_highlight">Is Highlight</label>
-			<label index="tx_t3events_domain_model_teaser.location">Location</label>
+			<label index="tx_t3events_domain_model_teaser.location">Venue</label>
 			<label index="tx_t3events_domain_model_teaser.event">Event</label>
+			<label index="tx_t3events_domain_model_teaser.external_link">External Link</label>
 			<label index="tx_t3events_domain_model_eventlocation">Event Location</label>
 			<label index="tx_t3events_domain_model_eventlocation.name">Name</label>
 			<label index="tx_t3events_domain_model_eventlocation.address">Address</label>
@@ -121,11 +122,12 @@
 			<label index="tx_t3events_domain_model_teaser">Teaser</label>
 			<label index="tx_t3events_domain_model_teaser.title">Titel</label>
 			<label index="tx_t3events_domain_model_teaser.details">Details</label>
-			<label index="tx_t3events_domain_model_teaser.inherit_data">Daten aus Event übernehmen</label>
+			<label index="tx_t3events_domain_model_teaser.inherit_data">Daten aus Veranstaltung übernehmen</label>
 			<label index="tx_t3events_domain_model_teaser.image">Bild</label>
 			<label index="tx_t3events_domain_model_teaser.is_highlight">hervorheben</label>
-			<label index="tx_t3events_domain_model_teaser.location">Ort</label>
+			<label index="tx_t3events_domain_model_teaser.location">Einrichtung</label>
 			<label index="tx_t3events_domain_model_teaser.event">Veranstaltung</label>
+			<label index="tx_t3events_domain_model_teaser.external_link">Externer Link</label>
 			<label index="tx_t3events_domain_model_eventlocation">Veranstaltungsort</label>
 			<label index="tx_t3events_domain_model_eventlocation.name">Name</label>
 			<label index="tx_t3events_domain_model_eventlocation.address">Adresse</label>
@@ -136,7 +138,7 @@
 			<label index="tx_t3events_domain_model_eventlocation.www">Webseite</label>
 			<label index="tx_t3events_domain_model_eventlocation.country">Land</label>
 			<label index="tx_t3events_domain_model_country">Land</label>
-			<label index="static_countries.tx_extbase_type.Tx_T3events_Country">Events Country</label>
+			<label index="static_countries.tx_extbase_type.Tx_T3events_Country">Land</label>
 			<label index="tx_t3events_domain_model_ticketclass">Preisklasse</label>
 			<label index="tx_t3events_domain_model_ticketclass.title">Titel</label>
 			<label index="tx_t3events_domain_model_ticketclass.color">Farbe</label>

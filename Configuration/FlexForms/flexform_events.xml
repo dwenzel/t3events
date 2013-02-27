@@ -164,7 +164,11 @@
 		                <numIndex index="2">
 		                    <numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.quick_menu.type.venues</numIndex>
 		                    <numIndex index="1">venues</numIndex>
-		             </numIndex>
+		             	</numIndex>
+		                <numIndex index="3">
+		                    <numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.quick_menu.type.eventTypes</numIndex>
+		                    <numIndex index="1">eventTypes</numIndex>
+		             	</numIndex>
 		            </items>
 		        </config>
 		</TCEforms>
@@ -199,6 +203,21 @@
 			</config>
 		</TCEforms>
 	</settings.genres>
+    <!-- Event types -->
+	<settings.eventTypes>
+		<TCEforms>
+			<label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.quick_menu.type.eventtypes</label>
+			<config>
+				<type>group</type>
+				<internal_type>db</internal_type>
+				<allowed>tx_t3events_domain_model_eventtype</allowed>
+				<size>5</size>
+				<autoSizeMax>20</autoSizeMax>
+				<minitems>0</minitems>
+				<maxitems>40</maxitems>
+			</config>
+		</TCEforms>
+	</settings.eventTypes>
      </el>
    </ROOT>
   </sDEF>

@@ -242,7 +242,8 @@ CREATE TABLE tx_t3events_domain_model_teaser (
 	is_highlight tinyint(1) unsigned DEFAULT '0' NOT NULL,
 	location int(11) unsigned DEFAULT '0',
 	event int(11) unsigned DEFAULT '0',
-
+	external_link varchar(255) DEFAULT '' NOT NULL,
+	
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
 	crdate int(11) unsigned DEFAULT '0' NOT NULL,
 	cruser_id int(11) unsigned DEFAULT '0' NOT NULL,
