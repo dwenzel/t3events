@@ -67,6 +67,12 @@
 	 * @var string Sort direction
 	 */
 	protected $sortDirection;
+
+	/**
+	 * @var string Storage Page
+	 */
+	protected $storagePage;
+	
 	/**
 	 * @param int A limit for the demand
 	 * @return void
@@ -171,6 +177,22 @@
 	public function getSortDirection(){
 		return  $this->sortDirection;
 	}
- }
+
+	/**
+	 * @param string The storage page
+	 * @return void
+	 */
+	public function setStoragePage($storagePage){
+		$this->storagePage=$storagePage;
+	}
+	
+	/**
+	 * @return string The storage page
+	 */
+	public function getStoragePage(){
+		return  $this->storagePage;
+	}
+	
+}
  
  ?>

@@ -73,7 +73,15 @@ class Tx_T3events_Domain_Repository_EventRepository extends Tx_Extbase_Persisten
 				$constraints[] = $query->contains('venue', $venue);
 			}
 		}
-				
+
+		// venue
+		if($demand->getEventType()){
+			$eventTypes= t3lib_div::intExplode(',', $demand->getEventType());
+			foreach ($eventTypes as $eventType){
+				$constraints[] = $query->equals('eventType.uid', $eventType);
+			}
+		}
+						
 		count($constraints)?$query->matching($query->logicalOr($constraints)):NULL;
 		
 		// sort direction

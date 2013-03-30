@@ -33,83 +33,50 @@
  *
  */
  
- class Tx_T3events_Domain_Model_EventDemand extends Tx_T3events_Domain_Model_AbstractDemand{
+ class Tx_T3events_Domain_Model_PerformanceDemand extends Tx_T3events_Domain_Model_AbstractDemand{
  	/**
- 	 * Genre
- 	 * 
- 	 * @var string Genre
+ 	 * @var DateTime
  	 */
- 	protected $genre;
- 	
- 	/**
- 	 * Venue
- 	 * 
- 	 * @var string Venue
- 	 */
- 	protected $venue;
-
- 	/**
- 	 * Event Type
- 	 * 
- 	 * @var string
- 	 */
- 	protected $eventType;
- 	
- 	/**
-	 * Returns the genre
-	 *
-	 * @return string $genre
-	 */
-	public function getGenre() {
-		return $this->genre;
-	}
-
+	protected $date;
+	
 	/**
-	 * Sets the genre
-	 *
-	 * @param string $genre
-	 * @return void
+	 * @var Tx_T3events_Domain_Model_PerformanceStatus
 	 */
-	public function setGenre($genre) {
-		$this->genre = $genre;
-	}
- 
- 	/**
-	 * Returns the venue
-	 *
-	 * @return string $venue
-	 */
-	public function getVenue() {
-		return $this->venue;
-	}
-
+	protected  $status;
+	
 	/**
-	 * Sets the venue
-	 *
-	 * @param string $venue
-	 * @return void
+	 * Returns the date
+	 * @return DateTime $date
 	 */
-	public function setVenue($venue) {
-		$this->venue = $venue;
+	public function getDate() {
+		return $this->date;
 	}
 	
 	/**
-	 * Returns the Event Type
-	 * 
-	 * @return string $eventType
+	 * sets the date
+	 * @param DateTime $date
+	 * @return void
 	 */
-	public function getEventType() {
-		return $this->eventType;
+	public function setDate($date){
+		$this->date = $date;
 	}
 	
 	/**
-	 * Set event type
-	 * 
-	 * @param string $eventType
+	 * Returns the performance status
+	 * @return Tx_T3events_Domain_Model_PerformanceStatus
+	 */
+	public function getStatus(){
+		return $this->status;
+	}
+	
+	/**
+	 * sets the status
+	 * @param Tx_T3events_Domain_Model_PerformanceStatus $status
 	 * @return void
 	 */
-	public function setEventType($eventType) {
-		$this->eventType = $eventType;
+	public function setStatus(Tx_T3events_Domain_Model_PerformanceStatus $status){
+		$this->status = $status;
 	}
-  }
- ?>
+ }
+
+?>

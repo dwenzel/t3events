@@ -77,7 +77,7 @@
 	*@test
 	*/
 	public function getSearchWordReturnsInitialNull(){
-		$this->assertSame(NULL, $this->fixture->getSearchWord);
+		$this->assertNull($this->fixture->getSearchWord);
 	}
 	
 	/**
@@ -94,6 +94,21 @@
 	public function setSortByForStringSetsSortBy() {
 		$this->fixture->setSortBy('my.sort.string.with.dots');
 		$this->assertSame('my.sort.string.with.dots', $this->fixture->getSortBy() );
+	}
+	
+	/**
+	 * @test
+	 */
+	public function getStoragePageReturnsInitialNull(){
+		$this->assertNull($this->fixture->getStoragePage());
+	}
+	
+	/**
+	 * @test
+	 */
+	public function setStoragePageForStringSetsStoragePage(){
+		$this->fixture->setStoragePage('15,78,39');
+		$this->assertSame('15,78,39', $this->fixture->getStoragePage());
 	}
 }
 ?>

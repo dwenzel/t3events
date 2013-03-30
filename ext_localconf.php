@@ -18,4 +18,6 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 	)
 );
 
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['extbase']['commandControllers'][] = 'Tx_T3events_Command_TaskCommandController';
+
 ?>

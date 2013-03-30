@@ -111,7 +111,9 @@ class Tx_T3events_Domain_Model_TeaserTest extends Tx_Extbase_Tests_Unit_BaseTest
 	/**
 	 * @test
 	 */
-	public function getImageReturnsInitialValueForString() { }
+	public function getImageReturnsInitialValueForString() { 
+		$this->assertSame( NULL, $this->fixture->getImage());
+	}
 
 	/**
 	 * @test
@@ -193,5 +195,26 @@ class Tx_T3events_Domain_Model_TeaserTest extends Tx_Extbase_Tests_Unit_BaseTest
 		);
 	}
 	
+	/**
+	 * @test
+	 */
+	public function getExternalLinkReturnsInitialValue() {
+		$this->assertSame(
+				NULL,
+				$this->fixture->getExternalLink()
+				);
+	}
+	
+	/**
+	 * @test
+	 */
+	public function setExternalLinkForStringSetsExternalLink() {
+		$this->fixture->setExternalLink('a link');
+		
+		$this->assertSame(
+				'a link',
+				$this->fixture->getExternalLink()
+				);
+	}
 }
 ?>

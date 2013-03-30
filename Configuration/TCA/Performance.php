@@ -227,9 +227,19 @@ $TCA['tx_t3events_domain_model_performance'] = array(
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_performance.event_location',
 			'config' => array(
 				'type' => 'select',
-				'foreign_table' => 'tx_t3events_domain_model_eventlocation',
-				'minitems' => 0,
-				'maxitems' => 1,
+                //'internal_type' => 'db',
+                //'allowed' => 'tx_t3events_domain_model_eventlocation',
+                'items' => array (
+                    array("",0),
+                ),              
+                'foreign_table' => 'tx_t3events_domain_model_eventlocation',
+                'minitems' => 0,
+                'maxitems' => 1,
+                /*'wizards' => array(
+                    'suggest' => array(
+                        'type' => 'suggest',
+                    ),
+                ),*/
 			),
 		),
 		'ticket_class' => array(
@@ -254,17 +264,15 @@ $TCA['tx_t3events_domain_model_performance'] = array(
 			'exclude' => 0,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_performance.status',
 			'config' => array(
-				'type' => 'inline',
+				'type' => 'select',
+				'l10nmode' => 'mergeIfNotBlank',
+				'items' => array(
+                    array("",0),
+                ),
 				'foreign_table' => 'tx_t3events_domain_model_performancestatus',
-				'minitems' => 0,
-				'maxitems' => 1,
-				'appearance' => array(
-					'collapseAll' => 0,
-					'levelLinksPosition' => 'top',
-					'showSynchronizationLink' => 1,
-					'showPossibleLocalizationRecords' => 1,
-					'showAllLocalizationLink' => 1
-				),
+				'foreign_table_where' => ' AND (tx_t3events_domain_model_performancestatus.sys_language_uid = 0)
+                                            AND (tx_t3events_domain_model_performancestatus.hidden = 0) 
+				                            ORDER BY tx_t3events_domain_model_performancestatus.priority',
 			),
 		),
 		'event' => array(
@@ -274,8 +282,6 @@ $TCA['tx_t3events_domain_model_performance'] = array(
 		),
 	),
 );
-
-## EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder
 
 // field order
 
@@ -331,7 +337,7 @@ $TCA['tx_t3events_domain_model_performance']['columns']['image']['config'] = arr
 	'maxitems' => 1,
 	'allowed' => $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'],
 	'disallowed' => '',
-	'disable_controls' => 'list',
+	'disable_controls' => '',
 );
 
 // provider_type
@@ -360,14 +366,7 @@ $TCA['tx_t3events_domain_model_performance']['columns']['plan']['config'] = arra
 	'maxitems' => 1,
 	'allowed' => $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'],
 	'disallowed' => '',
-	'disable_controls' => 'list',
-);
-// status
-$TCA['tx_t3events_domain_model_performance']['columns']['status']['config'] = array(
-    'type' => 'select',
-    'foreign_table' => 'tx_t3events_domain_model_performancestatus',
-    'minitems' => 0,
-    'maxitems' => 1,
+	'disable_controls' => '',
 );
 // status_info
 $TCA['tx_t3events_domain_model_performance']['columns']['status_info']['config'] = array(
@@ -384,12 +383,4 @@ $TCA['tx_t3events_domain_model_performance']['columns']['price_notice']['config'
     'eval' => 'trim',
 );
 
-// event_location
-$TCA['tx_t3events_domain_model_performance']['columns']['event_location']['config'] = array(
-    'type' => 'select',
-    'foreign_table' => 'tx_t3events_domain_model_eventlocation',
-    'minitems' => 0,
-    'maxitems' => 1,
-    'eval' => 'required',
-);
 ?>

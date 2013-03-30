@@ -182,14 +182,6 @@ $TCA['tx_t3events_domain_model_eventlocation'] = array(
 	),
 );
 
-
-// name
-$TCA['tx_t3events_domain_model_eventlocation']['columns']['name']['config'] = array(
-		'type' => 'input',
-		'size' => 30,
-		'eval' => 'required,trim', 
-	);
-
 // address
 $TCA['tx_t3events_domain_model_eventlocation']['columns']['address']['config'] = array(
 		'type' => 'text',

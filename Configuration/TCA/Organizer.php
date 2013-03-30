@@ -95,6 +95,7 @@ $TCA['tx_t3events_domain_model_organizer'] = array(
 		),
 		'name' => array(
 			'exclude' => 0,
+			'l10n_mode' => 'mergeIfNotBlank',
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_organizer.name',
 			'config' => array(
 				'type' => 'input',

@@ -85,6 +85,12 @@ class Tx_T3events_Domain_Model_Teaser extends Tx_Extbase_DomainObject_AbstractEn
 	protected $event;
 
 	/**
+	 * externalLink
+	 * @var string
+	 */
+	protected $externalLink;
+
+	/**
 	 * Returns the title
 	 *
 	 * @return string $title
@@ -186,7 +192,6 @@ class Tx_T3events_Domain_Model_Teaser extends Tx_Extbase_DomainObject_AbstractEn
 	 */
 	public function setIsHighlight($isHighlight) {
 		$this->isHighlight = $isHighlight;
-		//t3lib_utility_Debug::debug('setIsHighlight', $this->extKey, 2);
 	}
 
 	/**
@@ -234,9 +239,24 @@ class Tx_T3events_Domain_Model_Teaser extends Tx_Extbase_DomainObject_AbstractEn
 	 */
 	public function setEvent(Tx_T3events_Domain_Model_Event $event) {
 		$this->event = $event;
-		//t3lib_div::devLog('setEvent', 't3events', 0);
-		//t3lib_utility_Debug::Debug('setEvent', $this->extKey, 0);
 	}
-
+	
+	/**
+	 * Returns the external link
+	 * @return string
+	 */
+	public function getExternalLink(){
+		return $this->externalLink;
+	}
+	
+	/**
+	 * Sets the external link
+	 * 
+	 * @var string $externalLink
+	 * @return void
+	 */
+	public function setExternalLink($externalLink){
+		$this->externalLink=$externalLink;
+	}
 }
 ?>

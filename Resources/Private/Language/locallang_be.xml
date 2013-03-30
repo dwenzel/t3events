@@ -30,6 +30,7 @@
 			<label index="flexforms_general.quick_menu.type">Quick Menu: Type</label>
 			<label index="flexforms_general.quick_menu.type.genres">Genres</label>
 			<label index="flexforms_general.quick_menu.type.venues">Venues</label>
+			<label index="flexforms_general.quick_menu.type.eventTypes">Event Types</label>
 		</languageKey>
 		
 		<!-- german -->
@@ -57,6 +58,7 @@
 			<label index="flexforms_general.quick_menu.type">Schnellmenü: Typ</label>
 			<label index="flexforms_general.quick_menu.type.genres">Genres</label>
 			<label index="flexforms_general.quick_menu.type.venues">Einrichtungen</label>
+			<label index="flexforms_general.quick_menu.type.eventTypes">Veranstaltungstypen</label>
 		</languageKey>
 	</data>
 </T3locallang>

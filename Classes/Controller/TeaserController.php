@@ -84,7 +84,6 @@ class Tx_T3events_Controller_TeaserController extends Tx_Extbase_MVC_Controller_
           	// find only not highlighted teasers
             $notHighlightsDemand = clone $demand;
             $notHighlightsDemand->setHighlights(FALSE);
-            t3lib_div::devlog('TeaserController', 'events', 1 , array('maxItems' => $maxItems, 'highlightsCount' => $highlightsCount));
             if($maxItems-$highlightsCount >=1) $notHighlightsDemand->setLimit($maxItems-$highlightsCount);
 
             $teasers =$this->teaserRepository->findDemanded($notHighlightsDemand);
@@ -97,7 +96,7 @@ class Tx_T3events_Controller_TeaserController extends Tx_Extbase_MVC_Controller_
         	$teasers = $this->teaserRepository->findDemanded($demand);
         }
         
-        $this->view->assign('highlights', $this->teaserRepository->findDemanded($highlightsDemand));
+        $this->view->assign('highlights', $highlights);
         $this->view->assign('teasers', $teasers);
 	}
 
@@ -128,9 +127,10 @@ class Tx_T3events_Controller_TeaserController extends Tx_Extbase_MVC_Controller_
 	 * @return void
 	 */
 	public function showEventAction(Tx_T3events_Domain_Model_Teaser $teaser) {
+		/**
+		 * @todo this action fails if request doesn'nt contain a teaser but an event
+		 */
 	    $event = $teaser->getEvent();
-        #$this->view->assign('event', $event);
-        //$this->redirect('show', 'Event', NULL, array('event'=>$event));
         $this->forward('show', 'Event', NULL, array('event'=>$event));
 	}
 

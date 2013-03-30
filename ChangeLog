@@ -1,3 +1,17 @@
+2013-03-27	Dirk Wenzel <wenzel@webfox01.de>
+	0.6.1	Bug Fixes, changes to TCA, TypoScript and default CSS, and code cleanup: 
+			Issues [Bug #46493], [Bug #46495], [Bug #46499] fixed.
+			Please save the old CSS file before updating and adapt your TypoScript.
+2013-03-13 	Dirk Wenzel <wenzel@webfox01.de>
+	0.6.0	- New Features: Domain Model Task for automatic update via scheduler and scheduler task implemented
+			- some localization for backend added
+2013-02-27 	Dirk Wenzel <wenzel@webfox01.de>
+	0.5.0	- New features - Please update your database
+			- Teaser now contains field for external link (Partial Teaser/Item.html changed!)
+			- Event List and Quick Menus now allow filtering by event type
+2013-02-27 	Dirk Wenzel <wenzel@webfox01.de>
+	0.4.1	- Localization of BE improved.
+			- code cleanup
 2013-02-26 	Dirk Wenzel <wenzel@webfox01.de>
 	0.4.0	- New Features - Please update your database
 			- Events now contain new field venue

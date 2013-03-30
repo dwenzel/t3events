@@ -231,20 +231,23 @@ $TCA['tx_t3events_domain_model_event'] = array(
 		'organizer' => array(
 			'exclude' => 0,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_event.organizer',
+			'l10n_mode' => 'mergeIfNotBlank',
 			'config' => array(
-				'type' => 'inline',
-				'foreign_table' => 'tx_t3events_domain_model_organizer',
-				'minitems' => 0,
-				'maxitems' => 1,
-				'appearance' => array(
-					'collapseAll' => 0,
-					'levelLinksPosition' => 'top',
-					'showSynchronizationLink' => 1,
-					'showPossibleLocalizationRecords' => 1,
-					'showAllLocalizationLink' => 1
-				),
-			),
-		),
+			    'type' => 'group',
+                'internal_type' => 'db',
+                'allowed' => 'tx_t3events_domain_model_organizer',
+                'l10nmode' => 'mergeIfNotBlank',
+                'size' => 1,
+                'minitems' => 0,
+                'maxitems' => 1,
+                'show_thumbs' => 1,
+                'wizards' => array(
+                    'suggest' => array(
+                        'type' => 'suggest',
+                    ),
+                ),
+            ),
+        ),
 	),
 );
 
@@ -292,20 +295,6 @@ $TCA['tx_t3events_domain_model_event']['columns']['description']['config'] =arra
     'cols' => 32,
     'rows' => 10,
     'eval' => 'trim'
-);
-// organizer
-$TCA['tx_t3events_domain_model_event']['columns']['organizer']['config'] = array(
-	'type' => 'select',
-	'foreign_table' => 'tx_t3events_domain_model_organizer',
-	'minitems' => 0,
-	'maxitems' => 1,
-	'appearance' => array(
-		'collapseAll' => 0,
-		'levelLinksPosition' => 'both',
-		'showSynchronizationLink' => 1,
-		'showPossibleLocalizationRecords' => 1,
-		'showAllLocalizationLink' => 1
-	),
 );
 // performance 
 $TCA['tx_t3events_domain_model_event']['columns']['performances']['config'] = array(

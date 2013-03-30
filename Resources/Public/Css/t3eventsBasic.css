@@ -1,5 +1,33 @@
+/* Common Class */
+.fl{ float:left;}
+.fr{ float:right;}
+.cl{ clear:both; overflow:hidden; height:0;}
+.clearfix:after{content: ".";display: block;clear: both;visibility: hidden;line-height:0;height:0;}
+.clearfix{display:inline-block;}
+html[xmlns] .clearfix{display:block;}
+* html .clearfix {height:1%;}
+.align-center{ text-align:center; }
+.hidden{display:none;}
+
+
+/* Two Panel */
+.leftPanel{ width:98%;padding:0 1% 0 1%;}
+.rightPanel{width:98%;padding:0 1%;border-radius: 3px;}
+.rightPanel .rightPanelContent {padding:13px 0 0 0; }
+
+/* Three Panel */
+
+#footerPanel{ width: 99%;margin:1.5em 0 0.5em  0;clear:both;}
+
+.rightPanelContent div.csc-textpic-scalable .csc-textpic-imagewrap img {
+  max-width:234px;
+}
+
+
+  
+/* Ticket */
 /**
- * 	t3eventsBasic.css
+ * 	from t3eventsBasic.css
  */
 
 .blueGradient,
@@ -16,73 +44,63 @@
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b3e0ed', endColorstr='#109dc7',GradientType=0 ); /* IE6-8 */	
 }
 /* Colour */
-.blueBack {background: #008AC1;}
-.redBack {background: #FF0000;}
-.greenBack {background: #7AB51D;}
-.yellowBack{background: #FFCC33;}
-.grayBack{background: #CCCCCC;}
-.lightGrayBack {background: #EEEEEE;}
+.tx-t3events .blueBack {background: #008AC1;}
+.tx-t3events .redBack {background: #FF0000;}
+.tx-t3events .greenBack {background: #7AB51D;}
+.tx-t3events .yellowBack {background: #FFCC33;}
+.tx-t3events .grayBack {background: #CCCCCC;}
+.tx-t3events .lightGrayBack {background: #EEEEEE;}
 
-
-.whiteColor{
+.tx-t3events .whiteColor{
 	color: #FFFFFF;
 }
-.buttonTicket{
+.tx-t3events .buttonTicket{
 	color: #fff;
 }
-a.buttonTicket:hover{
+.tx-t3events a.buttonTicket:hover{
 	color: #fff;
 }
-
-/* Layout */
 
 /*Event List*/
-.eventList .eventImg {
+.tx-t3events .eventList .eventImg {
 	padding: 0.3em;
     height: 7.500em;
     width: 7.500em;
 }
-.eventList .eventDescription,
-.eventList .eventPerformances{
+.tx-t3events .eventList .eventDescription,
+.tx-t3events .eventList .eventPerformances{
 	margin-left: 8.125em;
 }
-span.ticketSignal{
-	float: left;
-    height: 0.625em;
-    width: 0.625em;
-    margin: 0.51em 0.2em 0 0;
-    border-radius: 0.313em;
-}
-.buttonTicket {
+.tx-t3events .buttonTicket {
     float: right;
     height: 1.625em;
     line-height: 1.725em;
     padding: 0.1em 0.625em;
     text-align: center;
 }
-a.buttonTicket:hover {
+.tx-t3events a.buttonTicket:hover {
 	text-decoration: none;
 }
 
 /*Event Single*/
-.eventSingle p{
+.tx-t3events .eventSingle p{
 	margin-bottom: 0;
 }
-.eventSingle .eventImg{
+.tx-t3events .eventSingle .eventImg{
 	padding-right: 2em;
 }
-.eventDescription,
-.eventPerformances{
+.tx-t3events .eventDescription,
+.tx-t3events .eventPerformances{
 	padding: 0.625em;
 }
-.eventImg {
+.tx-t3events .eventImg {
     float: left;
     overflow: hidden;
 }
-.eventWrap{
+.tx-t3events .eventWrap{
 	margin-bottom: 0.9em;
 }
-.eventWrap:after {
+.tx-t3events .eventWrap:after {
     clear: both;
     content: " ";
     display: block;
@@ -92,43 +110,711 @@ a.buttonTicket:hover {
     visibility: hidden;
     width: 0;
 }
-.eventHeader{
+.tx-t3events .eventHeader{
 	margin-bottom: 0;
 }
-.eventDescription .locations,
-.eventDescription .date{
+.tx-t3events .eventDescription .locations,
+.tx-t3events .eventDescription .date{
 	line-height: 2;
 	margin-bottom: 0;
 }
-.eventDescription .eventSubtitle{
+.tx-t3events .eventDescription .eventSubtitle{
 	margin-bottom: .5em;
 }
-.performance span.ticketClassSign {
+.tx-t3events .performance span.ticketClassSign {
 	display: inline-block;
 	width: 1em;
 	height: 1em;
 	vertical-align: text-top;
 }
-.performance.short {
+.tx-t3events .performance.short {
 	cursor: pointer;
 }
-.eventSingle .performance.statusInfo,
-.eventSingle .performance.tickets {
+.tx-t3events .eventSingle .performance.statusInfo,
+.tx-t3events .eventSingle .performance.tickets {
 	display: none;
 }
-.eventSingle .performance.tickets table {
+.tx-t3events .eventSingle .performance.tickets table {
 	width: 100%;
 	display: block;
 	border: 1px solid #eee;
 	padding: 5px;
 }
 
-.f3-widget-paginator li {
+.tx-t3events .f3-widget-paginator li {
 	display: inline;
 	list-style: none;
 	border-right: 1px solid #000;
 	padding: 0 3px 0 4px;
 }
-.f3-widget-paginator li:last-child {
+.tx-t3events .f3-widget-paginator li:last-child {
 	border-right: 0 none;
+}
+
+/* */
+.tx-t3events .ticketWrap, .eventWrap{ margin-bottom:15px; position:relative;box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);clear:both;}
+.tx-t3events .ticketWrap .ticketImg{ display:none;width:93px; height:93px; overflow:hidden; float:left; padding:5px;}
+.tx-t3events .ticketWrap .ticketDesc{ float:left;  padding:10px 0 0 10px; }
+.tx-t3events .ticketWrap .teaser-headline h3 {text-transform: uppercase; }
+.tx-t3events .ticketWrap .teaser-headline a{text-decoration:none;}
+.tx-t3events .ticketWrap h3{font-size:1.2em;}
+
+.tx-t3events .ticketWrap .teaser-buttons a.button,
+.tx-t3events .ticketWrap  a.button-2 {
+  display:block; 
+  text-decoration:none;
+  margin:2px 0; 
+  border:none;
+  padding:4px 8px;
+  border-radius:2px;
+  }
+
+.tx-t3events .ticketWrap .teaser-buttons a.button{
+  display:none;
+   }
+.tx-t3events .ticketWrap .teaser-buttons a.button:hover{
+  color:#fff;
+   }
+
+.tx-t3events .ticketsteps{
+  display:none;
+  margin-bottom:0.5em;
+  float:left;
+  }
+.tx-t3events .ticketsteps .csc-textpic-intext-right-nowrap .csc-textpic-imagewrap {margin-left: 0;}
+
+.tx-t3events .ticketsteps p{
+  font-weight:bold;
+  font-size:0.9em;
+  padding:3px 0 0 0;
+  margin:0;
+  line-height: 1em;
+  }
+  
+.tx-t3events .ticketsteps .csc-textpic-text{
+  margin-right:0;
+  display:none;
+  }
+
+.tx-t3events .ticketsteps .csc-textpic-imagecolumn{
+  margin-right:6px;
+  }  
+
+
+/* buttons */
+
+a.button-a { display:block; text-decoration:none;padding:4px 12px; border:none; }
+
+.buttons {    padding: 19px 0 35px;}
+.button-panel-a{ font-weight:bold; display:none;}
+.button-panel-a a{margin-right:10px; }
+
+a.button-blue {      
+  display: inline-block;
+  font: bold 12px/26px Arial,Helvetica,sans-serif;
+  padding: 0 12px;
+  margin-right:5px;
+  }
+
+a.button-lightblue {   
+  display: inline-block;
+  font: bold 12px/26px Arial,Helvetica,sans-serif;
+  padding: 0 12px;
+  }
+
+
+
+  
+#tx_t3eventsSortBy{
+  display: none;
+  }  
+  
+
+#tx_t3eventsSortBy{
+  padding:0 0 1em 0;
+  }
+
+#tx_t3eventsSortBy fieldset{
+  padding:3px 5px;
+  margin:0;
+  width:auto;    
+  }
+
+#tx_t3eventsSortBy label{
+  float:left;
+  text-align: left;
+  width:auto ;
+  padding-right:1em;
+  clear:none; 
+  margin-top:0;
+  }
+
+#tx_t3eventsSortBy input{
+  width:auto;
+  float:left;
+  }  
+  
+#tx_t3eventsSortBy input.submit{
+  cursor: pointer; 
+  font-size:1em;
+  box-shadow: none;
+}  
+  
+.ticketWrap:after{ 
+  clear: both; 
+  content: ' '; 
+  display: block; 
+  font-size: 0; 
+  line-height: 0; 
+  visibility: hidden; 
+  width: 0; height: 0; 
+  }
+  
+.tx-t3events p {
+  margin-bottom: 0;
+  }
+
+.tx-t3events .small {
+  color: #666;
+  font-size: 0.9em;
+  }
+
+.tx-t3events .eventSingle {
+  width: 100%;
+  }
+
+.tx-t3events .eventLeft {
+  width: 28%;
+  padding:1em 2% 0 0;
+  }
+
+.tx-t3events .eventRight {
+  width: 70%;
+  }
+
+.tx-t3events .eventDescription {
+  line-height: 1.4em;
+  }
+  
+.tx-t3events .eventDescription a{
+  text-decoration: none;
+  }
+
+.tx-t3events .eventLeft img {
+  max-width: 100%;
+  width:auto;
+  height: auto;
+  }
+
+.eventSingle .eventImg {
+  padding-right:0;
+  }
+
+.tx-t3events  .button-blue{
+  float:right;
+  text-decoration:none;
+  }
+
+.tx-t3events  .socialbuttons img{
+  margin-right:0.5em; 
+ }
+
+
+
+/*---------  Eingeklappte Events ---------*/
+
+.tx-t3events .performanceItem .performanceHeader {
+  background: #EEEEEE;
+  width: 100%;
+  }
+
+.tx-t3events .performanceItem .performanceHeader:hover {
+  background: #AAAAAA;
+  color: #ffffff;
+  }
+
+.tx-t3events .performanceItem.open .performanceHeader {
+  background: #AAAAAA;
+  color: #ffffff;
+  }
+
+.tx-t3events .performance.short {
+  width: 100%;
+  cursor: pointer;
+  }
+
+/*---------  Ausgeklappte Events ---------*/
+.tx-t3events .performance.long {
+  display: none;
+  margin-bottom: 25px;
+  }
+
+.tx-t3events .performanceItem.open .performance.long {
+  display: block;
+  }
+
+/*---------  Tabelarische Anordnung ---------*/
+.tx-t3events .legends {
+  width: 100%;
+  }
+
+.tx-t3events .performance.short div.infos .inside,
+.tx-t3events .legends div.infos .inside,
+.tx-t3events .performance.long .inside {
+  padding: 5px;
+  }
+
+.tx-t3events .performance.short div.infos,
+.tx-t3events .legends div.infos {
+  float: left;
+  font-size: 0.9em;
+  }
+
+/*---------  Zellen Breiten ---------*/
+.tx-t3events .performance.short .city,
+.tx-t3events .legends .city {
+  width: 17%;
+  }
+
+.tx-t3events .performance.short .location,
+.tx-t3events .legends .location {
+  width: 32%;
+  }
+
+.tx-t3events .performance.short .date,
+.tx-t3events .legends .date {
+  width: 28%;
+  }
+
+.tx-t3events .performance.short .ticketSignal,
+.tx-t3events .legends .ticketSignal {
+  width: 21%;
+  padding-right:0;
+  }
+
+/*---------  Ticket Status ---------*/
+.tx-t3events span.ticketSignal {
+    display: inline-block;
+    height: 1em;
+    width: 1em;
+    float:none;
+    border-radius: 0.5em;
+    vertical-align: text-top;
+    text-indent: -99999em;
+}
+  
+ .tx-t3events .performanceItem span.ticketStatus {
+  font-size: 0.95em;
+  line-height: 1;
+  padding:2px;
+  display:block;
+  background:#fff;
+  text-align:center;
+  border-radius: 2px;
+ 
+  } 
+
+
+.tx-t3events  .performanceItem span.commingSoon,
+.tx-t3events .teaser-price span.commingSoon
+ {
+  color:#0983a5;
+  }
+.tx-t3events .performanceItem span.unavailable,
+.tx-t3events .teaser-price span.unavailable {
+  color: #999;
+  }
+.tx-t3events  .performanceItem span.available,
+.tx-t3events .teaser-price span.available {
+  color:#360;
+  }
+.tx-t3events  .performanceItem span.fewTicketsLeft,
+.tx-t3events .teaser-price span.fewTicketsLeft{
+  color:#ff9000;
+  }
+.tx-t3events  .performanceItem span.tempUnavailable,
+.tx-t3events .teaser-price span.tempUnavailable{
+  color: #999;
+  }
+
+
+.tx-t3events .unavailable .performanceHeader,
+.tx-t3events .tempUnavailable .performanceHeader{
+  color:#999;
+}
+
+.eventList .f3-widget-paginator {
+  margin-left:0;  
+  }
+
+.eventList .f3-widget-paginator li{
+  border:none;
+  margin-right:0.2em;
+  display:inline;
+  }
+
+.eventList .f3-widget-paginator li.current,
+.eventList .f3-widget-paginator li a{
+  text-decoration:none;
+  display:block;
+  padding:2px 5px ;
+  }
+  
+
+.eventList .f3-widget-paginator li.current{
+  margin:0 4px;
+  }
+
+
+
+/*--------- Preisklasse ---------*/
+.tx-t3events .performance span.ticketClassSign {
+  display: inline-block;
+  height: 1em;
+  vertical-align: text-top;
+  width: 1em;
+  }
+
+/*--------- Bestell Formular ---------*/
+.tx-t3events .performance .ticketClassList {
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  padding: 20px 15px 0 15px;
+  }
+
+.tx-t3events .performance .ticketClassList .row {
+  width: 100%;
+  margin-bottom: 5px;
+  border-bottom:dotted 1px #fff;
+  }
+
+.tx-t3events .performance .ticketClassList .row .col {
+  width: 33%;
+  }
+
+.tx-t3events .performance .ticketClassList .row .description {
+  width: 70%;
+  }
+
+.tx-t3events .performance .ticketClassList .row .price {
+  width: 16%;
+  }
+
+.tx-t3events .performance .ticketClassList .row .quantity {
+  width: 12%;
+  }
+
+.tx-t3events .performance .ticketClassList .row .button {
+  width: 100%;
+  text-align:right;
+  }
+
+.tx-t3events .performance .ticketClassList .row .button input {
+  width: 100%;
+  max-width: 120px;
+  font-size: 0.85em;
+  font-weight: bold;
+  padding: 5px 8px;
+  cursor: pointer;
+  border: 0 none;
+  text-align:center;
+  }
+
+.tx-t3events .performance .ticketClassList .quantity input {
+  text-align: center;
+  width: 25px;
+  }
+
+/*--------- Beschreibungstexte und Bilder ---------*/
+.tx-t3events .eventLocation img {
+  max-width: 100%;
+  height: auto;
+  
+  }
+
+.tx-t3events .organizer {
+  clear:left;
+  margin-bottom: 1em;
+  }
+    
+/*
+screen width 466px or above
+*/
+@media all and (min-width : 466px){
+  
+  .ticketWrap .ticketDesc {
+    width:99%;
+    }
+
+  .ticketWrap .teaser-buttons {
+    position:absolute;
+    right:0.5em;
+    }
+
+  .ticketWrap .teaser-buttons a.button{
+    display:block;
+    }
+
+  .ticketWrap .teaser-headline,
+  .ticketWrap .teaser-price,
+  .ticketWrap .teaser-details{
+    float:left;
+    width:58%;
+    }
+
+  /*Forms*/
+   #tx_t3eventsSortBy{
+  display: block;
+  
+  } 
+ .tx-t3events .hint{
+   display:block;
+ }
+ 
+  label{
+    width:100px;
+    text-align:right;
+    margin-top:0.2em;
+    }   
+    
+
+/*
+screen width 768px or above
+*/
+
+@media all and (min-width : 599px){
+.ticketWrap .ticketImg{ display:block;float: left;}
+.ticketWrap .ticketDesc{width:47%;}
+  .ticketWrap .teaser-buttons {
+    position:absolute;
+    right:1.1em;
+    }
+
+  .ticketWrap .teaser-buttons a.button{
+    display:block;
+    }
+
+  .ticketWrap .teaser-headline,
+  .ticketWrap .teaser-price,
+  .ticketWrap .teaser-details{
+    float:left;
+    width:66%;
+    }
+    
+}
+
+
+/*
+screen width 768px or above
+*/
+
+@media all and (min-width : 768px){
+   
+  
+  .ticketWrap .ticketImg{ display:block;float: left;}
+  .ticketWrap .ticketDesc{width:47%;}
+  .ticketWrap .ticketDesc p { line-height:1.2em;}
+  .ticketsteps{display:block}
+  .ticketsteps ul li{ max-width:18%; margin-right:8px;padding: 3px 10px 0 14px;font-size:0.75em;}
+  .ticketsteps ul li span{font-size:3.6em;margin-left:-0.2em;}
+  
+  .ticket .left{ width:389px;}
+
+}
+
+
+/*
+screen width 960px or above
+*/
+
+@media all and (min-width: 960px){
+
+/* Ticket */
+
+.ticketsteps .csc-textpic-text{
+  display:block;
+  }
+
+.ticketWrap .teaser-headline  {width:100%;float: left; }
+.ticketWrap .teaser-price  {position: absolute; left:75%;}
+.ticketWrap .teaser-buttons  {top:5em;}
+.ticketWrap .teaser-buttons a.button {width:3em;float:right;}
+.ticketWrap .teaser-buttons a.button-2 {float:left;margin-right:0.3em;}
+.ticketWrap .teaser-headline  {}
+.ticketWrap .teaser-details  {width:78%;}
+.ticketWrap .teaser-details p  {line-height:1.6em;}
+
+.ticketWrap .ticketDesc{ 
+  width:320px;
+  }
+  
+.ticketWrap  a.button-1 { 
+  bottom:12px; 
+  }
+  
+.ticketWrap  a.button-2 { 
+  right:7em;
+  }
+  .ticketsteps{
+  margin-bottom:1em;
+  float:right;
+  width:100%;
+  }
+  
+.ticketsteps .csc-textpic-imagecolumn {
+  margin-left: 8px;
+  }
+
+
+  
+.ticketsteps ul li.first {font-weight:bold;}
+
+.ticket .left{
+  width:100%;
+  }
+  
+}
+
+/*
+screen width 1400px or above
+*/
+@media all and (min-width: 1400px){
+}
+
+
+
+/* --------- Extension tx-t3events Start --------- */
+
+/* --------- Allgemeine Styles --------- */
+
+
+/*--------- Media Querys ---------*/
+
+@media screen and (max-width: 320px) and (max-width: 766px) {
+
+    .tx-t3events .performance.short div.infos {
+        float: none !important;
+        width: 100% !important;
+    }
+
+}
+
+@media screen and (max-width: 767px) {
+
+    .tx-t3events .performance.short div.infos .inside,
+    .tx-t3events .legends div.infos .inside,
+    .tx-t3events .performance.long .inside {
+        padding: 10px;
+    }
+
+    .mobile { display: block; }
+    .desktop { display: none !important; }
+
+    .tx-t3events .eventLeft,
+    .tx-t3events .eventRight {
+        width: 100%;
+        float: none;
+    }
+
+    .tx-t3events .eventLeft img {
+        max-width: 300px;
+    }
+
+    .tx-t3events .performanceItem .performanceHeader {
+        padding-bottom: 15px;
+    }
+
+    .tx-t3events .performanceItem {
+        border: 1px solid #dddddd;
+        border-radius: 5px;
+        overflow: hidden;
+        margin-bottom: 15px;
+    }
+
+    .tx-t3events .performance.short div.infos {
+        position: relative;
+        float: left;
+        width: 50%;
+    }
+
+    .tx-t3events .performance.short div.infos[title]:after{
+        display: inline;
+        content: attr(title);
+        font-size: 9px;
+        top: 28px;
+        left: 65px;
+        position: absolute;
+    }
+
+    .tx-t3events .performance.long {
+        padding: 5px;
+    }
+
+    .tx-t3events .performance.long img {
+        width: 100%;
+        height: auto;
+    }
+
+    .tx-t3events .performance .ticketClassList {
+        border: 0 none;
+        padding: 10px;
+    }
+
+    .tx-t3events .performance .ticketClassList .ticketClass:first-child {
+        display: none;
+    }
+
+    .tx-t3events .performance .ticketClassList .row {
+        padding-top: 10px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #dddddd;
+    }
+
+    .tx-t3events .performance .ticketClassList .row .col {
+        text-align: left;
+    }
+
+    .tx-t3events .performance .ticketClassList .row .button input {
+        margin-top: 10px;
+        height: 40px;
+        line-height: 40px;
+        color: #fff;
+        font-size: 1.0em;
+    }
+
+    .tx-t3events .performance .ticketClassList input[type="submit"],
+    .tx-t3events .performance .ticketClassList .small { 
+        margin-left: 0;
+    }
+
+    .tx-t3events .ticketClassList .row {
+        margin-bottom: 10px;
+    }
+
+    .tx-t3events .ticketClassList .col {
+        float: none;
+        width: 100% !important;
+    }
+
+    .tx-t3events .ticketClassList .description {
+        font-size: 15px;
+        margin-bottom: 15px;
+    }
+
+    .tx-t3events .ticketClassList .price {
+        margin-bottom: 15px;
+        font-size: 25px;
+    }
+
+    .tx-t3events .performance .ticketClassList .quantity input {
+        text-align: center;
+        width: 40px;
+        height: 30px;
+        font-size: 15px;
+    }
+    
+    .tx-t3events .eventLocation,
+    .tx-t3events .organizer {
+        padding: 10px;
+    }
 }

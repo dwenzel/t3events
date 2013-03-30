@@ -130,8 +130,12 @@ class Tx_T3events_ViewHelpers_Event_PerformancesViewHelper extends Tx_Fluid_Core
     	
     	// get place and name of performances
     	foreach ($this->performances as $performance){
-    		$val = $performance->getEventLocation()->getPlace() .' ' .$performance->getEventLocation()->getName();
-    		array_push($contentArr, $val);
+    	    $eventLocation = $performance->getEventLocation();
+    	    if ($eventLocation) {
+    	            $val = ($eventLocation->getPlace())?$eventLocation->getPlace(): '';
+                $val .= ($eventLocation->getName())? ' '. $eventLocation->getName(): '';
+                array_push($contentArr, $val);
+    	    }
     	}
     	
     	// add separator
@@ -192,21 +196,28 @@ class Tx_T3events_ViewHelpers_Event_PerformancesViewHelper extends Tx_Fluid_Core
     * @return string
     */
     public function getCrucialStatus() {
-    	$states = array();
-    	foreach ($this->performances as $performance) {
-    		$status = $performance->getStatus();
-    		array_push($states,
-    				array(
-    						'title' => $status->getTitle(),
-    						'priority' => $status->getPriority(),
-    						'cssClass' => $status->getCssClass()
-    				)
-    		);
-    	}
-    	usort($states, function($a, $b) {
-    		return $a['priority'] - $b['priority'];
-    	});
-    	return $states[0];
+        	$states = array();
+        	foreach ($this->performances as $performance) {
+        	    $status = $performance->getStatus();
+            if ($status) {
+                array_push($states,
+                    array(
+                        'title' => $status->getTitle(),
+                        'priority' => $status->getPriority(),
+                        'cssClass' => $status->getCssClass()
+                    )
+                );            
+            }
+        	}
+        if (count($states)) {
+            usort($states, function($a, $b) {
+                return $a['priority'] - $b['priority'];
+            });
+            return $states[0];            
+        }
+        else {
+            return '';
+        }
     }
     
     /**

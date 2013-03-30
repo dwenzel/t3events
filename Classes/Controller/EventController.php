@@ -55,7 +55,13 @@ class Tx_T3events_Controller_EventController extends Tx_Extbase_MVC_Controller_A
 	*/
 	protected $venueRepository;
 	
-		
+	/**
+	* eventTypeRepository
+	*
+	* @var Tx_T3events_Domain_Repository_EventTypeRepository
+	*/
+	protected $eventTypeRepository;
+			
 	/**
 	 * injectEventRepository
 	 *
@@ -86,7 +92,17 @@ class Tx_T3events_Controller_EventController extends Tx_Extbase_MVC_Controller_A
 	public function injectVenueRepository(Tx_T3events_Domain_Repository_VenueRepository $venueRepository) {
 		$this->venueRepository = $venueRepository;
 	}
-		/**
+
+	/**
+	 * inject EventTypeRepository
+	 *
+	 * @param Tx_T3events_Domain_Repository_EventTypeRepository $eventTypeRepository
+	 * @return void
+	 */
+	public function injectEventTypeRepository(Tx_T3events_Domain_Repository_EventTypeRepository $eventTypeRepository) {
+		$this->eventTypeRepository = $eventTypeRepository;
+	}
+			/**
 	 * action list
 	 * @param array $overwriteDemand
 	 * @return void
@@ -135,6 +151,9 @@ class Tx_T3events_Controller_EventController extends Tx_Extbase_MVC_Controller_A
 		// get venues from plugin
 		$venues = $this->venueRepository->findMultipleByUid($this->settings['venues'], 'title');
 		
+		// get event types from plugin
+		$eventTypes = $this->eventTypeRepository->findMultipleByUid($this->settings['eventTypes'], 'title');
+		
 		// Build a fake entry for empty first option (The form.select viewhelper doesn't allow an empty option yet)
 		$fakeGenre = $this->objectManager->get('Tx_T3events_Domain_Model_Genre');
 		$fakeGenre->setTitle(Tx_Extbase_Utility_Localization::translate('tx_t3events.allGenres', $this->extensionName));
@@ -143,6 +162,10 @@ class Tx_T3events_Controller_EventController extends Tx_Extbase_MVC_Controller_A
 		$fakeVenue = $this->objectManager->get('Tx_T3events_Domain_Model_Venue');
 		$fakeVenue->setTitle(Tx_Extbase_Utility_Localization::translate('tx_t3events.allVenues', $this->extensionName));
 		$this->view->assign('venues', array_merge(array(0=>$fakeVenue), $venues->toArray()));
+		
+		$fakeEventType = $this->objectManager->get('Tx_T3events_Domain_Model_EventType');
+		$fakeEventType->setTitle(Tx_Extbase_Utility_Localization::translate('tx_t3events.allEventTypes', $this->extensionName));
+		$this->view->assign('eventTypes', array_merge(array(0=>$fakeEventType), $eventTypes->toArray()));
 	}
 	
 	/**
@@ -156,6 +179,7 @@ class Tx_T3events_Controller_EventController extends Tx_Extbase_MVC_Controller_A
         if (!is_null($overwriteDemand)) {
         	$demand->setGenre($overwriteDemand['genre']);
         	$demand->setVenue($overwriteDemand['venue']);
+        	$demand->setEventType($overwriteDemand['eventType']);
         	
         	// set sort criteria
         	switch ($overwriteDemand['sortBy']) {
@@ -202,6 +226,8 @@ class Tx_T3events_Controller_EventController extends Tx_Extbase_MVC_Controller_A
 	        	break;
 	        }
 		}
+		
+		(!$demand->getEventType())?$demand->setEventType($this->settings['eventTypes']):NULL;
         if (!$demand->getSortDirection()) {
         	$demand->setSortDirection($this->settings['sortDirection']);
         }

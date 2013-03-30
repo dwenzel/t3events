@@ -45,8 +45,9 @@
 			<label index="tx_t3events_domain_model_teaser.inherit_data">Inherit data from event</label>
 			<label index="tx_t3events_domain_model_teaser.image">Image</label>
 			<label index="tx_t3events_domain_model_teaser.is_highlight">Is Highlight</label>
-			<label index="tx_t3events_domain_model_teaser.location">Location</label>
+			<label index="tx_t3events_domain_model_teaser.location">Venue</label>
 			<label index="tx_t3events_domain_model_teaser.event">Event</label>
+			<label index="tx_t3events_domain_model_teaser.external_link">External Link</label>
 			<label index="tx_t3events_domain_model_eventlocation">Event Location</label>
 			<label index="tx_t3events_domain_model_eventlocation.name">Name</label>
 			<label index="tx_t3events_domain_model_eventlocation.address">Address</label>
@@ -78,6 +79,19 @@
 			<label index="tx_t3events_domain_model_event.extended">Extended</label>
 			<label index="tx_t3events_domain_model_performance.internal">internal</label>
 			<label index="tx_t3events_domain_model_performance.external">external</label>
+	
+			<label index="tx_t3events_domain_model_task">Task</label>
+			<label index="tx_t3events_domain_model_task.name">Name</label>
+			<label index="tx_t3events_domain_model_task.action">Action</label>
+			<label index="tx_t3events_domain_model_task.action.updateStatus">Update Performance Status</label>
+			<label index="tx_t3events_domain_model_task.action.hidePerformance">Hide Performance</label>
+			<label index="tx_t3events_domain_model_task.action.none">none</label>
+			<label index="tx_t3events_domain_model_task.period">Time Period</label>
+			<label index="tx_t3events_domain_model_task.old_status">Old Status</label>
+			<label index="tx_t3events_domain_model_task.new_status">New Status</label>
+			<label index="tx_t3events_domain_model_task.folder">Folder</label>
+			<label index="tx_t3events_domain_model_task.description">Description</label>
+
 		</languageKey>
 		<languageKey index="de" type="array">
 			<label index="tx_t3events_domain_model_event">Veranstaltung</label>
@@ -87,6 +101,7 @@
 			<label index="tx_t3events_domain_model_event.keywords">Schlagworte</label>
 			<label index="tx_t3events_domain_model_event.image">Bild</label>
 			<label index="tx_t3events_domain_model_event.genre">Genre</label>
+			<label index="tx_t3events_domain_model_event.venue">Einrichtung</label>
 			<label index="tx_t3events_domain_model_event.event_type">Veranstaltungstyp</label>
 			<label index="tx_t3events_domain_model_event.performance">Vorstellung</label>
 			<label index="tx_t3events_domain_model_event.organizer">Veranstalter</label>
@@ -121,11 +136,12 @@
 			<label index="tx_t3events_domain_model_teaser">Teaser</label>
 			<label index="tx_t3events_domain_model_teaser.title">Titel</label>
 			<label index="tx_t3events_domain_model_teaser.details">Details</label>
-			<label index="tx_t3events_domain_model_teaser.inherit_data">Daten aus Event übernehmen</label>
+			<label index="tx_t3events_domain_model_teaser.inherit_data">Daten aus Veranstaltung übernehmen</label>
 			<label index="tx_t3events_domain_model_teaser.image">Bild</label>
 			<label index="tx_t3events_domain_model_teaser.is_highlight">hervorheben</label>
-			<label index="tx_t3events_domain_model_teaser.location">Ort</label>
+			<label index="tx_t3events_domain_model_teaser.location">Einrichtung</label>
 			<label index="tx_t3events_domain_model_teaser.event">Veranstaltung</label>
+			<label index="tx_t3events_domain_model_teaser.external_link">Externer Link</label>
 			<label index="tx_t3events_domain_model_eventlocation">Veranstaltungsort</label>
 			<label index="tx_t3events_domain_model_eventlocation.name">Name</label>
 			<label index="tx_t3events_domain_model_eventlocation.address">Adresse</label>
@@ -136,7 +152,7 @@
 			<label index="tx_t3events_domain_model_eventlocation.www">Webseite</label>
 			<label index="tx_t3events_domain_model_eventlocation.country">Land</label>
 			<label index="tx_t3events_domain_model_country">Land</label>
-			<label index="static_countries.tx_extbase_type.Tx_T3events_Country">Events Country</label>
+			<label index="static_countries.tx_extbase_type.Tx_T3events_Country">Land</label>
 			<label index="tx_t3events_domain_model_ticketclass">Preisklasse</label>
 			<label index="tx_t3events_domain_model_ticketclass.title">Titel</label>
 			<label index="tx_t3events_domain_model_ticketclass.color">Farbe</label>
@@ -150,6 +166,19 @@
 			<label index="tx_t3events_domain_model_performancestatus.title">Titel</label>
 			<label index="tx_t3events_domain_model_performancestatus.css_class">CSS-Klasse</label>
 			<label index="tx_t3events_domain_model_performancestatus.priority">Priorität</label>
+			
+			<label index="tx_t3events_domain_model_task">Aufgabe</label>
+			<label index="tx_t3events_domain_model_task.name">Name</label>
+			<label index="tx_t3events_domain_model_task.action">Aktion</label>
+			<label index="tx_t3events_domain_model_task.action.none">keine</label>
+			<label index="tx_t3events_domain_model_task.action.updateStatus">Aufführungsstatus aktualisieren</label>
+			<label index="tx_t3events_domain_model_task.action.hidePerformance">Aufführung verbergen</label>
+			<label index="tx_t3events_domain_model_task.period">Zeitraum</label>
+			<label index="tx_t3events_domain_model_task.old_status">Alter Status</label>
+			<label index="tx_t3events_domain_model_task.new_status">Neuer Status</label>
+			<label index="tx_t3events_domain_model_task.folder">Ordner</label>
+			<label index="tx_t3events_domain_model_task.description">Beschreibung</label>
+
 		</languageKey>
 	</data>
 </T3locallang>
