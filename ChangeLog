@@ -1,4 +1,6 @@
 2013-04-23	Dirk Wenzel <wenzel@webfox01.de>
+	0.7.2	- fix for bug 47512: List Plugin does not respect genre constraint
+2013-04-23	Dirk Wenzel <wenzel@webfox01.de>
 	0.7.1	- fix for bug 47503: List Plugin doesn't respect venue constraint
 2013-04-17	Dirk Wenzel <wenzel@webfox01.de>
 	0.7.0	New Feature: Teaser-Plugin now allows to select upcoming/past/all events. 
