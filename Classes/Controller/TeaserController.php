@@ -66,12 +66,17 @@ class Tx_T3events_Controller_TeaserController extends Tx_Extbase_MVC_Controller_
 	        case 'title':
 	        	$demand->setSortBy('event.headline');
 	        	break;
+	        case 'random':
+	        	$demand->setSortBy('random');
+	        	break;
 	        default:
 	        	$demand->setSortBy('event.performances.date');
 	        	break;
         }
 
 		if ($venues) $demand->setVenues($venues);
+		
+		$demand->setPeriod($this->settings['period']);
 
 		if($highlightsToTop){
             // find only highlighted teasers:

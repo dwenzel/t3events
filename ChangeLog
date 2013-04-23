@@ -1,3 +1,18 @@
+2013-04-23	Dirk Wenzel <wenzel@webfox01.de>
+	0.7.1	- fix for bug 47503: List Plugin doesn't respect venue constraint
+2013-04-17	Dirk Wenzel <wenzel@webfox01.de>
+	0.7.0	New Feature: Teaser-Plugin now allows to select upcoming/past/all events. 
+2013-04-09	Dirk Wenzel <wenzel@webfox01.de>
+	0.6.7	- fixed error in ExtensionService with wrong method parameter
+			- code cleanup 
+2013-04-08	Dirk Wenzel <wenzel@webfox01.de>
+	0.6.6	FE Plugin can now be configured as non-cached. 
+2013-04-05	Dirk Wenzel <wenzel@webfox01.de>
+	0.6.5	All image fields now allow to select existing images. 
+			TCA cleanup. 
+			FE Plugin now allows to select random teaser (Attention! this feature is still experimental. It works only with MySQL DB and without caching!) 
+			TYPO3 version constraint changed: currently version 4.5.x is not supported because of missing comment view helper in fluid 1.
+			Code cleanup.
 2013-03-27	Dirk Wenzel <wenzel@webfox01.de>
 	0.6.1	Bug Fixes, changes to TCA, TypoScript and default CSS, and code cleanup: 
 			Issues [Bug #46493], [Bug #46495], [Bug #46499] fixed.

@@ -42,6 +42,8 @@ class Tx_T3events_Domain_Repository_TeaserRepository extends Tx_Extbase_Persiste
 	 */
 	public function findDemanded(Tx_T3events_Domain_Model_TeaserDemand $demand) {
 		$query = $this->createQuery();
+		$sortBy = $demand->getSortBy();
+		$period = $demand->getPeriod();
 		
 		// collect all constraints
 		$constraints = array();
@@ -54,6 +56,19 @@ class Tx_T3events_Domain_Repository_TeaserRepository extends Tx_Extbase_Persiste
 		}
 		if($demand->getHighlights() === FALSE){
 			$constraints[] = $query->equals('isHighlight', FALSE);
+		}
+		if($period){
+			switch ($period) {
+				case 'futureOnly':
+					$constraints[] = $query->greaterThanOrEqual('event.performances.date', time());
+					break;
+				case 'pastOnly':
+					$constraints[] = $query->lessThanOrEqual('event.performances.date', time());
+					break;
+				default:
+					
+					break;
+			}
 		}
 		$query->matching($query->logicalAnd($constraints));
 		
@@ -70,16 +85,35 @@ class Tx_T3events_Domain_Repository_TeaserRepository extends Tx_Extbase_Persiste
 			break;
 		}
 		
-		if($demand->getSortBy() !== '') {
+		if($sortBy!== '' AND $sortBy !== 'random') {
 			$query->setOrderings(
 				array(
-					$demand->getSortBy() => $sortOrder
+					$sortBy => $sortOrder
 				)
 			);
 		}
 		if($demand->getLimit()) {
 			$query->setLimit($demand->getLimit());
 		}
+		
+		/**
+		 * A hack to enable random selecting of teasers:
+		 * This works only with mysql 
+		 * @todo test whether mysql is current database
+		 */
+		if($sortBy == 'random') {
+			// load DB backend
+			$backend = $this->objectManager->get('Tx_Extbase_Persistence_Storage_Typo3DbBackend');
+			// extract query parts
+			$parameters = array();
+			$statementParts = $backend->parseQuery($query, $parameters);
+			// change query
+			$statementParts['orderings'] = array('RAND()');
+			// rebuild query
+			$statement = $backend->buildQuery($statementParts, $parameters);
+			$query->statement($statement, $parameters);
+		}
+		
 		return $query->execute();
 	}
 

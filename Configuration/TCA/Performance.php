@@ -141,10 +141,10 @@ $TCA['tx_t3events_domain_model_performance'] = array(
 			'exclude' => 0,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_performance.status_info',
 			'config' => array(
-				'type' => 'text',
-				'cols' => 40,
-				'rows' => 15,
-				'eval' => 'trim'
+			    'type' => 'text',
+			    'columns' => 30,
+			    'rows' => 5,
+			    'eval' => 'trim',
 			),
 		),
 		'external_provider_link' => array(
@@ -171,8 +171,9 @@ $TCA['tx_t3events_domain_model_performance'] = array(
 			'config' => array(
 				'type' => 'select',
 				'items' => array(
-					array('-- Label --', 0),
-				),
+						array('LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_performance.internal', 0),
+						array('LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_performance.external', 1),
+					),
 				'size' => 1,
 				'maxitems' => 1,
 				'eval' => ''
@@ -186,9 +187,11 @@ $TCA['tx_t3events_domain_model_performance'] = array(
 				'internal_type' => 'file',
 				'uploadfolder' => 'uploads/tx_t3events',
 				'show_thumbs' => 1,
-				'size' => 5,
+				'size' => 1,
+				'maxitems' => 1,
 				'allowed' => $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'],
 				'disallowed' => '',
+				'disable_controls' => '',			
 			),
 		),
 		'plan' => array(
@@ -199,9 +202,11 @@ $TCA['tx_t3events_domain_model_performance'] = array(
 				'internal_type' => 'file',
 				'uploadfolder' => 'uploads/tx_t3events',
 				'show_thumbs' => 1,
-				'size' => 5,
+				'size' => 1,
+				'maxitems' => 1,
 				'allowed' => $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'],
 				'disallowed' => '',
+				'disable_controls' => '',
 			),
 		),
 		'no_handling_fee' => array(
@@ -217,9 +222,9 @@ $TCA['tx_t3events_domain_model_performance'] = array(
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_performance.price_notice',
 			'config' => array(
 				'type' => 'text',
-				'cols' => 40,
-				'rows' => 15,
-				'eval' => 'trim'
+			    'columns' => 20,
+			    'rows' => 3,
+			    'eval' => 'trim',
 			),
 		),
 		'event_location' => array(
@@ -227,19 +232,12 @@ $TCA['tx_t3events_domain_model_performance'] = array(
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_performance.event_location',
 			'config' => array(
 				'type' => 'select',
-                //'internal_type' => 'db',
-                //'allowed' => 'tx_t3events_domain_model_eventlocation',
                 'items' => array (
-                    array("",0),
+                    array('',0),
                 ),              
                 'foreign_table' => 'tx_t3events_domain_model_eventlocation',
                 'minitems' => 0,
                 'maxitems' => 1,
-                /*'wizards' => array(
-                    'suggest' => array(
-                        'type' => 'suggest',
-                    ),
-                ),*/
 			),
 		),
 		'ticket_class' => array(
@@ -267,7 +265,7 @@ $TCA['tx_t3events_domain_model_performance'] = array(
 				'type' => 'select',
 				'l10nmode' => 'mergeIfNotBlank',
 				'items' => array(
-                    array("",0),
+                    array('',0),
                 ),
 				'foreign_table' => 'tx_t3events_domain_model_performancestatus',
 				'foreign_table_where' => ' AND (tx_t3events_domain_model_performancestatus.sys_language_uid = 0)
@@ -324,63 +322,6 @@ $TCA['tx_t3events_domain_model_performance']['palettes'] = array(
         'showitem' => 'plan,price_notice,',
         'canNotCollapse' => TRUE,
     ),
-);
-
-//fields
-// image
-$TCA['tx_t3events_domain_model_performance']['columns']['image']['config'] = array(
-	'type' => 'group',
-	'internal_type' => 'file',
-	'uploadfolder' => 'uploads/tx_t3events',
-	'show_thumbs' => 1,
-	'size' => 1,
-	'maxitems' => 1,
-	'allowed' => $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'],
-	'disallowed' => '',
-	'disable_controls' => '',
-);
-
-// provider_type
-$TCA['tx_t3events_domain_model_performance']['columns']['provider_type']['config'] = array(
-	'type' => 'select',
-	'items' => array(
-			array('LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_performance.internal', 0),
-			array('LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_performance.external', 1),
-		),
-	'size' => 1,
-	'maxitems' => 1,
-	'eval' => ''
-);
-
-/**
- * external_provider_link (show only if provider type is external)
- */ 
-
-// plan
-$TCA['tx_t3events_domain_model_performance']['columns']['plan']['config'] = array(
-	'type' => 'group',
-	'internal_type' => 'file',
-	'uploadfolder' => 'uploads/tx_t3events',
-	'show_thumbs' => 1,
-	'size' => 1,
-	'maxitems' => 1,
-	'allowed' => $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'],
-	'disallowed' => '',
-	'disable_controls' => '',
-);
-// status_info
-$TCA['tx_t3events_domain_model_performance']['columns']['status_info']['config'] = array(
-    'type' => 'text',
-    'columns' => 30,
-    'rows' => 5,
-    'eval' => 'trim',
-);
-// price_notice
-$TCA['tx_t3events_domain_model_performance']['columns']['price_notice']['config'] = array(
-    'type' => 'text',
-    'columns' => 20,
-    'rows' => 3,
-    'eval' => 'trim',
 );
 
 ?>

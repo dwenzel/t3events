@@ -13,9 +13,11 @@
 			<label index="flexforms_general.mode.teaser">Teaser</label>
 			<label index="flexforms_general.mode.event_list">Events: List/Detail</label>
 			<label index="flexforms_general.mode.quick_menu">Quick Menu</label>
+			<label index="flexforms_general.cache.makeNonCacheable">Don't cache plugin contents</label>
 			<label index="flexforms_general.sortBy">sort by</label>
 			<label index="flexforms_general.date">Date</label>
 			<label index="flexforms_general.title">Title</label>
+			<label index="flexforms_general.random">random</label>
 			<label index="flexforms_general.period">Period</label>
 			<label index="flexforms_general.period.all">all</label>
 			<label index="flexforms_general.period.futureOnly">future only</label>
@@ -31,6 +33,7 @@
 			<label index="flexforms_general.quick_menu.type.genres">Genres</label>
 			<label index="flexforms_general.quick_menu.type.venues">Venues</label>
 			<label index="flexforms_general.quick_menu.type.eventTypes">Event Types</label>
+			
 		</languageKey>
 		
 		<!-- german -->
@@ -41,9 +44,11 @@
 			<label index="flexforms_general.mode.teaser">Teaser</label>
 			<label index="flexforms_general.mode.event_list">Veranstaltungen: Liste/Detail</label>
 			<label index="flexforms_general.mode.quick_menu">Schnellmenü</label>
+			<label index="flexforms_general.cache.makeNonCacheable">Inhalte des Plugins nicht zwischenspeichern</label>
 			<label index="flexforms_general.sortBy">sortiere nach</label>
 			<label index="flexforms_general.date">Datum</label>
 			<label index="flexforms_general.title">Titel</label>
+			<label index="flexforms_general.random">zufällig</label>
 			<label index="flexforms_general.period">Zeitabschnitt</label>
 			<label index="flexforms_general.period.all">alle</label>
 			<label index="flexforms_general.period.futureOnly">nur zukünftige</label>

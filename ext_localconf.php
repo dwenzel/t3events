@@ -15,6 +15,7 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 	// non-cacheable actions
 	array(
 		'Event' => 'list,quickMenu',
+		'Teaser' => 'list',
 	)
 );
 

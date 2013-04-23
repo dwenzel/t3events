@@ -57,7 +57,6 @@ class Tx_T3events_Domain_Repository_PerformanceRepository extends Tx_Extbase_Per
     		$pages = t3lib_div::intExplode(',', $demand->getStoragePage());
     		$this->defaultQuerySettings->setRespectStoragePage(TRUE);
     		$constraints[] = $query->in('pid', $pages);
-    		//t3lib_div::devlog('Performance Repo: findDemanded', 'events', 0, array('pages' => $pages));
     	}
     	count($constraints)?$query->matching($query->logicalAnd($constraints)):NULL;
     	
