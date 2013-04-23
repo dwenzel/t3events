@@ -234,6 +234,12 @@ class Tx_T3events_Controller_EventController extends Tx_Extbase_MVC_Controller_A
         if(!$demand->getLimit() && (int)$this->settings['maxItems']) {
             $demand->setLimit((int)$this->settings['maxItems']);
         }
+        if(!$demand->getVenue() && $this->settings['venues'] != '') {
+        	$demand->setVenue($this->settings['venues']);
+        }
+        if(!$demand->getGenre() && $this->settings['genres'] != '') {
+        	$demand->setGenre($this->settings['genres']);
+        }
         $demand->setPeriod($this->settings['period']);
         return $demand;
 	}

@@ -139,9 +139,11 @@ $TCA['tx_t3events_domain_model_event'] = array(
 				'internal_type' => 'file',
 				'uploadfolder' => 'uploads/tx_t3events',
 				'show_thumbs' => 1,
-				'size' => 5,
+				'size' => 1,
+				'maxitems' => 1,
 				'allowed' => $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'],
 				'disallowed' => '',
+				'disable_controls' => 'list',
 			),
 		),
 		'genre' => array(
@@ -198,17 +200,10 @@ $TCA['tx_t3events_domain_model_event'] = array(
 			'exclude' => 0,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_event.event_type',
 			'config' => array(
-				'type' => 'inline',
-				'foreign_table' => 'tx_t3events_domain_model_eventtype',
-				'minitems' => 0,
-				'maxitems' => 1,
-				'appearance' => array(
-					'collapseAll' => 0,
-					'levelLinksPosition' => 'top',
-					'showSynchronizationLink' => 1,
-					'showPossibleLocalizationRecords' => 1,
-					'showAllLocalizationLink' => 1
-				),
+				'type' => 'select',
+			    'foreign_table' => 'tx_t3events_domain_model_eventtype',
+			    'minitems' => 0,
+			    'maxitems' => 1,
 			),
 		),
 		'performances' => array(
@@ -316,24 +311,5 @@ $TCA['tx_t3events_domain_model_event']['columns']['performances']['config'] = ar
         ),
     ),
 );
-//event_type
-$TCA['tx_t3events_domain_model_event']['columns']['event_type']['config'] = array(
-    'type' => 'select',
-    'foreign_table' => 'tx_t3events_domain_model_eventtype',
-    'minitems' => 0,
-    'maxitems' => 1,        
-);
 
-//image
-$TCA['tx_t3events_domain_model_event']['columns']['image']['config'] = array(
-	'type' => 'group',
-	'internal_type' => 'file',
-	'uploadfolder' => 'uploads/tx_t3events',
-	'show_thumbs' => 1,
-	'size' => 1,
-	'maxitems' => 1,
-	'allowed' => $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'],
-	'disallowed' => '',
-	'disable_controls' => 'list',
-);
 ?>

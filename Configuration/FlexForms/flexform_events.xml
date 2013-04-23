@@ -7,6 +7,8 @@
    <ROOT>
      <TCEforms>
       <sheetTitle>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_tab.settings</sheetTitle>
+      <!--@todo: localization file has to be added in ext_tables.php - couldn't find any docs about the current syntax for flexforms, though -->
+      <!--<cshFile>LLL:EXT:t3events/Resources/Private/Language/locallang_csh_flexform.xml</cshFile>-->
      </TCEforms>
      <type>array</type>
      <el>
@@ -36,10 +38,22 @@
          </config>
        </TCEforms>
       </switchableControllerActions>
+      
+  	<!-- caching -->
+	<settings.cache.makeNonCacheable>
+		<TCEforms>
+			<label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.cache.makeNonCacheable</label>
+			<config>
+				<type>check</type>
+			</config>
+		</TCEforms>
+	</settings.cache.makeNonCacheable>
+	
+
       <settings.period>
       		<TCEforms>
       			<label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.period</label>
-      			<displayCond>FIELD:switchableControllerActions:=:Event->list;Event->show</displayCond>
+      			<displayCond>FIELD:switchableControllerActions:!=:Event->quickMenu</displayCond>
       			<config>
       				<type>select</type>
       				<items type="array">
@@ -74,6 +88,11 @@
 			      <numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.title</numIndex>
 			      <numIndex index="1">title</numIndex>
 			    </numIndex>
+    			    <numIndex index="2" type="array">
+			      <numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.random</numIndex>
+			      <numIndex index="1">random</numIndex>
+			    </numIndex>
+
 			  </items>
 			</config>
       	</TCEforms>
@@ -98,7 +117,8 @@
 	            </items>
 	        </config>
 	    </TCEforms>
-	</settings.sortDirection>      
+	</settings.sortDirection>
+	
 	<settings.highlightsToTop>
       	<TCEforms>
       		<label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.highlightsToTop</label>

@@ -348,7 +348,6 @@ class Tx_T3events_Domain_Model_Event extends Tx_Extbase_DomainObject_AbstractEnt
 	 * @return DateTime
 	 */
 	public function getEarliestDate() {
-		//$performances = $this->performance->toArray();
 		$dates = array();
 		foreach ($this->performances as $performance) {
 			$dates[] = $performance->getDate()->getTimestamp();

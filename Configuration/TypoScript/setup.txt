@@ -102,10 +102,15 @@ plugin.tx_t3events{
 # config extbase to use a different template root path for paginate widget
 # this setting is part of a workaround for the limits of <f:widget.paginate /> view helper - specially the missing option to localize its output 
 config.tx_extbase.view.widget.Tx_Fluid_ViewHelpers_Widget_PaginateViewHelper.templateRootPath = {$plugin.tx_t3events.view.templateRootPath}
+
 config.tx_extbase.objects {
-Tx_Fluid_ViewHelpers_Widget_Controller_PaginateController {
-className = Tx_T3events_ViewHelpers_Widget_Controller_PaginateController
-}
+	Tx_Fluid_ViewHelpers_Widget_Controller_PaginateController {
+		className = Tx_T3events_ViewHelpers_Widget_Controller_PaginateController
+	}
+	# overwrite class to allow USER_INT from flexform
+	Tx_Extbase_Service_ExtensionService {
+		className = Tx_T3events_Service_ExtensionService
+	}	
 }
 ####################
 # include CSS and JS
