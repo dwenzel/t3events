@@ -107,6 +107,7 @@ class Tx_T3events_ViewHelpers_Event_PerformancesViewHelper extends Tx_Fluid_Core
 			case 'lowestPrice':
 				//return raw number to allow using <f:format.currency />
 				return $this->getLowestPrice();
+				break;
             default:
 			break;
 		}
@@ -137,13 +138,15 @@ class Tx_T3events_ViewHelpers_Event_PerformancesViewHelper extends Tx_Fluid_Core
                 array_push($contentArr, $val);
     	    }
     	}
+    	// make array unique
+    	$contentArr = ($unique)?array_values(array_unique($contentArr)): $contentArr;
     	
     	// add separator
     	$contentArrCount = count($contentArr);
     	for($i=0; $i<$contentArrCount-1; $i++){
     		$contentArr[$i] = $contentArr[$i] . $this->arguments['childSeparator'];
     	}
-    	$contentArr = ($unique)?array_values(array_unique($contentArr)): $contentArr;
+    	
     	return $contentArr;
     }
     
