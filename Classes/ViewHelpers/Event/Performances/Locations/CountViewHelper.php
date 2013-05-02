@@ -58,7 +58,6 @@ class Tx_T3events_ViewHelpers_Event_Performances_Locations_CountViewHelper exten
     	// make array unique
     	$locationsArray = array_values(array_unique($locationsArray));
     	return count($locationsArray);
-    }
-    
+    }  
 }
 ?>

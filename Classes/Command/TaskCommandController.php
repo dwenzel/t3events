@@ -100,8 +100,11 @@ class Tx_T3events_Command_TaskCommandController extends Tx_Extbase_MVC_Controlle
 			foreach ($performances as $performance){
 				//perform update
 				$performance->setStatus($updateTask->getNewStatus());
-				$message .= ' performance date: ' . $performance->getDate()->format('Y-m-d')
-					. ' location: ' . $performance->getEventLocation()->getName() . LF;
+				$message .= ' performance date: ' . $performance->getDate()->format('Y-m-d');
+				if ($performance->getEventLocation()){
+					$message .= ' location: ' . $performance->getEventLocation()->getName();
+				} 
+				$message .= LF;
 			}
 
 			$message .= '----------------------------------------' . LF;

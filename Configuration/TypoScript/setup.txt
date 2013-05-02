@@ -113,11 +113,10 @@ config.tx_extbase.objects {
 	}	
 }
 ####################
-# include CSS and JS
+# include default CSS
 
 page.includeCSS.t3eventsBasic = EXT:t3events/Resources/Public/Css/t3eventsBasic.css
 
-page.includeJSFooter.ticketingAccordion = EXT:t3events/Resources/Public/Js/accordion.js
 
 ####################
 # date format helper

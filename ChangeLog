@@ -1,3 +1,11 @@
+2013-05-02	Dirk Wenzel <wenzel@webfox01.de>
+	0.8.1	- Bugfix for issue #47851 'Scheduler task fails when an event has no location'
+2013-05-02	Dirk Wenzel <wenzel@webfox01.de>
+			- New viewhelper event.performances.locations.count
+			- Fix for issue #47825 'Event Viewhelper does not show unique location list correctly'
+			- Fix for issue #47820 'Show event location only once for multiple performances at the same location'
+			- Default JavaScript removed (was trivial and required jQuery), closes issues #46792 and #46791
+			- code cleanup
 2013-04-23	Dirk Wenzel <wenzel@webfox01.de>
 	0.7.2	- fix for bug 47512: List Plugin does not respect genre constraint
 2013-04-23	Dirk Wenzel <wenzel@webfox01.de>
