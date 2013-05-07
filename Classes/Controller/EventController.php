@@ -231,7 +231,7 @@ class Tx_T3events_Controller_EventController extends Tx_Extbase_MVC_Controller_A
         if (!$demand->getSortDirection()) {
         	$demand->setSortDirection($this->settings['sortDirection']);
         }
-        if(!$demand->getLimit() && (int)$this->settings['maxItems']) {
+        if((int)$this->settings['maxItems']) {
             $demand->setLimit((int)$this->settings['maxItems']);
         }
         if(!$demand->getVenue() && $this->settings['venues'] != '') {

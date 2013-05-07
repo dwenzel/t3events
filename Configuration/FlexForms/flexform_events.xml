@@ -134,12 +134,12 @@
       <settings.maxItems>
       	<TCEforms>
       		<label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.maxItems</label>
-      		<displayCond>FIELD:switchableControllerActions:=:Teaser->list;Teaser->showEvent;Event->show</displayCond>
+      		<displayCond>FIELD:switchableControllerActions:!=:Event->quickMenu</displayCond>
             <config>
   				<type>input</type>
   				<size>3</size>
   				<range>
-  					<upper>10000</upper>
+  					<upper>100000</upper>
   					<lower>0</lower>
   				</range>
   				<eval>int,trim</eval>
