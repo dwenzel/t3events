@@ -47,15 +47,15 @@ class Tx_T3events_Service_ExtensionService extends Tx_Extbase_Service_ExtensionS
      * @return boolean TRUE if the specified plugin action is cacheable, otherwise FALSE
      */
     public function isActionCacheable($extensionName, $pluginName, $controllerName, $actionName) {
-		
-    	$frameworkConfiguration = $this->configurationManager->getConfiguration(Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK, $extensionName, $pluginName);
-        if ( parent::isActionCacheable ($extensionName, $pluginName, $controllerName, $actionName) ||
+		$frameworkConfiguration = $this->configurationManager->getConfiguration(Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK, $extensionName, $pluginName);
+        if ( !parent::isActionCacheable ($extensionName, $pluginName, $controllerName, $actionName) ||
         	isset($frameworkConfiguration['settings']['cache']['makeNonCacheable']) &&
         	$frameworkConfiguration['settings']['cache']['makeNonCacheable']) 
         	{
         		return FALSE;
 			}
 			return TRUE;
+			
 	} 
 }
 
