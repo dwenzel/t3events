@@ -182,7 +182,7 @@ $TCA['tx_t3events_domain_model_event'] = array(
 				),
 			),
 		),
-		
+
 		'venue' => array(
 			'exclude' => 0,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_event.venue',
@@ -193,7 +193,7 @@ $TCA['tx_t3events_domain_model_event'] = array(
 				'size' => 5,
 				'autoSizeMax' => 30,
 				'maxitems' => 9999,
-				'multiple' => 0,  
+				'multiple' => 0,
 			),
 		),
 		'event_type' => array(
@@ -256,7 +256,7 @@ $TCA['tx_t3events_domain_model_event']['types'] = array(
     	sys_language_uid,organizer, genre, venue, keywords,
     	--div--;LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_event.performances,
     	performances,
-    	l10n_parent, l10n_diffsource, ;;1, 
+    	l10n_parent, l10n_diffsource, ;;1,
     	,--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,hidden,starttime, endtime'),
 );
 
@@ -291,11 +291,12 @@ $TCA['tx_t3events_domain_model_event']['columns']['description']['config'] =arra
     'rows' => 10,
     'eval' => 'trim'
 );
-// performance 
+// performance
 $TCA['tx_t3events_domain_model_event']['columns']['performances']['config'] = array(
     'type' => 'inline',
     'foreign_table' => 'tx_t3events_domain_model_performance',
     'foreign_field' => 'event',
+	'foreign_sortby' => 'sorting',
     'minitems' => 1,
     'maxitems' => 9999,
     'appearance' => array(

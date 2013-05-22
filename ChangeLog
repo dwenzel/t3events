@@ -1,5 +1,7 @@
+2013-05-22	Dirk Wenzel <wenzel@webfox01.de>
+	0.8.3	- Bugfix for issue #48428 Performances are not sorted correctly in frontend
 2013-05-07	Dirk Wenzel <wenzel@webfox01.de>
-			- Bugfix for issue #48006 List Plugin prevents caching
+	0.8.2	- Bugfix for issue #48006 List Plugin prevents caching
 			- Bugfix for issue #48017 List Plugin doesn't show more than 100 events
 2013-05-02	Dirk Wenzel <wenzel@webfox01.de>
 	0.8.1	- Bugfix for issue #47851 'Scheduler task fails when an event has no location'

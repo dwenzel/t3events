@@ -5,7 +5,7 @@
  *
  *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
  *  Michael Kasten <kasten@webfox01.de>, Agentur Webfox
- *  
+ *
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -33,11 +33,13 @@
  *
  */
 class Tx_T3events_Domain_Repository_PerformanceRepository extends Tx_Extbase_Persistence_Repository {
+	protected $defaultOrderings = array ('sorting' => Tx_Extbase_Persistence_QueryInterface::ORDER_ASCENDING);
+
 	public function initializeObject() {
          $this->defaultQuerySettings = $this->objectManager->create('Tx_Extbase_Persistence_Typo3QuerySettings');
          $this->defaultQuerySettings->setRespectStoragePage(FALSE);
     }
-    
+
     /**
      * find Demanded
      * @param Tx_T3events_Domain_Model_PerformanceDemand $demand
@@ -45,7 +47,7 @@ class Tx_T3events_Domain_Repository_PerformanceRepository extends Tx_Extbase_Per
      */
     public function findDemanded(Tx_T3events_Domain_Model_PerformanceDemand $demand){
     	$query = $this->createQuery();
-    	
+
     	$constraints = array();
     	if ($demand->getStatus()){
     		$constraints[] = $query->equals('status', $demand->getStatus());
@@ -59,9 +61,9 @@ class Tx_T3events_Domain_Repository_PerformanceRepository extends Tx_Extbase_Per
     		$constraints[] = $query->in('pid', $pages);
     	}
     	count($constraints)?$query->matching($query->logicalAnd($constraints)):NULL;
-    	
+
     	return $query->execute();
     }
-    
+
 }
 ?>
