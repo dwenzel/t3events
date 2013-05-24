@@ -5,7 +5,7 @@
  *
  *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
  *  Michael Kasten <kasten@webfox01.de>, Agentur Webfox
- *  
+ *
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -42,10 +42,69 @@ class Tx_T3events_Domain_Repository_EventRepository extends Tx_Extbase_Persisten
 	 */
 	public function findDemanded(Tx_T3events_Domain_Model_EventDemand $demand) {
 		$query = $this->createQuery();
-		
+
 		// collect all constraints
-		
+
 		// period
+		$period = $demand->getPeriod();
+		$periodStart = $demand->getPeriodStart();
+		$periodType = $demand->getPeriodType();
+		$periodDuration = $demand->getPeriodDuration();
+
+		if ($period === 'specific' && $periodType) {
+
+			// set start date initial to now
+			$timezone = new DateTimeZone(date_default_timezone_get());
+			$startDate = new DateTime('NOW', $timezone);
+			// get delta value
+			$deltaStart = ($periodStart < 0) ? $periodStart : '+' . $periodStart;
+			$deltaEnd = ($periodDuration > 0) ? '+' . $periodDuration : '+' . 999;
+
+			$y = $startDate->format('Y');
+			$m = $startDate->format('m');
+
+			// get specific delta
+			switch ($periodType) {
+				case 'byDay':
+					$deltaStart .= ' day';
+					$deltaEnd .= ' day';
+					break;
+				case 'byMonth':
+					$startDate->setDate($y, $m, 1);
+					$deltaStart .= ' month';
+					$deltaEnd .= ' month';
+					break;
+				case 'byYear':
+					$startDate->setDate($y, 1, 1);
+					$deltaStart .= ' year';
+					$deltaEnd .= ' year';
+					break;
+				case 'byDate':
+					if (!is_null($demand->getStartDate())) {
+						$startDate = new DateTime();
+						$startDate->setTimestamp($demand->getStartDate());
+					}
+					if (!is_null($demand->getEndDate())) {
+						$endDate = new DateTime();
+						$endDate->setTimestamp($demand->getEndDate());
+					}else {
+						$deltaEnd .= ' day';
+						$endDate= clone($startDate);
+						$endDate->modify($deltaEnd);
+					}
+					break;
+				default:
+
+					break;
+			}
+			if ($periodType != 'byDate') {
+				$startDate->setTime(0, 0, 0);
+				$startDate->modify($deltaStart);
+				$endDate = clone($startDate);
+				$endDate->modify($deltaEnd);
+			}
+		}
+
 		switch ($demand->getPeriod()){
 			case 'futureOnly':
 				$query->matching($query->logicalAnd($query->greaterThanOrEqual('performances.date', time())));
@@ -53,13 +112,20 @@ class Tx_T3events_Domain_Repository_EventRepository extends Tx_Extbase_Persisten
 			case 'pastOnly':
 				$query->matching($query->logicalAnd($query->lessThanOrEqual('performances.date', time())));
 				break;
+			case 'specific':
+				$query->matching($query->logicalAnd(
+					$query->lessThanOrEqual('performances.date', $endDate->getTimestamp()),
+					$query->greaterThanOrEqual('performances.date', $startDate->getTimestamp())
+					)
+				);
+				break;
 			default:
-				break;		
+				break;
 		}
 
 		// gather constraints
 		$constraints = array();
-		
+
 		if($demand->getGenre()){
 			$genres= t3lib_div::intExplode(',', $demand->getGenre());
 			foreach ($genres as $genre){
@@ -81,15 +147,15 @@ class Tx_T3events_Domain_Repository_EventRepository extends Tx_Extbase_Persisten
 				$constraints[] = $query->equals('eventType.uid', $eventType);
 			}
 		}
-						
+
 		count($constraints)?$query->matching($query->logicalOr($constraints)):NULL;
-		
+
 		// sort direction
 		switch ($demand->getSortDirection()) {
 			case 'asc':
-				$sortOrder = Tx_Extbase_Persistence_QueryInterface::ORDER_ASCENDING;				
+				$sortOrder = Tx_Extbase_Persistence_QueryInterface::ORDER_ASCENDING;
 			break;
-			
+
 			case 'desc':
 				$sortOrder = Tx_Extbase_Persistence_QueryInterface::ORDER_DESCENDING;
 				break;
@@ -112,6 +178,6 @@ class Tx_T3events_Domain_Repository_EventRepository extends Tx_Extbase_Persisten
 		}
 		return $query->execute();
 	}
-	
+
 }
 ?>

@@ -5,7 +5,7 @@
  *
  *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
  *  Michael Kasten <kasten@webfox01.de>, Agentur Webfox
- *  
+ *
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -40,28 +40,28 @@ class Tx_T3events_Controller_EventController extends Tx_Extbase_MVC_Controller_A
 	 * @var Tx_T3events_Domain_Repository_EventRepository
 	 */
 	protected $eventRepository;
-	
+
 	/**
 	* genreRepository
 	*
 	* @var Tx_T3events_Domain_Repository_GenreRepository
 	*/
 	protected $genreRepository;
-	
+
 	/**
 	* venueRepository
 	*
 	* @var Tx_T3events_Domain_Repository_VenueRepository
 	*/
 	protected $venueRepository;
-	
+
 	/**
 	* eventTypeRepository
 	*
 	* @var Tx_T3events_Domain_Repository_EventTypeRepository
 	*/
 	protected $eventTypeRepository;
-			
+
 	/**
 	 * injectEventRepository
 	 *
@@ -71,7 +71,7 @@ class Tx_T3events_Controller_EventController extends Tx_Extbase_MVC_Controller_A
 	public function injectEventRepository(Tx_T3events_Domain_Repository_EventRepository $eventRepository) {
 		$this->eventRepository = $eventRepository;
 	}
-	
+
 	/**
 	 * injectGenreRepository
 	 *
@@ -81,7 +81,7 @@ class Tx_T3events_Controller_EventController extends Tx_Extbase_MVC_Controller_A
 	public function injectGenreRepository(Tx_T3events_Domain_Repository_GenreRepository $genreRepository) {
 		$this->genreRepository = $genreRepository;
 	}
-	
+
 
 	/**
 	 * injectVenueRepository
@@ -134,40 +134,40 @@ class Tx_T3events_Controller_EventController extends Tx_Extbase_MVC_Controller_A
 	public function showAction(Tx_T3events_Domain_Model_Event $event) {
 		$this->view->assign('event', $event);
 	}
-	
+
 	/**
 	 * action quickMenu
 	 * @return void
 	 */
 	public function quickMenuAction(){
-		
+
 		// get session data
 		$sessionData = $GLOBALS['TSFE']->fe_user->getKey('ses', 'tx_t3events_overwriteDemand');
 		$this->view->assign('overwriteDemand', unserialize($sessionData));
-		
+
 		// get genres from plugin
 		$genres = $this->genreRepository->findMultipleByUid($this->settings['genres'], 'title');
-		
+
 		// get venues from plugin
 		$venues = $this->venueRepository->findMultipleByUid($this->settings['venues'], 'title');
-		
+
 		// get event types from plugin
 		$eventTypes = $this->eventTypeRepository->findMultipleByUid($this->settings['eventTypes'], 'title');
-		
+
 		// Build a fake entry for empty first option (The form.select viewhelper doesn't allow an empty option yet)
 		$fakeGenre = $this->objectManager->get('Tx_T3events_Domain_Model_Genre');
 		$fakeGenre->setTitle(Tx_Extbase_Utility_Localization::translate('tx_t3events.allGenres', $this->extensionName));
 		$this->view->assign('genres', array_merge(array(0=>$fakeGenre), $genres->toArray()));
-		
+
 		$fakeVenue = $this->objectManager->get('Tx_T3events_Domain_Model_Venue');
 		$fakeVenue->setTitle(Tx_Extbase_Utility_Localization::translate('tx_t3events.allVenues', $this->extensionName));
 		$this->view->assign('venues', array_merge(array(0=>$fakeVenue), $venues->toArray()));
-		
+
 		$fakeEventType = $this->objectManager->get('Tx_T3events_Domain_Model_EventType');
 		$fakeEventType->setTitle(Tx_Extbase_Utility_Localization::translate('tx_t3events.allEventTypes', $this->extensionName));
 		$this->view->assign('eventTypes', array_merge(array(0=>$fakeEventType), $eventTypes->toArray()));
 	}
-	
+
 	/**
 	 * Build demand from settings respecting overwriteDemand
 	 * @param array overwriteDemand
@@ -175,17 +175,17 @@ class Tx_T3events_Controller_EventController extends Tx_Extbase_MVC_Controller_A
 	 */
 	private function getDemandFromSettings($overwriteDemand = NULL) {
 		$demand = $this->objectManager->get('Tx_T3events_Domain_Model_EventDemand');
-        
+
         if (!is_null($overwriteDemand)) {
         	$demand->setGenre($overwriteDemand['genre']);
         	$demand->setVenue($overwriteDemand['venue']);
         	$demand->setEventType($overwriteDemand['eventType']);
-        	
+
         	// set sort criteria
         	switch ($overwriteDemand['sortBy']) {
 				case 'date':
         			$demand->setSortBy('performances.date');
-									
+
 					break;
 				case 'headline':
 					$demand->setSortBy('headline');
@@ -220,13 +220,13 @@ class Tx_T3events_Controller_EventController extends Tx_Extbase_MVC_Controller_A
 	        	case 'title':
 	        		$demand->setSortBy('headline');
 	        		break;
-	        		
+
 	        	default:
 	        		$demand->setSortBy('performances.date');
 	        	break;
 	        }
 		}
-		
+
 		(!$demand->getEventType())?$demand->setEventType($this->settings['eventTypes']):NULL;
         if (!$demand->getSortDirection()) {
         	$demand->setSortDirection($this->settings['sortDirection']);
@@ -241,6 +241,19 @@ class Tx_T3events_Controller_EventController extends Tx_Extbase_MVC_Controller_A
         	$demand->setGenre($this->settings['genres']);
         }
         $demand->setPeriod($this->settings['period']);
+        if ($this->settings['period'] == 'specific') {
+        	        $demand->setPeriodType($this->settings['periodType']);
+        }
+        if (isset($this->settings['periodType']) AND $this->settings['periodType'] != 'byDate') {
+        	$demand->setPeriodStart($this->settings['periodStart']);
+        	$demand->setPeriodDuration($this->settings['periodDuration']);
+        }
+        if ($this->settings['periodType'] == 'byDate' && $this->settings['periodStartDate']){
+        	$demand->setStartDate($this->settings['periodStartDate']);
+        }
+	    if ($this->settings['periodType'] == 'byDate' && $this->settings['periodEndDate']){
+        	$demand->setEndDate($this->settings['periodEndDate']);
+        }
         return $demand;
 	}
 }

@@ -99,6 +99,22 @@
 	/**
 	 * @test
 	 */
+	public function getPeriodTypeReturnsInitialNull(){
+		$this->assertSame(null, $this->fixture->getPeriodType());
+	}
+	
+	/**
+	 * @test
+	 */
+	public function setPeriodTypeForStringSetsPeriodType() {
+		$type= 'aType';
+		$this->fixture->setPeriodType($type);
+		$this->assertSame($type, $this->fixture->getPeriodType());
+	}
+	
+	/**
+	 * @test
+	 */
 	public function getStoragePageReturnsInitialNull(){
 		$this->assertNull($this->fixture->getStoragePage());
 	}
@@ -109,6 +125,65 @@
 	public function setStoragePageForStringSetsStoragePage(){
 		$this->fixture->setStoragePage('15,78,39');
 		$this->assertSame('15,78,39', $this->fixture->getStoragePage());
+	}
+	
+	/**
+	 * @test
+	 */
+	public function getPeriodStartReturnsInitialNull() {
+		$this->assertNull($this->fixture->getPeriodStart());
+	}
+	/**
+	 * @test
+	 */
+	public function setPeriodStartForIntegerSetsPeriodStart() {
+		$this->fixture->setPeriodStart(-5);
+		$this->assertSame(-5, $this->fixture->getPeriodStart());
+	}
+	/**
+	 * @test
+	 */
+	public function setPeriodDurationForIntegerSetsPeriodDuration() {
+		$this->fixture->setPeriodDuration(-5);
+		$this->assertSame(-5, $this->fixture->getPeriodDuration());
+	}
+	/**
+	 * @test
+	 */
+	public function getPeriodDurationReturnsInitialNull() {
+		$this->assertNull($this->fixture->getPeriodDuration());
+	}
+	
+	/**
+	 * @test
+	 */
+	public function getStartDateReturnsInitialNull() {
+		$this->assertNull($this->fixture->getStartDate());
+	}
+	
+	/**
+	 * @test
+	 */
+	public function setStartDateForDateTimeSetsStartDate() {
+		$date = new DateTime();
+		$this->fixture->setStartDate($date);
+		$this->assertSame($date, $this->fixture->getStartDate());
+	}
+	
+	/**
+	 * @test
+	 */
+	public function getEndDateReturnsInitialNull(){
+		$this->assertNull($this->fixture->getEndDate());
+	}
+	
+	/**
+	 * @test
+	 */
+	public function setEndDateForDateTimeSetsEndDate(){
+		$date = new DateTime();
+		$this->fixture->setEndDate($date);
+		$this->assertSame($date, $this->fixture->getEndDate());
 	}
 }
 ?>

@@ -15,6 +15,8 @@ t3lib_extMgm::addPiFlexFormValue($pluginSignature, 'FILE:EXT:' . $_EXTKEY . '/Co
 
 t3lib_extMgm::addStaticFile($_EXTKEY, 'Configuration/TypoScript', 'Events');
 
+t3lib_extMgm::addLLrefForTCAdescr(
+	'tt_content.pi_flexform.t3events_events.list', 'EXT:t3events/Resources/Private/Language/locallang_csh_flexform.xml');
 t3lib_extMgm::addLLrefForTCAdescr('tx_t3events_domain_model_event', 'EXT:t3events/Resources/Private/Language/locallang_csh_tx_t3events_domain_model_event.xml');
 t3lib_extMgm::allowTableOnStandardPages('tx_t3events_domain_model_event');
 $TCA['tx_t3events_domain_model_event'] = array(

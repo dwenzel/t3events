@@ -8,7 +8,7 @@
      <TCEforms>
       <sheetTitle>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_tab.settings</sheetTitle>
       <!--@todo: localization file has to be added in ext_tables.php - couldn't find any docs about the current syntax for flexforms, though -->
-      <!--<cshFile>LLL:EXT:t3events/Resources/Private/Language/locallang_csh_flexform.xml</cshFile>-->
+      <cshFile>LLL:EXT:t3events/Resources/Private/Language/locallang_csh_flexform.xml</cshFile>
      </TCEforms>
      <type>array</type>
      <el>
@@ -49,12 +49,12 @@
 		</TCEforms>
 	</settings.cache.makeNonCacheable>
 	
-
       <settings.period>
       		<TCEforms>
       			<label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.period</label>
       			<displayCond>FIELD:switchableControllerActions:!=:Event->quickMenu</displayCond>
-      			<config>
+      			<onChange>reload</onChange>
+		  		<config>
       				<type>select</type>
       				<items type="array">
       					<numIndex index="0" type="array">
@@ -69,10 +69,98 @@
       						<numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.period.pastOnly</numIndex>
       						<numIndex index="1">pastOnly</numIndex>
       					</numIndex>
+      					<numIndex index="3" type="array">
+      						<numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.period.specific</numIndex>
+      						<numIndex index="1">specific</numIndex>
+      					</numIndex>
       				</items>
       			</config>
       		</TCEforms>
       </settings.period>
+
+      <settings.periodType>
+      		<TCEforms>
+      			<label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.constraintBy</label>
+      			<onChange>reload</onChange>
+      			<displayCond>FIELD:settings.period:=:specific</displayCond>
+      			<config>
+      				<type>radio</type>
+      				<items type="array">
+      					<numIndex index="0" type="array">
+      						<numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.period.specific.byDay</numIndex>
+      						<numIndex index="1">byDay</numIndex>
+      					</numIndex>
+      					<numIndex index="1" type="array">
+      						<numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.period.specific.byMonth</numIndex>
+      						<numIndex index="1">byMonth</numIndex>
+      					</numIndex>
+      					<numIndex index="2" type="array">
+      						<numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.period.specific.byYear</numIndex>
+      						<numIndex index="1">byYear</numIndex>
+      					</numIndex>
+      					<numIndex index="3" type="array">
+      						<numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.period.specific.byDate</numIndex>
+      						<numIndex index="1">byDate</numIndex>
+      					</numIndex>
+      				</items>
+      			</config>
+      		</TCEforms>
+      </settings.periodType>
+      <settings.periodStart>
+      	<TCEforms>
+      		<label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.start</label>
+      		<displayCond>FIELD:settings.periodType:!=:byDate</displayCond>
+      		<config>
+      			<type>input</type>
+      			<size>1</size>
+  				<range>
+  					<upper>999</upper>
+  					<lower>-999</lower>
+  				</range>
+  				<eval>int,trim</eval>
+      		</config>
+      	</TCEforms>
+      </settings.periodStart>
+      <settings.periodDuration>
+      	<TCEforms>
+      		<label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.duration</label>
+			<displayCond>FIELD:settings.periodType:!=:byDate</displayCond>
+      		<config>
+      			<size>3</size>
+  				<range>
+  					<upper>999</upper>
+  					<lower>1</lower>
+  				</range>
+  				<eval>int,trim</eval>
+      			<type>input</type>
+      		</config>
+      	</TCEforms>
+      </settings.periodDuration>
+	<settings.periodStartDate>
+      	<TCEforms>
+      		<label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.start</label>
+      		<displayCond>FIELD:settings.periodType:=:byDate</displayCond>
+      		<config>
+				<type>input</type>
+				<size>8</size>
+				<eval>date</eval>
+				<checkbox>1</checkbox>
+      		</config>
+      	</TCEforms>
+      </settings.periodStartDate>
+	<settings.periodEndDate>
+      	<TCEforms>
+      		<label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.end</label>
+      		<displayCond>FIELD:settings.periodType:=:byDate</displayCond>
+      		<config>
+				<type>input</type>
+				<size>8</size>
+				<eval>date</eval>
+				<checkbox>1</checkbox>
+      		</config>
+      	</TCEforms>
+      </settings.periodEndDate>
+      
       <settings.sortBy>
       	<TCEforms>
 	      	<label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.sortBy</label>

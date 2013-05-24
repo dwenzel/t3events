@@ -74,6 +74,31 @@
 	protected $storagePage;
 	
 	/**
+	 * @var string $periodType Type of period: month, day, year, specific
+	 */
+	protected $periodType;
+	
+	/**
+	 * @var int $periodStart Start value used when constraining by day, month or year 
+	 */
+	
+	protected $periodStart;
+	/**
+	 * @var int $periodDuration Duration value used when constraining by day, month or year
+	 */
+	protected $periodDuration;
+	
+	/**
+	 * @var DateTime $startDate Start date when constraining by date
+	 */
+	protected $startDate;
+	
+	/**
+	 * @var DateTime $endDate End date when constrainting by date
+	 */
+	protected $endDate;
+	
+	/**
 	 * @param int A limit for the demand
 	 * @return void
 	 */
@@ -193,6 +218,79 @@
 		return  $this->storagePage;
 	}
 	
+	/**
+	 * @param int $start Start value for time period (day, month or year)
+	 * @return void
+	 */
+	public function setPeriodStart($start) {
+		$this->periodStart=$start;
+	}
+	
+	/**
+	 * @return string
+	 */
+	public function getPeriodType() {
+		return $this->periodType;
+	}
+	
+	/**
+	 * @param string $type Type of period: day, month, year, date
+	 * @return void
+	 */
+	public function setPeriodType($type) {
+		$this->periodType=$type;
+	}
+	
+	/**
+	 * @return int
+	 */
+	public function getPeriodStart() {
+		return $this->periodStart;
+	}
+	
+	/**
+	 * @param int $duration Duration value for period (days, months, years)
+	 * @return void
+	 */
+	public function setPeriodDuration($duration) {
+		$this->periodDuration=$duration;
+	}
+	
+	/**
+	 * @return int
+	 */
+	public function getPeriodDuration() {
+		return $this->periodDuration;
+	}
+	
+	/**
+	 * @return DateTime
+	 */
+	public function getStartDate() {
+		return $this->startDate;
+	}
+	
+	/**
+	 * @param DateTime $date Start date
+	 * @return void
+	 */
+	public function setStartDate($date){
+		$this->startDate=$date;
+	}
+	/**
+	 * @return DateTime
+	 */
+	public function getEndDate() {
+		return $this->endDate;
+	}
+	
+	/**
+	 * @param DateTime $date End date
+	 * @return void
+	 */
+	public function setEndDate($date) {
+		$this->endDate=$date;
+	}
 }
  
  ?>
