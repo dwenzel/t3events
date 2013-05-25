@@ -1,3 +1,5 @@
+2013-05-25	Dirk Wenzel <wenzel@webfox01.de>
+	0.9.1	- Bugfix for issue #48537 List Plugin does not respect time restriction when venue is set.
 2013-05-23	Dirk Wenzel <wenzel@webfox01.de>
 	0.9.0	- New feature: List plugin now allows flexible filtering by time period (issue #48439)
 2013-05-22	Dirk Wenzel <wenzel@webfox01.de>
