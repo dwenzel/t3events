@@ -191,7 +191,7 @@ $TCA['tx_t3events_domain_model_performance'] = array(
 				'maxitems' => 1,
 				'allowed' => $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'],
 				'disallowed' => '',
-				'disable_controls' => '',			
+				'disable_controls' => '',
 			),
 		),
 		'plan' => array(
@@ -234,8 +234,10 @@ $TCA['tx_t3events_domain_model_performance'] = array(
 				'type' => 'select',
                 'items' => array (
                     array('',0),
-                ),              
+                ),
                 'foreign_table' => 'tx_t3events_domain_model_eventlocation',
+                'foreign_table_where' => ' AND tx_t3events_domain_model_eventlocation.sys_language_uid IN (-1,0)
+                							ORDER BY tx_t3events_domain_model_eventlocation.name',
                 'minitems' => 0,
                 'maxitems' => 1,
 			),
@@ -269,7 +271,7 @@ $TCA['tx_t3events_domain_model_performance'] = array(
                 ),
 				'foreign_table' => 'tx_t3events_domain_model_performancestatus',
 				'foreign_table_where' => ' AND (tx_t3events_domain_model_performancestatus.sys_language_uid = 0)
-                                            AND (tx_t3events_domain_model_performancestatus.hidden = 0) 
+                                            AND (tx_t3events_domain_model_performancestatus.hidden = 0)
 				                            ORDER BY tx_t3events_domain_model_performancestatus.priority',
 			),
 		),
@@ -283,28 +285,28 @@ $TCA['tx_t3events_domain_model_performance'] = array(
 
 // field order
 
-$TCA['tx_t3events_domain_model_performance']['ctrl']['type'] = 'provider_type'; 
+$TCA['tx_t3events_domain_model_performance']['ctrl']['type'] = 'provider_type';
 $TCA['tx_t3events_domain_model_performance']['types'] = array(
    '0' => array('showitem' => '
-		sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource;;1, 
+		sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource;;1,
         --palette--;;paletteTitle,
-        --palette--;;paletteTime, 
-        status, status_info,image, 
+        --palette--;;paletteTime,
+        status, status_info,image,
         --div--;Links, provider_type,additional_link,
         --div--;Tickets,
             --palette--;;paletteTicketsHead,
-             no_handling_fee, ticket_class,  
+             no_handling_fee, ticket_class,
         --div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,hidden,starttime, endtime'
 		),
 	'1' => array('showitem' => '
-	    sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource;;1, 
+	    sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource;;1,
 	    --palette--;;paletteTitle,
-	    --palette--;;paletteTime, 
-	    status, status_info,image, 
+	    --palette--;;paletteTime,
+	    status, status_info,image,
 	    --div--;Links, provider_type, external_provider_link,additional_link,
 	    --div--;Tickets,
 	        --palette--;;paletteTicketsHead,
-	         no_handling_fee, ticket_class,  
+	         no_handling_fee, ticket_class,
 	    --div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,hidden,starttime, endtime'
 		),
 );
