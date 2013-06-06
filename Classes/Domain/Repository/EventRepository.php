@@ -33,7 +33,7 @@
  *
  */
 
-class Tx_T3events_Domain_Repository_EventRepository extends Tx_Extbase_Persistence_Repository {
+class Tx_T3events_Domain_Repository_EventRepository extends Tx_T3events_Domain_Repository_AbstractRepository {
 	/**
 	 * findDemanded
 	 *
