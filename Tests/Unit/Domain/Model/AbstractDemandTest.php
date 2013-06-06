@@ -185,5 +185,20 @@
 		$this->fixture->setEndDate($date);
 		$this->assertSame($date, $this->fixture->getEndDate());
 	}
+	
+	/**
+	 * @test
+	 */
+	public function getUidListReturnsInitialNull(){
+		$this->assertNull($this->fixture->getUidList());
+	}
+	
+	/**
+	 * @test
+	 */
+	public function setUidListForStringSetsUidList(){
+		$this->fixture->setUidList('1,3,5');
+		$this->assertSame('1,3,5', $this->fixture->getUidList());
+	}
 }
 ?>
