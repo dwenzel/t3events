@@ -108,19 +108,51 @@ class Tx_T3events_Controller_EventController extends Tx_Extbase_MVC_Controller_A
 	 * @return void
 	 */
 	public function listAction( $overwriteDemand = NULL) {
-        $demand = $this->getDemandFromSettings($overwriteDemand);
-        $events = $this->eventRepository->findDemanded($demand);
-        if (!$events->count()) {
+		if(!is_null($overwriteDemand['uidList'])){
+			
+			if (is_array($overwriteDemand['uidList'])){
+				$recordList = implode(",", $overwriteDemand['uidList']);
+				$recordArr = $overwriteDemand['uidList'];
+			}elseif (is_string($overwriteDemand['uidList'])){
+				$recordList = $overwriteDemand['uidList'];
+				$recordArr = explode(',', $overwriteDemand['uidList']);
+				
+			}
+        	$result = $this->eventRepository->findMultipleByUid($recordList);
+        	
+        	// Order by the order of provided array
+			$withIndex = array();
+			$ordered = array();
+			// Create an associative array
+			foreach($result AS $object) {
+				$withIndex[$object->getUid()] = $object;
+			}
+			// add to ordered array in right order
+			foreach($recordArr AS $uid) {
+				if (isset($withIndex[$uid])) {
+					$ordered[] = $withIndex[$uid];
+				}
+			}
+			$events = $ordered;
+        }
+        else{
+	        $demand = $this->getDemandFromSettings($overwriteDemand);
+        	$events = $this->eventRepository->findDemanded($demand);
+        }
+        
+        if (($events instanceof Tx_Extbase_Persistence_QueryResult AND !$events->count())
+				OR !count($events) ) {
         	$this->flashMessageContainer->add(
         		Tx_Extbase_Utility_Localization::translate('tx_t3events.noEventsForSelectionMessage', $this->extensionName),
         		Tx_Extbase_Utility_Localization::translate('tx_t3events.noEventsForSelectionTitle', $this->extensionName),
         		t3lib_Flashmessage::WARNING
         	);
         }
-		$this->view->assignMultiple(
+        
+        $this->view->assignMultiple(
 			array(
 				'events' => $events,
-				'demand' => $demand
+				'demand' => $demand,
 			)
 		);
 	}
