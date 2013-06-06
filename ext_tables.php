@@ -9,6 +9,8 @@ Tx_Extbase_Utility_Extension::registerPlugin(
 	'Events'
 );
 
+t3lib_div::requireOnce(t3lib_extMgm::extPath($_EXTKEY) . 'Classes/Hooks/ItemsProcFunc.php');
+
 $pluginSignature = str_replace('_', '', $_EXTKEY) . '_events';
 $TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
 t3lib_extMgm::addPiFlexFormValue($pluginSignature, 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/flexform_events.xml');
