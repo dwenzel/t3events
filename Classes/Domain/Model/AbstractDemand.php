@@ -99,6 +99,11 @@
 	protected $endDate;
 	
 	/**
+	 * @var string $uidList A list of record uids
+	 */
+	protected $uidList;
+	
+	/**
 	 * @param int A limit for the demand
 	 * @return void
 	 */
@@ -290,6 +295,21 @@
 	 */
 	public function setEndDate($date) {
 		$this->endDate=$date;
+	}
+	
+	/**
+	 * @return string|null
+	 */
+	public function getUidList(){
+		return $this->uidList;
+	}
+	
+	/**
+	 * @param string $uidList A comma separated List of record uids
+	 * @return void
+	 */
+	public function setUidList($uidList){
+		$this->uidList=$uidList;
 	}
 }
  
