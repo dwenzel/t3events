@@ -5,7 +5,7 @@
  *
  *  (c) 2013 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
  *  Michael Kasten <kasten@webfox01.de>, Agentur Webfox
- *  
+ *
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -35,25 +35,17 @@
 
 class Tx_T3events_Domain_Repository_AbstractRepository extends Tx_Extbase_Persistence_Repository {
 	/**
-	 * @var string A comma separated string containing uids $recordList
-	 * @var string Sort by field $sortField
+	 * @var string $recordList A comma separated string containing uids
+	 * @var string $sortField Sort by field
+	 * @var Tx_Extbase_Persistence_QueryInterface $sortOrder 
 	 * @return Tx_Extbase_Persistence_QueryResult Matching Records
 	 */
-	public function findMultipleByUid($recordList, $sortField='uid') {
+	public function findMultipleByUid($recordList, $sortField='uid', $sortOrder=Tx_Extbase_Persistence_QueryInterface::ORDER_ASCENDING) {
 		$uids = t3lib_div::intExplode(',', $recordList, TRUE);
-		$constraints = array();
-		
-		$query = $this->createQuery();
-		
-		foreach ($uids as $uid) {
-			$constraints[] = $query->equals('uid', $uid);
-		}
-		
-		count($constraints)?$query->matching($query->logicalOr($constraints)):FALSE;
-		
-		$query->setOrderings(array($sortField => Tx_Extbase_Persistence_QueryInterface::ORDER_ASCENDING));
-        return $query->execute();
+		$query = $this->createQuery();		
+		$query->matching($query->in('uid' , $uids));
+		$query->setOrderings(array($sortField => $sortOrder));
+		return $query->execute();
 	}
 }
-
 ?>
