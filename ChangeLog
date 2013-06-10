@@ -1,3 +1,12 @@
+2013-06-10	Dirk Wenzel <wenzel@webfox01.de>
+	0.10.2	- Bugfix for issue #48982 Plugin shows INVALID VALUE... instead of plugin type.
+2013-06-06	Dirk Wenzel <wenzel@webfox01.de>
+	0.10.1	- fixed broken itemProcFunc in plugin flexform caused by line break
+2013-06-06	Dirk Wenzel <wenzel@webfox01.de>
+	0.10.0	New features: 
+			- plugin namespace: plugin namespace can now be set thus allowing to use multiple plugin instances on one page
+			- plugin layout: new field in plugin allows setting a layout value which can be used in fluid template.
+			- listAction of EventController now returns an ordered array of events when called with parameter [overwriteDemand][uidList] (comma separated string or array) 
 2013-05-30	Dirk Wenzel <wenzel@webfox01.de>
 	0.9.2	- Changed TCA of performance: sort select field for event location by name
 2013-05-25	Dirk Wenzel <wenzel@webfox01.de>
