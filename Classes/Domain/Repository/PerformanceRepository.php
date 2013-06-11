@@ -49,7 +49,7 @@ class Tx_T3events_Domain_Repository_PerformanceRepository extends Tx_Extbase_Per
     	$query = $this->createQuery();
 
     	$constraints = array();
-    	if ($demand->getStatus()){
+    	if ($demand->getStatus() !== NULL){
     		$constraints[] = $query->equals('status', $demand->getStatus());
     	}
     	if ($demand->getDate()){
@@ -57,12 +57,10 @@ class Tx_T3events_Domain_Repository_PerformanceRepository extends Tx_Extbase_Per
     	}
     	if($demand->getStoragePage() !==NULL){
     		$pages = t3lib_div::intExplode(',', $demand->getStoragePage());
-    		$this->defaultQuerySettings->setRespectStoragePage(TRUE);
     		$constraints[] = $query->in('pid', $pages);
     	}
     	count($constraints)?$query->matching($query->logicalAnd($constraints)):NULL;
-
-    	return $query->execute();
+		return $query->execute();
     }
 
 }
