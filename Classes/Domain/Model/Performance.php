@@ -138,6 +138,13 @@ class Tx_T3events_Domain_Model_Performance extends Tx_Extbase_DomainObject_Abstr
 	 * @var Tx_T3events_Domain_Model_PerformanceStatus
 	 */
 	protected $status;
+	
+	/**
+	 * hidden
+	 * 
+	 * @var integer
+	 */
+	protected  $hidden;
 
 	/**
 	 * __construct
@@ -476,6 +483,23 @@ class Tx_T3events_Domain_Model_Performance extends Tx_Extbase_DomainObject_Abstr
 	public function setProviderType($providerType) {
 		$this->providerType = $providerType;
 	}
-
+	
+	/**
+	 * Return hidden
+	 * 
+	 * @return integer
+	 */
+	public function getHidden(){
+		return  $this->hidden;
+	}
+	
+	/**
+	 * Set hidden
+	 * 
+	 * @var integer $hidden
+	 */
+	public function setHidden($hidden) {
+		$this->hidden=($hidden);
+	}
 }
 ?>
