@@ -342,5 +342,22 @@ class Tx_T3events_Domain_Model_PerformanceTest extends Tx_Extbase_Tests_Unit_Bas
 		);
 	}
 	
+	/**
+	 * @test
+	 */
+	public function getHiddenForIntegerReturnsInitialNull(){
+		$this->assertSame(
+					NULL,
+					$this->fixture->getHidden()
+				);
+	}
+	
+	/**
+	 * @test
+	 */
+	public function setHiddenForIntegerSetsHidden() {
+		$this->fixture->setHidden(1);
+		$this->assertSame( 1, $this->fixture->getHidden());
+	}
 }
 ?>
