@@ -1,4 +1,4 @@
-<?php 
+<?php
 /***************************************************************
  *  Copyright notice
 *
@@ -37,13 +37,13 @@ class Tx_T3events_Command_TaskCommandController extends Tx_Extbase_MVC_Controlle
 	 * @var Tx_T3events_Domain_Repository_TaskRepository
 	 */
 	protected $taskRepository;
-	
+
 	/**
 	 * performanceRepository
 	 * @var Tx_T3events_Domain_Repository_PerformanceRepository
 	 */
 	protected $performanceRepository;
-	
+
 	/**
 	 * inject Performance Repository
 	 * @param Tx_T3events_Domain_Repository_PerformanceRepository $performanceRepository
@@ -52,7 +52,7 @@ class Tx_T3events_Command_TaskCommandController extends Tx_Extbase_MVC_Controlle
 	public function injectPerformanceRepository(Tx_T3events_Domain_Repository_PerformanceRepository $performanceRepository) {
 		$this->performanceRepository = $performanceRepository;
 	}
-	
+
 	/**
 	 * inject Task Repository
 	 * @param Tx_T3events_Domain_Repository_TaskRepository $taskRepository
@@ -61,54 +61,17 @@ class Tx_T3events_Command_TaskCommandController extends Tx_Extbase_MVC_Controlle
 	public function injectTaskRepository(Tx_T3events_Domain_Repository_TaskRepository $taskRepository){
 	 $this->taskRepository = $taskRepository;
 	}
-	
-	
+
+
 	/**
 	 * Run update tasks
-	 * @param string $email E-Mail 
-	 * 
+	 * @param string $email E-Mail
+	 *
 	 * @return void
 	 */
 	public function runCommand($email){
-		// find task with update action
-		$updateTasks = $this->taskRepository->findByAction(1);
-		$message = '';
-		// process all update tasks
-		foreach ($updateTasks as $updateTask){
-			$message .= '----------------------------------------' . LF
-				. 'Task: ' . $updateTask->getUid() . ' ,title: ' . $updateTask->getName() . LF
-				. '----------------------------------------' . LF
-				. 'Action: update performane status' . LF
-				. 'old status: ' . $updateTask->getOldStatus() . LF
-				. 'new status: ' . $updateTask->getNewStatus() . LF;
-			
-			// prepare demand for query
-			$demand = $this->objectManager->get('Tx_T3events_Domain_Model_PerformanceDemand');
-			$demand->setStatus($updateTask->getOldStatus());
-			
-			$demand->setDate(time() - ($updateTask->getPeriod()*3600));
-			
-			if($updateTask->getFolder() !=''){
-				$demand->setStoragePage($updateTask->getFolder());
-			}
-			
-			// find demanded
-			$performances = $this->performanceRepository->findDemanded($demand);
-			
-			$message .= 'performances matching:' . count($performances) .  LF;
-				
-			foreach ($performances as $performance){
-				//perform update
-				$performance->setStatus($updateTask->getNewStatus());
-				$message .= ' performance date: ' . $performance->getDate()->format('Y-m-d');
-				if ($performance->getEventLocation()){
-					$message .= ' location: ' . $performance->getEventLocation()->getName();
-				} 
-				$message .= LF;
-			}
-
-			$message .= '----------------------------------------' . LF;
-		}
+		$message = $this->runHidePerformanceTasks();
+		$message .= $this->runUpdatePerformanceStatusTasks();
 		if(!empty($email)){
 			// Get call method
 			if (basename(PATH_thisScript) == 'cli_dispatch.phpsh') {
@@ -127,7 +90,7 @@ class Tx_T3events_Command_TaskCommandController extends Tx_Extbase_MVC_Controlle
 				. 'Called by: ' . $calledBy . LF
 				. 'tstamp: ' . date('Y-m-d H:i:s') . ' [' . time() . ']' . LF;
 			$mailBody .= $message;
-			
+
 			// Prepare mailer and send the mail
 			try {
 				/** @var $mailer t3lib_mail_message */
@@ -143,7 +106,113 @@ class Tx_T3events_Command_TaskCommandController extends Tx_Extbase_MVC_Controlle
 				throw new t3lib_exception($e->getMessage());
 			}
 		}
-		
+		return true;
+
+	}
+
+	/**
+	 * Run 'hide performance' task
+	 *
+	 * Hides all performances which meet the given constraints. Returns a message string for reporting.
+	 *
+	 * @return string
+	 */
+	public function runHidePerformanceTasks() {
+
+
+		$hideTasks = $this->taskRepository->findByAction(3);
+		$message = "";
+
+		//process all 'hide performance' tasks
+		foreach ($hideTasks as $hideTask) {
+			$message .= '----------------------------------------' . LF
+			. 'Task: ' . $hideTask->getUid() . ' ,title: ' . $hideTask->getName() . LF
+			. '----------------------------------------' . LF
+			. 'Action: hide performance' . LF;
+
+			// prepare demand for query
+			$demand = $this->objectManager->get('Tx_T3events_Domain_Model_PerformanceDemand');
+
+			//$demand->setDate(time());
+			$demand->setDate(time() - ($hideTask->getPeriod()*3600));
+
+			$storagePage = $hideTask->getFolder();
+			if($hideTask->getFolder() !=''){
+				$demand->setStoragePage($storagePage);
+			}
+			
+			// find demanded
+			$performances = $this->performanceRepository->findDemanded($demand); 
+			$message .= 'performances matching:' . count($performances) .  LF;
+			
+			foreach ($performances as $performance){
+				//perform update
+				$performance->setHidden(1);
+				$message .= ' performance date: ' . $performance->getDate()->format('Y-m-d');
+				if ($performance->getEventLocation()){
+					$message .= ' location: ' . $performance->getEventLocation()->getName();
+				}
+				$message .= LF;
+			}
+
+			$message .= '----------------------------------------' . LF;
+
+		}
+		return $message;
+	}
+
+	/**
+	 * Run 'Update Performance Status' Tasks
+	 *
+	 * Changes the performance status of all performance which meet the given constrains.
+	 * Returns a message string for reporting.
+	 *
+	 *
+	 * @return string
+	 */
+	public function runUpdatePerformanceStatusTasks() {
+
+
+		// find task with update action
+		$updateTasks = $this->taskRepository->findByAction(1);
+		$message = '';
+		// process all update tasks
+		foreach ($updateTasks as $updateTask){
+			$message .= '----------------------------------------' . LF
+			. 'Task: ' . $updateTask->getUid() . ' ,title: ' . $updateTask->getName() . LF
+			. '----------------------------------------' . LF
+			. 'Action: update performance status' . LF
+			. 'old status: ' . $updateTask->getOldStatus() . LF
+			. 'new status: ' . $updateTask->getNewStatus() . LF;
+
+			// prepare demand for query
+			$demand = $this->objectManager->get('Tx_T3events_Domain_Model_PerformanceDemand');
+			$demand->setStatus($updateTask->getOldStatus());
+
+			$demand->setDate(time() - ($updateTask->getPeriod()*3600));
+
+			if($updateTask->getFolder() !=''){
+				$demand->setStoragePage($updateTask->getFolder());
+			}
+
+			// find demanded
+			$performances = $this->performanceRepository->findDemanded($demand);
+
+			$message .= 'performances matching:' . count($performances) .  LF;
+
+			foreach ($performances as $performance){
+				//perform update
+				$performance->setStatus($updateTask->getNewStatus());
+				$message .= ' performance date: ' . $performance->getDate()->format('Y-m-d');
+				if ($performance->getEventLocation()){
+					$message .= ' location: ' . $performance->getEventLocation()->getName();
+				}
+				$message .= LF;
+			}
+			$message .= '----------------------------------------' . LF;
+
+		}
+		return $message;
 	}
 }
 ?>
