@@ -38,20 +38,27 @@ class Tx_T3events_Domain_Repository_EventRepository extends Tx_T3events_Domain_R
 	 * findDemanded
 	 *
 	 * @param Tx_T3events_Domain_Model_EventDemand
+	 * @param boolean $respectEnableFields
 	 * @return Tx_Extbase_Persistence_QueryResult Matching Teasers
 	 */
-	public function findDemanded(Tx_T3events_Domain_Model_EventDemand $demand) {
-		$query =$this->buildQuery($demand);
+	public function findDemanded(Tx_T3events_Domain_Model_EventDemand $demand, $respectEnableFields = TRUE) {
+		$query =$this->buildQuery($demand, $respectEnableFields);
 		return $query->execute();
 	}
 
 	/**
 	 * Builds a query from demand respecting restrictions for period of time and categories (genre, venue, event type)
 	 * @param Tx_T3events_Domain_Model_EventDemand $demand
+	 * @param boolean $respectEnableFields
 	 * @return Tx_Extbase_Persistence_QueryInterface $query
 	 */
-	protected function buildQuery($demand){
+	protected function buildQuery($demand, $respectEnableFields = TRUE){
 		$query = $this->createQuery();
+
+		if ($respectEnableFields === FALSE) {
+			$query->getQuerySettings()->setRespectEnableFields(FALSE);
+			//$constraints[] = $query->equals('deleted', 0);
+		}
 
 		// get constraints
 		$periodConstraint = $this->createPeriodConstraint($query, $demand);
