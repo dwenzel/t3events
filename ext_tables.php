@@ -41,6 +41,7 @@ $TCA['tx_t3events_domain_model_event'] = array(
 			'disabled' => 'hidden',
 			'starttime' => 'starttime',
 			'endtime' => 'endtime',
+			'fe_group' => 'fe_group',
 		),
 		'searchFields' => 'headline,subtitle,description,keywords,image,genre,venue,event_type,performances,organizer,',
 		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY) . 'Configuration/TCA/Event.php',
