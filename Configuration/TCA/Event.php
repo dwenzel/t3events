@@ -93,6 +93,32 @@ $TCA['tx_t3events_domain_model_event'] = array(
 				),
 			),
 		),
+		'fe_group' => array(
+			'exclude' => 1,
+			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.fe_group',
+			'config' => array(
+				'type' => 'select',
+				'size' => 5,
+				'maxitems' => 20,
+				'items' => array(
+					array(
+						'LLL:EXT:lang/locallang_general.xml:LGL.hide_at_login',
+						-1,
+					),
+					array(
+						'LLL:EXT:lang/locallang_general.xml:LGL.any_login',
+						-2,
+					),
+					array(
+						'LLL:EXT:lang/locallang_general.xml:LGL.usergroups',
+						'--div--',
+					),
+				),
+				'exclusiveKeys' => '-1,-2',
+				'foreign_table' => 'fe_groups',
+				'foreign_table_where' => 'ORDER BY fe_groups.title',
+			),
+		),
 		'headline' => array(
 			'exclude' => 0,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_event.headline',
@@ -257,7 +283,7 @@ $TCA['tx_t3events_domain_model_event']['types'] = array(
     	--div--;LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_event.performances,
     	performances,
     	l10n_parent, l10n_diffsource, ;;1,
-    	,--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,hidden,starttime, endtime'),
+    	,--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,hidden,starttime,endtime,fe_group'),
 );
 
 // palettes
