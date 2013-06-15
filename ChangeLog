@@ -1,5 +1,6 @@
+2013-06-15	Dirk Wenzel <wenzel@webfox01.de>
+	0.11.0 	- New Feature: Events are now aware of fe user group access rights
 2013-06-10	Dirk Wenzel <wenzel@webfox01.de>
-	0.11.0-dev
 			- New task implemented: hide performances by date
 2013-06-10	Dirk Wenzel <wenzel@webfox01.de>
 	0.10.2	- Bugfix for issue #48982 Plugin shows INVALID VALUE... instead of plugin type.
