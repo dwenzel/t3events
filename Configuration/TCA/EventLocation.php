@@ -219,13 +219,10 @@ $TCA['tx_t3events_domain_model_eventlocation']['columns']['country'] = array(
 		'foreign_table' => 'static_countries',
 		'minitems' => 0,
 		'maxitems' => 1,
-		'itemsProcFunc' => 'tx_staticinfotables_div->selectItemsTCA',
-		'itemsProcFunc_config' => array (
-			'table' => 'static_countries',
-			'indexField' => 'uid',
-			'prependHotlist' => 1,
-			'hotlistLimit' => 5,
-			'hotlistApp' => 'hotlist',
+		'wizards' => array(
+			'suggest' => array(
+				'type' => 'suggest',
+			),
 		),
 	),
 );
