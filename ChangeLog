@@ -1,3 +1,9 @@
+2013-06-25	Dirk Wenzel <wenzel@webfox01.de>
+	0.12.1	- Fix for issue #49407 typo3-debug-console message: selectItemsTCA in class tx_staticinfotables_div, hotlist feature replaced by suggest wizard in
+			TCA for EventLocation
+			- Plugin Configuration changed to prevent non-caching behaviour of list plugin (#49390)
+			- Fix for issue #49425 Add french localisation for frontend by courtesy of Daniel Huf
+			- Code cleanup
 2013-06-15	Dirk Wenzel <wenzel@webfox01.de>
 	0.11.0 	- New Feature: Events are now aware of fe user group access rights
 2013-06-10	Dirk Wenzel <wenzel@webfox01.de>
