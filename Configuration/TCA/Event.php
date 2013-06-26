@@ -6,10 +6,13 @@ if (!defined ('TYPO3_MODE')) {
 $TCA['tx_t3events_domain_model_event'] = array(
 	'ctrl' => $TCA['tx_t3events_domain_model_event']['ctrl'],
 	'interface' => array(
-		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, headline, subtitle, description, keywords, image, genre, venue, event_type, performances, organizer',
+		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, headline,
+			subtitle, description, keywords, image, genre, venue, event_type, performances, organizer',
 	),
 	'types' => array(
-		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, headline, subtitle, description, keywords, image, genre, event_type, performances, organizer,--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,starttime, endtime'),
+		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1,
+			headline, subtitle, description, keywords, image, genre, event_type, performances,
+			organizer,--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,starttime, endtime'),
 	),
 	'palettes' => array(
 		'1' => array('showitem' => ''),

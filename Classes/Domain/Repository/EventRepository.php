@@ -138,7 +138,7 @@ class Tx_T3events_Domain_Repository_EventRepository extends Tx_T3events_Domain_R
 				$categoryConstraints[] = $query->equals('eventType.uid', $eventType);
 			}
 		}
-		return (count($categoryConstraints))? $categoryConstraints : null;
+		return (count($categoryConstraints))? $categoryConstraints : NULL;
 	}
 
 	/**
@@ -154,7 +154,7 @@ class Tx_T3events_Domain_Repository_EventRepository extends Tx_T3events_Domain_R
 		$periodStart = $demand->getPeriodStart();
 		$periodType = $demand->getPeriodType();
 		$periodDuration = $demand->getPeriodDuration();
-		$periodConstraint=null;
+		$periodConstraint = NULL;
 		if ($period === 'specific' && $periodType) {
 
 			// set start date initial to now

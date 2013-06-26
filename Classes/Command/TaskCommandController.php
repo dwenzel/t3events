@@ -106,7 +106,7 @@ class Tx_T3events_Command_TaskCommandController extends Tx_Extbase_MVC_Controlle
 				throw new t3lib_exception($e->getMessage());
 			}
 		}
-		return true;
+		return TRUE;
 
 	}
 
@@ -118,10 +118,8 @@ class Tx_T3events_Command_TaskCommandController extends Tx_Extbase_MVC_Controlle
 	 * @return string
 	 */
 	public function runHidePerformanceTasks() {
-
-
 		$hideTasks = $this->taskRepository->findByAction(3);
-		$message = "";
+		$message = '';
 
 		//process all 'hide performance' tasks
 		foreach ($hideTasks as $hideTask) {
@@ -140,11 +138,11 @@ class Tx_T3events_Command_TaskCommandController extends Tx_Extbase_MVC_Controlle
 			if($hideTask->getFolder() !=''){
 				$demand->setStoragePage($storagePage);
 			}
-			
+
 			// find demanded
-			$performances = $this->performanceRepository->findDemanded($demand); 
+			$performances = $this->performanceRepository->findDemanded($demand);
 			$message .= 'performances matching:' . count($performances) .  LF;
-			
+
 			foreach ($performances as $performance){
 				//perform update
 				$performance->setHidden(1);
@@ -171,8 +169,6 @@ class Tx_T3events_Command_TaskCommandController extends Tx_Extbase_MVC_Controlle
 	 * @return string
 	 */
 	public function runUpdatePerformanceStatusTasks() {
-
-
 		// find task with update action
 		$updateTasks = $this->taskRepository->findByAction(1);
 		$message = '';

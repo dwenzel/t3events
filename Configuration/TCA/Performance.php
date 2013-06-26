@@ -6,10 +6,16 @@ if (!defined ('TYPO3_MODE')) {
 $TCA['tx_t3events_domain_model_performance'] = array(
 	'ctrl' => $TCA['tx_t3events_domain_model_performance']['ctrl'],
 	'interface' => array(
-		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, date, admission, begin, end, status_info, external_provider_link, additional_link, provider_type, image, plan, no_handling_fee, price_notice, event_location, ticket_class, status',
+		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource,
+			hidden, date, admission, begin, end, status_info, external_provider_link,
+			additional_link, provider_type, image, plan, no_handling_fee, price_notice,
+			event_location, ticket_class, status',
 	),
 	'types' => array(
-		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, date, admission, begin, end, status_info, external_provider_link, additional_link, provider_type, image, plan, no_handling_fee, price_notice, event_location, ticket_class, status,--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,starttime, endtime'),
+		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource,
+			hidden;;1, date, admission, begin, end, status_info, external_provider_link,
+			additional_link, provider_type, image, plan, no_handling_fee, price_notice,
+			event_location, ticket_class, status,--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,starttime, endtime'),
 	),
 	'palettes' => array(
 		'1' => array('showitem' => ''),

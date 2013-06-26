@@ -109,17 +109,17 @@ class Tx_T3events_Controller_EventController extends Tx_Extbase_MVC_Controller_A
 	 */
 	public function listAction( $overwriteDemand = NULL) {
 		if(!is_null($overwriteDemand['uidList'])){
-			
+
 			if (is_array($overwriteDemand['uidList'])){
-				$recordList = implode(",", $overwriteDemand['uidList']);
+				$recordList = implode(',', $overwriteDemand['uidList']);
 				$recordArr = $overwriteDemand['uidList'];
 			}elseif (is_string($overwriteDemand['uidList'])){
 				$recordList = $overwriteDemand['uidList'];
 				$recordArr = explode(',', $overwriteDemand['uidList']);
-				
+
 			}
         	$result = $this->eventRepository->findMultipleByUid($recordList);
-        	
+
         	// Order by the order of provided array
 			$withIndex = array();
 			$ordered = array();
@@ -139,7 +139,7 @@ class Tx_T3events_Controller_EventController extends Tx_Extbase_MVC_Controller_A
 	        $demand = $this->getDemandFromSettings($overwriteDemand);
         	$events = $this->eventRepository->findDemanded($demand);
         }
-        
+
         if (($events instanceof Tx_Extbase_Persistence_QueryResult AND !$events->count())
 				OR !count($events) ) {
         	$this->flashMessageContainer->add(
@@ -148,7 +148,7 @@ class Tx_T3events_Controller_EventController extends Tx_Extbase_MVC_Controller_A
         		t3lib_Flashmessage::WARNING
         	);
         }
-        
+
         $this->view->assignMultiple(
 			array(
 				'events' => $events,

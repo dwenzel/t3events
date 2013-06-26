@@ -6,10 +6,13 @@ if (!defined ('TYPO3_MODE')) {
 $TCA['tx_t3events_domain_model_teaser'] = array(
 	'ctrl' => $TCA['tx_t3events_domain_model_teaser']['ctrl'],
 	'interface' => array(
-		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, details, inherit_data, image, is_highlight, location, event, external_link',
+		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden,
+			title, details, inherit_data, image, is_highlight, location, event, external_link',
 	),
 	'types' => array(
-		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, title, details, inherit_data, image, is_highlight, location, event, external_link,--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,starttime, endtime'),
+		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource,
+			hidden;;1, title, details, inherit_data, image, is_highlight, location, event,
+			external_link,--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,starttime, endtime'),
 	),
 	'palettes' => array(
 		'1' => array('showitem' => ''),
@@ -184,7 +187,7 @@ $TCA['tx_t3events_domain_model_teaser'] = array(
 				'eval' => 'trim'
 			),
 		),
-				
+
 	),
 );
 
