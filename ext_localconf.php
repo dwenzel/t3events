@@ -9,13 +9,10 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 	array(
 		'Event' => 'list, show, quickMenu',
 		'Teaser' => 'list, show',
-		//'Performance' => 'list, show',
-		
 	),
 	// non-cacheable actions
 	array(
-		'Event' => 'list,quickMenu',
-		'Teaser' => 'list',
+		'Event' => 'quickMenu',
 	)
 );
 
