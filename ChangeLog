@@ -1,3 +1,5 @@
+2013-07-11 	Dirk Wenzel <wenzel@webfox01.de>
+	0.13.0	- [FEATURE] #49899 Title Tag ViewHelper - display title tag and set title for indexed search 
 2013-06-25	Dirk Wenzel <wenzel@webfox01.de>
 	0.12.1	- Fix for issue #49407 typo3-debug-console message: selectItemsTCA in class tx_staticinfotables_div, hotlist feature replaced by suggest wizard in
 			TCA for EventLocation
