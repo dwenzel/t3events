@@ -14,11 +14,15 @@
 			<label index="tx_t3events.allVenues">All Venues</label>
 			<label index="tx_t3events.allEventTypes">All Event Types</label>
 			<label index="tx_t3events.quickSearch">Quick Search</label>
+			<label index="tx_t3events.button.label.search">Search</label>
+			<label index="tx_t3events.button.label.update">Update</label>
 			<label index="tx_t3events.searchAllEventsByGenre.hint">Search all events by genre:</label>
 			<label index="tx_t3events.noEventsForSelectionMessage">Sorry, there are no events matching your selection</label>
 			<label index="tx_t3events.noEventsForSelectionTitle">No events found</label>
 			<label index="tx_t3events.externalLinkLabel">external Link</label>
 			<label index="tx_t3events.label.print">Print</label>
+			<label index="tx_t3events.label.differentLocations">different locations</label>
+			<label index="tx_t3events.label.calendarEntry">Calendar Entry</label>
 			<label index="tx_t3events_domain_model_event">Event</label>
 			<label index="tx_t3events_domain_model_event.headline">Titel</label>
 			<label index="tx_t3events_domain_model_event.subtitle">subtitle</label>
@@ -35,7 +39,7 @@
 			<label index="tx_t3events_domain_model_eventtype.title">title</label>
 			<label index="tx_t3events_domain_model_performance">Performance</label>
 			<label index="tx_t3events_domain_model_performance.date">date</label>
-			<label index="tx_t3events_domain_model_performance.admission">admission</label>
+			<label index="tx_t3events_domain_model_performance.admission">Admission</label>
 			<label index="tx_t3events_domain_model_performance.begin">begin</label>
 			<label index="tx_t3events_domain_model_performance.end">end</label>
 			<label index="tx_t3events_domain_model_performance.status_info">statusInfo</label>
@@ -119,6 +123,7 @@
 			<label index="tx_t3events.allVenues">Alle Einrichtungen</label>
 			<label index="tx_t3events.allEventTypes">Alle Veranstaltungsarten</label>
 			<label index="tx_t3events.button.label.search">Suchen</label>
+			<label index="tx_t3events.button.label.update">Aktualisieren</label>
 			<label index="tx_t3events.ticket">Ticket</label>
 			<label index="tx_t3events.tickets">Tickets</label>
 			<label index="tx_t3events.date">Datum</label>
@@ -131,6 +136,8 @@
 			<label index="tx_t3events.next">vor</label>
 			<label index="tx_t3events.previous">zurück</label>
 			<label index="tx_t3events.label.print">Drucken</label>
+			<label index="tx_t3events.label.differentLocations">verschiedene Spielstätten</label>
+			<label index="tx_t3events.label.calendarEntry">Kalendereintrag</label>
 			<label index="tx_t3events.hint.advanceBookingFee">*Die Preise verstehen sich inklusive Vorverkaufsgebühr.</label>
 			<label index="tx_t3events.hint.noAdvanceBookingFee">*Die Preise enthalten keine Vorverkaufsgebühr.</label>
 			<label index="tx_t3events_domain_model_event">Veranstaltung</label>

@@ -1,3 +1,9 @@
+2013-07-19 	Dirk Wenzel <wenzel@webfox01.de>
+	0.14-1	- some language keys added
+2013-07-16 	Dirk Wenzel <wenzel@webfox01.de>
+	0.14.0	[Feature] #50071 HeaderData ViewHelper implemented
+			[Feature] #50070 MetaTag ViewHelper implemented
+			Trim ViewHelper implemented
 2013-07-11 	Dirk Wenzel <wenzel@webfox01.de>
 	0.13.0	- [FEATURE] #49899 Title Tag ViewHelper - display title tag and set title for indexed search 
 2013-06-25	Dirk Wenzel <wenzel@webfox01.de>
