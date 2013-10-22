@@ -212,6 +212,7 @@ class Tx_T3events_Controller_EventController extends Tx_Extbase_MVC_Controller_A
         	$demand->setGenre($overwriteDemand['genre']);
         	$demand->setVenue($overwriteDemand['venue']);
         	$demand->setEventType($overwriteDemand['eventType']);
+		$demand->setCategoryConjunction($overwriteDemand['categoryConjunction']);
 
         	// set sort criteria
         	switch ($overwriteDemand['sortBy']) {
@@ -245,18 +246,18 @@ class Tx_T3events_Controller_EventController extends Tx_Extbase_MVC_Controller_A
         }
 		// get arguments from plugin
 		if (!$demand->getSortBy()){
-	        switch ($this->settings['sortBy']) {
-	        	case 'date':
-	        		$demand->setSortBy('performances.date');
-	        	break;
-	        	case 'title':
-	        		$demand->setSortBy('headline');
-	        		break;
+		    switch ($this->settings['sortBy']) {
+			    case 'date':
+				    $demand->setSortBy('performances.date');
+			    break;
+			    case 'title':
+				    $demand->setSortBy('headline');
+				    break;
 
-	        	default:
-	        		$demand->setSortBy('performances.date');
-	        	break;
-	        }
+			    default:
+				    $demand->setSortBy('performances.date');
+			    break;
+		    }
 		}
 
 		(!$demand->getEventType())?$demand->setEventType($this->settings['eventTypes']):NULL;
@@ -283,9 +284,12 @@ class Tx_T3events_Controller_EventController extends Tx_Extbase_MVC_Controller_A
         if ($this->settings['periodType'] == 'byDate' && $this->settings['periodStartDate']){
         	$demand->setStartDate($this->settings['periodStartDate']);
         }
-	    if ($this->settings['periodType'] == 'byDate' && $this->settings['periodEndDate']){
+	if ($this->settings['periodType'] == 'byDate' && $this->settings['periodEndDate']){
         	$demand->setEndDate($this->settings['periodEndDate']);
         }
+	if (!$demand->getCategoryConjunction()) {
+	    $demand->setCategoryConjunction($this->settings['categoryConjunction']);
+	}
         return $demand;
 	}
 }
