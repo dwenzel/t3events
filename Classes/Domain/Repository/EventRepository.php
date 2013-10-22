@@ -66,18 +66,30 @@ class Tx_T3events_Domain_Repository_EventRepository extends Tx_T3events_Domain_R
 
 		if ( !is_null($categoryConstraints) && !is_null($periodConstraint)) {
 			// got constraints for categories and time
-			$query->matching(
-				$query->logicalAnd(
-					$periodConstraint,
-					$query->logicalOr($categoryConstraints)
-				)
-			);
+			if ($demand->getCategoryConjunction() == 'AND') {
+				$query->matching(
+					$query->logicalAnd (
+						array_merge($periodConstraint, $categoryConstraints)
+					)
+				);
+			} else {
+			    	$query->matching(
+					$query->logicalAnd(
+						$periodConstraint,
+						$query->logicalOr($categoryConstraints)
+					)
+				);
+			}
 		}elseif ( is_null($categoryConstraints) && !is_null($periodConstraint)){
 			// got constraints for time only
 			$query->matching($periodConstraint);
 		}elseif (!is_null($categoryConstraints) && is_null($periodConstraint)){
 			// got constraints for categories only
-			$query->matching($query->logicalOr($categoryConstraints));
+			if ($demand->getCategoryConjunction() == 'AND') {
+			    $query->matching($query->logicalAnd($categoryConstraints));
+			} else {
+				$query->matching($query->logicalOr($categoryConstraints));
+			}
 		}
 
 		// sort direction
