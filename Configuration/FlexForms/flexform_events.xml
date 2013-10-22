@@ -288,6 +288,24 @@
 							</config>
 						</TCEforms>
 					</settings.quickMenuType>
+					<settings.categoryConjunction>
+						<TCEforms>
+							<label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.conjunction</label>
+							<config>
+								<type>select</type>
+								<items>
+									<numIndex index="0">
+									    <numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.conjunction.or</numIndex>
+									    <numIndex index="1">OR</numIndex>
+									</numIndex>
+									<numIndex index="1">
+									    <numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.conjunction.and</numIndex>
+									    <numIndex index="1">AND</numIndex>
+									</numIndex>
+								</items>
+							</config>
+						</TCEforms>
+					</settings.categoryConjunction>
 					<!-- venues -->
 					<settings.venues>
 						<TCEforms>
