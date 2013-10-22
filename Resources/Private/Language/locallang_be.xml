@@ -39,6 +39,9 @@
 			<label index="flexforms_general.maxHighlighted">Highlights count</label>
 			<label index="flexforms_general.venues">Venues</label>
 			<label index="flexforms_general.quick_menu.type">Quick Menu: Type</label>
+			<label index="flexforms_general.conjunction">Conjunction</label>
+			<label index="flexforms_general.conjunction.or">Or</label>
+			<label index="flexforms_general.conjunction.and">And</label>
 			<label index="flexforms_general.quick_menu.type.genres">Genres</label>
 			<label index="flexforms_general.quick_menu.type.venues">Venues</label>
 			<label index="flexforms_general.quick_menu.type.eventTypes">Event Types</label>
