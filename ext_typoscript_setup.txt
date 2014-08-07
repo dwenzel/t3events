@@ -1,7 +1,7 @@
 config.tx_extbase{
 	persistence{
 		classes{
-			Tx_T3events_Domain_Model_Country {
+			Webfox\T3events\Domain\Model\Country {
 				mapping {
 					tableName = static_countries
 					recordType = Tx_T3events_Country
