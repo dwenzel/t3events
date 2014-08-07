@@ -35,7 +35,7 @@ namespace Webfox\T3events\Domain\Model\Dto;
  
  class PerformanceDemand extends AbstractDemand{
  	/**
- 	 * @var DateTime
+ 	 * @var \DateTime
  	 */
 	protected $date;
 	
@@ -46,7 +46,7 @@ namespace Webfox\T3events\Domain\Model\Dto;
 	
 	/**
 	 * Returns the date
-	 * @return DateTime $date
+	 * @return \DateTime $date
 	 */
 	public function getDate() {
 		return $this->date;
@@ -54,7 +54,7 @@ namespace Webfox\T3events\Domain\Model\Dto;
 	
 	/**
 	 * sets the date
-	 * @param DateTime $date
+	 * @param \DateTime $date
 	 * @return void
 	 */
 	public function setDate($date){

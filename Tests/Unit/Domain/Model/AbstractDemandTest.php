@@ -165,7 +165,7 @@ namespace Webfox\T3events\Tests\Unit\Domain\Model;
 	 * @test
 	 */
 	public function setStartDateForDateTimeSetsStartDate() {
-		$date = new DateTime();
+		$date = new \DateTime();
 		$this->fixture->setStartDate($date);
 		$this->assertSame($date, $this->fixture->getStartDate());
 	}
@@ -181,7 +181,7 @@ namespace Webfox\T3events\Tests\Unit\Domain\Model;
 	 * @test
 	 */
 	public function setEndDateForDateTimeSetsEndDate(){
-		$date = new DateTime();
+		$date = new \DateTime();
 		$this->fixture->setEndDate($date);
 		$this->assertSame($date, $this->fixture->getEndDate());
 	}

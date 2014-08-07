@@ -37,7 +37,7 @@ class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * date
 	 *
-	 * @var DateTime
+	 * @var \DateTime
 	 */
 	protected $date;
 
@@ -65,21 +65,21 @@ class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * statusInfo
 	 *
-	 * @var string
+	 * @var \string
 	 */
 	protected $statusInfo;
 
 	/**
 	 * externalProviderLink
 	 *
-	 * @var string
+	 * @var \string
 	 */
 	protected $externalProviderLink;
 
 	/**
 	 * additionalLink
 	 *
-	 * @var string
+	 * @var \string
 	 */
 	protected $additionalLink;
 
@@ -93,14 +93,14 @@ class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * image
 	 *
-	 * @var string
+	 * @var \string
 	 */
 	protected $image;
 
 	/**
 	 * plan
 	 *
-	 * @var string
+	 * @var \string
 	 */
 	protected $plan;
 
@@ -114,7 +114,7 @@ class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * priceNotice
 	 *
-	 * @var string
+	 * @var \string
 	 */
 	protected $priceNotice;
 
@@ -192,7 +192,7 @@ class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Returns the date
 	 *
-	 * @return DateTime $date
+	 * @return \DateTime $date
 	 */
 	public function getDate() {
 		return $this->date;
@@ -201,7 +201,7 @@ class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the date
 	 *
-	 * @param DateTime $date
+	 * @param \DateTime $date
 	 * @return void
 	 */
 	public function setDate($date) {
@@ -268,7 +268,7 @@ class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Returns the statusInfo
 	 *
-	 * @return string $statusInfo
+	 * @return \string $statusInfo
 	 */
 	public function getStatusInfo() {
 		return $this->statusInfo;
@@ -277,7 +277,7 @@ class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the statusInfo
 	 *
-	 * @param string $statusInfo
+	 * @param \string $statusInfo
 	 * @return void
 	 */
 	public function setStatusInfo($statusInfo) {
@@ -287,7 +287,7 @@ class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Returns the image
 	 *
-	 * @return string $image
+	 * @return \string $image
 	 */
 	public function getImage() {
 		return $this->image;
@@ -296,7 +296,7 @@ class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the image
 	 *
-	 * @param string $image
+	 * @param \string $image
 	 * @return void
 	 */
 	public function setImage($image) {
@@ -306,7 +306,7 @@ class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Returns the plan
 	 *
-	 * @return string $plan
+	 * @return \string $plan
 	 */
 	public function getPlan() {
 		return $this->plan;
@@ -315,7 +315,7 @@ class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the plan
 	 *
-	 * @param string $plan
+	 * @param \string $plan
 	 * @return void
 	 */
 	public function setPlan($plan) {
@@ -372,7 +372,7 @@ class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Returns the priceNotice
 	 *
-	 * @return string $priceNotice
+	 * @return \string $priceNotice
 	 */
 	public function getPriceNotice() {
 		return $this->priceNotice;
@@ -381,7 +381,7 @@ class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the priceNotice
 	 *
-	 * @param string $priceNotice
+	 * @param \string $priceNotice
 	 * @return void
 	 */
 	public function setPriceNotice($priceNotice) {
@@ -430,7 +430,7 @@ class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Returns the additionalLink
 	 *
-	 * @return string additionalLink
+	 * @return \string additionalLink
 	 */
 	public function getAdditionalLink() {
 		return $this->additionalLink;
@@ -439,8 +439,8 @@ class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the additionalLink
 	 *
-	 * @param string $additionalLink
-	 * @return string additionalLink
+	 * @param \string $additionalLink
+	 * @return \string additionalLink
 	 */
 	public function setAdditionalLink($additionalLink) {
 		$this->additionalLink = $additionalLink;
@@ -449,7 +449,7 @@ class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Returns the externalProviderLink
 	 *
-	 * @return string externalProviderLink
+	 * @return \string externalProviderLink
 	 */
 	public function getExternalProviderLink() {
 		return $this->externalProviderLink;
@@ -458,8 +458,8 @@ class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the externalProviderLink
 	 *
-	 * @param string $externalProviderLink
-	 * @return string externalProviderLink
+	 * @param \string $externalProviderLink
+	 * @return \string externalProviderLink
 	 */
 	public function setExternalProviderLink($externalProviderLink) {
 		$this->externalProviderLink = $externalProviderLink;

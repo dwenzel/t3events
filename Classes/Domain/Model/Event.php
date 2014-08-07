@@ -37,7 +37,7 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Enter a title.
 	 *
-	 * @var string
+	 * @var \string
 	 * @validate NotEmpty
 	 */
 	protected $headline;
@@ -45,28 +45,28 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * subtitle
 	 *
-	 * @var string
+	 * @var \string
 	 */
 	protected $subtitle;
 
 	/**
 	 * description
 	 *
-	 * @var string
+	 * @var \string
 	 */
 	protected $description;
 
 	/**
 	 * keywords
 	 *
-	 * @var string
+	 * @var \string
 	 */
 	protected $keywords;
 
 	/**
 	 * image
 	 *
-	 * @var string
+	 * @var \string
 	 */
 	protected $image;
 
@@ -134,7 +134,7 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Returns the subtitle
 	 *
-	 * @return string $subtitle
+	 * @return \string $subtitle
 	 */
 	public function getSubtitle() {
 		return $this->subtitle;
@@ -143,7 +143,7 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the subtitle
 	 *
-	 * @param string $subtitle
+	 * @param \string $subtitle
 	 * @return void
 	 */
 	public function setSubtitle($subtitle) {
@@ -153,7 +153,7 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Returns the description
 	 *
-	 * @return string $description
+	 * @return \string $description
 	 */
 	public function getDescription() {
 		return $this->description;
@@ -162,7 +162,7 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the description
 	 *
-	 * @param string $description
+	 * @param \string $description
 	 * @return void
 	 */
 	public function setDescription($description) {
@@ -172,7 +172,7 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Returns the keywords
 	 *
-	 * @return string $keywords
+	 * @return \string $keywords
 	 */
 	public function getKeywords() {
 		return $this->keywords;
@@ -181,7 +181,7 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the keywords
 	 *
-	 * @param string $keywords
+	 * @param \string $keywords
 	 * @return void
 	 */
 	public function setKeywords($keywords) {
@@ -191,7 +191,7 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Returns the image
 	 *
-	 * @return string $image
+	 * @return \string $image
 	 */
 	public function getImage() {
 		return $this->image;
@@ -200,7 +200,7 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the image
 	 *
-	 * @param string $image
+	 * @param \string $image
 	 * @return void
 	 */
 	public function setImage($image) {
@@ -307,7 +307,7 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Returns the headline
 	 *
-	 * @return string headline
+	 * @return \string headline
 	 */
 	public function getHeadline() {
 		return $this->headline;
@@ -316,8 +316,8 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the headline
 	 *
-	 * @param string $headline
-	 * @return string headline
+	 * @param \string $headline
+	 * @return \string headline
 	 */
 	public function setHeadline($headline) {
 		$this->headline = $headline;
@@ -345,7 +345,7 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Get the earliest date of this event
 	 *
-	 * @return DateTime
+	 * @return \DateTime
 	 */
 	public function getEarliestDate() {
 		$dates = array();

@@ -49,32 +49,32 @@ namespace Webfox\T3events\Domain\Model\Dto;
 	protected $offset;
 	
 	/**
-	 * @var string A search word
+	 * @var \string A search word
 	 */
 	protected $searchWord;
 	
 	/**
-	 * @var string Search fields
+	 * @var \string Search fields
 	 */
 	protected $searchFields;
 	
 	/**
-	 * @var string Sort criteria
+	 * @var \string Sort criteria
 	 */
 	protected $sortBy;
 	
 	/**
-	 * @var string Sort direction
+	 * @var \string Sort direction
 	 */
 	protected $sortDirection;
 
 	/**
-	 * @var string Storage Page
+	 * @var \string Storage Page
 	 */
 	protected $storagePage;
 	
 	/**
-	 * @var string $periodType Type of period: month, day, year, specific
+	 * @var \string $periodType Type of period: month, day, year, specific
 	 */
 	protected $periodType;
 	
@@ -89,17 +89,17 @@ namespace Webfox\T3events\Domain\Model\Dto;
 	protected $periodDuration;
 	
 	/**
-	 * @var DateTime $startDate Start date when constraining by date
+	 * @var \DateTime $startDate Start date when constraining by date
 	 */
 	protected $startDate;
 	
 	/**
-	 * @var DateTime $endDate End date when constrainting by date
+	 * @var \DateTime $endDate End date when constrainting by date
 	 */
 	protected $endDate;
 	
 	/**
-	 * @var string $uidList A list of record uids
+	 * @var \string $uidList A list of record uids
 	 */
 	protected $uidList;
 	
@@ -112,14 +112,14 @@ namespace Webfox\T3events\Domain\Model\Dto;
 	}
 	
 	/**
-	 * @return string The time limit for the demand
+	 * @return \string The time limit for the demand
 	 */
 	public function getPeriod() {
 		return $this->period;
 	}
 	
 	/**
-	 * @param string A time limit for the demand
+	 * @param \string A time limit for the demand
 	 * @return void
 	 */
 	public function setPeriod ($period = '') {
@@ -150,7 +150,7 @@ namespace Webfox\T3events\Domain\Model\Dto;
 	}
 	
 	/**
-	 * @param string Search word
+	 * @param \string Search word
 	 * @return void
 	 */
 	public function setSearchWord($searchWord = '') {
@@ -158,14 +158,14 @@ namespace Webfox\T3events\Domain\Model\Dto;
 	}
 	
 	/**
-	 * @return string
+	 * @return \string
 	 */
 	public function getSearchWord() {
 		return $this->searchWord;
 	}
 	
 	/**
-	 * @param string Search fields
+	 * @param \string Search fields
 	 * @return void
 	 */
 	public function setSearchFields($searchFields = ''){
@@ -173,13 +173,13 @@ namespace Webfox\T3events\Domain\Model\Dto;
 	}
 	
 	/**
-	 * @return string Search fields
+	 * @return \string Search fields
 	 */
 	public function getSearchFields(){
 		return $this->searchFields;
 	}
 	/**
-	 * @param string The sort criteria in dot notation
+	 * @param \string The sort criteria in dot notation
 	 * @return void
 	 */
 	public function setSortBy($sortBy) {
@@ -187,14 +187,14 @@ namespace Webfox\T3events\Domain\Model\Dto;
 	}
 	
 	/**
-	 * @return string The sort criteria in dot notation
+	 * @return \string The sort criteria in dot notation
 	 */
 	public function getSortBy() {
 		return $this->sortBy;
 	}
 
 	/**
-	 * @param string The sort direction
+	 * @param \string The sort direction
 	 * @return void
 	 */
 	public function setSortDirection($sortDirection){
@@ -202,14 +202,14 @@ namespace Webfox\T3events\Domain\Model\Dto;
 	}
 	
 	/**
-	 * @return string The sort direction
+	 * @return \string The sort direction
 	 */
 	public function getSortDirection(){
 		return  $this->sortDirection;
 	}
 
 	/**
-	 * @param string The storage page
+	 * @param \string The storage page
 	 * @return void
 	 */
 	public function setStoragePage($storagePage){
@@ -217,7 +217,7 @@ namespace Webfox\T3events\Domain\Model\Dto;
 	}
 	
 	/**
-	 * @return string The storage page
+	 * @return \string The storage page
 	 */
 	public function getStoragePage(){
 		return  $this->storagePage;
@@ -232,14 +232,14 @@ namespace Webfox\T3events\Domain\Model\Dto;
 	}
 	
 	/**
-	 * @return string
+	 * @return \string
 	 */
 	public function getPeriodType() {
 		return $this->periodType;
 	}
 	
 	/**
-	 * @param string $type Type of period: day, month, year, date
+	 * @param \string $type Type of period: day, month, year, date
 	 * @return void
 	 */
 	public function setPeriodType($type) {
@@ -269,28 +269,28 @@ namespace Webfox\T3events\Domain\Model\Dto;
 	}
 	
 	/**
-	 * @return DateTime
+	 * @return \DateTime
 	 */
 	public function getStartDate() {
 		return $this->startDate;
 	}
 	
 	/**
-	 * @param DateTime $date Start date
+	 * @param \DateTime $date Start date
 	 * @return void
 	 */
 	public function setStartDate($date){
 		$this->startDate=$date;
 	}
 	/**
-	 * @return DateTime
+	 * @return \DateTime
 	 */
 	public function getEndDate() {
 		return $this->endDate;
 	}
 	
 	/**
-	 * @param DateTime $date End date
+	 * @param \DateTime $date End date
 	 * @return void
 	 */
 	public function setEndDate($date) {
@@ -298,14 +298,14 @@ namespace Webfox\T3events\Domain\Model\Dto;
 	}
 	
 	/**
-	 * @return string|null
+	 * @return \string|null
 	 */
 	public function getUidList(){
 		return $this->uidList;
 	}
 	
 	/**
-	 * @param string $uidList A comma separated List of record uids
+	 * @param \string $uidList A comma separated List of record uids
 	 * @return void
 	 */
 	public function setUidList($uidList){

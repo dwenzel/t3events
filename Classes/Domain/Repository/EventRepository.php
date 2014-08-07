@@ -170,8 +170,8 @@ class EventRepository extends AbstractRepository {
 		if ($period === 'specific' && $periodType) {
 
 			// set start date initial to now
-			$timezone = new DateTimeZone(date_default_timezone_get());
-			$startDate = new DateTime('NOW', $timezone);
+			$timezone = new \DateTimeZone(date_default_timezone_get());
+			$startDate = new \DateTime('NOW', $timezone);
 			// get delta value
 			$deltaStart = ($periodStart < 0) ? $periodStart : '+' . $periodStart;
 			$deltaEnd = ($periodDuration > 0) ? '+' . $periodDuration : '+' . 999;
@@ -197,11 +197,11 @@ class EventRepository extends AbstractRepository {
 					break;
 				case 'byDate' :
 					if (!is_null($demand->getStartDate())) {
-						$startDate = new DateTime();
+						$startDate = new \DateTime();
 						$startDate->setTimestamp($demand->getStartDate());
 					}
 					if (!is_null($demand->getEndDate())) {
-						$endDate = new DateTime();
+						$endDate = new \DateTime();
 						$endDate->setTimestamp($demand->getEndDate());
 					} else {
 						$deltaEnd .= ' day';
