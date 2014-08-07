@@ -1,4 +1,5 @@
 <?php
+namespace Webfox\T3events\Command;
 /***************************************************************
  *  Copyright notice
 *
@@ -31,34 +32,34 @@
 *
 */
 
-class Tx_T3events_Command_TaskCommandController extends Tx_Extbase_MVC_Controller_CommandController {
+class TaskCommandController extends \TYPO3\CMS\Extbase\MVC_Controller_CommandController {
 	/**
 	 * taskRepository
-	 * @var Tx_T3events_Domain_Repository_TaskRepository
+	 * @var \Webfox\T3events\Domain\Repository\TaskRepository
 	 */
 	protected $taskRepository;
 
 	/**
 	 * performanceRepository
-	 * @var Tx_T3events_Domain_Repository_PerformanceRepository
+	 * @var \Webfox\T3events\Domain\Repository\PerformanceRepository
 	 */
 	protected $performanceRepository;
 
 	/**
 	 * inject Performance Repository
-	 * @param Tx_T3events_Domain_Repository_PerformanceRepository $performanceRepository
+	 * @param \Webfox\T3events\Domain\Repository\PerformanceRepository $performanceRepository
 	 * @return void
 	 */
-	public function injectPerformanceRepository(Tx_T3events_Domain_Repository_PerformanceRepository $performanceRepository) {
+	public function injectPerformanceRepository(\Webfox\T3events\Domain\Repository\PerformanceRepository $performanceRepository) {
 		$this->performanceRepository = $performanceRepository;
 	}
 
 	/**
 	 * inject Task Repository
-	 * @param Tx_T3events_Domain_Repository_TaskRepository $taskRepository
+	 * @param \Webfox\T3events\Domain\Repository\TaskRepository $taskRepository
 	 * @return void
 	 */
-	public function injectTaskRepository(Tx_T3events_Domain_Repository_TaskRepository $taskRepository){
+	public function injectTaskRepository(\Webfox\T3events\Domain\Repository\TaskRepository $taskRepository){
 	 $this->taskRepository = $taskRepository;
 	}
 
@@ -129,7 +130,7 @@ class Tx_T3events_Command_TaskCommandController extends Tx_Extbase_MVC_Controlle
 			. 'Action: hide performance' . LF;
 
 			// prepare demand for query
-			$demand = $this->objectManager->get('Tx_T3events_Domain_Model_PerformanceDemand');
+			$demand = $this->objectManager->get('\WebfoxT3events\Domain\Model\Dto\PerformanceDemand');
 
 			//$demand->setDate(time());
 			$demand->setDate(time() - ($hideTask->getPeriod()*3600));
@@ -182,7 +183,7 @@ class Tx_T3events_Command_TaskCommandController extends Tx_Extbase_MVC_Controlle
 			. 'new status: ' . $updateTask->getNewStatus() . LF;
 
 			// prepare demand for query
-			$demand = $this->objectManager->get('Tx_T3events_Domain_Model_PerformanceDemand');
+			$demand = $this->objectManager->get('\WebfoxT3events\Domain\Model\Dto\PerformanceDemand');
 			$demand->setStatus($updateTask->getOldStatus());
 
 			$demand->setDate(time() - ($updateTask->getPeriod()*3600));
@@ -211,4 +212,4 @@ class Tx_T3events_Command_TaskCommandController extends Tx_Extbase_MVC_Controlle
 		return $message;
 	}
 }
-?>
+
