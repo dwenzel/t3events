@@ -1,5 +1,5 @@
 <?php
-
+namespace Webfox\T3events\Hooks;
 /***************************************************************
  *  Copyright notice
  *
@@ -34,7 +34,7 @@
 	 * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
 	 *
 	 */
-	class Tx_T3events_Hooks_ItemsProcFunc {
+	class ItemsProcFunc {
 
 		/**
 	     * Itemsproc function to extend the selection of templateLayouts in the plugin
@@ -75,4 +75,4 @@
 	    	}
 	    }
 	}
-?>
+
