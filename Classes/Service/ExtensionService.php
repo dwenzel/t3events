@@ -32,7 +32,9 @@ namespace Webfox\T3events\Service;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class ExtensionService extends \TYPO3\CMS\Extbase\Service\ExtensionService implements t3lib_Singleton {
+class ExtensionService 
+	extends \TYPO3\CMS\Extbase\Service\ExtensionService 
+	implements \TYPO3\CMS\Core\SingletonInterface {
 	
 	/**
      * Checks if the given action is cacheable or not.

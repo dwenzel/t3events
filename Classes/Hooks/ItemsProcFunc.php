@@ -40,10 +40,9 @@ namespace Webfox\T3events\Hooks;
 	     * Itemsproc function to extend the selection of templateLayouts in the plugin
 	     *
 	     * @param array &$config configuration array
-	     * @param t3lib_TCEforms $parentObject parent object
 	     * @return void
 	     */
-	    public function user_templateLayout(array &$config, t3lib_TCEforms $parentObject) {
+	    public function user_templateLayout(array &$config) {
 	    	// Check if the layouts are extended by ext_tables
 	    	if (isset($GLOBALS['TYPO3_CONF_VARS']['EXT']['t3events']['templateLayouts'])
 	    		&& is_array($GLOBALS['TYPO3_CONF_VARS']['EXT']['t3events']['templateLayouts'])) {
@@ -60,7 +59,7 @@ namespace Webfox\T3events\Hooks;
 
 	    	// Add tsconfig values
 	    	if (is_numeric($config['row']['pid'])) {
-	    		$pagesTsConfig = t3lib_BEfunc::getPagesTSconfig($config['row']['pid']);
+	    		$pagesTsConfig = \TYPO3\CMS\Backend\Utility\BackendUtility::getPagesTSconfig($config['row']['pid']);
 	    		if (isset($pagesTsConfig['tx_t3events.']['templateLayouts.']) && is_array($pagesTsConfig['tx_t3events.']['templateLayouts.'])) {
 
 	    			// Add every item

@@ -145,7 +145,7 @@ class EventController extends \TYPO3\CMS\Extbase\MVC\Controller\ActionController
         	$this->flashMessageContainer->add(
         		\TYPO3\CMS\Extbase\Utility\Localization::translate('tx_t3events.noEventsForSelectionMessage', $this->extensionName),
         		\TYPO3\CMS\Extbase\Utility\Localization::translate('tx_t3events.noEventsForSelectionTitle', $this->extensionName),
-        		t3lib_Flashmessage::WARNING
+        		\TYPO3\CMS\Core\Messaging\FlashMessage::WARNING
         	);
         }
 

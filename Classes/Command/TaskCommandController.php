@@ -1,6 +1,7 @@
 <?php
 namespace Webfox\T3events\Command;
 /***************************************************************
+<?php
  *  Copyright notice
 *
 *  (c) 2013 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
@@ -94,8 +95,8 @@ class TaskCommandController extends \TYPO3\CMS\Extbase\MVC_Controller_CommandCon
 
 			// Prepare mailer and send the mail
 			try {
-				/** @var $mailer t3lib_mail_message */
-				$mailer = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('t3lib_mail_message');
+				/** @var $mailer \TYPO3\CMS\Core\Mail\MailMessage */
+				$mailer = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\\TYPO3\\CMS\\Core\\Mail\\MailMessage');
 				$mailer->setFrom(array($email => 'TYPO3 scheduler - t3events task'));
 				$mailer->setReplyTo(array($email => 'TYPO3 scheduler - t3events task'));
 				$mailer->setSubject('TYPO3 scheduler - t3events task');
@@ -104,7 +105,7 @@ class TaskCommandController extends \TYPO3\CMS\Extbase\MVC_Controller_CommandCon
 				$mailsSend = $mailer->send();
 				$success = ($mailsSend>0);
 			} catch (Exception $e) {
-				throw new t3lib_exception($e->getMessage());
+				throw new \TYPO3\CMS\Core\Exception($e->getMessage());
 			}
 		}
 		return TRUE;
