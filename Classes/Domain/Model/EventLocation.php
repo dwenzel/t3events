@@ -1,5 +1,5 @@
 <?php
-
+namespace Webfox\T3events\Domain\Model;
 /***************************************************************
  *  Copyright notice
  *
@@ -32,7 +32,7 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_T3events_Domain_Model_EventLocation extends Tx_Extbase_DomainObject_AbstractEntity {
+class EventLocation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
 	 * name
@@ -87,7 +87,7 @@ class Tx_T3events_Domain_Model_EventLocation extends Tx_Extbase_DomainObject_Abs
 	/**
 	 * country
 	 * @lazy
-	 * @var Tx_T3events_Domain_Model_Country
+	 * @var \Webfox\T3events\Domain\Model\Country
 	 */
 	protected $country;
 
@@ -227,7 +227,7 @@ class Tx_T3events_Domain_Model_EventLocation extends Tx_Extbase_DomainObject_Abs
 	/**
 	 * Returns the country
 	 *
-	 * @return Tx_T3events_Domain_Model_Country $country
+	 * @return \Webfox\T3events\Domain\Model\Country $country
 	 */
 	public function getCountry() {
 		return $this->country;
@@ -236,12 +236,12 @@ class Tx_T3events_Domain_Model_EventLocation extends Tx_Extbase_DomainObject_Abs
 	/**
 	 * Sets the country
 	 *
-	 * @param Tx_T3events_Domain_Model_Country $country
+	 * @param \Webfox\T3events\Domain\Model\Country $country
 	 * @return void
 	 */
-	public function setCountry(Tx_T3events_Domain_Model_Country $country) {
+	public function setCountry(\Webfox\T3events\Domain\Model\Country $country) {
 		$this->country = $country;
 	}
 
 }
-?>
+

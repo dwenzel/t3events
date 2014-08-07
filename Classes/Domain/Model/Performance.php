@@ -1,5 +1,5 @@
 <?php
-
+namespace Webfox\T3events\Domain\Model;
 /***************************************************************
  *  Copyright notice
  *
@@ -32,7 +32,7 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_T3events_Domain_Model_Performance extends Tx_Extbase_DomainObject_AbstractEntity {
+class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
 	 * date
@@ -121,21 +121,21 @@ class Tx_T3events_Domain_Model_Performance extends Tx_Extbase_DomainObject_Abstr
 	/**
 	 * eventLocation
 	 * @lazy
-	 * @var Tx_T3events_Domain_Model_EventLocation
+	 * @var \Webfox\T3events\Domain\Model\EventLocation
 	 */
 	protected $eventLocation;
 
 	/**
 	 * ticketClass
 	 * @lazy
-	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_T3events_Domain_Model_TicketClass>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\T3events\Domain\Model\TicketClass>
 	 */
 	protected $ticketClass;
 
 	/**
 	 * status
 	 * @lazy
-	 * @var Tx_T3events_Domain_Model_PerformanceStatus
+	 * @var \Webfox\T3events\Domain\Model\PerformanceStatus
 	 */
 	protected $status;
 	
@@ -157,7 +157,7 @@ class Tx_T3events_Domain_Model_Performance extends Tx_Extbase_DomainObject_Abstr
 	}
 
 	/**
-	 * Initializes all Tx_Extbase_Persistence_ObjectStorage properties.
+	 * Initializes all \TYPO3\CMS\Extbase\Persistence\ObjectStorage properties.
 	 *
 	 * @return void
 	 */
@@ -167,13 +167,13 @@ class Tx_T3events_Domain_Model_Performance extends Tx_Extbase_DomainObject_Abstr
 		 * It will be rewritten on each save in the extension builder
 		 * You may modify the constructor of this class instead
 		 */
-		$this->ticketClass = new Tx_Extbase_Persistence_ObjectStorage();
+		$this->ticketClass = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 	}
 
 	/**
 	 * Returns the eventLocation
 	 *
-	 * @return Tx_T3events_Domain_Model_EventLocation eventLocation
+	 * @return \Webfox\T3events\Domain\Model\EventLocation eventLocation
 	 */
 	public function getEventLocation() {
 		return $this->eventLocation;
@@ -182,10 +182,10 @@ class Tx_T3events_Domain_Model_Performance extends Tx_Extbase_DomainObject_Abstr
 	/**
 	 * Sets the eventLocation
 	 *
-	 * @param Tx_T3events_Domain_Model_EventLocation $eventLocation
-	 * @return Tx_T3events_Domain_Model_EventLocation eventLocation
+	 * @param \Webfox\T3events\Domain\Model\EventLocation $eventLocation
+	 * @return \Webfox\T3events\Domain\Model\EventLocation eventLocation
 	 */
-	public function setEventLocation(Tx_T3events_Domain_Model_EventLocation $eventLocation) {
+	public function setEventLocation(\Webfox\T3events\Domain\Model\EventLocation $eventLocation) {
 		$this->eventLocation = $eventLocation;
 	}
 
@@ -353,7 +353,7 @@ class Tx_T3events_Domain_Model_Performance extends Tx_Extbase_DomainObject_Abstr
 	/**
 	 * Returns the status
 	 *
-	 * @return Tx_T3events_Domain_Model_PerformanceStatus $status
+	 * @return \Webfox\T3events\Domain\Model\PerformanceStatus $status
 	 */
 	public function getStatus() {
 		return $this->status;
@@ -362,10 +362,10 @@ class Tx_T3events_Domain_Model_Performance extends Tx_Extbase_DomainObject_Abstr
 	/**
 	 * Sets the status
 	 *
-	 * @param Tx_T3events_Domain_Model_PerformanceStatus $status
+	 * @param \Webfox\T3events\Domain\Model\PerformanceStatus $status
 	 * @return void
 	 */
-	public function setStatus(Tx_T3events_Domain_Model_PerformanceStatus $status) {
+	public function setStatus(\Webfox\T3events\Domain\Model\PerformanceStatus $status) {
 		$this->status = $status;
 	}
 
@@ -391,27 +391,27 @@ class Tx_T3events_Domain_Model_Performance extends Tx_Extbase_DomainObject_Abstr
 	/**
 	 * Adds a TicketClass
 	 *
-	 * @param Tx_T3events_Domain_Model_TicketClass $ticketClass
+	 * @param \Webfox\T3events\Domain\Model\TicketClass $ticketClass
 	 * @return void
 	 */
-	public function addTicketClass(Tx_T3events_Domain_Model_TicketClass $ticketClass) {
+	public function addTicketClass(\Webfox\T3events\Domain\Model\TicketClass $ticketClass) {
 		$this->ticketClass->attach($ticketClass);
 	}
 
 	/**
 	 * Removes a TicketClass
 	 *
-	 * @param Tx_T3events_Domain_Model_TicketClass $ticketClassToRemove The TicketClass to be removed
+	 * @param \Webfox\T3events\Domain\Model\TicketClass $ticketClassToRemove The TicketClass to be removed
 	 * @return void
 	 */
-	public function removeTicketClass(Tx_T3events_Domain_Model_TicketClass $ticketClassToRemove) {
+	public function removeTicketClass(\Webfox\T3events\Domain\Model\TicketClass $ticketClassToRemove) {
 		$this->ticketClass->detach($ticketClassToRemove);
 	}
 
 	/**
 	 * Returns the ticketClass
 	 *
-	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_T3events_Domain_Model_TicketClass> $ticketClass
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\T3events\Domain\Model\TicketClass> $ticketClass
 	 */
 	public function getTicketClass() {
 		return $this->ticketClass;
@@ -420,10 +420,10 @@ class Tx_T3events_Domain_Model_Performance extends Tx_Extbase_DomainObject_Abstr
 	/**
 	 * Sets the ticketClass
 	 *
-	 * @param Tx_Extbase_Persistence_ObjectStorage<Tx_T3events_Domain_Model_TicketClass> $ticketClass
+	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\T3events\Domain\Model\TicketClass> $ticketClass
 	 * @return void
 	 */
-	public function setTicketClass(Tx_Extbase_Persistence_ObjectStorage $ticketClass) {
+	public function setTicketClass(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $ticketClass) {
 		$this->ticketClass = $ticketClass;
 	}
 
@@ -502,4 +502,4 @@ class Tx_T3events_Domain_Model_Performance extends Tx_Extbase_DomainObject_Abstr
 		$this->hidden=($hidden);
 	}
 }
-?>
+

@@ -1,5 +1,5 @@
 <?php
-
+namespace Webfox\T3events\Domain\Model;
 /***************************************************************
  *  Copyright notice
  *
@@ -32,7 +32,7 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_T3events_Domain_Model_Teaser extends Tx_Extbase_DomainObject_AbstractEntity {
+class Teaser extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
 	 * title
@@ -73,14 +73,14 @@ class Tx_T3events_Domain_Model_Teaser extends Tx_Extbase_DomainObject_AbstractEn
 	/**
 	 * location
 	 * @lazy
-	 * @var Tx_T3events_Domain_Model_Venue
+	 * @var \Webfox\T3events\Domain\Model\Venue
 	 */
 	protected $location;
 
 	/**
 	 * event
 	 * @lazy
-	 * @var Tx_T3events_Domain_Model_Event
+	 * @var \Webfox\T3events\Domain\Model\Event
 	 */
 	protected $event;
 
@@ -206,7 +206,7 @@ class Tx_T3events_Domain_Model_Teaser extends Tx_Extbase_DomainObject_AbstractEn
 	/**
 	 * Returns the location
 	 *
-	 * @return Tx_T3events_Domain_Model_Venue location
+	 * @return \Webfox\T3events\Domain\Model\Venue location
 	 */
 	public function getLocation() {
 		return $this->location;
@@ -215,17 +215,17 @@ class Tx_T3events_Domain_Model_Teaser extends Tx_Extbase_DomainObject_AbstractEn
 	/**
 	 * Sets the location
 	 *
-	 * @param Tx_T3events_Domain_Model_Venue $location
-	 * @return Tx_T3events_Domain_Model_Venue location
+	 * @param \Webfox\T3events\Domain\Model\Venue $location
+	 * @return \Webfox\T3events\Domain\Model\Venue location
 	 */
-	public function setLocation(Tx_T3events_Domain_Model_Venue $location) {
+	public function setLocation(Venue $location) {
 		$this->location = $location;
 	}
 
 	/**
 	 * Returns the event
 	 *
-	 * @return Tx_T3events_Domain_Model_Event $event
+	 * @return \Webfox\T3events\Domain\Model\Event $event
 	 */
 	public function getEvent() {
 		return $this->event;
@@ -234,10 +234,10 @@ class Tx_T3events_Domain_Model_Teaser extends Tx_Extbase_DomainObject_AbstractEn
 	/**
 	 * Sets the event
 	 *
-	 * @param Tx_T3events_Domain_Model_Event $event
+	 * @param \Webfox\T3events\Domain\Model\Event $event
 	 * @return void
 	 */
-	public function setEvent(Tx_T3events_Domain_Model_Event $event) {
+	public function setEvent(Event $event) {
 		$this->event = $event;
 	}
 	
@@ -259,4 +259,4 @@ class Tx_T3events_Domain_Model_Teaser extends Tx_Extbase_DomainObject_AbstractEn
 		$this->externalLink=$externalLink;
 	}
 }
-?>
+

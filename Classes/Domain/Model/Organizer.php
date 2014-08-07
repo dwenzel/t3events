@@ -1,5 +1,5 @@
 <?php
-
+namespace Webfox\T3events\Domain\Model;
 /***************************************************************
  *  Copyright notice
  *
@@ -32,7 +32,7 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_T3events_Domain_Model_Organizer extends Tx_Extbase_DomainObject_AbstractEntity {
+class Organizer extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
 	 * name
@@ -87,4 +87,4 @@ class Tx_T3events_Domain_Model_Organizer extends Tx_Extbase_DomainObject_Abstrac
 	}
 
 }
-?>
+

@@ -1,5 +1,5 @@
 <?php
-
+namespace Webfox\T3events\Domain\Model\Dto;
 /***************************************************************
  *  Copyright notice
  *
@@ -33,7 +33,7 @@
  *
  */
  
- class Tx_T3events_Domain_Model_EventDemand extends Tx_T3events_Domain_Model_AbstractDemand{
+ class EventDemand extends AbstractDemand{
  	/**
  	 * Genre
  	 * 
@@ -139,5 +139,4 @@
 	}
 
   }
- ?>
 

@@ -1,5 +1,5 @@
 <?php
-
+namespace Webfox\T3events\Domain\Model;
 /***************************************************************
  *  Copyright notice
  *
@@ -32,7 +32,7 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_T3events_Domain_Model_Task extends Tx_Extbase_DomainObject_AbstractEntity {
+class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
 	 * Provide a name for the task
@@ -58,14 +58,14 @@ class Tx_T3events_Domain_Model_Task extends Tx_Extbase_DomainObject_AbstractEnti
 	/**
 	 * Select a status
 	 *
-	 * @var Tx_T3events_Domain_Model_PerformanceStatus
+	 * @var \Webfox\T3events\Domain\Model\PerformanceStatus
 	 */
 	protected $oldStatus;
 
 	/**
 	 * Select the new status
 	 *
-	 * @var Tx_T3events_Domain_Model_PerformanceStatus
+	 * @var \Webfox\T3events\Domain\Model\PerformanceStatus
 	 */
 	protected $newStatus;
 
@@ -134,7 +134,7 @@ class Tx_T3events_Domain_Model_Task extends Tx_Extbase_DomainObject_AbstractEnti
 	/**
 	 * Returns the oldStatus
 	 *
-	 * @return Tx_T3events_Domain_Model_PerformanceStatus $oldStatus
+	 * @return \Webfox\T3events\Domain\Model\PerformanceStatus $oldStatus
 	 */
 	public function getOldStatus() {
 		return $this->oldStatus;
@@ -143,7 +143,7 @@ class Tx_T3events_Domain_Model_Task extends Tx_Extbase_DomainObject_AbstractEnti
 	/**
 	 * Sets the oldStatus
 	 *
-	 * @param Tx_T3events_Domain_Model_PerformanceStatus $oldStatus
+	 * @param \Webfox\T3events\Domain\Model\PerformanceStatus $oldStatus
 	 * @return void
 	 */
 	public function setOldStatus($oldStatus) {
@@ -153,7 +153,7 @@ class Tx_T3events_Domain_Model_Task extends Tx_Extbase_DomainObject_AbstractEnti
 	/**
 	 * Returns the newStatus
 	 *
-	 * @return Tx_T3events_Domain_Model_PerformanceStatus $newStatus
+	 * @return \Webfox\T3events\Domain\Model\PerformanceStatus $newStatus
 	 */
 	public function getNewStatus() {
 		return $this->newStatus;
@@ -162,7 +162,7 @@ class Tx_T3events_Domain_Model_Task extends Tx_Extbase_DomainObject_AbstractEnti
 	/**
 	 * Sets the newStatus
 	 *
-	 * @param Tx_T3events_Domain_Model_PerformanceStatus $newStatus
+	 * @param \Webfox\T3events\Domain\Model\PerformanceStatus $newStatus
 	 * @return void
 	 */
 	public function setNewStatus($newStatus) {
@@ -189,4 +189,4 @@ class Tx_T3events_Domain_Model_Task extends Tx_Extbase_DomainObject_AbstractEnti
 	}
 
 }
-?>
+
