@@ -80,7 +80,7 @@ class TaskCommandController extends \TYPO3\CMS\Extbase\MVC_Controller_CommandCon
 				$site = '-';
 			} else {
 				$calledBy = 'TYPO3 backend';
-				$site = t3lib_div::getIndpEnv('TYPO3_SITE_URL');
+				$site = \TYPO3\CMS\Core\Utility\GeneralUtility::getIndpEnv('TYPO3_SITE_URL');
 			}
 			$mailBody =
 				  '----------------------------------------' . LF
@@ -95,7 +95,7 @@ class TaskCommandController extends \TYPO3\CMS\Extbase\MVC_Controller_CommandCon
 			// Prepare mailer and send the mail
 			try {
 				/** @var $mailer t3lib_mail_message */
-				$mailer = t3lib_div::makeInstance('t3lib_mail_message');
+				$mailer = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('t3lib_mail_message');
 				$mailer->setFrom(array($email => 'TYPO3 scheduler - t3events task'));
 				$mailer->setReplyTo(array($email => 'TYPO3 scheduler - t3events task'));
 				$mailer->setSubject('TYPO3 scheduler - t3events task');
