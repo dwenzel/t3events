@@ -1,5 +1,5 @@
 <?php
-
+namespace Webfox\T3events\Controller;
 /***************************************************************
  *  Copyright notice
  *
@@ -32,7 +32,7 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_T3events_Controller_VenueController extends Tx_Extbase_MVC_Controller_ActionController {
+class VenueController extends \TYPO3\CMS\Extbase\MVC\Controller\ActionController {
 
 	/**
 	 * action list
@@ -47,12 +47,12 @@ class Tx_T3events_Controller_VenueController extends Tx_Extbase_MVC_Controller_A
 	/**
 	 * action show
 	 *
-	 * @param Tx_T3events_Domain_Model_Location $location
+	 * @param \Webfox\T3events\Domain\Model\Location $location
 	 * @return void
 	 */
-	public function showAction(Tx_T3events_Domain_Model_Location $location) {
+	public function showAction(\Webfox\T3events\Domain\Model\Location $location) {
 		$this->view->assign('location', $location);
 	}
 
 }
-?>
+
