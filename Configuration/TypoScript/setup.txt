@@ -8,7 +8,7 @@ plugin.tx_t3events {
 		partialRootPath = {$plugin.tx_t3events.view.partialRootPath}
 		layoutRootPath = {$plugin.tx_t3events.view.layoutRootPath}
 		# set root path for paginate widget view helper
-		widget.Tx_T3events_ViewHelpers_Widget_PaginateViewHelper.templateRootPath = {$plugin.tx_t3events.view.templateRootPath}
+		widget.\Webfox\T3events\ViewHelpers\Widget\PaginateViewHelper.templateRootPath = {$plugin.tx_t3events.view.templateRootPath}
 
 	}
 	persistence {
@@ -105,11 +105,11 @@ config.tx_extbase.view.widget.Tx_Fluid_ViewHelpers_Widget_PaginateViewHelper.tem
 
 config.tx_extbase.objects {
 	Tx_Fluid_ViewHelpers_Widget_Controller_PaginateController {
-		className = Tx_T3events_ViewHelpers_Widget_Controller_PaginateController
+		className = \Webfox\T3events\ViewHelpers\Widget\Controller\PaginateController
 	}
 	# overwrite class to allow USER_INT from flexform
 	Tx_Extbase_Service_ExtensionService {
-		className = Tx_T3events_Service_ExtensionService
+		className = Webfox\T3events\Service\ExtensionService
 	}	
 }
 ####################
