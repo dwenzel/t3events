@@ -130,14 +130,14 @@ class EventRepository extends AbstractRepository {
 
 		// genre
 		if ($demand->getGenre()) {
-			$genres = t3lib_div::intExplode(',', $demand->getGenre());
+			$genres = \TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $demand->getGenre());
 			foreach ($genres as $genre) {
 				$categoryConstraints[] = $query->contains('genre', $genre);
 			}
 		}
 		// venue
 		if ($demand->getVenue()) {
-			$venues = t3lib_div::intExplode(',', $demand->getVenue());
+			$venues = \TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $demand->getVenue());
 			foreach ($venues as $venue) {
 				$categoryConstraints[] = $query->contains('venue', $venue);
 			}
@@ -145,7 +145,7 @@ class EventRepository extends AbstractRepository {
 
 		// venue
 		if ($demand->getEventType()) {
-			$eventTypes = t3lib_div::intExplode(',', $demand->getEventType());
+			$eventTypes = \TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $demand->getEventType());
 			foreach ($eventTypes as $eventType) {
 				$categoryConstraints[] = $query->equals('eventType.uid', $eventType);
 			}

@@ -56,7 +56,7 @@ class PerformanceRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
     		$constraints[] = $query->lessThanOrEqual('date', $demand->getDate());
     	}
     	if($demand->getStoragePage() !==NULL){
-    		$pages = t3lib_div::intExplode(',', $demand->getStoragePage());
+    		$pages = \TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $demand->getStoragePage());
     		$constraints[] = $query->in('pid', $pages);
     	}
     	count($constraints)?$query->matching($query->logicalAnd($constraints)):NULL;

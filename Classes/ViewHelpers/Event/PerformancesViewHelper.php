@@ -260,7 +260,7 @@ class PerformancesViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTa
 
             // start override
         if (isset($tsSettings['settings']['overrideFlexformSettingsIfEmpty'])) {
-            $overrideIfEmpty = t3lib_div::trimExplode(',', $tsSettings['settings']['overrideFlexformSettingsIfEmpty'], TRUE);
+            $overrideIfEmpty = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $tsSettings['settings']['overrideFlexformSettingsIfEmpty'], TRUE);
             foreach ($overrideIfEmpty as $key) {
                     // if flexform setting is empty and value is available in TS
                 if ((!isset($originalSettings[$key]) || empty($originalSettings[$key]))

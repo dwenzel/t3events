@@ -30,14 +30,19 @@ class PaginateController extends \TYPO3\CMS\Fluid\ViewHelpers\Widget\Controller\
 	 * @todo implement logic for overriding widget template paths (tx_extension.view.widget.<WidgetViewHelperClassName>.templateRootPath...)
 	 */
 	protected function setViewConfiguration(\TYPO3\CMS\Extbase\MVC\View\ViewInterface $view) {
-		$extbaseFrameworkConfiguration = $this->configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
+		$extbaseFrameworkConfiguration = $this->configurationManager->getConfiguration(
+				\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
+			);
 		$widgetViewHelperClassName = $this->request->getWidgetContext()->getWidgetViewHelperClassName();
 		if (isset($extbaseFrameworkConfiguration['view']['widget'][$widgetViewHelperClassName]['templateRootPath'])
 			&& strlen($extbaseFrameworkConfiguration['view']['widget'][$widgetViewHelperClassName]['templateRootPath']) > 0
 			&& method_exists($view, 'setTemplateRootPath')) {
-			$view->setTemplateRootPath(t3lib_div::getFileAbsFileName($extbaseFrameworkConfiguration['view']['widget'][$widgetViewHelperClassName]['templateRootPath']));
+			$view->setTemplateRootPath(
+				\TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName(
+					$extbaseFrameworkConfiguration['view']['widget'][$widgetViewHelperClassName]['templateRootPath']
+				)
+			);
 		}
 	}
- 
 }
 

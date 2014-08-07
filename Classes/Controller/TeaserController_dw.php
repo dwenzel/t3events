@@ -61,7 +61,7 @@ class TeaserController extends \TYPO3\CMS\Extbase\MVC\Controller\ActionControlle
 		            $this->view->assign('highlights', $highlights);
 		            
 		            // neu
-		            $demand = t3lib_div::makeInstance('\Webfox\T3events\Domain\Model\Dto\TeaserDemand');
+		            $demand = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\Webfox\T3events\Domain\Model\Dto\TeaserDemand');
 					$demand->setHighlightsOnly(TRUE);
 					if($this->settings['sortBy']=='date'){
 						$demand->setSortBy('event.performances.date');

@@ -41,7 +41,7 @@ class AbstractRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResult Matching Records
 	 */
 	public function findMultipleByUid($recordList, $sortField='uid', $sortOrder=\TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING) {
-		$uids = t3lib_div::intExplode(',', $recordList, TRUE);
+		$uids = \TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $recordList, TRUE);
 		$query = $this->createQuery();		
 		$query->matching($query->in('uid' , $uids));
 		$query->setOrderings(array($sortField => $sortOrder));
