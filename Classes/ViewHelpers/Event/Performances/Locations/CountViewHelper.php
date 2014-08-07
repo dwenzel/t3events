@@ -1,4 +1,5 @@
 <?php
+namespace Webfox\T3events\ViewHelpers\Event\Performances\Locations;
 /***************************************************************
 *  Copyright notice
 *
@@ -28,7 +29,7 @@
  * @subpackage ViewHelpers/Event/Performances/Locations
  */
 
-class Tx_T3events_ViewHelpers_Event_Performances_Locations_CountViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+class CountViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 	
 	/**
 	 * 
@@ -36,7 +37,7 @@ class Tx_T3events_ViewHelpers_Event_Performances_Locations_CountViewHelper exten
 	 */
 	
 	public function initializeArguments() {
-		parent::registerArgument('event', 'Tx_T3events_Domain_Model_Event', 'Event whose performances should be rendered.', TRUE);
+		parent::registerArgument('event', '\\Webfox\\T3events\\Domain\\Model\\Event', 'Event whose performances should be rendered.', TRUE);
     }
 	
     /**
@@ -60,4 +61,4 @@ class Tx_T3events_ViewHelpers_Event_Performances_Locations_CountViewHelper exten
     	return count($locationsArray);
     }  
 }
-?>
+

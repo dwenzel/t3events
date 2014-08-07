@@ -1,4 +1,5 @@
 <?php
+namespace Webfox\T3events\ViewHelpers\Event;
 /***************************************************************
 *  Copyright notice
 *
@@ -28,31 +29,31 @@
  * @subpackage ViewHelpers/Event
  */
 
-class Tx_T3events_ViewHelpers_Event_PerformancesViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractTagBasedViewHelper {
+class PerformancesViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper {
     /*
-    * @var Tx_Extbase_Persistence_ObjectStorage
+    * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage
     */
     protected  $performances;
 
     /**
-     * @var Tx_Extbase_Configuration_ConfigurationManagerInterface
+     * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
      */
     protected $configurationManager;
 
     /**
 	 * eventRepository
 	 *
-	 * @var Tx_T3events_Domain_Repository_EventRepository
+	 * @var \Webfox\T3events\Domain\Repository\EventRepository
 	 */
 	protected $eventRepository;
 
 	/**
 	 * injectEventRepository
 	 *
-	 * @param Tx_T3events_Domain_Repository_EventRepository $eventRepository
+	 * @param \Webfox\T3events\Domain\Repository\EventRepository $eventRepository
 	 * @return void
 	 */
-	public function injectEventRepository(Tx_T3events_Domain_Repository_EventRepository $eventRepository) {
+	public function injectEventRepository(\Webfox\T3events\Domain\Repository\EventRepository $eventRepository) {
 		$this->eventRepository = $eventRepository;
 	}
 	
@@ -62,7 +63,7 @@ class Tx_T3events_ViewHelpers_Event_PerformancesViewHelper extends Tx_Fluid_Core
 	 */
 	
 	public function initializeArguments() {
-		parent::registerArgument('event', 'Tx_T3events_Domain_Model_Event', 'Event whose performances should be rendered.', TRUE);
+		parent::registerArgument('event', '\\Webfox\\T3events\\Domain\\Model\\Event', 'Event whose performances should be rendered.', TRUE);
        	parent::registerArgument('tagName', 'string', 'Tag name to use for enclosing container', FALSE, 'div');
         parent::registerArgument('tagNameChildren', 'string', 'Tag name to use for child nodes', FALSE, 'span');
         parent::registerArgument('type', 'string', 'Result type: available options are complete, uniqueLocationsList, list, dateRange, crucialStatus', TRUE);
@@ -157,7 +158,7 @@ class Tx_T3events_ViewHelpers_Event_PerformancesViewHelper extends Tx_Fluid_Core
     */
     public function renderChildrenList($children) {
     	$content = '';
-    	$tagBuilder = new Tx_Fluid_Core_ViewHelper_TagBuilder;
+    	$tagBuilder = new \TYPO3\CMS\Fluid\Core\ViewHelper\TagBuilder;
     	$tagBuilder->setTagName($this->arguments['tagNameChildren']);
     	$tagBuilder->forceClosingTag(TRUE);
     	$itemCount = count($children);
@@ -242,19 +243,19 @@ class Tx_T3events_ViewHelpers_Event_PerformancesViewHelper extends Tx_Fluid_Core
     /**
      * Injects the Configuration Manager and is initializing the framework settings
      *
-     * @param Tx_Extbase_Configuration_ConfigurationManagerInterface $configurationManager An instance of the Configuration Manager
+     * @param \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager An instance of the Configuration Manager
      * @return void
      */
-    public function injectConfigurationManager(Tx_Extbase_Configuration_ConfigurationManagerInterface $configurationManager) {
+    public function injectConfigurationManager(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager) {
         $this->configurationManager = $configurationManager;
 
         $tsSettings = $this->configurationManager->getConfiguration(
-                Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
+                \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
                 't3events',
                 't3events_events'
             );
         $originalSettings = $this->configurationManager->getConfiguration(
-                Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS
+                \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS
             );
 
             // start override
@@ -272,4 +273,4 @@ class Tx_T3events_ViewHelpers_Event_PerformancesViewHelper extends Tx_Fluid_Core
         $this->settings = $originalSettings;
     }
 }
-?>
+

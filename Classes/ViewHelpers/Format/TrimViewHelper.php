@@ -1,4 +1,5 @@
 <?php
+namespace Webfox\T3events\ViewHelpers\Format;
 /***************************************************************
  * Copyright notice
  *
@@ -31,7 +32,7 @@
  * @package T3events
  * @subpackage ViewHelpers\Format
  */
-class Tx_T3events_ViewHelpers_Format_TrimViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+class TrimViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**
 	 * Trims content by stripping off $characters
@@ -51,5 +52,4 @@ class Tx_T3events_ViewHelpers_Format_TrimViewHelper extends Tx_Fluid_Core_ViewHe
 		}
 		return $content;
 	}
-
 }

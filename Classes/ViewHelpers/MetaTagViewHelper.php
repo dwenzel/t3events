@@ -1,4 +1,5 @@
 <?php
+namespace Webfox\T3events\ViewHelpers;
 /***************************************************************
 *  Copyright notice
 *  
@@ -30,7 +31,7 @@
  * @package TYPO3
  * @subpackage tx_t3events
  */
-class Tx_T3events_ViewHelpers_MetaTagViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractTagBasedViewHelper {
+class MetaTagViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper {
 
 	/**
 	 * @var	string
@@ -77,4 +78,3 @@ class Tx_T3events_ViewHelpers_MetaTagViewHelper extends Tx_Fluid_Core_ViewHelper
 	}
 }
 
-?>
