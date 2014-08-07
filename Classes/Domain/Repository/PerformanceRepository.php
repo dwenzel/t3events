@@ -1,5 +1,5 @@
 <?php
-
+namespace Webfox\T3events\Domain\Repository;
 /***************************************************************
  *  Copyright notice
  *
@@ -32,20 +32,20 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_T3events_Domain_Repository_PerformanceRepository extends Tx_Extbase_Persistence_Repository {
-	protected $defaultOrderings = array ('sorting' => Tx_Extbase_Persistence_QueryInterface::ORDER_ASCENDING);
+class PerformanceRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
+	protected $defaultOrderings = array ('sorting' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING);
 
 	public function initializeObject() {
-         $this->defaultQuerySettings = $this->objectManager->create('Tx_Extbase_Persistence_Typo3QuerySettings');
+         $this->defaultQuerySettings = $this->objectManager->create('\TYPO3\CMS\Extbase\Persistence\Typo3QuerySettings');
          $this->defaultQuerySettings->setRespectStoragePage(FALSE);
     }
 
     /**
      * find Demanded
-     * @param Tx_T3events_Domain_Model_PerformanceDemand $demand
-     * @return Tx_Extbase_Persistence_QueryResult matching performances
+     * @param \Webfox\T3events\Domain\Model\PerformanceDemand $demand
+     * @return \TYPO3\CMS\Extbase\Persistence\QueryResult matching performances
      */
-    public function findDemanded(Tx_T3events_Domain_Model_PerformanceDemand $demand){
+    public function findDemanded(\Webfox\T3events\Domain\Model\PerformanceDemand $demand){
     	$query = $this->createQuery();
 
     	$constraints = array();
@@ -64,4 +64,4 @@ class Tx_T3events_Domain_Repository_PerformanceRepository extends Tx_Extbase_Per
     }
 
 }
-?>
+

@@ -1,5 +1,5 @@
 <?php
-
+namespace Webfox\T3events\Domain\Repository;
 /***************************************************************
  *  Copyright notice
  *
@@ -32,15 +32,15 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_T3events_Domain_Repository_TeaserRepository extends Tx_Extbase_Persistence_Repository {
+class TeaserRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
 	/**
 	 * findDemanded
 	 *
-	 * @param Tx_T3events_Domain_Model_TeaserDemand
-	 * @return Tx_Extbase_Persistence_QueryResult Matching Teasers
+	 * @param \Webfox\T3events\Domain\Model\TeaserDemand
+	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResult Matching Teasers
 	 */
-	public function findDemanded(Tx_T3events_Domain_Model_TeaserDemand $demand) {
+	public function findDemanded(\Webfox\T3events\Domain\Model\TeaserDemand $demand) {
 		$query = $this->createQuery();
 		$sortBy = $demand->getSortBy();
 		$period = $demand->getPeriod();
@@ -74,14 +74,14 @@ class Tx_T3events_Domain_Repository_TeaserRepository extends Tx_Extbase_Persiste
 		
 		switch ($demand->getSortDirection()) {
 			case 'asc':
-				$sortOrder = Tx_Extbase_Persistence_QueryInterface::ORDER_ASCENDING;				
+				$sortOrder = \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING;				
 			break;
 			
 			case 'desc':
-				$sortOrder = Tx_Extbase_Persistence_QueryInterface::ORDER_DESCENDING;
+				$sortOrder = \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING;
 				break;
 			default:
-				$sortOrder = Tx_Extbase_Persistence_QueryInterface::ORDER_ASCENDING;
+				$sortOrder = \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING;
 			break;
 		}
 		
@@ -103,7 +103,7 @@ class Tx_T3events_Domain_Repository_TeaserRepository extends Tx_Extbase_Persiste
 		 */
 		if($sortBy == 'random') {
 			// load DB backend
-			$backend = $this->objectManager->get('Tx_Extbase_Persistence_Storage_Typo3DbBackend');
+			$backend = $this->objectManager->get('\TYPO3\CMS\Extbase\Persistence\Storage\Typo3DbBackend');
 			// extract query parts
 			$parameters = array();
 			$statementParts = $backend->parseQuery($query, $parameters);
@@ -118,4 +118,4 @@ class Tx_T3events_Domain_Repository_TeaserRepository extends Tx_Extbase_Persiste
 	}
 
 }
-?>
+
