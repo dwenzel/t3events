@@ -67,7 +67,7 @@ class TaskCommandController extends \TYPO3\CMS\Extbase\MVC_Controller_CommandCon
 
 	/**
 	 * Run update tasks
-	 * @param string $email E-Mail
+	 * @param \string $email E-Mail
 	 *
 	 * @return void
 	 */
@@ -117,7 +117,7 @@ class TaskCommandController extends \TYPO3\CMS\Extbase\MVC_Controller_CommandCon
 	 *
 	 * Hides all performances which meet the given constraints. Returns a message string for reporting.
 	 *
-	 * @return string
+	 * @return \string
 	 */
 	public function runHidePerformanceTasks() {
 		$hideTasks = $this->taskRepository->findByAction(3);
@@ -168,7 +168,7 @@ class TaskCommandController extends \TYPO3\CMS\Extbase\MVC_Controller_CommandCon
 	 * Returns a message string for reporting.
 	 *
 	 *
-	 * @return string
+	 * @return \string
 	 */
 	public function runUpdatePerformanceStatusTasks() {
 		// find task with update action

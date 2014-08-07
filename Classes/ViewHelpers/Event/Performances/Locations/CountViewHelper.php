@@ -43,7 +43,7 @@ class CountViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelpe
     /**
      * 
      * Render method
-     * @return string
+     * @return \string
      */
 	public function render(){
 		$performances = $this->arguments['event']->getPerformances();

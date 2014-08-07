@@ -40,7 +40,7 @@ namespace Webfox\T3events\Domain\Model\Dto;
 	protected $highlights;
 	
 	/**
-	 * @var array Find only teasers for given venues
+	 * @var \array Find only teasers for given venues
 	 */
 	protected $venues;
 	
@@ -59,13 +59,13 @@ namespace Webfox\T3events\Domain\Model\Dto;
 	}
 	
 	/**
-	 * @param array set venues
+	 * @param \array set venues
 	 */
 	public function setVenues($venues){
 		$this->venues = $venues;
 	}
 	/**
-	 * @return array get venues
+	 * @return \array get venues
 	 */
 	public function getVenues(){
 		return $this->venues;

@@ -37,21 +37,21 @@ class Organizer extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * name
 	 *
-	 * @var string
+	 * @var \string
 	 */
 	protected $name;
 
 	/**
 	 * link
 	 *
-	 * @var string
+	 * @var \string
 	 */
 	protected $link;
 
 	/**
 	 * Returns the name
 	 *
-	 * @return string $name
+	 * @return \string $name
 	 */
 	public function getName() {
 		return $this->name;
@@ -60,7 +60,7 @@ class Organizer extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the name
 	 *
-	 * @param string $name
+	 * @param \string $name
 	 * @return void
 	 */
 	public function setName($name) {
@@ -70,7 +70,7 @@ class Organizer extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Returns the link
 	 *
-	 * @return string $link
+	 * @return \string $link
 	 */
 	public function getLink() {
 		return $this->link;
@@ -79,7 +79,7 @@ class Organizer extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the link
 	 *
-	 * @param string $link
+	 * @param \string $link
 	 * @return void
 	 */
 	public function setLink($link) {

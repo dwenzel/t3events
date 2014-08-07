@@ -37,14 +37,14 @@ class EventType extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject {
 	/**
 	 * title
 	 *
-	 * @var string
+	 * @var \string
 	 */
 	protected $title;
 
 	/**
 	 * Returns the title
 	 *
-	 * @return string $title
+	 * @return \string $title
 	 */
 	public function getTitle() {
 		return $this->title;
@@ -53,7 +53,7 @@ class EventType extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject {
 	/**
 	 * Sets the title
 	 *
-	 * @param string $title
+	 * @param \string $title
 	 * @return void
 	 */
 	public function setTitle($title) {

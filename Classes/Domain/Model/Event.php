@@ -73,35 +73,35 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * genre
 	 * @lazy
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Genre>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\T3events\Domain\Model\Genre>
 	 */
 	protected $genre;
 	
 	/**
 	 * venue
 	 * @lazy
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage>Venue>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\T3events\Domain\Model\Venue>
 	 */
 	protected $venue;
 
 	/**
 	 * eventType
 	 * @lazy
-	 * @var EventType
+	 * @var \Webfox\T3events\Domain\Model\EventType
 	 */
 	protected $eventType;
 
 	/**
 	 * performances
 	 * @lazy
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Performance>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\T3events\Domain\Model\Performance>
 	 */
 	protected $performances;
 
 	/**
 	 * organizer
 	 * @lazy
-	 * @var Organizer
+	 * @var \Webfox\T3events\Domain\Model\Organizer
 	 */
 	protected $organizer;
 
@@ -210,7 +210,7 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Adds a Genre
 	 *
-	 * @param Genre $genre
+	 * @param \Webfox\T3events\Domain\Model\Genre $genre
 	 * @return void
 	 */
 	public function addGenre(Genre $genre) {
@@ -220,7 +220,7 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Removes a Genre
 	 *
-	 * @param Genre $genreToRemove The Genre to be removed
+	 * @param \Webfox\T3events\Domain\Model\Genre $genreToRemove The Genre to be removed
 	 * @return void
 	 */
 	public function removeGenre(Genre $genreToRemove) {
@@ -230,7 +230,7 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Returns the genre
 	 *
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Genre> $genre
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\T3events\Domain\Model\Genre> $genre
 	 */
 	public function getGenre() {
 		return $this->genre;
@@ -239,7 +239,7 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the genre
 	 *
-	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Genre> $genre
+	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\T3events\Domain\Model\Genre> $genre
 	 * @return void
 	 */
 	public function setGenre(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $genre) {
@@ -249,7 +249,7 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Returns the venue
 	 * 
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Venue> $venue
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\T3events\Domain\Model\Venue> $venue
 	 */
 	public function getVenue() {
 		return $this->venue;
@@ -258,7 +258,7 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets a venue
 	 * 
-	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Venue> $venue
+	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\T3events\Domain\Model\Venue> $venue
 	 * @return void
 	 */
 	public function setVenue(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $venue) {
@@ -268,7 +268,7 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Adds a venue
 	 * 
-	 * @param Venue $venue
+	 * @param \Webfox\T3events\Domain\Model\Venue $venue
 	 * @return void
 	 */
 	public function addVenue(Venue $venue){
@@ -278,7 +278,7 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Removes a venue
 	 * 
-	 * @param Venue $venueToRemove The Venue to be removed
+	 * @param \Webfox\T3events\Domain\Model\Venue $venueToRemove The Venue to be removed
 	 * @return void
 	 */
 	public function removeVenue(Venue $venueToRemove) {
@@ -288,7 +288,7 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Returns the eventType
 	 *
-	 * @return EventType $eventType
+	 * @return \Webfox\T3events\Domain\Model\EventType $eventType
 	 */
 	public function getEventType() {
 		return $this->eventType;
@@ -297,7 +297,7 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the eventType
 	 *
-	 * @param EventType $eventType
+	 * @param \Webfox\T3events\Domain\Model\EventType $eventType
 	 * @return void
 	 */
 	public function setEventType(EventType $eventType) {
@@ -326,7 +326,7 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Returns the organizer
 	 *
-	 * @return Organizer $organizer
+	 * @return \Webfox\T3events\Domain\Model\Organizer $organizer
 	 */
 	public function getOrganizer() {
 		return $this->organizer;
@@ -335,7 +335,7 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the organizer
 	 *
-	 * @param Organizer $organizer
+	 * @param \Webfox\T3events\Domain\Model\Organizer $organizer
 	 * @return void
 	 */
 	public function setOrganizer(Organizer $organizer) {
@@ -359,8 +359,8 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Adds a Performance
 	 *
-	 * @param Performance $performance
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Performance> performances
+	 * @param \Webfox\T3events\Domain\Model\Performance $performance
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\T3events\Domain\Model\Performance> performances
 	 */
 	public function addPerformance(Performance $performance) {
 		$this->performances->attach($performance);
@@ -369,8 +369,8 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Removes a Performance
 	 *
-	 * @param Performance $performanceToRemove The Performance to be removed
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Performance> performances
+	 * @param \Webfox\T3events\Domain\Model\Performance $performanceToRemove The Performance to be removed
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\T3events\Domain\Model\Performance> performances
 	 */
 	public function removePerformance(Performance $performanceToRemove) {
 		$this->performances->detach($performanceToRemove);
@@ -379,7 +379,7 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Returns the performances(s)
 	 *
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Performance> performances
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\T3events\Domain\Model\Performance> performances
 	 */
 	public function getPerformances() {
 		return $this->performances;
@@ -388,8 +388,8 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the performances
 	 *
-	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Performance> $performances
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Performance> performances
+	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\T3events\Domain\Model\Performance> $performances
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\T3events\Domain\Model\Performance> performances
 	 */
 	public function setPerformances(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $performances) {
 		$this->performances = $performances;

@@ -35,8 +35,8 @@ namespace Webfox\T3events\Domain\Repository;
 
 class AbstractRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 	/**
-	 * @var string $recordList A comma separated string containing uids
-	 * @var string $sortField Sort by field
+	 * @var \string $recordList A comma separated string containing uids
+	 * @var \string $sortField Sort by field
 	 * @var \TYPO3\CMS\Extbase\Persistence\QueryInterface $sortOrder 
 	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResult Matching Records
 	 */

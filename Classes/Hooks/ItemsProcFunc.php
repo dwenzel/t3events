@@ -39,7 +39,7 @@ namespace Webfox\T3events\Hooks;
 		/**
 	     * Itemsproc function to extend the selection of templateLayouts in the plugin
 	     *
-	     * @param array &$config configuration array
+	     * @param \array &$config configuration array
 	     * @return void
 	     */
 	    public function user_templateLayout(array &$config) {

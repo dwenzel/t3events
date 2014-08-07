@@ -104,7 +104,7 @@ class EventController extends \TYPO3\CMS\Extbase\MVC\Controller\ActionController
 	}
 			/**
 	 * action list
-	 * @param array $overwriteDemand
+	 * @param \array $overwriteDemand
 	 * @return void
 	 */
 	public function listAction( $overwriteDemand = NULL) {
@@ -202,7 +202,7 @@ class EventController extends \TYPO3\CMS\Extbase\MVC\Controller\ActionController
 
 	/**
 	 * Build demand from settings respecting overwriteDemand
-	 * @param array overwriteDemand
+	 * @param \array overwriteDemand
 	 * @return \Webfox\T3events\Domain\Model\Dto\EventDemand
 	 */
 	private function getDemandFromSettings($overwriteDemand = NULL) {

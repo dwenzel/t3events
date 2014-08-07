@@ -37,35 +37,35 @@ class TicketClass extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * title
 	 *
-	 * @var string
+	 * @var \string
 	 */
 	protected $title;
 
 	/**
 	 * color
 	 *
-	 * @var string
+	 * @var \string
 	 */
 	protected $color;
 
 	/**
 	 * price
 	 *
-	 * @var float
+	 * @var \float
 	 */
 	protected $price = 0.0;
 
 	/**
 	 * type
 	 *
-	 * @var integer;
+	 * @var \integer;
 	 */
 	protected $type = 0;
 
 	/**
 	 * Returns the title
 	 *
-	 * @return string $title
+	 * @return \string $title
 	 */
 	public function getTitle() {
 		return $this->title;
@@ -74,7 +74,7 @@ class TicketClass extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the title
 	 *
-	 * @param string $title
+	 * @param \string $title
 	 * @return void
 	 */
 	public function setTitle($title) {
@@ -84,7 +84,7 @@ class TicketClass extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Returns the color
 	 *
-	 * @return string $color
+	 * @return \string $color
 	 */
 	public function getColor() {
 		return $this->color;
@@ -93,7 +93,7 @@ class TicketClass extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the color
 	 *
-	 * @param string $color
+	 * @param \string $color
 	 * @return void
 	 */
 	public function setColor($color) {
@@ -103,7 +103,7 @@ class TicketClass extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Returns the price
 	 *
-	 * @return float price
+	 * @return \float price
 	 */
 	public function getPrice() {
 		return $this->price;
@@ -112,8 +112,8 @@ class TicketClass extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the price
 	 *
-	 * @param float $price
-	 * @return float price
+	 * @param \float $price
+	 * @return \float price
 	 */
 	public function setPrice($price) {
 		$this->price = $price;
@@ -122,7 +122,7 @@ class TicketClass extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Returns the type
 	 *
-	 * @return integer $type
+	 * @return \integer $type
 	 */
 	public function getType() {
 		return $this->type;
@@ -131,7 +131,7 @@ class TicketClass extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the type
 	 *
-	 * @param integer $type
+	 * @param \integer $type
 	 * @return void
 	 */
 	public function setType($type) {

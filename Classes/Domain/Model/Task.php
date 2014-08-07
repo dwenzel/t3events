@@ -37,21 +37,21 @@ class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Provide a name for the task
 	 *
-	 * @var string
+	 * @var \string
 	 */
 	protected $name;
 
 	/**
 	 * Select an action to perform
 	 *
-	 * @var integer
+	 * @var \integer
 	 */
 	protected $action;
 
 	/**
 	 * Enter a period of action in seconds. Negative values are possible too.
 	 *
-	 * @var integer
+	 * @var \integer
 	 */
 	protected $period;
 
@@ -72,14 +72,14 @@ class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * folder
 	 *
-	 * @var string
+	 * @var \string
 	 */
 	protected $folder;
 
 	/**
 	 * Returns the name
 	 *
-	 * @return string $name
+	 * @return \string $name
 	 */
 	public function getName() {
 		return $this->name;
@@ -88,7 +88,7 @@ class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the name
 	 *
-	 * @param string $name
+	 * @param \string $name
 	 * @return void
 	 */
 	public function setName($name) {
@@ -98,7 +98,7 @@ class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Returns the action
 	 *
-	 * @return integer $action
+	 * @return \integer $action
 	 */
 	public function getAction() {
 		return $this->action;
@@ -107,7 +107,7 @@ class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the action
 	 *
-	 * @param integer $action
+	 * @param \integer $action
 	 * @return void
 	 */
 	public function setAction($action) {
@@ -116,7 +116,7 @@ class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	
 	/**
 	* get the time period of action
-	* @return integer $period
+	* @return \integer $period
 	*/
 	public function getPeriod() {
 		return $this->period;
@@ -124,7 +124,7 @@ class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	
 	/**
 	* sets the time period of action
-	* @param integer $period
+	* @param \integer $period
 	* @return void
 	*/
 	public function setPeriod($period) {
@@ -172,7 +172,7 @@ class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Returns the folder
 	 *
-	 * @return string $folder
+	 * @return \string $folder
 	 */
 	public function getFolder() {
 		return $this->folder;
@@ -181,7 +181,7 @@ class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the folder
 	 *
-	 * @param string $folder
+	 * @param \string $folder
 	 * @return void
 	 */
 	public function setFolder($folder) {

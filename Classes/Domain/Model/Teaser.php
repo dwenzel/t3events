@@ -37,7 +37,7 @@ class Teaser extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * title
 	 *
-	 * @var string
+	 * @var \string
 	 * @validate NotEmpty
 	 */
 	protected $title;
@@ -45,7 +45,7 @@ class Teaser extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * details
 	 *
-	 * @var string
+	 * @var \string
 	 */
 	protected $details;
 
@@ -59,7 +59,7 @@ class Teaser extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * image
 	 *
-	 * @var string
+	 * @var \string
 	 */
 	protected $image;
 
@@ -86,14 +86,14 @@ class Teaser extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
 	 * externalLink
-	 * @var string
+	 * @var \string
 	 */
 	protected $externalLink;
 
 	/**
 	 * Returns the title
 	 *
-	 * @return string $title
+	 * @return \string $title
 	 */
 	public function getTitle() {
 		return $this->title;
@@ -102,7 +102,7 @@ class Teaser extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the title
 	 *
-	 * @param string $title
+	 * @param \string $title
 	 * @return void
 	 */
 	public function setTitle($title) {
@@ -112,7 +112,7 @@ class Teaser extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Returns the details
 	 *
-	 * @return string $details
+	 * @return \string $details
 	 */
 	public function getDetails() {
 		return $this->details;
@@ -121,7 +121,7 @@ class Teaser extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the details
 	 *
-	 * @param string $details
+	 * @param \string $details
 	 * @return void
 	 */
 	public function setDetails($details) {
@@ -159,7 +159,7 @@ class Teaser extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Returns the image
 	 *
-	 * @return string $image
+	 * @return \string $image
 	 */
 	public function getImage() {
 		return $this->image;
@@ -168,7 +168,7 @@ class Teaser extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the image
 	 *
-	 * @param string $image
+	 * @param \string $image
 	 * @return void
 	 */
 	public function setImage($image) {
@@ -243,7 +243,7 @@ class Teaser extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	
 	/**
 	 * Returns the external link
-	 * @return string
+	 * @return \string
 	 */
 	public function getExternalLink(){
 		return $this->externalLink;
@@ -252,7 +252,7 @@ class Teaser extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the external link
 	 * 
-	 * @var string $externalLink
+	 * @var \string $externalLink
 	 * @return void
 	 */
 	public function setExternalLink($externalLink){

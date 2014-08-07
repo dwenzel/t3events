@@ -78,7 +78,7 @@ class PerformancesViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTa
     /**
      * 
      * Render method
-     * @return string
+     * @return \string
      */
 	public function render(){
 		$this->performances = $this->arguments['event']->getPerformances();
@@ -153,8 +153,8 @@ class PerformancesViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTa
     
     /**
     * Render location list children
-    * @param array $children
-    * @return string
+    * @param \array $children
+    * @return \string
     */
     public function renderChildrenList($children) {
     	$content = '';
@@ -180,7 +180,7 @@ class PerformancesViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTa
     
     /** 
     * Get date range of performances
-    * @return array 
+    * @return \array 
     */
     public function getDateRange(){
         $format = $this->arguments['dateFormat'];
@@ -197,7 +197,7 @@ class PerformancesViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTa
     
     /**
     * Get crucial status over all performances. Returns the status with the highest priority.
-    * @return string
+    * @return \string
     */
     public function getCrucialStatus() {
         	$states = array();
