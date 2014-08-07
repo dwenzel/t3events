@@ -54,10 +54,10 @@ class EventLocationController extends \TYPO3\CMS\Extbase\MVC\Controller\ActionCo
 	/**
 	 * action show
 	 *
-	 * @param \WebfoxT3events\Domain\Model\Venue $venue
+	 * @param \Webfox\T3events\Domain\Model\Venue $venue
 	 * @return void
 	 */
-	public function showAction(\WebfoxT3events\Domain\Model\Venue $venue) {
+	public function showAction(\Webfox\T3events\Domain\Model\Venue $venue) {
 		$this->view->assign('venue', $venue);
 	}
 

@@ -40,12 +40,12 @@ namespace Webfox\T3events\Tests\Controller;
  */
 class EventControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
-	 * @var \WebfoxT3events\Domain\Model\Event
+	 * @var \Webfox\T3events\Domain\Model\Event
 	 */
 	protected $fixture;
 
 	public function setUp() {
-		$this->fixture = new \WebfoxT3events\Domain\Model\Event();
+		$this->fixture = new \Webfox\T3events\Domain\Model\Event();
 	}
 
 	public function tearDown() {

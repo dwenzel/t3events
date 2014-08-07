@@ -40,12 +40,12 @@ namespace Webfox\T3events\Tests\Unit\Controller;
  */
 class TeaserControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
-	 * @var \WebfoxT3events\Domain\Model\Teaser
+	 * @var \Webfox\T3events\Domain\Model\Teaser
 	 */
 	protected $fixture;
 
 	public function setUp() {
-		$this->fixture = new \WebfoxT3events\Domain\Model\Teaser();
+		$this->fixture = new \Webfox\T3events\Domain\Model\Teaser();
 	}
 
 	public function tearDown() {

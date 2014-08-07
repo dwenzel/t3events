@@ -131,7 +131,7 @@ class TaskCommandController extends \TYPO3\CMS\Extbase\MVC_Controller_CommandCon
 			. 'Action: hide performance' . LF;
 
 			// prepare demand for query
-			$demand = $this->objectManager->get('\WebfoxT3events\Domain\Model\Dto\PerformanceDemand');
+			$demand = $this->objectManager->get('\Webfox\T3events\Domain\Model\Dto\PerformanceDemand');
 
 			//$demand->setDate(time());
 			$demand->setDate(time() - ($hideTask->getPeriod()*3600));
@@ -184,7 +184,7 @@ class TaskCommandController extends \TYPO3\CMS\Extbase\MVC_Controller_CommandCon
 			. 'new status: ' . $updateTask->getNewStatus() . LF;
 
 			// prepare demand for query
-			$demand = $this->objectManager->get('\WebfoxT3events\Domain\Model\Dto\PerformanceDemand');
+			$demand = $this->objectManager->get('\Webfox\T3events\Domain\Model\Dto\PerformanceDemand');
 			$demand->setStatus($updateTask->getOldStatus());
 
 			$demand->setDate(time() - ($updateTask->getPeriod()*3600));

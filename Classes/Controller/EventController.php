@@ -160,10 +160,10 @@ class EventController extends \TYPO3\CMS\Extbase\MVC\Controller\ActionController
 	/**
 	 * action show
 	 *
-	 * @param \WebfoxT3events\Domain\Model\Event $event
+	 * @param \Webfox\T3events\Domain\Model\Event $event
 	 * @return void
 	 */
-	public function showAction(\WebfoxT3events\Domain\Model\Event $event) {
+	public function showAction(\Webfox\T3events\Domain\Model\Event $event) {
 		$this->view->assign('event', $event);
 	}
 
@@ -203,7 +203,7 @@ class EventController extends \TYPO3\CMS\Extbase\MVC\Controller\ActionController
 	/**
 	 * Build demand from settings respecting overwriteDemand
 	 * @param array overwriteDemand
-	 * @return \WebfoxT3events\Domain\Model\Dto\EventDemand
+	 * @return \Webfox\T3events\Domain\Model\Dto\EventDemand
 	 */
 	private function getDemandFromSettings($overwriteDemand = NULL) {
 		$demand = $this->objectManager->get('\\Webfox\\T3events\\Domain\\Model\\Dto\\EventDemand');

@@ -40,12 +40,12 @@ namespace Webfox\T3events\Tests\Unit\Controller;
  */
 class OrganizerControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
-	 * @var \WebfoxT3events\Domain\Model\Organizer
+	 * @var \Webfox\T3events\Domain\Model\Organizer
 	 */
 	protected $fixture;
 
 	public function setUp() {
-		$this->fixture = new \WebfoxT3events\Domain\Model\Organizer();
+		$this->fixture = new \Webfox\T3events\Domain\Model\Organizer();
 	}
 
 	public function tearDown() {

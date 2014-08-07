@@ -40,12 +40,12 @@ namespace Webfox\T3events\Tests\Unit\Controller;
  */
 class TicketClassControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
-	 * @var \WebfoxT3events\Domain\Model\TicketClass
+	 * @var \Webfox\T3events\Domain\Model\TicketClass
 	 */
 	protected $fixture;
 
 	public function setUp() {
-		$this->fixture = new \WebfoxT3events\Domain\Model\TicketClass();
+		$this->fixture = new \Webfox\T3events\Domain\Model\TicketClass();
 	}
 
 	public function tearDown() {
