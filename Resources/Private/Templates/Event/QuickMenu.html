@@ -25,7 +25,7 @@ This Template is responsible for creating a quick menu (selectbox).
 			<f:form name="overwriteDemand" action="list"
 				pageUid="{settings.event.list.pid}">
 				
-				<ts:comment>show genres only</ts:comment>
+				<f:comment>show genres only</f:comment>
 				<f:if condition="{0: settings.quickMenuType}=={0: 'genres'}">
 					<f:form.select 
 						id="tx_t3eventsQuickMenue"
@@ -37,7 +37,7 @@ This Template is responsible for creating a quick menu (selectbox).
 					/>
 				</f:if>
 				
-				<ts:comment>show venues only</ts:comment>
+				<f:comment>show venues only</f:comment>
 				<f:if condition="{0:settings.quickMenuType}=={0: 'venues'}"> 
 					<f:form.select 
 					  id="tx_t3eventsQuickMenue"
@@ -49,7 +49,7 @@ This Template is responsible for creating a quick menu (selectbox).
 					/>
 				</f:if>
 				
-				<ts:comment>show event types only</ts:comment>
+				<f:comment>show event types only</f:comment>
 				<f:if condition="{0:settings.quickMenuType}=={0: 'eventTypes'}"> 
 					<f:form.select 
 					  id="tx_t3eventsQuickMenue"
@@ -61,7 +61,7 @@ This Template is responsible for creating a quick menu (selectbox).
 					/>
 				</f:if>
 				
-				<ts:comment>show genres, venues and event types</ts:comment>
+				<f:comment>show genres, venues and event types</f:comment>
 				<f:if condition="{0:settings.quickMenuType}=={0: ''}">
 					<f:form.select 
 						id="tx_t3eventsQuickMenue"

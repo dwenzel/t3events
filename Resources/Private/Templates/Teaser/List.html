@@ -14,14 +14,14 @@ This Template is responsible for creating a list of teasers.
 <f:if condition="{settings.debug.highlights}">
 		<f:debug title="highlights">{highlights}</f:debug>
 </f:if>	
-	<ts:comment>highlights</ts:comment>
+	<f:comment>highlights</f:comment>
 	<f:if condition="{settings.highlightsToTop}">
 		<div class="teaser highlights">
 			<f:render partial="Teaser/Item" arguments="{teasers: highlights, settings: settings}" />
 		</div>
 	</f:if>
 	
-	<ts:comment>not highlighted teasers</ts:comment>
+	<f:comment>not highlighted teasers</f:comment>
 	<div class="teaser">
 		<f:render partial="Teaser/Item" arguments="{teasers: teasers, settings: settings}" />
 	</div>
