@@ -17,15 +17,8 @@
 ===========
 EXT: Events
 ===========
-
-:Created:
-      2010-02-18 17::3:3:
-
-:Changed by:
-      Dirk Wenzel
-
-:Changed:
-      2013-02-16 21::5:0:
+:Version:
+  |release|
 
 :Classification:
       t3events
@@ -41,9 +34,6 @@ EXT: Events
 
 :Email:
       t3events@webfox01.de
-
-:Info 4:
-
 
 :Language:
       en
