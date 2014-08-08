@@ -1,5 +1,5 @@
 <?php
-
+namespace Webfox\T3events\Domain\Repository;
 /***************************************************************
  *  Copyright notice
  *
@@ -33,19 +33,19 @@
  *
  */
 
-class Tx_T3events_Domain_Repository_AbstractRepository extends Tx_Extbase_Persistence_Repository {
+class AbstractRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 	/**
-	 * @var string $recordList A comma separated string containing uids
-	 * @var string $sortField Sort by field
-	 * @var Tx_Extbase_Persistence_QueryInterface $sortOrder 
-	 * @return Tx_Extbase_Persistence_QueryResult Matching Records
+	 * @var \string $recordList A comma separated string containing uids
+	 * @var \string $sortField Sort by field
+	 * @var \TYPO3\CMS\Extbase\Persistence\QueryInterface $sortOrder 
+	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResult Matching Records
 	 */
-	public function findMultipleByUid($recordList, $sortField='uid', $sortOrder=Tx_Extbase_Persistence_QueryInterface::ORDER_ASCENDING) {
-		$uids = t3lib_div::intExplode(',', $recordList, TRUE);
+	public function findMultipleByUid($recordList, $sortField='uid', $sortOrder=\TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING) {
+		$uids = \TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $recordList, TRUE);
 		$query = $this->createQuery();		
 		$query->matching($query->in('uid' , $uids));
 		$query->setOrderings(array($sortField => $sortOrder));
 		return $query->execute();
 	}
 }
-?>
+

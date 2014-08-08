@@ -1,5 +1,5 @@
 <?php
-
+namespace Webfox\T3events\Tests\Unit\Domain\Model;
 /***************************************************************
  *  Copyright notice
  *
@@ -26,7 +26,7 @@
  ***************************************************************/
 
 /**
- * Test case for class Tx_T3events_Domain_Model_EventLocation.
+ * Test case for class \Webfox\T3events\Domain\Model\EventLocation.
  *
  * @version $Id$
  * @copyright Copyright belongs to the respective authors
@@ -38,14 +38,14 @@
  * @author Dirk Wenzel <wenzel@webfox01.de>
  * @author Michael Kasten <kasten@webfox01.de>
  */
-class Tx_T3events_Domain_Model_EventLocationTest extends Tx_Extbase_Tests_Unit_BaseTestCase {
+class EventLocationTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
-	 * @var Tx_T3events_Domain_Model_EventLocation
+	 * @var \Webfox\T3events\Domain\Model\EventLocation
 	 */
 	protected $fixture;
 
 	public function setUp() {
-		$this->fixture = new Tx_T3events_Domain_Model_EventLocation();
+		$this->fixture = new \Webfox\T3events\Domain\Model\EventLocation();
 	}
 
 	public function tearDown() {
@@ -174,7 +174,7 @@ class Tx_T3events_Domain_Model_EventLocationTest extends Tx_Extbase_Tests_Unit_B
 	/**
 	 * @test
 	 */
-	public function getCountryReturnsInitialValueForTx_T3events_Domain_Model_Country() { 
+	public function getCountryReturnsInitialValueForCountry() { 
 		$this->assertEquals(
 			NULL,
 			$this->fixture->getCountry()
@@ -184,8 +184,8 @@ class Tx_T3events_Domain_Model_EventLocationTest extends Tx_Extbase_Tests_Unit_B
 	/**
 	 * @test
 	 */
-	public function setCountryForTx_T3events_Domain_Model_CountrySetsCountry() { 
-		$dummyObject = new Tx_T3events_Domain_Model_Country();
+	public function setCountryForCountrySetsCountry() { 
+		$dummyObject = new \Webfox\T3events\Domain\Model\Country();
 		$this->fixture->setCountry($dummyObject);
 
 		$this->assertSame(
@@ -195,4 +195,4 @@ class Tx_T3events_Domain_Model_EventLocationTest extends Tx_Extbase_Tests_Unit_B
 	}
 	
 }
-?>
+

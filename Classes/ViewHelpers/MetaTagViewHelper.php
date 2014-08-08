@@ -1,4 +1,5 @@
 <?php
+namespace Webfox\T3events\ViewHelpers;
 /***************************************************************
 *  Copyright notice
 *  
@@ -30,7 +31,7 @@
  * @package TYPO3
  * @subpackage tx_t3events
  */
-class Tx_T3events_ViewHelpers_MetaTagViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractTagBasedViewHelper {
+class MetaTagViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper {
 
 	/**
 	 * @var	string
@@ -60,14 +61,14 @@ class Tx_T3events_ViewHelpers_MetaTagViewHelper extends Tx_Fluid_Core_ViewHelper
 
 			// set current domain
 		if ($useCurrentDomain) {
-			$this->tag->addAttribute('content', t3lib_div::getIndpEnv('TYPO3_REQUEST_URL'));
+			$this->tag->addAttribute('content', \TYPO3\CMS\Core\Utility\GeneralUtility::getIndpEnv('TYPO3_REQUEST_URL'));
 		}
 
 			// prepend current domain
 		if ($forceAbsoluteUrl) {
 			$path = $this->arguments['content'];
-			if (!t3lib_div::isFirstPartOfStr($path, t3lib_div::getIndpEnv('TYPO3_SITE_URL'))) {
-				$this->tag->addAttribute('content', t3lib_div::getIndpEnv('TYPO3_SITE_URL') . $this->arguments['content']);
+			if (!\TYPO3\CMS\Core\Utility\GeneralUtility::isFirstPartOfStr($path, \TYPO3\CMS\Core\Utility\GeneralUtility::getIndpEnv('TYPO3_SITE_URL'))) {
+				$this->tag->addAttribute('content', \TYPO3\CMS\Core\Utility\GeneralUtility::getIndpEnv('TYPO3_SITE_URL') . $this->arguments['content']);
 			}
 		}
 
@@ -77,4 +78,3 @@ class Tx_T3events_ViewHelpers_MetaTagViewHelper extends Tx_Fluid_Core_ViewHelper
 	}
 }
 
-?>

@@ -1,5 +1,5 @@
 <?php
-
+namespace Webfox\T3events\Domain\Repository;
 /***************************************************************
  * Copyright notice
  *
@@ -33,24 +33,24 @@
  *
  */
 
-class Tx_T3events_Domain_Repository_EventRepository extends Tx_T3events_Domain_Repository_AbstractRepository {
+class EventRepository extends AbstractRepository {
 	/**
 	 * findDemanded
 	 *
-	 * @param Tx_T3events_Domain_Model_EventDemand
+	 * @param \Webfox\T3events\Domain\Model\Dto\EventDemand
 	 * @param boolean $respectEnableFields
-	 * @return Tx_Extbase_Persistence_QueryResult Matching Teasers
+	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResult Matching Teasers
 	 */
-	public function findDemanded(Tx_T3events_Domain_Model_EventDemand $demand, $respectEnableFields = TRUE) {
+	public function findDemanded(\Webfox\T3events\Domain\Model\Dto\EventDemand $demand, $respectEnableFields = TRUE) {
 		$query =$this->buildQuery($demand, $respectEnableFields);
 		return $query->execute();
 	}
 
 	/**
 	 * Builds a query from demand respecting restrictions for period of time and categories (genre, venue, event type)
-	 * @param Tx_T3events_Domain_Model_EventDemand $demand
+	 * @param \Webfox\T3events\Domain\Model\Dto\EventDemand $demand
 	 * @param boolean $respectEnableFields
-	 * @return Tx_Extbase_Persistence_QueryInterface $query
+	 * @return \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
 	 */
 	protected function buildQuery($demand, $respectEnableFields = TRUE){
 		$query = $this->createQuery();
@@ -95,14 +95,14 @@ class Tx_T3events_Domain_Repository_EventRepository extends Tx_T3events_Domain_R
 		// sort direction
 		switch ($demand->getSortDirection()) {
 			case 'asc' :
-				$sortOrder = Tx_Extbase_Persistence_QueryInterface::ORDER_ASCENDING;
+				$sortOrder = \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING;
 				break;
 
 			case 'desc' :
-				$sortOrder = Tx_Extbase_Persistence_QueryInterface::ORDER_DESCENDING;
+				$sortOrder = \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING;
 				break;
 			default :
-				$sortOrder = Tx_Extbase_Persistence_QueryInterface::ORDER_ASCENDING;
+				$sortOrder = \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING;
 				break;
 		}
 		//@todo implement a search class (like in news->NewsRepository/Search.php) which holds search field and word
@@ -120,24 +120,24 @@ class Tx_T3events_Domain_Repository_EventRepository extends Tx_T3events_Domain_R
 
 	/**
 	 * Create category constraints from demand
-	 * @param Tx_Extbase_Persistence_QueryInterface $query
-	 * @param Tx_T3events_Domain_Model_EventDemand $demand
-	 * @return array<Tx_Extbase_Persistence_QOM_Constraint>|null
+	 * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
+	 * @param \Webfox\T3events\Domain\Model\Dto\EventDemand $demand
+	 * @return array<\TYPO3\CMS\Extbase\Persistence\QOM\Constraint>|null
 	 */
-	protected function createCategoryConstraints(Tx_Extbase_Persistence_QueryInterface $query, $demand) {
+	protected function createCategoryConstraints(\TYPO3\CMS\Extbase\Persistence\QueryInterface $query, $demand) {
 		// gather OR constraints (categories)
 		$categoryConstraints = array();
 
 		// genre
 		if ($demand->getGenre()) {
-			$genres = t3lib_div::intExplode(',', $demand->getGenre());
+			$genres = \TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $demand->getGenre());
 			foreach ($genres as $genre) {
 				$categoryConstraints[] = $query->contains('genre', $genre);
 			}
 		}
 		// venue
 		if ($demand->getVenue()) {
-			$venues = t3lib_div::intExplode(',', $demand->getVenue());
+			$venues = \TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $demand->getVenue());
 			foreach ($venues as $venue) {
 				$categoryConstraints[] = $query->contains('venue', $venue);
 			}
@@ -145,7 +145,7 @@ class Tx_T3events_Domain_Repository_EventRepository extends Tx_T3events_Domain_R
 
 		// venue
 		if ($demand->getEventType()) {
-			$eventTypes = t3lib_div::intExplode(',', $demand->getEventType());
+			$eventTypes = \TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $demand->getEventType());
 			foreach ($eventTypes as $eventType) {
 				$categoryConstraints[] = $query->equals('eventType.uid', $eventType);
 			}
@@ -155,11 +155,11 @@ class Tx_T3events_Domain_Repository_EventRepository extends Tx_T3events_Domain_R
 
 	/**
 	 * Create period constraint from demand (time restriction)
-	 * @param Tx_Extbase_Persistence_QueryInterface $query
-	 * @param Tx_T3events_Domain_Model_EventDemand $demand
-	 * @return <Tx_Extbase_Persistence_QOM_Constraint>|null
+	 * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
+	 * @param \Webfox\T3events\Domain\Model\Dto\EventDemand $demand
+	 * @return <\TYPO3\CMS\Extbase\Persistence\QOM\Constraint>|null
 	 */
-	protected function createPeriodConstraint(Tx_Extbase_Persistence_QueryInterface $query, $demand){
+	protected function createPeriodConstraint(\TYPO3\CMS\Extbase\Persistence\QueryInterface $query, $demand){
 
 		// period constraints
 		$period = $demand->getPeriod();
@@ -170,8 +170,8 @@ class Tx_T3events_Domain_Repository_EventRepository extends Tx_T3events_Domain_R
 		if ($period === 'specific' && $periodType) {
 
 			// set start date initial to now
-			$timezone = new DateTimeZone(date_default_timezone_get());
-			$startDate = new DateTime('NOW', $timezone);
+			$timezone = new \DateTimeZone(date_default_timezone_get());
+			$startDate = new \DateTime('NOW', $timezone);
 			// get delta value
 			$deltaStart = ($periodStart < 0) ? $periodStart : '+' . $periodStart;
 			$deltaEnd = ($periodDuration > 0) ? '+' . $periodDuration : '+' . 999;
@@ -197,11 +197,11 @@ class Tx_T3events_Domain_Repository_EventRepository extends Tx_T3events_Domain_R
 					break;
 				case 'byDate' :
 					if (!is_null($demand->getStartDate())) {
-						$startDate = new DateTime();
+						$startDate = new \DateTime();
 						$startDate->setTimestamp($demand->getStartDate());
 					}
 					if (!is_null($demand->getEndDate())) {
-						$endDate = new DateTime();
+						$endDate = new \DateTime();
 						$endDate->setTimestamp($demand->getEndDate());
 					} else {
 						$deltaEnd .= ' day';
@@ -235,4 +235,4 @@ class Tx_T3events_Domain_Repository_EventRepository extends Tx_T3events_Domain_R
 		return $periodConstraint;
 	}
 }
-?>
+

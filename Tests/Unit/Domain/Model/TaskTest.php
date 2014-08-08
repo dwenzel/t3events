@@ -1,5 +1,5 @@
 <?php
-
+namespace Webfox\T3events\Tests\Unit\Domain\Model;
 /***************************************************************
  *  Copyright notice
  *
@@ -26,7 +26,7 @@
  ***************************************************************/
 
 /**
- * Test case for class Tx_T3events_Domain_Model_Task.
+ * Test case for class \Webfox\T3events\Domain\Model\Task.
  *
  * @version $Id$
  * @copyright Copyright belongs to the respective authors
@@ -38,14 +38,14 @@
  * @author Dirk Wenzel <wenzel@webfox01.de>
  * @author Michael Kasten <kasten@webfox01.de>
  */
-class Tx_T3events_Domain_Model_TaskTest extends Tx_Extbase_Tests_Unit_BaseTestCase {
+class TaskTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
-	 * @var Tx_T3events_Domain_Model_Task
+	 * @var \Webfox\T3events\Domain\Model\Task
 	 */
 	protected $fixture;
 
 	public function setUp() {
-		$this->fixture = new Tx_T3events_Domain_Model_Task();
+		$this->fixture = new \Webfox\T3events\Domain\Model\Task();
 	}
 
 	public function tearDown() {
@@ -131,8 +131,8 @@ class Tx_T3events_Domain_Model_TaskTest extends Tx_Extbase_Tests_Unit_BaseTestCa
 	/**
 	 * @test
 	 */
-	public function setOldStatusForTx_T3events_Domain_Model_PerformanceStatusSetsOldStatus() {
-		$status = new Tx_T3events_Domain_Model_PerformanceStatus(); 
+	public function setOldStatusForPerformanceStatusSetsOldStatus() {
+		$status = new \Webfox\T3events\Domain\Model\PerformanceStatus(); 
 		$this->fixture->setOldStatus($status);
 
 		$this->assertSame(
@@ -154,8 +154,8 @@ class Tx_T3events_Domain_Model_TaskTest extends Tx_Extbase_Tests_Unit_BaseTestCa
 	/**
 	 * @test
 	 */
-	public function setNewStatusForTx_T3events_Domain_Model_PerformanceStatusSetsNewStatus() { 
-		$status = new Tx_T3events_Domain_Model_PerformanceStatus(); 
+	public function setNewStatusForPerformanceStatusSetsNewStatus() { 
+		$status = new \Webfox\T3events\Domain\Model\PerformanceStatus(); 
 		$this->fixture->setNewStatus($status);
 
 		$this->assertSame(
@@ -187,4 +187,4 @@ class Tx_T3events_Domain_Model_TaskTest extends Tx_Extbase_Tests_Unit_BaseTestCa
 	}
 	
 }
-?>
+

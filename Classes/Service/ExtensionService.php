@@ -1,5 +1,5 @@
 <?php
-
+namespace Webfox\T3events\Service;
 /***************************************************************
  *  Copyright notice
  *
@@ -32,7 +32,9 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_T3events_Service_ExtensionService extends Tx_Extbase_Service_ExtensionService implements t3lib_Singleton {
+class ExtensionService 
+	extends \TYPO3\CMS\Extbase\Service\ExtensionService 
+	implements \TYPO3\CMS\Core\SingletonInterface {
 	
 	/**
      * Checks if the given action is cacheable or not.
@@ -40,24 +42,21 @@ class Tx_T3events_Service_ExtensionService extends Tx_Extbase_Service_ExtensionS
      * Method from parent class overwritten to allow evaluation of plugin setting 'makeNonCachable'.
      * Thus an editor is able to force an non caching behavior of the plugin.
      *
-     * @param string $extensionName Name of the target extension, without underscores
-     * @param string $pluginName Name of the target plugin
-     * @param string $controllerName Name of the target controller
-     * @param string $actionName Name of the action to be called
+     * @param \string $extensionName Name of the target extension, without underscores
+     * @param \string $pluginName Name of the target plugin
+     * @param \string $controllerName Name of the target controller
+     * @param \string $actionName Name of the action to be called
      * @return boolean TRUE if the specified plugin action is cacheable, otherwise FALSE
      */
     public function isActionCacheable($extensionName, $pluginName, $controllerName, $actionName) {
-		$frameworkConfiguration = $this->configurationManager->getConfiguration(Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK, $extensionName, $pluginName);
+		$frameworkConfiguration = $this->configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK, $extensionName, $pluginName);
         if ( !parent::isActionCacheable ($extensionName, $pluginName, $controllerName, $actionName) ||
         	isset($frameworkConfiguration['settings']['cache']['makeNonCacheable']) &&
-        	$frameworkConfiguration['settings']['cache']['makeNonCacheable']) 
+        	$frameworkConfiguration['settings']['cache']['makeNonCacheable'])
         	{
         		return FALSE;
 			}
 			return TRUE;
-			
-	} 
+	}
 }
-
-?>
 

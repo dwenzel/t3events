@@ -1,5 +1,7 @@
 <?php
+namespace Webfox\T3events\Command;
 /***************************************************************
+<?php
  *  Copyright notice
 *
 *  (c) 2013 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
@@ -31,41 +33,41 @@
 *
 */
 
-class Tx_T3events_Command_TaskCommandController extends Tx_Extbase_MVC_Controller_CommandController {
+class TaskCommandController extends \TYPO3\CMS\Extbase\MVC_Controller_CommandController {
 	/**
 	 * taskRepository
-	 * @var Tx_T3events_Domain_Repository_TaskRepository
+	 * @var \Webfox\T3events\Domain\Repository\TaskRepository
 	 */
 	protected $taskRepository;
 
 	/**
 	 * performanceRepository
-	 * @var Tx_T3events_Domain_Repository_PerformanceRepository
+	 * @var \Webfox\T3events\Domain\Repository\PerformanceRepository
 	 */
 	protected $performanceRepository;
 
 	/**
 	 * inject Performance Repository
-	 * @param Tx_T3events_Domain_Repository_PerformanceRepository $performanceRepository
+	 * @param \Webfox\T3events\Domain\Repository\PerformanceRepository $performanceRepository
 	 * @return void
 	 */
-	public function injectPerformanceRepository(Tx_T3events_Domain_Repository_PerformanceRepository $performanceRepository) {
+	public function injectPerformanceRepository(\Webfox\T3events\Domain\Repository\PerformanceRepository $performanceRepository) {
 		$this->performanceRepository = $performanceRepository;
 	}
 
 	/**
 	 * inject Task Repository
-	 * @param Tx_T3events_Domain_Repository_TaskRepository $taskRepository
+	 * @param \Webfox\T3events\Domain\Repository\TaskRepository $taskRepository
 	 * @return void
 	 */
-	public function injectTaskRepository(Tx_T3events_Domain_Repository_TaskRepository $taskRepository){
+	public function injectTaskRepository(\Webfox\T3events\Domain\Repository\TaskRepository $taskRepository){
 	 $this->taskRepository = $taskRepository;
 	}
 
 
 	/**
 	 * Run update tasks
-	 * @param string $email E-Mail
+	 * @param \string $email E-Mail
 	 *
 	 * @return void
 	 */
@@ -79,7 +81,7 @@ class Tx_T3events_Command_TaskCommandController extends Tx_Extbase_MVC_Controlle
 				$site = '-';
 			} else {
 				$calledBy = 'TYPO3 backend';
-				$site = t3lib_div::getIndpEnv('TYPO3_SITE_URL');
+				$site = \TYPO3\CMS\Core\Utility\GeneralUtility::getIndpEnv('TYPO3_SITE_URL');
 			}
 			$mailBody =
 				  '----------------------------------------' . LF
@@ -93,8 +95,8 @@ class Tx_T3events_Command_TaskCommandController extends Tx_Extbase_MVC_Controlle
 
 			// Prepare mailer and send the mail
 			try {
-				/** @var $mailer t3lib_mail_message */
-				$mailer = t3lib_div::makeInstance('t3lib_mail_message');
+				/** @var $mailer \TYPO3\CMS\Core\Mail\MailMessage */
+				$mailer = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\\TYPO3\\CMS\\Core\\Mail\\MailMessage');
 				$mailer->setFrom(array($email => 'TYPO3 scheduler - t3events task'));
 				$mailer->setReplyTo(array($email => 'TYPO3 scheduler - t3events task'));
 				$mailer->setSubject('TYPO3 scheduler - t3events task');
@@ -103,7 +105,7 @@ class Tx_T3events_Command_TaskCommandController extends Tx_Extbase_MVC_Controlle
 				$mailsSend = $mailer->send();
 				$success = ($mailsSend>0);
 			} catch (Exception $e) {
-				throw new t3lib_exception($e->getMessage());
+				throw new \TYPO3\CMS\Core\Exception($e->getMessage());
 			}
 		}
 		return TRUE;
@@ -115,7 +117,7 @@ class Tx_T3events_Command_TaskCommandController extends Tx_Extbase_MVC_Controlle
 	 *
 	 * Hides all performances which meet the given constraints. Returns a message string for reporting.
 	 *
-	 * @return string
+	 * @return \string
 	 */
 	public function runHidePerformanceTasks() {
 		$hideTasks = $this->taskRepository->findByAction(3);
@@ -129,7 +131,7 @@ class Tx_T3events_Command_TaskCommandController extends Tx_Extbase_MVC_Controlle
 			. 'Action: hide performance' . LF;
 
 			// prepare demand for query
-			$demand = $this->objectManager->get('Tx_T3events_Domain_Model_PerformanceDemand');
+			$demand = $this->objectManager->get('\Webfox\T3events\Domain\Model\Dto\PerformanceDemand');
 
 			//$demand->setDate(time());
 			$demand->setDate(time() - ($hideTask->getPeriod()*3600));
@@ -166,7 +168,7 @@ class Tx_T3events_Command_TaskCommandController extends Tx_Extbase_MVC_Controlle
 	 * Returns a message string for reporting.
 	 *
 	 *
-	 * @return string
+	 * @return \string
 	 */
 	public function runUpdatePerformanceStatusTasks() {
 		// find task with update action
@@ -182,7 +184,7 @@ class Tx_T3events_Command_TaskCommandController extends Tx_Extbase_MVC_Controlle
 			. 'new status: ' . $updateTask->getNewStatus() . LF;
 
 			// prepare demand for query
-			$demand = $this->objectManager->get('Tx_T3events_Domain_Model_PerformanceDemand');
+			$demand = $this->objectManager->get('\Webfox\T3events\Domain\Model\Dto\PerformanceDemand');
 			$demand->setStatus($updateTask->getOldStatus());
 
 			$demand->setDate(time() - ($updateTask->getPeriod()*3600));
@@ -211,4 +213,4 @@ class Tx_T3events_Command_TaskCommandController extends Tx_Extbase_MVC_Controlle
 		return $message;
 	}
 }
-?>
+

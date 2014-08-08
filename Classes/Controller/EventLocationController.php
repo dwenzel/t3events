@@ -1,5 +1,5 @@
 <?php
-
+namespace Webfox\T3events\Controller;
 /***************************************************************
  *  Copyright notice
  *
@@ -32,12 +32,12 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_T3events_Controller_EventLocationController extends Tx_Extbase_MVC_Controller_ActionController {
+class EventLocationController extends \TYPO3\CMS\Extbase\MVC\Controller\ActionController {
 
 	/**
 	 * eventLocationRepository
 	 *
-	 * @var Tx_T3events_Domain_Repository_EventLocationRepository
+	 * @var \Webfox\T3events\Domain\Repository\EventLocationRepository
 	 */
 	protected $eventLocationRepository;
 
@@ -54,22 +54,22 @@ class Tx_T3events_Controller_EventLocationController extends Tx_Extbase_MVC_Cont
 	/**
 	 * action show
 	 *
-	 * @param Tx_T3events_Domain_Model_Venue $venue
+	 * @param \Webfox\T3events\Domain\Model\Venue $venue
 	 * @return void
 	 */
-	public function showAction(Tx_T3events_Domain_Model_Venue $venue) {
+	public function showAction(\Webfox\T3events\Domain\Model\Venue $venue) {
 		$this->view->assign('venue', $venue);
 	}
 
 	/**
 	 * injectEventLocationRepository
 	 *
-	 * @param Tx_T3events_Domain_Repository_EventLocationRepository $eventLocationRepository
+	 * @param \Webfox\T3events\Domain\Repository\EventLocationRepository $eventLocationRepository
 	 * @return void
 	 */
-	public function injectEventLocationRepository(Tx_T3events_Domain_Repository_EventLocationRepository $eventLocationRepository) {
+	public function injectEventLocationRepository(\Webfox\T3events\Domain\Repository\EventLocationRepository $eventLocationRepository) {
 		$this->eventLocationRepository = $eventLocationRepository;
 	}
 
 }
-?>
+

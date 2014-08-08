@@ -1,5 +1,5 @@
 <?php
-
+namespace Webfox\T3events\Tests\Unit\Domain\Model;
 /***************************************************************
  *  Copyright notice
  *
@@ -26,7 +26,7 @@
  ***************************************************************/
 
 /**
- * Test case for class Tx_T3events_Domain_Model_Organizer.
+ * Test case for class \Webfox\T3events\Domain\Model\Organizer.
  *
  * @version $Id$
  * @copyright Copyright belongs to the respective authors
@@ -38,14 +38,14 @@
  * @author Dirk Wenzel <wenzel@webfox01.de>
  * @author Michael Kasten <kasten@webfox01.de>
  */
-class Tx_T3events_Domain_Model_OrganizerTest extends Tx_Extbase_Tests_Unit_BaseTestCase {
+class OrganizerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
-	 * @var Tx_T3events_Domain_Model_Organizer
+	 * @var \Webfox\T3events\Domain\Model\Organizer
 	 */
 	protected $fixture;
 
 	public function setUp() {
-		$this->fixture = new Tx_T3events_Domain_Model_Organizer();
+		$this->fixture = new \Webfox\T3events\Domain\Model\Organizer();
 	}
 
 	public function tearDown() {
@@ -87,4 +87,4 @@ class Tx_T3events_Domain_Model_OrganizerTest extends Tx_Extbase_Tests_Unit_BaseT
 	}
 	
 }
-?>
+
