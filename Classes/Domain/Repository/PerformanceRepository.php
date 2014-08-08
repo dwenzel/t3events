@@ -42,10 +42,10 @@ class PerformanceRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
     /**
      * find Demanded
-     * @param \Webfox\T3events\Domain\Model\PerformanceDemand $demand
+     * @param \Webfox\T3events\Domain\Model\Dto\PerformanceDemand $demand
      * @return \TYPO3\CMS\Extbase\Persistence\QueryResult matching performances
      */
-    public function findDemanded(\Webfox\T3events\Domain\Model\PerformanceDemand $demand){
+    public function findDemanded(\Webfox\T3events\Domain\Model\Dto\PerformanceDemand $demand){
     	$query = $this->createQuery();
 
     	$constraints = array();

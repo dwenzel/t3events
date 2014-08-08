@@ -37,10 +37,10 @@ class TeaserRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 	/**
 	 * findDemanded
 	 *
-	 * @param \Webfox\T3events\Domain\Model\TeaserDemand
+	 * @param \Webfox\T3events\Domain\Model\Dto\TeaserDemand
 	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResult Matching Teasers
 	 */
-	public function findDemanded(\Webfox\T3events\Domain\Model\TeaserDemand $demand) {
+	public function findDemanded(\Webfox\T3events\Domain\Model\Dto\TeaserDemand $demand) {
 		$query = $this->createQuery();
 		$sortBy = $demand->getSortBy();
 		$period = $demand->getPeriod();
