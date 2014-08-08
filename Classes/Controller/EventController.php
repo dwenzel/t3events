@@ -143,8 +143,8 @@ class EventController extends \TYPO3\CMS\Extbase\MVC\Controller\ActionController
         if (($events instanceof \TYPO3\CMS\Extbase\Persistence\QueryResult AND !$events->count())
 				OR !count($events) ) {
         	$this->flashMessageContainer->add(
-        		\TYPO3\CMS\Extbase\Utility\Localization::translate('tx_t3events.noEventsForSelectionMessage', $this->extensionName),
-        		\TYPO3\CMS\Extbase\Utility\Localization::translate('tx_t3events.noEventsForSelectionTitle', $this->extensionName),
+        		\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_t3events.noEventsForSelectionMessage', $this->extensionName),
+        		\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_t3events.noEventsForSelectionTitle', $this->extensionName),
         		\TYPO3\CMS\Core\Messaging\FlashMessage::WARNING
         	);
         }
@@ -188,15 +188,15 @@ class EventController extends \TYPO3\CMS\Extbase\MVC\Controller\ActionController
 
 		// Build a fake entry for empty first option (The form.select viewhelper doesn't allow an empty option yet)
 		$fakeGenre = $this->objectManager->get('\\Webfox\\T3events\\Domain\\Model\\Genre');
-		$fakeGenre->setTitle(\TYPO3\CMS\Extbase\Utility\Localization::translate('tx_t3events.allGenres', $this->extensionName));
+		$fakeGenre->setTitle(\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_t3events.allGenres', $this->extensionName));
 		$this->view->assign('genres', array_merge(array(0=>$fakeGenre), $genres->toArray()));
 
 		$fakeVenue = $this->objectManager->get('\\Webfox\\T3events\\Domain\\Model\\Venue');
-		$fakeVenue->setTitle(\TYPO3\CMS\Extbase\Utility\Localization::translate('tx_t3events.allVenues', $this->extensionName));
+		$fakeVenue->setTitle(\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_t3events.allVenues', $this->extensionName));
 		$this->view->assign('venues', array_merge(array(0=>$fakeVenue), $venues->toArray()));
 
 		$fakeEventType = $this->objectManager->get('\\Webfox\\T3events\\Domain\\Model\\EventType');
-		$fakeEventType->setTitle(\TYPO3\CMS\Extbase\Utility\Localization::translate('tx_t3events.allEventTypes', $this->extensionName));
+		$fakeEventType->setTitle(\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_t3events.allEventTypes', $this->extensionName));
 		$this->view->assign('eventTypes', array_merge(array(0=>$fakeEventType), $eventTypes->toArray()));
 	}
 
