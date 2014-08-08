@@ -1,5 +1,5 @@
 <?php
-
+namespace Webfox\T3events\Tests\Unit\Controller;
 /***************************************************************
  *  Copyright notice
  *
@@ -26,7 +26,7 @@
  ***************************************************************/
 
 /**
- * Test case for class Tx_T3events_Controller_TicketClassController.
+ * Test case for class \Webfox\T3events\Controller\TicketClassController.
  *
  * @version $Id$
  * @copyright Copyright belongs to the respective authors
@@ -38,14 +38,14 @@
  * @author Dirk Wenzel <wenzel@webfox01.de>
  * @author Michael Kasten <kasten@webfox01.de>
  */
-class Tx_T3events_Controller_TicketClassControllerTest extends Tx_Extbase_Tests_Unit_BaseTestCase {
+class TicketClassControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
-	 * @var Tx_T3events_Domain_Model_TicketClass
+	 * @var \Webfox\T3events\Domain\Model\TicketClass
 	 */
 	protected $fixture;
 
 	public function setUp() {
-		$this->fixture = new Tx_T3events_Domain_Model_TicketClass();
+		$this->fixture = new \Webfox\T3events\Domain\Model\TicketClass();
 	}
 
 	public function tearDown() {
@@ -60,4 +60,4 @@ class Tx_T3events_Controller_TicketClassControllerTest extends Tx_Extbase_Tests_
 	}
 
 }
-?>
+

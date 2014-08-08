@@ -1,5 +1,5 @@
 <?php
-
+namespace Webfox\T3events\Domain\Repository;
 /***************************************************************
  *  Copyright notice
  *
@@ -32,7 +32,7 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_T3events_Domain_Repository_EventLocationRepository extends Tx_Extbase_Persistence_Repository {
+class EventLocationRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
 }
-?>
+

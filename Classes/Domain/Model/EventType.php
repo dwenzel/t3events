@@ -1,5 +1,5 @@
 <?php
-
+namespace Webfox\T3events\Domain\Model;
 /***************************************************************
  *  Copyright notice
  *
@@ -32,19 +32,19 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_T3events_Domain_Model_EventType extends Tx_Extbase_DomainObject_AbstractValueObject {
+class EventType extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject {
 
 	/**
 	 * title
 	 *
-	 * @var string
+	 * @var \string
 	 */
 	protected $title;
 
 	/**
 	 * Returns the title
 	 *
-	 * @return string $title
+	 * @return \string $title
 	 */
 	public function getTitle() {
 		return $this->title;
@@ -53,7 +53,7 @@ class Tx_T3events_Domain_Model_EventType extends Tx_Extbase_DomainObject_Abstrac
 	/**
 	 * Sets the title
 	 *
-	 * @param string $title
+	 * @param \string $title
 	 * @return void
 	 */
 	public function setTitle($title) {
@@ -61,4 +61,4 @@ class Tx_T3events_Domain_Model_EventType extends Tx_Extbase_DomainObject_Abstrac
 	}
 
 }
-?>
+

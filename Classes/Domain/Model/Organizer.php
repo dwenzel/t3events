@@ -1,5 +1,5 @@
 <?php
-
+namespace Webfox\T3events\Domain\Model;
 /***************************************************************
  *  Copyright notice
  *
@@ -32,26 +32,26 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_T3events_Domain_Model_Organizer extends Tx_Extbase_DomainObject_AbstractEntity {
+class Organizer extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
 	 * name
 	 *
-	 * @var string
+	 * @var \string
 	 */
 	protected $name;
 
 	/**
 	 * link
 	 *
-	 * @var string
+	 * @var \string
 	 */
 	protected $link;
 
 	/**
 	 * Returns the name
 	 *
-	 * @return string $name
+	 * @return \string $name
 	 */
 	public function getName() {
 		return $this->name;
@@ -60,7 +60,7 @@ class Tx_T3events_Domain_Model_Organizer extends Tx_Extbase_DomainObject_Abstrac
 	/**
 	 * Sets the name
 	 *
-	 * @param string $name
+	 * @param \string $name
 	 * @return void
 	 */
 	public function setName($name) {
@@ -70,7 +70,7 @@ class Tx_T3events_Domain_Model_Organizer extends Tx_Extbase_DomainObject_Abstrac
 	/**
 	 * Returns the link
 	 *
-	 * @return string $link
+	 * @return \string $link
 	 */
 	public function getLink() {
 		return $this->link;
@@ -79,7 +79,7 @@ class Tx_T3events_Domain_Model_Organizer extends Tx_Extbase_DomainObject_Abstrac
 	/**
 	 * Sets the link
 	 *
-	 * @param string $link
+	 * @param \string $link
 	 * @return void
 	 */
 	public function setLink($link) {
@@ -87,4 +87,4 @@ class Tx_T3events_Domain_Model_Organizer extends Tx_Extbase_DomainObject_Abstrac
 	}
 
 }
-?>
+

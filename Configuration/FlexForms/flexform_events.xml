@@ -358,7 +358,7 @@
 							<label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.templateLayout</label>
 							<config>
 								<type>select</type>
-								<itemsProcFunc>Tx_T3events_Hooks_ItemsProcFunc->user_templateLayout</itemsProcFunc>
+								<itemsProcFunc>Webfox\T3events\Hooks\ItemsProcFunc->user_templateLayout</itemsProcFunc>
 								<items>
 									<numIndex index="0" type="array">
 										<numIndex index="0"></numIndex>

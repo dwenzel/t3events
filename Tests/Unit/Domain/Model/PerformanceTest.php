@@ -1,5 +1,5 @@
 <?php
-
+namespace Webfox\T3events\Tests\Unit\Domain\Model;
 /***************************************************************
  *  Copyright notice
  *
@@ -26,7 +26,7 @@
  ***************************************************************/
 
 /**
- * Test case for class Tx_T3events_Domain_Model_Performance.
+ * Test case for class \Webfox\T3events\Domain\Model\Performance.
  *
  * @version $Id$
  * @copyright Copyright belongs to the respective authors
@@ -38,14 +38,14 @@
  * @author Dirk Wenzel <wenzel@webfox01.de>
  * @author Michael Kasten <kasten@webfox01.de>
  */
-class Tx_T3events_Domain_Model_PerformanceTest extends Tx_Extbase_Tests_Unit_BaseTestCase {
+class PerformanceTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
-	 * @var Tx_T3events_Domain_Model_Performance
+	 * @var \Webfox\T3events\Domain\Model\Performance
 	 */
 	protected $fixture;
 
 	public function setUp() {
-		$this->fixture = new Tx_T3events_Domain_Model_Performance();
+		$this->fixture = new \Webfox\T3events\Domain\Model\Performance();
 	}
 
 	public function tearDown() {
@@ -241,7 +241,7 @@ class Tx_T3events_Domain_Model_PerformanceTest extends Tx_Extbase_Tests_Unit_Bas
 	/**
 	 * @test
 	 */
-	public function getEventLocationReturnsInitialValueForTx_T3events_Domain_Model_EventLocation() { 
+	public function getEventLocationReturnsInitialValueForEventLocation() { 
 		$this->assertEquals(
 			NULL,
 			$this->fixture->getEventLocation()
@@ -251,8 +251,8 @@ class Tx_T3events_Domain_Model_PerformanceTest extends Tx_Extbase_Tests_Unit_Bas
 	/**
 	 * @test
 	 */
-	public function setEventLocationForTx_T3events_Domain_Model_EventLocationSetsEventLocation() { 
-		$dummyObject = new Tx_T3events_Domain_Model_EventLocation();
+	public function setEventLocationForEventLocationSetsEventLocation() { 
+		$dummyObject = new \Webfox\T3events\Domain\Model\EventLocation();
 		$this->fixture->setEventLocation($dummyObject);
 
 		$this->assertSame(
@@ -264,8 +264,8 @@ class Tx_T3events_Domain_Model_PerformanceTest extends Tx_Extbase_Tests_Unit_Bas
 	/**
 	 * @test
 	 */
-	public function getTicketClassReturnsInitialValueForObjectStorageContainingTx_T3events_Domain_Model_TicketClass() { 
-		$newObjectStorage = new Tx_Extbase_Persistence_ObjectStorage();
+	public function getTicketClassReturnsInitialValueForObjectStorageContainingTicketClass() { 
+		$newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$this->assertEquals(
 			$newObjectStorage,
 			$this->fixture->getTicketClass()
@@ -275,9 +275,9 @@ class Tx_T3events_Domain_Model_PerformanceTest extends Tx_Extbase_Tests_Unit_Bas
 	/**
 	 * @test
 	 */
-	public function setTicketClassForObjectStorageContainingTx_T3events_Domain_Model_TicketClassSetsTicketClass() { 
-		$ticketClas = new Tx_T3events_Domain_Model_TicketClass();
-		$objectStorageHoldingExactlyOneTicketClass = new Tx_Extbase_Persistence_ObjectStorage();
+	public function setTicketClassForObjectStorageContainingTicketClassSetsTicketClass() { 
+		$ticketClas = new \Webfox\T3events\Domain\Model\TicketClass();
+		$objectStorageHoldingExactlyOneTicketClass = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$objectStorageHoldingExactlyOneTicketClass->attach($ticketClas);
 		$this->fixture->setTicketClass($objectStorageHoldingExactlyOneTicketClass);
 
@@ -291,8 +291,8 @@ class Tx_T3events_Domain_Model_PerformanceTest extends Tx_Extbase_Tests_Unit_Bas
 	 * @test
 	 */
 	public function addTicketClassToObjectStorageHoldingTicketClass() {
-		$ticketClass = new Tx_T3events_Domain_Model_TicketClass();
-		$objectStorageHoldingExactlyOneTicketClass = new Tx_Extbase_Persistence_ObjectStorage();
+		$ticketClass = new \Webfox\T3events\Domain\Model\TicketClass();
+		$objectStorageHoldingExactlyOneTicketClass = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$objectStorageHoldingExactlyOneTicketClass->attach($ticketClass);
 		$this->fixture->addTicketClass($ticketClass);
 
@@ -306,8 +306,8 @@ class Tx_T3events_Domain_Model_PerformanceTest extends Tx_Extbase_Tests_Unit_Bas
 	 * @test
 	 */
 	public function removeTicketClassFromObjectStorageHoldingTicketClass() {
-		$ticketClass = new Tx_T3events_Domain_Model_TicketClass();
-		$localObjectStorage = new Tx_Extbase_Persistence_ObjectStorage();
+		$ticketClass = new \Webfox\T3events\Domain\Model\TicketClass();
+		$localObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$localObjectStorage->attach($ticketClass);
 		$localObjectStorage->detach($ticketClass);
 		$this->fixture->addTicketClass($ticketClass);
@@ -322,7 +322,7 @@ class Tx_T3events_Domain_Model_PerformanceTest extends Tx_Extbase_Tests_Unit_Bas
 	/**
 	 * @test
 	 */
-	public function getStatusReturnsInitialValueForTx_T3events_Domain_Model_PerformanceStatus() { 
+	public function getStatusReturnsInitialValueForPerformanceStatus() { 
 		$this->assertEquals(
 			NULL,
 			$this->fixture->getStatus()
@@ -332,8 +332,8 @@ class Tx_T3events_Domain_Model_PerformanceTest extends Tx_Extbase_Tests_Unit_Bas
 	/**
 	 * @test
 	 */
-	public function setStatusForTx_T3events_Domain_Model_PerformanceStatusSetsStatus() { 
-		$dummyObject = new Tx_T3events_Domain_Model_PerformanceStatus();
+	public function setStatusForPerformanceStatusSetsStatus() { 
+		$dummyObject = new \Webfox\T3events\Domain\Model\PerformanceStatus();
 		$this->fixture->setStatus($dummyObject);
 
 		$this->assertSame(
@@ -360,4 +360,4 @@ class Tx_T3events_Domain_Model_PerformanceTest extends Tx_Extbase_Tests_Unit_Bas
 		$this->assertSame( 1, $this->fixture->getHidden());
 	}
 }
-?>
+

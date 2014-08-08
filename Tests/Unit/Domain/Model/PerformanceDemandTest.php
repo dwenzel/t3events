@@ -1,5 +1,5 @@
 <?php 
-
+namespace Webfox\T3events\Tests\Unit\Domain\Model;
 /***************************************************************
  *  Copyright notice
 *
@@ -26,7 +26,7 @@
 ***************************************************************/
 
 /**
- * Test case for class Tx_T3events_Domain_Model_PerformanceDemand.
+ * Test case for class \Webfox\T3events\Domain\Model\Dto\PerformanceDemand.
  * @version $Id$
  * @copyright Copyright belongs to the respective authors
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
@@ -38,15 +38,15 @@
  * @author Michael Kasten <kasten@webfox01.de>
  */
 
-class Tx_T3events_Domain_Model_PerformanceDemandTest extends Tx_T3events_Domain_Model_AbstractDemandTest {
+class PerformanceDemandTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
-	 * @var Tx_T3events_Domain_Model_PerformanceDemand
+	 * @var \Webfox\T3events\Domain\Model\Dto\PerformanceDemand
 	 */
 	protected $fixture;
 	
 	
 	public function setUp(){
-		$this->fixture = new Tx_T3events_Domain_Model_PerformanceDemand();
+		$this->fixture = new \Webfox\T3events\Domain\Model\Dto\PerformanceDemand();
 	}
 	
 	public function tearDown() {
@@ -80,8 +80,8 @@ class Tx_T3events_Domain_Model_PerformanceDemandTest extends Tx_T3events_Domain_
 	/**
 	 * @test
 	 */
-	public function setStatusForTx_T3events_Domain_Model_PerformanceStatusSetsStatus(){
-		$status = new Tx_T3events_Domain_Model_PerformanceStatus();
+	public function setStatusForPerformanceStatusSetsStatus(){
+		$status = new \Webfox\T3events\Domain\Model\PerformanceStatus();
 		
 		$this->fixture->setStatus($status);
 		

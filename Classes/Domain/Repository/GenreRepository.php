@@ -1,5 +1,5 @@
 <?php
-
+namespace Webfox\T3events\Domain\Repository;
 /***************************************************************
  *  Copyright notice
  *
@@ -33,7 +33,6 @@
  *
  */
 
-class Tx_T3events_Domain_Repository_GenreRepository extends Tx_T3events_Domain_Repository_AbstractRepository {
+class GenreRepository extends AbstractRepository {
 }
 
-?>

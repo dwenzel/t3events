@@ -1,5 +1,5 @@
 <?php
-
+namespace Webfox\T3events\Domain\Model;
 /***************************************************************
  *  Copyright notice
  *
@@ -32,12 +32,12 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_T3events_Domain_Model_PerformanceStatus extends Tx_Extbase_DomainObject_AbstractEntity {
+class PerformanceStatus extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
 	 * title
 	 *
-	 * @var string
+	 * @var \string
 	 * @validate NotEmpty
 	 */
 	protected $title;
@@ -45,7 +45,7 @@ class Tx_T3events_Domain_Model_PerformanceStatus extends Tx_Extbase_DomainObject
 	/**
 	 * cssClass
 	 *
-	 * @var string
+	 * @var \string
 	 * @validate NotEmpty
 	 */
 	protected $cssClass;
@@ -53,7 +53,7 @@ class Tx_T3events_Domain_Model_PerformanceStatus extends Tx_Extbase_DomainObject
 	/**
 	 * priority max allowed 2147483647
 	 *
-	 * @var integer
+	 * @var \integer
 	 * @validate NotEmpty
 	 */
 	protected $priority = 2147483647;
@@ -61,7 +61,7 @@ class Tx_T3events_Domain_Model_PerformanceStatus extends Tx_Extbase_DomainObject
 	/**
 	 * Returns the title
 	 *
-	 * @return string $title
+	 * @return \string $title
 	 */
 	public function getTitle() {
 		return $this->title;
@@ -70,7 +70,7 @@ class Tx_T3events_Domain_Model_PerformanceStatus extends Tx_Extbase_DomainObject
 	/**
 	 * Sets the title
 	 *
-	 * @param string $title
+	 * @param \string $title
 	 * @return void
 	 */
 	public function setTitle($title) {
@@ -80,7 +80,7 @@ class Tx_T3events_Domain_Model_PerformanceStatus extends Tx_Extbase_DomainObject
 	/**
 	 * Returns the priority
 	 *
-	 * @return integer $priority
+	 * @return \integer $priority
 	 */
 	public function getPriority() {
 		return $this->priority;
@@ -89,7 +89,7 @@ class Tx_T3events_Domain_Model_PerformanceStatus extends Tx_Extbase_DomainObject
 	/**
 	 * Sets the priority
 	 *
-	 * @param integer $priority
+	 * @param \integer $priority
 	 * @return void
 	 */
 	public function setPriority($priority) {
@@ -99,7 +99,7 @@ class Tx_T3events_Domain_Model_PerformanceStatus extends Tx_Extbase_DomainObject
 	/**
 	 * Returns the cssClass
 	 *
-	 * @return string cssClass
+	 * @return \string cssClass
 	 */
 	public function getCssClass() {
 		return $this->cssClass;
@@ -108,12 +108,12 @@ class Tx_T3events_Domain_Model_PerformanceStatus extends Tx_Extbase_DomainObject
 	/**
 	 * Sets the cssClass
 	 *
-	 * @param string $cssClass
-	 * @return string cssClass
+	 * @param \string $cssClass
+	 * @return \string cssClass
 	 */
 	public function setCssClass($cssClass) {
 		$this->cssClass = $cssClass;
 	}
 
 }
-?>
+

@@ -1,5 +1,5 @@
 <?php
-
+namespace Webfox\T3events\Controller;
 /***************************************************************
  *  Copyright notice
  *
@@ -32,53 +32,53 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_T3events_Controller_EventController extends Tx_Extbase_MVC_Controller_ActionController {
+class EventController extends \TYPO3\CMS\Extbase\MVC\Controller\ActionController {
 
 	/**
 	 * eventRepository
 	 *
-	 * @var Tx_T3events_Domain_Repository_EventRepository
+	 * @var \Webfox\T3events\Domain\Repository\EventRepository
 	 */
 	protected $eventRepository;
 
 	/**
 	* genreRepository
 	*
-	* @var Tx_T3events_Domain_Repository_GenreRepository
+	* @var \Webfox\T3events\Domain\Repository\GenreRepository
 	*/
 	protected $genreRepository;
 
 	/**
 	* venueRepository
 	*
-	* @var Tx_T3events_Domain_Repository_VenueRepository
+	* @var \Webfox\T3events\Domain\Repository\VenueRepository
 	*/
 	protected $venueRepository;
 
 	/**
 	* eventTypeRepository
 	*
-	* @var Tx_T3events_Domain_Repository_EventTypeRepository
+	* @var \Webfox\T3events\Domain\Repository\EventTypeRepository
 	*/
 	protected $eventTypeRepository;
 
 	/**
 	 * injectEventRepository
 	 *
-	 * @param Tx_T3events_Domain_Repository_EventRepository $eventRepository
+	 * @param \Webfox\T3events\Domain\Repository\EventRepository $eventRepository
 	 * @return void
 	 */
-	public function injectEventRepository(Tx_T3events_Domain_Repository_EventRepository $eventRepository) {
+	public function injectEventRepository(\Webfox\T3events\Domain\Repository\EventRepository $eventRepository) {
 		$this->eventRepository = $eventRepository;
 	}
 
 	/**
 	 * injectGenreRepository
 	 *
-	 * @param Tx_T3events_Domain_Repository_GenreRepository $genreRepository
+	 * @param \Webfox\T3events\Domain\Repository\GenreRepository $genreRepository
 	 * @return void
 	 */
-	public function injectGenreRepository(Tx_T3events_Domain_Repository_GenreRepository $genreRepository) {
+	public function injectGenreRepository(\Webfox\T3events\Domain\Repository\GenreRepository $genreRepository) {
 		$this->genreRepository = $genreRepository;
 	}
 
@@ -86,25 +86,25 @@ class Tx_T3events_Controller_EventController extends Tx_Extbase_MVC_Controller_A
 	/**
 	 * injectVenueRepository
 	 *
-	 * @param Tx_T3events_Domain_Repository_VenueRepository $venueRepository
+	 * @param \Webfox\T3events\Domain\Repository\VenueRepository $venueRepository
 	 * @return void
 	 */
-	public function injectVenueRepository(Tx_T3events_Domain_Repository_VenueRepository $venueRepository) {
+	public function injectVenueRepository(\Webfox\T3events\Domain\Repository\VenueRepository $venueRepository) {
 		$this->venueRepository = $venueRepository;
 	}
 
 	/**
 	 * inject EventTypeRepository
 	 *
-	 * @param Tx_T3events_Domain_Repository_EventTypeRepository $eventTypeRepository
+	 * @param \Webfox\T3events\Domain\Repository\EventTypeRepository $eventTypeRepository
 	 * @return void
 	 */
-	public function injectEventTypeRepository(Tx_T3events_Domain_Repository_EventTypeRepository $eventTypeRepository) {
+	public function injectEventTypeRepository(\Webfox\T3events\Domain\Repository\EventTypeRepository $eventTypeRepository) {
 		$this->eventTypeRepository = $eventTypeRepository;
 	}
 			/**
 	 * action list
-	 * @param array $overwriteDemand
+	 * @param \array $overwriteDemand
 	 * @return void
 	 */
 	public function listAction( $overwriteDemand = NULL) {
@@ -140,12 +140,12 @@ class Tx_T3events_Controller_EventController extends Tx_Extbase_MVC_Controller_A
         	$events = $this->eventRepository->findDemanded($demand);
         }
 
-        if (($events instanceof Tx_Extbase_Persistence_QueryResult AND !$events->count())
+        if (($events instanceof \TYPO3\CMS\Extbase\Persistence\QueryResult AND !$events->count())
 				OR !count($events) ) {
         	$this->flashMessageContainer->add(
-        		Tx_Extbase_Utility_Localization::translate('tx_t3events.noEventsForSelectionMessage', $this->extensionName),
-        		Tx_Extbase_Utility_Localization::translate('tx_t3events.noEventsForSelectionTitle', $this->extensionName),
-        		t3lib_Flashmessage::WARNING
+        		\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_t3events.noEventsForSelectionMessage', $this->extensionName),
+        		\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_t3events.noEventsForSelectionTitle', $this->extensionName),
+        		\TYPO3\CMS\Core\Messaging\FlashMessage::WARNING
         	);
         }
 
@@ -160,10 +160,10 @@ class Tx_T3events_Controller_EventController extends Tx_Extbase_MVC_Controller_A
 	/**
 	 * action show
 	 *
-	 * @param Tx_T3events_Domain_Model_Event $event
+	 * @param \Webfox\T3events\Domain\Model\Event $event
 	 * @return void
 	 */
-	public function showAction(Tx_T3events_Domain_Model_Event $event) {
+	public function showAction(\Webfox\T3events\Domain\Model\Event $event) {
 		$this->view->assign('event', $event);
 	}
 
@@ -186,27 +186,22 @@ class Tx_T3events_Controller_EventController extends Tx_Extbase_MVC_Controller_A
 		// get event types from plugin
 		$eventTypes = $this->eventTypeRepository->findMultipleByUid($this->settings['eventTypes'], 'title');
 
-		// Build a fake entry for empty first option (The form.select viewhelper doesn't allow an empty option yet)
-		$fakeGenre = $this->objectManager->get('Tx_T3events_Domain_Model_Genre');
-		$fakeGenre->setTitle(Tx_Extbase_Utility_Localization::translate('tx_t3events.allGenres', $this->extensionName));
-		$this->view->assign('genres', array_merge(array(0=>$fakeGenre), $genres->toArray()));
-
-		$fakeVenue = $this->objectManager->get('Tx_T3events_Domain_Model_Venue');
-		$fakeVenue->setTitle(Tx_Extbase_Utility_Localization::translate('tx_t3events.allVenues', $this->extensionName));
-		$this->view->assign('venues', array_merge(array(0=>$fakeVenue), $venues->toArray()));
-
-		$fakeEventType = $this->objectManager->get('Tx_T3events_Domain_Model_EventType');
-		$fakeEventType->setTitle(Tx_Extbase_Utility_Localization::translate('tx_t3events.allEventTypes', $this->extensionName));
-		$this->view->assign('eventTypes', array_merge(array(0=>$fakeEventType), $eventTypes->toArray()));
+		$this->view->assignMultiple(
+			array(
+				'genres' => $genres,
+				'venues' => $venues,
+				'eventTypes' => $eventTypes
+			)
+		);
 	}
 
 	/**
 	 * Build demand from settings respecting overwriteDemand
-	 * @param array overwriteDemand
-	 * @return Tx_T3events_Domain_Model_EventDemand
+	 * @param \array overwriteDemand
+	 * @return \Webfox\T3events\Domain\Model\Dto\EventDemand
 	 */
 	private function getDemandFromSettings($overwriteDemand = NULL) {
-		$demand = $this->objectManager->get('Tx_T3events_Domain_Model_EventDemand');
+		$demand = $this->objectManager->get('\\Webfox\\T3events\\Domain\\Model\\Dto\\EventDemand');
 
         if (!is_null($overwriteDemand)) {
         	$demand->setGenre($overwriteDemand['genre']);
@@ -293,4 +288,4 @@ class Tx_T3events_Controller_EventController extends Tx_Extbase_MVC_Controller_A
         return $demand;
 	}
 }
-?>
+

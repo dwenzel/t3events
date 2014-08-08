@@ -1,5 +1,5 @@
 <?php
-
+namespace Webfox\T3events\Tests\Unit\Controller;
 /***************************************************************
  *  Copyright notice
  *
@@ -26,7 +26,7 @@
  ***************************************************************/
 
 /**
- * Test case for class Tx_T3events_Controller_PerformanceController.
+ * Test case for class \Webfox\T3events\Controller\PerformanceController.
  *
  * @version $Id$
  * @copyright Copyright belongs to the respective authors
@@ -38,14 +38,14 @@
  * @author Dirk Wenzel <wenzel@webfox01.de>
  * @author Michael Kasten <kasten@webfox01.de>
  */
-class Tx_T3events_Controller_PerformanceControllerTest extends Tx_Extbase_Tests_Unit_BaseTestCase {
+class PerformanceControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
-	 * @var Tx_T3events_Domain_Model_Performance
+	 * @var \Webfox\T3events\Domain\Model\Performance
 	 */
 	protected $fixture;
 
 	public function setUp() {
-		$this->fixture = new Tx_T3events_Domain_Model_Performance();
+		$this->fixture = new \Webfox\T3events\Domain\Model\Performance();
 	}
 
 	public function tearDown() {
@@ -60,4 +60,4 @@ class Tx_T3events_Controller_PerformanceControllerTest extends Tx_Extbase_Tests_
 	}
 
 }
-?>
+

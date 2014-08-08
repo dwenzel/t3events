@@ -1,5 +1,5 @@
 <?php
-
+namespace Webfox\T3events\Domain\Model;
 /***************************************************************
  *  Copyright notice
  *
@@ -32,54 +32,54 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_T3events_Domain_Model_Task extends Tx_Extbase_DomainObject_AbstractEntity {
+class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
 	 * Provide a name for the task
 	 *
-	 * @var string
+	 * @var \string
 	 */
 	protected $name;
 
 	/**
 	 * Select an action to perform
 	 *
-	 * @var integer
+	 * @var \integer
 	 */
 	protected $action;
 
 	/**
 	 * Enter a period of action in seconds. Negative values are possible too.
 	 *
-	 * @var integer
+	 * @var \integer
 	 */
 	protected $period;
 
 	/**
 	 * Select a status
 	 *
-	 * @var Tx_T3events_Domain_Model_PerformanceStatus
+	 * @var \Webfox\T3events\Domain\Model\PerformanceStatus
 	 */
 	protected $oldStatus;
 
 	/**
 	 * Select the new status
 	 *
-	 * @var Tx_T3events_Domain_Model_PerformanceStatus
+	 * @var \Webfox\T3events\Domain\Model\PerformanceStatus
 	 */
 	protected $newStatus;
 
 	/**
 	 * folder
 	 *
-	 * @var string
+	 * @var \string
 	 */
 	protected $folder;
 
 	/**
 	 * Returns the name
 	 *
-	 * @return string $name
+	 * @return \string $name
 	 */
 	public function getName() {
 		return $this->name;
@@ -88,7 +88,7 @@ class Tx_T3events_Domain_Model_Task extends Tx_Extbase_DomainObject_AbstractEnti
 	/**
 	 * Sets the name
 	 *
-	 * @param string $name
+	 * @param \string $name
 	 * @return void
 	 */
 	public function setName($name) {
@@ -98,7 +98,7 @@ class Tx_T3events_Domain_Model_Task extends Tx_Extbase_DomainObject_AbstractEnti
 	/**
 	 * Returns the action
 	 *
-	 * @return integer $action
+	 * @return \integer $action
 	 */
 	public function getAction() {
 		return $this->action;
@@ -107,7 +107,7 @@ class Tx_T3events_Domain_Model_Task extends Tx_Extbase_DomainObject_AbstractEnti
 	/**
 	 * Sets the action
 	 *
-	 * @param integer $action
+	 * @param \integer $action
 	 * @return void
 	 */
 	public function setAction($action) {
@@ -116,7 +116,7 @@ class Tx_T3events_Domain_Model_Task extends Tx_Extbase_DomainObject_AbstractEnti
 	
 	/**
 	* get the time period of action
-	* @return integer $period
+	* @return \integer $period
 	*/
 	public function getPeriod() {
 		return $this->period;
@@ -124,7 +124,7 @@ class Tx_T3events_Domain_Model_Task extends Tx_Extbase_DomainObject_AbstractEnti
 	
 	/**
 	* sets the time period of action
-	* @param integer $period
+	* @param \integer $period
 	* @return void
 	*/
 	public function setPeriod($period) {
@@ -134,7 +134,7 @@ class Tx_T3events_Domain_Model_Task extends Tx_Extbase_DomainObject_AbstractEnti
 	/**
 	 * Returns the oldStatus
 	 *
-	 * @return Tx_T3events_Domain_Model_PerformanceStatus $oldStatus
+	 * @return \Webfox\T3events\Domain\Model\PerformanceStatus $oldStatus
 	 */
 	public function getOldStatus() {
 		return $this->oldStatus;
@@ -143,7 +143,7 @@ class Tx_T3events_Domain_Model_Task extends Tx_Extbase_DomainObject_AbstractEnti
 	/**
 	 * Sets the oldStatus
 	 *
-	 * @param Tx_T3events_Domain_Model_PerformanceStatus $oldStatus
+	 * @param \Webfox\T3events\Domain\Model\PerformanceStatus $oldStatus
 	 * @return void
 	 */
 	public function setOldStatus($oldStatus) {
@@ -153,7 +153,7 @@ class Tx_T3events_Domain_Model_Task extends Tx_Extbase_DomainObject_AbstractEnti
 	/**
 	 * Returns the newStatus
 	 *
-	 * @return Tx_T3events_Domain_Model_PerformanceStatus $newStatus
+	 * @return \Webfox\T3events\Domain\Model\PerformanceStatus $newStatus
 	 */
 	public function getNewStatus() {
 		return $this->newStatus;
@@ -162,7 +162,7 @@ class Tx_T3events_Domain_Model_Task extends Tx_Extbase_DomainObject_AbstractEnti
 	/**
 	 * Sets the newStatus
 	 *
-	 * @param Tx_T3events_Domain_Model_PerformanceStatus $newStatus
+	 * @param \Webfox\T3events\Domain\Model\PerformanceStatus $newStatus
 	 * @return void
 	 */
 	public function setNewStatus($newStatus) {
@@ -172,7 +172,7 @@ class Tx_T3events_Domain_Model_Task extends Tx_Extbase_DomainObject_AbstractEnti
 	/**
 	 * Returns the folder
 	 *
-	 * @return string $folder
+	 * @return \string $folder
 	 */
 	public function getFolder() {
 		return $this->folder;
@@ -181,7 +181,7 @@ class Tx_T3events_Domain_Model_Task extends Tx_Extbase_DomainObject_AbstractEnti
 	/**
 	 * Sets the folder
 	 *
-	 * @param string $folder
+	 * @param \string $folder
 	 * @return void
 	 */
 	public function setFolder($folder) {
@@ -189,4 +189,4 @@ class Tx_T3events_Domain_Model_Task extends Tx_Extbase_DomainObject_AbstractEnti
 	}
 
 }
-?>
+

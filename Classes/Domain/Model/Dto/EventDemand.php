@@ -1,5 +1,5 @@
 <?php
-
+namespace Webfox\T3events\Domain\Model\Dto;
 /***************************************************************
  *  Copyright notice
  *
@@ -33,39 +33,39 @@
  *
  */
  
- class Tx_T3events_Domain_Model_EventDemand extends Tx_T3events_Domain_Model_AbstractDemand{
+ class EventDemand extends AbstractDemand{
  	/**
  	 * Genre
  	 * 
- 	 * @var string Genre
+ 	 * @var \string Genre
  	 */
  	protected $genre;
  	
  	/**
  	 * Venue
  	 * 
- 	 * @var string Venue
+ 	 * @var \string Venue
  	 */
  	protected $venue;
 
  	/**
  	 * Event Type
 	 *
- 	 * @var string
+ 	 * @var \string
 	 */
  	protected $eventType;
 
 	/** 
 	 * Category Conjunction
 	 *
-	 * @var string
+	 * @var \string
 	 */
 	protected $categoryConjunction;
  	
  	/**
 	 * Returns the genre
 	 *
-	 * @return string $genre
+	 * @return \string $genre
 	 */
 	public function getGenre() {
 		return $this->genre;
@@ -74,7 +74,7 @@
 	/**
 	 * Sets the genre
 	 *
-	 * @param string $genre
+	 * @param \string $genre
 	 * @return void
 	 */
 	public function setGenre($genre) {
@@ -84,7 +84,7 @@
  	/**
 	 * Returns the venue
 	 *
-	 * @return string $venue
+	 * @return \string $venue
 	 */
 	public function getVenue() {
 		return $this->venue;
@@ -93,7 +93,7 @@
 	/**
 	 * Sets the venue
 	 *
-	 * @param string $venue
+	 * @param \string $venue
 	 * @return void
 	 */
 	public function setVenue($venue) {
@@ -103,7 +103,7 @@
 	/**
 	 * Returns the Event Type
 	 * 
-	 * @return string $eventType
+	 * @return \string $eventType
 	 */
 	public function getEventType() {
 		return $this->eventType;
@@ -112,7 +112,7 @@
 	/**
 	 * Set event type
 	 * 
-	 * @param string $eventType
+	 * @param \string $eventType
 	 * @return void
 	 */
 	public function setEventType($eventType) {
@@ -122,7 +122,7 @@
 	/**
 	 * Returns the Category Conjunction
 	 * 
-	 * @return string
+	 * @return \string
 	 */
 	public function getCategoryConjunction() {
 		return $this->categoryConjunction;
@@ -131,7 +131,7 @@
 	/**
 	 * Set Category Conjunction
 	 * 
-	 * @param string $categoryConjunction
+	 * @param \string $categoryConjunction
 	 * @return void
 	 */
 	public function setCategoryConjunction($categoryConjunction) {
@@ -139,5 +139,4 @@
 	}
 
   }
- ?>
 

@@ -1,5 +1,5 @@
 <?php
-
+namespace Webfox\T3events\Controller;
 /***************************************************************
  *  Copyright notice
  *
@@ -32,12 +32,12 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_T3events_Controller_TeaserController extends Tx_Extbase_MVC_Controller_ActionController {
+class TeaserController extends \TYPO3\CMS\Extbase\MVC\Controller\ActionController {
 
 	/**
 	 * teaserRepository
 	 *
-	 * @var Tx_T3events_Domain_Repository_TeaserRepository
+	 * @var \Webfox\T3events\Domain\Repository\TeaserRepository
 	 */
 	protected $teaserRepository;
 
@@ -61,11 +61,10 @@ class Tx_T3events_Controller_TeaserController extends Tx_Extbase_MVC_Controller_
 		            $this->view->assign('highlights', $highlights);
 		            
 		            // neu
-		            $demand = t3lib_div::makeInstance('Tx_T3events_Domain_Model_TeaserDemand');
+		            $demand = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\Webfox\T3events\Domain\Model\Dto\TeaserDemand');
 					$demand->setHighlightsOnly(TRUE);
 					if($this->settings['sortBy']=='date'){
 						$demand->setSortBy('event.performances.date');
-						var_dump($demand->getSortBy());	
 					}
 					if($this->settings['maxHighlighted']){
 						//var_dump($this->settings['maxHighlighted']);
@@ -94,34 +93,34 @@ class Tx_T3events_Controller_TeaserController extends Tx_Extbase_MVC_Controller_
 	/**
 	 * action show
 	 *
-	 * @param Tx_T3events_Domain_Model_Teaser $teaser
+	 * @param \Webfox\T3events\Domain\Model\Teaser $teaser
 	 * @return void
 	 */
-	public function showAction(Tx_T3events_Domain_Model_Teaser $teaser) {
+	public function showAction(\Webfox\T3events\Domain\Model\Teaser $teaser) {
 		$this->view->assign('teaser', $teaser);
 	}
 
 	/**
 	 * injectTeaserRepository
 	 *
-	 * @param Tx_T3events_Domain_Repository_TeaserRepository $teaserRepository
+	 * @param \Webfox\T3events\Domain\Repository\TeaserRepository $teaserRepository
 	 * @return void
 	 */
-	public function injectTeaserRepository(Tx_T3events_Domain_Repository_TeaserRepository $teaserRepository) {
+	public function injectTeaserRepository(\Webfox\T3events\Domain\Repository\TeaserRepository $teaserRepository) {
 		$this->teaserRepository = $teaserRepository;
 	}
 
 	/**
 	 * action showEvent
 	 *
-	 * @param Tx_T3events_Domain_Model_Teaser $teaser
+	 * @param \Webfox\T3events\Domain\Model\Teaser $teaser
 	 * @return void
 	 */
-	public function showEventAction(Tx_T3events_Domain_Model_Teaser $teaser) {
+	public function showEventAction(\Webfox\T3events\Domain\Model\Teaser $teaser) {
 			    $event = $teaser->getEvent();
 		        #$this->view->assign('event', $event);
 		        $this->redirect('show', 'Event', NULL, array('event'=>$event));
 	}
 
 }
-?>
+
