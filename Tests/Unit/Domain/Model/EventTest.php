@@ -1,5 +1,5 @@
 <?php
-
+namespace Webfox\T3events\Tests\Unit\Domain\Model;
 /***************************************************************
  *  Copyright notice
  *
@@ -26,7 +26,7 @@
  ***************************************************************/
 
 /**
- * Test case for class Tx_T3events_Domain_Model_Event.
+ * Test case for class \Webfox\T3events\Domain\Model\Event.
  *
  * @version $Id$
  * @copyright Copyright belongs to the respective authors
@@ -38,14 +38,14 @@
  * @author Dirk Wenzel <wenzel@webfox01.de>
  * @author Michael Kasten <kasten@webfox01.de>
  */
-class Tx_T3events_Domain_Model_EventTest extends Tx_Extbase_Tests_Unit_BaseTestCase {
+class EventTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
-	 * @var Tx_T3events_Domain_Model_Event
+	 * @var \Webfox\T3events\Domain\Model\Event
 	 */
 	protected $fixture;
 
 	public function setUp() {
-		$this->fixture = new Tx_T3events_Domain_Model_Event();
+		$this->fixture = new \Webfox\T3events\Domain\Model\Event();
 	}
 
 	public function tearDown() {
@@ -140,8 +140,8 @@ class Tx_T3events_Domain_Model_EventTest extends Tx_Extbase_Tests_Unit_BaseTestC
 	/**
 	 * @test
 	 */
-	public function getGenreReturnsInitialValueForObjectStorageContainingTx_T3events_Domain_Model_Genre() { 
-		$newObjectStorage = new Tx_Extbase_Persistence_ObjectStorage();
+	public function getGenreReturnsInitialValueForObjectStorageContainingGenre() { 
+		$newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$this->assertEquals(
 			$newObjectStorage,
 			$this->fixture->getGenre()
@@ -151,9 +151,9 @@ class Tx_T3events_Domain_Model_EventTest extends Tx_Extbase_Tests_Unit_BaseTestC
 	/**
 	 * @test
 	 */
-	public function setGenreForObjectStorageContainingTx_T3events_Domain_Model_GenreSetsGenre() { 
-		$genre = new Tx_T3events_Domain_Model_Genre();
-		$objectStorageHoldingExactlyOneGenre = new Tx_Extbase_Persistence_ObjectStorage();
+	public function setGenreForObjectStorageContainingGenreSetsGenre() { 
+		$genre = new \Webfox\T3events\Domain\Model\Genre();
+		$objectStorageHoldingExactlyOneGenre = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$objectStorageHoldingExactlyOneGenre->attach($genre);
 		$this->fixture->setGenre($objectStorageHoldingExactlyOneGenre);
 
@@ -167,8 +167,8 @@ class Tx_T3events_Domain_Model_EventTest extends Tx_Extbase_Tests_Unit_BaseTestC
 	 * @test
 	 */
 	public function addGenreToObjectStorageHoldingGenre() {
-		$genre = new Tx_T3events_Domain_Model_Genre();
-		$objectStorageHoldingExactlyOneGenre = new Tx_Extbase_Persistence_ObjectStorage();
+		$genre = new \Webfox\T3events\Domain\Model\Genre();
+		$objectStorageHoldingExactlyOneGenre = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$objectStorageHoldingExactlyOneGenre->attach($genre);
 		$this->fixture->addGenre($genre);
 
@@ -182,8 +182,8 @@ class Tx_T3events_Domain_Model_EventTest extends Tx_Extbase_Tests_Unit_BaseTestC
 	 * @test
 	 */
 	public function removeGenreFromObjectStorageHoldingGenre() {
-		$genre = new Tx_T3events_Domain_Model_Genre();
-		$localObjectStorage = new Tx_Extbase_Persistence_ObjectStorage();
+		$genre = new \Webfox\T3events\Domain\Model\Genre();
+		$localObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$localObjectStorage->attach($genre);
 		$localObjectStorage->detach($genre);
 		$this->fixture->addGenre($genre);
@@ -198,8 +198,8 @@ class Tx_T3events_Domain_Model_EventTest extends Tx_Extbase_Tests_Unit_BaseTestC
 	/**
 	 * @test
 	 */
-	public function getVenueReturnsInitialValueForObjectStorageContainingTx_T3events_Domain_Model_Venue() { 
-		$newObjectStorage = new Tx_Extbase_Persistence_ObjectStorage();
+	public function getVenueReturnsInitialValueForObjectStorageContainingVenue() { 
+		$newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$this->assertEquals(
 			$newObjectStorage,
 			$this->fixture->getVenue()
@@ -209,9 +209,9 @@ class Tx_T3events_Domain_Model_EventTest extends Tx_Extbase_Tests_Unit_BaseTestC
 	/**
 	 * @test
 	 */
-	public function setVenueForObjectStorageContainingTx_T3events_Domain_Model_VenueSetsVenue() {
-		$venue = new Tx_T3events_Domain_Model_Venue();
-		$objectStorageHoldingExactlyOneVenue = new Tx_Extbase_Persistence_ObjectStorage();
+	public function setVenueForObjectStorageContainingVenueSetsVenue() {
+		$venue = new \Webfox\T3events\Domain\Model\Venue();
+		$objectStorageHoldingExactlyOneVenue = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$objectStorageHoldingExactlyOneVenue->attach($venue);
 		$this->fixture->setVenue($objectStorageHoldingExactlyOneVenue);
 		
@@ -225,8 +225,8 @@ class Tx_T3events_Domain_Model_EventTest extends Tx_Extbase_Tests_Unit_BaseTestC
 	 * @test
 	 */	
 	public function addVenueToObjectStorageHoldingVenue() {
-		$venue = new Tx_T3events_Domain_Model_Venue();
-		$objectStorageHoldingExactlyOneVenue = new Tx_Extbase_Persistence_ObjectStorage();
+		$venue = new \Webfox\T3events\Domain\Model\Venue();
+		$objectStorageHoldingExactlyOneVenue = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$objectStorageHoldingExactlyOneVenue->attach($venue);
 		$this->fixture->addVenue($venue);
 		
@@ -240,8 +240,8 @@ class Tx_T3events_Domain_Model_EventTest extends Tx_Extbase_Tests_Unit_BaseTestC
 	 * @test
 	 */
 	public function removeVenueFromObjectStorageHoldingVenue() {
-		$venue = new Tx_T3events_Domain_Model_Venue();
-		$localObjectStorage = new Tx_Extbase_Persistence_ObjectStorage();
+		$venue = new \Webfox\T3events\Domain\Model\Venue();
+		$localObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$localObjectStorage->attach($venue);
 		$localObjectStorage->detach($venue);
 		$this->fixture->addVenue($venue);
@@ -255,7 +255,7 @@ class Tx_T3events_Domain_Model_EventTest extends Tx_Extbase_Tests_Unit_BaseTestC
 	/**
 	 * @test
 	 */
-	public function getEventTypeReturnsInitialValueForTx_T3events_Domain_Model_EventType() { 
+	public function getEventTypeReturnsInitialValueForEventType() { 
 		$this->assertEquals(
 			NULL,
 			$this->fixture->getEventType()
@@ -266,8 +266,8 @@ class Tx_T3events_Domain_Model_EventTest extends Tx_Extbase_Tests_Unit_BaseTestC
 	/**
 	 * @test
 	 */
-	public function setEventTypeForTx_T3events_Domain_Model_EventTypeSetsEventType() { 
-		$dummyObject = new Tx_T3events_Domain_Model_EventType();
+	public function setEventTypeForEventTypeSetsEventType() { 
+		$dummyObject = new \Webfox\T3events\Domain\Model\EventType();
 		$this->fixture->setEventType($dummyObject);
 
 		$this->assertSame(
@@ -279,8 +279,8 @@ class Tx_T3events_Domain_Model_EventTest extends Tx_Extbase_Tests_Unit_BaseTestC
 	/**
 	 * @test
 	 */
-	public function getPerformancesReturnsInitialValueForObjectStorageContainingTx_T3events_Domain_Model_Performance() { 
-		$newObjectStorage = new Tx_Extbase_Persistence_ObjectStorage();
+	public function getPerformancesReturnsInitialValueForObjectStorageContainingPerformance() { 
+		$newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$this->assertEquals(
 			$newObjectStorage,
 			$this->fixture->getPerformances()
@@ -290,9 +290,9 @@ class Tx_T3events_Domain_Model_EventTest extends Tx_Extbase_Tests_Unit_BaseTestC
 	/**
 	 * @test
 	 */
-	public function setPerformancesForObjectStorageContainingTx_T3events_Domain_Model_PerformanceSetsPerformances() { 
-		$performance = new Tx_T3events_Domain_Model_Performance();
-		$objectStorageHoldingExactlyOnePerformances = new Tx_Extbase_Persistence_ObjectStorage();
+	public function setPerformancesForObjectStorageContainingPerformanceSetsPerformances() { 
+		$performance = new \Webfox\T3events\Domain\Model\Performance();
+		$objectStorageHoldingExactlyOnePerformances = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$objectStorageHoldingExactlyOnePerformances->attach($performance);
 		$this->fixture->setPerformances($objectStorageHoldingExactlyOnePerformances);
 
@@ -306,8 +306,8 @@ class Tx_T3events_Domain_Model_EventTest extends Tx_Extbase_Tests_Unit_BaseTestC
 	 * @test
 	 */
 	public function addPerformanceToObjectStorageHoldingPerformances() {
-		$performance = new Tx_T3events_Domain_Model_Performance();
-		$objectStorageHoldingExactlyOnePerformance = new Tx_Extbase_Persistence_ObjectStorage();
+		$performance = new \Webfox\T3events\Domain\Model\Performance();
+		$objectStorageHoldingExactlyOnePerformance = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$objectStorageHoldingExactlyOnePerformance->attach($performance);
 		$this->fixture->addPerformance($performance);
 
@@ -321,8 +321,8 @@ class Tx_T3events_Domain_Model_EventTest extends Tx_Extbase_Tests_Unit_BaseTestC
 	 * @test
 	 */
 	public function removePerformanceFromObjectStorageHoldingPerformances() {
-		$performance = new Tx_T3events_Domain_Model_Performance();
-		$localObjectStorage = new Tx_Extbase_Persistence_ObjectStorage();
+		$performance = new \Webfox\T3events\Domain\Model\Performance();
+		$localObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$localObjectStorage->attach($performance);
 		$localObjectStorage->detach($performance);
 		$this->fixture->addPerformance($performance);
@@ -337,7 +337,7 @@ class Tx_T3events_Domain_Model_EventTest extends Tx_Extbase_Tests_Unit_BaseTestC
 	/**
 	 * @test
 	 */
-	public function getOrganizerReturnsInitialValueForTx_T3events_Domain_Model_Organizer() { 
+	public function getOrganizerReturnsInitialValueForOrganizer() { 
 		$this->assertEquals(
 			NULL,
 			$this->fixture->getOrganizer()
@@ -347,8 +347,8 @@ class Tx_T3events_Domain_Model_EventTest extends Tx_Extbase_Tests_Unit_BaseTestC
 	/**
 	 * @test
 	 */
-	public function setOrganizerForTx_T3events_Domain_Model_OrganizerSetsOrganizer() { 
-		$dummyObject = new Tx_T3events_Domain_Model_Organizer();
+	public function setOrganizerForOrganizerSetsOrganizer() { 
+		$dummyObject = new \Webfox\T3events\Domain\Model\Organizer();
 		$this->fixture->setOrganizer($dummyObject);
 
 		$this->assertSame(
@@ -358,4 +358,4 @@ class Tx_T3events_Domain_Model_EventTest extends Tx_Extbase_Tests_Unit_BaseTestC
 	}
 	
 }
-?>
+

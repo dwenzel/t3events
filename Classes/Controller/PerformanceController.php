@@ -1,5 +1,5 @@
 <?php
-
+namespace Webfox\T3events\Controller;
 /***************************************************************
  *  Copyright notice
  *
@@ -32,22 +32,22 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_T3events_Controller_PerformanceController extends Tx_Extbase_MVC_Controller_ActionController {
+class PerformanceController extends \TYPO3\CMS\Extbase\MVC\Controller\ActionController {
 
 	/**
 	 * performanceRepository
 	 *
-	 * @var Tx_T3events_Domain_Repository_PerformanceRepository
+	 * @var \Webfox\T3events\Domain\Repository\PerformanceRepository
 	 */
 	protected $performanceRepository;
 
 	/**
 	 * injectPerformanceRepository
 	 *
-	 * @param Tx_T3events_Domain_Repository_PerformanceRepository $performanceRepository
+	 * @param \Webfox\T3events\Domain\Repository\PerformanceRepository $performanceRepository
 	 * @return void
 	 */
-	public function injectPerformanceRepository(Tx_T3events_Domain_Repository_PerformanceRepository $performanceRepository) {
+	public function injectPerformanceRepository(\Webfox\T3events\Domain\Repository\PerformanceRepository $performanceRepository) {
 		$this->performanceRepository = $performanceRepository;
 	}
 
@@ -64,12 +64,12 @@ class Tx_T3events_Controller_PerformanceController extends Tx_Extbase_MVC_Contro
 	/**
 	 * action show
 	 *
-	 * @param Tx_T3events_Domain_Model_Performance $performance
+	 * @param \Webfox\T3events\Domain\Model\Performance $performance
 	 * @return void
 	 */
-	public function showAction(Tx_T3events_Domain_Model_Performance $performance) {
+	public function showAction(\Webfox\T3events\Domain\Model\Performance $performance) {
 		$this->view->assign('performance', $performance);
 	}
 
 }
-?>
+

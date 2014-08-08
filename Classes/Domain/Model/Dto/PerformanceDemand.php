@@ -1,5 +1,5 @@
 <?php
-
+namespace Webfox\T3events\Domain\Model\Dto;
 /***************************************************************
  *  Copyright notice
  *
@@ -33,43 +33,49 @@
  *
  */
  
- class Tx_T3events_Domain_Model_TeaserDemand extends Tx_T3events_Domain_Model_AbstractDemand{
-	/**
-	 * @var boolean Demand only highlighted teasers
-	 */
-	protected $highlights;
+ class PerformanceDemand extends AbstractDemand{
+ 	/**
+ 	 * @var \DateTime
+ 	 */
+	protected $date;
 	
 	/**
-	 * @var array Find only teasers for given venues
+	 * @var \Webfox\T3events\Domain\Model\PerformanceStatus
 	 */
-	protected $venues;
+	protected  $status;
 	
 	/**
-	* @return boolean Find only highlights (teaser with isHighlight set to TRUE)
-	*/
-	public function getHighlights(){
-		return $this->highlights;
+	 * Returns the date
+	 * @return \DateTime $date
+	 */
+	public function getDate() {
+		return $this->date;
 	}
 	
 	/**
-	* @param boolean search only for highlights (teasers with isHighlight set to TRUE)
-	*/
-	public function setHighlights($highlights){
-		$this->highlights = $highlights;
+	 * sets the date
+	 * @param \DateTime $date
+	 * @return void
+	 */
+	public function setDate($date){
+		$this->date = $date;
 	}
 	
 	/**
-	 * @param array set venues
+	 * Returns the performance status
+	 * @return \Webfox\T3events\Domain\Model\PerformanceStatus
 	 */
-	public function setVenues($venues){
-		$this->venues = $venues;
+	public function getStatus(){
+		return $this->status;
 	}
+	
 	/**
-	 * @return array get venues
+	 * sets the status
+	 * @param \Webfox\T3events\Domain\Model\PerformanceStatus $status
+	 * @return void
 	 */
-	public function getVenues(){
-		return $this->venues;
+	public function setStatus(\Webfox\T3events\Domain\Model\PerformanceStatus $status){
+		$this->status = $status;
 	}
  }
- 
- ?>
+

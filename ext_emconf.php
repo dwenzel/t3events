@@ -15,7 +15,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'description' => 'Manage events, show teasers, list and single views.',
 	'category' => 'plugin',
 	'shy' => 0,
-	'version' => '0.14.1',
+	'version' => '0.15.0-dev',
 	'dependencies' => '',
 	'conflicts' => '',
 	'priority' => '',
@@ -34,7 +34,8 @@ $EM_CONF[$_EXTKEY] = array(
 	'CGLcompliance_note' => '',
 	'constraints' => array(
 		'depends' => array(
-			'typo3' => '4.6.0-6.1.1',
+			'typo3' => '6.2.0-6.2.99',
+			'static_info_tables' => '6.1.0-6.1.99',
 		),
 		'conflicts' => array(
 		),

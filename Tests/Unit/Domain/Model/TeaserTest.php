@@ -1,5 +1,5 @@
 <?php
-
+namespace Webfox\T3events\Tests\Unit\Domain\Model;
 /***************************************************************
  *  Copyright notice
  *
@@ -26,7 +26,7 @@
  ***************************************************************/
 
 /**
- * Test case for class Tx_T3events_Domain_Model_Teaser.
+ * Test case for class \Webfox\T3events\Domain\Model\Teaser.
  *
  * @version $Id$
  * @copyright Copyright belongs to the respective authors
@@ -38,14 +38,14 @@
  * @author Dirk Wenzel <wenzel@webfox01.de>
  * @author Michael Kasten <kasten@webfox01.de>
  */
-class Tx_T3events_Domain_Model_TeaserTest extends Tx_Extbase_Tests_Unit_BaseTestCase {
+class TeaserTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
-	 * @var Tx_T3events_Domain_Model_Teaser
+	 * @var \Webfox\T3events\Domain\Model\Teaser
 	 */
 	protected $fixture;
 
 	public function setUp() {
-		$this->fixture = new Tx_T3events_Domain_Model_Teaser();
+		$this->fixture = new \Webfox\T3events\Domain\Model\Teaser();
 	}
 
 	public function tearDown() {
@@ -152,7 +152,7 @@ class Tx_T3events_Domain_Model_TeaserTest extends Tx_Extbase_Tests_Unit_BaseTest
 	/**
 	 * @test
 	 */
-	public function getLocationReturnsInitialValueForTx_T3events_Domain_Model_Venue() { 
+	public function getLocationReturnsInitialValueForVenue() { 
 		$this->assertEquals(
 			NULL,
 			$this->fixture->getLocation()
@@ -162,8 +162,8 @@ class Tx_T3events_Domain_Model_TeaserTest extends Tx_Extbase_Tests_Unit_BaseTest
 	/**
 	 * @test
 	 */
-	public function setLocationForTx_T3events_Domain_Model_VenueSetsLocation() { 
-		$dummyObject = new Tx_T3events_Domain_Model_Venue();
+	public function setLocationForVenueSetsLocation() { 
+		$dummyObject = new \Webfox\T3events\Domain\Model\Venue();
 		$this->fixture->setLocation($dummyObject);
 
 		$this->assertSame(
@@ -175,7 +175,7 @@ class Tx_T3events_Domain_Model_TeaserTest extends Tx_Extbase_Tests_Unit_BaseTest
 	/**
 	 * @test
 	 */
-	public function getEventReturnsInitialValueForTx_T3events_Domain_Model_Event() { 
+	public function getEventReturnsInitialValueForEvent() { 
 		$this->assertEquals(
 			NULL,
 			$this->fixture->getEvent()
@@ -185,8 +185,8 @@ class Tx_T3events_Domain_Model_TeaserTest extends Tx_Extbase_Tests_Unit_BaseTest
 	/**
 	 * @test
 	 */
-	public function setEventForTx_T3events_Domain_Model_EventSetsEvent() { 
-		$dummyObject = new Tx_T3events_Domain_Model_Event();
+	public function setEventForEventSetsEvent() { 
+		$dummyObject = new \Webfox\T3events\Domain\Model\Event();
 		$this->fixture->setEvent($dummyObject);
 
 		$this->assertSame(
@@ -217,4 +217,4 @@ class Tx_T3events_Domain_Model_TeaserTest extends Tx_Extbase_Tests_Unit_BaseTest
 				);
 	}
 }
-?>
+

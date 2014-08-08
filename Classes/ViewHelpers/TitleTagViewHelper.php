@@ -1,4 +1,5 @@
 <?php
+namespace Webfox\T3events\ViewHelpers;
 /***************************************************************
 *  Copyright notice
 *
@@ -34,7 +35,7 @@
  * @package TYPO3
  * @subpackage tx_t3events
  */
-class Tx_T3events_ViewHelpers_TitleTagViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+class TitleTagViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**
 	 * Override the title tag
@@ -50,4 +51,3 @@ class Tx_T3events_ViewHelpers_TitleTagViewHelper extends Tx_Fluid_Core_ViewHelpe
 	}
 }
 
-?>

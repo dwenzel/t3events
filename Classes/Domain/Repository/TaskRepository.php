@@ -1,4 +1,5 @@
 <?php 
+namespace Webfox\T3events\Domain\Repository;
 /***************************************************************
  *  Copyright notice
  *
@@ -31,11 +32,11 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Tx_T3events_Domain_Repository_TaskRepository extends Tx_Extbase_Persistence_Repository {
+class TaskRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 	public function initializeObject() {
-		$querySettings = $this->objectManager->create('Tx_Extbase_Persistence_Typo3QuerySettings');
+		$querySettings = $this->objectManager->create('\TYPO3\CMS\Extbase\Persistence\Typo3QuerySettings');
 		$querySettings->setRespectStoragePage(FALSE);
 		$this->setDefaultQuerySettings($querySettings);
 	}	
 }
-?>
+
