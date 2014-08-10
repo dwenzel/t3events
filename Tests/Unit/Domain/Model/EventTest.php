@@ -371,7 +371,7 @@ class EventTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 * @covers ::getEarliestDate
 	 */
 	public function getEarliestDateReturnsEarliestDate() {
-		$mockDate = $this->getMock('DateTime',
+		$mockDate = $this->getMock('\DateTime',
 				array('getTimestamp'), array(), '', FALSE);
 		$dates = array(2,1);
 		$mockPerformanceA = $this->getMock(
