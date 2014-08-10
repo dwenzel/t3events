@@ -75,7 +75,7 @@ namespace Webfox\T3events\Tests\Unit\Domain\Model;
 	 * @covers ::getVenue
 	 */
 	public function getVenueReturnsInitialNull(){
-		$this->assertSame(NULL, $this->fixture->getVenue);
+		$this->assertSame(NULL, $this->fixture->getVenue());
 	}
 
 	/**
