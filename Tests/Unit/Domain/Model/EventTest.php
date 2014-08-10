@@ -356,6 +356,46 @@ class EventTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 			$this->fixture->getOrganizer()
 		);
 	}
-	
+
+	/**
+	 * @test
+	 * @covers ::getEarliestDate
+	 */
+	public function getEarliestDateReturnsInitiallyNull() {
+		$this->assertNull($this->fixture->getEarliestDate());
+	}
+
+	/**
+	 * @test
+	 * @covers ::getEarliestDate
+	 */
+	public function getEarliestDateReturnsEarliestDate() {
+		$mockDate = $this->getMock('DateTime',
+				array('getTimestamp'), array(), '', FALSE);
+		$dates = array(2,1);
+		$mockPerformanceA = $this->getMock(
+			'\Webfox\T3events\Domain\Model\Performance',
+			array('getDate'), array(), '', FALSE);
+		$mockPerformanceB = $this->getMock(
+			'\Webfox\T3events\Domain\Model\Performance',
+			array('getDate'), array(), '', FALSE);
+		$fixture = $this->getAccessibleMock(
+			'\Webfox\T3events\Domain\Model\Event',
+			array('dummy'), array(), '');
+		$fixture->addPerformance($mockPerformanceA);
+		$fixture->addPerformance($mockPerformanceB);
+		//var_dump($fixture->performances);
+		//die;
+		$mockPerformanceA->expects($this->once())->method('getDate')
+			->will($this->returnValue($mockDate));
+		$mockPerformanceB->expects($this->once())->method('getDate')
+			->will($this->returnValue($mockDate));
+		$mockDate->expects($this->exactly(2))->method('getTimestamp')
+			->will($this->onConsecutiveCAlls($dates[0], $dates[1]));
+		$this->assertSame(
+				1,
+				$fixture->getEarliestDate()
+		);
+	}
 }
 
