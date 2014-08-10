@@ -137,7 +137,7 @@ namespace Webfox\T3events\Tests\Unit\Domain\Model;
 	* @covers ::getSearchWord
 	*/
 	public function getSearchWordReturnsInitialNull(){
-		$this->assertNull($this->fixture->getSearchWord);
+		$this->assertNull($this->fixture->getSearchWord());
 	}
 
 	/**
@@ -204,6 +204,14 @@ namespace Webfox\T3events\Tests\Unit\Domain\Model;
 	}
 
 	/**
+	 * @test
+	 * @covers ::getSortBy
+	 */
+	public function getSortByReturnsInitiallyNull() {
+		$this->assertNull($this->fixture->getSortBy());
+	}
+
+	/**
 	* @test
 	* @covers ::setSortBy
 	*/
@@ -217,15 +225,15 @@ namespace Webfox\T3events\Tests\Unit\Domain\Model;
 
 	/**
 	 * @test
-	 * @covers ::getPeriod
+	 * @covers ::getPeriodType
 	 */
 	public function getPeriodTypeReturnsInitialNull(){
-		$this->assertSame(null, $this->fixture->getPeriodType());
+		$this->assertNull($this->fixture->getPeriodType());
 	}
 
 	/**
 	 * @test
-	 * @covers ::setPeriod
+	 * @covers ::setPeriodType
 	 */
 	public function setPeriodTypeForStringSetsPeriodType() {
 		$type= 'aType';
