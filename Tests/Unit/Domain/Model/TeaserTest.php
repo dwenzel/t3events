@@ -37,6 +37,7 @@ namespace Webfox\T3events\Tests\Unit\Domain\Model;
  *
  * @author Dirk Wenzel <wenzel@webfox01.de>
  * @author Michael Kasten <kasten@webfox01.de>
+ * @coversDefaultClass \Webfox\T3events\Domain\Model\Teaser
  */
 class TeaserTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
@@ -85,11 +86,12 @@ class TeaserTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 			$this->fixture->getDetails()
 		);
 	}
-	
+
 	/**
 	 * @test
+	 * @covers ::getInheritData
 	 */
-	public function getInheritDataReturnsInitialValueForBoolean() { 
+	public function getInheritDataReturnsInitialValueForBoolean() {
 		$this->assertSame(
 			TRUE,
 			$this->fixture->getInheritData()
@@ -98,8 +100,31 @@ class TeaserTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 
 	/**
 	 * @test
+	 * @covers ::isInheritData
 	 */
-	public function setInheritDataForBooleanSetsInheritData() { 
+	public function isInheritDataReturnsInitialValueForBoolean() {
+		$this->assertSame(
+			TRUE,
+			$this->fixture->isInheritData()
+		);
+	}
+
+	/**
+	 * @test
+	 * @covers ::isInheritData
+	 */
+	public function isInheritDataReturnsCorrectValueForBoolean() {
+		$this->fixture->setInheritData(FALSE);
+		$this->assertSame(
+			FALSE,
+			$this->fixture->isInheritData()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function setInheritDataForBooleanSetsInheritData() {
 		$this->fixture->setInheritData(TRUE);
 
 		$this->assertSame(
