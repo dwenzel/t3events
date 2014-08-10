@@ -37,6 +37,7 @@ namespace Webfox\T3events\Tests\Unit\Domain\Model;
  *
  * @author Dirk Wenzel <wenzel@webfox01.de>
  * @author Michael Kasten <kasten@webfox01.de>
+ * @coversDefaultClass \Webfox\T3events\Domain\Model\Event
  */
 class EventTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
