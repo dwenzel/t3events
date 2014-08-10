@@ -371,9 +371,8 @@ class EventTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	 * @covers ::getEarliestDate
 	 */
 	public function getEarliestDateReturnsEarliestDate() {
-		$mockDate = $this->getMock('\DateTime',
-				array('getTimestamp'), array(), '', FALSE);
-		$dates = array(2,1);
+		$earliestDate = new \DateTime('@1');
+		$laterDate = new \DateTime('@5');
 		$mockPerformanceA = $this->getMock(
 			'\Webfox\T3events\Domain\Model\Performance',
 			array('getDate'), array(), '', FALSE);
@@ -388,11 +387,9 @@ class EventTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 		//var_dump($fixture->performances);
 		//die;
 		$mockPerformanceA->expects($this->once())->method('getDate')
-			->will($this->returnValue($mockDate));
+			->will($this->returnValue($earliestDate));
 		$mockPerformanceB->expects($this->once())->method('getDate')
-			->will($this->returnValue($mockDate));
-		$mockDate->expects($this->exactly(2))->method('getTimestamp')
-			->will($this->onConsecutiveCAlls($dates[0], $dates[1]));
+			->will($this->returnValue($laterDate));
 		$this->assertSame(
 				1,
 				$fixture->getEarliestDate()
