@@ -46,7 +46,7 @@ class EventControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	protected $fixture;
 
 	public function setUp() {
-		$this->fixture = $this->getiAccessibleMock('\Webfox\T3events\Controller\EventController',
+		$this->fixture = $this->getAccessibleMock('\Webfox\T3events\Controller\EventController',
 			array('dummy'), array(), '', FALSE);
 		$eventRepository = $this->getMock('\Webfox\T3events\Domain\Repository\EventRepository',
 				array(), array(), '', FALSE);
