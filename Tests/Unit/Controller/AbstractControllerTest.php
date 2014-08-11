@@ -181,7 +181,7 @@ class AbstractControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 	/**
 	 * @test
-	 * @covers ::inititalizeAction
+	 * @covers ::initializeAction
 	 */
 	public function initializeActionSetsReferrerArguments() {
 		$originalRequestArguments = array(
