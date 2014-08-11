@@ -37,6 +37,7 @@ namespace Webfox\T3events\Tests\Unit\Domain\Model;
  *
  * @author Dirk Wenzel <wenzel@webfox01.de>
  * @author Michael Kasten <kasten@webfox01.de>
+ * @coversDefaultClass \Webfox\T3events\Domain\Model\Event
  */
 class EventTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
@@ -356,6 +357,43 @@ class EventTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 			$this->fixture->getOrganizer()
 		);
 	}
-	
+
+	/**
+	 * @test
+	 * @covers ::getEarliestDate
+	 */
+	public function getEarliestDateReturnsInitiallyNull() {
+		$this->assertNull($this->fixture->getEarliestDate());
+	}
+
+	/**
+	 * @test
+	 * @covers ::getEarliestDate
+	 */
+	public function getEarliestDateReturnsEarliestDate() {
+		$earliestDate = new \DateTime('@1');
+		$laterDate = new \DateTime('@5');
+		$mockPerformanceA = $this->getMock(
+			'\Webfox\T3events\Domain\Model\Performance',
+			array('getDate'), array(), '', FALSE);
+		$mockPerformanceB = $this->getMock(
+			'\Webfox\T3events\Domain\Model\Performance',
+			array('getDate'), array(), '', FALSE);
+		$fixture = $this->getAccessibleMock(
+			'\Webfox\T3events\Domain\Model\Event',
+			array('dummy'), array(), '');
+		$fixture->addPerformance($mockPerformanceA);
+		$fixture->addPerformance($mockPerformanceB);
+		//var_dump($fixture->performances);
+		//die;
+		$mockPerformanceA->expects($this->once())->method('getDate')
+			->will($this->returnValue($earliestDate));
+		$mockPerformanceB->expects($this->once())->method('getDate')
+			->will($this->returnValue($laterDate));
+		$this->assertSame(
+				1,
+				$fixture->getEarliestDate()
+		);
+	}
 }
 

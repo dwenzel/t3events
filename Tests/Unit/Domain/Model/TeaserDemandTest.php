@@ -37,6 +37,7 @@ namespace Webfox\T3events\Tests\Unit\Domain\Model;
   *
   * @author Dirk Wenzel <wenzel@webfox01.de>
   * @author Michael Kasten <kasten@webfox01.de>
+	* @coversDefaultClass \Webfox\T3events\Domain\Model\Dto\TeaserDemand
   */
  class TeaserDemandTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
@@ -54,17 +55,40 @@ namespace Webfox\T3events\Tests\Unit\Domain\Model;
 	
 	/**
 	 * @test
+	 * @covers ::getHighlights
 	 */
 	public function getHighlightsReturnsInitialNull(){
 		$this->assertSame(NULL, $this->fixture->getHighlights());
 	}
 	
 	/**
-	* @test
-	*/
+	 * @test
+	 * @covers ::setHighlights
+	 */
 	public function setHighlightsForBooleanSetsHighlightsOnly(){
 		$this->fixture->setHighlights(TRUE);
 		$this->assertSame(TRUE, $this->fixture->getHighlights());
+	}
+
+	/**
+	 * @test
+	 * @covers ::getVenues
+	 */
+	public function getVenuesReturnsInitialNull(){
+		$this->assertSame(NULL, $this->fixture->getVenues());
+	}
+	
+	/**
+	 * @test
+	 * @covers ::setVenues
+	 */
+	public function setVenuesForArraySetsVenues(){
+		$venues =  array(1,2,3);
+		$this->fixture->setVenues($venues);
+		$this->assertSame(
+				$venues, 
+				$this->fixture->getVenues()
+		);
 	}
 }
 

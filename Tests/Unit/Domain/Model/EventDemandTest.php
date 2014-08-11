@@ -37,53 +37,59 @@ namespace Webfox\T3events\Tests\Unit\Domain\Model;
   *
   * @author Dirk Wenzel <wenzel@webfox01.de>
   * @author Michael Kasten <kasten@webfox01.de>
+	* @coversDefaultClass \Webfox\T3events\Domain\Model\Dto\EventDemand
   */
  class EventDemandTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @var \Webfox\T3events\Domain\Model\EventDemand
 	 */
 	protected $fixture;
-	
+
 	public function setUp(){
 		$this->fixture = new \Webfox\T3events\Domain\Model\Dto\EventDemand();
 	}
-	
+
 	public function tearDown() {
 		unset($this->fixture);
 	}
-	
+
 	/**
 	 * @test
+	 * @covers ::getGenre
 	 */
 	public function getGenreReturnsInitialNull(){
 		$this->assertSame(NULL, $this->fixture->getGenre());
 	}
-	
+
 	/**
 	* @test
+	* @covers ::setGenre
 	*/
 	public function setGenreForStringSetsGenre(){
 		$this->fixture->setGenre('1');
 		$this->assertSame('1', $this->fixture->getGenre());
 	}
-	
+
 	/**
 	 * @test
+	 * @covers ::getVenue
 	 */
 	public function getVenueReturnsInitialNull(){
-		$this->assertSame(NULL, $this->fixture->getVenue);
+		$this->assertSame(NULL, $this->fixture->getVenue());
 	}
-	
+
 	/**
 	 * @test
+	 * @covers ::setVenue
 	 */
 	public function setVenueForStringSetsVenue(){
 		$this->fixture->setVenue('1');
 		$this->assertSame('1', $this->fixture->getVenue());
 	}
-	
+
 	/**
 	 * @test
+	 * @covers ::getEventType
 	 */
 	public function getEventTypeReturnsInitialNull() {
 		$this->assertEquals(
@@ -91,9 +97,10 @@ namespace Webfox\T3events\Tests\Unit\Domain\Model;
 				$this->fixture->getEventType()
 			);
 	}
-	
+
 	/**
 	 * @test
+	 * @covers ::setEventType
 	 */
 	public function setEventTypeForStringSetsEventType(){
 		$this->fixture->setEventType('1,2,3');
@@ -101,6 +108,30 @@ namespace Webfox\T3events\Tests\Unit\Domain\Model;
 		$this->assertSame(
 				'1,2,3',
 				$this->fixture->getEventType()
+				);
+	}
+
+	/**
+	 * @test
+	 * @covers ::getCategoryConjunction
+	 */
+	public function getCategoryConjunctionReturnsInitialNull() {
+		$this->assertEquals(
+				NULL,
+				$this->fixture->getCategoryConjunction()
+			);
+	}
+
+	/**
+	 * @test
+	 * @covers ::setCategoryConjunction
+	 */
+	public function setCategoryConjunctionForStringSetsCategoryConjunction(){
+		$this->fixture->setCategoryConjunction('asc');
+
+		$this->assertSame(
+				'asc',
+				$this->fixture->getCategoryConjunction()
 				);
 	}
 }

@@ -35,9 +35,10 @@ namespace Webfox\T3events\Domain\Model\Dto;
  
  class AbstractDemand extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
-	 * @var  A time limit
+	 * @var \string  A time period
 	 */
 	protected $period;
+
 	/**
 	 * @var int A Limit for the demand
 	 */
@@ -81,8 +82,8 @@ namespace Webfox\T3events\Domain\Model\Dto;
 	/**
 	 * @var int $periodStart Start value used when constraining by day, month or year 
 	 */
-	
 	protected $periodStart;
+
 	/**
 	 * @var int $periodDuration Duration value used when constraining by day, month or year
 	 */
@@ -125,15 +126,14 @@ namespace Webfox\T3events\Domain\Model\Dto;
 	public function setPeriod ($period = '') {
 		$this->period = $period;
 	}
-	
+
 	/**
 	 * @return int The limit for the demand
 	 */
 	public function getLimit() {
 		return $this->limit;
 	}
-	
-	
+
 	/**
 	 * @param in An offset for the demand
 	 * @return void
@@ -178,6 +178,7 @@ namespace Webfox\T3events\Domain\Model\Dto;
 	public function getSearchFields(){
 		return $this->searchFields;
 	}
+
 	/**
 	 * @param \string The sort criteria in dot notation
 	 * @return void
@@ -185,7 +186,7 @@ namespace Webfox\T3events\Domain\Model\Dto;
 	public function setSortBy($sortBy) {
 		$this->sortBy = $sortBy;
 	}
-	
+
 	/**
 	 * @return \string The sort criteria in dot notation
 	 */
@@ -282,6 +283,7 @@ namespace Webfox\T3events\Domain\Model\Dto;
 	public function setStartDate($date){
 		$this->startDate=$date;
 	}
+
 	/**
 	 * @return \DateTime
 	 */
@@ -312,5 +314,4 @@ namespace Webfox\T3events\Domain\Model\Dto;
 		$this->uidList=$uidList;
 	}
 }
- 
- ?>
+

@@ -37,164 +37,308 @@ namespace Webfox\T3events\Tests\Unit\Domain\Model;
   *
   * @author Dirk Wenzel <wenzel@webfox01.de>
   * @author Michael Kasten <kasten@webfox01.de>
+	* @coversDefaultClass \Webfox\T3events\Domain\Model\Dto\AbstractDemand
   */
  class AbstractDemandTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @var \Webfox\T3events\Domain\Model\Dto\AbstractDemand
 	 */
 	protected $fixture;
-	
+
 	public function setUp(){
 		$this->fixture = new \Webfox\T3events\Domain\Model\Dto\AbstractDemand();
 	}
-	
+
 	public function tearDown() {
 		unset($this->fixture);
 	}
-	
+
 	/**
 	 * @test
+	 * @covers ::getPeriod
+	 */
+	public function getPeriodReturnsInitialValueForString(){
+		$this->assertNull($this->fixture->getPeriod());
+	}
+
+	/**
+	 * @test
+	 * @covers ::setPeriod
+	 */
+	public function setPeriodForStringSetsDefaultEmptyString(){
+		$this->fixture->setPeriod();
+		$this->assertSame(
+				'',
+				$this->fixture->getPeriod()
+		);
+	}
+
+	/**
+	 * @test
+	 * @covers ::setPeriod
+	 */
+	public function setPeriodForStringSetsPeriod(){
+		$this->fixture->setPeriod('foo');
+		$this->assertSame(
+				'foo',
+				$this->fixture->getPeriod()
+		);
+	}
+
+	/**
+	 * @test
+	 * @covers ::getLimit
 	 */
 	public function getLimitReturnsInitialValueForInteger(){
 		$this->assertSame(100, $this->fixture->getLimit());
 	}
-	
+
 	/**
 	* @test
+	* @covers ::setLimit
 	*/
 	public function setLimitForIntegerSetsLimit(){
 		$this->fixture->setLimit(3);
 		$this->assertSame(3, $this->fixture->getLimit());
 	}
+
 	/**
 	* @test
+	* @covers ::getOffset
 	*/
 	public function getOffsetReturnsInitialNull(){
 		$this->assertNull($this->fixture->getOffset());
 	}
-	
-	/**
-	*@test
-	*/
-	public function getSearchWordReturnsInitialNull(){
-		$this->assertNull($this->fixture->getSearchWord);
-	}
-	
+
 	/**
 	* @test
+	* @covers ::setOffset
+	*/
+	public function setOffsetSetsDefaultValueZeroForInteger(){
+		$this->fixture->setOffset();
+		$this->assertSame(
+				0,
+				$this->fixture->getOffset());
+	}
+
+	/**
+	* @test
+	* @covers ::setOffset
+	*/
+	public function setOffsetSetsOffsetForInteger(){
+		$this->fixture->setOffset(99);
+		$this->assertSame(
+				99,
+				$this->fixture->getOffset());
+	}
+
+	/**
+	* @test
+	* @covers ::getSearchWord
+	*/
+	public function getSearchWordReturnsInitialNull(){
+		$this->assertNull($this->fixture->getSearchWord());
+	}
+
+	/**
+	* @test
+	* @covers ::setSearchWord
 	*/
 	public function setSearchWordForStringSetsSearchWord(){
 		$this->fixture->setSearchWord('search word');
-		$this->assertSame( 'search word', $this->fixture->getSearchWord() );
+		$this->assertSame(
+				'search word',
+				$this->fixture->getSearchWord());
 	}
-	
+
 	/**
 	* @test
+	* @covers ::getSearchFields
+	*/
+	public function getSearchFieldsReturnsInitialNull(){
+		$this->assertNull($this->fixture->getSearchFields());
+	}
+
+	/**
+	* @test
+	* @covers ::setSearchFields
+	*/
+	public function setSearchFieldsForStringSetsDefaultEmptyString(){
+		$this->fixture->setSearchFields();
+		$this->assertSame(
+				'',
+				$this->fixture->getSearchFields()
+		);
+	}
+
+	/**
+	* @test
+	* @covers ::setSearchFields
+	*/
+	public function setSearchFieldsForStringSetsSearchFields(){
+		$this->fixture->setSearchFields('bar');
+		$this->assertSame(
+				'bar',
+				$this->fixture->getSearchFields()
+		);
+	}
+
+	/**
+	* @test
+	* @covers ::getSortDirection
+	*/
+	public function getSortDirectionReturnsInitialNull(){
+		$this->assertNull($this->fixture->getSortDirection());
+	}
+
+	/**
+	* @test
+	* @covers ::setSortDirection
+	*/
+	public function setSortDirectionForStringSetsSort(){
+		$this->fixture->setSortDirection('baz');
+		$this->assertSame(
+				'baz',
+				$this->fixture->getSortDirection()
+		);
+	}
+
+	/**
+	 * @test
+	 * @covers ::getSortBy
+	 */
+	public function getSortByReturnsInitiallyNull() {
+		$this->assertNull($this->fixture->getSortBy());
+	}
+
+	/**
+	* @test
+	* @covers ::setSortBy
 	*/
 	public function setSortByForStringSetsSortBy() {
 		$this->fixture->setSortBy('my.sort.string.with.dots');
-		$this->assertSame('my.sort.string.with.dots', $this->fixture->getSortBy() );
+		$this->assertSame(
+				'my.sort.string.with.dots',
+				$this->fixture->getSortBy()
+		);
 	}
-	
+
 	/**
 	 * @test
+	 * @covers ::getPeriodType
 	 */
 	public function getPeriodTypeReturnsInitialNull(){
-		$this->assertSame(null, $this->fixture->getPeriodType());
+		$this->assertNull($this->fixture->getPeriodType());
 	}
-	
+
 	/**
 	 * @test
+	 * @covers ::setPeriodType
 	 */
 	public function setPeriodTypeForStringSetsPeriodType() {
 		$type= 'aType';
 		$this->fixture->setPeriodType($type);
 		$this->assertSame($type, $this->fixture->getPeriodType());
 	}
-	
+
 	/**
 	 * @test
+	 * @covers ::getStoragePage
 	 */
 	public function getStoragePageReturnsInitialNull(){
 		$this->assertNull($this->fixture->getStoragePage());
 	}
-	
+
 	/**
 	 * @test
+	 * @covers ::setStoragePage
 	 */
 	public function setStoragePageForStringSetsStoragePage(){
 		$this->fixture->setStoragePage('15,78,39');
 		$this->assertSame('15,78,39', $this->fixture->getStoragePage());
 	}
-	
+
 	/**
 	 * @test
+	 * @covers ::getPeriodStart
 	 */
 	public function getPeriodStartReturnsInitialNull() {
 		$this->assertNull($this->fixture->getPeriodStart());
 	}
+
 	/**
 	 * @test
+	 * @covers ::setPeriodStart
 	 */
 	public function setPeriodStartForIntegerSetsPeriodStart() {
 		$this->fixture->setPeriodStart(-5);
 		$this->assertSame(-5, $this->fixture->getPeriodStart());
 	}
+
 	/**
 	 * @test
+	 * @covers ::setPeriodDuration
 	 */
 	public function setPeriodDurationForIntegerSetsPeriodDuration() {
 		$this->fixture->setPeriodDuration(-5);
 		$this->assertSame(-5, $this->fixture->getPeriodDuration());
 	}
+
 	/**
 	 * @test
+	 * @covers ::getPeriodDuration
 	 */
 	public function getPeriodDurationReturnsInitialNull() {
 		$this->assertNull($this->fixture->getPeriodDuration());
 	}
-	
+
 	/**
 	 * @test
+	 * @covers ::getStartDate
 	 */
 	public function getStartDateReturnsInitialNull() {
 		$this->assertNull($this->fixture->getStartDate());
 	}
-	
+
 	/**
 	 * @test
+	 * @covers ::setStartDate
 	 */
 	public function setStartDateForDateTimeSetsStartDate() {
 		$date = new \DateTime();
 		$this->fixture->setStartDate($date);
 		$this->assertSame($date, $this->fixture->getStartDate());
 	}
-	
+
 	/**
 	 * @test
+	 * @covers ::getEndDate
 	 */
 	public function getEndDateReturnsInitialNull(){
 		$this->assertNull($this->fixture->getEndDate());
 	}
-	
+
 	/**
 	 * @test
+	 * @covers ::setEndDate
 	 */
 	public function setEndDateForDateTimeSetsEndDate(){
 		$date = new \DateTime();
 		$this->fixture->setEndDate($date);
 		$this->assertSame($date, $this->fixture->getEndDate());
 	}
-	
+
 	/**
 	 * @test
+	 * @covers ::getUidList
 	 */
 	public function getUidListReturnsInitialNull(){
 		$this->assertNull($this->fixture->getUidList());
 	}
-	
+
 	/**
 	 * @test
+	 * @covers ::setUidList
 	 */
 	public function setUidListForStringSetsUidList(){
 		$this->fixture->setUidList('1,3,5');
