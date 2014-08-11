@@ -262,7 +262,7 @@ class PerformanceTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 			$this->fixture->getPlan()
 		);
 	}
-	
+
 	/**
 	 * @test
 	 * @covers ::getNoHandlingFee
@@ -271,6 +271,30 @@ class PerformanceTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 		$this->assertSame(
 			FALSE,
 			$this->fixture->getNoHandlingFee()
+		);
+	}
+
+	/**
+	 * @test
+	 * @covers ::isNoHandlingFee
+	 */
+	public function isNoHandlingFeeReturnsInitialValueForBoolean() { 
+		$this->assertSame(
+			FALSE,
+			$this->fixture->isNoHandlingFee()
+		);
+	}
+
+	/**
+	 * @test
+	 * @covers ::isNoHandlingFee
+	 */
+	public function isNoHandlingFeeForBooleanReturnsCorrectValueForBoolean() { 
+		$this->fixture->setNoHandlingFee(TRUE);
+
+		$this->assertSame(
+			TRUE,
+			$this->fixture->isNoHandlingFee()
 		);
 	}
 
