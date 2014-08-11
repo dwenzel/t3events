@@ -151,7 +151,7 @@ class TeaserTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 			$this->fixture->getImage()
 		);
 	}
-	
+
 	/**
 	 * @test
 	 */
@@ -173,7 +173,29 @@ class TeaserTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 			$this->fixture->getIsHighlight()
 		);
 	}
-	
+
+	/**
+	 * @test
+	 */
+	public function isIsHighlightReturnsInitialValueForBoolean() { 
+		$this->assertSame(
+			FALSE,
+			$this->fixture->isIsHighlight()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function isIsHighlightReturnsCorrectValueForBoolean() { 
+		$this->fixture->setIsHighlight(TRUE);
+
+		$this->assertSame(
+			TRUE,
+			$this->fixture->isIsHighlight()
+		);
+	}
+
 	/**
 	 * @test
 	 */
