@@ -151,7 +151,68 @@ class AbstractControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 * @covers ::initializeAction
 	 */
-	public function initializeActionSetsReferrerArgumentsInitiallyToEmptyArray() {
+	public function initializeActionSetsRequestAndReferrerArguments() {
+		$fixture = $this->getMock('\Webfox\T3events\Controller\AbstractController',
+			array('setRequestArguments', 'setReferrerArguments'), array(), '', FALSE);
+		$fixture->expects($this->once())
+			->method('setRequestArguments');
+		$fixture->expects($this->once())
+			->method('setReferrerArguments');
+
+		$fixture->initializeAction();
+	}
+
+	/**
+	 * @test
+	 * @covers ::setRequestArguments
+	 */
+	public function setRequestArgumentsSetsRequestArguments() {
+		$originalRequestArguments = array(
+			'action' => 'foo',
+			'controller' => 'bar',
+			'foo' => 'bar'
+		);
+		$result = array(
+				'action' => 'foo',
+				'pluginName' => 'baz',
+				'controllerName' => 'bar',
+				'extensionName' => 'fooExtension',
+				'arguments' => array(
+					'foo' => 'bar'
+				)
+		);
+		$mockRequest = $this->getMock(
+				'TYPO3\CMS\Extbase\Mvc\Web\Request',
+				array(
+					'getArguments',
+					'getPluginName',
+					'getControllerName',
+					'getControllerExtensionName',
+					'hasArgument',
+					'getArgument'));
+		$this->fixture->_set('request', $mockRequest);
+		$mockRequest->expects($this->once())
+			->method('getArguments')
+			->will($this->returnValue($originalRequestArguments));
+		$mockRequest->expects($this->once())->method('getPluginName')
+			->will($this->returnValue('baz'));
+		$mockRequest->expects($this->once())->method('getControllerName')
+			->will($this->returnValue($originalRequestArguments['controller']));
+		$mockRequest->expects($this->once())->method('getControllerExtensionName')
+			->will($this->returnValue('fooExtension'));
+
+		$this->fixture->_call('setRequestArguments');
+		$this->assertSame(
+			$result,
+			$this->fixture->_get('requestArguments')
+		);
+	}
+
+	/**
+	 * @test
+	 * @covers ::setReferrerArguments
+	 */
+	public function setReferrerArgumentsSetsReferrerArgumentsInitiallyToEmptyArray() {
 		$arguments = array(
 			'action' => 'foo',
 			'controller' => 'bar'
@@ -166,13 +227,10 @@ class AbstractControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 					'hasArgument'));
 		$this->fixture->_set('request', $mockRequest);
 		$mockRequest->expects($this->once())
-			->method('getArguments')
-			->will($this->returnValue($arguments));
-		$mockRequest->expects($this->once())
 			->method('hasArgument')
 			->with('referrerArguments')
 			->will($this->returnValue(FALSE));
-		$this->fixture->_call('initializeAction');
+		$this->fixture->_call('setReferrerArguments');
 		$this->assertSame(
 			array(),
 			$this->fixture->_get('referrerArguments')
@@ -181,9 +239,9 @@ class AbstractControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 	/**
 	 * @test
-	 * @covers ::initializeAction
+	 * @covers ::setReferrerArguments
 	 */
-	public function initializeActionSetsReferrerArguments() {
+	public function setReferrerArgumentsSetsReferrerArguments() {
 		$originalRequestArguments = array(
 			'action' => 'foo',
 			'controller' => 'bar',
@@ -207,9 +265,6 @@ class AbstractControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 					'getArgument'));
 		$this->fixture->_set('request', $mockRequest);
 		$mockRequest->expects($this->once())
-			->method('getArguments')
-			->will($this->returnValue($originalRequestArguments));
-		$mockRequest->expects($this->once())
 			->method('hasArgument')
 			->with('referrerArguments')
 			->will($this->returnValue(TRUE));
@@ -218,7 +273,7 @@ class AbstractControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 			->with('referrerArguments')
 			->will($this->returnValue($originalRequestArguments['arguments']['referrerArguments']));
 
-		$this->fixture->_call('initializeAction');
+		$this->fixture->_call('setReferrerArguments');
 		$this->assertSame(
 			$result,
 			$this->fixture->_get('referrerArguments')
