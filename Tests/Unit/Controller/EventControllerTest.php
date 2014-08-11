@@ -37,6 +37,7 @@ namespace Webfox\T3events\Tests\Controller;
  *
  * @author Dirk Wenzel <wenzel@webfox01.de>
  * @author Michael Kasten <kasten@webfox01.de>
+ * @coversDefaultClass \Webfox\T3events\Controller\EventController
  */
 class EventControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
@@ -45,7 +46,22 @@ class EventControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	protected $fixture;
 
 	public function setUp() {
-		$this->fixture = new \Webfox\T3events\Domain\Model\Event();
+		$this->fixture = $this->getiAccessibleMock('\Webfox\T3events\Controller\EventController',
+			array('dummy'), array(), '', FALSE);
+		$eventRepository = $this->getMock('\Webfox\T3events\Domain\Repository\EventRepository',
+				array(), array(), '', FALSE);
+		$genreRepository = $this->getMock('\Webfox\T3events\Domain\Repository\GenreRepository',
+				array(), array(), '', FALSE);
+		$venueRepository = $this->getMock('\Webfox\T3events\Domain\Repository\VenueRepository',
+				array(), array(), '', FALSE);
+		$eventTypeRepository = $this->getMock('\Webfox\T3events\Domain\Repository\EventTypeRepository',
+				array(), array(), '', FALSE);
+		$view = $this->getMock('TYPO3\\CMS\\Fluid\\View\\TemplateView', array(), array(), '', FALSE);
+		$this->fixture->_set('eventRepository', $eventRepository);
+		$this->fixture->_set('genreRepository', $genreRepository);
+		$this->fixture->_set('venueRepository', $venueRepository);
+		$this->fixture->_set('eventTypeRepository', $eventTypeRepository);
+		$this->fixture->_set('view',$view);
 	}
 
 	public function tearDown() {
