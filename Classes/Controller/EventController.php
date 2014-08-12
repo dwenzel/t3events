@@ -97,7 +97,8 @@ class EventController extends AbstractController {
 			}
 			$events = $ordered;
 		} else{
-			$demand = $this->getDemandFromSettings($overwriteDemand);
+			$demand = $this->createDemandFromSettings();
+			$demand = $this->overwriteDemandObject($demand, $overwriteDemand);
 			$events = $this->eventRepository->findDemanded($demand);
 		}
 		if (($events instanceof \TYPO3\CMS\Extbase\Persistence\QueryResult AND !$events->count())
@@ -153,99 +154,6 @@ class EventController extends AbstractController {
 				'eventTypes' => $eventTypes
 			)
 		);
-	}
-
-	/**
-	 * Build demand from settings respecting overwriteDemand
-	 * @param \array overwriteDemand
-	 * @return \Webfox\T3events\Domain\Model\Dto\EventDemand
-	 */
-	private function getDemandFromSettings($overwriteDemand = NULL) {
-		$demand = $this->objectManager->get('\\Webfox\\T3events\\Domain\\Model\\Dto\\EventDemand');
-
-        if (!is_null($overwriteDemand)) {
-        	$demand->setGenre($overwriteDemand['genre']);
-        	$demand->setVenue($overwriteDemand['venue']);
-        	$demand->setEventType($overwriteDemand['eventType']);
-		$demand->setCategoryConjunction($overwriteDemand['categoryConjunction']);
-
-        	// set sort criteria
-        	switch ($overwriteDemand['sortBy']) {
-				case 'date':
-        			$demand->setSortBy('performances.date');
-
-					break;
-				case 'headline':
-					$demand->setSortBy('headline');
-					break;
-				default:
-					$demand->setSortBy('performances.date');
-					break;
-			}
-			// set sort direction
-			switch ($overwriteDemand['sortDirection']) {
-				case 'asc':
-					$demand->setSortDirection('asc');
-					break;
-				case 'desc':
-					$demand->setSortDirection('desc');
-					break;
-				default:
-					$demand->setSortDirection('asc');
-					break;
-			}
-        	// store data in session
-        	$sessionData = serialize($overwriteDemand);
-			$GLOBALS['TSFE']->fe_user->setKey('ses', 'tx_t3events_overwriteDemand', $sessionData);
-			$GLOBALS['TSFE']->fe_user->storeSessionData();
-        }
-		// get arguments from plugin
-		if (!$demand->getSortBy()){
-		    switch ($this->settings['sortBy']) {
-			    case 'date':
-				    $demand->setSortBy('performances.date');
-			    break;
-			    case 'title':
-				    $demand->setSortBy('headline');
-				    break;
-
-			    default:
-				    $demand->setSortBy('performances.date');
-			    break;
-		    }
-		}
-
-		(!$demand->getEventType())?$demand->setEventType($this->settings['eventTypes']):NULL;
-        if (!$demand->getSortDirection()) {
-        	$demand->setSortDirection($this->settings['sortDirection']);
-        }
-        if((int)$this->settings['maxItems']) {
-            $demand->setLimit((int)$this->settings['maxItems']);
-        }
-        if(!$demand->getVenue() && $this->settings['venues'] != '') {
-        	$demand->setVenue($this->settings['venues']);
-        }
-        if(!$demand->getGenre() && $this->settings['genres'] != '') {
-        	$demand->setGenre($this->settings['genres']);
-        }
-        $demand->setPeriod($this->settings['period']);
-        if ($this->settings['period'] == 'specific') {
-        	        $demand->setPeriodType($this->settings['periodType']);
-        }
-        if (isset($this->settings['periodType']) AND $this->settings['periodType'] != 'byDate') {
-        	$demand->setPeriodStart($this->settings['periodStart']);
-        	$demand->setPeriodDuration($this->settings['periodDuration']);
-        }
-        if ($this->settings['periodType'] == 'byDate' && $this->settings['periodStartDate']){
-        	$demand->setStartDate($this->settings['periodStartDate']);
-        }
-	if ($this->settings['periodType'] == 'byDate' && $this->settings['periodEndDate']){
-        	$demand->setEndDate($this->settings['periodEndDate']);
-        }
-	if (!$demand->getCategoryConjunction()) {
-	    $demand->setCategoryConjunction($this->settings['categoryConjunction']);
-	}
-        return $demand;
 	}
 	
 	/**
