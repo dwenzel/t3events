@@ -247,5 +247,92 @@ class EventController extends AbstractController {
 	}
         return $demand;
 	}
+	
+	/**
+	 * Create demand from settings
+	 * 
+	 * @param \array $settings
+	 * @return \Webfox\T3events\Domain\Model\Dto\EventDemand
+	 */
+	public function createDemandFromSettings($settings) {
+		$demand = $this->objectManager->get('\\Webfox\\T3events\\Domain\\Model\\Dto\\EventDemand');
+	
+		//@todo: avoid switch by putting correct strings into flexform
+		switch ($settings['sortBy']) {
+			case 'date':
+				$demand->setSortBy('performances.date');
+				break;
+			case 'title':
+				$demand->setSortBy('headline');
+				break;
+			default:
+				$demand->setSortBy('performances.date');
+				break;
+		}
+		$demand->setEventType($settings['eventTypes']);
+		$demand->setSortDirection($settings['sortDirection']);
+		$demand->setLimit($settings['maxItems']);
+		if(!empty($settings['venues'])) {
+			$demand->setVenue($settings['venues']);
+		}
+		if(!empty($settings['genres'])) {
+			$demand->setGenre($settings['genres']);
+		}
+		$demand->setPeriod($settings['period']);
+		if($settings['period'] == 'specific') {
+			$demand->setPeriodType($settings['periodType']);
+		}
+		if(isset($settings['periodType']) AND $settings['periodType'] != 'byDate') {
+			$demand->setPeriodStart($settings['periodStart']);
+			$demand->setPeriodDuration($settings['periodDuration']);
+		}
+		if($settings['periodType'] == 'byDate') {
+			if($settings['periodStartDate']) {
+				$demand->setStartDate($settings['periodStartDate']);
+			}
+			if($settings['periodEndDate']) {
+				$demand->setEndDate($settings['periodEndDate']);
+			}
+		}
+		$demand->setCategoryConjunction($settings['categoryConjunction']);
+		return $demand;
+	}
+
+	/**
+	 * overwrite demand object
+	 *
+	 * @param \Webfox\T3events\Domain\Model\Dto\EventDemand $demand
+	 * @param \array $overwriteDemand
+	 * @return \Webfox\T3events\Domain\Model\Dto\EventDemand
+	 */
+	public function overwriteDemandObject($demand, $overwriteDemand) {
+		foreach ($overwriteDemand as $propertyName => $propertyValue) {
+			if($propertyName == 'sortBy') {
+				switch ($propertyValue) {
+					case 'headline':
+						$demand->setSortBy('headline');
+						break;
+					default:
+						$demand->setSortBy('performances.date');
+						break;
+				}
+			} elseif ($propertyName == 'sortDirection') {
+				switch ($propertyValue) {
+					case 'desc':
+						$demand->setSortDirection('desc');
+						break;
+					default:
+						$demand->setSortDirection('asc');
+						break;
+				}
+			} else {
+				\TYPO3\CMS\Extbase\Reflection\ObjectAccess::setProperty($demand, $propertyName, $propertyValue);
+			}
+		}
+		$GLOBALS['TSFE']->fe_user->setKey('ses', 'tx_t3events_overwriteDemand', serialize($overwriteDemand));
+		$GLOBALS['TSFE']->fe_user->storeSessionData();
+
+		return $demand;
+	}
 }
 
