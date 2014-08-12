@@ -32,7 +32,7 @@ namespace Webfox\T3events\Controller;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class EventController extends \TYPO3\CMS\Extbase\MVC\Controller\ActionController {
+class EventController extends AbstractController {
 
 	/**
 	 * eventRepository
@@ -109,18 +109,16 @@ class EventController extends \TYPO3\CMS\Extbase\MVC\Controller\ActionController
 	 */
 	public function listAction( $overwriteDemand = NULL) {
 		if(!is_null($overwriteDemand['uidList'])){
-
 			if (is_array($overwriteDemand['uidList'])){
 				$recordList = implode(',', $overwriteDemand['uidList']);
 				$recordArr = $overwriteDemand['uidList'];
 			}elseif (is_string($overwriteDemand['uidList'])){
 				$recordList = $overwriteDemand['uidList'];
 				$recordArr = explode(',', $overwriteDemand['uidList']);
-
 			}
-        	$result = $this->eventRepository->findMultipleByUid($recordList);
+			$result = $this->eventRepository->findMultipleByUid($recordList);
 
-        	// Order by the order of provided array
+      // Order by the order of provided array
 			$withIndex = array();
 			$ordered = array();
 			// Create an associative array
@@ -134,28 +132,26 @@ class EventController extends \TYPO3\CMS\Extbase\MVC\Controller\ActionController
 				}
 			}
 			$events = $ordered;
-        }
-        else{
-	        $demand = $this->getDemandFromSettings($overwriteDemand);
-        	$events = $this->eventRepository->findDemanded($demand);
-        }
-
-        if (($events instanceof \TYPO3\CMS\Extbase\Persistence\QueryResult AND !$events->count())
+		} else{
+			$demand = $this->getDemandFromSettings($overwriteDemand);
+			$events = $this->eventRepository->findDemanded($demand);
+		}
+		if (($events instanceof \TYPO3\CMS\Extbase\Persistence\QueryResult AND !$events->count())
 				OR !count($events) ) {
-        	$this->flashMessageContainer->add(
-        		\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_t3events.noEventsForSelectionMessage', $this->extensionName),
-        		\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_t3events.noEventsForSelectionTitle', $this->extensionName),
-        		\TYPO3\CMS\Core\Messaging\FlashMessage::WARNING
-        	);
-        }
-
-        $this->view->assignMultiple(
-			array(
-				'events' => $events,
-				'demand' => $demand,
-			)
-		);
-	}
+			$this->addFlashMessage(
+					$this->translate('tx_t3events.noEventsForSelectionMessage'),
+					$this->translate('tx_t3events.noEventsForSelectionTitle'),
+					\TYPO3\CMS\Core\Messaging\FlashMessage::WARNING
+			);
+		}
+    
+    $this->view->assignMultiple(
+    	array(
+    		'events' => $events,
+    		'demand' => $demand,
+    	)
+    );
+  }
 
 	/**
 	 * action show
