@@ -97,7 +97,7 @@ class EventController extends AbstractController {
 			}
 			$events = $ordered;
 		} else{
-			$demand = $this->createDemandFromSettings();
+			$demand = $this->createDemandFromSettings($this->settings);
 			$demand = $this->overwriteDemandObject($demand, $overwriteDemand);
 			$events = $this->eventRepository->findDemanded($demand);
 		}
