@@ -38,71 +38,35 @@ class EventController extends AbstractController {
 	 * eventRepository
 	 *
 	 * @var \Webfox\T3events\Domain\Repository\EventRepository
+	 * @inject
 	 */
 	protected $eventRepository;
 
 	/**
-	* genreRepository
-	*
-	* @var \Webfox\T3events\Domain\Repository\GenreRepository
-	*/
+	 * genreRepository
+	 *
+	 * @var \Webfox\T3events\Domain\Repository\GenreRepository
+	 * @inject
+	 */
 	protected $genreRepository;
 
 	/**
-	* venueRepository
-	*
-	* @var \Webfox\T3events\Domain\Repository\VenueRepository
-	*/
+	 * venueRepository
+	 *
+	 * @var \Webfox\T3events\Domain\Repository\VenueRepository
+	 * @inject
+	 */
 	protected $venueRepository;
 
 	/**
-	* eventTypeRepository
-	*
-	* @var \Webfox\T3events\Domain\Repository\EventTypeRepository
-	*/
+	 * eventTypeRepository
+	 *
+	 * @var \Webfox\T3events\Domain\Repository\EventTypeRepository
+	 * @inject
+	 */
 	protected $eventTypeRepository;
-
+	
 	/**
-	 * injectEventRepository
-	 *
-	 * @param \Webfox\T3events\Domain\Repository\EventRepository $eventRepository
-	 * @return void
-	 */
-	public function injectEventRepository(\Webfox\T3events\Domain\Repository\EventRepository $eventRepository) {
-		$this->eventRepository = $eventRepository;
-	}
-
-	/**
-	 * injectGenreRepository
-	 *
-	 * @param \Webfox\T3events\Domain\Repository\GenreRepository $genreRepository
-	 * @return void
-	 */
-	public function injectGenreRepository(\Webfox\T3events\Domain\Repository\GenreRepository $genreRepository) {
-		$this->genreRepository = $genreRepository;
-	}
-
-
-	/**
-	 * injectVenueRepository
-	 *
-	 * @param \Webfox\T3events\Domain\Repository\VenueRepository $venueRepository
-	 * @return void
-	 */
-	public function injectVenueRepository(\Webfox\T3events\Domain\Repository\VenueRepository $venueRepository) {
-		$this->venueRepository = $venueRepository;
-	}
-
-	/**
-	 * inject EventTypeRepository
-	 *
-	 * @param \Webfox\T3events\Domain\Repository\EventTypeRepository $eventTypeRepository
-	 * @return void
-	 */
-	public function injectEventTypeRepository(\Webfox\T3events\Domain\Repository\EventTypeRepository $eventTypeRepository) {
-		$this->eventTypeRepository = $eventTypeRepository;
-	}
-			/**
 	 * action list
 	 * @param \array $overwriteDemand
 	 * @return void
