@@ -32,95 +32,57 @@ namespace Webfox\T3events\Controller;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class EventController extends \TYPO3\CMS\Extbase\MVC\Controller\ActionController {
+class EventController extends AbstractController {
 
 	/**
 	 * eventRepository
 	 *
 	 * @var \Webfox\T3events\Domain\Repository\EventRepository
+	 * @inject
 	 */
 	protected $eventRepository;
 
 	/**
-	* genreRepository
-	*
-	* @var \Webfox\T3events\Domain\Repository\GenreRepository
-	*/
+	 * genreRepository
+	 *
+	 * @var \Webfox\T3events\Domain\Repository\GenreRepository
+	 * @inject
+	 */
 	protected $genreRepository;
 
 	/**
-	* venueRepository
-	*
-	* @var \Webfox\T3events\Domain\Repository\VenueRepository
-	*/
+	 * venueRepository
+	 *
+	 * @var \Webfox\T3events\Domain\Repository\VenueRepository
+	 * @inject
+	 */
 	protected $venueRepository;
 
 	/**
-	* eventTypeRepository
-	*
-	* @var \Webfox\T3events\Domain\Repository\EventTypeRepository
-	*/
+	 * eventTypeRepository
+	 *
+	 * @var \Webfox\T3events\Domain\Repository\EventTypeRepository
+	 * @inject
+	 */
 	protected $eventTypeRepository;
-
+	
 	/**
-	 * injectEventRepository
-	 *
-	 * @param \Webfox\T3events\Domain\Repository\EventRepository $eventRepository
-	 * @return void
-	 */
-	public function injectEventRepository(\Webfox\T3events\Domain\Repository\EventRepository $eventRepository) {
-		$this->eventRepository = $eventRepository;
-	}
-
-	/**
-	 * injectGenreRepository
-	 *
-	 * @param \Webfox\T3events\Domain\Repository\GenreRepository $genreRepository
-	 * @return void
-	 */
-	public function injectGenreRepository(\Webfox\T3events\Domain\Repository\GenreRepository $genreRepository) {
-		$this->genreRepository = $genreRepository;
-	}
-
-
-	/**
-	 * injectVenueRepository
-	 *
-	 * @param \Webfox\T3events\Domain\Repository\VenueRepository $venueRepository
-	 * @return void
-	 */
-	public function injectVenueRepository(\Webfox\T3events\Domain\Repository\VenueRepository $venueRepository) {
-		$this->venueRepository = $venueRepository;
-	}
-
-	/**
-	 * inject EventTypeRepository
-	 *
-	 * @param \Webfox\T3events\Domain\Repository\EventTypeRepository $eventTypeRepository
-	 * @return void
-	 */
-	public function injectEventTypeRepository(\Webfox\T3events\Domain\Repository\EventTypeRepository $eventTypeRepository) {
-		$this->eventTypeRepository = $eventTypeRepository;
-	}
-			/**
 	 * action list
 	 * @param \array $overwriteDemand
 	 * @return void
 	 */
 	public function listAction( $overwriteDemand = NULL) {
 		if(!is_null($overwriteDemand['uidList'])){
-
 			if (is_array($overwriteDemand['uidList'])){
 				$recordList = implode(',', $overwriteDemand['uidList']);
 				$recordArr = $overwriteDemand['uidList'];
 			}elseif (is_string($overwriteDemand['uidList'])){
 				$recordList = $overwriteDemand['uidList'];
 				$recordArr = explode(',', $overwriteDemand['uidList']);
-
 			}
-        	$result = $this->eventRepository->findMultipleByUid($recordList);
+			$result = $this->eventRepository->findMultipleByUid($recordList);
 
-        	// Order by the order of provided array
+      // Order by the order of provided array
 			$withIndex = array();
 			$ordered = array();
 			// Create an associative array
@@ -134,28 +96,27 @@ class EventController extends \TYPO3\CMS\Extbase\MVC\Controller\ActionController
 				}
 			}
 			$events = $ordered;
-        }
-        else{
-	        $demand = $this->getDemandFromSettings($overwriteDemand);
-        	$events = $this->eventRepository->findDemanded($demand);
-        }
-
-        if (($events instanceof \TYPO3\CMS\Extbase\Persistence\QueryResult AND !$events->count())
+		} else{
+			$demand = $this->createDemandFromSettings($this->settings);
+			$demand = $this->overwriteDemandObject($demand, $overwriteDemand);
+			$events = $this->eventRepository->findDemanded($demand);
+		}
+		if (($events instanceof \TYPO3\CMS\Extbase\Persistence\QueryResult AND !$events->count())
 				OR !count($events) ) {
-        	$this->flashMessageContainer->add(
-        		\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_t3events.noEventsForSelectionMessage', $this->extensionName),
-        		\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('tx_t3events.noEventsForSelectionTitle', $this->extensionName),
-        		\TYPO3\CMS\Core\Messaging\FlashMessage::WARNING
-        	);
-        }
-
-        $this->view->assignMultiple(
-			array(
-				'events' => $events,
-				'demand' => $demand,
-			)
-		);
-	}
+			$this->addFlashMessage(
+					$this->translate('tx_t3events.noEventsForSelectionMessage'),
+					$this->translate('tx_t3events.noEventsForSelectionTitle'),
+					\TYPO3\CMS\Core\Messaging\FlashMessage::WARNING
+			);
+		}
+    
+    $this->view->assignMultiple(
+    	array(
+    		'events' => $events,
+    		'demand' => $demand,
+    	)
+    );
+  }
 
 	/**
 	 * action show
@@ -194,98 +155,92 @@ class EventController extends \TYPO3\CMS\Extbase\MVC\Controller\ActionController
 			)
 		);
 	}
-
+	
 	/**
-	 * Build demand from settings respecting overwriteDemand
-	 * @param \array overwriteDemand
+	 * Create demand from settings
+	 * 
+	 * @param \array $settings
 	 * @return \Webfox\T3events\Domain\Model\Dto\EventDemand
 	 */
-	private function getDemandFromSettings($overwriteDemand = NULL) {
+	public function createDemandFromSettings($settings) {
 		$demand = $this->objectManager->get('\\Webfox\\T3events\\Domain\\Model\\Dto\\EventDemand');
-
-        if (!is_null($overwriteDemand)) {
-        	$demand->setGenre($overwriteDemand['genre']);
-        	$demand->setVenue($overwriteDemand['venue']);
-        	$demand->setEventType($overwriteDemand['eventType']);
-		$demand->setCategoryConjunction($overwriteDemand['categoryConjunction']);
-
-        	// set sort criteria
-        	switch ($overwriteDemand['sortBy']) {
-				case 'date':
-        			$demand->setSortBy('performances.date');
-
-					break;
-				case 'headline':
-					$demand->setSortBy('headline');
-					break;
-				default:
-					$demand->setSortBy('performances.date');
-					break;
-			}
-			// set sort direction
-			switch ($overwriteDemand['sortDirection']) {
-				case 'asc':
-					$demand->setSortDirection('asc');
-					break;
-				case 'desc':
-					$demand->setSortDirection('desc');
-					break;
-				default:
-					$demand->setSortDirection('asc');
-					break;
-			}
-        	// store data in session
-        	$sessionData = serialize($overwriteDemand);
-			$GLOBALS['TSFE']->fe_user->setKey('ses', 'tx_t3events_overwriteDemand', $sessionData);
-			$GLOBALS['TSFE']->fe_user->storeSessionData();
-        }
-		// get arguments from plugin
-		if (!$demand->getSortBy()){
-		    switch ($this->settings['sortBy']) {
-			    case 'date':
-				    $demand->setSortBy('performances.date');
-			    break;
-			    case 'title':
-				    $demand->setSortBy('headline');
-				    break;
-
-			    default:
-				    $demand->setSortBy('performances.date');
-			    break;
-		    }
+	
+		//@todo: avoid switch by putting correct strings into flexform
+		switch ($settings['sortBy']) {
+			case 'date':
+				$demand->setSortBy('performances.date');
+				break;
+			case 'title':
+				$demand->setSortBy('headline');
+				break;
+			default:
+				$demand->setSortBy('performances.date');
+				break;
 		}
-
-		(!$demand->getEventType())?$demand->setEventType($this->settings['eventTypes']):NULL;
-        if (!$demand->getSortDirection()) {
-        	$demand->setSortDirection($this->settings['sortDirection']);
-        }
-        if((int)$this->settings['maxItems']) {
-            $demand->setLimit((int)$this->settings['maxItems']);
-        }
-        if(!$demand->getVenue() && $this->settings['venues'] != '') {
-        	$demand->setVenue($this->settings['venues']);
-        }
-        if(!$demand->getGenre() && $this->settings['genres'] != '') {
-        	$demand->setGenre($this->settings['genres']);
-        }
-        $demand->setPeriod($this->settings['period']);
-        if ($this->settings['period'] == 'specific') {
-        	        $demand->setPeriodType($this->settings['periodType']);
-        }
-        if (isset($this->settings['periodType']) AND $this->settings['periodType'] != 'byDate') {
-        	$demand->setPeriodStart($this->settings['periodStart']);
-        	$demand->setPeriodDuration($this->settings['periodDuration']);
-        }
-        if ($this->settings['periodType'] == 'byDate' && $this->settings['periodStartDate']){
-        	$demand->setStartDate($this->settings['periodStartDate']);
-        }
-	if ($this->settings['periodType'] == 'byDate' && $this->settings['periodEndDate']){
-        	$demand->setEndDate($this->settings['periodEndDate']);
-        }
-	if (!$demand->getCategoryConjunction()) {
-	    $demand->setCategoryConjunction($this->settings['categoryConjunction']);
+		$demand->setEventType($settings['eventTypes']);
+		$demand->setSortDirection($settings['sortDirection']);
+		$demand->setLimit($settings['maxItems']);
+		if(!empty($settings['venues'])) {
+			$demand->setVenue($settings['venues']);
+		}
+		if(!empty($settings['genres'])) {
+			$demand->setGenre($settings['genres']);
+		}
+		$demand->setPeriod($settings['period']);
+		if($settings['period'] == 'specific') {
+			$demand->setPeriodType($settings['periodType']);
+		}
+		if(isset($settings['periodType']) AND $settings['periodType'] != 'byDate') {
+			$demand->setPeriodStart($settings['periodStart']);
+			$demand->setPeriodDuration($settings['periodDuration']);
+		}
+		if($settings['periodType'] == 'byDate') {
+			if($settings['periodStartDate']) {
+				$demand->setStartDate($settings['periodStartDate']);
+			}
+			if($settings['periodEndDate']) {
+				$demand->setEndDate($settings['periodEndDate']);
+			}
+		}
+		$demand->setCategoryConjunction($settings['categoryConjunction']);
+		return $demand;
 	}
-        return $demand;
+
+	/**
+	 * overwrite demand object
+	 *
+	 * @param \Webfox\T3events\Domain\Model\Dto\EventDemand $demand
+	 * @param \array $overwriteDemand
+	 * @return \Webfox\T3events\Domain\Model\Dto\EventDemand
+	 */
+	public function overwriteDemandObject($demand, $overwriteDemand) {
+		foreach ($overwriteDemand as $propertyName => $propertyValue) {
+			if($propertyName == 'sortBy') {
+				switch ($propertyValue) {
+					case 'headline':
+						$demand->setSortBy('headline');
+						break;
+					default:
+						$demand->setSortBy('performances.date');
+						break;
+				}
+			} elseif ($propertyName == 'sortDirection') {
+				switch ($propertyValue) {
+					case 'desc':
+						$demand->setSortDirection('desc');
+						break;
+					default:
+						$demand->setSortDirection('asc');
+						break;
+				}
+			} else {
+				\TYPO3\CMS\Extbase\Reflection\ObjectAccess::setProperty($demand, $propertyName, $propertyValue);
+			}
+		}
+		$GLOBALS['TSFE']->fe_user->setKey('ses', 'tx_t3events_overwriteDemand', serialize($overwriteDemand));
+		$GLOBALS['TSFE']->fe_user->storeSessionData();
+
+		return $demand;
 	}
 }
 
