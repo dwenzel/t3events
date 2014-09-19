@@ -32,11 +32,11 @@ namespace Webfox\T3events\Domain\Repository;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class PerformanceRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
+class PerformanceRepository extends AbstractRepository {
 	protected $defaultOrderings = array ('sorting' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING);
 
 	public function initializeObject() {
-         $this->defaultQuerySettings = $this->objectManager->create('\TYPO3\CMS\Extbase\Persistence\Typo3QuerySettings');
+         $this->defaultQuerySettings = $this->objectManager->create('\TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings');
          $this->defaultQuerySettings->setRespectStoragePage(FALSE);
     }
 
