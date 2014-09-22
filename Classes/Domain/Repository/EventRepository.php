@@ -56,7 +56,7 @@ class EventRepository extends AbstractRepository {
 		$query = $this->createQuery();
 
 		if ($respectEnableFields === FALSE) {
-			$query->getQuerySettings()->setRespectEnableFields(FALSE);
+			$query->getQuerySettings()->setIgnoreEnableFields(TRUE);
 			//$constraints[] = $query->equals('deleted', 0);
 		}
 
