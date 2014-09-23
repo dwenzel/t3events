@@ -115,7 +115,8 @@ class EventRepository extends AbstractDemandedRepository {
 			$query->setLimit($demand->getLimit());
 		}
 		if ($demand->getStoragePages()) {
-			$query->getQuerySettings()->setStoragePageIds(explode(',', $demand->getStoragePages()));
+			$pageIds = \TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $demand->getStoragePages());
+			$query->getQuerySettings()->setStoragePageIds($pageIds);
 		}
 
 		return $query;
