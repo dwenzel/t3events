@@ -32,7 +32,7 @@ namespace Webfox\T3events\Domain\Repository;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class PerformanceRepository extends AbstractRepository {
+class PerformanceRepository extends AbstractDemandedRepository {
 	protected $defaultOrderings = array ('sorting' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING);
 
 	public function initializeObject() {
@@ -55,13 +55,24 @@ class PerformanceRepository extends AbstractRepository {
     	if ($demand->getDate()){
     		$constraints[] = $query->lessThanOrEqual('date', $demand->getDate());
     	}
-    	if($demand->getStoragePage() !==NULL){
-    		$pages = \TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $demand->getStoragePage());
+    	if($demand->getStoragePages() !==NULL){
+    		$pages = \TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $demand->getStoragePages());
     		$constraints[] = $query->in('pid', $pages);
     	}
     	count($constraints)?$query->matching($query->logicalAnd($constraints)):NULL;
 		return $query->execute();
     }
 
+	/**
+	 * Returns an array of constraints created from a given demand object.
+	 *
+	 * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
+	 * @param \Webfox\T3events\Domain\Model\Dto\DemandInterface $demand
+	 * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint>
+	 */
+	protected function createConstraintsFromDemand(\TYPO3\CMS\Extbase\Persistence\QueryInterface $query, \Webfox\T3events\Domain\Model\Dto\DemandInterface $demand) {
+		$constraints = array();
+		return $constraints;
+	}
 }
 

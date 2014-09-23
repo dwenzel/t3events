@@ -33,7 +33,7 @@ namespace Webfox\T3events\Domain\Repository;
  *
  */
 
-class EventRepository extends AbstractRepository {
+class EventRepository extends AbstractDemandedRepository {
 	/**
 	 * findDemanded
 	 *
@@ -55,7 +55,7 @@ class EventRepository extends AbstractRepository {
 	protected function buildQuery($demand, $respectEnableFields = TRUE){
 		$query = $this->createQuery();
 
-		if ($respectEnableFields === FALSE) {
+		if ($respectEnableFields == FALSE) {
 			$query->getQuerySettings()->setIgnoreEnableFields(TRUE);
 			//$constraints[] = $query->equals('deleted', 0);
 		}
@@ -113,6 +113,10 @@ class EventRepository extends AbstractRepository {
 		// limit
 		if ($demand->getLimit()) {
 			$query->setLimit($demand->getLimit());
+		}
+		if ($demand->getStoragePages()) {
+			$pageIds = \TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $demand->getStoragePages());
+			$query->getQuerySettings()->setStoragePageIds($pageIds);
 		}
 
 		return $query;
@@ -234,5 +238,18 @@ class EventRepository extends AbstractRepository {
 		}
 		return $periodConstraint;
 	}
+
+	/**
+	 * Returns an array of constraints created from a given demand object.
+	 *
+	 * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
+	 * @param \Webfox\T3events\Domain\Model\Dto\DemandInterface $demand
+	 * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint>
+	 */
+	protected function createConstraintsFromDemand(\TYPO3\CMS\Extbase\Persistence\QueryInterface $query, \Webfox\T3events\Domain\Model\Dto\DemandInterface $demand) {
+		$constraints = array();
+		return $constraints;
+	}
+
 }
 

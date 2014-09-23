@@ -58,8 +58,13 @@ namespace Webfox\T3events\Domain\Model\Dto;
 	 * @var \string Search fields
 	 */
 	protected $searchFields;
-	
-	/**
+
+	 /**
+	  * @var \string Orderings: comma separated list of sort fields and orderings ('fieldA|asc,fieldB|desc')
+	  */
+	 protected $order;
+
+	 /**
 	 * @var \string Sort criteria
 	 */
 	protected $sortBy;
@@ -70,9 +75,9 @@ namespace Webfox\T3events\Domain\Model\Dto;
 	protected $sortDirection;
 
 	/**
-	 * @var \string Storage Page
+	 * @var \string Comma separated list of storage page
 	 */
-	protected $storagePage;
+	protected $storagePages;
 	
 	/**
 	 * @var \string $periodType Type of period: month, day, year, specific
@@ -213,15 +218,15 @@ namespace Webfox\T3events\Domain\Model\Dto;
 	 * @param \string The storage page
 	 * @return void
 	 */
-	public function setStoragePage($storagePage){
-		$this->storagePage=$storagePage;
+	public function setStoragePages($storagePages){
+		$this->storagePages=$storagePages;
 	}
 	
 	/**
 	 * @return \string The storage page
 	 */
-	public function getStoragePage(){
-		return  $this->storagePage;
+	public function getStoragePages(){
+		return  $this->storagePages;
 	}
 	
 	/**
@@ -313,5 +318,20 @@ namespace Webfox\T3events\Domain\Model\Dto;
 	public function setUidList($uidList){
 		$this->uidList=$uidList;
 	}
+
+	 /**
+	  * @return \string|null
+	  */
+	 public function getOrder(){
+		 return $this->order;
+	 }
+
+	 /**
+	  * @param \string $order A comma separated List of orderings
+	  * @return void
+	  */
+	 public function setOrder($order){
+		 $this->order=$order;
+	 }
 }
 
