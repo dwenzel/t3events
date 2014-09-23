@@ -33,7 +33,7 @@ namespace Webfox\T3events\Domain\Repository;
  *
  */
 
-class AbstractRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
+abstract class AbstractDemandedRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 	/**
 	 * @var \string $recordList A comma separated string containing uids
 	 * @var \string $sortField Sort by field
@@ -47,6 +47,16 @@ class AbstractRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 		$query->setOrderings(array($sortField => $sortOrder));
 		return $query->execute();
 	}
+
+	/**
+	 * Returns an array of constraints created from a given demand object.
+	 *
+	 * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
+	 * @param \Webfox\T3events\Domain\Model\Dto\DemandInterface $demand
+	 * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint>
+	 * @abstract
+	 */
+	abstract protected function createConstraintsFromDemand(\TYPO3\CMS\Extbase\Persistence\QueryInterface $query, \Webfox\T3events\Domain\Model\Dto\DemandInterface $demand);
 
 	/**
 	 * Returns an array of orderings created from a given demand object.
@@ -75,6 +85,48 @@ class AbstractRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 				}
 			}
 		}
+
 		return $orderings;
+	}
+
+	/**
+	 * Returns the objects of this repository matching the demand.
+	 *
+	 * @param \Webfox\Placements\Domain\Model\Dto\DemandInterface $demand
+	 * @param boolean $respectEnableFields
+	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+	 */
+	public function findDemanded(\Webfox\T3events\Domain\Model\Dto\DemandInterface $demand, $respectEnableFields = TRUE) {
+		$query = $this->generateQuery($demand, $respectEnableFields);
+		$objects = $query->execute();
+		return $objects;
+	}
+
+	protected function generateQuery(\Webfox\T3events\Domain\Model\Dto\DemandInterface $demand, $respectEnableFields = TRUE) {
+		$query = $this->createQuery();
+		$constraints = $this->createConstraintsFromDemand($query, $demand);
+
+		if ($respectEnableFields === FALSE) {
+			$query->getQuerySettings()->setIgnoreEnableFields(TRUE);
+		}
+		if (!empty($constraints)) {
+			$query->matching(
+				$query->logicalAnd($constraints)
+			);
+		}
+
+		if ($orderings = $this->createOrderingsFromDemand($demand)) {
+			$query->setOrderings($orderings);
+		}
+
+		if ($demand->getLimit() != NULL) {
+			$query->setLimit((int) $demand->getLimit());
+		}
+
+		if ($demand->getOffset() != NULL) {
+			$query->setOffset((int) $demand->getOffset());
+		}
+
+		return $query;
 	}
 }
