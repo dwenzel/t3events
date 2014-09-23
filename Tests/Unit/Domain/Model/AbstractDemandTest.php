@@ -243,19 +243,19 @@ namespace Webfox\T3events\Tests\Unit\Domain\Model;
 
 	/**
 	 * @test
-	 * @covers ::getStoragePage
+	 * @covers ::getStoragePages
 	 */
-	public function getStoragePageReturnsInitialNull(){
-		$this->assertNull($this->fixture->getStoragePage());
+	public function getStoragePagesReturnsInitialNull(){
+		$this->assertNull($this->fixture->getStoragePages());
 	}
 
 	/**
 	 * @test
-	 * @covers ::setStoragePage
+	 * @covers ::setStoragePages
 	 */
-	public function setStoragePageForStringSetsStoragePage(){
-		$this->fixture->setStoragePage('15,78,39');
-		$this->assertSame('15,78,39', $this->fixture->getStoragePage());
+	public function setStoragePagesForStringSetsStoragePages(){
+		$this->fixture->setStoragePages('15,78,39');
+		$this->assertSame('15,78,39', $this->fixture->getStoragePages());
 	}
 
 	/**

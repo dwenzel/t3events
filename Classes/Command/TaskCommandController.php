@@ -138,7 +138,7 @@ class TaskCommandController extends \TYPO3\CMS\Extbase\MVC_Controller_CommandCon
 
 			$storagePage = $hideTask->getFolder();
 			if($hideTask->getFolder() !=''){
-				$demand->setStoragePage($storagePage);
+				$demand->setStoragePages($storagePage);
 			}
 
 			// find demanded
@@ -190,7 +190,7 @@ class TaskCommandController extends \TYPO3\CMS\Extbase\MVC_Controller_CommandCon
 			$demand->setDate(time() - ($updateTask->getPeriod()*3600));
 
 			if($updateTask->getFolder() !=''){
-				$demand->setStoragePage($updateTask->getFolder());
+				$demand->setStoragePages($updateTask->getFolder());
 			}
 
 			// find demanded
