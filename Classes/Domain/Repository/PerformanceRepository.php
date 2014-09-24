@@ -42,12 +42,12 @@ class PerformanceRepository extends AbstractDemandedRepository {
 
     /**
      * find Demanded
-     * @param \Webfox\T3events\Domain\Model\Dto\PerformanceDemand $demand
+     * @param \Webfox\T3events\Domain\Model\Dto\DemandInterface $demand
      * @return \TYPO3\CMS\Extbase\Persistence\QueryResult matching performances
      */
-    public function findDemanded(\Webfox\T3events\Domain\Model\Dto\PerformanceDemand $demand){
+    public function findDemanded(\Webfox\T3events\Domain\Model\Dto\DemandInterface $demand){
     	$query = $this->createQuery();
-    	$constraints = $this->createConstraintsFromDemand($demand);
+    	$constraints = $this->createConstraintsFromDemand($query, $demand);
 		count($constraints)?$query->matching($query->logicalAnd($constraints)):NULL;
 		return $query->execute();
     }
