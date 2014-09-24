@@ -33,6 +33,11 @@ namespace Webfox\T3events\Domain\Model;
  *
  */
 class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
+	/**
+	 * Hidden
+	 * @var \int
+	 */
+	protected $hidden;
 
 	/**
 	 * Enter a title.
@@ -129,6 +134,22 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 		$this->genre = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$this->venue = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$this->performances = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+	}
+
+	/**
+	 * Returns hidden
+	 * @return \int
+	 */
+	public function getHidden() {
+		return$this->hidden;
+	}
+
+	/**
+	 * Sets hidden
+	 * @param \int $hidden
+	 */
+	public function setHidden($hidden) {
+		$this->hidden = $hidden;
 	}
 
 	/**
