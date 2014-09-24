@@ -33,7 +33,7 @@ namespace Webfox\T3events\Command;
 *
 */
 
-class TaskCommandController extends \TYPO3\CMS\Extbase\MVC_Controller_CommandController {
+class TaskCommandController extends \TYPO3\CMS\Extbase\MVC\Controller\CommandController {
 	/**
 	 * taskRepository
 	 * @var \Webfox\T3events\Domain\Repository\TaskRepository
