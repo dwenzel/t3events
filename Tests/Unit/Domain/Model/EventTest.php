@@ -56,7 +56,11 @@ class EventTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @test
 	 */
-	public function getHeadlineReturnsInitialValueForString() { }
+	public function getHeadlineReturnsInitialValueForString() {
+		$this->assertNull(
+			$this->fixture->getHeadline()
+		);
+	}
 
 	/**
 	 * @test
@@ -73,7 +77,11 @@ class EventTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @test
 	 */
-	public function getSubtitleReturnsInitialValueForString() { }
+	public function getSubtitleReturnsInitialValueForString() {
+		$this->assertNull(
+			$this->fixture->getSubtitle()
+		);
+	}
 
 	/**
 	 * @test
@@ -90,7 +98,11 @@ class EventTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @test
 	 */
-	public function getDescriptionReturnsInitialValueForString() { }
+	public function getDescriptionReturnsInitialValueForString() {
+		$this->assertNull(
+			$this->fixture->getDescription()
+		);
+	}
 
 	/**
 	 * @test
@@ -107,7 +119,11 @@ class EventTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @test
 	 */
-	public function getKeywordsReturnsInitialValueForString() { }
+	public function getKeywordsReturnsInitialValueForString() {
+		$this->assertNull(
+			$this->fixture->getKeywords()
+		);
+	}
 
 	/**
 	 * @test
@@ -124,7 +140,11 @@ class EventTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @test
 	 */
-	public function getImageReturnsInitialValueForString() { }
+	public function getImageReturnsInitialValueForString() {
+		$this->assertNull(
+			$this->fixture->getImage()
+		);
+	}
 
 	/**
 	 * @test
@@ -393,6 +413,28 @@ class EventTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 		$this->assertSame(
 				1,
 				$fixture->getEarliestDate()
+		);
+	}
+
+	/**
+	 * @test
+	 * @covers ::getHidden
+	 */
+	public function getHiddenReturnsInitialyNull() {
+		$this->assertNull(
+			$this->fixture->getHeadline()
+		);
+	}
+
+	/**
+	 * @test
+	 * @covers ::setHidden
+	 */
+	public function setHiddenForIntegerSetsHidden() {
+		$this->fixture->setHidden(3);
+		$this->assertSame(
+			3,
+			$this->fixture->getHidden()
 		);
 	}
 }
