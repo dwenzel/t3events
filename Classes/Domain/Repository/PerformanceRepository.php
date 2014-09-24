@@ -47,19 +47,8 @@ class PerformanceRepository extends AbstractDemandedRepository {
      */
     public function findDemanded(\Webfox\T3events\Domain\Model\Dto\PerformanceDemand $demand){
     	$query = $this->createQuery();
-
-    	$constraints = array();
-    	if ($demand->getStatus() !== NULL){
-    		$constraints[] = $query->equals('status', $demand->getStatus());
-    	}
-    	if ($demand->getDate()){
-    		$constraints[] = $query->lessThanOrEqual('date', $demand->getDate());
-    	}
-    	if($demand->getStoragePages() !==NULL){
-    		$pages = \TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $demand->getStoragePages());
-    		$constraints[] = $query->in('pid', $pages);
-    	}
-    	count($constraints)?$query->matching($query->logicalAnd($constraints)):NULL;
+    	$constraints = $this->createConstraintsFromDemand($demand);
+		count($constraints)?$query->matching($query->logicalAnd($constraints)):NULL;
 		return $query->execute();
     }
 
@@ -72,6 +61,16 @@ class PerformanceRepository extends AbstractDemandedRepository {
 	 */
 	protected function createConstraintsFromDemand(\TYPO3\CMS\Extbase\Persistence\QueryInterface $query, \Webfox\T3events\Domain\Model\Dto\DemandInterface $demand) {
 		$constraints = array();
+		if ($demand->getStatus() !== NULL){
+			$constraints[] = $query->equals('status', $demand->getStatus());
+		}
+		if ($demand->getDate()){
+			$constraints[] = $query->lessThanOrEqual('date', $demand->getDate());
+		}
+		if($demand->getStoragePages() !==NULL){
+			$pages = \TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $demand->getStoragePages());
+			$constraints[] = $query->in('pid', $pages);
+		}
 		return $constraints;
 	}
 }
