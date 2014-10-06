@@ -37,6 +37,7 @@ namespace Webfox\T3events\Tests\Unit\Domain\Model;
  *
  * @author Dirk Wenzel <wenzel@webfox01.de>
  * @author Michael Kasten <kasten@webfox01.de>
+ * @coversDefaultDefaultClass \Webfox\T3events\Domain\Model\EventLocation
  */
 class EventLocationTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
@@ -193,6 +194,49 @@ class EventLocationTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 			$this->fixture->getCountry()
 		);
 	}
-	
+
+	/**
+	 * @test
+	 * @covers ::getLatitude
+	 */
+	public function getLatitudeReturnsInitiallyNull() {
+		$this->assertNull(
+			$this->fixture->getLatitude()
+		);
+	}
+
+	/**
+	 * @test
+	 * @covers ::setLatitude
+	 */
+	public function setLatitudeForFloatSetsLatitude() {
+		$this->fixture->setLatitude(1.23);
+		$this->assertSame(
+			1.23,
+			$this->fixture->getLatitude()
+		);
+	}
+
+	/**
+	 * @test
+	 * @covers ::getLongitude
+	 */
+	public function getLongitudeReturnsInitiallyNull() {
+		$this->assertNull(
+			$this->fixture->getLongitude()
+		);
+	}
+
+	/**
+	 * @test
+	 * @covers ::setLongitude
+	 */
+	public function setLongitudeForFloatSetsLongitude() {
+		$this->fixture->setLongitude(1.23);
+		$this->assertSame(
+			1.23,
+			$this->fixture->getLongitude()
+		);
+	}
 }
 
