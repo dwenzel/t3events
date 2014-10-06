@@ -197,7 +197,6 @@ class EventLocationTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 
 	/**
 	 * @test
-	 * @covers ::getLatitude
 	 */
 	public function getLatitudeReturnsInitiallyNull() {
 		$this->assertNull(
@@ -207,7 +206,6 @@ class EventLocationTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 
 	/**
 	 * @test
-	 * @covers ::setLatitude
 	 */
 	public function setLatitudeForFloatSetsLatitude() {
 		$this->fixture->setLatitude(1.23);
@@ -219,7 +217,6 @@ class EventLocationTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 
 	/**
 	 * @test
-	 * @covers ::getLongitude
 	 */
 	public function getLongitudeReturnsInitiallyNull() {
 		$this->assertNull(
@@ -229,7 +226,6 @@ class EventLocationTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 
 	/**
 	 * @test
-	 * @covers ::setLongitude
 	 */
 	public function setLongitudeForFloatSetsLongitude() {
 		$this->fixture->setLongitude(1.23);
