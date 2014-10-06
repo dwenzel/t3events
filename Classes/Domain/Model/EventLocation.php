@@ -258,7 +258,8 @@ class EventLocation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
 	/**
 	 * Returns the latitude
-	 * @return float
+	 * 
+	 * @return \float
 	 */
 	public function getLatitude() {
 		return $this->latitude;
@@ -266,6 +267,7 @@ class EventLocation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
 	/**
 	 * Sets the latitude
+	 * 
 	 * @var \float $latitude
 	 */
 	public function setLatitude($latitude) {
@@ -274,6 +276,7 @@ class EventLocation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
 	/**
 	 * Returns the longitude
+	 * 
 	 * @return \float
 	 */
 	public function getLongitude() {
@@ -282,6 +285,7 @@ class EventLocation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 
 	/**
 	 * Sets the longitude
+	 * 
 	 * @var \float $longitude
 	 */
 	public function setLongitude($longitude) {
