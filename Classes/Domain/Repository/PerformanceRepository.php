@@ -47,6 +47,7 @@ class PerformanceRepository extends AbstractDemandedRepository {
      */
     public function findDemanded(\Webfox\T3events\Domain\Model\Dto\DemandInterface $demand){
     	$query = $this->createQuery();
+		$query->setOrderings($this->createOrderingsFromDemand($demand));
     	$constraints = $this->createConstraintsFromDemand($query, $demand);
 		count($constraints)?$query->matching($query->logicalAnd($constraints)):NULL;
 		return $query->execute();
