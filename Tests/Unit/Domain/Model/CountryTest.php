@@ -46,7 +46,8 @@ class CountryTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 
 	public function setUp() {
 		//$this->fixture = new \Webfox\T3events\Domain\Model\Country();
-		$this->fixture = $this->getAccessibleMock('Webfox\T3events\Domain\Model\Country');
+		$this->fixture = $this->getAccessibleMock('Webfox\T3events\Domain\Model\Country',
+				array(), array(), '', false);
 	}
 
 	public function tearDown() {
