@@ -185,8 +185,8 @@ class EventLocationTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @test
 	 */
-	public function setCountryForCountrySetsCountry() { 
-		$dummyObject = new \Webfox\T3events\Domain\Model\Country();
+	public function setCountryForCountrySetsCountry() {
+		$dummyObject = $this->getMock('Webfox\T3events\Domain\Model\Country');
 		$this->fixture->setCountry($dummyObject);
 
 		$this->assertSame(
