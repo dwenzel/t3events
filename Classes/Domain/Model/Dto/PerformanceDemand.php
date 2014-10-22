@@ -43,8 +43,13 @@ namespace Webfox\T3events\Domain\Model\Dto;
 	 * @var \Webfox\T3events\Domain\Model\PerformanceStatus
 	 */
 	protected  $status;
-	
-	/**
+
+	 /**
+	  * @var \string
+	  */
+	 protected $eventLocations;
+
+	 /**
 	 * Returns the date
 	 * @return \DateTime $date
 	 */
@@ -77,5 +82,22 @@ namespace Webfox\T3events\Domain\Model\Dto;
 	public function setStatus(\Webfox\T3events\Domain\Model\PerformanceStatus $status){
 		$this->status = $status;
 	}
+
+	 /**
+	  * Gets the event locations
+	  * @return \string
+	  */
+	 public function getEventLocations() {
+		 return $this->eventLocations;
+	 }
+
+	 /**
+	  * Sets the event locations
+	  * @var \string $eventLocations
+	  * @return void
+	  */
+	 public function setEventLocations($eventLocations) {
+		 $this->eventLocations = $eventLocations;
+	 }
  }
 
