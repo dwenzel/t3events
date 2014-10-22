@@ -108,7 +108,12 @@ namespace Webfox\T3events\Domain\Model\Dto;
 	 * @var \string $uidList A list of record uids
 	 */
 	protected $uidList;
-	
+
+	 /**
+	  * @var \string
+	  */
+	 protected $constraintsConjunction;
+
 	/**
 	 * @param int A limit for the demand
 	 * @return void
@@ -332,6 +337,23 @@ namespace Webfox\T3events\Domain\Model\Dto;
 	  */
 	 public function setOrder($order){
 		 $this->order=$order;
+	 }
+
+	 /**
+	  * Get Constraints Conjunction
+	  * @return \string
+	  */
+	 public function getConstraintsConjunction () {
+		 return $this->constraintsConjunction;
+	 }
+
+	 /**
+	  * Set Constraints Conjunction
+	  *
+	  * @param \string $conjunction
+	  */
+	 public function setConstraintsConjunction ($conjunction) {
+		 $this->constraintsConjunction = $conjunction;
 	 }
 }
 
