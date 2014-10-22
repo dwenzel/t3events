@@ -72,6 +72,10 @@ class PerformanceRepository extends AbstractDemandedRepository {
 			$pages = \TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $demand->getStoragePages());
 			$constraints[] = $query->in('pid', $pages);
 		}
+		if($demand->getEventLocations()) {
+			$eventLocations = \TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $demand->getEventLocations());
+			$constraints[] = $query->in('eventLocation', $eventLocations);
+		}
 		return $constraints;
 	}
 }
