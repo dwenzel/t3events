@@ -33,7 +33,7 @@ namespace Webfox\T3events\Domain\Model\Dto;
  *
  */
  
- class PerformanceDemand extends AbstractDemand{
+ class PerformanceDemand extends AbstractDemand implements DemandInterface{
  	/**
  	 * @var \DateTime
  	 */
