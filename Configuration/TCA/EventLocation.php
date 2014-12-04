@@ -3,13 +3,15 @@ if (!defined ('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
+$ll = 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:';
+
 $TCA['tx_t3events_domain_model_eventlocation'] = array(
 	'ctrl' => $TCA['tx_t3events_domain_model_eventlocation']['ctrl'],
 	'interface' => array(
-		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, name, address, image, zip, place, details, www, country',
+		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, name, address, image, zip, place, details, www, country, latitude, longitude',
 	),
 	'types' => array(
-		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, name, address, image, zip, place, details, www, country,--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,starttime, endtime'),
+		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, name, address, image, zip, place, details, www, country, latitude, longitude,--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,starttime, endtime'),
 	),
 	'palettes' => array(
 		'1' => array('showitem' => ''),
@@ -177,6 +179,26 @@ $TCA['tx_t3events_domain_model_eventlocation'] = array(
 					'showPossibleLocalizationRecords' => 1,
 					'showAllLocalizationLink' => 1
 				),
+			),
+		),
+		'latitude' => array(
+			'exclude' => 1,
+			'label' => $ll . 'tx_t3events_domain_model_eventlocation.latitude',
+			'config' =>array(
+				'type' => 'input',
+				'size' => '20',
+				'eval' => 'trim',
+				'default' => '0.00000000000000'
+			),
+		),
+		'longitude' => array(
+			'exclude' => 1,
+			'label' => $ll . 'tx_t3events_domain_model_eventlocation.longitude',
+			'config' =>array(
+				'type' => 'input',
+				'size' => '20',
+				'eval' => 'trim',
+				'default' => '0.00000000000000'
 			),
 		),
 	),

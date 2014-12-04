@@ -35,9 +35,10 @@ namespace Webfox\T3events\Domain\Model\Dto;
  
  class AbstractDemand extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
-	 * @var  A time limit
+	 * @var \string  A time period
 	 */
 	protected $period;
+
 	/**
 	 * @var int A Limit for the demand
 	 */
@@ -57,8 +58,13 @@ namespace Webfox\T3events\Domain\Model\Dto;
 	 * @var \string Search fields
 	 */
 	protected $searchFields;
-	
-	/**
+
+	 /**
+	  * @var \string Orderings: comma separated list of sort fields and orderings ('fieldA|asc,fieldB|desc')
+	  */
+	 protected $order;
+
+	 /**
 	 * @var \string Sort criteria
 	 */
 	protected $sortBy;
@@ -69,9 +75,9 @@ namespace Webfox\T3events\Domain\Model\Dto;
 	protected $sortDirection;
 
 	/**
-	 * @var \string Storage Page
+	 * @var \string Comma separated list of storage page
 	 */
-	protected $storagePage;
+	protected $storagePages;
 	
 	/**
 	 * @var \string $periodType Type of period: month, day, year, specific
@@ -81,8 +87,8 @@ namespace Webfox\T3events\Domain\Model\Dto;
 	/**
 	 * @var int $periodStart Start value used when constraining by day, month or year 
 	 */
-	
 	protected $periodStart;
+
 	/**
 	 * @var int $periodDuration Duration value used when constraining by day, month or year
 	 */
@@ -102,7 +108,12 @@ namespace Webfox\T3events\Domain\Model\Dto;
 	 * @var \string $uidList A list of record uids
 	 */
 	protected $uidList;
-	
+
+	 /**
+	  * @var \string
+	  */
+	 protected $constraintsConjunction;
+
 	/**
 	 * @param int A limit for the demand
 	 * @return void
@@ -125,15 +136,14 @@ namespace Webfox\T3events\Domain\Model\Dto;
 	public function setPeriod ($period = '') {
 		$this->period = $period;
 	}
-	
+
 	/**
 	 * @return int The limit for the demand
 	 */
 	public function getLimit() {
 		return $this->limit;
 	}
-	
-	
+
 	/**
 	 * @param in An offset for the demand
 	 * @return void
@@ -178,6 +188,7 @@ namespace Webfox\T3events\Domain\Model\Dto;
 	public function getSearchFields(){
 		return $this->searchFields;
 	}
+
 	/**
 	 * @param \string The sort criteria in dot notation
 	 * @return void
@@ -185,7 +196,7 @@ namespace Webfox\T3events\Domain\Model\Dto;
 	public function setSortBy($sortBy) {
 		$this->sortBy = $sortBy;
 	}
-	
+
 	/**
 	 * @return \string The sort criteria in dot notation
 	 */
@@ -212,15 +223,15 @@ namespace Webfox\T3events\Domain\Model\Dto;
 	 * @param \string The storage page
 	 * @return void
 	 */
-	public function setStoragePage($storagePage){
-		$this->storagePage=$storagePage;
+	public function setStoragePages($storagePages){
+		$this->storagePages=$storagePages;
 	}
 	
 	/**
 	 * @return \string The storage page
 	 */
-	public function getStoragePage(){
-		return  $this->storagePage;
+	public function getStoragePages(){
+		return  $this->storagePages;
 	}
 	
 	/**
@@ -282,6 +293,7 @@ namespace Webfox\T3events\Domain\Model\Dto;
 	public function setStartDate($date){
 		$this->startDate=$date;
 	}
+
 	/**
 	 * @return \DateTime
 	 */
@@ -311,6 +323,37 @@ namespace Webfox\T3events\Domain\Model\Dto;
 	public function setUidList($uidList){
 		$this->uidList=$uidList;
 	}
+
+	 /**
+	  * @return \string|null
+	  */
+	 public function getOrder(){
+		 return $this->order;
+	 }
+
+	 /**
+	  * @param \string $order A comma separated List of orderings
+	  * @return void
+	  */
+	 public function setOrder($order){
+		 $this->order=$order;
+	 }
+
+	 /**
+	  * Get Constraints Conjunction
+	  * @return \string
+	  */
+	 public function getConstraintsConjunction () {
+		 return $this->constraintsConjunction;
+	 }
+
+	 /**
+	  * Set Constraints Conjunction
+	  *
+	  * @param \string $conjunction
+	  */
+	 public function setConstraintsConjunction ($conjunction) {
+		 $this->constraintsConjunction = $conjunction;
+	 }
 }
- 
- ?>
+

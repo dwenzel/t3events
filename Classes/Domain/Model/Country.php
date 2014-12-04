@@ -32,7 +32,22 @@ namespace Webfox\T3events\Domain\Model;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class Country extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
+class Country extends \SJBR\StaticInfoTables\Domain\Model\Country{
+	/**
+	 * Get Extbase configuration
+	 * @return array
+	 */
+	public  function getExtbaseConfiguration() {
+		return $this->extbaseConfiguration;
+	}
 
+	/**
+	 * Get columns mapping
+	 *
+	 * @return array
+	 */
+	public  function getColumnsMapping() {
+		return $this->columnsMapping;
+	}
 }
 

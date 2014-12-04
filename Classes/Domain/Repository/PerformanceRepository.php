@@ -32,36 +32,38 @@ namespace Webfox\T3events\Domain\Repository;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class PerformanceRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
+class PerformanceRepository extends AbstractDemandedRepository {
 	protected $defaultOrderings = array ('sorting' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING);
 
 	public function initializeObject() {
-         $this->defaultQuerySettings = $this->objectManager->create('\TYPO3\CMS\Extbase\Persistence\Typo3QuerySettings');
+         $this->defaultQuerySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
          $this->defaultQuerySettings->setRespectStoragePage(FALSE);
     }
-
-    /**
-     * find Demanded
-     * @param \Webfox\T3events\Domain\Model\Dto\PerformanceDemand $demand
-     * @return \TYPO3\CMS\Extbase\Persistence\QueryResult matching performances
-     */
-    public function findDemanded(\Webfox\T3events\Domain\Model\Dto\PerformanceDemand $demand){
-    	$query = $this->createQuery();
-
-    	$constraints = array();
-    	if ($demand->getStatus() !== NULL){
-    		$constraints[] = $query->equals('status', $demand->getStatus());
-    	}
-    	if ($demand->getDate()){
-    		$constraints[] = $query->lessThanOrEqual('date', $demand->getDate());
-    	}
-    	if($demand->getStoragePage() !==NULL){
-    		$pages = \TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $demand->getStoragePage());
-    		$constraints[] = $query->in('pid', $pages);
-    	}
-    	count($constraints)?$query->matching($query->logicalAnd($constraints)):NULL;
-		return $query->execute();
-    }
-
+	
+	/**
+	 * Returns an array of constraints created from a given demand object.
+	 *
+	 * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
+	 * @param \Webfox\T3events\Domain\Model\Dto\DemandInterface $demand
+	 * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint>
+	 */
+	protected function createConstraintsFromDemand(\TYPO3\CMS\Extbase\Persistence\QueryInterface $query, \Webfox\T3events\Domain\Model\Dto\DemandInterface $demand) {
+		$constraints = array();
+		if ($demand->getStatus() !== NULL){
+			$constraints[] = $query->equals('status', $demand->getStatus());
+		}
+		if ($demand->getDate()){
+			$constraints[] = $query->lessThanOrEqual('date', $demand->getDate());
+		}
+		if($demand->getStoragePages() !==NULL){
+			$pages = \TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $demand->getStoragePages());
+			$constraints[] = $query->in('pid', $pages);
+		}
+		if($demand->getEventLocations()) {
+			$eventLocations = \TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $demand->getEventLocations());
+			$constraints[] = $query->in('eventLocation', $eventLocations);
+		}
+		return $constraints;
+	}
 }
 

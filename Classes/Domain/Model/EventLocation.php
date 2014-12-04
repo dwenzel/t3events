@@ -32,7 +32,8 @@ namespace Webfox\T3events\Domain\Model;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class EventLocation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
+class EventLocation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+	implements GeocodingInterface{
 
 	/**
 	 * name
@@ -90,6 +91,18 @@ class EventLocation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 * @var \Webfox\T3events\Domain\Model\Country
 	 */
 	protected $country;
+
+	/**
+	 * Latitude
+	 * @var \float
+	 */
+	protected $latitude;
+
+	/**
+	 * Longitude
+	 * @var \float
+	 */
+	protected $longitude;
 
 	/**
 	 * Returns the name
@@ -243,5 +256,40 @@ class EventLocation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 		$this->country = $country;
 	}
 
+	/**
+	 * Returns the latitude
+	 * 
+	 * @return \float
+	 */
+	public function getLatitude() {
+		return $this->latitude;
+	}
+
+	/**
+	 * Sets the latitude
+	 * 
+	 * @var \float $latitude
+	 */
+	public function setLatitude($latitude) {
+		$this->latitude = $latitude;
+	}
+
+	/**
+	 * Returns the longitude
+	 * 
+	 * @return \float
+	 */
+	public function getLongitude() {
+		return $this->longitude;
+	}
+
+	/**
+	 * Sets the longitude
+	 * 
+	 * @var \float $longitude
+	 */
+	public function setLongitude($longitude) {
+		$this->longitude = $longitude;
+	}
 }
 

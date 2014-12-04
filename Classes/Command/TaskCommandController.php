@@ -25,7 +25,6 @@ namespace Webfox\T3events\Command;
 *
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
-
 /**
 *
 * @package t3events
@@ -33,38 +32,21 @@ namespace Webfox\T3events\Command;
 *
 */
 
-class TaskCommandController extends \TYPO3\CMS\Extbase\MVC_Controller_CommandController {
+class TaskCommandController extends \TYPO3\CMS\Extbase\MVC\Controller\CommandController {
 	/**
 	 * taskRepository
 	 * @var \Webfox\T3events\Domain\Repository\TaskRepository
+	 * @inject
 	 */
 	protected $taskRepository;
 
 	/**
 	 * performanceRepository
 	 * @var \Webfox\T3events\Domain\Repository\PerformanceRepository
+	 * @inject
 	 */
 	protected $performanceRepository;
-
-	/**
-	 * inject Performance Repository
-	 * @param \Webfox\T3events\Domain\Repository\PerformanceRepository $performanceRepository
-	 * @return void
-	 */
-	public function injectPerformanceRepository(\Webfox\T3events\Domain\Repository\PerformanceRepository $performanceRepository) {
-		$this->performanceRepository = $performanceRepository;
-	}
-
-	/**
-	 * inject Task Repository
-	 * @param \Webfox\T3events\Domain\Repository\TaskRepository $taskRepository
-	 * @return void
-	 */
-	public function injectTaskRepository(\Webfox\T3events\Domain\Repository\TaskRepository $taskRepository){
-	 $this->taskRepository = $taskRepository;
-	}
-
-
+	
 	/**
 	 * Run update tasks
 	 * @param \string $email E-Mail
@@ -138,7 +120,7 @@ class TaskCommandController extends \TYPO3\CMS\Extbase\MVC_Controller_CommandCon
 
 			$storagePage = $hideTask->getFolder();
 			if($hideTask->getFolder() !=''){
-				$demand->setStoragePage($storagePage);
+				$demand->setStoragePages($storagePage);
 			}
 
 			// find demanded
@@ -148,6 +130,7 @@ class TaskCommandController extends \TYPO3\CMS\Extbase\MVC_Controller_CommandCon
 			foreach ($performances as $performance){
 				//perform update
 				$performance->setHidden(1);
+				$this->performanceRepository->update($performance);
 				$message .= ' performance date: ' . $performance->getDate()->format('Y-m-d');
 				if ($performance->getEventLocation()){
 					$message .= ' location: ' . $performance->getEventLocation()->getName();
@@ -190,7 +173,7 @@ class TaskCommandController extends \TYPO3\CMS\Extbase\MVC_Controller_CommandCon
 			$demand->setDate(time() - ($updateTask->getPeriod()*3600));
 
 			if($updateTask->getFolder() !=''){
-				$demand->setStoragePage($updateTask->getFolder());
+				$demand->setStoragePages($updateTask->getFolder());
 			}
 
 			// find demanded
@@ -205,10 +188,10 @@ class TaskCommandController extends \TYPO3\CMS\Extbase\MVC_Controller_CommandCon
 				if ($performance->getEventLocation()){
 					$message .= ' location: ' . $performance->getEventLocation()->getName();
 				}
+				$this->performanceRepository->update($performance);
 				$message .= LF;
 			}
 			$message .= '----------------------------------------' . LF;
-
 		}
 		return $message;
 	}

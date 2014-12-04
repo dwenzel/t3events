@@ -37,6 +37,7 @@ namespace Webfox\T3events\Tests\Unit\Domain\Model;
  *
  * @author Dirk Wenzel <wenzel@webfox01.de>
  * @author Michael Kasten <kasten@webfox01.de>
+ * @coversDefaultClass \Webfox\T3events\Domain\Model\Event
  */
 class EventTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
@@ -55,7 +56,11 @@ class EventTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @test
 	 */
-	public function getHeadlineReturnsInitialValueForString() { }
+	public function getHeadlineReturnsInitialValueForString() {
+		$this->assertNull(
+			$this->fixture->getHeadline()
+		);
+	}
 
 	/**
 	 * @test
@@ -72,7 +77,11 @@ class EventTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @test
 	 */
-	public function getSubtitleReturnsInitialValueForString() { }
+	public function getSubtitleReturnsInitialValueForString() {
+		$this->assertNull(
+			$this->fixture->getSubtitle()
+		);
+	}
 
 	/**
 	 * @test
@@ -89,7 +98,11 @@ class EventTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @test
 	 */
-	public function getDescriptionReturnsInitialValueForString() { }
+	public function getDescriptionReturnsInitialValueForString() {
+		$this->assertNull(
+			$this->fixture->getDescription()
+		);
+	}
 
 	/**
 	 * @test
@@ -106,7 +119,11 @@ class EventTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @test
 	 */
-	public function getKeywordsReturnsInitialValueForString() { }
+	public function getKeywordsReturnsInitialValueForString() {
+		$this->assertNull(
+			$this->fixture->getKeywords()
+		);
+	}
 
 	/**
 	 * @test
@@ -123,7 +140,11 @@ class EventTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 	/**
 	 * @test
 	 */
-	public function getImageReturnsInitialValueForString() { }
+	public function getImageReturnsInitialValueForString() {
+		$this->assertNull(
+			$this->fixture->getImage()
+		);
+	}
 
 	/**
 	 * @test
@@ -356,6 +377,65 @@ class EventTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
 			$this->fixture->getOrganizer()
 		);
 	}
-	
+
+	/**
+	 * @test
+	 * @covers ::getEarliestDate
+	 */
+	public function getEarliestDateReturnsInitiallyNull() {
+		$this->assertNull($this->fixture->getEarliestDate());
+	}
+
+	/**
+	 * @test
+	 * @covers ::getEarliestDate
+	 */
+	public function getEarliestDateReturnsEarliestDate() {
+		$earliestDate = new \DateTime('@1');
+		$laterDate = new \DateTime('@5');
+		$mockPerformanceA = $this->getMock(
+			'\Webfox\T3events\Domain\Model\Performance',
+			array('getDate'), array(), '', FALSE);
+		$mockPerformanceB = $this->getMock(
+			'\Webfox\T3events\Domain\Model\Performance',
+			array('getDate'), array(), '', FALSE);
+		$fixture = $this->getAccessibleMock(
+			'\Webfox\T3events\Domain\Model\Event',
+			array('dummy'), array(), '');
+		$fixture->addPerformance($mockPerformanceA);
+		$fixture->addPerformance($mockPerformanceB);
+		//var_dump($fixture->performances);
+		//die;
+		$mockPerformanceA->expects($this->once())->method('getDate')
+			->will($this->returnValue($earliestDate));
+		$mockPerformanceB->expects($this->once())->method('getDate')
+			->will($this->returnValue($laterDate));
+		$this->assertSame(
+				1,
+				$fixture->getEarliestDate()
+		);
+	}
+
+	/**
+	 * @test
+	 * @covers ::getHidden
+	 */
+	public function getHiddenReturnsInitialyNull() {
+		$this->assertNull(
+			$this->fixture->getHeadline()
+		);
+	}
+
+	/**
+	 * @test
+	 * @covers ::setHidden
+	 */
+	public function setHiddenForIntegerSetsHidden() {
+		$this->fixture->setHidden(3);
+		$this->assertSame(
+			3,
+			$this->fixture->getHidden()
+		);
+	}
 }
 

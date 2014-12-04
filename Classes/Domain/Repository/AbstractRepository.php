@@ -47,5 +47,34 @@ class AbstractRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 		$query->setOrderings(array($sortField => $sortOrder));
 		return $query->execute();
 	}
-}
 
+	/**
+	 * Returns an array of orderings created from a given demand object.
+	 *
+	 * @param \Webfox\Placements\Domain\Model\Dto\DemandInterface $demand
+	 * @return \array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint>
+	 */
+	protected function createOrderingsFromDemand(\Webfox\T3events\Domain\Model\Dto\DemandInterface $demand) {
+		$orderings = array();
+
+		if ($demand->getOrder()) {
+			$orderList = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $demand->getOrder(), TRUE);
+
+			if (!empty($orderList)) {
+				// go through every order statement
+				foreach ($orderList as $orderItem) {
+					list($orderField, $ascDesc) = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode('|', $orderItem, TRUE);
+					// count == 1 means that no direction is given
+					if ($ascDesc) {
+						$orderings[$orderField] = ((strtolower($ascDesc) == 'desc') ?
+							\TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING :
+							\TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING);
+					} else {
+						$orderings[$orderField] = \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING;
+					}
+				}
+			}
+		}
+		return $orderings;
+	}
+}
