@@ -120,7 +120,6 @@ abstract class AbstractDemandedRepository extends \TYPO3\CMS\Extbase\Persistence
 		if ($orderings = $this->createOrderingsFromDemand($demand)) {
 			$query->setOrderings($orderings);
 		}
-
 		if ($demand->getLimit() != NULL) {
 			$query->setLimit((int) $demand->getLimit());
 		}

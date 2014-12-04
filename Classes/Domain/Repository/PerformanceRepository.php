@@ -39,20 +39,7 @@ class PerformanceRepository extends AbstractDemandedRepository {
          $this->defaultQuerySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
          $this->defaultQuerySettings->setRespectStoragePage(FALSE);
     }
-
-    /**
-     * find Demanded
-     * @param \Webfox\T3events\Domain\Model\Dto\DemandInterface $demand
-     * @return \TYPO3\CMS\Extbase\Persistence\QueryResult matching performances
-     */
-    public function findDemanded(\Webfox\T3events\Domain\Model\Dto\DemandInterface $demand){
-    	$query = $this->createQuery();
-		$query->setOrderings($this->createOrderingsFromDemand($demand));
-    	$constraints = $this->createConstraintsFromDemand($query, $demand);
-		count($constraints)?$query->matching($query->logicalAnd($constraints)):NULL;
-		return $query->execute();
-    }
-
+	
 	/**
 	 * Returns an array of constraints created from a given demand object.
 	 *
