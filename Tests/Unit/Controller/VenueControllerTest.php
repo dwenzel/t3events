@@ -38,7 +38,7 @@ namespace Webfox\T3events\Tests\Unit\Controller;
  * @author Dirk Wenzel <wenzel@webfox01.de>
  * @author Michael Kasten <kasten@webfox01.de>
  */
-class VenueControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
+class VenueControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	/**
 	 * @var \Webfox\T3events\Domain\Model\Venue
 	 */

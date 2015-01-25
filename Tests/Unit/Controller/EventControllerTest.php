@@ -39,7 +39,7 @@ namespace Webfox\T3events\Tests\Controller;
  * @author Michael Kasten <kasten@webfox01.de>
  * @coversDefaultClass \Webfox\T3events\Controller\EventController
  */
-class EventControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
+class EventControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	/**
 	 * @var \Webfox\T3events\Domain\Model\Event
 	 */
