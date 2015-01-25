@@ -98,13 +98,14 @@ class PerformancesViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTa
 				$content=$this->getDateRange();
 				break;
 			case 'crucialStatus':
-				$status = $this->getCrucialStatus();
-	            $title = $status['title'];
-	            $this->class .= ' ' . $status['cssClass'];
-	            if($this->renderChildren() == NULL) {
-	            	$content = $status['title'];
-	            }
-	            break;
+				if($status = $this->getCrucialStatus()) {
+					$title = $status['title'];
+					$this->class .= ' ' . $status['cssClass'];
+					if($this->renderChildren() == NULL) {
+						$content = $status['title'];
+					}
+				}
+				break;
 			case 'lowestPrice':
 				//return raw number to allow using <f:format.currency />
 				return $this->getLowestPrice();
