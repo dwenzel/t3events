@@ -38,26 +38,31 @@ namespace Webfox\T3events\Tests\Unit\Controller;
  * @author Dirk Wenzel <wenzel@webfox01.de>
  * @author Michael Kasten <kasten@webfox01.de>
  */
-class TeaserControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
+class TeaserControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	/**
-	 * @var \Webfox\T3events\Domain\Model\Teaser
+	 * @var \Webfox\T3events\Controller\TeaserController
 	 */
 	protected $fixture;
 
 	public function setUp() {
-		$this->fixture = new \Webfox\T3events\Domain\Model\Teaser();
+		$this->fixture = new \Webfox\T3events\Controller\TeaserController();
 	}
 
 	public function tearDown() {
 		unset($this->fixture);
 	}
 
+
 	/**
 	 * @test
 	 */
-	public function dummyMethod() {
-		$this->markTestIncomplete();
+	public function createDemandObjectFromSettingsInitiallyReturnsDemandObject() {
+		$demandObject = new \Webfox\T3events\Domain\Model\Dto\TeaserDemand();
+		$settings = array();
+		$this->assertSame(
+				$demandObject,
+				$this->fixture->createDemandObjectFromSettings($settings)
+				);
 	}
-
 }
 
