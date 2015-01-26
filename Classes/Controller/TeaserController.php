@@ -24,6 +24,7 @@ namespace Webfox\T3events\Controller;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+use \TYPO3\CMS\Extbase\Utility\ArrayUtility;
 
 /**
  *
@@ -32,7 +33,7 @@ namespace Webfox\T3events\Controller;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class TeaserController extends \TYPO3\CMS\Extbase\MVC\Controller\ActionController {
+class TeaserController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 
 	/**
 	 * teaserRepository
@@ -48,61 +49,24 @@ class TeaserController extends \TYPO3\CMS\Extbase\MVC\Controller\ActionControlle
 	 */
 	public function listAction() {
 		$highlights = '';
-        $teasers = '';
-        $sortBy = $this->settings['sortBy'];
-        $sortDirection = $this->settings['sortDirection'];
-        $maxItems = (int)$this->settings['maxItems'];
-        $maxHighlighted = (int)$this->settings['maxHighlighted'];
-        $highlightsToTop = $this->settings['highlightsToTop'];
-        $venues = explode(',', $this->settings['venues']);
-        
-        // common demand settings
-        $demand = $this->objectManager->get('\Webfox\T3events\Domain\Model\Dto\TeaserDemand');
-        
-        switch ($this->settings['sortBy']) {
-	    	case 'date':
-	        	$demand->setSortBy('event.performances.date');
-	        	break;
-	        case 'title':
-	        	$demand->setSortBy('event.headline');
-	        	break;
-	        case 'random':
-	        	$demand->setSortBy('random');
-	        	break;
-	        default:
-	        	$demand->setSortBy('event.performances.date');
-	        	break;
-        }
-
-		if ($venues) $demand->setVenues($venues);
-		
-		$demand->setPeriod($this->settings['period']);
-
-		if($highlightsToTop){
-            // find only highlighted teasers:
-            $highlightsDemand = clone $demand;
-			$highlightsDemand->setHighlights(TRUE);
-			($maxHighlighted)?$highlightsDemand->setLimit($maxHighlighted):$highlightsDemand->setLimit($maxHighlighted);	
-			$highlights = $this->teaserRepository->findDemanded($highlightsDemand);
-			$highlightsCount = $highlights->count();
-
-          	// find only not highlighted teasers
-            $notHighlightsDemand = clone $demand;
-            $notHighlightsDemand->setHighlights(FALSE);
-            if($maxItems-$highlightsCount >=1) $notHighlightsDemand->setLimit($maxItems-$highlightsCount);
-
-            $teasers =$this->teaserRepository->findDemanded($notHighlightsDemand);
-        }
-        else {
-			// maxItems empty and not highlightsToTop - show all teasers
-        	if($maxItems) $demand->setLimit($maxItems);
-			
-        	// maxItems set and not highlightsToTop - show all
-        	$teasers = $this->teaserRepository->findDemanded($demand);
-        }
-        
-        $this->view->assign('highlights', $highlights);
-        $this->view->assign('teasers', $teasers);
+		$teasers = '';
+		$demand = $this->createDemandObjectFromSettings($this->settings);
+		if($demand->getHighlights()){
+			// find only highlighted teasers:
+			$highlights = $this->teaserRepository->findDemanded($demand);
+			// find only not highlighted teasers
+			$notHighlightsDemand = clone $demand;
+			$notHighlightsDemand->setHighlights(FALSE);
+			$maxItems = $this->settings['maxItems'] - count($highlights);
+			if($maxItems >=1) {
+				$notHighlightsDemand->setLimit($maxItems);
+				$teasers =$this->teaserRepository->findDemanded($notHighlightsDemand);
+			}
+		} else {
+			$teasers = $this->teaserRepository->findDemanded($demand);
+		}
+		$this->view->assign('highlights', $highlights);
+		$this->view->assign('teasers', $teasers);
 	}
 
 	/**
@@ -139,5 +103,41 @@ class TeaserController extends \TYPO3\CMS\Extbase\MVC\Controller\ActionControlle
         $this->forward('show', 'Event', NULL, array('event'=>$event));
 	}
 
+	/**
+	 * Create demand from settings
+	 *
+	 * @param \array $settings
+	 * @return \Webfox\T3events\Domain\Model\Dto\TeaserDemand
+	 **/
+	public function createDemandObjectFromSettings($settings) {
+		$demand = $this->objectManager->get('Webfox\\T3events\\Domain\\Model\\Dto\\TeaserDemand');
+		$sortBy = $settings['sortBy'];
+		$sortDirection = $settings['sortDirection'];
+		// common demand settings
+		switch ($settings['sortBy']) {
+			case 'title':
+				$demand->setSortBy('event.headline');
+				break;
+			case 'random':
+				$demand->setSortBy('random');
+				break;
+			default:
+				$demand->setSortBy('event.performances.date');
+				break;
+		}
+
+		$venues = ArrayUtility::trimExplode(',', $settings['venues'], TRUE);
+		if (count($venues)) {
+			$demand->setVenues($venues);
+		}
+		$demand->setPeriod($settings['period']);
+		$demand->setHighlights($settings['highlightsToTop']);
+		if($demand->getHighlights() AND isset($settings['maxHighlighted'])) {
+			$demand->setLimit((int)$settings['maxHighlighted']);
+		} else {
+			$demand->setLimit((int)$settings['maxItems']);
+		}
+		return $demand;
+	}
 }
 
