@@ -51,7 +51,7 @@ class TeaserRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 			$constraints[] = $query->in('location', $demand->getVenues());
 		}
 		
-		if($demand->getHighlights() === TRUE){
+		if($demand->getHighlights() == TRUE){
 			$constraints[] = $query->equals('isHighlight', TRUE);
 		}
 		if($demand->getHighlights() === FALSE){
@@ -70,7 +70,9 @@ class TeaserRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 					break;
 			}
 		}
-		$query->matching($query->logicalAnd($constraints));
+		if (count($constraints)) {
+				$query->matching($query->logicalAnd($constraints));
+		}
 		
 		switch ($demand->getSortDirection()) {
 			case 'asc':
@@ -84,7 +86,6 @@ class TeaserRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 				$sortOrder = \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING;
 			break;
 		}
-		
 		if($sortBy!== '' AND $sortBy !== 'random') {
 			$query->setOrderings(
 				array(
@@ -113,7 +114,6 @@ class TeaserRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 			$statement = $backend->buildQuery($statementParts, $parameters);
 			$query->statement($statement, $parameters);
 		}
-		
 		return $query->execute();
 	}
 
