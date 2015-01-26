@@ -46,7 +46,8 @@ class EventLocationTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	protected $fixture;
 
 	public function setUp() {
-		$this->fixture = new \Webfox\T3events\Domain\Model\EventLocation();
+		$this->fixture = $this->getMock('Webfox\T3events\Domain\Model\EventLocation',
+				array('dummy'), array(), '', FALSE);
 	}
 
 	public function tearDown() {
@@ -186,7 +187,8 @@ class EventLocationTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function setCountryForCountrySetsCountry() {
-		$dummyObject = $this->getMock('Webfox\T3events\Domain\Model\Country');
+		$dummyObject = $this->getMock('Webfox\T3events\Domain\Model\Country',
+				array(), array(), '', FALSE);
 		$this->fixture->setCountry($dummyObject);
 
 		$this->assertSame(
