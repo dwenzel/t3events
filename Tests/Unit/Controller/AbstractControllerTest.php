@@ -84,7 +84,7 @@ class AbstractControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @covers ::handleEntityNotFoundError
 	 */
 	public function handleEntityNotFoundErrorConfigurationCallsPageNotFoundHandler() {
-		$this->tsfe = $this->getAccessibleMock('tslib_fe', array('pageNotFoundAndExit'), array(), '', FALSE);
+		$this->tsfe = $this->getAccessibleMock('TYPO3\\CMS\\Frontend\\Controller\\TypoScriptFrontendController', array('pageNotFoundAndExit'), array(), '', FALSE);
 		$GLOBALS['TSFE'] = $this->tsfe;
 		$this->tsfe->expects($this->once())
 			->method('pageNotFoundAndExit')
