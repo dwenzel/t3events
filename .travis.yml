@@ -1,13 +1,15 @@
 language: php
-php: 
-- 5.4
-- 5.5
+
 matrix: 
-  include: 
-    - env: DB=mysql TYPO3=TYPO_6-2 INTEGRATION=master-t3events COVERAGE=0
+  include:
+    - php: 5.3
+      env: DB=mysql TYPO3=TYPO_6-2 INTEGRATION=master-t3events COVERAGE=0
     - php: 5.4
-    - env: DB=mysql TYPO3=master INTEGRATION=master-t3events COVERAGE=1
-      php: 5.6
+      env: DB=mysql TYPO3=TYPO_6-2 INTEGRATION=master-t3events COVERAGE=0
+    - php: 5.5
+      env: DB=mysql TYPO3=master INTEGRATION=master-t3events COVERAGE=0
+    - php: 5.6
+      env: DB=mysql TYPO3=master INTEGRATION=master-t3events COVERAGE=1
 services: 
 - memcached
 env: 
