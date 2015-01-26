@@ -6,8 +6,6 @@ matrix:
       env: DB=mysql TYPO3=TYPO3_6-2 INTEGRATION=master-t3events COVERAGE=0
     - php: 5.4
       env: DB=mysql TYPO3=TYPO3_6-2 INTEGRATION=master-t3events COVERAGE=0
-    - php: 5.5
-      env: DB=mysql TYPO3=master INTEGRATION=master-t3events COVERAGE=0
     - php: 5.6
       env: DB=mysql TYPO3=master INTEGRATION=master-t3events COVERAGE=1
 services: 
