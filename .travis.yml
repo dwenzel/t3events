@@ -34,7 +34,7 @@ before_script:
 - git clone --single-branch --branch $TYPO3 --depth 1 https://github.com/TYPO3/TYPO3.CMS.git core
 - mv core/* .
 - composer self-update
-- composer install --ignore-platform-reqs
+- composer install
 - mkdir -p uploads typo3temp typo3conf/ext
 - mv t3events ./typo3conf/ext
 - source build-environment/install-helper.sh
