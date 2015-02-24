@@ -214,7 +214,7 @@ class EventController extends AbstractController {
 	 * @return \Webfox\T3events\Domain\Model\Dto\EventDemand
 	 */
 	public function overwriteDemandObject($demand, $overwriteDemand) {
-		if(is_array($overwriteDemand)) {
+		if((bool)$overwriteDemand) {
 			foreach ($overwriteDemand as $propertyName => $propertyValue) {
 				if($propertyName == 'sortBy') {
 					switch ($propertyValue) {
@@ -245,4 +245,3 @@ class EventController extends AbstractController {
 		return $demand;
 	}
 }
-
