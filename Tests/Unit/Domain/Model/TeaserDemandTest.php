@@ -39,7 +39,7 @@ namespace Webfox\T3events\Tests\Unit\Domain\Model;
   * @author Michael Kasten <kasten@webfox01.de>
 	* @coversDefaultClass \Webfox\T3events\Domain\Model\Dto\TeaserDemand
   */
- class TeaserDemandTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
+ class TeaserDemandTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	/**
 	 * @var \Webfox\T3events\Domain\Model\Dto\TeaserDemand
 	 */

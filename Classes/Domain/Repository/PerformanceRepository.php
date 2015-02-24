@@ -24,6 +24,7 @@ namespace Webfox\T3events\Domain\Repository;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+use Webfox\T3events\Domain\Model\Dto\PerformanceDemand;
 
 /**
  *
@@ -48,12 +49,17 @@ class PerformanceRepository extends AbstractDemandedRepository {
 	 * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint>
 	 */
 	protected function createConstraintsFromDemand(\TYPO3\CMS\Extbase\Persistence\QueryInterface $query, \Webfox\T3events\Domain\Model\Dto\DemandInterface $demand) {
+		/** @var PerformanceDemand $demand */
 		$constraints = array();
 		if ($demand->getStatus() !== NULL){
 			$constraints[] = $query->equals('status', $demand->getStatus());
 		}
 		if ($demand->getDate()){
-			$constraints[] = $query->lessThanOrEqual('date', $demand->getDate());
+			if ($demand->getPeriod() === 'futureOnly'){
+				$constraints[] = $query->greaterThanOrEqual('date', $demand->getDate());
+			} elseif ($demand->getPeriod() === 'pastOnly') {
+				$constraints[] = $query->lessThanOrEqual('date', $demand->getDate());
+			}
 		}
 		if($demand->getStoragePages() !==NULL){
 			$pages = \TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $demand->getStoragePages());

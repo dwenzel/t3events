@@ -214,27 +214,29 @@ class EventController extends AbstractController {
 	 * @return \Webfox\T3events\Domain\Model\Dto\EventDemand
 	 */
 	public function overwriteDemandObject($demand, $overwriteDemand) {
-		foreach ($overwriteDemand as $propertyName => $propertyValue) {
-			if($propertyName == 'sortBy') {
-				switch ($propertyValue) {
-					case 'headline':
-						$demand->setSortBy('headline');
-						break;
-					default:
-						$demand->setSortBy('performances.date');
-						break;
+		if((bool)$overwriteDemand) {
+			foreach ($overwriteDemand as $propertyName => $propertyValue) {
+				if($propertyName == 'sortBy') {
+					switch ($propertyValue) {
+						case 'headline':
+							$demand->setSortBy('headline');
+							break;
+						default:
+							$demand->setSortBy('performances.date');
+							break;
+					}
+				} elseif ($propertyName == 'sortDirection') {
+					switch ($propertyValue) {
+						case 'desc':
+							$demand->setSortDirection('desc');
+							break;
+						default:
+							$demand->setSortDirection('asc');
+							break;
+					}
+				} else {
+					\TYPO3\CMS\Extbase\Reflection\ObjectAccess::setProperty($demand, $propertyName, $propertyValue);
 				}
-			} elseif ($propertyName == 'sortDirection') {
-				switch ($propertyValue) {
-					case 'desc':
-						$demand->setSortDirection('desc');
-						break;
-					default:
-						$demand->setSortDirection('asc');
-						break;
-				}
-			} else {
-				\TYPO3\CMS\Extbase\Reflection\ObjectAccess::setProperty($demand, $propertyName, $propertyValue);
 			}
 		}
 		$GLOBALS['TSFE']->fe_user->setKey('ses', 'tx_t3events_overwriteDemand', serialize($overwriteDemand));
@@ -243,4 +245,3 @@ class EventController extends AbstractController {
 		return $demand;
 	}
 }
-

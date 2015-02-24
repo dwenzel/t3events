@@ -38,25 +38,160 @@ namespace Webfox\T3events\Tests\Unit\Controller;
  * @author Dirk Wenzel <wenzel@webfox01.de>
  * @author Michael Kasten <kasten@webfox01.de>
  */
-class TeaserControllerTest extends \TYPO3\CMS\Extbase\Tests\Unit\BaseTestCase {
+class TeaserControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	/**
-	 * @var \Webfox\T3events\Domain\Model\Teaser
+	 * @var \Webfox\T3events\Controller\TeaserController
 	 */
 	protected $fixture;
 
 	public function setUp() {
-		$this->fixture = new \Webfox\T3events\Domain\Model\Teaser();
+		$this->fixture = $this->getAccessibleMock('Webfox\\T3events\\Controller\\TeaserController',
+				array('dummy'), array(), '', FALSE);
+		$objectManager = $this->getMock('TYPO3\\CMS\\Extbase\\Object\\ObjectManager', array(), array(), '', FALSE);
+		$this->fixture->_set('objectManager', $objectManager);
 	}
 
 	public function tearDown() {
 		unset($this->fixture);
 	}
 
+
 	/**
 	 * @test
 	 */
-	public function dummyMethod() {
-		$this->markTestIncomplete();
+	public function createDemandObjectFromSettingsInitiallyReturnsDemandObject() {
+		$mockDemand = $this->getMockBuilder('Webfox\\T3events\\Domain\\Model\\Dto\\TeaserDemand')->getMock();
+		$settings = array();
+
+		$this->fixture->_get('objectManager')->expects($this->once())->method('get')
+			->with('Webfox\\T3events\\Domain\\Model\\Dto\\TeaserDemand')
+			->will($this->returnValue($mockDemand));
+		$this->fixture->createDemandObjectFromSettings($settings);
+	}
+
+	/**
+	 * @test
+	 */
+	public function createDemandObjectFromSettingsSetsInitialValueForSortBy() {
+		$mockDemand = $this->getMockBuilder('Webfox\\T3events\\Domain\\Model\\Dto\\TeaserDemand')->getMock();
+		$settings = array();
+
+		$this->fixture->_get('objectManager')->expects($this->once())->method('get')
+			->with('Webfox\\T3events\\Domain\\Model\\Dto\\TeaserDemand')
+			->will($this->returnValue($mockDemand));
+		$mockDemand->expects($this->once())->method('setSortBy')
+			->with('event.performances.date');
+		$this->fixture->createDemandObjectFromSettings($settings);
+	}
+
+	/**
+	 * @test
+	 */
+	public function createDemandObjectFromSettingsSetsSortByForTitle() {
+		$mockDemand = $this->getMockBuilder('Webfox\\T3events\\Domain\\Model\\Dto\\TeaserDemand')->getMock();
+		$settings = array('sortBy' => 'title');
+
+		$this->fixture->_get('objectManager')->expects($this->once())->method('get')
+			->with('Webfox\\T3events\\Domain\\Model\\Dto\\TeaserDemand')
+			->will($this->returnValue($mockDemand));
+		$mockDemand->expects($this->once())->method('setSortBy')
+			->with('event.headline');
+		$this->fixture->createDemandObjectFromSettings($settings);
+	}
+
+	/**
+	 * @test
+	 */
+	public function createDemandObjectFromSettingsSetsSortByForRandom() {
+		$mockDemand = $this->getMockBuilder('Webfox\\T3events\\Domain\\Model\\Dto\\TeaserDemand')->getMock();
+		$settings = array('sortBy' => 'random');
+
+		$this->fixture->_get('objectManager')->expects($this->once())->method('get')
+			->with('Webfox\\T3events\\Domain\\Model\\Dto\\TeaserDemand')
+			->will($this->returnValue($mockDemand));
+		$mockDemand->expects($this->once())->method('setSortBy')
+			->with('random');
+		$this->fixture->createDemandObjectFromSettings($settings);
+	}
+
+	/**
+	 * @test
+	 */
+	public function createDemandObjectFromSettingsSetsVenues() {
+		$mockDemand = $this->getMockBuilder('Webfox\\T3events\\Domain\\Model\\Dto\\TeaserDemand')->getMock();
+		$settings = array('venues' => '1,3');
+		$venues = array(0 => '1', 1 => '3'); 
+
+		$this->fixture->_get('objectManager')->expects($this->once())->method('get')
+			->with('Webfox\\T3events\\Domain\\Model\\Dto\\TeaserDemand')
+			->will($this->returnValue($mockDemand));
+		$mockDemand->expects($this->once())->method('setVenues')
+			->with($venues);
+		$this->fixture->createDemandObjectFromSettings($settings);
+	}
+
+	/**
+	 * @test
+	 */
+	public function createDemandObjectFromSettingsSetsPeriod() {
+		$mockDemand = $this->getMockBuilder('Webfox\\T3events\\Domain\\Model\\Dto\\TeaserDemand')->getMock();
+		$settings = array('period' => 'foo');
+
+		$this->fixture->_get('objectManager')->expects($this->once())->method('get')
+			->with('Webfox\\T3events\\Domain\\Model\\Dto\\TeaserDemand')
+			->will($this->returnValue($mockDemand));
+		$mockDemand->expects($this->once())->method('setPeriod')
+			->with('foo');
+		$this->fixture->createDemandObjectFromSettings($settings);
+	}
+
+	/**
+	 * @test
+	 */
+	public function createDemandObjectFromSettingsSetsLimit() {
+		$mockDemand = $this->getMockBuilder('Webfox\\T3events\\Domain\\Model\\Dto\\TeaserDemand')->getMock();
+		$settings = array('maxItems' => '3');
+
+		$this->fixture->_get('objectManager')->expects($this->once())->method('get')
+			->with('Webfox\\T3events\\Domain\\Model\\Dto\\TeaserDemand')
+			->will($this->returnValue($mockDemand));
+		$mockDemand->expects($this->once())->method('setLimit')
+			->with(3);
+		$this->fixture->createDemandObjectFromSettings($settings);
+	}
+
+	/**
+	 * @test
+	 */
+	public function createDemandObjectFromSettingsSetsLimitForHighlights() {
+		$mockDemand = $this->getMockBuilder('Webfox\\T3events\\Domain\\Model\\Dto\\TeaserDemand')->getMock();
+		$settings = array(
+				'maxItems' => '3',
+				'highlightsToTop' => 1,
+				'maxHighlighted' => 2);
+
+		$this->fixture->_get('objectManager')->expects($this->once())->method('get')
+			->with('Webfox\\T3events\\Domain\\Model\\Dto\\TeaserDemand')
+			->will($this->returnValue($mockDemand));
+		$mockDemand->expects($this->once())->method('setHighlights')->with(1);
+		$mockDemand->expects($this->once())->method('getHighlights')->will($this->returnValue(1));
+		$mockDemand->expects($this->once())->method('setLimit')->with(2);
+		$this->fixture->createDemandObjectFromSettings($settings);
+	}
+
+	/**
+	 * @test
+	 */
+	public function createDemandObjectFromSettingsSetsHighlights() {
+		$mockDemand = $this->getMockBuilder('Webfox\\T3events\\Domain\\Model\\Dto\\TeaserDemand')->getMock();
+		$settings = array('highlightsToTop' => TRUE);
+
+		$this->fixture->_get('objectManager')->expects($this->once())->method('get')
+			->with('Webfox\\T3events\\Domain\\Model\\Dto\\TeaserDemand')
+			->will($this->returnValue($mockDemand));
+		$mockDemand->expects($this->once())->method('setHighlights')
+			->with(TRUE);
+		$this->fixture->createDemandObjectFromSettings($settings);
 	}
 
 }
