@@ -1,3 +1,7 @@
+2015-04-16         [RELEASE] Release of t3events 0.16.2 (Dirk Wenzel)
+2015-04-16 473102e [TASK] spelling of class names corrected (Dirk Wenzel)
+2015-04-15 487a874 [BUGFIX] Compatibility fix for TYPO3 CMS 7.1 (Christian Matthes)
+
 2015-02-24         [RELEASE] Release of t3events 0.16.1 (Dirk Wenzel)
 2015-02-24 652e737 [BUGFIX] test for empty array, closes #26 (Dirk Wenzel)
 2015-02-23 16eb1b4 [BUGFIX] respect period in date constraint (Dirk Wenzel)
