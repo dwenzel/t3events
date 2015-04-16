@@ -163,7 +163,7 @@ class EventController extends AbstractController {
 	 * @return \Webfox\T3events\Domain\Model\Dto\EventDemand
 	 */
 	public function createDemandFromSettings($settings) {
-		$demand = $this->objectManager->get('\\Webfox\\T3events\\Domain\\Model\\Dto\\EventDemand');
+		$demand = $this->objectManager->get('Webfox\\T3events\\Domain\\Model\\Dto\\EventDemand');
 	
 		//@todo: avoid switch by putting correct strings into flexform
 		switch ($settings['sortBy']) {
