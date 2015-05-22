@@ -234,6 +234,10 @@ class EventController extends AbstractController {
 							$demand->setSortDirection('asc');
 							break;
 					}
+				} elseif ($propertyName === 'startDate') {
+					$demand->setStartDate(new \DateTime($propertyValue));
+				} elseif ($propertyName === 'endDate') {
+					$demand->setEndDate(new \DateTime($propertyValue));
 				} else {
 					\TYPO3\CMS\Extbase\Reflection\ObjectAccess::setProperty($demand, $propertyName, $propertyValue);
 				}
