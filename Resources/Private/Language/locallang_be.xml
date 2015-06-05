@@ -27,6 +27,7 @@
 			<label index="flexforms_general.mode">What to display</label>
 			<label index="flexforms_general.mode.event_list">Events: List/Detail</label>
 			<label index="flexforms_general.mode.quick_menu">Quick Menu</label>
+			<label index="flexforms_general.mode.event_calendar">Events: Calendar</label>
 			<label index="flexforms_general.mode.teaser">Teaser</label>
 			<label index="flexforms_general.pages">Pages</label>
 			<label index="flexforms_general.period">Period</label>
@@ -78,6 +79,7 @@
 			<label index="flexforms_general.mode">Anzeige</label>
 			<label index="flexforms_general.mode.event_list">Veranstaltungen: Liste/Detail</label>
 			<label index="flexforms_general.mode.quick_menu">Schnellmenü</label>
+			<label index="flexforms_general.mode.event_calendar">Veranstaltungen: Kalendar</label>
 			<label index="flexforms_general.mode.teaser">Teaser</label>
 			<label index="flexforms_general.pages">Seiten</label>
 			<label index="flexforms_general.period">Zeitabschnitt</label>

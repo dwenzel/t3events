@@ -1,0 +1,75 @@
+{namespace ts=Webfox\T3events\ViewHelpers}
+
+<f:layout name="Default" />
+
+This Template is responsible for creating a calendar view of events.
+
+<f:section name="main">
+	<div class="eventCalendar">
+		<h3>Calendar:</h3>
+		<f:link.action arguments="{month: curMonth, year: prevYear}">
+			<<
+		</f:link.action>
+		<f:link.action arguments="{month: prevMonth, year: curYear}">
+			<
+		</f:link.action>
+		<span>{curMonthText} {curYear}</span>
+		<f:link.action arguments="{month: nextMonth, year: curYear}">
+			>
+		</f:link.action>
+		<f:link.action arguments="{month: curMonth, year: nextYear}">
+			>>
+		</f:link.action>
+		<table class="calendarMonth">
+			<thead>
+				<tr>
+					<f:for each="{weekDays}" as="weekDay">
+						<th class="weekDay">{weekDay}</th>
+					</f:for>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<f:for each="{calendarDays}" as="calDay">
+						<f:if condition="{calDay.dayOfMonth} == 0">
+							<f:then>
+								<td class="day nodate"></td>
+							</f:then>
+							<f:else>
+								<ts:findEvents timestamp="{calDay.calendarDate}" events="{events}" as="dayEvents">
+									<f:if condition="{f:count(subject: dayEvents)}">
+										<f:then>
+											<td class="day eventDate">
+												<f:format.date format="d">{calDay.calendarDate}</f:format.date>
+												<f:for each="{dayEvents}" as="singleEvent">
+													<div class="eventTooltip">
+														<span class="eventTooltipHeadline">
+															<f:link.action action="show" arguments="{event: singleEvent}" pageUid="{settings.event.single.pid}">
+																{singleEvent.headline}
+															</f:link.action>
+														</span>
+													</div>
+												</f:for>
+											</td>
+										</f:then>
+										<f:else>
+											<td class="day noeventDate">
+												<f:format.date format="d">{calDay.calendarDate}</f:format.date>
+											</td>
+										</f:else>
+									</f:if>
+								</ts:findEvents>
+							</f:else>
+						</f:if>
+
+						<f:if condition="{calDay.dayOfWeek} == 6">
+							<f:then>
+								</tr><tr>
+							</f:then>
+						</f:if>
+					</f:for>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</f:section>

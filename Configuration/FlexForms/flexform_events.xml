@@ -32,6 +32,11 @@
 										<numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.mode.quick_menu</numIndex>
 										<numIndex index="1">Event->quickMenu</numIndex>
 									</numIndex>
+
+									<numIndex index="3">
+										<numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.mode.event_calendar</numIndex>
+										<numIndex index="1">Event->calendar</numIndex>
+									</numIndex>
 								</items>
 							</config>
 						</TCEforms>
