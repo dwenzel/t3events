@@ -21,6 +21,7 @@
 			<label index="tx_t3events_domain_model_event.performance">Performance</label>
 			<label index="tx_t3events_domain_model_event.performances">Performances</label>
 			<label index="tx_t3events_domain_model_event.subtitle">Subtitle</label>
+			<label index="tx_t3events_domain_model_event.teaser">Teaser</label>
 			<label index="tx_t3events_domain_model_event.venue">Venue</label>
 			<label index="tx_t3events_domain_model_eventlocation">Event Location</label>
 			<label index="tx_t3events_domain_model_eventlocation.address">Address</label>
@@ -117,6 +118,7 @@
 			<label index="tx_t3events_domain_model_event.performance">Vorstellung</label>
 			<label index="tx_t3events_domain_model_event.performances">Vorstellungen</label>
 			<label index="tx_t3events_domain_model_event.subtitle">Untertitel</label>
+			<label index="tx_t3events_domain_model_event.teaser">Teaser</label>
 			<label index="tx_t3events_domain_model_event.venue">Einrichtung</label>
 			<label index="tx_t3events_domain_model_eventlocation">Veranstaltungsort</label>
 			<label index="tx_t3events_domain_model_eventlocation.address">Adresse</label>

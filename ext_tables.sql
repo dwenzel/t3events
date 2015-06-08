@@ -8,6 +8,7 @@ CREATE TABLE tx_t3events_domain_model_event (
 
 	headline varchar(255) DEFAULT '' NOT NULL,
 	subtitle varchar(255) DEFAULT '' NOT NULL,
+	teaser text NOT NULL,
 	description text NOT NULL,
 	keywords text NOT NULL,
 	image text NOT NULL,

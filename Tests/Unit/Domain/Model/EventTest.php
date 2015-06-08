@@ -24,6 +24,7 @@ namespace Webfox\T3events\Tests\Unit\Domain\Model;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+use TYPO3\CMS\Core\Tests\UnitTestCase;
 
 /**
  * Test case for class \Webfox\T3events\Domain\Model\Event.
@@ -39,7 +40,7 @@ namespace Webfox\T3events\Tests\Unit\Domain\Model;
  * @author Michael Kasten <kasten@webfox01.de>
  * @coversDefaultClass \Webfox\T3events\Domain\Model\Event
  */
-class EventTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
+class EventTest extends UnitTestCase {
 	/**
 	 * @var \Webfox\T3events\Domain\Model\Event
 	 */
@@ -47,10 +48,6 @@ class EventTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 	public function setUp() {
 		$this->fixture = new \Webfox\T3events\Domain\Model\Event();
-	}
-
-	public function tearDown() {
-		unset($this->fixture);
 	}
 
 	/**
@@ -94,7 +91,25 @@ class EventTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 			$this->fixture->getSubtitle()
 		);
 	}
-	
+
+	/**
+	 * @test
+	 */
+	public  function getTeaserForStringReturnsInitiallyNull() {
+		$this->assertNull(
+			$this->fixture->getTeaser()
+		);
+	}
+
+	public function setTeaserForStringSetsTeaser() {
+		$this->fixture->setTeaser('foo');
+
+		$this->assertSame(
+			'foo',
+			$this->fixture->getTeaser()
+		);
+	}
+
 	/**
 	 * @test
 	 */

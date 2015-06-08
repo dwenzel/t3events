@@ -7,11 +7,11 @@ $TCA['tx_t3events_domain_model_event'] = array(
 	'ctrl' => $TCA['tx_t3events_domain_model_event']['ctrl'],
 	'interface' => array(
 		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, headline,
-			subtitle, description, keywords, image, genre, venue, event_type, performances, organizer',
+			subtitle,teaser,description, keywords, image, genre, venue, event_type, performances, organizer',
 	),
 	'types' => array(
 		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1,
-			headline, subtitle, description, keywords, image, genre, event_type, performances,
+			headline, subtitle, teaser,description, keywords, image, genre, event_type, performances,
 			organizer,--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,starttime, endtime'),
 	),
 	'palettes' => array(
@@ -140,6 +140,16 @@ $TCA['tx_t3events_domain_model_event'] = array(
 				'eval' => 'trim'
 			),
 		),
+		'teaser' => array(
+			'exclude' => 1,
+			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_event.teaser',
+			'config' => array(
+				'type' => 'text',
+				'cols' => 40,
+				'rows' => 5,
+				'eval' => 'trim'
+			),
+		),
 		'description' => array(
 			'exclude' => 0,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_event.description',
@@ -149,6 +159,7 @@ $TCA['tx_t3events_domain_model_event'] = array(
 				'rows' => 15,
 				'eval' => 'trim'
 			),
+			'defaultExtras' => 'richtext[]'
 		),
 		'keywords' => array(
 			'exclude' => 0,
@@ -280,7 +291,7 @@ $TCA['tx_t3events_domain_model_event']['types'] = array(
     '1' => array(
     'showitem' => '
     	;;;;1-1-1,
-    	 event_type,headline, subtitle, description,image,
+    	 event_type,headline, subtitle,teaser,description,image,
     	--div--;LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_event.extended,
     	sys_language_uid,organizer, genre, venue, keywords,
     	--div--;LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_event.performances,
@@ -341,5 +352,3 @@ $TCA['tx_t3events_domain_model_event']['columns']['performances']['config'] = ar
         ),
     ),
 );
-
-?>
