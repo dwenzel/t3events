@@ -24,6 +24,9 @@ namespace Webfox\T3events\Controller;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+use TYPO3\CMS\Core\Messaging\FlashMessage;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
+use Webfox\T3events\Domain\Model\Event;
 
 /**
  *
@@ -72,50 +75,56 @@ class EventController extends AbstractController {
 	 * @return void
 	 */
 	public function listAction( $overwriteDemand = NULL) {
-		if(!is_null($overwriteDemand['uidList'])){
-			if (is_array($overwriteDemand['uidList'])){
+		if (!is_null($overwriteDemand['uidList'])) {
+			$recordArr = array();
+			if (is_array($overwriteDemand['uidList'])) {
 				$recordList = implode(',', $overwriteDemand['uidList']);
 				$recordArr = $overwriteDemand['uidList'];
-			}elseif (is_string($overwriteDemand['uidList'])){
+			} elseif (is_string($overwriteDemand['uidList'])) {
 				$recordList = $overwriteDemand['uidList'];
 				$recordArr = explode(',', $overwriteDemand['uidList']);
 			}
 			$result = $this->eventRepository->findMultipleByUid($recordList);
 
-      // Order by the order of provided array
+			// Order by the order of provided array
 			$withIndex = array();
 			$ordered = array();
 			// Create an associative array
-			foreach($result AS $object) {
-				$withIndex[$object->getUid()] = $object;
+			/** @var Event $event */
+			foreach ($result as $event) {
+				$withIndex[$event->getUid()] = $event;
 			}
 			// add to ordered array in right order
-			foreach($recordArr AS $uid) {
-				if (isset($withIndex[$uid])) {
-					$ordered[] = $withIndex[$uid];
+			if ((bool) $recordArr) {
+				foreach ($recordArr AS $uid) {
+					if (isset($withIndex[$uid])) {
+						$ordered[] = $withIndex[$uid];
+					}
 				}
 			}
 			$events = $ordered;
-		} else{
+		} else {
 			$demand = $this->createDemandFromSettings($this->settings);
 			$demand = $this->overwriteDemandObject($demand, $overwriteDemand);
 			$events = $this->eventRepository->findDemanded($demand);
 		}
-		if (($events instanceof \TYPO3\CMS\Extbase\Persistence\QueryResult AND !$events->count())
-				OR !count($events) ) {
+		/** @var QueryResultInterface $events */
+		if (($events instanceof QueryResultInterface AND !$events->count())
+			OR !count($events)
+		) {
 			$this->addFlashMessage(
-					$this->translate('tx_t3events.noEventsForSelectionMessage'),
-					$this->translate('tx_t3events.noEventsForSelectionTitle'),
-					\TYPO3\CMS\Core\Messaging\FlashMessage::WARNING
+				$this->translate('tx_t3events.noEventsForSelectionMessage'),
+				$this->translate('tx_t3events.noEventsForSelectionTitle'),
+				FlashMessage::WARNING
 			);
 		}
-    
-    $this->view->assignMultiple(
-    	array(
-    		'events' => $events,
-    		'demand' => $demand,
-    	)
-    );
+
+		$this->view->assignMultiple(
+			array(
+				'events' => $events,
+				'demand' => $demand,
+			)
+		);
   }
 
 	/**
@@ -162,42 +171,13 @@ class EventController extends AbstractController {
 	 * @return void
 	 */
 	public function calendarAction($overwriteDemand = NULL) {
-		if(!is_null($overwriteDemand['uidList'])){
-			if (is_array($overwriteDemand['uidList'])){
-				$recordList = implode(',', $overwriteDemand['uidList']);
-				$recordArr = $overwriteDemand['uidList'];
-			}elseif (is_string($overwriteDemand['uidList'])){
-				$recordList = $overwriteDemand['uidList'];
-				$recordArr = explode(',', $overwriteDemand['uidList']);
-			}
-			$result = $this->eventRepository->findMultipleByUid($recordList);
+		$demand = $this->createDemandFromSettings($this->settings);
+		$demand = $this->overwriteDemandObject($demand, $overwriteDemand);
+		$events = $this->eventRepository->findDemanded($demand);
 
-			// Order by the order of provided array
-			$withIndex = array();
-			$ordered = array();
-			// Create an associative array
-			foreach($result AS $object) {
-				$withIndex[$object->getUid()] = $object;
-			}
-			// add to ordered array in right order
-			foreach($recordArr AS $uid) {
-				if (isset($withIndex[$uid])) {
-					$ordered[] = $withIndex[$uid];
-				}
-			}
-			$events = $ordered;
-		} else {
-			$demand = $this->createDemandFromSettings($this->settings);
-			$demand = $this->overwriteDemandObject($demand, $overwriteDemand);
-			$events = $this->eventRepository->findDemanded($demand);
-		}
-		if (($events instanceof \TYPO3\CMS\Extbase\Persistence\QueryResult AND !$events->count())
+		if (($events instanceof QueryResultInterface AND !$events->count())
 			OR !count($events) ) {
-			$this->addFlashMessage(
-				$this->translate('tx_t3events.noEventsForSelectionMessage'),
-				$this->translate('tx_t3events.noEventsForSelectionTitle'),
-				\TYPO3\CMS\Core\Messaging\FlashMessage::WARNING
-			);
+			// @todo add message to template
 		}
 
 		// Calendar Days
@@ -237,7 +217,6 @@ class EventController extends AbstractController {
 			$year = (int)date('Y');
 		}
 
-		// get timestamptDay = getdate(mktime(0, 0, 0, $month, 1, $year));
 		$timestamp = mktime(0, 0, 0, $month, 1, $year);
 
 		// Days of the week before first of month
