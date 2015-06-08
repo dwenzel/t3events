@@ -108,6 +108,25 @@
 			<label index="tx_t3events_domain_model_ticketclass.type.2">special</label>
 			<label index="tx_t3events_domain_model_event.performance">performance</label>
 			<label index="tx_t3events_domain_model_performance.event">event</label>
+			<label index="tx_t3events.calendar.weekday1">Mon</label>
+			<label index="tx_t3events.calendar.weekday2">Tue</label>
+			<label index="tx_t3events.calendar.weekday3">Wed</label>
+			<label index="tx_t3events.calendar.weekday4">Thu</label>
+			<label index="tx_t3events.calendar.weekday5">Fri</label>
+			<label index="tx_t3events.calendar.weekday6">Sat</label>
+			<label index="tx_t3events.calendar.weekday7">Sun</label>
+			<label index="tx_t3events.calendar.month1">January</label>
+			<label index="tx_t3events.calendar.month2">February</label>
+			<label index="tx_t3events.calendar.month3">March</label>
+			<label index="tx_t3events.calendar.month4">April</label>
+			<label index="tx_t3events.calendar.month5">May</label>
+			<label index="tx_t3events.calendar.month6">June</label>
+			<label index="tx_t3events.calendar.month7">July</label>
+			<label index="tx_t3events.calendar.month8">August</label>
+			<label index="tx_t3events.calendar.month9">September</label>
+			<label index="tx_t3events.calendar.month10">October</label>
+			<label index="tx_t3events.calendar.month11">November</label>
+			<label index="tx_t3events.calendar.month12">December</label>
 		</languageKey>
 		<languageKey index="de" type="array">
 			<label index="tx_t3events.quickSearch.title">Schnellsuche</label>
@@ -202,6 +221,25 @@
 			<label index="tx_t3events_domain_model_performancestatus.priority">priority</label>
 			<label index="tx_t3events_domain_model_event.performance">Vorstellung</label>
 			<label index="tx_t3events_domain_model_performance.event">Veranstaltung</label>
+			<label index="tx_t3events.calendar.weekday1">Mo</label>
+			<label index="tx_t3events.calendar.weekday2">Di</label>
+			<label index="tx_t3events.calendar.weekday3">Mi</label>
+			<label index="tx_t3events.calendar.weekday4">Do</label>
+			<label index="tx_t3events.calendar.weekday5">Fr</label>
+			<label index="tx_t3events.calendar.weekday6">Sa</label>
+			<label index="tx_t3events.calendar.weekday7">So</label>
+			<label index="tx_t3events.calendar.month1">Januar</label>
+			<label index="tx_t3events.calendar.month2">Februar</label>
+			<label index="tx_t3events.calendar.month3">März</label>
+			<label index="tx_t3events.calendar.month4">April</label>
+			<label index="tx_t3events.calendar.month5">Mai</label>
+			<label index="tx_t3events.calendar.month6">Juni</label>
+			<label index="tx_t3events.calendar.month7">Juli</label>
+			<label index="tx_t3events.calendar.month8">August</label>
+			<label index="tx_t3events.calendar.month9">September</label>
+			<label index="tx_t3events.calendar.month10">Oktober</label>
+			<label index="tx_t3events.calendar.month11">November</label>
+			<label index="tx_t3events.calendar.month12">Dezember</label>
 		</languageKey>
 		<languageKey index="fr" type="array">
 			<label index="tx_t3events.hint.sortBy">Ordonner par: </label>
@@ -302,6 +340,25 @@
 			<label index="tx_t3events_domain_model_ticketclass.type.2">special</label>
 			<label index="tx_t3events_domain_model_event.performance">performance</label>
 			<label index="tx_t3events_domain_model_performance.event">événement</label>
+			<label index="tx_t3events.calendar.weekday1">LUN</label>
+			<label index="tx_t3events.calendar.weekday2">MAR</label>
+			<label index="tx_t3events.calendar.weekday3">MER</label>
+			<label index="tx_t3events.calendar.weekday4">JEU</label>
+			<label index="tx_t3events.calendar.weekday5">VEN</label>
+			<label index="tx_t3events.calendar.weekday6">SAM</label>
+			<label index="tx_t3events.calendar.weekday7">DIM</label>
+			<label index="tx_t3events.calendar.month1">janvier</label>
+			<label index="tx_t3events.calendar.month2">février</label>
+			<label index="tx_t3events.calendar.month3">mars</label>
+			<label index="tx_t3events.calendar.month4">avril</label>
+			<label index="tx_t3events.calendar.month5">mai</label>
+			<label index="tx_t3events.calendar.month6">juin</label>
+			<label index="tx_t3events.calendar.month7">juillet</label>
+			<label index="tx_t3events.calendar.month8">août</label>
+			<label index="tx_t3events.calendar.month9">septembre</label>
+			<label index="tx_t3events.calendar.month10">octobre</label>
+			<label index="tx_t3events.calendar.month11">novembre</label>
+			<label index="tx_t3events.calendar.month12">décembre</label>
 		</languageKey>
 	</data>
 </T3locallang>

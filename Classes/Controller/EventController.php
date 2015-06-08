@@ -155,6 +155,149 @@ class EventController extends AbstractController {
 			)
 		);
 	}
+
+	/**
+	 * action calendar
+	 * @param \array $overwriteDemand
+	 * @return void
+	 */
+	public function calendarAction($overwriteDemand = NULL) {
+		if(!is_null($overwriteDemand['uidList'])){
+			if (is_array($overwriteDemand['uidList'])){
+				$recordList = implode(',', $overwriteDemand['uidList']);
+				$recordArr = $overwriteDemand['uidList'];
+			}elseif (is_string($overwriteDemand['uidList'])){
+				$recordList = $overwriteDemand['uidList'];
+				$recordArr = explode(',', $overwriteDemand['uidList']);
+			}
+			$result = $this->eventRepository->findMultipleByUid($recordList);
+
+			// Order by the order of provided array
+			$withIndex = array();
+			$ordered = array();
+			// Create an associative array
+			foreach($result AS $object) {
+				$withIndex[$object->getUid()] = $object;
+			}
+			// add to ordered array in right order
+			foreach($recordArr AS $uid) {
+				if (isset($withIndex[$uid])) {
+					$ordered[] = $withIndex[$uid];
+				}
+			}
+			$events = $ordered;
+		} else {
+			$demand = $this->createDemandFromSettings($this->settings);
+			$demand = $this->overwriteDemandObject($demand, $overwriteDemand);
+			$events = $this->eventRepository->findDemanded($demand);
+		}
+		if (($events instanceof \TYPO3\CMS\Extbase\Persistence\QueryResult AND !$events->count())
+			OR !count($events) ) {
+			$this->addFlashMessage(
+				$this->translate('tx_t3events.noEventsForSelectionMessage'),
+				$this->translate('tx_t3events.noEventsForSelectionTitle'),
+				\TYPO3\CMS\Core\Messaging\FlashMessage::WARNING
+			);
+		}
+
+		// Calendar Days
+		$weekDays = array(
+			0 => $this->translate('tx_t3events.calendar.weekday1'),
+			1 => $this->translate('tx_t3events.calendar.weekday2'),
+			2 => $this->translate('tx_t3events.calendar.weekday3'),
+			3 => $this->translate('tx_t3events.calendar.weekday4'),
+			4 => $this->translate('tx_t3events.calendar.weekday5'),
+			5 => $this->translate('tx_t3events.calendar.weekday6'),
+			6 => $this->translate('tx_t3events.calendar.weekday7'),
+		);
+		$curMonth = array(
+			1 => $this->translate('tx_t3events.calendar.month1'),
+			2 => $this->translate('tx_t3events.calendar.month2'),
+			3 => $this->translate('tx_t3events.calendar.month3'),
+			4 => $this->translate('tx_t3events.calendar.month4'),
+			5 => $this->translate('tx_t3events.calendar.month5'),
+			6 => $this->translate('tx_t3events.calendar.month6'),
+			7 => $this->translate('tx_t3events.calendar.month7'),
+			8 => $this->translate('tx_t3events.calendar.month8'),
+			9 => $this->translate('tx_t3events.calendar.month9'),
+			10 => $this->translate('tx_t3events.calendar.month10'),
+			11 => $this->translate('tx_t3events.calendar.month11'),
+			12 => $this->translate('tx_t3events.calendar.month12'),
+		);
+
+		// use current day if empty string is given
+		if ($this->request->hasArgument('month')) {
+			$month = (int)$this->request->getArgument('month');
+		} else {
+			$month = (int)date('n');
+		}
+		if ($this->request->hasArgument('year')) {
+			$year = (int)$this->request->getArgument('year');
+		} else {
+			$year = (int)date('Y');
+		}
+
+		// get timestamptDay = getdate(mktime(0, 0, 0, $month, 1, $year));
+		$timestamp = mktime(0, 0, 0, $month, 1, $year);
+
+		// Days of the week before first of month
+		$clearDays = date('N', $timestamp) - 1;
+
+		// CalendarDays
+		$weekdaynumber = $clearDays;
+		$calendarDays = array();
+		for ($i = 0; $i < $clearDays; $i++) {
+			$calendarDays[$i]['dayOfMonth'] = 0;
+			$calendarDays[$i]['dayOfWeek'] = $i;
+		}
+		$daynumber = 1;
+		for ($k = $clearDays; $k < (date('t', $timestamp) + $clearDays); $k++) {
+			$calendarDays[$k]['dayOfMonth'] = $daynumber;
+			$calendarDays[$k]['calendarDate'] = mktime(0, 0, 0, $month, $daynumber, $year);
+			$calendarDays[$k]['dayOfWeek'] = $weekdaynumber;
+			if ($weekdaynumber == 6) {
+				$weekdaynumber = 0;
+			} else {
+				$weekdaynumber++;
+			}
+			$daynumber++;
+		}
+
+		// Calendar navigation
+		$prevYear = $year - 1;
+		$nextYear = $year + 1;
+
+		if ($month == 12) {
+			$nextMonth = 1;
+			$prevYear++;
+			$nextYear++;
+		} else {
+			$nextMonth = $month + 1;
+		}
+		if ($month == 1) {
+			$prevMonth = 12;
+			$prevYear--;
+			$nextYear--;
+		} else {
+			$prevMonth = $month - 1;
+		}
+
+		$this->view->assignMultiple(
+			array(
+				'events' => $events,
+				'demand' => $demand,
+				'weekDays' => $weekDays,
+				'calendarDays' => $calendarDays,
+				'prevMonth' => $prevMonth,
+				'curMonth' => $month,
+				'nextMonth' => $nextMonth,
+				'prevYear' => $prevYear,
+				'curYear' => $year,
+				'nextYear' => $nextYear,
+				'curMonthText' => $curMonth[$month],
+			)
+		);
+	}
 	
 	/**
 	 * Create demand from settings
@@ -234,6 +377,10 @@ class EventController extends AbstractController {
 							$demand->setSortDirection('asc');
 							break;
 					}
+				} elseif ($propertyName === 'startDate') {
+					$demand->setStartDate(new \DateTime($propertyValue));
+				} elseif ($propertyName === 'endDate') {
+					$demand->setEndDate(new \DateTime($propertyValue));
 				} else {
 					\TYPO3\CMS\Extbase\Reflection\ObjectAccess::setProperty($demand, $propertyName, $propertyValue);
 				}

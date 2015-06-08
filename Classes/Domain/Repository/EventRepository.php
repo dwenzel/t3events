@@ -201,14 +201,12 @@ class EventRepository extends AbstractDemandedRepository {
 					break;
 				case 'byDate' :
 					if (!is_null($demand->getStartDate())) {
-						$startDate = new \DateTime();
-						$startDate->setTimestamp($demand->getStartDate());
+						$startDate = $demand->getStartDate();
 					}
 					if (!is_null($demand->getEndDate())) {
-						$endDate = new \DateTime();
-						$endDate->setTimestamp($demand->getEndDate());
+						$endDate = $demand->getEndDate();
 					} else {
-						$deltaEnd .= ' day';
+						$deltaEnd = '+1 day';
 						$endDate = clone($startDate);
 						$endDate->modify($deltaEnd);
 					}
