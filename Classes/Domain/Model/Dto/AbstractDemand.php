@@ -100,7 +100,7 @@ namespace Webfox\T3events\Domain\Model\Dto;
 	protected $startDate;
 	
 	/**
-	 * @var \DateTime $endDate End date when constrainting by date
+	 * @var \DateTime $endDate End date when constraining by date
 	 */
 	protected $endDate;
 	
@@ -115,11 +115,11 @@ namespace Webfox\T3events\Domain\Model\Dto;
 	 protected $constraintsConjunction;
 
 	/**
-	 * @param int A limit for the demand
+	 * @param int $limit A limit for the demand
 	 * @return void
 	 */
 	public function setLimit ($limit = 100) {
-		$this->limit = $limit;
+		$this->limit = (int)$limit;
 	}
 	
 	/**
@@ -145,11 +145,11 @@ namespace Webfox\T3events\Domain\Model\Dto;
 	}
 
 	/**
-	 * @param in An offset for the demand
+	 * @param int $offset An offset for the demand
 	 * @return void
 	 */
 	public function setOffset($offset = 0) {
-		$this->offset = $offset;
+		$this->offset = (int)$offset;
 	}
 	
 	/**
@@ -160,7 +160,7 @@ namespace Webfox\T3events\Domain\Model\Dto;
 	}
 	
 	/**
-	 * @param \string Search word
+	 * @param \string $searchWord Search word
 	 * @return void
 	 */
 	public function setSearchWord($searchWord = '') {
@@ -175,7 +175,7 @@ namespace Webfox\T3events\Domain\Model\Dto;
 	}
 	
 	/**
-	 * @param \string Search fields
+	 * @param \string $searchFields Search fields
 	 * @return void
 	 */
 	public function setSearchFields($searchFields = ''){
@@ -190,7 +190,7 @@ namespace Webfox\T3events\Domain\Model\Dto;
 	}
 
 	/**
-	 * @param \string The sort criteria in dot notation
+	 * @param \string $sortBy The sort criteria in dot notation
 	 * @return void
 	 */
 	public function setSortBy($sortBy) {
@@ -205,7 +205,7 @@ namespace Webfox\T3events\Domain\Model\Dto;
 	}
 
 	/**
-	 * @param \string The sort direction
+	 * @param \string $sortDirection The sort direction
 	 * @return void
 	 */
 	public function setSortDirection($sortDirection){
@@ -220,7 +220,7 @@ namespace Webfox\T3events\Domain\Model\Dto;
 	}
 
 	/**
-	 * @param \string The storage page
+	 * @param \string $storagePages The storage page
 	 * @return void
 	 */
 	public function setStoragePages($storagePages){
@@ -235,11 +235,11 @@ namespace Webfox\T3events\Domain\Model\Dto;
 	}
 	
 	/**
-	 * @param int $start Start value for time period (day, month or year)
+	 * @param int $start $start Start value for time period (day, month or year)
 	 * @return void
 	 */
 	public function setPeriodStart($start) {
-		$this->periodStart=$start;
+		$this->periodStart= (int)$start;
 	}
 	
 	/**
@@ -269,7 +269,7 @@ namespace Webfox\T3events\Domain\Model\Dto;
 	 * @return void
 	 */
 	public function setPeriodDuration($duration) {
-		$this->periodDuration=$duration;
+		$this->periodDuration= (int)$duration;
 	}
 	
 	/**
@@ -356,4 +356,3 @@ namespace Webfox\T3events\Domain\Model\Dto;
 		 $this->constraintsConjunction = $conjunction;
 	 }
 }
-
