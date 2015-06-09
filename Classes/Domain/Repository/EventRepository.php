@@ -170,7 +170,7 @@ class EventRepository extends AbstractDemandedRepository {
 		$periodStart = $demand->getPeriodStart();
 		$periodType = $demand->getPeriodType();
 		$periodDuration = $demand->getPeriodDuration();
-		$periodConstraint = NULL;
+		$periodConstraint = array();
 		if ($period === 'specific' && $periodType) {
 
 			// set start date initial to now
@@ -222,19 +222,22 @@ class EventRepository extends AbstractDemandedRepository {
 
 		switch ($demand->getPeriod()) {
 			case 'futureOnly' :
-				$periodConstraint = $query->greaterThanOrEqual('performances.date', time());
+				$periodConstraint[] = $query->greaterThanOrEqual('performances.date', time());
 				break;
 			case 'pastOnly' :
-				$periodConstraint = $query->lessThanOrEqual('performances.date', time());
+				$periodConstraint[] = $query->lessThanOrEqual('performances.date', time());
 				break;
 			case 'specific' :
-				$periodConstraint = $query->logicalAnd(
+				$periodConstraint[] = $query->logicalAnd(
 					$query->lessThanOrEqual('performances.date', $endDate->getTimestamp()),
 					$query->greaterThanOrEqual('performances.date', $startDate->getTimestamp())
 				);
 				break;
 		}
-		return $periodConstraint;
+		if ((bool)$periodConstraint) {
+			return $periodConstraint;
+		}
+		return NULL;
 	}
 
 	/**
