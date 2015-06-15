@@ -21,6 +21,8 @@ namespace Webfox\T3events\ViewHelpers\Event;
 *
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
+use Webfox\T3events\Domain\Model\Performance;
+
 /**
  * 
  * Render a list of performances of a given event
@@ -185,14 +187,25 @@ class PerformancesViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTa
     */
     public function getDateRange(){
         $format = $this->arguments['dateFormat'];
-    	$dateArr = array();
-	    $dateRange = '';
-    	foreach ($this->performances as $performance ) {
-			array_push($dateArr, $performance->getDate()->getTimestamp());
+		if ($format === '') {
+			$format = $GLOBALS['TYPO3_CONF_VARS']['SYS']['ddmmyy'] ?: 'Y-m-d';
 		}
-		sort($dateArr);
-		$dateRange = date( $format, $dateArr[0]);
-		$dateRange .= ' - '. date($format, end($dateArr));
+
+		$timestamps = array();
+	    $dateRange = '';
+		/** @var Performance $performance */
+		foreach ($this->performances as $performance ) {
+			$timestamps[] = $performance->getDate()->getTimestamp();
+		}
+		sort($timestamps);
+		if (strpos($format, '%') !== FALSE) {
+			$dateRange = strftime($format, $timestamps[0]);
+			$dateRange .= ' - ' . strftime($format, end($timestamps));
+		} else {
+			$dateRange = date( $format, $timestamps[0]);
+			$dateRange .= ' - '. date($format, end($timestamps));
+		}
+
 		return $dateRange;
     }
     
