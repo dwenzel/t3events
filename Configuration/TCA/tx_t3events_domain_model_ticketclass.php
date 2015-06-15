@@ -3,16 +3,54 @@ if (!defined ('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
-$TCA['tx_t3events_domain_model_ticketclass'] = array(
-	'ctrl' => $TCA['tx_t3events_domain_model_ticketclass']['ctrl'],
+return array(
+	'ctrl' => array(
+		'title'	=> 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_ticketclass',
+		'label' => 'title',
+		'tstamp' => 'tstamp',
+		'crdate' => 'crdate',
+		'cruser_id' => 'cruser_id',
+		'dividers2tabs' => TRUE,
+		'sortby' => 'sorting',
+		'versioningWS' => 2,
+		'versioning_followPages' => TRUE,
+		'origUid' => 't3_origuid',
+		'languageField' => 'sys_language_uid',
+		'transOrigPointerField' => 'l10n_parent',
+		'transOrigDiffSourceField' => 'l10n_diffsource',
+		'delete' => 'deleted',
+		'enablecolumns' => array(
+			'disabled' => 'hidden',
+			'starttime' => 'starttime',
+			'endtime' => 'endtime',
+		),
+		'searchFields' => 'title,color,price,type,',
+		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('t3events') . 'Resources/Public/Icons/tx_t3events_domain_model_ticketclass.gif'
+	),
 	'interface' => array(
 		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, color, price, type',
 	),
 	'types' => array(
-		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, title, color, price, type,--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,starttime, endtime'),
+		'1' => array('showitem' => '
+        ;;;;1-1-1,
+        --palette--;;paletteTitle,
+        --palette--;;palettePrices,
+        --palette--;;paletteSys,
+        --div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,hidden,starttime, endtime'),
 	),
 	'palettes' => array(
-		'1' => array('showitem' => ''),
+		'1' => array('showitem' =>''),
+		'paletteSys' => array(
+			'showitem' =>  'sys_language_uid,l10n_parent, l10n_diffsource',
+		),
+		'paletteTitle' => array(
+			'showitem' => 'color,title',
+			'canNotCollapse' => TRUE,
+		),
+		'palettePrices' => array(
+			'showitem' => 'price,type',
+			'canNotCollapse' => TRUE,
+		),
 	),
 	'columns' => array(
 		'sys_language_uid' => array(
@@ -98,7 +136,7 @@ $TCA['tx_t3events_domain_model_ticketclass'] = array(
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_ticketclass.title',
 			'config' => array(
 				'type' => 'input',
-				'size' => 30,
+				'size' => 10,
 				'eval' => 'trim'
 			),
 		),
@@ -107,8 +145,19 @@ $TCA['tx_t3events_domain_model_ticketclass'] = array(
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_ticketclass.color',
 			'config' => array(
 				'type' => 'input',
-				'size' => 30,
-				'eval' => 'trim'
+				'size' => 4,
+				'eval' => 'trim',
+				'wizards' => array(
+					'colorpick' => array(
+						'type' => 'colorbox',
+						'title' => 'Color picker',
+						'script' => 'wizard_colorpicker.php',
+						'dim' => '20x20',
+						'tableStyle' => 'border: solid 1px #EEEEE; margin-left:20px',
+						'JSopenParams' => 'height=550,width=365,status=0,menubar=0,scrollbars=1',
+						'exampleImg' => 'gfx/wizard_colorpickerex.jpg',
+					)
+				),
 			),
 		),
 		'price' => array(
@@ -124,13 +173,13 @@ $TCA['tx_t3events_domain_model_ticketclass'] = array(
 			'exclude' => 0,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_ticketclass.type',
 			'config' => array(
-				'type' => 'select',
+				'type' => 'radio',
 				'items' => array(
-					array('-- Label --', 0),
+					array('LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_ticketclass.normal',  0),
+					array('LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_ticketclass.reduced', 1),
+					array('LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_ticketclass.special', 2),
 				),
-				'size' => 1,
-				'maxitems' => 1,
-				'eval' => ''
+				'default' => 0,
 			),
 		),
 		'performance' => array(
@@ -140,64 +189,3 @@ $TCA['tx_t3events_domain_model_ticketclass'] = array(
 		),
 	),
 );
-
-
-// field order
-$TCA['tx_t3events_domain_model_ticketclass']['types'] = array(
-        '1' => array('showitem' => '
-        ;;;;1-1-1, 
-        --palette--;;paletteTitle,
-        --palette--;;palettePrices,
-        --palette--;;paletteSys,
-        --div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,hidden,starttime, endtime'),
-);
-$TCA['tx_t3events_domain_model_ticketclass']['palettes'] = array(
-    '1' => array('showitem' =>''),
-    'paletteSys' => array(
-        'showitem' =>  'sys_language_uid,l10n_parent, l10n_diffsource',
-    ),
-    'paletteTitle' => array(
-        'showitem' => 'color,title',
-        'canNotCollapse' => TRUE,
-    ),
-    'palettePrices' => array(
-        'showitem' => 'price,type',
-        'canNotCollapse' => TRUE,
-    ),
-);
-// title
-$TCA['tx_t3events_domain_model_ticketclass']['columns']['title']['config'] = array(
-    'type' => 'input',
-    'size' => 10,
-    'eval' => 'trim'    
-);
-// color
-$TCA['tx_t3events_domain_model_ticketclass']['columns']['color']['config'] = array(
-    'type' => 'input',
-    'size' => 4,
-    'eval' => 'trim',
-    'wizards' => array(
-        'colorpick' => array(
-            'type' => 'colorbox',
-            'title' => 'Color picker',
-            'script' => 'wizard_colorpicker.php',
-            'dim' => '20x20',
-            'tableStyle' => 'border: solid 1px #EEEEE; margin-left:20px',
-            'JSopenParams' => 'height=550,width=365,status=0,menubar=0,scrollbars=1',
-            'exampleImg' => 'gfx/wizard_colorpickerex.jpg',
-        )
-    ),    
-);
-// type
-$TCA['tx_t3events_domain_model_ticketclass']['columns']['type']['config'] = array(
-	'type' => 'radio',
-	'items' => array(
-		array('LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_ticketclass.normal',  0),
-		array('LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_ticketclass.reduced', 1),
-		array('LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_ticketclass.special', 2),		
-	),
-	'default' => 0,
-);
-// price
-$TCA['tx_t3events_domain_model_ticketclass']['columns']['price']['config']['size'] = 5;
-?>

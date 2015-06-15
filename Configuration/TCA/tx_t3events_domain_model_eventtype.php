@@ -3,13 +3,34 @@ if (!defined ('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
-$TCA['tx_t3events_domain_model_organizer'] = array(
-	'ctrl' => $TCA['tx_t3events_domain_model_organizer']['ctrl'],
-	'interface' => array(
-		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, name, link',
+return array(
+	'ctrl' => array(
+		'title'	=> 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_eventtype',
+		'label' => 'title',
+		'tstamp' => 'tstamp',
+		'crdate' => 'crdate',
+		'cruser_id' => 'cruser_id',
+		'dividers2tabs' => TRUE,
+		'sortby' => 'sorting',
+		'versioningWS' => 2,
+		'versioning_followPages' => TRUE,
+		'origUid' => 't3_origuid',
+		'languageField' => 'sys_language_uid',
+		'transOrigPointerField' => 'l10n_parent',
+		'transOrigDiffSourceField' => 'l10n_diffsource',
+		'delete' => 'deleted',
+		'enablecolumns' => array(
+			'disabled' => 'hidden',
+			'starttime' => 'starttime',
+			'endtime' => 'endtime',
+		),
+		'searchFields' => 'title,',
+		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('t3events') . 'Resources/Public/Icons/tx_t3events_domain_model_eventtype.gif'
+	),'interface' => array(
+		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title',
 	),
 	'types' => array(
-		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, name, link,--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,starttime, endtime'),
+		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, title,--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,starttime, endtime'),
 	),
 	'palettes' => array(
 		'1' => array('showitem' => ''),
@@ -37,8 +58,8 @@ $TCA['tx_t3events_domain_model_organizer'] = array(
 				'items' => array(
 					array('', 0),
 				),
-				'foreign_table' => 'tx_t3events_domain_model_organizer',
-				'foreign_table_where' => 'AND tx_t3events_domain_model_organizer.pid=###CURRENT_PID### AND tx_t3events_domain_model_organizer.sys_language_uid IN (-1,0)',
+				'foreign_table' => 'tx_t3events_domain_model_eventtype',
+				'foreign_table_where' => 'AND tx_t3events_domain_model_eventtype.pid=###CURRENT_PID### AND tx_t3events_domain_model_eventtype.sys_language_uid IN (-1,0)',
 			),
 		),
 		'l10n_diffsource' => array(
@@ -93,19 +114,9 @@ $TCA['tx_t3events_domain_model_organizer'] = array(
 				),
 			),
 		),
-		'name' => array(
+		'title' => array(
 			'exclude' => 0,
-			'l10n_mode' => 'mergeIfNotBlank',
-			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_organizer.name',
-			'config' => array(
-				'type' => 'input',
-				'size' => 30,
-				'eval' => 'trim'
-			),
-		),
-		'link' => array(
-			'exclude' => 0,
-			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_organizer.link',
+			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_eventtype.title',
 			'config' => array(
 				'type' => 'input',
 				'size' => 30,
@@ -114,5 +125,3 @@ $TCA['tx_t3events_domain_model_organizer'] = array(
 		),
 	),
 );
-
-?>

@@ -3,8 +3,33 @@ if (!defined ('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
-$TCA['tx_t3events_domain_model_performance'] = array(
-	'ctrl' => $TCA['tx_t3events_domain_model_performance']['ctrl'],
+return array(
+	'ctrl' => array(
+		'title'	=> 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_performance',
+		'label' => 'date',
+		'label_alt' => 'event_location',
+		'label_alt_force' => 1,
+		'tstamp' => 'tstamp',
+		'crdate' => 'crdate',
+		'cruser_id' => 'cruser_id',
+		'dividers2tabs' => TRUE,
+		'sortby' => 'sorting',
+		'versioningWS' => 2,
+		'versioning_followPages' => TRUE,
+		'origUid' => 't3_origuid',
+		'languageField' => 'sys_language_uid',
+		'transOrigPointerField' => 'l10n_parent',
+		'transOrigDiffSourceField' => 'l10n_diffsource',
+		'delete' => 'deleted',
+		'enablecolumns' => array(
+			'disabled' => 'hidden',
+			'starttime' => 'starttime',
+			'endtime' => 'endtime',
+		),
+		'type' => 'provider_type',
+		'searchFields' => 'date,admission,begin,end,status_info,external_provider_link,additional_link,provider_type,image,plan,no_handling_fee,price_notice,event_location,ticket_class,status,',
+		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('t3events') . 'Resources/Public/Icons/tx_t3events_domain_model_performance.gif'
+	),
 	'interface' => array(
 		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource,
 			hidden, date, admission, begin, end, status_info, external_provider_link,
@@ -12,13 +37,43 @@ $TCA['tx_t3events_domain_model_performance'] = array(
 			event_location, ticket_class, status',
 	),
 	'types' => array(
-		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource,
-			hidden;;1, date, admission, begin, end, status_info, external_provider_link,
-			additional_link, provider_type, image, plan, no_handling_fee, price_notice,
-			event_location, ticket_class, status,--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,starttime, endtime'),
+		'0' => array('showitem' => '
+		sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource;;1,
+        --palette--;;paletteTitle,
+        --palette--;;paletteTime,
+        status, status_info,image,
+        --div--;Links, provider_type,additional_link,
+        --div--;Tickets,
+            --palette--;;paletteTicketsHead,
+             no_handling_fee, ticket_class,
+        --div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,hidden,starttime, endtime'
+		),
+		'1' => array('showitem' => '
+	    sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource;;1,
+	    --palette--;;paletteTitle,
+	    --palette--;;paletteTime,
+	    status, status_info,image,
+	    --div--;Links, provider_type, external_provider_link,additional_link,
+	    --div--;Tickets,
+	        --palette--;;paletteTicketsHead,
+	         no_handling_fee, ticket_class,
+	    --div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,hidden,starttime, endtime'
+		),
 	),
 	'palettes' => array(
 		'1' => array('showitem' => ''),
+		'paletteTitle' => array(
+			'showitem' => 'date, event_location',
+			'canNotCollapse' => TRUE,
+		),
+		'paletteTime' => array(
+			'showitem' => 'admission, begin, end',
+			'canNotCollapse' => TRUE,
+		),
+		'paletteTicketsHead' => array(
+			'showitem' => 'plan,price_notice,',
+			'canNotCollapse' => TRUE,
+		),
 	),
 	'columns' => array(
 		'sys_language_uid' => array(
@@ -288,48 +343,3 @@ $TCA['tx_t3events_domain_model_performance'] = array(
 		),
 	),
 );
-
-// field order
-
-$TCA['tx_t3events_domain_model_performance']['ctrl']['type'] = 'provider_type';
-$TCA['tx_t3events_domain_model_performance']['types'] = array(
-   '0' => array('showitem' => '
-		sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource;;1,
-        --palette--;;paletteTitle,
-        --palette--;;paletteTime,
-        status, status_info,image,
-        --div--;Links, provider_type,additional_link,
-        --div--;Tickets,
-            --palette--;;paletteTicketsHead,
-             no_handling_fee, ticket_class,
-        --div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,hidden,starttime, endtime'
-		),
-	'1' => array('showitem' => '
-	    sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource;;1,
-	    --palette--;;paletteTitle,
-	    --palette--;;paletteTime,
-	    status, status_info,image,
-	    --div--;Links, provider_type, external_provider_link,additional_link,
-	    --div--;Tickets,
-	        --palette--;;paletteTicketsHead,
-	         no_handling_fee, ticket_class,
-	    --div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,hidden,starttime, endtime'
-		),
-);
-$TCA['tx_t3events_domain_model_performance']['palettes'] = array(
-    '1' => array('showitem' => ''),
-    'paletteTitle' => array(
-        'showitem' => 'date, event_location',
-        'canNotCollapse' => TRUE,
-    ),
-    'paletteTime' => array(
-        'showitem' => 'admission, begin, end',
-        'canNotCollapse' => TRUE,
-    ),
-    'paletteTicketsHead' => array(
-        'showitem' => 'plan,price_notice,',
-        'canNotCollapse' => TRUE,
-    ),
-);
-
-?>

@@ -3,8 +3,30 @@ if (!defined ('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
-$TCA['tx_t3events_domain_model_teaser'] = array(
-	'ctrl' => $TCA['tx_t3events_domain_model_teaser']['ctrl'],
+return array(
+	'ctrl' => array(
+		'title'	=> 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_teaser',
+		'label' => 'title',
+		'tstamp' => 'tstamp',
+		'crdate' => 'crdate',
+		'cruser_id' => 'cruser_id',
+		'dividers2tabs' => TRUE,
+		'sortby' => 'sorting',
+		'versioningWS' => 2,
+		'versioning_followPages' => TRUE,
+		'origUid' => 't3_origuid',
+		'languageField' => 'sys_language_uid',
+		'transOrigPointerField' => 'l10n_parent',
+		'transOrigDiffSourceField' => 'l10n_diffsource',
+		'delete' => 'deleted',
+		'enablecolumns' => array(
+			'disabled' => 'hidden',
+			'starttime' => 'starttime',
+			'endtime' => 'endtime',
+		),
+		'searchFields' => 'title,details,inherit_data,image,is_highlight,location,event,',
+		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('t3events') . 'Resources/Public/Icons/tx_t3events_domain_model_teaser.gif'
+	),
 	'interface' => array(
 		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden,
 			title, details, inherit_data, image, is_highlight, location, event, external_link',
@@ -131,7 +153,7 @@ $TCA['tx_t3events_domain_model_teaser'] = array(
 				'internal_type' => 'file',
 				'uploadfolder' => 'uploads/tx_t3events',
 				'show_thumbs' => 1,
-				'size' => 5,
+				'size' => 1,
 				'allowed' => $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'],
 				'disallowed' => '',
 			),
@@ -148,33 +170,48 @@ $TCA['tx_t3events_domain_model_teaser'] = array(
 			'exclude' => 0,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_teaser.location',
 			'config' => array(
-				'type' => 'inline',
+				'type' => 'select',
 				'foreign_table' => 'tx_t3events_domain_model_venue',
 				'minitems' => 0,
 				'maxitems' => 1,
-				'appearance' => array(
-					'collapseAll' => 0,
-					'levelLinksPosition' => 'top',
-					'showSynchronizationLink' => 1,
-					'showPossibleLocalizationRecords' => 1,
-					'showAllLocalizationLink' => 1
-				),
+				'eval' => 'required',
 			),
 		),
 		'event' => array(
 			'exclude' => 0,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_teaser.event',
 			'config' => array(
-				'type' => 'inline',
+				'type' => 'group',
 				'foreign_table' => 'tx_t3events_domain_model_event',
-				'minitems' => 0,
-				'maxitems' => 1,
-				'appearance' => array(
-					'collapseAll' => 0,
-					'levelLinksPosition' => 'top',
-					'showSynchronizationLink' => 1,
-					'showPossibleLocalizationRecords' => 1,
-					'showAllLocalizationLink' => 1
+				'internal_type' => 'db',
+				'allowed' => 'tx_t3events_domain_model_event',
+				'size' => 1,
+				'minitems' => 1,
+				'wizards' => array(
+					'_PADDING' => 1,
+					'_VERTICAL' => 1,
+					'edit' => array(
+						'type' => 'popup',
+						'title' => 'Edit',
+						'script' => 'wizard_edit.php',
+						'icon' => 'edit2.gif',
+						'popup_onlyOpenIfSelected' => 1,
+						'JSopenParams' => 'height=810,width=740,status=0,menubar=0,scrollbars=1',
+					),
+					'add' => Array(
+						'type' => 'script',
+						'title' => 'Create new',
+						'icon' => 'add.gif',
+						'params' => array(
+							'table' => 'tx_t3events_domain_model_event',
+							'pid' => '###CURRENT_PID###',
+							'setValue' => 'prepend'
+						),
+						'script' => 'wizard_add.php',
+					),
+					'suggest' => array(
+						'type' => 'suggest',
+					),
 				),
 			),
 		),
@@ -190,63 +227,3 @@ $TCA['tx_t3events_domain_model_teaser'] = array(
 
 	),
 );
-
-
-// fields
-// image
-$TCA['tx_t3events_domain_model_teaser']['columns']['image']['config'] = array(
-    'type' => 'group',
-    'internal_type' => 'file',
-    'uploadfolder' => 'uploads/tx_t3events',
-    'show_thumbs' => 1,
-    'size' => 1,
-    'allowed' => $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'],
-    'disallowed' => '',
-);
-
-// location
-// event_location
-$TCA['tx_t3events_domain_model_teaser']['columns']['location']['config'] = array(
-    'type' => 'select',
-    'foreign_table' => 'tx_t3events_domain_model_venue',
-    'minitems' => 0,
-    'maxitems' => 1,
-    'eval' => 'required',
-);
-
-// event
-$TCA['tx_t3events_domain_model_teaser']['columns']['event']['config'] = array(
-	'type' => 'group',
-	'foreign_table' => 'tx_t3events_domain_model_event',
-	'internal_type' => 'db',
-	'allowed' => 'tx_t3events_domain_model_event',
-	'size' => 1,
-	'minitems' => 1,
-	'wizards' => array(
-		'_PADDING' => 1,
-		'_VERTICAL' => 1,
-		'edit' => array(
-			'type' => 'popup',
-			'title' => 'Edit',
-			'script' => 'wizard_edit.php',
-			'icon' => 'edit2.gif',
-			'popup_onlyOpenIfSelected' => 1,
-			'JSopenParams' => 'height=810,width=740,status=0,menubar=0,scrollbars=1',
-			),
-		'add' => Array(
-			'type' => 'script',
-			'title' => 'Create new',
-			'icon' => 'add.gif',
-			'params' => array(
-				'table' => 'tx_t3events_domain_model_event',
-				'pid' => '###CURRENT_PID###',
-				'setValue' => 'prepend'
-				),
-			'script' => 'wizard_add.php',
-		),
-		'suggest' => array(
-			'type' => 'suggest',
-		),
-	),
-);
-?>

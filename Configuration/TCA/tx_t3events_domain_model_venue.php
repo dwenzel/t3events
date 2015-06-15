@@ -3,8 +3,30 @@ if (!defined ('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
-$TCA['tx_t3events_domain_model_genre'] = array(
-	'ctrl' => $TCA['tx_t3events_domain_model_genre']['ctrl'],
+return array(
+	'ctrl' => array(
+		'title'	=> 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_venue',
+		'label' => 'title',
+		'tstamp' => 'tstamp',
+		'crdate' => 'crdate',
+		'cruser_id' => 'cruser_id',
+		'dividers2tabs' => TRUE,
+
+		'versioningWS' => 2,
+		'versioning_followPages' => TRUE,
+		'origUid' => 't3_origuid',
+		'languageField' => 'sys_language_uid',
+		'transOrigPointerField' => 'l10n_parent',
+		'transOrigDiffSourceField' => 'l10n_diffsource',
+		'delete' => 'deleted',
+		'enablecolumns' => array(
+			'disabled' => 'hidden',
+			'starttime' => 'starttime',
+			'endtime' => 'endtime',
+		),
+		'searchFields' => 'title,',
+		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('t3events') . 'Resources/Public/Icons/tx_t3events_domain_model_venue.gif'
+	),
 	'interface' => array(
 		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title',
 	),
@@ -37,8 +59,8 @@ $TCA['tx_t3events_domain_model_genre'] = array(
 				'items' => array(
 					array('', 0),
 				),
-				'foreign_table' => 'tx_t3events_domain_model_genre',
-				'foreign_table_where' => 'AND tx_t3events_domain_model_genre.pid=###CURRENT_PID### AND tx_t3events_domain_model_genre.sys_language_uid IN (-1,0)',
+				'foreign_table' => 'tx_t3events_domain_model_venue',
+				'foreign_table_where' => 'AND tx_t3events_domain_model_venue.pid=###CURRENT_PID### AND tx_t3events_domain_model_venue.sys_language_uid IN (-1,0)',
 			),
 		),
 		'l10n_diffsource' => array(
@@ -95,7 +117,7 @@ $TCA['tx_t3events_domain_model_genre'] = array(
 		),
 		'title' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_genre.title',
+			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_venue.title',
 			'config' => array(
 				'type' => 'input',
 				'size' => 30,
@@ -104,5 +126,3 @@ $TCA['tx_t3events_domain_model_genre'] = array(
 		),
 	),
 );
-
-?>

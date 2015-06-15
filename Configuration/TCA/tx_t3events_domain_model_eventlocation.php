@@ -6,7 +6,29 @@ if (!defined ('TYPO3_MODE')) {
 $ll = 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:';
 
 $TCA['tx_t3events_domain_model_eventlocation'] = array(
-	'ctrl' => $TCA['tx_t3events_domain_model_eventlocation']['ctrl'],
+	'ctrl' => array(
+		'title'	=> 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_eventlocation',
+		'label' => 'name',
+		'tstamp' => 'tstamp',
+		'crdate' => 'crdate',
+		'cruser_id' => 'cruser_id',
+		'dividers2tabs' => TRUE,
+
+		'versioningWS' => 2,
+		'versioning_followPages' => TRUE,
+		'origUid' => 't3_origuid',
+		'languageField' => 'sys_language_uid',
+		'transOrigPointerField' => 'l10n_parent',
+		'transOrigDiffSourceField' => 'l10n_diffsource',
+		'delete' => 'deleted',
+		'enablecolumns' => array(
+			'disabled' => 'hidden',
+			'starttime' => 'starttime',
+			'endtime' => 'endtime',
+		),
+		'searchFields' => 'name,address,image,zip,place,details,www,country,',
+		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('t3events') . 'Resources/Public/Icons/tx_t3events_domain_model_eventlocation.gif'
+	),
 	'interface' => array(
 		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, name, address, image, zip, place, details, www, country, latitude, longitude',
 	),
@@ -109,8 +131,8 @@ $TCA['tx_t3events_domain_model_eventlocation'] = array(
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_eventlocation.address',
 			'config' => array(
 				'type' => 'text',
-				'cols' => 40,
-				'rows' => 15,
+				'cols' => 32,
+				'rows' => 5,
 				'eval' => 'trim'
 			),
 		),
@@ -121,10 +143,11 @@ $TCA['tx_t3events_domain_model_eventlocation'] = array(
 				'type' => 'group',
 				'internal_type' => 'file',
 				'uploadfolder' => 'uploads/tx_t3events',
-				'show_thumbs' => 1,
-				'size' => 5,
+				'size' => 1,
 				'allowed' => $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'],
-				'disallowed' => '',
+				'maxitems' => 1,
+				'show_thumbs' => 'true',
+				'disable_controls' => 'list',
 			),
 		),
 		'zip' => array(
@@ -150,8 +173,8 @@ $TCA['tx_t3events_domain_model_eventlocation'] = array(
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_eventlocation.details',
 			'config' => array(
 				'type' => 'text',
-				'cols' => 40,
-				'rows' => 15,
+				'cols' => 32,
+				'rows' => 10,
 				'eval' => 'trim'
 			),
 		),
@@ -166,18 +189,17 @@ $TCA['tx_t3events_domain_model_eventlocation'] = array(
 		),
 		'country' => array(
 			'exclude' => 0,
+			'displayCond' => 'EXT:static_info_tables:LOADED:true',
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_eventlocation.country',
 			'config' => array(
-				'type' => 'inline',
+				'type' => 'select',
 				'foreign_table' => 'static_countries',
 				'minitems' => 0,
 				'maxitems' => 1,
-				'appearance' => array(
-					'collapseAll' => 0,
-					'levelLinksPosition' => 'top',
-					'showSynchronizationLink' => 1,
-					'showPossibleLocalizationRecords' => 1,
-					'showAllLocalizationLink' => 1
+				'wizards' => array(
+					'suggest' => array(
+						'type' => 'suggest',
+					),
 				),
 			),
 		),
@@ -203,49 +225,3 @@ $TCA['tx_t3events_domain_model_eventlocation'] = array(
 		),
 	),
 );
-
-// address
-$TCA['tx_t3events_domain_model_eventlocation']['columns']['address']['config'] = array(
-		'type' => 'text',
-		'cols' => 32,
-		'rows' => 5,
-		'eval' => 'trim'
-	);
-
-// detail
-$TCA['tx_t3events_domain_model_eventlocation']['columns']['details']['config'] = array(
-		'type' => 'text',
-		'cols' => 32,
-		'rows' => 10,
-		'eval' => 'trim'
-	);
-
-// image
-$TCA['tx_t3events_domain_model_eventlocation']['columns']['image']['config'] = array(
-		'type' => 'group',
-		'internal_type' => 'file',
-		'uploadfolder' => 'uploads/tx_t3events',
-		'size' => 1,
-		'allowed' => $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'],
-		'maxitems' => 1,
-		'show_thumbs' => 'true',
-		'disable_controls' => 'list',
-);
-// country
-$TCA['tx_t3events_domain_model_eventlocation']['columns']['country'] = array(
-	'exclude' => 0,
-	'displayCond' => 'EXT:static_info_tables:LOADED:true',
-	'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_eventlocation.country',
-	'config' => array(
-		'type' => 'select',
-		'foreign_table' => 'static_countries',
-		'minitems' => 0,
-		'maxitems' => 1,
-		'wizards' => array(
-			'suggest' => array(
-				'type' => 'suggest',
-			),
-		),
-	),
-);
-?>
