@@ -5,7 +5,7 @@ if (!defined ('TYPO3_MODE')) {
 
 $ll = 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:';
 
-$TCA['tx_t3events_domain_model_eventlocation'] = array(
+return array(
 	'ctrl' => array(
 		'title'	=> 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_eventlocation',
 		'label' => 'name',
