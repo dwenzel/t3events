@@ -299,6 +299,7 @@ return array(
 						'info' => FALSE,
 					),
 				),
+			),
 		),
 		'organizer' => array(
 			'exclude' => 0,
@@ -321,5 +322,4 @@ return array(
             ),
         ),
 	),
-	)
 );
