@@ -42,6 +42,16 @@
 						</TCEforms>
 					</switchableControllerActions>
 
+					<settings.showSearchField>
+						<TCEforms>
+							<label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xlf:flexforms_general.showSearchField</label>
+							<config>
+								<type>check</type>
+								<default>1</default>
+							</config>
+						</TCEforms>
+					</settings.showSearchField>
+
 					<settings.sortBy>
 						<TCEforms>
 							<label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.sortBy</label>

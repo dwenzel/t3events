@@ -109,6 +109,7 @@ class EventController extends AbstractController {
 			$demand = $this->overwriteDemandObject($demand, $overwriteDemand);
 			$events = $this->eventRepository->findDemanded($demand);
 		}
+
 		/** @var QueryResultInterface $events */
 		if (($events instanceof QueryResultInterface AND !$events->count())
 			OR !count($events)
@@ -124,6 +125,7 @@ class EventController extends AbstractController {
 			array(
 				'events' => $events,
 				'demand' => $demand,
+				'overwriteDemand' => $overwriteDemand
 			)
 		);
   }
@@ -338,14 +340,6 @@ class EventController extends AbstractController {
 	 */
 	public function overwriteDemandObject($demand, $overwriteDemand) {
 		if((bool)$overwriteDemand) {
-			if (!empty($overwriteDemand['search'])) {
-				$searchObj = $this->createSearchObject(
-					$overwriteDemand['search'],
-					$this->settings['event']['search']
-				);
-				$demand->setSearch($searchObj);
-				unset($overwriteDemand['search']);
-			}
 
 			foreach ($overwriteDemand as $propertyName => $propertyValue) {
 				if($propertyName == 'sortBy') {
@@ -370,7 +364,13 @@ class EventController extends AbstractController {
 					$demand->setStartDate(new \DateTime($propertyValue));
 				} elseif ($propertyName === 'endDate') {
 					$demand->setEndDate(new \DateTime($propertyValue));
-				} else {
+				} elseif ($propertyName === 'search') {
+					$searchObj = $this->createSearchObject(
+						$overwriteDemand['search'],
+						$this->settings['event']['search']
+					);
+					$demand->setSearch($searchObj);
+				}else {
 					ObjectAccess::setProperty($demand, $propertyName, $propertyValue);
 				}
 			}

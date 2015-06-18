@@ -72,37 +72,6 @@ class EventRepository extends AbstractDemandedRepository {
 			$query->matching($query->logicalAnd($constraints));
 		}
 
-		$periodConstraint = $this->createPeriodConstraint($query, $demand);
-		$categoryConstraints = $this->createCategoryConstraints($query, $demand);
-
-		if ( !is_null($categoryConstraints) && !is_null($periodConstraint)) {
-			// got constraints for categories and time
-			if ($demand->getCategoryConjunction() == 'AND') {
-				$query->matching(
-					$query->logicalAnd (
-						array_merge($periodConstraint, $categoryConstraints)
-					)
-				);
-			} else {
-			    	$query->matching(
-					$query->logicalAnd(
-						$periodConstraint,
-						$query->logicalOr($categoryConstraints)
-					)
-				);
-			}
-		} elseif ( is_null($categoryConstraints) && !is_null($periodConstraint)){
-			// got constraints for time only
-			$query->matching($periodConstraint);
-		} elseif (!is_null($categoryConstraints) && is_null($periodConstraint)){
-			// got constraints for categories only
-			if ($demand->getCategoryConjunction() == 'AND') {
-			    $query->matching($query->logicalAnd($categoryConstraints));
-			} else {
-				$query->matching($query->logicalOr($categoryConstraints));
-			}
-		}
-
 		// sort direction
 		switch ($demand->getSortDirection()) {
 			case 'asc' :
@@ -259,6 +228,22 @@ class EventRepository extends AbstractDemandedRepository {
 	 */
 	protected function createConstraintsFromDemand(QueryInterface $query, DemandInterface $demand) {
 		$constraints = array();
+		$periodConstraint = $this->createPeriodConstraint($query, $demand);
+		$categoryConstraints = $this->createCategoryConstraints($query, $demand);
+
+		if ( (bool) $categoryConstraints) {
+			// got constraints for categories
+			if ($demand->getCategoryConjunction() == 'AND') {
+				$constraints[] = $query->logicalAnd($categoryConstraints);
+			} else {
+				$constraints[] = $query->logicalOr($categoryConstraints);
+			}
+		}
+
+		if ((bool) $periodConstraint){
+			$constraints[] = $query->logicalAnd($periodConstraint);
+		}
+
 		// Search constraints
 		if ($demand->getSearch()) {
 			$searchConstraints = array();
@@ -302,6 +287,7 @@ class EventRepository extends AbstractDemandedRepository {
 			if(count($searchConstraints)) {
 				$constraints[] = $query->logicalOr($searchConstraints);
 			}
+
 			if(count($locationConstraints)) {
 				$constraints[] = $query->logicalAnd($locationConstraints);
 			}

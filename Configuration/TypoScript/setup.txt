@@ -75,7 +75,7 @@ plugin.tx_t3events{
 				}
 			} // single
 			search {
-				fields = {$plugin.tx_t3events.settings.position.search.fields}
+				fields = {$plugin.tx_t3events.settings.event.search.fields}
 			}
 		} // event
 		search {
