@@ -127,7 +127,7 @@ class PerformancesViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTa
     
     /**
      * Get array of locations for event
-     * @param boolean unique Remove duplicate entries
+     * @param boolean $unique Remove duplicate entries
      * @return array
      */
     public function getLocationsArr($unique = TRUE){

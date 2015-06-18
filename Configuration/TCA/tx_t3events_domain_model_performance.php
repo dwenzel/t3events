@@ -162,7 +162,7 @@ return array(
 				'size' => 7,
 				'eval' => 'date',
 				'checkbox' => 1,
-				'default' => time()
+				'default' => strtotime('today')
 			),
 		),
 		'admission' => array(
@@ -173,7 +173,6 @@ return array(
 				'size' => 4,
 				'eval' => 'time',
 				'checkbox' => 1,
-				'default' => time()
 			),
 		),
 		'begin' => array(
@@ -184,7 +183,6 @@ return array(
 				'size' => 4,
 				'eval' => 'time',
 				'checkbox' => 1,
-				'default' => time()
 			),
 		),
 		'end' => array(
@@ -195,7 +193,6 @@ return array(
 				'size' => 4,
 				'eval' => 'time',
 				'checkbox' => 1,
-				'default' => time()
 			),
 		),
 		'status_info' => array(
