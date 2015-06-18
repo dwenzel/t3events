@@ -33,7 +33,7 @@ namespace Webfox\T3events\Domain\Model;
  *
  */
 class EventLocation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
-	implements GeocodingInterface{
+	implements GeoCodingInterface{
 
 	/**
 	 * name

@@ -26,6 +26,7 @@ namespace Webfox\T3events\Controller;
  ***************************************************************/
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
+use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 use Webfox\T3events\Domain\Model\Event;
 
 /**
@@ -337,6 +338,15 @@ class EventController extends AbstractController {
 	 */
 	public function overwriteDemandObject($demand, $overwriteDemand) {
 		if((bool)$overwriteDemand) {
+			if (!empty($overwriteDemand['search'])) {
+				$searchObj = $this->createSearchObject(
+					$overwriteDemand['search'],
+					$this->settings['event']['search']
+				);
+				$demand->setSearch($searchObj);
+				unset($overwriteDemand['search']);
+			}
+
 			foreach ($overwriteDemand as $propertyName => $propertyValue) {
 				if($propertyName == 'sortBy') {
 					switch ($propertyValue) {
@@ -361,7 +371,7 @@ class EventController extends AbstractController {
 				} elseif ($propertyName === 'endDate') {
 					$demand->setEndDate(new \DateTime($propertyValue));
 				} else {
-					\TYPO3\CMS\Extbase\Reflection\ObjectAccess::setProperty($demand, $propertyName, $propertyValue);
+					ObjectAccess::setProperty($demand, $propertyName, $propertyValue);
 				}
 			}
 		}

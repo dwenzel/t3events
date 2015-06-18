@@ -24,6 +24,7 @@ namespace Webfox\T3events\Domain\Model\Dto;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 /**
  *
@@ -33,7 +34,7 @@ namespace Webfox\T3events\Domain\Model\Dto;
  *
  */
  
- class AbstractDemand extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
+ class AbstractDemand extends AbstractEntity implements DemandInterface {
 	/**
 	 * @var \string  A time period
 	 */
@@ -49,16 +50,6 @@ namespace Webfox\T3events\Domain\Model\Dto;
 	 */
 	protected $offset;
 	
-	/**
-	 * @var \string A search word
-	 */
-	protected $searchWord;
-	
-	/**
-	 * @var \string Search fields
-	 */
-	protected $searchFields;
-
 	 /**
 	  * @var \string Orderings: comma separated list of sort fields and orderings ('fieldA|asc,fieldB|desc')
 	  */
@@ -114,7 +105,12 @@ namespace Webfox\T3events\Domain\Model\Dto;
 	  */
 	 protected $constraintsConjunction;
 
-	/**
+	 /**
+	  * @var \Webfox\T3events\Domain\Model\Dto\Search
+	  */
+	 protected $search;
+
+	 /**
 	 * @param int $limit A limit for the demand
 	 * @return void
 	 */
@@ -159,36 +155,6 @@ namespace Webfox\T3events\Domain\Model\Dto;
 		return $this->offset;
 	}
 	
-	/**
-	 * @param \string $searchWord Search word
-	 * @return void
-	 */
-	public function setSearchWord($searchWord = '') {
-		$this->searchWord = $searchWord;
-	}
-	
-	/**
-	 * @return \string
-	 */
-	public function getSearchWord() {
-		return $this->searchWord;
-	}
-	
-	/**
-	 * @param \string $searchFields Search fields
-	 * @return void
-	 */
-	public function setSearchFields($searchFields = ''){
-		$this->searchFields = $searchFields;
-	}
-	
-	/**
-	 * @return \string Search fields
-	 */
-	public function getSearchFields(){
-		return $this->searchFields;
-	}
-
 	/**
 	 * @param \string $sortBy The sort criteria in dot notation
 	 * @return void
@@ -355,4 +321,23 @@ namespace Webfox\T3events\Domain\Model\Dto;
 	 public function setConstraintsConjunction ($conjunction) {
 		 $this->constraintsConjunction = $conjunction;
 	 }
-}
+
+	 /**
+	  * Get search
+	  *
+	  * @return \Webfox\T3events\Domain\Model\Dto\Search
+	  */
+	 public function getSearch() {
+		 return $this->search;
+	 }
+
+	 /**
+	  * Set search object
+	  *
+	  * @param \Webfox\T3events\Domain\Model\Dto\Search $search A search object
+	  * @return void
+	  */
+	 public function setSearch($search) {
+		 $this->search = $search;
+	 }
+ }
