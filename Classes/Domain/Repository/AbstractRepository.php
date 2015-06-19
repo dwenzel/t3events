@@ -24,6 +24,7 @@ namespace Webfox\T3events\Domain\Repository;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  *
@@ -38,11 +39,11 @@ class AbstractRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 	 * @var \string $recordList A comma separated string containing uids
 	 * @var \string $sortField Sort by field
 	 * @var \TYPO3\CMS\Extbase\Persistence\QueryInterface $sortOrder 
-	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResult Matching Records
+	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 	 */
 	public function findMultipleByUid($recordList, $sortField='uid', $sortOrder=\TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING) {
-		$uids = \TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $recordList, TRUE);
-		$query = $this->createQuery();		
+		$uids = GeneralUtility::intExplode(',', $recordList, TRUE);
+		$query = $this->createQuery();
 		$query->matching($query->in('uid' , $uids));
 		$query->setOrderings(array($sortField => $sortOrder));
 		return $query->execute();
@@ -51,7 +52,7 @@ class AbstractRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 	/**
 	 * Returns an array of orderings created from a given demand object.
 	 *
-	 * @param \Webfox\Placements\Domain\Model\Dto\DemandInterface $demand
+	 * @param \Webfox\T3events\Domain\Model\Dto\DemandInterface $demand
 	 * @return \array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint>
 	 */
 	protected function createOrderingsFromDemand(\Webfox\T3events\Domain\Model\Dto\DemandInterface $demand) {

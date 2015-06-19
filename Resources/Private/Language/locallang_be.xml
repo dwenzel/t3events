@@ -25,9 +25,9 @@
 			<label index="flexforms_general.maxHighlighted">Highlights count</label>
 			<label index="flexforms_general.maxItems">Items count (max)</label>
 			<label index="flexforms_general.mode">What to display</label>
+			<label index="flexforms_general.mode.event_calendar">Events: Calendar</label>
 			<label index="flexforms_general.mode.event_list">Events: List/Detail</label>
 			<label index="flexforms_general.mode.quick_menu">Quick Menu</label>
-			<label index="flexforms_general.mode.event_calendar">Events: Calendar</label>
 			<label index="flexforms_general.mode.teaser">Teaser</label>
 			<label index="flexforms_general.pages">Pages</label>
 			<label index="flexforms_general.period">Period</label>
@@ -44,6 +44,8 @@
 			<label index="flexforms_general.quick_menu.type.genres">Genres</label>
 			<label index="flexforms_general.quick_menu.type.venues">Venues</label>
 			<label index="flexforms_general.random">random</label>
+			<label index="flexforms_general.showRadiusSearch">Show Radius Search</label>
+			<label index="flexforms_general.showSearchField">Show Search Field</label>
 			<label index="flexforms_general.sortBy">sort by</label>
 			<label index="flexforms_general.sortDirection">Sort Direction</label>
 			<label index="flexforms_general.start">Start</label>
@@ -77,9 +79,9 @@
 			<label index="flexforms_general.maxHighlighted">Anzahl hervorgehobene</label>
 			<label index="flexforms_general.maxItems">Anzahl gesamt (maximal)</label>
 			<label index="flexforms_general.mode">Anzeige</label>
+			<label index="flexforms_general.mode.event_calendar">Veranstaltungen: Kalendar</label>
 			<label index="flexforms_general.mode.event_list">Veranstaltungen: Liste/Detail</label>
 			<label index="flexforms_general.mode.quick_menu">Schnellmenü</label>
-			<label index="flexforms_general.mode.event_calendar">Veranstaltungen: Kalendar</label>
 			<label index="flexforms_general.mode.teaser">Teaser</label>
 			<label index="flexforms_general.pages">Seiten</label>
 			<label index="flexforms_general.period">Zeitabschnitt</label>
@@ -96,6 +98,8 @@
 			<label index="flexforms_general.quick_menu.type.genres">Genres</label>
 			<label index="flexforms_general.quick_menu.type.venues">Einrichtungen</label>
 			<label index="flexforms_general.random">zufällig</label>
+			<label index="flexforms_general.showRadiusSearch">Zeige Umkreisssuche</label>
+			<label index="flexforms_general.showSearchField">Zeige Suchfeld</label>
 			<label index="flexforms_general.sortBy">sortiere nach</label>
 			<label index="flexforms_general.sortDirection">Sortierreihenfolge</label>
 			<label index="flexforms_general.start">Start</label>

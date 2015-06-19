@@ -76,6 +76,16 @@ plugin.tx_t3events{
 			} // single
 			search {
 				fields = {$plugin.tx_t3events.settings.event.search.fields}
+				radius {
+					unit = km
+					options {
+						50000 = 50 km
+						100000 = 100 km
+						250000 = 250 km
+						500000 = 500 km
+						1000000 = 1000 km
+					}
+				}
 			}
 		} // event
 		search {

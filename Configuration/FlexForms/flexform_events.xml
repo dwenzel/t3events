@@ -42,9 +42,21 @@
 						</TCEforms>
 					</switchableControllerActions>
 
+					<settings.showRadiusSearch>
+						<TCEforms>
+							<label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xlf:flexforms_general.showRadiusSearch</label>
+							<displayCond>FIELD:switchableControllerActions:=:Event->quickMenu</displayCond>
+							<config>
+								<type>check</type>
+								<default>0</default>
+							</config>
+						</TCEforms>
+					</settings.showRadiusSearch>
+
 					<settings.showSearchField>
 						<TCEforms>
 							<label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xlf:flexforms_general.showSearchField</label>
+							<displayCond>FIELD:switchableControllerActions:=:Event->quickMenu</displayCond>
 							<config>
 								<type>check</type>
 								<default>1</default>
@@ -61,17 +73,12 @@
 								<items type="array">
 									<numIndex index="0" type="array">
 										<numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.date</numIndex>
-										<numIndex index="1">date</numIndex>
+										<numIndex index="1">performances.date</numIndex>
 									</numIndex>
 									<numIndex index="1" type="array">
 										<numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.title</numIndex>
-										<numIndex index="1">title</numIndex>
+										<numIndex index="1">headline</numIndex>
 									</numIndex>
-									<numIndex index="2" type="array">
-										<numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.random</numIndex>
-										<numIndex index="1">random</numIndex>
-									</numIndex>
-
 								</items>
 							</config>
 						</TCEforms>

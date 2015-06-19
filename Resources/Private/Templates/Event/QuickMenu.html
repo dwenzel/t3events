@@ -18,9 +18,6 @@ This Template is responsible for creating a quick menu (selectbox).
 	<f:flashMessages />
 
 	<div class="quickMenu">
-		<div class="text">
-			<f:translate key="tx_t3events.searchAllEventsByGenre.hint" />
-		</div>
 		<div class="selectbox">
 			<f:form name="overwriteDemand" action="list"
 				pageUid="{settings.event.list.pid}">
@@ -31,13 +28,13 @@ This Template is responsible for creating a quick menu (selectbox).
 						name="overwriteDemand[search][location]"
 						value="{overwriteDemand.search.location}"
 						class="search"
-						placeholder="{f:translate(key: 'tx_t3events.mapFilter.placeholder.location')}"
+						placeholder="{f:translate(key: 'placeholder.location')}"
 						/>
 					<f:form.select
 						id="tx-t3events-search-radius"
 						name="overwriteDemand[search][radius]"
 						value="{overwriteDemand.search.radius}"
-						options="{50000: '50 km', 100000: '100 km', 250000: '250 km', 500000: '500 km', 1000000: '1000 km'}"
+						options="{settings.event.search.radius.options}"
 						/>
 				</f:if>
 				<f:comment>show search field</f:comment>
@@ -52,8 +49,8 @@ This Template is responsible for creating a quick menu (selectbox).
 						/>
 				</f:if>
 
-				<f:comment>show genres only</f:comment>
-				<f:if condition="{0: settings.quickMenuType}=={0: 'genres'}">
+				<f:comment>genres</f:comment>
+				<f:if condition="{genres}">
 					<f:form.select 
 						id="tx_t3eventsQuickMenue"
 						name="overwriteDemand[genre]" 
@@ -65,8 +62,8 @@ This Template is responsible for creating a quick menu (selectbox).
 					/>
 				</f:if>
 				
-				<f:comment>show venues only</f:comment>
-				<f:if condition="{0:settings.quickMenuType}=={0: 'venues'}"> 
+				<f:comment>venues</f:comment>
+				<f:if condition="{venues}">
 					<f:form.select 
 					  id="tx_t3eventsQuickMenue"
 						name="overwriteDemand[venue]" 
@@ -78,8 +75,8 @@ This Template is responsible for creating a quick menu (selectbox).
 					/>
 				</f:if>
 				
-				<f:comment>show event types only</f:comment>
-				<f:if condition="{0:settings.quickMenuType}=={0: 'eventTypes'}"> 
+				<f:comment>event types</f:comment>
+				<f:if condition="{eventTypes}">
 					<f:form.select 
 					  id="tx_t3eventsQuickMenue"
 						name="overwriteDemand[eventType]" 
@@ -90,44 +87,13 @@ This Template is responsible for creating a quick menu (selectbox).
 						value="{overwriteDemand.eventType}"
 					/>
 				</f:if>
-				
-				<f:comment>show genres, venues and event types</f:comment>
-				<f:if condition="{0:settings.quickMenuType}=={0: ''}">
-					<f:form.select 
-						id="tx_t3eventsQuickMenue"
-						name="overwriteDemand[genre]" 
-						options="{genres}"
-						optionValueField="uid" 
-						optionLabelField="title"
-						prependOptionLabel="{f:translate(key: 'tx_t3events.allGenres')}"
-						value="{overwriteDemand.genre}"
-					/>
-					<f:form.select 
-					  id="tx_t3eventsQuickMenue"
-						name="overwriteDemand[venue]" 
-						options="{venues}"
-						optionValueField="uid" 
-						optionLabelField="title"
-						prependOptionLabel="{f:translate(key: 'tx_t3events.allVenues')}"
-						value="{overwriteDemand.venue}"
-					/>
-					<f:form.select 
-					  id="tx_t3eventsQuickMenue"
-						name="overwriteDemand[eventType]" 
-						options="{eventTypes}"
-						optionValueField="uid" 
-						optionLabelField="title"
-						prependOptionLabel="{f:translate(key: 'tx_t3events.allEventTypes')}"
-						value="{overwriteDemand.eventType}"
-					/>
-					<f:form.hidden 
-					  id="tx_t3eventsQuickMenue"
-					  	name="overwriteDemand[categoryConjunction]"
-					  	value="{settings.categoryConjunction}"
-					/>
 
-					
-				</f:if>
+				<f:form.hidden
+				  id="tx_t3eventsQuickMenue"
+					name="overwriteDemand[categoryConjunction]"
+					value="{settings.categoryConjunction}"
+				/>
+
 				<f:form.submit 
 				  id="tx_t3eventsQuickMenueSubmit"
 					name="submit" 

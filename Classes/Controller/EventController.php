@@ -25,6 +25,7 @@ namespace Webfox\T3events\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 use TYPO3\CMS\Core\Messaging\FlashMessage;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 use Webfox\T3events\Domain\Model\Event;
@@ -158,7 +159,6 @@ class EventController extends AbstractController {
 
 		// get event types from plugin
 		$eventTypes = $this->eventTypeRepository->findMultipleByUid($this->settings['eventTypes'], 'title');
-
 		$this->view->assignMultiple(
 			array(
 				'genres' => $genres,
@@ -290,18 +290,7 @@ class EventController extends AbstractController {
 	public function createDemandFromSettings($settings) {
 		$demand = $this->objectManager->get('Webfox\\T3events\\Domain\\Model\\Dto\\EventDemand');
 	
-		//@todo: avoid switch by putting correct strings into flexform
-		switch ($settings['sortBy']) {
-			case 'date':
-				$demand->setSortBy('performances.date');
-				break;
-			case 'title':
-				$demand->setSortBy('headline');
-				break;
-			default:
-				$demand->setSortBy('performances.date');
-				break;
-		}
+		$demand->setSortBy($settings['sortBy']);
 		$demand->setEventType($settings['eventTypes']);
 		$demand->setSortDirection($settings['sortDirection']);
 		$demand->setLimit($settings['maxItems']);
@@ -342,36 +331,29 @@ class EventController extends AbstractController {
 		if((bool)$overwriteDemand) {
 
 			foreach ($overwriteDemand as $propertyName => $propertyValue) {
-				if($propertyName == 'sortBy') {
-					switch ($propertyValue) {
-						case 'headline':
-							$demand->setSortBy('headline');
-							break;
-						default:
-							$demand->setSortBy('performances.date');
-							break;
-					}
-				} elseif ($propertyName == 'sortDirection') {
-					switch ($propertyValue) {
-						case 'desc':
+				switch ($propertyName) {
+					case 'sortDirection':
+						if ($propertyValue === 'desc') {
 							$demand->setSortDirection('desc');
-							break;
-						default:
+						} else {
 							$demand->setSortDirection('asc');
-							break;
-					}
-				} elseif ($propertyName === 'startDate') {
-					$demand->setStartDate(new \DateTime($propertyValue));
-				} elseif ($propertyName === 'endDate') {
-					$demand->setEndDate(new \DateTime($propertyValue));
-				} elseif ($propertyName === 'search') {
-					$searchObj = $this->createSearchObject(
-						$overwriteDemand['search'],
-						$this->settings['event']['search']
-					);
-					$demand->setSearch($searchObj);
-				}else {
-					ObjectAccess::setProperty($demand, $propertyName, $propertyValue);
+						}
+						break;
+					case 'startDate':
+						$demand->setStartDate(new \DateTime($propertyValue));
+						break;
+					case 'endDate':
+						$demand->setEndDate(new \DateTime($propertyValue));
+						break;
+					case 'search':
+						$searchObj = $this->createSearchObject(
+							$overwriteDemand['search'],
+							$this->settings['event']['search']
+						);
+						$demand->setSearch($searchObj);
+						break;
+					default:
+						ObjectAccess::setProperty($demand, $propertyName, $propertyValue);
 				}
 			}
 		}
