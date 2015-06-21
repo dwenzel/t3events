@@ -11,4 +11,11 @@ plugin.tx_t3events {
 		# cat=plugin.tx_t3events//a; type=string; label=Default storage PID
 		storagePid =
 	}
+	settings {
+		event {
+			search {
+				fields = headline,subtitle,teaser,description,keywords
+			}
+		}
+	}
 }

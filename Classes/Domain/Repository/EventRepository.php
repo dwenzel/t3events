@@ -24,6 +24,10 @@ namespace Webfox\T3events\Domain\Repository;
  *
  * This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+use TYPO3\CMS\Extbase\Persistence\QueryInterface;
+use Webfox\T3events\Domain\Model\Dto\DemandInterface;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use Webfox\T3events\Domain\Model\Dto\EventDemand;
 
 /**
  *
@@ -39,9 +43,9 @@ class EventRepository extends AbstractDemandedRepository {
 	 *
 	 * @param \Webfox\T3events\Domain\Model\Dto\EventDemand
 	 * @param boolean $respectEnableFields
-	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResult Matching Teasers
+	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 	 */
-	public function findDemanded(\Webfox\T3events\Domain\Model\Dto\EventDemand $demand, $respectEnableFields = TRUE) {
+	public function findDemanded(EventDemand $demand, $respectEnableFields = TRUE) {
 		$query =$this->buildQuery($demand, $respectEnableFields);
 		return $query->execute();
 	}
@@ -57,55 +61,30 @@ class EventRepository extends AbstractDemandedRepository {
 
 		if ($respectEnableFields == FALSE) {
 			$query->getQuerySettings()->setIgnoreEnableFields(TRUE);
+			// @todo set enable fields to ignore
 			//$constraints[] = $query->equals('deleted', 0);
 		}
 
 		// get constraints
-		$periodConstraint = $this->createPeriodConstraint($query, $demand);
-		$categoryConstraints = $this->createCategoryConstraints($query, $demand);
+		$constraints = $this->createConstraintsFromDemand($query, $demand);
 
-		if ( !is_null($categoryConstraints) && !is_null($periodConstraint)) {
-			// got constraints for categories and time
-			if ($demand->getCategoryConjunction() == 'AND') {
-				$query->matching(
-					$query->logicalAnd (
-						array_merge($periodConstraint, $categoryConstraints)
-					)
-				);
-			} else {
-			    	$query->matching(
-					$query->logicalAnd(
-						$periodConstraint,
-						$query->logicalOr($categoryConstraints)
-					)
-				);
-			}
-		}elseif ( is_null($categoryConstraints) && !is_null($periodConstraint)){
-			// got constraints for time only
-			$query->matching($periodConstraint);
-		}elseif (!is_null($categoryConstraints) && is_null($periodConstraint)){
-			// got constraints for categories only
-			if ($demand->getCategoryConjunction() == 'AND') {
-			    $query->matching($query->logicalAnd($categoryConstraints));
-			} else {
-				$query->matching($query->logicalOr($categoryConstraints));
-			}
+		if ((bool)$constraints) {
+			$query->matching($query->logicalAnd($constraints));
 		}
 
 		// sort direction
 		switch ($demand->getSortDirection()) {
 			case 'asc' :
-				$sortOrder = \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING;
+				$sortOrder = QueryInterface::ORDER_ASCENDING;
 				break;
 
 			case 'desc' :
-				$sortOrder = \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING;
+				$sortOrder = QueryInterface::ORDER_DESCENDING;
 				break;
 			default :
-				$sortOrder = \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING;
+				$sortOrder = QueryInterface::ORDER_ASCENDING;
 				break;
 		}
-		//@todo implement a search class (like in news->NewsRepository/Search.php) which holds search field and word
 		// sorting
 		if ($demand->getSortBy() !== '') {
 			$query->setOrderings(array($demand->getSortBy() => $sortOrder));
@@ -115,7 +94,7 @@ class EventRepository extends AbstractDemandedRepository {
 			$query->setLimit($demand->getLimit());
 		}
 		if ($demand->getStoragePages()) {
-			$pageIds = \TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $demand->getStoragePages());
+			$pageIds = GeneralUtility::intExplode(',', $demand->getStoragePages());
 			$query->getQuerySettings()->setStoragePageIds($pageIds);
 		}
 
@@ -128,20 +107,20 @@ class EventRepository extends AbstractDemandedRepository {
 	 * @param \Webfox\T3events\Domain\Model\Dto\EventDemand $demand
 	 * @return array<\TYPO3\CMS\Extbase\Persistence\QOM\Constraint>|null
 	 */
-	protected function createCategoryConstraints(\TYPO3\CMS\Extbase\Persistence\QueryInterface $query, $demand) {
+	protected function createCategoryConstraints(QueryInterface $query, $demand) {
 		// gather OR constraints (categories)
 		$categoryConstraints = array();
 
 		// genre
 		if ($demand->getGenre()) {
-			$genres = \TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $demand->getGenre());
+			$genres = GeneralUtility::intExplode(',', $demand->getGenre());
 			foreach ($genres as $genre) {
 				$categoryConstraints[] = $query->contains('genre', $genre);
 			}
 		}
 		// venue
 		if ($demand->getVenue()) {
-			$venues = \TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $demand->getVenue());
+			$venues = GeneralUtility::intExplode(',', $demand->getVenue());
 			foreach ($venues as $venue) {
 				$categoryConstraints[] = $query->contains('venue', $venue);
 			}
@@ -149,7 +128,7 @@ class EventRepository extends AbstractDemandedRepository {
 
 		// venue
 		if ($demand->getEventType()) {
-			$eventTypes = \TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $demand->getEventType());
+			$eventTypes = GeneralUtility::intExplode(',', $demand->getEventType());
 			foreach ($eventTypes as $eventType) {
 				$categoryConstraints[] = $query->equals('eventType.uid', $eventType);
 			}
@@ -161,9 +140,9 @@ class EventRepository extends AbstractDemandedRepository {
 	 * Create period constraint from demand (time restriction)
 	 * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
 	 * @param \Webfox\T3events\Domain\Model\Dto\EventDemand $demand
-	 * @return <\TYPO3\CMS\Extbase\Persistence\QOM\Constraint>|null
+	 * @return array<\TYPO3\CMS\Extbase\Persistence\QOM\Constraint>|null|object
 	 */
-	protected function createPeriodConstraint(\TYPO3\CMS\Extbase\Persistence\QueryInterface $query, $demand){
+	protected function createPeriodConstraint(QueryInterface $query, $demand){
 
 		// period constraints
 		$period = $demand->getPeriod();
@@ -247,8 +226,73 @@ class EventRepository extends AbstractDemandedRepository {
 	 * @param \Webfox\T3events\Domain\Model\Dto\DemandInterface $demand
 	 * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint>
 	 */
-	protected function createConstraintsFromDemand(\TYPO3\CMS\Extbase\Persistence\QueryInterface $query, \Webfox\T3events\Domain\Model\Dto\DemandInterface $demand) {
+	protected function createConstraintsFromDemand(QueryInterface $query, DemandInterface $demand) {
 		$constraints = array();
+		$periodConstraint = $this->createPeriodConstraint($query, $demand);
+		$categoryConstraints = $this->createCategoryConstraints($query, $demand);
+
+		if ( (bool) $categoryConstraints) {
+			// got constraints for categories
+			if ($demand->getCategoryConjunction() == 'AND') {
+				$constraints[] = $query->logicalAnd($categoryConstraints);
+			} else {
+				$constraints[] = $query->logicalOr($categoryConstraints);
+			}
+		}
+
+		if ((bool) $periodConstraint){
+			$constraints[] = $query->logicalAnd($periodConstraint);
+		}
+
+		// Search constraints
+		if ($demand->getSearch()) {
+			$searchConstraints = array();
+			$locationConstraints = array();
+			$search = $demand->getSearch();
+			$subject = $search->getSubject();
+
+			if(!empty($subject)) {
+				// search text in specified search fields
+				$searchFields =  GeneralUtility::trimExplode(',', $search->getFields(), TRUE);
+				if (count($searchFields) === 0) {
+					throw new \UnexpectedValueException('No search fields given', 1382608407);
+				}
+				foreach($searchFields as $field) {
+					$searchConstraints[] = $query->like($field, '%' . $subject . '%');
+				}
+			}
+
+			// search by bounding box
+			$bounds = $search->getBounds();
+			$location = $search->getLocation();
+			$radius = $search->getRadius();
+
+			if(!empty($location)
+				AND !empty($radius)
+				AND empty($bounds)) {
+				$geoLocation = $this->geoCoder->getLocation($location);
+				$bounds = $this->geoCoder->getBoundsByRadius($geoLocation['lat'], $geoLocation['lng'], $radius/1000);
+			}
+			if($bounds AND
+				!empty($bounds['N']) AND
+				!empty($bounds['S']) AND
+				!empty($bounds['W']) AND
+				!empty($bounds['E'])) {
+				$locationConstraints[] = $query->greaterThan('latitude', $bounds['S']['lat']);
+				$locationConstraints[] = $query->lessThan('latitude', $bounds['N']['lat']);
+				$locationConstraints[] = $query->greaterThan('longitude', $bounds['W']['lng']);
+				$locationConstraints[] = $query->lessThan('longitude', $bounds['E']['lng']);
+			}
+
+			if(count($searchConstraints)) {
+				$constraints[] = $query->logicalOr($searchConstraints);
+			}
+
+			if(count($locationConstraints)) {
+				$constraints[] = $query->logicalAnd($locationConstraints);
+			}
+		}
+
 		return $constraints;
 	}
 

@@ -8,8 +8,10 @@ namespace Webfox\T3events\Domain\Repository;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-
-use TYPO3\CMS\Core\Cache\Backend\NullBackend;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Persistence\QueryInterface;
+use TYPO3\CMS\Extbase\Persistence\Repository;
+use Webfox\T3events\Domain\Model\Dto\DemandInterface;
 
 /***************************************************************
  *  Copyright notice
@@ -35,15 +37,22 @@ use TYPO3\CMS\Core\Cache\Backend\NullBackend;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-abstract class AbstractDemandedRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
+abstract class AbstractDemandedRepository extends Repository {
+
 	/**
-	 * @var \string $recordList A comma separated string containing uids
-	 * @var \string $sortField Sort by field
-	 * @var \TYPO3\CMS\Extbase\Persistence\QueryInterface $sortOrder 
-	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResult Matching Records
+	 * @var \Webfox\T3events\Utility\GeoCoder
+	 * @inject
 	 */
-	public function findMultipleByUid($recordList, $sortField='uid', $sortOrder=\TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING) {
-		$uids = \TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $recordList, TRUE);
+	protected $geoCoder;
+
+	/**
+	 * @var string $recordList A comma separated string containing uids
+	 * @var string $sortField Sort by field
+	 * @var string $sortOrder
+	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface Matching Records
+	 */
+	public function findMultipleByUid($recordList, $sortField='uid', $sortOrder=QueryInterface::ORDER_ASCENDING) {
+		$uids = GeneralUtility::intExplode(',', $recordList, TRUE);
 		$query = $this->createQuery();		
 		$query->matching($query->in('uid' , $uids));
 		$query->setOrderings(array($sortField => $sortOrder));
@@ -58,31 +67,31 @@ abstract class AbstractDemandedRepository extends \TYPO3\CMS\Extbase\Persistence
 	 * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint>
 	 * @abstract
 	 */
-	abstract protected function createConstraintsFromDemand(\TYPO3\CMS\Extbase\Persistence\QueryInterface $query, \Webfox\T3events\Domain\Model\Dto\DemandInterface $demand);
+	abstract protected function createConstraintsFromDemand(QueryInterface $query, DemandInterface $demand);
 
 	/**
 	 * Returns an array of orderings created from a given demand object.
 	 *
-	 * @param \Webfox\Placements\Domain\Model\Dto\DemandInterface $demand
+	 * @param \Webfox\T3events\Domain\Model\Dto\DemandInterface $demand
 	 * @return \array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint>
 	 */
-	protected function createOrderingsFromDemand(\Webfox\T3events\Domain\Model\Dto\DemandInterface $demand) {
+	protected function createOrderingsFromDemand(DemandInterface $demand) {
 		$orderings = array();
 
 		if ($demand->getOrder()) {
-			$orderList = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $demand->getOrder(), TRUE);
+			$orderList = GeneralUtility::trimExplode(',', $demand->getOrder(), TRUE);
 
 			if (!empty($orderList)) {
 				// go through every order statement
 				foreach ($orderList as $orderItem) {
-					list($orderField, $ascDesc) = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode('|', $orderItem, TRUE);
+					list($orderField, $ascDesc) = GeneralUtility::trimExplode('|', $orderItem, TRUE);
 					// count == 1 means that no direction is given
 					if ($ascDesc) {
 						$orderings[$orderField] = ((strtolower($ascDesc) == 'desc') ?
-							\TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING :
-							\TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING);
+							QueryInterface::ORDER_DESCENDING :
+							QueryInterface::ORDER_ASCENDING);
 					} else {
-						$orderings[$orderField] = \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING;
+						$orderings[$orderField] = QueryInterface::ORDER_ASCENDING;
 					}
 				}
 			}
@@ -94,17 +103,17 @@ abstract class AbstractDemandedRepository extends \TYPO3\CMS\Extbase\Persistence
 	/**
 	 * Returns the objects of this repository matching the demand.
 	 *
-	 * @param \Webfox\Placements\Domain\Model\Dto\DemandInterface $demand
+	 * @param \Webfox\T3events\Domain\Model\Dto\DemandInterface $demand
 	 * @param boolean $respectEnableFields
 	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 	 */
-	public function findDemanded(\Webfox\T3events\Domain\Model\Dto\DemandInterface $demand, $respectEnableFields = TRUE) {
+	public function findDemanded(DemandInterface $demand, $respectEnableFields = TRUE) {
 		$query = $this->generateQuery($demand, $respectEnableFields);
 		$objects = $query->execute();
 		return $objects;
 	}
 
-	protected function generateQuery(\Webfox\T3events\Domain\Model\Dto\DemandInterface $demand, $respectEnableFields = TRUE) {
+	protected function generateQuery(DemandInterface $demand, $respectEnableFields = TRUE) {
 		$query = $this->createQuery();
 		$constraints = $this->createConstraintsFromDemand($query, $demand);
 
@@ -142,7 +151,7 @@ abstract class AbstractDemandedRepository extends \TYPO3\CMS\Extbase\Persistence
 	 */
 	public function __call($methodName, $arguments) {
 		$substring = substr($methodName, 0, 15);
-		if(substr($methodName, 0, 15) === 'countContaining' && strlen($methodName) > 16) {
+		if($substring === 'countContaining' && strlen($methodName) > 16) {
 			$propertyName = lcfirst(substr($methodName, 15));
 			$query = $this->createQuery();
 			$result = $query->matching($query->contains($propertyName, $arguments[0]))->execute()->count();

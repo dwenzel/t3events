@@ -134,57 +134,6 @@ namespace Webfox\T3events\Tests\Unit\Domain\Model;
 
 	/**
 	* @test
-	* @covers ::getSearchWord
-	*/
-	public function getSearchWordReturnsInitialNull(){
-		$this->assertNull($this->fixture->getSearchWord());
-	}
-
-	/**
-	* @test
-	* @covers ::setSearchWord
-	*/
-	public function setSearchWordForStringSetsSearchWord(){
-		$this->fixture->setSearchWord('search word');
-		$this->assertSame(
-				'search word',
-				$this->fixture->getSearchWord());
-	}
-
-	/**
-	* @test
-	* @covers ::getSearchFields
-	*/
-	public function getSearchFieldsReturnsInitialNull(){
-		$this->assertNull($this->fixture->getSearchFields());
-	}
-
-	/**
-	* @test
-	* @covers ::setSearchFields
-	*/
-	public function setSearchFieldsForStringSetsDefaultEmptyString(){
-		$this->fixture->setSearchFields();
-		$this->assertSame(
-				'',
-				$this->fixture->getSearchFields()
-		);
-	}
-
-	/**
-	* @test
-	* @covers ::setSearchFields
-	*/
-	public function setSearchFieldsForStringSetsSearchFields(){
-		$this->fixture->setSearchFields('bar');
-		$this->assertSame(
-				'bar',
-				$this->fixture->getSearchFields()
-		);
-	}
-
-	/**
-	* @test
 	* @covers ::getSortDirection
 	*/
 	public function getSortDirectionReturnsInitialNull(){

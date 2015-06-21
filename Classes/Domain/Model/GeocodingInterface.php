@@ -14,15 +14,15 @@ namespace Webfox\T3events\Domain\Model;
 	 */
 
 /**
- * Geocoding interface
+ * GeoCoding interface
  *
- * To be used with Geocoder class
+ * To be used with GeoCoder class
  *
  * @package TYPO3
  * @subpackage t3events
  * @author Dirk Wenzel <wenzel@cps-it.de>
  */
-interface GeocodingInterface {
+interface GeoCodingInterface {
 	public function getPlace();
 	public function getZip();
 	public function getLatitude();

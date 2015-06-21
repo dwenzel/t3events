@@ -7,6 +7,7 @@
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
+			<label index="placeholder.location">Location</label>
 			<label index="tx_t3events.allEventTypes">All Event Types</label>
 			<label index="tx_t3events.allGenres">All Genres</label>
 			<label index="tx_t3events.allVenues">All Venues</label>
@@ -37,6 +38,7 @@
 			<label index="tx_t3events.externalLinkLabel">external Link</label>
 			<label index="tx_t3events.hint.AdvanceBookingFee">*Prices including advance booking fee.</label>
 			<label index="tx_t3events.hint.noAdvanceBookingFee">*Prices without advance booking fee.</label>
+			<label index="tx_t3events.hint.searchAllEventsByGenre">Search all events by genre:</label>
 			<label index="tx_t3events.hint.sortBy">Sort by: </label>
 			<label index="tx_t3events.label.calendarEntry">Calendar Entry</label>
 			<label index="tx_t3events.label.differentLocations">different locations</label>
@@ -49,7 +51,6 @@
 			<label index="tx_t3events.previous">previous</label>
 			<label index="tx_t3events.price">Price</label>
 			<label index="tx_t3events.quickSearch">Quick Search</label>
-			<label index="tx_t3events.searchAllEventsByGenre.hint">Search all events by genre:</label>
 			<label index="tx_t3events.sortDirection">Direction</label>
 			<label index="tx_t3events.sortDirection.asc">ascending</label>
 			<label index="tx_t3events.sortDirection.desc">descending</label>
@@ -138,6 +139,7 @@
 		<languageKey index="cs"></languageKey>
 		<languageKey index="da"></languageKey>
 		<languageKey index="de" type="array">
+			<label index="placeholder.location">Ort</label>
 			<label index="tx_t3events.allEventTypes">Alle Veranstaltungsarten</label>
 			<label index="tx_t3events.allGenres">Alle Genre</label>
 			<label index="tx_t3events.allVenues">Alle Einrichtungen</label>
@@ -168,6 +170,7 @@
 			<label index="tx_t3events.externalLinkLabel">externer Link</label>
 			<label index="tx_t3events.hint.advanceBookingFee">*Die Preise verstehen sich inklusive Vorverkaufsgebühr.</label>
 			<label index="tx_t3events.hint.noAdvanceBookingFee">*Die Preise enthalten keine Vorverkaufsgebühr.</label>
+			<label index="tx_t3events.hint.searchAllEventsByGenre">Suchen Sie alle Veranstaltungen aus einem Genre:</label>
 			<label index="tx_t3events.hint.sortBy">Sortiere nach: </label>
 			<label index="tx_t3events.label.calendarEntry">Kalendereintrag</label>
 			<label index="tx_t3events.label.differentLocations">verschiedene Spielstätten</label>
@@ -180,7 +183,6 @@
 			<label index="tx_t3events.previous">zurück</label>
 			<label index="tx_t3events.price">Preis</label>
 			<label index="tx_t3events.quickSearch.title">Schnellsuche</label>
-			<label index="tx_t3events.searchAllEventsByGenre.hint">Suchen Sie alle Veranstaltungen aus einem Genre:</label>
 			<label index="tx_t3events.sortDirection">Reihenfolge</label>
 			<label index="tx_t3events.sortDirection.asc">aufsteigend</label>
 			<label index="tx_t3events.sortDirection.desc">absteigend</label>
@@ -289,6 +291,7 @@
 			<label index="tx_t3events.externalLinkLabel">Lien externe</label>
 			<label index="tx_t3events.hint.AdvanceBookingFee">*Prix incluant les frais de réservations.</label>
 			<label index="tx_t3events.hint.noAdvanceBookingFee">*Prix sans les frais de réservations.</label>
+			<label index="tx_t3events.hint.searchAllEventsByGenre">Rechercher tous les événements par genre:</label>
 			<label index="tx_t3events.hint.sortBy">Ordonner par: </label>
 			<label index="tx_t3events.label.print">Imprimer</label>
 			<label index="tx_t3events.label.ticketsFrom">Billets de:</label>
@@ -299,7 +302,6 @@
 			<label index="tx_t3events.previous">précédent</label>
 			<label index="tx_t3events.price">Prix</label>
 			<label index="tx_t3events.quickSearch">Recherche rapide</label>
-			<label index="tx_t3events.searchAllEventsByGenre.hint">Rechercher tous les événements par genre:</label>
 			<label index="tx_t3events.sortDirection">Direction</label>
 			<label index="tx_t3events.sortDirection.asc">ascendant</label>
 			<label index="tx_t3events.sortDirection.desc">descendant</label>

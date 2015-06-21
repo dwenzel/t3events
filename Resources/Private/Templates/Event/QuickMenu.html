@@ -16,91 +16,84 @@ This Template is responsible for creating a quick menu (selectbox).
 		<f:debug title="overwriteDemand">{overwriteDemand}</f:debug>
 	</f:if>
 	<f:flashMessages />
-	
+
 	<div class="quickMenu">
-		<div class="text">
-			<f:translate key="tx_t3events.searchAllEventsByGenre.hint" />
-		</div>
 		<div class="selectbox">
 			<f:form name="overwriteDemand" action="list"
 				pageUid="{settings.event.list.pid}">
-				
-				<f:comment>show genres only</f:comment>
-				<f:if condition="{0: settings.quickMenuType}=={0: 'genres'}">
-					<f:form.select 
-						id="tx_t3eventsQuickMenue"
-						name="overwriteDemand[genre]" 
-						options="{genres}"
-						optionValueField="uid" 
-						optionLabelField="title"
-						prependOptionLabel="{f:translate(key: 'tx_t3events.allGenres')}"
-						value="{overwriteDemand.genre}"
-					/>
+				<f:if condition="{settings.showRadiusSearch}">
+					<label for="tx-t3events-search-location">{f:translate(key:'tx_t3events.proximity-search')}</label>
+					<f:form.textfield
+						id="tx-t3events-search-location"
+						name="overwriteDemand[search][location]"
+						value="{overwriteDemand.search.location}"
+						class="search"
+						placeholder="{f:translate(key: 'placeholder.location')}"
+						/>
+					<f:form.select
+						id="tx-t3events-search-radius"
+						name="overwriteDemand[search][radius]"
+						value="{overwriteDemand.search.radius}"
+						options="{settings.event.search.radius.options}"
+						/>
 				</f:if>
-				
-				<f:comment>show venues only</f:comment>
-				<f:if condition="{0:settings.quickMenuType}=={0: 'venues'}"> 
-					<f:form.select 
-					  id="tx_t3eventsQuickMenue"
-						name="overwriteDemand[venue]" 
-						options="{venues}"
-						optionValueField="uid" 
-						optionLabelField="title"
-						prependOptionLabel="{f:translate(key: 'tx_t3events.allVenues')}"
-						value="{overwriteDemand.venue}"
-					/>
+				<f:comment>show search field</f:comment>
+				<f:if condition="{settings.showSearchField}">
+					<label for="tx-t3events-search-input">{f:translate(key: 'tx_t3events.extendedSearchForm.searchTerm')}</label>
+					<f:form.textfield
+						id="tx-t3events-search-input"
+						name="overwriteDemand[search][subject]"
+						value="{overwriteDemand.search.subject}"
+						class="search"
+						placeholder="{f:translate(key: 'tx_t3events.extendedSearchForm.placeholder.searchTerm')}"
+						/>
 				</f:if>
-				
-				<f:comment>show event types only</f:comment>
-				<f:if condition="{0:settings.quickMenuType}=={0: 'eventTypes'}"> 
-					<f:form.select 
-					  id="tx_t3eventsQuickMenue"
-						name="overwriteDemand[eventType]" 
-						options="{eventTypes}"
-						optionValueField="uid" 
-						optionLabelField="title"
-						prependOptionLabel="{f:translate(key: 'tx_t3events.allEventTypes')}"
-						value="{overwriteDemand.eventType}"
-					/>
-				</f:if>
-				
-				<f:comment>show genres, venues and event types</f:comment>
-				<f:if condition="{0:settings.quickMenuType}=={0: ''}">
-					<f:form.select 
-						id="tx_t3eventsQuickMenue"
-						name="overwriteDemand[genre]" 
-						options="{genres}"
-						optionValueField="uid" 
-						optionLabelField="title"
-						prependOptionLabel="{f:translate(key: 'tx_t3events.allGenres')}"
-						value="{overwriteDemand.genre}"
-					/>
-					<f:form.select 
-					  id="tx_t3eventsQuickMenue"
-						name="overwriteDemand[venue]" 
-						options="{venues}"
-						optionValueField="uid" 
-						optionLabelField="title"
-						prependOptionLabel="{f:translate(key: 'tx_t3events.allVenues')}"
-						value="{overwriteDemand.venue}"
-					/>
-					<f:form.select 
-					  id="tx_t3eventsQuickMenue"
-						name="overwriteDemand[eventType]" 
-						options="{eventTypes}"
-						optionValueField="uid" 
-						optionLabelField="title"
-						prependOptionLabel="{f:translate(key: 'tx_t3events.allEventTypes')}"
-						value="{overwriteDemand.eventType}"
-					/>
-					<f:form.hidden 
-					  id="tx_t3eventsQuickMenue"
-					  	name="overwriteDemand[categoryConjunction]"
-					  	value="{settings.categoryConjunction}"
-					/>
 
-					
+				<f:comment>genres</f:comment>
+				<f:if condition="{genres}">
+					<f:form.select 
+						id="tx_t3eventsQuickMenue"
+						name="overwriteDemand[genre]" 
+						options="{genres}"
+						optionValueField="uid" 
+						optionLabelField="title"
+						prependOptionLabel="{f:translate(key: 'tx_t3events.allGenres')}"
+						value="{overwriteDemand.genre}"
+					/>
 				</f:if>
+				
+				<f:comment>venues</f:comment>
+				<f:if condition="{venues}">
+					<f:form.select 
+					  id="tx_t3eventsQuickMenue"
+						name="overwriteDemand[venue]" 
+						options="{venues}"
+						optionValueField="uid" 
+						optionLabelField="title"
+						prependOptionLabel="{f:translate(key: 'tx_t3events.allVenues')}"
+						value="{overwriteDemand.venue}"
+					/>
+				</f:if>
+				
+				<f:comment>event types</f:comment>
+				<f:if condition="{eventTypes}">
+					<f:form.select 
+					  id="tx_t3eventsQuickMenue"
+						name="overwriteDemand[eventType]" 
+						options="{eventTypes}"
+						optionValueField="uid" 
+						optionLabelField="title"
+						prependOptionLabel="{f:translate(key: 'tx_t3events.allEventTypes')}"
+						value="{overwriteDemand.eventType}"
+					/>
+				</f:if>
+
+				<f:form.hidden
+				  id="tx_t3eventsQuickMenue"
+					name="overwriteDemand[categoryConjunction]"
+					value="{settings.categoryConjunction}"
+				/>
+
 				<f:form.submit 
 				  id="tx_t3eventsQuickMenueSubmit"
 					name="submit" 
