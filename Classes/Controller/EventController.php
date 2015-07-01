@@ -28,6 +28,7 @@ use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
+use Webfox\T3events\Domain\Model\Dto\CalendarConfiguration;
 use Webfox\T3events\Domain\Model\Event;
 
 /**
@@ -361,5 +362,19 @@ class EventController extends AbstractController {
 		$GLOBALS['TSFE']->fe_user->storeSessionData();
 
 		return $demand;
+	}
+
+	/**
+	 * Creates a calendar configuration from settings
+	 *
+	 * @param array $settings
+	 * @return CalendarConfiguration
+	 */
+	protected function createCalendarConfigurationFromSettings($settings) {
+		/** @var CalendarConfiguration $calendarConfiguration */
+		$calendarConfiguration = $this->objectManager->get(
+			'Webfox\\T3events\\Domain\\Model\\Dto\\CalendarConfiguration'
+		);
+		return $calendarConfiguration;
 	}
 }

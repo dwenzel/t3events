@@ -24,6 +24,8 @@ namespace Webfox\T3events\Tests\Controller;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+use Webfox\T3events\Domain\Model\Dto\CalendarConfiguration;
+use Webfox\T3events\Controller\EventController;
 
 /**
  * Test case for class \Webfox\T3events\Controller\EventController.
@@ -911,6 +913,33 @@ class EventControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$mockFEAuthentication->expects($this->once())->method('storeSessionData');
 
 		$this->fixture->overwriteDemandObject($demand, $overwriteDemand);
+	}
+
+	/**
+	 * @test
+	 * @covers ::createCalendarConfigurationFromSettings
+	 */
+	public function createCalendarConfigurationFromSettingsReturnsCalendarConfiguration() {
+		/** @var EventController $fixture */
+		$fixture = $this->getAccessibleMock('Webfox\\T3events\\Controller\\EventController',
+			array('dummy'), array(),'', FALSE);
+		$settings = array('foo' => 'bar');
+		$mockCalendarConfiguration = $this->getMock('Webfox\\T3events\\Domain\\Model\\Dto\\CalendarConfiguration',
+			array(), array(), '', FALSE);
+		$mockObjectManager = $this->getMock('TYPO3\\CMS\\Extbase\\Object\\ObjectManager',
+			array('get'), array(), '', FALSE);
+
+		$fixture->_set('objectManager', $mockObjectManager);
+
+		$mockObjectManager->expects($this->once())->method('get')
+			->with('Webfox\\T3events\\Domain\\Model\\Dto\\CalendarConfiguration')
+			->will($this->returnValue($mockCalendarConfiguration));
+
+		$this->assertSame(
+			$mockCalendarConfiguration,
+			$fixture->_call('createCalendarConfigurationFromSettings', $settings)
+		);
+
 	}
 }
 
