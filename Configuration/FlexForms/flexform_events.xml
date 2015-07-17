@@ -22,18 +22,26 @@
 										<numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.mode.teaser</numIndex>
 										<numIndex index="1">Teaser->list;Teaser->showEvent;Event->show</numIndex>
 									</numIndex>
-									
 									<numIndex index="1">
+										<numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.label.events</numIndex>
+										<numIndex index="1">--div--</numIndex>
+									</numIndex>
+									<numIndex index="2">
 										<numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.mode.event_list</numIndex>
 										<numIndex index="1">Event->list;Event->show</numIndex>
 									</numIndex>
 
-									<numIndex index="2">
+									<numIndex index="3">
+										<numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.mode.event_show</numIndex>
+										<numIndex index="1">Event->show</numIndex>
+									</numIndex>
+
+									<numIndex index="4">
 										<numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.mode.quick_menu</numIndex>
 										<numIndex index="1">Event->quickMenu</numIndex>
 									</numIndex>
 
-									<numIndex index="3">
+									<numIndex index="5">
 										<numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.mode.event_calendar</numIndex>
 										<numIndex index="1">Event->calendar</numIndex>
 									</numIndex>
