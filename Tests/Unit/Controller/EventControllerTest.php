@@ -133,7 +133,7 @@ class EventControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$mockObjectManager->expects($this->once())->method('get')
 			->will($this->returnValue($mockDemand));
 		$mockDemand->expects($this->once())->method('setSortBy')
-			->with('performances.date');
+			->with('bar');
 
 		$fixture->createDemandFromSettings($settings);
 	}
@@ -156,7 +156,7 @@ class EventControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$mockObjectManager->expects($this->once())->method('get')
 			->will($this->returnValue($mockDemand));
 		$mockDemand->expects($this->once())->method('setSortBy')
-			->with('headline');
+			->with('title');
 
 		$fixture->createDemandFromSettings($settings);
 	}
@@ -179,7 +179,7 @@ class EventControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$mockObjectManager->expects($this->once())->method('get')
 			->will($this->returnValue($mockDemand));
 		$mockDemand->expects($this->once())->method('setSortBy')
-			->with('performances.date');
+			->with('date');
 
 		$fixture->createDemandFromSettings($settings);
 	}
@@ -835,7 +835,7 @@ class EventControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		);
 		
 		$demand->expects($this->once())->method('setSortBy')
-			->with('performances.date');
+			->with('foo');
 
 		$this->fixture->overwriteDemandObject($demand, $overwriteDemand);
 	}
