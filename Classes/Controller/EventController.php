@@ -178,6 +178,7 @@ class EventController extends AbstractController {
 		$demand = $this->createDemandFromSettings($this->settings);
 		$demand = $this->overwriteDemandObject($demand, $overwriteDemand);
 		$events = $this->eventRepository->findDemanded($demand);
+		$calendarConfiguration = $this->createCalendarConfigurationFromSettings($this->settings);
 
 		if (($events instanceof QueryResultInterface AND !$events->count())
 			OR !count($events) ) {
@@ -269,6 +270,7 @@ class EventController extends AbstractController {
 			array(
 				'events' => $events,
 				'demand' => $demand,
+				'calendarConfiguration' => $calendarConfiguration,
 				'weekDays' => $weekDays,
 				'calendarDays' => $calendarDays,
 				'prevMonth' => $prevMonth,
@@ -370,11 +372,38 @@ class EventController extends AbstractController {
 	 * @param array $settings
 	 * @return CalendarConfiguration
 	 */
-	protected function createCalendarConfigurationFromSettings($settings) {
+	public function createCalendarConfigurationFromSettings($settings) {
 		/** @var CalendarConfiguration $calendarConfiguration */
 		$calendarConfiguration = $this->objectManager->get(
 			'Webfox\\T3events\\Domain\\Model\\Dto\\CalendarConfiguration'
 		);
+
+		$dateString = 'first day of this month';
+		if (isset($settings['startDate']) AND !empty($settings['startDate'])){
+			$dateString = $settings['startDate'];
+		}
+
+		/** @var \DateTimeZone $timeZone */
+		$timeZone = new \DateTimeZone(date_default_timezone_get());
+		/** @var \DateTime $startDate */
+		$startDate = new \DateTime($dateString , $timeZone);
+		$calendarConfiguration->setStartDate($startDate);
+
+		$currentDate = new \DateTime('today', $timeZone);
+		$calendarConfiguration->setCurrentDate($currentDate);
+
+		if (isset($settings['viewMode']) AND !empty($settings['viewMode'])) {
+			$calendarConfiguration->setViewMode((int)$settings['viewMode']);
+		} else {
+			$calendarConfiguration->setViewMode(CalendarConfiguration::VIEW_MODE_COMBO_PANE);
+		}
+
+		if (isset($settings['displayPeriod']) AND !empty($settings['displayPeriod'])) {
+			$calendarConfiguration->setDisplayPeriod((int)$settings['displayPeriod']);
+		} else {
+			$calendarConfiguration->setDisplayPeriod(CalendarConfiguration::PERIOD_MONTH);
+		}
+
 		return $calendarConfiguration;
 	}
 }
