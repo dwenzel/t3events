@@ -3,8 +3,7 @@ namespace Webfox\T3events\Tests\Unit\Domain\Model;
 
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
-use Webfox\T3events\Domain\Model\CalendarMonth;
-use Webfox\T3events\Domain\Model\CalendarWeek;
+use Webfox\T3events\Domain\Model\CalendarDay;
 use Webfox\T3events\Domain\Model\Event;
 
 /***************************************************************
@@ -33,77 +32,172 @@ use Webfox\T3events\Domain\Model\Event;
  ***************************************************************/
 
 /**
- * Class CalendarMonthTest
+ * Class CalendarDayTest
  *
  * @package Webfox\T3events\Tests\Unit\Domain\Model
- * @coversDefaultClass \Webfox\Domain\Model\CalendarMonth
+ * @coversDefaultClass \Webfox\Domain\Model\CalendarDay
  */
-class CalendarMonthTest extends UnitTestCase {
+class CalendarDayTest extends UnitTestCase {
 
 	/**
-	 * @var CalendarMonth
+	 * @var CalendarDay
 	 */
 	protected $fixture;
 
 	public function setUp() {
 		$this->fixture = $this->getAccessibleMock(
-			'Webfox\\T3events\\Domain\\Model\\CalendarMonth',
+			'Webfox\\T3events\\Domain\\Model\\CalendarDay',
 			array('dummy'), array(), '', TRUE
 		);
 	}
 
 	/**
 	 * @test
-	 * @covers ::getWeeks
+	 * @covers ::getDate
 	 */
-	public function getWeeksReturnsInitiallyEmptyObjectStorage() {
+	public function getDateReturnsInitiallyNull() {
+		$this->assertNull(
+			$this->fixture->getDate()
+		);
+	}
+
+	/**
+	 * @test
+	 * @covers ::setDate
+	 */
+	public function setDateForDateTimeSetsDate() {
+		$dateTime = new \DateTime();
+		$this->fixture->setDate($dateTime);
+
+		$this->assertSame(
+			$dateTime,
+			$this->fixture->getDate()
+		);
+	}
+
+	/**
+	 * @test
+	 * @covers ::getDayOfMonth
+	 */
+	public function getDayReturnsInitiallyNull() {
+		$this->assertNull(
+			$this->fixture->getDay()
+		);
+	}
+
+	/**
+	 * @test
+	 * @covers ::getDayOfMonth
+	 */
+	public function getDayForStringReturnsDayOfMonth() {
+		$timeStamp = 1441065600;
+		$dateTime = new \DateTime('@' . $timeStamp);
+		$expectedDay = date('d', $timeStamp);
+		$this->fixture->setDate($dateTime);
+		$this->assertSame(
+			$expectedDay,
+			$this->fixture->getDay()
+		);
+	}
+
+	/**
+	 * @test
+	 * @covers ::getDayOfMonth
+	 */
+	public function getDayOfWeekForIntegerReturnsInitiallyNull() {
+		$this->assertNull(
+			$this->fixture->getDayOfWeek()
+		);
+	}
+
+	/**
+	 * @test
+	 * @covers ::getDayOfMonth
+	 */
+	public function getDayOfWeekForIntegerReturnsDayOfWeek() {
+		$timeStamp = 1441065600;
+		$dateTime = new \DateTime('@' . $timeStamp);
+		$dayOfWeek = (int)date('w', $timeStamp);
+		$this->fixture->setDate($dateTime);
+		$this->assertSame(
+			$dayOfWeek,
+			$this->fixture->getDayOfWeek()
+		);
+	}
+
+	/**
+	 * @test
+	 * @covers ::getIsCurrent
+	 */
+	public function getIsCurrentForBooleanReturnsInitiallyFalse() {
+		$this->assertFalse(
+			$this->fixture->getIsCurrent()
+		);
+	}
+
+	/**
+	 * @test
+	 * @covers ::setIsCurrent
+	 */
+	public function setIsCurrentForBooleanSetsIsCurrent() {
+		$this->fixture->setIsCurrent(TRUE);
+		$this->assertTrue(
+			$this->fixture->getIsCurrent()
+		);
+	}
+
+	/**
+	 * @test
+	 * @covers ::getEvents
+	 */
+	public function getEventsForReturnsInitiallyEmptyObjectStorage() {
 		$emptyObjectStorage = new ObjectStorage();
 
 		$this->assertEquals(
 			$emptyObjectStorage,
-			$this->fixture->getWeeks()
+			$this->fixture->getEvents()
 		);
 	}
 
 	/**
 	 * @test
-	 * @covers ::setWeeks
+	 * @covers ::setEvents
 	 */
-	public function setWeeksForObjectStorageSetsWeeks() {
+	public function setEventsForObjectStorageSetsEvents() {
 		$emptyObjectStorage = new ObjectStorage();
-		$this->fixture->setWeeks($emptyObjectStorage);
+		$this->fixture->setEvents($emptyObjectStorage);
 
 		$this->assertSame(
 			$emptyObjectStorage,
-			$this->fixture->getWeeks()
+			$this->fixture->getEvents()
 		);
 	}
 
 	/**
 	 * @test
-	 * @covers ::addWeek
+	 * @covers ::addEvent
 	 */
-	public function addWeekForObjectAddsEvent() {
-		$week = new CalendarWeek();
-		$this->fixture->addWeek($week);
+	public function addEventForObjectAddsEvent() {
+		$event = new Event();
+		$this->fixture->addEvent($event);
 		$this->assertTrue(
-			$this->fixture->getWeeks()->contains($week)
+			$this->fixture->getEvents()->contains($event)
 		);
 	}
 
 	/**
 	 * @test
-	 * @covers ::removeWeek
+	 * @covers ::removeEvent
 	 */
-	public function removeWeekForObjectRemovesEvent() {
-		$week = new CalendarWeek();
-		$objectStorageContainingOneWeek = new ObjectStorage();
-		$objectStorageContainingOneWeek->attach($week);
+	public function removeEventForObjectRemovesEvent() {
+		$event = new Event();
+		$objectStorageContainingOneEvent = new ObjectStorage();
+		$objectStorageContainingOneEvent->attach($event);
 
-		$this->fixture->setWeeks($objectStorageContainingOneWeek);
-		$this->fixture->removeWeek($week);
+		$this->fixture->setEvents($objectStorageContainingOneEvent);
+		$this->fixture->removeEvent($event);
 		$this->assertFalse(
-			$this->fixture->getWeeks()->contains($week)
+			$this->fixture->getEvents()->contains($event)
 		);
 	}
 }
