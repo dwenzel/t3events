@@ -42,6 +42,13 @@ class Calendar {
 	protected $viewMode;
 
 	/**
+	 * Display Period
+	 *
+	 * @var int
+	 */
+	protected $displayPeriod;
+
+	/**
 	 * Gets the current month
 	 *
 	 * @return CalendarMonth
@@ -68,8 +75,31 @@ class Calendar {
 		return $this->viewMode;
 	}
 
+	/**
+	 * Sets the view mode
+	 *
+	 * @param int $viewMode
+	 */
 	public function setViewMode($viewMode) {
 		$this->viewMode = $viewMode;
+	}
+
+	/**
+	 * Gets the display period
+	 *
+	 * @return int
+	 */
+	public function getDisplayPeriod() {
+		return $this->displayPeriod;
+	}
+
+	/**
+	 * Sets the display period
+	 *
+	 * @param int $displayPeriod
+	 */
+	public function setDisplayPeriod($displayPeriod) {
+		$this->displayPeriod = $displayPeriod;
 	}
 
 	/**
