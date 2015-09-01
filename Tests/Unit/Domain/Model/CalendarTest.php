@@ -79,7 +79,7 @@ class CalendarTest extends UnitTestCase {
 
 	/**
 	 * @test
-	 * @covers ::getDayOfMonth
+	 * @covers ::getViewMode
 	 */
 	public function getViewModeReturnsInitiallyNull() {
 		$this->assertNull(
