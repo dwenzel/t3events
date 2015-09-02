@@ -24,6 +24,9 @@ namespace Webfox\T3events\Tests\Controller;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+use Webfox\T3events\Domain\Model\Dto\CalendarConfiguration;
+use Webfox\T3events\Controller\EventController;
+use Webfox\T3events\Domain\Model\Dto\EventDemand;
 
 /**
  * Test case for class \Webfox\T3events\Controller\EventController.
@@ -41,7 +44,7 @@ namespace Webfox\T3events\Tests\Controller;
  */
 class EventControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	/**
-	 * @var \Webfox\T3events\Domain\Model\Event
+	 * @var \Webfox\T3events\Controller\EventController
 	 */
 	protected $fixture;
 
@@ -53,22 +56,20 @@ class EventControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	public function setUp() {
 		$this->fixture = $this->getAccessibleMock('Webfox\\T3events\\Controller\\EventController',
 			array('dummy'), array(), '', FALSE);
-		$eventRepository = $this->getMock('\Webfox\T3events\Domain\Repository\EventRepository',
+		$eventRepository = $this->getMock('Webfox\\T3events\\Domain\\Repository\\EventRepository',
 				array(), array(), '', FALSE);
-		$genreRepository = $this->getMock('\Webfox\T3events\Domain\Repository\GenreRepository',
+		$genreRepository = $this->getMock('Webfox\\T3events\\Domain\\Repository\\GenreRepository',
 				array(), array(), '', FALSE);
-		$venueRepository = $this->getMock('\Webfox\T3events\Domain\Repository\VenueRepository',
+		$venueRepository = $this->getMock('Webfox\\T3events\\Domain\\Repository\\VenueRepository',
 				array(), array(), '', FALSE);
-		$eventTypeRepository = $this->getMock('\Webfox\T3events\Domain\Repository\EventTypeRepository',
+		$eventTypeRepository = $this->getMock('Webfox\\T3events\\Domain\\Repository\\EventTypeRepository',
 				array(), array(), '', FALSE);
-		$this->tsfe = $this->getAccessibleMock(
-			'\TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController',
+		$this->tsfe = $this->getAccessibleMock('TYPO3\\CMS\\Frontend\\Controller\\TypoScriptFrontendController',
 			array('dummy'), array(), '', FALSE);
-		$mockFEAuthentication = $this->getMock(
-			'TYPO3\\CMS\\Frontend\\Authentication\\FrontendUserAuthentication',
+		$mockFEAuthentication = $this->getMock('TYPO3\\CMS\\Frontend\\Authentication\\FrontendUserAuthentication',
 			array('setKey', 'storeSessionData'), array(), '', FALSE);
 		$this->tsfe->_set('fe_user', $mockFEAuthentication);
-    $GLOBALS['TSFE'] = $this->tsfe;
+		$GLOBALS['TSFE'] = $this->tsfe;
 		$view = $this->getMock('TYPO3\\CMS\\Fluid\\View\\TemplateView', array(), array(), '', FALSE);
 		$this->fixture->_set('eventRepository', $eventRepository);
 		$this->fixture->_set('genreRepository', $genreRepository);
@@ -131,7 +132,7 @@ class EventControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$mockObjectManager->expects($this->once())->method('get')
 			->will($this->returnValue($mockDemand));
 		$mockDemand->expects($this->once())->method('setSortBy')
-			->with('performances.date');
+			->with('bar');
 
 		$fixture->createDemandFromSettings($settings);
 	}
@@ -154,7 +155,7 @@ class EventControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$mockObjectManager->expects($this->once())->method('get')
 			->will($this->returnValue($mockDemand));
 		$mockDemand->expects($this->once())->method('setSortBy')
-			->with('headline');
+			->with('title');
 
 		$fixture->createDemandFromSettings($settings);
 	}
@@ -177,7 +178,7 @@ class EventControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$mockObjectManager->expects($this->once())->method('get')
 			->will($this->returnValue($mockDemand));
 		$mockDemand->expects($this->once())->method('setSortBy')
-			->with('performances.date');
+			->with('date');
 
 		$fixture->createDemandFromSettings($settings);
 	}
@@ -833,7 +834,7 @@ class EventControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		);
 		
 		$demand->expects($this->once())->method('setSortBy')
-			->with('performances.date');
+			->with('foo');
 
 		$this->fixture->overwriteDemandObject($demand, $overwriteDemand);
 	}
@@ -911,6 +912,239 @@ class EventControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$mockFEAuthentication->expects($this->once())->method('storeSessionData');
 
 		$this->fixture->overwriteDemandObject($demand, $overwriteDemand);
+	}
+
+	/**
+	 * @test
+	 * @covers ::createCalendarConfigurationFromSettings
+	 */
+	public function createCalendarConfigurationFromSettingsReturnsCalendarConfiguration() {
+		$settings = array('foo' => 'bar');
+		$mockCalendarConfiguration = $this->getMock('Webfox\\T3events\\Domain\\Model\\Dto\\CalendarConfiguration',
+			array(), array(), '', FALSE);
+		$mockObjectManager = $this->getMock('TYPO3\\CMS\\Extbase\\Object\\ObjectManager',
+			array('get'), array(), '', FALSE);
+
+		$this->fixture->_set('objectManager', $mockObjectManager);
+
+		$mockObjectManager->expects($this->once())->method('get')
+			->with('Webfox\\T3events\\Domain\\Model\\Dto\\CalendarConfiguration')
+			->will($this->returnValue($mockCalendarConfiguration));
+
+		$this->assertSame(
+			$mockCalendarConfiguration,
+			$this->fixture->_call('createCalendarConfigurationFromSettings', $settings)
+		);
+
+	}
+
+	/**
+	 * @test
+	 * @covers ::createCalendarConfigurationFromSettings
+	 */
+	public function createCalendarConfigurationFromSettingsSetsStartDateInitiallyToFirstDayOfThisMonth() {
+		$mockCalendarConfiguration = $this->getMock('Webfox\\T3events\\Domain\\Model\\Dto\\CalendarConfiguration',
+			array(), array(), '', FALSE);
+		$mockObjectManager = $this->getMock('TYPO3\\CMS\\Extbase\\Object\\ObjectManager',
+			array('get'), array(), '', FALSE);
+		$this->fixture->_set('objectManager', $mockObjectManager);
+
+		$timeZone = new \DateTimeZone(date_default_timezone_get());
+		$startDate = new \DateTime('first day of this month', $timeZone);
+
+		$mockObjectManager->expects($this->once())->method('get')
+			->will($this->returnValue($mockCalendarConfiguration));
+
+		$mockCalendarConfiguration->expects($this->once())->method('setStartDate')
+			->with($startDate);
+
+		$this->fixture->_call('createCalendarConfigurationFromSettings', array());
+	}
+
+	/**
+	 * @test
+	 * @covers ::createCalendarConfigurationFromSettings
+	 */
+	public function createCalendarConfigurationFromSettingsSetsStartDate() {
+		$dateString = 'first day of next month';
+		$settings = array(
+			'startDate' => $dateString
+		);
+
+		$mockCalendarConfiguration = $this->getMock('Webfox\\T3events\\Domain\\Model\\Dto\\CalendarConfiguration',
+			array(), array(), '', FALSE);
+
+		$mockObjectManager = $this->getMock('TYPO3\\CMS\\Extbase\\Object\\ObjectManager',
+			array('get'), array(), '', FALSE);
+		$this->fixture->_set('objectManager', $mockObjectManager);
+
+		$timeZone = new \DateTimeZone(date_default_timezone_get());
+		$startDate = new \DateTime($dateString, $timeZone);
+
+		$mockObjectManager->expects($this->once())->method('get')
+			->will($this->returnValue($mockCalendarConfiguration));
+
+		$mockCalendarConfiguration->expects($this->once())->method('setStartDate')
+			->with($startDate);
+
+		$this->fixture->_call('createCalendarConfigurationFromSettings', $settings);
+	}
+
+	/**
+	 * @test
+	 * @covers ::createCalendarConfigurationFromSettings
+	 */
+	public function createCalendarConfigurationFromSettingsSetsCurrentDateToToday() {
+		$mockCalendarConfiguration = $this->getMock('Webfox\\T3events\\Domain\\Model\\Dto\\CalendarConfiguration',
+			array(), array(), '', FALSE);
+		$mockObjectManager = $this->getMock('TYPO3\\CMS\\Extbase\\Object\\ObjectManager',
+			array('get'), array(), '', FALSE);
+		$this->fixture->_set('objectManager', $mockObjectManager);
+
+		$timeZone = new \DateTimeZone(date_default_timezone_get());
+		$currentDate = new \DateTime('today', $timeZone);
+
+		$mockObjectManager->expects($this->once())->method('get')
+			->will($this->returnValue($mockCalendarConfiguration));
+
+		$mockCalendarConfiguration->expects($this->once())->method('setCurrentDate')
+			->with($currentDate);
+
+		$this->fixture->_call('createCalendarConfigurationFromSettings', array());
+	}
+
+	/**
+	 * @test
+	 * @covers ::createCalendarConfigurationFromSettings
+	 */
+	public function createCalendarConfigurationFromSettingsSetsDefaultViewMode() {
+		$mockCalendarConfiguration = $this->getMock('Webfox\\T3events\\Domain\\Model\\Dto\\CalendarConfiguration',
+			array(), array(), '', FALSE);
+		$mockObjectManager = $this->getMock('TYPO3\\CMS\\Extbase\\Object\\ObjectManager',
+			array('get'), array(), '', FALSE);
+		$this->fixture->_set('objectManager', $mockObjectManager);
+
+		$defaultViewMode = CalendarConfiguration::VIEW_MODE_COMBO_PANE;
+
+		$mockObjectManager->expects($this->once())->method('get')
+			->will($this->returnValue($mockCalendarConfiguration));
+
+		$mockCalendarConfiguration->expects($this->once())->method('setViewMode')
+			->with($defaultViewMode);
+
+		$this->fixture->_call('createCalendarConfigurationFromSettings', array());
+	}
+
+	/**
+	 * @test
+	 * @covers ::createCalendarConfigurationFromSettings
+	 */
+	public function createCalendarConfigurationFromSettingsSetsViewMode() {
+		$mockCalendarConfiguration = $this->getMock('Webfox\\T3events\\Domain\\Model\\Dto\\CalendarConfiguration',
+			array(), array(), '', FALSE);
+		$mockObjectManager = $this->getMock('TYPO3\\CMS\\Extbase\\Object\\ObjectManager',
+			array('get'), array(), '', FALSE);
+		$this->fixture->_set('objectManager', $mockObjectManager);
+
+		$viewMode = CalendarConfiguration::VIEW_MODE_MINI_MONTH;
+		$settings = array(
+			'viewMode' => (string)$viewMode,
+		);
+
+		$mockObjectManager->expects($this->once())->method('get')
+			->will($this->returnValue($mockCalendarConfiguration));
+
+		$mockCalendarConfiguration->expects($this->once())->method('setViewMode')
+			->with($viewMode);
+
+		$this->fixture->_call('createCalendarConfigurationFromSettings', $settings);
+	}
+
+	/**
+	 * @test
+	 * @covers ::createCalendarConfigurationFromSettings
+	 */
+	public function createCalendarConfigurationFromSettingsSetsDefaultDisplayPeriod() {
+		$mockCalendarConfiguration = $this->getMock('Webfox\\T3events\\Domain\\Model\\Dto\\CalendarConfiguration',
+			array(), array(), '', FALSE);
+		$mockObjectManager = $this->getMock('TYPO3\\CMS\\Extbase\\Object\\ObjectManager',
+			array('get'), array(), '', FALSE);
+		$this->fixture->_set('objectManager', $mockObjectManager);
+
+		$displayPeriod = CalendarConfiguration::PERIOD_MONTH;
+		$settings = array(
+			'foo' => 'bar',
+		);
+
+		$mockObjectManager->expects($this->once())->method('get')
+			->will($this->returnValue($mockCalendarConfiguration));
+
+		$mockCalendarConfiguration->expects($this->once())->method('setDisplayPeriod')
+			->with($displayPeriod);
+
+		$this->fixture->_call('createCalendarConfigurationFromSettings', $settings);
+	}
+
+	/**
+	 * @test
+	 * @covers ::createCalendarConfigurationFromSettings
+	 */
+	public function createCalendarConfigurationFromSettingsSetsDisplayPeriod() {
+		$mockCalendarConfiguration = $this->getMock('Webfox\\T3events\\Domain\\Model\\Dto\\CalendarConfiguration',
+			array(), array(), '', FALSE);
+		$mockObjectManager = $this->getMock('TYPO3\\CMS\\Extbase\\Object\\ObjectManager',
+			array('get'), array(), '', FALSE);
+		$this->fixture->_set('objectManager', $mockObjectManager);
+
+		$displayPeriod = CalendarConfiguration::PERIOD_YEAR;
+		$settings = array(
+			'displayPeriod' => (string)$displayPeriod,
+		);
+
+		$mockObjectManager->expects($this->once())->method('get')
+			->will($this->returnValue($mockCalendarConfiguration));
+
+		$mockCalendarConfiguration->expects($this->once())->method('setDisplayPeriod')
+			->with($displayPeriod);
+
+		$this->fixture->createCalendarConfigurationFromSettings($settings);
+	}
+
+	/**
+	 * @test
+	 * @coverage ::calendarAction
+	 */
+	public function calendarActionCreatesConfigurationFromSettings() {
+		/** @var EventController $fixture */
+		$fixture = $this->getAccessibleMock('Webfox\\T3events\\Controller\\EventController',
+			array(
+				'createDemandFromSettings',
+				'overwriteDemandObject',
+				'createCalendarConfigurationFromSettings'
+			), array(),'', FALSE);
+
+		$settings = array('foo' => 'bar');
+		$mockDemand = new EventDemand();
+		$mockRepository = $this->getMock('Webfox\\T3events\\Domain\\Repository\\EventRepository',
+			array('findDemanded'), array(), '', FALSE);
+		$mockView = $this->getMock('TYPO3\\CMS\\Fluid\\View\\TemplateView',
+			array(), array(), '', FALSE);
+
+		$fixture->_set('eventRepository', $mockRepository);
+		$fixture->_set('view', $mockView);
+		$fixture->_set('settings', $settings);
+
+		$fixture->expects($this->once())->method('createDemandFromSettings')
+			->will($this->returnValue($mockDemand));
+		$fixture->expects($this->once())->method('overwriteDemandObject')
+			->will($this->returnValue($mockDemand));
+
+		$mockRepository->expects($this->once())->method('findDemanded');
+
+		$fixture->expects($this->once())->method('createCalendarConfigurationFromSettings')
+		->with($settings);
+
+		$fixture->calendarAction();
 	}
 }
 

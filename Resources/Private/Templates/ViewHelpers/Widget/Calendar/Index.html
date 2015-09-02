@@ -1,0 +1,74 @@
+<f:if condition="{configuration.viewMode}==2">
+	<f:render section="miniMonth"
+		arguments="{
+		calendar: calendar,
+		configuration: configuration,
+		settings: settings}"/>
+</f:if>
+
+<f:section name="miniMonth">
+	<div class="eventCalendar">
+			<table class="calendarMonth">
+			<thead>
+			<f:if condition="{settings.showCalendarNavigation}">
+				<f:then>
+					<tr class="navigation">
+						<td colspan="7">
+							<f:widget.link
+								arguments="{display: 'previousYear', date: '{configuration.startDate.timestamp}'}">
+								<i class="fa fa-2x fa-angle-double-left"></i>
+							</f:widget.link>
+							<f:widget.link arguments="{display: 'previousMonth', date: '{configuration.startDate.timestamp}'}">
+								<i class="fa fa-2x fa-angle-left"></i>
+							</f:widget.link>
+							<span class="legend">{f:format.date(date: '{calendar.currentMonth.startDate}', format: 'F Y')}</span>
+							<f:widget.link arguments="{display: 'nextMonth', date: '{configuration.startDate.timestamp}'}">
+								<i class="fa fa-2x fa-angle-right"></i>
+							</f:widget.link>
+							<f:widget.link arguments="{display: 'nextYear', date: '{configuration.startDate.timestamp}'}">
+								<i class="fa fa-2x fa-angle-double-right"></i>
+							</f:widget.link>
+						</td>
+					</tr>
+				</f:then>
+				<f:else>
+					<tr>
+						<td colspan="7"><span class="legend">{f:format.date(date: '{calendar.currentMonth.startDate}', format: 'F Y')}</span></td>
+					</tr>
+				</f:else>
+
+			</f:if>
+
+			<tr>
+				<f:for each="{calendar.weekDayLabels}" as="weekDay">
+					<th class="weekDay">{weekDay}</th>
+				</f:for>
+			</tr>
+			</thead>
+			<tbody>
+				<f:for each="{calendar.currentMonth.weeks}" as="calendarWeek">
+					<tr>
+						<f:for each="{calendarWeek.days}" as="calendarDay">
+							<td class="day
+							{f:if(condition: '{calendarDay.month} != {calendar.currentMonth.month}', then: 'outOfMonth')}
+							{f:if(condition: '{calendarDay.isCurrent}', then: 'current')}
+							{f:if(condition: '{f:count(subject: \'{calendarDay.events}\')}',
+								then: 'hasEvent')}">
+								{calendarDay.day}
+								<f:for each="{calendarDay.events}" as="singleEvent">
+									<div class="eventTooltip">
+										<span class="eventTooltipHeadline">
+											<f:link.action action="show" arguments="{event: singleEvent}" pageUid="{settings.detailPid}">
+												{singleEvent.headline}
+											</f:link.action>
+										</span>
+									</div>
+								</f:for>
+							</td>
+						</f:for>
+					</tr>
+				</f:for>
+			</tbody>
+		</table>
+	</div>
+</f:section>

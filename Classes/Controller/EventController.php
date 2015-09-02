@@ -25,9 +25,9 @@ namespace Webfox\T3events\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 use TYPO3\CMS\Core\Messaging\FlashMessage;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
+use Webfox\T3events\Domain\Model\Dto\CalendarConfiguration;
 use Webfox\T3events\Domain\Model\Event;
 
 /**
@@ -177,106 +177,13 @@ class EventController extends AbstractController {
 		$demand = $this->createDemandFromSettings($this->settings);
 		$demand = $this->overwriteDemandObject($demand, $overwriteDemand);
 		$events = $this->eventRepository->findDemanded($demand);
-
-		if (($events instanceof QueryResultInterface AND !$events->count())
-			OR !count($events) ) {
-			// @todo add message to template
-		}
-
-		// Calendar Days
-		$weekDays = array(
-			0 => $this->translate('tx_t3events.calendar.weekday1'),
-			1 => $this->translate('tx_t3events.calendar.weekday2'),
-			2 => $this->translate('tx_t3events.calendar.weekday3'),
-			3 => $this->translate('tx_t3events.calendar.weekday4'),
-			4 => $this->translate('tx_t3events.calendar.weekday5'),
-			5 => $this->translate('tx_t3events.calendar.weekday6'),
-			6 => $this->translate('tx_t3events.calendar.weekday7'),
-		);
-		$curMonth = array(
-			1 => $this->translate('tx_t3events.calendar.month1'),
-			2 => $this->translate('tx_t3events.calendar.month2'),
-			3 => $this->translate('tx_t3events.calendar.month3'),
-			4 => $this->translate('tx_t3events.calendar.month4'),
-			5 => $this->translate('tx_t3events.calendar.month5'),
-			6 => $this->translate('tx_t3events.calendar.month6'),
-			7 => $this->translate('tx_t3events.calendar.month7'),
-			8 => $this->translate('tx_t3events.calendar.month8'),
-			9 => $this->translate('tx_t3events.calendar.month9'),
-			10 => $this->translate('tx_t3events.calendar.month10'),
-			11 => $this->translate('tx_t3events.calendar.month11'),
-			12 => $this->translate('tx_t3events.calendar.month12'),
-		);
-
-		// use current day if empty string is given
-		if ($this->request->hasArgument('month')) {
-			$month = (int)$this->request->getArgument('month');
-		} else {
-			$month = (int)date('n');
-		}
-		if ($this->request->hasArgument('year')) {
-			$year = (int)$this->request->getArgument('year');
-		} else {
-			$year = (int)date('Y');
-		}
-
-		$timestamp = mktime(0, 0, 0, $month, 1, $year);
-
-		// Days of the week before first of month
-		$clearDays = date('N', $timestamp) - 1;
-
-		// CalendarDays
-		$weekdaynumber = $clearDays;
-		$calendarDays = array();
-		for ($i = 0; $i < $clearDays; $i++) {
-			$calendarDays[$i]['dayOfMonth'] = 0;
-			$calendarDays[$i]['dayOfWeek'] = $i;
-		}
-		$daynumber = 1;
-		for ($k = $clearDays; $k < (date('t', $timestamp) + $clearDays); $k++) {
-			$calendarDays[$k]['dayOfMonth'] = $daynumber;
-			$calendarDays[$k]['calendarDate'] = mktime(0, 0, 0, $month, $daynumber, $year);
-			$calendarDays[$k]['dayOfWeek'] = $weekdaynumber;
-			if ($weekdaynumber == 6) {
-				$weekdaynumber = 0;
-			} else {
-				$weekdaynumber++;
-			}
-			$daynumber++;
-		}
-
-		// Calendar navigation
-		$prevYear = $year - 1;
-		$nextYear = $year + 1;
-
-		if ($month == 12) {
-			$nextMonth = 1;
-			$prevYear++;
-			$nextYear++;
-		} else {
-			$nextMonth = $month + 1;
-		}
-		if ($month == 1) {
-			$prevMonth = 12;
-			$prevYear--;
-			$nextYear--;
-		} else {
-			$prevMonth = $month - 1;
-		}
+		$calendarConfiguration = $this->createCalendarConfigurationFromSettings($this->settings);
 
 		$this->view->assignMultiple(
 			array(
 				'events' => $events,
 				'demand' => $demand,
-				'weekDays' => $weekDays,
-				'calendarDays' => $calendarDays,
-				'prevMonth' => $prevMonth,
-				'curMonth' => $month,
-				'nextMonth' => $nextMonth,
-				'prevYear' => $prevYear,
-				'curYear' => $year,
-				'nextYear' => $nextYear,
-				'curMonthText' => $curMonth[$month],
+				'calendarConfiguration' => $calendarConfiguration,
 			)
 		);
 	}
@@ -361,5 +268,45 @@ class EventController extends AbstractController {
 		$GLOBALS['TSFE']->fe_user->storeSessionData();
 
 		return $demand;
+	}
+
+	/**
+	 * Creates a calendar configuration from settings
+	 *
+	 * @param array $settings
+	 * @return CalendarConfiguration
+	 */
+	public function createCalendarConfigurationFromSettings($settings) {
+		/** @var CalendarConfiguration $calendarConfiguration */
+		$calendarConfiguration = $this->objectManager->get(
+			'Webfox\\T3events\\Domain\\Model\\Dto\\CalendarConfiguration'
+		);
+		$dateString = 'first day of this month';
+		if (isset($settings['startDate']) AND !empty($settings['startDate'])){
+			$dateString = $settings['startDate'];
+		}
+
+		/** @var \DateTimeZone $timeZone */
+		$timeZone = new \DateTimeZone(date_default_timezone_get());
+		/** @var \DateTime $startDate */
+		$startDate = new \DateTime($dateString , $timeZone);
+		$calendarConfiguration->setStartDate($startDate);
+
+		$currentDate = new \DateTime('today', $timeZone);
+		$calendarConfiguration->setCurrentDate($currentDate);
+
+		if (isset($settings['viewMode']) AND !empty($settings['viewMode'])) {
+			$calendarConfiguration->setViewMode((int)$settings['viewMode']);
+		} else {
+			$calendarConfiguration->setViewMode(CalendarConfiguration::VIEW_MODE_COMBO_PANE);
+		}
+
+		if (isset($settings['displayPeriod']) AND !empty($settings['displayPeriod'])) {
+			$calendarConfiguration->setDisplayPeriod((int)$settings['displayPeriod']);
+		} else {
+			$calendarConfiguration->setDisplayPeriod(CalendarConfiguration::PERIOD_MONTH);
+		}
+
+		return $calendarConfiguration;
 	}
 }
