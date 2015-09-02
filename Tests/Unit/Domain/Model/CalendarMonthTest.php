@@ -106,4 +106,52 @@ class CalendarMonthTest extends UnitTestCase {
 			$this->fixture->getWeeks()->contains($week)
 		);
 	}
+
+	/**
+	 * @test
+	 * @covers ::getMonth
+	 */
+	public function getMonthReturnsInitiallyNull() {
+		$this->assertNull(
+			$this->fixture->getMonth()
+		);
+	}
+
+	/**
+	 * @test
+	 * @covers ::getMonth
+	 */
+	public function getMonthForStringReturnsMonth() {
+		$timeStamp = 1441065600;
+		$dateTime = new \DateTime('@' . $timeStamp);
+		$expectedMonth = date('n', $timeStamp);
+		$this->fixture->setStartDate($dateTime);
+		$this->assertSame(
+			$expectedMonth,
+			$this->fixture->getMonth()
+		);
+	}
+
+	/**
+	 * @test
+	 * @covers ::getStartDate
+	 */
+	public function getStartDateReturnsInitiallyNull() {
+		$this->assertNull(
+			$this->fixture->getStartDate()
+		);
+	}
+
+	/**
+	 * @test
+	 * @covers ::getStartDate
+	 */
+	public function setStartDateForObjectSetsStartDate() {
+		$expectedStartdate = new \DateTime();
+		$this->fixture->setStartDate($expectedStartdate);
+		$this->assertSame(
+			$expectedStartdate,
+			$this->fixture->getStartdate()
+		);
+	}
 }

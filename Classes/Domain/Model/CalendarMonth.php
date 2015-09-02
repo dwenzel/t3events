@@ -35,6 +35,11 @@ class CalendarMonth {
 	protected $weeks;
 
 	/**
+	 * @var \DateTime
+	 */
+	protected $startDate;
+
+	/**
 	 * __construct
 	 */
 	public function __construct() {
@@ -90,5 +95,36 @@ class CalendarMonth {
 	 */
 	public function removeWeek(CalendarWeek $week) {
 		$this->weeks->detach($week);
+	}
+
+	/**
+	 * Gets the start date
+	 *
+	 * @return \DateTime
+	 */
+	public function getStartDate() {
+		return $this->startDate;
+	}
+
+	/**
+	 * Sets the start date
+	 *
+	 * @param \DateTime $startDate
+	 */
+	public function setStartDate($startDate) {
+		$this->startDate = $startDate;
+	}
+
+	/**
+	 * Gets the month
+	 *
+	 * @param string $format A format as understood by date(). Default 'n'
+	 * @return null|string
+	 */
+	public function getMonth($format = 'n') {
+		if ($this->startDate !== NULL) {
+			return $this->startDate->format($format);
+		}
+		return NULL;
 	}
 }
