@@ -128,6 +128,7 @@
 					<settings.viewMode>
 						<TCEforms>
 							<label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.viewMode</label>
+							<onChange>reload</onChange>
 							<displayCond>FIELD:switchableControllerActions:=:Event->calendar</displayCond>
 							<config>
 								<type>select</type>
@@ -147,7 +148,12 @@
 					<settings.displayPeriod>
 						<TCEforms>
 							<label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.displayPeriod</label>
-							<displayCond>FIELD:switchableControllerActions:=:Event->calendar</displayCond>
+							<displayCond>
+								<AND>
+									<numIndex index="0">FIELD:switchableControllerActions:=:Event->calendar</numIndex>
+									<numIndex index="1">FIELD:settings.viewMode:=:1</numIndex>
+								</AND>
+							</displayCond>
 							<config>
 								<type>select</type>
 								<items>
@@ -317,7 +323,12 @@
 					<settings.periodStart>
 						<TCEforms>
 							<label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.start</label>
-							<displayCond>FIELD:settings.periodType:!=:byDate</displayCond>
+							<displayCond>
+								<AND>
+									<numIndex index="0">FIELD:settings.period:=:specific</numIndex>
+									<numIndex index="1">FIELD:settings.periodType:!=:byDate</numIndex>
+								</AND>
+							</displayCond>
 							<config>
 								<type>input</type>
 								<size>1</size>
@@ -332,13 +343,19 @@
 					<settings.periodDuration>
 						<TCEforms>
 							<label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.duration</label>
-							<displayCond>FIELD:settings.periodType:!=:byDate</displayCond>
+							<displayCond>
+								<AND>
+									<numIndex index="0">FIELD:settings.period:=:specific</numIndex>
+									<numIndex index="1">FIELD:settings.periodType:!=:byDate</numIndex>
+								</AND>
+							</displayCond>
 							<config>
 								<size>3</size>
 								<range>
 									<upper>999</upper>
 									<lower>1</lower>
 								</range>
+								<default>1</default>
 								<eval>int,trim</eval>
 								<type>input</type>
 							</config>

@@ -12,6 +12,7 @@ namespace Webfox\T3events\Hooks;
  *
  * The TYPO3 project - inspiring people to share!
  */
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Hook into t3lib_befunc to change flexform behaviour
@@ -22,7 +23,7 @@ namespace Webfox\T3events\Hooks;
  * @package TYPO3
  * @subpackage tx_t3events
  */
-class T3libBefunc {
+class BackendUtility {
 
 	/**
 	 * Fields which are removed in event quick menu view
@@ -42,6 +43,10 @@ class T3libBefunc {
 	 */
 	public $removedFieldsInEventTeaserView = array(
 		'sDEF' => 'quickMenuType',
+	);
+
+	public $removedFieldsInEventCalendarView = array(
+		'sDEF' => 'sortDirection,sortBy,cache.makeNonCacheable',
 	);
 
 	/**
@@ -72,16 +77,16 @@ class T3libBefunc {
 		$selectedView = '';
 
 			// get the first selected action
-		$flexformSelection = \TYPO3\CMS\Core\Utility\GeneralUtility::xml2array($row['pi_flexform']);
+		$flexformSelection = GeneralUtility::xml2array($row['pi_flexform']);
 		if (is_array($flexformSelection) && is_array($flexformSelection['data'])) {
 			$selectedView = $flexformSelection['data']['sDEF']['lDEF']['switchableControllerActions']['vDEF'];
 			if (!empty($selectedView)) {
-				$actionParts = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(';', $selectedView, TRUE);
+				$actionParts = GeneralUtility::trimExplode(';', $selectedView, TRUE);
 				$selectedView = $actionParts[0];
 			}
 
 			// new plugin element
-		} elseif (\TYPO3\CMS\Core\Utility\GeneralUtility::isFirstPartOfStr($row['uid'], 'NEW')) {
+		} elseif (GeneralUtility::isFirstPartOfStr($row['uid'], 'NEW')) {
 				// use List as starting view
 			$selectedView = 'Event->list;Event->show';
 		}
@@ -95,16 +100,19 @@ class T3libBefunc {
 				case 'Teaser->list;Teaser->showEvent;Event->show':
 					$this->deleteFromStructure($dataStructure, $this->removedFieldsInEventTeaserView);
 					break;
+				case 'Event->calendar':
+					$this->deleteFromStructure($dataStructure, $this->removedFieldsInEventCalendarView);
 				default:
+
 			}
 
-			if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXT']['t3events']['Hooks/T3libBefunc.php']['updateFlexforms'])) {
+			if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXT']['t3events']['Hooks/BackendUtility.php']['updateFlexforms'])) {
 				$params = array(
 					'selectedView' => $selectedView,
 					'dataStructure' => &$dataStructure,
 				);
-				foreach ($GLOBALS['TYPO3_CONF_VARS']['EXT']['t3events']['Hooks/T3libBefunc.php']['updateFlexforms'] as $reference) {
-					\TYPO3\CMS\Core\Utility\GeneralUtility::callUserFunction($reference, $params, $this);
+				foreach ($GLOBALS['TYPO3_CONF_VARS']['EXT']['t3events']['Hooks/BackendUtility.php']['updateFlexforms'] as $reference) {
+					GeneralUtility::callUserFunction($reference, $params, $this);
 				}
 			}
 		}
@@ -119,15 +127,11 @@ class T3libBefunc {
 	 */
 	protected function deleteFromStructure(array &$dataStructure, array $fieldsToBeRemoved) {
 		foreach ($fieldsToBeRemoved as $sheetName => $sheetFields) {
-			$fieldsInSheet = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $sheetFields, TRUE);
+			$fieldsInSheet = GeneralUtility::trimExplode(',', $sheetFields, TRUE);
 
 			foreach ($fieldsInSheet as $fieldName) {
 				unset($dataStructure['sheets'][$sheetName]['ROOT']['el']['settings.' . $fieldName]);
 			}
 		}
 	}
-}
-
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3events/Classes/Hooks/T3libBefunc.php']) {
-	require_once ($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/t3events/Classes/Hooks/T3libBefunc.php']);
 }

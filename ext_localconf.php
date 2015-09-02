@@ -17,8 +17,8 @@ if (!defined('TYPO3_MODE')) {
 );
 
 // Modify flexform values
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_befunc.php']['getFlexFormDSClass'][$_EXTKEY] =
-	'EXT:' . $_EXTKEY . '/Classes/Hooks/T3libBefunc.php:Webfox\T3events\Hooks\T3libBefunc';
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_befunc.php']['getFlexFormDSClass']['t3events'] =
+	'Webfox\\T3events\\Hooks\\BackendUtility';
 
 
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['extbase']['commandControllers'][] = 'Webfox\\T3events\\Command\\TaskCommandController';
