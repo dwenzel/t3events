@@ -151,11 +151,12 @@ return array(
 					'colorpick' => array(
 						'type' => 'colorbox',
 						'title' => 'Color picker',
-						'script' => 'wizard_colorpicker.php',
+						'module' => array(
+							'name' => 'wizard_colorpicker',
+						),
 						'dim' => '20x20',
 						'tableStyle' => 'border: solid 1px #EEEEE; margin-left:20px',
 						'JSopenParams' => 'height=550,width=365,status=0,menubar=0,scrollbars=1',
-						'exampleImg' => 'gfx/wizard_colorpickerex.jpg',
 					)
 				),
 			),
