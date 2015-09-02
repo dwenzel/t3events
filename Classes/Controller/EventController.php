@@ -28,6 +28,7 @@ use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 use Webfox\T3events\Domain\Model\Dto\CalendarConfiguration;
+use Webfox\T3events\Domain\Model\Dto\EventDemand;
 use Webfox\T3events\Domain\Model\Event;
 
 /**
@@ -195,6 +196,7 @@ class EventController extends AbstractController {
 	 * @return \Webfox\T3events\Domain\Model\Dto\EventDemand
 	 */
 	public function createDemandFromSettings($settings) {
+		/** @var EventDemand $demand */
 		$demand = $this->objectManager->get('Webfox\\T3events\\Domain\\Model\\Dto\\EventDemand');
 	
 		$demand->setSortBy($settings['sortBy']);
