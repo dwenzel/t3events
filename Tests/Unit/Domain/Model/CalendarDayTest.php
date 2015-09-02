@@ -127,7 +127,7 @@ class CalendarDayTest extends UnitTestCase {
 
 	/**
 	 * @test
-	 * @covers ::getDayOfMonth
+	 * @covers ::getDayOfWeek
 	 */
 	public function getDayOfWeekForIntegerReturnsInitiallyNull() {
 		$this->assertNull(
@@ -137,7 +137,7 @@ class CalendarDayTest extends UnitTestCase {
 
 	/**
 	 * @test
-	 * @covers ::getDayOfMonth
+	 * @covers ::getDayOfWeek
 	 */
 	public function getDayOfWeekForIntegerReturnsDayOfWeek() {
 		$timeStamp = 1441065600;
