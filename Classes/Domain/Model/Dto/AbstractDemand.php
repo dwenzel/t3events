@@ -111,12 +111,16 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 	 protected $search;
 
 	 /**
-	 * @param int $limit A limit for the demand
-	 * @return void
-	 */
-	public function setLimit ($limit = 100) {
-		$this->limit = (int)$limit;
-	}
+	  * Sets the limit
+	  *
+	  * @param int $limit A limit for the demand. Only values > 0 are allowed. Default 100
+	  * @return void
+	  */
+	 public function setLimit($limit = 100) {
+		 if ($validatedLimit = (int) $limit > 0) {
+			 $this->limit = (int) $limit;
+		 }
+	 }
 	
 	/**
 	 * @return \string The time limit for the demand

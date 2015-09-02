@@ -110,6 +110,18 @@ class AbstractDemandTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 	/**
 	 * @test
+	 * @covers ::setLimit
+	 */
+	public function setLimitValidatesLimitGreatherThanZero() {
+		$this->fixture->setLimit(-1);
+		$this->assertSame(
+			100,
+			$this->fixture->getLimit()
+		);
+	}
+
+	/**
+	 * @test
 	 * @covers ::getOffset
 	 */
 	public function getOffsetReturnsInitialNull() {
