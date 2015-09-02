@@ -90,7 +90,7 @@ class EventRepository extends AbstractDemandedRepository {
 			$query->setOrderings(array($demand->getSortBy() => $sortOrder));
 		}
 		// limit
-		if ($demand->getLimit()) {
+		if ($demand->getLimit() !== NULL) {
 			$query->setLimit($demand->getLimit());
 		}
 		if ($demand->getStoragePages()) {
