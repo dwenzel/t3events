@@ -88,6 +88,48 @@ html[xmlns] .clearfix {
 	background: linear-gradient(to bottom, #B3E0ED 0%, #83CDE2 44%, #109DC7 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#b3e0ed', endColorstr='#109dc7', GradientType=0); /* IE6-8 */
 }
+/* some icons inspired by font-awesome */
+.fa {
+	display: inline-block;
+	font-size: inherit;
+	text-rendering: auto;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+i.fa {
+	font-style: normal;
+}
+
+/* makes the font 33% larger relative to the icon container */
+.fa-lg {
+	font-size: 1.33333333em;
+	line-height: 0.75em;
+	vertical-align: -15%;
+}
+.fa-2x {
+	font-size: 2em;
+}
+.fa-3x {
+	font-size: 3em;
+}
+.fa-4x {
+	font-size: 4em;
+}
+.fa-5x {
+	font-size: 5em;
+}
+.fa-angle-double-left:before {
+	content: "\00ab";
+}
+.fa-angle-double-right:before {
+	content: "\00bb";
+}
+.fa-angle-left:before {
+	content: "\2039";
+}
+.fa-angle-right:before {
+	content: "\203A";
+}
 
 /* Colour */
 .tx-t3events .blueBack {
@@ -990,16 +1032,28 @@ screen width 1400px or above
 	}
 }
 
-.tx-t3events .eventCalendar .calendarMonth .eventDate {
+.tx-t3events .eventCalendar td.day {
+	text-align: center;
+}
+
+.tx-t3events .eventCalendar td.current {
+	border: 1px solid;
+}
+
+.tx-t3events .eventCalendar td.outOfMonth {
+	color: #CCCCCC;
+}
+
+.tx-t3events .eventCalendar .calendarMonth .hasEvent {
 	background-color: #F2F2F2;
 	position: relative;
 }
 
-.tx-t3events .eventCalendar .calendarMonth .eventDate .eventTooltip {
+.tx-t3events .eventCalendar .calendarMonth .hasEvent .eventTooltip {
 	 display: none;
 }
 
-.tx-t3events .eventCalendar .calendarMonth .eventDate:hover .eventTooltip {
+.tx-t3events .eventCalendar .calendarMonth .hasEvent:hover .eventTooltip {
 	display: block;
 	position: absolute;
 	bottom: 60%;
@@ -1007,4 +1061,12 @@ screen width 1400px or above
 	padding: 5px;
 	background-color: #f2f2f2;
 	text-align: left;
+}
+
+.tx-t3events .eventCalendar .navigation {
+	text-align: center;
+}
+
+.tx-t3events .eventCalendar .navigation .legend {
+	margin: 0 1em;
 }
