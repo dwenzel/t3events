@@ -58,7 +58,10 @@
 								<f:for each="{calendarDay.events}" as="singleEvent">
 									<div class="eventTooltip">
 										<span class="eventTooltipHeadline">
-											<f:link.action action="show" arguments="{event: singleEvent}" pageUid="{settings.detailPid}">
+											<f:link.action
+												pluginName="events"
+												controller="Event"
+												action="show" arguments="{event: singleEvent}" pageUid="{settings.detailPid}">
 												{singleEvent.headline}
 											</f:link.action>
 										</span>
