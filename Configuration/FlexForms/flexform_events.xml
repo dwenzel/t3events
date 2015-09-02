@@ -176,6 +176,16 @@
 						</TCEforms>
 					</settings.displayPeriod>
 
+					<settings.showCalendarNavigation>
+						<TCEforms>
+							<label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.showCalendarNavigation</label>
+							<displayCond>FIELD:switchableControllerActions:=:Event->calendar</displayCond>
+							<config>
+								<type>check</type>
+							</config>
+						</TCEforms>
+					</settings.showCalendarNavigation>
+
 					<settings.maxItems>
 						<TCEforms>
 							<label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.maxItems</label>
