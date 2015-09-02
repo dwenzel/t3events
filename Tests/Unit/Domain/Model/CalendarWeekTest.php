@@ -37,7 +37,7 @@ use Webfox\T3events\Domain\Model\Event;
  * Class CalendarMonthTest
  *
  * @package Webfox\T3events\Tests\Unit\Domain\Model
- * @coversDefaultClass \Webfox\Domain\Model\CalendarWeek
+ * @coversDefaultClass \Webfox\T3events\Domain\Model\CalendarWeek
  */
 class CalendarWeekTest extends UnitTestCase {
 

@@ -36,7 +36,7 @@ use Webfox\T3events\Domain\Model\Event;
  * Class CalendarMonthTest
  *
  * @package Webfox\T3events\Tests\Unit\Domain\Model
- * @coversDefaultClass \Webfox\Domain\Model\CalendarMonth
+ * @coversDefaultClass \Webfox\T3events\Domain\Model\CalendarMonth
  */
 class CalendarMonthTest extends UnitTestCase {
 
@@ -144,13 +144,13 @@ class CalendarMonthTest extends UnitTestCase {
 
 	/**
 	 * @test
-	 * @covers ::getStartDate
+	 * @covers ::setStartDate
 	 */
 	public function setStartDateForObjectSetsStartDate() {
-		$expectedStartdate = new \DateTime();
-		$this->fixture->setStartDate($expectedStartdate);
+		$expectedStartDate = new \DateTime();
+		$this->fixture->setStartDate($expectedStartDate);
 		$this->assertSame(
-			$expectedStartdate,
+			$expectedStartDate,
 			$this->fixture->getStartdate()
 		);
 	}
