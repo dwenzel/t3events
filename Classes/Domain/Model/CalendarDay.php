@@ -166,4 +166,17 @@ class CalendarDay {
 	public function removeEvent(Event $event) {
 		$this->events->detach($event);
 	}
+
+	/**
+	 * Gets the month
+	 *
+	 * @param string $format A format as understood by date() Default. 'n'
+	 * @return null|string
+	 */
+	public function getMonth($format = 'n') {
+		if ($this->date !== NULL) {
+			return $this->date->format($format);
+		}
+		return NULL;
+	}
 }

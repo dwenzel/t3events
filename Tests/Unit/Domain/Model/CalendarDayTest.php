@@ -77,7 +77,7 @@ class CalendarDayTest extends UnitTestCase {
 
 	/**
 	 * @test
-	 * @covers ::getDayOfMonth
+	 * @covers ::getDay
 	 */
 	public function getDayReturnsInitiallyNull() {
 		$this->assertNull(
@@ -87,7 +87,7 @@ class CalendarDayTest extends UnitTestCase {
 
 	/**
 	 * @test
-	 * @covers ::getDayOfMonth
+	 * @covers ::getDay
 	 */
 	public function getDayForStringReturnsDayOfMonth() {
 		$timeStamp = 1441065600;
@@ -97,6 +97,31 @@ class CalendarDayTest extends UnitTestCase {
 		$this->assertSame(
 			$expectedDay,
 			$this->fixture->getDay()
+		);
+	}
+
+	/**
+	 * @test
+	 * @covers ::getMonth
+	 */
+	public function getMonthReturnsInitiallyNull() {
+		$this->assertNull(
+			$this->fixture->getMonth()
+		);
+	}
+
+	/**
+	 * @test
+	 * @covers ::getMonth
+	 */
+	public function getMonthForStringReturnsMonth() {
+		$timeStamp = 1441065600;
+		$dateTime = new \DateTime('@' . $timeStamp);
+		$expectedMonth = date('n', $timeStamp);
+		$this->fixture->setDate($dateTime);
+		$this->assertSame(
+			$expectedMonth,
+			$this->fixture->getMonth()
 		);
 	}
 
