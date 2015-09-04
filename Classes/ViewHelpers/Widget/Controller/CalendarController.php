@@ -65,15 +65,9 @@ class CalendarController extends AbstractWidgetController {
 	 * @param string $display
 	 * @param int $date
 	 */
-	public function indexAction($display = NULL, $date = NULL) {
+	public function indexAction($display = '', $date = 0) {
 		//todo action doesn't get argument
-		if ($this->request->hasArgument('display')) {
-			$display = $this->request->getArgument('display');
-		}
-		if ($this->request->hasArgument('date')) {
-			$date = $this->request->getArgument('date');
-		}
-		if ($date AND $display){
+		if ($display !== '' AND $date > 0){
 			if ($interval = $this->getInterval($display)){
 				$startDate = new \DateTime('@' . $date);
 				$startDate->add($interval);
