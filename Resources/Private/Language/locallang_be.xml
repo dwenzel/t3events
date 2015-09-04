@@ -27,6 +27,7 @@
 			<label index="flexforms_general.displayPeriodWeek">Week</label>
 			<label index="flexforms_general.displayPeriodYear">Year</label>
 			<label index="flexforms_general.duration">Duration</label>
+			<label index="flexforms_general.ajaxEnabled">use Ajax</label>
 			<label index="flexforms_general.end">End</label>
 			<label index="flexforms_general.highlightsToTop">highlights to top</label>
 			<label index="flexforms_general.label.events">Events</label>
@@ -95,6 +96,7 @@
 			<label index="flexforms_general.displayPeriodWeek">Woche</label>
 			<label index="flexforms_general.displayPeriodYear">Year</label>
 			<label index="flexforms_general.duration">Dauer</label>
+			<label index="flexforms_general.ajaxEnabled">Ajax verwenden</label>
 			<label index="flexforms_general.end">Ende</label>
 			<label index="flexforms_general.highlightsToTop">hervorgehobene zuerst</label>
 			<label index="flexforms_general.label.events">Veranstaltungen</label>

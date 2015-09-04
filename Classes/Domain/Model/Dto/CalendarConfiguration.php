@@ -67,6 +67,11 @@ class CalendarConfiguration {
 	protected $viewMode;
 
 	/**
+	 * @var bool
+	 */
+	protected $ajaxEnabled = FALSE;
+
+	/**
 	 * Gets the start date
 	 *
 	 * @return \DateTime
@@ -136,5 +141,18 @@ class CalendarConfiguration {
 	 */
 	public function setDisplayPeriod($displayPeriod) {
 		$this->displayPeriod = $displayPeriod;
+	}
+
+	public function getAjaxEnabled() {
+		return $this->ajaxEnabled;
+	}
+
+	/**
+	 * Sets the ajax enabled state
+	 *
+	 * @param bool $enabled
+	 */
+	public function setAjaxEnabled($enabled) {
+		$this->ajaxEnabled = $enabled;
 	}
 }

@@ -46,11 +46,17 @@ class CalendarController extends AbstractWidgetController {
 	protected $objects;
 
 	/**
+	 * @var string
+	 */
+	protected $calendarId;
+
+	/**
 	 * @return void
 	 */
 	public function initializeAction() {
 		$this->objects = $this->widgetConfiguration['objects'];
 		$this->configuration = $this->widgetConfiguration['configuration'];
+		$this->calendarId = $this->widgetConfiguration['id'];
 	}
 
 	/**
@@ -80,6 +86,7 @@ class CalendarController extends AbstractWidgetController {
 			array(
 				'configuration' => $this->configuration,
 				'calendar' => $calendar,
+				'calendarId' => $this->calendarId
 			)
 		);
 	}
