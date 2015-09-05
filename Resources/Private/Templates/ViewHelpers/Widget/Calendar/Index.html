@@ -9,6 +9,9 @@
 
 <f:section name="miniMonth">
 	<div class="eventCalendar">
+			<f:if condition="{configuration.ajaxEnabled}">
+				<div id="loader">loading...</div>
+			</f:if>
 			<table class="calendarMonth">
 			<thead>
 			<f:if condition="{settings.showCalendarNavigation}">
