@@ -19,9 +19,12 @@
 		</testsuite>
 	</testsuites>
 	<filter>
-		<whitelist processUncoveredFilesFromWhitelist="true">
+		<whitelist processUncoveredFilesFromWhitelist="false">
 			<directory suffix=".php">../../Classes/</directory>
 		</whitelist>
 	</filter>
+	<logging>
+	 <log type="coverage-text" target="php://stdout" showUncoveredFiles="true"/>
+	</logging>
 
 </phpunit>
