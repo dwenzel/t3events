@@ -1,13 +1,17 @@
 <f:if condition="{configuration.viewMode}==2">
 	<f:render section="miniMonth"
 		arguments="{
-		calendar: calendar,
-		configuration: configuration,
-		settings: settings}"/>
+	calendar: calendar,
+	configuration: configuration,
+	settings: settings,
+	calendarId: calendarId}"/>
 </f:if>
 
 <f:section name="miniMonth">
 	<div class="eventCalendar">
+			<f:if condition="{configuration.ajaxEnabled}">
+				<div id="loader">loading...</div>
+			</f:if>
 			<table class="calendarMonth">
 			<thead>
 			<f:if condition="{settings.showCalendarNavigation}">
@@ -15,17 +19,29 @@
 					<tr class="navigation">
 						<td colspan="7">
 							<f:widget.link
-								arguments="{display: 'previousYear', date: '{configuration.startDate.timestamp}'}">
+								arguments="{display: 'previousYear', date: '{configuration.startDate.timestamp}'}"
+								data="{calendarId: calendarId}"
+								ajax="{configuration.ajaxEnabled}"
+								>
 								<i class="fa fa-2x fa-angle-double-left"></i>
 							</f:widget.link>
-							<f:widget.link arguments="{display: 'previousMonth', date: '{configuration.startDate.timestamp}'}">
+							<f:widget.link arguments="{display: 'previousMonth', date: '{configuration.startDate.timestamp}'}"
+								data="{calendarId: calendarId}"
+								ajax="{configuration.ajaxEnabled}"
+								>
 								<i class="fa fa-2x fa-angle-left"></i>
 							</f:widget.link>
 							<span class="legend">{f:format.date(date: '{calendar.currentMonth.startDate}', format: 'F Y')}</span>
-							<f:widget.link arguments="{display: 'nextMonth', date: '{configuration.startDate.timestamp}'}">
+							<f:widget.link arguments="{display: 'nextMonth', date: '{configuration.startDate.timestamp}'}"
+								data="{calendarId: calendarId}"
+								ajax="{configuration.ajaxEnabled}"
+								>
 								<i class="fa fa-2x fa-angle-right"></i>
 							</f:widget.link>
-							<f:widget.link arguments="{display: 'nextYear', date: '{configuration.startDate.timestamp}'}">
+							<f:widget.link arguments="{display: 'nextYear', date: '{configuration.startDate.timestamp}'}"
+								data="{calendarId: calendarId}"
+								ajax="{configuration.ajaxEnabled}"
+								>
 								<i class="fa fa-2x fa-angle-double-right"></i>
 							</f:widget.link>
 						</td>

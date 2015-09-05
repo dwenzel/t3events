@@ -3,9 +3,12 @@
 <f:layout name="Default" />
 
 This Template is responsible for creating a calendar view of events.
-
 <f:section name="main">
-	<ts:widget.calendar
-		objects="{events}"
-		configuration="{calendarConfiguration}" />
+	<div id="tx-t3events-calendar-widget">
+		<ts:widget.calendar
+			objects="{events}"
+			configuration="{calendarConfiguration}"
+			id="tx-t3events-calendar-widget"
+			/>
+	</div>
 </f:section>

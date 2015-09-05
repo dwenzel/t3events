@@ -28,6 +28,13 @@ use Webfox\T3events\Domain\Model\Dto\CalendarConfiguration;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+/**
+ * Class CalendarConfigurationTest
+ *
+ * @package Webfox\T3events\Tests\Unit\Domain\Model\Dto
+ * @coversDefaultClass Webfox\T3events\Domain\Model\Dto\CalendarConfiguration
+ */
 class CalendarConfigurationTest extends UnitTestCase {
 
 	/**
@@ -41,6 +48,7 @@ class CalendarConfigurationTest extends UnitTestCase {
 
 	/**
 	 * @test
+	 * @covers ::getStartDate
 	 */
 	public function getStartDateForDateTimeReturnsInitiallyNull() {
 		$this->assertNull(
@@ -50,6 +58,7 @@ class CalendarConfigurationTest extends UnitTestCase {
 
 	/**
 	 * @test
+	 * @covers ::setStartDate
 	 */
 	public function setStartDateForDateTimeSetsStartDate() {
 		$startDate = new \DateTime();
@@ -62,6 +71,7 @@ class CalendarConfigurationTest extends UnitTestCase {
 
 	/**
 	 * @test
+	 * @covers ::getCurrentDate
 	 */
 	public function getCurrentDateForDateTimeReturnsInitiallyNull(){
 		$this->assertNull(
@@ -71,6 +81,7 @@ class CalendarConfigurationTest extends UnitTestCase {
 
 	/**
 	 * @test
+	 * @covers ::setCurrentDate
 	 */
 	public function setCurrentDateForDateTimeSetsCurrentDate() {
 		$currentDate = new \DateTime();
@@ -83,6 +94,7 @@ class CalendarConfigurationTest extends UnitTestCase {
 
 	/**
 	 * @test
+	 * @covers ::getDisplayPeriod
 	 */
 	public function getDisplayPeriodForIntegerReturnsInitiallyNull(){
 		$this->assertNull(
@@ -92,6 +104,7 @@ class CalendarConfigurationTest extends UnitTestCase {
 
 	/**
 	 * @test
+	 * @covers ::setDisplayPeriod
 	 */
 	public function setDisplayPeriodForIntegerSetsDisplayPeriod() {
 		$this->subject->setDisplayPeriod(CalendarConfiguration::PERIOD_MONTH);
@@ -103,6 +116,7 @@ class CalendarConfigurationTest extends UnitTestCase {
 
 	/**
 	 * @test
+	 * @covers ::getViewMode
 	 */
 	public function getViewModeForIntegerReturnsInitiallyNull() {
 		$this->assertNull(
@@ -112,12 +126,35 @@ class CalendarConfigurationTest extends UnitTestCase {
 
 	/**
 	 * @test
+	 * @covers ::setViewMode
 	 */
 	public function setViewModeForIntegerSetsViewMode() {
 		$this->subject->setViewMode(CalendarConfiguration::VIEW_MODE_COMBO_PANE);
 		$this->assertSame(
 			CalendarConfiguration::VIEW_MODE_COMBO_PANE,
 			$this->subject->getViewMode()
+		);
+	}
+
+	/**
+	 * @test
+	 * @covers ::getAjaxEnabled
+	 */
+	public function getAjaxEnabledForBoolReturnsInitiallyFalse() {
+		$this->assertFalse(
+			$this->subject->getAjaxEnabled()
+		);
+	}
+
+	/**
+	 * @test
+	 * @covers ::setAjaxEnabled
+	 */
+	public function setAjaxEnabledForBoolSetsAjaxEnabled() {
+		$this->subject->setAjaxEnabled(TRUE);
+		$this->assertSame(
+			TRUE,
+			$this->subject->getAjaxEnabled()
 		);
 	}
 }

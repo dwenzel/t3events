@@ -190,6 +190,16 @@
 						</TCEforms>
 					</settings.displayPeriod>
 
+					<settings.ajaxEnabled>
+						<TCEforms>
+							<label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.ajaxEnabled</label>
+							<displayCond>FIELD:switchableControllerActions:=:Event->calendar</displayCond>
+							<config>
+								<type>check</type>
+							</config>
+						</TCEforms>
+					</settings.ajaxEnabled>
+
 					<settings.showCalendarNavigation>
 						<TCEforms>
 							<label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.showCalendarNavigation</label>

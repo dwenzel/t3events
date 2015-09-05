@@ -1112,6 +1112,31 @@ class EventControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 	/**
 	 * @test
+	 * @covers ::createCalendarConfigurationFromSettings
+	 */
+	public function createCalendarConfigurationFromSettingsSetsAjaxEnabled() {
+		$mockCalendarConfiguration = $this->getMock('Webfox\\T3events\\Domain\\Model\\Dto\\CalendarConfiguration',
+			array(), array(), '', FALSE);
+		$mockObjectManager = $this->getMock('TYPO3\\CMS\\Extbase\\Object\\ObjectManager',
+			array('get'), array(), '', FALSE);
+		$this->fixture->_set('objectManager', $mockObjectManager);
+
+		$settings = array(
+			'ajaxEnabled' => TRUE,
+		);
+
+		$mockObjectManager->expects($this->once())->method('get')
+			->will($this->returnValue($mockCalendarConfiguration));
+
+		$mockCalendarConfiguration->expects($this->once())->method('setAjaxEnabled')
+			->with(TRUE);
+
+		$this->fixture->createCalendarConfigurationFromSettings($settings);
+	}
+
+
+	/**
+	 * @test
 	 * @coverage ::calendarAction
 	 */
 	public function calendarActionCreatesConfigurationFromSettings() {

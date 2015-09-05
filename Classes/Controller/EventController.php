@@ -309,6 +309,10 @@ class EventController extends AbstractController {
 			$calendarConfiguration->setDisplayPeriod(CalendarConfiguration::PERIOD_MONTH);
 		}
 
+		if (isset($settings['ajaxEnabled'])) {
+			$calendarConfiguration->setAjaxEnabled((bool)$settings['ajaxEnabled']);
+		}
+
 		return $calendarConfiguration;
 	}
 }
