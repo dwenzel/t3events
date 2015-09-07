@@ -58,16 +58,22 @@ This Template is responsible for creating a list of events.
 			</f:if>
 		</f:if>
 		<f:if condition="{settings.event.list.paginate}">
-			<f:widget.paginate
-				objects="{events}"
-				as="paginatedEvents"
-				configuration="{itemsPerPage: 5, insertAbove: 0, insertBelow: 1}"
-				>
-				<f:for each="{paginatedEvents}" as="event">
+			<f:then>
+				<f:widget.paginate
+					objects="{events}"
+					as="paginatedEvents"
+					configuration="{itemsPerPage: 5, insertAbove: 0, insertBelow: 1}"
+					>
+					<f:for each="{paginatedEvents}" as="event">
+						<f:render partial="Event/ListItem" arguments="{event: event}" />
+					</f:for>
+				</f:widget.paginate>
+			</f:then>
+			<f:else>
+				<f:for each="{events}" as="event">
 					<f:render partial="Event/ListItem" arguments="{event: event}" />
 				</f:for>
-			</f:widget.paginate>
+			</f:else>
 		</f:if>
-
 	</div>
 </f:section>
