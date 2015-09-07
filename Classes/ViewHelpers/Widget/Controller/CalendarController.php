@@ -64,15 +64,23 @@ class CalendarController extends AbstractWidgetController {
 	 *
 	 * @param string $display
 	 * @param int $date
+	 * @param int $period
 	 */
-	public function indexAction($display = '', $date = 0) {
-		//todo action doesn't get argument
+	public function indexAction($display = '', $date = 0, $period = -1) {
+		if ((int)$period >= 0 AND (int)$period <= CalendarConfiguration::PERIOD_YEAR) {
+			$this->configuration->setDisplayPeriod((int)$period);
+		}	
 		if ($display !== '' AND $date > 0){
 			if ($interval = $this->getInterval($display)){
 				$startDate = new \DateTime('@' . $date);
 				$startDate->add($interval);
 				$this->configuration->setStartDate($startDate);
 			}
+		}
+		if ($display == '' AND ((int)$period == CalendarConfiguration::PERIOD_DAY
+				OR $this->configuration->getDisplayPeriod() == CalendarConfiguration::PERIOD_DAY)) {
+			$startDate = ($date == 0)? new \DateTime('today'): new\DateTime('@' . $date);
+			$this->configuration->setStartDate($startDate);
 		}
 		$calendar = $this->getCalendar($this->configuration);
 
@@ -94,13 +102,18 @@ class CalendarController extends AbstractWidgetController {
 	protected function getCalendar($configuration) {
 		/** @var Calendar $calendar */
 		$calendar = $this->objectManager->get('Webfox\\T3events\\Domain\\Model\\Calendar');
-
 		$viewMode = $configuration->getViewMode();
 		$calendar->setViewMode($viewMode);
+		$displayPeriod = $configuration->getDisplayPeriod();
+		$calendar->setDisplayPeriod($displayPeriod);
 
 		if ($viewMode == CalendarConfiguration::VIEW_MODE_COMBO_PANE) {
-			$displayPeriod = $configuration->getDisplayPeriod();
-			$calendar->setDisplayPeriod($displayPeriod);
+			switch ($displayPeriod) {
+				case CalendarConfiguration::PERIOD_DAY:
+					$calendar->setCurrentDay($this->getCurrentCalendarDay());
+					break;
+				default:
+			}
 			//todo add weeks/months/days for combo pane
 		}
 
@@ -109,6 +122,19 @@ class CalendarController extends AbstractWidgetController {
 		);
 
 		return $calendar;
+	}
+
+	/**
+	 * Gets the current calendar day
+	 *
+	 * @param bool $addEvents Add events. Default: TRUE
+	 * @return CalendarDay
+	 */
+	protected function getCurrentCalendarDay($addEvents = TRUE) {
+		$startDate = $this->configuration->getStartDate()->getTimeStamp();
+		$currentDate = $this->configuration->getCurrentDate()->getTimeStamp();
+
+		return $this->getCalendarDay($startDate, $currentDate);
 	}
 
 	/**
@@ -208,25 +234,36 @@ class CalendarController extends AbstractWidgetController {
 	 * @return bool|\DateInterval
 	 */
 	protected function getInterval($display) {
-		switch ($display) {
-			case 'nextMonth':
-				$interval = new \DateInterval('P1M');
-				break;
-			case 'nextYear':
-				$interval = new \DateInterval('P1Y');
-				break;
-			case 'previousMonth':
-				$interval = new \DateInterval('P1M');
+		if ($display === 'next' OR $display === 'previous') {
+			switch ($this->configuration->getDisplayPeriod()) {
+				case CalendarConfiguration::PERIOD_DAY:
+					$interval = new \DateInterval('P1D');
+					break;
+				case CalendarConfiguration::PERIOD_WEEK:
+					$interval = new \DateInterval('P1W');
+					break;
+				case CalendarConfiguration::PERIOD_MONTH:
+					$interval = new \DateInterval('P1M');
+					break;
+				case CalendarConfiguration::PERIOD_TRIMESTER:
+					// same interval - fall trough
+				case CalendarConfiguration::PERIOD_QUARTER:
+					$interval = new \DateInterval('P3M');
+					break;
+				case CalendarConfiguration::PERIOD_SEMESTER:
+					$interval = new \DateInterval('P6M');
+					break;
+				case CalendarConfiguration::PERIOD_YEAR:
+					$interval = new \DateInterval('P1Y');
+					break;
+				default:
+					return FALSE;
+			}
+			if ($display === 'previous') {
 				$interval->invert = 1;
-				break;
-			case 'previousYear':
-				$interval = new \DateInterval('P1Y');
-				$interval->invert = 1;
-				break;
-			default:
-				return FALSE;
+			}
+			return $interval;
 		}
-
-		return $interval;
+		return FALSE;
 	}
 }

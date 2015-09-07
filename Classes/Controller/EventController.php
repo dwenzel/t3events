@@ -303,7 +303,7 @@ class EventController extends AbstractController {
 			$calendarConfiguration->setViewMode(CalendarConfiguration::VIEW_MODE_COMBO_PANE);
 		}
 
-		if (isset($settings['displayPeriod']) AND !empty($settings['displayPeriod'])) {
+		if (isset($settings['displayPeriod'])) {
 			$calendarConfiguration->setDisplayPeriod((int)$settings['displayPeriod']);
 		} else {
 			$calendarConfiguration->setDisplayPeriod(CalendarConfiguration::PERIOD_MONTH);

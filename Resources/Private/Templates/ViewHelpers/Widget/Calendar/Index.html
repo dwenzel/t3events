@@ -1,3 +1,4 @@
+<f:comment> View mode mini month </f:comment>
 <f:if condition="{configuration.viewMode}==2">
 	<f:render section="miniMonth"
 		arguments="{
@@ -6,88 +7,109 @@
 	settings: settings,
 	calendarId: calendarId}"/>
 </f:if>
+<f:comment> View mode combo pane </f:comment>
+<f:if condition="{configuration.viewMode}==1">
+	<f:render section="comboPane"
+		arguments="{
+	calendar: calendar,
+	configuration: configuration,
+	settings: settings,
+	calendarId: calendarId}"/>
+</f:if>
 
 <f:section name="miniMonth">
-	<div class="eventCalendar">
-			<f:if condition="{configuration.ajaxEnabled}">
-				<div id="loader">loading...</div>
-			</f:if>
-			<table class="calendarMonth">
-			<thead>
-			<f:if condition="{settings.showCalendarNavigation}">
-				<f:then>
-					<tr class="navigation">
-						<td colspan="7">
-							<f:widget.link
-								arguments="{display: 'previousYear', date: '{configuration.startDate.timestamp}'}"
-								data="{calendarId: calendarId}"
-								ajax="{configuration.ajaxEnabled}"
-								>
-								<i class="fa fa-2x fa-angle-double-left"></i>
-							</f:widget.link>
-							<f:widget.link arguments="{display: 'previousMonth', date: '{configuration.startDate.timestamp}'}"
-								data="{calendarId: calendarId}"
-								ajax="{configuration.ajaxEnabled}"
-								>
-								<i class="fa fa-2x fa-angle-left"></i>
-							</f:widget.link>
-							<span class="legend">{f:format.date(date: '{calendar.currentMonth.startDate}', format: 'F Y')}</span>
-							<f:widget.link arguments="{display: 'nextMonth', date: '{configuration.startDate.timestamp}'}"
-								data="{calendarId: calendarId}"
-								ajax="{configuration.ajaxEnabled}"
-								>
-								<i class="fa fa-2x fa-angle-right"></i>
-							</f:widget.link>
-							<f:widget.link arguments="{display: 'nextYear', date: '{configuration.startDate.timestamp}'}"
-								data="{calendarId: calendarId}"
-								ajax="{configuration.ajaxEnabled}"
-								>
-								<i class="fa fa-2x fa-angle-double-right"></i>
-							</f:widget.link>
-						</td>
-					</tr>
-				</f:then>
-				<f:else>
-					<tr>
-						<td colspan="7"><span class="legend">{f:format.date(date: '{calendar.currentMonth.startDate}', format: 'F Y')}</span></td>
-					</tr>
-				</f:else>
-
-			</f:if>
-
-			<tr>
-				<f:for each="{calendar.weekDayLabels}" as="weekDay">
-					<th class="weekDay">{weekDay}</th>
-				</f:for>
-			</tr>
-			</thead>
-			<tbody>
-				<f:for each="{calendar.currentMonth.weeks}" as="calendarWeek">
-					<tr>
-						<f:for each="{calendarWeek.days}" as="calendarDay">
-							<td class="day
-							{f:if(condition: '{calendarDay.month} != {calendar.currentMonth.month}', then: 'outOfMonth')}
-							{f:if(condition: '{calendarDay.isCurrent}', then: 'current')}
-							{f:if(condition: '{f:count(subject: \'{calendarDay.events}\')}',
-								then: 'hasEvent')}">
-								{calendarDay.day}
-								<f:for each="{calendarDay.events}" as="singleEvent">
-									<div class="eventTooltip">
-										<span class="eventTooltipHeadline">
-											<f:link.action
-												pluginName="events"
-												controller="Event"
-												action="show" arguments="{event: singleEvent}" pageUid="{settings.detailPid}">
-												{singleEvent.headline}
-											</f:link.action>
-										</span>
-									</div>
-								</f:for>
-							</td>
-						</f:for>
-					</tr>
-				</f:for>
-			</tbody>
-		</table>
+	<div class="eventCalendar miniMonth">
+		<f:if condition="{configuration.ajaxEnabled}">
+			<div id="loader">loading...</div>
+		</f:if>
+		<f:render partial="Calendar/Month"
+		arguments="{
+			calendar: calendar,
+			configuration: configuration,
+			settings: settings,
+			calendarId: calendarId
+			showNavigation: '{f:if(condition: \'settings.showCalendarNavigation\', then: \'1\')}'
+		}"/>
 	</div>
+</f:section>
+
+<f:section name="comboPane">
+	<div class="eventCalendar comboPane">
+		<f:if condition="{configuration.ajaxEnabled}">
+			<div id="loader">loading...</div>
+		</f:if>
+		<f:if condition="{settings.showCalendarNavigation}">
+			<f:then>
+				<f:render partial="Calendar/PeriodSwitch"
+					arguments="{
+						calendar: calendar,
+						configuration: configuration,
+						settings: settings,
+						calendarId: calendarId}"/>
+			</f:then>
+		</f:if>
+		<f:comment> Day </f:comment>
+		<f:if condition="{calendar.displayPeriod} == 0">
+			<f:render partial="Calendar/Day"
+			arguments="{
+				calendar: calendar,
+				configuration: configuration,
+				settings: settings,
+				calendarId: calendarId}"/>
+		</f:if>
+		<f:comment> Week </f:comment>
+		<f:if condition="{calendar.displayPeriod} == 1">
+			<f:render partial="Calendar/Week"
+			arguments="{
+				calendar: calendar,
+				configuration: configuration,
+				settings: settings,
+				calendarId: calendarId}"/>
+		</f:if>
+		<f:comment> Month </f:comment>
+		<f:if condition="{calendar.displayPeriod} == 2">
+			<f:render partial="Calendar/Month"
+			arguments="{
+				calendar: calendar,
+				configuration: configuration,
+				settings: settings,
+				calendarId: calendarId}"/>
+		</f:if>
+		<f:comment> Quarter </f:comment>
+		<f:if condition="{calendar.displayPeriod} == 3">
+			<f:render partial="Calendar/Quarter"
+			arguments="{
+				calendar: calendar,
+				configuration: configuration,
+				settings: settings,
+				calendarId: calendarId}"/>
+		</f:if>
+		<f:comment> Trimester </f:comment>
+		<f:if condition="{calendar.displayPeriod} == 4">
+			<f:render partial="Calendar/Trimester"
+			arguments="{
+				calendar: calendar,
+				configuration: configuration,
+				settings: settings,
+				calendarId: calendarId}"/>
+		</f:if>
+		<f:comment> Semester </f:comment>
+		<f:if condition="{calendar.displayPeriod} == 5">
+			<f:render partial="Calendar/Semester"
+			arguments="{
+				calendar: calendar,
+				configuration: configuration,
+				settings: settings,
+				calendarId: calendarId}"/>
+		</f:if>
+		<f:comment> Year </f:comment>
+		<f:if condition="{calendar.displayPeriod} == 6">
+			<f:render partial="Calendar/Year"
+			arguments="{
+				calendar: calendar,
+				configuration: configuration,
+				settings: settings,
+				calendarId: calendarId}"/>
+		</f:if>
+
 </f:section>

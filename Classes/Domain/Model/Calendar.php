@@ -35,6 +35,16 @@ class Calendar {
 	protected $currentMonth;
 
 	/**
+	 * @var CalendarDay
+	 */
+	protected $currentDay;
+
+	/**
+	 * @var CalendarWeek
+	 */
+	protected $currentWeek;
+
+	/**
 	 * View Mode
 	 *
 	 * @var int
@@ -64,6 +74,42 @@ class Calendar {
 	 */
 	public function setCurrentMonth(CalendarMonth $calendarMonth) {
 		$this->currentMonth = $calendarMonth;
+	}
+
+	/**
+	 * Gets the current week
+	 *
+	 * @return CalendarWeek
+	 */
+	public function getCurrentWeek() {
+		return $this->currentWeek;
+	}
+
+	/**
+	 * Sets the current week
+	 *
+	 * @param CalendarWeek $calendarWeek
+	 */
+	public function setCurrentWeek(CalendarWeek $calendarWeek) {
+		$this->currentWeek = $calendarWeek;
+	}
+
+	/**
+	 * Gets the current day
+	 *
+	 * @return CalendarDay
+	 */
+	public function getCurrentDay() {
+		return $this->currentDay;
+	}
+
+	/**
+	 * Sets the current day
+	 *
+	 * @param CalendarDay $calendarDay
+	 */
+	public function setCurrentDay(CalendarDay $calendarDay) {
+		$this->currentDay = $calendarDay;
 	}
 
 	/**
