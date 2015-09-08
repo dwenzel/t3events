@@ -1066,8 +1066,13 @@ screen width 1400px or above
 .tx-t3events .eventCalendar.miniMonth .calendarMonth{
 	display: inline-block;
 }
-.tx-t3events .eventCalendar.comboPane .calendarMonth{
+.tx-t3events .eventCalendar.comboPane .calendarMonth,
+.tx-t3events .eventCalendar.comboPane .calendarWeek 
+{
 	width: 100%;
+}
+.tx-t3events .eventCalendar .day {
+	padding: 0.3em;
 }
 .tx-t3events .eventCalendar.miniMonth td.day {
 	text-align: center;
@@ -1088,8 +1093,8 @@ screen width 1400px or above
 	color: #CCCCCC;
 }
 
-.tx-t3events .eventCalendar .calendarMonth .hasEvent {
-	background-color: #F2F2F2;
+.tx-t3events .eventCalendar .hasEvent {
+	background-color: #E6E6E6;
 	position: relative;
 }
 
@@ -1121,4 +1126,6 @@ screen width 1400px or above
 
 .tx-t3events .eventCalendar .navigation .legend {
 	margin: 0 1em;
+	font-weight: 700;
 }
+
