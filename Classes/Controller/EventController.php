@@ -283,30 +283,42 @@ class EventController extends AbstractController {
 		$calendarConfiguration = $this->objectManager->get(
 			'Webfox\\T3events\\Domain\\Model\\Dto\\CalendarConfiguration'
 		);
-		$dateString = 'first day of this month';
-		if (isset($settings['startDate']) AND !empty($settings['startDate'])){
-			$dateString = $settings['startDate'];
-		}
-
-		/** @var \DateTimeZone $timeZone */
-		$timeZone = new \DateTimeZone(date_default_timezone_get());
-		/** @var \DateTime $startDate */
-		$startDate = new \DateTime($dateString , $timeZone);
-		$calendarConfiguration->setStartDate($startDate);
-
-		$currentDate = new \DateTime('today', $timeZone);
-		$calendarConfiguration->setCurrentDate($currentDate);
-
-		if (isset($settings['viewMode']) AND !empty($settings['viewMode'])) {
-			$calendarConfiguration->setViewMode((int)$settings['viewMode']);
-		} else {
-			$calendarConfiguration->setViewMode(CalendarConfiguration::VIEW_MODE_COMBO_PANE);
-		}
 
 		if (isset($settings['displayPeriod'])) {
 			$calendarConfiguration->setDisplayPeriod((int)$settings['displayPeriod']);
 		} else {
 			$calendarConfiguration->setDisplayPeriod(CalendarConfiguration::PERIOD_MONTH);
+		}
+	
+		$dateString = 'today';	
+		/** @var \DateTimeZone $timeZone */
+		$timeZone = new \DateTimeZone(date_default_timezone_get());
+		/** @var \DateTime $startDate */
+		$startDate = new \DateTime($dateString , $timeZone);
+
+		$currentDate = new \DateTime($dateString, $timeZone);
+		$calendarConfiguration->setCurrentDate($currentDate);
+
+		switch ($calendarConfiguration->getDisplayPeriod()) {
+			case CalendarConfiguration::PERIOD_WEEK:
+				$dateString = 'monday this week';
+				break;
+			case CalendarConfiguration::PERIOD_YEAR:
+				$dateString = 'first day of january ' . $currentDate->format('Y');
+				break;
+			default:
+				$dateString = 'first day of this month';
+		}
+		if (isset($settings['startDate']) AND !empty($settings['startDate'])){
+			$dateString = $settings['startDate'];
+		}
+		$startDate->modify($dateString);
+		$calendarConfiguration->setStartDate($startDate);
+
+		if (isset($settings['viewMode']) AND !empty($settings['viewMode'])) {
+			$calendarConfiguration->setViewMode((int)$settings['viewMode']);
+		} else {
+			$calendarConfiguration->setViewMode(CalendarConfiguration::VIEW_MODE_COMBO_PANE);
 		}
 
 		if (isset($settings['ajaxEnabled'])) {

@@ -14,7 +14,7 @@
 			>
 			<f:translate key="displayPeriod.day" default="Day"/>
 		</f:widget.link>
-		<f:widget.link arguments="{period: 1, date: '{f:format.date(format: \'U\', base: \'+0d\', date: \'last Monday\')}'}"
+		<f:widget.link arguments="{period: 1, date: '{f:format.date(format: \'U\', base: \'+0d\', date: \'monday this week\')}'}"
 			data="{calendarId: calendarId}"
 			ajax="{configuration.ajaxEnabled}"
 			class="button {f:if(condition: '{calendar.displayPeriod} == 1', then: 'active')}"

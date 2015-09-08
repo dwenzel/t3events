@@ -1,35 +1,51 @@
 <table class="calendarMonth">
 	<thead>
 		<tr class="header">
-			<f:if condition="{showNavigation}">
+			<f:if condition="{configuration.viewMode}==2">
 				<f:then>
-					<td colspan="7" class="navigation">
-						<f:widget.link arguments="{display: 'previous', period: '2', date: '{configuration.startDate.timestamp}'}"
-							data="{calendarId: calendarId}"
-							ajax="{configuration.ajaxEnabled}"
-						>
-							<i class="fa fa-2x fa-angle-left"></i>
-						</f:widget.link>
-						<span class="legend">{f:format.date(date: '{calendar.currentMonth.startDate}', format: 'F Y')}</span>
-						<f:widget.link arguments="{display: 'next', period: '2', date: '{configuration.startDate.timestamp}'}"
-							data="{calendarId: calendarId}"
-							>
-							<i class="fa fa-2x fa-angle-right"></i>
-						</f:widget.link>
-					</td>
-					</f:then>
-					<f:else>
+					<f:comment> allow display of navigation in view mode miniMonth</f:comment>
+					<f:if condition="{settings.showCalendarNavigation}">
 						<td colspan="7" class="navigation">
-							<span class="legend">{f:format.date(date: '{calendar.currentMonth.startDate}', format: 'F Y')}</span></td>
+							<f:widget.link arguments="{display: 'previous', period: '2', date: '{f:format.date(format:\'U\',date:\'-11 months\',base:\'{configuration.startDate}\')}'}"
+								data="{calendarId: calendarId}"
+								ajax="{configuration.ajaxEnabled}"
+							>
+								<i class="fa fa-2x fa-angle-double-left"></i>
+							</f:widget.link>
+							<f:widget.link arguments="{display: 'previous', period: '2', date: '{configuration.startDate.timestamp}'}"
+								data="{calendarId: calendarId}"
+								ajax="{configuration.ajaxEnabled}"
+							>
+								<i class="fa fa-2x fa-angle-left"></i>
+							</f:widget.link>
+							<span class="legend">{f:format.date(date: '{calendar.currentMonth.startDate}', format: 'F Y')}</span>
+							<f:widget.link arguments="{display: 'next', period: '2', date: '{configuration.startDate.timestamp}'}"
+								data="{calendarId: calendarId}"
+								ajax="{configuration.ajaxEnabled}"
+								>
+								<i class="fa fa-2x fa-angle-right"></i>
+							</f:widget.link>
+							<f:widget.link arguments="{display: 'previous', period: '2', date: '{f:format.date(format:\'U\',date:\'+13 months\',base:\'{configuration.startDate}\')}'}"
+								data="{calendarId: calendarId}"
+								ajax="{configuration.ajaxEnabled}"
+							>
+								<i class="fa fa-2x fa-angle-double-right"></i>
+							</f:widget.link>
 						</td>
-					</f:else>
-				</f:if>
-			</tr>
-			<tr>
-				<f:for each="{calendar.weekDayLabels}" as="weekDay">
-					<th class="weekDay">{weekDay}</th>
-				</f:for>
-			</tr>
+					</f:if>
+				</f:then>
+				<f:else>
+					<td colspan="7" class="navigation">
+						<span class="legend">{f:format.date(date: '{calendar.currentMonth.startDate}', format: 'F Y')}</span></td>
+					</td>
+				</f:else>
+			</f:if>
+		</tr>
+		<tr>
+			<f:for each="{calendar.weekDayLabels}" as="weekDay">
+				<th class="weekDay">{weekDay}</th>
+			</f:for>
+		</tr>
 	</thead>
 	<tbody>
 		<f:for each="{calendar.currentMonth.weeks}" as="calendarWeek">

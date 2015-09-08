@@ -77,9 +77,16 @@ class CalendarController extends AbstractWidgetController {
 				$this->configuration->setStartDate($startDate);
 			}
 		}
+		/** @var \DateTimeZone $timeZone */
+		$timeZone = new \DateTimeZone(date_default_timezone_get());
 		if ($display == '' AND ((int)$period == CalendarConfiguration::PERIOD_DAY
 				OR $this->configuration->getDisplayPeriod() == CalendarConfiguration::PERIOD_DAY)) {
-			$startDate = ($date == 0)? new \DateTime('today'): new\DateTime('@' . $date);
+			$startDate = ($date == 0)? new \DateTime('today'): new\DateTime('@' . $date, $timeZone);
+			$this->configuration->setStartDate($startDate);
+		}
+		if ($display == '' AND ((int)$period == CalendarConfiguration::PERIOD_WEEK
+				OR $this->configuration->getDisplayPeriod() == CalendarConfiguration::PERIOD_WEEK)) {
+			$startDate = ($date == 0)? new \DateTime('monday this week'): new\DateTime('@' . $date, $timeZone);
 			$this->configuration->setStartDate($startDate);
 		}
 		$calendar = $this->getCalendar($this->configuration);
@@ -112,6 +119,9 @@ class CalendarController extends AbstractWidgetController {
 				case CalendarConfiguration::PERIOD_DAY:
 					$calendar->setCurrentDay($this->getCurrentCalendarDay());
 					break;
+				case CalendarConfiguration::PERIOD_WEEK:
+					$calendar->setCurrentWeek($this->getCurrentCalendarWeek());
+					break;
 				default:
 			}
 			//todo add weeks/months/days for combo pane
@@ -134,7 +144,20 @@ class CalendarController extends AbstractWidgetController {
 		$startDate = $this->configuration->getStartDate()->getTimeStamp();
 		$currentDate = $this->configuration->getCurrentDate()->getTimeStamp();
 
-		return $this->getCalendarDay($startDate, $currentDate);
+		return $this->getCalendarDay($startDate, $currentDate, $addEvents);
+	}
+
+	/**
+	 * Gets the current calendar week
+	 *
+	 * @param bool $addEvents Add events. Default: TRUE
+	 * @return CalendarWeek
+	 */
+	protected function getCurrentCalendarWeek($addEvents = TRUE) {
+		$startDate = $this->configuration->getStartDate()->getTimeStamp();
+		$currentDate = $this->configuration->getCurrentDate()->getTimeStamp();
+
+		return $this->getCalendarWeek($startDate, $currentDate, $addEvents);
 	}
 
 	/**
@@ -227,6 +250,30 @@ class CalendarController extends AbstractWidgetController {
 		}
 
 		return $calendarDay;
+	}
+
+	/**
+	 * Gets a calendar week
+	 *
+	 * @param int $date timestamp of day
+	 * @param int $currentDate timestamp of current day
+	 * @param bool $addEvents If TRUE all events for this date are added. Default: FALSE
+	 * @return CalendarWeek
+	 */
+	protected function getCalendarWeek($date, $currentDate = NULL, $addEvents = FALSE) {
+		/** @var CalendarWeek $week */
+		$calendarWeek = $this->objectManager->get('Webfox\\T3events\\Domain\\Model\\CalendarWeek');
+		$startDate = new \DateTime('@' . $date);
+		for ($weekDay = 0; $weekDay < 7; $weekDay++) {
+			if ($weekDay > 0) {
+				$interval = new \DateInterval('P1D');
+				$startDate = $startDate->add($interval);
+			}
+			$calendarWeek->addDay(
+				$this->getCalendarDay($startDate->getTimeStamp(), $currentDate, $addEvents)
+			);
+		}
+		return $calendarWeek;
 	}
 
 	/**
