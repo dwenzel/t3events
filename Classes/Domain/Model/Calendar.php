@@ -45,6 +45,11 @@ class Calendar {
 	protected $currentWeek;
 
 	/**
+	 * @var CalenderYear
+	 */
+	protected $currentYear;
+
+	/**
 	 * View Mode
 	 *
 	 * @var int
@@ -110,6 +115,24 @@ class Calendar {
 	 */
 	public function setCurrentDay(CalendarDay $calendarDay) {
 		$this->currentDay = $calendarDay;
+	}
+
+	/**
+	 * Gets the current year
+	 *
+	 * @return CalendarYear
+	 */
+	public function getCurrentYear() {
+		return $this->currentYear;
+	}
+
+	/**
+	 * Sets the current year
+	 *
+	 * @param CalendarYear $calendarYear
+	 */
+	public function setCurrentYear(CalendarYear $calendarYear) {
+		$this->currentYear = $calendarYear;
 	}
 
 	/**
