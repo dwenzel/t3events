@@ -25,6 +25,7 @@
 		<f:render partial="Calendar/Month"
 		arguments="{
 			calendar: calendar,
+			month: '{calendar.currentMonth}',
 			configuration: configuration,
 			settings: settings,
 			calendarId: calendarId
@@ -70,6 +71,7 @@
 			<f:render partial="Calendar/Month"
 			arguments="{
 				calendar: calendar,
+				month: '{calendar.currentMonth}',
 				configuration: configuration,
 				settings: settings,
 				calendarId: calendarId}"/>

@@ -18,7 +18,7 @@
 							>
 								<i class="fa fa-2x fa-angle-left"></i>
 							</f:widget.link>
-							<span class="legend">{f:format.date(date: '{calendar.currentMonth.startDate}', format: 'F Y')}</span>
+							<span class="legend">{f:format.date(date: '{month.startDate}', format: 'F Y')}</span>
 							<f:widget.link arguments="{display: 'next', period: '2', date: '{configuration.startDate.timestamp}'}"
 								data="{calendarId: calendarId}"
 								ajax="{configuration.ajaxEnabled}"
@@ -36,7 +36,7 @@
 				</f:then>
 				<f:else>
 					<td colspan="7" class="navigation">
-						<span class="legend">{f:format.date(date: '{calendar.currentMonth.startDate}', format: 'F Y')}</span></td>
+						<span class="legend">{f:format.date(date: '{month.startDate}', format: 'F Y')}</span></td>
 					</td>
 				</f:else>
 			</f:if>
@@ -48,11 +48,11 @@
 		</tr>
 	</thead>
 	<tbody>
-		<f:for each="{calendar.currentMonth.weeks}" as="calendarWeek">
+		<f:for each="{month.weeks}" as="calendarWeek">
 			<tr>
 				<f:for each="{calendarWeek.days}" as="calendarDay">
 					<td class="day
-					{f:if(condition: '{calendarDay.month} != {calendar.currentMonth.month}', then: 'outOfMonth')}
+					{f:if(condition: '{calendarDay.month} != {month.month}', then: 'outOfMonth')}
 					{f:if(condition: '{calendarDay.isCurrent}', then: 'current')}
 					{f:if(condition: '{f:count(subject: \'{calendarDay.events}\')}',
 						then: 'hasEvent')}">

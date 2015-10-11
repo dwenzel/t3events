@@ -77,16 +77,8 @@ class CalendarController extends AbstractWidgetController {
 				$this->configuration->setStartDate($startDate);
 			}
 		}
-		/** @var \DateTimeZone $timeZone */
-		$timeZone = new \DateTimeZone(date_default_timezone_get());
-		if ($display == '' AND ((int)$period == CalendarConfiguration::PERIOD_DAY
-				OR $this->configuration->getDisplayPeriod() == CalendarConfiguration::PERIOD_DAY)) {
-			$startDate = ($date == 0)? new \DateTime('today'): new\DateTime('@' . $date, $timeZone);
-			$this->configuration->setStartDate($startDate);
-		}
-		if ($display == '' AND ((int)$period == CalendarConfiguration::PERIOD_WEEK
-				OR $this->configuration->getDisplayPeriod() == CalendarConfiguration::PERIOD_WEEK)) {
-			$startDate = ($date == 0)? new \DateTime('monday this week'): new\DateTime('@' . $date, $timeZone);
+		if ($display == '' AND $date == 0 ) {
+			$startDate = $this->getStartDate($period);
 			$this->configuration->setStartDate($startDate);
 		}
 		$calendar = $this->getCalendar($this->configuration);
@@ -113,6 +105,9 @@ class CalendarController extends AbstractWidgetController {
 		switch ($period) {
 			case CalendarConfiguration::PERIOD_WEEK:
 				$dateString = 'monday this week';
+				break;
+			case CalendarConfiguration::PERIOD_MONTH:
+				$dateString = 'first day of this month';
 				break;
 			case CalendarConfiguration::PERIOD_YEAR:
 				$dateString = date('Y') . '-01-01';
@@ -154,7 +149,6 @@ class CalendarController extends AbstractWidgetController {
 				default:
 			}
 		}
-
 		$calendar->setCurrentMonth(
 			$this->getCurrentCalendarMonth()
 		);
@@ -328,14 +322,17 @@ class CalendarController extends AbstractWidgetController {
 		/** @var CalendarYear $year */
 		$calendarYear = $this->objectManager->get('Webfox\\T3events\\Domain\\Model\\CalendarYear');
 		$startDate = new \DateTime('@' . $date);
-		$interval = new \DateInterval('P1M');
-		for ($monthOfYear = 1; $monthOfYear <= 12; $monthOfYear++) {
-			if ($monthOfYear > 1) {
-				$startDate = $startDate->add($interval);
+		$calendarYear->setStartDate($this->configuration->getStartDate());
+		for ($monthOfYear = 0; $monthOfYear < 12; $monthOfYear++) {
+			if ($monthOfYear > 0) {
+				$interval = new \DateInterval('P' . $monthOfYear . 'M');
+				$startDateOfMonth = clone $startDate;
+				$startDateOfMonth->add($interval);
+				$currentMonth = $this->getCalendarMonth($startDateOfMonth, $currentDate, $addEvents);
+			} else {
+				$currentMonth = $this->getCalendarMonth($startDate, $currentDate, $addEvents);
 			}
-			$calendarYear->addMonth(
-				$this->getCalendarMonth($startDate, $currentDate, $addEvents)
-			);
+			$calendarYear->addMonth($currentMonth);
 		}
 		return $calendarYear;
 	}

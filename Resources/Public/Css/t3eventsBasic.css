@@ -1067,7 +1067,8 @@ screen width 1400px or above
 	display: inline-block;
 }
 .tx-t3events .eventCalendar.comboPane .calendarMonth,
-.tx-t3events .eventCalendar.comboPane .calendarWeek 
+.tx-t3events .eventCalendar.comboPane .calendarWeek,
+.tx-t3events .eventCalendar.comboPane .calendarYear
 {
 	width: 100%;
 }
@@ -1080,6 +1081,10 @@ screen width 1400px or above
 .tx-t3events .eventCalendar.comboPane td.day {
 	height: 10em;
 	width: 14.285%;
+}
+.tx-t3events .eventCalendar.comboPane .calendarYear td.day {
+	height: 1em;
+	width: 15%;
 }
 .tx-t3events .eventCalendar.comboPane .labelDay {
 	text-align: right;
@@ -1098,11 +1103,11 @@ screen width 1400px or above
 	position: relative;
 }
 
-.tx-t3events .eventCalendar .calendarMonth.miniMonth .hasEvent .eventTooltip {
+.tx-t3events .eventCalendar .hasEvent .eventTooltip {
 	 display: none;
 }
 
-.tx-t3events .eventCalendar .calendarMonth.miniMonth .hasEvent:hover .eventTooltip {
+.tx-t3events .eventCalendar .hasEvent:hover .eventTooltip {
 	display: block;
 	position: absolute;
 	bottom: 60%;
@@ -1124,8 +1129,11 @@ screen width 1400px or above
     top: 0.1em;
 }
 
-.tx-t3events .eventCalendar .navigation .legend {
+.tx-t3events .eventCalendar .legend {
 	margin: 0 1em;
 	font-weight: 700;
+}
+.tx-t3events .eventCalendar .calendarYear .legend {
+	text-align: center;
 }
 
