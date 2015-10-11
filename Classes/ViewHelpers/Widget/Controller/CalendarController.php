@@ -101,6 +101,32 @@ class CalendarController extends AbstractWidgetController {
 	}
 
 	/**
+	 * Determines the startDate depending on the display period
+	 *
+	 * @param int $period Display period: one of CalendarConfiguration::PERIOD_ constants
+	 * @return \DateTime
+	 */
+	protected function getStartDate($period) {
+		if ($period == -1) {
+			$period = $this->configuration->getDisplayPeriod();
+		}
+		switch ($period) {
+			case CalendarConfiguration::PERIOD_WEEK:
+				$dateString = 'monday this week';
+				break;
+			case CalendarConfiguration::PERIOD_YEAR:
+				$dateString = date('Y') . '-01-01';
+				break;
+			default:
+				$dateString = 'today';
+		}
+		/** @var \DateTimeZone $timeZone */
+		$timeZone = new \DateTimeZone(date_default_timezone_get());
+
+		return new \DateTime($dateString, $timeZone);
+	}
+
+	/**
 	 * Gets a calendar from configuration
 	 *
 	 * @param CalendarConfiguration $configuration
@@ -122,9 +148,11 @@ class CalendarController extends AbstractWidgetController {
 				case CalendarConfiguration::PERIOD_WEEK:
 					$calendar->setCurrentWeek($this->getCurrentCalendarWeek());
 					break;
+				case CalendarConfiguration::PERIOD_YEAR:
+					$calendar->setCurrentYear($this->getCurrentCalendarYear());
+					break;
 				default:
 			}
-			//todo add weeks/months/days for combo pane
 		}
 
 		$calendar->setCurrentMonth(
@@ -170,6 +198,18 @@ class CalendarController extends AbstractWidgetController {
 		$currentDate = $this->configuration->getCurrentDate();
 
 		return $this->getCalendarMonth($startDate, $currentDate);
+	}
+
+	/**
+	 * Gets the current calendar year
+	 *
+	 * @return CalendarYear
+	 */
+	protected function getCurrentCalendarYear() {
+		$startDate = $this->configuration->getStartDate()->getTimeStamp();
+		$currentDate = $this->configuration->getCurrentDate();
+
+		return $this->getCalendarYear($startDate, $currentDate);
 	}
 
 	/**
@@ -274,6 +314,30 @@ class CalendarController extends AbstractWidgetController {
 			);
 		}
 		return $calendarWeek;
+	}
+
+	/**
+	 * Gets a calendar year
+	 *
+	 * @param int $date timestamp of day
+	 * @param int $currentDate timestamp of current day
+	 * @param bool $addEvents If TRUE all events for this date are added. Default: FALSE
+	 * @return CalendarYear
+	 */
+	protected function getCalendarYear($date, $currentDate = NULL, $addEvents = FALSE) {
+		/** @var CalendarYear $year */
+		$calendarYear = $this->objectManager->get('Webfox\\T3events\\Domain\\Model\\CalendarYear');
+		$startDate = new \DateTime('@' . $date);
+		$interval = new \DateInterval('P1M');
+		for ($monthOfYear = 1; $monthOfYear <= 12; $monthOfYear++) {
+			if ($monthOfYear > 1) {
+				$startDate = $startDate->add($interval);
+			}
+			$calendarYear->addMonth(
+				$this->getCalendarMonth($startDate, $currentDate, $addEvents)
+			);
+		}
+		return $calendarYear;
 	}
 
 	/**
