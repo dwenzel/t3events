@@ -5,6 +5,9 @@ use TYPO3\CMS\Core\Tests\UnitTestCase;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use Webfox\T3events\Domain\Model\Calendar;
 use Webfox\T3events\Domain\Model\CalendarMonth;
+use Webfox\T3events\Domain\Model\CalendarDay;
+use Webfox\T3events\Domain\Model\CalendarYear;
+use Webfox\T3events\Domain\Model\CalendarWeek;
 use Webfox\T3events\Domain\Model\Dto\CalendarConfiguration;
 use Webfox\T3events\Domain\Model\Event;
 
@@ -99,4 +102,97 @@ class CalendarTest extends UnitTestCase {
 		);
 	}
 
+	/**
+	 * @test
+	 * @covers ::getDisplayPeriod
+	 */
+	public function getDisplayPeriodReturnsInitiallyNull() {
+		$this->assertNull(
+			$this->fixture->getDisplayPeriod()
+		);
+	}
+
+	/**
+	 * @test
+	 * @covers ::setDisplayPeriod
+	 */
+	public function setDisplayPeriodForIntegerSetsDisplayPeriod() {
+		$this->fixture->setDisplayPeriod(CalendarConfiguration::PERIOD_MONTH);
+		$this->assertSame(
+			CalendarConfiguration::PERIOD_MONTH,
+			$this->fixture->getDisplayPeriod()
+		);
+	}
+
+	/**
+	 * @test
+	 * @covers ::getCurrentWeek
+	 */
+	public function getCurrentWeekReturnsInitiallyNull() {
+		$this->assertNull(
+			$this->fixture->getCurrentWeek()
+		);
+	}
+
+	/**
+	 * @test
+	 * @covers ::setCurrentWeek
+	 */
+	public function setCurrentWeekForObjectSetsCurrentWeek() {
+		$week = new CalendarWeek();
+		$this->fixture->setCurrentWeek($week);
+
+		$this->assertSame(
+			$week,
+			$this->fixture->getCurrentWeek()
+		);
+	}
+
+	/**
+	 * @test
+	 * @covers ::getCurrentYear
+	 */
+	public function getCurrentYearReturnsInitiallyNull() {
+		$this->assertNull(
+			$this->fixture->getCurrentYear()
+		);
+	}
+
+	/**
+	 * @test
+	 * @covers ::setCurrentYear
+	 */
+	public function setCurrentYearForObjectSetsCurrentYear() {
+		$year = new CalendarYear();
+		$this->fixture->setCurrentYear($year);
+
+		$this->assertSame(
+			$year,
+			$this->fixture->getCurrentYear()
+		);
+	}
+
+	/**
+	 * @test
+	 * @covers ::getCurrentDay
+	 */
+	public function getCurrentDayReturnsInitiallyNull() {
+		$this->assertNull(
+			$this->fixture->getCurrentDay()
+		);
+	}
+
+	/**
+	 * @test
+	 * @covers ::setCurrentDay
+	 */
+	public function setCurrentDayForObjectSetsCurrentDay() {
+		$day = new CalendarDay();
+		$this->fixture->setCurrentDay($day);
+
+		$this->assertSame(
+			$day,
+			$this->fixture->getCurrentDay()
+		);
+	}
 }

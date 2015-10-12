@@ -154,4 +154,17 @@ class CalendarMonthTest extends UnitTestCase {
 			$this->fixture->getStartdate()
 		);
 	}
+
+	/**
+	 * @test
+	 */
+	public function constructInitializesStorageObjects() {
+		$expectedObjectStorage = new ObjectStorage();
+		$this->fixture->__construct();
+
+		$this->assertEquals(
+				$expectedObjectStorage,
+				$this->fixture->getWeeks()
+		);
+	}
 }

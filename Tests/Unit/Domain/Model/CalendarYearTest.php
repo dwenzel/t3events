@@ -154,4 +154,17 @@ class CalendarYearTest extends UnitTestCase {
 			$this->fixture->getStartdate()
 		);
 	}
+
+	/**
+	 * @test
+	 */
+	public function constructorInitializesStorageObjects() {	
+		$expectedObjectStorage = new ObjectStorage();
+		$this->fixture->__construct();
+
+		$this->assertEquals(
+				$expectedObjectStorage,
+				$this->fixture->getMonths()
+		);
+	}
 }

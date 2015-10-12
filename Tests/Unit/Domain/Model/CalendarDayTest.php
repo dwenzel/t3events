@@ -225,4 +225,31 @@ class CalendarDayTest extends UnitTestCase {
 			$this->fixture->getEvents()->contains($event)
 		);
 	}
+
+	/**
+	 * @test
+	 */
+	public function constructorInitializesStorageObjects() {	
+		$expectedObjectStorage = new ObjectStorage();
+		$this->fixture->__construct();
+
+		$this->assertEquals(
+				$expectedObjectStorage,
+				$this->fixture->getEvents()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function constructorInitializesDate() {
+		$timeStamp = 12345;
+		$expectedDate = new \DateTime('@' . $timeStamp);
+		$this->fixture->__construct($timeStamp);
+
+		$this->assertEquals(
+				$expectedDate,
+				$this->fixture->getDate()
+		);
+	}
 }

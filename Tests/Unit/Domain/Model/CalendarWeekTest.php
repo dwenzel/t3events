@@ -107,4 +107,17 @@ class CalendarWeekTest extends UnitTestCase {
 			$this->fixture->getDays()->contains($day)
 		);
 	}
+
+	/**
+	 * @test
+	 */
+	public function constructorInitializesStorageObjects() {	
+		$expectedObjectStorage = new ObjectStorage();
+		$this->fixture->__construct();
+
+		$this->assertEquals(
+				$expectedObjectStorage,
+				$this->fixture->getDays()
+		);
+	}
 }
