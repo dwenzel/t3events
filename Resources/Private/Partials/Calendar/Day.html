@@ -1,0 +1,20 @@
+<div class="day {f:if(condition: '{calendarDay.month} != {calendar.currentMonth.month}', then: 'outOfMonth')} {f:if(condition: '{calendarDay.isCurrent}', then: 'current')} {f:if(condition: '{f:count(subject: \'{calendarDay.events}\')}',then: 'hasEvent')}">
+	<div class="header">
+		<span class="legend">
+			<f:format.date format="{f:translate(key: 'format.day', default: 'l, j. F Y')}">{calendar.currentDay.date}</f:format.date>
+		</span>
+		<f:for each="{calendar.currentDay.events}" as="singleEvent">
+			<div class="event">
+				<f:link.action 
+					pluginName="events"
+					controller="Event"
+					action="show"
+					arguments="{event: singleEvent}"
+					pageUid="{settings.detailPid}"
+					>
+					{singleEvent.headline}
+				</f:link.action>
+			</div>
+		</f:for>
+	</div>
+</div>

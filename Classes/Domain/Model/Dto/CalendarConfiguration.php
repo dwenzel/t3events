@@ -137,7 +137,7 @@ class CalendarConfiguration {
 	/**
 	 * Sets the display period
 	 *
-	 * @param $displayPeriod
+	 * @param int $displayPeriod
 	 */
 	public function setDisplayPeriod($displayPeriod) {
 		$this->displayPeriod = $displayPeriod;

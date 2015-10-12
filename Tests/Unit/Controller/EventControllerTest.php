@@ -950,7 +950,8 @@ class EventControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$this->fixture->_set('objectManager', $mockObjectManager);
 
 		$timeZone = new \DateTimeZone(date_default_timezone_get());
-		$startDate = new \DateTime('first day of this month', $timeZone);
+		$startDate = new \DateTime('today', $timeZone);
+		$startDate->modify('first day of this month');
 
 		$mockObjectManager->expects($this->once())->method('get')
 			->will($this->returnValue($mockCalendarConfiguration));
@@ -979,7 +980,8 @@ class EventControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$this->fixture->_set('objectManager', $mockObjectManager);
 
 		$timeZone = new \DateTimeZone(date_default_timezone_get());
-		$startDate = new \DateTime($dateString, $timeZone);
+		$startDate = new \DateTime('today', $timeZone);
+		$startDate->modify($dateString);
 
 		$mockObjectManager->expects($this->once())->method('get')
 			->will($this->returnValue($mockCalendarConfiguration));
@@ -1171,5 +1173,95 @@ class EventControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 		$fixture->calendarAction();
 	}
+
+	/**
+	 * @test
+	 * @covers ::createCalendarConfigurationFromSettings
+	 */
+	public function createCalendarConfigurationFromSettingsSetsStartDateForDisplayPeriodWeek() {
+		$mockCalendarConfiguration = $this->getMock('Webfox\\T3events\\Domain\\Model\\Dto\\CalendarConfiguration',
+			array('setStartDate'), array(), '', FALSE);
+		$mockObjectManager = $this->getMock('TYPO3\\CMS\\Extbase\\Object\\ObjectManager',
+			array('get'), array(), '', FALSE);
+		$this->fixture->_set('objectManager', $mockObjectManager);
+		$displayPeriod = CalendarConfiguration::PERIOD_WEEK;
+		$settings = array(
+			'displayPeriod' => (string)$displayPeriod,
+		);
+		$dateString = 'monday this week';
+		/** @var \DateTimeZone $timeZone */
+		$timeZone = new \DateTimeZone(date_default_timezone_get());
+		/** @var \DateTime $startDate */
+		$startDate = new \DateTime($dateString , $timeZone);
+
+		$mockObjectManager->expects($this->once())->method('get')
+			->will($this->returnValue($mockCalendarConfiguration));
+
+		$mockCalendarConfiguration->expects($this->once())->method('setStartDate')
+			->with($startDate);
+
+		$this->fixture->createCalendarConfigurationFromSettings($settings);
+	}
+
+	/**
+	 * @test
+	 * @covers ::createCalendarConfigurationFromSettings
+	 */
+	public function createCalendarConfigurationFromSettingsSetsStartDateForDisplayPeriodMonth() {
+		$mockCalendarConfiguration = $this->getMock('Webfox\\T3events\\Domain\\Model\\Dto\\CalendarConfiguration',
+			array('setStartDate'), array(), '', FALSE);
+		$mockObjectManager = $this->getMock('TYPO3\\CMS\\Extbase\\Object\\ObjectManager',
+			array('get'), array(), '', FALSE);
+		$this->fixture->_set('objectManager', $mockObjectManager);
+		$displayPeriod = CalendarConfiguration::PERIOD_MONTH;
+		$settings = array(
+			'displayPeriod' => (string)$displayPeriod,
+		);
+		$dateString = 'first day of this month';
+		/** @var \DateTimeZone $timeZone */
+		$timeZone = new \DateTimeZone(date_default_timezone_get());
+		/** @var \DateTime $startDate */
+		$startDate = new \DateTime('today' , $timeZone);
+		$startDate->modify($dateString);
+
+		$mockObjectManager->expects($this->once())->method('get')
+			->will($this->returnValue($mockCalendarConfiguration));
+
+		$mockCalendarConfiguration->expects($this->once())->method('setStartDate')
+			->with($startDate);
+
+		$this->fixture->createCalendarConfigurationFromSettings($settings);
+	}
+
+	/**
+	 * @test
+	 * @covers ::createCalendarConfigurationFromSettings
+	 */
+	public function createCalendarConfigurationFromSettingsSetsStartDateForDisplayPeriodYear() {
+		$mockCalendarConfiguration = $this->getMock('Webfox\\T3events\\Domain\\Model\\Dto\\CalendarConfiguration',
+			array('setStartDate'), array(), '', FALSE);
+		$mockObjectManager = $this->getMock('TYPO3\\CMS\\Extbase\\Object\\ObjectManager',
+			array('get'), array(), '', FALSE);
+		$this->fixture->_set('objectManager', $mockObjectManager);
+		$displayPeriod = CalendarConfiguration::PERIOD_YEAR;
+		$settings = array(
+			'displayPeriod' => (string)$displayPeriod,
+		);
+		/** @var \DateTimeZone $timeZone */
+		$timeZone = new \DateTimeZone(date_default_timezone_get());
+		$startDate = new \DateTime('today', $timeZone);
+		$dateString = 'first day of january ' . $startDate->format('Y');
+		/** @var \DateTime $startDate */
+		$startDate->modify($dateString);
+
+		$mockObjectManager->expects($this->once())->method('get')
+			->will($this->returnValue($mockCalendarConfiguration));
+
+		$mockCalendarConfiguration->expects($this->once())->method('setStartDate')
+			->with($startDate);
+
+		$this->fixture->createCalendarConfigurationFromSettings($settings);
+	}
+
 }
 
