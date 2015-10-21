@@ -11,6 +11,7 @@ namespace Webfox\T3events\ViewHelpers\Format;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 use TYPO3\CMS\Core\Utility\MathUtility;
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
  * Formats a \DateTime object. This is an extended version which allows to
@@ -69,7 +70,7 @@ use TYPO3\CMS\Core\Utility\MathUtility;
  *
  * @api
  */
-class DateViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class DateViewHelper extends AbstractViewHelper {
 
 	/**
 	 * @var boolean
@@ -83,6 +84,7 @@ class DateViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
 	 * @param mixed $date either a DateTime object or a string that is accepted by DateTime constructor
 	 * @param string $format Format String which is taken to format the Date/Time
 	 * @param int $time an integer representing a time value
+	 * @param mixed $base A base time (a DateTime object or a string) used if $date is a relative date specification. Defaults to current time.
 	 * @return string Formatted date
 	 * @throws \TYPO3\CMS\Fluid\Core\ViewHelper\Exception
 	 */
@@ -96,13 +98,10 @@ class DateViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
 		}
 
 		if ($date === NULL) {
-			$modifiedDate = $this->renderChildren();
-			if ($modifiedDate === NULL) {
+			$date = $this->renderChildren();
+			if ($date === NULL) {
 				return '';
 			}
-		} else {
-			// we have to clone it - otherwise we would change the date!
-			$modifiedDate = clone($date);
 		}
 
 		if ($date === '') {
@@ -118,7 +117,10 @@ class DateViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
 			} catch (\Exception $exception) {
 				throw new \TYPO3\CMS\Fluid\Core\ViewHelper\Exception('"' . $date . '" could not be parsed by \DateTime constructor.', 1241722579);
 			}
+		} else {
+			$modifiedDate = clone($date);
 		}
+
 		if ($time !== NULL) {
 			$modifiedDate->setTimestamp($modifiedDate->getTimestamp() + $time);
 		}
