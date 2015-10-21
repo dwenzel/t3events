@@ -32,7 +32,7 @@ return array(
 	),
 	'interface' => array(
 		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource,
-			hidden, date, admission, begin, end, status_info, external_provider_link,
+			hidden, date,endDate,admission, begin, end, status_info, external_provider_link,
 			additional_link, provider_type, image, plan, no_handling_fee, price_notice,
 			event_location, ticket_class, status',
 	),
@@ -63,7 +63,7 @@ return array(
 	'palettes' => array(
 		'1' => array('showitem' => ''),
 		'paletteTitle' => array(
-			'showitem' => 'date, event_location',
+			'showitem' => 'date, endDate, event_location',
 			'canNotCollapse' => TRUE,
 		),
 		'paletteTime' => array(
@@ -165,6 +165,17 @@ return array(
 				'default' => strtotime('today')
 			),
 		),
+		'end_date' => [
+			'exclude' => 1,
+			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_performance.endDate',
+			'config' => [
+				'type' => 'input',
+				'size' => 7,
+				'eval' => 'date',
+				'checkbox' => 1,
+				'default' => strtotime('today')
+			]
+		],
 		'admission' => array(
 			'exclude' => 0,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_performance.admission',

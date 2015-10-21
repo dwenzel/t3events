@@ -45,6 +45,7 @@
 			<label index="tx_t3events_domain_model_performance.additional_link">Additional Link</label>
 			<label index="tx_t3events_domain_model_performance.admission">Admission</label>
 			<label index="tx_t3events_domain_model_performance.begin">Begin</label>
+			<label index="tx_t3events_domain_model_performance.endDate">End Date</label>
 			<label index="tx_t3events_domain_model_performance.date">Date</label>
 			<label index="tx_t3events_domain_model_performance.end">End</label>
 			<label index="tx_t3events_domain_model_performance.event_location">Event Location</label>
@@ -143,6 +144,7 @@
 			<label index="tx_t3events_domain_model_performance.admission">Einlass</label>
 			<label index="tx_t3events_domain_model_performance.begin">Beginn</label>
 			<label index="tx_t3events_domain_model_performance.date">Datum</label>
+			<label index="tx_t3events_domain_model_performance.endDate">Enddatum</label>
 			<label index="tx_t3events_domain_model_performance.end">Ende</label>
 			<label index="tx_t3events_domain_model_performance.event_location">Veranstaltungsort</label>
 			<label index="tx_t3events_domain_model_performance.external">extern</label>

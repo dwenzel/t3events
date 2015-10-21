@@ -76,6 +76,27 @@ class PerformanceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 	/**
 	 * @test
+	 * @covers ::getEndDate
+	 */
+	public function getEndDateReturnsInitialValueForDateTime() {
+		$this->assertNull($this->fixture->getEndDate());
+	}
+
+	/**
+	 * @test
+	 * @covers ::setEndDate
+	 */
+	public function setEndDateForDateTimeSetsEndDate(){
+		$endDate = new \DateTime();
+		$this->fixture->setEndDate($endDate);
+		$this->assertSame(
+			$endDate,
+			$this->fixture->getEndDate()
+		);
+	}
+
+	/**
+	 * @test
 	 * @covers ::getAdmission
 	 */
 	public function getAdmissionReturnsInitialValueForInt() { 

@@ -143,6 +143,7 @@ CREATE TABLE tx_t3events_domain_model_performance (
 	event int(11) unsigned DEFAULT '0' NOT NULL,
 
 	date int(11) DEFAULT '0' NOT NULL,
+	end_date int(11) DEFAULT '0' NOT NULL,
 	admission int(11) DEFAULT '0' NOT NULL,
 	begin int(11) DEFAULT '0' NOT NULL,
 	end int(11) DEFAULT '0' NOT NULL,

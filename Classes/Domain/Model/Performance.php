@@ -209,6 +209,29 @@ class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 
 	/**
+	 * @var \DateTime
+	 */
+	protected $endDate;
+
+	/**
+	 * Gets the end date
+	 *
+	 * @return \DateTime
+	 */
+	public function getEndDate() {
+		return $this->endDate;
+	}
+
+	/**
+	 * Sets the end date
+	 *
+	 * @param \DateTime $date
+	 */
+	public function setEndDate($date) {
+		$this->endDate = $date;
+	}
+
+	/**
 	 * Returns the admission
 	 *
 	 * @return int $admission
