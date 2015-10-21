@@ -85,9 +85,11 @@ class DateRangeViewHelper extends AbstractTagBasedViewHelper {
 			$dateRange = strftime($startFormat, $this->performance->getDate()->getTimestamp());
 			$dateRange .= $glue . strftime($endFormat, $this->performance->getEndDate()->getTimestamp());
 		} else {
-			$dateRange = $this->performance->getDate()->format($startFormat);
 			if ($endDate = $this->performance->getEndDate()) {
+				$dateRange = $this->performance->getDate()->format($startFormat);
 				$dateRange .= $glue. $endDate->format($endFormat);
+			} else {
+				$dateRange =  $this->performance->getDate()->format($format);
 			}
 		}
 
