@@ -86,9 +86,13 @@ class DateViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
 	 * @return string Formatted date
 	 * @throws \TYPO3\CMS\Fluid\Core\ViewHelper\Exception
 	 */
-	public function render($date = NULL, $format = '', $time = NULL) {
+	public function render($date = NULL, $format = '', $time = NULL, $base = NULL) {
 		if ($format === '') {
 			$format = $GLOBALS['TYPO3_CONF_VARS']['SYS']['ddmmyy'] ?: 'Y-m-d';
+		}
+
+		if (empty($base)) {
+			$base = time();
 		}
 
 		if ($date === NULL) {
@@ -100,13 +104,17 @@ class DateViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
 			// we have to clone it - otherwise we would change the date!
 			$modifiedDate = clone($date);
 		}
+
+		if ($date === '') {
+			$date = 'now';
+		}
+
 		if (!$date instanceof \DateTime) {
 			try {
-				if (MathUtility::canBeInterpretedAsInteger($date)) {
-					$modifiedDate = new \DateTime('@' . $date);
-				} else {
-					$modifiedDate = new \DateTime($date);
-				}
+				$base = $base instanceof \DateTime ? $base->format('U') : strtotime((MathUtility::canBeInterpretedAsInteger($base) ? '@' : '') . $base);
+				$dateTimestamp = strtotime((MathUtility::canBeInterpretedAsInteger($date) ? '@' : '') . $date, $base);
+				$modifiedDate = new \DateTime('@' . $dateTimestamp);
+				$modifiedDate->setTimezone(new \DateTimeZone(date_default_timezone_get()));
 			} catch (\Exception $exception) {
 				throw new \TYPO3\CMS\Fluid\Core\ViewHelper\Exception('"' . $date . '" could not be parsed by \DateTime constructor.', 1241722579);
 			}
