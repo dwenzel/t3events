@@ -122,12 +122,12 @@ class EventController extends AbstractController {
 				FlashMessage::WARNING
 			);
 		}
-
 		$this->view->assignMultiple(
 			array(
 				'events' => $events,
 				'demand' => $demand,
-				'overwriteDemand' => $overwriteDemand
+				'overwriteDemand' => $overwriteDemand,
+				'data' => $this->configurationManager->getContentObject()->data
 			)
 		);
   }
