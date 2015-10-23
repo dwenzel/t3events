@@ -1,0 +1,35 @@
+<table class="tx-t3events" >
+	<f:debug>{person}</f:debug>
+	<tr>
+		<td>
+			<f:translate key="tx_t3events_domain_model_person.name" />
+		</td>
+		<td>
+			{person.name}
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<f:translate key="tx_t3events_domain_model_person.first_name" />
+		</td>
+		<td>
+			{person.firstName}
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<f:translate key="tx_t3events_domain_model_person.last_name" />
+		</td>
+		<td>
+			{person.lastName}
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<f:translate key="tx_t3events_domain_model_person.gender" />
+		</td>
+		<td>
+			<f:translate key="tx_t3events_domain_model_person.gender.I.{person.gender}" />
+		</td>
+	</tr>
+</table>

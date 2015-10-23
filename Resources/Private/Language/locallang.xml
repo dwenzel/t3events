@@ -70,6 +70,16 @@
 			<label index="tx_t3events_domain_model_event.performances">performances</label>
 			<label index="tx_t3events_domain_model_event.subtitle">subtitle</label>
 			<label index="tx_t3events_domain_model_event.teaser">Teaser</label>
+			<label index="tx_t3events_domain_model_person">Person</label>
+			<label index="tx_t3events_domain_model_person.person_type">Person Type</label>
+			<label index="tx_t3events_domain_model_person.name">Name</label>
+			<label index="tx_t3events_domain_model_person.first_name">First Name</label>
+			<label index="tx_t3events_domain_model_person.last_name">Last Name</label>
+			<label index="tx_t3events_domain_model_person.gender">Gender</label>
+			<label index="tx_t3events_domain_model_person.gender.I.0">male</label>
+			<label index="tx_t3events_domain_model_person.gender.I.1">female</label>
+			<label index="tx_t3events_domain_model_persontype">Person Type</label>
+			<label index="tx_t3events_domain_model_persontype.title">Title</label>
 			<label index="tx_t3events_domain_model_eventlocation">Event Location</label>
 			<label index="tx_t3events_domain_model_eventlocation.address">address</label>
 			<label index="tx_t3events_domain_model_eventlocation.country">country</label>
