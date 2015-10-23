@@ -123,6 +123,9 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	public function __construct() {
 		//Do not remove the next line: It would break the functionality
 		$this->initStorageObjects();
+		if (method_exists($this, 'initializeObject')) {
+			$this->initializeObject();
+		}
 	}
 
 	/**
