@@ -50,6 +50,7 @@ return array(
 					array('LLL:EXT:lang/locallang_general.xlf:LGL.allLanguages', -1),
 					array('LLL:EXT:lang/locallang_general.xlf:LGL.default_value', 0)
 				),
+				'noIconsBelowSelect' => TRUE,
 			),
 		),
 		'l10n_parent' => array(
@@ -63,6 +64,7 @@ return array(
 				),
 				'foreign_table' => 'tx_t3events_domain_model_person',
 				'foreign_table_where' => 'AND tx_t3events_domain_model_person.pid=###CURRENT_PID### AND tx_t3events_domain_model_person.sys_language_uid IN (-1,0)',
+				'noIconsBelowSelect' => TRUE,
 			),
 		),
 		'l10n_diffsource' => array(
@@ -117,6 +119,7 @@ return array(
 				'foreign_table' => 'tx_t3events_domain_model_persontype',
 				'minitems' => 0,
 				'maxitems' => 1,
+				'noIconsBelowSelect' => TRUE,
 			),
 		),
 		'name' => array(
@@ -155,6 +158,7 @@ return array(
 				'minitems' => 0,
 				'maxitems' => 1,
 				'eval' => 'required',
+				'noIconsBelowSelect' => TRUE,
 			),
 		),
 	),

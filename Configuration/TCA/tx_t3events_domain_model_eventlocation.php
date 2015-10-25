@@ -50,6 +50,7 @@ return array(
 					array('LLL:EXT:lang/locallang_general.xml:LGL.allLanguages', -1),
 					array('LLL:EXT:lang/locallang_general.xml:LGL.default_value', 0)
 				),
+				'noIconsBelowSelect' => TRUE,
 			),
 		),
 		'l10n_parent' => array(
@@ -63,6 +64,7 @@ return array(
 				),
 				'foreign_table' => 'tx_t3events_domain_model_eventlocation',
 				'foreign_table_where' => 'AND tx_t3events_domain_model_eventlocation.pid=###CURRENT_PID### AND tx_t3events_domain_model_eventlocation.sys_language_uid IN (-1,0)',
+				'noIconsBelowSelect' => TRUE,
 			),
 		),
 		'l10n_diffsource' => array(
@@ -201,6 +203,7 @@ return array(
 						'type' => 'suggest',
 					),
 				),
+				'noIconsBelowSelect' => TRUE,
 			),
 		),
 		'latitude' => array(

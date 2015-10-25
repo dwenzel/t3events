@@ -87,6 +87,7 @@ return array(
 					array('LLL:EXT:lang/locallang_general.xml:LGL.allLanguages', -1),
 					array('LLL:EXT:lang/locallang_general.xml:LGL.default_value', 0)
 				),
+				'noIconsBelowSelect' => TRUE,
 			),
 		),
 		'l10n_parent' => array(
@@ -100,6 +101,7 @@ return array(
 				),
 				'foreign_table' => 'tx_t3events_domain_model_performance',
 				'foreign_table_where' => 'AND tx_t3events_domain_model_performance.pid=###CURRENT_PID### AND tx_t3events_domain_model_performance.sys_language_uid IN (-1,0)',
+				'noIconsBelowSelect' => TRUE,
 			),
 		),
 		'l10n_diffsource' => array(
@@ -309,6 +311,7 @@ return array(
                 							ORDER BY tx_t3events_domain_model_eventlocation.name',
                 'minitems' => 0,
                 'maxitems' => 1,
+				'noIconsBelowSelect' => TRUE,
 			),
 		),
 		'ticket_class' => array(
@@ -342,6 +345,7 @@ return array(
 				'foreign_table_where' => ' AND (tx_t3events_domain_model_performancestatus.sys_language_uid = 0)
                                             AND (tx_t3events_domain_model_performancestatus.hidden = 0)
 				                            ORDER BY tx_t3events_domain_model_performancestatus.priority',
+				'noIconsBelowSelect' => TRUE,
 			),
 		),
 		'event' => array(
