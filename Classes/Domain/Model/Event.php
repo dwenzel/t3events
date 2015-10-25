@@ -118,11 +118,11 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * __construct
 	 *
-	 * @return void
 	 */
 	public function __construct() {
 		//Do not remove the next line: It would break the functionality
 		$this->initStorageObjects();
+		// allow additional initialization in proxy classes
 		if (method_exists($this, 'initializeObject')) {
 			$this->initializeObject();
 		}

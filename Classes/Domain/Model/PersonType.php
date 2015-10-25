@@ -30,7 +30,7 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractValueObject;
 /**
  * Class PersonType
  *
- * @package CPSIT\T3vents\Domain\Model
+ * @package Webfox\T3events\Domain\Model
  */
 class PersonType extends AbstractValueObject {
 	/**
