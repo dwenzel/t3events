@@ -256,6 +256,7 @@ class EventController extends AbstractController {
 							$orderings .= '|' . $overwriteDemand['sortDirection'];
 						}
 						$demand->setOrder($orderings);
+						$demand->setSortBy($overwriteDemand['sortBy']);
 
 						break;
 					case 'startDate':

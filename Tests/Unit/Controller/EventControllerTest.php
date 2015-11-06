@@ -827,7 +827,7 @@ class EventControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 * @covers ::overwriteDemandObject
 	 */
-	public function overwriteDemandObjectSetsDefaultSortingByPerformancesDate() {
+	public function overwriteDemandObjectSetsSortBy() {
 		$demand = $this->getMock('Webfox\\T3events\\Domain\\Model\\Dto\\EventDemand');
 		$overwriteDemand = array(
 			'sortBy' => 'foo'
@@ -843,14 +843,15 @@ class EventControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 * @covers ::overwriteDemandObject
 	 */
-	public function overwriteDemandObjectSetsSortingByHeadline() {
+	public function overwriteDemandObjectSetsSortOrder() {
 		$demand = $this->getMock('Webfox\\T3events\\Domain\\Model\\Dto\\EventDemand');
 		$overwriteDemand = array(
-			'sortBy' => 'headline'
+			'sortBy' => 'foo',
+			'sortDirection' => 'bar'
 		);
 		
-		$demand->expects($this->once())->method('setSortBy')
-			->with('headline');
+		$demand->expects($this->once())->method('setOrder')
+			->with('foo|bar');
 
 		$this->fixture->overwriteDemandObject($demand, $overwriteDemand);
 	}
