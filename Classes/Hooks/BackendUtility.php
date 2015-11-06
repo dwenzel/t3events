@@ -76,8 +76,13 @@ class BackendUtility {
 	protected function updateFlexforms(array &$dataStructure, array $row) {
 		$selectedView = '';
 
-			// get the first selected action
-		$flexformSelection = GeneralUtility::xml2array($row['pi_flexform']);
+		// get the first selected action
+		if (is_string($row['pi_flexform'])) {
+			$flexformSelection = GeneralUtility::xml2array($row['pi_flexform']);
+		} else {
+			$flexformSelection = $row['pi_flexform'];
+		}
+
 		if (is_array($flexformSelection) && is_array($flexformSelection['data'])) {
 			$selectedView = $flexformSelection['data']['sDEF']['lDEF']['switchableControllerActions']['vDEF'];
 			if (!empty($selectedView)) {
