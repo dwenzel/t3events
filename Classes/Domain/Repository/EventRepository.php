@@ -27,7 +27,6 @@ namespace Webfox\T3events\Domain\Repository;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use Webfox\T3events\Domain\Model\Dto\DemandInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use Webfox\T3events\Domain\Model\Dto\EventDemand;
 
 /**
  *
@@ -38,69 +37,6 @@ use Webfox\T3events\Domain\Model\Dto\EventDemand;
  */
 
 class EventRepository extends AbstractDemandedRepository {
-	/**
-	 * findDemanded
-	 *
-	 * @param \Webfox\T3events\Domain\Model\Dto\EventDemand
-	 * @param boolean $respectEnableFields
-	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
-	 */
-	public function findDemanded(EventDemand $demand, $respectEnableFields = TRUE) {
-		$query =$this->buildQuery($demand, $respectEnableFields);
-		return $query->execute();
-	}
-
-	/**
-	 * Builds a query from demand respecting restrictions for period of time and categories (genre, venue, event type)
-	 * @param \Webfox\T3events\Domain\Model\Dto\EventDemand $demand
-	 * @param boolean $respectEnableFields
-	 * @return \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
-	 */
-	protected function buildQuery($demand, $respectEnableFields = TRUE){
-		$query = $this->createQuery();
-
-		if ($respectEnableFields == FALSE) {
-			$query->getQuerySettings()->setIgnoreEnableFields(TRUE);
-			// @todo set enable fields to ignore
-			//$constraints[] = $query->equals('deleted', 0);
-		}
-
-		// get constraints
-		$constraints = $this->createConstraintsFromDemand($query, $demand);
-
-		if ((bool)$constraints) {
-			$query->matching($query->logicalAnd($constraints));
-		}
-
-		// sort direction
-		switch ($demand->getSortDirection()) {
-			case 'asc' :
-				$sortOrder = QueryInterface::ORDER_ASCENDING;
-				break;
-
-			case 'desc' :
-				$sortOrder = QueryInterface::ORDER_DESCENDING;
-				break;
-			default :
-				$sortOrder = QueryInterface::ORDER_ASCENDING;
-				break;
-		}
-		// sorting
-		if ($demand->getSortBy() !== '') {
-			$query->setOrderings(array($demand->getSortBy() => $sortOrder));
-		}
-		// limit
-		if ($demand->getLimit() !== NULL) {
-			$query->setLimit($demand->getLimit());
-		}
-		if ($demand->getStoragePages()) {
-			$pageIds = GeneralUtility::intExplode(',', $demand->getStoragePages());
-			$query->getQuerySettings()->setStoragePageIds($pageIds);
-		}
-
-		return $query;
-	}
-
 	/**
 	 * Create category constraints from demand
 	 * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query

@@ -142,6 +142,11 @@ abstract class AbstractDemandedRepository extends Repository {
 			$query->setOffset((int) $demand->getOffset());
 		}
 
+		if ($demand->getStoragePages()) {
+			$pageIds = GeneralUtility::intExplode(',', $demand->getStoragePages());
+			$query->getQuerySettings()->setStoragePageIds($pageIds);
+		}
+
 		return $query;
 	}
 

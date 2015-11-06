@@ -93,4 +93,8 @@ interface DemandInterface {
 	 */
 	public function getSortDirection();
 
+	/**
+	 * @return string Comma separated list of storage page ids
+	 */
+	public function getStoragePages();
 }

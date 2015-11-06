@@ -198,10 +198,11 @@ class EventController extends AbstractController {
 	public function createDemandFromSettings($settings) {
 		/** @var EventDemand $demand */
 		$demand = $this->objectManager->get('Webfox\\T3events\\Domain\\Model\\Dto\\EventDemand');
-	
-		$demand->setSortBy($settings['sortBy']);
+
 		$demand->setEventType($settings['eventTypes']);
+		$demand->setSortBy($settings['sortBy']);
 		$demand->setSortDirection($settings['sortDirection']);
+		$demand->setOrder($settings['sortBy'] . '|' . $settings['sortDirection']);
 		$demand->setLimit($settings['maxItems']);
 		if(!empty($settings['venues'])) {
 			$demand->setVenue($settings['venues']);
@@ -247,6 +248,15 @@ class EventController extends AbstractController {
 						} else {
 							$demand->setSortDirection('asc');
 						}
+						break;
+					case 'sortBy':
+						// @todo read multiple orderings from array
+						$orderings = $propertyValue;
+						if (isset($overwriteDemand['sortDirection'])) {
+							$orderings .= '|' . $overwriteDemand['sortDirection'];
+						}
+						$demand->setOrder($orderings);
+
 						break;
 					case 'startDate':
 						$demand->setStartDate(new \DateTime($propertyValue));
