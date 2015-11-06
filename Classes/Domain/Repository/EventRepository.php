@@ -109,7 +109,7 @@ class EventRepository extends AbstractDemandedRepository {
 	 */
 	protected function createCategoryConstraints(QueryInterface $query, $demand) {
 		// gather OR constraints (categories)
-		$categoryConstraints = array();
+		$categoryConstraints = [];
 
 		// genre
 		if ($demand->getGenre()) {
@@ -125,14 +125,14 @@ class EventRepository extends AbstractDemandedRepository {
 				$categoryConstraints[] = $query->contains('venue', $venue);
 			}
 		}
-
-		// venue
+		// event type
 		if ($demand->getEventType()) {
 			$eventTypes = GeneralUtility::intExplode(',', $demand->getEventType());
 			foreach ($eventTypes as $eventType) {
 				$categoryConstraints[] = $query->equals('eventType.uid', $eventType);
 			}
 		}
+
 		return (count($categoryConstraints))? $categoryConstraints : NULL;
 	}
 
@@ -149,7 +149,7 @@ class EventRepository extends AbstractDemandedRepository {
 		$periodStart = $demand->getPeriodStart();
 		$periodType = $demand->getPeriodType();
 		$periodDuration = $demand->getPeriodDuration();
-		$periodConstraint = array();
+		$periodConstraint = [];
 		if ($period === 'specific' && $periodType) {
 
 			// set start date initial to now
@@ -227,7 +227,7 @@ class EventRepository extends AbstractDemandedRepository {
 	 * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint>
 	 */
 	protected function createConstraintsFromDemand(QueryInterface $query, DemandInterface $demand) {
-		$constraints = array();
+		$constraints = [];
 		$periodConstraint = $this->createPeriodConstraint($query, $demand);
 		$categoryConstraints = $this->createCategoryConstraints($query, $demand);
 
@@ -246,8 +246,8 @@ class EventRepository extends AbstractDemandedRepository {
 
 		// Search constraints
 		if ($demand->getSearch()) {
-			$searchConstraints = array();
-			$locationConstraints = array();
+			$searchConstraints = [];
+			$locationConstraints = [];
 			$search = $demand->getSearch();
 			$subject = $search->getSubject();
 
@@ -297,4 +297,3 @@ class EventRepository extends AbstractDemandedRepository {
 	}
 
 }
-

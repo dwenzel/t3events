@@ -55,7 +55,7 @@ abstract class AbstractDemandedRepository extends Repository {
 		$uids = GeneralUtility::intExplode(',', $recordList, TRUE);
 		$query = $this->createQuery();		
 		$query->matching($query->in('uid' , $uids));
-		$query->setOrderings(array($sortField => $sortOrder));
+		$query->setOrderings([$sortField => $sortOrder]);
 		return $query->execute();
 	}
 
@@ -76,7 +76,7 @@ abstract class AbstractDemandedRepository extends Repository {
 	 * @return \array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint>
 	 */
 	protected function createOrderingsFromDemand(DemandInterface $demand) {
-		$orderings = array();
+		$orderings = [];
 
 		if ($demand->getOrder()) {
 			$orderList = GeneralUtility::trimExplode(',', $demand->getOrder(), TRUE);
@@ -113,6 +113,11 @@ abstract class AbstractDemandedRepository extends Repository {
 		return $objects;
 	}
 
+	/**
+	 * @param DemandInterface $demand
+	 * @param bool $respectEnableFields
+	 * @return QueryInterface
+	 */
 	protected function generateQuery(DemandInterface $demand, $respectEnableFields = TRUE) {
 		$query = $this->createQuery();
 		$constraints = $this->createConstraintsFromDemand($query, $demand);
