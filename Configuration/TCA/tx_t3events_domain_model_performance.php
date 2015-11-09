@@ -165,17 +165,17 @@ return array(
 				'default' => strtotime('today')
 			),
 		),
-		'end_date' => [
+		'end_date' => array(
 			'exclude' => 1,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_performance.endDate',
-			'config' => [
+			'config' => array(
 				'type' => 'input',
 				'size' => 7,
 				'eval' => 'date',
 				'checkbox' => 1,
 				'default' => strtotime('today')
-			]
-		],
+			)
+		),
 		'admission' => array(
 			'exclude' => 0,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_performance.admission',
