@@ -11,7 +11,7 @@
 .. role::   underline
 .. role::   typoscript(code)
 .. role::   ts(typoscript)
-:class:  typoscript
+   :class:  typoscript
 .. role::   php(code)
 
 ===========
@@ -30,10 +30,10 @@ EXT: Events
 	      event, performance, ticket, teaser, forEditors, forIntermediates
 
 :Author:
-	      Dirk Wenzel
+      Dirk Wenzel, Michael Kasten
 
 :Email:
-	      t3events@webfox01.de
+      t3events@gmx.de
 
 :Language:
 	      en

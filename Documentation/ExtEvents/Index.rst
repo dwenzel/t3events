@@ -9,7 +9,7 @@
 .. role::   underline
 .. role::   typoscript(code)
 .. role::   ts(typoscript)
-:class:  typoscript
+   :class:  typoscript
 .. role::   php(code)
 
 
@@ -20,12 +20,12 @@ Extension Key: t3events
 
 Language: en
 
-Version: 0.3.9
+Version: |release|
 
 Keywords: event, performance, ticket, teaser, forEditors,
 forIntermediates
 
-Copyright 2000-2010, Dirk Wenzel, <t3events@webfox01.de>
+Copyright: 2013-2015, Dirk Wenzel and Michael Kasten
 
 This document is published under the Open Content License
 
@@ -37,9 +37,9 @@ The content of this document is related to TYPO3
 
 
 .. toctree::
-:maxdepth: 5
-	   :titlesonly:
-	   :glob:
+   :maxdepth: 5
+   :titlesonly:
+   :glob:
 
 	   Introduction/Index
 	   UsersManual/Index

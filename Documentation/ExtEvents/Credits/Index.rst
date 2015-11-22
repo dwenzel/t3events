@@ -29,6 +29,6 @@ icon>`_
 Ticket Icon: `http://findicons.com/icon/178211/ticket
 <http://findicons.com/icon/178211/ticket>`_
 
-|img-2| 10
+|img-2|
 
 

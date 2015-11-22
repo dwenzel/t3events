@@ -16,13 +16,7 @@
 To-Do list
 ----------
 
-- Add Documentation
-
-- FEATURE: search form
-
-- FEATURE: Add more Quick Menu types (Venue, Performance Type)
-
 - FEATURE: Enable linking events and/or performances to tt\_address
   record
-
+- add content elements to events
 

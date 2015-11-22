@@ -1,4 +1,4 @@
-﻿.. include:: Images.txt
+.. include:: Images.txt
 
 .. ==================================================
 .. FOR YOUR INFORMATION
@@ -59,8 +59,10 @@ Provide additional information:
 - Keywords: may be displayed or included in meta information
 
 
-|img-4| Performances Tab
-""""""""""""""""""""""""
+|img-4|
+
+Performances Tab
+""""""""""""""""
 
 You have to create at least one performance for each event and may add
 as many as you like.
