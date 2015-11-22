@@ -1,0 +1,5 @@
+conf.py:
+  copyright: `2013-2015, Dirk Wenzel and Michael Kasten`
+  project: Events
+  version: 1.0
+  release: 1.0.0
