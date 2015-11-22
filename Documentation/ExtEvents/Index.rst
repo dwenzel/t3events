@@ -1,4 +1,3 @@
-﻿
 
 .. ==================================================
 .. FOR YOUR INFORMATION
@@ -22,12 +21,12 @@ Extension Key: t3events
 
 Language: en
 
-Version: 0.3.9
+Version: |release|
 
 Keywords: event, performance, ticket, teaser, forEditors,
 forIntermediates
 
-Copyright 2000-2010, Dirk Wenzel, <t3events@webfox01.de>
+Copyright: 2013-2015, Dirk Wenzel and Michael Kasten
 
 This document is published under the Open Content License
 

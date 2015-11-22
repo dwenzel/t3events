@@ -1,4 +1,4 @@
-﻿.. include:: Images.txt
+.. include:: Images.txt
 
 .. ==================================================
 .. FOR YOUR INFORMATION
@@ -30,10 +30,10 @@ EXT: Events
       event, performance, ticket, teaser, forEditors, forIntermediates
 
 :Author:
-      Dirk Wenzel
+      Dirk Wenzel, Michael Kasten
 
 :Email:
-      t3events@webfox01.de
+      t3events@gmx.de
 
 :Language:
       en

@@ -1,4 +1,4 @@
-﻿
+.. include:: Images.txt
 
 .. ==================================================
 .. FOR YOUR INFORMATION
@@ -23,3 +23,4 @@ Overview
 - Insert a plugin at any page and configure it to display teasers,
   events or a quick menu
 
+|img-createRecords|
