@@ -153,13 +153,12 @@ class EventController extends AbstractController {
 		$this->view->assign('overwriteDemand', unserialize($sessionData));
 
 		// get genres from plugin
-		$genres = $this->genreRepository->findMultipleByUid($this->settings['genres'], 'title');
-
+		$genres = $this->genreRepository->findMultipleByUid($this->settings['genres']);
 		// get venues from plugin
-		$venues = $this->venueRepository->findMultipleByUid($this->settings['venues'], 'title');
+		$venues = $this->venueRepository->findMultipleByUid($this->settings['venues']);
 
 		// get event types from plugin
-		$eventTypes = $this->eventTypeRepository->findMultipleByUid($this->settings['eventTypes'], 'title');
+		$eventTypes = $this->eventTypeRepository->findMultipleByUid($this->settings['eventTypes']);
 		$this->view->assignMultiple(
 			array(
 				'genres' => $genres,

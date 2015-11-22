@@ -139,6 +139,7 @@
 			<label index="tx_t3events_domain_model_ticketclass.type.2">special</label>
 			<label index="tx_t3events_domain_model_venue">Venue</label>
 			<label index="tx_t3events_domain_model_venue.title">title</label>
+			<label index="label.differentLocations">different locations</label>
 		</languageKey>
 		<languageKey index="af"></languageKey>
 		<languageKey index="ar"></languageKey>
@@ -262,6 +263,7 @@
 			<label index="tx_t3events_domain_model_ticketclass.type.2">spezial</label>
 			<label index="tx_t3events_domain_model_venue">Einrichtung</label>
 			<label index="tx_t3events_domain_model_venue.title">Titel</label>
+			<label index="label.differentLocations">verschiedene Veranstaltungsorte</label>
 		</languageKey>
 		<languageKey index="el"></languageKey>
 		<languageKey index="eo"></languageKey>
