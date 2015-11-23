@@ -252,4 +252,19 @@ class CalendarDayTest extends UnitTestCase {
 				$this->fixture->getDate()
 		);
 	}
+
+	/**
+	 * @test
+	 */
+	public function constructorInitializesTimeZone() {
+		$timeZone = new \DateTimeZone('Europe/Berlin');
+		$expectedDate = new \DateTime('today');
+		$expectedDate->setTimeZone($timeZone);
+		$this->fixture->__construct(strtotime('today'), $timeZone);
+
+		$this->assertEquals(
+				$expectedDate,
+				$this->fixture->getDate()
+		);
+	}
 }

@@ -50,9 +50,16 @@ class CalendarDay {
 	 */
 	protected $isCurrent = FALSE;
 
-	public function __construct($timeStamp = NULL) {
+	/**
+	 * @param int|NULL $timeStamp
+	 * @param \DateTimeZone|NULL $timeZone
+	 */
+	public function __construct($timeStamp = NULL, $timeZone = NULL) {
 		if ($timeStamp !== NULL) {
 			$this->date = new \DateTime('@' . $timeStamp);
+		}
+		if ($timeZone !== NULL) {
+			$this->date->setTimeZone($timeZone);
 		}
 		$this->initStorageObjects();
 	}
