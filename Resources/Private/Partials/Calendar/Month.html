@@ -1,3 +1,4 @@
+{namespace ts=Webfox\T3events\ViewHelpers}
 <table class="calendarMonth">
 	<thead>
 		<tr class="header">
@@ -6,29 +7,17 @@
 					<f:comment> allow display of navigation in view mode miniMonth</f:comment>
 					<f:if condition="{settings.showCalendarNavigation}">
 						<td colspan="7" class="navigation">
-							<f:widget.link arguments="{display: 'previous', period: '2', date: '{f:format.date(format:\'U\',date:\'-11 months\',base:\'{configuration.startDate}\')}'}"
-								data="{calendarId: calendarId}"
-								ajax="{configuration.ajaxEnabled}"
-							>
+							<f:widget.link arguments="{display: 'previous', period: '2', date: '{ts:format.date(format:\'U\',date:\'-11 months\',base:\'{configuration.startDate}\')}'}">
 								<i class="fa fa-2x fa-angle-double-left"></i>
 							</f:widget.link>
-							<f:widget.link arguments="{display: 'previous', period: '2', date: '{configuration.startDate.timestamp}'}"
-								data="{calendarId: calendarId}"
-								ajax="{configuration.ajaxEnabled}"
-							>
+							<f:widget.link arguments="{display: 'previous', period: '2', date: '{configuration.startDate.timestamp}'}">
 								<i class="fa fa-2x fa-angle-left"></i>
 							</f:widget.link>
 							<span class="legend">{f:format.date(date: '{month.startDate}', format: 'F Y')}</span>
-							<f:widget.link arguments="{display: 'next', period: '2', date: '{configuration.startDate.timestamp}'}"
-								data="{calendarId: calendarId}"
-								ajax="{configuration.ajaxEnabled}"
-								>
+							<f:widget.link arguments="{display: 'next', period: '2', date: '{configuration.startDate.timestamp}'}">
 								<i class="fa fa-2x fa-angle-right"></i>
 							</f:widget.link>
-							<f:widget.link arguments="{display: 'previous', period: '2', date: '{f:format.date(format:\'U\',date:\'+13 months\',base:\'{configuration.startDate}\')}'}"
-								data="{calendarId: calendarId}"
-								ajax="{configuration.ajaxEnabled}"
-							>
+							<f:widget.link arguments="{display: 'previous', period: '2', date: '{ts:format.date(format:\'U\',date:\'+13 months\',base:\'{configuration.startDate}\')}'}">
 								<i class="fa fa-2x fa-angle-double-right"></i>
 							</f:widget.link>
 						</td>
