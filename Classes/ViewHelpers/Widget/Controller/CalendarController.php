@@ -73,6 +73,7 @@ class CalendarController extends AbstractWidgetController {
 		if ($display !== '' AND $date > 0){
 			if ($interval = $this->getInterval($display)){
 				$startDate = new \DateTime('@' . $date);
+				$startDate->setTimeZone($this->getDefaultTimeZone());
 				$startDate->add($interval);
 				$this->configuration->setStartDate($startDate);
 			}
@@ -107,7 +108,7 @@ class CalendarController extends AbstractWidgetController {
 				$dateString = 'monday this week';
 				break;
 			case CalendarConfiguration::PERIOD_MONTH:
-				$dateString = 'first day of this month';
+				$dateString = 'first day of this month 00:00:00';
 				break;
 			case CalendarConfiguration::PERIOD_YEAR:
 				$dateString = date('Y') . '-01-01';
@@ -265,7 +266,7 @@ class CalendarController extends AbstractWidgetController {
 	 * @return CalendarDay
 	 */
 	protected function getCalendarDay($date, $currentDate = NULL, $addEvents = FALSE) {
-		$calendarDay = new CalendarDay($date);
+		$calendarDay = new CalendarDay($date, $this->getDefaultTimeZone());
 		if ($addEvents) {
 			/** @var Event $event */
 			foreach ($this->objects as $event) {
@@ -373,5 +374,14 @@ class CalendarController extends AbstractWidgetController {
 			return $interval;
 		}
 		return FALSE;
+	}
+
+	/**
+	 * Gets the default time zone
+	 *
+	 * @return \DateTimeZone
+	 */
+	public function getDefaultTimeZone() {
+		return new \DateTimeZone(date_default_timezone_get());
 	}
 }
