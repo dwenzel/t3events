@@ -5,7 +5,7 @@
 			<i class="fa fa-2x fa-angle-left"></i>
 		</f:widget.link>
 		<f:widget.link
-			arguments="{date: '{f:format.date(format: \'U\', base: \'+1d\', date: \'today\')}', period: 0}"
+			arguments="{date: '{ts:format.date(format: \'U\', base: \'+1d\', date: \'today\')}', period: 0}"
 			class="button {f:if(condition: '{calendar.displayPeriod} == 0', then: 'active')}"
 			>
 			<f:translate key="displayPeriod.day" default="Day"/>
