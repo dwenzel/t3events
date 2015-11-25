@@ -15,7 +15,7 @@ namespace Webfox\T3events\Hooks;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
- * Hook into t3lib_befunc to change flexform behaviour
+ * Hook into BackendUtility to change flexform behaviour
  * depending on action selection
  * Originally written by Georg Ringer for tx_news.
  * adapted for tx_t3events by Dirk Wenzel.
@@ -34,6 +34,7 @@ class BackendUtility {
 		'sDEF' => 'cache.makeNonCacheable',
 		'constraints' => 'period,periodType,periodStart,periodDuration',
 		'pages' => 'detailPid,backPid',
+		'template' => 'hideIfEmptyResult'
 	);
 
 	/**
@@ -43,10 +44,20 @@ class BackendUtility {
 	 */
 	public $removedFieldsInEventTeaserView = array(
 		'sDEF' => 'quickMenuType',
+		'template' => 'hideIfEmptyResult'
 	);
 
 	public $removedFieldsInEventCalendarView = array(
 		'sDEF' => 'sortDirection,sortBy,cache.makeNonCacheable',
+		'template' => 'hideIfEmptyResult'
+	);
+
+	public $removedFieldsInEventDetailView = array(
+		'sDEF' => 'sortDirection,sortBy,maxItems',
+		'constraints' => 'period,periodType,periodStart,periodDuration,
+			periodStartDate,periodEndDate,categoryConjunction,venues,genres,
+			eventTypes',
+		'template' => 'hideIfEmptyResult'
 	);
 
 	/**
@@ -76,13 +87,8 @@ class BackendUtility {
 	protected function updateFlexforms(array &$dataStructure, array $row) {
 		$selectedView = '';
 
-		// get the first selected action
-		if (is_string($row['pi_flexform'])) {
-			$flexformSelection = GeneralUtility::xml2array($row['pi_flexform']);
-		} else {
-			$flexformSelection = $row['pi_flexform'];
-		}
-
+			// get the first selected action
+		$flexformSelection = GeneralUtility::xml2array($row['pi_flexform']);
 		if (is_array($flexformSelection) && is_array($flexformSelection['data'])) {
 			$selectedView = $flexformSelection['data']['sDEF']['lDEF']['switchableControllerActions']['vDEF'];
 			if (!empty($selectedView)) {
@@ -93,7 +99,7 @@ class BackendUtility {
 			// new plugin element
 		} elseif (GeneralUtility::isFirstPartOfStr($row['uid'], 'NEW')) {
 				// use List as starting view
-			$selectedView = 'Event->list;Event->show';
+			$selectedView = 'Event->list';
 		}
 
 		if (!empty($selectedView)) {
@@ -102,11 +108,15 @@ class BackendUtility {
 				case 'Event->quickMenu':
 					$this->deleteFromStructure($dataStructure, $this->removedFieldsInEventQuickMenuView);
 					break;
-				case 'Teaser->list;Teaser->showEvent;Event->show':
+				case 'Teaser->list':
 					$this->deleteFromStructure($dataStructure, $this->removedFieldsInEventTeaserView);
 					break;
 				case 'Event->calendar':
 					$this->deleteFromStructure($dataStructure, $this->removedFieldsInEventCalendarView);
+					break;
+				case 'Event->show':
+					$this->deleteFromStructure($dataStructure, $this->removedFieldsInEventDetailView);
+					break;
 				default:
 
 			}
