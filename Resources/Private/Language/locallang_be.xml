@@ -69,6 +69,7 @@
 			<label index="flexforms_general.viewModeComboPane">Combo View</label>
 			<label index="flexforms_general.viewModeMiniMonth">Single Month (small)</label>
 			<label index="flexforms_tab.settings">Settings</label>
+			<label index="flexforms_general.hideIfEmptyResult">Hide plugin content if empty result</label>
 		</languageKey>
 		<languageKey index="af" />
 		<languageKey index="ar" />
@@ -138,6 +139,7 @@
 			<label index="flexforms_general.viewModeComboPane">kombiniert</label>
 			<label index="flexforms_general.viewModeMiniMonth">Monat (klein)</label>
 			<label index="flexforms_tab.settings">Einstellungen</label>
+			<label index="flexforms_general.hideIfEmptyResult">Pluginausgabe verbergen, wenn leeres Ergebnis</label>
 		</languageKey>
 		<languageKey index="el" />
 		<languageKey index="eo" />

@@ -515,6 +515,16 @@
 							</config>
 						</TCEforms>
 					</settings.templateLayout>
+
+					<settings.hideIfEmptyResult>
+						<TCEforms>
+							<label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.hideIfEmptyResult</label>
+							<config>
+								<type>check</type>
+							</config>
+						</TCEforms>
+					</settings.hideIfEmptyResult>
+
 				</el>
 			</ROOT>
 		</template>

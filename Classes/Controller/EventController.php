@@ -113,8 +113,17 @@ class EventController extends AbstractController {
 		}
 
 		/** @var QueryResultInterface $events */
-		if (($events instanceof QueryResultInterface AND !$events->count())
-			OR !count($events)
+		if (
+			(
+				$events instanceof QueryResultInterface
+				AND !$events->count()
+				AND !$this->settings['hideIfEmptyResult']
+			)
+			OR
+			(
+				!count($events)
+				AND !$this->settings['hideIfEmptyResult']
+			)
 		) {
 			$this->addFlashMessage(
 				$this->translate('tx_t3events.noEventsForSelectionMessage'),
