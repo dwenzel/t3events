@@ -343,37 +343,43 @@ class CalendarController extends AbstractWidgetController {
 	 * @return bool|\DateInterval
 	 */
 	protected function getInterval($display) {
-		if ($display === 'next' OR $display === 'previous') {
-			switch ($this->configuration->getDisplayPeriod()) {
-				case CalendarConfiguration::PERIOD_DAY:
-					$interval = new \DateInterval('P1D');
-					break;
-				case CalendarConfiguration::PERIOD_WEEK:
-					$interval = new \DateInterval('P1W');
-					break;
-				case CalendarConfiguration::PERIOD_MONTH:
-					$interval = new \DateInterval('P1M');
-					break;
-				case CalendarConfiguration::PERIOD_TRIMESTER:
-					// same interval - fall trough
-				case CalendarConfiguration::PERIOD_QUARTER:
-					$interval = new \DateInterval('P3M');
-					break;
-				case CalendarConfiguration::PERIOD_SEMESTER:
-					$interval = new \DateInterval('P6M');
-					break;
-				case CalendarConfiguration::PERIOD_YEAR:
-					$interval = new \DateInterval('P1Y');
-					break;
-				default:
-					return FALSE;
-			}
-			if ($display === 'previous') {
-				$interval->invert = 1;
-			}
-			return $interval;
+		if (!($display === 'next' OR $display === 'previous')) {
+			return FALSE;
 		}
-		return FALSE;
+		switch ($this->configuration->getDisplayPeriod()) {
+			case CalendarConfiguration::PERIOD_DAY:
+				$intervalString = 'P1D';
+				break;
+			case CalendarConfiguration::PERIOD_WEEK:
+				$intervalString = 'P1W';
+				break;
+			case CalendarConfiguration::PERIOD_MONTH:
+				$intervalString = 'P1M';
+				break;
+			case CalendarConfiguration::PERIOD_TRIMESTER:
+				// same interval - fall trough
+			case CalendarConfiguration::PERIOD_QUARTER:
+				$intervalString = 'P3M';
+				break;
+			case CalendarConfiguration::PERIOD_SEMESTER:
+				$intervalString = 'P6M';
+				break;
+			case CalendarConfiguration::PERIOD_YEAR:
+				$intervalString = 'P1Y';
+				break;
+			default:
+				$intervalString = '';
+		}
+		if ($intervalString === '') {
+			return false;
+		}
+
+		$interval = new \DateInterval($intervalString);
+		if ($display === 'previous') {
+			$interval->invert = 1;
+		}
+
+		return $interval;
 	}
 
 	/**

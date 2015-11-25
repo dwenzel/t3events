@@ -178,5 +178,224 @@ class CalendarControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		);
 	}
 
+	/**
+	 * @test
+	 * @covers ::getInterval
+	 */
+	public function getIntervalReturnsFalseForInvalidDisplay() {
+		$display = 'foo';
+		$this->assertFalse(
+				$this->fixture->_call('getInterval', $display)
+		);
+	}
+
+	/**
+	 * @test
+	 * @covers ::getInterval
+	 */
+	public function getIntervalReturnsIntervalForPeriodDay() {
+		$display = 'next';
+		$mockConfiguration = $this->getMock(
+				'Webfox\\T3events\\Domain\\Model\\Dto\\CalendarConfiguration',
+				array('getDisplayPeriod')
+		);
+		$this->fixture->_set('configuration', $mockConfiguration);
+
+		$mockConfiguration->expects($this->once())
+			->method('getDisplayPeriod')
+			->will($this->returnValue(CalendarConfiguration::PERIOD_DAY));
+		$expectedInterval = new \DateInterval('P1D');
+
+		$this->assertEquals(
+				$expectedInterval,
+				$this->fixture->_call('getInterval', $display)
+		);
+	}
+
+	/**
+	 * @test
+	 * @covers ::getInterval
+	 */
+	public function getIntervalReturnsIntervalForPeriodWeek() {
+		$display = 'next';
+		$mockConfiguration = $this->getMock(
+				'Webfox\\T3events\\Domain\\Model\\Dto\\CalendarConfiguration',
+				array('getDisplayPeriod')
+		);
+		$this->fixture->_set('configuration', $mockConfiguration);
+
+		$mockConfiguration->expects($this->once())
+			->method('getDisplayPeriod')
+			->will($this->returnValue(CalendarConfiguration::PERIOD_WEEK));
+		$expectedInterval = new \DateInterval('P1W');
+
+		$this->assertEquals(
+				$expectedInterval,
+				$this->fixture->_call('getInterval', $display)
+		);
+	}
+
+	/**
+	 * @test
+	 * @covers ::getInterval
+	 */
+	public function getIntervalReturnsIntervalForPeriodMonth() {
+		$display = 'next';
+		$mockConfiguration = $this->getMock(
+				'Webfox\\T3events\\Domain\\Model\\Dto\\CalendarConfiguration',
+				array('getDisplayPeriod')
+		);
+		$this->fixture->_set('configuration', $mockConfiguration);
+
+		$mockConfiguration->expects($this->once())
+			->method('getDisplayPeriod')
+			->will($this->returnValue(CalendarConfiguration::PERIOD_MONTH));
+		$expectedInterval = new \DateInterval('P1M');
+
+		$this->assertEquals(
+				$expectedInterval,
+				$this->fixture->_call('getInterval', $display)
+		);
+	}
+
+	/**
+	 * @test
+	 * @covers ::getInterval
+	 */
+	public function getIntervalReturnsIntervalForPeriodTrimester() {
+		$display = 'next';
+		$mockConfiguration = $this->getMock(
+				'Webfox\\T3events\\Domain\\Model\\Dto\\CalendarConfiguration',
+				array('getDisplayPeriod')
+		);
+		$this->fixture->_set('configuration', $mockConfiguration);
+
+		$mockConfiguration->expects($this->once())
+			->method('getDisplayPeriod')
+			->will($this->returnValue(CalendarConfiguration::PERIOD_TRIMESTER));
+		$expectedInterval = new \DateInterval('P3M');
+
+		$this->assertEquals(
+				$expectedInterval,
+				$this->fixture->_call('getInterval', $display)
+		);
+	}
+
+	/**
+	 * @test
+	 * @covers ::getInterval
+	 */
+	public function getIntervalReturnsIntervalForPeriodQuarter() {
+		$display = 'next';
+		$mockConfiguration = $this->getMock(
+				'Webfox\\T3events\\Domain\\Model\\Dto\\CalendarConfiguration',
+				array('getDisplayPeriod')
+		);
+		$this->fixture->_set('configuration', $mockConfiguration);
+
+		$mockConfiguration->expects($this->once())
+			->method('getDisplayPeriod')
+			->will($this->returnValue(CalendarConfiguration::PERIOD_QUARTER));
+		$expectedInterval = new \DateInterval('P3M');
+
+		$this->assertEquals(
+				$expectedInterval,
+				$this->fixture->_call('getInterval', $display)
+		);
+	}
+
+	/**
+	 * @test
+	 * @covers ::getInterval
+	 */
+	public function getIntervalReturnsIntervalForPeriodSemester() {
+		$display = 'next';
+		$mockConfiguration = $this->getMock(
+				'Webfox\\T3events\\Domain\\Model\\Dto\\CalendarConfiguration',
+				array('getDisplayPeriod')
+		);
+		$this->fixture->_set('configuration', $mockConfiguration);
+
+		$mockConfiguration->expects($this->once())
+			->method('getDisplayPeriod')
+			->will($this->returnValue(CalendarConfiguration::PERIOD_SEMESTER));
+		$expectedInterval = new \DateInterval('P6M');
+
+		$this->assertEquals(
+				$expectedInterval,
+				$this->fixture->_call('getInterval', $display)
+		);
+	}
+
+	/**
+	 * @test
+	 * @covers ::getInterval
+	 */
+	public function getIntervalReturnsIntervalForPeriodYear() {
+		$display = 'next';
+		$mockConfiguration = $this->getMock(
+				'Webfox\\T3events\\Domain\\Model\\Dto\\CalendarConfiguration',
+				array('getDisplayPeriod')
+		);
+		$this->fixture->_set('configuration', $mockConfiguration);
+
+		$mockConfiguration->expects($this->once())
+			->method('getDisplayPeriod')
+			->will($this->returnValue(CalendarConfiguration::PERIOD_YEAR));
+		$expectedInterval = new \DateInterval('P1Y');
+
+		$this->assertEquals(
+				$expectedInterval,
+				$this->fixture->_call('getInterval', $display)
+		);
+	}
+
+	/**
+	 * @test
+	 * @covers ::getInterval
+	 */
+	public function getIntervalReturnsFalseForInvalidPeriod() {
+		$display = 'next';
+		$invalidPeriod = 999999;
+		$mockConfiguration = $this->getMock(
+				'Webfox\\T3events\\Domain\\Model\\Dto\\CalendarConfiguration',
+				array('getDisplayPeriod')
+		);
+		$this->fixture->_set('configuration', $mockConfiguration);
+
+		$mockConfiguration->expects($this->once())
+			->method('getDisplayPeriod')
+			->will($this->returnValue($invalidPeriod));
+
+		$this->assertFalse(
+				$this->fixture->_call('getInterval', $display)
+		);
+	}
+
+	/**
+	 * @test
+	 * @covers ::getInterval
+	 */
+	public function getIntervalReturnsInvertedIntervalForDisplayPrevious() {
+		$display = 'previous';
+		$period = CalendarConfiguration::PERIOD_DAY;
+		$mockConfiguration = $this->getMock(
+				'Webfox\\T3events\\Domain\\Model\\Dto\\CalendarConfiguration',
+				array('getDisplayPeriod')
+		);
+		$this->fixture->_set('configuration', $mockConfiguration);
+
+		$mockConfiguration->expects($this->once())
+			->method('getDisplayPeriod')
+			->will($this->returnValue($period));
+
+		$expectedInterval = new \DateInterval('P1D');
+		$expectedInterval->invert = 1;
+
+		$this->assertEquals(
+				$expectedInterval,
+				$this->fixture->_call('getInterval', $display)
+		);
+	}
 }
 
