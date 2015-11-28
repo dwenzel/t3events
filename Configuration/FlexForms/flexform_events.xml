@@ -454,6 +454,11 @@
 								<autoSizeMax>20</autoSizeMax>
 								<minitems>0</minitems>
 								<maxitems>20</maxitems>
+								<wizards>
+									<suggest>
+										<type>suggest</type>
+									</suggest>
+								</wizards>
 							</config>
 						</TCEforms>
 					</settings.venues>
@@ -469,6 +474,11 @@
 								<autoSizeMax>20</autoSizeMax>
 								<minitems>0</minitems>
 								<maxitems>40</maxitems>
+								<wizards>
+									<suggest>
+										<type>suggest</type>
+									</suggest>
+								</wizards>
 							</config>
 						</TCEforms>
 					</settings.genres>
@@ -484,6 +494,11 @@
 								<autoSizeMax>20</autoSizeMax>
 								<minitems>0</minitems>
 								<maxitems>40</maxitems>
+								<wizards>
+									<suggest>
+										<type>suggest</type>
+									</suggest>
+								</wizards>
 							</config>
 						</TCEforms>
 					</settings.eventTypes>
