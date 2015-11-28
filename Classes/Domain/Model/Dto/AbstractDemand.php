@@ -341,7 +341,7 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 	  * @param \Webfox\T3events\Domain\Model\Dto\Search $search A search object
 	  * @return void
 	  */
-	 public function setSearch($search) {
+	 public function setSearch(Search $search) {
 		 $this->search = $search;
 	 }
  }

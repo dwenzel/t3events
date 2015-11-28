@@ -208,18 +208,38 @@ class EventController extends AbstractController {
 		/** @var EventDemand $demand */
 		$demand = $this->objectManager->get('Webfox\\T3events\\Domain\\Model\\Dto\\EventDemand');
 
-		$demand->setEventType($settings['eventTypes']);
-		$demand->setSortBy($settings['sortBy']);
-		$demand->setSortDirection($settings['sortDirection']);
+		foreach ($settings as $propertyName => $propertyValue) {
+			if(empty($propertyValue)) {
+				continue;
+			}
+			switch($propertyName) {
+				case 'eventTypes':
+					$demand->setEventType($propertyValue);
+					break;
+				case 'venues':
+					$demand->setVenue($propertyValue);
+					break;
+				case 'maxItems':
+					$demand->setLimit($propertyValue);
+					break;
+				case 'genres':
+					$demand->setGenre($propertyValue);
+					break;
+				// all following fall through (see below)
+				case 'periodType':
+				case 'periodStart':
+				case 'periodEndDate':
+				case 'periodDuration':
+				case 'search':
+					break;
+				default:
+					if (ObjectAccess::isPropertySettable($demand, $propertyName)) {
+						ObjectAccess::setProperty($demand, $propertyName, $propertyValue);
+					}
+			}
+		}
+
 		$demand->setOrder($settings['sortBy'] . '|' . $settings['sortDirection']);
-		$demand->setLimit($settings['maxItems']);
-		if(!empty($settings['venues'])) {
-			$demand->setVenue($settings['venues']);
-		}
-		if(!empty($settings['genres'])) {
-			$demand->setGenre($settings['genres']);
-		}
-		$demand->setPeriod($settings['period']);
 		if($settings['period'] == 'specific') {
 			$demand->setPeriodType($settings['periodType']);
 		}
@@ -235,7 +255,7 @@ class EventController extends AbstractController {
 				$demand->setEndDate($settings['periodEndDate']);
 			}
 		}
-		$demand->setCategoryConjunction($settings['categoryConjunction']);
+
 		return $demand;
 	}
 

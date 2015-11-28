@@ -125,6 +125,19 @@ abstract class AbstractDemandedRepository extends Repository {
 		if ($respectEnableFields === FALSE) {
 			$query->getQuerySettings()->setIgnoreEnableFields(TRUE);
 		}
+		// Call hook functions for additional constraints
+		if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXT']['t3events']['Domain/Repository/AbstractDemandedRepository.php']['findDemanded'])) {
+			$params = [
+				'demand' => &$demand,
+				'respectEnableFields' => &$respectEnableFields,
+				'query' => &$query,
+				'constraints' => &$constraints,
+			];
+			foreach ($GLOBALS['TYPO3_CONF_VARS']['EXT']['t3events']['Domain/Repository/AbstractDemandedRepository.php']['findDemanded'] as $reference) {
+				GeneralUtility::callUserFunction($reference, $params, $this);
+			}
+		}
+
 		if (!empty($constraints)) {
 			$query->matching(
 				$query->logicalAnd($constraints)
@@ -135,18 +148,6 @@ abstract class AbstractDemandedRepository extends Repository {
 			$query->setOrderings($orderings);
 		}
 
-		// Call hook functions for additional constraints
-		if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXT']['t3events']['Domain/Repository/AbstractDemandedRepository.php']['findDemanded'])) {
-			$params = [
-				'demand' => $demand,
-				'respectEnableFields' => &$respectEnableFields,
-				'query' => $query,
-				'constraints' => &$constraints,
-			];
-			foreach ($GLOBALS['TYPO3_CONF_VARS']['EXT']['t3events']['Domain/Repository/AbstractDemandedRepository.php']['findDemanded'] as $reference) {
-				GeneralUtility::callUserFunction($reference, $params, $this);
-			}
-		}
 
 		if ($demand->getLimit() != NULL) {
 			$query->setLimit((int) $demand->getLimit());

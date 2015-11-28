@@ -30,7 +30,7 @@ interface DemandInterface {
 	/**
 	 * @param Search $search
 	 */
-	public function setSearch($search);
+	public function setSearch(Search $search);
 
 	/**
 	 * @return int
