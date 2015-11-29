@@ -196,9 +196,19 @@ abstract class AbstractDemandedRepository extends Repository {
 	 */
 	protected function combineConstraints($query, &$constraints, $additionalConstraints, $conjunction = NULL) {
 		if(count($additionalConstraints)){
-			switch ($conjunction) {
+			switch (strtolower($conjunction)) {
 				case 'or':
 					$constraints[] = $query->logicalOr($additionalConstraints);
+					break;
+				case 'notand':
+					foreach ($additionalConstraints as $additionalConstraint) {
+						$constraints[] = $query->logicalNot($query->logicalAnd($additionalConstraint));
+					}
+					break;
+				case 'notor':
+					foreach ($additionalConstraints as $additionalConstraint) {
+						$constraints[] = $query->logicalNot($query->logicalOr($additionalConstraint));
+					}
 					break;
 				default:
 					$constraints[] = $query->logicalAnd($additionalConstraints);
