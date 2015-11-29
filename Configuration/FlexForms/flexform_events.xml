@@ -217,10 +217,6 @@
 							<config>
 								<type>input</type>
 								<size>3</size>
-								<range>
-									<upper>100000</upper>
-									<lower>0</lower>
-								</range>
 								<eval>int,trim</eval>
 							</config>
 						</TCEforms>
@@ -234,8 +230,7 @@
 								<type>input</type>
 								<size>3</size>
 								<range>
-									<upper>10000</upper>
-									<lower>0</lower>
+									<lower>1</lower>
 								</range>
 								<eval>int,trim</eval>
 							</config>
