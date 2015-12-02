@@ -35,13 +35,12 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-
 class EventRepository extends AbstractDemandedRepository {
 	/**
 	 * Create category constraints from demand
 	 * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
 	 * @param \Webfox\T3events\Domain\Model\Dto\EventDemand $demand
-	 * @return array<\TYPO3\CMS\Extbase\Persistence\QOM\Constraint>|null
+	 * @return array<\TYPO3\CMS\Extbase\Persistence\QOM\Constraint>
 	 */
 	protected function createCategoryConstraints(QueryInterface $query, $demand) {
 		// gather OR constraints (categories)
@@ -69,16 +68,17 @@ class EventRepository extends AbstractDemandedRepository {
 			}
 		}
 
-		return (count($categoryConstraints))? $categoryConstraints : NULL;
+		return $categoryConstraints;
 	}
 
 	/**
-	 * Create period constraint from demand (time restriction)
+	 * Create period constraints from demand (time restriction)
+	 *
 	 * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
 	 * @param \Webfox\T3events\Domain\Model\Dto\EventDemand $demand
-	 * @return array<\TYPO3\CMS\Extbase\Persistence\QOM\Constraint>|null|object
+	 * @return array<\TYPO3\CMS\Extbase\Persistence\QOM\Constraint>
 	 */
-	protected function createPeriodConstraint(QueryInterface $query, $demand){
+	protected function createPeriodConstraints(QueryInterface $query, $demand){
 
 		// period constraints
 		$period = $demand->getPeriod();
@@ -149,10 +149,8 @@ class EventRepository extends AbstractDemandedRepository {
 				);
 				break;
 		}
-		if ((bool)$periodConstraint) {
-			return $periodConstraint;
-		}
-		return NULL;
+
+		return $periodConstraint;
 	}
 
 	/**
@@ -164,27 +162,32 @@ class EventRepository extends AbstractDemandedRepository {
 	 */
 	protected function createConstraintsFromDemand(QueryInterface $query, DemandInterface $demand) {
 		$constraints = [];
-		$periodConstraint = $this->createPeriodConstraint($query, $demand);
-		$categoryConstraints = $this->createCategoryConstraints($query, $demand);
-
-		if ( (bool) $categoryConstraints) {
-			// got constraints for categories
-			if ($demand->getCategoryConjunction() == 'AND') {
-				$constraints[] = $query->logicalAnd($categoryConstraints);
-			} else {
-				$constraints[] = $query->logicalOr($categoryConstraints);
-			}
+		if ((bool) $periodConstraints = $this->createPeriodConstraints($query, $demand)) {
+			$this->combineConstraints($query, $constraints, $periodConstraints, 'AND');
+		}
+		if ((bool) $categoryConstraints = $this->createCategoryConstraints($query, $demand)) {
+			$this->combineConstraints($query,	$constraints,	$categoryConstraints,	$demand->getCategoryConjunction());
+		}
+		if ((bool) $searchConstraints = $this->createSearchConstraints($query, $demand)) {
+			$this->combineConstraints($query, $constraints,	$searchConstraints,	'OR');
+		}
+		if ((bool) $locationConstraints = $this->createLocationConstraints($query, $demand)) {
+			$this->combineConstraints($query,	$constraints,	$locationConstraints,	'AND');
 		}
 
-		if ((bool) $periodConstraint){
-			$constraints[] = $query->logicalAnd($periodConstraint);
-		}
+		return $constraints;
+	}
 
-		// Search constraints
-		if ($demand->getSearch()) {
-			$searchConstraints = [];
-			$locationConstraints = [];
-			$search = $demand->getSearch();
+	/**
+	 * Create search constraints from demand
+	 *
+	 * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
+	 * @param \Webfox\T3events\Domain\Model\Dto\EventDemand $demand
+	 * @return array<\TYPO3\CMS\Extbase\Persistence\QOM\Constraint>
+	 */
+	protected function createSearchConstraints(QueryInterface $query, $demand) {
+		$searchConstraints = [];
+		if ($search = $demand->getSearch()) {
 			$subject = $search->getSubject();
 
 			if(!empty($subject)) {
@@ -197,6 +200,24 @@ class EventRepository extends AbstractDemandedRepository {
 					$searchConstraints[] = $query->like($field, '%' . $subject . '%');
 				}
 			}
+		}
+
+		return $searchConstraints;
+	}
+
+	/**
+	 * Create location constraints from demand
+	 * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
+	 * @param \Webfox\T3events\Domain\Model\Dto\EventDemand $demand
+	 * @return array<\TYPO3\CMS\Extbase\Persistence\QOM\Constraint>
+	 */
+	protected function createLocationConstraints(QueryInterface $query, $demand) {
+		$locationConstraints = [];
+
+		if ($demand->getSearch()) {
+			$locationConstraints = [];
+			$search = $demand->getSearch();
+			$subject = $search->getSubject();
 
 			// search by bounding box
 			$bounds = $search->getBounds();
@@ -219,17 +240,8 @@ class EventRepository extends AbstractDemandedRepository {
 				$locationConstraints[] = $query->greaterThan('longitude', $bounds['W']['lng']);
 				$locationConstraints[] = $query->lessThan('longitude', $bounds['E']['lng']);
 			}
-
-			if(count($searchConstraints)) {
-				$constraints[] = $query->logicalOr($searchConstraints);
-			}
-
-			if(count($locationConstraints)) {
-				$constraints[] = $query->logicalAnd($locationConstraints);
-			}
 		}
 
-		return $constraints;
+		return $locationConstraints;
 	}
-
 }
