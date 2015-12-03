@@ -24,6 +24,9 @@ namespace Webfox\T3events\Controller;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
+use Webfox\T3events\Domain\Model\Dto\PerformanceDemand;
+use Webfox\T3events\Domain\Model\Performance;
 
 /**
  *
@@ -32,7 +35,7 @@ namespace Webfox\T3events\Controller;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class PerformanceController extends \TYPO3\CMS\Extbase\MVC\Controller\ActionController {
+class PerformanceController extends AbstractController {
 
 	/**
 	 * performanceRepository
@@ -54,11 +57,19 @@ class PerformanceController extends \TYPO3\CMS\Extbase\MVC\Controller\ActionCont
 	/**
 	 * action list
 	 *
+	 * @param array $overwriteDemand
 	 * @return void
 	 */
-	public function listAction() {
+	public function listAction(array $overwriteDemand = null) {
+
 		$performances = $this->performanceRepository->findAll();
-		$this->view->assign('performances', $performances);
+		$this->view->assignMultiple(
+			array(
+				'performances' => $performances,
+				'settings' => $this->settings,
+				'overwriteDemand' => $overwriteDemand
+			)
+		);
 	}
 
 	/**
@@ -67,9 +78,102 @@ class PerformanceController extends \TYPO3\CMS\Extbase\MVC\Controller\ActionCont
 	 * @param \Webfox\T3events\Domain\Model\Performance $performance
 	 * @return void
 	 */
-	public function showAction(\Webfox\T3events\Domain\Model\Performance $performance) {
+	public function showAction(Performance $performance) {
 		$this->view->assign('performance', $performance);
 	}
 
+
+	/**
+	 * Create Demand from Settings
+	 *
+	 * @param \array $settings
+	 * @return \Webfox\T3events\Domain\Model\Dto\PerformanceDemand
+	 */
+	protected function createDemandFromSettings($settings) {
+		/** @var PerformanceDemand $demand */
+		$demand = $this->objectManager->get('Webfox\\T3events\\Domain\\Model\\Dto\\PerformanceDemand');
+
+		foreach($settings as $name=>$value) {
+			if(empty($value)) {
+				continue;
+			}
+			switch($name) {
+				case 'maxItems':
+					$demand->setLimit($value);
+					break;
+				// all following fall through (see below)
+				case 'periodType':
+				case 'periodStart':
+				case 'periodEndDate':
+				case 'periodDuration':
+				case 'search':
+					break;
+				default:
+					if (ObjectAccess::isPropertySettable($demand, $name)) {
+						ObjectAccess::setProperty($demand, $name, $value);
+					}
+			}
+		}
+
+		if ($settings['period'] == 'specific') {
+			$demand->setPeriodType($settings['periodType']);
+		}
+
+		if ($settings['period'] === 'futureOnly'
+			OR $settings['period'] === 'pastOnly'
+		) {
+			$demand->setDate(new \DateTime('midnight'));
+		}
+		if (isset($settings['periodType']) AND $settings['periodType'] != 'byDate') {
+			$demand->setPeriodStart($settings['periodStart']);
+			$demand->setPeriodDuration($settings['periodDuration']);
+		}
+
+		$demand->setOrder($settings['sortBy'] . '|' . $settings['sortDirection']);
+
+		if($settings['periodType'] == 'byDate') {
+			if($settings['periodStartDate']) {
+				$demand->setStartDate($settings['periodStartDate']);
+			}
+			if($settings['periodEndDate']) {
+				$demand->setEndDate($settings['periodEndDate']);
+			}
+		}
+
+		return $demand;
+	}
+
+	/**
+	 * Overwrites a given demand object by an propertyName => $propertyValue array
+	 *
+	 * @param \Webfox\T3events\Domain\Model\Dto\PerformanceDemand $demand
+	 * @param array $overwriteDemand
+	 */
+	public function overwriteDemandObject(&$demand, $overwriteDemand) {
+		if ((bool)$overwriteDemand) {
+			foreach ($overwriteDemand as $propertyName => $propertyValue) {
+				switch ($propertyName) {
+					case 'sortBy':
+						$orderings = $propertyValue;
+						if (isset($overwriteDemand['sortDirection'])) {
+							$orderings .= '|' . $overwriteDemand['sortDirection'];
+						}
+						$demand->setOrder($orderings);
+						$demand->setSortBy($overwriteDemand['sortBy']);
+						break;
+					case 'sortDirection':
+						if ($propertyValue !== 'desc') {
+							$propertyValue = 'asc';
+						}
+						// fall through to default
+					default:
+						if (ObjectAccess::isPropertySettable($demand, $propertyName)) {
+							ObjectAccess::setProperty($demand, $propertyName, $propertyValue);
+						}
+				}
+
+			}
+		}
+	}
 }
 
