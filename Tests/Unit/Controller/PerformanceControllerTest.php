@@ -28,7 +28,6 @@ namespace Webfox\T3events\Tests\Unit\Controller;
 /**
  * Test case for class \Webfox\T3events\Controller\PerformanceController.
  *
- * @version $Id$
  * @copyright Copyright belongs to the respective authors
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
@@ -41,13 +40,33 @@ namespace Webfox\T3events\Tests\Unit\Controller;
  */
 class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	/**
-	 * @var \Webfox\T3events\Domain\Model\Performance
+	 * @var \Webfox\T3events\Controller\PerformanceController
 	 */
 	protected $fixture;
 
 	public function setUp() {
 		$this->fixture = $this->getAccessibleMock('Webfox\\T3events\\Controller\\PerformanceController',
 			array('dummy'), array(), '', FALSE);
+		$view = $this->getMock(
+			'TYPO3\\CMS\\Fluid\\View\\TemplateView', array(), array(), '', FALSE);
+		$this->fixture->_set('view', $view);
+	}
+
+	/**
+	 * @test
+	 * @covers ::injectPerformanceRepository
+	 */
+	public function injectPerformanceRepositorySetsPerformanceRepository() {
+		$repository = $this->getMock(
+			'Webfox\\T3events\\Domain\\Repository\\PerformanceRepository',
+			array(), array(), '', false
+		);
+		$this->fixture->injectPerformanceRepository($repository);
+
+		$this->assertSame(
+			$repository,
+			$this->fixture->_get('performanceRepository')
+		);
 	}
 
 	/**
@@ -864,5 +883,106 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$this->fixture->overwriteDemandObject($demand, $overwriteDemand);
 	}
 
+	/**
+	 * @test
+	 * @covers ::listAction
+	 */
+	public function listActionCallsCreateDemandFromSettings() {
+		$this->fixture = $this->getAccessibleMock(
+			'Webfox\\T3events\\Controller\\PerformanceController',
+			array('createDemandFromSettings'), array(), '', false
+		);
+		$repository = $this->getMock(
+			'Webfox\\T3events\\Domain\\Repository\\PerformanceRepository',
+			array(), array(), '', false
+		);
+		$mockDemand = $this->getMock(
+			'Webfox\\T3events\\Domain\\Model\\Dto\\PerformanceDemand'
+		);
+		$this->fixture->injectPerformanceRepository($repository);
+		$view = $this->getMock(
+			'TYPO3\\CMS\\Fluid\\View\\TemplateView', array(), array(), '', FALSE);
+		$this->fixture->_set('view', $view);
+		$settings = array('foo');
+		$this->fixture->_set('settings', $settings);
+
+		$this->fixture->expects($this->once())
+			->method('createDemandFromSettings')
+			->with($settings)
+			->will($this->returnValue($mockDemand));
+		$this->fixture->listAction();
+	}
+
+	/**
+	 * @test
+	 * @covers ::listAction
+	 */
+	public function listActionCallsOverwriteDemandObject() {
+		$this->fixture = $this->getAccessibleMock(
+			'Webfox\\T3events\\Controller\\PerformanceController',
+			array('overwriteDemandObject', 'createDemandFromSettings'), array(), '', false
+		);
+		$repository = $this->getMock(
+			'Webfox\\T3events\\Domain\\Repository\\PerformanceRepository',
+			array(), array(), '', false
+		);
+		$this->fixture->injectPerformanceRepository($repository);
+		$view = $this->getMock(
+			'TYPO3\\CMS\\Fluid\\View\\TemplateView', array(), array(), '', FALSE);
+		$this->fixture->_set('view', $view);
+		$settings = array('foo');
+		$this->fixture->_set('settings', $settings);
+		$mockDemand = $this->getMock(
+			'Webfox\\T3events\\Domain\\Model\\Dto\\PerformanceDemand'
+		);
+
+		$this->fixture->expects($this->once())
+			->method('createDemandFromSettings')
+			->will($this->returnValue($mockDemand));
+
+		$this->fixture->expects($this->once())
+			->method('overwriteDemandObject')
+			->with($mockDemand);
+		$this->fixture->listAction(array());
+	}
+
+	/**
+	 * @test
+	 * @covers ::listAction
+	 */
+	public function listActionCallsFindDemanded() {
+		$this->fixture = $this->getAccessibleMock(
+			'Webfox\\T3events\\Controller\\PerformanceController',
+			array('overwriteDemandObject', 'createDemandFromSettings'), array(), '', false
+		);
+		$repository = $this->getMock(
+			'Webfox\\T3events\\Domain\\Repository\\PerformanceRepository',
+			array('findDemanded'), array(), '', false
+		);
+		$this->fixture->injectPerformanceRepository($repository);
+		$view = $this->getMock(
+			'TYPO3\\CMS\\Fluid\\View\\TemplateView', array(), array(), '', FALSE);
+		$this->fixture->_set('view', $view);
+		$settings = array('foo');
+		$this->fixture->_set('settings', $settings);
+		$mockDemand = $this->getMock(
+			'Webfox\\T3events\\Domain\\Model\\Dto\\PerformanceDemand'
+		);
+
+		$this->fixture->expects($this->once())
+			->method('createDemandFromSettings')
+			->will($this->returnValue($mockDemand));
+
+		$this->fixture->expects($this->once())
+			->method('overwriteDemandObject')
+			->with($mockDemand)
+			->will($this->returnValue($mockDemand));
+
+		$repository->expects($this->once())
+			->method('findDemanded')
+			->with($mockDemand);
+
+		$this->fixture->listAction(array());
+	}
 }
 

@@ -61,8 +61,10 @@ class PerformanceController extends AbstractController {
 	 * @return void
 	 */
 	public function listAction(array $overwriteDemand = null) {
+		$demand = $this->createDemandFromSettings($this->settings);
+		$this->overwriteDemandObject($demand, $overwriteDemand);
+		$performances = $this->performanceRepository->findDemanded($demand);
 
-		$performances = $this->performanceRepository->findAll();
 		$this->view->assignMultiple(
 			array(
 				'performances' => $performances,
@@ -93,6 +95,12 @@ class PerformanceController extends AbstractController {
 		/** @var PerformanceDemand $demand */
 		$demand = $this->objectManager->get('Webfox\\T3events\\Domain\\Model\\Dto\\PerformanceDemand');
 
+		if ($settings['sortBy'] == 'performances.date') {
+			$settings['sortBy'] = 'date';
+		}
+		if ($settings['sortBy'] == 'headline') {
+			$settings['sortBy'] = 'event.headline';
+		}
 		foreach($settings as $name=>$value) {
 			if(empty($value)) {
 				continue;
@@ -149,7 +157,7 @@ class PerformanceController extends AbstractController {
 	 * @param \Webfox\T3events\Domain\Model\Dto\PerformanceDemand $demand
 	 * @param array $overwriteDemand
 	 */
-	public function overwriteDemandObject(&$demand, $overwriteDemand) {
+	public function overwriteDemandObject($demand, $overwriteDemand) {
 		if ((bool)$overwriteDemand) {
 			foreach ($overwriteDemand as $propertyName => $propertyValue) {
 				switch ($propertyName) {

@@ -347,6 +347,7 @@ return array(
 		'event' => array(
 			'config' => array(
 				'type' => 'passthrough',
+				'foreign_table' => 'tx_t3events_domain_model_event'
 			),
 		),
 	),

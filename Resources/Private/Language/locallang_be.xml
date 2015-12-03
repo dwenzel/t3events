@@ -31,6 +31,7 @@
 			<label index="flexforms_general.end">End</label>
 			<label index="flexforms_general.highlightsToTop">highlights to top</label>
 			<label index="flexforms_general.label.events">Events</label>
+			<label index="flexforms_general.label.performances">Performances</label>
 			<label index="flexforms_general.listPage">List Page</label>
 			<label index="flexforms_general.maxHighlighted">Highlights count</label>
 			<label index="flexforms_general.maxItems">Items count (max)</label>
@@ -38,6 +39,10 @@
 			<label index="flexforms_general.mode.event_calendar">Calendar</label>
 			<label index="flexforms_general.mode.event_list">List/Detail</label>
 			<label index="flexforms_general.mode.event_show">Detail</label>
+
+			<label index="flexforms_general.mode.performance_list_show">List/Detail</label>
+			<label index="flexforms_general.mode.performance_show">Detail</label>
+
 			<label index="flexforms_general.mode.quick_menu">Quick Menu</label>
 			<label index="flexforms_general.mode.teaser">Teaser</label>
 			<label index="flexforms_general.pages">Pages</label>
@@ -100,6 +105,7 @@
 			<label index="flexforms_general.end">Ende</label>
 			<label index="flexforms_general.highlightsToTop">hervorgehobene zuerst</label>
 			<label index="flexforms_general.label.events">Veranstaltungen</label>
+			<label index="flexforms_general.label.performances">Vorstellungen</label>
 			<label index="flexforms_general.listPage">Listenseite</label>
 			<label index="flexforms_general.maxHighlighted">Anzahl hervorgehobene</label>
 			<label index="flexforms_general.maxItems">Anzahl gesamt (maximal)</label>
@@ -108,6 +114,8 @@
 			<label index="flexforms_general.mode.event_list">Liste/Detail</label>
 			<label index="flexforms_general.mode.event_show">Detail</label>
 			<label index="flexforms_general.mode.quick_menu">Schnellmenü</label>
+			<label index="flexforms_general.mode.performance_list_show">Liste/Detail</label>
+			<label index="flexforms_general.mode.performance_show">Detail</label>
 			<label index="flexforms_general.mode.teaser">Teaser</label>
 			<label index="flexforms_general.pages">Seiten</label>
 			<label index="flexforms_general.period">Zeitabschnitt</label>

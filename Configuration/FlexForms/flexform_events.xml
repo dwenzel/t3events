@@ -45,6 +45,20 @@
 										<numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.mode.event_calendar</numIndex>
 										<numIndex index="1">Event->calendar</numIndex>
 									</numIndex>
+									<numIndex index="6">
+										<numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.label.performances</numIndex>
+										<numIndex index="1">--div--</numIndex>
+									</numIndex>
+									<numIndex index="7">
+										<numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.mode.performance_list_show</numIndex>
+										<numIndex index="1">Performance->list;Performance->show</numIndex>
+									</numIndex>
+
+									<numIndex index="8">
+										<numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.mode.performance_show</numIndex>
+										<numIndex index="1">Performance->show</numIndex>
+									</numIndex>
+
 								</items>
 							</config>
 						</TCEforms>

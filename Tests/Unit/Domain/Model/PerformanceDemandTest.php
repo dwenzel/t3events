@@ -29,7 +29,7 @@ namespace Webfox\T3events\Tests\Unit\Domain\Model;
  * Test case for class \Webfox\T3events\Domain\Model\Dto\PerformanceDemand.
  *
  * @author Dirk Wenzel <wenzel@webfox01.de>
- * @coversDefault Class \Webfox\T3events\Domain\Model\Dto\PerformanceDemand
+ * @coversDefaultClass \Webfox\T3events\Domain\Model\Dto\PerformanceDemand
  */
 class PerformanceDemandTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	/**
