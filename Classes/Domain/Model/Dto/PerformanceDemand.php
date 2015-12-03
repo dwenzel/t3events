@@ -24,6 +24,7 @@ namespace Webfox\T3events\Domain\Model\Dto;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+use Webfox\T3events\Domain\Model\PerformanceStatus;
 
 /**
  *
@@ -45,9 +46,30 @@ namespace Webfox\T3events\Domain\Model\Dto;
 	protected  $status;
 
 	 /**
-	  * @var \string
+	  * @var string
 	  */
 	 protected $eventLocations;
+
+	 /**
+	  * Genres
+	  *
+	  * @var string Genres
+	  */
+	 protected $genres;
+
+	 /**
+	  * Venues
+	  *
+	  * @var string Venues
+	  */
+	 protected $venues;
+
+	 /**
+	  * Event Types
+	  *
+	  * @var string
+	  */
+	 protected $eventTypes;
 
 	 /**
 	 * Returns the date
@@ -79,13 +101,13 @@ namespace Webfox\T3events\Domain\Model\Dto;
 	 * @param \Webfox\T3events\Domain\Model\PerformanceStatus $status
 	 * @return void
 	 */
-	public function setStatus(\Webfox\T3events\Domain\Model\PerformanceStatus $status){
+	public function setStatus(PerformanceStatus $status){
 		$this->status = $status;
 	}
 
 	 /**
 	  * Gets the event locations
-	  * @return \string
+	  * @return string
 	  */
 	 public function getEventLocations() {
 		 return $this->eventLocations;
@@ -93,11 +115,67 @@ namespace Webfox\T3events\Domain\Model\Dto;
 
 	 /**
 	  * Sets the event locations
-	  * @var \string $eventLocations
+	  * @var string $eventLocations
 	  * @return void
 	  */
 	 public function setEventLocations($eventLocations) {
 		 $this->eventLocations = $eventLocations;
 	 }
- }
 
+	 /**
+	  * Returns the genres
+	  *
+	  * @return string
+	  */
+	 public function getGenres() {
+		 return $this->genres;
+	 }
+
+	 /**
+	  * Sets the genres
+	  *
+	  * @param string $genres Comma separated string of genre ids
+	  * @return void
+	  */
+	 public function setGenres($genres) {
+		 $this->genres = $genres;
+	 }
+
+	 /**
+	  * Returns the venues
+	  *
+	  * @return string $venues
+	  */
+	 public function getVenues() {
+		 return $this->venues;
+	 }
+
+	 /**
+	  * Sets the venues
+	  *
+	  * @param string $venues
+	  * @return void
+	  */
+	 public function setVenues($venues) {
+		 $this->venues = $venues;
+	 }
+
+	 /**
+	  * Returns the Event Types
+	  *
+	  * @return string $eventTypes
+	  */
+	 public function getEventTypes() {
+		 return $this->eventTypes;
+	 }
+
+	 /**
+	  * Set event types
+	  *
+	  * @param string $eventTypes
+	  * @return void
+	  */
+	 public function setEventTypes($eventTypes) {
+		 $this->eventTypes = $eventTypes;
+	 }
+ }

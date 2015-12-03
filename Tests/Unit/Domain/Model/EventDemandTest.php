@@ -24,8 +24,9 @@ namespace Webfox\T3events\Tests\Unit\Domain\Model;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+use TYPO3\CMS\Core\Tests\UnitTestCase;
 
- /**
+/**
   * Test case for class \Webfox\T3events\Domain\Model\Dto\EventDemand.
   * 
   * @version $Id$
@@ -39,7 +40,7 @@ namespace Webfox\T3events\Tests\Unit\Domain\Model;
   * @author Michael Kasten <kasten@webfox01.de>
 	* @coversDefaultClass \Webfox\T3events\Domain\Model\Dto\EventDemand
   */
- class EventDemandTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
+ class EventDemandTest extends UnitTestCase {
 	/**
 	 * @var \Webfox\T3events\Domain\Model\EventDemand
 	 */
@@ -108,30 +109,6 @@ namespace Webfox\T3events\Tests\Unit\Domain\Model;
 		$this->assertSame(
 				'1,2,3',
 				$this->fixture->getEventType()
-				);
-	}
-
-	/**
-	 * @test
-	 * @covers ::getCategoryConjunction
-	 */
-	public function getCategoryConjunctionReturnsInitialNull() {
-		$this->assertEquals(
-				NULL,
-				$this->fixture->getCategoryConjunction()
-			);
-	}
-
-	/**
-	 * @test
-	 * @covers ::setCategoryConjunction
-	 */
-	public function setCategoryConjunctionForStringSetsCategoryConjunction(){
-		$this->fixture->setCategoryConjunction('asc');
-
-		$this->assertSame(
-				'asc',
-				$this->fixture->getCategoryConjunction()
 				);
 	}
 }

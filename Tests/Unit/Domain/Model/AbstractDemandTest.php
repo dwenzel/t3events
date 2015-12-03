@@ -311,5 +311,31 @@ class AbstractDemandTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$this->fixture->setUidList('1,3,5');
 		$this->assertSame('1,3,5', $this->fixture->getUidList());
 	}
+
+
+	/**
+	 * @test
+	 * @covers ::getCategoryConjunction
+	 */
+	public function getCategoryConjunctionReturnsInitialNull() {
+		$this->assertEquals(
+			NULL,
+			$this->fixture->getCategoryConjunction()
+		);
+	}
+
+	/**
+	 * @test
+	 * @covers ::setCategoryConjunction
+	 */
+	public function setCategoryConjunctionForStringSetsCategoryConjunction(){
+		$this->fixture->setCategoryConjunction('asc');
+
+		$this->assertSame(
+			'asc',
+			$this->fixture->getCategoryConjunction()
+		);
+	}
+
 }
 

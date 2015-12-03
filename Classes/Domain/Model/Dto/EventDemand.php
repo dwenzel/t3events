@@ -55,14 +55,8 @@ namespace Webfox\T3events\Domain\Model\Dto;
 	 */
  	protected $eventType;
 
-	/** 
-	 * Category Conjunction
-	 *
-	 * @var \string
-	 */
-	protected $categoryConjunction;
- 	
- 	/**
+
+	 /**
 	 * Returns the genre
 	 *
 	 * @return \string $genre
@@ -118,25 +112,6 @@ namespace Webfox\T3events\Domain\Model\Dto;
 	public function setEventType($eventType) {
 		$this->eventType = $eventType;
 	}
-	
-	/**
-	 * Returns the Category Conjunction
-	 * 
-	 * @return \string
-	 */
-	public function getCategoryConjunction() {
-		return $this->categoryConjunction;
-	}
-	
-	/**
-	 * Set Category Conjunction
-	 * 
-	 * @param \string $categoryConjunction
-	 * @return void
-	 */
-	public function setCategoryConjunction($categoryConjunction) {
-		$this->categoryConjunction = $categoryConjunction;
-	}
 
-  }
+ }
 
