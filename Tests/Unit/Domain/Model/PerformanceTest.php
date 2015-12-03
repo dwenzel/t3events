@@ -24,6 +24,7 @@ namespace Webfox\T3events\Tests\Unit\Domain\Model;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+use Webfox\T3events\Domain\Model\Event;
 
 /**
  * Test case for class \Webfox\T3events\Domain\Model\Performance.
@@ -483,6 +484,29 @@ class PerformanceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	public function setHiddenForIntegerSetsHidden() {
 		$this->fixture->setHidden(1);
 		$this->assertSame( 1, $this->fixture->getHidden());
+	}
+
+	/**
+	 * @test
+	 * @covers ::getEvent
+	 */
+	public function getEventForObjectInitiallyReturnsNull() {
+		$this->assertNull(
+			$this->fixture->getEvent()
+		);
+	}
+
+	/**
+	 * @test
+	 * @covers ::setEvent
+	 */
+	public function setEventForObjectSetsEvent() {
+		$event = new Event();
+		$this->fixture->setEvent($event);
+		$this->assertSame(
+			$event,
+			$this->fixture->getEvent()
+		);
 	}
 }
 

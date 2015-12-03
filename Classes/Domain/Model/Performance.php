@@ -119,6 +119,11 @@ class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $priceNotice;
 
 	/**
+	 * @var \Webfox\T3events\Domain\Model\Event
+	 */
+	protected $event;
+
+	/**
 	 * eventLocation
 	 * @lazy
 	 * @var \Webfox\T3events\Domain\Model\EventLocation
@@ -168,6 +173,24 @@ class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 		 * You may modify the constructor of this class instead
 		 */
 		$this->ticketClass = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+	}
+
+	/**
+	 * Returns the eventLocation
+	 *
+	 * @return \Webfox\T3events\Domain\Model\Event
+	 */
+	public function getEvent() {
+		return $this->event;
+	}
+
+	/**
+	 * Sets the event
+	 *
+	 * @param \Webfox\T3events\Domain\Model\Event $event
+	 */
+	public function setEvent(Event $event) {
+		$this->event = $event;
 	}
 
 	/**
