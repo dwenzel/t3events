@@ -3,11 +3,11 @@ if (!defined('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
-$ll = 'LLL:EXT:t3events_reservation/Resources/Private/Language/locallang_db.xlf:';
+$ll = 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:';
 
 return array(
 	'ctrl' => array(
-		'title' => $ll . 'tx_t3eventsreservation_domain_model_company',
+		'title' => $ll . 'tx_t3events_domain_model_company',
 		'label' => 'name',
 		'tstamp' => 'tstamp',
 		'crdate' => 'crdate',
@@ -27,7 +27,7 @@ return array(
 			'endtime' => 'endtime',
 		),
 		'searchFields' => 'name,zip,address,city',
-		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('t3events_reservation') . 'Resources/Public/Icons/tx_t3eventsreservation_domain_model_company.gif'
+		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('t3events') . 'Resources/Public/Icons/tx_t3events_domain_model_company.gif'
 	), 'interface' => array(
 		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, name, address, zip, city',
 	),
@@ -61,8 +61,8 @@ return array(
 				'items' => array(
 					array('', 0),
 				),
-				'foreign_table' => 'tx_t3eventsreservation_domain_model_company',
-				'foreign_table_where' => 'AND tx_t3eventsreservation_domain_model_company.pid=###CURRENT_PID### AND tx_t3eventsreservation_domain_model_company.sys_language_uid IN (-1,0)',
+				'foreign_table' => 'tx_t3events_domain_model_company',
+				'foreign_table_where' => 'AND tx_t3events_domain_model_company.pid=###CURRENT_PID### AND tx_t3events_domain_model_company.sys_language_uid IN (-1,0)',
 			),
 		),
 		'l10n_diffsource' => array(
@@ -121,7 +121,7 @@ return array(
 		),
 		'name' => array(
 			'exclude' => 1,
-			'label' => $ll . 'tx_t3eventsreservation_domain_model_company.name',
+			'label' => $ll . 'tx_t3events_domain_model_company.name',
 			'config' => array(
 				'type' => 'input',
 				'size' => 30,
@@ -130,7 +130,7 @@ return array(
 		),
 		'address' => array(
 			'exclude' => 1,
-			'label' => $ll . 'tx_t3eventsreservation_domain_model_company.address',
+			'label' => $ll . 'tx_t3events_domain_model_company.address',
 			'config' => array(
 				'type' => 'text',
 				'cols' => 40,
@@ -140,7 +140,7 @@ return array(
 		),
 		'zip' => array(
 			'exclude' => 1,
-			'label' => $ll . 'tx_t3eventsreservation_domain_model_company.zip',
+			'label' => $ll . 'tx_t3events_domain_model_company.zip',
 			'config' => array(
 				'type' => 'input',
 				'size' => 30,
@@ -149,7 +149,7 @@ return array(
 		),
 		'city' => array(
 			'exclude' => 1,
-			'label' => $ll . 'tx_t3eventsreservation_domain_model_company.city',
+			'label' => $ll . 'tx_t3events_domain_model_company.city',
 			'config' => array(
 				'type' => 'input',
 				'size' => 30,
@@ -158,7 +158,7 @@ return array(
 		),
 		'country' => array(
 			'exclude' => 1,
-			'label' => $ll . 'tx_t3eventsreservation_domain_model_company.country',
+			'label' => $ll . 'tx_t3events_domain_model_company.country',
 			'config' => array(
 				'type' => 'input',
 				'size' => 30,
