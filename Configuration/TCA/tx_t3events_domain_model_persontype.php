@@ -1,11 +1,11 @@
 <?php
-if (!defined ('TYPO3_MODE')) {
+if (!defined('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
 return array(
 	'ctrl' => array(
-		'title'	=> $ll . 'tx_t3events_domain_model_persontype',
+		'title' => $ll . 'tx_t3events_domain_model_persontype',
 		'label' => 'title',
 		'tstamp' => 'tstamp',
 		'crdate' => 'crdate',

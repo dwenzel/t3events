@@ -100,7 +100,7 @@ class AbstractDemandTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 * @covers ::setLimit
 	 */
-	public function setLimitCastsStringToInteger () {
+	public function setLimitCastsStringToInteger() {
 		$this->fixture->setLimit('2');
 		$this->assertInternalType(
 			'int',

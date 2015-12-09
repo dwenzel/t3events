@@ -7,7 +7,7 @@
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
-	   
+
 			<label index="title.description">Title</label>
 			<label index="details.description">Details</label>
 			<label index="inherit_data.description">If set the teaser shows title, subtitle, details and image from the choosen event.</label>
@@ -17,7 +17,7 @@
 			<label index="event.description">Event</label>
 		</languageKey>
 		<languageKey index="de" type="array">
-	   
+
 			<label index="title.description">Titel</label>
 			<label index="details.description">Beschreibung</label>
 			<label index="inherit_data.description">Wenn die Option gesetzt ist, zeigt der Teaser Titel, Untertitel, Beschreibung und Bild aus der gewählten Veranstaltung.</label>

@@ -25,7 +25,7 @@ $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['extbase']['commandControllers'][] = '
 
 // Register cache frontend for proxy class generation
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['t3events'] = array(
-	'frontend' =>  \TYPO3\CMS\Core\Cache\Frontend\PhpFrontend::class,
+	'frontend' => \TYPO3\CMS\Core\Cache\Frontend\PhpFrontend::class,
 	'backend' => \TYPO3\CMS\Core\Cache\Backend\FileBackend::class,
 	'groups' => array(
 		'all',

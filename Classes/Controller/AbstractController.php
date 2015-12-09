@@ -1,28 +1,25 @@
 <?php
 namespace Webfox\T3events\Controller;
-/**
- * This file is part of the TYPO3 CMS project.
- *
- * It is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License, either version 2
- * of the License, or any later version.
- *
- * For the full copyright and license information, please read the
- * LICENSE.txt file that was distributed with this source code.
- *
- * The TYPO3 project - inspiring people to share!
- */
+
+	/**
+	 * This file is part of the TYPO3 CMS project.
+	 * It is free software; you can redistribute it and/or modify it under
+	 * the terms of the GNU General Public License, either version 2
+	 * of the License, or any later version.
+	 * For the full copyright and license information, please read the
+	 * LICENSE.txt file that was distributed with this source code.
+	 * The TYPO3 project - inspiring people to share!
+	 */
 
 /**
- *
- *
  * @package t3evetns
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- *
  */
 class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
+
 	/**
 	 * Request Arguments
+	 *
 	 * @var \array
 	 */
 	protected $requestArguments = NULL;
@@ -63,7 +60,7 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 		unset($originalRequestArguments['controller']);
 
 		$this->requestArguments = array(
-			'action' => $action ,
+			'action' => $action,
 			'pluginName' => $this->request->getPluginName(),
 			'controllerName' => $this->request->getControllerName(),
 			'extensionName' => $this->request->getControllerExtensionName(),
@@ -77,31 +74,31 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	 * @return void
 	 */
 	protected function setReferrerArguments() {
-		if($this->request->hasArgument('referrerArguments') AND
-			is_array($this->request->getArgument('referrerArguments'))) {
-		    $this->referrerArguments = $this->request->getArgument('referrerArguments');
+		if ($this->request->hasArgument('referrerArguments') AND
+			is_array($this->request->getArgument('referrerArguments'))
+		) {
+			$this->referrerArguments = $this->request->getArgument('referrerArguments');
 		} else {
-		    $this->referrerArguments = array();
+			$this->referrerArguments = array();
 		}
 	}
 
 	/**
-	* @param \TYPO3\CMS\Extbase\Mvc\RequestInterface $request
-	* @param \TYPO3\CMS\Extbase\Mvc\ResponseInterface $response
-	* @return void
-	* @throws \Exception
-	* @override \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
-	*/
+	 * @param \TYPO3\CMS\Extbase\Mvc\RequestInterface $request
+	 * @param \TYPO3\CMS\Extbase\Mvc\ResponseInterface $response
+	 * @return void
+	 * @throws \Exception
+	 * @override \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+	 */
 	public function processRequest(\TYPO3\CMS\Extbase\Mvc\RequestInterface $request, \TYPO3\CMS\Extbase\Mvc\ResponseInterface $response) {
-		try{
+		try {
 			parent::processRequest($request, $response);
-		}
-		catch(\Exception $exception) {
+		} catch (\Exception $exception) {
 			// If the property mapper did throw a \TYPO3\CMS\Extbase\Property\Exception, because it was unable to find the requested entity, call the page-not-found handler.
 			$previousException = $exception->getPrevious();
 			if (($exception instanceof \TYPO3\CMS\Extbase\Property\Exception) && (($previousException instanceof \TYPO3\CMS\Extbase\Property\Exception\TargetNotFoundException) || ($previousException instanceof \TYPO3\CMS\Extbase\Property\Exception\InvalidSourceException))) {
-				$configuration = isset($this->settings[strtolower($request->getControllerName())]['detail']['errorHandling'])? $this->settings[strtolower($request->getControllerName())]['detail']['errorHandling'] : NULL;
-				if($configuration ) {
+				$configuration = isset($this->settings[strtolower($request->getControllerName())]['detail']['errorHandling']) ? $this->settings[strtolower($request->getControllerName())]['detail']['errorHandling'] : NULL;
+				if ($configuration) {
 					$this->handleEntityNotFoundError($configuration);
 				}
 			}
@@ -115,11 +112,11 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	 * @param \string $configuration Configuration for handling
 	 */
 	public function handleEntityNotFoundError($configuration) {
-		if(empty($configuration)) {
+		if (empty($configuration)) {
 			return;
 		}
 		$configuration = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $configuration);
-		switch($configuration[0]) {
+		switch ($configuration[0]) {
 			case 'redirectToListView':
 				$this->redirect('list');
 				break;
@@ -136,13 +133,13 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 				}
 				$url = $this->uriBuilder->build();
 				if (isset($configuration[2])) {
-					$this->redirectToUri($url, 0, (int)$configuration[2]);
+					$this->redirectToUri($url, 0, (int) $configuration[2]);
 				} else {
 					$this->redirectToUri($url);
 				}
 				break;
 			case 'pageNotFoundHandler':
-					$GLOBALS['TSFE']->pageNotFoundAndExit($this->entityNotFoundMessage);
+				$GLOBALS['TSFE']->pageNotFoundAndExit($this->entityNotFoundMessage);
 				break;
 			default:
 		}
@@ -159,7 +156,7 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	public function createSearchObject($searchRequest, $settings) {
 		$searchObject = $this->objectManager->get('Webfox\\T3events\\Domain\\Model\\Dto\\Search');
 
-		if(isset($searchRequest['subject']) AND isset($settings['fields'])) {
+		if (isset($searchRequest['subject']) AND isset($settings['fields'])) {
 			$searchObject->setFields($settings['fields']);
 			$searchObject->setSubject($searchRequest['subject']);
 		}
@@ -167,6 +164,7 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 			$searchObject->setLocation($searchRequest['location']);
 			$searchObject->setRadius($searchRequest['radius']);
 		}
+
 		return $searchObject;
 	}
 
@@ -178,7 +176,7 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	 * @param \array $arguments
 	 * @codeCoverageIgnore
 	 */
-	public function translate($key, $extension='t3events', $arguments=NULL) {
+	public function translate($key, $extension = 't3events', $arguments = NULL) {
 		return \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate($key, $extension, $arguments);
 	}
 }

@@ -1,6 +1,4 @@
-﻿
-
-.. ==================================================
+﻿.. ==================================================
 .. FOR YOUR INFORMATION
 .. --------------------------------------------------
 .. -*- coding: utf-8 -*- with BOM.
@@ -11,7 +9,7 @@
 .. role::   underline
 .. role::   typoscript(code)
 .. role::   ts(typoscript)
-   :class:  typoscript
+:class:  typoscript
 .. role::   php(code)
 
 

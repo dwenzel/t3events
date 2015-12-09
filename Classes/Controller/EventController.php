@@ -1,27 +1,22 @@
 <?php
 namespace Webfox\T3events\Controller;
+
 /***************************************************************
  *  Copyright notice
- *
  *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
  *  Michael Kasten <kasten@webfox01.de>, Agentur Webfox
- *
  *  All rights reserved
- *
  *  This script is part of the TYPO3 project. The TYPO3 project is
  *  free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 3 of the License, or
  *  (at your option) any later version.
- *
  *  The GNU General Public License can be found at
  *  http://www.gnu.org/copyleft/gpl.html.
- *
  *  This script is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *  GNU General Public License for more details.
- *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 use TYPO3\CMS\Core\Messaging\FlashMessage;
@@ -32,11 +27,8 @@ use Webfox\T3events\Domain\Model\Dto\EventDemand;
 use Webfox\T3events\Domain\Model\Event;
 
 /**
- *
- *
  * @package t3events
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- *
  */
 class EventController extends AbstractController {
 
@@ -71,13 +63,14 @@ class EventController extends AbstractController {
 	 * @inject
 	 */
 	protected $eventTypeRepository;
-	
+
 	/**
 	 * action list
+	 *
 	 * @param \array $overwriteDemand
 	 * @return void
 	 */
-	public function listAction( $overwriteDemand = NULL) {
+	public function listAction($overwriteDemand = NULL) {
 		if (!is_null($overwriteDemand['uidList'])) {
 			$recordArr = array();
 			if (is_array($overwriteDemand['uidList'])) {
@@ -139,7 +132,7 @@ class EventController extends AbstractController {
 				'data' => $this->configurationManager->getContentObject()->data
 			)
 		);
-  }
+	}
 
 	/**
 	 * action show
@@ -153,9 +146,10 @@ class EventController extends AbstractController {
 
 	/**
 	 * action quickMenu
+	 *
 	 * @return void
 	 */
-	public function quickMenuAction(){
+	public function quickMenuAction() {
 
 		// get session data
 		$sessionData = $GLOBALS['TSFE']->fe_user->getKey('ses', 'tx_t3events_overwriteDemand');
@@ -180,6 +174,7 @@ class EventController extends AbstractController {
 
 	/**
 	 * action calendar
+	 *
 	 * @param \array $overwriteDemand
 	 * @return void
 	 */
@@ -197,10 +192,10 @@ class EventController extends AbstractController {
 			)
 		);
 	}
-	
+
 	/**
 	 * Create demand from settings
-	 * 
+	 *
 	 * @param \array $settings
 	 * @return \Webfox\T3events\Domain\Model\Dto\EventDemand
 	 */
@@ -209,10 +204,10 @@ class EventController extends AbstractController {
 		$demand = $this->objectManager->get('Webfox\\T3events\\Domain\\Model\\Dto\\EventDemand');
 
 		foreach ($settings as $propertyName => $propertyValue) {
-			if(empty($propertyValue)) {
+			if (empty($propertyValue)) {
 				continue;
 			}
-			switch($propertyName) {
+			switch ($propertyName) {
 				case 'eventTypes':
 					$demand->setEventType($propertyValue);
 					break;
@@ -240,18 +235,18 @@ class EventController extends AbstractController {
 		}
 
 		$demand->setOrder($settings['sortBy'] . '|' . $settings['sortDirection']);
-		if($settings['period'] == 'specific') {
+		if ($settings['period'] == 'specific') {
 			$demand->setPeriodType($settings['periodType']);
 		}
-		if(isset($settings['periodType']) AND $settings['periodType'] != 'byDate') {
+		if (isset($settings['periodType']) AND $settings['periodType'] != 'byDate') {
 			$demand->setPeriodStart($settings['periodStart']);
 			$demand->setPeriodDuration($settings['periodDuration']);
 		}
-		if($settings['periodType'] == 'byDate') {
-			if($settings['periodStartDate']) {
+		if ($settings['periodType'] == 'byDate') {
+			if ($settings['periodStartDate']) {
 				$demand->setStartDate($settings['periodStartDate']);
 			}
-			if($settings['periodEndDate']) {
+			if ($settings['periodEndDate']) {
 				$demand->setEndDate($settings['periodEndDate']);
 			}
 		}
@@ -267,7 +262,7 @@ class EventController extends AbstractController {
 	 * @return \Webfox\T3events\Domain\Model\Dto\EventDemand
 	 */
 	public function overwriteDemandObject($demand, $overwriteDemand) {
-		if((bool)$overwriteDemand) {
+		if ((bool) $overwriteDemand) {
 
 			foreach ($overwriteDemand as $propertyName => $propertyValue) {
 				switch ($propertyName) {
@@ -325,16 +320,16 @@ class EventController extends AbstractController {
 		);
 
 		if (isset($settings['displayPeriod'])) {
-			$calendarConfiguration->setDisplayPeriod((int)$settings['displayPeriod']);
+			$calendarConfiguration->setDisplayPeriod((int) $settings['displayPeriod']);
 		} else {
 			$calendarConfiguration->setDisplayPeriod(CalendarConfiguration::PERIOD_MONTH);
 		}
-	
-		$dateString = 'today';	
+
+		$dateString = 'today';
 		/** @var \DateTimeZone $timeZone */
 		$timeZone = new \DateTimeZone(date_default_timezone_get());
 		/** @var \DateTime $startDate */
-		$startDate = new \DateTime($dateString , $timeZone);
+		$startDate = new \DateTime($dateString, $timeZone);
 
 		$currentDate = new \DateTime($dateString, $timeZone);
 		$calendarConfiguration->setCurrentDate($currentDate);
@@ -349,20 +344,20 @@ class EventController extends AbstractController {
 			default:
 				$dateString = 'first day of this month';
 		}
-		if (isset($settings['startDate']) AND !empty($settings['startDate'])){
+		if (isset($settings['startDate']) AND !empty($settings['startDate'])) {
 			$dateString = $settings['startDate'];
 		}
 		$startDate->modify($dateString);
 		$calendarConfiguration->setStartDate($startDate);
 
 		if (isset($settings['viewMode']) AND !empty($settings['viewMode'])) {
-			$calendarConfiguration->setViewMode((int)$settings['viewMode']);
+			$calendarConfiguration->setViewMode((int) $settings['viewMode']);
 		} else {
 			$calendarConfiguration->setViewMode(CalendarConfiguration::VIEW_MODE_COMBO_PANE);
 		}
 
 		if (isset($settings['ajaxEnabled'])) {
-			$calendarConfiguration->setAjaxEnabled((bool)$settings['ajaxEnabled']);
+			$calendarConfiguration->setAjaxEnabled((bool) $settings['ajaxEnabled']);
 		}
 
 		return $calendarConfiguration;

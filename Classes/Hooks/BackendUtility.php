@@ -1,15 +1,13 @@
 <?php
 namespace Webfox\T3events\Hooks;
+
 /**
  * This file is part of the TYPO3 CMS project.
- *
  * It is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License, either version 2
  * of the License, or any later version.
- *
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
- *
  * The TYPO3 project - inspiring people to share!
  */
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -87,7 +85,7 @@ class BackendUtility {
 	protected function updateFlexforms(array &$dataStructure, array $row) {
 		$selectedView = '';
 
-			// get the first selected action
+		// get the first selected action
 		$flexformSelection = GeneralUtility::xml2array($row['pi_flexform']);
 		if (is_array($flexformSelection) && is_array($flexformSelection['data'])) {
 			$selectedView = $flexformSelection['data']['sDEF']['lDEF']['switchableControllerActions']['vDEF'];
@@ -98,12 +96,12 @@ class BackendUtility {
 
 			// new plugin element
 		} elseif (GeneralUtility::isFirstPartOfStr($row['uid'], 'NEW')) {
-				// use List as starting view
+			// use List as starting view
 			$selectedView = 'Event->list';
 		}
 
 		if (!empty($selectedView)) {
-				// Modify the flexform structure depending on the first found action
+			// Modify the flexform structure depending on the first found action
 			switch ($selectedView) {
 				case 'Event->quickMenu':
 					$this->deleteFromStructure($dataStructure, $this->removedFieldsInEventQuickMenuView);

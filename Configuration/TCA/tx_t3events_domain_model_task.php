@@ -1,11 +1,11 @@
 <?php
-if (!defined ('TYPO3_MODE')) {
+if (!defined('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
 return array(
 	'ctrl' => array(
-		'title'	=> 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_task',
+		'title' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_task',
 		'label' => 'name',
 		'tstamp' => 'tstamp',
 		'crdate' => 'crdate',
@@ -200,10 +200,10 @@ return array(
 				'minitems' => 0,
 				'maxitems' => 9999,
 				'wizards' => array(
-                        'suggest' => array(
-                                'type' => 'suggest',
-                        ),
-                ),
+					'suggest' => array(
+						'type' => 'suggest',
+					),
+				),
 			),
 		),
 	),

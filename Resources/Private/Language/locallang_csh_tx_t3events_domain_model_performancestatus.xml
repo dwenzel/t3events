@@ -6,8 +6,8 @@
 		<csh_table>tx_t3events_domain_model_performancestatus</csh_table>
 	</meta>
 	<data type="array">
-	<languageKey index="default" type="array">
-	   
+		<languageKey index="default" type="array">
+
 			<label index="title.description">title</label>
 			<label index="css_class.description">cssClass</label>
 			<label index="priority.description">priority</label>

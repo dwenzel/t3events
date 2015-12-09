@@ -1,11 +1,11 @@
 <?php
-if (!defined ('TYPO3_MODE')) {
+if (!defined('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
 return array(
 	'ctrl' => array(
-		'title'	=> 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_performance',
+		'title' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_performance',
 		'label' => 'date',
 		'label_alt' => 'event_location',
 		'label_alt_force' => 1,
@@ -32,7 +32,7 @@ return array(
 	),
 	'interface' => array(
 		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource,
-			hidden, date,endDate,admission, begin, end, status_info, external_provider_link,
+			hidden, date,end_date,admission, begin, end, status_info, external_provider_link,
 			additional_link, provider_type, image, plan, no_handling_fee, price_notice,
 			event_location, ticket_class, status',
 	),
@@ -63,7 +63,7 @@ return array(
 	'palettes' => array(
 		'1' => array('showitem' => ''),
 		'paletteTitle' => array(
-			'showitem' => 'date, endDate, event_location',
+			'showitem' => 'date, end_date, event_location',
 			'canNotCollapse' => TRUE,
 		),
 		'paletteTime' => array(
@@ -212,10 +212,10 @@ return array(
 			'exclude' => 0,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_performance.status_info',
 			'config' => array(
-			    'type' => 'text',
-			    'columns' => 30,
-			    'rows' => 5,
-			    'eval' => 'trim',
+				'type' => 'text',
+				'columns' => 30,
+				'rows' => 5,
+				'eval' => 'trim',
 			),
 		),
 		'external_provider_link' => array(
@@ -242,9 +242,9 @@ return array(
 			'config' => array(
 				'type' => 'select',
 				'items' => array(
-						array('LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_performance.internal', 0),
-						array('LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_performance.external', 1),
-					),
+					array('LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_performance.internal', 0),
+					array('LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_performance.external', 1),
+				),
 				'size' => 1,
 				'maxitems' => 1,
 				'eval' => ''
@@ -293,9 +293,9 @@ return array(
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_performance.price_notice',
 			'config' => array(
 				'type' => 'text',
-			    'columns' => 20,
-			    'rows' => 3,
-			    'eval' => 'trim',
+				'columns' => 20,
+				'rows' => 3,
+				'eval' => 'trim',
 			),
 		),
 		'event_location' => array(
@@ -303,14 +303,14 @@ return array(
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_performance.event_location',
 			'config' => array(
 				'type' => 'select',
-                'items' => array (
-                    array('',0),
-                ),
-                'foreign_table' => 'tx_t3events_domain_model_eventlocation',
-                'foreign_table_where' => ' AND tx_t3events_domain_model_eventlocation.sys_language_uid IN (-1,0)
+				'items' => array(
+					array('', 0),
+				),
+				'foreign_table' => 'tx_t3events_domain_model_eventlocation',
+				'foreign_table_where' => ' AND tx_t3events_domain_model_eventlocation.sys_language_uid IN (-1,0)
                 							ORDER BY tx_t3events_domain_model_eventlocation.name',
-                'minitems' => 0,
-                'maxitems' => 1,
+				'minitems' => 0,
+				'maxitems' => 1,
 				'noIconsBelowSelect' => TRUE,
 			),
 		),
@@ -322,7 +322,7 @@ return array(
 				'foreign_table' => 'tx_t3events_domain_model_ticketclass',
 				'foreign_field' => 'performance',
 				'foreign_sortby' => 'sorting',
-				'maxitems'      => 9999,
+				'maxitems' => 9999,
 				'appearance' => array(
 					'collapseAll' => 0,
 					'levelLinksPosition' => 'top',
@@ -339,8 +339,8 @@ return array(
 				'type' => 'select',
 				'l10nmode' => 'mergeIfNotBlank',
 				'items' => array(
-                    array('',0),
-                ),
+					array('', 0),
+				),
 				'foreign_table' => 'tx_t3events_domain_model_performancestatus',
 				'foreign_table_where' => ' AND (tx_t3events_domain_model_performancestatus.sys_language_uid = 0)
                                             AND (tx_t3events_domain_model_performancestatus.hidden = 0)

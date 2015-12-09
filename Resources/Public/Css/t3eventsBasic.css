@@ -88,6 +88,7 @@ html[xmlns] .clearfix {
 	background: linear-gradient(to bottom, #B3E0ED 0%, #83CDE2 44%, #109DC7 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#b3e0ed', endColorstr='#109dc7', GradientType=0); /* IE6-8 */
 }
+
 /* some icons inspired by font-awesome */
 .fa {
 	display: inline-block;
@@ -96,6 +97,7 @@ html[xmlns] .clearfix {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
+
 i.fa {
 	font-style: normal;
 }
@@ -106,27 +108,35 @@ i.fa {
 	line-height: 0.75em;
 	vertical-align: -15%;
 }
+
 .fa-2x {
 	font-size: 2em;
 }
+
 .fa-3x {
 	font-size: 3em;
 }
+
 .fa-4x {
 	font-size: 4em;
 }
+
 .fa-5x {
 	font-size: 5em;
 }
+
 .fa-angle-double-left:before {
 	content: "\00ab";
 }
+
 .fa-angle-double-right:before {
 	content: "\00bb";
 }
+
 .fa-angle-left:before {
 	content: "\2039";
 }
+
 .fa-angle-right:before {
 	content: "\203A";
 }
@@ -172,31 +182,47 @@ i.fa {
 
 #loader {
 	height: 2px;
-  width: 100%;
-  position: relative;
-  overflow: hidden;
+	width: 100%;
+	position: relative;
+	overflow: hidden;
 	background: transparent none;
 }
+
 #loader.loading {
-  background-color: #ddd;
+	background-color: #DDDDDD;
 }
-#loader.loading:before{
-  display: block;
-  position: absolute;
-  content: "";
-  left: -200px;
-  width: 200px;
-  height: 4px;
-  background-color: #2980b9;
-  animation: loading 2s linear infinite;
+
+#loader.loading:before {
+	display: block;
+	position: absolute;
+	content: "";
+	left: -200px;
+	width: 200px;
+	height: 4px;
+	background-color: #2980B9;
+	animation: loading 2s linear infinite;
 }
+
 @keyframes loading {
-    from {left: -200px; width: 30%;}
-    50% {width: 30%;}
-    70% {width: 70%;}
-    80% { left: 50%;}
-    95% {left: 120%;}
-    to {left: 100%;}
+	from {
+		left: -200px;
+		width: 30%;
+	}
+	50% {
+		width: 30%;
+	}
+	70% {
+		width: 70%;
+	}
+	80% {
+		left: 50%;
+	}
+	95% {
+		left: 120%;
+	}
+	to {
+		left: 100%;
+	}
 }
 
 /*Event List*/
@@ -799,7 +825,6 @@ screen width 768px or above
 
 }
 
-
 /*
 screen width 768px or above
 */
@@ -839,7 +864,6 @@ screen width 768px or above
 	}
 
 }
-
 
 /*
 screen width 960px or above
@@ -923,8 +947,6 @@ screen width 1400px or above
 */
 @media all and (min-width: 1400px) {
 }
-
-
 
 /* --------- Extension tx-t3events Start --------- */
 /* --------- Allgemeine Styles --------- */
@@ -1063,29 +1085,34 @@ screen width 1400px or above
 	}
 }
 
-.tx-t3events .eventCalendar.miniMonth .calendarMonth{
+.tx-t3events .eventCalendar.miniMonth .calendarMonth {
 	display: inline-block;
 }
+
 .tx-t3events .eventCalendar.comboPane .calendarMonth,
 .tx-t3events .eventCalendar.comboPane .calendarWeek,
-.tx-t3events .eventCalendar.comboPane .calendarYear
-{
+.tx-t3events .eventCalendar.comboPane .calendarYear {
 	width: 100%;
 }
+
 .tx-t3events .eventCalendar .day {
 	padding: 0.3em;
 }
+
 .tx-t3events .eventCalendar.miniMonth td.day {
 	text-align: center;
 }
+
 .tx-t3events .eventCalendar.comboPane td.day {
 	height: 10em;
 	width: 14.285%;
 }
+
 .tx-t3events .eventCalendar.comboPane .calendarYear td.day {
 	height: 1em;
 	width: 15%;
 }
+
 .tx-t3events .eventCalendar.comboPane .labelDay {
 	text-align: right;
 }
@@ -1104,7 +1131,7 @@ screen width 1400px or above
 }
 
 .tx-t3events .eventCalendar .hasEvent .eventTooltip {
-	 display: none;
+	display: none;
 }
 
 .tx-t3events .eventCalendar .hasEvent:hover .eventTooltip {
@@ -1113,7 +1140,7 @@ screen width 1400px or above
 	bottom: 60%;
 	right: 30%;
 	padding: 5px;
-	background-color: #f2f2f2;
+	background-color: #F2F2F2;
 	text-align: left;
 }
 
@@ -1121,18 +1148,20 @@ screen width 1400px or above
 .tx-t3events .eventCalendar .navigation {
 	text-align: center;
 }
+
 .tx-t3events .eventCalendar .navigation i.fa-2x.fa-angle-left,
 .tx-t3events .eventCalendar .navigation i.fa-2x.fa-angle-right,
 .tx-t3events .eventCalendar .navigation i.fa-2x.fa-angle-double-right,
 .tx-t3events .eventCalendar .navigation i.fa-2x.fa-angle-double-left {
-    position: relative;
-    top: 0.1em;
+	position: relative;
+	top: 0.1em;
 }
 
 .tx-t3events .eventCalendar .legend {
 	margin: 0 1em;
 	font-weight: 700;
 }
+
 .tx-t3events .eventCalendar .calendarYear .legend {
 	text-align: center;
 }

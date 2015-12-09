@@ -1,39 +1,40 @@
 <table class="calendarWeek">
 	<thead>
-		<tr class="header">
-			<td colspan="7" class="navigation">
-				<span class="legend">{f:format.date(date: '{configuration.startDate}', format: 'd.')} - {f:format.date(base: '{configuration.startDate}', date:'+6 days',format: 'd. F Y')}</span></td>
-			</td>
-		</tr>
-		<tr>
-			<f:for each="{calendar.weekDayLabels}" as="weekDay">
-				<th class="weekDay">{weekDay}</th>
-			</f:for>
-		</tr>
+	<tr class="header">
+		<td colspan="7" class="navigation">
+			<span class="legend">{f:format.date(date: '{configuration.startDate}', format: 'd.')} - {f:format.date(base: '{configuration.startDate}', date:'+6 days',format: 'd. F Y')}</span>
+		</td>
+		</td>
+	</tr>
+	<tr>
+		<f:for each="{calendar.weekDayLabels}" as="weekDay">
+			<th class="weekDay">{weekDay}</th>
+		</f:for>
+	</tr>
 	</thead>
 	<tbody>
-		<tr>
-			<f:for each="{calendar.currentWeek.days}" as="calendarDay">
-				<td class="day {f:if(condition: '{calendarDay.isCurrent}', then: 'current')} {f:if(condition: '{f:count(subject: \'{calendarDay.events}\')}',
+	<tr>
+		<f:for each="{calendar.currentWeek.days}" as="calendarDay">
+			<td class="day {f:if(condition: '{calendarDay.isCurrent}', then: 'current')} {f:if(condition: '{f:count(subject: \'{calendarDay.events}\')}',
 						then: 'hasEvent')}">
-					<div class="labelDay">{calendarDay.day}</div>
-					<f:for each="{calendarDay.events}" as="singleEvent">
-						<f:for each="{singleEvent.performances}" as="performance">
-							<f:if condition="{performance.date.timestamp}=={calendarDay.date.timestamp}">
-								<div class="event">
-									<f:link.action
-										pluginName="events"
-										controller="Event"
-										action="show" arguments="{event: singleEvent}" pageUid="{settings.detailPid}">
-										{f:format.date(format: 'H:i', date: '{performance.begin}')} {singleEvent.headline}
-									</f:link.action>
-								</div>
-							</f:if>
-						</f:for>
+				<div class="labelDay">{calendarDay.day}</div>
+				<f:for each="{calendarDay.events}" as="singleEvent">
+					<f:for each="{singleEvent.performances}" as="performance">
+						<f:if condition="{performance.date.timestamp}=={calendarDay.date.timestamp}">
+							<div class="event">
+								<f:link.action
+									pluginName="events"
+									controller="Event"
+									action="show" arguments="{event: singleEvent}" pageUid="{settings.detailPid}">
+									{f:format.date(format: 'H:i', date: '{performance.begin}')} {singleEvent.headline}
+								</f:link.action>
+							</div>
+						</f:if>
 					</f:for>
-				</td>
-			</f:for>
-		</tr>
+				</f:for>
+			</td>
+		</f:for>
+	</tr>
 	</tbody>
 </table>
 

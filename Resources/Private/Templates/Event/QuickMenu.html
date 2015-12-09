@@ -54,54 +54,54 @@ This Template is responsible for creating a quick menu (selectbox).
 
 				<f:comment>genres</f:comment>
 				<f:if condition="{genres}">
-					<f:form.select 
+					<f:form.select
 						id="tx_t3eventsQuickMenue"
-						name="overwriteDemand[genre]" 
+						name="overwriteDemand[genre]"
 						options="{genres}"
-						optionValueField="uid" 
+						optionValueField="uid"
 						optionLabelField="title"
 						prependOptionLabel="{f:translate(key: 'tx_t3events.allGenres')}"
 						value="{overwriteDemand.genre}"
-					/>
+						/>
 				</f:if>
-				
+
 				<f:comment>venues</f:comment>
 				<f:if condition="{venues}">
-					<f:form.select 
-					  id="tx_t3eventsQuickMenue"
-						name="overwriteDemand[venue]" 
+					<f:form.select
+						id="tx_t3eventsQuickMenue"
+						name="overwriteDemand[venue]"
 						options="{venues}"
-						optionValueField="uid" 
+						optionValueField="uid"
 						optionLabelField="title"
 						prependOptionLabel="{f:translate(key: 'tx_t3events.allVenues')}"
 						value="{overwriteDemand.venue}"
-					/>
+						/>
 				</f:if>
-				
+
 				<f:comment>event types</f:comment>
 				<f:if condition="{eventTypes}">
-					<f:form.select 
-					  id="tx_t3eventsQuickMenue"
-						name="overwriteDemand[eventType]" 
+					<f:form.select
+						id="tx_t3eventsQuickMenue"
+						name="overwriteDemand[eventType]"
 						options="{eventTypes}"
-						optionValueField="uid" 
+						optionValueField="uid"
 						optionLabelField="title"
 						prependOptionLabel="{f:translate(key: 'tx_t3events.allEventTypes')}"
 						value="{overwriteDemand.eventType}"
-					/>
+						/>
 				</f:if>
 
 				<f:form.hidden
-				  id="tx_t3eventsQuickMenue"
+					id="tx_t3eventsQuickMenue"
 					name="overwriteDemand[categoryConjunction]"
 					value="{settings.categoryConjunction}"
-				/>
+					/>
 
-				<f:form.submit 
-				  id="tx_t3eventsQuickMenueSubmit"
-					name="submit" 
+				<f:form.submit
+					id="tx_t3eventsQuickMenueSubmit"
+					name="submit"
 					value="{f:translate(key: 'tx_t3events.button.label.search', default: 'Suchen')}"
-				/>
+					/>
 			</f:form>
 		</div>
 	</div>

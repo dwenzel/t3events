@@ -1,4 +1,4 @@
-<f:if condition="{settings.debug.ticketClass}" >
+<f:if condition="{settings.debug.ticketClass}">
 	<f:debug title="ticketClass">{ticketClass}</f:debug>
 </f:if>
 <div class="ticketClass row clearfix">
@@ -28,10 +28,10 @@
 				<input type="number" name="qty" />
 			</div>
 			<input type="hidden" name="puid" value="{ticketClass.uid}" />
-			<input 
-					type="hidden" 
-					name="title" 
-					value="{event.headline}, 
+			<input
+				type="hidden"
+				name="title"
+				value="{event.headline},
 							{event.subtitle},
 							{f:format.date(format: 'd.m.Y', date: '{performance.date}')},  
 							{ticketClass.title} {f:translate(key: 'tx_t3events_domain_model_ticketclass.type.{ticketClass.type}')}
@@ -39,6 +39,7 @@
 				/>
 			<input type="hidden" name="gtsprice" value="{ticketClass.price}" />
 			<input type="hidden" name="gtsNoHandlingFee" value="{performance.noHandlingFee}" />
+
 			<div class="button col fl">
 				<input type="submit" class="button blueGradient whiteColor" value="In den Warenkorb" name="submit" />
 			</div>

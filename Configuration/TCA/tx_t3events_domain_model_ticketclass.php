@@ -1,11 +1,11 @@
 <?php
-if (!defined ('TYPO3_MODE')) {
+if (!defined('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
 return array(
 	'ctrl' => array(
-		'title'	=> 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_ticketclass',
+		'title' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_ticketclass',
 		'label' => 'title',
 		'tstamp' => 'tstamp',
 		'crdate' => 'crdate',
@@ -39,9 +39,9 @@ return array(
         --div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,hidden,starttime, endtime'),
 	),
 	'palettes' => array(
-		'1' => array('showitem' =>''),
+		'1' => array('showitem' => ''),
 		'paletteSys' => array(
-			'showitem' =>  'sys_language_uid,l10n_parent, l10n_diffsource',
+			'showitem' => 'sys_language_uid,l10n_parent, l10n_diffsource',
 		),
 		'paletteTitle' => array(
 			'showitem' => 'color,title',
@@ -176,7 +176,7 @@ return array(
 			'config' => array(
 				'type' => 'radio',
 				'items' => array(
-					array('LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_ticketclass.normal',  0),
+					array('LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_ticketclass.normal', 0),
 					array('LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_ticketclass.reduced', 1),
 					array('LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_ticketclass.special', 2),
 				),

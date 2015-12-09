@@ -1,29 +1,24 @@
 <?php
 namespace Webfox\T3events\Tests\Unit\Domain\Model;
-/***************************************************************
- *  Copyright notice
- *
- *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
- *  			Michael Kasten <kasten@webfox01.de>, Agentur Webfox
- *  			
- *  All rights reserved
- *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+
+	/***************************************************************
+	 *  Copyright notice
+	 *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
+	 *            Michael Kasten <kasten@webfox01.de>, Agentur Webfox
+	 *  All rights reserved
+	 *  This script is part of the TYPO3 project. The TYPO3 project is
+	 *  free software; you can redistribute it and/or modify
+	 *  it under the terms of the GNU General Public License as published by
+	 *  the Free Software Foundation; either version 2 of the License, or
+	 *  (at your option) any later version.
+	 *  The GNU General Public License can be found at
+	 *  http://www.gnu.org/copyleft/gpl.html.
+	 *  This script is distributed in the hope that it will be useful,
+	 *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+	 *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	 *  GNU General Public License for more details.
+	 *  This copyright notice MUST APPEAR in all copies of the script!
+	 ***************************************************************/
 
 /**
  * Test case for class \Webfox\T3events\Domain\Model\Performance.
@@ -31,15 +26,14 @@ namespace Webfox\T3events\Tests\Unit\Domain\Model;
  * @version $Id$
  * @copyright Copyright belongs to the respective authors
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- *
  * @package TYPO3
  * @subpackage Events
- *
  * @author Dirk Wenzel <wenzel@webfox01.de>
  * @author Michael Kasten <kasten@webfox01.de>
  * @coversDefaultClass \Webfox\T3events\Domain\Model\Performance
  */
 class PerformanceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
+
 	/**
 	 * @var \Webfox\T3events\Domain\Model\Performance
 	 */
@@ -65,12 +59,12 @@ class PerformanceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 * @covers ::setDate
 	 */
-	public function setDateForDateTimeSetsDate(){
+	public function setDateForDateTimeSetsDate() {
 		$date = new \DateTime();
 		$this->fixture->setDate($date);
 		$this->assertSame(
-				$date,
-				$this->fixture->getDate()
+			$date,
+			$this->fixture->getDate()
 		);
 	}
 
@@ -86,7 +80,7 @@ class PerformanceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 * @covers ::setEndDate
 	 */
-	public function setEndDateForDateTimeSetsEndDate(){
+	public function setEndDateForDateTimeSetsEndDate() {
 		$endDate = new \DateTime();
 		$this->fixture->setEndDate($endDate);
 		$this->assertSame(
@@ -99,7 +93,7 @@ class PerformanceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 * @covers ::getAdmission
 	 */
-	public function getAdmissionReturnsInitialValueForInt() { 
+	public function getAdmissionReturnsInitialValueForInt() {
 		$this->assertNull($this->fixture->getAdmission());
 	}
 
@@ -110,8 +104,8 @@ class PerformanceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	public function setAdmissionForIntSetsAdmission() {
 		$this->fixture->setAdmission(99);
 		$this->assertSame(
-				99,
-				$this->fixture->getAdmission()
+			99,
+			$this->fixture->getAdmission()
 		);
 	}
 
@@ -139,7 +133,7 @@ class PerformanceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 * @covers ::getEnd
 	 */
-	public function getEndReturnsInitialValueForInt() { 
+	public function getEndReturnsInitialValueForInt() {
 		$this->assertNull($this->fixture->getEnd());
 	}
 
@@ -147,19 +141,19 @@ class PerformanceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 * @covers ::setEnd
 	 */
-	public function setEndForIntSetsEnd() { 
+	public function setEndForIntSetsEnd() {
 		$this->fixture->setEnd(123);
 		$this->assertSame(
-				123,
-				$this->fixture->getEnd()
+			123,
+			$this->fixture->getEnd()
 		);
 	}
-	
+
 	/**
 	 * @test
 	 * @covers ::getStatusInfo
 	 */
-	public function getStatusInfoReturnsInitialValueForString() { 
+	public function getStatusInfoReturnsInitialValueForString() {
 		$this->assertNull($this->fixture->getStatusInfo());
 	}
 
@@ -167,7 +161,7 @@ class PerformanceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 * @covers ::setStatusInfo
 	 */
-	public function setStatusInfoForStringSetsStatusInfo() { 
+	public function setStatusInfoForStringSetsStatusInfo() {
 		$this->fixture->setStatusInfo('Conceived at T3CON10');
 
 		$this->assertSame(
@@ -175,7 +169,7 @@ class PerformanceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 			$this->fixture->getStatusInfo()
 		);
 	}
-	
+
 	/**
 	 * @test
 	 * @covers ::getExternalProviderLink
@@ -188,7 +182,7 @@ class PerformanceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 * @covers ::setExternalProviderLink
 	 */
-	public function setExternalProviderLinkForStringSetsExternalProviderLink() { 
+	public function setExternalProviderLinkForStringSetsExternalProviderLink() {
 		$this->fixture->setExternalProviderLink('Conceived at T3CON10');
 
 		$this->assertSame(
@@ -209,7 +203,7 @@ class PerformanceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 * @covers ::setAdditionalLink
 	 */
-	public function setAdditionalLinkForStringSetsAdditionalLink() { 
+	public function setAdditionalLinkForStringSetsAdditionalLink() {
 		$this->fixture->setAdditionalLink('Conceived at T3CON10');
 
 		$this->assertSame(
@@ -222,7 +216,7 @@ class PerformanceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 * @covers ::getProviderType
 	 */
-	public function getProviderTypeReturnsInitialValueForInteger() { 
+	public function getProviderTypeReturnsInitialValueForInteger() {
 		$this->assertSame(
 			0,
 			$this->fixture->getProviderType()
@@ -233,7 +227,7 @@ class PerformanceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 * @covers ::setProviderType
 	 */
-	public function setProviderTypeForIntegerSetsProviderType() { 
+	public function setProviderTypeForIntegerSetsProviderType() {
 		$this->fixture->setProviderType(12);
 
 		$this->assertSame(
@@ -241,12 +235,12 @@ class PerformanceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 			$this->fixture->getProviderType()
 		);
 	}
-	
+
 	/**
 	 * @test
 	 * @covers ::getImage
 	 */
-	public function getImageReturnsInitialValueForString() { 
+	public function getImageReturnsInitialValueForString() {
 		$this->assertNull($this->fixture->getImage());
 	}
 
@@ -254,7 +248,7 @@ class PerformanceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 * @covers ::setImage
 	 */
-	public function setImageForStringSetsImage() { 
+	public function setImageForStringSetsImage() {
 		$this->fixture->setImage('Conceived at T3CON10');
 
 		$this->assertSame(
@@ -262,12 +256,12 @@ class PerformanceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 			$this->fixture->getImage()
 		);
 	}
-	
+
 	/**
 	 * @test
 	 * @covers ::getPlan
 	 */
-	public function getPlanReturnsInitialValueForString() { 
+	public function getPlanReturnsInitialValueForString() {
 		$this->assertNull($this->fixture->getPlan());
 	}
 
@@ -275,7 +269,7 @@ class PerformanceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 * @covers ::setPlan
 	 */
-	public function setPlanForStringSetsPlan() { 
+	public function setPlanForStringSetsPlan() {
 		$this->fixture->setPlan('Conceived at T3CON10');
 
 		$this->assertSame(
@@ -288,7 +282,7 @@ class PerformanceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 * @covers ::getNoHandlingFee
 	 */
-	public function getNoHandlingFeeReturnsInitialValueForBoolean() { 
+	public function getNoHandlingFeeReturnsInitialValueForBoolean() {
 		$this->assertSame(
 			FALSE,
 			$this->fixture->getNoHandlingFee()
@@ -299,7 +293,7 @@ class PerformanceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 * @covers ::isNoHandlingFee
 	 */
-	public function isNoHandlingFeeReturnsInitialValueForBoolean() { 
+	public function isNoHandlingFeeReturnsInitialValueForBoolean() {
 		$this->assertSame(
 			FALSE,
 			$this->fixture->isNoHandlingFee()
@@ -310,7 +304,7 @@ class PerformanceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 * @covers ::isNoHandlingFee
 	 */
-	public function isNoHandlingFeeForBooleanReturnsCorrectValueForBoolean() { 
+	public function isNoHandlingFeeForBooleanReturnsCorrectValueForBoolean() {
 		$this->fixture->setNoHandlingFee(TRUE);
 
 		$this->assertSame(
@@ -323,7 +317,7 @@ class PerformanceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 * @covers ::setNoHandlingFee
 	 */
-	public function setNoHandlingFeeForBooleanSetsNoHandlingFee() { 
+	public function setNoHandlingFeeForBooleanSetsNoHandlingFee() {
 		$this->fixture->setNoHandlingFee(TRUE);
 
 		$this->assertSame(
@@ -331,12 +325,12 @@ class PerformanceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 			$this->fixture->getNoHandlingFee()
 		);
 	}
-	
+
 	/**
 	 * @test
 	 * @covers ::getPriceNotice
 	 */
-	public function getPriceNoticeReturnsInitialValueForString() { 
+	public function getPriceNoticeReturnsInitialValueForString() {
 		$this->assertNull($this->fixture->getPriceNotice());
 	}
 
@@ -344,7 +338,7 @@ class PerformanceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 * @covers ::setPriceNotice
 	 */
-	public function setPriceNoticeForStringSetsPriceNotice() { 
+	public function setPriceNoticeForStringSetsPriceNotice() {
 		$this->fixture->setPriceNotice('Conceived at T3CON10');
 
 		$this->assertSame(
@@ -357,7 +351,7 @@ class PerformanceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 * @covers ::getEventLocation
 	 */
-	public function getEventLocationReturnsInitialValueForEventLocation() { 
+	public function getEventLocationReturnsInitialValueForEventLocation() {
 		$this->assertEquals(
 			NULL,
 			$this->fixture->getEventLocation()
@@ -368,7 +362,7 @@ class PerformanceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 * @covers ::setEventLocation
 	 */
-	public function setEventLocationForEventLocationSetsEventLocation() { 
+	public function setEventLocationForEventLocationSetsEventLocation() {
 		$dummyObject = new \Webfox\T3events\Domain\Model\EventLocation();
 		$this->fixture->setEventLocation($dummyObject);
 
@@ -382,7 +376,7 @@ class PerformanceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 * @covers ::getTicketClass
 	 */
-	public function getTicketClassReturnsInitialValueForObjectStorageContainingTicketClass() { 
+	public function getTicketClassReturnsInitialValueForObjectStorageContainingTicketClass() {
 		$newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$this->assertEquals(
 			$newObjectStorage,
@@ -394,7 +388,7 @@ class PerformanceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 * @covers ::setTicketClass
 	 */
-	public function setTicketClassForObjectStorageContainingTicketClassSetsTicketClass() { 
+	public function setTicketClassForObjectStorageContainingTicketClassSetsTicketClass() {
 		$ticketClas = new \Webfox\T3events\Domain\Model\TicketClass();
 		$objectStorageHoldingExactlyOneTicketClass = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$objectStorageHoldingExactlyOneTicketClass->attach($ticketClas);
@@ -444,7 +438,7 @@ class PerformanceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 * @covers ::getStatus
 	 */
-	public function getStatusReturnsInitialValueForPerformanceStatus() { 
+	public function getStatusReturnsInitialValueForPerformanceStatus() {
 		$this->assertEquals(
 			NULL,
 			$this->fixture->getStatus()
@@ -455,7 +449,7 @@ class PerformanceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 * @covers ::setStatus
 	 */
-	public function setStatusForPerformanceStatusSetsStatus() { 
+	public function setStatusForPerformanceStatusSetsStatus() {
 		$dummyObject = new \Webfox\T3events\Domain\Model\PerformanceStatus();
 		$this->fixture->setStatus($dummyObject);
 
@@ -469,11 +463,11 @@ class PerformanceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 * @covers ::getHidden
 	 */
-	public function getHiddenForIntegerReturnsInitialNull(){
+	public function getHiddenForIntegerReturnsInitialNull() {
 		$this->assertSame(
-					NULL,
-					$this->fixture->getHidden()
-				);
+			NULL,
+			$this->fixture->getHidden()
+		);
 	}
 
 	/**
@@ -482,7 +476,7 @@ class PerformanceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 */
 	public function setHiddenForIntegerSetsHidden() {
 		$this->fixture->setHidden(1);
-		$this->assertSame( 1, $this->fixture->getHidden());
+		$this->assertSame(1, $this->fixture->getHidden());
 	}
 }
 

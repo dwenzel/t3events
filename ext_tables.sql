@@ -45,8 +45,8 @@ CREATE TABLE tx_t3events_domain_model_event (
 
 	PRIMARY KEY (uid),
 	KEY parent (pid),
-	KEY t3ver_oid (t3ver_oid,t3ver_wsid),
-	KEY language (l10n_parent,sys_language_uid)
+	KEY t3ver_oid (t3ver_oid, t3ver_wsid),
+	KEY language (l10n_parent, sys_language_uid)
 
 );
 
@@ -86,8 +86,8 @@ CREATE TABLE tx_t3events_domain_model_genre (
 
 	PRIMARY KEY (uid),
 	KEY parent (pid),
-	KEY t3ver_oid (t3ver_oid,t3ver_wsid),
-	KEY language (l10n_parent,sys_language_uid)
+	KEY t3ver_oid (t3ver_oid, t3ver_wsid),
+	KEY language (l10n_parent, sys_language_uid)
 
 );
 
@@ -127,8 +127,8 @@ CREATE TABLE tx_t3events_domain_model_eventtype (
 
 	PRIMARY KEY (uid),
 	KEY parent (pid),
-	KEY t3ver_oid (t3ver_oid,t3ver_wsid),
-	KEY language (l10n_parent,sys_language_uid)
+	KEY t3ver_oid (t3ver_oid, t3ver_wsid),
+	KEY language (l10n_parent, sys_language_uid)
 
 );
 
@@ -185,8 +185,8 @@ CREATE TABLE tx_t3events_domain_model_performance (
 
 	PRIMARY KEY (uid),
 	KEY parent (pid),
-	KEY t3ver_oid (t3ver_oid,t3ver_wsid),
-	KEY language (l10n_parent,sys_language_uid)
+	KEY t3ver_oid (t3ver_oid, t3ver_wsid),
+	KEY language (l10n_parent, sys_language_uid)
 
 );
 
@@ -225,8 +225,8 @@ CREATE TABLE tx_t3events_domain_model_venue (
 
 	PRIMARY KEY (uid),
 	KEY parent (pid),
-	KEY t3ver_oid (t3ver_oid,t3ver_wsid),
-	KEY language (l10n_parent,sys_language_uid)
+	KEY t3ver_oid (t3ver_oid, t3ver_wsid),
+	KEY language (l10n_parent, sys_language_uid)
 
 );
 
@@ -246,7 +246,7 @@ CREATE TABLE tx_t3events_domain_model_teaser (
 	location int(11) unsigned DEFAULT '0',
 	event int(11) unsigned DEFAULT '0',
 	external_link varchar(255) DEFAULT '' NOT NULL,
-	
+
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
 	crdate int(11) unsigned DEFAULT '0' NOT NULL,
 	cruser_id int(11) unsigned DEFAULT '0' NOT NULL,
@@ -273,8 +273,8 @@ CREATE TABLE tx_t3events_domain_model_teaser (
 
 	PRIMARY KEY (uid),
 	KEY parent (pid),
-	KEY t3ver_oid (t3ver_oid,t3ver_wsid),
-	KEY language (l10n_parent,sys_language_uid)
+	KEY t3ver_oid (t3ver_oid, t3ver_wsid),
+	KEY language (l10n_parent, sys_language_uid)
 
 );
 
@@ -294,8 +294,8 @@ CREATE TABLE tx_t3events_domain_model_eventlocation (
 	details text NOT NULL,
 	www varchar(255) DEFAULT '' NOT NULL,
 	country int(11) unsigned DEFAULT '0',
-	latitude decimal(24,14) DEFAULT '0.00000000000000' NOT NULL,
-	longitude decimal(24,14) DEFAULT '0.00000000000000' NOT NULL,
+	latitude decimal(24, 14) DEFAULT '0.00000000000000' NOT NULL,
+	longitude decimal(24, 14) DEFAULT '0.00000000000000' NOT NULL,
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
 	crdate int(11) unsigned DEFAULT '0' NOT NULL,
@@ -322,8 +322,8 @@ CREATE TABLE tx_t3events_domain_model_eventlocation (
 
 	PRIMARY KEY (uid),
 	KEY parent (pid),
-	KEY t3ver_oid (t3ver_oid,t3ver_wsid),
-	KEY language (l10n_parent,sys_language_uid)
+	KEY t3ver_oid (t3ver_oid, t3ver_wsid),
+	KEY language (l10n_parent, sys_language_uid)
 
 );
 
@@ -346,7 +346,7 @@ CREATE TABLE tx_t3events_domain_model_ticketclass (
 
 	title varchar(255) DEFAULT '' NOT NULL,
 	color varchar(255) DEFAULT '' NOT NULL,
-	price double(11,2) DEFAULT '0.00' NOT NULL,
+	price double(11, 2) DEFAULT '0.00' NOT NULL,
 	type int(11) DEFAULT '0' NOT NULL,
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
@@ -375,8 +375,8 @@ CREATE TABLE tx_t3events_domain_model_ticketclass (
 
 	PRIMARY KEY (uid),
 	KEY parent (pid),
-	KEY t3ver_oid (t3ver_oid,t3ver_wsid),
-	KEY language (l10n_parent,sys_language_uid)
+	KEY t3ver_oid (t3ver_oid, t3ver_wsid),
+	KEY language (l10n_parent, sys_language_uid)
 
 );
 
@@ -417,8 +417,8 @@ CREATE TABLE tx_t3events_domain_model_organizer (
 
 	PRIMARY KEY (uid),
 	KEY parent (pid),
-	KEY t3ver_oid (t3ver_oid,t3ver_wsid),
-	KEY language (l10n_parent,sys_language_uid)
+	KEY t3ver_oid (t3ver_oid, t3ver_wsid),
+	KEY language (l10n_parent, sys_language_uid)
 
 );
 
@@ -459,8 +459,8 @@ CREATE TABLE tx_t3events_domain_model_performancestatus (
 
 	PRIMARY KEY (uid),
 	KEY parent (pid),
-	KEY t3ver_oid (t3ver_oid,t3ver_wsid),
-	KEY language (l10n_parent,sys_language_uid)
+	KEY t3ver_oid (t3ver_oid, t3ver_wsid),
+	KEY language (l10n_parent, sys_language_uid)
 
 );
 
@@ -469,7 +469,7 @@ CREATE TABLE tx_t3events_domain_model_performancestatus (
 #
 CREATE TABLE tx_t3events_domain_model_performance (
 
-	event  int(11) unsigned DEFAULT '0' NOT NULL,
+	event int(11) unsigned DEFAULT '0' NOT NULL,
 
 );
 
@@ -504,7 +504,7 @@ CREATE TABLE tx_t3events_event_venue_mm (
 #
 CREATE TABLE tx_t3events_domain_model_ticketclass (
 
-	performance  int(11) unsigned DEFAULT '0' NOT NULL,
+	performance int(11) unsigned DEFAULT '0' NOT NULL,
 
 );
 
@@ -549,8 +549,8 @@ CREATE TABLE tx_t3events_domain_model_task (
 
 	PRIMARY KEY (uid),
 	KEY parent (pid),
-	KEY t3ver_oid (t3ver_oid,t3ver_wsid),
-	KEY language (l10n_parent,sys_language_uid)
+	KEY t3ver_oid (t3ver_oid, t3ver_wsid),
+	KEY language (l10n_parent, sys_language_uid)
 
 );
 
@@ -607,8 +607,8 @@ CREATE TABLE tx_t3events_domain_model_person (
 	name varchar(255) DEFAULT '' NOT NULL,
 	first_name varchar(255) DEFAULT '' NOT NULL,
 	last_name varchar(255) DEFAULT '' NOT NULL,
-	gender int(11) DEFAULT '0' NOT NULL,
 	person_type int(11) unsigned DEFAULT '0',
+	gender int(11) DEFAULT '0' NOT NULL,
 
 	t3ver_oid int(11) DEFAULT '0' NOT NULL,
 	t3ver_id int(11) DEFAULT '0' NOT NULL,

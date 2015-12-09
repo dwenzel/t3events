@@ -1,5 +1,5 @@
 <?php
-if (!defined ('TYPO3_MODE')) {
+if (!defined('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
@@ -7,7 +7,7 @@ $ll = 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:';
 
 return array(
 	'ctrl' => array(
-		'title'	=> 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_eventlocation',
+		'title' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_eventlocation',
 		'label' => 'name',
 		'tstamp' => 'tstamp',
 		'crdate' => 'crdate',
@@ -209,7 +209,7 @@ return array(
 		'latitude' => array(
 			'exclude' => 1,
 			'label' => $ll . 'tx_t3events_domain_model_eventlocation.latitude',
-			'config' =>array(
+			'config' => array(
 				'type' => 'input',
 				'size' => '20',
 				'eval' => 'trim',
@@ -219,7 +219,7 @@ return array(
 		'longitude' => array(
 			'exclude' => 1,
 			'label' => $ll . 'tx_t3events_domain_model_eventlocation.longitude',
-			'config' =>array(
+			'config' => array(
 				'type' => 'input',
 				'size' => '20',
 				'eval' => 'trim',

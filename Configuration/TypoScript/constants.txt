@@ -7,10 +7,12 @@ plugin.tx_t3events {
 		# cat=plugin.tx_t3events/file; type=string; label=Path to template layouts (FE)
 		layoutRootPath = EXT:t3events/Resources/Private/Layouts/
 	}
+
 	persistence {
 		# cat=plugin.tx_t3events//a; type=string; label=Default storage PID
 		storagePid =
 	}
+
 	settings {
 		event {
 			search {

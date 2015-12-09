@@ -3,16 +3,12 @@ namespace Webfox\T3events\Utility;
 
 /**
  * (c) 2014 Sebastian Fischer <typo3@evoweb.de>
- *
  * This file is part of the TYPO3 CMS project.
- *
  * It is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License, either version 2
  * of the License, or any later version.
- *
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
- *
  * The TYPO3 project - inspiring people to share!
  */
 
@@ -24,8 +20,7 @@ use TYPO3\CMS\Core\Core;
 /**
  * Class ClassLoader
  */
-class ClassLoader implements \TYPO3\CMS\Core\SingletonInterface
-{
+class ClassLoader implements \TYPO3\CMS\Core\SingletonInterface {
 
 	/**
 	 * @var \TYPO3\CMS\Core\Cache\Frontend\PhpFrontend
@@ -37,9 +32,8 @@ class ClassLoader implements \TYPO3\CMS\Core\SingletonInterface
 	 *
 	 * @return void
 	 */
-	public static function registerAutoloader()
-	{
-		spl_autoload_register(array(new self(), 'loadClass'), true, true);
+	public static function registerAutoloader() {
+		spl_autoload_register(array(new self(), 'loadClass'), TRUE, TRUE);
 	}
 
 	/**
@@ -47,13 +41,13 @@ class ClassLoader implements \TYPO3\CMS\Core\SingletonInterface
 	 *
 	 * @return \TYPO3\CMS\Core\Cache\Frontend\PhpFrontend
 	 */
-	public function initializeCache()
-	{
+	public function initializeCache() {
 		if (is_null($this->cacheInstance)) {
 			/** @var CacheManager $cacheManager */
 			$cacheManager = GeneralUtility::makeInstance(CacheManager::class);
 			$this->cacheInstance = $cacheManager->getCache('t3events');
 		}
+
 		return $this->cacheInstance;
 	}
 
@@ -64,12 +58,11 @@ class ClassLoader implements \TYPO3\CMS\Core\SingletonInterface
 	 * @param string $className Name of the class/interface to load
 	 * @return boolean
 	 */
-	public function loadClass($className)
-	{
+	public function loadClass($className) {
 		$className = ltrim($className, '\\');
 
 		if (!$this->isValidClassName($className)) {
-			return false;
+			return FALSE;
 		}
 
 		$cacheEntryIdentifier = 'tx_t3events_' . strtolower(str_replace('/', '_', $this->changeClassName($className)));
@@ -87,7 +80,7 @@ class ClassLoader implements \TYPO3\CMS\Core\SingletonInterface
 			$classCache->requireOnce($cacheEntryIdentifier);
 		}
 
-		return true;
+		return TRUE;
 	}
 
 	/**
@@ -96,11 +89,10 @@ class ClassLoader implements \TYPO3\CMS\Core\SingletonInterface
 	 * @param string $className
 	 * @return string
 	 */
-	protected function getExtensionKey($className)
-	{
-		$extensionKey = null;
+	protected function getExtensionKey($className) {
+		$extensionKey = NULL;
 
-		if (strpos($className, '\\') !== false) {
+		if (strpos($className, '\\') !== FALSE) {
 			$namespaceParts = GeneralUtility::trimExplode('\\', $className, 0,
 				(substr($className, 0, 9) === 'TYPO3\\CMS' ? 4 : 3));
 			array_pop($namespaceParts);
@@ -116,19 +108,18 @@ class ClassLoader implements \TYPO3\CMS\Core\SingletonInterface
 	 * @param string $className
 	 * @return bool
 	 */
-	protected function isValidClassName($className)
-	{
+	protected function isValidClassName($className) {
 		if (GeneralUtility::isFirstPartOfStr($className, 'Webfox\\T3events\\')) {
 			$modifiedClassName = $this->changeClassName($className);
 			if (isset($GLOBALS['TYPO3_CONF_VARS']['EXT']['t3events']['classes'][$modifiedClassName])) {
-				return true;
+				return TRUE;
 			}
 		}
-		return false;
+
+		return FALSE;
 	}
 
-	protected function changeClassName($className)
-	{
+	protected function changeClassName($className) {
 		return str_replace('\\', '/', str_replace('Webfox\\T3events\\', '', $className));
 	}
 }

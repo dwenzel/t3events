@@ -1,5 +1,5 @@
 <?php
-if (!defined ('TYPO3_MODE')) {
+if (!defined('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
@@ -7,7 +7,7 @@ $ll = 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:';
 
 return array(
 	'ctrl' => array(
-		'title'	=> $ll . 'tx_t3events_domain_model_person',
+		'title' => $ll . 'tx_t3events_domain_model_person',
 		'label' => 'name',
 		'tstamp' => 'tstamp',
 		'crdate' => 'crdate',
@@ -30,10 +30,10 @@ return array(
 		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('t3events') . 'Resources/Public/Icons/tx_t3events_domain_model_person.png'
 	),
 	'interface' => array(
-		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, person_type, name, first_name, last_name, gender',
+		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, person_type, name, first_name, last_name, gender,address, zip, city, phone, email',
 	),
 	'types' => array(
-		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, person_type, name, first_name, last_name, gender, --div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.access, starttime, endtime'),
+		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, person_type, gender, name, first_name, last_name, address, zip, city, phone, email,  --div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.access, starttime, endtime'),
 	),
 	'palettes' => array(
 		'1' => array('showitem' => ''),
@@ -159,6 +159,52 @@ return array(
 				'maxitems' => 1,
 				'eval' => 'required',
 				'noIconsBelowSelect' => TRUE,
+			),
+		),
+		'address' => array(
+			'exclude' => 1,
+			'label' => $ll . 'tx_t3events_domain_model_person.address',
+			'config' => array(
+				'type' => 'text',
+				'cols' => 40,
+				'rows' => 15,
+				'eval' => 'trim'
+			)
+		),
+		'zip' => array(
+			'exclude' => 1,
+			'label' => $ll . 'tx_t3events_domain_model_person.zip',
+			'config' => array(
+				'type' => 'input',
+				'size' => 30,
+				'eval' => 'trim'
+			),
+		),
+		'city' => array(
+			'exclude' => 1,
+			'label' => $ll . 'tx_t3events_domain_model_person.city',
+			'config' => array(
+				'type' => 'input',
+				'size' => 30,
+				'eval' => 'trim'
+			),
+		),
+		'phone' => array(
+			'exclude' => 1,
+			'label' => $ll . 'tx_t3events_domain_model_person.phone',
+			'config' => array(
+				'type' => 'input',
+				'size' => 30,
+				'eval' => 'trim'
+			),
+		),
+		'email' => array(
+			'exclude' => 1,
+			'label' => $ll . 'tx_t3events_domain_model_person.email',
+			'config' => array(
+				'type' => 'input',
+				'size' => 30,
+				'eval' => 'trim'
 			),
 		),
 	),

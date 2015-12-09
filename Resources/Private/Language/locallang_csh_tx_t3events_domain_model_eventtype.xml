@@ -6,8 +6,8 @@
 		<csh_table>tx_t3events_domain_model_eventtype</csh_table>
 	</meta>
 	<data type="array">
-	<languageKey index="default" type="array">
-	   
+		<languageKey index="default" type="array">
+
 			<label index="title.description">title</label>
 		</languageKey>
 	</data>

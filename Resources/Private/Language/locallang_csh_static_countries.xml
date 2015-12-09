@@ -6,8 +6,8 @@
 		<csh_table>static_countries</csh_table>
 	</meta>
 	<data type="array">
-	<languageKey index="default" type="array">
-	   
+		<languageKey index="default" type="array">
+
 		</languageKey>
 	</data>
 </T3locallang>

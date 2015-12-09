@@ -11,55 +11,54 @@ namespace Webfox\T3events\Utility;
 class ClassParser {
 
 	private $classes = array();
+
 	private $extends = array();
+
 	private $implements = array();
 
 	const STATE_CLASS_HEAD = 100001;
 	const STATE_FUNCTION_HEAD = 100002;
 
-	public function getClasses()
-	{
+	public function getClasses() {
 		return $this->classes;
 	}
 
-	public function getFirstClass()
-	{
+	public function getFirstClass() {
 		return array_shift($this->classes);
 	}
 
-	public function getClassesImplementing($interface)
-	{
+	public function getClassesImplementing($interface) {
 		$implementers = array();
 		if (isset($this->implements[$interface])) {
 			foreach ($this->implements[$interface] as $name) {
 				$implementers[$name] = $this->classes[$name];
 			}
 		}
+
 		return $implementers;
 	}
 
-	public function getClassesExtending($class)
-	{
+	public function getClassesExtending($class) {
 		$extenders = array();
 		if (isset($this->extends[$class])) {
 			foreach ($this->extends[$class] as $name) {
 				$extenders[$name] = $this->classes[$name];
 			}
 		}
+
 		return $extenders;
 	}
 
-	public function parse($file)
-	{
+	public function parse($file) {
 		$file = realpath($file);
 		$tokens = token_get_all(file_get_contents($file));
 		$classes = array();
 
-		$si = null;
+		$si = NULL;
 		$depth = 0;
 		$mod = array();
-		$doc = null;
-		$state = null;
+		$doc = NULL;
+		$state = NULL;
 		foreach ($tokens as $idx => &$token) {
 			if (is_array($token)) {
 				switch ($token[0]) {
@@ -133,7 +132,7 @@ class ClassParser {
 					case '}':
 					case ';':
 						$state = 0;
-						$doc = null;
+						$doc = NULL;
 						$mod = array();
 						break;
 				}

@@ -1,27 +1,22 @@
 <?php
 namespace Webfox\T3events\Tests\Unit\Domain\Model;
+
 /***************************************************************
  *  Copyright notice
- *
  *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
- *  			Michael Kasten <kasten@webfox01.de>, Agentur Webfox
- *  			
+ *            Michael Kasten <kasten@webfox01.de>, Agentur Webfox
  *  All rights reserved
- *
  *  This script is part of the TYPO3 project. The TYPO3 project is
  *  free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 2 of the License, or
  *  (at your option) any later version.
- *
  *  The GNU General Public License can be found at
  *  http://www.gnu.org/copyleft/gpl.html.
- *
  *  This script is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *  GNU General Public License for more details.
- *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 use TYPO3\CMS\Core\Tests\UnitTestCase;
@@ -32,15 +27,14 @@ use TYPO3\CMS\Core\Tests\UnitTestCase;
  * @version $Id$
  * @copyright Copyright belongs to the respective authors
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- *
  * @package TYPO3
  * @subpackage Events
- *
  * @author Dirk Wenzel <wenzel@webfox01.de>
  * @author Michael Kasten <kasten@webfox01.de>
  * @coversDefaultClass \Webfox\T3events\Domain\Model\Event
  */
 class EventTest extends UnitTestCase {
+
 	/**
 	 * @var \Webfox\T3events\Domain\Model\Event
 	 */
@@ -62,7 +56,7 @@ class EventTest extends UnitTestCase {
 	/**
 	 * @test
 	 */
-	public function setHeadlineForStringSetsHeadline() { 
+	public function setHeadlineForStringSetsHeadline() {
 		$this->fixture->setHeadline('Conceived at T3CON10');
 
 		$this->assertSame(
@@ -70,7 +64,7 @@ class EventTest extends UnitTestCase {
 			$this->fixture->getHeadline()
 		);
 	}
-	
+
 	/**
 	 * @test
 	 */
@@ -83,7 +77,7 @@ class EventTest extends UnitTestCase {
 	/**
 	 * @test
 	 */
-	public function setSubtitleForStringSetsSubtitle() { 
+	public function setSubtitleForStringSetsSubtitle() {
 		$this->fixture->setSubtitle('Conceived at T3CON10');
 
 		$this->assertSame(
@@ -95,7 +89,7 @@ class EventTest extends UnitTestCase {
 	/**
 	 * @test
 	 */
-	public  function getTeaserForStringReturnsInitiallyNull() {
+	public function getTeaserForStringReturnsInitiallyNull() {
 		$this->assertNull(
 			$this->fixture->getTeaser()
 		);
@@ -122,7 +116,7 @@ class EventTest extends UnitTestCase {
 	/**
 	 * @test
 	 */
-	public function setDescriptionForStringSetsDescription() { 
+	public function setDescriptionForStringSetsDescription() {
 		$this->fixture->setDescription('Conceived at T3CON10');
 
 		$this->assertSame(
@@ -130,7 +124,7 @@ class EventTest extends UnitTestCase {
 			$this->fixture->getDescription()
 		);
 	}
-	
+
 	/**
 	 * @test
 	 */
@@ -143,7 +137,7 @@ class EventTest extends UnitTestCase {
 	/**
 	 * @test
 	 */
-	public function setKeywordsForStringSetsKeywords() { 
+	public function setKeywordsForStringSetsKeywords() {
 		$this->fixture->setKeywords('Conceived at T3CON10');
 
 		$this->assertSame(
@@ -151,7 +145,7 @@ class EventTest extends UnitTestCase {
 			$this->fixture->getKeywords()
 		);
 	}
-	
+
 	/**
 	 * @test
 	 */
@@ -164,7 +158,7 @@ class EventTest extends UnitTestCase {
 	/**
 	 * @test
 	 */
-	public function setImageForStringSetsImage() { 
+	public function setImageForStringSetsImage() {
 		$this->fixture->setImage('Conceived at T3CON10');
 
 		$this->assertSame(
@@ -172,11 +166,11 @@ class EventTest extends UnitTestCase {
 			$this->fixture->getImage()
 		);
 	}
-	
+
 	/**
 	 * @test
 	 */
-	public function getGenreReturnsInitialValueForObjectStorageContainingGenre() { 
+	public function getGenreReturnsInitialValueForObjectStorageContainingGenre() {
 		$newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$this->assertEquals(
 			$newObjectStorage,
@@ -187,7 +181,7 @@ class EventTest extends UnitTestCase {
 	/**
 	 * @test
 	 */
-	public function setGenreForObjectStorageContainingGenreSetsGenre() { 
+	public function setGenreForObjectStorageContainingGenreSetsGenre() {
 		$genre = new \Webfox\T3events\Domain\Model\Genre();
 		$objectStorageHoldingExactlyOneGenre = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$objectStorageHoldingExactlyOneGenre->attach($genre);
@@ -198,7 +192,7 @@ class EventTest extends UnitTestCase {
 			$this->fixture->getGenre()
 		);
 	}
-	
+
 	/**
 	 * @test
 	 */
@@ -230,18 +224,18 @@ class EventTest extends UnitTestCase {
 			$this->fixture->getGenre()
 		);
 	}
-	
+
 	/**
 	 * @test
 	 */
-	public function getVenueReturnsInitialValueForObjectStorageContainingVenue() { 
+	public function getVenueReturnsInitialValueForObjectStorageContainingVenue() {
 		$newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$this->assertEquals(
 			$newObjectStorage,
 			$this->fixture->getVenue()
 		);
 	}
-	
+
 	/**
 	 * @test
 	 */
@@ -250,28 +244,28 @@ class EventTest extends UnitTestCase {
 		$objectStorageHoldingExactlyOneVenue = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$objectStorageHoldingExactlyOneVenue->attach($venue);
 		$this->fixture->setVenue($objectStorageHoldingExactlyOneVenue);
-		
+
 		$this->assertSame(
-				$objectStorageHoldingExactlyOneVenue,
-				$this->fixture->getVenue()
+			$objectStorageHoldingExactlyOneVenue,
+			$this->fixture->getVenue()
 		);
 	}
-	
+
 	/**
 	 * @test
-	 */	
+	 */
 	public function addVenueToObjectStorageHoldingVenue() {
 		$venue = new \Webfox\T3events\Domain\Model\Venue();
 		$objectStorageHoldingExactlyOneVenue = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$objectStorageHoldingExactlyOneVenue->attach($venue);
 		$this->fixture->addVenue($venue);
-		
+
 		$this->assertEquals(
-			$objectStorageHoldingExactlyOneVenue, 
+			$objectStorageHoldingExactlyOneVenue,
 			$this->fixture->getVenue()
 		);
 	}
-	
+
 	/**
 	 * @test
 	 */
@@ -282,27 +276,28 @@ class EventTest extends UnitTestCase {
 		$localObjectStorage->detach($venue);
 		$this->fixture->addVenue($venue);
 		$this->fixture->removeVenue($venue);
-		
+
 		$this->assertEquals(
 			$localObjectStorage,
 			$this->fixture->getVenue()
 		);
 	}
+
 	/**
 	 * @test
 	 */
-	public function getEventTypeReturnsInitialValueForEventType() { 
+	public function getEventTypeReturnsInitialValueForEventType() {
 		$this->assertEquals(
 			NULL,
 			$this->fixture->getEventType()
 		);
 	}
-	
+
 
 	/**
 	 * @test
 	 */
-	public function setEventTypeForEventTypeSetsEventType() { 
+	public function setEventTypeForEventTypeSetsEventType() {
 		$dummyObject = new \Webfox\T3events\Domain\Model\EventType();
 		$this->fixture->setEventType($dummyObject);
 
@@ -311,11 +306,11 @@ class EventTest extends UnitTestCase {
 			$this->fixture->getEventType()
 		);
 	}
-	
+
 	/**
 	 * @test
 	 */
-	public function getPerformancesReturnsInitialValueForObjectStorageContainingPerformance() { 
+	public function getPerformancesReturnsInitialValueForObjectStorageContainingPerformance() {
 		$newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$this->assertEquals(
 			$newObjectStorage,
@@ -326,7 +321,7 @@ class EventTest extends UnitTestCase {
 	/**
 	 * @test
 	 */
-	public function setPerformancesForObjectStorageContainingPerformanceSetsPerformances() { 
+	public function setPerformancesForObjectStorageContainingPerformanceSetsPerformances() {
 		$performance = new \Webfox\T3events\Domain\Model\Performance();
 		$objectStorageHoldingExactlyOnePerformances = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$objectStorageHoldingExactlyOnePerformances->attach($performance);
@@ -337,7 +332,7 @@ class EventTest extends UnitTestCase {
 			$this->fixture->getPerformances()
 		);
 	}
-	
+
 	/**
 	 * @test
 	 */
@@ -369,11 +364,11 @@ class EventTest extends UnitTestCase {
 			$this->fixture->getPerformances()
 		);
 	}
-	
+
 	/**
 	 * @test
 	 */
-	public function getOrganizerReturnsInitialValueForOrganizer() { 
+	public function getOrganizerReturnsInitialValueForOrganizer() {
 		$this->assertEquals(
 			NULL,
 			$this->fixture->getOrganizer()
@@ -383,7 +378,7 @@ class EventTest extends UnitTestCase {
 	/**
 	 * @test
 	 */
-	public function setOrganizerForOrganizerSetsOrganizer() { 
+	public function setOrganizerForOrganizerSetsOrganizer() {
 		$dummyObject = new \Webfox\T3events\Domain\Model\Organizer();
 		$this->fixture->setOrganizer($dummyObject);
 
@@ -424,8 +419,8 @@ class EventTest extends UnitTestCase {
 		$mockPerformanceB->expects($this->once())->method('getDate')
 			->will($this->returnValue($laterDate));
 		$this->assertSame(
-				1,
-				$fixture->getEarliestDate()
+			1,
+			$fixture->getEarliestDate()
 		);
 	}
 

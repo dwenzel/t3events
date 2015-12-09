@@ -1,4 +1,3 @@
-
 <table class="calendarYear">
 	<tr>
 		<td colspan=4 class="legend">
@@ -14,23 +13,23 @@
 						month: month,
 						configuration: configuration,
 						settings: settings,
-						calendarId: calendarId}"/>
+						calendarId: calendarId}" />
 			</td>
 			<f:if condition="{monthIteration.cycle} == 4">
-				</tr>
-				<tr>
-			</f:if>
-			<f:if condition="{monthIteration.cycle} == 8">
-				</tr>
-				<tr>
-			</f:if>
+	</tr>
+	<tr>
+		</f:if>
+		<f:if condition="{monthIteration.cycle} == 8">
+	</tr>
+	<tr>
+		</f:if>
 		</f:for>
 	</tr>
 </table>
 
 <f:section name="month">
-<table class="month">
-	<tbody>
+	<table class="month">
+		<tbody>
 		<tr>
 			<td colspan=7 class="legend">
 				<span>{f:format.date(date: '{month.startDate}', format: 'F')}</span>
@@ -61,7 +60,7 @@
 				</f:for>
 			</tr>
 		</f:for>
-	</tbody>
-</table>
+		</tbody>
+	</table>
 
 </f:section>

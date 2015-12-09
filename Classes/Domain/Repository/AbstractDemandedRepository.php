@@ -2,11 +2,8 @@
 namespace Webfox\T3events\Domain\Repository;
 
 /**
- *
- *
  * @package t3events
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- *
  */
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
@@ -15,26 +12,20 @@ use Webfox\T3events\Domain\Model\Dto\DemandInterface;
 
 /***************************************************************
  *  Copyright notice
- *
  *  (c) 2013 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
  *  Michael Kasten <kasten@webfox01.de>, Agentur Webfox
- *
  *  All rights reserved
- *
  *  This script is part of the TYPO3 project. The TYPO3 project is
  *  free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 3 of the License, or
  *  (at your option) any later version.
- *
  *  The GNU General Public License can be found at
  *  http://www.gnu.org/copyleft/gpl.html.
- *
  *  This script is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *  GNU General Public License for more details.
- *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 abstract class AbstractDemandedRepository extends Repository {
@@ -51,11 +42,12 @@ abstract class AbstractDemandedRepository extends Repository {
 	 * @var string $sortOrder
 	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface Matching Records
 	 */
-	public function findMultipleByUid($recordList, $sortField='uid', $sortOrder=QueryInterface::ORDER_ASCENDING) {
+	public function findMultipleByUid($recordList, $sortField = 'uid', $sortOrder = QueryInterface::ORDER_ASCENDING) {
 		$uids = GeneralUtility::intExplode(',', $recordList, TRUE);
-		$query = $this->createQuery();		
-		$query->matching($query->in('uid' , $uids));
+		$query = $this->createQuery();
+		$query->matching($query->in('uid', $uids));
 		$query->setOrderings([$sortField => $sortOrder]);
+
 		return $query->execute();
 	}
 
@@ -110,6 +102,7 @@ abstract class AbstractDemandedRepository extends Repository {
 	public function findDemanded(DemandInterface $demand, $respectEnableFields = TRUE) {
 		$query = $this->generateQuery($demand, $respectEnableFields);
 		$objects = $query->execute();
+
 		return $objects;
 	}
 
@@ -176,10 +169,11 @@ abstract class AbstractDemandedRepository extends Repository {
 	 */
 	public function __call($methodName, $arguments) {
 		$substring = substr($methodName, 0, 15);
-		if($substring === 'countContaining' && strlen($methodName) > 16) {
+		if ($substring === 'countContaining' && strlen($methodName) > 16) {
 			$propertyName = lcfirst(substr($methodName, 15));
 			$query = $this->createQuery();
 			$result = $query->matching($query->contains($propertyName, $arguments[0]))->execute()->count();
+
 			return $result;
 		} else {
 			return parent::__call($methodName, $arguments);
@@ -195,7 +189,7 @@ abstract class AbstractDemandedRepository extends Repository {
 	 * @param \string $conjunction
 	 */
 	protected function combineConstraints($query, &$constraints, $additionalConstraints, $conjunction = NULL) {
-		if(count($additionalConstraints)){
+		if (count($additionalConstraints)) {
 			switch (strtolower($conjunction)) {
 				case 'or':
 					$constraints[] = $query->logicalOr($additionalConstraints);

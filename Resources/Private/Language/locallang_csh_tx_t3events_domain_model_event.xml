@@ -6,8 +6,8 @@
 		<csh_table>tx_t3events_domain_model_event</csh_table>
 	</meta>
 	<data type="array">
-	<languageKey index="default" type="array">
-	   
+		<languageKey index="default" type="array">
+
 			<label index="headline.description">Enter a title.</label>
 			<label index="subtitle.description">Subtitle</label>
 			<label index="description.description">Description</label>
@@ -19,7 +19,7 @@
 			<label index="organizer.description">Organizer</label>
 		</languageKey>
 		<languageKey index="de" type="array">
-	   
+
 			<label index="headline.description">Titel</label>
 			<label index="subtitle.description">Untertitel</label>
 			<label index="description.description">Beschreibung</label>

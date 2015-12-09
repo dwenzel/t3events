@@ -1,17 +1,15 @@
 <?php
 namespace Webfox\T3events\Tests;
-/**
- * This file is part of the TYPO3 CMS project.
- *
- * It is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License, either version 2
- * of the License, or any later version.
- *
- * For the full copyright and license information, please read the
- * LICENSE.txt file that was distributed with this source code.
- *
- * The TYPO3 project - inspiring people to share!
- */
+
+	/**
+	 * This file is part of the TYPO3 CMS project.
+	 * It is free software; you can redistribute it and/or modify it under
+	 * the terms of the GNU General Public License, either version 2
+	 * of the License, or any later version.
+	 * For the full copyright and license information, please read the
+	 * LICENSE.txt file that was distributed with this source code.
+	 * The TYPO3 project - inspiring people to share!
+	 */
 
 /**
  * Test case for class Webfox\T3events\Controller\AbstractController.
@@ -19,22 +17,21 @@ namespace Webfox\T3events\Tests;
  * @version $Id$
  * @copyright Copyright belongs to the respective authors
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- *
  * @package TYPO3
  * @subpackage Ajax Map
- *
  * @author Dirk Wenzel <wenzel@webfox01.de>
  * @coversDefaultClass \Webfox\T3events\Controller\AbstractController
  */
 class AbstractControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
+
 	/**
 	 * @var \Webfox\T3events\Controller\AbstractController
 	 */
 	protected $fixture;
 
 	/**
-	* @var \PHPUnit_Framework_MockObject_MockObject|\TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController|\TYPO3\CMS\Core\Tests\AccessibleObjectInterface
-	*/
+	 * @var \PHPUnit_Framework_MockObject_MockObject|\TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController|\TYPO3\CMS\Core\Tests\AccessibleObjectInterface
+	 */
 	protected $tsfe = NULL;
 
 	public function setUp() {
@@ -95,7 +92,7 @@ class AbstractControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	/**
 	 * @test
 	 * @covers ::handleEntityNotFoundError
-	 * @expectedException \InvalidArgumentException	 
+	 * @expectedException \InvalidArgumentException
 	 */
 	public function handleEntityNotFoundErrorConfigurationWithTooLessOptionsForRedirectToPageThrowsError() {
 		$this->fixture->_call('handleEntityNotFoundError', 'redirectToPage');
@@ -104,7 +101,7 @@ class AbstractControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	/**
 	 * @test
 	 * @covers ::handleEntityNotFoundError
-	 * @expectedException \InvalidArgumentException	 
+	 * @expectedException \InvalidArgumentException
 	 */
 	public function handleEntityNotFoundErrorConfigurationWithTooManyOptionsForRedirectToPageThrowsError() {
 		$this->fixture->_call('handleEntityNotFoundError', 'redirectToPage, arg1, arg2, arg3');
@@ -143,7 +140,7 @@ class AbstractControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 			->method('build');
 		$mockController->expects($this->once())
 			->method('redirectToUri')
-			->with(null, 0, '301');
+			->with(NULL, 0, '301');
 		$mockController->_call('handleEntityNotFoundError', 'redirectToPage, 1, 301');
 	}
 
@@ -173,23 +170,23 @@ class AbstractControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 			'foo' => 'bar'
 		);
 		$result = array(
-				'action' => 'foo',
-				'pluginName' => 'baz',
-				'controllerName' => 'bar',
-				'extensionName' => 'fooExtension',
-				'arguments' => array(
-					'foo' => 'bar'
-				)
+			'action' => 'foo',
+			'pluginName' => 'baz',
+			'controllerName' => 'bar',
+			'extensionName' => 'fooExtension',
+			'arguments' => array(
+				'foo' => 'bar'
+			)
 		);
 		$mockRequest = $this->getMock(
-				'TYPO3\CMS\Extbase\Mvc\Web\Request',
-				array(
-					'getArguments',
-					'getPluginName',
-					'getControllerName',
-					'getControllerExtensionName',
-					'hasArgument',
-					'getArgument'));
+			'TYPO3\CMS\Extbase\Mvc\Web\Request',
+			array(
+				'getArguments',
+				'getPluginName',
+				'getControllerName',
+				'getControllerExtensionName',
+				'hasArgument',
+				'getArgument'));
 		$this->fixture->_set('request', $mockRequest);
 		$mockRequest->expects($this->once())
 			->method('getArguments')
@@ -218,13 +215,13 @@ class AbstractControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 			'controller' => 'bar'
 		);
 		$mockRequest = $this->getMock(
-				'TYPO3\CMS\Extbase\Mvc\Web\Request',
-				array(
-					'getArguments',
-					'getPluginName',
-					'getControllerName',
-					'getControllerExtensionName',
-					'hasArgument'));
+			'TYPO3\CMS\Extbase\Mvc\Web\Request',
+			array(
+				'getArguments',
+				'getPluginName',
+				'getControllerName',
+				'getControllerExtensionName',
+				'hasArgument'));
 		$this->fixture->_set('request', $mockRequest);
 		$mockRequest->expects($this->once())
 			->method('hasArgument')
@@ -255,14 +252,14 @@ class AbstractControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 			'foo' => 'bar'
 		);
 		$mockRequest = $this->getMock(
-				'TYPO3\CMS\Extbase\Mvc\Web\Request',
-				array(
-					'getArguments',
-					'getPluginName',
-					'getControllerName',
-					'getControllerExtensionName',
-					'hasArgument',
-					'getArgument'));
+			'TYPO3\CMS\Extbase\Mvc\Web\Request',
+			array(
+				'getArguments',
+				'getPluginName',
+				'getControllerName',
+				'getControllerExtensionName',
+				'hasArgument',
+				'getArgument'));
 		$this->fixture->_set('request', $mockRequest);
 		$mockRequest->expects($this->once())
 			->method('hasArgument')

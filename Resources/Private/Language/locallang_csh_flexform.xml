@@ -30,7 +30,7 @@
 				Bitte konfigurieren Sie das Plugin und geben Sie im Reiter 'Verhalten' eine oder mehrere Seiten mit Datensätzen für Veranstaltungen und Teaser an. Einige Optionen gelten nur für 'Veranstaltungen Liste/Details' und werden in 'Schnellmenü' und 'Teaser' ignoriert.
 				]]>
 			</label>
-			<label index="settings.cache.makeNonCacheable.description">Inhalte des Plugins nicht zwischenspeichern.</label>	
+			<label index="settings.cache.makeNonCacheable.description">Inhalte des Plugins nicht zwischenspeichern.</label>
 		</languageKey>
 	</data>
 </T3locallang>

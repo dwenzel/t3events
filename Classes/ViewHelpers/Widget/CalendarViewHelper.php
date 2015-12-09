@@ -7,9 +7,7 @@ use Webfox\T3events\Domain\Model\Dto\CalendarConfiguration;
 
 /**
  * This ViewHelper renders a Calendar.
- *
  * = Examples =
- *
  * <code title="required arguments">
  * <ts:widget.calendar objects="{events}" configuration="{calendarConfiguration}" />
  * </code>
@@ -34,7 +32,8 @@ class CalendarViewHelper extends AbstractWidgetViewHelper {
 	 */
 	public function initialize() {
 		if ($this->hasArgument('configuration') AND
-			$this->arguments['configuration'] instanceof CalendarConfiguration) {
+			$this->arguments['configuration'] instanceof CalendarConfiguration
+		) {
 			/** @var CalendarConfiguration $configuration */
 			$configuration = $this->arguments['configuration'];
 			$this->ajaxWidget = $configuration->getAjaxEnabled();

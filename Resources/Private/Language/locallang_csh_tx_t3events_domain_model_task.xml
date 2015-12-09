@@ -6,8 +6,8 @@
 		<csh_table>tx_t3events_domain_model_task</csh_table>
 	</meta>
 	<data type="array">
-	<languageKey index="default" type="array">
-	   
+		<languageKey index="default" type="array">
+
 			<label index="name.description">Provide a name for the task</label>
 			<label index="description.description">Describe the task</label>
 			<label index="action.description">Select an action to perform</label>
@@ -17,8 +17,8 @@
 			<label index="folder.description">Folder/ Storage Page. If empty all records are processed.</label>
 
 		</languageKey>
-	<languageKey index="de" type="array">
-	   
+		<languageKey index="de" type="array">
+
 			<label index="name.description">Geben Sie einen Titel für die Aufgabe ein.</label>
 			<label index="description.description">Beschreiben Sie die Aufgabe.</label>
 			<label index="action.description">Wählen Sie die auszuführende Aktion.</label>

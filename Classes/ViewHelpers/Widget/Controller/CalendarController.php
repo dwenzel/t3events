@@ -67,18 +67,18 @@ class CalendarController extends AbstractWidgetController {
 	 * @param int $period
 	 */
 	public function indexAction($display = '', $date = 0, $period = -1) {
-		if ((int)$period >= 0 AND (int)$period <= CalendarConfiguration::PERIOD_YEAR) {
-			$this->configuration->setDisplayPeriod((int)$period);
-		}	
-		if ($display !== '' AND $date > 0){
-			if ($interval = $this->getInterval($display)){
+		if ((int) $period >= 0 AND (int) $period <= CalendarConfiguration::PERIOD_YEAR) {
+			$this->configuration->setDisplayPeriod((int) $period);
+		}
+		if ($display !== '' AND $date > 0) {
+			if ($interval = $this->getInterval($display)) {
 				$startDate = new \DateTime('@' . $date);
 				$startDate->setTimeZone($this->getDefaultTimeZone());
 				$startDate->add($interval);
 				$this->configuration->setStartDate($startDate);
 			}
 		}
-		if ($display == '' AND $date == 0 ) {
+		if ($display == '' AND $date == 0) {
 			$startDate = $this->getStartDate($period);
 			$this->configuration->setStartDate($startDate);
 		}
@@ -308,6 +308,7 @@ class CalendarController extends AbstractWidgetController {
 				$this->getCalendarDay($startDate->getTimeStamp(), $currentDate, $addEvents)
 			);
 		}
+
 		return $calendarWeek;
 	}
 
@@ -335,6 +336,7 @@ class CalendarController extends AbstractWidgetController {
 			}
 			$calendarYear->addMonth($currentMonth);
 		}
+
 		return $calendarYear;
 	}
 
@@ -371,7 +373,7 @@ class CalendarController extends AbstractWidgetController {
 				$intervalString = '';
 		}
 		if ($intervalString === '') {
-			return false;
+			return FALSE;
 		}
 
 		$interval = new \DateInterval($intervalString);

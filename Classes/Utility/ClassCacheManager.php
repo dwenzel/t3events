@@ -3,14 +3,11 @@ namespace Webfox\T3events\Utility;
 
 /**
  * This file is part of the TYPO3 CMS project.
- *
  * It is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License, either version 2
  * of the License, or any later version.
- *
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
- *
  * The TYPO3 project - inspiring people to share!
  */
 
@@ -22,8 +19,8 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  *
  * @author Georg Ringer <typo3@ringerge.org>
  */
-class ClassCacheManager
-{
+class ClassCacheManager {
+
 	/**
 	 * @var \TYPO3\CMS\Core\Cache\Frontend\PhpFrontend
 	 */
@@ -34,32 +31,30 @@ class ClassCacheManager
 	 *
 	 * @return self
 	 */
-	public function __construct()
-	{
+	public function __construct() {
 		/** @var ClassLoader $classLoader */
 		$classLoader = GeneralUtility::makeInstance(ClassLoader::class);
 		$this->cacheInstance = $classLoader->initializeCache();
 	}
 
-	public function reBuild()
-	{
+	public function reBuild() {
 		$classPath = 'Classes/';
 
 		foreach ($GLOBALS['TYPO3_CONF_VARS']['EXT']['t3events']['classes'] as $key => $extensionsWithThisClass) {
-			$extendingClassFound = false;
+			$extendingClassFound = FALSE;
 
 			$path = ExtensionManagementUtility::extPath('t3events') . $classPath . $key . '.php';
 			if (!is_file($path)) {
 				throw new \Exception('Given file "' . $path . '" does not exist');
 			}
-			$code = $this->parseSingleFile($path, true);
+			$code = $this->parseSingleFile($path, TRUE);
 
 			// Get the files from all other extensions
 			foreach ($extensionsWithThisClass as $extensionKey) {
 				$path = ExtensionManagementUtility::extPath($extensionKey) . $classPath . $key . '.php';
 				if (is_file($path)) {
-					$extendingClassFound = true;
-					$code .= $this->parseSingleFile($path, false);
+					$extendingClassFound = TRUE;
+					$code .= $this->parseSingleFile($path, FALSE);
 				}
 			}
 			$code = $this->closeClassDefinition($code);
@@ -90,8 +85,7 @@ class ClassCacheManager
 	 * @throws \Exception
 	 * @throws \InvalidArgumentException
 	 */
-	protected function parseSingleFile($filePath, $baseClass = false)
-	{
+	protected function parseSingleFile($filePath, $baseClass = FALSE) {
 		if (!is_file($filePath)) {
 			throw new \InvalidArgumentException(sprintf('File "%s" could not be found', $filePath));
 		}
@@ -101,6 +95,7 @@ class ClassCacheManager
 			$closingBracket = strrpos($code, '}');
 			$content = substr($code, 0, $closingBracket);
 			$content = str_replace('<?php', '', $content);
+
 			return $content;
 		} else {
 			/** @var ClassParser $classParser */
@@ -122,6 +117,7 @@ class ClassCacheManager
 			$codePart = implode(LF, $innerPart);
 			$closingBracket = strrpos($codePart, '}');
 			$content = $this->getPartialInfo($filePath) . substr($codePart, 0, $closingBracket);
+
 			return $content;
 		}
 	}
@@ -131,8 +127,7 @@ class ClassCacheManager
 	 * @param string $filePath
 	 * @return string
 	 */
-	protected function getPartialInfo($filePath)
-	{
+	protected function getPartialInfo($filePath) {
 		return LF . '/*' . str_repeat('*', 70) . LF . TAB .
 		'this is partial from: ' . LF . TAB . str_replace(PATH_site, '', $filePath) . LF . str_repeat('*',
 			70) . '*/' . LF;
@@ -142,8 +137,7 @@ class ClassCacheManager
 	 * @param string $code
 	 * @return string
 	 */
-	protected function closeClassDefinition($code)
-	{
+	protected function closeClassDefinition($code) {
 		return $code . LF . '}';
 	}
 }

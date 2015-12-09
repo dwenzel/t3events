@@ -39,7 +39,7 @@
 			<label index="tx_t3events.hint.AdvanceBookingFee">*Prices including advance booking fee.</label>
 			<label index="tx_t3events.hint.noAdvanceBookingFee">*Prices without advance booking fee.</label>
 			<label index="tx_t3events.hint.searchAllEventsByGenre">Search all events by genre:</label>
-			<label index="tx_t3events.hint.sortBy">Sort by: </label>
+			<label index="tx_t3events.hint.sortBy">Sort by:</label>
 			<label index="tx_t3events.label.calendarEntry">Calendar Entry</label>
 			<label index="tx_t3events.label.differentLocations">different locations</label>
 			<label index="tx_t3events.label.print">Print</label>
@@ -182,7 +182,7 @@
 			<label index="tx_t3events.hint.advanceBookingFee">*Die Preise verstehen sich inklusive Vorverkaufsgebühr.</label>
 			<label index="tx_t3events.hint.noAdvanceBookingFee">*Die Preise enthalten keine Vorverkaufsgebühr.</label>
 			<label index="tx_t3events.hint.searchAllEventsByGenre">Suchen Sie alle Veranstaltungen aus einem Genre:</label>
-			<label index="tx_t3events.hint.sortBy">Sortiere nach: </label>
+			<label index="tx_t3events.hint.sortBy">Sortiere nach:</label>
 			<label index="tx_t3events.label.calendarEntry">Kalendereintrag</label>
 			<label index="tx_t3events.label.differentLocations">verschiedene Spielstätten</label>
 			<label index="tx_t3events.label.print">Drucken</label>
@@ -304,7 +304,7 @@
 			<label index="tx_t3events.hint.AdvanceBookingFee">*Prix incluant les frais de réservations.</label>
 			<label index="tx_t3events.hint.noAdvanceBookingFee">*Prix sans les frais de réservations.</label>
 			<label index="tx_t3events.hint.searchAllEventsByGenre">Rechercher tous les événements par genre:</label>
-			<label index="tx_t3events.hint.sortBy">Ordonner par: </label>
+			<label index="tx_t3events.hint.sortBy">Ordonner par:</label>
 			<label index="tx_t3events.label.print">Imprimer</label>
 			<label index="tx_t3events.label.ticketsFrom">Billets de:</label>
 			<label index="tx_t3events.next">suivant</label>

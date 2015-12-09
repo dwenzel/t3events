@@ -1,11 +1,11 @@
 <?php
-if (!defined ('TYPO3_MODE')) {
+if (!defined('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
 return array(
 	'ctrl' => array(
-		'title'	=> 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_event',
+		'title' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_event',
 		'label' => 'headline',
 		'tstamp' => 'tstamp',
 		'crdate' => 'crdate',
@@ -244,7 +244,7 @@ return array(
 						'icon' => 'edit2.gif',
 						'popup_onlyOpenIfSelected' => 1,
 						'JSopenParams' => 'height=350,width=580,status=0,menubar=0,scrollbars=1',
-						),
+					),
 					'add' => Array(
 						'type' => 'script',
 						'title' => 'Create new',
@@ -253,7 +253,7 @@ return array(
 							'table' => 'tx_t3events_domain_model_genre',
 							'pid' => '###CURRENT_PID###',
 							'setValue' => 'prepend'
-							),
+						),
 						'module' => array(
 							'name' => 'wizard_add',
 						),
@@ -280,9 +280,9 @@ return array(
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_event.event_type',
 			'config' => array(
 				'type' => 'select',
-			    'foreign_table' => 'tx_t3events_domain_model_eventtype',
-			    'minitems' => 0,
-			    'maxitems' => 1,
+				'foreign_table' => 'tx_t3events_domain_model_eventtype',
+				'minitems' => 0,
+				'maxitems' => 1,
 				'noIconsBelowSelect' => TRUE,
 			),
 		),
@@ -293,7 +293,7 @@ return array(
 				'type' => 'inline',
 				'foreign_table' => 'tx_t3events_domain_model_performance',
 				'foreign_field' => 'event',
-				'maxitems'      => 9999,
+				'maxitems' => 9999,
 				'appearance' => array(
 					'expandSingle' => 1,
 					'levelLinksPosition' => 'bottom',
@@ -314,20 +314,20 @@ return array(
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_event.organizer',
 			'l10n_mode' => 'mergeIfNotBlank',
 			'config' => array(
-			    'type' => 'group',
-                'internal_type' => 'db',
-                'allowed' => 'tx_t3events_domain_model_organizer',
-                'l10nmode' => 'mergeIfNotBlank',
-                'size' => 1,
-                'minitems' => 0,
-                'maxitems' => 1,
-                'show_thumbs' => 1,
-                'wizards' => array(
-                    'suggest' => array(
-                        'type' => 'suggest',
-                    ),
-                ),
-            ),
-        ),
+				'type' => 'group',
+				'internal_type' => 'db',
+				'allowed' => 'tx_t3events_domain_model_organizer',
+				'l10nmode' => 'mergeIfNotBlank',
+				'size' => 1,
+				'minitems' => 0,
+				'maxitems' => 1,
+				'show_thumbs' => 1,
+				'wizards' => array(
+					'suggest' => array(
+						'type' => 'suggest',
+					),
+				),
+			),
+		),
 	),
 );

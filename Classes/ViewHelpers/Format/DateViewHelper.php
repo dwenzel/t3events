@@ -17,9 +17,7 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
  * Formats a \DateTime object. This is an extended version which allows to
  * add a time value (timestamp integer) to a date. Thus a given time can be
  * formatted according to the date (day light saving, time zone etc.)
- *
  * = Examples =
- *
  * <code title="Defaults">
  * <f:format.date>{dateObject}</f:format.date>
  * </code>
@@ -27,7 +25,6 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
  * 1980-12-13
  * (depending on the current date)
  * </output>
- *
  * <code title="Custom date format">
  * <f:format.date format="H:i">{dateObject}</f:format.date>
  * </code>
@@ -35,7 +32,6 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
  * 01:23
  * (depending on the current time)
  * </output>
- *
  * <code title="strtotime string">
  * <f:format.date format="d.m.Y - H:i:s">+1 week 2 days 4 hours 2 seconds</f:format.date>
  * </code>
@@ -43,7 +39,6 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
  * 13.12.1980 - 21:03:42
  * (depending on the current time, see http://www.php.net/manual/en/function.strtotime.php)
  * </output>
- *
  * <code title="Localized dates using strftime date format">
  * <f:format.date format="%d. %B %Y">{dateObject}</f:format.date>
  * </code>
@@ -51,7 +46,6 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
  * 13. Dezember 1980
  * (depending on the current date and defined locale. In the example you see the 1980-12-13 in a german locale)
  * </output>
- *
  * <code title="Inline notation">
  * {f:format.date(date: dateObject)}
  * </code>
@@ -59,7 +53,6 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
  * 1980-12-13
  * (depending on the value of {dateObject})
  * </output>
- *
  * <code title="Inline notation (2nd variant)">
  * {dateObject -> f:format.date()}
  * </code>
