@@ -3,8 +3,8 @@ if (!defined('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
-return array(
-	'ctrl' => array(
+return [
+	'ctrl' => [
 		'title' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_event',
 		'label' => 'headline',
 		'tstamp' => 'tstamp',
@@ -19,198 +19,198 @@ return array(
 		'transOrigPointerField' => 'l10n_parent',
 		'transOrigDiffSourceField' => 'l10n_diffsource',
 		'delete' => 'deleted',
-		'enablecolumns' => array(
+		'enablecolumns' => [
 			'disabled' => 'hidden',
 			'starttime' => 'starttime',
 			'endtime' => 'endtime',
 			'fe_group' => 'fe_group',
-		),
+		],
 		'searchFields' => 'headline,subtitle,teaser,description,keywords,image,genre,venue,event_type,performances,organizer,',
 		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('t3events') . 'Resources/Public/Icons/tx_t3events_domain_model_event.gif'
-	),
-	'interface' => array(
+	],
+	'interface' => [
 		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, headline,
-			subtitle,teaser,description, keywords, image, genre, venue, event_type, performances, organizer',
-	),
-	'types' => array(
-		'1' => array(
+			subtitle,teaser,description, keywords, image, genre, venue, event_type, performances, organizer,audience,new_until,archive_date',
+	],
+	'types' => [
+		'1' => [
 			'showitem' => '
     	;;;;1-1-1,
     	 event_type,headline, subtitle,teaser,description,image,
     	--div--;LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_event.extended,
-    	sys_language_uid,organizer, genre, venue, keywords,
+    	sys_language_uid,audience,organizer, genre, venue, keywords,
     	--div--;LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_event.performances,
     	performances,
     	l10n_parent, l10n_diffsource, ;;1,
-    	,--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,hidden,starttime,endtime,fe_group'),
-	),
-	'palettes' => array(
-		'1' => array('showitem' => ''),
-		'palettePerformance' => array(
+    	,--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,new_until,archive_date,hidden,starttime,endtime,fe_group'],
+	],
+	'palettes' => [
+		'1' => ['showitem' => ''],
+		'palettePerformance' => [
 			'showitem' => 'performances',
 			'canNotCollapse' => TRUE,
-		),
-	),
-	'columns' => array(
-		'sys_language_uid' => array(
+		],
+	],
+	'columns' => [
+		'sys_language_uid' => [
 			'exclude' => 1,
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.language',
-			'config' => array(
+			'config' => [
 				'type' => 'select',
 				'foreign_table' => 'sys_language',
 				'foreign_table_where' => 'ORDER BY sys_language.title',
-				'items' => array(
-					array('LLL:EXT:lang/locallang_general.xml:LGL.allLanguages', -1),
-					array('LLL:EXT:lang/locallang_general.xml:LGL.default_value', 0)
-				),
+				'items' => [
+					['LLL:EXT:lang/locallang_general.xml:LGL.allLanguages', -1],
+					['LLL:EXT:lang/locallang_general.xml:LGL.default_value', 0]
+				],
 				'noIconsBelowSelect' => TRUE,
-			),
-		),
-		'l10n_parent' => array(
+			],
+		],
+		'l10n_parent' => [
 			'displayCond' => 'FIELD:sys_language_uid:>:0',
 			'exclude' => 1,
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.l18n_parent',
-			'config' => array(
+			'config' => [
 				'type' => 'select',
-				'items' => array(
-					array('', 0),
-				),
+				'items' => [
+					['', 0],
+				],
 				'foreign_table' => 'tx_t3events_domain_model_event',
 				'foreign_table_where' => 'AND tx_t3events_domain_model_event.pid=###CURRENT_PID### AND tx_t3events_domain_model_event.sys_language_uid IN (-1,0)',
 				'noIconsBelowSelect' => TRUE,
-			),
-		),
-		'l10n_diffsource' => array(
-			'config' => array(
+			],
+		],
+		'l10n_diffsource' => [
+			'config' => [
 				'type' => 'passthrough',
-			),
-		),
-		't3ver_label' => array(
+			],
+		],
+		't3ver_label' => [
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.versionLabel',
-			'config' => array(
+			'config' => [
 				'type' => 'input',
 				'size' => 30,
 				'max' => 255,
-			)
-		),
-		'hidden' => array(
+			]
+		],
+		'hidden' => [
 			'exclude' => 1,
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.hidden',
-			'config' => array(
+			'config' => [
 				'type' => 'check',
-			),
-		),
-		'starttime' => array(
+			],
+		],
+		'starttime' => [
 			'exclude' => 1,
 			'l10n_mode' => 'mergeIfNotBlank',
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.starttime',
-			'config' => array(
+			'config' => [
 				'type' => 'input',
-				'size' => 13,
+				'size' => 10,
 				'max' => 20,
 				'eval' => 'datetime',
 				'checkbox' => 0,
 				'default' => 0,
-				'range' => array(
+				'range' => [
 					'lower' => mktime(0, 0, 0, date('m'), date('d'), date('Y'))
-				),
-			),
-		),
-		'endtime' => array(
+				],
+			],
+		],
+		'endtime' => [
 			'exclude' => 1,
 			'l10n_mode' => 'mergeIfNotBlank',
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.endtime',
-			'config' => array(
+			'config' => [
 				'type' => 'input',
-				'size' => 13,
+				'size' => 10,
 				'max' => 20,
 				'eval' => 'datetime',
 				'checkbox' => 0,
 				'default' => 0,
-				'range' => array(
+				'range' => [
 					'lower' => mktime(0, 0, 0, date('m'), date('d'), date('Y'))
-				),
-			),
-		),
-		'fe_group' => array(
+				],
+			],
+		],
+		'fe_group' => [
 			'exclude' => 1,
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.fe_group',
-			'config' => array(
+			'config' => [
 				'type' => 'select',
 				'size' => 5,
 				'maxitems' => 20,
-				'items' => array(
-					array(
+				'items' => [
+					[
 						'LLL:EXT:lang/locallang_general.xml:LGL.hide_at_login',
 						-1,
-					),
-					array(
+					],
+					[
 						'LLL:EXT:lang/locallang_general.xml:LGL.any_login',
 						-2,
-					),
-					array(
+					],
+					[
 						'LLL:EXT:lang/locallang_general.xml:LGL.usergroups',
 						'--div--',
-					),
-				),
+					],
+				],
 				'exclusiveKeys' => '-1,-2',
 				'foreign_table' => 'fe_groups',
 				'foreign_table_where' => 'ORDER BY fe_groups.title',
-			),
-		),
-		'headline' => array(
+			],
+		],
+		'headline' => [
 			'exclude' => 0,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_event.headline',
-			'config' => array(
+			'config' => [
 				'type' => 'input',
 				'size' => 30,
 				'eval' => 'trim,required'
-			),
-		),
-		'subtitle' => array(
+			],
+		],
+		'subtitle' => [
 			'exclude' => 0,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_event.subtitle',
-			'config' => array(
+			'config' => [
 				'type' => 'input',
 				'size' => 30,
 				'eval' => 'trim'
-			),
-		),
-		'teaser' => array(
+			],
+		],
+		'teaser' => [
 			'exclude' => 1,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_event.teaser',
-			'config' => array(
+			'config' => [
 				'type' => 'text',
 				'cols' => 40,
 				'rows' => 5,
 				'eval' => 'trim'
-			),
-		),
-		'description' => array(
+			],
+		],
+		'description' => [
 			'exclude' => 0,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_event.description',
-			'config' => array(
+			'config' => [
 				'type' => 'text',
 				'cols' => 32,
 				'rows' => 10,
 				'eval' => 'trim'
-			),
+			],
 			'defaultExtras' => 'richtext[]'
-		),
-		'keywords' => array(
+		],
+		'keywords' => [
 			'exclude' => 0,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_event.keywords',
-			'config' => array(
+			'config' => [
 				'type' => 'text',
 				'cols' => 32,
 				'rows' => 5,
 				'eval' => 'trim'
-			),
-		),
-		'image' => array(
+			],
+		],
+		'image' => [
 			'exclude' => 1,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_event.image',
-			'config' => array(
+			'config' => [
 				'type' => 'group',
 				'internal_type' => 'file',
 				'uploadfolder' => 'uploads/tx_t3events',
@@ -219,12 +219,12 @@ return array(
 				'maxitems' => 1,
 				'allowed' => $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'],
 				'disallowed' => '',
-			),
-		),
-		'genre' => array(
+			],
+		],
+		'genre' => [
 			'exclude' => 1,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_event.genre',
-			'config' => array(
+			'config' => [
 				'type' => 'select',
 				'foreign_table' => 'tx_t3events_domain_model_genre',
 				'MM' => 'tx_t3events_event_genre_mm',
@@ -232,40 +232,39 @@ return array(
 				'autoSizeMax' => 30,
 				'maxitems' => 9999,
 				'multiple' => 0,
-				'wizards' => array(
+				'wizards' => [
 					'_PADDING' => 1,
 					'_VERTICAL' => 1,
-					'edit' => array(
+					'edit' => [
 						'type' => 'popup',
 						'title' => 'Edit',
-						'module' => array(
+						'module' => [
 							'name' => 'wizard_edit',
-						),
+						],
 						'icon' => 'edit2.gif',
 						'popup_onlyOpenIfSelected' => 1,
 						'JSopenParams' => 'height=350,width=580,status=0,menubar=0,scrollbars=1',
-					),
-					'add' => Array(
+					],
+					'add' => [
 						'type' => 'script',
 						'title' => 'Create new',
 						'icon' => 'add.gif',
-						'params' => array(
+						'params' => [
 							'table' => 'tx_t3events_domain_model_genre',
 							'pid' => '###CURRENT_PID###',
 							'setValue' => 'prepend'
-						),
-						'module' => array(
+						],
+						'module' => [
 							'name' => 'wizard_add',
-						),
-					),
-				),
-			),
-		),
-
-		'venue' => array(
+						],
+					],
+				],
+			],
+		],
+		'venue' => [
 			'exclude' => 0,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_event.venue',
-			'config' => array(
+			'config' => [
 				'type' => 'select',
 				'foreign_table' => 'tx_t3events_domain_model_venue',
 				'MM' => 'tx_t3events_event_venue_mm',
@@ -273,28 +272,28 @@ return array(
 				'autoSizeMax' => 30,
 				'maxitems' => 9999,
 				'multiple' => 0,
-			),
-		),
-		'event_type' => array(
+			],
+		],
+		'event_type' => [
 			'exclude' => 0,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_event.event_type',
-			'config' => array(
+			'config' => [
 				'type' => 'select',
 				'foreign_table' => 'tx_t3events_domain_model_eventtype',
 				'minitems' => 0,
 				'maxitems' => 1,
 				'noIconsBelowSelect' => TRUE,
-			),
-		),
-		'performances' => array(
+			],
+		],
+		'performances' => [
 			'exclude' => 0,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_event.performances',
-			'config' => array(
+			'config' => [
 				'type' => 'inline',
 				'foreign_table' => 'tx_t3events_domain_model_performance',
 				'foreign_field' => 'event',
 				'maxitems' => 9999,
-				'appearance' => array(
+				'appearance' => [
 					'expandSingle' => 1,
 					'levelLinksPosition' => 'bottom',
 					'showSynchronizationLink' => 1,
@@ -302,18 +301,18 @@ return array(
 					'showAllLocalizationLink' => 1,
 					'newRecordLinkAddTitle' => 1,
 					'useSortable' => 1,
-					'enabledControls' => array(
+					'enabledControls' => [
 						'info' => FALSE,
-					),
-				),
+					],
+				],
 				'noIconsBelowSelect' => TRUE,
-			),
-		),
-		'organizer' => array(
+			],
+		],
+		'organizer' => [
 			'exclude' => 0,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_event.organizer',
 			'l10n_mode' => 'mergeIfNotBlank',
-			'config' => array(
+			'config' => [
 				'type' => 'group',
 				'internal_type' => 'db',
 				'allowed' => 'tx_t3events_domain_model_organizer',
@@ -322,12 +321,74 @@ return array(
 				'minitems' => 0,
 				'maxitems' => 1,
 				'show_thumbs' => 1,
-				'wizards' => array(
-					'suggest' => array(
+				'wizards' => [
+					'suggest' => [
 						'type' => 'suggest',
-					),
-				),
-			),
-		),
-	),
-);
+					],
+				],
+			],
+		],
+		'audience' => [
+			'exclude' => 1,
+			'label' => $ll . 'tx_t3event_domain_model_audience',
+			'config' => [
+				'type' => 'select',
+				'foreign_table' => 'tx_t3events_domain_model_audience',
+				'MM' => 'tx_t3events_event_audience_mm',
+				'size' => 10,
+				'autoSizeMax' => 30,
+				'maxitems' => 9999,
+				'multiple' => 0,
+				'wizards' => [
+					'_PADDING' => 1,
+					'_VERTICAL' => 1,
+					'edit' => [
+						'type' => 'popup',
+						'title' => 'Edit',
+						'module' => [
+							'name' => 'wizard_edit'
+						],
+						'icon' => 'edit2.gif',
+						'popup_onlyOpenIfSelected' => 1,
+						'JSopenParams' => 'height=350,width=580,status=0,menubar=0,scrollbars=1',
+					],
+					'add' => [
+						'type' => 'script',
+						'title' => 'Create new',
+						'icon' => 'add.gif',
+						'params' => [
+							'table' => 'tx_t3events_domain_model_audience',
+							'pid' => '###CURRENT_PID###',
+							'setValue' => 'prepend'
+						],
+						'module' => [
+							'name' => 'wizard_add'
+						]
+					],
+				],
+			],
+		],
+		'new_until' => [
+			'exclude' => 1,
+			'label' => $ll . 'tx_t3events_domain_model_event.new_until',
+			'config' => [
+				'type' => 'input',
+				'size' => '10',
+				'max' => '20',
+				'eval' => 'datetime',
+				'default' => '0'
+			]
+		],
+		'archive_date' => [
+			'exclude' => 1,
+			'label' => $ll . 'tx_t3events_domain_model_event.archive_date',
+			'config' => [
+				'type' => 'input',
+				'size' => '10',
+				'max' => '20',
+				'eval' => 'date',
+				'default' => '0'
+			]
+		],
+	],
+];

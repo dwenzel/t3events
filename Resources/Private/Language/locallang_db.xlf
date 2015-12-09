@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2015-12-08T10:22:31Z">
+	<file source-language="en" datatype="plaintext" original="messages" date="2015-12-09T15:50:23Z">
 		<header>
 			<type>database</type>
 			<description>Language labels for database tables/fields belonging to extension 't3events'</description>
@@ -9,14 +9,44 @@
 			<authorEmail>t3events@gmx.de</authorEmail>
 		</header>
 		<body>
-			<trans-unit id="static_countries.tx_extbase_type.Tx_T3events_Country" xml:space="preserve">
+		<trans-unit id="static_countries.tx_extbase_type.Tx_T3events_Country" xml:space="preserve">
 			<source>Events Country</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_audience" xml:space="preserve">
+			<source>Audience</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_audience.description" xml:space="preserve">
+			<source>Description</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_audience.title" xml:space="preserve">
+			<source>Title</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_company" xml:space="preserve">
+			<source>Company</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_company.address" xml:space="preserve">
+			<source>Address</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_company.city" xml:space="preserve">
+			<source>City</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_company.country" xml:space="preserve">
+			<source>Country</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_company.name" xml:space="preserve">
+			<source>Name</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_company.zip" xml:space="preserve">
+			<source>Zip</source>
 		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_country" xml:space="preserve">
 			<source>Country</source>
 		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_event" xml:space="preserve">
 			<source>Event</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_event.archive_date" xml:space="preserve">
+			<source>Archive Date</source>
 		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_event.description" xml:space="preserve">
 			<source>Description</source>
@@ -38,6 +68,9 @@
 		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_event.keywords" xml:space="preserve">
 			<source>Keywords</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_event.new_until" xml:space="preserve">
+			<source>New until</source>
 		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_event.organizer" xml:space="preserve">
 			<source>Organizer</source>
@@ -101,6 +134,30 @@
 		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_genre.title" xml:space="preserve">
 			<source>Title</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_notification" xml:space="preserve">
+			<source>Notification</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_notification.bodytext" xml:space="preserve">
+			<source>Text</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_notification.format" xml:space="preserve">
+			<source>Format</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_notification.recipient" xml:space="preserve">
+			<source>Recipient</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_notification.reservation" xml:space="preserve">
+			<source>Reservation</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_notification.send_at" xml:space="preserve">
+			<source>Sent at</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_notification.sender" xml:space="preserve">
+			<source>Sender</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_notification.subject" xml:space="preserve">
+			<source>Subject</source>
 		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_organizer" xml:space="preserve">
 			<source>Organizer</source>
@@ -183,6 +240,15 @@
 		<trans-unit id="tx_t3events_domain_model_person" xml:space="preserve">
 			<source>Person</source>
 		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_person.address" xml:space="preserve">
+			<source>Address</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_person.city" xml:space="preserve">
+			<source>City</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_person.email" xml:space="preserve">
+			<source>Email</source>
+		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_person.first_name" xml:space="preserve">
 			<source>First Name</source>
 		</trans-unit>
@@ -201,23 +267,14 @@
 		<trans-unit id="tx_t3events_domain_model_person.name" xml:space="preserve">
 			<source>Name</source>
 		</trans-unit>
-			<trans-unit id="tx_t3events_domain_model_person.address">
-				<source>Address</source>
-			</trans-unit>
-			<trans-unit id="tx_t3events_domain_model_person.city">
-				<source>City</source>
-			</trans-unit>
-			<trans-unit id="tx_t3events_domain_model_person.email">
-				<source>Email</source>
-			</trans-unit>
-			<trans-unit id="tx_t3events_domain_model_person.phone">
-				<source>Phone</source>
-			</trans-unit>
-			<trans-unit id="tx_t3events_domain_model_person.zip">
-				<source>Zip</source>
-			</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_person.person_type" xml:space="preserve">
 			<source>Person Type</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_person.phone" xml:space="preserve">
+			<source>Phone</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_person.zip" xml:space="preserve">
+			<source>Zip</source>
 		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_persontype" xml:space="preserve">
 			<source>Person Type</source>
@@ -318,58 +375,6 @@
 		<trans-unit id="tx_t3events_domain_model_venue.title" xml:space="preserve">
 			<source>Title</source>
 		</trans-unit>
-			<trans-unit id="tx_t3events_domain_model_audience">
-				<source>Audience</source>
-			</trans-unit>
-			<trans-unit id="tx_t3events_domain_model_audience.description">
-				<source>Description</source>
-			</trans-unit>
-			<trans-unit id="tx_t3events_domain_model_audience.title">
-				<source>Title</source>
-			</trans-unit>
-			<trans-unit id="tx_t3events_domain_model_notification">
-				<source>Notification</source>
-			</trans-unit>
-			<trans-unit id="tx_t3events_domain_model_notification.bodytext">
-				<source>Text</source>
-			</trans-unit>
-			<trans-unit id="tx_t3events_domain_model_notification.format">
-				<source>Format</source>
-			</trans-unit>
-			<trans-unit id="tx_t3events_domain_model_notification.recipient">
-				<source>Recipient</source>
-			</trans-unit>
-			<trans-unit id="tx_t3events_domain_model_notification.reservation">
-				<source>Reservation</source>
-			</trans-unit>
-			<trans-unit id="tx_t3events_domain_model_notification.send_at">
-				<source>Sent at</source>
-			</trans-unit>
-			<trans-unit id="tx_t3events_domain_model_notification.sender">
-				<source>Sender</source>
-			</trans-unit>
-			<trans-unit id="tx_t3events_domain_model_notification.subject">
-				<source>Subject</source>
-			</trans-unit>
-
-			<trans-unit id="tx_t3events_domain_model_company">
-				<source>Company</source>
-			</trans-unit>
-			<trans-unit id="tx_t3events_domain_model_company.address">
-				<source>Address</source>
-			</trans-unit>
-			<trans-unit id="tx_t3events_domain_model_company.city">
-				<source>City</source>
-			</trans-unit>
-			<trans-unit id="tx_t3events_domain_model_company.country">
-				<source>Country</source>
-			</trans-unit>
-			<trans-unit id="tx_t3events_domain_model_company.name">
-				<source>Name</source>
-			</trans-unit>
-			<trans-unit id="tx_t3events_domain_model_company.zip">
-				<source>Zip</source>
-			</trans-unit>
 		</body>
 	</file>
 </xliff>

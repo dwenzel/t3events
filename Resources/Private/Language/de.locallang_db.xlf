@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2015-12-08T10:22:31Z">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2015-12-09T15:50:23Z">
 		<header>
 			<type>database</type>
 			<description>Language labels for database tables/fields belonging to extension 't3events'</description>
@@ -9,9 +9,25 @@
 			<authorEmail>t3events@gmx.de</authorEmail>
 		</header>
 		<body>
-			<trans-unit id="static_countries.tx_extbase_type.Tx_T3events_Country" approved="yes" xml:space="preserve">
+		<trans-unit id="static_countries.tx_extbase_type.Tx_T3events_Country" approved="yes" xml:space="preserve">
 			<source>Events Country</source>
 			<target>Land</target>
+		</trans-unit>
+		<trans-unit id="tabs.notifications" approved="yes" xml:space="preserve">
+			<source></source>
+			<target>Benachrichtigungen</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_audience" approved="yes" xml:space="preserve">
+			<source>Audience</source>
+			<target>Zielgruppe</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_audience.description" approved="yes" xml:space="preserve">
+			<source>Description</source>
+			<target>Beschreibung</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_audience.title" approved="yes" xml:space="preserve">
+			<source>Title</source>
+			<target>Titel</target>
 		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_country" approved="yes" xml:space="preserve">
 			<source>Country</source>
@@ -20,6 +36,10 @@
 		<trans-unit id="tx_t3events_domain_model_event" approved="yes" xml:space="preserve">
 			<source>Event</source>
 			<target>Veranstaltung</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_event.archive_date" approved="yes" xml:space="preserve">
+			<source>Archive Date</source>
+			<target>Archiv Datum</target>
 		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_event.description" approved="yes" xml:space="preserve">
 			<source>Description</source>
@@ -48,6 +68,10 @@
 		<trans-unit id="tx_t3events_domain_model_event.keywords" approved="yes" xml:space="preserve">
 			<source>Keywords</source>
 			<target>Schlagworte</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_event.new_until" approved="yes" xml:space="preserve">
+			<source>New until</source>
+			<target>Neu bis</target>
 		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_event.organizer" approved="yes" xml:space="preserve">
 			<source>Organizer</source>
@@ -132,6 +156,38 @@
 		<trans-unit id="tx_t3events_domain_model_genre.title" approved="yes" xml:space="preserve">
 			<source>Title</source>
 			<target>Titel</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_notification" approved="yes" xml:space="preserve">
+			<source>Notification</source>
+			<target>Benachrichtigung</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_notification.bodytext" approved="yes" xml:space="preserve">
+			<source>Text</source>
+			<target>Text</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_notification.format" approved="yes" xml:space="preserve">
+			<source>Format</source>
+			<target>Format</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_notification.recipient" approved="yes" xml:space="preserve">
+			<source>Recipient</source>
+			<target>Empfänger</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_notification.reservation" approved="yes" xml:space="preserve">
+			<source>Reservation</source>
+			<target>Reservierung</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_notification.send_at" approved="yes" xml:space="preserve">
+			<source>Sent at</source>
+			<target>versendet</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_notification.sender" approved="yes" xml:space="preserve">
+			<source>Sender</source>
+			<target>Absender</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_notification.subject" approved="yes" xml:space="preserve">
+			<source>Subject</source>
+			<target>Betreff</target>
 		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_organizer" approved="yes" xml:space="preserve">
 			<source>Organizer</source>
@@ -397,54 +453,6 @@
 			<source>Title</source>
 			<target>Titel</target>
 		</trans-unit>
-			<trans-unit id="tabs.notifications" approved="yes">
-				<source>Notifications</source>
-				<target>Benachrichtigungen</target>
-			</trans-unit>
-			<trans-unit id="tx_t3events_domain_model_audience" approved="yes">
-				<source>Audience</source>
-				<target>Zielgruppe</target>
-			</trans-unit>
-			<trans-unit id="tx_t3events_domain_model_audience.description" approved="yes">
-				<source>Description</source>
-				<target>Beschreibung</target>
-			</trans-unit>
-			<trans-unit id="tx_t3events_domain_model_audience.title" approved="yes">
-				<source>Title</source>
-				<target>Titel</target>
-			</trans-unit>
-			<trans-unit id="tx_t3events_domain_model_notification" approved="yes">
-				<source>Notification</source>
-				<target>Benachrichtigung</target>
-			</trans-unit>
-			<trans-unit id="tx_t3events_domain_model_notification.bodytext" approved="yes">
-				<source>Text</source>
-				<target>Text</target>
-			</trans-unit>
-			<trans-unit id="tx_t3events_domain_model_notification.format" approved="yes">
-				<source>Format</source>
-				<target>Format</target>
-			</trans-unit>
-			<trans-unit id="tx_t3events_domain_model_notification.recipient" approved="yes">
-				<source>Recipient</source>
-				<target>Empfänger</target>
-			</trans-unit>
-			<trans-unit id="tx_t3events_domain_model_notification.reservation" approved="yes">
-				<source>Reservation</source>
-				<target>Reservierung</target>
-			</trans-unit>
-			<trans-unit id="tx_t3events_domain_model_notification.send_at" approved="yes">
-				<source>Sent at</source>
-				<target>versendet</target>
-			</trans-unit>
-			<trans-unit id="tx_t3events_domain_model_notification.sender" approved="yes">
-				<source>Sender</source>
-				<target>Absender</target>
-			</trans-unit>
-			<trans-unit id="tx_t3events_domain_model_notification.subject" approved="yes">
-				<source>Subject</source>
-				<target>Betreff</target>
-			</trans-unit>
 		</body>
 	</file>
 </xliff>
