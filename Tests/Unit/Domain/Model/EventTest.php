@@ -95,6 +95,9 @@ class EventTest extends UnitTestCase {
 		);
 	}
 
+	/**
+	 * @test
+	 */
 	public function setTeaserForStringSetsTeaser() {
 		$this->fixture->setTeaser('foo');
 
@@ -430,7 +433,7 @@ class EventTest extends UnitTestCase {
 	 */
 	public function getHiddenReturnsInitialyNull() {
 		$this->assertNull(
-			$this->fixture->getHeadline()
+			$this->fixture->getHidden()
 		);
 	}
 
