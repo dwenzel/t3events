@@ -1,22 +1,27 @@
 <?php
 namespace Webfox\T3events\Tests\ViewHelpers\Widget\Controller;
-
 /***************************************************************
  *  Copyright notice
+ *
  *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
- *            Michael Kasten <kasten@webfox01.de>, Agentur Webfox
+ *  			Michael Kasten <kasten@webfox01.de>, Agentur Webfox
+ *  			
  *  All rights reserved
+ *
  *  This script is part of the TYPO3 project. The TYPO3 project is
  *  free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 2 of the License, or
  *  (at your option) any later version.
+ *
  *  The GNU General Public License can be found at
  *  http://www.gnu.org/copyleft/gpl.html.
+ *
  *  This script is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *  GNU General Public License for more details.
+ *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
@@ -27,13 +32,14 @@ use Webfox\T3events\Domain\Model\Dto\CalendarConfiguration;
  *
  * @copyright Copyright belongs to the respective authors
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
+ *
  * @package TYPO3
  * @subpackage Events
+ *
  * @author Dirk Wenzel <t3events@gmx.de>
  * @coversDefaultClass \Webfox\T3events\ViewHelpers\Widget\Controller\CalendarController
  */
 class CalendarControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
-
 	/**
 	 * @var \Webfox\T3events\ViewHelpers\Widget\Controller\CalendarController
 	 */
@@ -43,7 +49,7 @@ class CalendarControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$this->fixture = $this->getAccessibleMock('Webfox\\T3events\\ViewHelpers\\Widget\\Controller\\CalendarController',
 			array('dummy'), array(), '', FALSE);
 		$view = $this->getMock('TYPO3\\CMS\\Fluid\\View\\TemplateView', array(), array(), '', FALSE);
-		$this->fixture->_set('view', $view);
+		$this->fixture->_set('view',$view);
 	}
 
 	/**
@@ -113,8 +119,8 @@ class CalendarControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	public function getStartDateForDateTimeReturnsDateFromConfiguration() {
 		$period = -1; // special value
 		$mockConfiguration = $this->getMock(
-			'Webfox\\T3events\\Domain\\Model\\Dto\\CalendarConfiguration',
-			array('getDisplayPeriod')
+				'Webfox\\T3events\\Domain\\Model\\Dto\\CalendarConfiguration',
+				array('getDisplayPeriod')
 		);
 		$this->fixture->_set('configuration', $mockConfiguration);
 		$mockConfiguration->expects($this->once())
@@ -138,17 +144,17 @@ class CalendarControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$fixture = $this->getAccessibleMock('Webfox\\T3events\\ViewHelpers\\Widget\\Controller\\CalendarController',
 			array('getCalendar'), array(), '', FALSE);
 		$view = $this->getMock(
-			'TYPO3\\CMS\\Fluid\\View\\TemplateView',
-			array(),
-			array(),
-			'',
-			FALSE
+				'TYPO3\\CMS\\Fluid\\View\\TemplateView',
+				array(),
+				array(),
+				'',
+				FALSE
 		);
 		$fixture->_set('view', $view);
 		$period = -1; // special value
 		$mockConfiguration = $this->getMock(
-			'Webfox\\T3events\\Domain\\Model\\Dto\\CalendarConfiguration',
-			array('getDisplayPeriod')
+				'Webfox\\T3events\\Domain\\Model\\Dto\\CalendarConfiguration',
+				array('getDisplayPeriod')
 		);
 		$fixture->_set('configuration', $mockConfiguration);
 		$mockConfiguration->expects($this->once())
@@ -167,8 +173,8 @@ class CalendarControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	public function getDefaultTimeZoneForDateTimeZoneReturnsCorrectTimeZone() {
 		$expectedTimeZone = new \DateTimeZone(date_default_timezone_get());
 		$this->assertEquals(
-			$expectedTimeZone,
-			$this->fixture->getDefaultTimeZone()
+				$expectedTimeZone,
+				$this->fixture->getDefaultTimeZone()
 		);
 	}
 
@@ -179,7 +185,7 @@ class CalendarControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	public function getIntervalReturnsFalseForInvalidDisplay() {
 		$display = 'foo';
 		$this->assertFalse(
-			$this->fixture->_call('getInterval', $display)
+				$this->fixture->_call('getInterval', $display)
 		);
 	}
 
@@ -190,8 +196,8 @@ class CalendarControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	public function getIntervalReturnsIntervalForPeriodDay() {
 		$display = 'next';
 		$mockConfiguration = $this->getMock(
-			'Webfox\\T3events\\Domain\\Model\\Dto\\CalendarConfiguration',
-			array('getDisplayPeriod')
+				'Webfox\\T3events\\Domain\\Model\\Dto\\CalendarConfiguration',
+				array('getDisplayPeriod')
 		);
 		$this->fixture->_set('configuration', $mockConfiguration);
 
@@ -201,8 +207,8 @@ class CalendarControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$expectedInterval = new \DateInterval('P1D');
 
 		$this->assertEquals(
-			$expectedInterval,
-			$this->fixture->_call('getInterval', $display)
+				$expectedInterval,
+				$this->fixture->_call('getInterval', $display)
 		);
 	}
 
@@ -213,8 +219,8 @@ class CalendarControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	public function getIntervalReturnsIntervalForPeriodWeek() {
 		$display = 'next';
 		$mockConfiguration = $this->getMock(
-			'Webfox\\T3events\\Domain\\Model\\Dto\\CalendarConfiguration',
-			array('getDisplayPeriod')
+				'Webfox\\T3events\\Domain\\Model\\Dto\\CalendarConfiguration',
+				array('getDisplayPeriod')
 		);
 		$this->fixture->_set('configuration', $mockConfiguration);
 
@@ -224,8 +230,8 @@ class CalendarControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$expectedInterval = new \DateInterval('P1W');
 
 		$this->assertEquals(
-			$expectedInterval,
-			$this->fixture->_call('getInterval', $display)
+				$expectedInterval,
+				$this->fixture->_call('getInterval', $display)
 		);
 	}
 
@@ -236,8 +242,8 @@ class CalendarControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	public function getIntervalReturnsIntervalForPeriodMonth() {
 		$display = 'next';
 		$mockConfiguration = $this->getMock(
-			'Webfox\\T3events\\Domain\\Model\\Dto\\CalendarConfiguration',
-			array('getDisplayPeriod')
+				'Webfox\\T3events\\Domain\\Model\\Dto\\CalendarConfiguration',
+				array('getDisplayPeriod')
 		);
 		$this->fixture->_set('configuration', $mockConfiguration);
 
@@ -247,8 +253,8 @@ class CalendarControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$expectedInterval = new \DateInterval('P1M');
 
 		$this->assertEquals(
-			$expectedInterval,
-			$this->fixture->_call('getInterval', $display)
+				$expectedInterval,
+				$this->fixture->_call('getInterval', $display)
 		);
 	}
 
@@ -259,8 +265,8 @@ class CalendarControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	public function getIntervalReturnsIntervalForPeriodTrimester() {
 		$display = 'next';
 		$mockConfiguration = $this->getMock(
-			'Webfox\\T3events\\Domain\\Model\\Dto\\CalendarConfiguration',
-			array('getDisplayPeriod')
+				'Webfox\\T3events\\Domain\\Model\\Dto\\CalendarConfiguration',
+				array('getDisplayPeriod')
 		);
 		$this->fixture->_set('configuration', $mockConfiguration);
 
@@ -270,8 +276,8 @@ class CalendarControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$expectedInterval = new \DateInterval('P3M');
 
 		$this->assertEquals(
-			$expectedInterval,
-			$this->fixture->_call('getInterval', $display)
+				$expectedInterval,
+				$this->fixture->_call('getInterval', $display)
 		);
 	}
 
@@ -282,8 +288,8 @@ class CalendarControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	public function getIntervalReturnsIntervalForPeriodQuarter() {
 		$display = 'next';
 		$mockConfiguration = $this->getMock(
-			'Webfox\\T3events\\Domain\\Model\\Dto\\CalendarConfiguration',
-			array('getDisplayPeriod')
+				'Webfox\\T3events\\Domain\\Model\\Dto\\CalendarConfiguration',
+				array('getDisplayPeriod')
 		);
 		$this->fixture->_set('configuration', $mockConfiguration);
 
@@ -293,8 +299,8 @@ class CalendarControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$expectedInterval = new \DateInterval('P3M');
 
 		$this->assertEquals(
-			$expectedInterval,
-			$this->fixture->_call('getInterval', $display)
+				$expectedInterval,
+				$this->fixture->_call('getInterval', $display)
 		);
 	}
 
@@ -305,8 +311,8 @@ class CalendarControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	public function getIntervalReturnsIntervalForPeriodSemester() {
 		$display = 'next';
 		$mockConfiguration = $this->getMock(
-			'Webfox\\T3events\\Domain\\Model\\Dto\\CalendarConfiguration',
-			array('getDisplayPeriod')
+				'Webfox\\T3events\\Domain\\Model\\Dto\\CalendarConfiguration',
+				array('getDisplayPeriod')
 		);
 		$this->fixture->_set('configuration', $mockConfiguration);
 
@@ -316,8 +322,8 @@ class CalendarControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$expectedInterval = new \DateInterval('P6M');
 
 		$this->assertEquals(
-			$expectedInterval,
-			$this->fixture->_call('getInterval', $display)
+				$expectedInterval,
+				$this->fixture->_call('getInterval', $display)
 		);
 	}
 
@@ -328,8 +334,8 @@ class CalendarControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	public function getIntervalReturnsIntervalForPeriodYear() {
 		$display = 'next';
 		$mockConfiguration = $this->getMock(
-			'Webfox\\T3events\\Domain\\Model\\Dto\\CalendarConfiguration',
-			array('getDisplayPeriod')
+				'Webfox\\T3events\\Domain\\Model\\Dto\\CalendarConfiguration',
+				array('getDisplayPeriod')
 		);
 		$this->fixture->_set('configuration', $mockConfiguration);
 
@@ -339,8 +345,8 @@ class CalendarControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$expectedInterval = new \DateInterval('P1Y');
 
 		$this->assertEquals(
-			$expectedInterval,
-			$this->fixture->_call('getInterval', $display)
+				$expectedInterval,
+				$this->fixture->_call('getInterval', $display)
 		);
 	}
 
@@ -352,8 +358,8 @@ class CalendarControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$display = 'next';
 		$invalidPeriod = 999999;
 		$mockConfiguration = $this->getMock(
-			'Webfox\\T3events\\Domain\\Model\\Dto\\CalendarConfiguration',
-			array('getDisplayPeriod')
+				'Webfox\\T3events\\Domain\\Model\\Dto\\CalendarConfiguration',
+				array('getDisplayPeriod')
 		);
 		$this->fixture->_set('configuration', $mockConfiguration);
 
@@ -362,7 +368,7 @@ class CalendarControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 			->will($this->returnValue($invalidPeriod));
 
 		$this->assertFalse(
-			$this->fixture->_call('getInterval', $display)
+				$this->fixture->_call('getInterval', $display)
 		);
 	}
 
@@ -374,8 +380,8 @@ class CalendarControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$display = 'previous';
 		$period = CalendarConfiguration::PERIOD_DAY;
 		$mockConfiguration = $this->getMock(
-			'Webfox\\T3events\\Domain\\Model\\Dto\\CalendarConfiguration',
-			array('getDisplayPeriod')
+				'Webfox\\T3events\\Domain\\Model\\Dto\\CalendarConfiguration',
+				array('getDisplayPeriod')
 		);
 		$this->fixture->_set('configuration', $mockConfiguration);
 
@@ -387,8 +393,8 @@ class CalendarControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$expectedInterval->invert = 1;
 
 		$this->assertEquals(
-			$expectedInterval,
-			$this->fixture->_call('getInterval', $display)
+				$expectedInterval,
+				$this->fixture->_call('getInterval', $display)
 		);
 	}
 }

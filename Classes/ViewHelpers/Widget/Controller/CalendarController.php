@@ -373,7 +373,7 @@ class CalendarController extends AbstractWidgetController {
 				$intervalString = '';
 		}
 		if ($intervalString === '') {
-			return FALSE;
+			return false;
 		}
 
 		$interval = new \DateInterval($intervalString);

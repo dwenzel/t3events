@@ -4,7 +4,7 @@ namespace Webfox\T3events\Tests\Unit\Domain\Model;
 	/***************************************************************
 	 *  Copyright notice
 	 *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
-	 *            Michael Kasten <kasten@webfox01.de>, Agentur Webfox
+	 *  Michael Kasten <kasten@webfox01.de>, Agentur Webfox
 	 *  All rights reserved
 	 *  This script is part of the TYPO3 project. The TYPO3 project is
 	 *  free software; you can redistribute it and/or modify
@@ -19,21 +19,22 @@ namespace Webfox\T3events\Tests\Unit\Domain\Model;
 	 *  GNU General Public License for more details.
 	 *  This copyright notice MUST APPEAR in all copies of the script!
 	 ***************************************************************/
-
-/**
- * Test case for class \Webfox\T3events\Domain\Model\Dto\EventDemand.
- *
- * @version $Id$
- * @copyright Copyright belongs to the respective authors
- * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- * @package TYPO3
- * @subpackage Events
- * @author Dirk Wenzel <wenzel@webfox01.de>
- * @author Michael Kasten <kasten@webfox01.de>
- * @coversDefaultClass \Webfox\T3events\Domain\Model\Dto\EventDemand
- */
-class EventDemandTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
-
+use TYPO3\CMS\Core\Tests\UnitTestCase;
+ /**
+  * Test case for class \Webfox\T3events\Domain\Model\Dto\EventDemand.
+  * 
+  * @version $Id$
+  * @copyright Copyright belongs to the respective authors
+  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
+  *
+  * @package TYPO3
+  * @subpackage Events
+  *
+  * @author Dirk Wenzel <wenzel@webfox01.de>
+  * @author Michael Kasten <kasten@webfox01.de>
+	* @coversDefaultClass \Webfox\T3events\Domain\Model\Dto\EventDemand
+  */
+ class EventDemandTest extends UnitTestCase {
 	/**
 	 * @var \Webfox\T3events\Domain\Model\EventDemand
 	 */
@@ -111,22 +112,22 @@ class EventDemandTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 */
 	public function getCategoryConjunctionReturnsInitialNull() {
 		$this->assertEquals(
-			NULL,
-			$this->fixture->getCategoryConjunction()
-		);
+				NULL,
+				$this->fixture->getCategoryConjunction()
+			);
 	}
 
 	/**
 	 * @test
 	 * @covers ::setCategoryConjunction
 	 */
-	public function setCategoryConjunctionForStringSetsCategoryConjunction() {
+	public function setCategoryConjunctionForStringSetsCategoryConjunction(){
 		$this->fixture->setCategoryConjunction('asc');
 
 		$this->assertSame(
-			'asc',
-			$this->fixture->getCategoryConjunction()
-		);
+				'asc',
+				$this->fixture->getCategoryConjunction()
+				);
 	}
 }
 

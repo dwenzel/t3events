@@ -1,0 +1,16 @@
+<div class="list-item short">
+	<p class="date place">
+		<f:format.date format="d.m.Y">{performance.date}</f:format.date>
+		<f:if condition="{performance.eventLocation.place}">
+			<span class="place"> - {performance.eventLocation.place}</span><br />
+		</f:if>
+	</p>
+	<p>
+		<f:link.action
+			action="show"
+			arguments="{performance: performance}"
+			pageUid="{settings.performance.detailPid}">
+			{performance.course.headline}
+		</f:link.action>
+	</p>
+</div>

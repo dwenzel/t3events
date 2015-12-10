@@ -28,6 +28,13 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 class AbstractDemand extends AbstractEntity implements DemandInterface {
 
 	/**
+	 * Category Conjunction
+	 *
+	 * @var \string
+	 */
+	protected $categoryConjunction;
+
+	/**
 	 * @var \string  A time period
 	 */
 	protected $period;
@@ -101,6 +108,15 @@ class AbstractDemand extends AbstractEntity implements DemandInterface {
 	 * @var \Webfox\T3events\Domain\Model\Dto\Search
 	 */
 	protected $search;
+
+	/**
+	 * Returns the Category Conjunction
+	 *
+	 * @return \string
+	 */
+	public function getCategoryConjunction() {
+		return $this->categoryConjunction;
+	}
 
 	/**
 	 * Sets the limit
@@ -336,5 +352,15 @@ class AbstractDemand extends AbstractEntity implements DemandInterface {
 	 */
 	public function setSearch(Search $search) {
 		$this->search = $search;
+	}
+
+	/**
+	 * Set Category Conjunction
+	 *
+	 * @param \string $categoryConjunction
+	 * @return void
+	 */
+	public function setCategoryConjunction($categoryConjunction) {
+		$this->categoryConjunction = $categoryConjunction;
 	}
 }

@@ -1,24 +1,30 @@
 <?php
 namespace Webfox\T3events\Tests\Unit\Domain\Model;
-
-	/***************************************************************
-	 *  Copyright notice
-	 *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
-	 *            Michael Kasten <kasten@webfox01.de>, Agentur Webfox
-	 *  All rights reserved
-	 *  This script is part of the TYPO3 project. The TYPO3 project is
-	 *  free software; you can redistribute it and/or modify
-	 *  it under the terms of the GNU General Public License as published by
-	 *  the Free Software Foundation; either version 2 of the License, or
-	 *  (at your option) any later version.
-	 *  The GNU General Public License can be found at
-	 *  http://www.gnu.org/copyleft/gpl.html.
-	 *  This script is distributed in the hope that it will be useful,
-	 *  but WITHOUT ANY WARRANTY; without even the implied warranty of
-	 *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	 *  GNU General Public License for more details.
-	 *  This copyright notice MUST APPEAR in all copies of the script!
-	 ***************************************************************/
+/***************************************************************
+ *  Copyright notice
+ *
+ *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
+ *  Michael Kasten <kasten@webfox01.de>, Agentur Webfox
+ *
+ *  All rights reserved
+ *
+ *  This script is part of the TYPO3 project. The TYPO3 project is
+ *  free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  The GNU General Public License can be found at
+ *  http://www.gnu.org/copyleft/gpl.html.
+ *
+ *  This script is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
+use Webfox\T3events\Domain\Model\Event;
 
 /**
  * Test case for class \Webfox\T3events\Domain\Model\Performance.
@@ -477,6 +483,29 @@ class PerformanceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	public function setHiddenForIntegerSetsHidden() {
 		$this->fixture->setHidden(1);
 		$this->assertSame(1, $this->fixture->getHidden());
+	}
+
+	/**
+	 * @test
+	 * @covers ::getEvent
+	 */
+	public function getEventForObjectInitiallyReturnsNull() {
+		$this->assertNull(
+			$this->fixture->getEvent()
+		);
+	}
+
+	/**
+	 * @test
+	 * @covers ::setEvent
+	 */
+	public function setEventForObjectSetsEvent() {
+		$event = new Event();
+		$this->fixture->setEvent($event);
+		$this->assertSame(
+			$event,
+			$this->fixture->getEvent()
+		);
 	}
 }
 

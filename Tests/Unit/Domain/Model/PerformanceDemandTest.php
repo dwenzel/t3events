@@ -3,7 +3,7 @@ namespace Webfox\T3events\Tests\Unit\Domain\Model;
 /***************************************************************
  *  Copyright notice
  *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
- *            Michael Kasten <kasten@webfox01.de>, Agentur Webfox
+ *  Michael Kasten <kasten@webfox01.de>, Agentur Webfox
  *  All rights reserved
  *  This script is part of the TYPO3 project. The TYPO3 project is
  *  free software; you can redistribute it and/or modify
@@ -22,13 +22,8 @@ namespace Webfox\T3events\Tests\Unit\Domain\Model;
 /**
  * Test case for class \Webfox\T3events\Domain\Model\Dto\PerformanceDemand.
  *
- * @version $Id$
- * @copyright Copyright belongs to the respective authors
- * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- * @package TYPO3
- * @subpackage Events
  * @author Dirk Wenzel <wenzel@webfox01.de>
- * @author Michael Kasten <kasten@webfox01.de>
+ * @coversDefaultClass \Webfox\T3events\Domain\Model\Dto\PerformanceDemand
  */
 class PerformanceDemandTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
@@ -80,6 +75,65 @@ class PerformanceDemandTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 		$this->assertEquals($status, $this->fixture->getStatus());
 	}
+
+	//
+
+	/**
+	 * @test
+	 * @covers ::getGenres
+	 */
+	public function getGenresReturnsInitialNull(){
+		$this->assertSame(NULL, $this->fixture->getGenres());
+	}
+
+	/**
+	 * @test
+	 * @covers ::setGenres
+	 */
+	public function setGenresForStringSetsGenres(){
+		$this->fixture->setGenres('1');
+		$this->assertSame('1', $this->fixture->getGenres());
+	}
+
+	/**
+	 * @test
+	 * @covers ::getVenues
+	 */
+	public function getVenuesReturnsInitialNull(){
+		$this->assertSame(NULL, $this->fixture->getVenues());
+	}
+
+	/**
+	 * @test
+	 * @covers ::setVenues
+	 */
+	public function setVenuesForStringSetsVenues(){
+		$this->fixture->setVenues('1');
+		$this->assertSame('1', $this->fixture->getVenues());
+	}
+
+	/**
+	 * @test
+	 * @covers ::getEventTypes
+	 */
+	public function getEventTypesReturnsInitialNull() {
+		$this->assertEquals(
+			NULL,
+			$this->fixture->getEventTypes()
+		);
+	}
+
+	/**
+	 * @test
+	 * @covers ::setEventTypes
+	 */
+	public function setEventTypesForStringSetsEventTypes(){
+		$this->fixture->setEventTypes('1,2,3');
+
+		$this->assertSame(
+			'1,2,3',
+			$this->fixture->getEventTypes()
+		);
+	}
 }
 
-?>

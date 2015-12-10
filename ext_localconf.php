@@ -8,11 +8,13 @@ if (!defined('TYPO3_MODE')) {
 	'Events',
 	array(
 		'Event' => 'list, show, quickMenu',
+		'Performance' => 'list, show, quickMenu',
 		'Teaser' => 'list, show',
 	),
 	// non-cacheable actions
 	array(
 		'Event' => 'quickMenu',
+		'Performances' => 'quickMenu',
 	)
 );
 

@@ -48,14 +48,14 @@ class EventDemand extends AbstractDemand {
 	 */
 	protected $eventType;
 
-	/**
+	/** 
 	 * Category Conjunction
 	 *
 	 * @var \string
 	 */
 	protected $categoryConjunction;
-
-	/**
+ 	
+ 	/**
 	 * Returns the genre
 	 *
 	 * @return \string $genre
@@ -111,19 +111,19 @@ class EventDemand extends AbstractDemand {
 	public function setEventType($eventType) {
 		$this->eventType = $eventType;
 	}
-
+	
 	/**
 	 * Returns the Category Conjunction
-	 *
+	 * 
 	 * @return \string
 	 */
 	public function getCategoryConjunction() {
 		return $this->categoryConjunction;
 	}
-
+	
 	/**
 	 * Set Category Conjunction
-	 *
+	 * 
 	 * @param \string $categoryConjunction
 	 * @return void
 	 */
@@ -131,5 +131,5 @@ class EventDemand extends AbstractDemand {
 		$this->categoryConjunction = $categoryConjunction;
 	}
 
-}
+  }
 

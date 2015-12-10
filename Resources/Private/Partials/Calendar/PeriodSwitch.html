@@ -1,44 +1,29 @@
+{namespace ts=Webfox\T3events\ViewHelpers}
 <div class="navigation">
 	<div class="button-group">
-		<f:widget.link arguments="{display: 'previous', period: '{configuration.displayPeriod}', date: '{configuration.startDate.timestamp}'}"
-			data="{calendarId: calendarId}"
-			ajax="{configuration.ajaxEnabled}"
-			>
+		<f:widget.link arguments="{display: 'previous', period: '{configuration.displayPeriod}', date: '{configuration.startDate.timestamp}'}">
 			<i class="fa fa-2x fa-angle-left"></i>
 		</f:widget.link>
 		<f:widget.link
-			arguments="{date: '{f:format.date(format: \'U\', base: \'+1d\', date: \'today\')}', period: 0}"
-			data="{calendarId: calendarId}"
-			ajax="{configuration.ajaxEnabled}"
+			arguments="{date: '{ts:format.date(format: \'U\', base: \'+1d\', date: \'today\')}', period: 0}"
 			class="button {f:if(condition: '{calendar.displayPeriod} == 0', then: 'active')}"
 			>
 			<f:translate key="displayPeriod.day" default="Day" />
 		</f:widget.link>
-		<f:widget.link arguments="{period: 1, date: '{f:format.date(format: \'U\', base: \'+0d\', date: \'monday this week\')}'}"
-			data="{calendarId: calendarId}"
-			ajax="{configuration.ajaxEnabled}"
+		<f:widget.link arguments="{period: 1, date: '{ts:format.date(format: \'U\', base: \'+0d\', date: \'monday this week\')}'}"
 			class="button {f:if(condition: '{calendar.displayPeriod} == 1', then: 'active')}"
 			>
 			<f:translate key="displayPeriod.week" default="Week" />
 		</f:widget.link>
-		<f:widget.link arguments="{period: 2, date: '{f:format.date(format: \'U\', base: \'+1d\', date: \'first day of this month\')}'}"
-			data="{calendarId: calendarId}"
-			ajax="{configuration.ajaxEnabled}"
-			class="button {f:if(condition: '{calendar.displayPeriod} == 2', then: 'active')}"
-			>
-			<f:translate key="displayPeriod.month" default="Month" />
+		<f:widget.link arguments="{period: 2, date: '{ts:format.date(format: \'U\', base: \'+1d\', date: \'first day of this month\')}'}"
+			class="button {f:if(condition: '{calendar.displayPeriod} == 2', then: 'active')}">
+			<f:translate key="displayPeriod.month" default="Month"/>
 		</f:widget.link>
 		<f:widget.link arguments="{period: 6, date: '{configuration.startDate.timestamp}'}"
-			data="{calendarId: calendarId}"
-			ajax="{configuration.ajaxEnabled}"
-			class="button {f:if(condition: '{calendar.displayPeriod} == 6', then: 'active')}"
-			>
-			<f:translate key="displayPeriod.year" default="Year" />
+			class="button {f:if(condition: '{calendar.displayPeriod} == 6', then: 'active')}">
+			<f:translate key="displayPeriod.year" default="Year"/>
 		</f:widget.link>
-		<f:widget.link arguments="{display: 'next', period: '{configuration.displayPeriod}', date: '{configuration.startDate.timestamp}'}"
-			data="{calendarId: calendarId}"
-			ajax="{configuration.ajaxEnabled}"
-			>
+		<f:widget.link arguments="{display: 'next', period: '{configuration.displayPeriod}', date: '{configuration.startDate.timestamp}'}">
 			<i class="fa fa-2x fa-angle-right"></i>
 		</f:widget.link>
 	</div>
