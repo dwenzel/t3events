@@ -5,7 +5,7 @@ if (!defined('TYPO3_MODE')) {
 
 return array(
 	'ctrl' => array(
-		'title' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_performancestatus',
+		'title' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_performancestatus',
 		'label' => 'title',
 		'tstamp' => 'tstamp',
 		'crdate' => 'crdate',
@@ -119,7 +119,7 @@ return array(
 		),
 		'title' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_performancestatus.title',
+			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_performancestatus.title',
 			'config' => array(
 				'type' => 'input',
 				'size' => 30,
@@ -128,7 +128,7 @@ return array(
 		),
 		'css_class' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_performancestatus.css_class',
+			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_performancestatus.css_class',
 			'config' => array(
 				'type' => 'input',
 				'size' => 30,
@@ -137,7 +137,7 @@ return array(
 		),
 		'priority' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_performancestatus.priority',
+			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_performancestatus.priority',
 			'config' => array(
 				'type' => 'input',
 				'size' => 4,

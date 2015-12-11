@@ -71,9 +71,9 @@ $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignat
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_t3events_domain_model_company');
 
 $TCA['static_countries']['columns'][$TCA['static_countries']['ctrl']['type']]['config']['items'][] = array(
-	'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:static_countries.tx_extbase_type.Tx_T3events_Country', 'Tx_T3events_Country'
+	'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:static_countries.tx_extbase_type.Tx_T3events_Country', 'Tx_T3events_Country'
 );
 
 $TCA['static_countries']['types']['Tx_T3events_Country']['showitem'] = $TCA['static_countries']['types']['1']['showitem'];
-$TCA['static_countries']['types']['Tx_T3events_Country']['showitem'] .= ',--div--;LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_country,';
+$TCA['static_countries']['types']['Tx_T3events_Country']['showitem'] .= ',--div--;LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_country,';
 $TCA['static_countries']['types']['Tx_T3events_Country']['showitem'] .= '';

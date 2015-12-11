@@ -5,7 +5,7 @@ if (!defined('TYPO3_MODE')) {
 
 return array(
 	'ctrl' => array(
-		'title' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_task',
+		'title' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_task',
 		'label' => 'name',
 		'tstamp' => 'tstamp',
 		'crdate' => 'crdate',
@@ -122,7 +122,7 @@ return array(
 		),
 		'name' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_task.name',
+			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_task.name',
 			'config' => array(
 				'type' => 'input',
 				'size' => 30,
@@ -131,7 +131,7 @@ return array(
 		),
 		'description' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_task.description',
+			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_task.description',
 			'config' => array(
 				'type' => 'text',
 				'size' => 30,
@@ -140,14 +140,14 @@ return array(
 		),
 		'action' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_task.action',
+			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_task.action',
 			'config' => array(
 				'type' => 'select',
 				'items' => array(
-					array('LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_task.action.none', 0),
-					array('LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_task.action.updateStatus', 1),
+					array('LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_task.action.none', 0),
+					array('LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_task.action.updateStatus', 1),
 					array('delete', 2),
-					array('LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_task.action.hidePerformance', 3),
+					array('LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_task.action.hidePerformance', 3),
 				),
 				'size' => 1,
 				'maxitems' => 1,
@@ -156,7 +156,7 @@ return array(
 		),
 		'period' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_task.period',
+			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_task.period',
 			'config' => array(
 				'type' => 'input',
 				'size' => 5,
@@ -165,7 +165,7 @@ return array(
 		),
 		'old_status' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_task.old_status',
+			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_task.old_status',
 			'config' => array(
 				'type' => 'select',
 				'foreign_table' => 'tx_t3events_domain_model_performancestatus',
@@ -178,7 +178,7 @@ return array(
 		),
 		'new_status' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_task.new_status',
+			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_task.new_status',
 			'config' => array(
 				'type' => 'select',
 				'foreign_table' => 'tx_t3events_domain_model_performancestatus',
@@ -191,7 +191,7 @@ return array(
 		),
 		'folder' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_task.folder',
+			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_task.folder',
 			'config' => array(
 				'type' => 'group',
 				'internal_type' => 'db',

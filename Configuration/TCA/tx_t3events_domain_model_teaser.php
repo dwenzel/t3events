@@ -5,7 +5,7 @@ if (!defined('TYPO3_MODE')) {
 
 return array(
 	'ctrl' => array(
-		'title' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_teaser',
+		'title' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_teaser',
 		'label' => 'title',
 		'tstamp' => 'tstamp',
 		'crdate' => 'crdate',
@@ -122,7 +122,7 @@ return array(
 		),
 		'title' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_teaser.title',
+			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_teaser.title',
 			'config' => array(
 				'type' => 'input',
 				'size' => 30,
@@ -131,7 +131,7 @@ return array(
 		),
 		'details' => array(
 			'exclude' => 1,
-			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_teaser.details',
+			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_teaser.details',
 			'config' => array(
 				'type' => 'text',
 				'cols' => 40,
@@ -141,7 +141,7 @@ return array(
 		),
 		'inherit_data' => array(
 			'exclude' => 1,
-			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_teaser.inherit_data',
+			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_teaser.inherit_data',
 			'config' => array(
 				'type' => 'check',
 				'default' => 0
@@ -149,7 +149,7 @@ return array(
 		),
 		'image' => array(
 			'exclude' => 1,
-			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_teaser.image',
+			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_teaser.image',
 			'config' => array(
 				'type' => 'group',
 				'internal_type' => 'file',
@@ -162,7 +162,7 @@ return array(
 		),
 		'is_highlight' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_teaser.is_highlight',
+			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_teaser.is_highlight',
 			'config' => array(
 				'type' => 'check',
 				'default' => 0
@@ -170,7 +170,7 @@ return array(
 		),
 		'location' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_teaser.location',
+			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_teaser.location',
 			'config' => array(
 				'type' => 'select',
 				'foreign_table' => 'tx_t3events_domain_model_venue',
@@ -182,7 +182,7 @@ return array(
 		),
 		'event' => array(
 			'exclude' => 0,
-			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_teaser.event',
+			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_teaser.event',
 			'config' => array(
 				'type' => 'group',
 				'foreign_table' => 'tx_t3events_domain_model_event',
@@ -224,7 +224,7 @@ return array(
 		),
 		'external_link' => array(
 			'exclude' => 1,
-			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xml:tx_t3events_domain_model_teaser.external_link',
+			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_teaser.external_link',
 			'config' => array(
 				'type' => 'input',
 				'size' => 30,
