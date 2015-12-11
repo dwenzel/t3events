@@ -1142,7 +1142,8 @@ class EventControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 			array(
 				'createDemandFromSettings',
 				'overwriteDemandObject',
-				'createCalendarConfigurationFromSettings'
+				'createCalendarConfigurationFromSettings',
+				'emitSignal'
 			), array(), '', FALSE);
 
 		$settings = array('foo' => 'bar');

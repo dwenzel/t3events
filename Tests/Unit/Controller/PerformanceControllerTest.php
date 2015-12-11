@@ -19,6 +19,7 @@ namespace Webfox\T3events\Tests\Unit\Controller;
 	 *  GNU General Public License for more details.
 	 *  This copyright notice MUST APPEAR in all copies of the script!
 	 ***************************************************************/
+use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 
 /**
  * Test case for class \Webfox\T3events\Controller\PerformanceController.
@@ -884,7 +885,7 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	public function listActionCallsCreateDemandFromSettings() {
 		$this->fixture = $this->getAccessibleMock(
 			'Webfox\\T3events\\Controller\\PerformanceController',
-			array('createDemandFromSettings'), array(), '', false
+			array('createDemandFromSettings', 'emitSignal'), array(), '', false
 		);
 		$repository = $this->getMock(
 			'Webfox\\T3events\\Domain\\Repository\\PerformanceRepository',
@@ -914,13 +915,17 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	public function listActionCallsOverwriteDemandObject() {
 		$this->fixture = $this->getAccessibleMock(
 			'Webfox\\T3events\\Controller\\PerformanceController',
-			array('overwriteDemandObject', 'createDemandFromSettings'), array(), '', false
+			array('overwriteDemandObject', 'createDemandFromSettings', 'emitSignal'), array(), '', false
 		);
 		$repository = $this->getMock(
 			'Webfox\\T3events\\Domain\\Repository\\PerformanceRepository',
 			array(), array(), '', false
 		);
 		$this->fixture->injectPerformanceRepository($repository);
+		/*$mockConfigurationManager = $this->getMock(
+			ConfigurationManagerInterface::class, ['getContentObject']
+		);
+		$this->fixture->_set('configurationManager', $mockConfigurationManager);*/
 		$view = $this->getMock(
 			'TYPO3\\CMS\\Fluid\\View\\TemplateView', array(), array(), '', FALSE);
 		$this->fixture->_set('view', $view);
@@ -947,7 +952,8 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	public function listActionCallsFindDemanded() {
 		$this->fixture = $this->getAccessibleMock(
 			'Webfox\\T3events\\Controller\\PerformanceController',
-			array('overwriteDemandObject', 'createDemandFromSettings'), array(), '', false
+			array('overwriteDemandObject', 'createDemandFromSettings', 'emitSignal'),
+			array(), '', false
 		);
 		$repository = $this->getMock(
 			'Webfox\\T3events\\Domain\\Repository\\PerformanceRepository',
@@ -977,6 +983,33 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 			->with($mockDemand);
 
 		$this->fixture->listAction(array());
+	}
+
+	/**
+	 * @test
+	 */
+	public function showActionAssignsVariables() {
+		$this->markTestSkipped('wrong arguments in assignMultiple');
+		$fixture = $this->getAccessibleMock(
+			'Webfox\\T3events\\Controller\\PerformanceController',
+			['emitSignal'], [], '', false
+		);
+		$fixture->expects($this->once())
+			->method('emitSignal');
+		$settings = array('foo');
+		$performance = new Performance();
+		$view = $this->getMock(
+			'TYPO3\\CMS\\Fluid\\View\\TemplateView',
+			['assignMultiple'],
+			[], '', false);
+		$view->expects($this->once())
+			->method('assignMultiple')
+			->with(['settings' => $settings, 'performance' => $performance]);
+
+		$fixture->_set('view', $view);
+		$fixture->_set('settings', $settings);
+
+		$fixture->showAction($performance);
 	}
 }
 

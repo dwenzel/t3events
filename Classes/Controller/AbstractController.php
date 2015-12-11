@@ -10,6 +10,7 @@ namespace Webfox\T3events\Controller;
 	 * LICENSE.txt file that was distributed with this source code.
 	 * The TYPO3 project - inspiring people to share!
 	 */
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 /**
  * @package t3evetns
@@ -175,8 +176,29 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	 * @param \string $extension
 	 * @param \array $arguments
 	 * @codeCoverageIgnore
+	 * @return null|string
 	 */
 	public function translate($key, $extension = 't3events', $arguments = NULL) {
-		return \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate($key, $extension, $arguments);
+		return LocalizationUtility::translate($key, $extension, $arguments);
+	}
+
+	/**
+	 * Emits signals
+	 *
+	 * @param string $class Name of the signaling class
+	 * @param string $name Signal name
+	 * @param array $arguments Signal arguments
+	 * @codeCoverageIgnore
+	 * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException
+	 * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
+	 */
+	protected function emitSignal($class, $name, array &$arguments) {
+		/**
+		 * Wrap arguments into array in order to allow changing the arguments
+		 * count. Dispatcher throws InvalidSlotReturnException if slotResult count
+		 * differs.
+		 */
+		$slotResult = $this->signalSlotDispatcher->dispatch($class, $name, [$arguments]);
+		$arguments = $slotResult[0];
 	}
 }

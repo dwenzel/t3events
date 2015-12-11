@@ -33,6 +33,9 @@ use Webfox\T3events\Domain\Model\Performance;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
 class PerformanceController extends AbstractController {
+	const PERFORMANCE_LIST_ACTION = 'listAction';
+	const PERFORMANCE_SHOW_ACTION = 'showAction';
+	const SESSION_NAME_SPACE = 'performanceController';
 
 	/**
 	 * performanceRepository
@@ -62,13 +65,14 @@ class PerformanceController extends AbstractController {
 		$this->overwriteDemandObject($demand, $overwriteDemand);
 		$performances = $this->performanceRepository->findDemanded($demand);
 
-		$this->view->assignMultiple(
-			array(
-				'performances' => $performances,
-				'settings' => $this->settings,
-				'overwriteDemand' => $overwriteDemand
-			)
-		);
+		$templateVariables = [
+			'performances' => $performances,
+			'settings' => $this->settings,
+			'overwriteDemand' => $overwriteDemand,
+			'data' => $this->contentObject->data
+		];
+		$this->emitSignal(__CLASS__, self::PERFORMANCE_LIST_ACTION, $templateVariables);
+		$this->view->assignMultiple($templateVariables);
 	}
 
 	/**
@@ -78,7 +82,13 @@ class PerformanceController extends AbstractController {
 	 * @return void
 	 */
 	public function showAction(Performance $performance) {
-		$this->view->assign('performance', $performance);
+		$templateVariables = [
+			'settings' => $this->settings,
+			'performance' => $performance
+		];
+
+		$this->emitSignal(__CLASS__, self::PERFORMANCE_SHOW_ACTION, $templateVariables);
+		$this->view->assignMultiple($templateVariables);
 	}
 
 

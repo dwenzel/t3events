@@ -31,6 +31,10 @@ use Webfox\T3events\Domain\Model\Event;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
 class EventController extends AbstractController {
+	const EVENT_QUICK_MENU_ACTION = 'quickMenuAction';
+	const EVENT_LIST_ACTION = 'listAction';
+	const EVENT_SHOW_ACTION = 'showAction';
+	const EVENT_CALENDAR_ACTION = 'calendarAction';
 
 	/**
 	 * eventRepository
@@ -124,14 +128,17 @@ class EventController extends AbstractController {
 				FlashMessage::WARNING
 			);
 		}
-		$this->view->assignMultiple(
-			array(
-				'events' => $events,
-				'demand' => $demand,
-				'overwriteDemand' => $overwriteDemand,
-				'data' => $this->configurationManager->getContentObject()->data
-			)
-		);
+
+		$templateVariables = [
+			'events' => $events,
+			'demand' => $demand,
+			'settings' => $this->settings,
+			'overwriteDemand' => $overwriteDemand,
+			'data' => $this->configurationManager->getContentObject()->data
+		];
+
+		$this->emitSignal(__CLASS__, self::EVENT_LIST_ACTION, $templateVariables);
+		$this->view->assignMultiple($templateVariables);
 	}
 
 	/**
@@ -141,7 +148,12 @@ class EventController extends AbstractController {
 	 * @return void
 	 */
 	public function showAction(\Webfox\T3events\Domain\Model\Event $event) {
-		$this->view->assign('event', $event);
+		$templateVariables = [
+			'settings' => $this->settings,
+			'event' => $event
+		];
+		$this->emitSignal(__CLASS__, self::EVENT_SHOW_ACTION, $templateVariables);
+		$this->view->assignMultiple($templateVariables);
 	}
 
 	/**
@@ -163,12 +175,18 @@ class EventController extends AbstractController {
 
 		// get event types from plugin
 		$eventTypes = $this->eventTypeRepository->findMultipleByUid($this->settings['eventTypes'], 'title');
+
+		$templateVariables = [
+			'genres' => $genres,
+			'venues' => $venues,
+			'eventTypes' => $eventTypes,
+			'settings' => $this->settings,
+			'overwriteDemand' => $overwriteDemand
+		];
+
+		$this->emitSignal(__CLASS__, self::EVENT_QUICK_MENU_ACTION, $templateVariables);
 		$this->view->assignMultiple(
-			array(
-				'genres' => $genres,
-				'venues' => $venues,
-				'eventTypes' => $eventTypes
-			)
+			$templateVariables
 		);
 	}
 
@@ -183,14 +201,15 @@ class EventController extends AbstractController {
 		$demand = $this->overwriteDemandObject($demand, $overwriteDemand);
 		$events = $this->eventRepository->findDemanded($demand);
 		$calendarConfiguration = $this->createCalendarConfigurationFromSettings($this->settings);
+		$templateVariables = [
+			'events' => $events,
+			'demand' => $demand,
+			'calendarConfiguration' => $calendarConfiguration,
+			'overwriteDemand' => $overwriteDemand
+		];
 
-		$this->view->assignMultiple(
-			array(
-				'events' => $events,
-				'demand' => $demand,
-				'calendarConfiguration' => $calendarConfiguration,
-			)
-		);
+		$this->emitSignal(__CLASS__, self::EVENT_CALENDAR_ACTION, $templateVariables);
+		$this->view->assignMultiple($templateVariables);
 	}
 
 	/**

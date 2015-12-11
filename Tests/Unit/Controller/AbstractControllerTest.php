@@ -10,6 +10,8 @@ namespace Webfox\T3events\Tests;
 	 * LICENSE.txt file that was distributed with this source code.
 	 * The TYPO3 project - inspiring people to share!
 	 */
+use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
+use Webfox\T3events\Controller\AbstractController;
 
 /**
  * Test case for class Webfox\T3events\Controller\AbstractController.
