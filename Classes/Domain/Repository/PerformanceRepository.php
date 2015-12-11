@@ -19,6 +19,7 @@ namespace Webfox\T3events\Domain\Repository;
  *  GNU General Public License for more details.
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use Webfox\T3events\Domain\Model\Dto\PerformanceDemand;
 
 /**
@@ -55,12 +56,30 @@ class PerformanceRepository extends AbstractDemandedRepository {
 			}
 		}
 		if ($demand->getStoragePages() !== NULL) {
-			$pages = \TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $demand->getStoragePages());
+			$pages = GeneralUtility::intExplode(',', $demand->getStoragePages());
 			$constraints[] = $query->in('pid', $pages);
 		}
 		if ($demand->getEventLocations()) {
-			$eventLocations = \TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $demand->getEventLocations());
-			$constraints[] = $query->in('eventLocation', $eventLocations);
+			$eventLocations = GeneralUtility::intExplode(',', $demand->getEventLocations());
+			foreach ($eventLocations as $eventLocation) {
+				$constraints[] = $query->in('eventLocation', $eventLocation);
+			}
+		}
+		if (!empty($demand->getGenres())) {
+			$genres = GeneralUtility::intExplode(',', $demand->getGenres());
+			foreach ($genres as $genre) {
+				$constraints[] = $query->contains('event.genre', $genre);
+			}
+		}
+		if (!empty($demand->getVenues())) {
+			$venues = GeneralUtility::intExplode(',', $demand->getVenues());
+			foreach ($venues as $venue) {
+				$constraints[] = $query->contains('event.venue', $venue);
+			}
+		}
+		if (!empty($demand->getEventTypes())) {
+			$eventTypes = GeneralUtility::intExplode(',', $demand->getEventTypes());
+			$constraints[] = $query->in('event.eventType', $eventTypes);
 		}
 
 		return $constraints;

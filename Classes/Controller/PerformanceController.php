@@ -124,11 +124,11 @@ class PerformanceController extends AbstractController {
 		if ($settings['sortBy'] == 'headline') {
 			$settings['sortBy'] = 'event.headline';
 		}
-		foreach($settings as $name=>$value) {
-			if(empty($value)) {
+		foreach ($settings as $name => $value) {
+			if (empty($value)) {
 				continue;
 			}
-			switch($name) {
+			switch ($name) {
 				case 'maxItems':
 					$demand->setLimit($value);
 					break;
@@ -162,11 +162,11 @@ class PerformanceController extends AbstractController {
 
 		$demand->setOrder($settings['sortBy'] . '|' . $settings['sortDirection']);
 
-		if($settings['periodType'] == 'byDate') {
-			if($settings['periodStartDate']) {
+		if ($settings['periodType'] == 'byDate') {
+			if ($settings['periodStartDate']) {
 				$demand->setStartDate($settings['periodStartDate']);
 			}
-			if($settings['periodEndDate']) {
+			if ($settings['periodEndDate']) {
 				$demand->setEndDate($settings['periodEndDate']);
 			}
 		}
@@ -181,7 +181,7 @@ class PerformanceController extends AbstractController {
 	 * @param array $overwriteDemand
 	 */
 	public function overwriteDemandObject($demand, $overwriteDemand) {
-		if ((bool)$overwriteDemand) {
+		if ((bool) $overwriteDemand) {
 			foreach ($overwriteDemand as $propertyName => $propertyValue) {
 				switch ($propertyName) {
 					case 'sortBy':
@@ -192,17 +192,35 @@ class PerformanceController extends AbstractController {
 						$demand->setOrder($orderings);
 						$demand->setSortBy($overwriteDemand['sortBy']);
 						break;
+					case 'search':
+						$searchObj = $this->createSearchObject(
+							$overwriteDemand['search'],
+							$this->settings['event']['search']
+						);
+						$demand->setSearch($searchObj);
+						break;
+					case 'genre':
+						$demand->setGenres($propertyValue);
+						break;
+					case 'venue':
+						$demand->setVenues($propertyValue);
+						break;
+					case 'eventLocation':
+						$demand->setEventLocations($propertyValue);
+						break;
+					case 'eventType':
+						$demand->setEventTypes($propertyValue);
+						break;
 					case 'sortDirection':
 						if ($propertyValue !== 'desc') {
 							$propertyValue = 'asc';
 						}
-						// fall through to default
+					// fall through to default
 					default:
 						if (ObjectAccess::isPropertySettable($demand, $propertyName)) {
 							ObjectAccess::setProperty($demand, $propertyName, $propertyValue);
 						}
 				}
-
 			}
 			$this->session->set('tx_t3events_overwriteDemand', serialize($overwriteDemand));
 		}
