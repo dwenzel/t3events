@@ -164,16 +164,11 @@ class EventController extends AbstractController {
 	public function quickMenuAction() {
 
 		// get session data
-		$sessionData = $GLOBALS['TSFE']->fe_user->getKey('ses', 'tx_t3events_overwriteDemand');
-		$this->view->assign('overwriteDemand', unserialize($sessionData));
+		$overwriteDemand = unserialize($GLOBALS['TSFE']->fe_user->getKey('ses', 'tx_t3events_overwriteDemand'));
 
-		// get genres from plugin
+		// get filter options from plugin
 		$genres = $this->genreRepository->findMultipleByUid($this->settings['genres'], 'title');
-
-		// get venues from plugin
 		$venues = $this->venueRepository->findMultipleByUid($this->settings['venues'], 'title');
-
-		// get event types from plugin
 		$eventTypes = $this->eventTypeRepository->findMultipleByUid($this->settings['eventTypes'], 'title');
 
 		$templateVariables = [
