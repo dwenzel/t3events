@@ -171,32 +171,6 @@ class EventRepository extends AbstractDemandedRepository {
 		return $constraints;
 	}
 
-	/**
-	 * Create search constraints from demand
-	 *
-	 * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
-	 * @param \Webfox\T3events\Domain\Model\Dto\EventDemand $demand
-	 * @return array<\TYPO3\CMS\Extbase\Persistence\QOM\Constraint>
-	 */
-	protected function createSearchConstraints(QueryInterface $query, $demand) {
-		$searchConstraints = [];
-		if ($search = $demand->getSearch()) {
-			$subject = $search->getSubject();
-
-			if (!empty($subject)) {
-				// search text in specified search fields
-				$searchFields = GeneralUtility::trimExplode(',', $search->getFields(), TRUE);
-				if (count($searchFields) === 0) {
-					throw new \UnexpectedValueException('No search fields given', 1382608407);
-				}
-				foreach ($searchFields as $field) {
-					$searchConstraints[] = $query->like($field, '%' . $subject . '%');
-				}
-			}
-		}
-
-		return $searchConstraints;
-	}
 
 	/**
 	 * Create location constraints from demand
