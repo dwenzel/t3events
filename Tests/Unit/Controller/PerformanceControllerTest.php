@@ -19,6 +19,10 @@ namespace Webfox\T3events\Tests\Unit\Controller;
 	 *  GNU General Public License for more details.
 	 *  This copyright notice MUST APPEAR in all copies of the script!
 	 ***************************************************************/
+use Webfox\T3events\Domain\Model\Performance;
+use Webfox\T3events\Session\SessionInterface;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 
 /**
@@ -44,7 +48,19 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 			array('dummy'), array(), '', FALSE);
 		$view = $this->getMock(
 			'TYPO3\\CMS\\Fluid\\View\\TemplateView', array(), array(), '', FALSE);
+		$mockSession = $this->getMock(
+			SessionInterface::class
+		);
+		$mockContentObject = $this->getMock(
+			ContentObjectRenderer::class
+		);
+		$mockDispatcher = $this->getMock(
+			Dispatcher::class
+		);
 		$this->fixture->_set('view', $view);
+		$this->fixture->_set('session', $mockSession);
+		$this->fixture->_set('contentObject', $mockContentObject);
+		$this->fixture->_set('signalSlotDispatcher', $mockDispatcher);
 	}
 
 	/**
@@ -869,6 +885,7 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$overwriteDemand = array(
 			'bar' => 'foo'
 		);
+
 		$sessionData = serialize($overwriteDemand);
 
 		$mockFEAuthentication->expects($this->once())->method('setKey')
