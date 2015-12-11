@@ -58,6 +58,10 @@
 										<numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.mode.performance_show</numIndex>
 										<numIndex index="1">Performance->show</numIndex>
 									</numIndex>
+									<numIndex index="9">
+										<numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.mode.quick_menu</numIndex>
+										<numIndex index="1">Performance->quickMenu</numIndex>
+									</numIndex>
 
 								</items>
 							</config>

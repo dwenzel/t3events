@@ -22,6 +22,10 @@ namespace Webfox\T3events\Controller;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 use Webfox\T3events\Domain\Model\Dto\PerformanceDemand;
 use Webfox\T3events\Domain\Model\Performance;
+use Webfox\T3events\Domain\Repository\EventTypeRepository;
+use Webfox\T3events\Domain\Repository\GenreRepository;
+use Webfox\T3events\Domain\Repository\PerformanceRepository;
+use Webfox\T3events\Domain\Repository\VenueRepository;
 use Webfox\T3events\Session\Typo3Session;
 
 /**
@@ -30,6 +34,7 @@ use Webfox\T3events\Session\Typo3Session;
  */
 class PerformanceController extends AbstractController {
 	const PERFORMANCE_LIST_ACTION = 'listAction';
+	const PERFORMANCE_QUICK_MENU_ACTION = 'quickMenuAction';
 	const PERFORMANCE_SHOW_ACTION = 'showAction';
 	const SESSION_NAME_SPACE = 'performanceController';
 
@@ -39,6 +44,27 @@ class PerformanceController extends AbstractController {
 	 * @var \Webfox\T3events\Domain\Repository\PerformanceRepository
 	 */
 	protected $performanceRepository;
+
+	/**
+	 * genreRepository
+	 *
+	 * @var \Webfox\T3events\Domain\Repository\GenreRepository
+	 */
+	protected $genreRepository;
+
+	/**
+	 * venueRepository
+	 *
+	 * @var \Webfox\T3events\Domain\Repository\VenueRepository
+	 */
+	protected $venueRepository;
+
+	/**
+	 * eventTypeRepository
+	 *
+	 * @var \Webfox\T3events\Domain\Repository\EventTypeRepository
+	 */
+	protected $eventTypeRepository;
 
 	/**
 	 * @var \Webfox\T3events\Session\SessionInterface
@@ -58,8 +84,38 @@ class PerformanceController extends AbstractController {
 	 * @param \Webfox\T3events\Domain\Repository\PerformanceRepository $performanceRepository
 	 * @return void
 	 */
-	public function injectPerformanceRepository(\Webfox\T3events\Domain\Repository\PerformanceRepository $performanceRepository) {
+	public function injectPerformanceRepository(PerformanceRepository $performanceRepository) {
 		$this->performanceRepository = $performanceRepository;
+	}
+
+	/**
+	 * injectGenreRepository
+	 *
+	 * @param \Webfox\T3events\Domain\Repository\GenreRepository $genreRepository
+	 * @return void
+	 */
+	public function injectGenreRepository(GenreRepository $genreRepository) {
+		$this->genreRepository = $genreRepository;
+	}
+
+	/**
+	 * injectVenueRepository
+	 *
+	 * @param \Webfox\T3events\Domain\Repository\VenueRepository $venueRepository
+	 * @return void
+	 */
+	public function injectVenueRepository(VenueRepository $venueRepository) {
+		$this->venueRepository = $venueRepository;
+	}
+
+	/**
+	 * injectEventTypeRepository
+	 *
+	 * @param \Webfox\T3events\Domain\Repository\EventTypeRepository $eventTypeRepository
+	 * @return void
+	 */
+	public function injectEventTypeRepository(EventTypeRepository $eventTypeRepository) {
+		$this->eventTypeRepository = $eventTypeRepository;
 	}
 
 	/**
@@ -76,7 +132,7 @@ class PerformanceController extends AbstractController {
 	 * @param array $overwriteDemand
 	 * @return void
 	 */
-	public function listAction(array $overwriteDemand = null) {
+	public function listAction(array $overwriteDemand = NULL) {
 		$demand = $this->createDemandFromSettings($this->settings);
 		$this->overwriteDemandObject($demand, $overwriteDemand);
 		$performances = $this->performanceRepository->findDemanded($demand);
@@ -107,6 +163,34 @@ class PerformanceController extends AbstractController {
 		$this->view->assignMultiple($templateVariables);
 	}
 
+	/**
+	 * action quickMenu
+	 *
+	 * @return void
+	 */
+	public function quickMenuAction() {
+
+		// get session data
+		$overwriteDemand = unserialize($this->session->get('tx_t3events_overwriteDemand'));
+
+		// get filter options from plugin
+		$genres = $this->genreRepository->findMultipleByUid($this->settings['genres'], 'title');
+		$venues = $this->venueRepository->findMultipleByUid($this->settings['venues'], 'title');
+		$eventTypes = $this->eventTypeRepository->findMultipleByUid($this->settings['eventTypes'], 'title');
+
+		$templateVariables = [
+			'genres' => $genres,
+			'venues' => $venues,
+			'eventTypes' => $eventTypes,
+			'settings' => $this->settings,
+			'overwriteDemand' => $overwriteDemand
+		];
+
+		$this->emitSignal(__CLASS__, self::PERFORMANCE_QUICK_MENU_ACTION, $templateVariables);
+		$this->view->assignMultiple(
+			$templateVariables
+		);
+	}
 
 	/**
 	 * Create Demand from Settings
