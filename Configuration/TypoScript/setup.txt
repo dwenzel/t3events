@@ -36,7 +36,6 @@ plugin.tx_t3events {
 				demand = 0
 			}
 		}
-
 		teaser {
 			dummyImage = EXT:t3events/Resources/Public/Images/dummy-image.png
 			image {
@@ -44,7 +43,6 @@ plugin.tx_t3events {
 				height = 93
 			}
 		}
-
 		event {
 			list {
 				dummyImage = EXT:t3events/Resources/Public/Images/dummy-image.png
@@ -56,22 +54,18 @@ plugin.tx_t3events {
 				paginate = 1
 				showSortBy = 1
 			}
-
-			// list
 			single {
 				dummyImage = EXT:t3events/Resources/Public/Images/dummy-image.png
 				image {
 					width = 200
 					height = 200
 				}
-
 				eventLocation {
 					image {
 						width = 290m
 						height = 200
 					}
 				}
-
 				plan {
 					image {
 						width = 290m
@@ -79,8 +73,6 @@ plugin.tx_t3events {
 					}
 				}
 			}
-
-			// single
 			search {
 				fields = {$plugin.tx_t3events.settings.event.search.fields}
 				radius {
@@ -95,8 +87,21 @@ plugin.tx_t3events {
 				}
 			}
 		}
-
-		// event
+		performance {
+			search {
+				fields = {$plugin.tx_t3events.settings.performance.search.fields}
+				radius {
+					unit = km
+					options {
+						50000 = 50 km
+						100000 = 100 km
+						250000 = 250 km
+						500000 = 500 km
+						1000000 = 1000 km
+					}
+				}
+			}
+		}
 		search {
 			teasers {
 				fields = venue

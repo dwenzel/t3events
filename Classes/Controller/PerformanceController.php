@@ -278,8 +278,8 @@ class PerformanceController extends AbstractController {
 						break;
 					case 'search':
 						$searchObj = $this->createSearchObject(
-							$overwriteDemand['search'],
-							$this->settings['event']['search']
+							$propertyValue,
+							$this->settings['performance']['search']
 						);
 						$demand->setSearch($searchObj);
 						break;
@@ -307,6 +307,8 @@ class PerformanceController extends AbstractController {
 				}
 			}
 			$this->session->set('tx_t3events_overwriteDemand', serialize($overwriteDemand));
+		} elseif($this->session->has('tx_t3events_overwriteDemand')) {
+			$this->session->clean();
 		}
 	}
 }

@@ -19,5 +19,10 @@ plugin.tx_t3events {
 				fields = headline,subtitle,teaser,description,keywords
 			}
 		}
+		performance {
+			search {
+				fields = event.headline,event.subtitle,event.teaser,event.description,event.keywords
+			}
+		}
 	}
 }

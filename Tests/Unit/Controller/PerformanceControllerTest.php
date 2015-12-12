@@ -19,11 +19,21 @@ namespace Webfox\T3events\Tests\Unit\Controller;
 	 *  GNU General Public License for more details.
 	 *  This copyright notice MUST APPEAR in all copies of the script!
 	 ***************************************************************/
+use TYPO3\CMS\Extbase\Object\ObjectManager;
+use TYPO3\CMS\Fluid\View\TemplateView;
+use Webfox\T3events\Controller\PerformanceController;
+use Webfox\T3events\Domain\Model\Dto\PerformanceDemand;
+use Webfox\T3events\Domain\Model\Dto\Search;
 use Webfox\T3events\Domain\Model\Performance;
+use Webfox\T3events\Domain\Repository\EventTypeRepository;
+use Webfox\T3events\Domain\Repository\GenreRepository;
+use Webfox\T3events\Domain\Repository\PerformanceRepository;
+use Webfox\T3events\Domain\Repository\VenueRepository;
 use Webfox\T3events\Session\SessionInterface;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
+use Webfox\T3events\Session\Typo3Session;
 
 /**
  * Test case for class \Webfox\T3events\Controller\PerformanceController.
@@ -45,11 +55,11 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 	public function setUp() {
 		$this->fixture = $this->getAccessibleMock('Webfox\\T3events\\Controller\\PerformanceController',
-			array('dummy'), array(), '', FALSE);
+			['dummy', 'emitSignal', 'createSearchObject'], array(), '', FALSE);
 		$view = $this->getMock(
-			'TYPO3\\CMS\\Fluid\\View\\TemplateView', array(), array(), '', FALSE);
+			TemplateView::class, ['assign', 'assignMultiple'], [], '', FALSE);
 		$mockSession = $this->getMock(
-			SessionInterface::class
+			SessionInterface::class, ['has', 'get', 'clean', 'set']
 		);
 		$mockContentObject = $this->getMock(
 			ContentObjectRenderer::class
@@ -78,6 +88,84 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 			$repository,
 			$this->fixture->_get('performanceRepository')
 		);
+	}
+
+	/**
+	 * @test
+	 * @covers ::injectGenreRepository
+	 */
+	public function injectGenreRepositorySetsGenreRepository() {
+		$repository = $this->getMock(
+			'Webfox\\T3events\\Domain\\Repository\\GenreRepository',
+			array(), array(), '', false
+		);
+		$this->fixture->injectGenreRepository($repository);
+
+		$this->assertSame(
+			$repository,
+			$this->fixture->_get('genreRepository')
+		);
+	}
+
+	/**
+	 * @test
+	 * @covers ::injectVenueRepository
+	 */
+	public function injectVenueRepositorySetsVenueRepository() {
+		$repository = $this->getMock(
+			'Webfox\\T3events\\Domain\\Repository\\VenueRepository',
+			array(), array(), '', false
+		);
+		$this->fixture->injectVenueRepository($repository);
+
+		$this->assertSame(
+			$repository,
+			$this->fixture->_get('venueRepository')
+		);
+	}
+
+	/**
+	 * @test
+	 * @covers ::injectEventTypeRepository
+	 */
+	public function injectEventTypeRepositorySetsEventTypeRepository() {
+		$repository = $this->getMock(
+			'Webfox\\T3events\\Domain\\Repository\\EventTypeRepository',
+			array(), array(), '', false
+		);
+		$this->fixture->injectEventTypeRepository($repository);
+
+		$this->assertSame(
+			$repository,
+			$this->fixture->_get('eventTypeRepository')
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function initializeActionsSetsContentObjectAndSession() {
+		$mockSession = $this->getMock(
+			Typo3Session::class, [], [], '', false
+		);
+		$mockObjectManager = $this->getMock(
+			ObjectManager::class
+		);
+		$mockObjectManager->expects($this->once())
+			->method('get')
+			->with(Typo3Session::class)
+			->will($this->returnValue($mockSession));
+		$this->fixture->_set('objectManager', $mockObjectManager);
+		$configurationManager = $this->getMock(
+			ConfigurationManagerInterface::class,
+			['getContentObject', 'setContentObject', 'getConfiguration',
+				'setConfiguration', 'isFeatureEnabled']
+		);
+		$configurationManager->expects($this->once())
+			->method('getContentObject');
+		$this->fixture->_set('configurationManager', $configurationManager);
+
+		$this->fixture->initializeAction();
 	}
 
 	/**
@@ -742,9 +830,9 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @covers ::overwriteDemandObject
 	 */
 	public function overwriteDemandObjectSetsGenres() {
-		$demand = $this->getMock('Webfox\\T3events\\Domain\\Model\\Dto\\PerformanceDemand');
+		$demand = $this->getMock(PerformanceDemand::class);
 		$overwriteDemand = array(
-			'genres' => '1,2,3'
+			'genre' => '1,2,3'
 		);
 
 		$demand->expects($this->once())->method('setGenres')
@@ -759,9 +847,7 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 */
 	public function overwriteDemandObjectSetsVenues() {
 		$demand = $this->getMock('Webfox\\T3events\\Domain\\Model\\Dto\\PerformanceDemand');
-		$overwriteDemand = array(
-			'venues' => '1,2,3'
-		);
+		$overwriteDemand = ['venue' => '1,2,3'];
 
 		$demand->expects($this->once())->method('setVenues')
 			->with('1,2,3');
@@ -774,12 +860,25 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @covers ::overwriteDemandObject
 	 */
 	public function overwriteDemandObjectSetsEventType() {
-		$demand = $this->getMock('Webfox\\T3events\\Domain\\Model\\Dto\\PerformanceDemand');
-		$overwriteDemand = array(
-			'eventTypes' => '1,2,3'
-		);
+		$demand = $this->getMock(PerformanceDemand::class);
+		$overwriteDemand = ['eventType' => '1,2,3'];
 
 		$demand->expects($this->once())->method('setEventTypes')
+			->with('1,2,3');
+
+		$this->fixture->overwriteDemandObject($demand, $overwriteDemand);
+	}
+
+
+	/**
+	 * @test
+	 * @covers ::overwriteDemandObject
+	 */
+	public function overwriteDemandObjectSetsEventLocations() {
+		$demand = $this->getMock(PerformanceDemand::class);
+		$overwriteDemand = ['eventLocation' => '1,2,3'];
+
+		$demand->expects($this->once())->method('setEventLocations')
 			->with('1,2,3');
 
 		$this->fixture->overwriteDemandObject($demand, $overwriteDemand);
@@ -790,10 +889,8 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @covers ::overwriteDemandObject
 	 */
 	public function overwriteDemandObjectSetsCategoryConjunction() {
-		$demand = $this->getMock('Webfox\\T3events\\Domain\\Model\\Dto\\PerformanceDemand');
-		$overwriteDemand = array(
-			'categoryConjunction' => 'asc'
-		);
+		$demand = $this->getMock(PerformanceDemand::class);
+		$overwriteDemand = ['categoryConjunction' => 'asc'];
 
 		$demand->expects($this->once())->method('setCategoryConjunction')
 			->with('asc');
@@ -801,6 +898,39 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$this->fixture->overwriteDemandObject($demand, $overwriteDemand);
 	}
 
+	/**
+	 * @test ::overwriteDemandObject
+	 */
+	public function overwriteDemandObjectSetsSearch() {
+		$fieldNames = 'foo,bar';
+		$search = 'baz';
+		$settings = [
+			'performance' => [
+				'search' => [
+					'fields' => $fieldNames
+				]
+			]
+		];
+		$this->fixture->_set('settings', $settings);
+
+		$demand = $this->getMock(PerformanceDemand::class);
+		$mockSearchObject = $this->getMock(Search::class);
+		$overwriteDemand = [
+			'search' => [
+				'subject' =>$search
+			]
+		];
+
+		$this->fixture->expects($this->once())
+			->method('createSearchObject')
+			->with($overwriteDemand['search'], $settings['performance']['search'])
+			->will($this->returnValue($mockSearchObject));
+
+		$demand->expects($this->once())->method('setSearch')
+			->with($mockSearchObject);
+
+		$this->fixture->overwriteDemandObject($demand, $overwriteDemand);
+	}
 	/**
 	 * @test
 	 * @covers ::overwriteDemandObject
@@ -902,7 +1032,7 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	public function listActionCallsCreateDemandFromSettings() {
 		$this->fixture = $this->getAccessibleMock(
 			'Webfox\\T3events\\Controller\\PerformanceController',
-			array('createDemandFromSettings', 'emitSignal'), array(), '', false
+			array('createDemandFromSettings', 'overwriteDemandObject', 'emitSignal'), array(), '', false
 		);
 		$repository = $this->getMock(
 			'Webfox\\T3events\\Domain\\Repository\\PerformanceRepository',
@@ -931,26 +1061,17 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 */
 	public function listActionCallsOverwriteDemandObject() {
 		$this->fixture = $this->getAccessibleMock(
-			'Webfox\\T3events\\Controller\\PerformanceController',
-			array('overwriteDemandObject', 'createDemandFromSettings', 'emitSignal'), array(), '', false
+			PerformanceController::class,
+			['overwriteDemandObject', 'createDemandFromSettings', 'emitSignal'],
+			[], '', false
 		);
-		$repository = $this->getMock(
-			'Webfox\\T3events\\Domain\\Repository\\PerformanceRepository',
-			array(), array(), '', false
-		);
+		$repository = $this->getMock(PerformanceRepository::class, [], [], '', false);
 		$this->fixture->injectPerformanceRepository($repository);
-		/*$mockConfigurationManager = $this->getMock(
-			ConfigurationManagerInterface::class, ['getContentObject']
-		);
-		$this->fixture->_set('configurationManager', $mockConfigurationManager);*/
-		$view = $this->getMock(
-			'TYPO3\\CMS\\Fluid\\View\\TemplateView', array(), array(), '', FALSE);
+		$view = $this->getMock(TemplateView::class, [], [], '', false);
 		$this->fixture->_set('view', $view);
 		$settings = array('foo');
 		$this->fixture->_set('settings', $settings);
-		$mockDemand = $this->getMock(
-			'Webfox\\T3events\\Domain\\Model\\Dto\\PerformanceDemand'
-		);
+		$mockDemand = $this->getMock(PerformanceDemand::class);
 
 		$this->fixture->expects($this->once())
 			->method('createDemandFromSettings')
@@ -1028,5 +1149,97 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 		$fixture->showAction($performance);
 	}
+
+	/**
+	 * @param PerformanceController $fixture
+	 * @array array $methodsToStub
+	 */
+	protected function injectMockRepositories(array $methodsToStub) {
+		$repositoryClasses = [
+			'GenreRepository' => GenreRepository::class,
+			'VenueRepository' => VenueRepository::class,
+			'EventTypeRepository' => EventTypeRepository::class,
+		];
+		foreach ($repositoryClasses as $propertyName=>$className) {
+			$mock = $this->getAccessibleMock($className, $methodsToStub, [], '', false, true, false);
+			$this->fixture->_call('inject' . $propertyName, $mock);
+		}
+	}
+
+	/**
+	 * @test
+	 */
+	public function quickMenuActionGetsOverwriteDemandFromSession() {
+		$this->injectMockRepositories(['findMultipleByUid']);
+		$mockSession = $this->getMock(
+			SessionInterface::class, ['get', 'set', 'has', 'clean']
+		);
+		$mockSession->expects($this->once())
+			->method('get');
+		$this->fixture->_set('session', $mockSession);
+		$this->fixture->expects($this->once())
+			->method('emitSignal')
+			->will($this->returnValue([]));
+
+		$this->fixture->quickMenuAction();
+	}
+
+	/**
+	 * @test
+	 */
+	public function quickMenuActionGetsGenresFromSettings() {
+		$settings = ['genres' => '1,2,3'];
+		$this->fixture->_set('settings', $settings);
+
+		$this->injectMockRepositories(['findMultipleByUid']);
+		$mockGenreRepository = $this->fixture->_get('genreRepository');
+		$mockGenreRepository->expects($this->once())
+			->method('findMultipleByUid')
+			->with('1,2,3', 'title');
+		$this->fixture->expects($this->once())
+			->method('emitSignal')
+			->will($this->returnValue([]));
+
+		$this->fixture->quickMenuAction();
+	}
+
+	/**
+	 * @test
+	 */
+	public function quickMenuActionGetsVenuesFromSettings() {
+		$settings = ['venues' => '1,2,3'];
+		$this->fixture->_set('settings', $settings);
+
+		$this->injectMockRepositories(['findMultipleByUid']);
+		$mockVenueRepository = $this->fixture->_get('venueRepository');
+		$mockVenueRepository->expects($this->once())
+			->method('findMultipleByUid')
+			->with('1,2,3', 'title');
+		$this->fixture->expects($this->once())
+			->method('emitSignal')
+			->will($this->returnValue([]));
+
+		$this->fixture->quickMenuAction();
+	}
+
+	/**
+	 * @test
+	 */
+	public function quickMenuActionGetsEventTypesFromSettings() {
+		$settings = ['eventTypes' => '1,2,3'];
+		$this->fixture->_set('settings', $settings);
+
+		$this->injectMockRepositories(['findMultipleByUid']);
+		$mockEventTypeRepository = $this->fixture->_get('eventTypeRepository');
+		$mockEventTypeRepository->expects($this->once())
+			->method('findMultipleByUid')
+			->with('1,2,3', 'title');
+		$this->fixture->expects($this->once())
+			->method('emitSignal')
+			->will($this->returnValue([]));
+
+		$this->fixture->quickMenuAction();
+	}
+
 }
 

@@ -78,13 +78,6 @@ class EventControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 	/**
 	 * @test
-	 */
-	public function dummyMethod() {
-		$this->markTestIncomplete();
-	}
-
-	/**
-	 * @test
 	 * @covers ::createDemandFromSettings
 	 */
 	public function createDemandFromSettingsReturnsDemandObject() {

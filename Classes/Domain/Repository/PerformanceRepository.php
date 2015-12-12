@@ -20,6 +20,8 @@ namespace Webfox\T3events\Domain\Repository;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Persistence\QueryInterface;
+use Webfox\T3events\Domain\Model\Dto\DemandInterface;
 use Webfox\T3events\Domain\Model\Dto\PerformanceDemand;
 
 /**
@@ -36,35 +38,13 @@ class PerformanceRepository extends AbstractDemandedRepository {
 	}
 
 	/**
-	 * Returns an array of constraints created from a given demand object.
-	 *
 	 * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
 	 * @param \Webfox\T3events\Domain\Model\Dto\DemandInterface $demand
-	 * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint>
+	 * @return array
 	 */
-	protected function createConstraintsFromDemand(\TYPO3\CMS\Extbase\Persistence\QueryInterface $query, \Webfox\T3events\Domain\Model\Dto\DemandInterface $demand) {
-		/** @var PerformanceDemand $demand */
-		$constraints = array();
-		if ($demand->getStatus() !== NULL) {
-			$constraints[] = $query->equals('status', $demand->getStatus());
-		}
-		if ($demand->getDate()) {
-			if ($demand->getPeriod() === 'futureOnly') {
-				$constraints[] = $query->greaterThanOrEqual('date', $demand->getDate());
-			} elseif ($demand->getPeriod() === 'pastOnly') {
-				$constraints[] = $query->lessThanOrEqual('date', $demand->getDate());
-			}
-		}
-		if ($demand->getStoragePages() !== NULL) {
-			$pages = GeneralUtility::intExplode(',', $demand->getStoragePages());
-			$constraints[] = $query->in('pid', $pages);
-		}
-		if ($demand->getEventLocations()) {
-			$eventLocations = GeneralUtility::intExplode(',', $demand->getEventLocations());
-			foreach ($eventLocations as $eventLocation) {
-				$constraints[] = $query->in('eventLocation', $eventLocation);
-			}
-		}
+	protected function createCategoryConstraints(QueryInterface $query, DemandInterface $demand) {
+		$constraints = [];
+
 		if (!empty($demand->getGenres())) {
 			$genres = GeneralUtility::intExplode(',', $demand->getGenres());
 			foreach ($genres as $genre) {
@@ -80,6 +60,63 @@ class PerformanceRepository extends AbstractDemandedRepository {
 		if (!empty($demand->getEventTypes())) {
 			$eventTypes = GeneralUtility::intExplode(',', $demand->getEventTypes());
 			$constraints[] = $query->in('event.eventType', $eventTypes);
+
+			return $constraints;
+		}
+
+		return $constraints;
+	}
+
+	/**
+	 * Returns an array of constraints created from a given demand object.
+	 *
+	 * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
+	 * @param \Webfox\T3events\Domain\Model\Dto\DemandInterface $demand
+	 * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint>
+	 */
+	protected function createConstraintsFromDemand(\TYPO3\CMS\Extbase\Persistence\QueryInterface $query, \Webfox\T3events\Domain\Model\Dto\DemandInterface $demand) {
+		/** @var PerformanceDemand $demand */
+		$constraints = [];
+		if ($demand->getStatus() !== NULL) {
+			$constraints[] = $query->equals('status', $demand->getStatus());
+		}
+		if ((bool) $periodConstraints = $this->createPeriodConstraints($query, $demand)) {
+			$this->combineConstraints($query, $constraints, $periodConstraints, 'AND');
+		}
+		if ((bool) $categoryConstraints = $this->createCategoryConstraints($query, $demand)) {
+			$this->combineConstraints($query, $constraints, $categoryConstraints, $demand->getCategoryConjunction());
+		}
+		if ((bool) $searchConstraints = $this->createSearchConstraints($query, $demand)) {
+			$this->combineConstraints($query, $constraints, $searchConstraints, 'OR');
+		}
+
+		if ($demand->getStoragePages() !== NULL) {
+			$pages = GeneralUtility::intExplode(',', $demand->getStoragePages());
+			$constraints[] = $query->in('pid', $pages);
+		}
+		if ($demand->getEventLocations()) {
+			$eventLocations = GeneralUtility::intExplode(',', $demand->getEventLocations());
+			foreach ($eventLocations as $eventLocation) {
+				$constraints[] = $query->in('eventLocation', $eventLocation);
+			}
+		}
+		return $constraints;
+	}
+
+	/**
+	 * @param QueryInterface $query
+	 * @param PerformanceDemand $demand
+	 * @return array
+	 */
+	protected function createPeriodConstraints(QueryInterface $query, PerformanceDemand $demand) {
+		$constraints = [];
+
+		if ($demand->getDate()) {
+			if ($demand->getPeriod() === 'futureOnly') {
+				$constraints[] = $query->greaterThanOrEqual('date', $demand->getDate());
+			} elseif ($demand->getPeriod() === 'pastOnly') {
+				$constraints[] = $query->lessThanOrEqual('date', $demand->getDate());
+			}
 		}
 
 		return $constraints;
