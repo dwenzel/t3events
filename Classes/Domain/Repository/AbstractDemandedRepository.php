@@ -43,9 +43,11 @@ abstract class AbstractDemandedRepository extends Repository {
 	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface Matching Records
 	 */
 	public function findMultipleByUid($recordList, $sortField = 'uid', $sortOrder = QueryInterface::ORDER_ASCENDING) {
-		$uids = GeneralUtility::intExplode(',', $recordList, TRUE);
 		$query = $this->createQuery();
-		$query->matching($query->in('uid', $uids));
+		$uids = GeneralUtility::intExplode(',', $recordList, TRUE);
+		if ((bool) $uids) {
+			$query->matching($query->in('uid', $uids));
+		}
 		$query->setOrderings([$sortField => $sortOrder]);
 
 		return $query->execute();

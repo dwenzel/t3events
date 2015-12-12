@@ -20,7 +20,9 @@ namespace Webfox\T3events\Tests\Unit\Domain\Repository;
  ***************************************************************/
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Persistence\Generic\Query;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
 /**
  * Test case for class \Webfox\T3events\Domain\Repository\AbstractDemandedRepository.
@@ -570,6 +572,90 @@ class AbstractDemandedRepositoryTest extends \TYPO3\CMS\Core\Tests\UnitTestCase 
 			$additionalConstraint,
 			$conjunction
 		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function findMultipleByUidReturnsQuery() {
+		/** @var QueryInterface $mockQuery */
+		$mockQuery = $this->getMock(Query::class, [], [], '', false);
+		$mockResult = $this->getMock(QueryResultInterface::class);
+		$mockQuery->expects($this->once())
+			->method('execute')
+			->will($this->returnValue($mockResult));
+
+		$this->fixture->expects($this->once())
+			->method('createQuery')
+			->will($this->returnValue($mockQuery));
+
+		$this->assertSame(
+			$mockResult,
+			$this->fixture->findMultipleByUid(
+				'1,2', null
+			)
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function findMultipleByUidMatchesUidList() {
+		$uidList = '1,2';
+		/** @var QueryInterface $mockQuery */
+		$mockQuery = $this->getMock(Query::class, [], [], '', false);
+		$mockQuery->expects($this->once())
+			->method('matching')
+			->will($this->returnValue($mockQuery));
+		$mockQuery->expects($this->once())
+			->method('in')
+			->with('uid', [1,2])
+			->will($this->returnValue($mockQuery));
+
+		$this->fixture->expects($this->once())
+			->method('createQuery')
+			->will($this->returnValue($mockQuery));
+
+		$this->fixture->findMultipleByUid($uidList, null);
+	}
+
+	/**
+	 * @test
+	 */
+	public function findMultipleByUidSetsDefaultOrderings() {
+		$uidList = '';
+		/** @var QueryInterface $mockQuery */
+		$mockQuery = $this->getMock(Query::class, [], [], '', false);
+
+		$this->fixture->expects($this->once())
+			->method('createQuery')
+			->will($this->returnValue($mockQuery));
+		$mockQuery->expects($this->once())
+			->method('setOrderings')
+			->with(['uid' => QueryInterface::ORDER_ASCENDING]);
+
+		$this->fixture->findMultipleByUid($uidList);
+	}
+
+	/**
+	 * @test
+	 */
+	public function findMultipleByUidSetsOrderings() {
+		$sortField = 'foo';
+		$order = QueryInterface::ORDER_DESCENDING;
+
+		$uidList = '';
+		/** @var QueryInterface $mockQuery */
+		$mockQuery = $this->getMock(Query::class, [], [], '', false);
+
+		$this->fixture->expects($this->once())
+			->method('createQuery')
+			->will($this->returnValue($mockQuery));
+		$mockQuery->expects($this->once())
+			->method('setOrderings')
+			->with([$sortField => QueryInterface::ORDER_DESCENDING]);
+
+		$this->fixture->findMultipleByUid($uidList, $sortField, $order);
 	}
 }
 

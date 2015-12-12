@@ -19,8 +19,10 @@ namespace Webfox\T3events\Tests\Unit\Domain\Repository;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Extbase\Persistence\Generic\Query;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
+use Webfox\T3events\Domain\Model\Dto\EventDemand;
 
 /**
  * Test case for class \Webfox\T3events\Domain\Repository\EventRepository.
@@ -410,5 +412,91 @@ class EventRepositoryTest extends UnitTestCase {
 		);
 	}
 
+	/**
+	 * @test
+	 */
+	public function createCategoryConstraintsInitiallyReturnsEmptyArray() {
+		$query = $this->getMock(QueryInterface::class);
+		$demand = $this->getMock(EventDemand::class);
+		$this->assertSame(
+			[],
+			$this->fixture->_call('createConstraintsFromDemand', $query, $demand)
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function createCategoryConstraintsCreatesGenreConstraints() {
+		$genreList = '1,2';
+		$query = $this->getMock(Query::class, ['contains'], [], '', false);
+		$demand = $this->getMock(EventDemand::class);
+		$mockConstraint = 'fooConstraint';
+
+		$demand->expects($this->any())
+			->method('getGenre')
+			->will($this->returnValue($genreList));
+		$query->expects($this->exactly(2))
+			->method('contains')
+			->withConsecutive(
+				['genre', 1],
+				['genre', 2]
+			)
+			->will($this->returnValue($mockConstraint));
+		$this->assertSame(
+			[$mockConstraint, $mockConstraint],
+			$this->fixture->_call('createCategoryConstraints', $query, $demand)
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function createCategoryConstraintsCreatesVenueConstraints() {
+		$venueList = '1,2';
+		$query = $this->getMock(Query::class, ['contains'], [], '', false);
+		$demand = $this->getMock(EventDemand::class);
+		$mockConstraint = 'fooConstraint';
+
+		$demand->expects($this->any())
+			->method('getVenue')
+			->will($this->returnValue($venueList));
+		$query->expects($this->exactly(2))
+			->method('contains')
+			->withConsecutive(
+				['venue', 1],
+				['venue', 2]
+			)
+			->will($this->returnValue($mockConstraint));
+		$this->assertSame(
+			[$mockConstraint, $mockConstraint],
+			$this->fixture->_call('createCategoryConstraints', $query, $demand)
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function createCategoryConstraintsCreatesEventTypeConstraints() {
+		$eventTypeList = '1,2';
+		$query = $this->getMock(Query::class, ['equals'], [], '', false);
+		$demand = $this->getMock(EventDemand::class);
+		$mockConstraint = 'fooConstraint';
+
+		$demand->expects($this->any())
+			->method('getEventType')
+			->will($this->returnValue($eventTypeList));
+		$query->expects($this->exactly(2))
+			->method('equals')
+			->withConsecutive(
+				['eventType.uid', 1],
+				['eventType.uid', 2]
+			)
+			->will($this->returnValue($mockConstraint));
+		$this->assertSame(
+			[$mockConstraint, $mockConstraint],
+			$this->fixture->_call('createCategoryConstraints', $query, $demand)
+		);
+	}
 }
 
