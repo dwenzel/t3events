@@ -19,6 +19,7 @@ namespace Webfox\T3events\Tests\Unit\Controller;
 	 *  GNU General Public License for more details.
 	 *  This copyright notice MUST APPEAR in all copies of the script!
 	 ***************************************************************/
+use TYPO3\CMS\Extbase\Mvc\Request;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Fluid\View\TemplateView;
 use Webfox\T3events\Controller\PerformanceController;
@@ -67,10 +68,24 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$mockDispatcher = $this->getMock(
 			Dispatcher::class
 		);
+		$mockRequest = $this->getMock(
+			Request::class
+		);
+		$mockConfigurationManager = $this->getMock(
+			ConfigurationManagerInterface::class,
+			['getContentObject', 'setContentObject', 'getConfiguration',
+				'setConfiguration', 'isFeatureEnabled']
+		);
+		$mockObjectManager = $this->getMock(
+			ObjectManager::class
+		);
 		$this->fixture->_set('view', $view);
 		$this->fixture->_set('session', $mockSession);
 		$this->fixture->_set('contentObject', $mockContentObject);
 		$this->fixture->_set('signalSlotDispatcher', $mockDispatcher);
+		$this->fixture->_set('request', $mockRequest);
+		$this->fixture->_set('configurationManager', $mockConfigurationManager);
+		$this->fixture->_set('objectManager', $mockObjectManager);
 	}
 
 	/**
@@ -167,6 +182,47 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 		$this->fixture->initializeAction();
 	}
+
+	/**
+	 * @test
+	 */
+	public function initializeActionSetsOverwriteDemandInSession() {
+		$overwriteDemand = ['foo'];
+		$mockSession = $this->fixture->_get('session');
+		$mockRequest = $this->fixture->_get('request');
+		$mockObjectManager = $this->fixture->_get('objectManager');
+		$mockObjectManager->expects($this->once())
+			->method('get')
+			->with(Typo3Session::class)
+			->will($this->returnValue($mockSession));
+		$mockRequest->expects($this->once())
+			->method('hasArgument')
+			->will($this->returnValue(true));
+		$mockRequest->expects($this->once())
+			->method('getArgument')
+			->will($this->returnValue($overwriteDemand));
+
+		$mockSession->expects($this->once())
+			->method('set')
+			->with('tx_t3events_overwriteDemand', serialize($overwriteDemand));
+
+		$this->fixture->initializeAction();
+	}
+
+	/**
+	 * @test
+	 */
+	public function initializeQuickMenuActionResetsOverwriteDemandInSession() {
+		$mockSession = $this->fixture->_get('session');
+		$mockRequest = $this->fixture->_get('request');
+		$mockRequest->expects($this->once())
+			->method('hasArgument')
+			->will($this->returnValue(false));
+		$mockSession->expects($this->once())
+			->method('clean');
+		$this->fixture->initializeQuickMenuAction();
+	}
+
 
 	/**
 	 * @test

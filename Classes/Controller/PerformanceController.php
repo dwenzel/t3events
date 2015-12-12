@@ -124,6 +124,21 @@ class PerformanceController extends AbstractController {
 	public function initializeAction() {
 		$this->contentObject = $this->configurationManager->getContentObject();
 		$this->session = $this->objectManager->get(Typo3Session::class, self::SESSION_NAME_SPACE);
+		if ($this->request->hasArgument('overwriteDemand')) {
+			$this->session->set(
+				'tx_t3events_overwriteDemand',
+				serialize($this->request->getArgument('overwriteDemand'))
+			);
+		}
+	}
+
+	/**
+	 * initializes quick menu action
+	 */
+	public function initializeQuickMenuAction() {
+		if (!$this->request->hasArgument('overwriteDemand')) {
+			$this->session->clean();
+		}
 	}
 
 	/**
@@ -169,8 +184,6 @@ class PerformanceController extends AbstractController {
 	 * @return void
 	 */
 	public function quickMenuAction() {
-
-		// get session data
 		$overwriteDemand = unserialize($this->session->get('tx_t3events_overwriteDemand'));
 
 		// get filter options from plugin
@@ -306,9 +319,6 @@ class PerformanceController extends AbstractController {
 						}
 				}
 			}
-			$this->session->set('tx_t3events_overwriteDemand', serialize($overwriteDemand));
-		} elseif($this->session->has('tx_t3events_overwriteDemand')) {
-			$this->session->clean();
 		}
 	}
 }

@@ -106,5 +106,6 @@ class Typo3Session implements SessionInterface, NamespaceAwareInterface {
 	public function clean() {
 		$GLOBALS['TSFE']->fe_user->setKey('ses', $this->namespace, array());
 		$GLOBALS['TSFE']->fe_user->storeSessionData();
+		$this->data = [];
 	}
 }
