@@ -19,12 +19,25 @@ namespace Webfox\T3events\Domain\Repository;
 	 *  GNU General Public License for more details.
 	 *  This copyright notice MUST APPEAR in all copies of the script!
 	 ***************************************************************/
+use TYPO3\CMS\Extbase\Persistence\QueryInterface;
+use Webfox\T3events\Domain\Model\Dto\DemandInterface;
 
 /**
  * @package t3events
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
 
-class GenreRepository extends AbstractRepository {
+class GenreRepository extends AbstractDemandedRepository{
+	/**
+	 * Returns an array of constraints created from a given demand object.
+	 *
+	 * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
+	 * @param \Webfox\T3events\Domain\Model\Dto\DemandInterface $demand
+	 * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint>
+	 */
+	protected function createConstraintsFromDemand(QueryInterface $query, DemandInterface $demand) {
+		// TODO: Implement createConstraintsFromDemand() method.
+		return [];
+	}
 }
 
