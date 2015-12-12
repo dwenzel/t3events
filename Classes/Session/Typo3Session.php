@@ -61,13 +61,8 @@ class Typo3Session implements SessionInterface, NamespaceAwareInterface {
 	 * @return bool
 	 */
 	public function has($identifier) {
-		if ($this->get($identifier)) {
-			$argument = $this->get($identifier);
-			if ($argument) {
-				return TRUE;
-			} else {
-				return FALSE;
-			}
+		if ($argument = $this->get($identifier)) {
+			return TRUE;
 		}
 
 		return FALSE;
