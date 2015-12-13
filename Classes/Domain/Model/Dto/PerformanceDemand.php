@@ -33,8 +33,8 @@ use Webfox\T3events\Domain\Model\PerformanceStatus;
 
 class PerformanceDemand
 	extends AbstractDemand
-	implements DemandInterface, PeriodAwareDemandInterface {
-	use PeriodAwareDemandTrait;
+	implements DemandInterface, PeriodAwareDemandInterface, SearchAwareDemandInterface {
+	use PeriodAwareDemandTrait, SearchAwareDemandTrait;
 	const START_DATE_FIELD = 'date';
 	const END_DATE_FIELD = 'endDate';
 
