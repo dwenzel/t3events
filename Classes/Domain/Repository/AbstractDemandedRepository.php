@@ -31,12 +31,6 @@ use Webfox\T3events\Domain\Model\Dto\DemandInterface;
 abstract class AbstractDemandedRepository extends Repository {
 
 	/**
-	 * @var \Webfox\T3events\Utility\GeoCoder
-	 * @inject
-	 */
-	protected $geoCoder;
-
-	/**
 	 * @var string $recordList A comma separated string containing uids
 	 * @var string $sortField Sort by field
 	 * @var string $sortOrder

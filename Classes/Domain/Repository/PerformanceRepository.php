@@ -28,8 +28,10 @@ use Webfox\T3events\Domain\Model\Dto\PerformanceDemand;
  * @package t3events
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-class PerformanceRepository extends AbstractDemandedRepository {
-
+class PerformanceRepository
+	extends AbstractDemandedRepository
+	implements PeriodConstraintRepositoryInterface {
+	use PeriodConstraintRepositoryTrait;
 	protected $defaultOrderings = array('sorting' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING);
 
 	public function initializeObject() {
@@ -100,25 +102,6 @@ class PerformanceRepository extends AbstractDemandedRepository {
 				$constraints[] = $query->in('eventLocation', $eventLocation);
 			}
 		}
-		return $constraints;
-	}
-
-	/**
-	 * @param QueryInterface $query
-	 * @param PerformanceDemand $demand
-	 * @return array
-	 */
-	protected function createPeriodConstraints(QueryInterface $query, PerformanceDemand $demand) {
-		$constraints = [];
-
-		if ($demand->getDate()) {
-			if ($demand->getPeriod() === 'futureOnly') {
-				$constraints[] = $query->greaterThanOrEqual('date', $demand->getDate());
-			} elseif ($demand->getPeriod() === 'pastOnly') {
-				$constraints[] = $query->lessThanOrEqual('date', $demand->getDate());
-			}
-		}
-
 		return $constraints;
 	}
 }

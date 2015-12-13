@@ -27,7 +27,10 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * @package t3events
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-class EventRepository extends AbstractDemandedRepository {
+class EventRepository
+	extends AbstractDemandedRepository
+	implements PeriodConstraintRepositoryInterface, LocationConstraintRepositoryInterface {
+	use PeriodConstraintRepositoryTrait, LocationConstraintRepositoryTrait;
 	/**
 	 * Create category constraints from demand
 	 *
@@ -65,88 +68,6 @@ class EventRepository extends AbstractDemandedRepository {
 	}
 
 	/**
-	 * Create period constraints from demand (time restriction)
-	 *
-	 * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
-	 * @param \Webfox\T3events\Domain\Model\Dto\PeriodAwareDemandInterface $demand
-	 * @return array<\TYPO3\CMS\Extbase\Persistence\QOM\Constraint>
-	 */
-	protected function createPeriodConstraints(QueryInterface $query, $demand) {
-
-		// period constraints
-		$period = $demand->getPeriod();
-		$periodStart = $demand->getPeriodStart();
-		$periodType = $demand->getPeriodType();
-		$periodDuration = $demand->getPeriodDuration();
-		$periodConstraint = [];
-		if ($period === 'specific' && $periodType) {
-
-			// set start date initial to now
-			$timezone = new \DateTimeZone(date_default_timezone_get());
-			$startDate = new \DateTime('NOW', $timezone);
-			// get delta value
-			$deltaStart = ($periodStart < 0) ? $periodStart : '+' . $periodStart;
-			$deltaEnd = ($periodDuration > 0) ? '+' . $periodDuration : '+' . 999;
-
-			$y = $startDate->format('Y');
-			$m = $startDate->format('m');
-
-			// get specific delta
-			switch ($periodType) {
-				case 'byDay' :
-					$deltaStart .= ' day';
-					$deltaEnd .= ' day';
-					break;
-				case 'byMonth' :
-					$startDate->setDate($y, $m, 1);
-					$deltaStart .= ' month';
-					$deltaEnd .= ' month';
-					break;
-				case 'byYear' :
-					$startDate->setDate($y, 1, 1);
-					$deltaStart .= ' year';
-					$deltaEnd .= ' year';
-					break;
-				case 'byDate' :
-					if (!is_null($demand->getStartDate())) {
-						$startDate = $demand->getStartDate();
-					}
-					if (!is_null($demand->getEndDate())) {
-						$endDate = $demand->getEndDate();
-					} else {
-						$deltaEnd = '+1 day';
-						$endDate = clone($startDate);
-						$endDate->modify($deltaEnd);
-					}
-					break;
-			}
-			if ($periodType != 'byDate') {
-				$startDate->setTime(0, 0, 0);
-				$startDate->modify($deltaStart);
-				$endDate = clone($startDate);
-				$endDate->modify($deltaEnd);
-			}
-		}
-
-		switch ($demand->getPeriod()) {
-			case 'futureOnly' :
-				$periodConstraint[] = $query->greaterThanOrEqual($demand->getStartDateField(), time());
-				break;
-			case 'pastOnly' :
-				$periodConstraint[] = $query->lessThanOrEqual($demand->getStartDateField(), time());
-				break;
-			case 'specific' :
-				$periodConstraint[] = $query->logicalAnd(
-					$query->lessThanOrEqual($demand->getStartDateField(), $endDate->getTimestamp()),
-					$query->greaterThanOrEqual($demand->getStartDateField(), $startDate->getTimestamp())
-				);
-				break;
-		}
-
-		return $periodConstraint;
-	}
-
-	/**
 	 * Returns an array of constraints created from a given demand object.
 	 *
 	 * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
@@ -171,47 +92,4 @@ class EventRepository extends AbstractDemandedRepository {
 		return $constraints;
 	}
 
-
-	/**
-	 * Create location constraints from demand
-	 *
-	 * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
-	 * @param \Webfox\T3events\Domain\Model\Dto\EventDemand $demand
-	 * @return array<\TYPO3\CMS\Extbase\Persistence\QOM\Constraint>
-	 */
-	protected function createLocationConstraints(QueryInterface $query, $demand) {
-		$locationConstraints = [];
-
-		if ($demand->getSearch()) {
-			$locationConstraints = [];
-			$search = $demand->getSearch();
-			$subject = $search->getSubject();
-
-			// search by bounding box
-			$bounds = $search->getBounds();
-			$location = $search->getLocation();
-			$radius = $search->getRadius();
-
-			if (!empty($location)
-				AND !empty($radius)
-				AND empty($bounds)
-			) {
-				$geoLocation = $this->geoCoder->getLocation($location);
-				$bounds = $this->geoCoder->getBoundsByRadius($geoLocation['lat'], $geoLocation['lng'], $radius / 1000);
-			}
-			if ($bounds AND
-				!empty($bounds['N']) AND
-				!empty($bounds['S']) AND
-				!empty($bounds['W']) AND
-				!empty($bounds['E'])
-			) {
-				$locationConstraints[] = $query->greaterThan('latitude', $bounds['S']['lat']);
-				$locationConstraints[] = $query->lessThan('latitude', $bounds['N']['lat']);
-				$locationConstraints[] = $query->greaterThan('longitude', $bounds['W']['lng']);
-				$locationConstraints[] = $query->lessThan('longitude', $bounds['E']['lng']);
-			}
-		}
-
-		return $locationConstraints;
-	}
 }
