@@ -25,7 +25,11 @@ namespace Webfox\T3events\Tests\ViewHelpers\Widget\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Extbase\Object\ObjectManager;
+use Webfox\T3events\Domain\Model\Calendar;
+use Webfox\T3events\Domain\Model\CalendarMonth;
 use Webfox\T3events\Domain\Model\Dto\CalendarConfiguration;
+use Webfox\T3events\ViewHelpers\Widget\Controller\CalendarController;
 
 /**
  * Test case for class \Webfox\T3events\ViewHelpers\Widget\Controller\CalendarController.
@@ -50,6 +54,10 @@ class CalendarControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 			array('dummy'), array(), '', FALSE);
 		$view = $this->getMock('TYPO3\\CMS\\Fluid\\View\\TemplateView', array(), array(), '', FALSE);
 		$this->fixture->_set('view',$view);
+		$mockConfiguration = $this->getMock(CalendarConfiguration::class, []);
+		$this->fixture->_set('configuration',$mockConfiguration);
+		$mockObjectManager = $this->getAccessibleMock(ObjectManager::class, []);
+		$this->fixture->_set('objectManager',$mockObjectManager);
 	}
 
 	/**
@@ -396,6 +404,223 @@ class CalendarControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 				$expectedInterval,
 				$this->fixture->_call('getInterval', $display)
 		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function initializeActionSetsObjectsFromConfiguration() {
+		$configuration = ['objects' => 'foo'];
+		$this->fixture->_set('widgetConfiguration', $configuration);
+
+		$this->fixture->initializeAction();
+		$this->assertAttributeSame(
+			$configuration['objects'],
+			'objects',
+			$this->fixture
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function initializeActionSetsConfigurationFromConfiguration() {
+		$configuration = ['configuration' => 'foo'];
+		$this->fixture->_set('widgetConfiguration', $configuration);
+
+		$this->fixture->initializeAction();
+		$this->assertAttributeSame(
+			$configuration['configuration'],
+			'configuration',
+			$this->fixture
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function initializeActionSetsCalendarIdFromConfiguration() {
+		$configuration = ['id' => 'foo'];
+		$this->fixture->_set('widgetConfiguration', $configuration);
+
+		$this->fixture->initializeAction();
+		$this->assertAttributeSame(
+			$configuration['id'],
+			'calendarId',
+			$this->fixture
+		);
+	}
+
+	public function validDisplayPeriods() {
+		return [
+			'day' => [CalendarConfiguration::PERIOD_DAY],
+			'month' => [CalendarConfiguration::PERIOD_MONTH],
+			'year' => [CalendarConfiguration::PERIOD_YEAR],
+			'quarter' => [CalendarConfiguration::PERIOD_QUARTER],
+			'semester' => [CalendarConfiguration::PERIOD_SEMESTER],
+			'trimester' => [CalendarConfiguration::PERIOD_TRIMESTER],
+			'week' => [CalendarConfiguration::PERIOD_WEEK]
+		];
+	}
+
+	public function invalidDisplayPeriods() {
+		return [
+			'below zero' => [-1],
+			'above six' => [7]
+		];
+	}
+
+	/**
+	 * @test
+	 * @dataProvider validDisplayPeriods
+	 */
+	public function determineDisplayPeriodForValidIntervalSetsDisplayPeriod($period) {
+		$mockConfiguration = $this->fixture->_get('configuration');
+		$mockConfiguration->expects($this->once())
+			->method('setDisplayPeriod')
+			->with($period);
+		$this->fixture->_call('determineDisplayPeriod', $period);
+	}
+
+	/**
+	 * @test
+	 * @dataProvider inValidDisplayPeriods
+	 */
+	public function determineDisplayPeriodForInvalidIntervalDoesNotSetDisplayPeriod($period) {
+		$mockConfiguration = $this->fixture->_get('configuration');
+		$mockConfiguration->expects($this->never())
+			->method('setDisplayPeriod');
+		$this->fixture->_call('determineDisplayPeriod', $period);
+	}
+
+	/**
+	 * @test
+	 */
+	public function determineStartDateSetsForEmptyDateAndDisplaySetsStartDateByPeriod() {
+		$subject = $this->getAccessibleMock(
+			CalendarController::class, ['getStartDate']
+		);
+		$mockConfiguration = $this->fixture->_get('configuration');
+		$subject->_set('configuration', $mockConfiguration);
+
+		$period = 3;
+		$display = '';
+		$date = 0;
+		$startDate = new \DateTime('today');
+		$subject->expects($this->once())
+			->method('getStartDate')
+			->with($period)
+			->will($this->returnValue($startDate));
+		$mockConfiguration->expects($this->once())
+			->method('setStartDate')
+			->with($startDate);
+
+		$subject->_call('determineStartDate', $display, $date, $period);
+	}
+
+	/**
+	 * @test
+	 */
+	public function determineStartDateDoesNotSetStartDateForInvalidDisplay() {
+		$invalidDisplay = 'foo';
+		$date = 12345;
+		$period = -1;
+		$mockConfiguration = $this->fixture->_get('configuration');
+		$mockConfiguration->expects($this->never())
+			->method('setStartDate');
+		$this->fixture->_call('determineStartDate', $invalidDisplay, $date, $period);
+	}
+
+	/**
+	 * Data provider for
+	 *
+	 * @return array
+	 */
+	public function validPeriodAndDisplay() {
+		return [
+			'next month' => [CalendarConfiguration::PERIOD_MONTH, 'next', new \DateInterval('P1M')],
+			'next week' => [CalendarConfiguration::PERIOD_WEEK, 'next', new \DateInterval('P1W')],
+			'next day' => [CalendarConfiguration::PERIOD_DAY, 'next', new \DateInterval('P1D')],
+			'next quarter' => [CalendarConfiguration::PERIOD_QUARTER, 'next', new \DateInterval('P3M')],
+			'next trimester' => [CalendarConfiguration::PERIOD_TRIMESTER, 'next', new \DateInterval('P3M')],
+			'next semester' => [CalendarConfiguration::PERIOD_SEMESTER, 'next', new \DateInterval('P6M')],
+			'next year' => [CalendarConfiguration::PERIOD_YEAR, 'next', new \DateInterval('P1Y')],
+			'previous month' => [CalendarConfiguration::PERIOD_MONTH, 'previous', new \DateInterval('P1M')],
+			'previous week' => [CalendarConfiguration::PERIOD_WEEK, 'previous', new \DateInterval('P1W')],
+			'previous day' => [CalendarConfiguration::PERIOD_DAY, 'previous', new \DateInterval('P1D')],
+			'previous quarter' => [CalendarConfiguration::PERIOD_QUARTER, 'previous', new \DateInterval('P3M')],
+			'previous trimester' => [CalendarConfiguration::PERIOD_TRIMESTER, 'previous', new \DateInterval('P3M')],
+			'previous semester' => [CalendarConfiguration::PERIOD_SEMESTER, 'previous', new \DateInterval('P6M')],
+			'previous year' => [CalendarConfiguration::PERIOD_YEAR, 'previous', new \DateInterval('P1Y')]
+		];
+	}
+
+	/**
+	 * @test
+	 * @dataProvider validPeriodAndDisplay
+	 * @param int $period
+	 * @param string $display
+	 * @param \DateInterval $interval
+	 */
+	public function determineStartDateSetsStartDateForValidDisplayByPeriodFromConfiguration($period, $display, $interval) {
+		$date = 12345;
+		$expectedStartDate = new \DateTime('@' . $date);
+		$expectedStartDate->setTimezone($this->fixture->getDefaultTimeZone());
+		if ($display === 'previous') {
+			$interval->invert = 1;
+		}
+		$expectedStartDate->add($interval);
+		$mockConfiguration = $this->fixture->_get('configuration');
+		$mockConfiguration->expects($this->once())
+			->method('getDisplayPeriod')
+			->will($this->returnValue($period));
+		$mockConfiguration->expects($this->once())
+			->method('setStartDate')
+			->with($expectedStartDate);
+
+		$this->fixture->_call('determineStartDate', $display, $date, $period);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getCalendarSetsViewModeAndDisplayPeriodFromConfiguration() {
+		$subject = $this->getAccessibleMock(
+			CalendarController::class, ['getCurrentCalendarMonth']
+		);
+		$defaultViewMode = CalendarConfiguration::VIEW_MODE_MINI_MONTH;
+		$defaultPeriod = CalendarConfiguration::PERIOD_MONTH;
+
+		$mockConfiguration = $this->getAccessibleMock(CalendarConfiguration::class, []);
+		$mockConfiguration->expects($this->once())
+			->method('getViewMode')
+			->will($this->returnValue($defaultViewMode));
+		$mockConfiguration->expects($this->once())
+			->method('getDisplayPeriod')
+			->will($this->returnValue($defaultPeriod));
+
+		$mockCalendar = $this->getMock(Calendar::class, []);
+
+		$mockObjectManager = $this->getMock(ObjectManager::class, []);
+		$subject->_set('objectManager', $mockObjectManager);
+
+		$mockObjectManager->expects($this->once())
+			->method('get')
+			->with(Calendar::class)
+			->will($this->returnValue($mockCalendar));
+
+		$mockCalendar->expects($this->once())
+			->method('setViewMode')
+			->with($defaultViewMode);
+		$mockCalendar->expects($this->once())
+			->method('setDisplayPeriod')
+			->with($defaultPeriod);
+
+		$subject->expects($this->any())
+			->method('getCurrentCalendarMonth')
+			->will($this->returnValue(new CalendarMonth()));
+
+		$subject->_call('getCalendar', $mockConfiguration);
 	}
 }
 

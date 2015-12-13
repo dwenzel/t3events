@@ -6,6 +6,7 @@ use Webfox\T3events\Domain\Model\Calendar;
 use Webfox\T3events\Domain\Model\CalendarDay;
 use Webfox\T3events\Domain\Model\CalendarMonth;
 use Webfox\T3events\Domain\Model\CalendarWeek;
+use Webfox\T3events\Domain\Model\CalendarYear;
 use Webfox\T3events\Domain\Model\Dto\CalendarConfiguration;
 use Webfox\T3events\Domain\Model\Event;
 use Webfox\T3events\Domain\Model\Performance;
@@ -67,21 +68,8 @@ class CalendarController extends AbstractWidgetController {
 	 * @param int $period
 	 */
 	public function indexAction($display = '', $date = 0, $period = -1) {
-		if ((int) $period >= 0 AND (int) $period <= CalendarConfiguration::PERIOD_YEAR) {
-			$this->configuration->setDisplayPeriod((int) $period);
-		}
-		if ($display !== '' AND $date > 0) {
-			if ($interval = $this->getInterval($display)) {
-				$startDate = new \DateTime('@' . $date);
-				$startDate->setTimeZone($this->getDefaultTimeZone());
-				$startDate->add($interval);
-				$this->configuration->setStartDate($startDate);
-			}
-		}
-		if ($display == '' AND $date == 0) {
-			$startDate = $this->getStartDate($period);
-			$this->configuration->setStartDate($startDate);
-		}
+		$this->determineDisplayPeriod($period);
+		$this->determineStartDate($display, $date, $period);
 		$calendar = $this->getCalendar($this->configuration);
 
 		$this->view->assignMultiple(
@@ -391,5 +379,38 @@ class CalendarController extends AbstractWidgetController {
 	 */
 	public function getDefaultTimeZone() {
 		return new \DateTimeZone(date_default_timezone_get());
+	}
+
+	/**
+	 * @param $period
+	 */
+	protected function determineDisplayPeriod($period) {
+		if ((int) $period >= 0 AND (int) $period <= CalendarConfiguration::PERIOD_YEAR) {
+			$this->configuration->setDisplayPeriod((int) $period);
+		}
+	}
+
+	/**
+	 * Determines the start date.
+	 * By period: for $display == '' and $date == 0
+	 * By date and interval: for display !== '' and date > 0
+	 *
+	 * @param $display
+	 * @param $date
+	 * @param $period
+	 */
+	protected function determineStartDate($display, $date, $period) {
+		if ($display !== '' AND $date > 0) {
+			if ($interval = $this->getInterval($display)) {
+				$startDate = new \DateTime('@' . $date);
+				$startDate->setTimeZone($this->getDefaultTimeZone());
+				$startDate->add($interval);
+				$this->configuration->setStartDate($startDate);
+			}
+		}
+		if ($display == '' AND $date == 0) {
+			$startDate = $this->getStartDate($period);
+			$this->configuration->setStartDate($startDate);
+		}
 	}
 }
