@@ -40,16 +40,6 @@ interface DemandInterface {
 	public function setLimit($limit);
 
 	/**
-	 * @return string
-	 */
-	public function getPeriod();
-
-	/**
-	 * @param string $period
-	 */
-	public function setPeriod($period);
-
-	/**
 	 * @return integer
 	 */
 	public function getOffset();

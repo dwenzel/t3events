@@ -25,7 +25,10 @@ namespace Webfox\T3events\Domain\Model\Dto;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
 
-class EventDemand extends AbstractDemand {
+class EventDemand extends AbstractDemand
+	implements DemandInterface, PeriodAwareDemandInterface {
+	const START_DATE_FIELD = 'performances.date';
+	const END_DATE_FIELD = 'performances.endDate';
 
 	/**
 	 * Genre
@@ -48,14 +51,14 @@ class EventDemand extends AbstractDemand {
 	 */
 	protected $eventType;
 
-	/** 
+	/**
 	 * Category Conjunction
 	 *
 	 * @var \string
 	 */
 	protected $categoryConjunction;
- 	
- 	/**
+
+	/**
 	 * Returns the genre
 	 *
 	 * @return \string $genre
@@ -111,19 +114,19 @@ class EventDemand extends AbstractDemand {
 	public function setEventType($eventType) {
 		$this->eventType = $eventType;
 	}
-	
+
 	/**
 	 * Returns the Category Conjunction
-	 * 
+	 *
 	 * @return \string
 	 */
 	public function getCategoryConjunction() {
 		return $this->categoryConjunction;
 	}
-	
+
 	/**
 	 * Set Category Conjunction
-	 * 
+	 *
 	 * @param \string $categoryConjunction
 	 * @return void
 	 */
@@ -131,5 +134,23 @@ class EventDemand extends AbstractDemand {
 		$this->categoryConjunction = $categoryConjunction;
 	}
 
-  }
+	/**
+	 * Gets the start date field
+	 *
+	 * @return string
+	 */
+	public function getStartDateField() {
+		return self::START_DATE_FIELD;
+	}
+
+	/**
+	 * Gets the endDate field
+	 *
+	 * @return string
+	 */
+	public function getEndDateField() {
+		return self::END_DATE_FIELD;
+	}
+
+}
 

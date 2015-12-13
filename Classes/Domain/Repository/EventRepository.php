@@ -68,7 +68,7 @@ class EventRepository extends AbstractDemandedRepository {
 	 * Create period constraints from demand (time restriction)
 	 *
 	 * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
-	 * @param \Webfox\T3events\Domain\Model\Dto\EventDemand $demand
+	 * @param \Webfox\T3events\Domain\Model\Dto\PeriodAwareDemandInterface $demand
 	 * @return array<\TYPO3\CMS\Extbase\Persistence\QOM\Constraint>
 	 */
 	protected function createPeriodConstraints(QueryInterface $query, $demand) {
@@ -130,15 +130,15 @@ class EventRepository extends AbstractDemandedRepository {
 
 		switch ($demand->getPeriod()) {
 			case 'futureOnly' :
-				$periodConstraint[] = $query->greaterThanOrEqual('performances.date', time());
+				$periodConstraint[] = $query->greaterThanOrEqual($demand->getStartDateField(), time());
 				break;
 			case 'pastOnly' :
-				$periodConstraint[] = $query->lessThanOrEqual('performances.date', time());
+				$periodConstraint[] = $query->lessThanOrEqual($demand->getStartDateField(), time());
 				break;
 			case 'specific' :
 				$periodConstraint[] = $query->logicalAnd(
-					$query->lessThanOrEqual('performances.date', $endDate->getTimestamp()),
-					$query->greaterThanOrEqual('performances.date', $startDate->getTimestamp())
+					$query->lessThanOrEqual($demand->getStartDateField(), $endDate->getTimestamp()),
+					$query->greaterThanOrEqual($demand->getStartDateField(), $startDate->getTimestamp())
 				);
 				break;
 		}
