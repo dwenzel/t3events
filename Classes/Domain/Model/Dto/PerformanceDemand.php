@@ -31,12 +31,12 @@ use Webfox\T3events\Domain\Model\PerformanceStatus;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
 
-class PerformanceDemand extends AbstractDemand implements DemandInterface {
-
-	/**
-	 * @var \DateTime
-	 */
-	protected $date;
+class PerformanceDemand
+	extends AbstractDemand
+	implements DemandInterface, PeriodAwareDemandInterface {
+	use PeriodAwareDemandTrait;
+	const START_DATE_FIELD = 'date';
+	const END_DATE_FIELD = 'endDate';
 
 	/**
 	 * @var \Webfox\T3events\Domain\Model\PerformanceStatus
@@ -68,25 +68,6 @@ class PerformanceDemand extends AbstractDemand implements DemandInterface {
 	  * @var string
 	  */
 	 protected $eventTypes;
-
-	 /**
-	 * Returns the date
-	 *
-	 * @return \DateTime $date
-	 */
-	public function getDate() {
-		return $this->date;
-	}
-
-	/**
-	 * sets the date
-	 *
-	 * @param \DateTime $date
-	 * @return void
-	 */
-	public function setDate($date) {
-		$this->date = $date;
-	}
 
 	/**
 	 * Returns the performance status
@@ -180,4 +161,23 @@ class PerformanceDemand extends AbstractDemand implements DemandInterface {
 	 public function setEventTypes($eventTypes) {
 		 $this->eventTypes = $eventTypes;
 	 }
- }
+
+	/**
+	 * Gets the start date field
+	 *
+	 * @return string
+	 */
+	public function getStartDateField() {
+		return self::START_DATE_FIELD;
+	}
+
+	/**
+	 * Gets the endDate field
+	 *
+	 * @return string
+	 */
+	public function getEndDateField() {
+		return self::END_DATE_FIELD;
+	}
+
+}

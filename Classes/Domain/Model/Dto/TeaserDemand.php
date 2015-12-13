@@ -25,7 +25,12 @@ namespace Webfox\T3events\Domain\Model\Dto;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
 
-class TeaserDemand extends AbstractDemand {
+class TeaserDemand extends AbstractDemand
+	implements DemandInterface, PeriodAwareDemandInterface{
+	use PeriodAwareDemandTrait;
+	const START_DATE_FIELD = 'event.performances.date';
+	const END_DATE_FIELD = 'event.performances.endDate';
+
 
 	/**
 	 * @var boolean Demand only highlighted teasers
@@ -63,6 +68,24 @@ class TeaserDemand extends AbstractDemand {
 	 */
 	public function getVenues() {
 		return $this->venues;
+	}
+
+	/**
+	 * Gets the start date field
+	 *
+	 * @return string
+	 */
+	public function getStartDateField() {
+		return self::START_DATE_FIELD;
+	}
+
+	/**
+	 * Gets the endDate field
+	 *
+	 * @return string
+	 */
+	public function getEndDateField() {
+		return self::END_DATE_FIELD;
 	}
 }
 

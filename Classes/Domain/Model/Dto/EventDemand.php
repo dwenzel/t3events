@@ -26,7 +26,9 @@ namespace Webfox\T3events\Domain\Model\Dto;
  */
 
 class EventDemand extends AbstractDemand
-	implements DemandInterface, PeriodAwareDemandInterface {
+	implements DemandInterface, PeriodAwareDemandInterface, SearchAwareDemandInterface {
+	use PeriodAwareDemandTrait, SearchAwareDemandTrait;
+
 	const START_DATE_FIELD = 'performances.date';
 	const END_DATE_FIELD = 'performances.endDate';
 

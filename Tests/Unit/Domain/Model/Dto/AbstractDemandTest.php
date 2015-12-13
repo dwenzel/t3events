@@ -1,5 +1,5 @@
 <?php
-namespace Webfox\T3events\Tests\Unit\Domain\Model;
+namespace Webfox\T3events\Tests\Unit\Domain\Model\Dto;
 
 	/***************************************************************
 	 *  Copyright notice
@@ -49,38 +49,6 @@ class AbstractDemandTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 	/**
 	 * @test
-	 * @covers ::getPeriod
-	 */
-	public function getPeriodReturnsInitialValueForString() {
-		$this->assertNull($this->fixture->getPeriod());
-	}
-
-	/**
-	 * @test
-	 * @covers ::setPeriod
-	 */
-	public function setPeriodForStringSetsDefaultEmptyString() {
-		$this->fixture->setPeriod();
-		$this->assertSame(
-			'',
-			$this->fixture->getPeriod()
-		);
-	}
-
-	/**
-	 * @test
-	 * @covers ::setPeriod
-	 */
-	public function setPeriodForStringSetsPeriod() {
-		$this->fixture->setPeriod('foo');
-		$this->assertSame(
-			'foo',
-			$this->fixture->getPeriod()
-		);
-	}
-
-	/**
-	 * @test
 	 * @covers ::getLimit
 	 */
 	public function getLimitReturnsInitialValueForInteger() {
@@ -112,7 +80,7 @@ class AbstractDemandTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 * @covers ::setLimit
 	 */
-	public function setLimitValidatesLimitGreatherThanZero() {
+	public function setLimitValidatesLimitGreaterThanZero() {
 		$this->fixture->setLimit(-1);
 		$this->assertSame(
 			100,
@@ -192,24 +160,6 @@ class AbstractDemandTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 	/**
 	 * @test
-	 * @covers ::getPeriodType
-	 */
-	public function getPeriodTypeReturnsInitialNull() {
-		$this->assertNull($this->fixture->getPeriodType());
-	}
-
-	/**
-	 * @test
-	 * @covers ::setPeriodType
-	 */
-	public function setPeriodTypeForStringSetsPeriodType() {
-		$type = 'aType';
-		$this->fixture->setPeriodType($type);
-		$this->assertSame($type, $this->fixture->getPeriodType());
-	}
-
-	/**
-	 * @test
 	 * @covers ::getStoragePages
 	 */
 	public function getStoragePagesReturnsInitialNull() {
@@ -223,76 +173,6 @@ class AbstractDemandTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	public function setStoragePagesForStringSetsStoragePages() {
 		$this->fixture->setStoragePages('15,78,39');
 		$this->assertSame('15,78,39', $this->fixture->getStoragePages());
-	}
-
-	/**
-	 * @test
-	 * @covers ::getPeriodStart
-	 */
-	public function getPeriodStartReturnsInitialNull() {
-		$this->assertNull($this->fixture->getPeriodStart());
-	}
-
-	/**
-	 * @test
-	 * @covers ::setPeriodStart
-	 */
-	public function setPeriodStartForIntegerSetsPeriodStart() {
-		$this->fixture->setPeriodStart(-5);
-		$this->assertSame(-5, $this->fixture->getPeriodStart());
-	}
-
-	/**
-	 * @test
-	 * @covers ::setPeriodDuration
-	 */
-	public function setPeriodDurationForIntegerSetsPeriodDuration() {
-		$this->fixture->setPeriodDuration(-5);
-		$this->assertSame(-5, $this->fixture->getPeriodDuration());
-	}
-
-	/**
-	 * @test
-	 * @covers ::getPeriodDuration
-	 */
-	public function getPeriodDurationReturnsInitialNull() {
-		$this->assertNull($this->fixture->getPeriodDuration());
-	}
-
-	/**
-	 * @test
-	 * @covers ::getStartDate
-	 */
-	public function getStartDateReturnsInitialNull() {
-		$this->assertNull($this->fixture->getStartDate());
-	}
-
-	/**
-	 * @test
-	 * @covers ::setStartDate
-	 */
-	public function setStartDateForDateTimeSetsStartDate() {
-		$date = new \DateTime();
-		$this->fixture->setStartDate($date);
-		$this->assertSame($date, $this->fixture->getStartDate());
-	}
-
-	/**
-	 * @test
-	 * @covers ::getEndDate
-	 */
-	public function getEndDateReturnsInitialNull() {
-		$this->assertNull($this->fixture->getEndDate());
-	}
-
-	/**
-	 * @test
-	 * @covers ::setEndDate
-	 */
-	public function setEndDateForDateTimeSetsEndDate() {
-		$date = new \DateTime();
-		$this->fixture->setEndDate($date);
-		$this->assertSame($date, $this->fixture->getEndDate());
 	}
 
 	/**
@@ -311,7 +191,6 @@ class AbstractDemandTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$this->fixture->setUidList('1,3,5');
 		$this->assertSame('1,3,5', $this->fixture->getUidList());
 	}
-
 
 	/**
 	 * @test
@@ -337,5 +216,54 @@ class AbstractDemandTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		);
 	}
 
+	/**
+	 * @test
+	 * @covers ::getConstraintsConjunction
+	 */
+	public function getConstraintsConjunctionReturnsInitialNull() {
+		$this->assertEquals(
+			NULL,
+			$this->fixture->getConstraintsConjunction()
+		);
+	}
+
+	/**
+	 * @test
+	 * @covers ::setConstraintsConjunction
+	 */
+	public function setConstraintsConjunctionForStringSetsConstraintsConjunction(){
+		$conjunction = 'foo';
+		$this->fixture->setConstraintsConjunction($conjunction);
+
+		$this->assertSame(
+			$conjunction,
+			$this->fixture->getConstraintsConjunction()
+		);
+	}
+
+	/**
+	 * @test
+	 * @covers ::getOrder
+	 */
+	public function getOrderReturnsInitialNull() {
+		$this->assertEquals(
+			NULL,
+			$this->fixture->getOrder()
+		);
+	}
+
+	/**
+	 * @test
+	 * @covers ::setOrder
+	 */
+	public function setOrderForStringSetsCategoryConjunction(){
+		$order = 'fieldA|asc,fieldB|desc';
+		$this->fixture->setOrder($order);
+
+		$this->assertSame(
+			$order,
+			$this->fixture->getOrder()
+		);
+	}
 }
 

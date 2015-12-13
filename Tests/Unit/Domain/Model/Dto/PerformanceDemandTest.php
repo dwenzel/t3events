@@ -1,5 +1,5 @@
 <?php
-namespace Webfox\T3events\Tests\Unit\Domain\Model;
+namespace Webfox\T3events\Tests\Unit\Domain\Model\Dto;
 /***************************************************************
  *  Copyright notice
  *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
@@ -18,6 +18,7 @@ namespace Webfox\T3events\Tests\Unit\Domain\Model;
  *  GNU General Public License for more details.
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+use Webfox\T3events\Domain\Model\Dto\PerformanceDemand;
 
 /**
  * Test case for class \Webfox\T3events\Domain\Model\Dto\PerformanceDemand.
@@ -133,6 +134,47 @@ class PerformanceDemandTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$this->assertSame(
 			'1,2,3',
 			$this->fixture->getEventTypes()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getEventLocationsForStringInitiallyReturnsNull() {
+		$this->assertNull(
+			$this->fixture->getEventLocations()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function setEventLocationsForStringSetsEventLocations() {
+		$eventLocations = '1,2';
+		$this->fixture->setEventLocations($eventLocations);
+		$this->assertSame(
+			$eventLocations,
+			$this->fixture->getEventLocations()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getStartDateFieldForStringReturnsStartDateFieldConstant() {
+		$this->assertSame(
+			PerformanceDemand::START_DATE_FIELD,
+			$this->fixture->getStartDateField()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getEndDateFieldForStringReturnsEndDateFieldConstant() {
+		$this->assertSame(
+			PerformanceDemand::END_DATE_FIELD,
+			$this->fixture->getEndDateField()
 		);
 	}
 }

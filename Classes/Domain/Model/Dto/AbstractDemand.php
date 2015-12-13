@@ -35,11 +35,6 @@ class AbstractDemand extends AbstractEntity implements DemandInterface {
 	protected $categoryConjunction;
 
 	/**
-	 * @var \string  A time period
-	 */
-	protected $period;
-
-	/**
 	 * @var int A Limit for the demand
 	 */
 	protected $limit = 100;
@@ -70,31 +65,6 @@ class AbstractDemand extends AbstractEntity implements DemandInterface {
 	protected $storagePages;
 
 	/**
-	 * @var \string $periodType Type of period: month, day, year, specific
-	 */
-	protected $periodType;
-
-	/**
-	 * @var int $periodStart Start value used when constraining by day, month or year
-	 */
-	protected $periodStart;
-
-	/**
-	 * @var int $periodDuration Duration value used when constraining by day, month or year
-	 */
-	protected $periodDuration;
-
-	/**
-	 * @var \DateTime $startDate Start date when constraining by date
-	 */
-	protected $startDate;
-
-	/**
-	 * @var \DateTime $endDate End date when constraining by date
-	 */
-	protected $endDate;
-
-	/**
 	 * @var \string $uidList A list of record uids
 	 */
 	protected $uidList;
@@ -103,11 +73,6 @@ class AbstractDemand extends AbstractEntity implements DemandInterface {
 	 * @var \string
 	 */
 	protected $constraintsConjunction;
-
-	/**
-	 * @var \Webfox\T3events\Domain\Model\Dto\Search
-	 */
-	protected $search;
 
 	/**
 	 * Returns the Category Conjunction
@@ -128,21 +93,6 @@ class AbstractDemand extends AbstractEntity implements DemandInterface {
 		if ($validatedLimit = (int) $limit > 0) {
 			$this->limit = (int) $limit;
 		}
-	}
-
-	/**
-	 * @return \string The time limit for the demand
-	 */
-	public function getPeriod() {
-		return $this->period;
-	}
-
-	/**
-	 * @param \string A time limit for the demand
-	 * @return void
-	 */
-	public function setPeriod($period = '') {
-		$this->period = $period;
 	}
 
 	/**
@@ -213,81 +163,6 @@ class AbstractDemand extends AbstractEntity implements DemandInterface {
 	}
 
 	/**
-	 * @param int $start $start Start value for time period (day, month or year)
-	 * @return void
-	 */
-	public function setPeriodStart($start) {
-		$this->periodStart = (int) $start;
-	}
-
-	/**
-	 * @return \string
-	 */
-	public function getPeriodType() {
-		return $this->periodType;
-	}
-
-	/**
-	 * @param \string $type Type of period: day, month, year, date
-	 * @return void
-	 */
-	public function setPeriodType($type) {
-		$this->periodType = $type;
-	}
-
-	/**
-	 * @return int
-	 */
-	public function getPeriodStart() {
-		return $this->periodStart;
-	}
-
-	/**
-	 * @param int $duration Duration value for period (days, months, years)
-	 * @return void
-	 */
-	public function setPeriodDuration($duration) {
-		$this->periodDuration = (int) $duration;
-	}
-
-	/**
-	 * @return int
-	 */
-	public function getPeriodDuration() {
-		return $this->periodDuration;
-	}
-
-	/**
-	 * @return \DateTime
-	 */
-	public function getStartDate() {
-		return $this->startDate;
-	}
-
-	/**
-	 * @param \DateTime $date Start date
-	 * @return void
-	 */
-	public function setStartDate($date) {
-		$this->startDate = $date;
-	}
-
-	/**
-	 * @return \DateTime
-	 */
-	public function getEndDate() {
-		return $this->endDate;
-	}
-
-	/**
-	 * @param \DateTime $date End date
-	 * @return void
-	 */
-	public function setEndDate($date) {
-		$this->endDate = $date;
-	}
-
-	/**
 	 * @return \string|null
 	 */
 	public function getUidList() {
@@ -333,25 +208,6 @@ class AbstractDemand extends AbstractEntity implements DemandInterface {
 	 */
 	public function setConstraintsConjunction($conjunction) {
 		$this->constraintsConjunction = $conjunction;
-	}
-
-	/**
-	 * Get search
-	 *
-	 * @return \Webfox\T3events\Domain\Model\Dto\Search
-	 */
-	public function getSearch() {
-		return $this->search;
-	}
-
-	/**
-	 * Set search object
-	 *
-	 * @param \Webfox\T3events\Domain\Model\Dto\Search $search A search object
-	 * @return void
-	 */
-	public function setSearch(Search $search) {
-		$this->search = $search;
 	}
 
 	/**

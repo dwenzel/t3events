@@ -216,7 +216,7 @@ abstract class AbstractDemandedRepository extends Repository {
 	 * Create search constraints from demand
 	 *
 	 * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
-	 * @param \Webfox\T3events\Domain\Model\Dto\DemandInterface $demand
+	 * @param \Webfox\T3events\Domain\Model\Dto\SearchAwareDemandInterface $demand
 	 * @return array<\TYPO3\CMS\Extbase\Persistence\QOM\Constraint>
 	 */
 	protected function createSearchConstraints(QueryInterface $query, $demand) {

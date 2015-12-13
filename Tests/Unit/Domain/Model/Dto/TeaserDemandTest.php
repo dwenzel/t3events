@@ -1,5 +1,5 @@
 <?php
-namespace Webfox\T3events\Tests\Unit\Domain\Model;
+namespace Webfox\T3events\Tests\Unit\Domain\Model\Dto;
 
 	/***************************************************************
 	 *  Copyright notice
@@ -19,6 +19,7 @@ namespace Webfox\T3events\Tests\Unit\Domain\Model;
 	 *  GNU General Public License for more details.
 	 *  This copyright notice MUST APPEAR in all copies of the script!
 	 ***************************************************************/
+use Webfox\T3events\Domain\Model\Dto\TeaserDemand;
 
 /**
  * Test case for class \Webfox\T3events\Domain\Model\DtoTeaserDemand.
@@ -84,5 +85,26 @@ class TeaserDemandTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 			$this->fixture->getVenues()
 		);
 	}
+
+	/**
+	 * @test
+	 */
+	public function getStartDateFieldForStringReturnsStartDateFieldConstant() {
+		$this->assertSame(
+			TeaserDemand::START_DATE_FIELD,
+			$this->fixture->getStartDateField()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getEndDateFieldForStringReturnsEndDateFieldConstant() {
+		$this->assertSame(
+			TeaserDemand::END_DATE_FIELD,
+			$this->fixture->getEndDateField()
+		);
+	}
+
 }
 

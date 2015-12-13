@@ -18,17 +18,6 @@ namespace Webfox\T3events\Domain\Model\Dto;
  * @author Dirk Wenzel <dirk.wenzel@cps-it.de>
  */
 interface DemandInterface {
-
-	/**
-	 * @return Search
-	 */
-	public function getSearch();
-
-	/**
-	 * @param Search $search
-	 */
-	public function setSearch(Search $search);
-
 	/**
 	 * @return int
 	 */
