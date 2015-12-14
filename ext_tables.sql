@@ -715,8 +715,6 @@ CREATE TABLE tx_t3events_domain_model_notification (
 	bodytext text NOT NULL,
 	format varchar(255) DEFAULT '' NOT NULL,
 	sent_at int(11) unsigned DEFAULT '0' NOT NULL,
-	reservation int(11) unsigned DEFAULT '0' NOT NULL,
-
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
 	crdate int(11) unsigned DEFAULT '0' NOT NULL,

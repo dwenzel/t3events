@@ -63,13 +63,6 @@ class Notification extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $sentAt;
 
 	/**
-	 * Reservation
-	 *
-	 * @var \CPSIT\T3eventsReservation\Domain\Model\Reservation
-	 */
-	protected $reservation;
-
-	/**
 	 * Returns the recipient
 	 *
 	 * @return \string
@@ -176,23 +169,4 @@ class Notification extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	public function setSentAt($sentAt) {
 		$this->sentAt = $sentAt;
 	}
-
-	/**
-	 * Returns the reservation
-	 *
-	 * @return \CPSIT\T3eventsReservation\Domain\Model\Reservation
-	 */
-	public function getReservation() {
-		return $this->reservation;
-	}
-
-	/**
-	 * Sets the reservation
-	 *
-	 * @param \CPSIT\T3eventsReservation\Domain\Model\Reservation $reservation
-	 */
-	public function setReservation($reservation) {
-		$this->reservation = $reservation;
-	}
-
 }

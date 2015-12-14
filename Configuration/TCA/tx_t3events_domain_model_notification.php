@@ -59,13 +59,6 @@ return array(
 				'eval' => 'trim,nospace'
 			),
 		),
-		'reservation' => array(
-			'exclude' => 1,
-			'label' => $ll . 'tx_t3events_domain_model_notification.reservation',
-			'config' => array(
-				'type' => 'passthrough',
-			),
-		),
 		'sender' => array(
 			'exclude' => 1,
 			'label' => $ll . 'tx_t3events_domain_model_notification.sender',
