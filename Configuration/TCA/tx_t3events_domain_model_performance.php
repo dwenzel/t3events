@@ -26,7 +26,6 @@ return array(
 			'starttime' => 'starttime',
 			'endtime' => 'endtime',
 		),
-		'type' => 'provider_type',
 		'searchFields' => 'date,admission,begin,end,status_info,external_provider_link,additional_link,provider_type,image,plan,no_handling_fee,price_notice,event_location,ticket_class,status,',
 		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('t3events') . 'Resources/Public/Icons/tx_t3events_domain_model_performance.gif'
 	),
@@ -42,22 +41,11 @@ return array(
         --palette--;;paletteTitle,
         --palette--;;paletteTime,
         status, status_info,image,
-        --div--;Links, provider_type,additional_link,
+        --div--;Links,provider_type, external_provider_link,additional_link,
         --div--;Tickets,
             --palette--;;paletteTicketsHead,
              no_handling_fee, ticket_class,
         --div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,hidden,starttime, endtime'
-		),
-		'1' => array('showitem' => '
-	    sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource;;1,
-	    --palette--;;paletteTitle,
-	    --palette--;;paletteTime,
-	    status, status_info,image,
-	    --div--;Links, provider_type, external_provider_link,additional_link,
-	    --div--;Tickets,
-	        --palette--;;paletteTicketsHead,
-	         no_handling_fee, ticket_class,
-	    --div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,hidden,starttime, endtime'
 		),
 	),
 	'palettes' => array(
