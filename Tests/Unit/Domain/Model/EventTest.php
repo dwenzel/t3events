@@ -448,5 +448,64 @@ class EventTest extends UnitTestCase {
 			$this->fixture->getHidden()
 		);
 	}
+
+	/**
+	 * @test
+	 */
+	public function getAudienceReturnsInitialValueForObjectStorageContainingAudience() {
+		$newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$this->assertEquals(
+			$newObjectStorage,
+			$this->fixture->getAudience()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function setAudienceForObjectStorageContainingAudienceSetsAudience() {
+		$audience = new \Webfox\T3events\Domain\Model\Audience();
+		$objectStorageHoldingExactlyOneAudience = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$objectStorageHoldingExactlyOneAudience->attach($audience);
+		$this->fixture->setAudience($objectStorageHoldingExactlyOneAudience);
+
+		$this->assertSame(
+			$objectStorageHoldingExactlyOneAudience,
+			$this->fixture->getAudience()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function addAudienceToObjectStorageHoldingAudience() {
+		$audience = new \Webfox\T3events\Domain\Model\Audience();
+		$objectStorageHoldingExactlyOneAudience = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$objectStorageHoldingExactlyOneAudience->attach($audience);
+		$this->fixture->addAudience($audience);
+
+		$this->assertEquals(
+			$objectStorageHoldingExactlyOneAudience,
+			$this->fixture->getAudience()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function removeAudienceFromObjectStorageHoldingAudience() {
+		$audience = new \Webfox\T3events\Domain\Model\Audience();
+		$localObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$localObjectStorage->attach($audience);
+		$localObjectStorage->detach($audience);
+		$this->fixture->addAudience($audience);
+		$this->fixture->removeAudience($audience);
+
+		$this->assertEquals(
+			$localObjectStorage,
+			$this->fixture->getAudience()
+		);
+	}
+
 }
 

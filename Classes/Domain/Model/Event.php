@@ -115,6 +115,14 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $organizer;
 
 	/**
+	 * Audience
+	 *
+	 * @lazy
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\T3events\Domain\Model\Audience>
+	 */
+	protected $audience;
+
+	/**
 	 * __construct
 
 	 */
@@ -140,6 +148,7 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 		 */
 		$this->genre = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$this->venue = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$this->audience = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$this->performances = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 	}
 
@@ -443,5 +452,45 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	public function setPerformances(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $performances) {
 		$this->performances = $performances;
 	}
+
+	/**
+	 * Returns the audience
+	 *
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\T3events\Domain\Model\Audience> $audience
+	 */
+	public function getAudience() {
+		return $this->audience;
+	}
+
+	/**
+	 * Sets a audience
+	 *
+	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\T3events\Domain\Model\Audience> $audience
+	 * @return void
+	 */
+	public function setAudience(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $audience) {
+		$this->audience = $audience;
+	}
+
+	/**
+	 * Adds a audience
+	 *
+	 * @param \Webfox\T3events\Domain\Model\Audience $audience
+	 * @return void
+	 */
+	public function addAudience(Audience $audience) {
+		$this->audience->attach($audience);
+	}
+
+	/**
+	 * Removes a audience
+	 *
+	 * @param \Webfox\T3events\Domain\Model\Audience $audienceToRemove The Audience to be removed
+	 * @return void
+	 */
+	public function removeAudience(Audience $audienceToRemove) {
+		$this->audience->detach($audienceToRemove);
+	}
+
 
 }
