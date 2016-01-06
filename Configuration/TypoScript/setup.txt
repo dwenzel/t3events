@@ -166,3 +166,11 @@ lib.dateMe {
 	current = 1
 	strftime = %a, %d.%m.%y
 }
+
+# Rendering of content elements in detail view
+lib.tx_t3events.contentElementRendering = RECORDS
+lib.tx_t3events.contentElementRendering {
+	tables = tt_content
+	source.current = 1
+	dontCheckPid = 1
+}

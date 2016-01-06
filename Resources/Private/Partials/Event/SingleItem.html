@@ -26,8 +26,8 @@
 					title="{event.headline} {event.subtitle}" />
 			</div>
 		</f:else>
+	</f:if>
 </div>
-</f:if>
 <div class="eventRight fl">
 	<div class="eventDescription">
 		<h2>{event.headline}</h2>
@@ -66,5 +66,4 @@
 			<f:render partial="Performance/Item" arguments="{performance: performance, event: event, iteration: iteration}" />
 		</f:for>
 	</div>
-</div>
 </div>

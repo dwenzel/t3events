@@ -1,11 +1,23 @@
 config.tx_extbase {
 	persistence {
 		classes {
+			Webfox\T3events\Domain\Model\Content {
+				mapping {
+					tableName = tt_content
+					columns {
+						altText.mapOnProperty = altText
+						titleText.mapOnProperty = titleText
+						colPos.mapOnProperty = colPos
+						CType.mapOnProperty = CType
+					}
+				}
+			}
 			Webfox\T3events\Domain\Model\Country {
 				mapping {
 					tableName = static_countries
 				}
 			}
+
 		}
 	}
 }
