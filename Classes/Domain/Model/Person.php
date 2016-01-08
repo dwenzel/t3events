@@ -21,20 +21,7 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 class Person extends AbstractEntity {
-
-	/**
-	 * address
-	 *
-	 * @var string
-	 */
-	protected $address = '';
-
-	/**
-	 * city
-	 *
-	 * @var string
-	 */
-	protected $city = '';
+	use AddressTrait;
 
 	/**
 	 * email
@@ -78,29 +65,16 @@ class Person extends AbstractEntity {
 	protected $phone = '';
 
 	/**
-	 * zip
+	 * Title
 	 *
 	 * @var string
 	 */
-	protected $zip = '';
+	protected $title;
 
 	/**
-	 * Returns the address
-	 *
-	 * @return string $address
+	 * @var \DateTime
 	 */
-	public function getAddress() {
-		return $this->address;
-	}
-
-	/**
-	 * Returns the city
-	 *
-	 * @return string $city
-	 */
-	public function getCity() {
-		return $this->city;
-	}
+	protected $birthday;
 
 	/**
 	 * Returns the email
@@ -191,35 +165,6 @@ class Person extends AbstractEntity {
 	}
 
 	/**
-	 * Returns the zip
-	 *
-	 * @return string $zip
-	 */
-	public function getZip() {
-		return $this->zip;
-	}
-
-	/**
-	 * Sets the address
-	 *
-	 * @param string $address
-	 * @return void
-	 */
-	public function setAddress($address) {
-		$this->address = $address;
-	}
-
-	/**
-	 * Sets the city
-	 *
-	 * @param string $city
-	 * @return void
-	 */
-	public function setCity($city) {
-		$this->city = $city;
-	}
-
-	/**
 	 * Sets the email
 	 *
 	 * @param string $email
@@ -240,13 +185,17 @@ class Person extends AbstractEntity {
 	}
 
 	/**
-	 * Sets the zip
-	 *
-	 * @param string $zip
-	 * @return void
+	 * @return string
 	 */
-	public function setZip($zip) {
-		$this->zip = $zip;
+	public function getTitle() {
+		return $this->title;
+	}
+
+	/**
+	 * @param string $title
+	 */
+	public function setTitle($title) {
+		$this->title = $title;
 	}
 
 }

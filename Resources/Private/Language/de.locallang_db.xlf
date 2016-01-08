@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2015-12-09T15:50:23Z">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2016-01-08T13:32:21Z">
 		<header>
 			<type>database</type>
 			<description>Language labels for database tables/fields belonging to extension 't3events'</description>
@@ -324,6 +324,10 @@
 		<trans-unit id="tx_t3events_domain_model_person.person_type" approved="yes" xml:space="preserve">
 			<source>Person Type</source>
 			<target>Personentyp</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_person.title" approved="yes" xml:space="preserve">
+			<source>Title</source>
+			<target>Titel</target>
 		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_persontype" approved="yes" xml:space="preserve">
 			<source>Person Type</source>
