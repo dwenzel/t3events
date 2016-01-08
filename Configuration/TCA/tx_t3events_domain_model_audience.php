@@ -105,12 +105,14 @@ return array(
 				'eval' => 'trim',
 				'wizards' => array(
 					'RTE' => array(
+						'type' => 'script',
 						'icon' => 'wizard_rte2.gif',
 						'notNewRecords' => 1,
 						'RTEonly' => 1,
-						'script' => 'wizard_rte.php',
 						'title' => 'LLL:EXT:cms/locallang_ttc.xlf:bodytext.W.RTE',
-						'type' => 'script'
+						'module' => [
+							'name' => 'wizard_rte'
+						]
 					)
 				)
 			),
