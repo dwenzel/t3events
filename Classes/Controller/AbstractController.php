@@ -10,13 +10,17 @@ namespace Webfox\T3events\Controller;
 	 * LICENSE.txt file that was distributed with this source code.
 	 * The TYPO3 project - inspiring people to share!
 	 */
+use TYPO3\CMS\Extbase\Mvc\RequestInterface;
+use TYPO3\CMS\Extbase\Mvc\ResponseInterface;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+use TYPO3\CMS\Extbase\Property\Exception as PropertyException;
 
 /**
  * @package t3evetns
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
 class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
+	const HANDLE_ENTITY_NOT_FOUND_ERROR = 'handleEntityNotFoundError';
 
 	/**
 	 * Request Arguments
@@ -91,14 +95,16 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	 * @throws \Exception
 	 * @override \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	 */
-	public function processRequest(\TYPO3\CMS\Extbase\Mvc\RequestInterface $request, \TYPO3\CMS\Extbase\Mvc\ResponseInterface $response) {
+	public function processRequest(RequestInterface $request, ResponseInterface $response) {
 		try {
 			parent::processRequest($request, $response);
 		} catch (\Exception $exception) {
-			// If the property mapper did throw a \TYPO3\CMS\Extbase\Property\Exception, because it was unable to find the requested entity, call the page-not-found handler.
-			$previousException = $exception->getPrevious();
-			if (($exception instanceof \TYPO3\CMS\Extbase\Property\Exception) && (($previousException instanceof \TYPO3\CMS\Extbase\Property\Exception\TargetNotFoundException) || ($previousException instanceof \TYPO3\CMS\Extbase\Property\Exception\InvalidSourceException))) {
-				$configuration = isset($this->settings[strtolower($request->getControllerName())]['detail']['errorHandling']) ? $this->settings[strtolower($request->getControllerName())]['detail']['errorHandling'] : NULL;
+			if (
+				($exception instanceof PropertyException\TargetNotFoundException)
+					|| ($exception instanceof PropertyException\InvalidSourceException)
+			) {
+				$controllerName = strtolower($request->getControllerName());
+				$configuration = isset($this->settings[$controllerName]['detail']['errorHandling']) ? $this->settings[$controllerName]['detail']['errorHandling'] : NULL;
 				if ($configuration) {
 					$this->handleEntityNotFoundError($configuration);
 				}
@@ -143,6 +149,30 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 				$GLOBALS['TSFE']->pageNotFoundAndExit($this->entityNotFoundMessage);
 				break;
 			default:
+				$params = [
+					'config' => $configuration,
+					'requestArguments' => $this->request->getArguments()
+				];
+				$this->emitSignal(
+					get_class($this),
+					self::HANDLE_ENTITY_NOT_FOUND_ERROR,
+					$params
+				);
+				if (isset($params['redirectUri'])) {
+					$this->redirectToUri($params['redirectUri']);
+				}
+				if (isset($params['redirect'])) {
+					$this->redirect(
+						$params['redirect']['actionName'],
+						$params['redirect']['controllerName'],
+						$params['redirect']['extensionName'],
+						$params['redirect']['arguments'],
+						$params['redirect']['pageUid'],
+						$params['redirect']['delay'],
+						$params['redirect']['statusCode']
+						);
+				}
+
 		}
 	}
 
