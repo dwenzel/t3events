@@ -10,7 +10,9 @@ namespace Webfox\T3events\Tests;
 	 * LICENSE.txt file that was distributed with this source code.
 	 * The TYPO3 project - inspiring people to share!
 	 */
+use TYPO3\CMS\Extbase\Mvc\Request;
 use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use Webfox\T3events\Controller\AbstractController;
 
 /**
@@ -61,6 +63,14 @@ class AbstractControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @covers ::handleEntityNotFoundError
 	 */
 	public function invalidHandleEntityNotFoundErrorConfigurationReturnsNull() {
+		$this->fixture = $this->getAccessibleMock(
+			AbstractController::class, ['emitSignal'], [], '', false);
+
+		$mockRequest = $this->getMock(
+			Request::class
+		);
+
+		$this->fixture->_set('request', $mockRequest);
 		$result = $this->fixture->_call('handleEntityNotFoundError', 'baz');
 		$this->assertNull($result);
 	}
@@ -144,6 +154,103 @@ class AbstractControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 			->method('redirectToUri')
 			->with(NULL, 0, '301');
 		$mockController->_call('handleEntityNotFoundError', 'redirectToPage, 1, 301');
+	}
+
+	/**
+	 * @test
+	 * @covers ::handleEntityNotFoundError
+	 */
+	public function handleEntityNotFoundErrorRedirectsToUriIfSignalSetsRedirectUri() {
+		/** @var AbstractController $mockController */
+		$mockController = $this->getAccessibleMock(
+			AbstractController::class, ['redirectToUri']
+		);
+		$mockRequest = $this->getMock(
+			Request::class
+		);
+		$mockDispatcher = $this->getAccessibleMock(
+			Dispatcher::class, ['dispatch']
+		);
+		$config = 'foo';
+		$expectedParams = [
+			'config' => GeneralUtility::trimExplode(',', $config),
+			'requestArguments' => null
+		];
+		$slotResult = [
+			['redirectUri' => 'foo']
+		];
+		$mockDispatcher->expects($this->once())
+			->method('dispatch')
+			->with(
+				get_class($mockController),
+				AbstractController::HANDLE_ENTITY_NOT_FOUND_ERROR,
+				[$expectedParams]
+			)
+			->will($this->returnValue($slotResult));
+		$mockController->injectSignalSlotDispatcher($mockDispatcher);
+		$mockController->_set('request', $mockRequest);
+		$mockController->expects($this->once())
+			->method('redirectToUri')
+			->with('foo');
+		$mockController->handleEntityNotFoundError($config);
+	}
+
+
+	/**
+	 * @test
+	 * @covers ::handleEntityNotFoundError
+	 */
+	public function handleEntityNotFoundErrorRedirectsIfSignalSetsRedirect() {
+		/** @var AbstractController $mockController */
+		$mockController = $this->getAccessibleMock(
+			AbstractController::class, ['redirect']
+		);
+		$mockRequest = $this->getMock(
+			Request::class
+		);
+		$mockDispatcher = $this->getAccessibleMock(
+			Dispatcher::class, ['dispatch']
+		);
+		$config = 'foo';
+		$expectedParams = [
+			'config' => GeneralUtility::trimExplode(',', $config),
+			'requestArguments' => null
+		];
+		$slotResult = [
+			[
+				'redirect' => [
+					'actionName' => 'foo',
+					'controllerName' => 'Bar',
+					'extensionName' => 'baz',
+					'arguments' => ['foo'],
+					'pageUid' => 5,
+					'delay' => 1,
+					'statusCode' => 300
+				]
+			]
+		];
+		$mockDispatcher->expects($this->once())
+			->method('dispatch')
+			->with(
+				get_class($mockController),
+				AbstractController::HANDLE_ENTITY_NOT_FOUND_ERROR,
+				[$expectedParams]
+			)
+			->will($this->returnValue($slotResult));
+		$mockController->injectSignalSlotDispatcher($mockDispatcher);
+		$mockController->_set('request', $mockRequest);
+		$mockController->expects($this->once())
+			->method('redirect')
+			->with(
+				$slotResult[0]['redirect']['actionName'],
+				$slotResult[0]['redirect']['controllerName'],
+				$slotResult[0]['redirect']['extensionName'],
+				$slotResult[0]['redirect']['arguments'],
+				$slotResult[0]['redirect']['pageUid'],
+				$slotResult[0]['redirect']['delay'],
+				$slotResult[0]['redirect']['statusCode']
+			);
+		$mockController->handleEntityNotFoundError($config);
 	}
 
 	/**

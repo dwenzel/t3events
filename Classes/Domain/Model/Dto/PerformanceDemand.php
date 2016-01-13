@@ -38,7 +38,7 @@ class PerformanceDemand
 	use PeriodAwareDemandTrait, SearchAwareDemandTrait;
 	const START_DATE_FIELD = 'date';
 	const END_DATE_FIELD = 'endDate';
-	const STATUS_FIELD = 'status.uid';
+	const STATUS_FIELD = 'status';
 
 	/**
 	 * A single status

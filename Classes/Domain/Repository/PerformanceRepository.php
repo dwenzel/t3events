@@ -92,9 +92,11 @@ class PerformanceRepository
 			$conjunction = 'OR';
 			if ($demand->isExcludeSelectedStatuses()) {
 				$conjunction = 'NOTOR';
+
 			}
 
 			$this->combineConstraints($query, $constraints, $statusConstraints, $conjunction);
+
 		}
 
 		if ($demand->getStoragePages() !== NULL) {

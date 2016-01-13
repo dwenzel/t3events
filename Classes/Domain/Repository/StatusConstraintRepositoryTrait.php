@@ -24,9 +24,7 @@ trait StatusConstraintRepositoryTrait {
 		$statusField = $demand->getStatusField();
 		if ($demand->getStatuses() !== null) {
 			$statuses = GeneralUtility::intExplode(',', $demand->getStatuses());
-			foreach ($statuses as $status) {
-				$statusConstraints[] = $query->equals($statusField, $status);
-			}
+			$statusConstraints[] = $query->in($statusField, $statuses);
 		}
 
 		return $statusConstraints;

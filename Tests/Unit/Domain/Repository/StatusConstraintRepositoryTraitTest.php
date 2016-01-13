@@ -96,7 +96,7 @@ class StatusConstraintRepositoryTraitTest extends UnitTestCase {
 	 */
 	public function createStatusConstraintsCreatesStatusesConstraints() {
 		$statusList = '1,2';
-		$query = $this->getMock(Query::class, ['equals'], [], '', false);
+		$query = $this->getMock(Query::class, ['in'], [], '', false);
 		$mockConstraint = 'fooConstraint';
 
 		$this->demand->expects($this->any())
@@ -105,15 +105,14 @@ class StatusConstraintRepositoryTraitTest extends UnitTestCase {
 		$this->demand->expects($this->any())
 			->method('getStatuses')
 			->will($this->returnValue($statusList));
-		$query->expects($this->exactly(2))
-			->method('equals')
-			->withConsecutive(
-				[self::STATUS_FIELD, 1],
-				[self::STATUS_FIELD, 2]
+		$query->expects($this->once())
+			->method('in')
+			->with(
+				self::STATUS_FIELD, [1,  2]
 			)
 			->will($this->returnValue($mockConstraint));
 		$this->assertSame(
-			[$mockConstraint, $mockConstraint],
+			[$mockConstraint],
 			$this->subject->createStatusConstraints($query, $this->demand)
 		);
 	}
