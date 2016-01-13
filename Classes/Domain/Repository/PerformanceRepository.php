@@ -31,7 +31,7 @@ use Webfox\T3events\Domain\Model\Dto\PerformanceDemand;
 class PerformanceRepository
 	extends AbstractDemandedRepository
 	implements PeriodConstraintRepositoryInterface {
-	use PeriodConstraintRepositoryTrait;
+	use PeriodConstraintRepositoryTrait, StatusConstraintRepositoryTrait;
 	protected $defaultOrderings = array('sorting' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING);
 
 	public function initializeObject() {
@@ -79,9 +79,6 @@ class PerformanceRepository
 	protected function createConstraintsFromDemand(\TYPO3\CMS\Extbase\Persistence\QueryInterface $query, \Webfox\T3events\Domain\Model\Dto\DemandInterface $demand) {
 		/** @var PerformanceDemand $demand */
 		$constraints = [];
-		if ($demand->getStatus() !== NULL) {
-			$constraints[] = $query->equals('status', $demand->getStatus());
-		}
 		if ((bool) $periodConstraints = $this->createPeriodConstraints($query, $demand)) {
 			$this->combineConstraints($query, $constraints, $periodConstraints, 'AND');
 		}
@@ -90,6 +87,14 @@ class PerformanceRepository
 		}
 		if ((bool) $searchConstraints = $this->createSearchConstraints($query, $demand)) {
 			$this->combineConstraints($query, $constraints, $searchConstraints, 'OR');
+		}
+		if ((bool) $statusConstraints = $this->createStatusConstraints($query, $demand)) {
+			$conjunction = 'OR';
+			if ($demand->isExcludeSelectedStatuses()) {
+				$conjunction = 'NOTOR';
+			}
+
+			$this->combineConstraints($query, $constraints, $statusConstraints, $conjunction);
 		}
 
 		if ($demand->getStoragePages() !== NULL) {

@@ -177,5 +177,55 @@ class PerformanceDemandTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 			$this->fixture->getEndDateField()
 		);
 	}
+
+
+	/**
+	 * @test
+	 */
+	public function getStatusFieldForStringReturnsStatusFieldConstant() {
+		$this->assertSame(
+			PerformanceDemand::STATUS_FIELD,
+			$this->fixture->getStatusField()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getStatusesForStringReturnsInitiallyNull() {
+		$this->assertNull(
+			$this->fixture->getStatuses()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function setStatusesForStringSetsStatuses() {
+		$this->fixture->setStatuses('foo,bar');
+		$this->assertSame(
+			'foo,bar',
+			$this->fixture->getStatuses()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function isExcludeSelectedStatusForBoolReturnsInitiallyNull() {
+		$this->assertNull(
+			$this->fixture->isExcludeSelectedStatuses()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function excludeSelectedStatusForBoolCanBeSet() {
+		$this->fixture->setExcludeSelectedStatuses(true);
+		$this->assertTrue(
+			$this->fixture->isExcludeSelectedStatuses()
+		);
+	}
 }
 

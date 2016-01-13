@@ -33,15 +33,32 @@ use Webfox\T3events\Domain\Model\PerformanceStatus;
 
 class PerformanceDemand
 	extends AbstractDemand
-	implements DemandInterface, PeriodAwareDemandInterface, SearchAwareDemandInterface {
+	implements DemandInterface, PeriodAwareDemandInterface,
+	SearchAwareDemandInterface, StatusAwareDemandInterface {
 	use PeriodAwareDemandTrait, SearchAwareDemandTrait;
 	const START_DATE_FIELD = 'date';
 	const END_DATE_FIELD = 'endDate';
+	const STATUS_FIELD = 'status.uid';
 
 	/**
+	 * A single status
+	 * see $statuses for multiple
+	 *
 	 * @var \Webfox\T3events\Domain\Model\PerformanceStatus
 	 */
 	protected $status;
+
+	/**
+	 * Statuses (multiple)
+	 *
+	 * @var string
+	 */
+	protected $statuses;
+
+	/**
+	 * @var bool
+	 */
+	protected $excludeSelectedStatuses;
 
 	 /**
 	  * @var string
@@ -178,6 +195,43 @@ class PerformanceDemand
 	 */
 	public function getEndDateField() {
 		return self::END_DATE_FIELD;
+	}
+
+	/**
+	 * Gets the status field name
+	 *
+	 * @return string
+	 */
+	public function getStatusField() {
+		return self::STATUS_FIELD;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getStatuses() {
+		return $this->statuses;
+	}
+
+	/**
+	 * @param string $statuses
+	 */
+	public function setStatuses($statuses) {
+		$this->statuses = $statuses;
+	}
+
+	/**
+	 * @return boolean
+	 */
+	public function isExcludeSelectedStatuses() {
+		return $this->excludeSelectedStatuses;
+	}
+
+	/**
+	 * @param boolean $excludeSelectedStatuses
+	 */
+	public function setExcludeSelectedStatuses($excludeSelectedStatuses) {
+		$this->excludeSelectedStatuses = $excludeSelectedStatuses;
 	}
 
 }

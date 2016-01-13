@@ -1297,5 +1297,61 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$this->fixture->quickMenuAction();
 	}
 
+	/**
+	 * @test
+	 * @covers ::createDemandFromSettings
+	 */
+	public function createDemandFromSettingsSetsStatuses() {
+		$fixture = $this->getAccessibleMock(
+			PerformanceController::class,
+			array('dummy'), array(),'', FALSE);
+		$settings = array('statuses' => '1,2,3');
+		$mockDemand = $this->getMock(
+			PerformanceDemand::class,
+			array(), array(), '', FALSE
+		);
+		$mockObjectManager = $this->getMock(
+			ObjectManager::class,
+			array('get'), array(), '', FALSE
+		);
+
+		$fixture->_set('objectManager', $mockObjectManager);
+
+		$mockObjectManager->expects($this->once())->method('get')
+			->will($this->returnValue($mockDemand));
+		$mockDemand->expects($this->once())->method('setStatuses')
+			->with('1,2,3');
+
+		$fixture->_call('createDemandFromSettings', $settings);
+	}
+
+
+	/**
+	 * @test
+	 * @covers ::createDemandFromSettings
+	 */
+	public function createDemandFromSettingsSetsExcludeSelectedStatuses() {
+		$fixture = $this->getAccessibleMock(
+			PerformanceController::class,
+			array('dummy'), array(),'', FALSE);
+		$settings = array('excludeSelectedStatuses' => 1);
+		$mockDemand = $this->getMock(
+			PerformanceDemand::class,
+			array(), array(), '', FALSE
+		);
+		$mockObjectManager = $this->getMock(
+			ObjectManager::class,
+			array('get'), array(), '', FALSE
+		);
+
+		$fixture->_set('objectManager', $mockObjectManager);
+
+		$mockObjectManager->expects($this->once())->method('get')
+			->will($this->returnValue($mockDemand));
+		$mockDemand->expects($this->once())->method('setExcludeSelectedStatuses')
+			->with(1);
+
+		$fixture->_call('createDemandFromSettings', $settings);
+	}
 }
 
