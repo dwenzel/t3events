@@ -4,6 +4,7 @@ namespace Webfox\T3events\Tests\Unit\Domain\Repository;
 use CPSIT\ZewEvents\Domain\Model\Dto\PerformanceDemand;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
+use Webfox\T3events\Domain\Model\Dto\DemandInterface;
 use Webfox\T3events\Domain\Repository\PerformanceRepository;
 
 /***************************************************************
@@ -65,7 +66,7 @@ class PerformanceRepositoryTest extends UnitTestCase {
 	 */
 	public function createConstraintsFromDemandInitiallyReturnsEmptyArray() {
 		$demand = $this->getMock(
-			PerformanceDemand::class
+			DemandInterface::class
 		);
 		$query = $this->getMock(
 			QueryInterface::class,
@@ -87,7 +88,7 @@ class PerformanceRepositoryTest extends UnitTestCase {
 			PerformanceRepository::class,
 			['createStatusConstraints'], [], '', false);
 		$demand = $this->getMock(
-			PerformanceDemand::class
+			DemandInterface::class
 		);
 		$query = $this->getMock(
 			QueryInterface::class,
@@ -108,7 +109,7 @@ class PerformanceRepositoryTest extends UnitTestCase {
 			PerformanceRepository::class,
 			['createStatusConstraints', 'combineConstraints'], [], '', false);
 		$demand = $this->getMock(
-			PerformanceDemand::class
+			DemandInterface::class
 		);
 		$query = $this->getMock(
 			QueryInterface::class,
@@ -139,7 +140,7 @@ class PerformanceRepositoryTest extends UnitTestCase {
 			PerformanceRepository::class,
 			['createStatusConstraints', 'combineConstraints'], [], '', false);
 		$demand = $this->getMock(
-			PerformanceDemand::class, ['isExcludeSelectedStatuses']
+			DemandInterface::class, ['isExcludeSelectedStatuses']
 		);
 		$query = $this->getMock(
 			QueryInterface::class,
