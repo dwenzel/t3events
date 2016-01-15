@@ -65,8 +65,18 @@ class PerformanceRepositoryTest extends UnitTestCase {
 	 * @covers ::createConstraintsFromDemand
 	 */
 	public function createConstraintsFromDemandInitiallyReturnsEmptyArray() {
-		$demand = $this->getMock(
-			DemandInterface::class
+		$demand = $this->getMockForAbstractClass(
+			DemandInterface::class, [], '', true, true, true,
+			['getEventLocations']
+		);
+		$this->subject = $this->getAccessibleMock(
+			PerformanceRepository::class,
+			[
+				'createStatusConstraints',
+				'createCategoryConstraints',
+				'createSearchConstraints'
+			]
+			, [], '', false
 		);
 		$query = $this->getMock(
 			QueryInterface::class,
@@ -86,9 +96,14 @@ class PerformanceRepositoryTest extends UnitTestCase {
 	public function createConstraintsFromDemandCallsCreateStatusConstraints() {
 		$this->subject = $this->getAccessibleMock(
 			PerformanceRepository::class,
-			['createStatusConstraints'], [], '', false);
-		$demand = $this->getMock(
-			DemandInterface::class
+			[
+				'createStatusConstraints',
+				'createCategoryConstraints',
+				'createSearchConstraints'
+			], [], '', false);
+		$demand = $this->getMockForAbstractClass(
+			DemandInterface::class, [], '', true, true, true,
+			['getEventLocations']
 		);
 		$query = $this->getMock(
 			QueryInterface::class,
@@ -107,9 +122,15 @@ class PerformanceRepositoryTest extends UnitTestCase {
 	public function createConstraintsFromDemandCombinesStatusConstraintsLogicalOr() {
 		$this->subject = $this->getAccessibleMock(
 			PerformanceRepository::class,
-			['createStatusConstraints', 'combineConstraints'], [], '', false);
-		$demand = $this->getMock(
-			DemandInterface::class
+			[
+				'createStatusConstraints',
+				'createSearchConstraints',
+				'createCategoryConstraints',
+				'combineConstraints'
+			], [], '', false);
+		$demand = $this->getMockForAbstractClass(
+			DemandInterface::class, [], '', true, true, true,
+			['getEventLocations', 'isExcludeSelectedStatuses']
 		);
 		$query = $this->getMock(
 			QueryInterface::class,
@@ -138,9 +159,15 @@ class PerformanceRepositoryTest extends UnitTestCase {
 	public function createConstraintsFromDemandCombinesStatusConstraintsLogicalNotOr() {
 		$this->subject = $this->getAccessibleMock(
 			PerformanceRepository::class,
-			['createStatusConstraints', 'combineConstraints'], [], '', false);
-		$demand = $this->getMock(
-			DemandInterface::class, ['isExcludeSelectedStatuses']
+			[
+				'createStatusConstraints',
+				'createSearchConstraints',
+				'createCategoryConstraints',
+				'combineConstraints'
+			], [], '', false);
+		$demand = $this->getMockForAbstractClass(
+			DemandInterface::class, [], '', true, true, true,
+			['getEventLocations', 'isExcludeSelectedStatuses']
 		);
 		$query = $this->getMock(
 			QueryInterface::class,

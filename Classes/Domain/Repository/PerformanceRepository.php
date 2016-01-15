@@ -23,6 +23,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use Webfox\T3events\Domain\Model\Dto\DemandInterface;
 use Webfox\T3events\Domain\Model\Dto\PerformanceDemand;
+use Webfox\T3events\Domain\Model\Dto\PeriodAwareDemandInterface;
 
 /**
  * @package t3events
@@ -79,7 +80,8 @@ class PerformanceRepository
 	protected function createConstraintsFromDemand(\TYPO3\CMS\Extbase\Persistence\QueryInterface $query, \Webfox\T3events\Domain\Model\Dto\DemandInterface $demand) {
 		/** @var PerformanceDemand $demand */
 		$constraints = [];
-		if ((bool) $periodConstraints = $this->createPeriodConstraints($query, $demand)) {
+		if ($demand instanceof PeriodAwareDemandInterface &&
+			(bool) $periodConstraints = $this->createPeriodConstraints($query, $demand)) {
 			$this->combineConstraints($query, $constraints, $periodConstraints, 'AND');
 		}
 		if ((bool) $categoryConstraints = $this->createCategoryConstraints($query, $demand)) {
