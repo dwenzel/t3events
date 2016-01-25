@@ -50,6 +50,9 @@ class GenreTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function getTitleReturnsInitialValueForString() {
+		$this->assertNull(
+			$this->fixture->getTitle()
+		);
 	}
 
 	/**
@@ -64,5 +67,21 @@ class GenreTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		);
 	}
 
+	/**
+	 * @test
+	 */
+	public function getLanguageUidReturnsInitialValueForInteger() {
+		$this->assertNull(
+			$this->fixture->getLanguageUid()
+		);
+	}
+
+	public function getLanguageUidReturnsLanguageUid() {
+		$this->fixture->_setProperty('_languagUid', 5);
+		$this->assertSame(
+			5,
+			$this->fixture->getLanguageUid()
+		);
+	}
 }
 
