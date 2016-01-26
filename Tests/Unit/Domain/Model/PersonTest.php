@@ -272,4 +272,26 @@ class PersonTest extends UnitTestCase {
 			$this->subject->getPersonType()
 		);
 	}
+
+	/**
+	 * @test
+	 */
+	public function getBirthdayForDateTimeReturnsInitiallyNull() {
+		$this->assertNull(
+			$this->subject->getBirthday()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function birthdayCanBeSet() {
+		$date = new \DateTime();
+		$this->subject->setBirthday($date);
+		$this->assertSame(
+			$date,
+			$this->subject->getBirthday()
+		);
+	}
+
 }

@@ -198,4 +198,18 @@ class Person extends AbstractEntity {
 		$this->title = $title;
 	}
 
+	/**
+	 * @return \DateTime
+	 */
+	public function getBirthday() {
+		return $this->birthday;
+	}
+
+	/**
+	 * @param \DateTime $birthday
+	 */
+	public function setBirthday($birthday) {
+		$this->birthday = $birthday;
+	}
+
 }
