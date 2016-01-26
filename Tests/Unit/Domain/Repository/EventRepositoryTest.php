@@ -498,5 +498,31 @@ class EventRepositoryTest extends UnitTestCase {
 			$this->fixture->_call('createCategoryConstraints', $query, $demand)
 		);
 	}
+
+	/**
+	 * @test
+	 */
+	public function createCategoryConstraintsCreatesCategoryConstraints() {
+		$categoryList = '1,2';
+		$query = $this->getMock(Query::class, ['contains'], [], '', false);
+		$demand = $this->getMock(EventDemand::class);
+		$mockConstraint = 'fooConstraint';
+
+		$demand->expects($this->any())
+			->method('getCategories')
+			->will($this->returnValue($categoryList));
+		$query->expects($this->exactly(2))
+			->method('contains')
+			->withConsecutive(
+				['categories', 1],
+				['categories', 2]
+			)
+			->will($this->returnValue($mockConstraint));
+		$this->assertSame(
+			[$mockConstraint, $mockConstraint],
+			$this->fixture->_call('createCategoryConstraints', $query, $demand)
+		);
+	}
+
 }
 

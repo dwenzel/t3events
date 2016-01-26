@@ -87,6 +87,13 @@ class PerformanceDemand
 	 protected $eventTypes;
 
 	/**
+	 * Categories
+	 *
+	 * @var string
+	 */
+	protected $categories;
+
+	/**
 	 * Returns the performance status
 	 *
 	 * @return \Webfox\T3events\Domain\Model\PerformanceStatus
@@ -232,6 +239,20 @@ class PerformanceDemand
 	 */
 	public function setExcludeSelectedStatuses($excludeSelectedStatuses) {
 		$this->excludeSelectedStatuses = $excludeSelectedStatuses;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getCategories() {
+		return $this->categories;
+	}
+
+	/**
+	 * @param string $categories
+	 */
+	public function setCategories($categories) {
+		$this->categories = $categories;
 	}
 
 }

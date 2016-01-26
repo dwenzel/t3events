@@ -19,12 +19,15 @@ namespace Webfox\T3events\Domain\Model;
 	 *  GNU General Public License for more details.
 	 *  This copyright notice MUST APPEAR in all copies of the script!
 	 ***************************************************************/
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /**
  * @package t3events
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
+class Event extends AbstractEntity {
+	use CategorizableTrait;
 
 	/**
 	 * Hidden
@@ -141,15 +144,11 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 * @return void
 	 */
 	protected function initStorageObjects() {
-		/**
-		 * Do not modify this method!
-		 * It will be rewritten on each save in the extension builder
-		 * You may modify the constructor of this class instead
-		 */
-		$this->genre = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-		$this->venue = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-		$this->audience = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-		$this->performances = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$this->genre = new ObjectStorage();
+		$this->venue = new ObjectStorage();
+		$this->audience = new ObjectStorage();
+		$this->performances = new ObjectStorage();
+		$this->categories = new ObjectStorage();
 	}
 
 	/**

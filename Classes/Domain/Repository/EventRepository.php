@@ -64,6 +64,12 @@ class EventRepository
 			}
 		}
 
+		if ($demand->getCategories()) {
+			$categories = GeneralUtility::intExplode(',', $demand->getCategories());
+			foreach($categories as $category) {
+				$categoryConstraints[] = $query->contains('categories', $category);
+			}
+		}
 		return $categoryConstraints;
 	}
 

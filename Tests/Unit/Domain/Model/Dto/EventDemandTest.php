@@ -150,5 +150,26 @@ class EventDemandTest extends UnitTestCase {
 			$this->fixture->getEndDateField()
 		);
 	}
+
+	/**
+	 * @test
+	 */
+	public function getCategoriesInitiallyReturnsNull() {
+		$this->assertNull(
+			$this->fixture->getCategories()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function categoriesCanBeSet() {
+		$categories = '1,2,3';
+		$this->fixture->setCategories($categories);
+		$this->assertSame(
+			$categories,
+			$this->fixture->getCategories()
+		);
+	}
 }
 

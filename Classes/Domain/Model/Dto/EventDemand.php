@@ -54,6 +54,13 @@ class EventDemand extends AbstractDemand
 	protected $eventType;
 
 	/**
+	 * Categories
+	 *
+	 * @var string
+	 */
+	protected $categories;
+
+	/**
 	 * Category Conjunction
 	 *
 	 * @var \string
@@ -152,6 +159,25 @@ class EventDemand extends AbstractDemand
 	 */
 	public function getEndDateField() {
 		return self::END_DATE_FIELD;
+	}
+
+	/**
+	 * Returns the categories
+	 *
+	 * @return \string $categories
+	 */
+	public function getCategories() {
+		return $this->categories;
+	}
+
+	/**
+	 * Sets the categories
+	 *
+	 * @param \string $categories
+	 * @return void
+	 */
+	public function setCategories($categories) {
+		$this->categories = $categories;
 	}
 
 }
