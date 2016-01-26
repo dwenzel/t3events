@@ -187,7 +187,7 @@ class AbstractControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 				[$expectedParams]
 			)
 			->will($this->returnValue($slotResult));
-		$mockController->injectSignalSlotDispatcher($mockDispatcher);
+		$mockController->_set('signalSlotDispatcher', $mockDispatcher);
 		$mockController->_set('request', $mockRequest);
 		$mockController->expects($this->once())
 			->method('redirectToUri')
@@ -237,7 +237,7 @@ class AbstractControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 				[$expectedParams]
 			)
 			->will($this->returnValue($slotResult));
-		$mockController->injectSignalSlotDispatcher($mockDispatcher);
+		$mockController->_set('signalSlotDispatcher', $mockDispatcher);
 		$mockController->_set('request', $mockRequest);
 		$mockController->expects($this->once())
 			->method('redirect')

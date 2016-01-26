@@ -506,6 +506,5 @@ class EventTest extends UnitTestCase {
 			$this->fixture->getAudience()
 		);
 	}
-
 }
 
