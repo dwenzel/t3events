@@ -30,7 +30,7 @@ return [
 	],
 	'interface' => [
 		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, headline,
-			subtitle,teaser,description, keywords, image, genre, venue, event_type, performances, organizer,audience,new_until,archive_date',
+			subtitle,teaser,description, keywords, image, genre, venue, event_type, performances, organizer,audience,new_until,archive_date,fe_group',
 	],
 	'types' => [
 		'1' => [

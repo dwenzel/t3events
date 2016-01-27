@@ -25,6 +25,7 @@ return array(
 			'disabled' => 'hidden',
 			'starttime' => 'starttime',
 			'endtime' => 'endtime',
+			'fe_group' => 'fe_group'
 		),
 		'searchFields' => 'date,admission,begin,end,status_info,external_provider_link,additional_link,provider_type,image,plan,no_handling_fee,price_notice,event_location,ticket_class,status,',
 		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('t3events') . 'Resources/Public/Icons/tx_t3events_domain_model_performance.gif'
@@ -33,7 +34,7 @@ return array(
 		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource,
 			hidden, date,end_date,admission, begin, end, status_info, external_provider_link,
 			additional_link, provider_type, image, plan, no_handling_fee, price_notice,
-			event_location, ticket_class, status',
+			event_location, ticket_class, status,fe_group',
 	),
 	'types' => array(
 		'0' => array('showitem' => '
@@ -45,7 +46,7 @@ return array(
         --div--;Tickets,
             --palette--;;paletteTicketsHead,
              no_handling_fee, ticket_class,
-        --div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,hidden,starttime, endtime'
+        --div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,hidden,starttime, endtime,fe_group'
 		),
 	),
 	'palettes' => array(
@@ -144,6 +145,33 @@ return array(
 				),
 			),
 		),
+		'fe_group' => [
+			'exclude' => 1,
+			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.fe_group',
+			'config' => [
+				'type' => 'select',
+				'size' => 5,
+				'maxitems' => 20,
+				'items' => [
+					[
+						'LLL:EXT:lang/locallang_general.xml:LGL.hide_at_login',
+						-1,
+					],
+					[
+						'LLL:EXT:lang/locallang_general.xml:LGL.any_login',
+						-2,
+					],
+					[
+						'LLL:EXT:lang/locallang_general.xml:LGL.usergroups',
+						'--div--',
+					],
+				],
+				'exclusiveKeys' => '-1,-2',
+				'foreign_table' => 'fe_groups',
+				'foreign_table_where' => 'ORDER BY fe_groups.title',
+			],
+		],
+
 		'date' => array(
 			'exclude' => 0,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_performance.date',
