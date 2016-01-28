@@ -36,9 +36,6 @@ plugin.tx_t3events {
 				demand = 0
 			}
 		}
-		detail {
-			errorHandling = {$plugin.tx_t3events.settings.detail.errorHandling}
-		}
 		teaser {
 			dummyImage = EXT:t3events/Resources/Public/Images/dummy-image.png
 			image {
@@ -56,6 +53,9 @@ plugin.tx_t3events {
 
 				paginate = 1
 				showSortBy = 1
+			}
+			detail {
+				errorHandling = {$plugin.tx_t3events.settings.detail.errorHandling}
 			}
 			single {
 				dummyImage = EXT:t3events/Resources/Public/Images/dummy-image.png
@@ -91,6 +91,9 @@ plugin.tx_t3events {
 			}
 		}
 		performance {
+			detail {
+				errorHandling = {$plugin.tx_t3events.settings.detail.errorHandling}
+			}
 			search {
 				fields = {$plugin.tx_t3events.settings.performance.search.fields}
 				radius {
