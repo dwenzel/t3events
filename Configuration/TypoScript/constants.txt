@@ -14,6 +14,8 @@ plugin.tx_t3events {
 	}
 
 	settings {
+		# set default error handling for detail view
+		detail.errorHandling = pageNotFoundHandler
 		event {
 			search {
 				fields = headline,subtitle,teaser,description,keywords

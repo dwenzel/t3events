@@ -36,6 +36,9 @@ plugin.tx_t3events {
 				demand = 0
 			}
 		}
+		detail {
+			errorHandling = {$plugin.tx_t3events.settings.detail.errorHandling}
+		}
 		teaser {
 			dummyImage = EXT:t3events/Resources/Public/Images/dummy-image.png
 			image {
