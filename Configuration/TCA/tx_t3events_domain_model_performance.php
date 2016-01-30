@@ -124,9 +124,6 @@ return array(
 				'eval' => 'datetime',
 				'checkbox' => 0,
 				'default' => 0,
-				'range' => array(
-					'lower' => mktime(0, 0, 0, date('m'), date('d'), date('Y'))
-				),
 			),
 		),
 		'endtime' => array(
@@ -140,9 +137,6 @@ return array(
 				'eval' => 'datetime',
 				'checkbox' => 0,
 				'default' => 0,
-				'range' => array(
-					'lower' => mktime(0, 0, 0, date('m'), date('d'), date('Y'))
-				),
 			),
 		),
 		'fe_group' => [
@@ -171,7 +165,6 @@ return array(
 				'foreign_table_where' => 'ORDER BY fe_groups.title',
 			],
 		],
-
 		'date' => array(
 			'exclude' => 0,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_performance.date',

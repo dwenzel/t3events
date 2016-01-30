@@ -111,9 +111,6 @@ return [
 				'eval' => 'datetime',
 				'checkbox' => 0,
 				'default' => 0,
-				'range' => [
-					'lower' => mktime(0, 0, 0, date('m'), date('d'), date('Y'))
-				],
 			],
 		],
 		'endtime' => [
@@ -127,9 +124,6 @@ return [
 				'eval' => 'datetime',
 				'checkbox' => 0,
 				'default' => 0,
-				'range' => [
-					'lower' => mktime(0, 0, 0, date('m'), date('d'), date('Y'))
-				],
 			],
 		],
 		'fe_group' => [
