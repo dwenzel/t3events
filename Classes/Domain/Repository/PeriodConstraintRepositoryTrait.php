@@ -26,14 +26,13 @@ trait PeriodConstraintRepositoryTrait {
 		$periodType = $demand->getPeriodType();
 		$periodDuration = $demand->getPeriodDuration();
 		$periodConstraint = [];
+		// set start date initial to now
+		$timezone = new \DateTimeZone(date_default_timezone_get());
+		$startDate = new \DateTime('today', $timezone);
+		$endDate = clone($startDate);
+
 		if ($period === 'specific' && $periodType) {
 			// @todo: throw exception for missing periodType
-
-			// set start date initial to now
-			$timezone = new \DateTimeZone(date_default_timezone_get());
-			$startDate = new \DateTime('NOW', $timezone);
-			$endDate = clone($startDate);
-
 			// get delta value
 			$deltaStart = ($periodStart < 0) ? $periodStart : '+' . $periodStart;
 			$deltaEnd = ($periodDuration > 0) ? '+' . $periodDuration : '+' . 999;
@@ -79,10 +78,10 @@ trait PeriodConstraintRepositoryTrait {
 
 		switch ($demand->getPeriod()) {
 			case 'futureOnly' :
-				$periodConstraint[] = $query->greaterThanOrEqual($demand->getStartDateField(), time());
+				$periodConstraint[] = $query->greaterThanOrEqual($demand->getStartDateField(), $startDate->getTimestamp());
 				break;
 			case 'pastOnly' :
-				$periodConstraint[] = $query->lessThanOrEqual($demand->getStartDateField(), time());
+				$periodConstraint[] = $query->lessThanOrEqual($demand->getStartDateField(), $startDate->getTimestamp());
 				break;
 			case 'specific' :
 				$periodConstraint[] = $query->logicalAnd(

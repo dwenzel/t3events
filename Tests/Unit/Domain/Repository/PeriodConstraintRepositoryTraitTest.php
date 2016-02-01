@@ -98,6 +98,8 @@ class PeriodConstraintRepositoryTraitTest extends UnitTestCase {
 	 */
 	public function createPeriodConstraintsAddsConstraintForFuture() {
 		$period = 'futureOnly';
+		$timezone = new \DateTimeZone(date_default_timezone_get());
+		$startDate = new \DateTime('today', $timezone);
 
 		$this->demand->expects($this->any())
 			->method('getPeriod')
@@ -107,7 +109,7 @@ class PeriodConstraintRepositoryTraitTest extends UnitTestCase {
 			->will($this->returnValue(self::START_DATE_FIELD));
 		$this->query->expects($this->once())
 			->method('greaterThanOrEqual')
-			->with(self::START_DATE_FIELD, time());
+			->with(self::START_DATE_FIELD, $startDate->getTimestamp());
 
 		$this->subject->createPeriodConstraints($this->query, $this->demand);
 	}
@@ -117,6 +119,8 @@ class PeriodConstraintRepositoryTraitTest extends UnitTestCase {
 	 */
 	public function createPeriodConstraintsAddsConstraintForPast() {
 		$period = 'pastOnly';
+		$timezone = new \DateTimeZone(date_default_timezone_get());
+		$startDate = new \DateTime('today', $timezone);
 
 		$this->demand->expects($this->any())
 			->method('getPeriod')
@@ -126,7 +130,7 @@ class PeriodConstraintRepositoryTraitTest extends UnitTestCase {
 			->will($this->returnValue(self::START_DATE_FIELD));
 		$this->query->expects($this->once())
 			->method('lessThanOrEqual')
-			->with(self::START_DATE_FIELD, time());
+			->with(self::START_DATE_FIELD, $startDate->getTimestamp());
 
 		$this->subject->createPeriodConstraints($this->query, $this->demand);
 	}
