@@ -21,6 +21,7 @@ return array(
 		'transOrigPointerField' => 'l10n_parent',
 		'transOrigDiffSourceField' => 'l10n_diffsource',
 		'delete' => 'deleted',
+		'type' => 'tx_extbase_type',
 		'enablecolumns' => array(
 			'disabled' => 'hidden',
 			'starttime' => 'starttime',
@@ -33,7 +34,7 @@ return array(
 		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, person_type,title, name, first_name, last_name, gender,address, zip, city, phone, email',
 	),
 	'types' => array(
-		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, person_type, gender, title,name, first_name, last_name, address, zip, city, phone, email,  --div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.access, starttime, endtime'),
+		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, person_type, gender, title,name, first_name, last_name, address, zip, city, phone, email,  --div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.access,tx_extbase_type, starttime, endtime'),
 	),
 	'palettes' => array(
 		'1' => array('showitem' => ''),
@@ -109,6 +110,20 @@ return array(
 				'range' => array(
 					'lower' => mktime(0, 0, 0, date('m'), date('d'), date('Y'))
 				),
+			),
+		),
+		'tx_extbase_type' => array(
+			'exclude' => 1,
+			'label' => $ll . 'tx_t3events_domain_model_person.tx_extbase_type',
+			'config' => array(
+				'type' => 'select',
+				'items' => array(
+					array($ll . 'tx_t3events_domain_model_person.type.default', \Webfox\T3events\Domain\Model\Person::PERSON_TYPE_UNKNOWN),
+					array($ll . 'tx_t3events_domain_model_person.type.contact', \Webfox\T3events\Domain\Model\Person::PERSON_TYPE_CONTACT),
+				),
+				'size' => 1,
+				'maxitems' => 1,
+				'eval' => ''
 			),
 		),
 		'person_type' => array(

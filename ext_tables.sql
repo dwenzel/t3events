@@ -611,6 +611,7 @@ CREATE TABLE tx_t3events_domain_model_person (
 	email varchar(255) DEFAULT '' NOT NULL,
 	title varchar(255) DEFAULT '' NOT NULL,
 	birthday date DEFAULT '0000-00-00',
+	tx_extbase_type varchar(255) DEFAULT '' NOT NULL,
 
 	t3ver_oid int(11) DEFAULT '0' NOT NULL,
 	t3ver_id int(11) DEFAULT '0' NOT NULL,
@@ -635,7 +636,7 @@ CREATE TABLE tx_t3events_domain_model_person (
 	l10n_parent int(11) DEFAULT '0' NOT NULL,
 	l10n_diffsource mediumblob,
 
-	PRIMARY KEY (uid),
+	PRIMARY KEY (uid)
 );
 
 #

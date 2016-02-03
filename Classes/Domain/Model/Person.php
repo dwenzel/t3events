@@ -22,6 +22,8 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
  ***************************************************************/
 class Person extends AbstractEntity {
 	use AddressTrait;
+	const PERSON_TYPE_UNKNOWN = 0;
+	const PERSON_TYPE_CONTACT = 1;
 
 	/**
 	 * email

@@ -17,7 +17,13 @@ config.tx_extbase {
 					tableName = static_countries
 				}
 			}
-
+			Webfox\T3events\Domain\Model\Person {
+				mapping {
+					columns {
+						tx_extbase_type.mapOnProperty = type
+					}
+				}
+			}
 		}
 	}
 }
