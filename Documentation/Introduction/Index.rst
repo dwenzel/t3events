@@ -9,18 +9,18 @@
 .. role::   underline
 .. role::   typoscript(code)
 .. role::   ts(typoscript)
-:class:  typoscript
+		:class:  typoscript
 .. role::   php(code)
 
 
-Configuration
--------------
+Introduction
+------------
 
 
 .. toctree::
-:maxdepth: 5
-	   :titlesonly:
-	   :glob:
+		:maxdepth: 5
+		:titlesonly:
+		:glob:
 
-	   Overview/Index
+		WhatDoesItDo/Index
 

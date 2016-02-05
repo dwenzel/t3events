@@ -1,11 +1,11 @@
-.. |img-createRecords|      image:: ../../../Images/createRecords.png
+.. |img-createRecords|      image:: ../../Images/createRecords.png
    :height: 414
    :width: 338
 .. :align: left
 .. :border: 0
 .. :name: Create Records
 
-.. |img-4|      image:: ../../../Images/manual_html_m63a1b3be.png
+.. |img-4|      image:: ../../Images/manual_html_m63a1b3be.png
    :height: 429
    :width: 577
 .. :align: left

@@ -1,4 +1,6 @@
-﻿.. ==================================================
+﻿.. include:: Images.txt
+
+.. ==================================================
 .. FOR YOUR INFORMATION
 .. --------------------------------------------------
 .. -*- coding: utf-8 -*- with BOM.
@@ -9,18 +11,17 @@
 .. role::   underline
 .. role::   typoscript(code)
 .. role::   ts(typoscript)
-:class:  typoscript
+
+	:class:  typoscript
 .. role::   php(code)
 
 
-Introduction
-------------
+Overview
+^^^^^^^^
 
+- Create records for events, performances, locations, genres etc
 
-.. toctree::
-:maxdepth: 5
-	   :titlesonly:
-	   :glob:
+- Insert a plugin at any page and configure it to display teasers,
+  events or a quick menu
 
-	   WhatDoesItDo/Index
-
+|img-createRecords|
