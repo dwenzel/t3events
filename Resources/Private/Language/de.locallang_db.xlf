@@ -329,6 +329,10 @@
 			<source>Title</source>
 			<target>Titel</target>
 		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_person.www" approved="yes" xml:space="preserve">
+			<source>WWW</source>
+			<target>WWW</target>
+		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_person.tx_extbase_type" approved="yes" xml:space="preserve">
 			<source>Record Type</source>
 			<target>Datensatztyp</target>

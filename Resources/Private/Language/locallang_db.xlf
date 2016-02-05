@@ -288,6 +288,9 @@
 		<trans-unit id="tx_t3events_domain_model_person.zip" xml:space="preserve">
 			<source>Zip</source>
 		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_person.www" xml:space="preserve">
+			<source>WWW</source>
+		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_persontype" xml:space="preserve">
 			<source>Person Type</source>
 		</trans-unit>

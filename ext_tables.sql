@@ -609,6 +609,7 @@ CREATE TABLE tx_t3events_domain_model_person (
 	city varchar(255) DEFAULT '' NOT NULL,
 	phone varchar(255) DEFAULT '' NOT NULL,
 	email varchar(255) DEFAULT '' NOT NULL,
+	www varchar(255) DEFAULT '' NOT NULL,
 	title varchar(255) DEFAULT '' NOT NULL,
 	birthday date DEFAULT '0000-00-00',
 	tx_extbase_type varchar(255) DEFAULT '' NOT NULL,

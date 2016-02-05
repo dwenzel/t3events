@@ -31,10 +31,10 @@ return array(
 		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('t3events') . 'Resources/Public/Icons/tx_t3events_domain_model_person.png'
 	),
 	'interface' => array(
-		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, person_type,title, name, first_name, last_name, gender,address, zip, city, phone, email',
+		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, person_type,title, name, first_name, last_name, gender,address, zip, city, phone, email,www',
 	),
 	'types' => array(
-		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, person_type, gender, title,name, first_name, last_name, address, zip, city, phone, email,  --div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.access,tx_extbase_type, starttime, endtime'),
+		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, person_type, gender, title,name, first_name, last_name, address, zip, city, phone, email,www,  --div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.access,tx_extbase_type, starttime, endtime'),
 	),
 	'palettes' => array(
 		'1' => array('showitem' => ''),
@@ -228,5 +228,14 @@ return array(
 				'eval' => 'trim'
 			),
 		),
+		'www' => [
+			'exclude' => 0,
+			'label' => $ll . 'tx_t3events_domain_model_person.www',
+			'config' => [
+				'type' => 'input',
+				'size' => 30,
+				'eval' => 'trim'
+			],
+		],
 	),
 );
