@@ -589,7 +589,7 @@ CREATE TABLE tx_t3events_domain_model_persontype (
 	l10n_parent int(11) DEFAULT '0' NOT NULL,
 	l10n_diffsource mediumblob,
 
-	PRIMARY KEY (uid),
+	PRIMARY KEY (uid)
 );
 
 #

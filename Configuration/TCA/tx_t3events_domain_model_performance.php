@@ -46,7 +46,7 @@ return array(
         --div--;Tickets,
             --palette--;;paletteTicketsHead,
              no_handling_fee, ticket_class,
-        --div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,hidden,starttime, endtime,fe_group'
+        --div--;Access,hidden,starttime, endtime,fe_group'
 		),
 	),
 	'palettes' => array(
