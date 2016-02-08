@@ -118,8 +118,8 @@ return array(
 			'config' => array(
 				'type' => 'select',
 				'items' => array(
-					array($ll . 'tx_t3events_domain_model_person.type.default', \Webfox\T3events\Domain\Model\Person::PERSON_TYPE_UNKNOWN),
-					array($ll . 'tx_t3events_domain_model_person.type.contact', \Webfox\T3events\Domain\Model\Person::PERSON_TYPE_CONTACT),
+					array($ll . 'tx_t3events_domain_model_person.type.default', 'Tx_T3events_Default'),
+					array($ll . 'tx_t3events_domain_model_person.type.contact', 'Tx_T3events_Contact'),
 				),
 				'size' => 1,
 				'maxitems' => 1,
