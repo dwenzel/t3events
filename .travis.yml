@@ -59,6 +59,6 @@ after_script:
     php composer.phar update satooshi/php-coveralls --dev;
     echo;
     echo "Running coveralls";
-    php vendor/bin/coveralls -v;
+    php vendor/bin/coveralls -v --root_dir=typo3conf/ext/t3events;
   fi
 #- source build-environment/update-gh-pages.sh
