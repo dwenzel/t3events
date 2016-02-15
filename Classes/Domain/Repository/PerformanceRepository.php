@@ -42,7 +42,7 @@ class PerformanceRepository
 
 	/**
 	 * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
-	 * @param \Webfox\T3events\Domain\Model\Dto\DemandInterface $demand
+	 * @param \Webfox\T3events\Domain\Model\Dto\DemandInterface|PerformanceDemand $demand
 	 * @return array
 	 */
 	protected function createCategoryConstraints(QueryInterface $query, DemandInterface $demand) {
@@ -73,7 +73,6 @@ class PerformanceRepository
 				$categoryConstraints[] = $query->contains('event.categories', $category);
 			}
 		}
-		return $categoryConstraints;
 
 		return $constraints;
 	}

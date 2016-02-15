@@ -277,7 +277,7 @@ class PerformanceController extends AbstractController {
 	 * @param \Webfox\T3events\Domain\Model\Dto\PerformanceDemand $demand
 	 * @param array $overwriteDemand
 	 */
-	public function overwriteDemandObject($demand, $overwriteDemand) {
+	public function overwriteDemandObject(&$demand, $overwriteDemand) {
 		if ((bool) $overwriteDemand) {
 			foreach ($overwriteDemand as $propertyName => $propertyValue) {
 				switch ($propertyName) {
