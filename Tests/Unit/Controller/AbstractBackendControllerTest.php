@@ -1,6 +1,7 @@
 <?php
 namespace Webfox\T3events\Tests\Controller;
 
+use TYPO3\CMS\Core\Resource\Driver\LocalDriver;
 use Webfox\T3events\Service\ModuleDataStorageService;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
@@ -126,5 +127,65 @@ class AbstractBackendControllerTest extends UnitTestCase {
 			'moduleDataStorageService',
 			$this->subject
 		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function localDriverCanBeInjected() {
+		$mockLocalDriver = $this->getMock(
+			LocalDriver::class
+		);
+
+		$this->subject->injectLocalDriver($mockLocalDriver);
+
+		$this->assertAttributeSame(
+			$mockLocalDriver,
+			'localDriver',
+			$this->subject
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getDownloadFileNameReturnsSanitizedFileName() {
+		$fileName = 'foo';
+		$sanitizedFileName = 'bar';
+
+		$mockLocalDriver = $this->getMock(
+			LocalDriver::class, ['sanitizeFileName']
+		);
+		$this->subject->injectLocalDriver($mockLocalDriver);
+
+		$mockLocalDriver->expects($this->once())
+			->method('sanitizeFileName')
+			->with($fileName)
+			->will($this->returnValue($sanitizedFileName));
+
+		$this->assertSame(
+			$sanitizedFileName,
+			$this->subject->getDownloadFileName($fileName, false)
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getDownloadFileNamePrependsDate() {
+		$date = date('Y-m-d_H-m');
+		$fileName = 'foo';
+		$expectedFileName = $date . '_' . $fileName;
+
+		$mockLocalDriver = $this->getMock(
+			LocalDriver::class, ['sanitizeFileName']
+		);
+		$this->subject->injectLocalDriver($mockLocalDriver);
+
+		$mockLocalDriver->expects($this->once())
+			->method('sanitizeFileName')
+			->with($expectedFileName);
+
+		$this->subject->getDownloadFileName($fileName);
 	}
 }
