@@ -1,19 +1,20 @@
 <?php
 namespace Webfox\T3events\Controller;
 
-	/**
-	 * This file is part of the TYPO3 CMS project.
-	 * It is free software; you can redistribute it and/or modify it under
-	 * the terms of the GNU General Public License, either version 2
-	 * of the License, or any later version.
-	 * For the full copyright and license information, please read the
-	 * LICENSE.txt file that was distributed with this source code.
-	 * The TYPO3 project - inspiring people to share!
-	 */
+/**
+ * This file is part of the TYPO3 CMS project.
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with this source code.
+ * The TYPO3 project - inspiring people to share!
+ */
 use TYPO3\CMS\Extbase\Mvc\RequestInterface;
 use TYPO3\CMS\Extbase\Mvc\ResponseInterface;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Extbase\Property\Exception as PropertyException;
+use Webfox\T3events\Utility\SettingsUtility;
 
 /**
  * @package t3evetns
@@ -39,6 +40,11 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	 * @var string
 	 */
 	protected $entityNotFoundMessage = 'The requested entity could not be found';
+
+	/**
+	 * @var \Webfox\T3events\Utility\SettingsUtility
+	 */
+	protected $settingsUtility;
 
 	/**
 	 * @var string
@@ -89,6 +95,15 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	}
 
 	/**
+	 * injects the settings utility
+	 *
+	 * @param SettingsUtility $settingsUtility
+	 */
+	public function injectSettingsUtility(SettingsUtility $settingsUtility) {
+		$this->settingsUtility = $settingsUtility;
+	}
+
+	/**
 	 * @param \TYPO3\CMS\Extbase\Mvc\RequestInterface $request
 	 * @param \TYPO3\CMS\Extbase\Mvc\ResponseInterface $response
 	 * @return void
@@ -101,7 +116,7 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 		} catch (\Exception $exception) {
 			if (
 				($exception instanceof PropertyException\TargetNotFoundException)
-					|| ($exception instanceof PropertyException\InvalidSourceException)
+				|| ($exception instanceof PropertyException\InvalidSourceException)
 			) {
 				$controllerName = strtolower($request->getControllerName());
 				$configuration = isset($this->settings[$controllerName]['detail']['errorHandling']) ? $this->settings[$controllerName]['detail']['errorHandling'] : NULL;
@@ -170,7 +185,7 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 						$params['redirect']['pageUid'],
 						$params['redirect']['delay'],
 						$params['redirect']['statusCode']
-						);
+					);
 				}
 
 		}

@@ -14,6 +14,7 @@ use TYPO3\CMS\Extbase\Mvc\Request;
 use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use Webfox\T3events\Controller\AbstractController;
+use Webfox\T3events\Utility\SettingsUtility;
 
 /**
  * Test case for class Webfox\T3events\Controller\AbstractController.
@@ -45,8 +46,27 @@ class AbstractControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$this->fixture->_set('objectManager', $objectManager);
 	}
 
-	public function tearDown() {
-		unset($this->fixture);
+	protected function mockSettingsUtility() {
+		$mockSettingsUtility = $this->getMock(
+			SettingsUtility::class, ['getValueByKey']
+		);
+		$this->fixture->injectSettingsUtility($mockSettingsUtility);
+
+		return $mockSettingsUtility;
+	}
+
+	/**
+	 * @test
+	 */
+	public function injectSettingsUtilitySetsObject() {
+		$object = new SettingsUtility();
+		$this->fixture->injectSettingsUtility($object);
+
+		$this->assertAttributeEquals(
+			$object,
+			'settingsUtility',
+			$this->fixture
+		);
 	}
 
 	/**
