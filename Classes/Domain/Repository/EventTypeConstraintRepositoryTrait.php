@@ -21,7 +21,8 @@ trait EventTypeConstraintRepositoryTrait {
 	public function createEventTypeConstraints(QueryInterface $query, $demand) {
 		$eventTypeConstraints = [];
 		$eventTypeField = $demand->getEventTypeField();
-		if ($demand->getEventTypes() !== null) {
+		$eventTypeList = $demand->getEventTypes();
+		if (!empty($eventTypeList)) {
 			$eventTypes = GeneralUtility::intExplode(',', $demand->getEventTypes(), true);
 			$eventTypeConstraints[] = $query->in($eventTypeField, $eventTypes);
 		}
