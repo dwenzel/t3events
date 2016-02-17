@@ -2,6 +2,10 @@
 namespace Webfox\T3events\Tests\Controller;
 
 use TYPO3\CMS\Core\Resource\Driver\LocalDriver;
+use Webfox\T3events\Domain\Repository\CompanyRepository;
+use Webfox\T3events\Domain\Repository\EventTypeRepository;
+use Webfox\T3events\Domain\Repository\GenreRepository;
+use Webfox\T3events\Domain\Repository\VenueRepository;
 use Webfox\T3events\Service\ModuleDataStorageService;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
@@ -132,6 +136,74 @@ class AbstractBackendControllerTest extends UnitTestCase {
 	/**
 	 * @test
 	 */
+	public function eventTypeRepositoryCanBeInjected() {
+		$mockRepository = $this->getMock(
+			EventTypeRepository::class, [], [], '', false
+		);
+
+		$this->subject->injectEventTypeRepository($mockRepository);
+
+		$this->assertAttributeSame(
+			$mockRepository,
+			'eventTypeRepository',
+			$this->subject
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function companyRepositoryCanBeInjected() {
+		$mockRepository = $this->getMock(
+			CompanyRepository::class, [], [], '', false
+		);
+
+		$this->subject->injectCompanyRepository($mockRepository);
+
+		$this->assertAttributeSame(
+			$mockRepository,
+			'companyRepository',
+			$this->subject
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function genreRepositoryCanBeInjected() {
+		$mockRepository = $this->getMock(
+			GenreRepository::class, [], [], '', false
+		);
+
+		$this->subject->injectGenreRepository($mockRepository);
+
+		$this->assertAttributeSame(
+			$mockRepository,
+			'genreRepository',
+			$this->subject
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function venueRepositoryCanBeInjected() {
+		$mockRepository = $this->getMock(
+			VenueRepository::class, [], [], '', false
+		);
+
+		$this->subject->injectVenueRepository($mockRepository);
+
+		$this->assertAttributeSame(
+			$mockRepository,
+			'venueRepository',
+			$this->subject
+		);
+	}
+
+	/**
+	 * @test
+	 */
 	public function localDriverCanBeInjected() {
 		$mockLocalDriver = $this->getMock(
 			LocalDriver::class
@@ -187,5 +259,16 @@ class AbstractBackendControllerTest extends UnitTestCase {
 			->with($expectedFileName);
 
 		$this->subject->getDownloadFileName($fileName);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getFilterOptionsInitiallyReturnsEmptyArray() {
+		$settings = [];
+		$this->assertSame(
+			[],
+			$this->subject->_callRef('getFilterOptions', $settings)
+		);
 	}
 }

@@ -10,6 +10,12 @@ use TYPO3\CMS\Extbase\Mvc\RequestInterface;
 use TYPO3\CMS\Extbase\Mvc\ResponseInterface;
 use Webfox\T3events\Domain\Model\Dto\ModuleData;
 use \TYPO3\CMS\Backend\Utility\BackendUtility;
+use Webfox\T3events\Domain\Repository\AbstractDemandedRepository;
+use Webfox\T3events\Domain\Repository\CompanyRepository;
+use Webfox\T3events\Domain\Repository\EventTypeRepository;
+use Webfox\T3events\Domain\Repository\GenreRepository;
+use Webfox\T3events\Domain\Repository\PersonRepository;
+use Webfox\T3events\Domain\Repository\VenueRepository;
 use Webfox\T3events\Service\ModuleDataStorageService;
 
 /**
@@ -20,9 +26,47 @@ use Webfox\T3events\Service\ModuleDataStorageService;
 class AbstractBackendController extends AbstractController {
 
 	/**
+	 * Company Repository
+	 *
+	 * @var \Webfox\T3events\Domain\Repository\CompanyRepository
+	 * @inject
+	 */
+	protected $companyRepository = null;
+
+	/**
+	 * eventTypeRepository
+	 *
+	 * @var \Webfox\T3events\Domain\Repository\EventTypeRepository
+	 */
+	protected $eventTypeRepository;
+
+	/**
+	 * genreRepository
+	 *
+	 * @var \Webfox\T3events\Domain\Repository\GenreRepository
+	 */
+	protected $genreRepository;
+
+	/**
 	 * @var \Webfox\T3events\Domain\Model\Dto\ModuleData
 	 */
 	protected $moduleData;
+
+	/**
+	 * Notification Repository
+	 *
+	 * @var \Webfox\T3events\Domain\Repository\NotificationRepository
+	 * @inject
+	 */
+	protected $notificationRepository = null;
+
+	/**
+	 * Notification Service
+	 *
+	 * @var \Webfox\T3events\Service\NotificationService
+	 * @inject
+	 */
+	protected $notificationService;
 
 	/**
 	 * Page uid
@@ -30,6 +74,14 @@ class AbstractBackendController extends AbstractController {
 	 * @var integer
 	 */
 	protected $pageUid = 0;
+
+	/**
+	 * Persistence Manager
+	 *
+	 * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
+	 * @inject
+	 */
+	protected $persistenceManager;
 
 	/**
 	 * TsConfig configuration
@@ -47,6 +99,14 @@ class AbstractBackendController extends AbstractController {
 	 * @var \TYPO3\CMS\Core\Resource\Driver\LocalDriver
 	 */
 	protected $localDriver;
+
+	/**
+	 * venueRepository
+	 *
+	 * @var \Webfox\T3events\Domain\Repository\VenueRepository
+	 */
+	protected $venueRepository;
+
 	/**
 	 * Constructor
 	 */
@@ -54,6 +114,36 @@ class AbstractBackendController extends AbstractController {
 		parent::__construct();
 		$extension = GeneralUtility::camelCaseToLowerCaseUnderscored($this->extensionName);
 		$this->setTsConfig($extension);
+	}
+
+	/**
+	 * injectEventTypeRepository
+	 *
+	 * @param \Webfox\T3events\Domain\Repository\EventTypeRepository $eventTypeRepository
+	 * @return void
+	 */
+	public function injectEventTypeRepository(EventTypeRepository $eventTypeRepository) {
+		$this->eventTypeRepository = $eventTypeRepository;
+	}
+
+	/**
+	 * injectCompanyRepository
+	 *
+	 * @param \Webfox\T3events\Domain\Repository\CompanyRepository $companyRepository
+	 * @return void
+	 */
+	public function injectCompanyRepository(CompanyRepository $companyRepository) {
+		$this->companyRepository = $companyRepository;
+	}
+
+	/**
+	 * injectGenreRepository
+	 *
+	 * @param \Webfox\T3events\Domain\Repository\GenreRepository $genreRepository
+	 * @return void
+	 */
+	public function injectGenreRepository(GenreRepository $genreRepository) {
+		$this->genreRepository = $genreRepository;
 	}
 
 	/**
@@ -72,6 +162,16 @@ class AbstractBackendController extends AbstractController {
 	 */
 	public function injectLocalDriver(LocalDriver $localDriver) {
 		$this->localDriver = $localDriver;
+	}
+
+	/**
+	 * injectVenueRepository
+	 *
+	 * @param \Webfox\T3events\Domain\Repository\VenueRepository $venueRepository
+	 * @return void
+	 */
+	public function injectVenueRepository(VenueRepository $venueRepository) {
+		$this->venueRepository = $venueRepository;
 	}
 
 	/**
@@ -130,7 +230,7 @@ class AbstractBackendController extends AbstractController {
 	 * @return string
 	 * @throws \TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException
 	 */
-	public function getDownloadFileName($fileName, $prependDate = true) {
+	public function getDownloadFileName($fileName, $prependDate = TRUE) {
 		if ($prependDate) {
 			$fileName = date('Y-m-d_H-m') . '_' . $fileName;
 		}
@@ -281,5 +381,31 @@ class AbstractBackendController extends AbstractController {
 			$this->response->setHeader($header, $data);
 		}
 		$this->response->sendHeaders();
+	}
+
+	/**
+	 * Gets filter options for view template
+	 *
+	 * @param array $settings
+	 * @return array
+	 */
+	protected function getFilterOptions($settings) {
+		$filterOptions = [];
+		foreach ($settings as $key=>$value) {
+			$propertyName = lcfirst($key) . 'Repository';
+			if (property_exists(get_class($this), $propertyName)
+				&& $this->{$propertyName} instanceof AbstractDemandedRepository) {
+				/** @var AbstractDemandedRepository $repository */
+				$repository = $this->{$propertyName};
+				if (!empty($value)) {
+					$result = $repository->findMultipleByUid($value, 'title');
+				} else {
+					$result = $repository->findAll();
+				}
+				$filterOptions[$key . 's'] = $result;
+			}
+		}
+
+		return $filterOptions;
 	}
 }
