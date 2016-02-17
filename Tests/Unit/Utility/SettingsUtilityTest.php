@@ -30,6 +30,9 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+class DummyController {}
+
 class SettingsUtilityTest extends UnitTestCase {
 
 	/**
@@ -170,6 +173,34 @@ class SettingsUtilityTest extends UnitTestCase {
 			$mockContentObjectRenderer,
 			'contentObjectRenderer',
 			$this->subject
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getControllerKeyReturnsKeyIfSet() {
+		$key = 'dummy';
+		$controllerKeys = [
+			DummyController::class => $key
+		];
+		$this->subject->_set('controllerKeys', $controllerKeys);
+
+		$this->assertSame(
+			$key,
+			$this->subject->getControllerKey(new DummyController())
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getControllerKeyReturnsKeyByClassName() {
+		$key = 'dummy';
+
+		$this->assertSame(
+			$key,
+			$this->subject->getControllerKey(new DummyController())
 		);
 	}
 }

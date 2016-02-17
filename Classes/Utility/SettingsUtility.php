@@ -28,6 +28,7 @@ use TYPO3\CMS\Core\SingletonInterface;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 use TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface;
+use TYPO3\CMS\Extbase\Mvc\Controller\ControllerInterface;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
@@ -42,6 +43,11 @@ class SettingsUtility implements SingletonInterface {
 	 * @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
 	 */
 	protected $contentObjectRenderer;
+
+	/**
+	 * @var array
+	 */
+	protected $controllerKeys = [];
 
 	/**
 	 * injects the ContentObjectRenderer
@@ -85,6 +91,24 @@ class SettingsUtility implements SingletonInterface {
 		}
 
 		return $value;
+	}
+
+	/**
+	 * Gets a settings key for a controller
+	 *
+	 * @param ControllerInterface $controller
+	 * @return string
+	 */
+	public function getControllerKey($controller) {
+		$className = get_class($controller);
+		if (isset($this->controllerKeys[$className])) {
+			$controllerKey = $this->controllerKeys[$className];
+		} else {
+			$controllerKey = lcfirst(str_replace('Controller', '', end(explode('\\', $className))));
+			$this->controllerKeys[$className] = $controllerKey;
+		}
+
+		return $controllerKey;
 	}
 
 }
