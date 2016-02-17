@@ -12,8 +12,10 @@ namespace Webfox\T3events\Controller;
  */
 use TYPO3\CMS\Extbase\Mvc\RequestInterface;
 use TYPO3\CMS\Extbase\Mvc\ResponseInterface;
-use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 use TYPO3\CMS\Extbase\Property\Exception as PropertyException;
+use Webfox\T3events\Domain\Model\Dto\DemandInterface;
+use Webfox\T3events\Domain\Model\Dto\SearchAwareDemandInterface;
 use Webfox\T3events\Utility\SettingsUtility;
 
 /**
@@ -191,6 +193,45 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 		}
 	}
 
+	/**
+	 * @param DemandInterface $demand
+	 * @param array $overwriteDemand
+	 */
+	public function overwriteDemandObject(&$demand, $overwriteDemand) {
+		if ((bool) $overwriteDemand) {
+			foreach ($overwriteDemand as $propertyName => $propertyValue) {
+				switch ($propertyName) {
+					case 'sortBy':
+						$orderings = $propertyValue;
+						if (isset($overwriteDemand['sortDirection'])) {
+							$orderings .= '|' . $overwriteDemand['sortDirection'];
+						}
+						$demand->setOrder($orderings);
+						$demand->setSortBy($overwriteDemand['sortBy']);
+						break;
+					case 'search':
+						if ($demand instanceof SearchAwareDemandInterface) {
+							$controllerKey = $this->settingsUtility->getControllerKey($this);
+							$searchObj = $this->createSearchObject(
+								$propertyValue,
+								$this->settings[$controllerKey]['search']
+							);
+							$demand->setSearch($searchObj);
+						}
+						break;
+					case 'sortDirection':
+						if ($propertyValue !== 'desc') {
+							$propertyValue = 'asc';
+						}
+					// fall through to default
+					default:
+						if (ObjectAccess::isPropertySettable($demand, $propertyName)) {
+							ObjectAccess::setProperty($demand, $propertyName, $propertyValue);
+						}
+				}
+			}
+		}
+	}
 
 	/**
 	 * Creates a search object from given settings
