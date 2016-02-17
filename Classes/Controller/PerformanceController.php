@@ -308,6 +308,12 @@ class PerformanceController extends AbstractController {
 					case 'eventType':
 						$demand->setEventTypes($propertyValue);
 						break;
+					case 'startDate':
+						$demand->setStartDate(new \DateTime($propertyValue));
+						break;
+					case 'endDate':
+						$demand->setEndDate(new \DateTime($propertyValue));
+						break;
 					case 'sortDirection':
 						if ($propertyValue !== 'desc') {
 							$propertyValue = 'asc';
