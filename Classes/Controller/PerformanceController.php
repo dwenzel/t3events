@@ -309,10 +309,12 @@ class PerformanceController extends AbstractController {
 						$demand->setEventTypes($propertyValue);
 						break;
 					case 'startDate':
-						$demand->setStartDate(new \DateTime($propertyValue));
+						$timeZone = new \DateTimeZone(date_default_timezone_get());
+						$demand->setStartDate(new \DateTime($propertyValue, $timeZone));
 						break;
 					case 'endDate':
-						$demand->setEndDate(new \DateTime($propertyValue));
+						$timeZone = new \DateTimeZone(date_default_timezone_get());
+						$demand->setEndDate(new \DateTime($propertyValue, $timeZone));
 						break;
 					case 'sortDirection':
 						if ($propertyValue !== 'desc') {
