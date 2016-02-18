@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2016-02-18T21:44:47Z">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2016-02-18T22:55:01Z">
 		<header>
 			<type>database</type>
 			<description>Language labels for database tables/fields belonging to extension 't3events'</description>
@@ -29,6 +29,30 @@
 			<source>Title</source>
 			<target>Titel</target>
 		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_company" approved="yes">
+			<source>Company</source>
+			<target>Firma</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_company.address" approved="yes">
+			<source>Address</source>
+			<target>Adresse</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_company.city" approved="yes">
+			<source>City</source>
+			<target>Stadt</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_company.country" approved="yes">
+			<source>Country</source>
+			<target>Land</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_company.name" approved="yes">
+			<source>Name</source>
+			<target>Name</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_company.zip" approved="yes">
+			<source>Zip</source>
+			<target>PLZ</target>
+		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_country" approved="yes">
 			<source>Country</source>
 			<target>Land</target>
@@ -39,7 +63,7 @@
 		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_event.archive_date" approved="yes">
 			<source>Archive Date</source>
-			<target>Archiv Datum</target>
+			<target>Archivdatum</target>
 		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_event.description" approved="yes">
 			<source>Description</source>
@@ -297,9 +321,21 @@
 			<source>Person</source>
 			<target>Person</target>
 		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_person.address" approved="yes">
+			<source>Address</source>
+			<target>Adresse</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_person.city" approved="yes">
+			<source>City</source>
+			<target>Stadt</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_person.email" approved="yes">
+			<source>Email</source>
+			<target>E-Mail</target>
+		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_person.first_name" approved="yes">
 			<source>First Name</source>
-			<target>Vorame</target>
+			<target>Vorname</target>
 		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_person.gender" approved="yes">
 			<source>Gender</source>
@@ -325,6 +361,10 @@
 			<source>Person Type</source>
 			<target>Personentyp</target>
 		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_person.phone" approved="yes">
+			<source>Phone</source>
+			<target>Telefon</target>
+		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_person.title" approved="yes">
 			<source>Title</source>
 			<target>Titel</target>
@@ -344,6 +384,10 @@
 		<trans-unit id="tx_t3events_domain_model_person.www" approved="yes">
 			<source>WWW</source>
 			<target>WWW</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_person.zip" approved="yes">
+			<source>Zip</source>
+			<target>PLZ</target>
 		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_persontype" approved="yes">
 			<source>Person Type</source>
@@ -404,6 +448,10 @@
 		<trans-unit id="tx_t3events_domain_model_teaser.details" approved="yes">
 			<source>Details</source>
 			<target>Details</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_teaser.earliest_date" approved="yes">
+			<source>Earliest Date</source>
+			<target>Frühestes Datum</target>
 		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_teaser.event" approved="yes">
 			<source>Event</source>
