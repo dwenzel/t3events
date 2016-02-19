@@ -230,6 +230,7 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 						if ($demand instanceof EventDemand) {
 							$demand->setEventType($propertyValue);
 						}
+						break;
 					case 'sortDirection':
 						if ($propertyValue !== 'desc') {
 							$propertyValue = 'asc';
