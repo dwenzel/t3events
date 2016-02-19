@@ -15,6 +15,8 @@ use TYPO3\CMS\Extbase\Mvc\ResponseInterface;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 use TYPO3\CMS\Extbase\Property\Exception as PropertyException;
 use Webfox\T3events\Domain\Model\Dto\DemandInterface;
+use Webfox\T3events\Domain\Model\Dto\EventDemand;
+use Webfox\T3events\Domain\Model\Dto\GenreAwareDemandInterface;
 use Webfox\T3events\Domain\Model\Dto\SearchAwareDemandInterface;
 use Webfox\T3events\Utility\SettingsUtility;
 
@@ -219,6 +221,15 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 							$demand->setSearch($searchObj);
 						}
 						break;
+					case 'genres':
+						if ($demand instanceof EventDemand) {
+							$demand->setGenre($propertyValue);
+						}
+						break;
+					case 'eventTypes':
+						if ($demand instanceof EventDemand) {
+							$demand->setEventType($propertyValue);
+						}
 					case 'sortDirection':
 						if ($propertyValue !== 'desc') {
 							$propertyValue = 'asc';
