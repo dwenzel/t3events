@@ -14,7 +14,7 @@ use Webfox\T3events\Domain\Repository\AbstractDemandedRepository;
 use Webfox\T3events\Domain\Repository\CompanyRepository;
 use Webfox\T3events\Domain\Repository\EventTypeRepository;
 use Webfox\T3events\Domain\Repository\GenreRepository;
-use Webfox\T3events\Domain\Repository\PersonRepository;
+use Webfox\T3events\Domain\Repository\AudienceRepository;
 use Webfox\T3events\Domain\Repository\VenueRepository;
 use Webfox\T3events\Service\ModuleDataStorageService;
 
@@ -46,6 +46,13 @@ class AbstractBackendController extends AbstractController {
 	 * @var \Webfox\T3events\Domain\Repository\GenreRepository
 	 */
 	protected $genreRepository;
+
+	/**
+	 * audienceRepository
+	 *
+	 * @var \Webfox\T3events\Domain\Repository\AudienceRepository
+	 */
+	protected $audienceRepository;
 
 	/**
 	 * @var \Webfox\T3events\Domain\Model\Dto\ModuleData
@@ -144,6 +151,16 @@ class AbstractBackendController extends AbstractController {
 	 */
 	public function injectGenreRepository(GenreRepository $genreRepository) {
 		$this->genreRepository = $genreRepository;
+	}
+
+	/**
+	 * injectAudienceRepository
+	 *
+	 * @param \Webfox\T3events\Domain\Repository\AudienceRepository $audienceRepository
+	 * @return void
+	 */
+	public function injectAudienceRepository(AudienceRepository $audienceRepository) {
+		$this->audienceRepository = $audienceRepository;
 	}
 
 	/**
@@ -281,6 +298,7 @@ class AbstractBackendController extends AbstractController {
 	/**
 	 * Set the TsConfig configuration for the extension
 	 *
+	 * @param string $extensionName
 	 * @return void
 	 */
 	protected function setTsConfig($extensionName) {
@@ -367,7 +385,7 @@ class AbstractBackendController extends AbstractController {
 				break;
 		}
 
-		$headers = array(
+		$headers = [
 			'Pragma' => 'public',
 			'Expires' => 0,
 			'Cache-Control' => 'public',
@@ -375,7 +393,7 @@ class AbstractBackendController extends AbstractController {
 			'Content-Type' => $cType,
 			'Content-Disposition' => 'attachment; filename="' . $fileName . '.' . $ext . '"',
 			'Content-Transfer-Encoding' => 'binary',
-		);
+		];
 
 		foreach ($headers as $header => $data) {
 			$this->response->setHeader($header, $data);
@@ -391,10 +409,11 @@ class AbstractBackendController extends AbstractController {
 	 */
 	protected function getFilterOptions($settings) {
 		$filterOptions = [];
-		foreach ($settings as $key=>$value) {
+		foreach ($settings as $key => $value) {
 			$propertyName = lcfirst($key) . 'Repository';
 			if (property_exists(get_class($this), $propertyName)
-				&& $this->{$propertyName} instanceof AbstractDemandedRepository) {
+				&& $this->{$propertyName} instanceof AbstractDemandedRepository
+			) {
 				/** @var AbstractDemandedRepository $repository */
 				$repository = $this->{$propertyName};
 				if (!empty($value)) {
@@ -404,7 +423,22 @@ class AbstractBackendController extends AbstractController {
 				}
 				$filterOptions[$key . 's'] = $result;
 			}
+			if ($key === 'periods') {
+				$periodOptions = [];
+				$periodEntries = ['futureOnly', 'pastOnly', 'all', 'specific'];
+				if (!empty($value)) {
+					$periodEntries = GeneralUtility::trimExplode(',', $value, TRUE);
+				}
+				foreach ($periodEntries as $entry) {
+					$period = new \stdClass();
+					$period->key = $entry;
+					$period->value = $this->translate('label.period.' . $entry, 't3events');
+					$periodOptions[] = $period;
+				}
+				$filterOptions['periods'] = $periodOptions;
+			}
 		}
+
 
 		return $filterOptions;
 	}

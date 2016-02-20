@@ -7,6 +7,11 @@
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
+			<label index="label.differentLocations">different locations</label>
+			<label index="label.period.all">all</label>
+			<label index="label.period.futureOnly">upcoming</label>
+			<label index="label.period.pastOnly">past</label>
+			<label index="label.period.specific">specific</label>
 			<label index="placeholder.location">Location</label>
 			<label index="tx_t3events.allEventTypes">All Event Types</label>
 			<label index="tx_t3events.allGenres">All Genres</label>
@@ -70,16 +75,6 @@
 			<label index="tx_t3events_domain_model_event.performances">performances</label>
 			<label index="tx_t3events_domain_model_event.subtitle">subtitle</label>
 			<label index="tx_t3events_domain_model_event.teaser">Teaser</label>
-			<label index="tx_t3events_domain_model_person">Person</label>
-			<label index="tx_t3events_domain_model_person.person_type">Person Type</label>
-			<label index="tx_t3events_domain_model_person.name">Name</label>
-			<label index="tx_t3events_domain_model_person.first_name">First Name</label>
-			<label index="tx_t3events_domain_model_person.last_name">Last Name</label>
-			<label index="tx_t3events_domain_model_person.gender">Gender</label>
-			<label index="tx_t3events_domain_model_person.gender.I.0">male</label>
-			<label index="tx_t3events_domain_model_person.gender.I.1">female</label>
-			<label index="tx_t3events_domain_model_persontype">Person Type</label>
-			<label index="tx_t3events_domain_model_persontype.title">Title</label>
 			<label index="tx_t3events_domain_model_eventlocation">Event Location</label>
 			<label index="tx_t3events_domain_model_eventlocation.address">address</label>
 			<label index="tx_t3events_domain_model_eventlocation.country">country</label>
@@ -118,6 +113,16 @@
 			<label index="tx_t3events_domain_model_performancestatus.css_class">cssClass</label>
 			<label index="tx_t3events_domain_model_performancestatus.priority">priority</label>
 			<label index="tx_t3events_domain_model_performancestatus.title">title</label>
+			<label index="tx_t3events_domain_model_person">Person</label>
+			<label index="tx_t3events_domain_model_person.first_name">First Name</label>
+			<label index="tx_t3events_domain_model_person.gender">Gender</label>
+			<label index="tx_t3events_domain_model_person.gender.I.0">male</label>
+			<label index="tx_t3events_domain_model_person.gender.I.1">female</label>
+			<label index="tx_t3events_domain_model_person.last_name">Last Name</label>
+			<label index="tx_t3events_domain_model_person.name">Name</label>
+			<label index="tx_t3events_domain_model_person.person_type">Person Type</label>
+			<label index="tx_t3events_domain_model_persontype">Person Type</label>
+			<label index="tx_t3events_domain_model_persontype.title">Title</label>
 			<label index="tx_t3events_domain_model_teaser">Teaser</label>
 			<label index="tx_t3events_domain_model_teaser.details">details</label>
 			<label index="tx_t3events_domain_model_teaser.event">event</label>
@@ -139,7 +144,6 @@
 			<label index="tx_t3events_domain_model_ticketclass.type.2">special</label>
 			<label index="tx_t3events_domain_model_venue">Venue</label>
 			<label index="tx_t3events_domain_model_venue.title">title</label>
-			<label index="label.differentLocations">different locations</label>
 		</languageKey>
 		<languageKey index="af"></languageKey>
 		<languageKey index="ar"></languageKey>
@@ -150,6 +154,11 @@
 		<languageKey index="cs"></languageKey>
 		<languageKey index="da"></languageKey>
 		<languageKey index="de" type="array">
+			<label index="label.differentLocations">verschiedene Veranstaltungsorte</label>
+			<label index="label.period.all">alle</label>
+			<label index="label.period.futureOnly">zukünftige</label>
+			<label index="label.period.pastOnly">vergangene</label>
+			<label index="label.period.specific">spezifisch</label>
 			<label index="placeholder.location">Ort</label>
 			<label index="tx_t3events.allEventTypes">Alle Veranstaltungsarten</label>
 			<label index="tx_t3events.allGenres">Alle Genre</label>
@@ -263,7 +272,6 @@
 			<label index="tx_t3events_domain_model_ticketclass.type.2">spezial</label>
 			<label index="tx_t3events_domain_model_venue">Einrichtung</label>
 			<label index="tx_t3events_domain_model_venue.title">Titel</label>
-			<label index="label.differentLocations">verschiedene Veranstaltungsorte</label>
 		</languageKey>
 		<languageKey index="el"></languageKey>
 		<languageKey index="eo"></languageKey>

@@ -2,6 +2,9 @@
 namespace Webfox\T3events\Tests\Controller;
 
 use TYPO3\CMS\Core\Resource\Driver\LocalDriver;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+use Webfox\T3events\Domain\Repository\AudienceRepository;
 use Webfox\T3events\Domain\Repository\CompanyRepository;
 use Webfox\T3events\Domain\Repository\EventTypeRepository;
 use Webfox\T3events\Domain\Repository\GenreRepository;
@@ -187,6 +190,23 @@ class AbstractBackendControllerTest extends UnitTestCase {
 	/**
 	 * @test
 	 */
+	public function audienceRepositoryCanBeInjected() {
+		$mockRepository = $this->getMock(
+			AudienceRepository::class, [], [], '', false
+		);
+
+		$this->subject->injectAudienceRepository($mockRepository);
+
+		$this->assertAttributeSame(
+			$mockRepository,
+			'audienceRepository',
+			$this->subject
+		);
+	}
+
+	/**
+	 * @test
+	 */
 	public function venueRepositoryCanBeInjected() {
 		$mockRepository = $this->getMock(
 			VenueRepository::class, [], [], '', false
@@ -268,6 +288,120 @@ class AbstractBackendControllerTest extends UnitTestCase {
 		$settings = [];
 		$this->assertSame(
 			[],
+			$this->subject->_callRef('getFilterOptions', $settings)
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getFilterOptionsAddsAllOptionsForExistingRepositoryProperty() {
+		$settings = [
+			'audience' => ''
+		];
+		$audienceRepository = $this->getMock(
+			AudienceRepository::class, ['findAll'], [], '', false
+		);
+		$mockQueryResult = $this->getMock(
+			QueryResultInterface::class
+		);
+		$this->subject->injectAudienceRepository($audienceRepository);
+		$audienceRepository->expects($this->once())
+			->method('findAll')
+			->will($this->returnValue($mockQueryResult));
+		$expectedResult = [
+			'audiences' => $mockQueryResult
+		];
+		$this->assertSame(
+			$expectedResult,
+			$this->subject->_callRef('getFilterOptions', $settings)
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getFilterOptionsAddsSelectedOptionsForAbstractDemandedRepositoryProperty() {
+		$uidList = '1,3';
+		$settings = [
+			'audience' => $uidList
+		];
+		$audienceRepository = $this->getMock(
+			AudienceRepository::class, ['findMultipleByUid'], [], '', false
+		);
+		$mockQueryResult = $this->getMock(
+			QueryResultInterface::class
+		);
+		$this->subject->injectAudienceRepository($audienceRepository);
+		$audienceRepository->expects($this->once())
+			->method('findMultipleByUid')
+			->with($uidList, 'title')
+			->will($this->returnValue($mockQueryResult));
+		$expectedResult = [
+			'audiences' => $mockQueryResult
+		];
+		$this->assertSame(
+			$expectedResult,
+			$this->subject->_callRef('getFilterOptions', $settings)
+		);
+	}
+
+	protected function getDefaultPeriodOptions() {
+		$periodOptions = [];
+		$periodEntries = ['futureOnly', 'pastOnly', 'all', 'specific'];
+		foreach ($periodEntries as $entry) {
+			$period = new \stdClass();
+			$period->key = $entry;
+			$period->value = 'label.period';
+			$periodOptions[] = $period;
+		}
+
+		return $periodOptions;
+	}
+
+	/**
+	 * @test
+	 */
+	public function getFilterOptionsAddsDefaultPeriodOptions() {
+		$this->subject = $this->getAccessibleMock(
+			AbstractBackendController::class, ['translate'], [], '', false
+		);
+		$this->subject->expects($this->any())
+			->method('translate')
+			->will($this->returnValue('label.period'));
+		$settings = [
+			'periods' => ''
+		];
+		$expectedResult = [
+			'periods' => $this->getDefaultPeriodOptions()
+		];
+		$this->assertEquals(
+			$expectedResult,
+			$this->subject->_callRef('getFilterOptions', $settings)
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getFilterOptionsAddsSelectedPeriodOptions() {
+		$this->subject = $this->getAccessibleMock(
+			AbstractBackendController::class, ['translate'], [], '', false
+		);
+		$this->subject->expects($this->any())
+			->method('translate')
+			->will($this->returnValue('label.period'));
+		$settings = [
+			'periods' => 'foo'
+		];
+		$option = new \stdClass();
+		$option->key = 'foo';
+		$option->value = 'label.period';
+		$expectedResult = [
+			'periods' => [$option]
+		];
+		$this->assertEquals(
+			$expectedResult,
 			$this->subject->_callRef('getFilterOptions', $settings)
 		);
 	}
