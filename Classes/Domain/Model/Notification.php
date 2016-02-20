@@ -19,25 +19,26 @@ namespace Webfox\T3events\Domain\Model;
 	 *  GNU General Public License for more details.
 	 *  This copyright notice MUST APPEAR in all copies of the script!
 	 ***************************************************************/
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 /**
  * Notification
  */
-class Notification extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
+class Notification extends AbstractEntity {
 
 	/**
-	 * @var \string $recipient
+	 * @var string $recipient
 	 * @validate EmailAddress
 	 */
 	protected $recipient;
 
 	/**
-	 * @var \string $sender
+	 * @var string $sender
 	 */
 	protected $sender;
 
 	/**
-	 * @var \string $subject
+	 * @var string $subject
 	 * @validate NotEmpty
 	 */
 	protected $subject;
@@ -45,13 +46,13 @@ class Notification extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Body text
 	 *
-	 * @var \string $bodytext
+	 * @var string $bodytext
 	 * @validate NotEmpty
 	 */
 	protected $bodytext;
 
 	/**
-	 * @var \string|null $format
+	 * @var string|null $format
 	 */
 	protected $format;
 
@@ -65,7 +66,7 @@ class Notification extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Returns the recipient
 	 *
-	 * @return \string
+	 * @return string
 	 */
 	public function getRecipient() {
 		return $this->recipient;
@@ -74,7 +75,7 @@ class Notification extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the recipient
 	 *
-	 * @var \string $recipient
+	 * @var string $recipient
 	 */
 	public function setRecipient($recipient) {
 		$this->recipient = $recipient;
@@ -83,7 +84,7 @@ class Notification extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Returns the subject
 	 *
-	 * @return \string
+	 * @return string
 	 */
 	public function getSubject() {
 		return $this->subject;
@@ -92,7 +93,7 @@ class Notification extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the subject
 	 *
-	 * @var \string $subject
+	 * @var string $subject
 	 */
 	public function setSubject($subject) {
 		$this->subject = $subject;
@@ -101,7 +102,7 @@ class Notification extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Returns the sender
 	 *
-	 * @return \string
+	 * @return string
 	 */
 	public function getSender() {
 		return $this->sender;
@@ -110,7 +111,7 @@ class Notification extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the sender
 	 *
-	 * @var \string $sender
+	 * @var string $sender
 	 */
 	public function setSender($sender) {
 		$this->sender = $sender;
@@ -119,7 +120,7 @@ class Notification extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Returns the bodytext
 	 *
-	 * @return \string
+	 * @return string
 	 */
 	public function getBodytext() {
 		return $this->bodytext;
@@ -128,7 +129,7 @@ class Notification extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the bodytext
 	 *
-	 * @var \string $bodytext
+	 * @var string $bodytext
 	 */
 	public function setBodytext($bodytext) {
 		$this->bodytext = $bodytext;
@@ -137,7 +138,7 @@ class Notification extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Returns the format
 	 *
-	 * @return \string
+	 * @return string
 	 */
 	public function getFormat() {
 		return $this->format;
@@ -146,7 +147,7 @@ class Notification extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the format
 	 *
-	 * @var \string $format
+	 * @var string $format
 	 */
 	public function setFormat($format) {
 		$this->format = $format;

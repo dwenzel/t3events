@@ -925,7 +925,6 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$this->fixture->overwriteDemandObject($demand, $overwriteDemand);
 	}
 
-
 	/**
 	 * @test
 	 * @covers ::overwriteDemandObject
@@ -1054,29 +1053,40 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 	/**
 	 * @test
-	 * @covers ::overwriteDemandObject
 	 */
-	public function overwriteDemandObjectStoresOverwriteDemandInSession() {
-		$this->markTestSkipped();
-		$this->tsfe = $this->getAccessibleMock(
-			'\TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController',
-			array('dummy'), array(), '', FALSE);
-		$mockFEAuthentication = $this->getMock(
-			'TYPO3\\CMS\\Frontend\\Authentication\\FrontendUserAuthentication',
-			array('setKey', 'storeSessionData'), array(), '', FALSE);
-		$this->tsfe->_set('fe_user', $mockFEAuthentication);
-		$GLOBALS['TSFE'] = $this->tsfe;
-
-		$demand = $this->getMock('Webfox\\T3events\\Domain\\Model\\Dto\\PerformanceDemand');
-		$overwriteDemand = array(
-			'bar' => 'foo'
+	public function overwriteDemandObjectSetsStartDate() {
+		$demand = $this->getMock(
+			PerformanceDemand::class
 		);
+		$dateString = '2012-10-15';
+		$overwriteDemand = [
+			'startDate' => $dateString
+		];
+		$defaultTimeZone = new \DateTimeZone(date_default_timezone_get());
+		$expectedDateTimeObject = new \DateTime($dateString, $defaultTimeZone);
+		$demand->expects($this->once())
+			->method('setStartDate')
+			->with($expectedDateTimeObject);
 
-		$sessionData = serialize($overwriteDemand);
+		$this->fixture->overwriteDemandObject($demand, $overwriteDemand);
+	}
 
-		$mockFEAuthentication->expects($this->once())->method('setKey')
-			->with('ses', 'tx_t3events_overwriteDemand', $sessionData);
-		$mockFEAuthentication->expects($this->once())->method('storeSessionData');
+	/**
+	 * @test
+	 */
+	public function overwriteDemandObjectSetsEndDate() {
+		$demand = $this->getMock(
+			PerformanceDemand::class
+		);
+		$dateString = '2012-10-15';
+		$overwriteDemand = [
+			'endDate' => $dateString
+		];
+		$defaultTimeZone = new \DateTimeZone(date_default_timezone_get());
+		$expectedDateTimeObject = new \DateTime($dateString, $defaultTimeZone);
+		$demand->expects($this->once())
+			->method('setEndDate')
+			->with($expectedDateTimeObject);
 
 		$this->fixture->overwriteDemandObject($demand, $overwriteDemand);
 	}
@@ -1183,22 +1193,27 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function showActionAssignsVariables() {
-		$this->markTestSkipped('wrong arguments in assignMultiple');
+		//$this->markTestSkipped('wrong arguments in assignMultiple');
 		$fixture = $this->getAccessibleMock(
-			'Webfox\\T3events\\Controller\\PerformanceController',
+			PerformanceController::class,
 			['emitSignal'], [], '', false
 		);
-		$fixture->expects($this->once())
-			->method('emitSignal');
-		$settings = array('foo');
+		$settings = ['foo'];
 		$performance = new Performance();
-		$view = $this->getMock(
-			'TYPO3\\CMS\\Fluid\\View\\TemplateView',
-			['assignMultiple'],
-			[], '', false);
+		$templateVariables = [
+			'settings' => $settings,
+			'performance' => $performance
+		];
+
+		$fixture->expects($this->once())
+			->method('emitSignal')
+			->will($this->returnValue($templateVariables));
+
+		$view = $this->getMock(TemplateView::class, ['assignMultiple'], [], '', false);
+
 		$view->expects($this->once())
 			->method('assignMultiple')
-			->with(['settings' => $settings, 'performance' => $performance]);
+			->with();
 
 		$fixture->_set('view', $view);
 		$fixture->_set('settings', $settings);

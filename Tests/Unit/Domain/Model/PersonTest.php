@@ -44,10 +44,6 @@ class PersonTest extends UnitTestCase {
 		$this->subject = new Person();
 	}
 
-	protected function tearDown() {
-		unset($this->subject);
-	}
-
 	/**
 	 * @test
 	 */
@@ -294,4 +290,70 @@ class PersonTest extends UnitTestCase {
 		);
 	}
 
+	/**
+	 * @test
+	 */
+	public function getTypeReturnsInitialValueForString() {
+		$this->assertSame(
+			Person::PERSON_TYPE_UNKNOWN,
+			$this->subject->getType()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function typeCanBeSet() {
+		$type = 'foo';
+		$this->subject->setType($type);
+
+		$this->assertSame(
+			$type,
+			$this->subject->getType()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getWwwInitiallyReturnsNull() {
+		$this->assertNull(
+			$this->subject->getWww()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function wwwCanBeSet() {
+		$www = 'foo';
+		$this->subject->setWww($www);
+
+		$this->assertSame(
+			$www,
+			$this->subject->getWww()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getTitleInitiallyReturnsNull() {
+		$this->assertNull(
+			$this->subject->getTitle()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function titleCanBeSet() {
+		$title = 'foo';
+		$this->subject->setTitle($title);
+
+		$this->assertSame(
+			$title,
+			$this->subject->getTitle()
+		);
+	}
 }
