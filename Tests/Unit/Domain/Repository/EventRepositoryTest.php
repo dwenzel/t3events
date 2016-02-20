@@ -23,6 +23,7 @@ use TYPO3\CMS\Extbase\Persistence\Generic\Query;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 use Webfox\T3events\Domain\Model\Dto\EventDemand;
+use Webfox\T3events\Domain\Repository\EventRepository;
 
 /**
  * Test case for class \Webfox\T3events\Domain\Repository\EventRepository.
@@ -158,6 +159,26 @@ class EventRepositoryTest extends UnitTestCase {
 	 * @test
 	 * @covers ::createConstraintsFromDemand
 	 */
+	public function createConstraintsFromDemandCallsCreateAudienceConstraints() {
+		$this->fixture = $this->getAccessibleMock(
+			EventRepository::class,
+			['createAudienceConstraints'], [], '', false);
+		$demand = $this->getMock(EventDemand::class);
+		$query = $this->getMock(
+			QueryInterface::class,
+			[], [], '', false
+		);
+
+		$this->fixture->expects($this->once())
+			->method('createAudienceConstraints')
+			->with($query, $demand);
+		$this->fixture->_call('createConstraintsFromDemand', $query, $demand);
+	}
+
+	/**
+	 * @test
+	 * @covers ::createConstraintsFromDemand
+	 */
 	public function createConstraintsFromDemandCombinesSearchConstraintsLogicalOr() {
 		$this->fixture = $this->getAccessibleMock(
 			'Webfox\\T3events\\Domain\\Repository\\EventRepository',
@@ -210,6 +231,34 @@ class EventRepositoryTest extends UnitTestCase {
 		$this->fixture->expects($this->once())
 			->method('combineConstraints')
 			->with($query, $constraints, $mockLocationConstraints, 'AND');
+
+		$this->fixture->_call('createConstraintsFromDemand', $query, $demand);
+	}
+
+	/**
+	 * @test
+	 * @covers ::createConstraintsFromDemand
+	 */
+	public function createConstraintsFromDemandCombinesAudienceConstraintsLogicalAnd() {
+		$this->fixture = $this->getAccessibleMock(
+			EventRepository::class,
+			['createAudienceConstraints', 'combineConstraints'], [], '', false);
+		$demand = $this->getMock(EventDemand::class);
+		$constraints = [];
+		$query = $this->getMock(
+			QueryInterface::class,
+			[], [], '', false
+		);
+		$mockAudienceConstraints = ['foo'];
+
+		$this->fixture->expects($this->once())
+			->method('createAudienceConstraints')
+			->with($query, $demand)
+			->will($this->returnValue($mockAudienceConstraints)
+			);
+		$this->fixture->expects($this->once())
+			->method('combineConstraints')
+			->with($query, $constraints, $mockAudienceConstraints, 'AND');
 
 		$this->fixture->_call('createConstraintsFromDemand', $query, $demand);
 	}

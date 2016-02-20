@@ -29,8 +29,10 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class EventRepository
 	extends AbstractDemandedRepository
-	implements PeriodConstraintRepositoryInterface, LocationConstraintRepositoryInterface {
-	use PeriodConstraintRepositoryTrait, LocationConstraintRepositoryTrait;
+	implements PeriodConstraintRepositoryInterface, LocationConstraintRepositoryInterface,
+	AudienceConstraintRepositoryInterface {
+	use PeriodConstraintRepositoryTrait, LocationConstraintRepositoryTrait,
+		AudienceConstraintRepositoryTrait;
 	/**
 	 * Create category constraints from demand
 	 *
@@ -93,6 +95,9 @@ class EventRepository
 		}
 		if ((bool) $locationConstraints = $this->createLocationConstraints($query, $demand)) {
 			$this->combineConstraints($query, $constraints, $locationConstraints, 'AND');
+		}
+		if ((bool) $audienceConstraints = $this->createAudienceConstraints($query, $demand)) {
+			$this->combineConstraints($query, $constraints, $audienceConstraints, 'AND');
 		}
 
 		return $constraints;

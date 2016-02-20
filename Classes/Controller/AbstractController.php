@@ -16,7 +16,6 @@ use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 use TYPO3\CMS\Extbase\Property\Exception as PropertyException;
 use Webfox\T3events\Domain\Model\Dto\DemandInterface;
 use Webfox\T3events\Domain\Model\Dto\EventDemand;
-use Webfox\T3events\Domain\Model\Dto\GenreAwareDemandInterface;
 use Webfox\T3events\Domain\Model\Dto\SearchAwareDemandInterface;
 use Webfox\T3events\Utility\SettingsUtility;
 
