@@ -5,6 +5,7 @@ use TYPO3\CMS\Core\FormProtection\FormProtectionFactory;
 use TYPO3\CMS\Core\Resource\Driver\LocalDriver;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\HttpUtility;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Mvc\Exception\StopActionException;
 use TYPO3\CMS\Extbase\Mvc\RequestInterface;
 use TYPO3\CMS\Extbase\Mvc\ResponseInterface;
@@ -242,6 +243,19 @@ class AbstractBackendController extends AbstractController {
 	}
 
 	/**
+	 * Get frontend base url as configured in TypoScript
+	 * Pass this as a variable when rendering fluid templates in Backend context for instance
+	 * if you want to render images in emails.
+	 *
+	 * @return string
+	 */
+	protected function getBaseUrlForFrontend() {
+		$typoScriptConfiguration = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
+
+		return $typoScriptConfiguration['config.']['baseURL'];
+	}
+
+	/**
 	 * Gets a sanitized filename for download
 	 *
 	 * @param string $fileName
@@ -255,6 +269,35 @@ class AbstractBackendController extends AbstractController {
 		}
 
 		return $this->localDriver->sanitizeFileName($fileName);
+	}
+
+	/**
+	 * Creates a download file name, sends download headers renders
+	 * the view and returns the result
+	 *
+	 * @param string $fileExtension
+	 * @param object $objectForFileName
+	 * @return string
+	 * @throws \Webfox\T3events\InvalidFileTypeException
+	 */
+	public function getContentForDownload($fileExtension, $objectForFileName = null) {
+		$controllerKey = $this->settingsUtility->getControllerKey($this);
+		$fileName = $controllerKey;
+		if (
+			$objectForFileName
+			&& isset($this->settings[$controllerKey]['download'])
+		) {
+			$fileName = $this->settingsUtility->getValueByKey(
+				$objectForFileName,
+				$this->settings[$controllerKey]['download'],
+				'fileName'
+			);
+		}
+
+		$fileName = $this->getDownloadFileName($fileName);
+		$this->sendDownloadHeaders($fileExtension, $fileName);
+
+		return $this->view->render();
 	}
 
 	/**
