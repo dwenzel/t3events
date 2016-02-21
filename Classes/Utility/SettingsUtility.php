@@ -69,7 +69,7 @@ class SettingsUtility implements SingletonInterface {
 	 * If $config[$key] is a string we return this
 	 * If all above fails we return null.
 	 *
-	 * @param DomainObjectInterface $object
+	 * @param object|array $object
 	 * @param array $config
 	 * @param string $key
 	 * @return mixed
