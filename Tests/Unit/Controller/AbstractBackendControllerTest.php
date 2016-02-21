@@ -2,6 +2,7 @@
 namespace Webfox\T3events\Tests\Controller;
 
 use TYPO3\CMS\Core\Resource\Driver\LocalDriver;
+use TYPO3\CMS\Extbase\Mvc\Web\Response;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use Webfox\T3events\Domain\Repository\AudienceRepository;
@@ -9,6 +10,7 @@ use Webfox\T3events\Domain\Repository\CompanyRepository;
 use Webfox\T3events\Domain\Repository\EventTypeRepository;
 use Webfox\T3events\Domain\Repository\GenreRepository;
 use Webfox\T3events\Domain\Repository\VenueRepository;
+use Webfox\T3events\InvalidFileTypeException;
 use Webfox\T3events\Service\ModuleDataStorageService;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
@@ -404,5 +406,131 @@ class AbstractBackendControllerTest extends UnitTestCase {
 			$expectedResult,
 			$this->subject->_callRef('getFilterOptions', $settings)
 		);
+	}
+
+	/**
+	 * @return array
+	 */
+	public function allowedFileTypesForDownloadHeadersDataProvider() {
+		return [
+			'csv' => ['csv', 'text/csv'],
+			'txt' => ['txt', 'text/plain'],
+			'pdf' => ['pdf', 'application/pdf'],
+			'exe' => ['exe', 'application/octet-stream'],
+			'zip' => ['zip', 'application/zip'],
+			'doc' => ['doc', 'application/msword'],
+			'xls' => ['xls', 'application/vnd.ms-excel'],
+			'ppt' => ['ppt', 'application/vnd.ms-powerpoint'],
+			'gif' => ['gif', 'image/gif'],
+			'png' => ['png', 'image/png'],
+			'jpeg' => ['jpeg', 'image/jpg'],
+			'jpg' => ['jpg', 'image/jpg'],
+			'mp3' => ['mp3', 'audio/mpeg'],
+			'wav' => ['wav', 'audio/x-wav'],
+			'mpeg' => ['mpeg', 'video/mpeg'],
+			'mpg' => ['mpg', 'video/mpeg'],
+			'mpe' => ['mpg', 'video/mpeg'],
+			'mov' => ['mov', 'video/quicktime'],
+			'avi' => ['avi', 'video/x-msvideo']
+		];
+	}
+
+	/**
+	 * @test
+	 * @dataProvider allowedFileTypesForDownloadHeadersDataProvider
+	 */
+	public function sendDownloadHeadersSendsHeaderForAllowedFileTypes($fileExtension, $contentType) {
+		$fileName = 'foo';
+		$headers = [
+			'Pragma' => 'public',
+			'Expires' => 0,
+			'Cache-Control' => 'public',
+			'Content-Description' => 'File Transfer',
+			'Content-Type' => $contentType,
+			'Content-Disposition' => 'attachment; filename="' . $fileName . '.' . $fileExtension . '"',
+			'Content-Transfer-Encoding' => 'binary',
+		];
+
+		$mockResponse = $this->getMock(
+			Response::class, ['sendHeaders', 'setHeader']
+		);
+		$this->inject($this->subject, 'response', $mockResponse);
+		$mockResponse->expects($this->once())
+			->method('sendHeaders');
+
+		$this->subject->_callRef('sendDownloadHeaders', $fileExtension, $fileName);
+
+	}
+
+	/**
+	 * return array
+	 */
+	public function forbiddenFileTypesForDownloadHeadersDataProvider() {
+		return [
+			'inc' => ['inc'],
+			'conf' => ['conf'],
+			'sql' => ['sql'],
+			'cgi' => ['cgi'],
+			'htaccess' => ['htaccess'],
+			'php' => ['php'],
+			'php3' => ['php3'],
+			'php4' => ['php4'],
+			'php5' => ['php5'],
+		];
+	}
+
+	/**
+	 * @test
+	 * @dataProvider forbiddenFileTypesForDownloadHeadersDataProvider
+	 * @expectedException \Webfox\T3events\InvalidFileTypeException
+	 * @expectedExceptionCode 1456009720
+	 */
+	public function sendDownloadHeadersDoesNotSendHeadersForForbiddenFileTypes($fileExtension) {
+		$fileName = 'foo';
+
+		$mockResponse = $this->getMock(
+			Response::class, ['sendHeaders', 'setHeader']
+		);
+		$this->inject($this->subject, 'response', $mockResponse);
+		$mockResponse->expects($this->never())
+			->method('sendHeaders');
+
+		$this->subject->_callRef('sendDownloadHeaders', $fileExtension, $fileName);
+
+	}
+
+	/**
+	 * @test
+	 */
+	public function sendDownloadHeadersSendsHeadersForDefaultType() {
+		$unknownValidExtension = 'foo';
+		$fileName = 'bar';
+		$mockResponse = $this->getMock(
+			Response::class, ['sendHeaders', 'setHeader']
+		);
+		$this->inject($this->subject, 'response', $mockResponse);
+		$mockResponse->expects($this->once())
+			->method('sendHeaders');
+
+		$this->subject->_callRef('sendDownloadHeaders', $unknownValidExtension, $fileName);
+	}
+
+	/**
+	 * @test
+	 */
+	public function sendDownloadHeadersSetsResponse() {
+		$unknownValidExtension = 'foo';
+		$fileName = 'bar';
+		$mockResponse = $this->getMock(
+			Response::class, ['sendHeaders', 'setHeader']
+		);
+		$mockObjectManager = $this->mockObjectManager();
+
+		$mockObjectManager->expects($this->once())
+			->method('get')
+			->with(Response::class)
+			->will($this->returnValue($mockResponse));
+
+		$this->subject->_callRef('sendDownloadHeaders', $unknownValidExtension, $fileName);
 	}
 }

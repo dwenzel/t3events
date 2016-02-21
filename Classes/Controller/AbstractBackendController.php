@@ -8,6 +8,7 @@ use TYPO3\CMS\Core\Utility\HttpUtility;
 use TYPO3\CMS\Extbase\Mvc\Exception\StopActionException;
 use TYPO3\CMS\Extbase\Mvc\RequestInterface;
 use TYPO3\CMS\Extbase\Mvc\ResponseInterface;
+use TYPO3\CMS\Extbase\Mvc\Web\Response;
 use Webfox\T3events\Domain\Model\Dto\ModuleData;
 use \TYPO3\CMS\Backend\Utility\BackendUtility;
 use Webfox\T3events\Domain\Repository\AbstractDemandedRepository;
@@ -16,6 +17,7 @@ use Webfox\T3events\Domain\Repository\EventTypeRepository;
 use Webfox\T3events\Domain\Repository\GenreRepository;
 use Webfox\T3events\Domain\Repository\AudienceRepository;
 use Webfox\T3events\Domain\Repository\VenueRepository;
+use Webfox\T3events\InvalidFileTypeException;
 use Webfox\T3events\Service\ModuleDataStorageService;
 
 /**
@@ -313,6 +315,7 @@ class AbstractBackendController extends AbstractController {
 	 *
 	 * @param string $ext
 	 * @param string $fileName
+	 * @throws InvalidFileTypeException
 	 */
 	protected function sendDownloadHeaders($ext, $fileName) {
 		switch ($ext) {
@@ -378,7 +381,10 @@ class AbstractBackendController extends AbstractController {
 			case 'php3':
 			case 'php4':
 			case 'php5':
-				exit;
+				throw new InvalidFileTypeException(
+					'Invalid file type ' . $ext . ' for download with file name ' . $fileName,
+					1456009720
+				);
 
 			default:
 				$cType = 'application/force-download';
@@ -394,7 +400,9 @@ class AbstractBackendController extends AbstractController {
 			'Content-Disposition' => 'attachment; filename="' . $fileName . '.' . $ext . '"',
 			'Content-Transfer-Encoding' => 'binary',
 		];
-
+		if (!$this->response instanceof Response) {
+			$this->response = $this->objectManager->get(Response::class);
+		}
 		foreach ($headers as $header => $data) {
 			$this->response->setHeader($header, $data);
 		}
