@@ -22,6 +22,7 @@ namespace Webfox\T3events\Controller;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 use Webfox\T3events\Domain\Model\Dto\PerformanceDemand;
 use Webfox\T3events\Domain\Model\Performance;
+use Webfox\T3events\Domain\Repository\CategoryRepository;
 use Webfox\T3events\Domain\Repository\EventTypeRepository;
 use Webfox\T3events\Domain\Repository\GenreRepository;
 use Webfox\T3events\Domain\Repository\PerformanceRepository;
@@ -69,6 +70,11 @@ class PerformanceController
 	 * @var \Webfox\T3events\Domain\Repository\EventTypeRepository
 	 */
 	protected $eventTypeRepository;
+
+	/**
+	 * @var \Webfox\T3events\Domain\Repository\CategoryRepository
+	 */
+	protected $categoryRepository;
 
 	/**
 	 * @var \Webfox\T3events\Session\SessionInterface
@@ -123,6 +129,16 @@ class PerformanceController
 	}
 
 	/**
+	 * injectCategoryRepository
+	 *
+	 * @param \Webfox\T3events\Domain\Repository\CategoryRepository $categoryRepository
+	 * @return void
+	 */
+	public function injectCategoryRepository(CategoryRepository $categoryRepository) {
+		$this->categoryRepository = $categoryRepository;
+	}
+
+	/**
 	 * initializes all actions
 	 */
 	public function initializeAction() {
@@ -162,6 +178,7 @@ class PerformanceController
 			'overwriteDemand' => $overwriteDemand,
 			'data' => $this->contentObject->data
 		];
+
 		$this->emitSignal(__CLASS__, self::PERFORMANCE_LIST_ACTION, $templateVariables);
 		$this->view->assignMultiple($templateVariables);
 	}

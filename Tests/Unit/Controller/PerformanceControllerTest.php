@@ -26,6 +26,7 @@ use Webfox\T3events\Controller\PerformanceController;
 use Webfox\T3events\Domain\Model\Dto\PerformanceDemand;
 use Webfox\T3events\Domain\Model\Dto\Search;
 use Webfox\T3events\Domain\Model\Performance;
+use Webfox\T3events\Domain\Repository\CategoryRepository;
 use Webfox\T3events\Domain\Repository\EventTypeRepository;
 use Webfox\T3events\Domain\Repository\GenreRepository;
 use Webfox\T3events\Domain\Repository\PerformanceRepository;
@@ -153,6 +154,22 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$this->assertSame(
 			$repository,
 			$this->fixture->_get('eventTypeRepository')
+		);
+	}
+
+	/**
+	 * @test
+	 * @covers ::injectCategoryRepository
+	 */
+	public function injectCategoryRepositorySetsCategoryRepository() {
+		$repository = $this->getMock(
+			CategoryRepository::class, [], [], '', false
+		);
+		$this->fixture->injectCategoryRepository($repository);
+
+		$this->assertSame(
+			$repository,
+			$this->fixture->_get('categoryRepository')
 		);
 	}
 
