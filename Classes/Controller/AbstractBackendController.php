@@ -451,46 +451,4 @@ class AbstractBackendController extends AbstractController {
 		}
 		$this->response->sendHeaders();
 	}
-
-	/**
-	 * Gets filter options for view template
-	 *
-	 * @param array $settings
-	 * @return array
-	 */
-	protected function getFilterOptions($settings) {
-		$filterOptions = [];
-		foreach ($settings as $key => $value) {
-			$propertyName = lcfirst($key) . 'Repository';
-			if (property_exists(get_class($this), $propertyName)
-				&& $this->{$propertyName} instanceof AbstractDemandedRepository
-			) {
-				/** @var AbstractDemandedRepository $repository */
-				$repository = $this->{$propertyName};
-				if (!empty($value)) {
-					$result = $repository->findMultipleByUid($value, 'title');
-				} else {
-					$result = $repository->findAll();
-				}
-				$filterOptions[$key . 's'] = $result;
-			}
-			if ($key === 'periods') {
-				$periodOptions = [];
-				$periodEntries = ['futureOnly', 'pastOnly', 'all', 'specific'];
-				if (!empty($value)) {
-					$periodEntries = GeneralUtility::trimExplode(',', $value, TRUE);
-				}
-				foreach ($periodEntries as $entry) {
-					$period = new \stdClass();
-					$period->key = $entry;
-					$period->value = $this->translate('label.period.' . $entry, 't3events');
-					$periodOptions[] = $period;
-				}
-				$filterOptions['periods'] = $periodOptions;
-			}
-		}
-
-
-		return $filterOptions;
-	}
 }
