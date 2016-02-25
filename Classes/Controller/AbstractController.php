@@ -277,11 +277,11 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	/**
 	 * Translate a given key
 	 *
-	 * @param \string $key
-	 * @param \string $extension
-	 * @param \array $arguments
+	 * @param string $key
+	 * @param string $extension
+	 * @param array $arguments
 	 * @codeCoverageIgnore
-	 * @return null|string
+	 * @return string
 	 */
 	public function translate($key, $extension = 't3events', $arguments = NULL) {
 		$translatedString = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate($key, $extension, $arguments);

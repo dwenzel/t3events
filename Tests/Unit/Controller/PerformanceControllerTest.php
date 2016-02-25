@@ -26,6 +26,7 @@ use Webfox\T3events\Controller\PerformanceController;
 use Webfox\T3events\Domain\Model\Dto\PerformanceDemand;
 use Webfox\T3events\Domain\Model\Dto\Search;
 use Webfox\T3events\Domain\Model\Performance;
+use Webfox\T3events\Domain\Repository\CategoryRepository;
 use Webfox\T3events\Domain\Repository\EventTypeRepository;
 use Webfox\T3events\Domain\Repository\GenreRepository;
 use Webfox\T3events\Domain\Repository\PerformanceRepository;
@@ -153,6 +154,22 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$this->assertSame(
 			$repository,
 			$this->fixture->_get('eventTypeRepository')
+		);
+	}
+
+	/**
+	 * @test
+	 * @covers ::injectCategoryRepository
+	 */
+	public function injectCategoryRepositorySetsCategoryRepository() {
+		$repository = $this->getMock(
+			CategoryRepository::class, [], [], '', false
+		);
+		$this->fixture->injectCategoryRepository($repository);
+
+		$this->assertSame(
+			$repository,
+			$this->fixture->_get('categoryRepository')
 		);
 	}
 
@@ -1227,13 +1244,13 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 */
 	protected function injectMockRepositories(array $methodsToStub) {
 		$repositoryClasses = [
-			'GenreRepository' => GenreRepository::class,
-			'VenueRepository' => VenueRepository::class,
-			'EventTypeRepository' => EventTypeRepository::class,
+			'genreRepository' => GenreRepository::class,
+			'venueRepository' => VenueRepository::class,
+			'eventTypeRepository' => EventTypeRepository::class,
 		];
 		foreach ($repositoryClasses as $propertyName=>$className) {
 			$mock = $this->getAccessibleMock($className, $methodsToStub, [], '', false, true, false);
-			$this->fixture->_call('inject' . $propertyName, $mock);
+			$this->inject($this->fixture, $propertyName, $mock);
 		}
 	}
 
@@ -1241,7 +1258,7 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function quickMenuActionGetsOverwriteDemandFromSession() {
-		$this->injectMockRepositories(['findMultipleByUid']);
+		$this->injectMockRepositories(['findMultipleByUid', 'findAll']);
 		$mockSession = $this->getMock(
 			SessionInterface::class, ['get', 'set', 'has', 'clean']
 		);
@@ -1262,7 +1279,7 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$settings = ['genres' => '1,2,3'];
 		$this->fixture->_set('settings', $settings);
 
-		$this->injectMockRepositories(['findMultipleByUid']);
+		$this->injectMockRepositories(['findMultipleByUid', 'findAll']);
 		$mockGenreRepository = $this->fixture->_get('genreRepository');
 		$mockGenreRepository->expects($this->once())
 			->method('findMultipleByUid')
@@ -1281,7 +1298,7 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$settings = ['venues' => '1,2,3'];
 		$this->fixture->_set('settings', $settings);
 
-		$this->injectMockRepositories(['findMultipleByUid']);
+		$this->injectMockRepositories(['findMultipleByUid', 'findAll']);
 		$mockVenueRepository = $this->fixture->_get('venueRepository');
 		$mockVenueRepository->expects($this->once())
 			->method('findMultipleByUid')
@@ -1300,7 +1317,7 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$settings = ['eventTypes' => '1,2,3'];
 		$this->fixture->_set('settings', $settings);
 
-		$this->injectMockRepositories(['findMultipleByUid']);
+		$this->injectMockRepositories(['findMultipleByUid', 'findAll']);
 		$mockEventTypeRepository = $this->fixture->_get('eventTypeRepository');
 		$mockEventTypeRepository->expects($this->once())
 			->method('findMultipleByUid')

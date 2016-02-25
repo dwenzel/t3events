@@ -22,6 +22,7 @@ namespace Webfox\T3events\Controller;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 use Webfox\T3events\Domain\Model\Dto\PerformanceDemand;
 use Webfox\T3events\Domain\Model\Performance;
+use Webfox\T3events\Domain\Repository\CategoryRepository;
 use Webfox\T3events\Domain\Repository\EventTypeRepository;
 use Webfox\T3events\Domain\Repository\GenreRepository;
 use Webfox\T3events\Domain\Repository\PerformanceRepository;
@@ -32,7 +33,11 @@ use Webfox\T3events\Session\Typo3Session;
  * @package t3events
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-class PerformanceController extends AbstractController {
+class PerformanceController
+	extends AbstractController
+	implements FilterableControllerInterface {
+	use FilterableControllerTrait;
+
 	const PERFORMANCE_LIST_ACTION = 'listAction';
 	const PERFORMANCE_QUICK_MENU_ACTION = 'quickMenuAction';
 	const PERFORMANCE_SHOW_ACTION = 'showAction';
@@ -65,6 +70,11 @@ class PerformanceController extends AbstractController {
 	 * @var \Webfox\T3events\Domain\Repository\EventTypeRepository
 	 */
 	protected $eventTypeRepository;
+
+	/**
+	 * @var \Webfox\T3events\Domain\Repository\CategoryRepository
+	 */
+	protected $categoryRepository;
 
 	/**
 	 * @var \Webfox\T3events\Session\SessionInterface
@@ -119,6 +129,16 @@ class PerformanceController extends AbstractController {
 	}
 
 	/**
+	 * injectCategoryRepository
+	 *
+	 * @param \Webfox\T3events\Domain\Repository\CategoryRepository $categoryRepository
+	 * @return void
+	 */
+	public function injectCategoryRepository(CategoryRepository $categoryRepository) {
+		$this->categoryRepository = $categoryRepository;
+	}
+
+	/**
 	 * initializes all actions
 	 */
 	public function initializeAction() {
@@ -158,6 +178,7 @@ class PerformanceController extends AbstractController {
 			'overwriteDemand' => $overwriteDemand,
 			'data' => $this->contentObject->data
 		];
+
 		$this->emitSignal(__CLASS__, self::PERFORMANCE_LIST_ACTION, $templateVariables);
 		$this->view->assignMultiple($templateVariables);
 	}
@@ -187,18 +208,22 @@ class PerformanceController extends AbstractController {
 		$overwriteDemand = unserialize($this->session->get('tx_t3events_overwriteDemand'));
 
 		// get filter options from plugin
-		$genres = $this->genreRepository->findMultipleByUid($this->settings['genres'], 'title');
-		$venues = $this->venueRepository->findMultipleByUid($this->settings['venues'], 'title');
-		$eventTypes = $this->eventTypeRepository->findMultipleByUid($this->settings['eventTypes'], 'title');
+		$filterConfiguration = [
+			'genre' => $this->settings['genres'],
+			'venue' => $this->settings['venues'],
+			'eventType' => $this->settings['eventTypes'],
+			'category' => $this->settings['categories']
+		];
+		$filterOptions = $this->getFilterOptions($filterConfiguration);
 
 		$templateVariables = [
-			'genres' => $genres,
-			'venues' => $venues,
-			'eventTypes' => $eventTypes,
+			'filterOptions' => $filterOptions,
+			'genres' => $filterOptions['genres'],
+			'venues' => $filterOptions['venues'],
+			'eventTypes' => $filterOptions['eventTypes'],
 			'settings' => $this->settings,
 			'overwriteDemand' => $overwriteDemand
 		];
-
 		$this->emitSignal(__CLASS__, self::PERFORMANCE_QUICK_MENU_ACTION, $templateVariables);
 		$this->view->assignMultiple(
 			$templateVariables

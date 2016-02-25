@@ -24,6 +24,11 @@ config.tx_extbase {
 					}
 				}
 			}
+			Webfox\T3events\Domain\Model\Category {
+				mapping {
+					tableName = sys_category
+				}
+			}
 		}
 	}
 }

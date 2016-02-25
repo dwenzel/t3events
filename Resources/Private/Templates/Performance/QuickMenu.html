@@ -91,6 +91,19 @@ This Template is responsible for creating a quick menu (selectbox).
 						/>
 				</f:if>
 
+				<f:comment>categories</f:comment>
+				<f:if condition="{filterOptions.categorys}">
+					<f:form.select
+						id="tx_t3eventsQuickMenue"
+						name="overwriteDemand[categorys]"
+						options="{filterOptions.categorys}"
+						optionValueField="uid"
+						optionLabelField="title"
+						prependOptionLabel="{f:translate(key: 'label.allCategories', default: 'label.allCategories')}"
+						value="{overwriteDemand.categorys}"
+						/>
+				</f:if>
+
 				<f:form.hidden
 					id="tx_t3eventsQuickMenue"
 					name="overwriteDemand[categoryConjunction]"
