@@ -5,7 +5,7 @@ namespace Webfox\T3events\Domain\Model\Dto;
  *
  *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
  *  Michael Kasten <kasten@webfox01.de>, Agentur Webfox
- *  
+ *
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -34,11 +34,14 @@ use Webfox\T3events\Domain\Model\PerformanceStatus;
 class PerformanceDemand
 	extends AbstractDemand
 	implements DemandInterface, PeriodAwareDemandInterface,
-	SearchAwareDemandInterface, StatusAwareDemandInterface {
-	use PeriodAwareDemandTrait, SearchAwareDemandTrait;
+	SearchAwareDemandInterface, StatusAwareDemandInterface,
+	CategoryAwareDemandInterface {
+	use PeriodAwareDemandTrait, SearchAwareDemandTrait,
+		CategoryAwareDemandTrait;
 	const START_DATE_FIELD = 'date';
 	const END_DATE_FIELD = 'endDate';
 	const STATUS_FIELD = 'status';
+	const CATEGORY_FIELD = 'event.categories';
 
 	/**
 	 * A single status
@@ -216,6 +219,13 @@ class PerformanceDemand
 	/**
 	 * @return string
 	 */
+	public function getCategoryField() {
+		return self::STATUS_FIELD;
+	}
+
+	/**
+	 * @return string
+	 */
 	public function getStatuses() {
 		return $this->statuses;
 	}
@@ -240,19 +250,4 @@ class PerformanceDemand
 	public function setExcludeSelectedStatuses($excludeSelectedStatuses) {
 		$this->excludeSelectedStatuses = $excludeSelectedStatuses;
 	}
-
-	/**
-	 * @return string
-	 */
-	public function getCategories() {
-		return $this->categories;
-	}
-
-	/**
-	 * @param string $categories
-	 */
-	public function setCategories($categories) {
-		$this->categories = $categories;
-	}
-
 }

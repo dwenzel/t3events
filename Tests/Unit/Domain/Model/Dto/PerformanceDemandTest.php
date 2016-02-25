@@ -178,7 +178,6 @@ class PerformanceDemandTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		);
 	}
 
-
 	/**
 	 * @test
 	 */
@@ -186,6 +185,16 @@ class PerformanceDemandTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$this->assertSame(
 			PerformanceDemand::STATUS_FIELD,
 			$this->fixture->getStatusField()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getCategoryFieldForStringReturnsCategoryFieldConstant() {
+		$this->assertSame(
+			PerformanceDemand::CATEGORY_FIELD,
+			$this->fixture->getCategoryField()
 		);
 	}
 
