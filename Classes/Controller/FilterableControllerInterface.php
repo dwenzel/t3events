@@ -37,5 +37,5 @@ interface FilterableControllerInterface {
 	 * @param array $settings
 	 * @return array
 	 */
-	function getFilterOptions($settings);
+	public function getFilterOptions($settings);
 }

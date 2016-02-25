@@ -35,7 +35,7 @@ trait FilterableControllerTrait {
 	 * @param array $settings
 	 * @return array
 	 */
-	protected function getFilterOptions($settings) {
+	public function getFilterOptions($settings) {
 		$filterOptions = [];
 		foreach ($settings as $key => $value) {
 			$propertyName = lcfirst($key) . 'Repository';

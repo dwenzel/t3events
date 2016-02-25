@@ -63,14 +63,13 @@ class PerformanceRepository
 		if (!empty($demand->getEventTypes())) {
 			$eventTypes = GeneralUtility::intExplode(',', $demand->getEventTypes());
 			$constraints[] = $query->in('event.eventType', $eventTypes);
-
-			return $constraints;
 		}
+
 
 		if ($demand->getCategories()) {
 			$categories = GeneralUtility::intExplode(',', $demand->getCategories());
 			foreach($categories as $category) {
-				$categoryConstraints[] = $query->contains('event.categories', $category);
+				$constraints[] = $query->contains('event.categories', $category);
 			}
 		}
 
