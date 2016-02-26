@@ -220,7 +220,7 @@ class PerformanceDemand
 	 * @return string
 	 */
 	public function getCategoryField() {
-		return self::STATUS_FIELD;
+		return self::CATEGORY_FIELD;
 	}
 
 	/**
