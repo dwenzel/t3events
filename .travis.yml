@@ -1,6 +1,7 @@
 language: php
-
-matrix: 
+php:
+  - '7'
+matrix:
   include:
     - php: 5.5
       env: DB=mysql TYPO3=TYPO3_6-2 INTEGRATION=master-t3events COVERAGE=0
