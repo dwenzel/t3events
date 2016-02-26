@@ -105,7 +105,7 @@ class EventController extends AbstractController {
 			$events = $ordered;
 		} else {
 			$demand = $this->createDemandFromSettings($this->settings);
-			$demand = $this->overwriteDemandObject($demand, $overwriteDemand);
+			$this->overwriteDemandObject($demand, $overwriteDemand);
 			$events = $this->eventRepository->findDemanded($demand);
 		}
 
@@ -193,7 +193,7 @@ class EventController extends AbstractController {
 	 */
 	public function calendarAction($overwriteDemand = NULL) {
 		$demand = $this->createDemandFromSettings($this->settings);
-		$demand = $this->overwriteDemandObject($demand, $overwriteDemand);
+		$this->overwriteDemandObject($demand, $overwriteDemand);
 		$events = $this->eventRepository->findDemanded($demand);
 		$calendarConfiguration = $this->createCalendarConfigurationFromSettings($this->settings);
 		$templateVariables = [
@@ -273,11 +273,9 @@ class EventController extends AbstractController {
 	 *
 	 * @param \Webfox\T3events\Domain\Model\Dto\EventDemand $demand
 	 * @param \array $overwriteDemand
-	 * @return \Webfox\T3events\Domain\Model\Dto\EventDemand
 	 */
-	public function overwriteDemandObject($demand, $overwriteDemand) {
+	public function overwriteDemandObject(&$demand, $overwriteDemand) {
 		if ((bool) $overwriteDemand) {
-
 			foreach ($overwriteDemand as $propertyName => $propertyValue) {
 				switch ($propertyName) {
 					case 'sortDirection':
@@ -317,8 +315,6 @@ class EventController extends AbstractController {
 		}
 		$GLOBALS['TSFE']->fe_user->setKey('ses', 'tx_t3events_overwriteDemand', serialize($overwriteDemand));
 		$GLOBALS['TSFE']->fe_user->storeSessionData();
-
-		return $demand;
 	}
 
 	/**
