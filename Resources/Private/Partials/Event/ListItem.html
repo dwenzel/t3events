@@ -20,44 +20,43 @@
 		</f:link.action>
 	</div>
 	<div class="eventDescription">
-		<f:link.action action="show" arguments="{event: event}"  pageUid="{settings.event.single.pid}"
+		<f:link.action action="show" arguments="{event: event}" pageUid="{settings.event.single.pid}"
 			class="buttonTicket blueGradient">
 			<ts:event.performances event="{event}" type="crucialStatus"
-				class="ticketSignal" tagName="span" classChildren="status" /> 
+				class="ticketSignal" tagName="span" classChildren="status" />
 			<f:translate key="tx_t3events.tickets" />
 
 		</f:link.action>
 		<h2 class="eventHeader">
 			<f:link.action action="show" arguments="{event: event}" pageUid="{settings.event.single.pid}">
-			{event.headline}
-		</f:link.action>
+				{event.headline}
+			</f:link.action>
 		</h2>
 
 
 		<p class="eventSubtitle">
 			<f:link.action action="show" arguments="{event: event}" pageUid="{settings.event.single.pid}">
-			{event.subtitle}
-		</f:link.action>
+				{event.subtitle}
+			</f:link.action>
 		</p>
-		<f:if condition="{event.performances->f:count()}>1">						
+		<f:if condition="{event.performances->f:count()}>1">
 			<f:then>
 
-				<f:comment>locations</f:comment>					
+				<f:comment>locations</f:comment>
 				<p class="locations">
-					<f:translate key="@todo: label_multiple_locations">
-					verschiedene Spielstätten
-				</f:translate>
+					<f:translate key="label.differentLocations">
+					</f:translate>
 				</p>
-				
+
 				<f:comment>dates</f:comment>
 				<ts:event.performances event="{event}" type="dateRange"
 					class="date range" tagName="p"
-				/>
+					/>
 			</f:then>
 			<f:else>
 				<f:for each="{event.performances}" as="performance">
-						<ts:event.performances event="{event}" type="uniqueLocationsList"
-					class="locations single" tagName="p" />
+					<ts:event.performances event="{event}" type="uniqueLocationsList"
+						class="locations single" tagName="p" />
 					<p class="date single">
 						<f:format.date format="d.m.Y">{performance.date}</f:format.date>
 					</p>

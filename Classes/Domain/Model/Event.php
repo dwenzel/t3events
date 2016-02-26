@@ -1,40 +1,37 @@
 <?php
 namespace Webfox\T3events\Domain\Model;
-/***************************************************************
- *  Copyright notice
- *
- *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
- *  Michael Kasten <kasten@webfox01.de>, Agentur Webfox
- *  
- *  All rights reserved
- *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+
+	/***************************************************************
+	 *  Copyright notice
+	 *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
+	 *  Michael Kasten <kasten@webfox01.de>, Agentur Webfox
+	 *  All rights reserved
+	 *  This script is part of the TYPO3 project. The TYPO3 project is
+	 *  free software; you can redistribute it and/or modify
+	 *  it under the terms of the GNU General Public License as published by
+	 *  the Free Software Foundation; either version 3 of the License, or
+	 *  (at your option) any later version.
+	 *  The GNU General Public License can be found at
+	 *  http://www.gnu.org/copyleft/gpl.html.
+	 *  This script is distributed in the hope that it will be useful,
+	 *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+	 *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	 *  GNU General Public License for more details.
+	 *  This copyright notice MUST APPEAR in all copies of the script!
+	 ***************************************************************/
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /**
- *
- *
  * @package t3events
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- *
  */
-class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
+class Event extends AbstractEntity {
+	use CategorizableTrait;
+
 	/**
 	 * Hidden
+	 *
 	 * @var \int
 	 */
 	protected $hidden;
@@ -53,6 +50,11 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 * @var \string
 	 */
 	protected $subtitle;
+
+	/**
+	 * @var string
+	 */
+	protected $teaser;
 
 	/**
 	 * description
@@ -77,13 +79,15 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
 	 * genre
+	 *
 	 * @lazy
 	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\T3events\Domain\Model\Genre>
 	 */
 	protected $genre;
-	
+
 	/**
 	 * venue
+	 *
 	 * @lazy
 	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\T3events\Domain\Model\Venue>
 	 */
@@ -91,6 +95,7 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
 	 * eventType
+	 *
 	 * @lazy
 	 * @var \Webfox\T3events\Domain\Model\EventType
 	 */
@@ -98,6 +103,7 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
 	 * performances
+	 *
 	 * @lazy
 	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\T3events\Domain\Model\Performance>
 	 */
@@ -105,19 +111,31 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
 	 * organizer
+	 *
 	 * @lazy
 	 * @var \Webfox\T3events\Domain\Model\Organizer
 	 */
 	protected $organizer;
 
 	/**
-	 * __construct
+	 * Audience
 	 *
-	 * @return void
+	 * @lazy
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\T3events\Domain\Model\Audience>
+	 */
+	protected $audience;
+
+	/**
+	 * __construct
+
 	 */
 	public function __construct() {
 		//Do not remove the next line: It would break the functionality
 		$this->initStorageObjects();
+		// allow additional initialization in proxy classes
+		if (method_exists($this, 'initializeObject')) {
+			$this->initializeObject();
+		}
 	}
 
 	/**
@@ -126,26 +144,25 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 * @return void
 	 */
 	protected function initStorageObjects() {
-		/**
-		 * Do not modify this method!
-		 * It will be rewritten on each save in the extension builder
-		 * You may modify the constructor of this class instead
-		 */
-		$this->genre = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-		$this->venue = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-		$this->performances = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$this->genre = new ObjectStorage();
+		$this->venue = new ObjectStorage();
+		$this->audience = new ObjectStorage();
+		$this->performances = new ObjectStorage();
+		$this->categories = new ObjectStorage();
 	}
 
 	/**
 	 * Returns hidden
+	 *
 	 * @return \int
 	 */
 	public function getHidden() {
-		return$this->hidden;
+		return $this->hidden;
 	}
 
 	/**
 	 * Sets hidden
+	 *
 	 * @param \int $hidden
 	 */
 	public function setHidden($hidden) {
@@ -169,6 +186,24 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 */
 	public function setSubtitle($subtitle) {
 		$this->subtitle = $subtitle;
+	}
+
+	/**
+	 * Gets the teaser text
+	 *
+	 * @return string
+	 */
+	public function getTeaser() {
+		return $this->teaser;
+	}
+
+	/**
+	 * Sets the teaser text
+	 *
+	 * @param string $teaser
+	 */
+	public function setTeaser($teaser) {
+		$this->teaser = $teaser;
 	}
 
 	/**
@@ -266,39 +301,39 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	public function setGenre(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $genre) {
 		$this->genre = $genre;
 	}
-	
+
 	/**
 	 * Returns the venue
-	 * 
+	 *
 	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\T3events\Domain\Model\Venue> $venue
 	 */
 	public function getVenue() {
 		return $this->venue;
 	}
-	
+
 	/**
 	 * Sets a venue
-	 * 
+	 *
 	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\T3events\Domain\Model\Venue> $venue
 	 * @return void
 	 */
 	public function setVenue(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $venue) {
 		$this->venue = $venue;
 	}
-	
+
 	/**
 	 * Adds a venue
-	 * 
+	 *
 	 * @param \Webfox\T3events\Domain\Model\Venue $venue
 	 * @return void
 	 */
-	public function addVenue(Venue $venue){
+	public function addVenue(Venue $venue) {
 		$this->venue->attach($venue);
 	}
-	
+
 	/**
 	 * Removes a venue
-	 * 
+	 *
 	 * @param \Webfox\T3events\Domain\Model\Venue $venueToRemove The Venue to be removed
 	 * @return void
 	 */
@@ -374,6 +409,7 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 			$dates[] = $performance->getDate()->getTimestamp();
 		}
 		sort($dates);
+
 		return $dates[0];
 	}
 
@@ -415,5 +451,45 @@ class Event extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	public function setPerformances(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $performances) {
 		$this->performances = $performances;
 	}
+
+	/**
+	 * Returns the audience
+	 *
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\T3events\Domain\Model\Audience> $audience
+	 */
+	public function getAudience() {
+		return $this->audience;
+	}
+
+	/**
+	 * Sets a audience
+	 *
+	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\T3events\Domain\Model\Audience> $audience
+	 * @return void
+	 */
+	public function setAudience(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $audience) {
+		$this->audience = $audience;
+	}
+
+	/**
+	 * Adds a audience
+	 *
+	 * @param \Webfox\T3events\Domain\Model\Audience $audience
+	 * @return void
+	 */
+	public function addAudience(Audience $audience) {
+		$this->audience->attach($audience);
+	}
+
+	/**
+	 * Removes a audience
+	 *
+	 * @param \Webfox\T3events\Domain\Model\Audience $audienceToRemove The Audience to be removed
+	 * @return void
+	 */
+	public function removeAudience(Audience $audienceToRemove) {
+		$this->audience->detach($audienceToRemove);
+	}
+
 
 }

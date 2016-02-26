@@ -1,0 +1,116 @@
+<f:comment> View mode mini month</f:comment>
+<f:if condition="{configuration.viewMode}==2">
+	<f:render section="miniMonth"
+		arguments="{
+	calendar: calendar,
+	configuration: configuration,
+	settings: settings,
+	calendarId: calendarId}" />
+</f:if>
+<f:comment> View mode combo pane</f:comment>
+<f:if condition="{configuration.viewMode}==1">
+	<f:render section="comboPane"
+		arguments="{
+	calendar: calendar,
+	configuration: configuration,
+	settings: settings,
+	calendarId: calendarId}" />
+</f:if>
+
+<f:section name="miniMonth">
+	<div class="eventCalendar miniMonth">
+		<f:if condition="{configuration.ajaxEnabled}">
+			<div id="loader">loading...</div>
+		</f:if>
+		<f:render partial="Calendar/Month"
+			arguments="{
+			calendar: calendar,
+			month: '{calendar.currentMonth}',
+			configuration: configuration,
+			settings: settings,
+			calendarId: calendarId
+		}" />
+	</div>
+</f:section>
+
+<f:section name="comboPane">
+	<div class="eventCalendar comboPane">
+		<f:if condition="{configuration.ajaxEnabled}">
+			<div id="loader">loading...</div>
+		</f:if>
+		<f:if condition="{settings.showCalendarNavigation}">
+			<f:then>
+				<f:render partial="Calendar/PeriodSwitch"
+					arguments="{
+						calendar: calendar,
+						configuration: configuration,
+						settings: settings,
+						calendarId: calendarId}" />
+			</f:then>
+		</f:if>
+		<f:comment> Day</f:comment>
+		<f:if condition="{calendar.displayPeriod} == 0">
+			<f:render partial="Calendar/Day"
+				arguments="{
+				calendar: calendar,
+				configuration: configuration,
+				settings: settings,
+				calendarId: calendarId}" />
+		</f:if>
+		<f:comment> Week</f:comment>
+		<f:if condition="{calendar.displayPeriod} == 1">
+			<f:render partial="Calendar/Week"
+				arguments="{
+				calendar: calendar,
+				configuration: configuration,
+				settings: settings,
+				calendarId: calendarId}" />
+		</f:if>
+		<f:comment> Month</f:comment>
+		<f:if condition="{calendar.displayPeriod} == 2">
+			<f:render partial="Calendar/Month"
+				arguments="{
+				calendar: calendar,
+				month: '{calendar.currentMonth}',
+				configuration: configuration,
+				settings: settings,
+				calendarId: calendarId}" />
+		</f:if>
+		<f:comment> Quarter</f:comment>
+		<f:if condition="{calendar.displayPeriod} == 3">
+			<f:render partial="Calendar/Quarter"
+				arguments="{
+				calendar: calendar,
+				configuration: configuration,
+				settings: settings,
+				calendarId: calendarId}" />
+		</f:if>
+		<f:comment> Trimester</f:comment>
+		<f:if condition="{calendar.displayPeriod} == 4">
+			<f:render partial="Calendar/Trimester"
+				arguments="{
+				calendar: calendar,
+				configuration: configuration,
+				settings: settings,
+				calendarId: calendarId}" />
+		</f:if>
+		<f:comment> Semester</f:comment>
+		<f:if condition="{calendar.displayPeriod} == 5">
+			<f:render partial="Calendar/Semester"
+				arguments="{
+				calendar: calendar,
+				configuration: configuration,
+				settings: settings,
+				calendarId: calendarId}" />
+		</f:if>
+		<f:comment> Year</f:comment>
+		<f:if condition="{calendar.displayPeriod} == 6">
+			<f:render partial="Calendar/Year"
+				arguments="{
+				calendar: calendar,
+				configuration: configuration,
+				settings: settings,
+				calendarId: calendarId}" />
+		</f:if>
+
+</f:section>

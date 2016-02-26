@@ -22,20 +22,73 @@
 										<numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.mode.teaser</numIndex>
 										<numIndex index="1">Teaser->list;Teaser->showEvent;Event->show</numIndex>
 									</numIndex>
-									
 									<numIndex index="1">
+										<numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.label.events</numIndex>
+										<numIndex index="1">--div--</numIndex>
+									</numIndex>
+									<numIndex index="2">
 										<numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.mode.event_list</numIndex>
 										<numIndex index="1">Event->list;Event->show</numIndex>
 									</numIndex>
 
-									<numIndex index="2">
+									<numIndex index="3">
+										<numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.mode.event_show</numIndex>
+										<numIndex index="1">Event->show</numIndex>
+									</numIndex>
+
+									<numIndex index="4">
 										<numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.mode.quick_menu</numIndex>
 										<numIndex index="1">Event->quickMenu</numIndex>
 									</numIndex>
+
+									<numIndex index="5">
+										<numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.mode.event_calendar</numIndex>
+										<numIndex index="1">Event->calendar</numIndex>
+									</numIndex>
+									<numIndex index="6">
+										<numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.label.performances</numIndex>
+										<numIndex index="1">--div--</numIndex>
+									</numIndex>
+									<numIndex index="7">
+										<numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.mode.performance_list_show</numIndex>
+										<numIndex index="1">Performance->list;Performance->show</numIndex>
+									</numIndex>
+
+									<numIndex index="8">
+										<numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.mode.performance_show</numIndex>
+										<numIndex index="1">Performance->show</numIndex>
+									</numIndex>
+									<numIndex index="9">
+										<numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.mode.quick_menu</numIndex>
+										<numIndex index="1">Performance->quickMenu</numIndex>
+									</numIndex>
+
 								</items>
 							</config>
 						</TCEforms>
 					</switchableControllerActions>
+
+					<settings.showRadiusSearch>
+						<TCEforms>
+							<label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xlf:flexforms_general.showRadiusSearch</label>
+							<displayCond>FIELD:switchableControllerActions:=:Event->quickMenu</displayCond>
+							<config>
+								<type>check</type>
+								<default>0</default>
+							</config>
+						</TCEforms>
+					</settings.showRadiusSearch>
+
+					<settings.showSearchField>
+						<TCEforms>
+							<label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xlf:flexforms_general.showSearchField</label>
+							<displayCond>FIELD:switchableControllerActions:=:Event->quickMenu</displayCond>
+							<config>
+								<type>check</type>
+								<default>1</default>
+							</config>
+						</TCEforms>
+					</settings.showSearchField>
 
 					<settings.sortBy>
 						<TCEforms>
@@ -46,17 +99,12 @@
 								<items type="array">
 									<numIndex index="0" type="array">
 										<numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.date</numIndex>
-										<numIndex index="1">date</numIndex>
+										<numIndex index="1">performances.date</numIndex>
 									</numIndex>
 									<numIndex index="1" type="array">
 										<numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.title</numIndex>
-										<numIndex index="1">title</numIndex>
+										<numIndex index="1">headline</numIndex>
 									</numIndex>
-									<numIndex index="2" type="array">
-										<numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.random</numIndex>
-										<numIndex index="1">random</numIndex>
-									</numIndex>
-
 								</items>
 							</config>
 						</TCEforms>
@@ -95,6 +143,91 @@
 						</TCEforms>
 					</settings.highlightsToTop>
 
+					<settings.viewMode>
+						<TCEforms>
+							<label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.viewMode</label>
+							<onChange>reload</onChange>
+							<displayCond>FIELD:switchableControllerActions:=:Event->calendar</displayCond>
+							<config>
+								<type>select</type>
+								<items>
+									<numIndex index="0">
+										<numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.viewModeComboPane</numIndex>
+										<numIndex index="1">1</numIndex>
+									</numIndex>
+									<numIndex index="1">
+										<numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.viewModeMiniMonth</numIndex>
+										<numIndex index="1">2</numIndex>
+									</numIndex>
+								</items>
+							</config>
+						</TCEforms>
+					</settings.viewMode>
+					<settings.displayPeriod>
+						<TCEforms>
+							<label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.displayPeriod</label>
+							<displayCond>
+								<AND>
+									<numIndex index="0">FIELD:switchableControllerActions:=:Event->calendar</numIndex>
+									<numIndex index="1">FIELD:settings.viewMode:=:1</numIndex>
+								</AND>
+							</displayCond>
+							<config>
+								<type>select</type>
+								<items>
+									<numIndex index="0">
+										<numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.displayPeriodMonth</numIndex>
+										<numIndex index="1">2</numIndex>
+									</numIndex>
+									<numIndex index="1">
+										<numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.displayPeriodDay</numIndex>
+										<numIndex index="1">0</numIndex>
+									</numIndex>
+									<numIndex index="2">
+										<numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.displayPeriodWeek</numIndex>
+										<numIndex index="1">1</numIndex>
+									</numIndex>
+									<numIndex index="3">
+										<numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.displayPeriodQuarter</numIndex>
+										<numIndex index="1">3</numIndex>
+									</numIndex>
+									<numIndex index="4">
+										<numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.displayPeriodTrimester</numIndex>
+										<numIndex index="1">4</numIndex>
+									</numIndex>
+									<numIndex index="5">
+										<numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.displayPeriodSemester</numIndex>
+										<numIndex index="1">5</numIndex>
+									</numIndex>
+									<numIndex index="6">
+										<numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.displayPeriodYear</numIndex>
+										<numIndex index="1">6</numIndex>
+									</numIndex>
+								</items>
+							</config>
+						</TCEforms>
+					</settings.displayPeriod>
+
+					<settings.ajaxEnabled>
+						<TCEforms>
+							<label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.ajaxEnabled</label>
+							<displayCond>FIELD:switchableControllerActions:=:Event->calendar</displayCond>
+							<config>
+								<type>check</type>
+							</config>
+						</TCEforms>
+					</settings.ajaxEnabled>
+
+					<settings.showCalendarNavigation>
+						<TCEforms>
+							<label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.showCalendarNavigation</label>
+							<displayCond>FIELD:switchableControllerActions:=:Event->calendar</displayCond>
+							<config>
+								<type>check</type>
+							</config>
+						</TCEforms>
+					</settings.showCalendarNavigation>
+
 					<settings.maxItems>
 						<TCEforms>
 							<label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.maxItems</label>
@@ -102,10 +235,6 @@
 							<config>
 								<type>input</type>
 								<size>3</size>
-								<range>
-									<upper>100000</upper>
-									<lower>0</lower>
-								</range>
 								<eval>int,trim</eval>
 							</config>
 						</TCEforms>
@@ -119,8 +248,7 @@
 								<type>input</type>
 								<size>3</size>
 								<range>
-									<upper>10000</upper>
-									<lower>0</lower>
+									<lower>1</lower>
 								</range>
 								<eval>int,trim</eval>
 							</config>
@@ -158,6 +286,35 @@
 				</TCEforms>
 				<type>array</type>
 				<el>
+					<!-- statuses -->
+					<settings.statuses>
+						<TCEforms>
+							<label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.statuses</label>
+							<config>
+								<type>group</type>
+								<internal_type>db</internal_type>
+								<allowed>tx_t3events_domain_model_performancestatus</allowed>
+								<size>3</size>
+								<autoSizeMax>20</autoSizeMax>
+								<minitems>0</minitems>
+								<maxitems>20</maxitems>
+								<wizards>
+									<suggest>
+										<type>suggest</type>
+									</suggest>
+								</wizards>
+							</config>
+						</TCEforms>
+					</settings.statuses>
+					<settings.excludeSelectedStatuses>
+						<TCEforms>
+							<label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.excludeSelectedStatuses</label>
+							<config>
+								<type>check</type>
+							</config>
+						</TCEforms>
+					</settings.excludeSelectedStatuses>
+
 					<settings.period>
 						<TCEforms>
 							<label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.period</label>
@@ -218,7 +375,12 @@
 					<settings.periodStart>
 						<TCEforms>
 							<label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.start</label>
-							<displayCond>FIELD:settings.periodType:!=:byDate</displayCond>
+							<displayCond>
+								<AND>
+									<numIndex index="0">FIELD:settings.period:=:specific</numIndex>
+									<numIndex index="1">FIELD:settings.periodType:!=:byDate</numIndex>
+								</AND>
+							</displayCond>
 							<config>
 								<type>input</type>
 								<size>1</size>
@@ -233,13 +395,19 @@
 					<settings.periodDuration>
 						<TCEforms>
 							<label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.duration</label>
-							<displayCond>FIELD:settings.periodType:!=:byDate</displayCond>
+							<displayCond>
+								<AND>
+									<numIndex index="0">FIELD:settings.period:=:specific</numIndex>
+									<numIndex index="1">FIELD:settings.periodType:!=:byDate</numIndex>
+								</AND>
+							</displayCond>
 							<config>
 								<size>3</size>
 								<range>
 									<upper>999</upper>
 									<lower>1</lower>
 								</range>
+								<default>1</default>
 								<eval>int,trim</eval>
 								<type>input</type>
 							</config>
@@ -328,6 +496,11 @@
 								<autoSizeMax>20</autoSizeMax>
 								<minitems>0</minitems>
 								<maxitems>20</maxitems>
+								<wizards>
+									<suggest>
+										<type>suggest</type>
+									</suggest>
+								</wizards>
 							</config>
 						</TCEforms>
 					</settings.venues>
@@ -343,6 +516,11 @@
 								<autoSizeMax>20</autoSizeMax>
 								<minitems>0</minitems>
 								<maxitems>40</maxitems>
+								<wizards>
+									<suggest>
+										<type>suggest</type>
+									</suggest>
+								</wizards>
 							</config>
 						</TCEforms>
 					</settings.genres>
@@ -358,9 +536,36 @@
 								<autoSizeMax>20</autoSizeMax>
 								<minitems>0</minitems>
 								<maxitems>40</maxitems>
+								<wizards>
+									<suggest>
+										<type>suggest</type>
+									</suggest>
+								</wizards>
 							</config>
 						</TCEforms>
 					</settings.eventTypes>
+					<settings.categories>
+						<TCEforms>
+							<label>Cat</label>
+							<exclude>1</exclude>
+							<config>
+								<type>select</type>
+								<autoSizeMax>50</autoSizeMax>
+								<foreign_table>sys_category</foreign_table>
+								<foreign_table_where> AND sys_category.sys_language_uid IN (-1, 0) ORDER BY sys_category.sorting ASC</foreign_table_where>
+								<maxitems>9999</maxitems>
+								<renderMode>tree</renderMode>
+								<size>10</size>
+								<treeConfig>
+									<appearance>
+										<expandAll>1</expandAll>
+										<showHeader>1</showHeader>
+									</appearance>
+									<parentField>parent</parentField>
+								</treeConfig>
+							</config>
+						</TCEforms>
+					</settings.categories>
 				</el>
 			</ROOT>
 		</constraints>
@@ -389,6 +594,16 @@
 							</config>
 						</TCEforms>
 					</settings.templateLayout>
+
+					<settings.hideIfEmptyResult>
+						<TCEforms>
+							<label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.hideIfEmptyResult</label>
+							<config>
+								<type>check</type>
+							</config>
+						</TCEforms>
+					</settings.hideIfEmptyResult>
+
 				</el>
 			</ROOT>
 		</template>
@@ -396,63 +611,63 @@
 		<!-- SHEET PAGES -->
 		<pages>
 			<ROOT>
-			<TCEforms>
-				<sheetTitle>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xlf:flexforms_general.pages</sheetTitle>
-			</TCEforms>
-			<type>array</type>
-			<el>
-				<settings.listPid>
-					<TCEforms>
-						<label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xlf:flexforms_general.listPage</label>
-						<config>
-							<type>group</type>
-							<internal_type>db</internal_type>
-							<allowed>pages</allowed>
-							<minitems>0</minitems>
-							<maxitems>1</maxitems>
-							<wizards>
-								<suggest>
-									<type>suggest</type>
-								</suggest>
-							</wizards>
-						</config>
-					</TCEforms>
-				</settings.listPid>
-				<settings.detailPid>
-					<TCEforms>
-						<label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xlf:flexforms_general.detailPage</label>
-						<config>
-							<type>group</type>
-							<internal_type>db</internal_type>
-							<allowed>pages</allowed>
-							<minitems>0</minitems>
-							<maxitems>1</maxitems>
-							<wizards>
-								<suggest>
-									<type>suggest</type>
-								</suggest>
-							</wizards>
-						</config>
-					</TCEforms>
-				</settings.detailPid>
-				<settings.backPid>
-					<TCEforms>
-						<label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xlf:flexforms_general.backPage</label>
-						<config>
-							<type>group</type>
-							<internal_type>db</internal_type>
-							<allowed>pages</allowed>
-							<minitems>0</minitems>
-							<maxitems>1</maxitems>
-							<wizards>
-								<suggest>
-									<type>suggest</type>
-								</suggest>
-							</wizards>
-						</config>
-					</TCEforms>
-				</settings.backPid>
-			</el>
+				<TCEforms>
+					<sheetTitle>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xlf:flexforms_general.pages</sheetTitle>
+				</TCEforms>
+				<type>array</type>
+				<el>
+					<settings.listPid>
+						<TCEforms>
+							<label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xlf:flexforms_general.listPage</label>
+							<config>
+								<type>group</type>
+								<internal_type>db</internal_type>
+								<allowed>pages</allowed>
+								<minitems>0</minitems>
+								<maxitems>1</maxitems>
+								<wizards>
+									<suggest>
+										<type>suggest</type>
+									</suggest>
+								</wizards>
+							</config>
+						</TCEforms>
+					</settings.listPid>
+					<settings.detailPid>
+						<TCEforms>
+							<label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xlf:flexforms_general.detailPage</label>
+							<config>
+								<type>group</type>
+								<internal_type>db</internal_type>
+								<allowed>pages</allowed>
+								<minitems>0</minitems>
+								<maxitems>1</maxitems>
+								<wizards>
+									<suggest>
+										<type>suggest</type>
+									</suggest>
+								</wizards>
+							</config>
+						</TCEforms>
+					</settings.detailPid>
+					<settings.backPid>
+						<TCEforms>
+							<label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xlf:flexforms_general.backPage</label>
+							<config>
+								<type>group</type>
+								<internal_type>db</internal_type>
+								<allowed>pages</allowed>
+								<minitems>0</minitems>
+								<maxitems>1</maxitems>
+								<wizards>
+									<suggest>
+										<type>suggest</type>
+									</suggest>
+								</wizards>
+							</config>
+						</TCEforms>
+					</settings.backPid>
+				</el>
 			</ROOT>
 		</pages>
 	</sheets>

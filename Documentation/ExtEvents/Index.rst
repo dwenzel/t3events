@@ -1,6 +1,4 @@
-﻿
-
-.. ==================================================
+﻿.. ==================================================
 .. FOR YOUR INFORMATION
 .. --------------------------------------------------
 .. -*- coding: utf-8 -*- with BOM.
@@ -11,7 +9,7 @@
 .. role::   underline
 .. role::   typoscript(code)
 .. role::   ts(typoscript)
-   :class:  typoscript
+:class:  typoscript
 .. role::   php(code)
 
 
@@ -39,13 +37,13 @@ The content of this document is related to TYPO3
 
 
 .. toctree::
-   :maxdepth: 5
-   :titlesonly:
-   :glob:
+:maxdepth: 5
+	   :titlesonly:
+	   :glob:
 
-   Introduction/Index
-   UsersManual/Index
-   Configuration/Index
-   To-doList/Index
-   Credits/Index
+	   Introduction/Index
+	   UsersManual/Index
+	   Configuration/Index
+	   To-doList/Index
+	   Credits/Index
 

@@ -1,14 +1,13 @@
 language: php
-
-matrix: 
+php:
+  - '7'
+matrix:
   include:
-    - php: 5.3
-      env: DB=mysql TYPO3=TYPO3_6-2 INTEGRATION=master-t3events COVERAGE=0
-    - php: 5.4
+    - php: 5.5
       env: DB=mysql TYPO3=TYPO3_6-2 INTEGRATION=master-t3events COVERAGE=0
     - php: 5.6
-      env: DB=mysql TYPO3=master INTEGRATION=master-t3events COVERAGE=1
-services: 
+      env: DB=mysql TYPO3=TYPO3_7-6 INTEGRATION=master-t3events COVERAGE=1
+services:
 - memcached
 env: 
   global: 
@@ -61,6 +60,6 @@ after_script:
     php composer.phar update satooshi/php-coveralls --dev;
     echo;
     echo "Running coveralls";
-    php vendor/bin/coveralls -v;
+    php vendor/bin/coveralls -v --root_dir=typo3conf/ext/t3events;
   fi
 #- source build-environment/update-gh-pages.sh

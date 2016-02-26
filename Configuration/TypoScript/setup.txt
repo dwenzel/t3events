@@ -1,33 +1,31 @@
 plugin.tx_t3events {
-
 	# prevent exception #1313855175 with two plugins at the same page (http://forge.typo3.org/issues/31322):
 	mvc.callDefaultActionIfActionCantBeResolved = 1
-	
+
 	view {
 		templateRootPath = {$plugin.tx_t3events.view.templateRootPath}
 		partialRootPath = {$plugin.tx_t3events.view.partialRootPath}
 		layoutRootPath = {$plugin.tx_t3events.view.layoutRootPath}
 		# set root path for paginate widget view helper
 		widget.\Webfox\T3events\ViewHelpers\Widget\PaginateViewHelper.templateRootPath = {$plugin.tx_t3events.view.templateRootPath}
-
 	}
+
 	persistence {
 		storagePid = {$plugin.tx_t3events.persistence.storagePid}
 		Webfox\T3events\Domain\Model\Country {
 			mapping {
 				table = static_countries
 			}
-
 		}
 	}
+
 	features {
 		# uncomment the following line to enable the new Property Mapper.
 		# rewrittenPropertyMapper = 1
 	}
 }
 
-plugin.tx_t3events{
-
+plugin.tx_t3events {
 	settings {
 		debug {
 			settings = 0
@@ -52,9 +50,13 @@ plugin.tx_t3events{
 					width = 120
 					height = 120
 				}
+
 				paginate = 1
 				showSortBy = 1
-			} // list
+			}
+			detail {
+				errorHandling = {$plugin.tx_t3events.settings.detail.errorHandling}
+			}
 			single {
 				dummyImage = EXT:t3events/Resources/Public/Images/dummy-image.png
 				image {
@@ -73,17 +75,53 @@ plugin.tx_t3events{
 						height = 450
 					}
 				}
-			} // single
-		} // event
+			}
+			search {
+				fields = {$plugin.tx_t3events.settings.event.search.fields}
+				radius {
+					unit = km
+					options {
+						50000 = 50 km
+						100000 = 100 km
+						250000 = 250 km
+						500000 = 500 km
+						1000000 = 1000 km
+					}
+				}
+			}
+		}
+		performance {
+			detail {
+				errorHandling = {$plugin.tx_t3events.settings.detail.errorHandling}
+			}
+			search {
+				fields = {$plugin.tx_t3events.settings.performance.search.fields}
+				radius {
+					unit = km
+					options {
+						50000 = 50 km
+						100000 = 100 km
+						250000 = 250 km
+						500000 = 500 km
+						1000000 = 1000 km
+					}
+				}
+			}
+		}
 		search {
 			teasers {
 				fields = venue
 			}
+
 			events {
 				fields =
 			}
-		}// search
-	}// settings
+		}
+
+		// search
+	}
+
+	// settings
 	_CSS_DEFAULT_STYLE (
 		input.f3-form-error {
 			background-color:#FF9F9F;
@@ -104,25 +142,27 @@ plugin.tx_t3events{
 		}
 	)
 }
+
 ####################
 # config extbase to use a different template root path for paginate widget
-# this setting is part of a workaround for the limits of <f:widget.paginate /> view helper - specially the missing option to localize its output 
+# this setting is part of a workaround for the limits of <f:widget.paginate /> view helper - specially the missing option to localize its output
 config.tx_extbase.view.widget.Tx_Fluid_ViewHelpers_Widget_PaginateViewHelper.templateRootPath = {$plugin.tx_t3events.view.templateRootPath}
 
 config.tx_extbase.objects {
 	Tx_Fluid_ViewHelpers_Widget_Controller_PaginateController {
 		className = \Webfox\T3events\ViewHelpers\Widget\Controller\PaginateController
 	}
+
 	# overwrite class to allow USER_INT from flexform
 	Tx_Extbase_Service_ExtensionService {
 		className = Webfox\T3events\Service\ExtensionService
-	}	
+	}
 }
+
 ####################
 # include default CSS
 
 page.includeCSS.t3eventsBasic = EXT:t3events/Resources/Public/Css/t3eventsBasic.css
-
 
 ####################
 # date format helper
@@ -131,4 +171,12 @@ lib.dateMe = TEXT
 lib.dateMe {
 	current = 1
 	strftime = %a, %d.%m.%y
+}
+
+# Rendering of content elements in detail view
+lib.tx_t3events.contentElementRendering = RECORDS
+lib.tx_t3events.contentElementRendering {
+	tables = tt_content
+	source.current = 1
+	dontCheckPid = 1
 }

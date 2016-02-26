@@ -1,29 +1,24 @@
 <?php
 namespace Webfox\T3events\Tests\Unit\Domain\Model;
-/***************************************************************
- *  Copyright notice
- *
- *  (c) 2013 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
- *  			Michael Kasten <kasten@webfox01.de>, Agentur Webfox
- *  			
- *  All rights reserved
- *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+
+	/***************************************************************
+	 *  Copyright notice
+	 *  (c) 2013 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
+	 *            Michael Kasten <kasten@webfox01.de>, Agentur Webfox
+	 *  All rights reserved
+	 *  This script is part of the TYPO3 project. The TYPO3 project is
+	 *  free software; you can redistribute it and/or modify
+	 *  it under the terms of the GNU General Public License as published by
+	 *  the Free Software Foundation; either version 2 of the License, or
+	 *  (at your option) any later version.
+	 *  The GNU General Public License can be found at
+	 *  http://www.gnu.org/copyleft/gpl.html.
+	 *  This script is distributed in the hope that it will be useful,
+	 *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+	 *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	 *  GNU General Public License for more details.
+	 *  This copyright notice MUST APPEAR in all copies of the script!
+	 ***************************************************************/
 
 /**
  * Test case for class \Webfox\T3events\Domain\Model\Task.
@@ -31,14 +26,13 @@ namespace Webfox\T3events\Tests\Unit\Domain\Model;
  * @version $Id$
  * @copyright Copyright belongs to the respective authors
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- *
  * @package TYPO3
  * @subpackage Events
- *
  * @author Dirk Wenzel <wenzel@webfox01.de>
  * @author Michael Kasten <kasten@webfox01.de>
  */
 class TaskTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
+
 	/**
 	 * @var \Webfox\T3events\Domain\Model\Task
 	 */
@@ -55,7 +49,7 @@ class TaskTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	/**
 	 * @test
 	 */
-	public function getNameReturnsInitialValueForString() { 
+	public function getNameReturnsInitialValueForString() {
 		$this->assertSame(
 			NULL,
 			$this->fixture->getName()
@@ -65,7 +59,7 @@ class TaskTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	/**
 	 * @test
 	 */
-	public function setNameForStringSetsName() { 
+	public function setNameForStringSetsName() {
 		$this->fixture->setName('Conceived at T3CON10');
 
 		$this->assertSame(
@@ -73,11 +67,11 @@ class TaskTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 			$this->fixture->getName()
 		);
 	}
-	
+
 	/**
 	 * @test
 	 */
-	public function getActionReturnsInitialNull() { 
+	public function getActionReturnsInitialNull() {
 		$this->assertSame(
 			NULL,
 			$this->fixture->getAction()
@@ -87,7 +81,7 @@ class TaskTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	/**
 	 * @test
 	 */
-	public function setActionForIntegerSetsAction() { 
+	public function setActionForIntegerSetsAction() {
 		$this->fixture->setAction(12);
 
 		$this->assertSame(
@@ -95,33 +89,33 @@ class TaskTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 			$this->fixture->getAction()
 		);
 	}
-	
+
 	/**
 	 * @test
 	 */
-	public function getPeriodReturnsInitialNull(){
+	public function getPeriodReturnsInitialNull() {
 		$this->assertSame(
 			NULL,
 			$this->fixture->getPeriod()
 		);
 	}
-	
+
 	/**
 	 * @test
 	 */
-	public function setPeriodForIntegerSetsPeriod(){
+	public function setPeriodForIntegerSetsPeriod() {
 		$this->fixture->setPeriod(-30000);
-		
+
 		$this->assertSame(
-				-30000,
-				$this->fixture->getPeriod()
-				);
+			-30000,
+			$this->fixture->getPeriod()
+		);
 	}
-	
+
 	/**
 	 * @test
 	 */
-	public function getOldStatusReturnsInitialNull() { 
+	public function getOldStatusReturnsInitialNull() {
 		$this->assertSame(
 			NULL,
 			$this->fixture->getOldStatus()
@@ -132,7 +126,7 @@ class TaskTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function setOldStatusForPerformanceStatusSetsOldStatus() {
-		$status = new \Webfox\T3events\Domain\Model\PerformanceStatus(); 
+		$status = new \Webfox\T3events\Domain\Model\PerformanceStatus();
 		$this->fixture->setOldStatus($status);
 
 		$this->assertSame(
@@ -140,11 +134,11 @@ class TaskTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 			$this->fixture->getOldStatus()
 		);
 	}
-	
+
 	/**
 	 * @test
 	 */
-	public function getNewStatusReturnsInitialNull() { 
+	public function getNewStatusReturnsInitialNull() {
 		$this->assertSame(
 			NULL,
 			$this->fixture->getNewStatus()
@@ -154,8 +148,8 @@ class TaskTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	/**
 	 * @test
 	 */
-	public function setNewStatusForPerformanceStatusSetsNewStatus() { 
-		$status = new \Webfox\T3events\Domain\Model\PerformanceStatus(); 
+	public function setNewStatusForPerformanceStatusSetsNewStatus() {
+		$status = new \Webfox\T3events\Domain\Model\PerformanceStatus();
 		$this->fixture->setNewStatus($status);
 
 		$this->assertSame(
@@ -163,11 +157,11 @@ class TaskTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 			$this->fixture->getNewStatus()
 		);
 	}
-	
+
 	/**
 	 * @test
 	 */
-	public function getFolderReturnsInitialNull() { 
+	public function getFolderReturnsInitialNull() {
 		$this->assertSame(
 			NULL,
 			$this->fixture->getFolder()
@@ -177,7 +171,7 @@ class TaskTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	/**
 	 * @test
 	 */
-	public function setFolderForStringSetsFolder() { 
+	public function setFolderForStringSetsFolder() {
 		$this->fixture->setFolder('Conceived at T3CON10');
 
 		$this->assertSame(
@@ -185,6 +179,6 @@ class TaskTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 			$this->fixture->getFolder()
 		);
 	}
-	
+
 }
 

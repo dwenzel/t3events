@@ -1,0 +1,66 @@
+<table class="calendarYear">
+	<tr>
+		<td colspan=4 class="legend">
+			<span class="year">{f:format.date(date: '{calendar.currentYear.startDate}', format: 'Y')}</span>
+		</td>
+	</tr>
+	<tr>
+		<f:for each="{calendar.currentYear.months}" as="month" iteration="monthIteration">
+			<td>
+				<f:render section="month"
+					arguments="{
+						calendar: calendar,
+						month: month,
+						configuration: configuration,
+						settings: settings,
+						calendarId: calendarId}" />
+			</td>
+			<f:if condition="{monthIteration.cycle} == 4">
+	</tr>
+	<tr>
+		</f:if>
+		<f:if condition="{monthIteration.cycle} == 8">
+	</tr>
+	<tr>
+		</f:if>
+		</f:for>
+	</tr>
+</table>
+
+<f:section name="month">
+	<table class="month">
+		<tbody>
+		<tr>
+			<td colspan=7 class="legend">
+				<span>{f:format.date(date: '{month.startDate}', format: 'F')}</span>
+			</td>
+		</tr>
+		<f:for each="{month.weeks}" as="calendarWeek">
+			<tr>
+				<f:for each="{calendarWeek.days}" as="calendarDay">
+					<td class="day
+					{f:if(condition: '{calendarDay.month} != {month.month}', then: 'outOfMonth')}
+					{f:if(condition: '{calendarDay.isCurrent}', then: 'current')}
+					{f:if(condition: '{f:count(subject: \'{calendarDay.events}\')}',
+						then: 'hasEvent')}">
+						<div class="labelDay">{calendarDay.day}</div>
+						<f:for each="{calendarDay.events}" as="singleEvent">
+							<div class="eventTooltip">
+								<span class="eventTooltipHeadline">
+									<f:link.action
+										pluginName="events"
+										controller="Event"
+										action="show" arguments="{event: singleEvent}" pageUid="{settings.detailPid}">
+										{singleEvent.headline}
+									</f:link.action>
+								</span>
+							</div>
+						</f:for>
+					</td>
+				</f:for>
+			</tr>
+		</f:for>
+		</tbody>
+	</table>
+
+</f:section>

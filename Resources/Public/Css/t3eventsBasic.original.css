@@ -3,35 +3,54 @@
  */
 
 .blueGradient,
-.blueGradientBack{
-	background: #b3e0ed; /* Old browsers */
+.blueGradientBack {
+	background: #B3E0ED; /* Old browsers */
 	/* IE9 SVG, needs conditional override of 'filter' to 'none' */
 	background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2IzZTBlZCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjQ0JSIgc3RvcC1jb2xvcj0iIzgzY2RlMiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMxMDlkYzciIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
-	background: -moz-linear-gradient(top,  #b3e0ed 0%, #83cde2 44%, #109dc7 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#b3e0ed), color-stop(44%,#83cde2), color-stop(100%,#109dc7)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top,  #b3e0ed 0%,#83cde2 44%,#109dc7 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top,  #b3e0ed 0%,#83cde2 44%,#109dc7 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top,  #b3e0ed 0%,#83cde2 44%,#109dc7 100%); /* IE10+ */
-	background: linear-gradient(to bottom,  #b3e0ed 0%,#83cde2 44%,#109dc7 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b3e0ed', endColorstr='#109dc7',GradientType=0 ); /* IE6-8 */	
+	background: -moz-linear-gradient(top, #B3E0ED 0%, #83CDE2 44%, #109DC7 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #B3E0ED), color-stop(44%, #83CDE2), color-stop(100%, #109DC7)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #B3E0ED 0%, #83CDE2 44%, #109DC7 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #B3E0ED 0%, #83CDE2 44%, #109DC7 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #B3E0ED 0%, #83CDE2 44%, #109DC7 100%); /* IE10+ */
+	background: linear-gradient(to bottom, #B3E0ED 0%, #83CDE2 44%, #109DC7 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#b3e0ed', endColorstr='#109dc7', GradientType=0); /* IE6-8 */
 }
+
 /* Colour */
-.blueBack {background: #008AC1;}
-.redBack {background: #FF0000;}
-.greenBack {background: #7AB51D;}
-.yellowBack{background: #FFCC33;}
-.grayBack{background: #CCCCCC;}
-.lightGrayBack {background: #EEEEEE;}
+.blueBack {
+	background: #008AC1;
+}
 
+.redBack {
+	background: #FF0000;
+}
 
-.whiteColor{
+.greenBack {
+	background: #7AB51D;
+}
+
+.yellowBack {
+	background: #FFCC33;
+}
+
+.grayBack {
+	background: #CCCCCC;
+}
+
+.lightGrayBack {
+	background: #EEEEEE;
+}
+
+.whiteColor {
 	color: #FFFFFF;
 }
-.buttonTicket{
-	color: #fff;
+
+.buttonTicket {
+	color: #FFFFFF;
 }
-a.buttonTicket:hover{
-	color: #fff;
+
+a.buttonTicket:hover {
+	color: #FFFFFF;
 }
 
 /* Layout */
@@ -39,96 +58,113 @@ a.buttonTicket:hover{
 /*Event List*/
 .eventList .eventImg {
 	padding: 0.3em;
-    height: 7.500em;
-    width: 7.500em;
+	height: 7.500em;
+	width: 7.500em;
 }
+
 .eventList .eventDescription,
-.eventList .eventPerformances{
+.eventList .eventPerformances {
 	margin-left: 8.125em;
 }
-span.ticketSignal{
+
+span.ticketSignal {
 	float: left;
-    height: 0.625em;
-    width: 0.625em;
-    margin: 0.51em 0.2em 0 0;
-    border-radius: 0.313em;
+	height: 0.625em;
+	width: 0.625em;
+	margin: 0.51em 0.2em 0 0;
+	border-radius: 0.313em;
 }
+
 .buttonTicket {
-    float: right;
-    height: 1.625em;
-    line-height: 1.725em;
-    padding: 0.1em 0.625em;
-    text-align: center;
+	float: right;
+	height: 1.625em;
+	line-height: 1.725em;
+	padding: 0.1em 0.625em;
+	text-align: center;
 }
+
 a.buttonTicket:hover {
 	text-decoration: none;
 }
 
 /*Event Single*/
-.eventSingle p{
+.eventSingle p {
 	margin-bottom: 0;
 }
-.eventSingle .eventImg{
+
+.eventSingle .eventImg {
 	padding-right: 2em;
 }
+
 .eventDescription,
-.eventPerformances{
+.eventPerformances {
 	padding: 0.625em;
 }
+
 .eventImg {
-    float: left;
-    overflow: hidden;
+	float: left;
+	overflow: hidden;
 }
-.eventWrap{
+
+.eventWrap {
 	margin-bottom: 0.9em;
 }
+
 .eventWrap:after {
-    clear: both;
-    content: " ";
-    display: block;
-    font-size: 0;
-    height: 0;
-    line-height: 0;
-    visibility: hidden;
-    width: 0;
+	clear: both;
+	content: " ";
+	display: block;
+	font-size: 0;
+	height: 0;
+	line-height: 0;
+	visibility: hidden;
+	width: 0;
 }
-.eventHeader{
+
+.eventHeader {
 	margin-bottom: 0;
 }
+
 .eventDescription .locations,
-.eventDescription .date{
+.eventDescription .date {
 	line-height: 2;
 	margin-bottom: 0;
 }
-.eventDescription .eventSubtitle{
+
+.eventDescription .eventSubtitle {
 	margin-bottom: .5em;
 }
+
 .performance span.ticketClassSign {
 	display: inline-block;
 	width: 1em;
 	height: 1em;
 	vertical-align: text-top;
 }
+
 .performance.short {
 	cursor: pointer;
 }
+
 .eventSingle .performance.statusInfo,
 .eventSingle .performance.tickets {
 	display: none;
 }
+
 .eventSingle .performance.tickets table {
 	width: 100%;
 	display: block;
-	border: 1px solid #eee;
+	border: 1px solid #EEEEEE;
 	padding: 5px;
 }
 
 .f3-widget-paginator li {
 	display: inline;
 	list-style: none;
-	border-right: 1px solid #000;
+	border-right: 1px solid #000000;
 	padding: 0 3px 0 4px;
 }
+
 .f3-widget-paginator li:last-child {
 	border-right: 0 none;
 }

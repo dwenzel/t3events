@@ -1,5 +1,5 @@
-<phpunit 
-  backupGlobals="false"
+<phpunit
+	backupGlobals="false"
 	backupStaticAttributes="false"
 	bootstrap="../../../../../typo3/sysext/core/Build/UnitTestsBootstrap.php"
 	colors="true"
@@ -11,7 +11,6 @@
 	stopOnFailure="false"
 	stopOnIncomplete="false"
 	stopOnSkipped="false"
-	strict="false"
 	verbose="false">
 
 	<testsuites>
@@ -19,5 +18,13 @@
 			<directory>../Unit/</directory>
 		</testsuite>
 	</testsuites>
+	<filter>
+		<whitelist processUncoveredFilesFromWhitelist="false">
+			<directory suffix=".php">../../Classes/</directory>
+		</whitelist>
+	</filter>
+	<logging>
+		<log type="coverage-text" target="php://stdout" showUncoveredFiles="true" />
+	</logging>
 
 </phpunit>

@@ -5,7 +5,7 @@ namespace Webfox\T3events\Domain\Model\Dto;
  *
  *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
  *  Michael Kasten <kasten@webfox01.de>, Agentur Webfox
- *  
+ *
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -24,68 +24,100 @@ namespace Webfox\T3events\Domain\Model\Dto;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+use Webfox\T3events\Domain\Model\PerformanceStatus;
 
 /**
- *
- *
  * @package t3events
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- *
  */
- 
- class PerformanceDemand extends AbstractDemand implements DemandInterface{
- 	/**
- 	 * @var \DateTime
- 	 */
-	protected $date;
-	
+
+class PerformanceDemand
+	extends AbstractDemand
+	implements DemandInterface, PeriodAwareDemandInterface,
+	SearchAwareDemandInterface, StatusAwareDemandInterface,
+	CategoryAwareDemandInterface {
+	use PeriodAwareDemandTrait, SearchAwareDemandTrait,
+		CategoryAwareDemandTrait;
+	const START_DATE_FIELD = 'date';
+	const END_DATE_FIELD = 'endDate';
+	const STATUS_FIELD = 'status';
+	const CATEGORY_FIELD = 'event.categories';
+
 	/**
+	 * A single status
+	 * see $statuses for multiple
+	 *
 	 * @var \Webfox\T3events\Domain\Model\PerformanceStatus
 	 */
-	protected  $status;
+	protected $status;
+
+	/**
+	 * Statuses (multiple)
+	 *
+	 * @var string
+	 */
+	protected $statuses;
+
+	/**
+	 * @var bool
+	 */
+	protected $excludeSelectedStatuses;
 
 	 /**
-	  * @var \string
+	  * @var string
 	  */
 	 protected $eventLocations;
 
 	 /**
-	 * Returns the date
-	 * @return \DateTime $date
-	 */
-	public function getDate() {
-		return $this->date;
-	}
-	
+	  * Genres
+	  *
+	  * @var string Genres
+	  */
+	 protected $genres;
+
+	 /**
+	  * Venues
+	  *
+	  * @var string Venues
+	  */
+	 protected $venues;
+
+	 /**
+	  * Event Types
+	  *
+	  * @var string
+	  */
+	 protected $eventTypes;
+
 	/**
-	 * sets the date
-	 * @param \DateTime $date
-	 * @return void
+	 * Categories
+	 *
+	 * @var string
 	 */
-	public function setDate($date){
-		$this->date = $date;
-	}
-	
+	protected $categories;
+
 	/**
 	 * Returns the performance status
+	 *
 	 * @return \Webfox\T3events\Domain\Model\PerformanceStatus
 	 */
-	public function getStatus(){
+	public function getStatus() {
 		return $this->status;
 	}
-	
+
 	/**
 	 * sets the status
+	 *
 	 * @param \Webfox\T3events\Domain\Model\PerformanceStatus $status
 	 * @return void
 	 */
-	public function setStatus(\Webfox\T3events\Domain\Model\PerformanceStatus $status){
+	public function setStatus(PerformanceStatus $status){
 		$this->status = $status;
 	}
 
 	 /**
 	  * Gets the event locations
-	  * @return \string
+	  * @return string
 	  */
 	 public function getEventLocations() {
 		 return $this->eventLocations;
@@ -93,11 +125,129 @@ namespace Webfox\T3events\Domain\Model\Dto;
 
 	 /**
 	  * Sets the event locations
-	  * @var \string $eventLocations
+	  * @var string $eventLocations
 	  * @return void
 	  */
 	 public function setEventLocations($eventLocations) {
 		 $this->eventLocations = $eventLocations;
 	 }
- }
 
+	 /**
+	  * Returns the genres
+	  *
+	  * @return string
+	  */
+	 public function getGenres() {
+		 return $this->genres;
+	 }
+
+	 /**
+	  * Sets the genres
+	  *
+	  * @param string $genres Comma separated string of genre ids
+	  * @return void
+	  */
+	 public function setGenres($genres) {
+		 $this->genres = $genres;
+	 }
+
+	 /**
+	  * Returns the venues
+	  *
+	  * @return string $venues
+	  */
+	 public function getVenues() {
+		 return $this->venues;
+	 }
+
+	 /**
+	  * Sets the venues
+	  *
+	  * @param string $venues
+	  * @return void
+	  */
+	 public function setVenues($venues) {
+		 $this->venues = $venues;
+	 }
+
+	 /**
+	  * Returns the Event Types
+	  *
+	  * @return string $eventTypes
+	  */
+	 public function getEventTypes() {
+		 return $this->eventTypes;
+	 }
+
+	 /**
+	  * Set event types
+	  *
+	  * @param string $eventTypes
+	  * @return void
+	  */
+	 public function setEventTypes($eventTypes) {
+		 $this->eventTypes = $eventTypes;
+	 }
+
+	/**
+	 * Gets the start date field
+	 *
+	 * @return string
+	 */
+	public function getStartDateField() {
+		return self::START_DATE_FIELD;
+	}
+
+	/**
+	 * Gets the endDate field
+	 *
+	 * @return string
+	 */
+	public function getEndDateField() {
+		return self::END_DATE_FIELD;
+	}
+
+	/**
+	 * Gets the status field name
+	 *
+	 * @return string
+	 */
+	public function getStatusField() {
+		return self::STATUS_FIELD;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getCategoryField() {
+		return self::CATEGORY_FIELD;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getStatuses() {
+		return $this->statuses;
+	}
+
+	/**
+	 * @param string $statuses
+	 */
+	public function setStatuses($statuses) {
+		$this->statuses = $statuses;
+	}
+
+	/**
+	 * @return boolean
+	 */
+	public function isExcludeSelectedStatuses() {
+		return $this->excludeSelectedStatuses;
+	}
+
+	/**
+	 * @param boolean $excludeSelectedStatuses
+	 */
+	public function setExcludeSelectedStatuses($excludeSelectedStatuses) {
+		$this->excludeSelectedStatuses = $excludeSelectedStatuses;
+	}
+}

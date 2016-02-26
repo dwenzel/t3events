@@ -1,0 +1,66 @@
+<div class="list-item" xmlns:f="http://typo3.org/ns/fluid/ViewHelpers">
+	<div class="date">
+		<f:format.date format="d.m.Y">{lesson.date}</f:format.date>
+	</div>
+	<h2 class="header">
+		<f:link.action
+			action="show"
+			arguments="{performance: performance}"
+			pageUid="{settings.performance.detailPid}">
+			{performance.event.headline}
+		</f:link.action>
+	</h2>
+	<div class="subtitle performanceItemContainer">
+		<h3>{performance.event.subtitle}</h3>
+	</div>
+	<div class="row clearfix">
+		<div class="section column float-left {f:if(condition: '{performance.freePlaces}', then: 'width-50')}">
+			<f:if condition="{performance.event.audience->f:count()}">
+				<div class="audience">
+					<b>{f:translate(key: 'tx_t3events_domain_model_performance.audience')}:</b>&nbsp;
+					<f:for each="{performance.event.audience}" as="audience" iteration="iteration">
+						{audience.title}{f:if(condition: '{iteration.isLast}', else: ',')}
+					</f:for>
+				</div>
+			</f:if>
+			<f:if condition="{performance.eventLocation}">
+				<div class="eventLocation">
+					<b>{f:translate(key: 'tx_t3events_domain_model_performance.eventLocation')}:</b>&nbsp;
+					<f:if condition="{performance.eventLocation.place}">
+						<span class="place">{performance.eventLocation.place}</span><br />
+					</f:if>
+				</div>
+			</f:if>
+		</div>
+		<f:comment>show reservation button only if deadline is not exceeded yet</f:comment>
+		<f:if condition="{performance.deadline->f:format.date(format: 'U')} > {f:format.date(date: 'now', format: 'U')}">
+			<f:then>
+				<f:if condition="{performance.freePlaces} > 0">
+					<f:then>
+						<f:comment>deadline not exceed, places available </f:comment>
+						<f:render section="buttonGroupReservation" arguments="{performance: performance, settings: settings}" />
+					</f:then>
+					<f:else>
+						<f:comment>deadline not exceed, no more places available</f:comment>
+						<f:render section="showButton" arguments="{performance: performance, settings: settings}" />
+					</f:else>
+				</f:if>
+			</f:then>
+			<f:else>
+				<f:comment>deadline exceed - display show button only </f:comment>
+				<f:render section="showButton" arguments="{performance: performance, settings: settings}" />
+			</f:else>
+		</f:if>
+	</div>
+	<f:section name="showButton">
+		<div class="reservationLink">
+			<f:link.action
+				class="button float-right"
+				action="show"
+				arguments="{performance: performance}"
+				pageUid="{settings.performance.detailPid}">
+				{f:translate(key: 'button.show', default: 'button.show')}
+			</f:link.action>
+		</div>
+	</f:section>
+</div>

@@ -1,36 +1,28 @@
 <?php
 namespace Webfox\T3events\Domain\Model;
-/***************************************************************
- *  Copyright notice
- *
- *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
- *  Michael Kasten <kasten@webfox01.de>, Agentur Webfox
- *  
- *  All rights reserved
- *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+
+	/***************************************************************
+	 *  Copyright notice
+	 *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
+	 *  Michael Kasten <kasten@webfox01.de>, Agentur Webfox
+	 *  All rights reserved
+	 *  This script is part of the TYPO3 project. The TYPO3 project is
+	 *  free software; you can redistribute it and/or modify
+	 *  it under the terms of the GNU General Public License as published by
+	 *  the Free Software Foundation; either version 3 of the License, or
+	 *  (at your option) any later version.
+	 *  The GNU General Public License can be found at
+	 *  http://www.gnu.org/copyleft/gpl.html.
+	 *  This script is distributed in the hope that it will be useful,
+	 *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+	 *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	 *  GNU General Public License for more details.
+	 *  This copyright notice MUST APPEAR in all copies of the script!
+	 ***************************************************************/
 
 /**
- *
- *
  * @package t3events
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- *
  */
 class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
@@ -119,7 +111,13 @@ class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $priceNotice;
 
 	/**
+	 * @var \Webfox\T3events\Domain\Model\Event
+	 */
+	protected $event;
+
+	/**
 	 * eventLocation
+	 *
 	 * @lazy
 	 * @var \Webfox\T3events\Domain\Model\EventLocation
 	 */
@@ -127,6 +125,7 @@ class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
 	 * ticketClass
+	 *
 	 * @lazy
 	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\T3events\Domain\Model\TicketClass>
 	 */
@@ -134,17 +133,18 @@ class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
 	 * status
+	 *
 	 * @lazy
 	 * @var \Webfox\T3events\Domain\Model\PerformanceStatus
 	 */
 	protected $status;
-	
+
 	/**
 	 * hidden
-	 * 
+	 *
 	 * @var integer
 	 */
-	protected  $hidden;
+	protected $hidden;
 
 	/**
 	 * __construct
@@ -168,6 +168,24 @@ class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 		 * You may modify the constructor of this class instead
 		 */
 		$this->ticketClass = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+	}
+
+	/**
+	 * Returns the eventLocation
+	 *
+	 * @return \Webfox\T3events\Domain\Model\Event
+	 */
+	public function getEvent() {
+		return $this->event;
+	}
+
+	/**
+	 * Sets the event
+	 *
+	 * @param \Webfox\T3events\Domain\Model\Event $event
+	 */
+	public function setEvent(Event $event) {
+		$this->event = $event;
 	}
 
 	/**
@@ -206,6 +224,29 @@ class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 */
 	public function setDate($date) {
 		$this->date = $date;
+	}
+
+	/**
+	 * @var \DateTime
+	 */
+	protected $endDate;
+
+	/**
+	 * Gets the end date
+	 *
+	 * @return \DateTime
+	 */
+	public function getEndDate() {
+		return $this->endDate;
+	}
+
+	/**
+	 * Sets the end date
+	 *
+	 * @param \DateTime $date
+	 */
+	public function setEndDate($date) {
+		$this->endDate = $date;
 	}
 
 	/**
@@ -483,23 +524,23 @@ class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	public function setProviderType($providerType) {
 		$this->providerType = $providerType;
 	}
-	
+
 	/**
 	 * Return hidden
-	 * 
+	 *
 	 * @return integer
 	 */
-	public function getHidden(){
-		return  $this->hidden;
+	public function getHidden() {
+		return $this->hidden;
 	}
-	
+
 	/**
 	 * Set hidden
-	 * 
+	 *
 	 * @var integer $hidden
 	 */
 	public function setHidden($hidden) {
-		$this->hidden=($hidden);
+		$this->hidden = ($hidden);
 	}
 }
 

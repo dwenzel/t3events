@@ -14,10 +14,14 @@
 			<li class="previous">
 				<f:if condition="{pagination.previousPage} > 1">
 					<f:then>
-						<f:widget.link arguments="{currentPage: pagination.previousPage}"><f:translate key="tx_t3events.previous" /></f:widget.link>
+						<f:widget.link arguments="{currentPage: pagination.previousPage}">
+							<f:translate key="tx_t3events.previous" />
+						</f:widget.link>
 					</f:then>
 					<f:else>
-						<f:widget.link><f:translate key="tx_t3events.previous" /></f:widget.link>
+						<f:widget.link>
+							<f:translate key="tx_t3events.previous" />
+						</f:widget.link>
 					</f:else>
 				</f:if>
 			</li>
