@@ -16,7 +16,8 @@
 	},
 	"require-dev": {
     "mikey179/vfsStream": "1.4.*@dev",
-    "phpunit/phpunit": "~4.8.0"
+    "phpunit/phpunit": "~4.8.0",
+    "satooshi/php-coveralls": "dev-master"
   },
   "autoload": {
     "psr-4": {
@@ -41,6 +42,7 @@
   "scripts": {
     "post-autoload-dump": [
       "mkdir -p .Build/Web/typo3conf/ext/",
+      "mkdir -p .Build/log/coverage/",
       "[ -L .Build/Web/typo3conf/ext/t3events ] || ln -snvf ../../../../. .Build/Web/typo3conf/ext/t3events"
     ]
   },
