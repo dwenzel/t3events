@@ -1,3 +1,12 @@
+2016-02-29         [RELEASE] Release of t3events 0.17.1 (Dirk Wenzel)
+2016-02-28 3a4c112 [BUGFIX] missing dependency satooshi/php-coveralls added. (Dirk Wenzel)
+2016-02-28 e5feb9a [TASK] travis ci build matrix adapted. (Dirk Wenzel)
+2016-02-28 120e033 [TASK] travis ci build matrix adapted. (Dirk Wenzel)
+2016-02-28 88a5aa7 [TASK] build configuration updated. (Dirk Wenzel)
+2016-02-27 aa1ff76 [TASK] branch alias added to composer.json (Dirk Wenzel)
+2016-02-27 0ffdae2 [BUGFIX] syntax errors in composer.json corrected. (Dirk Wenzel)
+2016-02-27 d8ad2ef [TASK] composer.json added. (Dirk Wenzel)
+
 2016-02-26         [RELEASE] Release of t3events 0.17.0 (Dirk Wenzel)
 2016-02-26 96fff32 [BUGFIX] signature of method overwriteDemandObject now matches parents signature. (Dirk Wenzel)
 2016-02-26 d42b66e [TASK] travis: set PHP 7 as default (Dirk Wenzel)

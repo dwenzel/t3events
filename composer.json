@@ -1,0 +1,59 @@
+{
+	"name": "webfox/t3events",
+	"type": "typo3-cms-extension",
+	"description": "Versatile events extension for the TYPO3 CMS",
+	"keywords": ["TYPO3", "extension", "events"],
+	"version": "0.17.1",
+	"license": ["GPL-2.0+"],
+	"authors": [
+		{
+			"name": "Dirk Wenzel",
+			"role": "Developer"
+		}
+	],
+	"require": {
+		"typo3/cms": ">=6.2.0,<8.0"
+	},
+	"require-dev": {
+    "mikey179/vfsStream": "1.4.*@dev",
+    "phpunit/phpunit": "~4.8.0",
+    "satooshi/php-coveralls": "dev-master"
+  },
+  "autoload": {
+    "psr-4": {
+      "Webfox\\T3events\\": "Classes"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Webfox\\T3events\\Tests\\": "Tests",
+      "TYPO3\\CMS\\Core\\Tests\\": ".Build/vendor/typo3/cms/typo3/sysext/core/Tests/",
+      "TYPO3\\CMS\\Fluid\\Tests\\": ".Build/vendor/typo3/cms/typo3/sysext/fluid/Tests/"
+    }
+  },
+  "replace": {
+    "t3events": "self.version",
+    "typo3-ter/t3events": "self.version"
+  },
+  "config": {
+    "vendor-dir": ".Build/vendor",
+    "bin-dir": ".Build/bin"
+  },
+  "scripts": {
+    "post-autoload-dump": [
+      "mkdir -p .Build/Web/typo3conf/ext/",
+      "mkdir -p .Build/log/coverage/",
+      "[ -L .Build/Web/typo3conf/ext/t3events ] || ln -snvf ../../../../. .Build/Web/typo3conf/ext/t3events"
+    ]
+  },
+  "extra": {
+		"branch-alias": {
+			"dev-master": "0.17.x-dev"
+		},
+    "typo3/cms": {
+      "cms-package-dir": "{$vendor-dir}/typo3/cms",
+      "web-dir": ".Build/Web"
+    }
+  }
+}
+
