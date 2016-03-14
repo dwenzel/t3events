@@ -1,6 +1,8 @@
 <?php
 namespace Webfox\T3events\Service;
 
+use TYPO3\CMS\Extbase\Domain\Model\FileReference;
+
 /**
  * Class NotificationService
  *
@@ -94,6 +96,12 @@ class NotificationService {
 		$mailFormat = ($notification->getFormat() == 'plain') ? 'text/plain' : 'text/html';
 
 		$message->setBody($notification->getBodytext(), $mailFormat);
+		if ($files = $notification->getAttachments()) {
+			/** @var FileReference $file */
+			foreach($files as $file) {
+				$message->attach(\Swift_Attachment::fromPath($file->getOriginalResource()->getPublicUrl()));
+			}
+		}
 		$message->send();
 		if ($message->isSent()) {
 			$notification->setSentAt(new \DateTime());
