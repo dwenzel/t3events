@@ -188,7 +188,11 @@ class SettingsUtility implements SingletonInterface {
 		// add always
 		// todo should 'always' be added to this->getValue()?
 		if (isset($config['always']) && is_string($config['always'])) {
+			if (!is_string($valueFromSettings)) {
+				$valueFromSettings = '';
+			}
 			$valueFromSettings = $valueFromSettings . ',' . $config['always'];
+
 		}
 
 		if (is_string($valueFromSettings) && $valueFromSettings !== '') {

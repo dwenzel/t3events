@@ -2,7 +2,7 @@
 namespace Webfox\T3events\Utility;
 
 use TYPO3\CMS\Core\Tests\UnitTestCase;
-use TYPO3\CMS\Extbase\Domain\Model\File;
+use TYPO3\CMS\Core\Resource\File;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Extbase\DomainObject\AbstractDomainObject;
 use TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface;
@@ -340,7 +340,7 @@ class SettingsUtilityTest extends UnitTestCase {
 			ObjectStorage::class, ['count', 'attach']
 		);
 		$mockFile = $this->getMock(
-			File::class
+			File::class, [], [], '', false
 		);
 		$mockFileReference = $this->getMock(
 			FileReference::class
@@ -388,7 +388,7 @@ class SettingsUtilityTest extends UnitTestCase {
 			ObjectStorage::class, ['count', 'attach']
 		);
 		$mockFile = $this->getMock(
-			File::class
+			File::class, [], [], '', false
 		);
 		$mockFileReference = $this->getMock(
 			FileReference::class

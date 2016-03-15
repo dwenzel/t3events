@@ -5,7 +5,7 @@ use TYPO3\CMS\Core\Resource\FileInterface;
 use TYPO3\CMS\Core\Resource\FileReference;
 use TYPO3\CMS\Core\Resource\Folder;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
-use TYPO3\CMS\Extbase\Domain\Model\File;
+use TYPO3\CMS\Core\Resource\File;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use Webfox\T3events\Resource\ResourceFactory;
 
@@ -128,8 +128,8 @@ class ResourceFactoryTest extends UnitTestCase {
 			\TYPO3\CMS\Extbase\Domain\Model\FileReference::class,
 			['setOriginalResource'], [], '', false
 		);
-		$mockFileObject = $this->getMockForAbstractClass(
-			File::class
+		$mockFileObject = $this->getMock(
+			File::class, [], [], '', false
 		);
 		$this->subject->expects($this->once())
 			->method('createFileReferenceObject')

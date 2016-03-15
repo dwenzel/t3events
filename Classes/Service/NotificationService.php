@@ -99,7 +99,7 @@ class NotificationService {
 		if ($files = $notification->getAttachments()) {
 			/** @var FileReference $file */
 			foreach($files as $file) {
-				$message->attach(\Swift_Attachment::fromPath($file->getOriginalResource()->getPublicUrl()));
+				$message->attach(\Swift_Attachment::fromPath($file->getOriginalResource()->getPublicUrl(true)));
 			}
 		}
 		$message->send();

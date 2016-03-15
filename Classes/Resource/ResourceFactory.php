@@ -28,7 +28,7 @@ namespace Webfox\T3events\Resource;
 
 use TYPO3\CMS\Core\Resource\FileInterface;
 use TYPO3\CMS\Core\Resource\ResourceFactory as CoreResourceFactory;
-use TYPO3\CMS\Extbase\Domain\Model\File;
+use TYPO3\CMS\Core\Resource\File;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 
