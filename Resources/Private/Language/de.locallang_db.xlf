@@ -521,6 +521,10 @@
 			<source>Title</source>
 			<target>Titel</target>
 		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_person.images" approved="yes">
+        	<source>Image</source>
+        	<target>Bild</target>
+        </trans-unit>
 		</body>
 	</file>
 </xliff>

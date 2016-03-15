@@ -2,6 +2,7 @@
 namespace Webfox\T3events\Domain\Model;
 
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /***************************************************************
  *  Copyright notice
@@ -91,6 +92,19 @@ class Person extends AbstractEntity {
 	 * @var string
 	 */
 	protected $www;
+
+	/**
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
+	 * @lazy
+	 */
+	protected $images;
+
+	/**
+	 *
+	 */
+	public function initializeObject() {
+		$this->images = new ObjectStorage();
+	}
 
 	/**
 	 * Returns the type
@@ -260,4 +274,22 @@ class Person extends AbstractEntity {
 	public function setWww($www) {
 		$this->www = $www;
 	}
+
+	/**
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
+	 */
+	public function getImages()
+	{
+		return $this->images;
+	}
+
+	/**
+	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $images
+	 */
+	public function setImages($images)
+	{
+		$this->contactImage = images;
+	}
+
+
 }

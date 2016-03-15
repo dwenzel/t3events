@@ -390,6 +390,9 @@
 		<trans-unit id="tx_t3events_domain_model_venue.title">
 			<source>Title</source>
 		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_person.images" approved="yes">
+            <source>Image</source>
+        </trans-unit>
 		</body>
 	</file>
 </xliff>
