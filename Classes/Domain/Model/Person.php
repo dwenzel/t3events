@@ -3,6 +3,7 @@ namespace Webfox\T3events\Domain\Model;
 
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 
 /***************************************************************
  *  Copyright notice
@@ -288,8 +289,20 @@ class Person extends AbstractEntity {
 	 */
 	public function setImages($images)
 	{
-		$this->contactImage = images;
+		$this->images = $images;
 	}
 
+	/**
+	 * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $fileReference
+	 */
+	public function addImage(FileReference $fileReference) {
+		$this->images->attach($fileReference);
+	}
 
+	/**
+	 * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $fileReference
+	 */
+	public function removeImage(FileReference $fileReference) {
+		$this->images->detach($fileReference);
+	}
 }
