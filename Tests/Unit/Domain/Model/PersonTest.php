@@ -20,6 +20,8 @@ namespace Webfox\T3events\Tests\Unit\Domain\Model;
 	 *  GNU General Public License for more details.
 	 *  This copyright notice MUST APPEAR in all copies of the script!
 	 ***************************************************************/
+use TYPO3\CMS\Extbase\Domain\Model\FileReference;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use Webfox\T3events\Domain\Model\Person;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 use Webfox\T3events\Domain\Model\PersonType;
@@ -354,6 +356,63 @@ class PersonTest extends UnitTestCase {
 		$this->assertSame(
 			$title,
 			$this->subject->getTitle()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getImagesInitiallyReturnsEmptyObjectStorage() {
+		$emptyObjectStorage = new ObjectStorage();
+		$this->subject->initializeObject();
+
+		$this->assertEquals(
+			$emptyObjectStorage,
+			$this->subject->getImages()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function imagesCanBeSet() {
+		$emptyObjectStorage = new ObjectStorage();
+		$this->subject->setImages($emptyObjectStorage);
+
+		$this->assertSame(
+			$emptyObjectStorage,
+			$this->subject->getImages()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function imageCanBeAdded() {
+		$this->subject->initializeObject();
+		$mockFileReference = $this->getMock(
+			FileReference::class, [], [], '', false
+		);
+		$this->subject->addImage($mockFileReference);
+
+		$this->assertTrue(
+			$this->subject->getImages()->contains($mockFileReference)
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function imageCanBeRemoved() {
+		$this->subject->initializeObject();
+		$mockFileReference = $this->getMock(
+			FileReference::class, [], [], '', false
+		);
+		$this->subject->addImage($mockFileReference);
+		$this->subject->removeImage($mockFileReference);
+
+		$this->assertFalse(
+			$this->subject->getImages()->contains($mockFileReference)
 		);
 	}
 }
