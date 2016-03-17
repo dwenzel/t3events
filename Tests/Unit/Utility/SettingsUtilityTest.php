@@ -2,9 +2,14 @@
 namespace Webfox\T3events\Utility;
 
 use TYPO3\CMS\Core\Tests\UnitTestCase;
+use TYPO3\CMS\Core\Resource\File;
+use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Extbase\DomainObject\AbstractDomainObject;
 use TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
+use Webfox\T3events\Resource\ResourceFactory;
 
 /***************************************************************
  *
@@ -33,6 +38,11 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 class DummyController {}
 
+/**
+ * Class SettingsUtilityTest
+ *
+ * @package Webfox\T3events\Utility
+ */
 class SettingsUtilityTest extends UnitTestCase {
 
 	/**
@@ -202,5 +212,237 @@ class SettingsUtilityTest extends UnitTestCase {
 			$key,
 			$this->subject->getControllerKey(new DummyController())
 		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getFileStorageInitiallyReturnsEmptyObjectStorage() {
+		$config = [];
+		$mockObject = $this->getMock(
+			DomainObjectInterface::class
+		);
+		$mockObjectStorage = $this->getMock(
+			ObjectStorage::class
+		);
+		$mockObjectManager = $this->mockObjectManager();
+
+		$mockObjectManager->expects($this->once())
+			->method('get')
+			->with(ObjectStorage::class)
+			->will($this->returnValue($mockObjectStorage));
+
+		$this->assertSame(
+			$mockObjectStorage,
+			$this->subject->getFileStorage(
+				$mockObject, $config
+			)
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getFileStorageReturnsNonEmptyFileReferenceStorageFromObject() {
+		$this->subject = $this->getAccessibleMock(
+			SettingsUtility::class, ['getValue']
+		);
+		$config = [
+			'field' => 'foo'
+		];
+		$mockObject = $this->getAccessibleMock(
+			AbstractDomainObject::class
+		);
+		$mockObjectStorage = $this->getMock(
+			ObjectStorage::class
+		);
+		$mockObjectStorageFromObject = $this->getMock(
+			ObjectStorage::class, ['count', 'current']
+		);
+		$mockFileReference = $this->getMock(
+			FileReference::class
+		);
+		$this->subject->expects($this->once())
+			->method('getValue')
+			->with($mockObject, $config)
+			->will($this->returnValue($mockObjectStorageFromObject));
+		$mockObjectStorageFromObject->expects($this->any())
+			->method('count')
+			->will($this->returnValue(5));
+		$mockObjectStorageFromObject->expects($this->any())
+			->method('current')
+			->will($this->returnValue($mockFileReference));
+		$mockObjectManager = $this->mockObjectManager();
+
+		$mockObjectManager->expects($this->once())
+			->method('get')
+			->with(ObjectStorage::class)
+			->will($this->returnValue($mockObjectStorage));
+
+		$this->assertSame(
+			$mockObjectStorageFromObject,
+			$this->subject->getFileStorage(
+				$mockObject, $config
+			)
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getFileStorageReturnsStorageWithFileReferenceFromObject() {
+		$this->subject = $this->getAccessibleMock(
+			SettingsUtility::class, ['getValue']
+		);
+		$config = ['foo'];
+		$mockObject = $this->getAccessibleMock(
+			AbstractDomainObject::class
+		);
+		$mockObjectStorage = $this->getMock(
+			ObjectStorage::class, ['count', 'attach']
+		);
+		$mockFileReference = $this->getMock(
+			FileReference::class
+		);
+		$this->subject->expects($this->once())
+			->method('getValue')
+			->with($mockObject, $config)
+			->will($this->returnValue($mockFileReference));
+		$mockObjectStorage->expects($this->once())
+			->method('attach')
+			->with($mockFileReference);
+		$mockObjectStorage->expects($this->any())
+			->method('count')
+			->will($this->returnValue(1));
+		$mockObjectManager = $this->mockObjectManager();
+
+		$mockObjectManager->expects($this->once())
+			->method('get')
+			->with(ObjectStorage::class)
+			->will($this->returnValue($mockObjectStorage));
+
+		$this->subject->getFileStorage($mockObject, $config);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getFileStorageAddsDefaultValueIfStorageFromObjectIsEmpty() {
+		$defaultValue = 'bar';
+		$config = [
+			'field' => 'foo',
+			'default' => $defaultValue
+		];
+		$mockObject = $this->getAccessibleMock(
+			AbstractDomainObject::class
+		);
+		$mockObjectStorage = $this->getMock(
+			ObjectStorage::class, ['count', 'attach']
+		);
+		$mockFile = $this->getMock(
+			File::class, [], [], '', false
+		);
+		$mockFileReference = $this->getMock(
+			FileReference::class
+		);
+		$mockObjectStorage->expects($this->once())
+			->method('attach')
+			->with($mockFileReference);
+		$mockObjectStorage->expects($this->any())
+			->method('count')
+			->will($this->returnValue(0));
+		$mockObjectManager = $this->mockObjectManager();
+		$mockResourceFactory = $this->mockResourceFactory();
+
+		$mockResourceFactory->expects($this->once())
+			->method('getFileObjectByCombinedIdentifier')
+			->with($defaultValue)
+			->will($this->returnValue($mockFile));
+		$mockResourceFactory->expects($this->once())
+			->method('createFileReferenceFromFileObject')
+			->with($mockFile)
+			->will($this->returnValue($mockFileReference));
+		$mockObjectManager->expects($this->once())
+			->method('get')
+			->with(ObjectStorage::class)
+			->will($this->returnValue($mockObjectStorage));
+
+		$this->subject->getFileStorage($mockObject, $config);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getFileStorageAddsAlwaysValue() {
+		$defaultValue = 'bar';
+		$alwaysValue = 'baz';
+		$config = [
+			'field' => 'foo',
+			'default' => $defaultValue,
+			'always' => $alwaysValue
+		];
+		$mockObject = $this->getAccessibleMock(
+			AbstractDomainObject::class
+		);
+		$mockObjectStorage = $this->getMock(
+			ObjectStorage::class, ['count', 'attach']
+		);
+		$mockFile = $this->getMock(
+			File::class, [], [], '', false
+		);
+		$mockFileReference = $this->getMock(
+			FileReference::class
+		);
+		$mockObjectStorage->expects($this->exactly(2))
+			->method('attach')
+			->with($mockFileReference);
+		$mockObjectStorage->expects($this->any())
+			->method('count')
+			->will($this->returnValue(0));
+		$mockObjectManager = $this->mockObjectManager();
+		$mockResourceFactory = $this->mockResourceFactory();
+
+		$mockResourceFactory->expects($this->exactly(2))
+			->method('getFileObjectByCombinedIdentifier')
+			->withConsecutive(
+				[$defaultValue], [$alwaysValue]
+			)
+			->will($this->returnValue($mockFile));
+		$mockResourceFactory->expects($this->exactly(2))
+			->method('createFileReferenceFromFileObject')
+			->with($mockFile)
+			->will($this->returnValue($mockFileReference));
+		$mockObjectManager->expects($this->once())
+			->method('get')
+			->with(ObjectStorage::class)
+			->will($this->returnValue($mockObjectStorage));
+
+		$this->subject->getFileStorage($mockObject, $config);
+	}
+		// todo test default and always values
+
+	/**
+	 * @return \PHPUnit_Framework_MockObject_MockObject|\TYPO3\CMS\Core\Tests\AccessibleObjectInterface
+	 */
+	protected function mockObjectManager() {
+		$mockObjectManager = $this->getAccessibleMock(
+			ObjectManager::class, ['get']
+		);
+		$this->subject->injectObjectManager($mockObjectManager);
+
+		return $mockObjectManager;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	protected function mockResourceFactory() {
+		$mockResourceFactory = $this->getMock(
+			ResourceFactory::class,
+			['getFileObjectByCombinedIdentifier', 'createFileReferenceFromFileObject']
+		);
+		$this->subject->injectResourceFactory($mockResourceFactory);
+
+		return $mockResourceFactory;
 	}
 }

@@ -636,6 +636,7 @@ CREATE TABLE tx_t3events_domain_model_person (
 	sys_language_uid int(11) DEFAULT '0' NOT NULL,
 	l10n_parent int(11) DEFAULT '0' NOT NULL,
 	l10n_diffsource mediumblob,
+	images int(11) unsigned DEFAULT '0' NOT NULL,
 
 	PRIMARY KEY (uid)
 );

@@ -19,6 +19,7 @@ namespace Webfox\T3events\Domain\Model;
 	 *  GNU General Public License for more details.
 	 *  This copyright notice MUST APPEAR in all copies of the script!
 	 ***************************************************************/
+use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 /**
@@ -62,6 +63,12 @@ class Notification extends AbstractEntity {
 	 * @var \DateTime $sentAt
 	 */
 	protected $sentAt;
+
+	/**
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
+	 * @lazy
+	 */
+	protected $attachments;
 
 	/**
 	 * Returns the recipient
@@ -169,5 +176,37 @@ class Notification extends AbstractEntity {
 	 */
 	public function setSentAt($sentAt) {
 		$this->sentAt = $sentAt;
+	}
+
+	/**
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
+	 */
+	public function getAttachments() {
+		return $this->attachments;
+	}
+
+	/**
+	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $attachments
+	 */
+	public function setAttachments($attachments) {
+		$this->attachments = $attachments;
+	}
+
+	/**
+	 * Adds an attachment to the attachment gallery
+	 *
+	 * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $fileReference
+	 */
+	public function addAttachment(FileReference $fileReference) {
+		$this->attachments->attach($fileReference);
+	}
+
+	/**
+	 * Removes an attachment from the attachment gallery
+	 *
+	 * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $fileReference
+	 */
+	public function removeAttachment(FileReference $fileReference) {
+		$this->attachments->detach($fileReference);
 	}
 }
