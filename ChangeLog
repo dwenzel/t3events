@@ -1,3 +1,12 @@
+2016-03-17         [RELEASE] Release of t3events 0.18.0 (Dirk Wenzel)
+2016-03-17 d9507d4 [TASK] unit tests for Person added (Dirk Wenzel)
+2016-03-16 11eb8be [BUGFIX] Add functions add and remove for images and correct variable name in setImages function. Add missing Labels. (Erik Rauchstein)
+2016-03-15 3b9e0eb [TASK] Add field images to tx_t3events_domain_model_person. (Erik Rauchstein)
+2016-03-15 79fd78b [TASK] fixed parameter error in ResourceFactory (Dirk Wenzel)
+2016-03-15 830dc74 [TASK] SettingsUtility refactored and extended: Method getValue replaces getValueByKey. New method getFileStorage returns a FileStorage with FileReferences build from TypoScript settings (Dirk Wenzel)
+2016-03-15 947c1a1 [TASK] ResourceFactory implemented (Dirk Wenzel)
+2016-03-14 2b0059a [TASK] Notification extended by field attachements. NotificationService adds attachments to generated message. (Dirk Wenzel)
+
 2016-02-29         [RELEASE] Release of t3events 0.17.1 (Dirk Wenzel)
 2016-02-28 3a4c112 [BUGFIX] missing dependency satooshi/php-coveralls added. (Dirk Wenzel)
 2016-02-28 e5feb9a [TASK] travis ci build matrix adapted. (Dirk Wenzel)
