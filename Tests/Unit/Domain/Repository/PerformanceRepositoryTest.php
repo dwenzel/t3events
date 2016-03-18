@@ -3,6 +3,9 @@ namespace Webfox\T3events\Tests\Unit\Domain\Repository;
 
 use CPSIT\ZewEvents\Domain\Model\Dto\PerformanceDemand;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
+use TYPO3\CMS\Extbase\Persistence\Generic\QuerySettingsInterface;
+use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use Webfox\T3events\Domain\Model\Dto\DemandInterface;
 use Webfox\T3events\Domain\Repository\PerformanceRepository;
@@ -53,6 +56,18 @@ class PerformanceRepositoryTest extends UnitTestCase {
 			PerformanceRepository::class,
 			['dummy'], [], '', false
 		);
+	}
+
+	/**
+	 * @return mixed
+	 */
+	protected function mockObjectManager() {
+		$mockObjectManager = $this->getMock(
+			ObjectManager::class, ['get']
+		);
+		$this->subject->_set('objectManager', $mockObjectManager);
+
+		return $mockObjectManager;
 	}
 
 	/**
@@ -193,4 +208,50 @@ class PerformanceRepositoryTest extends UnitTestCase {
 		$this->subject->_call('createConstraintsFromDemand', $query, $demand);
 	}
 
+	/**
+	 * @test
+	 */
+	public function initializeObjectInitiallySetsRespectStoragePageFalse() {
+		$mockQuerySettings = $this->getMock(
+			Typo3QuerySettings::class, ['setRespectStoragePage']
+		);
+
+		$mockObjectManager = $this->mockObjectManager();
+		$mockObjectManager->expects($this->once())
+			->method('get')
+			->with(Typo3QuerySettings::class)
+			->will($this->returnValue($mockQuerySettings));
+
+		$mockQuerySettings->expects($this->once())
+			->method('setRespectStoragePage')
+			->with(false);
+
+		$this->subject->initializeObject();
+	}
+
+	/**
+	 * @test
+	 */
+	public function initializeObjectSetsRespectStoragePageFromEmConfiguration() {
+		$emSettings = [
+			'respectPerformanceStoragePage' => true
+		];
+		$GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['t3events'] = serialize($emSettings);
+		$mockQuerySettings = $this->getMock(
+			Typo3QuerySettings::class, ['setRespectStoragePage']
+		);
+
+		$mockObjectManager = $this->mockObjectManager();
+		$mockObjectManager->expects($this->once())
+			->method('get')
+			->with(Typo3QuerySettings::class)
+			->will($this->returnValue($mockQuerySettings));
+
+		$mockQuerySettings->expects($this->once())
+			->method('setRespectStoragePage')
+			->with(true);
+
+		$this->subject->initializeObject();
+
+	}
 }

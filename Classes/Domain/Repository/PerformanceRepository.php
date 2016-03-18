@@ -24,6 +24,7 @@ use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use Webfox\T3events\Domain\Model\Dto\DemandInterface;
 use Webfox\T3events\Domain\Model\Dto\PerformanceDemand;
 use Webfox\T3events\Domain\Model\Dto\PeriodAwareDemandInterface;
+use Webfox\T3events\Utility\EmConfigurationUtility;
 
 /**
  * @package t3events
@@ -35,9 +36,15 @@ class PerformanceRepository
 	use PeriodConstraintRepositoryTrait, StatusConstraintRepositoryTrait;
 	protected $defaultOrderings = array('sorting' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING);
 
+	/**
+	 * initializes the repository
+	 */
 	public function initializeObject() {
+		$emConfiguration = EmConfigurationUtility::getSettings();
 		$this->defaultQuerySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
-		$this->defaultQuerySettings->setRespectStoragePage(FALSE);
+		$this->defaultQuerySettings->setRespectStoragePage(
+			$emConfiguration->isRespectPerformanceStoragePage()
+		);
 	}
 
 	/**
