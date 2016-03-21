@@ -15,12 +15,12 @@ trait PeriodAwareDemandTrait {
 	protected $date;
 
 	/**
-	 * @var \string  A time period
+	 * @var string  A time period
 	 */
 	protected $period;
 
 	/**
-	 * @var \string $periodType Type of period: month, day, year, specific
+	 * @var string $periodType Type of period: month, day, year, specific
 	 */
 	protected $periodType;
 
@@ -45,14 +45,14 @@ trait PeriodAwareDemandTrait {
 	protected $endDate;
 
 	/**
-	 * @return \string The time limit for the demand
+	 * @return string The time limit for the demand
 	 */
 	public function getPeriod() {
 		return $this->period;
 	}
 
 	/**
-	 * @param \string A time limit for the demand
+	 * @param string A time limit for the demand
 	 * @return void
 	 */
 	public function setPeriod($period = '') {
@@ -79,14 +79,14 @@ trait PeriodAwareDemandTrait {
 	}
 
 	/**
-	 * @return \string
+	 * @return string
 	 */
 	public function getPeriodType() {
 		return $this->periodType;
 	}
 
 	/**
-	 * @param \string $type Type of period: day, month, year, date
+	 * @param string $type Type of period: day, month, year, date
 	 * @return void
 	 */
 	public function setPeriodType($type) {

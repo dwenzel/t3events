@@ -23,14 +23,31 @@ interface PeriodAwareDemandInterface {
 	public function getPeriodStart();
 
 	/**
+	 * @param int $start $start Start value for time period (day, month or year)
+	 * @return void
+	 */
+	public function setPeriodStart($start);
+
+	/**
 	 * @return mixed
 	 */
 	public function getPeriodType();
 
 	/**
+	 * @param string $periodType
+	 */
+	public function setPeriodType($periodType);
+
+	/**
 	 * @return mixed
 	 */
 	public function getPeriodDuration();
+
+	/**
+	 * @param int $duration Duration value for period (days, months, years)
+	 * @return void
+	 */
+	public function setPeriodDuration($duration);
 
 	/**
 	 * @return mixed
