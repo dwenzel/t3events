@@ -5,6 +5,7 @@ use TYPO3\CMS\Core\Tests\UnitTestCase;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use Webfox\T3events\Domain\Factory\Dto\EventDemandFactory;
 use Webfox\T3events\Domain\Model\Dto\EventDemand;
+use Webfox\T3events\Domain\Model\Dto\PeriodAwareDemandInterface;
 
 /***************************************************************
  *
@@ -210,5 +211,125 @@ class EventDemandFactoryTest extends UnitTestCase {
 		);
 	}
 
-	// todo period constraints
+	/**
+	 * @test
+	 */
+	public function createFromSettingsSetsPeriodTypeForSpecificPeriod() {
+		$periodType = 'foo';
+		$settings = [
+			'period' => 'specific',
+			'periodType' => $periodType
+		];
+		$mockDemand = $this->getMock(
+			EventDemand::class, ['dummy']
+		);
+		$mockObjectManager = $this->mockObjectManager();
+		$mockObjectManager->expects($this->once())
+			->method('get')
+			->will($this->returnValue($mockDemand));
+		$createdDemand = $this->subject->createFromSettings($settings);
+
+		$this->assertAttributeSame(
+			$periodType,
+			'periodType',
+			$createdDemand
+		);
+
+	}
+
+	/**
+	 * @test
+	 */
+	public function createFromSettingsSetsPeriodStartAndDurationIfPeriodTypeIsNotByDate() {
+		$periodType = 'fooPeriodType-notByDate';
+		$periodStart = '30';
+		$periodDuration = '20';
+		$settings = [
+			'periodType' => $periodType,
+			'periodStart' => $periodStart,
+			'periodDuration' => $periodDuration
+		];
+		$mockDemand = $this->getMock(
+			EventDemand::class, ['dummy']
+		);
+		$mockObjectManager = $this->mockObjectManager();
+		$mockObjectManager->expects($this->once())
+			->method('get')
+			->will($this->returnValue($mockDemand));
+		$createdDemand = $this->subject->createFromSettings($settings);
+
+		$this->assertAttributeSame(
+			(int)$periodStart,
+			'periodStart',
+			$createdDemand
+		);
+
+		$this->assertAttributeSame(
+			(int)$periodDuration,
+			'periodDuration',
+			$createdDemand
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function createFromSettingsSetsStartDateForPeriodTypeByDate() {
+		$periodType = 'byDate';
+		$startDate = '2012-10-10';
+		$settings = [
+			'periodType' => $periodType,
+			'periodStartDate' => $startDate
+		];
+
+		$mockDemand = $this->getMock(
+			EventDemand::class, ['dummy']
+		);
+		$mockObjectManager = $this->mockObjectManager();
+		$mockObjectManager->expects($this->once())
+			->method('get')
+			->will($this->returnValue($mockDemand));
+		$createdDemand = $this->subject->createFromSettings($settings);
+
+		$timeZone = new \DateTimeZone(date_default_timezone_get());
+		$expectedStartDate = new \DateTime($startDate, $timeZone);
+
+		$this->assertAttributeEquals(
+			$expectedStartDate,
+			'startDate',
+			$createdDemand
+		);
+
+	}
+
+	/**
+	 * @test
+	 */
+	public function createFromSettingsSetsEndDateForPeriodTypeByDate() {
+		$periodType = 'byDate';
+		$endDate = '2012-10-10';
+		$settings = [
+			'periodType' => $periodType,
+			'periodEndDate' => $endDate
+		];
+
+		$mockDemand = $this->getMock(
+			EventDemand::class, ['dummy']
+		);
+		$mockObjectManager = $this->mockObjectManager();
+		$mockObjectManager->expects($this->once())
+			->method('get')
+			->will($this->returnValue($mockDemand));
+		$createdDemand = $this->subject->createFromSettings($settings);
+
+		$timeZone = new \DateTimeZone(date_default_timezone_get());
+		$expectedStartDate = new \DateTime($endDate, $timeZone);
+
+		$this->assertAttributeEquals(
+			$expectedStartDate,
+			'endDate',
+			$createdDemand
+		);
+
+	}
 }

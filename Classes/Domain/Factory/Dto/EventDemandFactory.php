@@ -72,7 +72,7 @@ class EventDemandFactory implements DemandFactoryInterface {
 		if ($demand instanceof PeriodAwareDemandInterface) {
 			$this->setPeriodConstraints($demand, $settings);
 		}
-
+		// todo set order and search
 		foreach ($settings as $propertyName => $propertyValue) {
 			if ($this->shouldSkipProperty($propertyName, $propertyValue)) {
 				continue;
@@ -102,7 +102,6 @@ class EventDemandFactory implements DemandFactoryInterface {
 	 * @param array $settings
 	 */
 	protected function setPeriodConstraints($demand, $settings) {
-		// todo set DateTime
 		if ($settings['period'] === 'specific') {
 			$demand->setPeriodType($settings['periodType']);
 		}
@@ -111,11 +110,16 @@ class EventDemandFactory implements DemandFactoryInterface {
 			$demand->setPeriodDuration($settings['periodDuration']);
 		}
 		if ($settings['periodType'] === 'byDate') {
+			$timeZone = new \DateTimeZone(date_default_timezone_get());
 			if ($settings['periodStartDate']) {
-				$demand->setStartDate($settings['periodStartDate']);
+				$demand->setStartDate(
+					new \DateTime($settings['periodStartDate'], $timeZone)
+				);
 			}
 			if ($settings['periodEndDate']) {
-				$demand->setEndDate($settings['periodEndDate']);
+				$demand->setEndDate(
+					new \DateTime($settings['periodEndDate'])
+				);
 			}
 		}
 	}
