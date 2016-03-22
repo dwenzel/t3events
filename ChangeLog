@@ -1,3 +1,6 @@
+2016-03-22         [RELEASE] Release of t3events 0.19.1 (Dirk Wenzel)
+2016-03-22 9aa4137 [HOTFIX] fixed fatal error which prevented PerformanceRepository from creating QuerySettings correctly. (Dirk Wenzel)
+
 2016-03-22         [RELEASE] Release of t3events 0.19.0 (Dirk Wenzel)
 2016-03-18 cbb6d0c [TASK] EmConfiguration and EmConfigurationUtility implemented. Default query setting 'respect storage page'  of PerformanceRepository can now be set in extension manager configuration. (Dirk Wenzel)
 2016-03-02 3e99287 [TASK] EditRecordViewHelper implemented (Dirk Wenzel)
