@@ -41,10 +41,10 @@ class PerformanceRepository
 	 */
 	public function initializeObject() {
 		$emConfiguration = EmConfigurationUtility::getSettings();
-		$this->defaultQuerySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
-		$this->defaultQuerySettings->setRespectStoragePage(
-			$emConfiguration->isRespectPerformanceStoragePage()
-		);
+		if (!(bool)$emConfiguration->isRespectPerformanceStoragePage()) {
+			$this->defaultQuerySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
+			$this->defaultQuerySettings->setRespectStoragePage(false);
+		}
 	}
 
 	/**

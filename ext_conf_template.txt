@@ -1,3 +1,3 @@
-# cat=basic/enable; type=bool; label=Performances: respect storage pages
+# cat=basic/enable; type=boolean; label=Performances: respect storage pages
 respectPerformanceStoragePage = false
 
