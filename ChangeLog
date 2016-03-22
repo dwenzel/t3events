@@ -1,3 +1,7 @@
+2016-03-22         [RELEASE] Release of t3events 0.19.0 (Dirk Wenzel)
+2016-03-18 cbb6d0c [TASK] EmConfiguration and EmConfigurationUtility implemented. Default query setting 'respect storage page'  of PerformanceRepository can now be set in extension manager configuration. (Dirk Wenzel)
+2016-03-02 3e99287 [TASK] EditRecordViewHelper implemented (Dirk Wenzel)
+
 2016-03-17         [RELEASE] Release of t3events 0.18.0 (Dirk Wenzel)
 2016-03-17 d9507d4 [TASK] unit tests for Person added (Dirk Wenzel)
 2016-03-16 11eb8be [BUGFIX] Add functions add and remove for images and correct variable name in setImages function. Add missing Labels. (Erik Rauchstein)
