@@ -3,7 +3,7 @@
 	"type": "typo3-cms-extension",
 	"description": "Versatile events extension for the TYPO3 CMS",
 	"keywords": ["TYPO3", "extension", "events"],
-	"version": "0.17.1",
+	"version": "0.19.0",
 	"license": ["GPL-2.0+"],
 	"authors": [
 		{
@@ -48,7 +48,7 @@
   },
   "extra": {
 		"branch-alias": {
-			"dev-master": "0.17.x-dev"
+			"dev-master": "0.20.x-dev"
 		},
     "typo3/cms": {
       "cms-package-dir": "{$vendor-dir}/typo3/cms",
