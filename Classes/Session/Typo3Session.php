@@ -39,9 +39,8 @@ class Typo3Session implements SessionInterface, NamespaceAwareInterface {
 	 * Typo3Session constructor.
 	 *
 	 * @param string $namespace
-	 * @param int $expirationTime
 	 */
-	public function __construct($namespace) {
+	public function __construct($namespace = '') {
 		$this->setNamespace($namespace);
 	}
 
