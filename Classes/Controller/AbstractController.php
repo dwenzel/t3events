@@ -175,7 +175,8 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 			default:
 				$params = [
 					'config' => $configuration,
-					'requestArguments' => $this->request->getArguments()
+					'requestArguments' => $this->request->getArguments(),
+                    'actionName' => $this->request->getControllerActionName()
 				];
 				$this->emitSignal(
 					get_class($this),
@@ -196,7 +197,14 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 						$params['redirect']['statusCode']
 					);
 				}
-
+				if (isset($params['forward'])) {
+                    $this->forward(
+                        $params['forward']['actionName'],
+                        $params['forward']['controllerName'],
+                        $params['forward']['extensionName'],
+                        $params['forward']['arguments']
+                    );
+                }
 		}
 	}
 
