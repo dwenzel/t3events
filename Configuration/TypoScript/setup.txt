@@ -149,12 +149,12 @@ plugin.tx_t3events {
 config.tx_extbase.view.widget.Tx_Fluid_ViewHelpers_Widget_PaginateViewHelper.templateRootPath = {$plugin.tx_t3events.view.templateRootPath}
 
 config.tx_extbase.objects {
-	Tx_Fluid_ViewHelpers_Widget_Controller_PaginateController {
-		className = \Webfox\T3events\ViewHelpers\Widget\Controller\PaginateController
+	TYPO3\CMS\Fluid\ViewHelpers\Widget\Controller\PaginateController {
+		className = Webfox\T3events\ViewHelpers\Widget\Controller\PaginateController
 	}
 
 	# overwrite class to allow USER_INT from flexform
-	Tx_Extbase_Service_ExtensionService {
+	TYPO3\CMS\Extbase\Service\ExtensionService {
 		className = Webfox\T3events\Service\ExtensionService
 	}
 }

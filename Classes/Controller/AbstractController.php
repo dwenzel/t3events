@@ -10,6 +10,7 @@ namespace Webfox\T3events\Controller;
  * LICENSE.txt file that was distributed with this source code.
  * The TYPO3 project - inspiring people to share!
  */
+use TYPO3\CMS\Extbase\Mvc\Request;
 use TYPO3\CMS\Extbase\Mvc\RequestInterface;
 use TYPO3\CMS\Extbase\Mvc\ResponseInterface;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
@@ -123,10 +124,13 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 				($exception instanceof PropertyException\TargetNotFoundException)
 				|| ($exception instanceof PropertyException\InvalidSourceException)
 			) {
-				$controllerName = strtolower($request->getControllerName());
-				$configuration = isset($this->settings[$controllerName]['detail']['errorHandling']) ? $this->settings[$controllerName]['detail']['errorHandling'] : NULL;
-				if ($configuration) {
-					$this->handleEntityNotFoundError($configuration);
+				if ($request instanceof Request) {
+					$controllerName = strtolower($request->getControllerName());
+					$actionName = strtolower($request->getControllerActionName());
+                    if (isset($this->settings[$controllerName][$actionName]['errorHandling'])) {
+                        $configuration =  $this->settings[$controllerName][$actionName]['errorHandling'];
+                        $this->handleEntityNotFoundError($configuration);
+                    }
 				}
 			}
 			throw $exception;
@@ -171,7 +175,8 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 			default:
 				$params = [
 					'config' => $configuration,
-					'requestArguments' => $this->request->getArguments()
+					'requestArguments' => $this->request->getArguments(),
+                    'actionName' => $this->request->getControllerActionName()
 				];
 				$this->emitSignal(
 					get_class($this),
@@ -192,7 +197,14 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 						$params['redirect']['statusCode']
 					);
 				}
-
+				if (isset($params['forward'])) {
+                    $this->forward(
+                        $params['forward']['actionName'],
+                        $params['forward']['controllerName'],
+                        $params['forward']['extensionName'],
+                        $params['forward']['arguments']
+                    );
+                }
 		}
 	}
 

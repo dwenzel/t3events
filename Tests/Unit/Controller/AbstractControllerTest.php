@@ -194,7 +194,8 @@ class AbstractControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$config = 'foo';
 		$expectedParams = [
 			'config' => GeneralUtility::trimExplode(',', $config),
-			'requestArguments' => null
+			'requestArguments' => null,
+			'actionName' => null
 		];
 		$slotResult = [
 			['redirectUri' => 'foo']
@@ -234,7 +235,8 @@ class AbstractControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$config = 'foo';
 		$expectedParams = [
 			'config' => GeneralUtility::trimExplode(',', $config),
-			'requestArguments' => null
+			'requestArguments' => null,
+            'actionName' => null
 		];
 		$slotResult = [
 			[

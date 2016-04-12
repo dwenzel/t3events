@@ -1,3 +1,11 @@
+2016-04-12         [RELEASE] Release of t3events 0.20.0 (Dirk Wenzel)
+2016-04-11 0c70bb2 [BUGFIX] Change typo script configuration so the fluid pagination controller and typo3 extension service will be extended. (Erik Rauchstein)
+2016-04-11 522928e [TASK] PerformanceRepository now does not find performances with hidden event anymore. (Dirk Wenzel)
+2016-04-07 bea845b [BUGFIX] missing key in UnitTests for AbstractController added. (Dirk Wenzel)
+2016-04-07 6564a32 [TASK] AbstractController->handleEntityNotFound now passes the actionName to slot methods and can forward the request. (Dirk Wenzel)
+2016-04-07 9341f0b [TASK] Default value for constructor argument $namespace of Typo3Session class added. (Dirk Wenzel)
+2016-04-01 ef8859f [TASK] AbstractController now respects action name while handling exceptions in method processRequest. Obsolete leading slash in class path in DateRangeViewHelper-initializeArguments removed. (Dirk Wenzel)
+
 2016-03-22         [RELEASE] Release of t3events 0.19.1 (Dirk Wenzel)
 2016-03-22 9aa4137 [HOTFIX] fixed fatal error which prevented PerformanceRepository from creating QuerySettings correctly. (Dirk Wenzel)
 
