@@ -1,7 +1,11 @@
 <?php
 namespace Webfox\T3events\Domain\Model;
 
-use TYPO3\CMS\Extbase\Domain\Model\Category;
+/**
+ * TODO find out why typo3 cause the fatal error cannot use Category as Category because the name is already in use.
+ * Add alias SysCategory for Category to prevent fatal error.
+ */
+use TYPO3\CMS\Extbase\Domain\Model\Category as SysCategory;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /***************************************************************
@@ -42,7 +46,7 @@ trait CategorizableTrait {
 	 * @param \TYPO3\CMS\Extbase\Domain\Model\Category $category
 	 * @return void
 	 */
-	public function addCategory(Category $category) {
+	public function addCategory(SysCategory $category) {
 		$this->categories->attach($category);
 	}
 	/**
@@ -51,7 +55,7 @@ trait CategorizableTrait {
 	 * @param \TYPO3\CMS\Extbase\Domain\Model\Category $categoryToRemove The Category to be removed
 	 * @return void
 	 */
-	public function removeCategory(Category $categoryToRemove) {
+	public function removeCategory(SysCategory $categoryToRemove) {
 		$this->categories->detach($categoryToRemove);
 	}
 	/**
