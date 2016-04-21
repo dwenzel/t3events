@@ -143,6 +143,46 @@ class PerformanceRepositoryTest extends UnitTestCase {
 	/**
 	 * @test
 	 */
+	public function createConstraintsFromDemandCallsEventLocations() {
+		$this->subject = $this->getAccessibleMock(
+			PerformanceRepository::class,
+			[
+				'createStatusConstraints',
+				'createSearchConstraints',
+				'createCategoryConstraints'
+			], [], '', false);
+		$demand = $this->getMockForAbstractClass(
+			DemandInterface::class, [], '', true, true, true,
+			['getEventLocations']
+		);
+		$query = $this->getMock(
+			QueryInterface::class,
+			[], [], '', false
+		);
+
+		$demand->expects($this->any())
+			->method('getEventLocations')
+			->with()
+			->will($this->returnValue('1,2,3')
+			);
+
+		$eventLocations = array(
+			0 => 1,
+			1 => 2,
+			2 => 3
+		);
+
+		$query->expects($this->once())
+			->method('in')
+			->with('eventLocation', $eventLocations);
+
+
+		$this->subject->_call('createConstraintsFromDemand', $query, $demand);
+	}
+
+	/**
+	 * @test
+	 */
 	public function createConstraintsFromDemandCombinesStatusConstraintsLogicalOr() {
 		$this->subject = $this->getAccessibleMock(
 			PerformanceRepository::class,
