@@ -122,9 +122,7 @@ class PerformanceRepository
 		}
 		if ($demand->getEventLocations()) {
 			$eventLocations = GeneralUtility::intExplode(',', $demand->getEventLocations());
-			foreach ($eventLocations as $eventLocation) {
-				$constraints[] = $query->in('eventLocation', $eventLocation);
-			}
+			$constraints[] = $query->in('eventLocation', $eventLocations);
 		}
 		return $constraints;
 	}
