@@ -3,6 +3,7 @@ namespace Webfox\T3events\Tests\Unit\Domain\Repository;
 
 use CPSIT\ZewEvents\Domain\Model\Dto\PerformanceDemand;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Persistence\Generic\Qom\ConstraintInterface;
 use TYPO3\CMS\Extbase\Persistence\Generic\Query;
@@ -137,6 +138,41 @@ class PerformanceRepositoryTest extends UnitTestCase {
 		$this->subject->expects($this->once())
 			->method('createStatusConstraints')
 			->with($query, $demand);
+		$this->subject->_call('createConstraintsFromDemand', $query, $demand);
+	}
+
+	/**
+	 * @test
+	 */
+	public function createConstraintsFromDemandBuildsEventLocationConstraints() {
+		$locationIds = '1,2,3';
+        $this->subject = $this->getAccessibleMock(
+			PerformanceRepository::class,
+			[
+				'createStatusConstraints',
+				'createSearchConstraints',
+				'createCategoryConstraints'
+			], [], '', false);
+		$demand = $this->getMockForAbstractClass(
+			DemandInterface::class, [], '', true, true, true,
+			['getEventLocations']
+		);
+		$query = $this->getMock(
+			QueryInterface::class,
+			[], [], '', false
+		);
+
+		$demand->expects($this->any())
+			->method('getEventLocations')
+			->with()
+			->will($this->returnValue($locationIds)
+			);
+        $expectedLocationParams = GeneralUtility::intExplode(',', $locationIds);
+
+		$query->expects($this->once())
+			->method('in')
+			->with('eventLocation', $expectedLocationParams);
+
 		$this->subject->_call('createConstraintsFromDemand', $query, $demand);
 	}
 
