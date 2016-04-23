@@ -1,3 +1,10 @@
+2016-04-23         [RELEASE] Release of t3events 0.21.0 (Dirk Wenzel)
+2016-04-23 4058095 [TASK] FlashMessageTrait implemented (Dirk Wenzel)
+2016-04-22 f4402aa [TASK] code cleanup (Dirk Wenzel)
+2016-04-22 09f5d88 [BUGFIX] Hand over $eventLocations as array to prevent fatal error. (Erik Rauchstein)
+2016-04-21 c346639 [TASK] Unit test for PerformanceRepository added. (Erik Rauchstein)
+2016-04-19 908638f [BUGFIX] Add alias SysCategory for Category to prevent fatal error. (Erik Rauchstein)
+
 2016-04-12         [RELEASE] Release of t3events 0.20.0 (Dirk Wenzel)
 2016-04-11 0c70bb2 [BUGFIX] Change typo script configuration so the fluid pagination controller and typo3 extension service will be extended. (Erik Rauchstein)
 2016-04-11 522928e [TASK] PerformanceRepository now does not find performances with hidden event anymore. (Dirk Wenzel)
