@@ -343,6 +343,15 @@
 							</config>
 						</TCEforms>
 					</settings.period>
+					<settings.respectEndDate>
+						<TCEforms>
+							<label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.respectEndDate</label>
+							<displayCond>FIELD:settings.period:!=:all</displayCond>
+							<config>
+								<type>check</type>
+							</config>
+						</TCEforms>
+					</settings.respectEndDate>
 
 					<settings.periodType>
 						<TCEforms>

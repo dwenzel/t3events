@@ -2,6 +2,7 @@
 namespace Webfox\T3events\Domain\Repository;
 
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /**
  * Class PeriodConstraintRepositoryTrait
@@ -19,17 +20,76 @@ trait PeriodConstraintRepositoryTrait {
 	 * @return array<\TYPO3\CMS\Extbase\Persistence\QOM\Constraint>
 	 */
 	public function createPeriodConstraints(QueryInterface $query, $demand) {
+		// set start date initial to now
+		$timezone = new \DateTimeZone(date_default_timezone_get());
+		$startDate = new \DateTime('today', $timezone);
+		$endDate = clone($startDate);
+		$periodConstraint = [];
+		$respectEndDate = $demand->isRespectEndDate();
+		$this->determineDateRange($demand, $startDate, $endDate);
 
+        $lowerLimit = $startDate->getTimestamp();
+        $upperLimit = $endDate->getTimestamp();
+        $startDateField = $demand->getStartDateField();
+        $endDateField = $demand->getEndDateField();
+
+		switch ($demand->getPeriod()) {
+			case 'futureOnly' :
+                if ($respectEndDate) {
+                    $periodConstraint[] = $query->logicalOr(
+                        $query->greaterThanOrEqual($startDateField, $lowerLimit),
+                        $query->greaterThanOrEqual($endDateField, $lowerLimit)
+                    );
+                } else {
+                    $periodConstraint[] = $query->greaterThanOrEqual($startDateField, $lowerLimit);
+                }
+				break;
+			case 'pastOnly' :
+                if ($respectEndDate) {
+                    $periodConstraint[] = $query->logicalAnd(
+                        $query->lessThanOrEqual($endDateField, $upperLimit),
+                        $query->greaterThanOrEqual($startDateField, $lowerLimit)
+                    );
+                } else {
+                    $periodConstraint[] = $query->lessThanOrEqual($startDateField, $lowerLimit);
+                }
+				break;
+			case 'specific' :
+                if ($respectEndDate) {
+                    $periodConstraint[] = $query->logicalOr(
+                        $query->logicalAnd(
+							$query->greaterThanOrEqual($endDateField, $upperLimit),
+                            $query->lessThanOrEqual($startDateField, $lowerLimit)
+                        ),
+                        $query->logicalAnd(
+                            $query->greaterThanOrEqual($startDateField, $lowerLimit),
+                            $query->lessThanOrEqual($endDateField, $upperLimit)
+                        )
+                    );
+                } else {
+                    $periodConstraint[] = $query->logicalAnd(
+                        $query->lessThanOrEqual($startDateField, $upperLimit),
+                        $query->greaterThanOrEqual($startDateField, $lowerLimit)
+                    );
+                }
+				break;
+		}
+
+		return $periodConstraint;
+	}
+
+	/**
+	 * @param \Webfox\T3events\Domain\Model\Dto\PeriodAwareDemandInterface $demand
+	 * @param \DateTime $startDate
+	 * @param \DateTime $endDate
+	 */
+	protected function determineDateRange($demand, &$startDate, &$endDate)
+	{
 		// period constraints
 		$period = $demand->getPeriod();
 		$periodStart = $demand->getPeriodStart();
 		$periodType = $demand->getPeriodType();
 		$periodDuration = $demand->getPeriodDuration();
-		$periodConstraint = [];
-		// set start date initial to now
-		$timezone = new \DateTimeZone(date_default_timezone_get());
-		$startDate = new \DateTime('today', $timezone);
-		$endDate = clone($startDate);
 
 		if ($period === 'specific' && $periodType) {
 			// @todo: throw exception for missing periodType
@@ -75,22 +135,5 @@ trait PeriodConstraintRepositoryTrait {
 				$endDate->modify($deltaEnd);
 			}
 		}
-
-		switch ($demand->getPeriod()) {
-			case 'futureOnly' :
-				$periodConstraint[] = $query->greaterThanOrEqual($demand->getStartDateField(), $startDate->getTimestamp());
-				break;
-			case 'pastOnly' :
-				$periodConstraint[] = $query->lessThanOrEqual($demand->getStartDateField(), $startDate->getTimestamp());
-				break;
-			case 'specific' :
-				$periodConstraint[] = $query->logicalAnd(
-					$query->lessThanOrEqual($demand->getStartDateField(), $endDate->getTimestamp()),
-					$query->greaterThanOrEqual($demand->getStartDateField(), $startDate->getTimestamp())
-				);
-				break;
-		}
-
-		return $periodConstraint;
 	}
 }

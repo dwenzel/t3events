@@ -170,5 +170,26 @@ class PeriodAwareDemandTraitTest extends UnitTestCase {
 		$this->fixture->setEndDate($date);
 		$this->assertSame($date, $this->fixture->getEndDate());
 	}
+
+	/**
+	 * @test
+	 */
+	public function isRespectEndDateInitiallyReturnsFalse()
+	{
+		$this->assertFalse(
+			$this->fixture->isRespectEndDate()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function isRespectEndDateForBooleanCanBeSet()
+	{
+		$this->fixture->setRespectEndDate(true);
+		$this->assertTrue(
+			$this->fixture->isRespectEndDate()
+		);
+	}
 }
 

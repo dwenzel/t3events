@@ -51,4 +51,14 @@ interface PeriodAwareDemandInterface {
 	 * @return mixed
 	 */
 	public function getEndDateField();
+
+	/**
+	 * @return bool
+	 */
+	public function isRespectEndDate();
+
+	/**
+	 * @param boolean $respectEndDate
+	 */
+	public function setRespectEndDate($respectEndDate);
 }
