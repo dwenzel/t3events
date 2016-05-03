@@ -125,8 +125,8 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 				|| ($exception instanceof PropertyException\InvalidSourceException)
 			) {
 				if ($request instanceof Request) {
-					$controllerName = strtolower($request->getControllerName());
-					$actionName = strtolower($request->getControllerActionName());
+					$controllerName = lcfirst($request->getControllerName());
+					$actionName = $request->getControllerActionName();
                     if (isset($this->settings[$controllerName][$actionName]['errorHandling'])) {
                         $configuration =  $this->settings[$controllerName][$actionName]['errorHandling'];
                         $this->handleEntityNotFoundError($configuration);
