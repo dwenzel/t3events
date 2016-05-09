@@ -76,6 +76,9 @@
       <label index="flexforms_general.viewModeComboPane">Combo View</label>
       <label index="flexforms_general.viewModeMiniMonth">Single Month (small)</label>
       <label index="flexforms_tab.settings">Settings</label>
+      <label index="label.end">End</label>
+      <label index="label.now">Now</label>
+      <label index="label.start">Start</label>
     </languageKey>
     <languageKey index="af"/>
     <languageKey index="ar"/>
@@ -152,6 +155,9 @@
       <label index="flexforms_general.viewModeComboPane">kombiniert</label>
       <label index="flexforms_general.viewModeMiniMonth">Monat (klein)</label>
       <label index="flexforms_tab.settings">Einstellungen</label>
+      <label index="label.end">Ende</label>
+      <label index="label.now">Jetzt</label>
+      <label index="label.start">Beginn</label>
     </languageKey>
     <languageKey index="el"/>
     <languageKey index="eo"/>

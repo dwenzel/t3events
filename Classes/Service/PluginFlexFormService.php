@@ -3,6 +3,7 @@ namespace Webfox\T3events\Service;
 
 use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Lang\LanguageService;
 
 /***************************************************************
  *  Copyright notice
@@ -29,10 +30,13 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class PluginFlexFormService
 {
-    const ALL_LAYERS = 'text-start,text-end,arrow-left,arrow-right,future-only,past-only,by-date,start-point,end-point,
-    future-only,left-on,left-off,right-on,right-off';
-    const HIDE_FUTURE_ONLY = 'arrow-left,text-end,end-point';
-    const HIDE_PAST_ONLY = 'arrow-right,text-start,start-point,future-only,left-off,right-off,right-on';
+    const ALL_LAYERS = 'long-re-off,long-re-on,arrow-right,arrow-left,text-start,text-end,start-point,end-point,
+                        right-re-on,right-off,right-re-off,middle-on,left-re-off,left-re-on,left-off';
+    const LAYERS_FUTURE_ONLY = 'arrow-right,text-start,start-point,middle-on,left-off,left-re-off';
+    const LAYERS_PAST_ONLY = 'arrow-left,text-end,end-point,middle-on,right-off,right-re-off';
+    const LAYERS_SPECIFIC = 'text-start,text-end,start-point,end-point,middle-on,left-off,left-re-off,
+                            right-off,long-re-off,right-re-off';
+    const LANGUAGE_FILE = 'LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:';
 
     /**
      * @param array $params
@@ -49,17 +53,16 @@ class PluginFlexFormService
         $period = ArrayUtility::getValueByPath($flexFormData, 'constraints/lDEF/settings.period/vDEF/0');
         $respectEndDate = (bool) ArrayUtility::getValueByPath($flexFormData, 'constraints/lDEF/settings.respectEndDate/vDEF');
 
-        $content = '<div class="legend">';
-        $xmlFilePath = GeneralUtility::getFileAbsFileName('EXT:t3events/Resources/Public/Images/' . 'period_constraints.svg');
+        $xmlFilePath = GeneralUtility::getFileAbsFileName('EXT:t3events/Resources/Public/Images/period_constraints.svg');
         if (file_exists($xmlFilePath)) {
             $svg = new \DOMDocument();
             $svg->validateOnParse = true;
             $svg->load($xmlFilePath);
 
             $this->switchLayers($svg, $period, $respectEndDate);
+            $this->setLabels($svg, $period, $respectEndDate);
             $content .= $svg->saveXML();
         }
-        $content .= '</div>';
 
         return $content;
     }
@@ -71,37 +74,134 @@ class PluginFlexFormService
      * @return array
      */
     protected function getLayerIds($layerList) {
-        return GeneralUtility::trimExplode(',', $layerList);
+        return GeneralUtility::trimExplode(',', $layerList, true);
     }
 
     /**
+     * Enables and disables layers in svg depending on values of
+     * period and respectEndDate
+     *
      * @param \DOMDocument $svg
      * @param string $period
      * @param $respectEndDate
      */
     protected function switchLayers($svg, $period, $respectEndDate)
     {
-        $hiddenLayers = [];
+        $visibleLayers = [];
         $allLayers = $this->getLayerIds(self::ALL_LAYERS);
 
         if ($period === 'futureOnly') {
-            $hiddenLayers = $this->getLayerIds(self::HIDE_FUTURE_ONLY);
+            $visibleLayers = $this->getLayerIds(self::LAYERS_FUTURE_ONLY);
+            if ($respectEndDate) {
+                $visibleLayers = array_diff($visibleLayers, ['left-re-off']);
+                $visibleLayers[] = 'left-re-on';
+            }
         }
         if ($period === 'pastOnly') {
-            $hiddenLayers = $this->getLayerIds(self::HIDE_PAST_ONLY);
+            $visibleLayers = $this->getLayerIds(self::LAYERS_PAST_ONLY);
+            if ($respectEndDate) {
+                $visibleLayers = array_diff($visibleLayers, ['right-re-off']);
+                $visibleLayers[] = 'right-re-on';
+            }
+        }
+        if ($period === 'specific') {
+            $visibleLayers = $this->getLayerIds(self::LAYERS_SPECIFIC);
+            if ($respectEndDate) {
+                $visibleLayers = array_diff($visibleLayers, ['left-re-off', 'right-re-off', 'long-re-off']);
+                $visibleLayers = array_merge($visibleLayers, ['left-re-on', 'right-re-on', 'long-re-on']);
+            }
         }
 
-        $gs = $svg->getElementsByTagName('g');
-        /** @var \DOMElement $g */
-        foreach ($gs as $g) {
-            if ($g->hasAttribute('id')) {
-                if (in_array($g->getAttribute('id'), $allLayers)) {
-                    $g->setAttribute('style', 'display:inline');
-                }
-                if (in_array($g->getAttribute('id'), $hiddenLayers)) {
-                    $g->setAttribute('style', 'display:none');
-                }
+        $this->setElementsAttribute($svg, $allLayers, 'style', 'display:none');
+        $this->setElementsAttribute($svg, $visibleLayers, 'style', 'display:inline');
+    }
+
+    /**
+     * Sets the label in svg respecting current language
+     *
+     * @param \DOMDocument $svg
+     * @param string $period
+     * @param $respectEndDate
+     */
+    protected function setLabels($svg, $period, $respectEndDate) {
+        $startPointKey = 'label.start';
+        $endPointKey = 'label.end';
+        if ($period === 'futureOnly') {
+            $startPointKey = 'label.now';
+        }
+
+        if ($period === 'pastOnly') {
+            $endPointKey = 'label.now';
+        }
+
+        $startPointLabel = $this->translate($startPointKey);
+        $endPointLabel = $this->translate($endPointKey);
+
+        $this->replaceNodeText($svg, 'text-start-text', $startPointLabel);
+        $this->replaceNodeText($svg, 'text-end-text', $endPointLabel);
+    }
+
+    /**
+     * Gets the language service
+     *
+     * @return LanguageService
+     */
+    protected function getLanguageService() {
+        return $GLOBALS['LANG'];
+    }
+
+    /**
+     * Translates a given language key
+     *
+     * @param string $key
+     * @return string
+     */
+    public function translate($key) {
+        $translatedString =  $this->getLanguageService()->sL(self::LANGUAGE_FILE . $key);
+        if (empty($translatedString)) {
+            return $key;
+        }
+
+        return $translatedString;
+    }
+
+    /**
+     * Replaces text node children of a node in a DOM document
+     *
+     * @param \DOMDocument $domDocument
+     * @param $nodeId
+     * @param $endPointLabel
+     */
+    protected function replaceNodeText($domDocument, $nodeId, $endPointLabel)
+    {
+        $endPointNode = $domDocument->getElementById($nodeId);
+        if ($endPointNode === null) {
+            return;
+        }
+
+        while ($endPointNode->hasChildNodes()) {
+            $endPointNode->removeChild($endPointNode->firstChild);
+        }
+        $textNode = $domDocument->createTextNode($endPointLabel);
+        $endPointNode->appendChild($textNode);
+    }
+
+    /**
+     * Sets an attribute of a set of elements in a DOM document
+     * to a common value
+     *
+     * @param \DOMDocument $domDocument Document to manipulate
+     * @param array $elementIds Array of IDs of elements
+     * @param string $attributeName Name of attribute to set
+     * @param string $attributeValue Value to set
+     */
+    protected function setElementsAttribute($domDocument, array $elementIds, $attributeName, $attributeValue) {
+        foreach ($elementIds as $elementId) {
+            $element = $domDocument->getElementById($elementId);
+            if ($element === null) {
+                continue;
             }
+            $element->setAttribute($attributeName, $attributeValue);
         }
     }
 }
