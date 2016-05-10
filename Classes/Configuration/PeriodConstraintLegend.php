@@ -1,7 +1,7 @@
 <?php
 namespace Webfox\T3events\Configuration;
 
-use Resource\VectorImage;
+use Webfox\T3events\Resource\VectorImage;
 use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Lang\LanguageService;
@@ -57,13 +57,12 @@ class PeriodConstraintLegend extends VectorImage
 
         $xmlFilePath = GeneralUtility::getFileAbsFileName('EXT:t3events/Resources/Public/Images/period_constraints.svg');
         if (file_exists($xmlFilePath)) {
-            $svg = new \DOMDocument();
-            $svg->validateOnParse = true;
-            $svg->load($xmlFilePath);
+            $this->validateOnParse = true;
+            $this->load($xmlFilePath);
 
-            $this->switchLayers($svg, $period, $respectEndDate);
-            $this->setLabels($svg, $period, $respectEndDate);
-            $content .= $svg->saveXML();
+            $this->updateLayers($period, $respectEndDate);
+            $this->setLabels($period, $respectEndDate);
+            $content .= $this->saveXML();
         }
 
         return $content;
@@ -81,14 +80,13 @@ class PeriodConstraintLegend extends VectorImage
     }
 
     /**
-     * Enables and disables layers in svg depending on values of
+     * Enables and disables layers depending on values of
      * period and respectEndDate
      *
-     * @param \DOMDocument $svg
      * @param string $period
      * @param $respectEndDate
      */
-    protected function switchLayers($svg, $period, $respectEndDate)
+    protected function updateLayers($period, $respectEndDate)
     {
         $visibleLayers = [];
         $allLayers = $this->getLayerIds(self::ALL_LAYERS);
@@ -115,18 +113,17 @@ class PeriodConstraintLegend extends VectorImage
             }
         }
 
-        $this->setElementsAttribute($svg, $allLayers, 'style', 'display:none');
-        $this->setElementsAttribute($svg, $visibleLayers, 'style', 'display:inline');
+        $this->setElementsAttribute($allLayers, 'style', 'display:none');
+        $this->setElementsAttribute($visibleLayers, 'style', 'display:inline');
     }
 
     /**
      * Sets the label in svg respecting current language
      *
-     * @param \DOMDocument $domDocument
      * @param string $period
      * @param $respectEndDate
      */
-    protected function setLabels($domDocument, $period, $respectEndDate)
+    protected function setLabels($period, $respectEndDate)
     {
         $startPointKey = 'label.start';
         $endPointKey = 'label.end';
@@ -141,8 +138,8 @@ class PeriodConstraintLegend extends VectorImage
         $startPointLabel = $this->translate($startPointKey);
         $endPointLabel = $this->translate($endPointKey);
 
-        $this->replaceNodeText($domDocument, 'text-start-text', $startPointLabel);
-        $this->replaceNodeText($domDocument, 'text-end-text', $endPointLabel);
+        $this->replaceNodeText('text-start-text', $startPointLabel);
+        $this->replaceNodeText('text-end-text', $endPointLabel);
     }
 
     /**
@@ -171,44 +168,5 @@ class PeriodConstraintLegend extends VectorImage
         return $translatedString;
     }
 
-    /**
-     * Replaces text node children of a node in a DOM document
-     *
-     * @param \DOMDocument $domDocument
-     * @param string $nodeId
-     * @param string $content
-     */
-    protected function replaceNodeText($domDocument, $nodeId, $content)
-    {
-        $element = $domDocument->getElementById($nodeId);
-        if ($element === null) {
-            return;
-        }
 
-        while ($element->hasChildNodes()) {
-            $element->removeChild($element->firstChild);
-        }
-        $textNode = $domDocument->createTextNode($content);
-        $element->appendChild($textNode);
-    }
-
-    /**
-     * Sets an attribute of a set of elements in a DOM document
-     * to a common value
-     *
-     * @param \DOMDocument $domDocument Document to manipulate
-     * @param array $elementIds Array of IDs of elements
-     * @param string $attributeName Name of attribute to set
-     * @param string $attributeValue Value to set
-     */
-    protected function setElementsAttribute($domDocument, array $elementIds, $attributeName, $attributeValue)
-    {
-        foreach ($elementIds as $elementId) {
-            $element = $domDocument->getElementById($elementId);
-            if ($element === null) {
-                continue;
-            }
-            $element->setAttribute($attributeName, $attributeValue);
-        }
-    }
 }

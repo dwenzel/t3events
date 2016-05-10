@@ -1,5 +1,5 @@
 <?php
-namespace Resource;
+namespace Webfox\T3events\Resource;
 
 /***************************************************************
  *  Copyright notice
@@ -21,4 +21,42 @@ namespace Resource;
 class VectorImage extends \DOMDocument
 {
 
+    /**
+     * Replaces text node children of a node
+     *
+     * @param string $nodeId
+     * @param string $content
+     */
+    protected function replaceNodeText($nodeId, $content)
+    {
+        $element = $this->getElementById($nodeId);
+        if ($element === null) {
+            return;
+        }
+
+        while ($element->hasChildNodes()) {
+            $element->removeChild($element->firstChild);
+        }
+        $textNode = $this->createTextNode($content);
+        $element->appendChild($textNode);
+    }
+
+    /**
+     * Sets an attribute of a set of elements
+     * to a common value
+     *
+     * @param array $elementIds Array of IDs of elements
+     * @param string $attributeName Name of attribute to set
+     * @param string $attributeValue Value to set
+     */
+    protected function setElementsAttribute(array $elementIds, $attributeName, $attributeValue)
+    {
+        foreach ($elementIds as $elementId) {
+            $element = $this->getElementById($elementId);
+            if ($element === null) {
+                continue;
+            }
+            $element->setAttribute($attributeName, $attributeValue);
+        }
+    }
 }
