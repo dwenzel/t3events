@@ -51,7 +51,8 @@ class PluginFlexFormService
         }
         $flexFormData = $params['row']['pi_flexform']['data'];
         $period = ArrayUtility::getValueByPath($flexFormData, 'constraints/lDEF/settings.period/vDEF/0');
-        $respectEndDate = (bool) ArrayUtility::getValueByPath($flexFormData, 'constraints/lDEF/settings.respectEndDate/vDEF');
+        $respectEndDate = (bool)ArrayUtility::getValueByPath($flexFormData,
+            'constraints/lDEF/settings.respectEndDate/vDEF');
 
         $xmlFilePath = GeneralUtility::getFileAbsFileName('EXT:t3events/Resources/Public/Images/period_constraints.svg');
         if (file_exists($xmlFilePath)) {
@@ -73,7 +74,8 @@ class PluginFlexFormService
      * @param string $layerList
      * @return array
      */
-    protected function getLayerIds($layerList) {
+    protected function getLayerIds($layerList)
+    {
         return GeneralUtility::trimExplode(',', $layerList, true);
     }
 
@@ -119,11 +121,12 @@ class PluginFlexFormService
     /**
      * Sets the label in svg respecting current language
      *
-     * @param \DOMDocument $svg
+     * @param \DOMDocument $domDocument
      * @param string $period
      * @param $respectEndDate
      */
-    protected function setLabels($svg, $period, $respectEndDate) {
+    protected function setLabels($domDocument, $period, $respectEndDate)
+    {
         $startPointKey = 'label.start';
         $endPointKey = 'label.end';
         if ($period === 'futureOnly') {
@@ -137,8 +140,8 @@ class PluginFlexFormService
         $startPointLabel = $this->translate($startPointKey);
         $endPointLabel = $this->translate($endPointKey);
 
-        $this->replaceNodeText($svg, 'text-start-text', $startPointLabel);
-        $this->replaceNodeText($svg, 'text-end-text', $endPointLabel);
+        $this->replaceNodeText($domDocument, 'text-start-text', $startPointLabel);
+        $this->replaceNodeText($domDocument, 'text-end-text', $endPointLabel);
     }
 
     /**
@@ -146,7 +149,8 @@ class PluginFlexFormService
      *
      * @return LanguageService
      */
-    protected function getLanguageService() {
+    protected function getLanguageService()
+    {
         return $GLOBALS['LANG'];
     }
 
@@ -156,8 +160,9 @@ class PluginFlexFormService
      * @param string $key
      * @return string
      */
-    public function translate($key) {
-        $translatedString =  $this->getLanguageService()->sL(self::LANGUAGE_FILE . $key);
+    public function translate($key)
+    {
+        $translatedString = $this->getLanguageService()->sL(self::LANGUAGE_FILE . $key);
         if (empty($translatedString)) {
             return $key;
         }
@@ -169,21 +174,21 @@ class PluginFlexFormService
      * Replaces text node children of a node in a DOM document
      *
      * @param \DOMDocument $domDocument
-     * @param $nodeId
-     * @param $endPointLabel
+     * @param string $nodeId
+     * @param string $content
      */
-    protected function replaceNodeText($domDocument, $nodeId, $endPointLabel)
+    protected function replaceNodeText($domDocument, $nodeId, $content)
     {
-        $endPointNode = $domDocument->getElementById($nodeId);
-        if ($endPointNode === null) {
+        $element = $domDocument->getElementById($nodeId);
+        if ($element === null) {
             return;
         }
 
-        while ($endPointNode->hasChildNodes()) {
-            $endPointNode->removeChild($endPointNode->firstChild);
+        while ($element->hasChildNodes()) {
+            $element->removeChild($element->firstChild);
         }
-        $textNode = $domDocument->createTextNode($endPointLabel);
-        $endPointNode->appendChild($textNode);
+        $textNode = $domDocument->createTextNode($content);
+        $element->appendChild($textNode);
     }
 
     /**
@@ -195,7 +200,8 @@ class PluginFlexFormService
      * @param string $attributeName Name of attribute to set
      * @param string $attributeValue Value to set
      */
-    protected function setElementsAttribute($domDocument, array $elementIds, $attributeName, $attributeValue) {
+    protected function setElementsAttribute($domDocument, array $elementIds, $attributeName, $attributeValue)
+    {
         foreach ($elementIds as $elementId) {
             $element = $domDocument->getElementById($elementId);
             if ($element === null) {
