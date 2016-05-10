@@ -1,6 +1,7 @@
 <?php
-namespace Webfox\T3events\Service;
+namespace Webfox\T3events\Configuration;
 
+use Resource\VectorImage;
 use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Lang\LanguageService;
@@ -26,9 +27,9 @@ use TYPO3\CMS\Lang\LanguageService;
 /**
  * Class PluginFlexFormService
  *
- * @package Webfox\T3events\Service
+ * @package Webfox\T3events\Configuration
  */
-class PluginFlexFormService
+class PeriodConstraintLegend extends VectorImage
 {
     const ALL_LAYERS = 'long-re-off,long-re-on,arrow-right,arrow-left,text-start,text-end,start-point,end-point,
                         right-re-on,right-off,right-re-off,middle-on,left-re-off,left-re-on,left-off';
@@ -43,7 +44,7 @@ class PluginFlexFormService
      * @param \TYPO3\CMS\Backend\Form\Element\UserElement $parentObject
      * @return string
      */
-    public function renderPeriodConstraintLegend($params, $parentObject)
+    public function render($params, $parentObject)
     {
         $content = '';
         if (!isset($params['row']['pi_flexform']['data'])) {

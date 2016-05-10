@@ -348,7 +348,7 @@
 							<label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.legendPeriodConstraints</label>
 							<config>
 								<type>user</type>
-                                <userFunc>Webfox\T3events\Service\PluginFlexFormService->renderPeriodConstraintLegend</userFunc>
+                                <userFunc>Webfox\T3events\Configuration\PeriodConstraintLegend->render</userFunc>
 							</config>
 						</TCEforms>
 					</legend>
