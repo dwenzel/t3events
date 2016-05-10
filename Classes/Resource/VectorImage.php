@@ -59,4 +59,24 @@ class VectorImage extends \DOMDocument
             $element->setAttribute($attributeName, $attributeValue);
         }
     }
+
+    /**
+     * Hides elements by id
+     *
+     * @param array $elementIds
+     */
+    public function hideElements(array $elementIds)
+    {
+        $this->setElementsAttribute($elementIds, 'style', 'display:none');
+    }
+
+    /**
+     * Shows elements by id
+     *
+     * @param array $elementIds
+     */
+    public function showElements(array $elementIds)
+    {
+        $this->setElementsAttribute($elementIds, 'style', 'display:inline');
+    }
 }

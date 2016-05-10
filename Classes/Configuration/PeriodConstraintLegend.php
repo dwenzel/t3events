@@ -1,10 +1,14 @@
 <?php
 namespace Webfox\T3events\Configuration;
 
-use Webfox\T3events\Resource\VectorImage;
-use TYPO3\CMS\Core\Utility\ArrayUtility;
+use TYPO3\CMS\Core\Localization\Exception\FileNotFoundException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Lang\LanguageService;
+use Webfox\T3events\DataProvider\Legend\LayeredLegendDataProviderInterface;
+use Webfox\T3events\DataProvider\Legend\PeriodDataProviderFactory;
+use Webfox\T3events\DataProvider\Legend\PeriodFutureDataProvider;
+use Webfox\T3events\DataProvider\Legend\PeriodPastDataProvider;
+use Webfox\T3events\Resource\VectorImage;
 
 /***************************************************************
  *  Copyright notice
@@ -25,19 +29,23 @@ use TYPO3\CMS\Lang\LanguageService;
  ***************************************************************/
 
 /**
- * Class PluginFlexFormService
+ * Class PeriodConstraintLegend
  *
  * @package Webfox\T3events\Configuration
  */
 class PeriodConstraintLegend extends VectorImage
 {
-    const ALL_LAYERS = 'long-re-off,long-re-on,arrow-right,arrow-left,text-start,text-end,start-point,end-point,
-                        right-re-on,right-off,right-re-off,middle-on,left-re-off,left-re-on,left-off';
-    const LAYERS_FUTURE_ONLY = 'arrow-right,text-start,start-point,middle-on,left-off,left-re-off';
-    const LAYERS_PAST_ONLY = 'arrow-left,text-end,end-point,middle-on,right-off,right-re-off';
-    const LAYERS_SPECIFIC = 'text-start,text-end,start-point,end-point,middle-on,left-off,left-re-off,
-                            right-off,long-re-off,right-re-off';
     const LANGUAGE_FILE = 'LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:';
+
+    /**
+     * @var LayeredLegendDataProviderInterface
+     */
+    protected $dataProvider;
+
+    /**
+     * @var string
+     */
+    protected $xmlFilePath = 'EXT:t3events/Resources/Public/Images/period_constraints.svg';
 
     /**
      * @param array $params
@@ -46,93 +54,61 @@ class PeriodConstraintLegend extends VectorImage
      */
     public function render($params, $parentObject)
     {
-        $content = '';
-        if (!isset($params['row']['pi_flexform']['data'])) {
-            return $content;
-        }
-        $flexFormData = $params['row']['pi_flexform']['data'];
-        $period = ArrayUtility::getValueByPath($flexFormData, 'constraints/lDEF/settings.period/vDEF/0');
-        $respectEndDate = (bool)ArrayUtility::getValueByPath($flexFormData,
-            'constraints/lDEF/settings.respectEndDate/vDEF');
+        $this->initialize($params);
+        $this->updateLayers();
+        $this->setLabels();
 
-        $xmlFilePath = GeneralUtility::getFileAbsFileName('EXT:t3events/Resources/Public/Images/period_constraints.svg');
-        if (file_exists($xmlFilePath)) {
-            $this->validateOnParse = true;
-            $this->load($xmlFilePath);
-
-            $this->updateLayers($period, $respectEndDate);
-            $this->setLabels($period, $respectEndDate);
-            $content .= $this->saveXML();
-        }
-
-        return $content;
+        return $this->saveXML();
     }
 
     /**
-     * Gets an array of layer ids from comma separated string
-     *
-     * @param string $layerList
-     * @return array
+     * @param $params
+     * @throws \Webfox\T3events\InvalidConfigurationException
      */
-    protected function getLayerIds($layerList)
+    public function initialize($params)
     {
-        return GeneralUtility::trimExplode(',', $layerList, true);
+        $xmlFilePath = GeneralUtility::getFileAbsFileName($this->xmlFilePath);
+        if (!file_exists($xmlFilePath)) {
+            throw new FileNotFoundException(
+                'Missing XML file.', 1462887081
+            );
+        }
+        $this->validateOnParse = true;
+        $this->load($xmlFilePath);
+        $this->dataProvider = $this->getDataProviderFactory()->get($params);
+    }
+
+    /**
+     * @return PeriodDataProviderFactory
+     */
+    public function getDataProviderFactory()
+    {
+        return GeneralUtility::makeInstance(PeriodDataProviderFactory::class);
     }
 
     /**
      * Enables and disables layers depending on values of
-     * period and respectEndDate
-     *
-     * @param string $period
-     * @param $respectEndDate
+     * period and respectEndDate*
      */
-    protected function updateLayers($period, $respectEndDate)
+    protected function updateLayers()
     {
-        $visibleLayers = [];
-        $allLayers = $this->getLayerIds(self::ALL_LAYERS);
-
-        if ($period === 'futureOnly') {
-            $visibleLayers = $this->getLayerIds(self::LAYERS_FUTURE_ONLY);
-            if ($respectEndDate) {
-                $visibleLayers = array_diff($visibleLayers, ['left-re-off']);
-                $visibleLayers[] = 'left-re-on';
-            }
-        }
-        if ($period === 'pastOnly') {
-            $visibleLayers = $this->getLayerIds(self::LAYERS_PAST_ONLY);
-            if ($respectEndDate) {
-                $visibleLayers = array_diff($visibleLayers, ['right-re-off']);
-                $visibleLayers[] = 'right-re-on';
-            }
-        }
-        if ($period === 'specific') {
-            $visibleLayers = $this->getLayerIds(self::LAYERS_SPECIFIC);
-            if ($respectEndDate) {
-                $visibleLayers = array_diff($visibleLayers, ['left-re-off', 'right-re-off', 'long-re-off']);
-                $visibleLayers = array_merge($visibleLayers, ['left-re-on', 'right-re-on', 'long-re-on']);
-            }
-        }
-
-        $this->setElementsAttribute($allLayers, 'style', 'display:none');
-        $this->setElementsAttribute($visibleLayers, 'style', 'display:inline');
+        $this->hideElements($this->dataProvider->getAllLayerIds());
+        $this->showElements($this->dataProvider->getVisibleLayerIds());
     }
 
     /**
      * Sets the label in svg respecting current language
-     *
-     * @param string $period
-     * @param $respectEndDate
+
      */
-    protected function setLabels($period, $respectEndDate)
+    protected function setLabels()
     {
         $startPointKey = 'label.start';
         $endPointKey = 'label.end';
-        if ($period === 'futureOnly') {
-            $startPointKey = 'label.now';
-        }
 
-        if ($period === 'pastOnly') {
-            $endPointKey = 'label.now';
+        if ($this->dataProvider instanceof PeriodFutureDataProvider
+            || $this->dataProvider instanceof PeriodPastDataProvider
+        ) {
+            $startPointKey = 'label.now';
         }
 
         $startPointLabel = $this->translate($startPointKey);
@@ -167,6 +143,4 @@ class PeriodConstraintLegend extends VectorImage
 
         return $translatedString;
     }
-
-
 }
