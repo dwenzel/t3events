@@ -8,6 +8,7 @@ use Webfox\T3events\DataProvider\Legend\LayeredLegendDataProviderInterface;
 use Webfox\T3events\DataProvider\Legend\PeriodDataProviderFactory;
 use Webfox\T3events\DataProvider\Legend\PeriodFutureDataProvider;
 use Webfox\T3events\DataProvider\Legend\PeriodPastDataProvider;
+use Webfox\T3events\MissingFileException;
 use Webfox\T3events\Resource\VectorImage;
 
 /***************************************************************
@@ -63,16 +64,17 @@ class PeriodConstraintLegend extends VectorImage
 
     /**
      * @param $params
-     * @throws \Webfox\T3events\InvalidConfigurationException
+     * @throws \Webfox\T3events\MissingFileException
      */
     public function initialize($params)
     {
         $xmlFilePath = GeneralUtility::getFileAbsFileName($this->xmlFilePath);
         if (!file_exists($xmlFilePath)) {
-            throw new FileNotFoundException(
+            throw new MissingFileException(
                 'Missing XML file.', 1462887081
             );
         }
+
         $this->validateOnParse = true;
         $this->load($xmlFilePath);
         $this->dataProvider = $this->getDataProviderFactory()->get($params);
