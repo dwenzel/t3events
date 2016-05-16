@@ -27,7 +27,7 @@ class VectorImage extends \DOMDocument
      * @param string $nodeId
      * @param string $content
      */
-    protected function replaceNodeText($nodeId, $content)
+    public function replaceNodeText($nodeId, $content)
     {
         $element = $this->getElementById($nodeId);
         if ($element === null) {

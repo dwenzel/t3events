@@ -120,4 +120,21 @@ class VectorImageTest extends UnitTestCase
 
         $this->subject->showElements($existingElementIds);
     }
+
+    /**
+     * @test
+     */
+    public function replaceNodeTextDoesNotChangeDocumentIfElementDoesNotExist()
+    {
+        $nonExistingElementId = 'foo';
+        $this->subject = $this->getAccessibleMock(
+            VectorImage::class, ['removeChild', 'appendChild'], [], '', true
+        );
+        $this->subject->expects($this->never())
+            ->method('removeChild');
+        $this->subject->expects($this->never())
+            ->method('appendChild');
+
+        $this->subject->replaceNodeText($nonExistingElementId, 'bar');
+    }
 }
