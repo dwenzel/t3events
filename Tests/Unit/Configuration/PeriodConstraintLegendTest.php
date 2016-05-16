@@ -5,7 +5,7 @@ use TYPO3\CMS\Core\Tests\UnitTestCase;
 use Webfox\T3events\Configuration\PeriodConstraintLegend;
 use Webfox\T3events\DataProvider\Legend\LayeredLegendDataProviderInterface;
 use Webfox\T3events\DataProvider\Legend\PeriodDataProviderFactory;
-
+use TYPO3\CMS\Lang\LanguageService;
 /***************************************************************
  *  Copyright notice
  *  (c) 2016 Dirk Wenzel <dirk.wenzel@cps-it.de>
@@ -81,6 +81,89 @@ class PeriodConstraintLegendTest extends UnitTestCase
         $this->assertAttributeEquals(
             $mockDataProvider, 'dataProvider', $this->subject
         );
+    }
+
+    /**
+     * @test
+     */
+    public function getDataProviderFactoryReturnsFactory()
+    {
+        $this->assertInstanceOf(
+            PeriodDataProviderFactory::class,
+            $this->subject->getDataProviderFactory()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function renderUpdatesLayers()
+    {
+        $this->subject = $this->getMock(
+            PeriodConstraintLegend::class,
+            ['initialize', 'hideElements', 'showElements', 'setLabels', 'saveXML'], [], '', false
+        );
+        $params = ['foo'];
+        $allLayers = ['foo'];
+        $visibleLayers = ['bar'];
+
+        $mockDataProvider = $this->getMockForAbstractClass(
+            LayeredLegendDataProviderInterface::class,
+            [],
+            '',
+            false,
+            false,
+            true,
+            ['getAllLayerIds', 'getVisibleLayerIds']
+        );
+        $this->inject($this->subject, 'dataProvider', $mockDataProvider);
+        $mockDataProvider->expects($this->once())
+            ->method('getAllLayerIds')
+            ->will($this->returnValue($allLayers));
+        $mockDataProvider->expects($this->once())
+            ->method('getVisibleLayerIds')
+            ->will($this->returnValue($visibleLayers));
+
+        $this->subject->expects($this->once())
+            ->method('hideElements')
+            ->with($allLayers);
+        $this->subject->expects($this->once())
+            ->method('showElements')
+            ->with($visibleLayers);
+
+        $this->subject->render($params);
+    }
+
+    /**
+     * @test
+     */
+    public function renderSetsLabels()
+    {
+        $this->subject = $this->getMock(
+            PeriodConstraintLegend::class,
+            ['initialize', 'updateLayers', 'saveXML', 'getLanguageService', 'replaceNodeText'], [], '', false
+        );
+        $params = ['foo'];
+
+        $mockLanguageService = $this->getMock(LanguageService::class, ['sL'], [], '', false);
+        $this->subject->expects($this->any())
+            ->method('getLanguageService')
+            ->will($this->returnValue($mockLanguageService));
+        $mockLanguageService->expects($this->exactly(2))
+            ->method('sL')
+            ->withConsecutive(
+                [PeriodConstraintLegend::LANGUAGE_FILE . PeriodConstraintLegend::START_POINT_KEY],
+                [PeriodConstraintLegend::LANGUAGE_FILE . PeriodConstraintLegend::END_POINT_KEY]
+            )
+            ->will($this->returnValue('foo'));
+
+        $this->subject->expects($this->exactly(2))
+            ->method('replaceNodeText')
+            ->withConsecutive(
+                [PeriodConstraintLegend::START_TEXT_LAYER_ID, 'foo'],
+                [PeriodConstraintLegend::END_TEXT_LAYER_ID, 'foo']
+            );
+        $this->subject->render($params);
     }
 
 }

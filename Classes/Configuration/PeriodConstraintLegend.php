@@ -37,6 +37,10 @@ use Webfox\T3events\Resource\VectorImage;
 class PeriodConstraintLegend extends VectorImage
 {
     const LANGUAGE_FILE = 'LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:';
+    const START_POINT_KEY = 'label.start';
+    const END_POINT_KEY = 'label.end';
+    const START_TEXT_LAYER_ID = 'text-start-text';
+    const END_TEXT_LAYER_ID = 'text-end-text';
 
     /**
      * @var LayeredLegendDataProviderInterface
@@ -53,7 +57,7 @@ class PeriodConstraintLegend extends VectorImage
      * @param \TYPO3\CMS\Backend\Form\Element\UserElement $parentObject
      * @return string
      */
-    public function render($params, $parentObject)
+    public function render($params, $parentObject = null)
     {
         $this->initialize($params);
         $this->updateLayers();
@@ -104,8 +108,7 @@ class PeriodConstraintLegend extends VectorImage
      */
     protected function setLabels()
     {
-        $startPointKey = 'label.start';
-        $endPointKey = 'label.end';
+        $startPointKey = self::START_POINT_KEY;
 
         if ($this->dataProvider instanceof PeriodFutureDataProvider
             || $this->dataProvider instanceof PeriodPastDataProvider
@@ -114,10 +117,10 @@ class PeriodConstraintLegend extends VectorImage
         }
 
         $startPointLabel = $this->translate($startPointKey);
-        $endPointLabel = $this->translate($endPointKey);
+        $endPointLabel = $this->translate(self::END_POINT_KEY);
 
-        $this->replaceNodeText('text-start-text', $startPointLabel);
-        $this->replaceNodeText('text-end-text', $endPointLabel);
+        $this->replaceNodeText(self::START_TEXT_LAYER_ID, $startPointLabel);
+        $this->replaceNodeText(self::END_TEXT_LAYER_ID, $endPointLabel);
     }
 
     /**
