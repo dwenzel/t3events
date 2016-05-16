@@ -3,6 +3,7 @@ namespace Webfox\T3events\DataProvider\Legend;
 
 use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use Webfox\T3events\DataProvider\Legend\LayeredLegendDataProviderInterface;
 use Webfox\T3events\DataProvider\Legend\PeriodFutureDataProvider;
 use Webfox\T3events\InvalidConfigurationException;
@@ -32,13 +33,27 @@ class PeriodDataProviderFactory
      * @throws InvalidConfigurationException
      */
     public function get(array $params) {
-        if (!isset($params['row']['pi_flexform']['data'])) {
+        if(isset($params['row']['pi_flexform'])) {
+            if (!(is_array($params['row']['pi_flexform']))) {
+                $pluginSettings = GeneralUtility::xml2array($params['row']['pi_flexform']);
+            } else {
+                $pluginSettings = $params['row']['pi_flexform'];
+            }
+        }
+        if (!isset($pluginSettings['data'])) {
             throw new InvalidConfigurationException(
                 'Missing flex form data', 1462881172
             );
         }
-        $flexFormData = $params['row']['pi_flexform']['data'];
-        $period = ArrayUtility::getValueByPath($flexFormData, 'constraints/lDEF/settings.period/vDEF/0');
+        $periodPath = 'constraints/lDEF/settings.period/vDEF';
+        $respectEndDatePath = 'constraints/lDEF/settings.respectEndDate/vDEF';
+
+        $flexFormData = $pluginSettings['data'];
+        $currentVersion = VersionNumberUtility::convertVersionNumberToInteger(VersionNumberUtility::getNumericTypo3Version());
+        if ($currentVersion >= 7006000) {
+            $periodPath = 'constraints/lDEF/settings.period/vDEF/0';
+        }
+        $period = ArrayUtility::getValueByPath($flexFormData, $periodPath);
 
         if ($period === 'futureOnly') {
             $class = PeriodFutureDataProvider::class;
@@ -58,8 +73,7 @@ class PeriodDataProviderFactory
             );
         }
 
-        $respectEndDate = (bool)ArrayUtility::getValueByPath($flexFormData,
-            'constraints/lDEF/settings.respectEndDate/vDEF');
+        $respectEndDate = (bool)ArrayUtility::getValueByPath($flexFormData,$respectEndDatePath);
 
         return GeneralUtility::makeInstance($class, $respectEndDate);
     }

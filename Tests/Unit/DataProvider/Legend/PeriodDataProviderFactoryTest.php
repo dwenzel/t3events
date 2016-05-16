@@ -2,6 +2,7 @@
 namespace Webfox\T3events\Tests\Unit\DataProvider\Legend;
 
 use TYPO3\CMS\Core\Tests\UnitTestCase;
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use Webfox\T3events\DataProvider\Legend\PeriodDataProviderFactory;
 use Webfox\T3events\DataProvider\Legend\PeriodFutureDataProvider;
 use Webfox\T3events\DataProvider\Legend\PeriodPastDataProvider;
@@ -88,6 +89,10 @@ class PeriodDataProviderFactoryTest extends UnitTestCase
         ];
         $data = [];
         foreach ($validClasses as $key=>$class) {
+            $periodValue = $key;
+            if (VersionNumberUtility::convertVersionNumberToInteger(VersionNumberUtility::getNumericTypo3Version()) >= 7006000) {
+                $periodValue = [$key];
+            }
             $data[] = [
                 [
                     'row' => [
@@ -96,7 +101,7 @@ class PeriodDataProviderFactoryTest extends UnitTestCase
                                 'constraints' => [
                                     'lDEF' => [
                                         'settings.period' => [
-                                            'vDEF' => [$key]
+                                            'vDEF' => $periodValue
                                         ],
                                         'settings.respectEndDate' => [
                                             'vDEF' => 0
