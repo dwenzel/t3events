@@ -271,11 +271,12 @@ class PerformanceController
 		if ($settings['period'] == 'specific') {
 			$demand->setPeriodType($settings['periodType']);
 		}
-
+        $timeZone = new \DateTimeZone(date_default_timezone_get());
+		$startDate = new \DateTime('midnight', $timeZone);
 		if ($settings['period'] === 'futureOnly'
 			OR $settings['period'] === 'pastOnly'
 		) {
-			$demand->setDate(new \DateTime('midnight'));
+			$demand->setDate($startDate);
 		}
 		if (isset($settings['periodType']) AND $settings['periodType'] != 'byDate') {
 			$demand->setPeriodStart($settings['periodStart']);
@@ -286,10 +287,14 @@ class PerformanceController
 
 		if ($settings['periodType'] == 'byDate') {
 			if ($settings['periodStartDate']) {
-				$demand->setStartDate($settings['periodStartDate']);
+
+				$startDate->setTimestamp((int)$settings['periodStartDate']);
+				$demand->setStartDate($startDate);
 			}
 			if ($settings['periodEndDate']) {
-				$demand->setEndDate($settings['periodEndDate']);
+				$endDate = new  \DateTime('midnight', $timeZone);
+				$endDate->setTimestamp((int)$settings['periodEndDate']);
+                $demand->setEndDate($endDate);
 			}
 		}
 
@@ -304,6 +309,7 @@ class PerformanceController
 	 */
 	public function overwriteDemandObject(&$demand, $overwriteDemand) {
 		if ((bool) $overwriteDemand) {
+            $timeZone = new \DateTimeZone(date_default_timezone_get());
 			foreach ($overwriteDemand as $propertyName => $propertyValue) {
 				switch ($propertyName) {
 					case 'sortBy':
@@ -334,11 +340,9 @@ class PerformanceController
 						$demand->setEventTypes($propertyValue);
 						break;
 					case 'startDate':
-						$timeZone = new \DateTimeZone(date_default_timezone_get());
 						$demand->setStartDate(new \DateTime($propertyValue, $timeZone));
 						break;
 					case 'endDate':
-						$timeZone = new \DateTimeZone(date_default_timezone_get());
 						$demand->setEndDate(new \DateTime($propertyValue, $timeZone));
 						break;
 					case 'sortDirection':

@@ -830,8 +830,11 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 			array('dummy'), array(),'', FALSE);
 		$settings = array(
 			'periodType' => 'byDate',
-			'periodStartDate' => 'foo',
+			'periodStartDate' => '12345',
 		);
+        $timeZone = new \DateTimeZone(date_default_timezone_get());
+		$expectedDate = new \DateTime('midnight', $timeZone);
+        $expectedDate->setTimestamp((int)$settings['periodStartDate']);
 		$mockDemand = $this->getMock('Webfox\\T3events\\Domain\\Model\\Dto\\PerformanceDemand',
 			array(), array(), '', FALSE);
 		$mockObjectManager = $this->getMock('TYPO3\\CMS\\Extbase\\Object\\ObjectManager',
@@ -842,7 +845,7 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$mockObjectManager->expects($this->once())->method('get')
 			->will($this->returnValue($mockDemand));
 		$mockDemand->expects($this->once())->method('setStartDate')
-			->with('foo');
+			->with($expectedDate);
 
 		$fixture->_call('createDemandFromSettings', $settings);
 	}
@@ -856,10 +859,13 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 			array('dummy'), array(),'', FALSE);
 		$settings = array(
 			'periodType' => 'byDate',
-			'periodEndDate' => 'bar',
+			'periodEndDate' => '12345',
 		);
-		$mockDemand = $this->getMock('Webfox\\T3events\\Domain\\Model\\Dto\\PerformanceDemand',
-			array(), array(), '', FALSE);
+        $timeZone = new \DateTimeZone(date_default_timezone_get());
+        $expectedDate = new \DateTime('midnight', $timeZone);
+        $expectedDate->setTimestamp((int)$settings['periodEndDate']);
+        $mockDemand = $this->getMock('Webfox\\T3events\\Domain\\Model\\Dto\\PerformanceDemand',
+			array('setEndDate'), array(), '', FALSE);
 		$mockObjectManager = $this->getMock('TYPO3\\CMS\\Extbase\\Object\\ObjectManager',
 			array('get'), array(), '', FALSE);
 
@@ -868,7 +874,7 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$mockObjectManager->expects($this->once())->method('get')
 			->will($this->returnValue($mockDemand));
 		$mockDemand->expects($this->once())->method('setEndDate')
-			->with('bar');
+			->with($expectedDate);
 
 		$fixture->_call('createDemandFromSettings', $settings);
 	}
