@@ -53,7 +53,16 @@ class PeriodDataProviderFactory
         if ($currentVersion >= 7006000) {
             $periodPath = 'constraints/lDEF/settings.period/vDEF/0';
         }
-        $period = ArrayUtility::getValueByPath($flexFormData, $periodPath);
+
+        $period = false;
+        if (ArrayUtility::isValidPath($flexFormData, $periodPath)) {
+            $period = ArrayUtility::getValueByPath($flexFormData, $periodPath);
+        }
+        $respectEndDate = false;
+        if (ArrayUtility::isValidPath($flexFormData, $respectEndDatePath)) {
+            $respectEndDate = (bool)ArrayUtility::getValueByPath($flexFormData,$respectEndDatePath);
+        };
+
 
         if ($period === 'futureOnly') {
             $class = PeriodFutureDataProvider::class;
@@ -72,8 +81,6 @@ class PeriodDataProviderFactory
                 'Invalid or missing period in flex form data', 1462881906
             );
         }
-
-        $respectEndDate = (bool)ArrayUtility::getValueByPath($flexFormData,$respectEndDatePath);
 
         return GeneralUtility::makeInstance($class, $respectEndDate);
     }
