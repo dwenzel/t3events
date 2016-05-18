@@ -172,5 +172,64 @@ class NotificationTest extends UnitTestCase {
 			$this->subject->getSentAt()
 		);
 	}
+
+	/**
+     * @test
+     */
+    public function getSenderEmailInitiallyReturnsNull()
+    {
+        $this->assertNull(
+            $this->subject->getSenderEmail()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function senderEmailCanBeSet()
+    {
+        $email = 'foo';
+        $this->subject->setSenderEmail($email);
+        $this->assertSame(
+            $email,
+            $this->subject->getSenderEmail()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getSenderNameInitiallyReturnsNull()
+    {
+        $this->assertNull(
+            $this->subject->getSenderName()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getSenderEmailReturnsValueFromLegacyField()
+    {
+        $sender = 'bar';
+        $this->subject->setSender($sender);
+        $this->assertSame(
+            $sender,
+            $this->subject->getSenderEmail()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function senderNameCanBeSet()
+    {
+        $name = 'bar';
+        $this->subject->setSenderName($name);
+        $this->assertSame(
+            $name,
+            $this->subject->getSenderName()
+        );
+    }
 }
 

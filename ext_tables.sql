@@ -717,6 +717,8 @@ CREATE TABLE tx_t3events_domain_model_notification (
 
 	recipient varchar(255) DEFAULT '' NOT NULL,
 	sender varchar(255) DEFAULT '' NOT NULL,
+	sender_email varchar(255) DEFAULT '' NOT NULL,
+	sender_name varchar(255) DEFAULT '' NOT NULL,
 	subject varchar(255) DEFAULT '' NOT NULL,
 	bodytext text NOT NULL,
 	format varchar(255) DEFAULT '' NOT NULL,

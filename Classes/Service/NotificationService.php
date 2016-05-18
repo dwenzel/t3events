@@ -91,7 +91,7 @@ class NotificationService {
 		/** @var $message \TYPO3\CMS\Core\Mail\MailMessage */
 		$message = $this->objectManager->get('TYPO3\\CMS\\Core\\Mail\\MailMessage');
 		$message->setTo($notification->getRecipient())
-			->setFrom($notification->getSender())
+			->setFrom($notification->getSenderEmail(), $notification->getSenderName())
 			->setSubject($notification->getSubject());
 		$mailFormat = ($notification->getFormat() == 'plain') ? 'text/plain' : 'text/html';
 
