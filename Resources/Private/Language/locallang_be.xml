@@ -60,6 +60,7 @@
       <label index="flexforms_general.quick_menu.type.genres">Genres</label>
       <label index="flexforms_general.quick_menu.type.venues">Venues</label>
       <label index="flexforms_general.random">random</label>
+      <label index="flexforms_general.respectEndDate">respect end date</label>
       <label index="flexforms_general.showCalendarNavigation">Show Calendar Navigation</label>
       <label index="flexforms_general.showRadiusSearch">Show Radius Search</label>
       <label index="flexforms_general.showSearchField">Show Search Field</label>
@@ -75,6 +76,9 @@
       <label index="flexforms_general.viewModeComboPane">Combo View</label>
       <label index="flexforms_general.viewModeMiniMonth">Single Month (small)</label>
       <label index="flexforms_tab.settings">Settings</label>
+      <label index="label.end">End</label>
+      <label index="label.now">Now</label>
+      <label index="label.start">Start</label>
     </languageKey>
     <languageKey index="af"/>
     <languageKey index="ar"/>
@@ -135,6 +139,7 @@
       <label index="flexforms_general.quick_menu.type.genres">Genres</label>
       <label index="flexforms_general.quick_menu.type.venues">Einrichtungen</label>
       <label index="flexforms_general.random">zufällig</label>
+      <label index="flexforms_general.respectEndDate">berücksichtige Enddatum</label>
       <label index="flexforms_general.showCalendarNavigation">Zeige Kalendersteuerung</label>
       <label index="flexforms_general.showRadiusSearch">Zeige Umkreisssuche</label>
       <label index="flexforms_general.showSearchField">Zeige Suchfeld</label>
@@ -150,6 +155,9 @@
       <label index="flexforms_general.viewModeComboPane">kombiniert</label>
       <label index="flexforms_general.viewModeMiniMonth">Monat (klein)</label>
       <label index="flexforms_tab.settings">Einstellungen</label>
+      <label index="label.end">Ende</label>
+      <label index="label.now">Jetzt</label>
+      <label index="label.start">Beginn</label>
     </languageKey>
     <languageKey index="el"/>
     <languageKey index="eo"/>

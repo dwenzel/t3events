@@ -45,6 +45,11 @@ trait PeriodAwareDemandTrait {
 	protected $endDate;
 
 	/**
+	 * @var bool
+	 */
+	protected $respectEndDate = false;
+
+	/**
 	 * @return \string The time limit for the demand
 	 */
 	public function getPeriod() {
@@ -151,5 +156,21 @@ trait PeriodAwareDemandTrait {
 	 */
 	public function setEndDate($date) {
 		$this->endDate = $date;
+	}
+
+	/**
+	 * @return boolean
+	 */
+	public function isRespectEndDate()
+	{
+		return $this->respectEndDate;
+	}
+
+	/**
+	 * @param boolean $respectEndDate
+	 */
+	public function setRespectEndDate($respectEndDate)
+	{
+		$this->respectEndDate = $respectEndDate;
 	}
 }

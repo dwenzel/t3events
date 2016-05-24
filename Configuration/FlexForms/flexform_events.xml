@@ -343,6 +343,25 @@
 							</config>
 						</TCEforms>
 					</settings.period>
+					<legend>
+						<TCEforms>
+							<label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.legendPeriodConstraints</label>
+							<config>
+								<type>user</type>
+                                <userFunc>Webfox\T3events\Configuration\PeriodConstraintLegend->render</userFunc>
+							</config>
+						</TCEforms>
+					</legend>
+					<settings.respectEndDate>
+						<TCEforms>
+							<label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.respectEndDate</label>
+							<displayCond>FIELD:settings.period:!=:all</displayCond>
+							<onChange>reload</onChange>
+							<config>
+								<type>check</type>
+							</config>
+						</TCEforms>
+					</settings.respectEndDate>
 
 					<settings.periodType>
 						<TCEforms>
