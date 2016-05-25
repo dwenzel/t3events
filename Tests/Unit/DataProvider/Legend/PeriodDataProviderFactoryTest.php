@@ -3,6 +3,7 @@ namespace Webfox\T3events\Tests\Unit\DataProvider\Legend;
 
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
+use Webfox\T3events\DataProvider\Legend\PeriodAllDataProvider;
 use Webfox\T3events\DataProvider\Legend\PeriodDataProviderFactory;
 use Webfox\T3events\DataProvider\Legend\PeriodFutureDataProvider;
 use Webfox\T3events\DataProvider\Legend\PeriodPastDataProvider;
@@ -86,6 +87,7 @@ class PeriodDataProviderFactoryTest extends UnitTestCase
             'futureOnly' => PeriodFutureDataProvider::class,
             'pastOnly' => PeriodPastDataProvider::class,
             'specific' => PeriodSpecificDataProvider::class,
+            'all' => PeriodAllDataProvider::class,
         ];
         $data = [];
         foreach ($validClasses as $key=>$class) {
