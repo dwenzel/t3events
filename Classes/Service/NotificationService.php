@@ -1,6 +1,7 @@
 <?php
 namespace Webfox\T3events\Service;
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 
 /**
@@ -44,6 +45,7 @@ class NotificationService {
 		$templateView = $this->buildTemplateView($templateName, $format, $folderName);
 		$templateView->assignMultiple($variables);
 		$body = $templateView->render();
+        $recipient = GeneralUtility::trimExplode(',', $recipient, true);
 
 		/** @var $message \TYPO3\CMS\Core\Mail\MailMessage */
 		$message = $this->objectManager->get('TYPO3\\CMS\\Core\\Mail\\MailMessage');
@@ -90,7 +92,9 @@ class NotificationService {
 	public function send(&$notification) {
 		/** @var $message \TYPO3\CMS\Core\Mail\MailMessage */
 		$message = $this->objectManager->get('TYPO3\\CMS\\Core\\Mail\\MailMessage');
-		$message->setTo($notification->getRecipient())
+		$recipients = GeneralUtility::trimExplode(',', $notification->getRecipient(), true);
+
+		$message->setTo($recipients)
 			->setFrom($notification->getSenderEmail(), $notification->getSenderName())
 			->setSubject($notification->getSubject());
 		$mailFormat = ($notification->getFormat() == 'plain') ? 'text/plain' : 'text/html';
