@@ -119,7 +119,7 @@ class SettingsUtility implements SingletonInterface {
 	/**
 	 * Gets a settings key for a controller
 	 *
-	 * @param ControllerInterface $controller
+	 * @param object $controller
 	 * @return string
 	 */
 	public function getControllerKey($controller) {

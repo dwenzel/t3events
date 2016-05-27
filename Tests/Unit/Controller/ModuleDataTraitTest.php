@@ -105,6 +105,10 @@ class ModuleDataTraitTest extends UnitTestCase {
             ->method('persistModuleData')
             ->with($mockModuleData, $moduleKey);
 
+        $this->subject->expects($this->once())
+            ->method('forward')
+            ->with('list');
+
         $this->subject->resetAction();
     }
 }
