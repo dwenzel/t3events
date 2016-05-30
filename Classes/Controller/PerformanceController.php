@@ -36,7 +36,7 @@ use Webfox\T3events\Session\Typo3Session;
 class PerformanceController
 	extends AbstractController
 	implements FilterableControllerInterface {
-	use FilterableControllerTrait;
+	use FilterableControllerTrait, SessionTrait;
 
 	const PERFORMANCE_LIST_ACTION = 'listAction';
 	const PERFORMANCE_QUICK_MENU_ACTION = 'quickMenuAction';
@@ -77,16 +77,19 @@ class PerformanceController
 	protected $categoryRepository;
 
 	/**
-	 * @var \Webfox\T3events\Session\SessionInterface
-	 */
-	protected $session;
-
-	/**
 	 * TYPO3 Content Object
 	 *
 	 * @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
 	 */
 	protected $contentObject;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->namespace = get_class($this);
+    }
 
 	/**
 	 * injectPerformanceRepository
@@ -143,7 +146,6 @@ class PerformanceController
 	 */
 	public function initializeAction() {
 		$this->contentObject = $this->configurationManager->getContentObject();
-		$this->session = $this->objectManager->get(Typo3Session::class, self::SESSION_NAME_SPACE);
 		if ($this->request->hasArgument('overwriteDemand')) {
 			$this->session->set(
 				'tx_t3events_overwriteDemand',

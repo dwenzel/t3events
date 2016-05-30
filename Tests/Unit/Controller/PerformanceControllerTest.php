@@ -176,18 +176,7 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	/**
 	 * @test
 	 */
-	public function initializeActionsSetsContentObjectAndSession() {
-		$mockSession = $this->getMock(
-			Typo3Session::class, [], [], '', false
-		);
-		$mockObjectManager = $this->getMock(
-			ObjectManager::class
-		);
-		$mockObjectManager->expects($this->once())
-			->method('get')
-			->with(Typo3Session::class)
-			->will($this->returnValue($mockSession));
-		$this->fixture->_set('objectManager', $mockObjectManager);
+	public function initializeActionsSetsContentObject() {
 		$configurationManager = $this->getMock(
 			ConfigurationManagerInterface::class,
 			['getContentObject', 'setContentObject', 'getConfiguration',
@@ -207,11 +196,6 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$overwriteDemand = ['foo'];
 		$mockSession = $this->fixture->_get('session');
 		$mockRequest = $this->fixture->_get('request');
-		$mockObjectManager = $this->fixture->_get('objectManager');
-		$mockObjectManager->expects($this->once())
-			->method('get')
-			->with(Typo3Session::class)
-			->will($this->returnValue($mockSession));
 		$mockRequest->expects($this->once())
 			->method('hasArgument')
 			->will($this->returnValue(true));
@@ -1390,6 +1374,19 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 			->with(1);
 
 		$fixture->_call('createDemandFromSettings', $settings);
+	}
+
+	/**
+	 * @test
+	 */
+	public function constructorSetsNameSpace()
+	{
+		$this->fixture->__construct();
+		$this->assertAttributeSame(
+			get_class($this->fixture),
+			'namespace',
+			$this->fixture
+		);
 	}
 }
 
