@@ -61,7 +61,7 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$view = $this->getMock(
 			TemplateView::class, ['assign', 'assignMultiple'], [], '', FALSE);
 		$mockSession = $this->getMock(
-			SessionInterface::class, ['has', 'get', 'clean', 'set']
+			SessionInterface::class, ['has', 'get', 'clean', 'set', 'setNamespace']
 		);
 		$mockContentObject = $this->getMock(
 			ContentObjectRenderer::class
@@ -1266,7 +1266,7 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	public function quickMenuActionGetsOverwriteDemandFromSession() {
 		$this->injectMockRepositories(['findMultipleByUid', 'findAll']);
 		$mockSession = $this->getMock(
-			SessionInterface::class, ['get', 'set', 'has', 'clean']
+			SessionInterface::class, ['get', 'set', 'has', 'clean', 'setNamespace']
 		);
 		$mockSession->expects($this->once())
 			->method('get');
