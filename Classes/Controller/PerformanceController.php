@@ -19,6 +19,7 @@ namespace Webfox\T3events\Controller;
  *  GNU General Public License for more details.
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 use Webfox\T3events\Domain\Model\Dto\PerformanceDemand;
 use Webfox\T3events\Domain\Model\Performance;
@@ -34,10 +35,10 @@ use Webfox\T3events\Domain\Repository\VenueRepository;
  * @package Webfox\T3events\Controller
  */
 class PerformanceController
-    extends AbstractController
+    extends ActionController
     implements FilterableControllerInterface
 {
-    use FilterableControllerTrait, SessionTrait;
+    use FilterableControllerTrait, SessionTrait, EntityNotFoundHandlerTrait, SearchTrait, TranslateTrait;
 
     const PERFORMANCE_LIST_ACTION = 'listAction';
     const PERFORMANCE_QUICK_MENU_ACTION = 'quickMenuAction';
