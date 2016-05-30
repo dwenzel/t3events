@@ -189,9 +189,9 @@ class EntityNotFoundHandlerTraitTest extends UnitTestCase
 
     /**
      * @test
-     * @covers ::handleEntityNotFoundError
      */
-    public function handleEntityNotFoundErrorRedirectsIfSignalSetsRedirect() {
+    public function handleEntityNotFoundErrorRedirectsIfSignalSetsRedirect()
+    {
         $mockRequest = $this->getMock(
             Request::class
         );
@@ -226,7 +226,7 @@ class EntityNotFoundHandlerTraitTest extends UnitTestCase
             )
             ->will($this->returnValue($slotResult));
         $this->inject($this->subject, 'signalSlotDispatcher', $mockDispatcher);
-        $this->inject($this->subject,'request', $mockRequest);
+        $this->inject($this->subject, 'request', $mockRequest);
         $this->subject->expects($this->once())
             ->method('redirect')
             ->with(
