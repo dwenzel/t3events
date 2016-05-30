@@ -16,7 +16,6 @@ use TYPO3\CMS\Extbase\Mvc\RequestInterface;
 use TYPO3\CMS\Extbase\Mvc\ResponseInterface;
 use TYPO3\CMS\Extbase\Property\Exception as PropertyException;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
-use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use Webfox\T3events\Domain\Model\Dto\DemandInterface;
 use Webfox\T3events\Domain\Model\Dto\EventDemand;
 use Webfox\T3events\Domain\Model\Dto\EventTypeAwareDemandInterface;
@@ -31,7 +30,7 @@ use Webfox\T3events\Domain\Model\Dto\SearchAwareDemandInterface;
  */
 class AbstractController extends ActionController
 {
-    use SettingsUtilityTrait, EntityNotFoundHandlerTrait;
+    use SettingsUtilityTrait, EntityNotFoundHandlerTrait, TranslateTrait;
 
     /**
      * Request Arguments
@@ -204,24 +203,5 @@ class AbstractController extends ActionController
         }
 
         return $searchObject;
-    }
-
-    /**
-     * Translate a given key
-     *
-     * @param string $key
-     * @param string $extension
-     * @param array $arguments
-     * @codeCoverageIgnore
-     * @return string
-     */
-    public function translate($key, $extension = 't3events', $arguments = null)
-    {
-        $translatedString = LocalizationUtility::translate($key, $extension, $arguments);
-        if (is_null($translatedString)) {
-            return $key;
-        } else {
-            return $translatedString;
-        }
     }
 }
