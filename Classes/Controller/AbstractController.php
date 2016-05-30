@@ -13,8 +13,8 @@ namespace Webfox\T3events\Controller;
 use TYPO3\CMS\Extbase\Mvc\Request;
 use TYPO3\CMS\Extbase\Mvc\RequestInterface;
 use TYPO3\CMS\Extbase\Mvc\ResponseInterface;
-use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 use TYPO3\CMS\Extbase\Property\Exception as PropertyException;
+use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 use Webfox\T3events\Domain\Model\Dto\DemandInterface;
 use Webfox\T3events\Domain\Model\Dto\EventDemand;
 use Webfox\T3events\Domain\Model\Dto\EventTypeAwareDemandInterface;
@@ -26,7 +26,7 @@ use Webfox\T3events\Domain\Model\Dto\SearchAwareDemandInterface;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
 class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
-	use SettingsUtilityTrait;
+	use SettingsUtilityTrait, EntityNotFoundHandlerTrait;
 	const HANDLE_ENTITY_NOT_FOUND_ERROR = 'handleEntityNotFoundError';
 
 	/**
@@ -41,11 +41,6 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	 * @var \array
 	 */
 	protected $referrerArguments = array();
-
-	/**
-	 * @var string
-	 */
-	protected $entityNotFoundMessage = 'The requested entity could not be found';
 
 	/**
 	 * @var string
@@ -120,77 +115,6 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 				}
 			}
 			throw $exception;
-		}
-	}
-
-	/**
-	 * Error handling if requested entity is not found
-	 *
-	 * @param \string $configuration Configuration for handling
-	 */
-	public function handleEntityNotFoundError($configuration) {
-		if (empty($configuration)) {
-			return;
-		}
-		$configuration = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $configuration);
-		switch ($configuration[0]) {
-			case 'redirectToListView':
-				$this->redirect('list');
-				break;
-			case 'redirectToPage':
-				if (count($configuration) === 1 || count($configuration) > 3) {
-					$msg = sprintf('If error handling "%s" is used, either 2 or 3 arguments, splitted by "," must be used', $configuration[0]);
-					throw new \InvalidArgumentException($msg);
-				}
-				$this->uriBuilder->reset();
-				$this->uriBuilder->setTargetPageUid($configuration[1]);
-				$this->uriBuilder->setCreateAbsoluteUri(TRUE);
-				if (\TYPO3\CMS\Core\Utility\GeneralUtility::getIndpEnv('TYPO3_SSL')) {
-					$this->uriBuilder->setAbsoluteUriScheme('https');
-				}
-				$url = $this->uriBuilder->build();
-				if (isset($configuration[2])) {
-					$this->redirectToUri($url, 0, (int) $configuration[2]);
-				} else {
-					$this->redirectToUri($url);
-				}
-				break;
-			case 'pageNotFoundHandler':
-				$GLOBALS['TSFE']->pageNotFoundAndExit($this->entityNotFoundMessage);
-				break;
-			default:
-				$params = [
-					'config' => $configuration,
-					'requestArguments' => $this->request->getArguments(),
-                    'actionName' => $this->request->getControllerActionName()
-				];
-				$this->emitSignal(
-					get_class($this),
-					self::HANDLE_ENTITY_NOT_FOUND_ERROR,
-					$params
-				);
-				if (isset($params['redirectUri'])) {
-					$this->redirectToUri($params['redirectUri']);
-				}
-				if (isset($params['redirect'])) {
-					$this->redirect(
-						$params['redirect']['actionName'],
-						$params['redirect']['controllerName'],
-						$params['redirect']['extensionName'],
-						$params['redirect']['arguments'],
-						$params['redirect']['pageUid'],
-						$params['redirect']['delay'],
-						$params['redirect']['statusCode']
-					);
-				}
-				if (isset($params['forward'])) {
-                    $this->forward(
-                        $params['forward']['actionName'],
-                        $params['forward']['controllerName'],
-                        $params['forward']['extensionName'],
-                        $params['forward']['arguments']
-                    );
-                }
 		}
 	}
 
@@ -290,23 +214,4 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 		}
 	}
 
-	/**
-	 * Emits signals
-	 *
-	 * @param string $class Name of the signaling class
-	 * @param string $name Signal name
-	 * @param array $arguments Signal arguments
-	 * @codeCoverageIgnore
-	 * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException
-	 * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
-	 */
-	protected function emitSignal($class, $name, array &$arguments) {
-		/**
-		 * Wrap arguments into array in order to allow changing the arguments
-		 * count. Dispatcher throws InvalidSlotReturnException if slotResult count
-		 * differs.
-		 */
-		$slotResult = $this->signalSlotDispatcher->dispatch($class, $name, [$arguments]);
-		$arguments = $slotResult[0];
-	}
 }
