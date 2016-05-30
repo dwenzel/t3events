@@ -11,10 +11,6 @@ namespace Webfox\T3events\Controller;
  * The TYPO3 project - inspiring people to share!
  */
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
-use TYPO3\CMS\Extbase\Mvc\Request;
-use TYPO3\CMS\Extbase\Mvc\RequestInterface;
-use TYPO3\CMS\Extbase\Mvc\ResponseInterface;
-use TYPO3\CMS\Extbase\Property\Exception as PropertyException;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 use Webfox\T3events\Domain\Model\Dto\DemandInterface;
 use Webfox\T3events\Domain\Model\Dto\EventDemand;
@@ -93,35 +89,6 @@ class AbstractController extends ActionController
             $this->referrerArguments = $this->request->getArgument('referrerArguments');
         } else {
             $this->referrerArguments = [];
-        }
-    }
-
-    /**
-     * @param \TYPO3\CMS\Extbase\Mvc\RequestInterface $request
-     * @param \TYPO3\CMS\Extbase\Mvc\ResponseInterface $response
-     * @return void
-     * @throws \Exception
-     * @override \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
-     */
-    public function processRequest(RequestInterface $request, ResponseInterface $response)
-    {
-        try {
-            parent::processRequest($request, $response);
-        } catch (\Exception $exception) {
-            if (
-                ($exception instanceof PropertyException\TargetNotFoundException)
-                || ($exception instanceof PropertyException\InvalidSourceException)
-            ) {
-                if ($request instanceof Request) {
-                    $controllerName = lcfirst($request->getControllerName());
-                    $actionName = $request->getControllerActionName();
-                    if (isset($this->settings[$controllerName][$actionName]['errorHandling'])) {
-                        $configuration = $this->settings[$controllerName][$actionName]['errorHandling'];
-                        $this->handleEntityNotFoundError($configuration);
-                    }
-                }
-            }
-            throw $exception;
         }
     }
 

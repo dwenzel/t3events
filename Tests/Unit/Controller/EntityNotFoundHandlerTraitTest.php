@@ -3,10 +3,42 @@ namespace Webfox\T3events\Tests\Controller;
 
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\Request;
 use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use Webfox\T3events\Controller\EntityNotFoundHandlerTrait;
+use TYPO3\CMS\Extbase\Property\Exception\TargetNotFoundException;
+use TYPO3\CMS\Extbase\Mvc\RequestInterface;
+use TYPO3\CMS\Extbase\Mvc\ResponseInterface;
+
+/**
+ * Class DummyParent
+ *
+ * @package Webfox\T3events\Tests\Controller
+ */
+class DummyParent extends ActionController{
+    /**
+     * @param \TYPO3\CMS\Extbase\Mvc\RequestInterface $request
+     * @param \TYPO3\CMS\Extbase\Mvc\ResponseInterface $response
+     * @return void
+     * @throws \Exception
+     * @override \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+     */
+    public function processRequest(RequestInterface $request, ResponseInterface $response)
+    {
+        throw new TargetNotFoundException('foo', 1464634137);
+    }
+}
+
+/**
+ * Class DummyEntityNotFoundHandlerController
+ *
+ * @package Webfox\T3events\Tests\Controller
+ */
+class DummyEntityNotFoundHandlerController extends DummyParent {
+    use EntityNotFoundHandlerTrait;
+}
 
 /***************************************************************
  *  Copyright notice
@@ -239,5 +271,48 @@ class EntityNotFoundHandlerTraitTest extends UnitTestCase
                 $slotResult[0]['redirect']['statusCode']
             );
         $this->subject->handleEntityNotFoundError($config);
+    }
+
+    /**
+     * @test
+     * @expectedException \TYPO3\CMS\Extbase\Property\Exception\TargetNotFoundException
+     * @expectedExceptionCode 1464634137
+     */
+    public function processRequestCallsEntityNotFoundHandler()
+    {
+        $errorHandlingConfig = 'fooHandling';
+        $controllerName = 'foo';
+        $actionName = 'bar';
+        $settings = [
+            $controllerName => [
+                $actionName => [
+                    'errorHandling' => $errorHandlingConfig
+                ]
+            ]
+        ];
+
+        /** @var DummyEntityNotFoundHandlerController $subject */
+        $subject = $this->getAccessibleMock(
+            DummyEntityNotFoundHandlerController::class, ['handleEntityNotFoundError']
+        );
+        $subject->_set('settings', $settings);
+        $mockResponse = $this->getMock(
+            ResponseInterface::class
+        );
+        $mockRequest = $this->getMock(
+            Request::class, ['getControllerName', 'getControllerActionName']
+        );
+        $mockRequest->expects($this->once())
+            ->method('getControllerName')
+            ->will($this->returnValue($controllerName));
+        $mockRequest->expects($this->once())
+            ->method('getControllerActionName')
+            ->will($this->returnValue($actionName));
+
+        $subject->expects($this->once())
+            ->method('handleEntityNotFoundError')
+            ->with($errorHandlingConfig);
+
+        $subject->processRequest($mockRequest, $mockResponse);
     }
 }

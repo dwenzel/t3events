@@ -3,6 +3,10 @@ namespace Webfox\T3events\Controller;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
+use TYPO3\CMS\Extbase\Mvc\Request;
+use TYPO3\CMS\Extbase\Mvc\RequestInterface;
+use TYPO3\CMS\Extbase\Mvc\ResponseInterface;
+use TYPO3\CMS\Extbase\Property\Exception as PropertyException;
 
 /**
  * Class EntityNotFoundHandlerTrait
@@ -31,6 +35,11 @@ trait EntityNotFoundHandlerTrait
      * @var \TYPO3\CMS\Extbase\Mvc\Request
      */
     protected $request;
+
+    /**
+     * @var array
+     */
+    protected $settings;
 
     /**
      * Forwards the request to another action and / or controller.
@@ -155,6 +164,35 @@ trait EntityNotFoundHandlerTrait
                         $params['forward']['arguments']
                     );
                 }
+        }
+    }
+
+    /**
+     * @param \TYPO3\CMS\Extbase\Mvc\RequestInterface $request
+     * @param \TYPO3\CMS\Extbase\Mvc\ResponseInterface $response
+     * @return void
+     * @throws \Exception
+     * @override \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+     */
+    public function processRequest(RequestInterface $request, ResponseInterface $response)
+    {
+        try {
+            parent::processRequest($request, $response);
+        } catch (\Exception $exception) {
+            if (
+                ($exception instanceof PropertyException\TargetNotFoundException)
+                || ($exception instanceof PropertyException\InvalidSourceException)
+            ) {
+                if ($request instanceof Request) {
+                    $controllerName = lcfirst($request->getControllerName());
+                    $actionName = $request->getControllerActionName();
+                    if (isset($this->settings[$controllerName][$actionName]['errorHandling'])) {
+                        $configuration = $this->settings[$controllerName][$actionName]['errorHandling'];
+                        $this->handleEntityNotFoundError($configuration);
+                    }
+                }
+            }
+            throw $exception;
         }
     }
 }
