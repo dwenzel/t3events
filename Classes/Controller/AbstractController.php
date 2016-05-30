@@ -20,13 +20,13 @@ use Webfox\T3events\Domain\Model\Dto\EventDemand;
 use Webfox\T3events\Domain\Model\Dto\EventTypeAwareDemandInterface;
 use Webfox\T3events\Domain\Model\Dto\GenreAwareDemandInterface;
 use Webfox\T3events\Domain\Model\Dto\SearchAwareDemandInterface;
-use Webfox\T3events\Utility\SettingsUtility;
 
 /**
  * @package t3evetns
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
 class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
+	use SettingsUtilityTrait;
 	const HANDLE_ENTITY_NOT_FOUND_ERROR = 'handleEntityNotFoundError';
 
 	/**
@@ -46,11 +46,6 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	 * @var string
 	 */
 	protected $entityNotFoundMessage = 'The requested entity could not be found';
-
-	/**
-	 * @var \Webfox\T3events\Utility\SettingsUtility
-	 */
-	protected $settingsUtility;
 
 	/**
 	 * @var string
@@ -98,15 +93,6 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 		} else {
 			$this->referrerArguments = array();
 		}
-	}
-
-	/**
-	 * injects the settings utility
-	 *
-	 * @param SettingsUtility $settingsUtility
-	 */
-	public function injectSettingsUtility(SettingsUtility $settingsUtility) {
-		$this->settingsUtility = $settingsUtility;
 	}
 
 	/**

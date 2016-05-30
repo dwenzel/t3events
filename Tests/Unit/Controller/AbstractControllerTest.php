@@ -46,29 +46,6 @@ class AbstractControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$this->fixture->_set('objectManager', $objectManager);
 	}
 
-	protected function mockSettingsUtility() {
-		$mockSettingsUtility = $this->getMock(
-			SettingsUtility::class, ['getValueByKey']
-		);
-		$this->fixture->injectSettingsUtility($mockSettingsUtility);
-
-		return $mockSettingsUtility;
-	}
-
-	/**
-	 * @test
-	 */
-	public function injectSettingsUtilitySetsObject() {
-		$object = new SettingsUtility();
-		$this->fixture->injectSettingsUtility($object);
-
-		$this->assertAttributeEquals(
-			$object,
-			'settingsUtility',
-			$this->fixture
-		);
-	}
-
 	/**
 	 * @test
 	 * @covers ::handleEntityNotFoundError
