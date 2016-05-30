@@ -47,23 +47,6 @@ class AbstractControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 	/**
 	 * @test
-	 */
-	public function invalidHandleEntityNotFoundErrorConfigurationReturnsNull() {
-		$this->markTestSkipped();
-		$this->fixture = $this->getAccessibleMock(
-			AbstractController::class, ['emitSignal'], [], '', false);
-
-		$mockRequest = $this->getMock(
-			Request::class
-		);
-
-		$this->fixture->_set('request', $mockRequest);
-		$result = $this->fixture->_call('handleEntityNotFoundError', 'baz');
-		$this->assertNull($result);
-	}
-
-	/**
-	 * @test
 	 * @covers ::initializeAction
 	 */
 	public function initializeActionSetsRequestAndReferrerArguments() {
