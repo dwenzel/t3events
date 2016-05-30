@@ -118,7 +118,7 @@ trait EntityNotFoundHandlerTrait
                 $this->uriBuilder->reset();
                 $this->uriBuilder->setTargetPageUid($configuration[1]);
                 $this->uriBuilder->setCreateAbsoluteUri(TRUE);
-                if (GeneralUtility::getIndpEnv('TYPO3_SSL')) {
+                if ($this->isSSLEnabled()) {
                     $this->uriBuilder->setAbsoluteUriScheme('https');
                 }
                 $url = $this->uriBuilder->build();
@@ -194,5 +194,17 @@ trait EntityNotFoundHandlerTrait
             }
             throw $exception;
         }
+    }
+
+    /**
+     * Tells if TYPO3 SSL is enabled
+     *
+     * Wrapper method for static call
+     *
+     * @return bool
+     */
+    protected function isSSLEnabled()
+    {
+        return GeneralUtility::getIndpEnv('TYPO3_SSL');
     }
 }
