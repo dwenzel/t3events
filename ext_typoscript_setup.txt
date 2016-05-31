@@ -33,4 +33,20 @@ config.tx_extbase {
 	}
 }
 
+config.tx_extbase {
+    objects {
+        Webfox\T3events\Session\SessionInterface {
+            className = Webfox\T3events\Session\Typo3BackendSession
+        }
+    }
+}
+[globalString = TSFE:fe_user|loginType = FE]
+    config.tx_extbase {
+        objects {
+            Webfox\T3events\Session\SessionInterface {
+                className = Webfox\T3events\Session\Typo3Session
+            }
+        }
+    }
+
 

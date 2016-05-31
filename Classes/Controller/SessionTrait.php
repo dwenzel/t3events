@@ -24,7 +24,7 @@ trait SessionTrait
     protected $namespace;
 
     /**
-     * @param SessionInterface $session
+     * @param \Webfox\T3events\Session\SessionInterface $session
      */
     public function injectSession(SessionInterface $session)
     {
