@@ -5,6 +5,7 @@ use TYPO3\CMS\Core\Localization\Exception\FileNotFoundException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Lang\LanguageService;
 use Webfox\T3events\DataProvider\Legend\LayeredLegendDataProviderInterface;
+use Webfox\T3events\DataProvider\Legend\PeriodAllDataProvider;
 use Webfox\T3events\DataProvider\Legend\PeriodDataProviderFactory;
 use Webfox\T3events\DataProvider\Legend\PeriodFutureDataProvider;
 use Webfox\T3events\DataProvider\Legend\PeriodPastDataProvider;
@@ -112,6 +113,7 @@ class PeriodConstraintLegend extends VectorImage
 
         if ($this->dataProvider instanceof PeriodFutureDataProvider
             || $this->dataProvider instanceof PeriodPastDataProvider
+            || $this->dataProvider instanceof PeriodAllDataProvider
         ) {
             $startPointKey = 'label.now';
         }

@@ -76,6 +76,10 @@ class PeriodDataProviderFactory
             $class = PeriodSpecificDataProvider::class;
         }
 
+        if ($period === 'all') {
+            $class = PeriodAllDataProvider::class;
+        }
+
         if (!isset($class)) {
             throw new InvalidConfigurationException(
                 'Invalid or missing period in flex form data', 1462881906

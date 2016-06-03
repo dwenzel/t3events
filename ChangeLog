@@ -1,3 +1,9 @@
+2016-06-03         [RELEASE] Release of t3events 0.23.0 (Dirk Wenzel)
+2016-05-27 020500b [TASK] visibility_matrix.ods added (Dirk Wenzel)
+2016-05-26 e32e4ea [TASK] validation for email address removed from Notification->recipient (Dirk Wenzel)
+2016-05-26 00e5ab1 [TASK] NotificationService now handles comma separated lists of recipients too. (Dirk Wenzel)
+2016-05-25 7defa1d [TASK] PeriodConstraintLegend now shows a legend for period 'all' too. PeriodAllDataProvider implemented, PeriodDataProviderFactory extended. closes #41 (Dirk Wenzel)
+
 2016-05-24         [RELEASE] Release of t3events 0.22.0 (Dirk Wenzel)
 2016-05-19 2d686e2 [TASK] branch alias dev-develop added. (Dirk Wenzel)
 2016-05-19 f4b482a [TASK] branch alias 'dev-master' removed from composer configuration (Dirk Wenzel)

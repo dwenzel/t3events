@@ -29,7 +29,6 @@ class Notification extends AbstractEntity {
 
 	/**
 	 * @var string $recipient
-	 * @validate EmailAddress
 	 */
 	protected $recipient;
 
