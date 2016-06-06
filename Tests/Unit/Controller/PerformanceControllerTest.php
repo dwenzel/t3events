@@ -36,6 +36,7 @@ use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 use Webfox\T3events\Session\Typo3Session;
+use Webfox\T3events\Utility\SettingsUtility;
 
 /**
  * Test case for class \Webfox\T3events\Controller\PerformanceController.
@@ -964,6 +965,7 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test ::overwriteDemandObject
 	 */
 	public function overwriteDemandObjectSetsSearch() {
+        $this->mockSettingsUtility();
 		$fieldNames = 'foo,bar';
 		$search = 'baz';
 		$settings = [
@@ -1388,5 +1390,16 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 			$this->fixture
 		);
 	}
+
+    protected function mockSettingsUtility()
+    {
+        $mockSettingsUtility = $this->getMock(
+            SettingsUtility::class, ['getControllerKey']
+        );
+        $this->fixture->injectSettingsUtility($mockSettingsUtility);
+        $mockSettingsUtility->expects($this->any())
+            ->method('getControllerKey')
+            ->will($this->returnValue('performance'));
+    }
 }
 
