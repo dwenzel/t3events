@@ -11,12 +11,6 @@ namespace Webfox\T3events\Controller;
  * The TYPO3 project - inspiring people to share!
  */
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
-use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
-use Webfox\T3events\Domain\Model\Dto\DemandInterface;
-use Webfox\T3events\Domain\Model\Dto\EventDemand;
-use Webfox\T3events\Domain\Model\Dto\EventTypeAwareDemandInterface;
-use Webfox\T3events\Domain\Model\Dto\GenreAwareDemandInterface;
-use Webfox\T3events\Domain\Model\Dto\SearchAwareDemandInterface;
 
 /**
  * Class AbstractController
@@ -26,7 +20,8 @@ use Webfox\T3events\Domain\Model\Dto\SearchAwareDemandInterface;
  */
 class AbstractController extends ActionController
 {
-    use SettingsUtilityTrait, EntityNotFoundHandlerTrait, TranslateTrait, SearchTrait;
+    use SettingsUtilityTrait, EntityNotFoundHandlerTrait, TranslateTrait,
+        SearchTrait, DemandTrait;
 
     /**
      * Request Arguments
@@ -92,60 +87,5 @@ class AbstractController extends ActionController
         }
     }
 
-    /**
-     * @param DemandInterface $demand
-     * @param array $overwriteDemand
-     */
-    public function overwriteDemandObject(&$demand, $overwriteDemand)
-    {
-        if ((bool)$overwriteDemand) {
-            foreach ($overwriteDemand as $propertyName => $propertyValue) {
-                switch ($propertyName) {
-                    case 'sortBy':
-                        $orderings = $propertyValue;
-                        if (isset($overwriteDemand['sortDirection'])) {
-                            $orderings .= '|' . $overwriteDemand['sortDirection'];
-                        }
-                        $demand->setOrder($orderings);
-                        $demand->setSortBy($overwriteDemand['sortBy']);
-                        break;
-                    case 'search':
-                        if ($demand instanceof SearchAwareDemandInterface) {
-                            $controllerKey = $this->settingsUtility->getControllerKey($this);
-                            $searchObj = $this->createSearchObject(
-                                $propertyValue,
-                                $this->settings[$controllerKey]['search']
-                            );
-                            $demand->setSearch($searchObj);
-                        }
-                        break;
-                    case 'genres':
-                        if ($demand instanceof EventDemand) {
-                            $demand->setGenre($propertyValue);
-                        }
-                        if ($demand instanceof GenreAwareDemandInterface) {
-                            $demand->setGenres($propertyValue);
-                        }
-                        break;
-                    case 'eventTypes':
-                        if ($demand instanceof EventDemand) {
-                            $demand->setEventType($propertyValue);
-                        }
-                        if ($demand instanceof EventTypeAwareDemandInterface) {
-                            $demand->setEventTypes($propertyValue);
-                        }
-                        break;
-                    case 'sortDirection':
-                        if ($propertyValue !== 'desc') {
-                            $propertyValue = 'asc';
-                        }
-                    // fall through to default
-                    default:
-                        if (ObjectAccess::isPropertySettable($demand, $propertyName)) {
-                            ObjectAccess::setProperty($demand, $propertyName, $propertyValue);
-                        }
-                }
-            }
-        }
-    }
+
 }
