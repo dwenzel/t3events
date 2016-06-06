@@ -35,6 +35,7 @@ class PerformanceDemand
 	extends AbstractDemand
 	implements DemandInterface, PeriodAwareDemandInterface,
 	SearchAwareDemandInterface, StatusAwareDemandInterface,
+	EventLocationAwareDemandInterface,
 	CategoryAwareDemandInterface {
 	use PeriodAwareDemandTrait, SearchAwareDemandTrait,
 		CategoryAwareDemandTrait;
@@ -42,6 +43,7 @@ class PerformanceDemand
 	const END_DATE_FIELD = 'endDate';
 	const STATUS_FIELD = 'status';
 	const CATEGORY_FIELD = 'event.categories';
+	const EVENT_LOCATION_FIELD = 'eventLocation';
 
 	/**
 	 * A single status
@@ -249,5 +251,13 @@ class PerformanceDemand
 	 */
 	public function setExcludeSelectedStatuses($excludeSelectedStatuses) {
 		$this->excludeSelectedStatuses = $excludeSelectedStatuses;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getEventLocationField()
+	{
+		return self::EVENT_LOCATION_FIELD;
 	}
 }

@@ -82,7 +82,8 @@ class PeriodConstraintRepositoryTraitTest extends UnitTestCase
                 'getStartDateField',
                 'getEndDateField',
                 'isRespectEndDate',
-                'setRespectEndDate'
+                'setRespectEndDate',
+                'setStartDate'
             ]
         );
     }
