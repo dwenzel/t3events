@@ -40,7 +40,7 @@ class PerformanceController
 {
     use FilterableControllerTrait, SessionTrait,
         SettingsUtilityTrait,
-        EntityNotFoundHandlerTrait, SearchTrait, TranslateTrait;
+        EntityNotFoundHandlerTrait, SearchTrait, TranslateTrait, DemandTrait;
 
     const PERFORMANCE_LIST_ACTION = 'listAction';
     const PERFORMANCE_QUICK_MENU_ACTION = 'quickMenuAction';
@@ -316,65 +316,6 @@ class PerformanceController
         }
 
         return $demand;
-    }
-
-    /**
-     * Overwrites a given demand object by an propertyName => $propertyValue array
-     *
-     * @param \Webfox\T3events\Domain\Model\Dto\PerformanceDemand $demand
-     * @param array $overwriteDemand
-     */
-    public function overwriteDemandObject(&$demand, $overwriteDemand)
-    {
-        if ((bool)$overwriteDemand) {
-            $timeZone = new \DateTimeZone(date_default_timezone_get());
-            foreach ($overwriteDemand as $propertyName => $propertyValue) {
-                switch ($propertyName) {
-                    case 'sortBy':
-                        $orderings = $propertyValue;
-                        if (isset($overwriteDemand['sortDirection'])) {
-                            $orderings .= '|' . $overwriteDemand['sortDirection'];
-                        }
-                        $demand->setOrder($orderings);
-                        $demand->setSortBy($overwriteDemand['sortBy']);
-                        break;
-                    case 'search':
-                        $searchObj = $this->createSearchObject(
-                            $propertyValue,
-                            $this->settings[$this->settingsUtility->getControllerKey($this)]['search']
-                        );
-                        $demand->setSearch($searchObj);
-                        break;
-                    case 'genre':
-                        $demand->setGenres($propertyValue);
-                        break;
-                    case 'venue':
-                        $demand->setVenues($propertyValue);
-                        break;
-                    case 'eventLocation':
-                        $demand->setEventLocations($propertyValue);
-                        break;
-                    case 'eventType':
-                        $demand->setEventTypes($propertyValue);
-                        break;
-                    case 'startDate':
-                        $demand->setStartDate(new \DateTime($propertyValue, $timeZone));
-                        break;
-                    case 'endDate':
-                        $demand->setEndDate(new \DateTime($propertyValue, $timeZone));
-                        break;
-                    case 'sortDirection':
-                        if ($propertyValue !== 'desc') {
-                            $propertyValue = 'asc';
-                        }
-                    // fall through to default
-                    default:
-                        if (ObjectAccess::isPropertySettable($demand, $propertyName)) {
-                            ObjectAccess::setProperty($demand, $propertyName, $propertyValue);
-                        }
-                }
-            }
-        }
     }
 }
 
