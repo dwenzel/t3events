@@ -35,7 +35,8 @@ class PerformanceDemand
 	extends AbstractDemand
 	implements DemandInterface, PeriodAwareDemandInterface,
 	SearchAwareDemandInterface, StatusAwareDemandInterface,
-	EventLocationAwareDemandInterface,
+	EventLocationAwareDemandInterface, GenreAwareDemandInterface,
+    VenueAwareDemandInterface, EventTypeAwareDemandInterface,
 	CategoryAwareDemandInterface {
 	use PeriodAwareDemandTrait, SearchAwareDemandTrait,
 		CategoryAwareDemandTrait;
@@ -44,6 +45,9 @@ class PerformanceDemand
 	const STATUS_FIELD = 'status';
 	const CATEGORY_FIELD = 'event.categories';
 	const EVENT_LOCATION_FIELD = 'eventLocation';
+    const GENRE_FIELD = 'event.genre';
+    const VENUE_FIELD = 'event.venue';
+    const EVENT_TYPE_FIELD = 'event.eventType';
 
 	/**
 	 * A single status
@@ -260,4 +264,28 @@ class PerformanceDemand
 	{
 		return self::EVENT_LOCATION_FIELD;
 	}
+
+    /**
+     * @return string
+     */
+    public function getGenreField()
+    {
+        return self::GENRE_FIELD;
+    }
+
+    /**
+     * @return string
+     */
+    public function getVenueField()
+    {
+        return self::VENUE_FIELD;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEventTypeField()
+    {
+        return self::EVENT_TYPE_FIELD;
+    }
 }

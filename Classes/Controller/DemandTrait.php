@@ -68,6 +68,7 @@ trait DemandTrait
                         }
                         break;
                     case 'venue':
+                    case 'venues':
                         if ($demand instanceof VenueAwareDemandInterface) {
                             $demand->setVenues($propertyValue);
                         }
