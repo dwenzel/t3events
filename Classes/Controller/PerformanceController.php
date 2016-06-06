@@ -38,7 +38,9 @@ class PerformanceController
     extends ActionController
     implements FilterableControllerInterface
 {
-    use FilterableControllerTrait, SessionTrait, EntityNotFoundHandlerTrait, SearchTrait, TranslateTrait;
+    use FilterableControllerTrait, SessionTrait,
+        SettingsUtilityTrait,
+        EntityNotFoundHandlerTrait, SearchTrait, TranslateTrait;
 
     const PERFORMANCE_LIST_ACTION = 'listAction';
     const PERFORMANCE_QUICK_MENU_ACTION = 'quickMenuAction';
@@ -339,7 +341,7 @@ class PerformanceController
                     case 'search':
                         $searchObj = $this->createSearchObject(
                             $propertyValue,
-                            $this->settings['performance']['search']
+                            $this->settings[$this->settingsUtility->getControllerKey($this)]['search']
                         );
                         $demand->setSearch($searchObj);
                         break;
