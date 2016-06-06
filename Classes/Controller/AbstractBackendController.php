@@ -10,7 +10,6 @@ use TYPO3\CMS\Extbase\Mvc\Exception\StopActionException;
 use TYPO3\CMS\Extbase\Mvc\RequestInterface;
 use TYPO3\CMS\Extbase\Mvc\ResponseInterface;
 use Webfox\T3events\Domain\Repository\AudienceRepository;
-use Webfox\T3events\Domain\Repository\CompanyRepository;
 use Webfox\T3events\Domain\Repository\EventTypeRepository;
 use Webfox\T3events\Domain\Repository\GenreRepository;
 use Webfox\T3events\Domain\Repository\VenueRepository;
@@ -22,15 +21,8 @@ use Webfox\T3events\Domain\Repository\VenueRepository;
  */
 class AbstractBackendController extends AbstractController
 {
-    use ModuleDataTrait, DownloadTrait;
-
-    /**
-     * Company Repository
-     *
-     * @var \Webfox\T3events\Domain\Repository\CompanyRepository
-     * @inject
-     */
-    protected $companyRepository = null;
+    use ModuleDataTrait, DownloadTrait, CompanyRepositoryTrait,
+        NotificationRepositoryTrait;
 
     /**
      * eventTypeRepository
@@ -52,14 +44,6 @@ class AbstractBackendController extends AbstractController
      * @var \Webfox\T3events\Domain\Repository\AudienceRepository
      */
     protected $audienceRepository;
-
-    /**
-     * Notification Repository
-     *
-     * @var \Webfox\T3events\Domain\Repository\NotificationRepository
-     * @inject
-     */
-    protected $notificationRepository = null;
 
     /**
      * Notification Service
@@ -117,17 +101,6 @@ class AbstractBackendController extends AbstractController
     public function injectEventTypeRepository(EventTypeRepository $eventTypeRepository)
     {
         $this->eventTypeRepository = $eventTypeRepository;
-    }
-
-    /**
-     * injectCompanyRepository
-     *
-     * @param \Webfox\T3events\Domain\Repository\CompanyRepository $companyRepository
-     * @return void
-     */
-    public function injectCompanyRepository(CompanyRepository $companyRepository)
-    {
-        $this->companyRepository = $companyRepository;
     }
 
     /**
