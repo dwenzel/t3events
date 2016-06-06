@@ -37,6 +37,12 @@ interface PeriodAwareDemandInterface {
 	 */
 	public function getStartDate();
 
+    /**
+     * @param \DateTime $date Start date
+     * @return void
+     */
+	public function setStartDate($date);
+
 	/**
 	 * @return mixed
 	 */

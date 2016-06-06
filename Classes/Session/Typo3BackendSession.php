@@ -23,7 +23,7 @@ namespace Webfox\T3events\Session;
  *
  * @package Webfox\T3events\Session
  */
-class Typo3Session implements SessionInterface {
+class Typo3BackendSession implements SessionInterface {
 
 	/**
 	 * @var string
@@ -67,8 +67,7 @@ class Typo3Session implements SessionInterface {
 	 */
 	public function set($identifier, $value) {
 		$this->data[$identifier] = $value;
-		$GLOBALS['TSFE']->fe_user->setKey('ses', $this->namespace, $this->data);
-		$GLOBALS['TSFE']->fe_user->storeSessionData();
+		//todo write to backend user session
 	}
 
 	/**
@@ -79,7 +78,7 @@ class Typo3Session implements SessionInterface {
 	 */
 	public function get($identifier) {
 		if (empty($this->data)) {
-			$this->data = (array) $GLOBALS['TSFE']->fe_user->getKey('ses', $this->namespace);
+			//todo read from backend user session
 		}
 		if (isset($this->data[$identifier])) {
 			return $this->data[$identifier];
@@ -89,8 +88,7 @@ class Typo3Session implements SessionInterface {
 	}
 
 	public function clean() {
-		$GLOBALS['TSFE']->fe_user->setKey('ses', $this->namespace, array());
-		$GLOBALS['TSFE']->fe_user->storeSessionData();
+		//todo clear backend user data for module
 		$this->data = [];
 	}
 

@@ -36,6 +36,7 @@ use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 use Webfox\T3events\Session\Typo3Session;
+use Webfox\T3events\Utility\SettingsUtility;
 
 /**
  * Test case for class \Webfox\T3events\Controller\PerformanceController.
@@ -61,7 +62,7 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$view = $this->getMock(
 			TemplateView::class, ['assign', 'assignMultiple'], [], '', FALSE);
 		$mockSession = $this->getMock(
-			SessionInterface::class, ['has', 'get', 'clean', 'set']
+			SessionInterface::class, ['has', 'get', 'clean', 'set', 'setNamespace']
 		);
 		$mockContentObject = $this->getMock(
 			ContentObjectRenderer::class
@@ -176,18 +177,7 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	/**
 	 * @test
 	 */
-	public function initializeActionsSetsContentObjectAndSession() {
-		$mockSession = $this->getMock(
-			Typo3Session::class, [], [], '', false
-		);
-		$mockObjectManager = $this->getMock(
-			ObjectManager::class
-		);
-		$mockObjectManager->expects($this->once())
-			->method('get')
-			->with(Typo3Session::class)
-			->will($this->returnValue($mockSession));
-		$this->fixture->_set('objectManager', $mockObjectManager);
+	public function initializeActionsSetsContentObject() {
 		$configurationManager = $this->getMock(
 			ConfigurationManagerInterface::class,
 			['getContentObject', 'setContentObject', 'getConfiguration',
@@ -207,11 +197,6 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$overwriteDemand = ['foo'];
 		$mockSession = $this->fixture->_get('session');
 		$mockRequest = $this->fixture->_get('request');
-		$mockObjectManager = $this->fixture->_get('objectManager');
-		$mockObjectManager->expects($this->once())
-			->method('get')
-			->with(Typo3Session::class)
-			->will($this->returnValue($mockSession));
 		$mockRequest->expects($this->once())
 			->method('hasArgument')
 			->will($this->returnValue(true));
@@ -980,6 +965,7 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test ::overwriteDemandObject
 	 */
 	public function overwriteDemandObjectSetsSearch() {
+        $this->mockSettingsUtility();
 		$fieldNames = 'foo,bar';
 		$search = 'baz';
 		$settings = [
@@ -1266,7 +1252,7 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	public function quickMenuActionGetsOverwriteDemandFromSession() {
 		$this->injectMockRepositories(['findMultipleByUid', 'findAll']);
 		$mockSession = $this->getMock(
-			SessionInterface::class, ['get', 'set', 'has', 'clean']
+			SessionInterface::class, ['get', 'set', 'has', 'clean', 'setNamespace']
 		);
 		$mockSession->expects($this->once())
 			->method('get');
@@ -1391,5 +1377,29 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 		$fixture->_call('createDemandFromSettings', $settings);
 	}
+
+	/**
+	 * @test
+	 */
+	public function constructorSetsNameSpace()
+	{
+		$this->fixture->__construct();
+		$this->assertAttributeSame(
+			get_class($this->fixture),
+			'namespace',
+			$this->fixture
+		);
+	}
+
+    protected function mockSettingsUtility()
+    {
+        $mockSettingsUtility = $this->getMock(
+            SettingsUtility::class, ['getControllerKey']
+        );
+        $this->fixture->injectSettingsUtility($mockSettingsUtility);
+        $mockSettingsUtility->expects($this->any())
+            ->method('getControllerKey')
+            ->will($this->returnValue('performance'));
+    }
 }
 
