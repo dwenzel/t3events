@@ -48,7 +48,7 @@ trait PeriodConstraintRepositoryTrait {
                 if ($respectEndDate) {
                     $periodConstraint[] = $query->logicalAnd(
                         $query->lessThanOrEqual($endDateField, $upperLimit),
-                        $query->greaterThanOrEqual($startDateField, $lowerLimit)
+                        $query->lessThanOrEqual($startDateField, $lowerLimit)
                     );
                 } else {
                     $periodConstraint[] = $query->lessThanOrEqual($startDateField, $lowerLimit);
