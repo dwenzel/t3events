@@ -1,5 +1,5 @@
 <?php
-namespace Webfox\T3events\Tests\Unit\Domain\Model\Dto;
+namespace Webfox\T3events\Tests\Unit\Domain\Repository;
 
 /***************************************************************
  *  Copyright notice
@@ -336,12 +336,11 @@ class PeriodConstraintRepositoryTraitTest extends UnitTestCase
         $this->demand->expects($this->once())
             ->method('getEndDateField')
             ->will($this->returnValue(self::END_DATE_FIELD));
-        $this->query->expects($this->once())
-            ->method('greaterThanOrEqual')
-            ->with(self::START_DATE_FIELD, $startDate->getTimestamp());
-        $this->query->expects($this->once())
+        $this->query->expects($this->exactly(2))
             ->method('lessThanOrEqual')
-            ->with(self::END_DATE_FIELD, $endDate->getTimestamp());
+            ->withConsecutive(
+                [self::END_DATE_FIELD, $endDate->getTimestamp()],
+                [self::START_DATE_FIELD, $startDate->getTimestamp()]);
         $this->query->expects($this->once())
             ->method('logicalAnd')
             ->with();
