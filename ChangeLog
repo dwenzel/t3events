@@ -1,3 +1,6 @@
+2016-06-13         [RELEASE] Release of t3events 0.23.1 (Dirk Wenzel)
+2016-06-13 b0ff3e3 [BUGFIX] fixed error in PeriodConstraintRepositoryTrait which prevented plugin from selecting past event respecting end date correctly. (Dirk Wenzel)
+
 2016-06-03         [RELEASE] Release of t3events 0.23.0 (Dirk Wenzel)
 2016-05-27 020500b [TASK] visibility_matrix.ods added (Dirk Wenzel)
 2016-05-26 e32e4ea [TASK] validation for email address removed from Notification->recipient (Dirk Wenzel)
