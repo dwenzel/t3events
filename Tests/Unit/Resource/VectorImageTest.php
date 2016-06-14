@@ -33,6 +33,8 @@ class VectorImageTest extends UnitTestCase
         $this->subject = $this->getAccessibleMock(
             VectorImage::class, ['dummy'], [], '', true
         );
+        // initialize property
+        $this->subject->getXPath();
     }
 
     /**

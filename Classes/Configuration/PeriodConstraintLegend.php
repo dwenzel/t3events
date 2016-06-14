@@ -80,7 +80,6 @@ class PeriodConstraintLegend extends VectorImage
             );
         }
 
-        $this->validateOnParse = true;
         $this->load($xmlFilePath);
         $this->dataProvider = $this->getDataProviderFactory()->get($params);
     }
