@@ -16,8 +16,7 @@
                 <f:if condition="{filterOptions.periods}">
                     <div class="form-group col-sm-2">
                         <div class="form-control-wrap">
-                            <label for="tx_t3eventsQuickMenue-period">{f:translate(key: 'label.period', default:
-                                'Period')}</label>
+                            <label for="tx_t3eventsQuickMenue-period">{f:translate(key: 'label.period', extensionName: 't3events')}</label>
                             <f:form.select
                                     class="form-control"
                                     id="tx_t3eventsQuickMenue-period"
@@ -25,7 +24,7 @@
                                     options="{filterOptions.periods}"
                                     optionValueField="key"
                                     optionLabelField="value"
-                                    prependOptionLabel="{f:translate(key: 'label.allPeriod')}"
+                                    prependOptionLabel="{f:translate(key: 'label.allPeriod', extensionName: 't3events')}"
                                     value="{overwriteDemand.period}"
                             />
                         </div>
@@ -36,8 +35,7 @@
                 <f:if condition="{filterOptions.genres}">
                     <div class="form-group col-sm-2">
                         <div class="form-control-wrap">
-                            <label for="tx_t3eventsQuickMenue-genres">{f:translate(key: 'label.genre', default:
-                                'Genre')}</label>
+                            <label for="tx_t3eventsQuickMenue-genres">{f:translate(key: 'label.genre', extensionName: 't3events')}</label>
                             <f:form.select
                                     id="tx_t3eventsQuickMenue-genres"
                                     class="form-control"
@@ -45,7 +43,7 @@
                                     options="{filterOptions.genres}"
                                     optionValueField="uid"
                                     optionLabelField="title"
-                                    prependOptionLabel="{f:translate(key: 'label.allGenres')}"
+                                    prependOptionLabel="{f:translate(key: 'label.allGenres', extensionName: 't3events')}"
                                     value="{overwriteDemand.genres}"
                             />
                         </div>
@@ -56,8 +54,7 @@
                 <f:if condition="{filterOptions.venues}">
                     <div class="form-group col-sm-2">
                         <div class="form-control-wrap">
-                            <label for="tx_t3eventsQuickMenue-venue">{f:translate(key: 'label.venue', default:
-                                'Venue')}</label>
+                            <label for="tx_t3eventsQuickMenue-venue">{f:translate(key: 'label.venue', extensionName: 't3events')}</label>
                             <f:form.select
                                     id="tx_t3eventsQuickMenue-venue"
                                     class="form-control"
@@ -65,7 +62,7 @@
                                     options="{filterOptions.venues}"
                                     optionValueField="uid"
                                     optionLabelField="title"
-                                    prependOptionLabel="{f:translate(key: 'label.allVenues', default: 'label.allVenues')}"
+                                    prependOptionLabel="{f:translate(key: 'label.allVenues', extensionName: 't3events')}"
                                     value="{overwriteDemand.venues}"
                             />
                         </div>
@@ -76,8 +73,7 @@
                 <f:if condition="{filterOptions.audiences}">
                     <div class="form-group col-sm-2">
                         <div class="form-control-wrap">
-                            <label for="tx_t3eventsQuickMenue-audience">{f:translate(key: 'label.audience', default:
-                                'Audience')}</label>
+                            <label for="tx_t3eventsQuickMenue-audience">{f:translate(key: 'label.audience', extensionName: 't3events')}</label>
                             <f:form.select
                                     id="tx_t3eventsQuickMenue-audience"
                                     class="form-control"
@@ -85,7 +81,7 @@
                                     options="{filterOptions.audiences}"
                                     optionValueField="uid"
                                     optionLabelField="title"
-                                    prependOptionLabel="{f:translate(key: 'label.allAudiences')}"
+                                    prependOptionLabel="{f:translate(key: 'label.allAudiences', extensionName: 't3events')}"
                                     value="{overwriteDemand.audiences}"
                             />
                         </div>
@@ -96,8 +92,7 @@
                 <f:if condition="{filterOptions.eventTypes}">
                     <div class="form-group col-sm-2">
                         <div class="form-control-wrap">
-                            <label for="tx_t3eventsQuickMenue-eventTypes">{f:translate(key: 'label.eventType', default:
-                                'Event Type')}</label>
+                            <label for="tx_t3eventsQuickMenue-eventTypes">{f:translate(key: 'label.eventType', extensionName: 't3events')}</label>
                             <f:form.select
                                     id="tx_t3eventsQuickMenue-eventTypes"
                                     class="form-control"
@@ -105,7 +100,7 @@
                                     options="{filterOptions.eventTypes}"
                                     optionValueField="uid"
                                     optionLabelField="title"
-                                    prependOptionLabel="{f:translate(key: 'label.allEventTypes')}"
+                                    prependOptionLabel="{f:translate(key: 'label.allEventTypes', extensionName: 't3events')}"
                                     value="{overwriteDemand.eventTypes}"
                             />
                         </div>
@@ -116,13 +111,14 @@
                 <f:if condition="{filterOptions.categorys}">
                     <div class="form-group col-sm-2">
                         <div class="form-control-wrap">
+                            <label for="tx_t3eventsQuickMenue-categories">{f:translate(key: 'label.category', extensionName: 't3events')}</label>
                             <f:form.select
                                     id="tx_t3eventsQuickMenue-categories"
                                     name="overwriteDemand[categories]"
                                     options="{filterOptions.categorys}"
                                     optionValueField="uid"
                                     optionLabelField="title"
-                                    prependOptionLabel="{f:translate(key: 'label.allDepartments', default: 'label.allDepartments')}"
+                                    prependOptionLabel="{f:translate(key: 'label.allCategories', extensionName: 't3events')}"
                                     value="{overwriteDemand.categories}"
                             />
                         </div>
@@ -139,12 +135,11 @@
         <div class="form-group">
             <div class="button-group">
                 <f:form.button name="submit"
-                               class="btn btn-default" value="submit">{f:translate(key: 'button.search', default:
-                    'button.search')}
+                               class="btn btn-default" value="submit">{f:translate(key: 'button.search', extensionName: 't3events')}
                 </f:form.button>
                 <f:link.action
                         class="btn btn-default t3-button"
-                        action="reset">{f:translate(key: 'button.reset', default: 'button.reset')}
+                        action="reset">{f:translate(key: 'button.reset', extensionName: 't3events')}
                 </f:link.action>
             </div>
         </div>
