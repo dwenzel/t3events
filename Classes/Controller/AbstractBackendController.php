@@ -22,7 +22,7 @@ use Webfox\T3events\Domain\Repository\VenueRepository;
 class AbstractBackendController extends AbstractController
 {
     use ModuleDataTrait, DownloadTrait, CompanyRepositoryTrait,
-        NotificationRepositoryTrait;
+        NotificationRepositoryTrait, CategoryRepositoryTrait;
 
     /**
      * eventTypeRepository

@@ -23,7 +23,6 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 use Webfox\T3events\Domain\Model\Dto\PerformanceDemand;
 use Webfox\T3events\Domain\Model\Performance;
-use Webfox\T3events\Domain\Repository\CategoryRepository;
 use Webfox\T3events\Domain\Repository\EventTypeRepository;
 use Webfox\T3events\Domain\Repository\GenreRepository;
 use Webfox\T3events\Domain\Repository\PerformanceRepository;
@@ -39,7 +38,7 @@ class PerformanceController
     implements FilterableControllerInterface
 {
     use FilterableControllerTrait, SessionTrait,
-        SettingsUtilityTrait,
+        SettingsUtilityTrait, CategoryRepositoryTrait,
         EntityNotFoundHandlerTrait, SearchTrait, TranslateTrait, DemandTrait;
 
     const PERFORMANCE_LIST_ACTION = 'listAction';
@@ -74,11 +73,6 @@ class PerformanceController
      * @var \Webfox\T3events\Domain\Repository\EventTypeRepository
      */
     protected $eventTypeRepository;
-
-    /**
-     * @var \Webfox\T3events\Domain\Repository\CategoryRepository
-     */
-    protected $categoryRepository;
 
     /**
      * TYPO3 Content Object
@@ -137,17 +131,6 @@ class PerformanceController
     public function injectEventTypeRepository(EventTypeRepository $eventTypeRepository)
     {
         $this->eventTypeRepository = $eventTypeRepository;
-    }
-
-    /**
-     * injectCategoryRepository
-     *
-     * @param \Webfox\T3events\Domain\Repository\CategoryRepository $categoryRepository
-     * @return void
-     */
-    public function injectCategoryRepository(CategoryRepository $categoryRepository)
-    {
-        $this->categoryRepository = $categoryRepository;
     }
 
     /**
