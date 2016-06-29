@@ -1,0 +1,233 @@
+.tx-t3events .f3-widget-paginator {
+	float: right;
+	list-style-type: none;
+	margin: 0 0 10px 0;
+	padding: 0;
+	height: 20px;
+}
+
+.tx-t3events .f3-widget-paginator li {
+	float: left;
+	color: #1C3862;
+	border: 1px solid #1C3862;
+	background: #FFFFFF;
+	width: 15px;
+	margin: 3px 5px 0 5px;
+	text-align: center;
+}
+
+.tx-t3events .f3-widget-paginator li.current {
+	background: #1C3862;
+	color: #FFFFFF;
+}
+
+.tx-t3events .reservationLink {
+	margin-top: 10px;
+	min-height: 45px;
+}
+
+.tx-t3events .reservationLink a {
+	width: auto;
+	padding: 8px 22px;
+	background: #1C3862;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	color: #FFFFFF;
+	font-size: 12px;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.tx-t3events .reservationLink a:hover {
+	background: #CD1421;
+}
+
+.tx-t3events .section {
+	margin: 10px 0 0 0;
+	min-height: 45px;
+}
+
+.tx-t3events .lessonItemContainer {
+	clear: both;
+	display: block;
+	margin: 10px 0 0 0;
+}
+
+.tx-t3events .eventLocation-image {
+	float: left;
+	max-width: 200px;
+	height: auto;
+	margin: 0 20px 10px 0;
+}
+
+.tx-t3events .eventLocation-image img {
+	width: 200px;
+	height: auto;
+}
+
+.tx-t3events .eventLocation-info {
+	float: left;
+}
+
+.tx-t3events #map_canvas {
+	clear: both;
+	width: 400px;
+	height: 300px;
+}
+
+.tx-t3events .lesson-list hr {
+	width: 100%;
+	color: #1C3862;
+	margin: 5px 0 10px 0;
+	border: 1px solid #1C3862;
+}
+
+.tx-t3events .lesson-list .list-item {
+	clear: both;
+}
+
+.tx-t3events h3 {
+	margin: 10px 0 5px 0;
+}
+
+.tx-t3events hr {
+	width: 100%;
+	color: #1C3862;
+	margin: 5px 0 0 0;
+	border: 1px solid #1C3862;
+}
+
+.tx-t3events .field-radio {
+	margin-bottom: 8px;
+}
+
+.tx-t3events .field-radio input[type=radio] {
+	margin-top: 5px;
+}
+
+.tx-t3events .field-radio label {
+	display: block;
+	text-align: left;
+}
+
+.tx-t3events .field-radio label.radiolabel {
+	display: inline;
+	margin: 0 20px 0 0;
+}
+
+.tx-t3events .message {
+	margin: 5px 0 10px 0;
+}
+
+.tx-t3events .typo3-messages {
+	margin: 15px 0 0 0;
+	color: #CD1421;
+	font-weight: bold;
+}
+
+.tx-t3events .formErrors {
+	margin: 15px 0 10px 0;
+	background-color: #CD1421;
+	color: #FFFFFF;
+	padding: 10px;
+	width: 615px;
+	border-radius: 5px;
+}
+
+.tx-t3events .formErrors li {
+	margin: 5px 0;
+}
+
+.tx-t3events .participantShort {
+	margin: 5px 0 5px 0;
+}
+
+.tx-t3events .participantShort .participantName {
+	line-height: 26px;
+}
+
+.tx-t3events .participantShort input[type=submit] {
+	float: left;
+	padding: 5px;
+	margin: 0 10px 0 0;
+}
+
+.tx-t3events .reservationCompanyInfo {
+	width: 50%;
+	float: left;
+}
+
+.tx-t3events .reservationContactInfo {
+	width: 50%;
+	float: left;
+}
+
+.tx-t3events .reservationParticipants {
+	margin: 0 0 10px 0;
+	list-style-type: none;
+}
+
+.tx-t3events .participantShowShort .participantName {
+	line-height: 14px;
+}
+
+.tx-t3events .eventLocation .eventLocation-image {
+	float: left;
+	max-width: 200px;
+	height: auto;
+	margin: 0 10px 10px 0;
+}
+
+.tx-t3events .eventLocation .eventLocation-image img {
+	width: 200px;
+	height: auto;
+}
+
+.tx-t3events .eventLocation .eventLocation-info {
+	float: left;
+}
+
+.tx-t3events .lesson-properties {
+	margin: 20px 0 0 0;
+}
+
+.tx-t3events .lesson-properties .abstract {
+	margin: 10px 0 5px 0;
+}
+
+/* Filter */
+.tx-t3events .lesson-filter select {
+	width: 100%;
+}
+
+.float-left {
+	float: left;
+}
+
+.float-right {
+	float: right;
+}
+
+.width-50 {
+	width: 50%;
+}
+
+.clearfix:before,
+.clearfix:after {
+	content: " ";
+	display: table;
+}
+
+.clearfix:after {
+	clear: both;
+}
+
+.clearfix {
+	display: inline;
+	*zoom: 1;
+}
+
+.clearfix form div {
+	display: none;
+}

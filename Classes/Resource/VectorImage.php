@@ -20,6 +20,10 @@ namespace Webfox\T3events\Resource;
  ***************************************************************/
 class VectorImage extends \DOMDocument
 {
+    /**
+     * @var \DOMXPath
+     */
+    protected $xPath;
 
     /**
      * Replaces text node children of a node
@@ -78,5 +82,31 @@ class VectorImage extends \DOMDocument
     public function showElements(array $elementIds)
     {
         $this->setElementsAttribute($elementIds, 'style', 'display:inline');
+    }
+
+    /**
+     * Gets an element by id
+     * We overwrite parents method in order to
+     * avoid having to validate the document against a DTD
+     * which is quite slow
+     *
+     * @param string $elementId
+     * @return \DOMNode | null
+     */
+    public function getElementById($elementId)
+    {
+        return $this->getXPath()->query("//*[@id='" . $elementId . "']")->item(0);
+    }
+
+    /**
+     * @return \DOMXPath
+     */
+    public function getXPath()
+    {
+        if(!$this->xPath instanceof \DOMXPath) {
+            $this->xPath = new \DOMXPath($this);
+        }
+
+        return $this->xPath;
     }
 }

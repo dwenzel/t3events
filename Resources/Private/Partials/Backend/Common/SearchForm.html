@@ -1,0 +1,147 @@
+<div class="search-form">
+    <f:if condition="{settings.common.searchForm.debug}">
+        <f:debug inline="true" title="settings">{settings}</f:debug>
+        <f:debug inline="true" title="overwriteDemand">{overwriteDemand}</f:debug>
+        <f:debug inline="true" title="filterOptions">{filterOptions}</f:debug>
+    </f:if>
+    <f:form name="overwriteDemand" action="{f:if(condition: '{actionMethod}', then: '{actionMethod}', else: 'list')}">
+        <div class="form-group">
+            <f:comment>show subject field</f:comment>
+            <f:if condition="{showSubjectField}">
+                <f:render partial="Backend/Common/SearchSubject" arguments="{overwriteDemand: overwriteDemand}"/>
+            </f:if>
+
+            <div class="row">
+                <f:comment>period</f:comment>
+                <f:if condition="{filterOptions.periods}">
+                    <div class="form-group col-sm-2">
+                        <div class="form-control-wrap">
+                            <label for="tx_t3eventsQuickMenue-period">{f:translate(key: 'label.period', extensionName: 't3events')}</label>
+                            <f:form.select
+                                    class="form-control"
+                                    id="tx_t3eventsQuickMenue-period"
+                                    name="overwriteDemand[period]"
+                                    options="{filterOptions.periods}"
+                                    optionValueField="key"
+                                    optionLabelField="value"
+                                    prependOptionLabel="{f:translate(key: 'label.allPeriod', extensionName: 't3events')}"
+                                    value="{overwriteDemand.period}"
+                            />
+                        </div>
+                    </div>
+                </f:if>
+
+                <f:comment>genres</f:comment>
+                <f:if condition="{filterOptions.genres}">
+                    <div class="form-group col-sm-2">
+                        <div class="form-control-wrap">
+                            <label for="tx_t3eventsQuickMenue-genres">{f:translate(key: 'label.genre', extensionName: 't3events')}</label>
+                            <f:form.select
+                                    id="tx_t3eventsQuickMenue-genres"
+                                    class="form-control"
+                                    name="overwriteDemand[genres]"
+                                    options="{filterOptions.genres}"
+                                    optionValueField="uid"
+                                    optionLabelField="title"
+                                    prependOptionLabel="{f:translate(key: 'label.allGenres', extensionName: 't3events')}"
+                                    value="{overwriteDemand.genres}"
+                            />
+                        </div>
+                    </div>
+                </f:if>
+
+                <f:comment>venues</f:comment>
+                <f:if condition="{filterOptions.venues}">
+                    <div class="form-group col-sm-2">
+                        <div class="form-control-wrap">
+                            <label for="tx_t3eventsQuickMenue-venue">{f:translate(key: 'label.venue', extensionName: 't3events')}</label>
+                            <f:form.select
+                                    id="tx_t3eventsQuickMenue-venue"
+                                    class="form-control"
+                                    name="overwriteDemand[venues]"
+                                    options="{filterOptions.venues}"
+                                    optionValueField="uid"
+                                    optionLabelField="title"
+                                    prependOptionLabel="{f:translate(key: 'label.allVenues', extensionName: 't3events')}"
+                                    value="{overwriteDemand.venues}"
+                            />
+                        </div>
+                    </div>
+                </f:if>
+
+                <f:comment>audience</f:comment>
+                <f:if condition="{filterOptions.audiences}">
+                    <div class="form-group col-sm-2">
+                        <div class="form-control-wrap">
+                            <label for="tx_t3eventsQuickMenue-audience">{f:translate(key: 'label.audience', extensionName: 't3events')}</label>
+                            <f:form.select
+                                    id="tx_t3eventsQuickMenue-audience"
+                                    class="form-control"
+                                    name="overwriteDemand[audiences]"
+                                    options="{filterOptions.audiences}"
+                                    optionValueField="uid"
+                                    optionLabelField="title"
+                                    prependOptionLabel="{f:translate(key: 'label.allAudiences', extensionName: 't3events')}"
+                                    value="{overwriteDemand.audiences}"
+                            />
+                        </div>
+                    </div>
+                </f:if>
+
+                <f:comment>event types</f:comment>
+                <f:if condition="{filterOptions.eventTypes}">
+                    <div class="form-group col-sm-2">
+                        <div class="form-control-wrap">
+                            <label for="tx_t3eventsQuickMenue-eventTypes">{f:translate(key: 'label.eventType', extensionName: 't3events')}</label>
+                            <f:form.select
+                                    id="tx_t3eventsQuickMenue-eventTypes"
+                                    class="form-control"
+                                    name="overwriteDemand[eventTypes]"
+                                    options="{filterOptions.eventTypes}"
+                                    optionValueField="uid"
+                                    optionLabelField="title"
+                                    prependOptionLabel="{f:translate(key: 'label.allEventTypes', extensionName: 't3events')}"
+                                    value="{overwriteDemand.eventTypes}"
+                            />
+                        </div>
+                    </div>
+                </f:if>
+
+                <f:comment>categories</f:comment>
+                <f:if condition="{filterOptions.categorys}">
+                    <div class="form-group col-sm-2">
+                        <div class="form-control-wrap">
+                            <label for="tx_t3eventsQuickMenue-categories">{f:translate(key: 'label.category', extensionName: 't3events')}</label>
+                            <f:form.select
+                                    id="tx_t3eventsQuickMenue-categories"
+                                    name="overwriteDemand[categories]"
+                                    options="{filterOptions.categorys}"
+                                    optionValueField="uid"
+                                    optionLabelField="title"
+                                    prependOptionLabel="{f:translate(key: 'label.allCategories', extensionName: 't3events')}"
+                                    value="{overwriteDemand.categories}"
+                            />
+                        </div>
+                    </div>
+                </f:if>
+            </div>
+        </div>
+
+        <f:form.hidden
+                id="tx_t3eventsQuickMenue"
+                name="overwriteDemand[categoryConjunction]"
+                value="{settings.bookings.search.categoryConjunction}"
+        />
+        <div class="form-group">
+            <div class="button-group">
+                <f:form.button name="submit"
+                               class="btn btn-default" value="submit">{f:translate(key: 'button.search', extensionName: 't3events')}
+                </f:form.button>
+                <f:link.action
+                        class="btn btn-default t3-button"
+                        action="reset">{f:translate(key: 'button.reset', extensionName: 't3events')}
+                </f:link.action>
+            </div>
+        </div>
+    </f:form>
+</div>
