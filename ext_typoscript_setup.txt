@@ -48,5 +48,4 @@ config.tx_extbase {
             }
         }
     }
-
-
+[global]
