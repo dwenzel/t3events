@@ -6,8 +6,6 @@ plugin.tx_t3events {
 		templateRootPath = {$plugin.tx_t3events.view.templateRootPath}
 		partialRootPath = {$plugin.tx_t3events.view.partialRootPath}
 		layoutRootPath = {$plugin.tx_t3events.view.layoutRootPath}
-		# set root path for paginate widget view helper
-		# widget.\Webfox\T3events\ViewHelpers\Widget\PaginateViewHelper.templateRootPath = {$plugin.tx_t3events.view.templateRootPath}
 	}
 
 	persistence {
