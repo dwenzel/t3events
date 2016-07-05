@@ -91,12 +91,11 @@ trait DownloadTrait
         $fileName = $controllerKey;
         if (
             $objectForFileName
-            && isset($this->settings[$controllerKey]['download'])
+            && !empty($this->settings['fileName'])
         ) {
-            $fileName = $this->settingsUtility->getValueByKey(
+            $fileName = $this->settingsUtility->getValue(
                 $objectForFileName,
-                $this->settings[$controllerKey]['download'],
-                'fileName'
+                $this->settings['fileName']
             );
         }
 

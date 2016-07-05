@@ -1,6 +1,7 @@
 <?php
 namespace Webfox\T3events\Controller;
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use Webfox\T3events\Domain\Model\Dto\ModuleData;
 use Webfox\T3events\Service\ModuleDataStorageService;
 
@@ -27,6 +28,15 @@ trait ModuleDataTrait
      */
     protected $objectManager;
 
+    /**
+     * @var array
+     */
+    protected $settings;
+
+    /**
+     * @return array
+     */
+    abstract public function mergeSettings();
 
     /**
      * Forwards the request to another action and / or controller.
@@ -64,6 +74,15 @@ trait ModuleDataTrait
     protected function getModuleKey()
     {
         return $GLOBALS['moduleName'];
+    }
+
+    /**
+     * initializes all action methods
+     */
+    public function initializeAction()
+    {
+        $this->pageUid = (int)GeneralUtility::_GET('id');
+        $this->settings = $this->mergeSettings();
     }
 
     /**

@@ -137,10 +137,8 @@ class DemandTraitTest extends UnitTestCase
         $fieldNames = 'foo,bar';
         $search = 'baz';
         $settings = [
-            self::DUMMY_CONTROLLER_KEY => [
-                'search' => [
-                    'fields' => $fieldNames
-                ]
+            'search' => [
+                'fields' => $fieldNames
             ]
         ];
         $this->inject(
@@ -159,7 +157,7 @@ class DemandTraitTest extends UnitTestCase
 
         $this->subject->expects($this->once())
             ->method('createSearchObject')
-            ->with($overwriteDemand['search'], $settings[self::DUMMY_CONTROLLER_KEY]['search'])
+            ->with($overwriteDemand['search'], $settings['search'])
             ->will($this->returnValue($mockSearchObject));
 
         $demand->expects($this->once())->method('setSearch')

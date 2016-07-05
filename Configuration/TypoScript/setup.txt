@@ -48,7 +48,19 @@ plugin.tx_t3events {
 					width = 120
 					height = 120
 				}
-
+				search {
+					fields = {$plugin.tx_t3events.settings.event.search.fields}
+					radius {
+						unit = km
+						options {
+							50000 = 50 km
+							100000 = 100 km
+							250000 = 250 km
+							500000 = 500 km
+							1000000 = 1000 km
+						}
+					}
+				}
 				paginate = 1
 				showSortBy = 1
 			}
@@ -74,49 +86,35 @@ plugin.tx_t3events {
 					}
 				}
 			}
-			search {
-				fields = {$plugin.tx_t3events.settings.event.search.fields}
-				radius {
-					unit = km
-					options {
-						50000 = 50 km
-						100000 = 100 km
-						250000 = 250 km
-						500000 = 500 km
-						1000000 = 1000 km
-					}
-				}
-			}
 		}
 		performance {
 			detail {
 				errorHandling = {$plugin.tx_t3events.settings.detail.errorHandling}
 			}
-			search {
-				fields = {$plugin.tx_t3events.settings.performance.search.fields}
-				radius {
-					unit = km
-					options {
-						50000 = 50 km
-						100000 = 100 km
-						250000 = 250 km
-						500000 = 500 km
-						1000000 = 1000 km
-					}
-				}
-			}
+			list {
+                search {
+                    fields = {$plugin.tx_t3events.settings.performance.search.fields}
+                    radius {
+                        unit = km
+                        options {
+                            50000 = 50 km
+                            100000 = 100 km
+                            250000 = 250 km
+                            500000 = 500 km
+                            1000000 = 1000 km
+                        }
+                    }
+                }
+                # legacy sorting
+                sortBy = date
+                sortDirection = asc
+                # todo read order
+                # order = date|asc
+            }
+            quickMenu {
+                showSearchField = 1
+            }
 		}
-		search {
-			teasers {
-				fields = venue
-			}
-
-			events {
-				fields =
-			}
-		}
-
-		// search
 	}
 
 	// settings
