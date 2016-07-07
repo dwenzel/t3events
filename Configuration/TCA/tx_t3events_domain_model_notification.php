@@ -25,10 +25,10 @@ return array(
 		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('t3events') . 'Resources/Public/Icons/tx_t3events_domain_model_notification.gif'
 	),
 	'interface' => array(
-		'showRecordFieldList' => 'hidden, recipient, sender, subject, bodytext, format, sent_at',
+		'showRecordFieldList' => 'hidden, recipient, sender,sender_email,sender_name, subject, bodytext, format, sent_at',
 	),
 	'types' => array(
-		'1' => array('showitem' => 'hidden;;1, recipient, sender,  subject, bodytext, format, sent_at'),
+		'1' => array('showitem' => 'hidden;;1, recipient, sender,sender_email,sender_name,  subject, bodytext, format, sent_at'),
 	),
 	'palettes' => array(
 		'1' => array('showitem' => ''),
@@ -62,6 +62,26 @@ return array(
 		'sender' => array(
 			'exclude' => 1,
 			'label' => $ll . 'tx_t3events_domain_model_notification.sender',
+			'config' => array(
+				'readOnly' => '1',
+				'type' => 'input',
+				'size' => 30,
+				'eval' => 'trim,nospace',
+			),
+		),
+		'sender_name' => array(
+			'exclude' => 1,
+			'label' => $ll . 'tx_t3events_domain_model_notification.sender_name',
+			'config' => array(
+				'readOnly' => '1',
+				'type' => 'input',
+				'size' => 30,
+				'eval' => 'trim,nospace',
+			),
+		),
+		'sender_email' => array(
+			'exclude' => 1,
+			'label' => $ll . 'tx_t3events_domain_model_notification.sender_email',
 			'config' => array(
 				'readOnly' => '1',
 				'type' => 'input',

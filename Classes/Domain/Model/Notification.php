@@ -29,7 +29,6 @@ class Notification extends AbstractEntity {
 
 	/**
 	 * @var string $recipient
-	 * @validate EmailAddress
 	 */
 	protected $recipient;
 
@@ -37,6 +36,16 @@ class Notification extends AbstractEntity {
 	 * @var string $sender
 	 */
 	protected $sender;
+
+	/**
+	 * @var string
+	 */
+	protected $senderEmail;
+
+	/**
+	 * @var string
+	 */
+	protected $senderName;
 
 	/**
 	 * @var string $subject
@@ -107,21 +116,24 @@ class Notification extends AbstractEntity {
 	}
 
 	/**
-	 * Returns the sender
+	 * Returns the sender email
 	 *
 	 * @return string
+	 * @deprecated Use getSenderEmail and getSenderName instead
 	 */
 	public function getSender() {
 		return $this->sender;
 	}
 
 	/**
-	 * Sets the sender
+	 * Sets the sender email
 	 *
 	 * @var string $sender
+	 * @deprecated Use setSenderEmail and setSenderName instead
 	 */
 	public function setSender($sender) {
 		$this->sender = $sender;
+        $this->senderEmail = $sender;
 	}
 
 	/**
@@ -208,5 +220,42 @@ class Notification extends AbstractEntity {
 	 */
 	public function removeAttachment(FileReference $fileReference) {
 		$this->attachments->detach($fileReference);
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getSenderEmail()
+	{
+        if (!isset($this->senderEmail)) {
+            return($this->sender);
+        }
+
+		return $this->senderEmail;
+	}
+
+	/**
+	 * @param string $senderEmail
+	 */
+	public function setSenderEmail($senderEmail)
+	{
+		$this->senderEmail = $senderEmail;
+        $this->sender = $senderEmail;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getSenderName()
+	{
+		return $this->senderName;
+	}
+
+	/**
+	 * @param string $senderName
+	 */
+	public function setSenderName($senderName)
+	{
+		$this->senderName = $senderName;
 	}
 }

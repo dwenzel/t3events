@@ -3,7 +3,6 @@
 	"type": "typo3-cms-extension",
 	"description": "Versatile events extension for the TYPO3 CMS",
 	"keywords": ["TYPO3", "extension", "events"],
-	"version": "0.17.1",
 	"license": ["GPL-2.0+"],
 	"authors": [
 		{
@@ -12,7 +11,7 @@
 		}
 	],
 	"require": {
-		"typo3/cms": ">=6.2.0,<8.0"
+		"typo3/cms-core": ">=6.2.0,<8.0"
 	},
 	"require-dev": {
     "mikey179/vfsStream": "1.4.*@dev",
@@ -48,7 +47,8 @@
   },
   "extra": {
 		"branch-alias": {
-			"dev-master": "0.17.x-dev"
+          "dev-master": "0.24.x-dev",
+          "dev-develop": "0.24.x-dev"
 		},
     "typo3/cms": {
       "cms-package-dir": "{$vendor-dir}/typo3/cms",

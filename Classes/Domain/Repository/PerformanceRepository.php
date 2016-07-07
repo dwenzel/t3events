@@ -31,100 +31,107 @@ use Webfox\T3events\Utility\EmConfigurationUtility;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
 class PerformanceRepository
-	extends AbstractDemandedRepository
-	implements PeriodConstraintRepositoryInterface {
-	use PeriodConstraintRepositoryTrait, StatusConstraintRepositoryTrait;
-	protected $defaultOrderings = array('sorting' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING);
+    extends AbstractDemandedRepository
+    implements PeriodConstraintRepositoryInterface
+{
+    use PeriodConstraintRepositoryTrait, StatusConstraintRepositoryTrait;
 
-	/**
-	 * initializes the repository
-	 */
-	public function initializeObject() {
-		$emConfiguration = EmConfigurationUtility::getSettings();
-		$this->defaultQuerySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
-		$this->defaultQuerySettings->setRespectStoragePage(
-			$emConfiguration->isRespectPerformanceStoragePage()
-		);
-	}
+    protected $defaultOrderings = array('sorting' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING);
 
-	/**
-	 * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
-	 * @param \Webfox\T3events\Domain\Model\Dto\DemandInterface|PerformanceDemand $demand
-	 * @return array
-	 */
-	protected function createCategoryConstraints(QueryInterface $query, DemandInterface $demand) {
-		$constraints = [];
+    /**
+     * initializes the repository
+     */
+    public function initializeObject()
+    {
+        $emConfiguration = EmConfigurationUtility::getSettings();
+        if (!(bool)$emConfiguration->isRespectPerformanceStoragePage()) {
+            $this->defaultQuerySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
+            $this->defaultQuerySettings->setRespectStoragePage(false);
+        }
+    }
 
-		if (!empty($demand->getGenres())) {
-			$genres = GeneralUtility::intExplode(',', $demand->getGenres());
-			foreach ($genres as $genre) {
-				$constraints[] = $query->contains('event.genre', $genre);
-			}
-		}
-		if (!empty($demand->getVenues())) {
-			$venues = GeneralUtility::intExplode(',', $demand->getVenues());
-			foreach ($venues as $venue) {
-				$constraints[] = $query->contains('event.venue', $venue);
-			}
-		}
-		if (!empty($demand->getEventTypes())) {
-			$eventTypes = GeneralUtility::intExplode(',', $demand->getEventTypes());
-			$constraints[] = $query->in('event.eventType', $eventTypes);
-		}
+    /**
+     * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
+     * @param \Webfox\T3events\Domain\Model\Dto\DemandInterface|PerformanceDemand $demand
+     * @return array
+     */
+    protected function createCategoryConstraints(QueryInterface $query, DemandInterface $demand)
+    {
+        $constraints = [];
+
+        if (!empty($demand->getGenres())) {
+            $genres = GeneralUtility::intExplode(',', $demand->getGenres());
+            foreach ($genres as $genre) {
+                $constraints[] = $query->contains('event.genre', $genre);
+            }
+        }
+        if (!empty($demand->getVenues())) {
+            $venues = GeneralUtility::intExplode(',', $demand->getVenues());
+            foreach ($venues as $venue) {
+                $constraints[] = $query->contains('event.venue', $venue);
+            }
+        }
+        if (!empty($demand->getEventTypes())) {
+            $eventTypes = GeneralUtility::intExplode(',', $demand->getEventTypes());
+            $constraints[] = $query->in('event.eventType', $eventTypes);
+        }
 
 
-		if ($demand->getCategories()) {
-			$categories = GeneralUtility::intExplode(',', $demand->getCategories());
-			foreach($categories as $category) {
-				$constraints[] = $query->contains('event.categories', $category);
-			}
-		}
+        if ($demand->getCategories()) {
+            $categories = GeneralUtility::intExplode(',', $demand->getCategories());
+            foreach ($categories as $category) {
+                $constraints[] = $query->contains('event.categories', $category);
+            }
+        }
 
-		return $constraints;
-	}
+        return $constraints;
+    }
 
-	/**
-	 * Returns an array of constraints created from a given demand object.
-	 *
-	 * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
-	 * @param \Webfox\T3events\Domain\Model\Dto\DemandInterface $demand
-	 * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint>
-	 */
-	protected function createConstraintsFromDemand(\TYPO3\CMS\Extbase\Persistence\QueryInterface $query, \Webfox\T3events\Domain\Model\Dto\DemandInterface $demand) {
-		/** @var PerformanceDemand $demand */
-		$constraints = [];
-		if ($demand instanceof PeriodAwareDemandInterface &&
-			(bool) $periodConstraints = $this->createPeriodConstraints($query, $demand)) {
-			$this->combineConstraints($query, $constraints, $periodConstraints, 'AND');
-		}
-		if ((bool) $categoryConstraints = $this->createCategoryConstraints($query, $demand)) {
-			$this->combineConstraints($query, $constraints, $categoryConstraints, $demand->getCategoryConjunction());
-		}
-		if ((bool) $searchConstraints = $this->createSearchConstraints($query, $demand)) {
-			$this->combineConstraints($query, $constraints, $searchConstraints, 'OR');
-		}
-		if ((bool) $statusConstraints = $this->createStatusConstraints($query, $demand)) {
-			$conjunction = 'OR';
-			if ($demand->isExcludeSelectedStatuses()) {
-				$conjunction = 'NOTOR';
+    /**
+     * Returns an array of constraints created from a given demand object.
+     *
+     * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
+     * @param \Webfox\T3events\Domain\Model\Dto\DemandInterface $demand
+     * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint>
+     */
+    protected function createConstraintsFromDemand(
+        \TYPO3\CMS\Extbase\Persistence\QueryInterface $query,
+        \Webfox\T3events\Domain\Model\Dto\DemandInterface $demand
+    ) {
+        /** @var PerformanceDemand $demand */
+        $constraints = [];
+        $constraints[] = $query->equals('event.hidden', 0);
 
-			}
+        if ($demand instanceof PeriodAwareDemandInterface &&
+            (bool)$periodConstraints = $this->createPeriodConstraints($query, $demand)
+        ) {
+            $this->combineConstraints($query, $constraints, $periodConstraints, 'AND');
+        }
+        if ((bool)$categoryConstraints = $this->createCategoryConstraints($query, $demand)) {
+            $this->combineConstraints($query, $constraints, $categoryConstraints, $demand->getCategoryConjunction());
+        }
+        if ((bool)$searchConstraints = $this->createSearchConstraints($query, $demand)) {
+            $this->combineConstraints($query, $constraints, $searchConstraints, 'OR');
+        }
+        if ((bool)$statusConstraints = $this->createStatusConstraints($query, $demand)) {
+            $conjunction = 'OR';
+            if ($demand->isExcludeSelectedStatuses()) {
+                $conjunction = 'NOTOR';
 
-			$this->combineConstraints($query, $constraints, $statusConstraints, $conjunction);
+            }
+            $this->combineConstraints($query, $constraints, $statusConstraints, $conjunction);
+        }
 
-		}
+        if ($demand->getStoragePages() !== null) {
+            $pages = GeneralUtility::intExplode(',', $demand->getStoragePages());
+            $constraints[] = $query->in('pid', $pages);
+        }
+        if ($demand->getEventLocations()) {
+            $eventLocations = GeneralUtility::intExplode(',', $demand->getEventLocations());
+            $constraints[] = $query->in('eventLocation', $eventLocations);
+        }
 
-		if ($demand->getStoragePages() !== NULL) {
-			$pages = GeneralUtility::intExplode(',', $demand->getStoragePages());
-			$constraints[] = $query->in('pid', $pages);
-		}
-		if ($demand->getEventLocations()) {
-			$eventLocations = GeneralUtility::intExplode(',', $demand->getEventLocations());
-			foreach ($eventLocations as $eventLocation) {
-				$constraints[] = $query->in('eventLocation', $eventLocation);
-			}
-		}
-		return $constraints;
-	}
+        return $constraints;
+    }
 }
 

@@ -23,7 +23,7 @@ namespace Webfox\T3events\Session;
  *
  * @package Webfox\T3events\Session
  */
-class Typo3Session implements SessionInterface, NamespaceAwareInterface {
+class Typo3Session implements SessionInterface {
 
 	/**
 	 * @var string
@@ -33,24 +33,14 @@ class Typo3Session implements SessionInterface, NamespaceAwareInterface {
 	/**
 	 * @var array
 	 */
-	protected $data = array();
+	protected $data = [];
 
 	/**
 	 * Typo3Session constructor.
 	 *
 	 * @param string $namespace
-	 * @param int $expirationTime
 	 */
-	public function __construct($namespace) {
-		$this->setNamespace($namespace);
-	}
-
-	/**
-	 * Sets the namespace
-	 *
-	 * @param string $namespace
-	 */
-	public function setNamespace($namespace) {
+	public function __construct($namespace = '') {
 		$this->namespace = $namespace;
 	}
 
@@ -103,4 +93,13 @@ class Typo3Session implements SessionInterface, NamespaceAwareInterface {
 		$GLOBALS['TSFE']->fe_user->storeSessionData();
 		$this->data = [];
 	}
+
+    /**
+     * Sets the namespace
+     *
+     * @param string $namespace
+     */
+    public function setNamespace($namespace) {
+        $this->namespace = $namespace;
+    }
 }

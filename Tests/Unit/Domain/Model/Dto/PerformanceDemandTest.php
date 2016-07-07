@@ -236,5 +236,49 @@ class PerformanceDemandTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 			$this->fixture->isExcludeSelectedStatuses()
 		);
 	}
+
+	/**
+     * @test
+     */
+    public function getEventLocationFieldReturnsClassConstant()
+    {
+        $this->assertSame(
+            PerformanceDemand::EVENT_LOCATION_FIELD,
+            $this->fixture->getEventLocationField()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getGenreFieldReturnsClassConstant()
+    {
+        $this->assertSame(
+            PerformanceDemand::GENRE_FIELD,
+            $this->fixture->getGenreField()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getVenueFieldReturnsClassConstant()
+    {
+        $this->assertSame(
+            PerformanceDemand::VENUE_FIELD,
+            $this->fixture->getVenueField()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getEventTypeFieldReturnsClassConstant()
+    {
+        $this->assertSame(
+            PerformanceDemand::EVENT_TYPE_FIELD,
+            $this->fixture->getEventTypeField()
+        );
+    }
 }
 

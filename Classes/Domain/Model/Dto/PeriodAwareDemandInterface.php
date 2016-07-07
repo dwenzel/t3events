@@ -54,6 +54,12 @@ interface PeriodAwareDemandInterface {
 	 */
 	public function getStartDate();
 
+    /**
+     * @param \DateTime $date Start date
+     * @return void
+     */
+	public function setStartDate($date);
+
 	/**
 	 * @return mixed
 	 */
@@ -68,4 +74,14 @@ interface PeriodAwareDemandInterface {
 	 * @return mixed
 	 */
 	public function getEndDateField();
+
+	/**
+	 * @return bool
+	 */
+	public function isRespectEndDate();
+
+	/**
+	 * @param boolean $respectEndDate
+	 */
+	public function setRespectEndDate($respectEndDate);
 }
