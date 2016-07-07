@@ -57,7 +57,7 @@ trait PeriodAwareDemandTrait {
 	}
 
 	/**
-	 * @param string A time limit for the demand
+	 * @param string $period A time limit for the demand
 	 * @return void
 	 */
 	public function setPeriod($period = '') {

@@ -31,6 +31,7 @@ use Webfox\T3events\Domain\Model\Dto\PeriodAwareDemandInterface;
  * @package Webfox\T3events\Domain\Factory\Dto
  */
 class EventDemandFactory implements DemandFactoryInterface {
+	const DEMAND_CLASS = EventDemand::class;
 
 	static protected $mappedProperties = [
 		'genres' => 'genre',
@@ -67,7 +68,7 @@ class EventDemandFactory implements DemandFactoryInterface {
 	 */
 	public function createFromSettings(array $settings) {
 		/** @var EventDemand $demand */
-		$demand = $this->objectManager->get(EventDemand::class);
+		$demand = $this->objectManager->get(self::DEMAND_CLASS);
 
 		if ($demand instanceof PeriodAwareDemandInterface) {
 			$this->setPeriodConstraints($demand, $settings);
@@ -98,7 +99,7 @@ class EventDemandFactory implements DemandFactoryInterface {
 	}
 
 	/**
-	 * @param EventDemand $demand
+	 * @param \Webfox\T3events\Domain\Model\Dto\PeriodAwareDemandInterface $demand
 	 * @param array $settings
 	 */
 	protected function setPeriodConstraints($demand, $settings) {

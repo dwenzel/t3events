@@ -66,12 +66,24 @@ interface PeriodAwareDemandInterface {
 	public function getEndDate();
 
 	/**
-	 * @return mixed
+	 * @param \DateTime $date Start date
+	 * @return void
+	 */
+	public function setEndDate($date);
+
+	/**
+	 * Returns the field name of the start date field
+	 * in dot notation
+	 *
+	 * @return string
 	 */
 	public function getStartDateField();
 
 	/**
-	 * @return mixed
+	 * Returns the field name of the end date field
+	 * in dot notation
+	 *
+	 * @return string
 	 */
 	public function getEndDateField();
 
