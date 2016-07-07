@@ -1,3 +1,5 @@
 # cat=basic/enable; type=boolean; label=Performances: respect storage pages
 respectPerformanceStoragePage = false
 
+# cat=basic/enable; type=boolean; label=Event Module: show backend module for events
+showEventModule = true
