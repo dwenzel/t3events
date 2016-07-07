@@ -31,6 +31,7 @@ use Webfox\T3events\Domain\Model\Dto\PeriodAwareDemandInterface;
  * @package Webfox\T3events\Domain\Factory\Dto
  */
 class EventDemandFactory implements DemandFactoryInterface {
+    use PeriodAwareDemandFactoryTrait, SkipPropertyTrait, MapPropertyTrait;
 	const DEMAND_CLASS = EventDemand::class;
 
 	static protected $mappedProperties = [
@@ -60,6 +61,26 @@ class EventDemandFactory implements DemandFactoryInterface {
 		$this->objectManager = $objectManager;
 	}
 
+    /**
+     * Returns an array of property names
+     * which can not be set directly
+     *
+     * @return array
+     */
+    public function getCompositeProperties()
+    {
+        return self::$compositeProperties;
+    }
+
+    /**
+     * Returns a map of property names: ['newName' => 'oldName]
+     *
+     * @return array
+     */
+    public function getMappedProperties()
+    {
+        return self::$mappedProperties;
+    }
 	/**
 	 * Creates a demand object from settings
 	 *
@@ -85,62 +106,5 @@ class EventDemandFactory implements DemandFactoryInterface {
 		}
 
 		return $demand;
-	}
-
-	/**
-	 * Maps some old property names to more convenient ones
-	 *
-	 * @param $propertyName
-	 */
-	protected function mapPropertyName(&$propertyName) {
-		if (isset(self::$mappedProperties[$propertyName])) {
-			$propertyName = self::$mappedProperties[$propertyName];
-		}
-	}
-
-	/**
-	 * @param \Webfox\T3events\Domain\Model\Dto\PeriodAwareDemandInterface $demand
-	 * @param array $settings
-	 */
-	protected function setPeriodConstraints($demand, $settings) {
-		if ($settings['period'] === 'specific') {
-			$demand->setPeriodType($settings['periodType']);
-		}
-		if (isset($settings['periodType']) AND $settings['periodType'] !== 'byDate') {
-			$demand->setPeriodStart($settings['periodStart']);
-			$demand->setPeriodDuration($settings['periodDuration']);
-		}
-		if ($settings['periodType'] === 'byDate') {
-			$timeZone = new \DateTimeZone(date_default_timezone_get());
-			if ($settings['periodStartDate']) {
-				$demand->setStartDate(
-					new \DateTime($settings['periodStartDate'], $timeZone)
-				);
-			}
-			if ($settings['periodEndDate']) {
-				$demand->setEndDate(
-					new \DateTime($settings['periodEndDate'])
-				);
-			}
-		}
-	}
-
-	/**
-	 * Tells whether a property should be set directly from
-	 * settings value.
-	 *
-	 * @param string $name
-	 * @param mixed $value
-	 * @return bool Returns true for empty and composite properties otherwise false
-	 */
-	protected function shouldSkipProperty($name, $value) {
-		if (empty ($value)) {
-			return true;
-		}
-		if (in_array($name, self::$compositeProperties)) {
-			return true;
-		}
-
-		return false;
 	}
 }
