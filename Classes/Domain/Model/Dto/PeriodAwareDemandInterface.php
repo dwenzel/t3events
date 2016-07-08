@@ -23,14 +23,31 @@ interface PeriodAwareDemandInterface {
 	public function getPeriodStart();
 
 	/**
+	 * @param int $start $start Start value for time period (day, month or year)
+	 * @return void
+	 */
+	public function setPeriodStart($start);
+
+	/**
 	 * @return mixed
 	 */
 	public function getPeriodType();
 
 	/**
+	 * @param string $periodType
+	 */
+	public function setPeriodType($periodType);
+
+	/**
 	 * @return mixed
 	 */
 	public function getPeriodDuration();
+
+	/**
+	 * @param int $duration Duration value for period (days, months, years)
+	 * @return void
+	 */
+	public function setPeriodDuration($duration);
 
 	/**
 	 * @return mixed
@@ -49,12 +66,24 @@ interface PeriodAwareDemandInterface {
 	public function getEndDate();
 
 	/**
-	 * @return mixed
+	 * @param \DateTime $date Start date
+	 * @return void
+	 */
+	public function setEndDate($date);
+
+	/**
+	 * Returns the field name of the start date field
+	 * in dot notation
+	 *
+	 * @return string
 	 */
 	public function getStartDateField();
 
 	/**
-	 * @return mixed
+	 * Returns the field name of the end date field
+	 * in dot notation
+	 *
+	 * @return string
 	 */
 	public function getEndDateField();
 
