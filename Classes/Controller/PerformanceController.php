@@ -138,6 +138,7 @@ class PerformanceController
      */
     public function initializeAction()
     {
+        $this->settings = $this->mergeSettings();
         $this->contentObject = $this->configurationManager->getContentObject();
         if ($this->request->hasArgument('overwriteDemand')) {
             $this->session->set(

@@ -55,20 +55,6 @@ class AbstractBackendControllerTest extends UnitTestCase {
 	/**
 	 * @test
 	 */
-	public function initializeActionSetsPageUidFromGlobalGetVar() {
-		$_GET['id'] = '5';
-
-		$this->subject->initializeAction();
-
-		$this->assertSame(
-			5,
-			$this->subject->_get('pageUid')
-		);
-	}
-
-	/**
-	 * @test
-	 */
 	public function eventTypeRepositoryCanBeInjected() {
 		$mockRepository = $this->getMock(
 			EventTypeRepository::class, [], [], '', false

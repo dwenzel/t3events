@@ -158,14 +158,6 @@ class AbstractBackendController extends AbstractController
     }
 
     /**
-     * initialize action
-     */
-    public function initializeAction()
-    {
-        $this->pageUid = (int)GeneralUtility::_GET('id');
-    }
-
-    /**
      * Get frontend base url as configured in TypoScript
      * Pass this as a variable when rendering fluid templates in Backend context for instance
      * if you want to render images in emails.

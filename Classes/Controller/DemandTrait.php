@@ -59,10 +59,9 @@ trait DemandTrait
                         break;
                     case 'search':
                         if ($demand instanceof SearchAwareDemandInterface) {
-                            $controllerKey = $this->settingsUtility->getControllerKey($this);
                             $searchObj = $this->createSearchObject(
                                 $propertyValue,
-                                $this->settings[$controllerKey]['search']
+                                $this->settings['search']
                             );
                             $demand->setSearch($searchObj);
                         }

@@ -178,6 +178,8 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function initializeActionsSetsContentObject() {
+        $this->fixture->_set('settings', []);
+        $this->mockSettingsUtility();
 		$configurationManager = $this->getMock(
 			ConfigurationManagerInterface::class,
 			['getContentObject', 'setContentObject', 'getConfiguration',
@@ -194,6 +196,8 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function initializeActionSetsOverwriteDemandInSession() {
+        $this->fixture->_set('settings', []);
+        $this->mockSettingsUtility();
 		$overwriteDemand = ['foo'];
 		$mockSession = $this->fixture->_get('session');
 		$mockRequest = $this->fixture->_get('request');
@@ -969,11 +973,9 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$fieldNames = 'foo,bar';
 		$search = 'baz';
 		$settings = [
-			'performance' => [
-				'search' => [
-					'fields' => $fieldNames
-				]
-			]
+            'search' => [
+                'fields' => $fieldNames
+            ]
 		];
 		$this->fixture->_set('settings', $settings);
 
@@ -987,7 +989,7 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 		$this->fixture->expects($this->once())
 			->method('createSearchObject')
-			->with($overwriteDemand['search'], $settings['performance']['search'])
+			->with($overwriteDemand['search'], $settings['search'])
 			->will($this->returnValue($mockSearchObject));
 
 		$demand->expects($this->once())->method('setSearch')

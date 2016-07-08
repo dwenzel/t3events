@@ -189,7 +189,7 @@ return [
 				'rows' => 10,
 				'eval' => 'trim'
 			],
-			'defaultExtras' => 'richtext[]'
+			'defaultExtras' => 'richtext[]:rte_transform[mode=ts_links]'
 		],
 		'keywords' => [
 			'exclude' => 0,
