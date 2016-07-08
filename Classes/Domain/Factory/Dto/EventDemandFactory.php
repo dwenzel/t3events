@@ -89,7 +89,7 @@ class EventDemandFactory implements DemandFactoryInterface {
 	 */
 	public function createFromSettings(array $settings) {
 		/** @var EventDemand $demand */
-		$demand = $this->objectManager->get(self::DEMAND_CLASS);
+		$demand = $this->objectManager->get(static::DEMAND_CLASS);
 
 		if ($demand instanceof PeriodAwareDemandInterface) {
 			$this->setPeriodConstraints($demand, $settings);
