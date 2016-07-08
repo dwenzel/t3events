@@ -1,3 +1,10 @@
+2016-07-08         [RELEASE] Release of t3events 0.25.0 (Dirk Wenzel)
+2016-07-07 1a3a88b [BUGFIX] show event module only if enabled in extension configuration (Dirk Wenzel)
+2016-07-07 c2b6755 [BUGFIX] Add additional rte configuration for the description field of domain model event. This prevent that the links are not rendered correctly in fluid template if you use the viewhelper "f:format.html". (Erik Rauchstein)
+2016-07-05 51bb631 [TASK] BREAKING! All controllers can now receive a merged array of TypoScript settings consisting of controller and action settings from TypoScript and settings from flexform. Some default TypoScript settings had to be moved. Please check whether your plugins/moduls still work as expected. (Dirk Wenzel)
+2016-07-01 a4f6263 [TASK] obsolete TypoScript settings for PaginateViewHelper removed (Dirk Wenzel)
+2016-07-01 b2627f8 [TASK] BREAKING! Obsolete class PaginateController removed. List templates now use the default pagination template from fluid. Overwriting templates can be achieved by setting templateRootPaths. (Dirk Wenzel)
+
 2016-06-29         [RELEASE] Release of t3events 0.24.0 (Dirk Wenzel)
 2016-06-17 62e576e [BUGFIX] missing language key added (Dirk Wenzel)
 2016-06-16 cef1525 [BUGFIX] missing close tag for TypoScript condition added. (Dirk Wenzel)
