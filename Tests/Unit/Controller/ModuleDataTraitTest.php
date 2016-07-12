@@ -6,6 +6,7 @@ use Webfox\T3events\Domain\Model\Dto\ModuleData;
 use Webfox\T3events\Service\ModuleDataStorageService;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 use Webfox\T3events\Controller\ModuleDataTrait;
+use Webfox\T3events\Utility\SettingsUtility;
 
 /***************************************************************
  *
@@ -110,5 +111,28 @@ class ModuleDataTraitTest extends UnitTestCase {
             ->with('list');
 
         $this->subject->resetAction();
+    }
+
+    /**
+     * @test
+     */
+    public function initializeActionMergesSettings()
+    {
+        $expectedSettings = ['foo'];
+        $this->subject = $this->getMockForTrait(
+            ModuleDataTrait::class,
+            [], '', true, true, true, ['mergeSettings']
+        );
+
+        $this->subject->expects($this->once())
+            ->method('mergeSettings')
+            ->will($this->returnValue($expectedSettings));
+
+        $this->subject->initializeAction();
+        $this->assertAttributeSame(
+            $expectedSettings,
+            'settings',
+            $this->subject
+        );
     }
 }

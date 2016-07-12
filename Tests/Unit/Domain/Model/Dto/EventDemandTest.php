@@ -171,5 +171,16 @@ class EventDemandTest extends UnitTestCase {
 			$this->fixture->getCategories()
 		);
 	}
+
+	/**
+	 * @test
+	 */
+	public function getAudienceFieldReturnsClassConstant()
+	{
+		$this->assertSame(
+			EventDemand::AUDIENCE_FIELD,
+			$this->fixture->getAudienceField()
+		);
+	}
 }
 

@@ -56,4 +56,94 @@ class SettingsUtilityTraitTest extends UnitTestCase
         );
     }
 
+    protected function mockSettingsUtility()
+    {
+        $object = $this->getMock(
+            SettingsUtility::class, ['getControllerKey']
+        );
+        $this->fixture->injectSettingsUtility($object);
+
+        return $object;
+    }
+
+    /**
+     * @test
+     */
+    public function mergeSettingsMergesControllerSettings()
+    {
+        $controllerKey = 'foo';
+        $typoScriptSettings = [
+            $controllerKey => [
+                'bar'
+            ]
+        ];
+
+        $this->inject(
+            $this->fixture,
+            'settings',
+            $typoScriptSettings
+        );
+
+        $mockSettingsUtility = $this->mockSettingsUtility();
+        $mockSettingsUtility->expects($this->once())
+            ->method('getControllerKey')
+            ->will($this->returnValue($controllerKey));
+
+        $expectedSettings = [
+            $controllerKey => ['bar'],
+            'bar'
+        ];
+
+        $this->assertEquals(
+            $expectedSettings,
+            $this->fixture->mergeSettings()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function mergeSettingsMergesActionSettings()
+    {
+        $controllerKey = 'foo';
+        $actionKey = 'baz';
+        $actionName =  $actionKey . 'Action';
+        $typoScriptSettings = [
+            $controllerKey => [
+                'bar',
+                $actionKey => ['fooActionSetting']
+            ]
+        ];
+
+        $this->inject(
+            $this->fixture,
+            'settings',
+            $typoScriptSettings
+        );
+        $this->inject(
+            $this->fixture,
+            'actionMethodName',
+            $actionName
+        );
+
+        $mockSettingsUtility = $this->mockSettingsUtility();
+        $mockSettingsUtility->expects($this->once())
+            ->method('getControllerKey')
+            ->will($this->returnValue($controllerKey));
+
+        $expectedSettings = [
+            $controllerKey => [
+                'bar',
+                $actionKey => ['fooActionSetting']
+            ],
+            'fooActionSetting'
+        ];
+
+        $this->assertEquals(
+            $expectedSettings,
+            $this->fixture->mergeSettings()
+        );
+    }
+
 }
+

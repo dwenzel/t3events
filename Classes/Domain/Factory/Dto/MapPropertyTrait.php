@@ -1,0 +1,30 @@
+<?php
+namespace Webfox\T3events\Domain\Factory\Dto;
+
+/**
+ * Class MapPropertyTrait
+ * Allows to map predefined property names
+ *
+ * @package Webfox\T3events\Domain\Factory\Dto
+ */
+trait MapPropertyTrait
+{
+    /**
+     * @return array
+     */
+    abstract function getMappedProperties();
+
+    /**
+     * Maps some old property names to more convenient ones
+     *
+     * @param $propertyName
+     */
+    protected function mapPropertyName(&$propertyName) {
+        $mappedProperties = $this->getMappedProperties();
+
+        if (isset($mappedProperties[$propertyName])) {
+            $propertyName = $mappedProperties[$propertyName];
+        }
+    }
+
+}
