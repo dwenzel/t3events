@@ -1,3 +1,12 @@
+2016-07-12         [RELEASE] Release of t3events 0.26.0 (Dirk Wenzel)
+2016-07-08 2779f4b [TASK] unit tests for SettingsUtilityTrait, ModuleDataTrait and EventDemand added. (Dirk Wenzel)
+2016-07-08 6ad99d0 [BUGFIX] scope for constant DEMAND_CLASS in EventDemandFactory corrected. (Dirk Wenzel)
+2016-07-07 aadf0fb [TASK] EventDemandFactory refactored using new traits MapPropertyTrait and SkipPropertyTrait (Dirk Wenzel)
+2016-07-07 9e11352 [TASK] EventDemandFactory now uses a class constant for creation of demand object. PeriodAwareDemandInterface extended. (Dirk Wenzel)
+2016-03-21 5dec587 [TASK] EventDemandFactory now sets start and end date to DateTime objects (Dirk Wenzel)
+2016-03-21 bce3f69 [TASK] missing setters added to PeriodAwareDemandInterface, annotations in PeriodAwareDemandTrait corrected. (Dirk Wenzel)
+2016-03-21 e092be0 [TASK] DemandFactoryInterface and EventDemandFactory implemented (Dirk Wenzel)
+
 2016-07-08         [RELEASE] Release of t3events 0.25.0 (Dirk Wenzel)
 2016-07-07 1a3a88b [BUGFIX] show event module only if enabled in extension configuration (Dirk Wenzel)
 2016-07-07 c2b6755 [BUGFIX] Add additional rte configuration for the description field of domain model event. This prevent that the links are not rendered correctly in fluid template if you use the viewhelper "f:format.html". (Erik Rauchstein)
