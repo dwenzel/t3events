@@ -10,11 +10,6 @@ plugin.tx_t3events {
 
 	persistence {
 		storagePid = {$plugin.tx_t3events.persistence.storagePid}
-		Webfox\T3events\Domain\Model\Country {
-			mapping {
-				table = static_countries
-			}
-		}
 	}
 
 	features {
