@@ -155,7 +155,7 @@ class EventLocationTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 */
 	public function getDetailsReturnsInitialValueForString() {
 		$this->assertNull(
-				$this->fixture->getDetail()
+				$this->fixture->getDetails()
 		);
 	}
 
