@@ -42,13 +42,12 @@ class PeriodDataProviderFactory
                 $pluginSettings = $params['row']['pi_flexform'];
             }
         }
-        if (!isset($pluginSettings['data'])) {
-            $pluginSettings['data'] = [];
+        if (isset($pluginSettings['data'])) {
+            $flexFormData = $pluginSettings['data'];
         }
         $periodPath = 'constraints/lDEF/settings.period/vDEF';
         $respectEndDatePath = 'constraints/lDEF/settings.respectEndDate/vDEF';
 
-        $flexFormData = $pluginSettings['data'];
         $currentVersion = VersionNumberUtility::convertVersionNumberToInteger(VersionNumberUtility::getNumericTypo3Version());
         if ($currentVersion >= 7006000) {
             $periodPath = 'constraints/lDEF/settings.period/vDEF/0';
