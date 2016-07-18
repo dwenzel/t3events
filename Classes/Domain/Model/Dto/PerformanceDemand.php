@@ -96,13 +96,6 @@ class PerformanceDemand
 	 protected $eventTypes;
 
 	/**
-	 * Categories
-	 *
-	 * @var string
-	 */
-	protected $categories;
-
-	/**
 	 * Returns the performance status
 	 *
 	 * @return \Webfox\T3events\Domain\Model\PerformanceStatus

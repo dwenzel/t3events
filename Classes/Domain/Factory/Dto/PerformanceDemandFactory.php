@@ -1,12 +1,6 @@
 <?php
 namespace Webfox\T3events\Domain\Factory\Dto;
 
-use TYPO3\CMS\Extbase\Object\ObjectManager;
-use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
-use Webfox\T3events\Domain\Model\Dto\DemandInterface;
-use Webfox\T3events\Domain\Model\Dto\EventDemand;
-use Webfox\T3events\Domain\Model\Dto\PeriodAwareDemandInterface;
-
 /***************************************************************
  *  Copyright notice
  *  (c) 2016 Dirk Wenzel <dirk.wenzel@cps-it.de>
@@ -24,20 +18,25 @@ use Webfox\T3events\Domain\Model\Dto\PeriodAwareDemandInterface;
  *  GNU General Public License for more details.
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+use CPSIT\T3importExport\Domain\Model\Dto\DemandInterface;
+use Webfox\T3events\Domain\Model\Dto\PerformanceDemand;
+use Webfox\T3events\Domain\Model\Dto\PeriodAwareDemandInterface;
 
 /**
- * Class EventDemandFactory
- * Creates EventDemand objects
+ * Class PerformanceDemandFactory
+ * Creates PerformanceDemand objects
  *
  * @package Webfox\T3events\Domain\Factory\Dto
  */
-class EventDemandFactory extends AbstractDemandFactory
-	implements DemandFactoryInterface {
+class PerformanceDemandFactory
+extends AbstractDemandFactory
+implements DemandFactoryInterface
+{
     use PeriodAwareDemandFactoryTrait;
     /**
      * Class name of the object created by this factory.
      */
-    const DEMAND_CLASS = EventDemand::class;
+    const DEMAND_CLASS = PerformanceDemand::class;
 
     /**
      * Properties which should be mapped when settings
@@ -45,12 +44,9 @@ class EventDemandFactory extends AbstractDemandFactory
      *
      * @var array
      */
-	static protected $mappedProperties = [
-		'genres' => 'genre',
-		'venues' => 'venue',
-		'eventTypes' => 'eventType',
-		'maxItems' => 'limit'
-	];
+    static protected $mappedProperties = [
+        'maxItems' => 'limit'
+    ];
 
     /**
      * Composite properties which can not set directly
@@ -59,29 +55,25 @@ class EventDemandFactory extends AbstractDemandFactory
      *
      * @var array
      */
-	static protected $compositeProperties = [
-		'periodType',
-		'periodStart',
-		'periodEndDate',
-		'periodDuration',
-		'search'
-	];
+    static protected $compositeProperties = [
+        'search'
+    ];
 
     /**
-	 * Creates a demand object from settings
-	 *
-	 * @param array $settings
-	 * @return DemandInterface
-	 */
-	public function createFromSettings(array $settings) {
-		/** @var EventDemand $demand */
-		$demand = $this->objectManager->get(static::DEMAND_CLASS);
+     * Creates a demand object from settings
+     *
+     * @param array $settings
+     * @return DemandInterface
+     */
+    public function createFromSettings(array $settings) {
+        /** @var PerformanceDemand $demand */
+        $demand = $this->objectManager->get(static::DEMAND_CLASS);
 
-		if ($demand instanceof PeriodAwareDemandInterface) {
-			$this->setPeriodConstraints($demand, $settings);
-		}
+        if ($demand instanceof PeriodAwareDemandInterface) {
+            $this->setPeriodConstraints($demand, $settings);
+        }
         $this->applySettings($demand, $settings);
 
         return $demand;
-	}
+    }
 }
