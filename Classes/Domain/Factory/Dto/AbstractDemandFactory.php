@@ -2,7 +2,9 @@
 namespace Webfox\T3events\Domain\Factory\Dto;
 
 use TYPO3\CMS\Extbase\Object\ObjectManager;
+use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
+use Webfox\T3events\Domain\Model\Dto\OrderAwareDemandInterface;
 
 /***************************************************************
  *  Copyright notice
@@ -24,7 +26,7 @@ use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 
 /**
  * Class AbstractDemandFactory
- * Abstract parent for factories creating Demand objects
+ * Abstract parent for factories creating demand objects
  *
  * @package Webfox\T3events\Domain\Factory\Dto
  */
@@ -84,12 +86,27 @@ abstract class AbstractDemandFactory
     }
 
     /**
+     * Applies settings on demand object
+     * Concrete factory class may return custom values for
+     * the $mappedProperties and $compositeProperties.
+     * The $mappedProperties array allows to map legacy values from settings
+     * to existing properties of the demand object.
+     * Property names found in the $compositeProperties are skipped
+     *
      * @param $demand
      * @param array $settings
      */
-    protected function applySettings($demand, array $settings)
+    public function applySettings($demand, array $settings)
     {
-        // todo set order and search
+        if (
+            isset($settings['sortBy']) &&
+            $demand instanceof OrderAwareDemandInterface
+        ) {
+            $sortDirection = empty($settings['sortDirection']) ? QueryInterface::ORDER_ASCENDING : $settings['sortDirection'];
+
+            $demand->setOrder($settings['sortBy'] . '|' . $sortDirection);
+        }
+
         foreach ($settings as $propertyName => $propertyValue) {
             if ($this->shouldSkipProperty($propertyName, $propertyValue)) {
                 continue;
@@ -97,8 +114,6 @@ abstract class AbstractDemandFactory
             $this->mapPropertyName($propertyName);
             if (ObjectAccess::isPropertySettable($demand, $propertyName)) {
                 ObjectAccess::setProperty($demand, $propertyName, $propertyValue);
-            } else {
-                //echo ('notSettable: ' . $propertyName . PHP_EOL);
             }
         }
     }

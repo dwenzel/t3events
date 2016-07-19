@@ -29,8 +29,8 @@ use Webfox\T3events\Domain\Model\Dto\PeriodAwareDemandInterface;
  * @package Webfox\T3events\Domain\Factory\Dto
  */
 class PerformanceDemandFactory
-extends AbstractDemandFactory
-implements DemandFactoryInterface
+    extends AbstractDemandFactory
+    implements DemandFactoryInterface
 {
     use PeriodAwareDemandFactoryTrait;
     /**
@@ -65,9 +65,19 @@ implements DemandFactoryInterface
      * @param array $settings
      * @return DemandInterface
      */
-    public function createFromSettings(array $settings) {
+    public function createFromSettings(array $settings)
+    {
         /** @var PerformanceDemand $demand */
         $demand = $this->objectManager->get(static::DEMAND_CLASS);
+
+        if (isset($settings['sortBy'])) {
+            if ($settings['sortBy'] === 'headline') {
+                $settings['sortBy'] = 'event.headline';
+            }
+            if ($settings['sortBy'] === 'performances.date') {
+                $settings['sortBy'] = 'date';
+            }
+        }
 
         if ($demand instanceof PeriodAwareDemandInterface) {
             $this->setPeriodConstraints($demand, $settings);

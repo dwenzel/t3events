@@ -108,7 +108,9 @@ class PerformanceDemandFactoryTest extends UnitTestCase {
 			['offset', '10', 10],
 			['uidList', '7,8,9', '7,8,9'],
 			['storagePages', '7,8,9', '7,8,9'],
-			['order', 'foo|bar,baz|asc', 'foo|bar,baz|asc']
+			['order', 'foo|bar,baz|asc', 'foo|bar,baz|asc'],
+            ['sortBy', 'headline', 'event.headline'],
+            ['sortBy', 'performances.date', 'date']
 		];
 	}
 
@@ -331,4 +333,31 @@ class PerformanceDemandFactoryTest extends UnitTestCase {
 		);
 
 	}
+
+    /**
+     * @test
+     */
+    public function createFromSettingsSetsOrderFromLegacySettings()
+    {
+        $settings = [
+            'sortBy' => 'foo',
+            'sortDirection' => 'bar'
+        ];
+        $expectedOrder = 'foo|bar';
+
+        /** @var PerformanceDemand $mockDemand */
+        $mockDemand = $this->getMock(
+            PerformanceDemand::class, ['dummy']
+        );
+        $mockObjectManager = $this->mockObjectManager();
+        $mockObjectManager->expects($this->once())
+            ->method('get')
+            ->will($this->returnValue($mockDemand));
+        $createdDemand = $this->subject->createFromSettings($settings);
+
+        $this->assertSame(
+            $expectedOrder,
+            $createdDemand->getOrder()
+        );
+    }
 }

@@ -1,262 +1,279 @@
 <?php
 namespace Webfox\T3events\Domain\Model\Dto;
+
 /***************************************************************
  *  Copyright notice
- *
  *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
  *  Michael Kasten <kasten@webfox01.de>, Agentur Webfox
- *
  *  All rights reserved
- *
  *  This script is part of the TYPO3 project. The TYPO3 project is
  *  free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 3 of the License, or
  *  (at your option) any later version.
- *
  *  The GNU General Public License can be found at
  *  http://www.gnu.org/copyleft/gpl.html.
- *
  *  This script is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *  GNU General Public License for more details.
- *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 use Webfox\T3events\Domain\Model\PerformanceStatus;
 
 /**
- * @package t3events
- * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
+ * Class PerformanceDemand
+ * Demand object for querying performances
+ *
+ * @package Webfox\T3events\Domain\Model\Dto
  */
-
 class PerformanceDemand
-	extends AbstractDemand
-	implements DemandInterface, PeriodAwareDemandInterface,
-	SearchAwareDemandInterface, StatusAwareDemandInterface,
-	EventLocationAwareDemandInterface, GenreAwareDemandInterface,
+    extends AbstractDemand
+    implements DemandInterface, PeriodAwareDemandInterface,
+    SearchAwareDemandInterface, StatusAwareDemandInterface,
+    EventLocationAwareDemandInterface, GenreAwareDemandInterface,
     VenueAwareDemandInterface, EventTypeAwareDemandInterface,
-	CategoryAwareDemandInterface {
-	use PeriodAwareDemandTrait, SearchAwareDemandTrait,
-		CategoryAwareDemandTrait;
-	const START_DATE_FIELD = 'date';
-	const END_DATE_FIELD = 'endDate';
-	const STATUS_FIELD = 'status';
-	const CATEGORY_FIELD = 'event.categories';
-	const EVENT_LOCATION_FIELD = 'eventLocation';
+    CategoryAwareDemandInterface, OrderAwareDemandInterface
+{
+    use PeriodAwareDemandTrait, SearchAwareDemandTrait,
+        CategoryAwareDemandTrait, OrderAwareDemandTrait;
+    const START_DATE_FIELD = 'date';
+    const END_DATE_FIELD = 'endDate';
+    const STATUS_FIELD = 'status';
+    const CATEGORY_FIELD = 'event.categories';
+    const EVENT_LOCATION_FIELD = 'eventLocation';
     const GENRE_FIELD = 'event.genre';
     const VENUE_FIELD = 'event.venue';
     const EVENT_TYPE_FIELD = 'event.eventType';
 
-	/**
-	 * A single status
-	 * see $statuses for multiple
-	 *
-	 * @var \Webfox\T3events\Domain\Model\PerformanceStatus
-	 */
-	protected $status;
+    /**
+     * A single status
+     * see $statuses for multiple
+     *
+     * @var \Webfox\T3events\Domain\Model\PerformanceStatus
+     */
+    protected $status;
 
-	/**
-	 * Statuses (multiple)
-	 *
-	 * @var string
-	 */
-	protected $statuses;
+    /**
+     * Statuses (multiple)
+     *
+     * @var string
+     */
+    protected $statuses;
 
-	/**
-	 * @var bool
-	 */
-	protected $excludeSelectedStatuses;
+    /**
+     * @var bool
+     */
+    protected $excludeSelectedStatuses;
 
-	 /**
-	  * @var string
-	  */
-	 protected $eventLocations;
+    /**
+     * @var string
+     */
+    protected $eventLocations;
 
-	 /**
-	  * Genres
-	  *
-	  * @var string Genres
-	  */
-	 protected $genres;
+    /**
+     * Genres
+     *
+     * @var string Genres
+     */
+    protected $genres;
 
-	 /**
-	  * Venues
-	  *
-	  * @var string Venues
-	  */
-	 protected $venues;
+    /**
+     * Venues
+     *
+     * @var string Venues
+     */
+    protected $venues;
 
-	 /**
-	  * Event Types
-	  *
-	  * @var string
-	  */
-	 protected $eventTypes;
+    /**
+     * Event Types
+     *
+     * @var string
+     */
+    protected $eventTypes;
 
-	/**
-	 * Returns the performance status
-	 *
-	 * @return \Webfox\T3events\Domain\Model\PerformanceStatus
-	 */
-	public function getStatus() {
-		return $this->status;
-	}
+    /**
+     * Returns the performance status
+     *
+     * @return \Webfox\T3events\Domain\Model\PerformanceStatus
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
 
-	/**
-	 * sets the status
-	 *
-	 * @param \Webfox\T3events\Domain\Model\PerformanceStatus $status
-	 * @return void
-	 */
-	public function setStatus(PerformanceStatus $status){
-		$this->status = $status;
-	}
+    /**
+     * sets the status
+     *
+     * @param \Webfox\T3events\Domain\Model\PerformanceStatus $status
+     * @return void
+     */
+    public function setStatus(PerformanceStatus $status)
+    {
+        $this->status = $status;
+    }
 
-	 /**
-	  * Gets the event locations
-	  * @return string
-	  */
-	 public function getEventLocations() {
-		 return $this->eventLocations;
-	 }
+    /**
+     * Gets the event locations
+     *
+     * @return string
+     */
+    public function getEventLocations()
+    {
+        return $this->eventLocations;
+    }
 
-	 /**
-	  * Sets the event locations
-	  * @var string $eventLocations
-	  * @return void
-	  */
-	 public function setEventLocations($eventLocations) {
-		 $this->eventLocations = $eventLocations;
-	 }
+    /**
+     * Sets the event locations
+     *
+     * @var string $eventLocations
+     * @return void
+     */
+    public function setEventLocations($eventLocations)
+    {
+        $this->eventLocations = $eventLocations;
+    }
 
-	 /**
-	  * Returns the genres
-	  *
-	  * @return string
-	  */
-	 public function getGenres() {
-		 return $this->genres;
-	 }
+    /**
+     * Returns the genres
+     *
+     * @return string
+     */
+    public function getGenres()
+    {
+        return $this->genres;
+    }
 
-	 /**
-	  * Sets the genres
-	  *
-	  * @param string $genres Comma separated string of genre ids
-	  * @return void
-	  */
-	 public function setGenres($genres) {
-		 $this->genres = $genres;
-	 }
+    /**
+     * Sets the genres
+     *
+     * @param string $genres Comma separated string of genre ids
+     * @return void
+     */
+    public function setGenres($genres)
+    {
+        $this->genres = $genres;
+    }
 
-	 /**
-	  * Returns the venues
-	  *
-	  * @return string $venues
-	  */
-	 public function getVenues() {
-		 return $this->venues;
-	 }
+    /**
+     * Returns the venues
+     *
+     * @return string $venues
+     */
+    public function getVenues()
+    {
+        return $this->venues;
+    }
 
-	 /**
-	  * Sets the venues
-	  *
-	  * @param string $venues
-	  * @return void
-	  */
-	 public function setVenues($venues) {
-		 $this->venues = $venues;
-	 }
+    /**
+     * Sets the venues
+     *
+     * @param string $venues
+     * @return void
+     */
+    public function setVenues($venues)
+    {
+        $this->venues = $venues;
+    }
 
-	 /**
-	  * Returns the Event Types
-	  *
-	  * @return string $eventTypes
-	  */
-	 public function getEventTypes() {
-		 return $this->eventTypes;
-	 }
+    /**
+     * Returns the Event Types
+     *
+     * @return string $eventTypes
+     */
+    public function getEventTypes()
+    {
+        return $this->eventTypes;
+    }
 
-	 /**
-	  * Set event types
-	  *
-	  * @param string $eventTypes
-	  * @return void
-	  */
-	 public function setEventTypes($eventTypes) {
-		 $this->eventTypes = $eventTypes;
-	 }
+    /**
+     * Set event types
+     *
+     * @param string $eventTypes
+     * @return void
+     */
+    public function setEventTypes($eventTypes)
+    {
+        $this->eventTypes = $eventTypes;
+    }
 
-	/**
-	 * Gets the start date field
-	 *
-	 * @return string
-	 */
-	public function getStartDateField() {
-		return self::START_DATE_FIELD;
-	}
+    /**
+     * Gets the start date field
+     *
+     * @return string
+     */
+    public function getStartDateField()
+    {
+        return self::START_DATE_FIELD;
+    }
 
-	/**
-	 * Gets the endDate field
-	 *
-	 * @return string
-	 */
-	public function getEndDateField() {
-		return self::END_DATE_FIELD;
-	}
+    /**
+     * Gets the endDate field
+     *
+     * @return string
+     */
+    public function getEndDateField()
+    {
+        return self::END_DATE_FIELD;
+    }
 
-	/**
-	 * Gets the status field name
-	 *
-	 * @return string
-	 */
-	public function getStatusField() {
-		return self::STATUS_FIELD;
-	}
+    /**
+     * Gets the status field name
+     *
+     * @return string
+     */
+    public function getStatusField()
+    {
+        return self::STATUS_FIELD;
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getCategoryField() {
-		return self::CATEGORY_FIELD;
-	}
+    /**
+     * @return string
+     */
+    public function getCategoryField()
+    {
+        return self::CATEGORY_FIELD;
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getStatuses() {
-		return $this->statuses;
-	}
+    /**
+     * @return string
+     */
+    public function getStatuses()
+    {
+        return $this->statuses;
+    }
 
-	/**
-	 * @param string $statuses
-	 */
-	public function setStatuses($statuses) {
-		$this->statuses = $statuses;
-	}
+    /**
+     * @param string $statuses
+     */
+    public function setStatuses($statuses)
+    {
+        $this->statuses = $statuses;
+    }
 
-	/**
-	 * @return boolean
-	 */
-	public function isExcludeSelectedStatuses() {
-		return $this->excludeSelectedStatuses;
-	}
+    /**
+     * @return boolean
+     */
+    public function isExcludeSelectedStatuses()
+    {
+        return $this->excludeSelectedStatuses;
+    }
 
-	/**
-	 * @param boolean $excludeSelectedStatuses
-	 */
-	public function setExcludeSelectedStatuses($excludeSelectedStatuses) {
-		$this->excludeSelectedStatuses = $excludeSelectedStatuses;
-	}
+    /**
+     * @param boolean $excludeSelectedStatuses
+     */
+    public function setExcludeSelectedStatuses($excludeSelectedStatuses)
+    {
+        $this->excludeSelectedStatuses = $excludeSelectedStatuses;
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getEventLocationField()
-	{
-		return self::EVENT_LOCATION_FIELD;
-	}
+    /**
+     * @return string
+     */
+    public function getEventLocationField()
+    {
+        return self::EVENT_LOCATION_FIELD;
+    }
 
     /**
      * @return string

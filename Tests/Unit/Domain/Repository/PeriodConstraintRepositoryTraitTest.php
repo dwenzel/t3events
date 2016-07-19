@@ -77,6 +77,8 @@ class PeriodConstraintRepositoryTraitTest extends UnitTestCase
                 'setPeriodType',
                 'getPeriodDuration',
                 'setPeriodDuration',
+                'getDate',
+                'setDate',
                 'getStartDate',
                 'setStartDate',
                 'getEndDate',
