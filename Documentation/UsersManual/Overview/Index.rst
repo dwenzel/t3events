@@ -1,4 +1,6 @@
-﻿.. ==================================================
+﻿.. include:: Images.txt
+
+.. ==================================================
 .. FOR YOUR INFORMATION
 .. --------------------------------------------------
 .. -*- coding: utf-8 -*- with BOM.
@@ -9,20 +11,17 @@
 .. role::   underline
 .. role::   typoscript(code)
 .. role::   ts(typoscript)
-:class:  typoscript
+
+	:class:  typoscript
 .. role::   php(code)
 
 
-To-Do list
-----------
+Overview
+^^^^^^^^
 
-- Add Documentation
+- Create records for events, performances, locations, genres etc
 
-- FEATURE: search form
+- Insert a plugin at any page and configure it to display teasers,
+  events or a quick menu
 
-- FEATURE: Add more Quick Menu types (Venue, Performance Type)
-
-- FEATURE: Enable linking events and/or performances to tt\_address
-  record
-
-
+|img-createRecords|

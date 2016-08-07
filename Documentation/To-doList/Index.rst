@@ -13,11 +13,10 @@
 .. role::   php(code)
 
 
-Overview
-^^^^^^^^
+To-Do list
+----------
 
-- Create records for events, performances, locations, genres etc
-
-- Insert a plugin at any page and configure it to display teasers,
-  events or a quick menu
+- FEATURE: Enable linking events and/or performances to tt\_address
+  record
+- add content elements to events
 

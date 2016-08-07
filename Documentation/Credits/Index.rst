@@ -11,7 +11,8 @@
 .. role::   underline
 .. role::   typoscript(code)
 .. role::   ts(typoscript)
-:class:  typoscript
+
+	:class:  typoscript
 .. role::   php(code)
 
 
@@ -29,6 +30,6 @@ icon>`_
 Ticket Icon: `http://findicons.com/icon/178211/ticket
 <http://findicons.com/icon/178211/ticket>`_
 
-|img-2| 10
+|img-2|
 
 

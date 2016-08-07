@@ -1,4 +1,4 @@
-﻿.. include:: Images.txt
+.. include:: Images.txt
 
 .. ==================================================
 .. FOR YOUR INFORMATION
@@ -11,7 +11,8 @@
 .. role::   underline
 .. role::   typoscript(code)
 .. role::   ts(typoscript)
-:class:  typoscript
+
+	:class:  typoscript
 .. role::   php(code)
 
 
@@ -59,8 +60,10 @@ Provide additional information:
 - Keywords: may be displayed or included in meta information
 
 
-|img-4| Performances Tab
-""""""""""""""""""""""""
+|img-4|
+
+Performances Tab
+""""""""""""""""
 
 You have to create at least one performance for each event and may add
 as many as you like.

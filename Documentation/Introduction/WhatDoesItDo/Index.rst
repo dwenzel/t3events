@@ -9,7 +9,7 @@
 .. role::   underline
 .. role::   typoscript(code)
 .. role::   ts(typoscript)
-:class:  typoscript
+		:class:  typoscript
 .. role::   php(code)
 
 
@@ -31,11 +31,10 @@ Originally designed to fulfill the specific requirements of a client
 project, this extension remains under development. We appreciate any
 feedback or suggestions for improvement.
 
-Don't hesitate to write an email to `t3events@webfox01.de
-<mailto:t3events@webfox01.de>`_ or ask in the German or English
+Don't hesitate to write an email to `t3events@gmx.de
+<mailto:t3events@gmx.de>`_ or ask in the German or English
 TYPO3-Mailinglist, which we actively follow.
 
-Visit the `project page of t3events <http://forge.typo3.org/projects
-/extension-t3events>`_ on TYPO3 forge for information about new
+Visit the `project page of t3events <https://github.com/dwenzel/t3events>`_ on github for information about new
 features and current issues.
 
