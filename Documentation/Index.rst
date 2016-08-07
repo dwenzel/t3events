@@ -45,9 +45,7 @@ EXT: Events
 
 	available from http://www.opencontent.org/opl.shtml
 
-The content of this document is related to TYPO3
-
-\- a GNU/GPL CMS/Framework available from www.typo3.org
+The content of this document is related to TYPO3 \- a GNU/GPL CMS/Framework available from www.typo3.org
 
 .. toctree::
 		:maxdepth: 5
