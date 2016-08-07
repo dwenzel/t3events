@@ -736,13 +736,15 @@ class EventControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 * @covers ::overwriteDemandObject
 	 */
-	public function overwriteDemandObjectReturnsDemandForEmptyOverwriteDemand() {
-		$demand = $this->getMock('Webfox\\T3events\\Domain\\Model\\Dto\\EventDemand');
-		$overwriteDemand = array();
+	public function overwriteDemandObjectDoesNotChangeDemandForEmptyOverwriteDemand() {
+		$demand = $this->getMock(EventDemand::class, ['dummy']);
+		$clonedDemand = $this->getMock(EventDemand::class, ['dummy']);
+		$overwriteDemand = [];
 
-		$this->assertSame(
+		$this->fixture->overwriteDemandObject($demand, $overwriteDemand);
+		$this->assertEquals(
 			$demand,
-			$this->fixture->overwriteDemandObject($demand, $overwriteDemand)
+			$clonedDemand
 		);
 	}
 

@@ -24,8 +24,28 @@ config.tx_extbase {
 					}
 				}
 			}
+			Webfox\T3events\Domain\Model\Category {
+				mapping {
+					tableName = sys_category
+				}
+			}
 		}
 	}
 }
 
-
+config.tx_extbase {
+    objects {
+        Webfox\T3events\Session\SessionInterface {
+            className = Webfox\T3events\Session\Typo3BackendSession
+        }
+    }
+}
+[globalString = TSFE:fe_user|loginType = FE]
+    config.tx_extbase {
+        objects {
+            Webfox\T3events\Session\SessionInterface {
+                className = Webfox\T3events\Session\Typo3Session
+            }
+        }
+    }
+[global]

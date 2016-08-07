@@ -20,6 +20,8 @@ namespace Webfox\T3events\Tests\Unit\Domain\Model;
 	 *  GNU General Public License for more details.
 	 *  This copyright notice MUST APPEAR in all copies of the script!
 	 ***************************************************************/
+use TYPO3\CMS\Extbase\Domain\Model\FileReference;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use Webfox\T3events\Domain\Model\Person;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 use Webfox\T3events\Domain\Model\PersonType;
@@ -42,10 +44,6 @@ class PersonTest extends UnitTestCase {
 
 	protected function setUp() {
 		$this->subject = new Person();
-	}
-
-	protected function tearDown() {
-		unset($this->subject);
 	}
 
 	/**
@@ -294,4 +292,127 @@ class PersonTest extends UnitTestCase {
 		);
 	}
 
+	/**
+	 * @test
+	 */
+	public function getTypeReturnsInitialValueForString() {
+		$this->assertSame(
+			Person::PERSON_TYPE_UNKNOWN,
+			$this->subject->getType()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function typeCanBeSet() {
+		$type = 'foo';
+		$this->subject->setType($type);
+
+		$this->assertSame(
+			$type,
+			$this->subject->getType()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getWwwInitiallyReturnsNull() {
+		$this->assertNull(
+			$this->subject->getWww()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function wwwCanBeSet() {
+		$www = 'foo';
+		$this->subject->setWww($www);
+
+		$this->assertSame(
+			$www,
+			$this->subject->getWww()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getTitleInitiallyReturnsNull() {
+		$this->assertNull(
+			$this->subject->getTitle()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function titleCanBeSet() {
+		$title = 'foo';
+		$this->subject->setTitle($title);
+
+		$this->assertSame(
+			$title,
+			$this->subject->getTitle()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function getImagesInitiallyReturnsEmptyObjectStorage() {
+		$emptyObjectStorage = new ObjectStorage();
+		$this->subject->initializeObject();
+
+		$this->assertEquals(
+			$emptyObjectStorage,
+			$this->subject->getImages()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function imagesCanBeSet() {
+		$emptyObjectStorage = new ObjectStorage();
+		$this->subject->setImages($emptyObjectStorage);
+
+		$this->assertSame(
+			$emptyObjectStorage,
+			$this->subject->getImages()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function imageCanBeAdded() {
+		$this->subject->initializeObject();
+		$mockFileReference = $this->getMock(
+			FileReference::class, [], [], '', false
+		);
+		$this->subject->addImage($mockFileReference);
+
+		$this->assertTrue(
+			$this->subject->getImages()->contains($mockFileReference)
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function imageCanBeRemoved() {
+		$this->subject->initializeObject();
+		$mockFileReference = $this->getMock(
+			FileReference::class, [], [], '', false
+		);
+		$this->subject->addImage($mockFileReference);
+		$this->subject->removeImage($mockFileReference);
+
+		$this->assertFalse(
+			$this->subject->getImages()->contains($mockFileReference)
+		);
+	}
 }

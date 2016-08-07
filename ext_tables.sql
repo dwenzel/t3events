@@ -297,7 +297,7 @@ CREATE TABLE tx_t3events_domain_model_eventlocation (
 	place varchar(255) DEFAULT '' NOT NULL,
 	details text NOT NULL,
 	www varchar(255) DEFAULT '' NOT NULL,
-	country int(11) unsigned DEFAULT '0',
+	country varchar(255) DEFAULT '' NOT NULL,
 	latitude decimal(24,14) DEFAULT '0.00000000000000' NOT NULL,
 	longitude decimal(24,14) DEFAULT '0.00000000000000' NOT NULL,
 
@@ -589,7 +589,7 @@ CREATE TABLE tx_t3events_domain_model_persontype (
 	l10n_parent int(11) DEFAULT '0' NOT NULL,
 	l10n_diffsource mediumblob,
 
-	PRIMARY KEY (uid),
+	PRIMARY KEY (uid)
 );
 
 #
@@ -609,6 +609,7 @@ CREATE TABLE tx_t3events_domain_model_person (
 	city varchar(255) DEFAULT '' NOT NULL,
 	phone varchar(255) DEFAULT '' NOT NULL,
 	email varchar(255) DEFAULT '' NOT NULL,
+	www varchar(255) DEFAULT '' NOT NULL,
 	title varchar(255) DEFAULT '' NOT NULL,
 	birthday date DEFAULT '0000-00-00',
 	tx_extbase_type varchar(255) DEFAULT '' NOT NULL,
@@ -635,6 +636,7 @@ CREATE TABLE tx_t3events_domain_model_person (
 	sys_language_uid int(11) DEFAULT '0' NOT NULL,
 	l10n_parent int(11) DEFAULT '0' NOT NULL,
 	l10n_diffsource mediumblob,
+	images int(11) unsigned DEFAULT '0' NOT NULL,
 
 	PRIMARY KEY (uid)
 );
@@ -715,6 +717,8 @@ CREATE TABLE tx_t3events_domain_model_notification (
 
 	recipient varchar(255) DEFAULT '' NOT NULL,
 	sender varchar(255) DEFAULT '' NOT NULL,
+	sender_email varchar(255) DEFAULT '' NOT NULL,
+	sender_name varchar(255) DEFAULT '' NOT NULL,
 	subject varchar(255) DEFAULT '' NOT NULL,
 	bodytext text NOT NULL,
 	format varchar(255) DEFAULT '' NOT NULL,

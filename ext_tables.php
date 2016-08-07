@@ -3,6 +3,8 @@ if (!defined('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
+$emSettings = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][$_EXTKEY]);
+
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
 	'Webfox.' . $_EXTKEY,
 	'Events',
@@ -70,10 +72,12 @@ $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignat
 );
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_t3events_domain_model_company');
 
-$TCA['static_countries']['columns'][$TCA['static_countries']['ctrl']['type']]['config']['items'][] = array(
-	'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:static_countries.tx_extbase_type.Tx_T3events_Country', 'Tx_T3events_Country'
-);
-
-$TCA['static_countries']['types']['Tx_T3events_Country']['showitem'] = $TCA['static_countries']['types']['1']['showitem'];
-$TCA['static_countries']['types']['Tx_T3events_Country']['showitem'] .= ',--div--;LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_country,';
-$TCA['static_countries']['types']['Tx_T3events_Country']['showitem'] .= '';
+// enable event module
+if ((bool)$emSettings['showEventModule']) {
+    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addModule(
+        'Events',
+        '',
+        '',
+        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/BackendModule/'
+    );
+}

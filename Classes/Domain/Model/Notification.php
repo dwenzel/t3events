@@ -19,25 +19,36 @@ namespace Webfox\T3events\Domain\Model;
 	 *  GNU General Public License for more details.
 	 *  This copyright notice MUST APPEAR in all copies of the script!
 	 ***************************************************************/
+use TYPO3\CMS\Extbase\Domain\Model\FileReference;
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 /**
  * Notification
  */
-class Notification extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
+class Notification extends AbstractEntity {
 
 	/**
-	 * @var \string $recipient
-	 * @validate EmailAddress
+	 * @var string $recipient
 	 */
 	protected $recipient;
 
 	/**
-	 * @var \string $sender
+	 * @var string $sender
 	 */
 	protected $sender;
 
 	/**
-	 * @var \string $subject
+	 * @var string
+	 */
+	protected $senderEmail;
+
+	/**
+	 * @var string
+	 */
+	protected $senderName;
+
+	/**
+	 * @var string $subject
 	 * @validate NotEmpty
 	 */
 	protected $subject;
@@ -45,13 +56,13 @@ class Notification extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Body text
 	 *
-	 * @var \string $bodytext
+	 * @var string $bodytext
 	 * @validate NotEmpty
 	 */
 	protected $bodytext;
 
 	/**
-	 * @var \string|null $format
+	 * @var string|null $format
 	 */
 	protected $format;
 
@@ -63,9 +74,15 @@ class Notification extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $sentAt;
 
 	/**
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
+	 * @lazy
+	 */
+	protected $attachments;
+
+	/**
 	 * Returns the recipient
 	 *
-	 * @return \string
+	 * @return string
 	 */
 	public function getRecipient() {
 		return $this->recipient;
@@ -74,7 +91,7 @@ class Notification extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the recipient
 	 *
-	 * @var \string $recipient
+	 * @var string $recipient
 	 */
 	public function setRecipient($recipient) {
 		$this->recipient = $recipient;
@@ -83,7 +100,7 @@ class Notification extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Returns the subject
 	 *
-	 * @return \string
+	 * @return string
 	 */
 	public function getSubject() {
 		return $this->subject;
@@ -92,34 +109,37 @@ class Notification extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the subject
 	 *
-	 * @var \string $subject
+	 * @var string $subject
 	 */
 	public function setSubject($subject) {
 		$this->subject = $subject;
 	}
 
 	/**
-	 * Returns the sender
+	 * Returns the sender email
 	 *
-	 * @return \string
+	 * @return string
+	 * @deprecated Use getSenderEmail and getSenderName instead
 	 */
 	public function getSender() {
 		return $this->sender;
 	}
 
 	/**
-	 * Sets the sender
+	 * Sets the sender email
 	 *
-	 * @var \string $sender
+	 * @var string $sender
+	 * @deprecated Use setSenderEmail and setSenderName instead
 	 */
 	public function setSender($sender) {
 		$this->sender = $sender;
+        $this->senderEmail = $sender;
 	}
 
 	/**
 	 * Returns the bodytext
 	 *
-	 * @return \string
+	 * @return string
 	 */
 	public function getBodytext() {
 		return $this->bodytext;
@@ -128,7 +148,7 @@ class Notification extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the bodytext
 	 *
-	 * @var \string $bodytext
+	 * @var string $bodytext
 	 */
 	public function setBodytext($bodytext) {
 		$this->bodytext = $bodytext;
@@ -137,7 +157,7 @@ class Notification extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Returns the format
 	 *
-	 * @return \string
+	 * @return string
 	 */
 	public function getFormat() {
 		return $this->format;
@@ -146,7 +166,7 @@ class Notification extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the format
 	 *
-	 * @var \string $format
+	 * @var string $format
 	 */
 	public function setFormat($format) {
 		$this->format = $format;
@@ -168,5 +188,74 @@ class Notification extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 */
 	public function setSentAt($sentAt) {
 		$this->sentAt = $sentAt;
+	}
+
+	/**
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
+	 */
+	public function getAttachments() {
+		return $this->attachments;
+	}
+
+	/**
+	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $attachments
+	 */
+	public function setAttachments($attachments) {
+		$this->attachments = $attachments;
+	}
+
+	/**
+	 * Adds an attachment to the attachment gallery
+	 *
+	 * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $fileReference
+	 */
+	public function addAttachment(FileReference $fileReference) {
+		$this->attachments->attach($fileReference);
+	}
+
+	/**
+	 * Removes an attachment from the attachment gallery
+	 *
+	 * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $fileReference
+	 */
+	public function removeAttachment(FileReference $fileReference) {
+		$this->attachments->detach($fileReference);
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getSenderEmail()
+	{
+        if (!isset($this->senderEmail)) {
+            return($this->sender);
+        }
+
+		return $this->senderEmail;
+	}
+
+	/**
+	 * @param string $senderEmail
+	 */
+	public function setSenderEmail($senderEmail)
+	{
+		$this->senderEmail = $senderEmail;
+        $this->sender = $senderEmail;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getSenderName()
+	{
+		return $this->senderName;
+	}
+
+	/**
+	 * @param string $senderName
+	 */
+	public function setSenderName($senderName)
+	{
+		$this->senderName = $senderName;
 	}
 }

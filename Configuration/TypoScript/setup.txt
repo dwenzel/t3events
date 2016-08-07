@@ -6,17 +6,10 @@ plugin.tx_t3events {
 		templateRootPath = {$plugin.tx_t3events.view.templateRootPath}
 		partialRootPath = {$plugin.tx_t3events.view.partialRootPath}
 		layoutRootPath = {$plugin.tx_t3events.view.layoutRootPath}
-		# set root path for paginate widget view helper
-		widget.\Webfox\T3events\ViewHelpers\Widget\PaginateViewHelper.templateRootPath = {$plugin.tx_t3events.view.templateRootPath}
 	}
 
 	persistence {
 		storagePid = {$plugin.tx_t3events.persistence.storagePid}
-		Webfox\T3events\Domain\Model\Country {
-			mapping {
-				table = static_countries
-			}
-		}
 	}
 
 	features {
@@ -50,7 +43,19 @@ plugin.tx_t3events {
 					width = 120
 					height = 120
 				}
-
+				search {
+					fields = {$plugin.tx_t3events.settings.event.search.fields}
+					radius {
+						unit = km
+						options {
+							50000 = 50 km
+							100000 = 100 km
+							250000 = 250 km
+							500000 = 500 km
+							1000000 = 1000 km
+						}
+					}
+				}
 				paginate = 1
 				showSortBy = 1
 			}
@@ -76,49 +81,35 @@ plugin.tx_t3events {
 					}
 				}
 			}
-			search {
-				fields = {$plugin.tx_t3events.settings.event.search.fields}
-				radius {
-					unit = km
-					options {
-						50000 = 50 km
-						100000 = 100 km
-						250000 = 250 km
-						500000 = 500 km
-						1000000 = 1000 km
-					}
-				}
-			}
 		}
 		performance {
 			detail {
 				errorHandling = {$plugin.tx_t3events.settings.detail.errorHandling}
 			}
-			search {
-				fields = {$plugin.tx_t3events.settings.performance.search.fields}
-				radius {
-					unit = km
-					options {
-						50000 = 50 km
-						100000 = 100 km
-						250000 = 250 km
-						500000 = 500 km
-						1000000 = 1000 km
-					}
-				}
-			}
+			list {
+                search {
+                    fields = {$plugin.tx_t3events.settings.performance.search.fields}
+                    radius {
+                        unit = km
+                        options {
+                            50000 = 50 km
+                            100000 = 100 km
+                            250000 = 250 km
+                            500000 = 500 km
+                            1000000 = 1000 km
+                        }
+                    }
+                }
+                # legacy sorting
+                sortBy = date
+                sortDirection = asc
+                # todo read order
+                # order = date|asc
+            }
+            quickMenu {
+                showSearchField = 1
+            }
 		}
-		search {
-			teasers {
-				fields = venue
-			}
-
-			events {
-				fields =
-			}
-		}
-
-		// search
 	}
 
 	// settings
@@ -127,16 +118,16 @@ plugin.tx_t3events {
 			background-color:#FF9F9F;
 			border: 1px #FF0000 solid;
 		}
-	
+
 		.tx-t3events table {
 			border-collapse:separate;
 			border-spacing:10px;
 		}
-	
+
 		.tx-t3events table th {
 			font-weight:bold;
 		}
-	
+
 		.tx-t3events table td {
 			vertical-align:top;
 		}
@@ -146,15 +137,11 @@ plugin.tx_t3events {
 ####################
 # config extbase to use a different template root path for paginate widget
 # this setting is part of a workaround for the limits of <f:widget.paginate /> view helper - specially the missing option to localize its output
-config.tx_extbase.view.widget.Tx_Fluid_ViewHelpers_Widget_PaginateViewHelper.templateRootPath = {$plugin.tx_t3events.view.templateRootPath}
+#config.tx_extbase.view.widget.Tx_Fluid_ViewHelpers_Widget_PaginateViewHelper.templateRootPath = {$plugin.tx_t3events.view.templateRootPath}
 
 config.tx_extbase.objects {
-	Tx_Fluid_ViewHelpers_Widget_Controller_PaginateController {
-		className = \Webfox\T3events\ViewHelpers\Widget\Controller\PaginateController
-	}
-
 	# overwrite class to allow USER_INT from flexform
-	Tx_Extbase_Service_ExtensionService {
+	TYPO3\CMS\Extbase\Service\ExtensionService {
 		className = Webfox\T3events\Service\ExtensionService
 	}
 }

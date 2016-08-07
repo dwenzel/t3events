@@ -32,4 +32,10 @@ interface SessionInterface {
 	 */
 	public function clean();
 
+	/**
+	 * Sets the namespace
+	 *
+	 * @param string $namespace
+	 */
+	public function setNamespace($namespace);
 }

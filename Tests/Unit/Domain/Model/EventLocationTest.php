@@ -70,6 +70,9 @@ class EventLocationTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function getAddressReturnsInitialValueForString() {
+		$this->assertNull(
+		    $this->fixture->getAddress()
+		);
 	}
 
 	/**
@@ -88,6 +91,9 @@ class EventLocationTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function getImageReturnsInitialValueForString() {
+		$this->assertNull(
+				$this->fixture->getImage()
+		);
 	}
 
 	/**
@@ -106,6 +112,9 @@ class EventLocationTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function getZipReturnsInitialValueForString() {
+		$this->assertNull(
+				$this->fixture->getZip()
+		);
 	}
 
 	/**
@@ -124,6 +133,9 @@ class EventLocationTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function getPlaceReturnsInitialValueForString() {
+		$this->assertNull(
+				$this->fixture->getPlace()
+		);
 	}
 
 	/**
@@ -142,6 +154,9 @@ class EventLocationTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function getDetailsReturnsInitialValueForString() {
+		$this->assertNull(
+				$this->fixture->getDetails()
+		);
 	}
 
 	/**
@@ -160,6 +175,9 @@ class EventLocationTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function getWwwReturnsInitialValueForString() {
+		$this->assertNull(
+				$this->fixture->getWww()
+		);
 	}
 
 	/**
@@ -177,7 +195,7 @@ class EventLocationTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	/**
 	 * @test
 	 */
-	public function getCountryReturnsInitialValueForCountry() {
+	public function getCountryReturnsInitialValueForString() {
 		$this->assertEquals(
 			NULL,
 			$this->fixture->getCountry()
@@ -188,13 +206,10 @@ class EventLocationTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function setCountryForCountrySetsCountry() {
-		$this->markTestSkipped('check how to fix missing dependency');
-		$dummyObject = $this->getMock('Webfox\T3events\Domain\Model\Country',
-			array(), array(), '', FALSE);
-		$this->fixture->setCountry($dummyObject);
+		$this->fixture->setCountry('foo');
 
 		$this->assertSame(
-			$dummyObject,
+			'foo',
 			$this->fixture->getCountry()
 		);
 	}

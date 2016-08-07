@@ -26,6 +26,7 @@ use Webfox\T3events\Controller\PerformanceController;
 use Webfox\T3events\Domain\Model\Dto\PerformanceDemand;
 use Webfox\T3events\Domain\Model\Dto\Search;
 use Webfox\T3events\Domain\Model\Performance;
+use Webfox\T3events\Domain\Repository\CategoryRepository;
 use Webfox\T3events\Domain\Repository\EventTypeRepository;
 use Webfox\T3events\Domain\Repository\GenreRepository;
 use Webfox\T3events\Domain\Repository\PerformanceRepository;
@@ -35,6 +36,7 @@ use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 use Webfox\T3events\Session\Typo3Session;
+use Webfox\T3events\Utility\SettingsUtility;
 
 /**
  * Test case for class \Webfox\T3events\Controller\PerformanceController.
@@ -60,7 +62,7 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$view = $this->getMock(
 			TemplateView::class, ['assign', 'assignMultiple'], [], '', FALSE);
 		$mockSession = $this->getMock(
-			SessionInterface::class, ['has', 'get', 'clean', 'set']
+			SessionInterface::class, ['has', 'get', 'clean', 'set', 'setNamespace']
 		);
 		$mockContentObject = $this->getMock(
 			ContentObjectRenderer::class
@@ -158,19 +160,26 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 	/**
 	 * @test
+	 * @covers ::injectCategoryRepository
 	 */
-	public function initializeActionsSetsContentObjectAndSession() {
-		$mockSession = $this->getMock(
-			Typo3Session::class, [], [], '', false
+	public function injectCategoryRepositorySetsCategoryRepository() {
+		$repository = $this->getMock(
+			CategoryRepository::class, [], [], '', false
 		);
-		$mockObjectManager = $this->getMock(
-			ObjectManager::class
+		$this->fixture->injectCategoryRepository($repository);
+
+		$this->assertSame(
+			$repository,
+			$this->fixture->_get('categoryRepository')
 		);
-		$mockObjectManager->expects($this->once())
-			->method('get')
-			->with(Typo3Session::class)
-			->will($this->returnValue($mockSession));
-		$this->fixture->_set('objectManager', $mockObjectManager);
+	}
+
+	/**
+	 * @test
+	 */
+	public function initializeActionsSetsContentObject() {
+        $this->fixture->_set('settings', []);
+        $this->mockSettingsUtility();
 		$configurationManager = $this->getMock(
 			ConfigurationManagerInterface::class,
 			['getContentObject', 'setContentObject', 'getConfiguration',
@@ -187,14 +196,11 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function initializeActionSetsOverwriteDemandInSession() {
+        $this->fixture->_set('settings', []);
+        $this->mockSettingsUtility();
 		$overwriteDemand = ['foo'];
 		$mockSession = $this->fixture->_get('session');
 		$mockRequest = $this->fixture->_get('request');
-		$mockObjectManager = $this->fixture->_get('objectManager');
-		$mockObjectManager->expects($this->once())
-			->method('get')
-			->with(Typo3Session::class)
-			->will($this->returnValue($mockSession));
 		$mockRequest->expects($this->once())
 			->method('hasArgument')
 			->will($this->returnValue(true));
@@ -813,8 +819,11 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 			array('dummy'), array(),'', FALSE);
 		$settings = array(
 			'periodType' => 'byDate',
-			'periodStartDate' => 'foo',
+			'periodStartDate' => '12345',
 		);
+        $timeZone = new \DateTimeZone(date_default_timezone_get());
+		$expectedDate = new \DateTime('midnight', $timeZone);
+        $expectedDate->setTimestamp((int)$settings['periodStartDate']);
 		$mockDemand = $this->getMock('Webfox\\T3events\\Domain\\Model\\Dto\\PerformanceDemand',
 			array(), array(), '', FALSE);
 		$mockObjectManager = $this->getMock('TYPO3\\CMS\\Extbase\\Object\\ObjectManager',
@@ -825,7 +834,7 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$mockObjectManager->expects($this->once())->method('get')
 			->will($this->returnValue($mockDemand));
 		$mockDemand->expects($this->once())->method('setStartDate')
-			->with('foo');
+			->with($expectedDate);
 
 		$fixture->_call('createDemandFromSettings', $settings);
 	}
@@ -839,10 +848,13 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 			array('dummy'), array(),'', FALSE);
 		$settings = array(
 			'periodType' => 'byDate',
-			'periodEndDate' => 'bar',
+			'periodEndDate' => '12345',
 		);
-		$mockDemand = $this->getMock('Webfox\\T3events\\Domain\\Model\\Dto\\PerformanceDemand',
-			array(), array(), '', FALSE);
+        $timeZone = new \DateTimeZone(date_default_timezone_get());
+        $expectedDate = new \DateTime('midnight', $timeZone);
+        $expectedDate->setTimestamp((int)$settings['periodEndDate']);
+        $mockDemand = $this->getMock('Webfox\\T3events\\Domain\\Model\\Dto\\PerformanceDemand',
+			array('setEndDate'), array(), '', FALSE);
 		$mockObjectManager = $this->getMock('TYPO3\\CMS\\Extbase\\Object\\ObjectManager',
 			array('get'), array(), '', FALSE);
 
@@ -851,7 +863,7 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$mockObjectManager->expects($this->once())->method('get')
 			->will($this->returnValue($mockDemand));
 		$mockDemand->expects($this->once())->method('setEndDate')
-			->with('bar');
+			->with($expectedDate);
 
 		$fixture->_call('createDemandFromSettings', $settings);
 	}
@@ -925,7 +937,6 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$this->fixture->overwriteDemandObject($demand, $overwriteDemand);
 	}
 
-
 	/**
 	 * @test
 	 * @covers ::overwriteDemandObject
@@ -958,14 +969,13 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test ::overwriteDemandObject
 	 */
 	public function overwriteDemandObjectSetsSearch() {
+        $this->mockSettingsUtility();
 		$fieldNames = 'foo,bar';
 		$search = 'baz';
 		$settings = [
-			'performance' => [
-				'search' => [
-					'fields' => $fieldNames
-				]
-			]
+            'search' => [
+                'fields' => $fieldNames
+            ]
 		];
 		$this->fixture->_set('settings', $settings);
 
@@ -979,7 +989,7 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 		$this->fixture->expects($this->once())
 			->method('createSearchObject')
-			->with($overwriteDemand['search'], $settings['performance']['search'])
+			->with($overwriteDemand['search'], $settings['search'])
 			->will($this->returnValue($mockSearchObject));
 
 		$demand->expects($this->once())->method('setSearch')
@@ -1054,29 +1064,40 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 	/**
 	 * @test
-	 * @covers ::overwriteDemandObject
 	 */
-	public function overwriteDemandObjectStoresOverwriteDemandInSession() {
-		$this->markTestSkipped();
-		$this->tsfe = $this->getAccessibleMock(
-			'\TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController',
-			array('dummy'), array(), '', FALSE);
-		$mockFEAuthentication = $this->getMock(
-			'TYPO3\\CMS\\Frontend\\Authentication\\FrontendUserAuthentication',
-			array('setKey', 'storeSessionData'), array(), '', FALSE);
-		$this->tsfe->_set('fe_user', $mockFEAuthentication);
-		$GLOBALS['TSFE'] = $this->tsfe;
-
-		$demand = $this->getMock('Webfox\\T3events\\Domain\\Model\\Dto\\PerformanceDemand');
-		$overwriteDemand = array(
-			'bar' => 'foo'
+	public function overwriteDemandObjectSetsStartDate() {
+		$demand = $this->getMock(
+			PerformanceDemand::class
 		);
+		$dateString = '2012-10-15';
+		$overwriteDemand = [
+			'startDate' => $dateString
+		];
+		$defaultTimeZone = new \DateTimeZone(date_default_timezone_get());
+		$expectedDateTimeObject = new \DateTime($dateString, $defaultTimeZone);
+		$demand->expects($this->once())
+			->method('setStartDate')
+			->with($expectedDateTimeObject);
 
-		$sessionData = serialize($overwriteDemand);
+		$this->fixture->overwriteDemandObject($demand, $overwriteDemand);
+	}
 
-		$mockFEAuthentication->expects($this->once())->method('setKey')
-			->with('ses', 'tx_t3events_overwriteDemand', $sessionData);
-		$mockFEAuthentication->expects($this->once())->method('storeSessionData');
+	/**
+	 * @test
+	 */
+	public function overwriteDemandObjectSetsEndDate() {
+		$demand = $this->getMock(
+			PerformanceDemand::class
+		);
+		$dateString = '2012-10-15';
+		$overwriteDemand = [
+			'endDate' => $dateString
+		];
+		$defaultTimeZone = new \DateTimeZone(date_default_timezone_get());
+		$expectedDateTimeObject = new \DateTime($dateString, $defaultTimeZone);
+		$demand->expects($this->once())
+			->method('setEndDate')
+			->with($expectedDateTimeObject);
 
 		$this->fixture->overwriteDemandObject($demand, $overwriteDemand);
 	}
@@ -1183,22 +1204,27 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function showActionAssignsVariables() {
-		$this->markTestSkipped('wrong arguments in assignMultiple');
+		//$this->markTestSkipped('wrong arguments in assignMultiple');
 		$fixture = $this->getAccessibleMock(
-			'Webfox\\T3events\\Controller\\PerformanceController',
+			PerformanceController::class,
 			['emitSignal'], [], '', false
 		);
-		$fixture->expects($this->once())
-			->method('emitSignal');
-		$settings = array('foo');
+		$settings = ['foo'];
 		$performance = new Performance();
-		$view = $this->getMock(
-			'TYPO3\\CMS\\Fluid\\View\\TemplateView',
-			['assignMultiple'],
-			[], '', false);
+		$templateVariables = [
+			'settings' => $settings,
+			'performance' => $performance
+		];
+
+		$fixture->expects($this->once())
+			->method('emitSignal')
+			->will($this->returnValue($templateVariables));
+
+		$view = $this->getMock(TemplateView::class, ['assignMultiple'], [], '', false);
+
 		$view->expects($this->once())
 			->method('assignMultiple')
-			->with(['settings' => $settings, 'performance' => $performance]);
+			->with();
 
 		$fixture->_set('view', $view);
 		$fixture->_set('settings', $settings);
@@ -1212,13 +1238,13 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 */
 	protected function injectMockRepositories(array $methodsToStub) {
 		$repositoryClasses = [
-			'GenreRepository' => GenreRepository::class,
-			'VenueRepository' => VenueRepository::class,
-			'EventTypeRepository' => EventTypeRepository::class,
+			'genreRepository' => GenreRepository::class,
+			'venueRepository' => VenueRepository::class,
+			'eventTypeRepository' => EventTypeRepository::class,
 		];
 		foreach ($repositoryClasses as $propertyName=>$className) {
 			$mock = $this->getAccessibleMock($className, $methodsToStub, [], '', false, true, false);
-			$this->fixture->_call('inject' . $propertyName, $mock);
+			$this->inject($this->fixture, $propertyName, $mock);
 		}
 	}
 
@@ -1226,9 +1252,9 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function quickMenuActionGetsOverwriteDemandFromSession() {
-		$this->injectMockRepositories(['findMultipleByUid']);
+		$this->injectMockRepositories(['findMultipleByUid', 'findAll']);
 		$mockSession = $this->getMock(
-			SessionInterface::class, ['get', 'set', 'has', 'clean']
+			SessionInterface::class, ['get', 'set', 'has', 'clean', 'setNamespace']
 		);
 		$mockSession->expects($this->once())
 			->method('get');
@@ -1247,7 +1273,7 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$settings = ['genres' => '1,2,3'];
 		$this->fixture->_set('settings', $settings);
 
-		$this->injectMockRepositories(['findMultipleByUid']);
+		$this->injectMockRepositories(['findMultipleByUid', 'findAll']);
 		$mockGenreRepository = $this->fixture->_get('genreRepository');
 		$mockGenreRepository->expects($this->once())
 			->method('findMultipleByUid')
@@ -1266,7 +1292,7 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$settings = ['venues' => '1,2,3'];
 		$this->fixture->_set('settings', $settings);
 
-		$this->injectMockRepositories(['findMultipleByUid']);
+		$this->injectMockRepositories(['findMultipleByUid', 'findAll']);
 		$mockVenueRepository = $this->fixture->_get('venueRepository');
 		$mockVenueRepository->expects($this->once())
 			->method('findMultipleByUid')
@@ -1285,7 +1311,7 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$settings = ['eventTypes' => '1,2,3'];
 		$this->fixture->_set('settings', $settings);
 
-		$this->injectMockRepositories(['findMultipleByUid']);
+		$this->injectMockRepositories(['findMultipleByUid', 'findAll']);
 		$mockEventTypeRepository = $this->fixture->_get('eventTypeRepository');
 		$mockEventTypeRepository->expects($this->once())
 			->method('findMultipleByUid')
@@ -1353,5 +1379,29 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 		$fixture->_call('createDemandFromSettings', $settings);
 	}
+
+	/**
+	 * @test
+	 */
+	public function constructorSetsNameSpace()
+	{
+		$this->fixture->__construct();
+		$this->assertAttributeSame(
+			get_class($this->fixture),
+			'namespace',
+			$this->fixture
+		);
+	}
+
+    protected function mockSettingsUtility()
+    {
+        $mockSettingsUtility = $this->getMock(
+            SettingsUtility::class, ['getControllerKey']
+        );
+        $this->fixture->injectSettingsUtility($mockSettingsUtility);
+        $mockSettingsUtility->expects($this->any())
+            ->method('getControllerKey')
+            ->will($this->returnValue('performance'));
+    }
 }
 

@@ -2,10 +2,10 @@
 if (!defined('TYPO3_MODE')) {
 	die ('Access denied.');
 }
-
+$ll = 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:';
 return [
 	'ctrl' => [
-		'title' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_event',
+		'title' => $ll . 'tx_t3events_domain_model_event',
 		'label' => 'headline',
 		'tstamp' => 'tstamp',
 		'crdate' => 'crdate',
@@ -154,7 +154,7 @@ return [
 		],
 		'headline' => [
 			'exclude' => 0,
-			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_event.headline',
+			'label' => $ll . 'tx_t3events_domain_model_event.headline',
 			'config' => [
 				'type' => 'input',
 				'size' => 30,
@@ -163,7 +163,7 @@ return [
 		],
 		'subtitle' => [
 			'exclude' => 0,
-			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_event.subtitle',
+			'label' => $ll . 'tx_t3events_domain_model_event.subtitle',
 			'config' => [
 				'type' => 'input',
 				'size' => 30,
@@ -172,7 +172,7 @@ return [
 		],
 		'teaser' => [
 			'exclude' => 1,
-			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_event.teaser',
+			'label' => $ll . 'tx_t3events_domain_model_event.teaser',
 			'config' => [
 				'type' => 'text',
 				'cols' => 40,
@@ -182,18 +182,18 @@ return [
 		],
 		'description' => [
 			'exclude' => 0,
-			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_event.description',
+			'label' => $ll . 'tx_t3events_domain_model_event.description',
 			'config' => [
 				'type' => 'text',
 				'cols' => 32,
 				'rows' => 10,
 				'eval' => 'trim'
 			],
-			'defaultExtras' => 'richtext[]'
+			'defaultExtras' => 'richtext[]:rte_transform[mode=ts_links]'
 		],
 		'keywords' => [
 			'exclude' => 0,
-			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_event.keywords',
+			'label' => $ll . 'tx_t3events_domain_model_event.keywords',
 			'config' => [
 				'type' => 'text',
 				'cols' => 32,
@@ -203,7 +203,7 @@ return [
 		],
 		'image' => [
 			'exclude' => 1,
-			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_event.image',
+			'label' => $ll . 'tx_t3events_domain_model_event.image',
 			'config' => [
 				'type' => 'group',
 				'internal_type' => 'file',
@@ -217,7 +217,7 @@ return [
 		],
 		'genre' => [
 			'exclude' => 1,
-			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_event.genre',
+			'label' => $ll . 'tx_t3events_domain_model_event.genre',
 			'config' => [
 				'type' => 'select',
 				'foreign_table' => 'tx_t3events_domain_model_genre',
@@ -257,7 +257,7 @@ return [
 		],
 		'venue' => [
 			'exclude' => 0,
-			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_event.venue',
+			'label' => $ll . 'tx_t3events_domain_model_event.venue',
 			'config' => [
 				'type' => 'select',
 				'foreign_table' => 'tx_t3events_domain_model_venue',
@@ -270,7 +270,7 @@ return [
 		],
 		'event_type' => [
 			'exclude' => 0,
-			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_event.event_type',
+			'label' => $ll . 'tx_t3events_domain_model_event.event_type',
 			'config' => [
 				'type' => 'select',
 				'foreign_table' => 'tx_t3events_domain_model_eventtype',
@@ -281,7 +281,7 @@ return [
 		],
 		'performances' => [
 			'exclude' => 0,
-			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_event.performances',
+			'label' => $ll . 'tx_t3events_domain_model_event.performances',
 			'config' => [
 				'type' => 'inline',
 				'foreign_table' => 'tx_t3events_domain_model_performance',
@@ -304,7 +304,7 @@ return [
 		],
 		'organizer' => [
 			'exclude' => 0,
-			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_event.organizer',
+			'label' => $ll . 'tx_t3events_domain_model_event.organizer',
 			'l10n_mode' => 'mergeIfNotBlank',
 			'config' => [
 				'type' => 'group',
@@ -324,7 +324,7 @@ return [
 		],
 		'audience' => [
 			'exclude' => 1,
-			'label' => $ll . 'tx_t3event_domain_model_audience',
+			'label' => $ll . 'tx_t3events_domain_model_audience',
 			'config' => [
 				'type' => 'select',
 				'foreign_table' => 'tx_t3events_domain_model_audience',

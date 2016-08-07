@@ -191,19 +191,11 @@ return array(
 		),
 		'country' => array(
 			'exclude' => 0,
-			'displayCond' => 'EXT:static_info_tables:LOADED:true',
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_eventlocation.country',
 			'config' => array(
-				'type' => 'select',
-				'foreign_table' => 'static_countries',
-				'minitems' => 0,
-				'maxitems' => 1,
-				'wizards' => array(
-					'suggest' => array(
-						'type' => 'suggest',
-					),
-				),
-				'noIconsBelowSelect' => TRUE,
+				'type' => 'input',
+				'size' => 30,
+				'eval' => 'trim'
 			),
 		),
 		'latitude' => array(

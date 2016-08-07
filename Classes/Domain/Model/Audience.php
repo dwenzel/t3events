@@ -30,14 +30,14 @@ class Audience extends AbstractEntity {
 	 *
 	 * @var string
 	 */
-	protected $title = '';
+	protected $title;
 
 	/**
 	 * description
 	 *
 	 * @var string
 	 */
-	protected $description = '';
+	protected $description;
 
 	/**
 	 * Returns the title

@@ -26,11 +26,14 @@ namespace Webfox\T3events\Domain\Model\Dto;
  */
 
 class EventDemand extends AbstractDemand
-	implements DemandInterface, PeriodAwareDemandInterface, SearchAwareDemandInterface {
-	use PeriodAwareDemandTrait, SearchAwareDemandTrait;
+	implements DemandInterface, PeriodAwareDemandInterface,
+	SearchAwareDemandInterface, AudienceAwareDemandInterface {
+	use PeriodAwareDemandTrait, SearchAwareDemandTrait,
+		AudienceAwareDemandTrait;
 
 	const START_DATE_FIELD = 'performances.date';
 	const END_DATE_FIELD = 'performances.endDate';
+	const AUDIENCE_FIELD = 'audience';
 
 	/**
 	 * Genre
@@ -180,5 +183,11 @@ class EventDemand extends AbstractDemand
 		$this->categories = $categories;
 	}
 
+	/**
+	 * @return string
+	 */
+	public function getAudienceField() {
+		return self::AUDIENCE_FIELD;
+	}
 }
 

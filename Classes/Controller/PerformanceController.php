@@ -19,6 +19,7 @@ namespace Webfox\T3events\Controller;
  *  GNU General Public License for more details.
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 use Webfox\T3events\Domain\Model\Dto\PerformanceDemand;
 use Webfox\T3events\Domain\Model\Performance;
@@ -26,300 +27,279 @@ use Webfox\T3events\Domain\Repository\EventTypeRepository;
 use Webfox\T3events\Domain\Repository\GenreRepository;
 use Webfox\T3events\Domain\Repository\PerformanceRepository;
 use Webfox\T3events\Domain\Repository\VenueRepository;
-use Webfox\T3events\Session\Typo3Session;
 
 /**
- * @package t3events
- * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
+ * Class PerformanceController
+ *
+ * @package Webfox\T3events\Controller
  */
-class PerformanceController extends AbstractController {
-	const PERFORMANCE_LIST_ACTION = 'listAction';
-	const PERFORMANCE_QUICK_MENU_ACTION = 'quickMenuAction';
-	const PERFORMANCE_SHOW_ACTION = 'showAction';
-	const SESSION_NAME_SPACE = 'performanceController';
+class PerformanceController
+    extends ActionController
+    implements FilterableControllerInterface
+{
+    use FilterableControllerTrait, SessionTrait,
+        SettingsUtilityTrait, CategoryRepositoryTrait,
+        EntityNotFoundHandlerTrait, SearchTrait, TranslateTrait, DemandTrait;
 
-	/**
-	 * performanceRepository
-	 *
-	 * @var \Webfox\T3events\Domain\Repository\PerformanceRepository
-	 */
-	protected $performanceRepository;
+    const PERFORMANCE_LIST_ACTION = 'listAction';
+    const PERFORMANCE_QUICK_MENU_ACTION = 'quickMenuAction';
+    const PERFORMANCE_SHOW_ACTION = 'showAction';
+    const SESSION_NAME_SPACE = 'performanceController';
 
-	/**
-	 * genreRepository
-	 *
-	 * @var \Webfox\T3events\Domain\Repository\GenreRepository
-	 */
-	protected $genreRepository;
+    /**
+     * performanceRepository
+     *
+     * @var \Webfox\T3events\Domain\Repository\PerformanceRepository
+     */
+    protected $performanceRepository;
 
-	/**
-	 * venueRepository
-	 *
-	 * @var \Webfox\T3events\Domain\Repository\VenueRepository
-	 */
-	protected $venueRepository;
+    /**
+     * genreRepository
+     *
+     * @var \Webfox\T3events\Domain\Repository\GenreRepository
+     */
+    protected $genreRepository;
 
-	/**
-	 * eventTypeRepository
-	 *
-	 * @var \Webfox\T3events\Domain\Repository\EventTypeRepository
-	 */
-	protected $eventTypeRepository;
+    /**
+     * venueRepository
+     *
+     * @var \Webfox\T3events\Domain\Repository\VenueRepository
+     */
+    protected $venueRepository;
 
-	/**
-	 * @var \Webfox\T3events\Session\SessionInterface
-	 */
-	protected $session;
+    /**
+     * eventTypeRepository
+     *
+     * @var \Webfox\T3events\Domain\Repository\EventTypeRepository
+     */
+    protected $eventTypeRepository;
 
-	/**
-	 * TYPO3 Content Object
-	 *
-	 * @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
-	 */
-	protected $contentObject;
+    /**
+     * TYPO3 Content Object
+     *
+     * @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
+     */
+    protected $contentObject;
 
-	/**
-	 * injectPerformanceRepository
-	 *
-	 * @param \Webfox\T3events\Domain\Repository\PerformanceRepository $performanceRepository
-	 * @return void
-	 */
-	public function injectPerformanceRepository(PerformanceRepository $performanceRepository) {
-		$this->performanceRepository = $performanceRepository;
-	}
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->namespace = get_class($this);
+    }
 
-	/**
-	 * injectGenreRepository
-	 *
-	 * @param \Webfox\T3events\Domain\Repository\GenreRepository $genreRepository
-	 * @return void
-	 */
-	public function injectGenreRepository(GenreRepository $genreRepository) {
-		$this->genreRepository = $genreRepository;
-	}
+    /**
+     * injectPerformanceRepository
+     *
+     * @param \Webfox\T3events\Domain\Repository\PerformanceRepository $performanceRepository
+     * @return void
+     */
+    public function injectPerformanceRepository(PerformanceRepository $performanceRepository)
+    {
+        $this->performanceRepository = $performanceRepository;
+    }
 
-	/**
-	 * injectVenueRepository
-	 *
-	 * @param \Webfox\T3events\Domain\Repository\VenueRepository $venueRepository
-	 * @return void
-	 */
-	public function injectVenueRepository(VenueRepository $venueRepository) {
-		$this->venueRepository = $venueRepository;
-	}
+    /**
+     * injectGenreRepository
+     *
+     * @param \Webfox\T3events\Domain\Repository\GenreRepository $genreRepository
+     * @return void
+     */
+    public function injectGenreRepository(GenreRepository $genreRepository)
+    {
+        $this->genreRepository = $genreRepository;
+    }
 
-	/**
-	 * injectEventTypeRepository
-	 *
-	 * @param \Webfox\T3events\Domain\Repository\EventTypeRepository $eventTypeRepository
-	 * @return void
-	 */
-	public function injectEventTypeRepository(EventTypeRepository $eventTypeRepository) {
-		$this->eventTypeRepository = $eventTypeRepository;
-	}
+    /**
+     * injectVenueRepository
+     *
+     * @param \Webfox\T3events\Domain\Repository\VenueRepository $venueRepository
+     * @return void
+     */
+    public function injectVenueRepository(VenueRepository $venueRepository)
+    {
+        $this->venueRepository = $venueRepository;
+    }
 
-	/**
-	 * initializes all actions
-	 */
-	public function initializeAction() {
-		$this->contentObject = $this->configurationManager->getContentObject();
-		$this->session = $this->objectManager->get(Typo3Session::class, self::SESSION_NAME_SPACE);
-		if ($this->request->hasArgument('overwriteDemand')) {
-			$this->session->set(
-				'tx_t3events_overwriteDemand',
-				serialize($this->request->getArgument('overwriteDemand'))
-			);
-		}
-	}
+    /**
+     * injectEventTypeRepository
+     *
+     * @param \Webfox\T3events\Domain\Repository\EventTypeRepository $eventTypeRepository
+     * @return void
+     */
+    public function injectEventTypeRepository(EventTypeRepository $eventTypeRepository)
+    {
+        $this->eventTypeRepository = $eventTypeRepository;
+    }
 
-	/**
-	 * initializes quick menu action
-	 */
-	public function initializeQuickMenuAction() {
-		if (!$this->request->hasArgument('overwriteDemand')) {
-			$this->session->clean();
-		}
-	}
+    /**
+     * initializes all actions
+     */
+    public function initializeAction()
+    {
+        $this->settings = $this->mergeSettings();
+        $this->contentObject = $this->configurationManager->getContentObject();
+        if ($this->request->hasArgument('overwriteDemand')) {
+            $this->session->set(
+                'tx_t3events_overwriteDemand',
+                serialize($this->request->getArgument('overwriteDemand'))
+            );
+        }
+    }
 
-	/**
-	 * action list
-	 *
-	 * @param array $overwriteDemand
-	 * @return void
-	 */
-	public function listAction(array $overwriteDemand = NULL) {
-		$demand = $this->createDemandFromSettings($this->settings);
-		$this->overwriteDemandObject($demand, $overwriteDemand);
-		$performances = $this->performanceRepository->findDemanded($demand);
+    /**
+     * initializes quick menu action
+     */
+    public function initializeQuickMenuAction()
+    {
+        if (!$this->request->hasArgument('overwriteDemand')) {
+            $this->session->clean();
+        }
+    }
 
-		$templateVariables = [
-			'performances' => $performances,
-			'settings' => $this->settings,
-			'overwriteDemand' => $overwriteDemand,
-			'data' => $this->contentObject->data
-		];
-		$this->emitSignal(__CLASS__, self::PERFORMANCE_LIST_ACTION, $templateVariables);
-		$this->view->assignMultiple($templateVariables);
-	}
+    /**
+     * action list
+     *
+     * @param array $overwriteDemand
+     * @return void
+     */
+    public function listAction(array $overwriteDemand = null)
+    {
+        $demand = $this->createDemandFromSettings($this->settings);
+        $this->overwriteDemandObject($demand, $overwriteDemand);
+        $performances = $this->performanceRepository->findDemanded($demand);
 
-	/**
-	 * action show
-	 *
-	 * @param \Webfox\T3events\Domain\Model\Performance $performance
-	 * @return void
-	 */
-	public function showAction(Performance $performance) {
-		$templateVariables = [
-			'settings' => $this->settings,
-			'performance' => $performance
-		];
+        $templateVariables = [
+            'performances' => $performances,
+            'settings' => $this->settings,
+            'overwriteDemand' => $overwriteDemand,
+            'data' => $this->contentObject->data
+        ];
 
-		$this->emitSignal(__CLASS__, self::PERFORMANCE_SHOW_ACTION, $templateVariables);
-		$this->view->assignMultiple($templateVariables);
-	}
+        $this->emitSignal(__CLASS__, self::PERFORMANCE_LIST_ACTION, $templateVariables);
+        $this->view->assignMultiple($templateVariables);
+    }
 
-	/**
-	 * action quickMenu
-	 *
-	 * @return void
-	 */
-	public function quickMenuAction() {
-		$overwriteDemand = unserialize($this->session->get('tx_t3events_overwriteDemand'));
+    /**
+     * action show
+     *
+     * @param \Webfox\T3events\Domain\Model\Performance $performance
+     * @return void
+     */
+    public function showAction(Performance $performance)
+    {
+        $templateVariables = [
+            'settings' => $this->settings,
+            'performance' => $performance
+        ];
 
-		// get filter options from plugin
-		$genres = $this->genreRepository->findMultipleByUid($this->settings['genres'], 'title');
-		$venues = $this->venueRepository->findMultipleByUid($this->settings['venues'], 'title');
-		$eventTypes = $this->eventTypeRepository->findMultipleByUid($this->settings['eventTypes'], 'title');
+        $this->emitSignal(__CLASS__, self::PERFORMANCE_SHOW_ACTION, $templateVariables);
+        $this->view->assignMultiple($templateVariables);
+    }
 
-		$templateVariables = [
-			'genres' => $genres,
-			'venues' => $venues,
-			'eventTypes' => $eventTypes,
-			'settings' => $this->settings,
-			'overwriteDemand' => $overwriteDemand
-		];
+    /**
+     * action quickMenu
+     *
+     * @return void
+     */
+    public function quickMenuAction()
+    {
+        $overwriteDemand = unserialize($this->session->get('tx_t3events_overwriteDemand'));
 
-		$this->emitSignal(__CLASS__, self::PERFORMANCE_QUICK_MENU_ACTION, $templateVariables);
-		$this->view->assignMultiple(
-			$templateVariables
-		);
-	}
+        // get filter options from plugin
+        $filterConfiguration = [
+            'genre' => $this->settings['genres'],
+            'venue' => $this->settings['venues'],
+            'eventType' => $this->settings['eventTypes'],
+            'category' => $this->settings['categories']
+        ];
+        $filterOptions = $this->getFilterOptions($filterConfiguration);
 
-	/**
-	 * Create Demand from Settings
-	 *
-	 * @param \array $settings
-	 * @return \Webfox\T3events\Domain\Model\Dto\PerformanceDemand
-	 */
-	protected function createDemandFromSettings($settings) {
-		/** @var PerformanceDemand $demand */
-		$demand = $this->objectManager->get('Webfox\\T3events\\Domain\\Model\\Dto\\PerformanceDemand');
+        $templateVariables = [
+            'filterOptions' => $filterOptions,
+            'genres' => $filterOptions['genres'],
+            'venues' => $filterOptions['venues'],
+            'eventTypes' => $filterOptions['eventTypes'],
+            'settings' => $this->settings,
+            'overwriteDemand' => $overwriteDemand
+        ];
+        $this->emitSignal(__CLASS__, self::PERFORMANCE_QUICK_MENU_ACTION, $templateVariables);
+        $this->view->assignMultiple(
+            $templateVariables
+        );
+    }
 
-		if ($settings['sortBy'] == 'performances.date') {
-			$settings['sortBy'] = 'date';
-		}
-		if ($settings['sortBy'] == 'headline') {
-			$settings['sortBy'] = 'event.headline';
-		}
-		foreach ($settings as $name => $value) {
-			if (empty($value)) {
-				continue;
-			}
-			switch ($name) {
-				case 'maxItems':
-					$demand->setLimit($value);
-					break;
-				// all following fall through (see below)
-				case 'periodType':
-				case 'periodStart':
-				case 'periodEndDate':
-				case 'periodDuration':
-				case 'search':
-					break;
-				default:
-					if (ObjectAccess::isPropertySettable($demand, $name)) {
-						ObjectAccess::setProperty($demand, $name, $value);
-					}
-			}
-		}
+    /**
+     * Create Demand from Settings
+     *
+     * @param \array $settings
+     * @return \Webfox\T3events\Domain\Model\Dto\PerformanceDemand
+     */
+    protected function createDemandFromSettings($settings)
+    {
+        /** @var PerformanceDemand $demand */
+        $demand = $this->objectManager->get('Webfox\\T3events\\Domain\\Model\\Dto\\PerformanceDemand');
 
-		if ($settings['period'] == 'specific') {
-			$demand->setPeriodType($settings['periodType']);
-		}
+        if ($settings['sortBy'] == 'performances.date') {
+            $settings['sortBy'] = 'date';
+        }
+        if ($settings['sortBy'] == 'headline') {
+            $settings['sortBy'] = 'event.headline';
+        }
+        foreach ($settings as $name => $value) {
+            if (empty($value)) {
+                continue;
+            }
+            switch ($name) {
+                case 'maxItems':
+                    $demand->setLimit($value);
+                    break;
+                // all following fall through (see below)
+                case 'periodType':
+                case 'periodStart':
+                case 'periodEndDate':
+                case 'periodDuration':
+                case 'search':
+                    break;
+                default:
+                    if (ObjectAccess::isPropertySettable($demand, $name)) {
+                        ObjectAccess::setProperty($demand, $name, $value);
+                    }
+            }
+        }
 
-		if ($settings['period'] === 'futureOnly'
-			OR $settings['period'] === 'pastOnly'
-		) {
-			$demand->setDate(new \DateTime('midnight'));
-		}
-		if (isset($settings['periodType']) AND $settings['periodType'] != 'byDate') {
-			$demand->setPeriodStart($settings['periodStart']);
-			$demand->setPeriodDuration($settings['periodDuration']);
-		}
+        if ($settings['period'] == 'specific') {
+            $demand->setPeriodType($settings['periodType']);
+        }
+        $timeZone = new \DateTimeZone(date_default_timezone_get());
+        $startDate = new \DateTime('midnight', $timeZone);
+        if ($settings['period'] === 'futureOnly'
+            OR $settings['period'] === 'pastOnly'
+        ) {
+            $demand->setDate($startDate);
+        }
+        if (isset($settings['periodType']) AND $settings['periodType'] != 'byDate') {
+            $demand->setPeriodStart($settings['periodStart']);
+            $demand->setPeriodDuration($settings['periodDuration']);
+        }
 
-		$demand->setOrder($settings['sortBy'] . '|' . $settings['sortDirection']);
+        $demand->setOrder($settings['sortBy'] . '|' . $settings['sortDirection']);
 
-		if ($settings['periodType'] == 'byDate') {
-			if ($settings['periodStartDate']) {
-				$demand->setStartDate($settings['periodStartDate']);
-			}
-			if ($settings['periodEndDate']) {
-				$demand->setEndDate($settings['periodEndDate']);
-			}
-		}
+        if ($settings['periodType'] == 'byDate') {
+            if ($settings['periodStartDate']) {
 
-		return $demand;
-	}
+                $startDate->setTimestamp((int)$settings['periodStartDate']);
+                $demand->setStartDate($startDate);
+            }
+            if ($settings['periodEndDate']) {
+                $endDate = new  \DateTime('midnight', $timeZone);
+                $endDate->setTimestamp((int)$settings['periodEndDate']);
+                $demand->setEndDate($endDate);
+            }
+        }
 
-	/**
-	 * Overwrites a given demand object by an propertyName => $propertyValue array
-	 *
-	 * @param \Webfox\T3events\Domain\Model\Dto\PerformanceDemand $demand
-	 * @param array $overwriteDemand
-	 */
-	public function overwriteDemandObject($demand, $overwriteDemand) {
-		if ((bool) $overwriteDemand) {
-			foreach ($overwriteDemand as $propertyName => $propertyValue) {
-				switch ($propertyName) {
-					case 'sortBy':
-						$orderings = $propertyValue;
-						if (isset($overwriteDemand['sortDirection'])) {
-							$orderings .= '|' . $overwriteDemand['sortDirection'];
-						}
-						$demand->setOrder($orderings);
-						$demand->setSortBy($overwriteDemand['sortBy']);
-						break;
-					case 'search':
-						$searchObj = $this->createSearchObject(
-							$propertyValue,
-							$this->settings['performance']['search']
-						);
-						$demand->setSearch($searchObj);
-						break;
-					case 'genre':
-						$demand->setGenres($propertyValue);
-						break;
-					case 'venue':
-						$demand->setVenues($propertyValue);
-						break;
-					case 'eventLocation':
-						$demand->setEventLocations($propertyValue);
-						break;
-					case 'eventType':
-						$demand->setEventTypes($propertyValue);
-						break;
-					case 'sortDirection':
-						if ($propertyValue !== 'desc') {
-							$propertyValue = 'asc';
-						}
-					// fall through to default
-					default:
-						if (ObjectAccess::isPropertySettable($demand, $propertyName)) {
-							ObjectAccess::setProperty($demand, $propertyName, $propertyValue);
-						}
-				}
-			}
-		}
-	}
+        return $demand;
+    }
 }
 

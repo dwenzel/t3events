@@ -1,7 +1,7 @@
 <table class="calendarYear">
 	<tr>
 		<td colspan=4 class="legend">
-			<span class="year">{f:format.date(date: '{calendar.currentYear.startDate}', format: 'Y')}</span>
+			<span class="year">{calendar.currentYear.startDate->f:format.date(format: 'Y')}</span>
 		</td>
 	</tr>
 	<tr>
@@ -32,7 +32,7 @@
 		<tbody>
 		<tr>
 			<td colspan=7 class="legend">
-				<span>{f:format.date(date: '{month.startDate}', format: 'F')}</span>
+				<span>{month.startDate->f:format.date(format: 'F')}</span>
 			</td>
 		</tr>
 		<f:for each="{month.weeks}" as="calendarWeek">
@@ -41,7 +41,7 @@
 					<td class="day
 					{f:if(condition: '{calendarDay.month} != {month.month}', then: 'outOfMonth')}
 					{f:if(condition: '{calendarDay.isCurrent}', then: 'current')}
-					{f:if(condition: '{f:count(subject: \'{calendarDay.events}\')}',
+					{f:if(condition: '{calendarDay.events->f:count()}',
 						then: 'hasEvent')}">
 						<div class="labelDay">{calendarDay.day}</div>
 						<f:for each="{calendarDay.events}" as="singleEvent">

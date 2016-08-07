@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2016-02-03T12:49:18Z">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2016-05-18T15:06:45Z">
 		<header>
 			<type>database</type>
 			<description>Language labels for database tables/fields belonging to extension 't3events'</description>
@@ -9,6 +9,10 @@
 			<authorEmail>t3events@gmx.de</authorEmail>
 		</header>
 		<body>
+		<trans-unit id="label.add-images" approved="yes" xml:space="preserve">
+			<source>Add Image</source>
+			<target>Bild hinzufügen</target>
+		</trans-unit>
 		<trans-unit id="static_countries.tx_extbase_type.Tx_T3events_Country" approved="yes" xml:space="preserve">
 			<source>Events Country</source>
 			<target>Land</target>
@@ -29,6 +33,30 @@
 			<source>Title</source>
 			<target>Titel</target>
 		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_company" approved="yes" xml:space="preserve">
+			<source>Company</source>
+			<target>Firma</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_company.address" approved="yes" xml:space="preserve">
+			<source>Address</source>
+			<target>Adresse</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_company.city" approved="yes" xml:space="preserve">
+			<source>City</source>
+			<target>Stadt</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_company.country" approved="yes" xml:space="preserve">
+			<source>Country</source>
+			<target>Land</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_company.name" approved="yes" xml:space="preserve">
+			<source>Name</source>
+			<target>Name</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_company.zip" approved="yes" xml:space="preserve">
+			<source>Zip</source>
+			<target>PLZ</target>
+		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_country" approved="yes" xml:space="preserve">
 			<source>Country</source>
 			<target>Land</target>
@@ -39,7 +67,7 @@
 		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_event.archive_date" approved="yes" xml:space="preserve">
 			<source>Archive Date</source>
-			<target>Archiv Datum</target>
+			<target>Archivdatum</target>
 		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_event.description" approved="yes" xml:space="preserve">
 			<source>Description</source>
@@ -185,6 +213,14 @@
 			<source>Sender</source>
 			<target>Absender</target>
 		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_notification.sender_email" approved="yes" xml:space="preserve">
+			<source>Sender Email</source>
+			<target>Emailadresse des Absenders</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_notification.sender_name" approved="yes" xml:space="preserve">
+			<source>Sender Name</source>
+			<target>Absendername</target>
+		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_notification.subject" approved="yes" xml:space="preserve">
 			<source>Subject</source>
 			<target>Betreff</target>
@@ -297,9 +333,21 @@
 			<source>Person</source>
 			<target>Person</target>
 		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_person.address" approved="yes" xml:space="preserve">
+			<source>Address</source>
+			<target>Adresse</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_person.city" approved="yes" xml:space="preserve">
+			<source>City</source>
+			<target>Stadt</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_person.email" approved="yes" xml:space="preserve">
+			<source>Email</source>
+			<target>E-Mail</target>
+		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_person.first_name" approved="yes" xml:space="preserve">
 			<source>First Name</source>
-			<target>Vorame</target>
+			<target>Vorname</target>
 		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_person.gender" approved="yes" xml:space="preserve">
 			<source>Gender</source>
@@ -313,6 +361,10 @@
 			<source>female</source>
 			<target>weiblich</target>
 		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_person.images" approved="yes" xml:space="preserve">
+			<source>Image</source>
+			<target>Bild</target>
+		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_person.last_name" approved="yes" xml:space="preserve">
 			<source>Last Name</source>
 			<target>Nachname</target>
@@ -324,6 +376,10 @@
 		<trans-unit id="tx_t3events_domain_model_person.person_type" approved="yes" xml:space="preserve">
 			<source>Person Type</source>
 			<target>Personentyp</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_person.phone" approved="yes" xml:space="preserve">
+			<source>Phone</source>
+			<target>Telefon</target>
 		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_person.title" approved="yes" xml:space="preserve">
 			<source>Title</source>
@@ -340,6 +396,14 @@
 		<trans-unit id="tx_t3events_domain_model_person.type.default" approved="yes" xml:space="preserve">
 			<source>Default</source>
 			<target>Standard</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_person.www" approved="yes" xml:space="preserve">
+			<source>WWW</source>
+			<target>WWW</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_person.zip" approved="yes" xml:space="preserve">
+			<source>Zip</source>
+			<target>PLZ</target>
 		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_persontype" approved="yes" xml:space="preserve">
 			<source>Person Type</source>
@@ -400,6 +464,10 @@
 		<trans-unit id="tx_t3events_domain_model_teaser.details" approved="yes" xml:space="preserve">
 			<source>Details</source>
 			<target>Details</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_teaser.earliest_date" approved="yes" xml:space="preserve">
+			<source>Earliest Date</source>
+			<target>Frühestes Datum</target>
 		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_teaser.event" approved="yes" xml:space="preserve">
 			<source>Event</source>

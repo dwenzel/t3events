@@ -31,10 +31,10 @@ return array(
 		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('t3events') . 'Resources/Public/Icons/tx_t3events_domain_model_person.png'
 	),
 	'interface' => array(
-		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, person_type,title, name, first_name, last_name, gender,address, zip, city, phone, email',
+		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, person_type,title, name, first_name, last_name, gender,address, zip, city, phone, email,www',
 	),
 	'types' => array(
-		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, person_type, gender, title,name, first_name, last_name, address, zip, city, phone, email,  --div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.access,tx_extbase_type, starttime, endtime'),
+		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, person_type, gender, title,name, first_name, last_name, address, zip, city, phone, email,www, images,  --div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.access,tx_extbase_type, starttime, endtime'),
 	),
 	'palettes' => array(
 		'1' => array('showitem' => ''),
@@ -118,8 +118,8 @@ return array(
 			'config' => array(
 				'type' => 'select',
 				'items' => array(
-					array($ll . 'tx_t3events_domain_model_person.type.default', \Webfox\T3events\Domain\Model\Person::PERSON_TYPE_UNKNOWN),
-					array($ll . 'tx_t3events_domain_model_person.type.contact', \Webfox\T3events\Domain\Model\Person::PERSON_TYPE_CONTACT),
+					array($ll . 'tx_t3events_domain_model_person.type.default', 'Tx_T3events_Default'),
+					array($ll . 'tx_t3events_domain_model_person.type.contact', 'Tx_T3events_Contact'),
 				),
 				'size' => 1,
 				'maxitems' => 1,
@@ -228,5 +228,45 @@ return array(
 				'eval' => 'trim'
 			),
 		),
+		'www' => [
+			'exclude' => 0,
+			'label' => $ll . 'tx_t3events_domain_model_person.www',
+			'config' => [
+				'type' => 'input',
+				'size' => 30,
+				'eval' => 'trim'
+			],
+		],
+		'images' => [
+			'label' => $ll . 'tx_t3events_domain_model_person.images',
+			'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
+				'images',
+				[
+					'maxitems' => 1,
+					'appearance' => [
+						'headerThumbnail' => [
+							'width' => '100',
+							'height' => '100',
+						],
+						'createNewRelationLinkTitle' => $ll. 'label.add-images'
+					],
+					// custom configuration for displaying fields in the overlay/reference table
+					// to use the imageoverlayPalette instead of the basicoverlayPalette
+					'foreign_types' => [
+						'0' => [
+							'showitem' => '
+						--palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
+						--palette--;;filePalette'
+						],
+						\TYPO3\CMS\Core\Resource\File::FILETYPE_IMAGE => [
+							'showitem' => '
+						--palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
+						--palette--;;filePalette'
+						],
+					],
+				],
+				$GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']
+			)
+		],
 	),
 );

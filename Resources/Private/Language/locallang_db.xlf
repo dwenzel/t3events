@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2016-02-03T12:49:18Z">
+	<file source-language="en" datatype="plaintext" original="messages" date="2016-05-18T15:06:45Z">
 		<header>
 			<type>database</type>
 			<description>Language labels for database tables/fields belonging to extension 't3events'</description>
@@ -9,6 +9,9 @@
 			<authorEmail>t3events@gmx.de</authorEmail>
 		</header>
 		<body>
+		<trans-unit id="label.add-images" xml:space="preserve">
+			<source>Add Image</source>
+		</trans-unit>
 		<trans-unit id="static_countries.tx_extbase_type.Tx_T3events_Country" xml:space="preserve">
 			<source>Events Country</source>
 		</trans-unit>
@@ -156,6 +159,12 @@
 		<trans-unit id="tx_t3events_domain_model_notification.sender" xml:space="preserve">
 			<source>Sender</source>
 		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_notification.sender_email" xml:space="preserve">
+			<source>Sender Email</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_notification.sender_name" xml:space="preserve">
+			<source>Sender Name</source>
+		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_notification.subject" xml:space="preserve">
 			<source>Subject</source>
 		</trans-unit>
@@ -261,6 +270,9 @@
 		<trans-unit id="tx_t3events_domain_model_person.gender.I.1" xml:space="preserve">
 			<source>female</source>
 		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_person.images" xml:space="preserve">
+			<source>Image</source>
+		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_person.last_name" xml:space="preserve">
 			<source>Last Name</source>
 		</trans-unit>
@@ -284,6 +296,9 @@
 		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_person.type.default" xml:space="preserve">
 			<source>Default</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_person.www" xml:space="preserve">
+			<source>WWW</source>
 		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_person.zip" xml:space="preserve">
 			<source>Zip</source>
