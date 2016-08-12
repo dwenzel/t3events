@@ -11,13 +11,13 @@
 	<f:if condition="{settings.templateLayout} == 2">
 		<f:then>
 			<div class="performance-list short">
-				<f:flashMessages renderMode="div"/>
+				<f:flashMessages />
 				<f:render section="performanceShortList" arguments="{performances: performances, settings: settings}"/>
 			</div>
 		</f:then>
 		<f:else>
 			<div class="performance-list">
-				<f:flashMessages renderMode="div"/>
+				<f:flashMessages />
 				<f:if condition="{performances->f:count()} > 20">
 					<f:then>
 						<f:render section="pagination" arguments="{performances: performances, settings: settings}"/>

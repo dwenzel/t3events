@@ -33,6 +33,8 @@ class PeriodDataProviderFactory
      * @throws InvalidConfigurationException
      */
     public function get(array $params) {
+        $class = PeriodUnknownDataProvider::class;
+        $flexFormData = [];
         if(isset($params['row']['pi_flexform'])) {
             if (!(is_array($params['row']['pi_flexform']))) {
                 $pluginSettings = GeneralUtility::xml2array($params['row']['pi_flexform']);
@@ -40,15 +42,12 @@ class PeriodDataProviderFactory
                 $pluginSettings = $params['row']['pi_flexform'];
             }
         }
-        if (!isset($pluginSettings['data'])) {
-            throw new InvalidConfigurationException(
-                'Missing flex form data', 1462881172
-            );
+        if (isset($pluginSettings['data'])) {
+            $flexFormData = $pluginSettings['data'];
         }
         $periodPath = 'constraints/lDEF/settings.period/vDEF';
         $respectEndDatePath = 'constraints/lDEF/settings.respectEndDate/vDEF';
 
-        $flexFormData = $pluginSettings['data'];
         $currentVersion = VersionNumberUtility::convertVersionNumberToInteger(VersionNumberUtility::getNumericTypo3Version());
         if ($currentVersion >= 7006000) {
             $periodPath = 'constraints/lDEF/settings.period/vDEF/0';
@@ -78,12 +77,6 @@ class PeriodDataProviderFactory
 
         if ($period === 'all') {
             $class = PeriodAllDataProvider::class;
-        }
-
-        if (!isset($class)) {
-            throw new InvalidConfigurationException(
-                'Invalid or missing period in flex form data', 1462881906
-            );
         }
 
         return GeneralUtility::makeInstance($class, $respectEndDate);

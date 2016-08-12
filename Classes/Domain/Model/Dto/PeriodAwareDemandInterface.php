@@ -6,94 +6,106 @@ namespace Webfox\T3events\Domain\Model\Dto;
  *
  * @package Webfox\T3events\Domain\Model\Dto
  */
-interface PeriodAwareDemandInterface {
-	/**
-	 * @return string
-	 */
-	public function getPeriod();
+interface PeriodAwareDemandInterface
+{
+    /**
+     * @return string
+     */
+    public function getPeriod();
 
-	/**
-	 * @param string $period
-	 */
-	public function setPeriod($period);
+    /**
+     * @param string $period
+     */
+    public function setPeriod($period);
 
-	/**
-	 * @return mixed
-	 */
-	public function getPeriodStart();
+    /**
+     * @return mixed
+     */
+    public function getPeriodStart();
 
-	/**
-	 * @param int $start $start Start value for time period (day, month or year)
-	 * @return void
-	 */
-	public function setPeriodStart($start);
+    /**
+     * @param int $start $start Start value for time period (day, month or year)
+     * @return void
+     */
+    public function setPeriodStart($start);
 
-	/**
-	 * @return mixed
-	 */
-	public function getPeriodType();
+    /**
+     * @return mixed
+     */
+    public function getPeriodType();
 
-	/**
-	 * @param string $periodType
-	 */
-	public function setPeriodType($periodType);
+    /**
+     * @param string $periodType
+     */
+    public function setPeriodType($periodType);
 
-	/**
-	 * @return mixed
-	 */
-	public function getPeriodDuration();
+    /**
+     * @return mixed
+     */
+    public function getPeriodDuration();
 
-	/**
-	 * @param int $duration Duration value for period (days, months, years)
-	 * @return void
-	 */
-	public function setPeriodDuration($duration);
+    /**
+     * @param int $duration Duration value for period (days, months, years)
+     * @return void
+     */
+    public function setPeriodDuration($duration);
 
-	/**
-	 * @return mixed
-	 */
-	public function getStartDate();
+    /**
+     * @return \DateTime
+     */
+    public function getStartDate();
 
     /**
      * @param \DateTime $date Start date
      * @return void
      */
-	public function setStartDate($date);
+    public function setStartDate($date);
 
-	/**
-	 * @return mixed
-	 */
-	public function getEndDate();
+    /**
+     * @return \DateTime
+     */
+    public function getDate();
 
-	/**
-	 * @param \DateTime $date Start date
-	 * @return void
-	 */
-	public function setEndDate($date);
+    /**
+     * @param \DateTime $date Start date
+     * @return void
+     */
+    public function setDate($date);
 
-	/**
-	 * Returns the field name of the start date field
-	 * in dot notation
-	 *
-	 * @return string
-	 */
-	public function getStartDateField();
+    /**
+     * @return mixed
+     */
+    public function getEndDate();
 
-	/**
-	 * Returns the field name of the end date field
-	 * in dot notation
-	 *
-	 * @return string
-	 */
-	public function getEndDateField();
+    /**
+     * @param \DateTime $date Start date
+     * @return void
+     */
+    public function setEndDate($date);
 
-	/**
-	 * @return bool
-	 */
-	public function isRespectEndDate();
+    /**
+     * Returns the field name of the start date field
+     * in dot notation
+     *
+     * @return string
+     */
+    public function getStartDateField();
 
-	/**
-	 * @param boolean $respectEndDate
-	 */
-	public function setRespectEndDate($respectEndDate);
+    /**
+     * Returns the field name of the end date field
+     * in dot notation
+     *
+     * @return string
+     */
+    public function getEndDateField();
+
+    /**
+     * @return bool
+     */
+    public function isRespectEndDate();
+
+    /**
+     * @param boolean $respectEndDate
+     */
+    public function setRespectEndDate($respectEndDate);
 }

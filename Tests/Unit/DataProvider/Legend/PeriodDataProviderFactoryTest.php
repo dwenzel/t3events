@@ -8,6 +8,7 @@ use Webfox\T3events\DataProvider\Legend\PeriodDataProviderFactory;
 use Webfox\T3events\DataProvider\Legend\PeriodFutureDataProvider;
 use Webfox\T3events\DataProvider\Legend\PeriodPastDataProvider;
 use Webfox\T3events\DataProvider\Legend\PeriodSpecificDataProvider;
+use Webfox\T3events\DataProvider\Legend\PeriodUnknownDataProvider;
 
 /***************************************************************
  *  Copyright notice
@@ -45,39 +46,14 @@ class PeriodDataProviderFactoryTest extends UnitTestCase
 
     /**
      * @test
-     * @expectedException \Webfox\T3events\InvalidConfigurationException
-     * @expectedExceptionCode 1462881172
      */
-    public function getThrowsExceptionForMissingFlexFormData()
+    public function getInitiallyReturnsPeriodUnknownDataProvider()
     {
-        $this->subject->get([]);
+        $this->assertInstanceOf(
+            PeriodUnknownDataProvider::class,
+            $this->subject->get([])
+        );
     }
-
-    /**
-     * @test
-     * @expectedException \Webfox\T3events\InvalidConfigurationException
-     * @expectedExceptionCode 1462881906
-     */
-    public function getThrowsExceptionForInvalidPeriod()
-    {
-        $params = [
-            'row' => [
-                'pi_flexform' => [
-                    'data' => [
-                        'constraints' => [
-                            'lDEF' => [
-                                'settings.period' => [
-                                    'vDEF' => ['foo']
-                                ]
-                            ]
-                        ]
-                    ]
-                ]
-            ]
-        ];
-        $this->subject->get($params);
-    }
-
     /**
      * @return array
      */

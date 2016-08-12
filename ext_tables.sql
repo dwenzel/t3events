@@ -297,7 +297,7 @@ CREATE TABLE tx_t3events_domain_model_eventlocation (
 	place varchar(255) DEFAULT '' NOT NULL,
 	details text NOT NULL,
 	www varchar(255) DEFAULT '' NOT NULL,
-	country int(11) unsigned DEFAULT '0',
+	country varchar(255) DEFAULT '' NOT NULL,
 	latitude decimal(24,14) DEFAULT '0.00000000000000' NOT NULL,
 	longitude decimal(24,14) DEFAULT '0.00000000000000' NOT NULL,
 

@@ -2,8 +2,7 @@
 	<thead>
 	<tr class="header">
 		<td colspan="7" class="navigation">
-			<span class="legend">{f:format.date(date: '{configuration.startDate}', format: 'd.')} - {f:format.date(base: '{configuration.startDate}', date:'+6 days',format: 'd. F Y')}</span>
-		</td>
+			<span class="legend">{configuration.startDate->f:format.date(format: 'd.')} - {f:format.date(base: configuration.startDate, date:'+6 days',format: 'd. F Y')}</span>
 		</td>
 	</tr>
 	<tr>
@@ -15,7 +14,7 @@
 	<tbody>
 	<tr>
 		<f:for each="{calendar.currentWeek.days}" as="calendarDay">
-			<td class="day {f:if(condition: '{calendarDay.isCurrent}', then: 'current')} {f:if(condition: '{f:count(subject: \'{calendarDay.events}\')}',
+			<td class="day {f:if(condition: '{calendarDay.isCurrent}', then: 'current')} {f:if(condition: '{calendarDay.events->f:count()}',
 						then: 'hasEvent')}">
 				<div class="labelDay">{calendarDay.day}</div>
 				<f:for each="{calendarDay.events}" as="singleEvent">
@@ -26,7 +25,7 @@
 									pluginName="events"
 									controller="Event"
 									action="show" arguments="{event: singleEvent}" pageUid="{settings.detailPid}">
-									{f:format.date(format: 'H:i', date: '{performance.begin}')} {singleEvent.headline}
+									{performance.begin->f:format.date(format: 'H:i')} {singleEvent.headline}
 								</f:link.action>
 							</div>
 						</f:if>

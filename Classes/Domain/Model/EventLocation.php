@@ -21,8 +21,10 @@ namespace Webfox\T3events\Domain\Model;
 	 ***************************************************************/
 
 /**
+ * Class EventLocation
+ * Place where a performance of an event takes place.
+ *
  * @package t3events
- * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
 class EventLocation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	implements GeoCodingInterface {
@@ -30,7 +32,7 @@ class EventLocation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	/**
 	 * name
 	 *
-	 * @var \string
+	 * @var string
 	 * @validate NotEmpty
 	 */
 	protected $name;
@@ -38,71 +40,70 @@ class EventLocation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	/**
 	 * address
 	 *
-	 * @var \string
+	 * @var string
 	 */
 	protected $address;
 
 	/**
 	 * image
 	 *
-	 * @var \string
+	 * @var string
 	 */
 	protected $image;
 
 	/**
 	 * zip
 	 *
-	 * @var \string
+	 * @var string
 	 */
 	protected $zip;
 
 	/**
 	 * place
 	 *
-	 * @var \string
+	 * @var string
 	 */
 	protected $place;
 
 	/**
 	 * details
 	 *
-	 * @var \string
+	 * @var string
 	 */
 	protected $details;
 
 	/**
 	 * www
 	 *
-	 * @var \string
+	 * @var string
 	 */
 	protected $www;
 
 	/**
 	 * country
 	 *
-	 * @lazy
-	 * @var \Webfox\T3events\Domain\Model\Country
+	 * @var string
 	 */
 	protected $country;
 
 	/**
 	 * Latitude
 	 *
-	 * @var \float
+	 * @var float
 	 */
 	protected $latitude;
 
 	/**
 	 * Longitude
 	 *
-	 * @var \float
+	 * @var float
 	 */
 	protected $longitude;
 
 	/**
 	 * Returns the name
 	 *
-	 * @return \string $name
+	 * @return string $name
 	 */
 	public function getName() {
 		return $this->name;
@@ -111,7 +112,7 @@ class EventLocation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	/**
 	 * Sets the name
 	 *
-	 * @param \string $name
+	 * @param string $name
 	 * @return void
 	 */
 	public function setName($name) {
@@ -121,7 +122,7 @@ class EventLocation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	/**
 	 * Returns the address
 	 *
-	 * @return \string $address
+	 * @return string $address
 	 */
 	public function getAddress() {
 		return $this->address;
@@ -130,7 +131,7 @@ class EventLocation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	/**
 	 * Sets the address
 	 *
-	 * @param \string $address
+	 * @param string $address
 	 * @return void
 	 */
 	public function setAddress($address) {
@@ -140,7 +141,7 @@ class EventLocation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	/**
 	 * Returns the image
 	 *
-	 * @return \string $image
+	 * @return string $image
 	 */
 	public function getImage() {
 		return $this->image;
@@ -149,7 +150,7 @@ class EventLocation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	/**
 	 * Sets the image
 	 *
-	 * @param \string $image
+	 * @param string $image
 	 * @return void
 	 */
 	public function setImage($image) {
@@ -159,7 +160,7 @@ class EventLocation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	/**
 	 * Returns the zip
 	 *
-	 * @return \string $zip
+	 * @return string $zip
 	 */
 	public function getZip() {
 		return $this->zip;
@@ -168,7 +169,7 @@ class EventLocation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	/**
 	 * Sets the zip
 	 *
-	 * @param \string $zip
+	 * @param string $zip
 	 * @return void
 	 */
 	public function setZip($zip) {
@@ -178,7 +179,7 @@ class EventLocation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	/**
 	 * Returns the place
 	 *
-	 * @return \string $place
+	 * @return string $place
 	 */
 	public function getPlace() {
 		return $this->place;
@@ -187,7 +188,7 @@ class EventLocation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	/**
 	 * Sets the place
 	 *
-	 * @param \string $place
+	 * @param string $place
 	 * @return void
 	 */
 	public function setPlace($place) {
@@ -197,7 +198,7 @@ class EventLocation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	/**
 	 * Returns the details
 	 *
-	 * @return \string $details
+	 * @return string $details
 	 */
 	public function getDetails() {
 		return $this->details;
@@ -206,7 +207,7 @@ class EventLocation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	/**
 	 * Sets the details
 	 *
-	 * @param \string $details
+	 * @param string $details
 	 * @return void
 	 */
 	public function setDetails($details) {
@@ -216,7 +217,7 @@ class EventLocation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	/**
 	 * Returns the www
 	 *
-	 * @return \string $www
+	 * @return string $www
 	 */
 	public function getWww() {
 		return $this->www;
@@ -225,7 +226,7 @@ class EventLocation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	/**
 	 * Sets the www
 	 *
-	 * @param \string $www
+	 * @param string $www
 	 * @return void
 	 */
 	public function setWww($www) {
@@ -235,7 +236,7 @@ class EventLocation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	/**
 	 * Returns the country
 	 *
-	 * @return \Webfox\T3events\Domain\Model\Country $country
+	 * @return string $country
 	 */
 	public function getCountry() {
 		return $this->country;
@@ -244,17 +245,17 @@ class EventLocation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	/**
 	 * Sets the country
 	 *
-	 * @param \Webfox\T3events\Domain\Model\Country $country
+	 * @param string $country
 	 * @return void
 	 */
-	public function setCountry(\Webfox\T3events\Domain\Model\Country $country) {
+	public function setCountry($country) {
 		$this->country = $country;
 	}
 
 	/**
 	 * Returns the latitude
 	 *
-	 * @return \float
+	 * @return float
 	 */
 	public function getLatitude() {
 		return $this->latitude;
@@ -263,7 +264,7 @@ class EventLocation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	/**
 	 * Sets the latitude
 	 *
-	 * @var \float $latitude
+	 * @var float $latitude
 	 */
 	public function setLatitude($latitude) {
 		$this->latitude = $latitude;
@@ -272,7 +273,7 @@ class EventLocation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	/**
 	 * Returns the longitude
 	 *
-	 * @return \float
+	 * @return float
 	 */
 	public function getLongitude() {
 		return $this->longitude;
@@ -281,7 +282,7 @@ class EventLocation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 	/**
 	 * Sets the longitude
 	 *
-	 * @var \float $longitude
+	 * @var float $longitude
 	 */
 	public function setLongitude($longitude) {
 		$this->longitude = $longitude;
