@@ -80,7 +80,7 @@ class GenreTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function getLanguageUidReturnsLanguageUid() {
-		$this->fixture->_setProperty('_languagUid', 5);
+		$this->fixture->_setProperty('_languageUid', 5);
 		$this->assertSame(
 			5,
 			$this->fixture->getLanguageUid()
