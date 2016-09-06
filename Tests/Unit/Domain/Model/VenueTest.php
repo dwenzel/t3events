@@ -64,5 +64,28 @@ class VenueTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		);
 	}
 
+	/**
+	 * @test
+	 */
+	public function getLinkReturnsInitiallyNull()
+	{
+		$this->assertNull(
+			$this->fixture->getLink()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function setLinkForStringSetsLink()
+	{
+		$link = 'foo';
+		$this->fixture->setLink($link);
+
+		$this->assertSame(
+			$link,
+			$this->fixture->getLink()
+		);
+	}
 }
 

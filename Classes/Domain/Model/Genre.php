@@ -34,6 +34,13 @@ class Genre extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $title;
 
 	/**
+	 * Link
+	 *
+	 * @var string
+	 */
+	protected $link;
+
+	/**
 	 * Returns the title
 	 *
 	 * @return \string $title
@@ -59,6 +66,26 @@ class Genre extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 */
 	public function getLanguageUid() {
 		return $this->_languageUid;
+	}
+
+	/**
+	 * Gets the link
+	 *
+	 * @return string
+	 */
+	public function getLink()
+	{
+		return $this->link;
+	}
+
+	/**
+	 * Sets the link
+	 *
+	 * @param string $link
+	 */
+	public function setLink($link)
+	{
+		$this->link = $link;
 	}
 }
 

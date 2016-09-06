@@ -2,6 +2,7 @@
 if (!defined('TYPO3_MODE')) {
 	die ('Access denied.');
 }
+$ll = 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:';
 
 return array(
 	'ctrl' => array(
@@ -27,10 +28,10 @@ return array(
 		'searchFields' => 'title,',
 		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('t3events') . 'Resources/Public/Icons/tx_t3events_domain_model_eventtype.gif'
 	), 'interface' => array(
-		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title',
+		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title,link',
 	),
 	'types' => array(
-		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, title,--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,starttime, endtime'),
+		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, title,link,--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,starttime, endtime'),
 	),
 	'palettes' => array(
 		'1' => array('showitem' => ''),
@@ -125,5 +126,28 @@ return array(
 				'eval' => 'trim'
 			),
 		),
+		'link' => [
+			'exclude' => 1,
+			'label' => $ll . 'label.link',
+			'config' => [
+				'type' => 'input',
+				'softref' => 'typolink',
+				'wizards' => [
+					'_PADDING' => 2,
+					'link' => [
+						'type' => 'popup',
+						'title' => $ll . 'button.openLinkWizard',
+						'icon' => 'EXT:backend/Resources/Public/Images/FormFieldWizard/wizard_link.gif',
+						'module' => array(
+							'name' => 'wizard_element_browser',
+							'urlParameters' => array(
+								'mode' => 'wizard'
+							) ,
+						) ,
+						'JSopenParams' => 'height=600,width=500,status=0,menubar=0,scrollbars=1'
+					]
+				]
+			]
+		]
 	),
 );

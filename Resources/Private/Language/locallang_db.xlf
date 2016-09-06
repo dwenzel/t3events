@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2016-05-18T15:06:45Z">
+	<file source-language="en" datatype="plaintext" original="messages" date="2016-09-06T07:59:21Z">
 		<header>
 			<type>database</type>
 			<description>Language labels for database tables/fields belonging to extension 't3events'</description>
@@ -9,397 +9,403 @@
 			<authorEmail>t3events@gmx.de</authorEmail>
 		</header>
 		<body>
-		<trans-unit id="label.add-images" xml:space="preserve">
+		<trans-unit id="button.openLinkWizard">
+			<source>Edit link</source>
+		</trans-unit>
+		<trans-unit id="label.add-images">
 			<source>Add Image</source>
 		</trans-unit>
-		<trans-unit id="static_countries.tx_extbase_type.Tx_T3events_Country" xml:space="preserve">
-			<source>Events Country</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_audience" xml:space="preserve">
-			<source>Audience</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_audience.description" xml:space="preserve">
-			<source>Description</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_audience.title" xml:space="preserve">
-			<source>Title</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_company" xml:space="preserve">
-			<source>Company</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_company.address" xml:space="preserve">
-			<source>Address</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_company.city" xml:space="preserve">
-			<source>City</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_company.country" xml:space="preserve">
-			<source>Country</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_company.name" xml:space="preserve">
-			<source>Name</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_company.zip" xml:space="preserve">
-			<source>Zip</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_country" xml:space="preserve">
-			<source>Country</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_event" xml:space="preserve">
-			<source>Event</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_event.archive_date" xml:space="preserve">
-			<source>Archive Date</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_event.description" xml:space="preserve">
-			<source>Description</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_event.event_type" xml:space="preserve">
-			<source>Event Type</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_event.extended" xml:space="preserve">
-			<source>Extended</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_event.genre" xml:space="preserve">
-			<source>Genre</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_event.headline" xml:space="preserve">
-			<source>Headline</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_event.image" xml:space="preserve">
-			<source>Image</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_event.keywords" xml:space="preserve">
-			<source>Keywords</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_event.new_until" xml:space="preserve">
-			<source>New until</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_event.organizer" xml:space="preserve">
-			<source>Organizer</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_event.performance" xml:space="preserve">
-			<source>Performance</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_event.performances" xml:space="preserve">
-			<source>Performances</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_event.subtitle" xml:space="preserve">
-			<source>Subtitle</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_event.teaser" xml:space="preserve">
-			<source>Teaser</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_event.venue" xml:space="preserve">
-			<source>Venue</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_eventlocation" xml:space="preserve">
-			<source>Event Location</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_eventlocation.address" xml:space="preserve">
-			<source>Address</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_eventlocation.country" xml:space="preserve">
-			<source>Country</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_eventlocation.details" xml:space="preserve">
-			<source>Details</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_eventlocation.image" xml:space="preserve">
-			<source>Image</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_eventlocation.latitude" xml:space="preserve">
-			<source>Latitude</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_eventlocation.longitude" xml:space="preserve">
-			<source>Longitude</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_eventlocation.name" xml:space="preserve">
-			<source>Name</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_eventlocation.place" xml:space="preserve">
-			<source>Place</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_eventlocation.www" xml:space="preserve">
-			<source>Www</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_eventlocation.zip" xml:space="preserve">
-			<source>Zip</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_eventtype" xml:space="preserve">
-			<source>Event Type</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_eventtype.title" xml:space="preserve">
-			<source>Title</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_genre" xml:space="preserve">
-			<source>Genre</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_genre.title" xml:space="preserve">
-			<source>Title</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_notification" xml:space="preserve">
-			<source>Notification</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_notification.bodytext" xml:space="preserve">
-			<source>Text</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_notification.format" xml:space="preserve">
-			<source>Format</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_notification.recipient" xml:space="preserve">
-			<source>Recipient</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_notification.reservation" xml:space="preserve">
-			<source>Reservation</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_notification.send_at" xml:space="preserve">
-			<source>Sent at</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_notification.sender" xml:space="preserve">
-			<source>Sender</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_notification.sender_email" xml:space="preserve">
-			<source>Sender Email</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_notification.sender_name" xml:space="preserve">
-			<source>Sender Name</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_notification.subject" xml:space="preserve">
-			<source>Subject</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_organizer" xml:space="preserve">
-			<source>Organizer</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_organizer.link" xml:space="preserve">
+		<trans-unit id="label.link">
 			<source>Link</source>
 		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_organizer.name" xml:space="preserve">
-			<source>Name</source>
+		<trans-unit id="static_countries.tx_extbase_type.Tx_T3events_Country">
+			<source>Events Country</source>
 		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performance" xml:space="preserve">
-			<source>Performance</source>
+		<trans-unit id="tx_t3events_domain_model_audience">
+			<source>Audience</source>
 		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performance.additional_link" xml:space="preserve">
-			<source>Additional Link</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performance.admission" xml:space="preserve">
-			<source>Admission</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performance.begin" xml:space="preserve">
-			<source>Begin</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performance.date" xml:space="preserve">
-			<source>Date</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performance.end" xml:space="preserve">
-			<source>End</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performance.endDate" xml:space="preserve">
-			<source>End Date</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performance.event_location" xml:space="preserve">
-			<source>Event Location</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performance.external" xml:space="preserve">
-			<source>external</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performance.external_provider_link" xml:space="preserve">
-			<source>External Provider Link</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performance.image" xml:space="preserve">
-			<source>Image</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performance.internal" xml:space="preserve">
-			<source>internal</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performance.no_handling_fee" xml:space="preserve">
-			<source>No Handling Fee</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performance.plan" xml:space="preserve">
-			<source>Plan</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performance.price_notice" xml:space="preserve">
-			<source>Price Notice</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performance.provider_type" xml:space="preserve">
-			<source>Provider Type</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performance.status" xml:space="preserve">
-			<source>Status</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performance.status_info" xml:space="preserve">
-			<source>Status Info</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performance.ticket_class" xml:space="preserve">
-			<source>Ticket Class</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performancestatus" xml:space="preserve">
-			<source>Performance Status</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performancestatus.css_class" xml:space="preserve">
-			<source>CSS Class</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performancestatus.priority" xml:space="preserve">
-			<source>Priority</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performancestatus.title" xml:space="preserve">
-			<source>Title</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_person" xml:space="preserve">
-			<source>Person</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_person.address" xml:space="preserve">
-			<source>Address</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_person.city" xml:space="preserve">
-			<source>City</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_person.email" xml:space="preserve">
-			<source>Email</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_person.first_name" xml:space="preserve">
-			<source>First Name</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_person.gender" xml:space="preserve">
-			<source>Gender</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_person.gender.I.0" xml:space="preserve">
-			<source>male</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_person.gender.I.1" xml:space="preserve">
-			<source>female</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_person.images" xml:space="preserve">
-			<source>Image</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_person.last_name" xml:space="preserve">
-			<source>Last Name</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_person.name" xml:space="preserve">
-			<source>Name</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_person.person_type" xml:space="preserve">
-			<source>Person Type</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_person.phone" xml:space="preserve">
-			<source>Phone</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_person.title" xml:space="preserve">
-			<source>Title</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_person.tx_extbase_type" xml:space="preserve">
-			<source>Record Type</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_person.type.contact" xml:space="preserve">
-			<source>Contact</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_person.type.default" xml:space="preserve">
-			<source>Default</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_person.www" xml:space="preserve">
-			<source>WWW</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_person.zip" xml:space="preserve">
-			<source>Zip</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_persontype" xml:space="preserve">
-			<source>Person Type</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_persontype.title" xml:space="preserve">
-			<source>Title</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_task" xml:space="preserve">
-			<source>Task</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_task.action" xml:space="preserve">
-			<source>Action</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_task.action.hidePerformance" xml:space="preserve">
-			<source>Hide Performance</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_task.action.none" xml:space="preserve">
-			<source>none</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_task.action.updateStatus" xml:space="preserve">
-			<source>Update Performance Status</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_task.description" xml:space="preserve">
+		<trans-unit id="tx_t3events_domain_model_audience.description">
 			<source>Description</source>
 		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_task.folder" xml:space="preserve">
-			<source>Folder</source>
+		<trans-unit id="tx_t3events_domain_model_audience.title">
+			<source>Title</source>
 		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_task.name" xml:space="preserve">
+		<trans-unit id="tx_t3events_domain_model_company">
+			<source>Company</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_company.address">
+			<source>Address</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_company.city">
+			<source>City</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_company.country">
+			<source>Country</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_company.name">
 			<source>Name</source>
 		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_task.new_status" xml:space="preserve">
-			<source>New Status</source>
+		<trans-unit id="tx_t3events_domain_model_company.zip">
+			<source>Zip</source>
 		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_task.old_status" xml:space="preserve">
-			<source>Old Status</source>
+		<trans-unit id="tx_t3events_domain_model_country">
+			<source>Country</source>
 		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_task.period" xml:space="preserve">
-			<source>Time Period</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_teaser" xml:space="preserve">
-			<source>Teaser</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_teaser.details" xml:space="preserve">
-			<source>Details</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_teaser.earliest_date" xml:space="preserve">
-			<source>Earliest Date</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_teaser.event" xml:space="preserve">
+		<trans-unit id="tx_t3events_domain_model_event">
 			<source>Event</source>
 		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_teaser.external_link" xml:space="preserve">
-			<source>External Link</source>
+		<trans-unit id="tx_t3events_domain_model_event.archive_date">
+			<source>Archive Date</source>
 		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_teaser.image" xml:space="preserve">
+		<trans-unit id="tx_t3events_domain_model_event.description">
+			<source>Description</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_event.event_type">
+			<source>Event Type</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_event.extended">
+			<source>Extended</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_event.genre">
+			<source>Genre</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_event.headline">
+			<source>Headline</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_event.image">
 			<source>Image</source>
 		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_teaser.inherit_data" xml:space="preserve">
-			<source>Inherit data from event</source>
+		<trans-unit id="tx_t3events_domain_model_event.keywords">
+			<source>Keywords</source>
 		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_teaser.is_highlight" xml:space="preserve">
-			<source>Is Highlight</source>
+		<trans-unit id="tx_t3events_domain_model_event.new_until">
+			<source>New until</source>
 		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_teaser.location" xml:space="preserve">
+		<trans-unit id="tx_t3events_domain_model_event.organizer">
+			<source>Organizer</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_event.performance">
+			<source>Performance</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_event.performances">
+			<source>Performances</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_event.subtitle">
+			<source>Subtitle</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_event.teaser">
+			<source>Teaser</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_event.venue">
 			<source>Venue</source>
 		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_teaser.title" xml:space="preserve">
+		<trans-unit id="tx_t3events_domain_model_eventlocation">
+			<source>Event Location</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_eventlocation.address">
+			<source>Address</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_eventlocation.country">
+			<source>Country</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_eventlocation.details">
+			<source>Details</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_eventlocation.image">
+			<source>Image</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_eventlocation.latitude">
+			<source>Latitude</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_eventlocation.longitude">
+			<source>Longitude</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_eventlocation.name">
+			<source>Name</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_eventlocation.place">
+			<source>Place</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_eventlocation.www">
+			<source>Www</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_eventlocation.zip">
+			<source>Zip</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_eventtype">
+			<source>Event Type</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_eventtype.title">
 			<source>Title</source>
 		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_ticketclass" xml:space="preserve">
+		<trans-unit id="tx_t3events_domain_model_genre">
+			<source>Genre</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_genre.title">
+			<source>Title</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_notification">
+			<source>Notification</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_notification.bodytext">
+			<source>Text</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_notification.format">
+			<source>Format</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_notification.recipient">
+			<source>Recipient</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_notification.reservation">
+			<source>Reservation</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_notification.send_at">
+			<source>Sent at</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_notification.sender">
+			<source>Sender</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_notification.sender_email">
+			<source>Sender Email</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_notification.sender_name">
+			<source>Sender Name</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_notification.subject">
+			<source>Subject</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_organizer">
+			<source>Organizer</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_organizer.link">
+			<source>Link</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_organizer.name">
+			<source>Name</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_performance">
+			<source>Performance</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_performance.additional_link">
+			<source>Additional Link</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_performance.admission">
+			<source>Admission</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_performance.begin">
+			<source>Begin</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_performance.date">
+			<source>Date</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_performance.end">
+			<source>End</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_performance.endDate">
+			<source>End Date</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_performance.event_location">
+			<source>Event Location</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_performance.external">
+			<source>external</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_performance.external_provider_link">
+			<source>External Provider Link</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_performance.image">
+			<source>Image</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_performance.internal">
+			<source>internal</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_performance.no_handling_fee">
+			<source>No Handling Fee</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_performance.plan">
+			<source>Plan</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_performance.price_notice">
+			<source>Price Notice</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_performance.provider_type">
+			<source>Provider Type</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_performance.status">
+			<source>Status</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_performance.status_info">
+			<source>Status Info</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_performance.ticket_class">
 			<source>Ticket Class</source>
 		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_ticketclass.color" xml:space="preserve">
-			<source>Color</source>
+		<trans-unit id="tx_t3events_domain_model_performancestatus">
+			<source>Performance Status</source>
 		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_ticketclass.normal" xml:space="preserve">
-			<source>Normal</source>
+		<trans-unit id="tx_t3events_domain_model_performancestatus.css_class">
+			<source>CSS Class</source>
 		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_ticketclass.price" xml:space="preserve">
-			<source>Price</source>
+		<trans-unit id="tx_t3events_domain_model_performancestatus.priority">
+			<source>Priority</source>
 		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_ticketclass.reduced" xml:space="preserve">
-			<source>Reduced</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_ticketclass.special" xml:space="preserve">
-			<source>Special</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_ticketclass.title" xml:space="preserve">
+		<trans-unit id="tx_t3events_domain_model_performancestatus.title">
 			<source>Title</source>
 		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_ticketclass.type" xml:space="preserve">
-			<source>Type</source>
+		<trans-unit id="tx_t3events_domain_model_person">
+			<source>Person</source>
 		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_venue" xml:space="preserve">
+		<trans-unit id="tx_t3events_domain_model_person.address">
+			<source>Address</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_person.city">
+			<source>City</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_person.email">
+			<source>Email</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_person.first_name">
+			<source>First Name</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_person.gender">
+			<source>Gender</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_person.gender.I.0">
+			<source>male</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_person.gender.I.1">
+			<source>female</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_person.images">
+			<source>Image</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_person.last_name">
+			<source>Last Name</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_person.name">
+			<source>Name</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_person.person_type">
+			<source>Person Type</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_person.phone">
+			<source>Phone</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_person.title">
+			<source>Title</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_person.tx_extbase_type">
+			<source>Record Type</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_person.type.contact">
+			<source>Contact</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_person.type.default">
+			<source>Default</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_person.www">
+			<source>WWW</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_person.zip">
+			<source>Zip</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_persontype">
+			<source>Person Type</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_persontype.title">
+			<source>Title</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_task">
+			<source>Task</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_task.action">
+			<source>Action</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_task.action.hidePerformance">
+			<source>Hide Performance</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_task.action.none">
+			<source>none</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_task.action.updateStatus">
+			<source>Update Performance Status</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_task.description">
+			<source>Description</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_task.folder">
+			<source>Folder</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_task.name">
+			<source>Name</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_task.new_status">
+			<source>New Status</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_task.old_status">
+			<source>Old Status</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_task.period">
+			<source>Time Period</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_teaser">
+			<source>Teaser</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_teaser.details">
+			<source>Details</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_teaser.earliest_date">
+			<source>Earliest Date</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_teaser.event">
+			<source>Event</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_teaser.external_link">
+			<source>External Link</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_teaser.image">
+			<source>Image</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_teaser.inherit_data">
+			<source>Inherit data from event</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_teaser.is_highlight">
+			<source>Is Highlight</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_teaser.location">
 			<source>Venue</source>
 		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_venue.title" xml:space="preserve">
+		<trans-unit id="tx_t3events_domain_model_teaser.title">
+			<source>Title</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_ticketclass">
+			<source>Ticket Class</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_ticketclass.color">
+			<source>Color</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_ticketclass.normal">
+			<source>Normal</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_ticketclass.price">
+			<source>Price</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_ticketclass.reduced">
+			<source>Reduced</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_ticketclass.special">
+			<source>Special</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_ticketclass.title">
+			<source>Title</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_ticketclass.type">
+			<source>Type</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_venue">
+			<source>Venue</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_venue.title">
 			<source>Title</source>
 		</trans-unit>
 		</body>

@@ -34,6 +34,13 @@ class EventType extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject {
 	protected $title;
 
 	/**
+	 * Link
+	 *
+	 * @var string
+	 */
+	protected $link;
+
+	/**
 	 * Returns the title
 	 *
 	 * @return \string $title
@@ -52,5 +59,25 @@ class EventType extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject {
 		$this->title = $title;
 	}
 
+
+	/**
+	 * Gets the link
+	 *
+	 * @return string
+	 */
+	public function getLink()
+	{
+		return $this->link;
+	}
+
+	/**
+	 * Sets the link
+	 *
+	 * @param string $link
+	 */
+	public function setLink($link)
+	{
+		$this->link = $link;
+	}
 }
 

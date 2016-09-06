@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2016-05-18T15:06:45Z">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2016-09-06T07:59:21Z">
 		<header>
 			<type>database</type>
 			<description>Language labels for database tables/fields belonging to extension 't3events'</description>
@@ -9,531 +9,539 @@
 			<authorEmail>t3events@gmx.de</authorEmail>
 		</header>
 		<body>
-		<trans-unit id="label.add-images" approved="yes" xml:space="preserve">
+		<trans-unit id="button.openLinkWizard" approved="yes">
+			<source>Edit link</source>
+			<target>Link bearbeiten</target>
+		</trans-unit>
+		<trans-unit id="label.add-images" approved="yes">
 			<source>Add Image</source>
 			<target>Bild hinzufügen</target>
 		</trans-unit>
-		<trans-unit id="static_countries.tx_extbase_type.Tx_T3events_Country" approved="yes" xml:space="preserve">
-			<source>Events Country</source>
-			<target>Land</target>
-		</trans-unit>
-		<trans-unit id="tabs.notifications" approved="yes" xml:space="preserve">
-			<source></source>
-			<target>Benachrichtigungen</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_audience" approved="yes" xml:space="preserve">
-			<source>Audience</source>
-			<target>Zielgruppe</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_audience.description" approved="yes" xml:space="preserve">
-			<source>Description</source>
-			<target>Beschreibung</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_audience.title" approved="yes" xml:space="preserve">
-			<source>Title</source>
-			<target>Titel</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_company" approved="yes" xml:space="preserve">
-			<source>Company</source>
-			<target>Firma</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_company.address" approved="yes" xml:space="preserve">
-			<source>Address</source>
-			<target>Adresse</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_company.city" approved="yes" xml:space="preserve">
-			<source>City</source>
-			<target>Stadt</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_company.country" approved="yes" xml:space="preserve">
-			<source>Country</source>
-			<target>Land</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_company.name" approved="yes" xml:space="preserve">
-			<source>Name</source>
-			<target>Name</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_company.zip" approved="yes" xml:space="preserve">
-			<source>Zip</source>
-			<target>PLZ</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_country" approved="yes" xml:space="preserve">
-			<source>Country</source>
-			<target>Land</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_event" approved="yes" xml:space="preserve">
-			<source>Event</source>
-			<target>Veranstaltung</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_event.archive_date" approved="yes" xml:space="preserve">
-			<source>Archive Date</source>
-			<target>Archivdatum</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_event.description" approved="yes" xml:space="preserve">
-			<source>Description</source>
-			<target>Details</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_event.event_type" approved="yes" xml:space="preserve">
-			<source>Event Type</source>
-			<target>Veranstaltungstyp</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_event.extended" approved="yes" xml:space="preserve">
-			<source>Extended</source>
-			<target>Erweitert</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_event.genre" approved="yes" xml:space="preserve">
-			<source>Genre</source>
-			<target>Genre</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_event.headline" approved="yes" xml:space="preserve">
-			<source>Headline</source>
-			<target>Titel</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_event.image" approved="yes" xml:space="preserve">
-			<source>Image</source>
-			<target>Bild</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_event.keywords" approved="yes" xml:space="preserve">
-			<source>Keywords</source>
-			<target>Schlagworte</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_event.new_until" approved="yes" xml:space="preserve">
-			<source>New until</source>
-			<target>Neu bis</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_event.organizer" approved="yes" xml:space="preserve">
-			<source>Organizer</source>
-			<target>Veranstalter</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_event.performance" approved="yes" xml:space="preserve">
-			<source>Performance</source>
-			<target>Vorstellung</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_event.performances" approved="yes" xml:space="preserve">
-			<source>Performances</source>
-			<target>Vorstellungen</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_event.subtitle" approved="yes" xml:space="preserve">
-			<source>Subtitle</source>
-			<target>Untertitel</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_event.teaser" approved="yes" xml:space="preserve">
-			<source>Teaser</source>
-			<target>Teaser</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_event.venue" approved="yes" xml:space="preserve">
-			<source>Venue</source>
-			<target>Einrichtung</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_eventlocation" approved="yes" xml:space="preserve">
-			<source>Event Location</source>
-			<target>Veranstaltungsort</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_eventlocation.address" approved="yes" xml:space="preserve">
-			<source>Address</source>
-			<target>Adresse</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_eventlocation.country" approved="yes" xml:space="preserve">
-			<source>Country</source>
-			<target>Land</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_eventlocation.details" approved="yes" xml:space="preserve">
-			<source>Details</source>
-			<target>Details</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_eventlocation.image" approved="yes" xml:space="preserve">
-			<source>Image</source>
-			<target>Bild</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_eventlocation.latitude" approved="yes" xml:space="preserve">
-			<source>Latitude</source>
-			<target>Geographische Breite</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_eventlocation.longitude" approved="yes" xml:space="preserve">
-			<source>Longitude</source>
-			<target>Geographische Länge</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_eventlocation.name" approved="yes" xml:space="preserve">
-			<source>Name</source>
-			<target>Name</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_eventlocation.place" approved="yes" xml:space="preserve">
-			<source>Place</source>
-			<target>Ort</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_eventlocation.www" approved="yes" xml:space="preserve">
-			<source>Www</source>
-			<target>Webseite</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_eventlocation.zip" approved="yes" xml:space="preserve">
-			<source>Zip</source>
-			<target>PLZ</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_eventtype" approved="yes" xml:space="preserve">
-			<source>Event Type</source>
-			<target>Veranstaltungstyp</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_eventtype.title" approved="yes" xml:space="preserve">
-			<source>Title</source>
-			<target>Titel</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_genre" approved="yes" xml:space="preserve">
-			<source>Genre</source>
-			<target>Genre</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_genre.title" approved="yes" xml:space="preserve">
-			<source>Title</source>
-			<target>Titel</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_notification" approved="yes" xml:space="preserve">
-			<source>Notification</source>
-			<target>Benachrichtigung</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_notification.bodytext" approved="yes" xml:space="preserve">
-			<source>Text</source>
-			<target>Text</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_notification.format" approved="yes" xml:space="preserve">
-			<source>Format</source>
-			<target>Format</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_notification.recipient" approved="yes" xml:space="preserve">
-			<source>Recipient</source>
-			<target>Empfänger</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_notification.reservation" approved="yes" xml:space="preserve">
-			<source>Reservation</source>
-			<target>Reservierung</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_notification.send_at" approved="yes" xml:space="preserve">
-			<source>Sent at</source>
-			<target>versendet</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_notification.sender" approved="yes" xml:space="preserve">
-			<source>Sender</source>
-			<target>Absender</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_notification.sender_email" approved="yes" xml:space="preserve">
-			<source>Sender Email</source>
-			<target>Emailadresse des Absenders</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_notification.sender_name" approved="yes" xml:space="preserve">
-			<source>Sender Name</source>
-			<target>Absendername</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_notification.subject" approved="yes" xml:space="preserve">
-			<source>Subject</source>
-			<target>Betreff</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_organizer" approved="yes" xml:space="preserve">
-			<source>Organizer</source>
-			<target>Veranstalter</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_organizer.link" approved="yes" xml:space="preserve">
+		<trans-unit id="label.link" approved="yes">
 			<source>Link</source>
 			<target>Link</target>
 		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_organizer.name" approved="yes" xml:space="preserve">
-			<source>Name</source>
-			<target>Name</target>
+		<trans-unit id="static_countries.tx_extbase_type.Tx_T3events_Country" approved="yes">
+			<source>Events Country</source>
+			<target>Land</target>
 		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performance" approved="yes" xml:space="preserve">
-			<source>Performance</source>
-			<target>Vorstellung</target>
+		<trans-unit id="tabs.notifications" approved="yes">
+			<source></source>
+			<target>Benachrichtigungen</target>
 		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performance.additional_link" approved="yes" xml:space="preserve">
-			<source>Additional Link</source>
-			<target>Zusätzlicher Link</target>
+		<trans-unit id="tx_t3events_domain_model_audience" approved="yes">
+			<source>Audience</source>
+			<target>Zielgruppe</target>
 		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performance.admission" approved="yes" xml:space="preserve">
-			<source>Admission</source>
-			<target>Einlass</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performance.begin" approved="yes" xml:space="preserve">
-			<source>Begin</source>
-			<target>Beginn</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performance.date" approved="yes" xml:space="preserve">
-			<source>Date</source>
-			<target>Datum</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performance.end" approved="yes" xml:space="preserve">
-			<source>End</source>
-			<target>Ende</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performance.endDate" approved="yes" xml:space="preserve">
-			<source>End Date</source>
-			<target>Enddatum</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performance.event_location" approved="yes" xml:space="preserve">
-			<source>Event Location</source>
-			<target>Veranstaltungsort</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performance.external" approved="yes" xml:space="preserve">
-			<source>external</source>
-			<target>extern</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performance.external_provider_link" approved="yes" xml:space="preserve">
-			<source>External Provider Link</source>
-			<target>Link zu externem Anbieter</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performance.image" approved="yes" xml:space="preserve">
-			<source>Image</source>
-			<target>Bild</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performance.internal" approved="yes" xml:space="preserve">
-			<source>internal</source>
-			<target>intern</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performance.no_handling_fee" approved="yes" xml:space="preserve">
-			<source>No Handling Fee</source>
-			<target>keine Bearbeitungsgebühr</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performance.plan" approved="yes" xml:space="preserve">
-			<source>Plan</source>
-			<target>Plan</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performance.price_notice" approved="yes" xml:space="preserve">
-			<source>Price Notice</source>
-			<target>Preishinweis</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performance.provider_type" approved="yes" xml:space="preserve">
-			<source>Provider Type</source>
-			<target>Anbietertyp</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performance.status" approved="yes" xml:space="preserve">
-			<source>Status</source>
-			<target>Status</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performance.status_info" approved="yes" xml:space="preserve">
-			<source>Status Info</source>
-			<target>Status Info</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performance.ticket_class" approved="yes" xml:space="preserve">
-			<source>Ticket Class</source>
-			<target>Preisklasse</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performancestatus" approved="yes" xml:space="preserve">
-			<source>Performance Status</source>
-			<target>Status</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performancestatus.css_class" approved="yes" xml:space="preserve">
-			<source>CSS Class</source>
-			<target>CSS-Klasse</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performancestatus.priority" approved="yes" xml:space="preserve">
-			<source>Priority</source>
-			<target>Priorität</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performancestatus.title" approved="yes" xml:space="preserve">
-			<source>Title</source>
-			<target>Titel</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_person" approved="yes" xml:space="preserve">
-			<source>Person</source>
-			<target>Person</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_person.address" approved="yes" xml:space="preserve">
-			<source>Address</source>
-			<target>Adresse</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_person.city" approved="yes" xml:space="preserve">
-			<source>City</source>
-			<target>Stadt</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_person.email" approved="yes" xml:space="preserve">
-			<source>Email</source>
-			<target>E-Mail</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_person.first_name" approved="yes" xml:space="preserve">
-			<source>First Name</source>
-			<target>Vorname</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_person.gender" approved="yes" xml:space="preserve">
-			<source>Gender</source>
-			<target>Geschlecht</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_person.gender.I.0" approved="yes" xml:space="preserve">
-			<source>male</source>
-			<target>männlich</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_person.gender.I.1" approved="yes" xml:space="preserve">
-			<source>female</source>
-			<target>weiblich</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_person.images" approved="yes" xml:space="preserve">
-			<source>Image</source>
-			<target>Bild</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_person.last_name" approved="yes" xml:space="preserve">
-			<source>Last Name</source>
-			<target>Nachname</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_person.name" approved="yes" xml:space="preserve">
-			<source>Name</source>
-			<target>Name</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_person.person_type" approved="yes" xml:space="preserve">
-			<source>Person Type</source>
-			<target>Personentyp</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_person.phone" approved="yes" xml:space="preserve">
-			<source>Phone</source>
-			<target>Telefon</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_person.title" approved="yes" xml:space="preserve">
-			<source>Title</source>
-			<target>Titel</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_person.tx_extbase_type" approved="yes" xml:space="preserve">
-			<source>Record Type</source>
-			<target>Datensatztyp</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_person.type.contact" approved="yes" xml:space="preserve">
-			<source>Contact</source>
-			<target>Kontakt</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_person.type.default" approved="yes" xml:space="preserve">
-			<source>Default</source>
-			<target>Standard</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_person.www" approved="yes" xml:space="preserve">
-			<source>WWW</source>
-			<target>WWW</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_person.zip" approved="yes" xml:space="preserve">
-			<source>Zip</source>
-			<target>PLZ</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_persontype" approved="yes" xml:space="preserve">
-			<source>Person Type</source>
-			<target>Personentyp</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_persontype.title" approved="yes" xml:space="preserve">
-			<source>Title</source>
-			<target>Bezeichnung</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_task" approved="yes" xml:space="preserve">
-			<source>Task</source>
-			<target>Aufgabe</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_task.action" approved="yes" xml:space="preserve">
-			<source>Action</source>
-			<target>Aktion</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_task.action.hidePerformance" approved="yes" xml:space="preserve">
-			<source>Hide Performance</source>
-			<target>Aufführung verbergen</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_task.action.none" approved="yes" xml:space="preserve">
-			<source>none</source>
-			<target>keine</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_task.action.updateStatus" approved="yes" xml:space="preserve">
-			<source>Update Performance Status</source>
-			<target>Aufführungsstatus aktualisieren</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_task.description" approved="yes" xml:space="preserve">
+		<trans-unit id="tx_t3events_domain_model_audience.description" approved="yes">
 			<source>Description</source>
 			<target>Beschreibung</target>
 		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_task.folder" approved="yes" xml:space="preserve">
-			<source>Folder</source>
-			<target>Ordner</target>
+		<trans-unit id="tx_t3events_domain_model_audience.title" approved="yes">
+			<source>Title</source>
+			<target>Titel</target>
 		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_task.name" approved="yes" xml:space="preserve">
+		<trans-unit id="tx_t3events_domain_model_company" approved="yes">
+			<source>Company</source>
+			<target>Firma</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_company.address" approved="yes">
+			<source>Address</source>
+			<target>Adresse</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_company.city" approved="yes">
+			<source>City</source>
+			<target>Stadt</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_company.country" approved="yes">
+			<source>Country</source>
+			<target>Land</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_company.name" approved="yes">
 			<source>Name</source>
 			<target>Name</target>
 		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_task.new_status" approved="yes" xml:space="preserve">
-			<source>New Status</source>
-			<target>Neuer Status</target>
+		<trans-unit id="tx_t3events_domain_model_company.zip" approved="yes">
+			<source>Zip</source>
+			<target>PLZ</target>
 		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_task.old_status" approved="yes" xml:space="preserve">
-			<source>Old Status</source>
-			<target>Alter Status</target>
+		<trans-unit id="tx_t3events_domain_model_country" approved="yes">
+			<source>Country</source>
+			<target>Land</target>
 		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_task.period" approved="yes" xml:space="preserve">
-			<source>Time Period</source>
-			<target>Zeitraum</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_teaser" approved="yes" xml:space="preserve">
-			<source>Teaser</source>
-			<target>Teaser</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_teaser.details" approved="yes" xml:space="preserve">
-			<source>Details</source>
-			<target>Details</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_teaser.earliest_date" approved="yes" xml:space="preserve">
-			<source>Earliest Date</source>
-			<target>Frühestes Datum</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_teaser.event" approved="yes" xml:space="preserve">
+		<trans-unit id="tx_t3events_domain_model_event" approved="yes">
 			<source>Event</source>
 			<target>Veranstaltung</target>
 		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_teaser.external_link" approved="yes" xml:space="preserve">
-			<source>External Link</source>
-			<target>Externer Link</target>
+		<trans-unit id="tx_t3events_domain_model_event.archive_date" approved="yes">
+			<source>Archive Date</source>
+			<target>Archivdatum</target>
 		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_teaser.image" approved="yes" xml:space="preserve">
+		<trans-unit id="tx_t3events_domain_model_event.description" approved="yes">
+			<source>Description</source>
+			<target>Details</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_event.event_type" approved="yes">
+			<source>Event Type</source>
+			<target>Veranstaltungstyp</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_event.extended" approved="yes">
+			<source>Extended</source>
+			<target>Erweitert</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_event.genre" approved="yes">
+			<source>Genre</source>
+			<target>Genre</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_event.headline" approved="yes">
+			<source>Headline</source>
+			<target>Titel</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_event.image" approved="yes">
 			<source>Image</source>
 			<target>Bild</target>
 		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_teaser.inherit_data" approved="yes" xml:space="preserve">
-			<source>Inherit data from event</source>
-			<target>Daten aus Veranstaltung übernehmen</target>
+		<trans-unit id="tx_t3events_domain_model_event.keywords" approved="yes">
+			<source>Keywords</source>
+			<target>Schlagworte</target>
 		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_teaser.is_highlight" approved="yes" xml:space="preserve">
-			<source>Is Highlight</source>
-			<target>hervorheben</target>
+		<trans-unit id="tx_t3events_domain_model_event.new_until" approved="yes">
+			<source>New until</source>
+			<target>Neu bis</target>
 		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_teaser.location" approved="yes" xml:space="preserve">
+		<trans-unit id="tx_t3events_domain_model_event.organizer" approved="yes">
+			<source>Organizer</source>
+			<target>Veranstalter</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_event.performance" approved="yes">
+			<source>Performance</source>
+			<target>Vorstellung</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_event.performances" approved="yes">
+			<source>Performances</source>
+			<target>Vorstellungen</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_event.subtitle" approved="yes">
+			<source>Subtitle</source>
+			<target>Untertitel</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_event.teaser" approved="yes">
+			<source>Teaser</source>
+			<target>Teaser</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_event.venue" approved="yes">
 			<source>Venue</source>
 			<target>Einrichtung</target>
 		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_teaser.title" approved="yes" xml:space="preserve">
+		<trans-unit id="tx_t3events_domain_model_eventlocation" approved="yes">
+			<source>Event Location</source>
+			<target>Veranstaltungsort</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_eventlocation.address" approved="yes">
+			<source>Address</source>
+			<target>Adresse</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_eventlocation.country" approved="yes">
+			<source>Country</source>
+			<target>Land</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_eventlocation.details" approved="yes">
+			<source>Details</source>
+			<target>Details</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_eventlocation.image" approved="yes">
+			<source>Image</source>
+			<target>Bild</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_eventlocation.latitude" approved="yes">
+			<source>Latitude</source>
+			<target>Geographische Breite</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_eventlocation.longitude" approved="yes">
+			<source>Longitude</source>
+			<target>Geographische Länge</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_eventlocation.name" approved="yes">
+			<source>Name</source>
+			<target>Name</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_eventlocation.place" approved="yes">
+			<source>Place</source>
+			<target>Ort</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_eventlocation.www" approved="yes">
+			<source>Www</source>
+			<target>Webseite</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_eventlocation.zip" approved="yes">
+			<source>Zip</source>
+			<target>PLZ</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_eventtype" approved="yes">
+			<source>Event Type</source>
+			<target>Veranstaltungstyp</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_eventtype.title" approved="yes">
 			<source>Title</source>
 			<target>Titel</target>
 		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_ticketclass" approved="yes" xml:space="preserve">
+		<trans-unit id="tx_t3events_domain_model_genre" approved="yes">
+			<source>Genre</source>
+			<target>Genre</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_genre.title" approved="yes">
+			<source>Title</source>
+			<target>Titel</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_notification" approved="yes">
+			<source>Notification</source>
+			<target>Benachrichtigung</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_notification.bodytext" approved="yes">
+			<source>Text</source>
+			<target>Text</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_notification.format" approved="yes">
+			<source>Format</source>
+			<target>Format</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_notification.recipient" approved="yes">
+			<source>Recipient</source>
+			<target>Empfänger</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_notification.reservation" approved="yes">
+			<source>Reservation</source>
+			<target>Reservierung</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_notification.send_at" approved="yes">
+			<source>Sent at</source>
+			<target>versendet</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_notification.sender" approved="yes">
+			<source>Sender</source>
+			<target>Absender</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_notification.sender_email" approved="yes">
+			<source>Sender Email</source>
+			<target>Emailadresse des Absenders</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_notification.sender_name" approved="yes">
+			<source>Sender Name</source>
+			<target>Absendername</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_notification.subject" approved="yes">
+			<source>Subject</source>
+			<target>Betreff</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_organizer" approved="yes">
+			<source>Organizer</source>
+			<target>Veranstalter</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_organizer.link" approved="yes">
+			<source>Link</source>
+			<target>Link</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_organizer.name" approved="yes">
+			<source>Name</source>
+			<target>Name</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_performance" approved="yes">
+			<source>Performance</source>
+			<target>Vorstellung</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_performance.additional_link" approved="yes">
+			<source>Additional Link</source>
+			<target>Zusätzlicher Link</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_performance.admission" approved="yes">
+			<source>Admission</source>
+			<target>Einlass</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_performance.begin" approved="yes">
+			<source>Begin</source>
+			<target>Beginn</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_performance.date" approved="yes">
+			<source>Date</source>
+			<target>Datum</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_performance.end" approved="yes">
+			<source>End</source>
+			<target>Ende</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_performance.endDate" approved="yes">
+			<source>End Date</source>
+			<target>Enddatum</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_performance.event_location" approved="yes">
+			<source>Event Location</source>
+			<target>Veranstaltungsort</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_performance.external" approved="yes">
+			<source>external</source>
+			<target>extern</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_performance.external_provider_link" approved="yes">
+			<source>External Provider Link</source>
+			<target>Link zu externem Anbieter</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_performance.image" approved="yes">
+			<source>Image</source>
+			<target>Bild</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_performance.internal" approved="yes">
+			<source>internal</source>
+			<target>intern</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_performance.no_handling_fee" approved="yes">
+			<source>No Handling Fee</source>
+			<target>keine Bearbeitungsgebühr</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_performance.plan" approved="yes">
+			<source>Plan</source>
+			<target>Plan</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_performance.price_notice" approved="yes">
+			<source>Price Notice</source>
+			<target>Preishinweis</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_performance.provider_type" approved="yes">
+			<source>Provider Type</source>
+			<target>Anbietertyp</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_performance.status" approved="yes">
+			<source>Status</source>
+			<target>Status</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_performance.status_info" approved="yes">
+			<source>Status Info</source>
+			<target>Status Info</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_performance.ticket_class" approved="yes">
 			<source>Ticket Class</source>
 			<target>Preisklasse</target>
 		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_ticketclass.color" approved="yes" xml:space="preserve">
-			<source>Color</source>
-			<target>Farbe</target>
+		<trans-unit id="tx_t3events_domain_model_performancestatus" approved="yes">
+			<source>Performance Status</source>
+			<target>Status</target>
 		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_ticketclass.normal" approved="yes" xml:space="preserve">
-			<source>Normal</source>
-			<target>normal</target>
+		<trans-unit id="tx_t3events_domain_model_performancestatus.css_class" approved="yes">
+			<source>CSS Class</source>
+			<target>CSS-Klasse</target>
 		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_ticketclass.price" approved="yes" xml:space="preserve">
-			<source>Price</source>
-			<target>Preis</target>
+		<trans-unit id="tx_t3events_domain_model_performancestatus.priority" approved="yes">
+			<source>Priority</source>
+			<target>Priorität</target>
 		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_ticketclass.reduced" approved="yes" xml:space="preserve">
-			<source>Reduced</source>
-			<target>ermäßigt</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_ticketclass.special" approved="yes" xml:space="preserve">
-			<source>Special</source>
-			<target>spezial</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_ticketclass.title" approved="yes" xml:space="preserve">
+		<trans-unit id="tx_t3events_domain_model_performancestatus.title" approved="yes">
 			<source>Title</source>
 			<target>Titel</target>
 		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_ticketclass.type" approved="yes" xml:space="preserve">
-			<source>Type</source>
-			<target>Art</target>
+		<trans-unit id="tx_t3events_domain_model_person" approved="yes">
+			<source>Person</source>
+			<target>Person</target>
 		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_venue" approved="yes" xml:space="preserve">
+		<trans-unit id="tx_t3events_domain_model_person.address" approved="yes">
+			<source>Address</source>
+			<target>Adresse</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_person.city" approved="yes">
+			<source>City</source>
+			<target>Stadt</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_person.email" approved="yes">
+			<source>Email</source>
+			<target>E-Mail</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_person.first_name" approved="yes">
+			<source>First Name</source>
+			<target>Vorname</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_person.gender" approved="yes">
+			<source>Gender</source>
+			<target>Geschlecht</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_person.gender.I.0" approved="yes">
+			<source>male</source>
+			<target>männlich</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_person.gender.I.1" approved="yes">
+			<source>female</source>
+			<target>weiblich</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_person.images" approved="yes">
+			<source>Image</source>
+			<target>Bild</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_person.last_name" approved="yes">
+			<source>Last Name</source>
+			<target>Nachname</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_person.name" approved="yes">
+			<source>Name</source>
+			<target>Name</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_person.person_type" approved="yes">
+			<source>Person Type</source>
+			<target>Personentyp</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_person.phone" approved="yes">
+			<source>Phone</source>
+			<target>Telefon</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_person.title" approved="yes">
+			<source>Title</source>
+			<target>Titel</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_person.tx_extbase_type" approved="yes">
+			<source>Record Type</source>
+			<target>Datensatztyp</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_person.type.contact" approved="yes">
+			<source>Contact</source>
+			<target>Kontakt</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_person.type.default" approved="yes">
+			<source>Default</source>
+			<target>Standard</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_person.www" approved="yes">
+			<source>WWW</source>
+			<target>WWW</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_person.zip" approved="yes">
+			<source>Zip</source>
+			<target>PLZ</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_persontype" approved="yes">
+			<source>Person Type</source>
+			<target>Personentyp</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_persontype.title" approved="yes">
+			<source>Title</source>
+			<target>Bezeichnung</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_task" approved="yes">
+			<source>Task</source>
+			<target>Aufgabe</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_task.action" approved="yes">
+			<source>Action</source>
+			<target>Aktion</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_task.action.hidePerformance" approved="yes">
+			<source>Hide Performance</source>
+			<target>Aufführung verbergen</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_task.action.none" approved="yes">
+			<source>none</source>
+			<target>keine</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_task.action.updateStatus" approved="yes">
+			<source>Update Performance Status</source>
+			<target>Aufführungsstatus aktualisieren</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_task.description" approved="yes">
+			<source>Description</source>
+			<target>Beschreibung</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_task.folder" approved="yes">
+			<source>Folder</source>
+			<target>Ordner</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_task.name" approved="yes">
+			<source>Name</source>
+			<target>Name</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_task.new_status" approved="yes">
+			<source>New Status</source>
+			<target>Neuer Status</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_task.old_status" approved="yes">
+			<source>Old Status</source>
+			<target>Alter Status</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_task.period" approved="yes">
+			<source>Time Period</source>
+			<target>Zeitraum</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_teaser" approved="yes">
+			<source>Teaser</source>
+			<target>Teaser</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_teaser.details" approved="yes">
+			<source>Details</source>
+			<target>Details</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_teaser.earliest_date" approved="yes">
+			<source>Earliest Date</source>
+			<target>Frühestes Datum</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_teaser.event" approved="yes">
+			<source>Event</source>
+			<target>Veranstaltung</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_teaser.external_link" approved="yes">
+			<source>External Link</source>
+			<target>Externer Link</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_teaser.image" approved="yes">
+			<source>Image</source>
+			<target>Bild</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_teaser.inherit_data" approved="yes">
+			<source>Inherit data from event</source>
+			<target>Daten aus Veranstaltung übernehmen</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_teaser.is_highlight" approved="yes">
+			<source>Is Highlight</source>
+			<target>hervorheben</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_teaser.location" approved="yes">
 			<source>Venue</source>
 			<target>Einrichtung</target>
 		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_venue.title" approved="yes" xml:space="preserve">
+		<trans-unit id="tx_t3events_domain_model_teaser.title" approved="yes">
+			<source>Title</source>
+			<target>Titel</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_ticketclass" approved="yes">
+			<source>Ticket Class</source>
+			<target>Preisklasse</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_ticketclass.color" approved="yes">
+			<source>Color</source>
+			<target>Farbe</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_ticketclass.normal" approved="yes">
+			<source>Normal</source>
+			<target>normal</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_ticketclass.price" approved="yes">
+			<source>Price</source>
+			<target>Preis</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_ticketclass.reduced" approved="yes">
+			<source>Reduced</source>
+			<target>ermäßigt</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_ticketclass.special" approved="yes">
+			<source>Special</source>
+			<target>spezial</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_ticketclass.title" approved="yes">
+			<source>Title</source>
+			<target>Titel</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_ticketclass.type" approved="yes">
+			<source>Type</source>
+			<target>Art</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_venue" approved="yes">
+			<source>Venue</source>
+			<target>Einrichtung</target>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_venue.title" approved="yes">
 			<source>Title</source>
 			<target>Titel</target>
 		</trans-unit>
