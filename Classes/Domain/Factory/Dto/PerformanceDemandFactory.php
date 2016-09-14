@@ -18,7 +18,7 @@ namespace Webfox\T3events\Domain\Factory\Dto;
  *  GNU General Public License for more details.
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-use CPSIT\T3importExport\Domain\Model\Dto\DemandInterface;
+use Webfox\T3events\Domain\Model\Dto\DemandInterface;
 use Webfox\T3events\Domain\Model\Dto\PerformanceDemand;
 use Webfox\T3events\Domain\Model\Dto\PeriodAwareDemandInterface;
 
