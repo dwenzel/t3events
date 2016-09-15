@@ -25,6 +25,8 @@ use Webfox\T3events\Domain\Factory\Dto\EventDemandFactory;
 use Webfox\T3events\Domain\Factory\Dto\PerformanceDemandFactory;
 use Webfox\T3events\Domain\Model\Dto\EventDemand;
 use Webfox\T3events\Domain\Model\Dto\PerformanceDemand;
+use Webfox\T3events\Domain\Model\Event;
+use Webfox\T3events\Domain\Model\Performance;
 use Webfox\T3events\Domain\Repository\EventRepository;
 use Webfox\T3events\Domain\Repository\PerformanceRepository;
 
@@ -82,7 +84,7 @@ class CleanUpCommandControllerTest extends UnitTestCase
     protected function mockPerformanceRepository()
     {
         $mockPerformanceRepository = $this->getMock(
-            PerformanceRepository::class, ['findDemanded'], [], '', false
+            PerformanceRepository::class, ['findDemanded', 'remove'], [], '', false
         );
         $this->subject->injectPerformanceRepository($mockPerformanceRepository);
 
@@ -95,7 +97,7 @@ class CleanUpCommandControllerTest extends UnitTestCase
     protected function mockEventRepository()
     {
         $mockEventRepository = $this->getMock(
-            EventRepository::class, ['findDemanded'], [], '', false
+            EventRepository::class, ['findDemanded', 'remove'], [], '', false
         );
         $this->subject->injectEventRepository($mockEventRepository);
 
@@ -211,6 +213,142 @@ class CleanUpCommandControllerTest extends UnitTestCase
     /**
      * @test
      */
+    public function deleteEventsCommandRemovesEvents()
+    {
+        $mockEventDemand = $this->getMock(
+            EventDemand::class
+        );
+        $this->mockPerformanceDemandFactory();
+        $mockPerformanceDemandFactory = $this->mockPerformanceRepository();
+        $mockPerformanceDemandFactory->expects($this->once())
+            ->method('findDemanded')
+            ->will($this->returnValue([]));
+
+        $eventDemandFactory = $this->mockEventDemandFactory();
+        $eventDemandFactory->expects($this->once())
+            ->method('createFromSettings')
+            ->will($this->returnValue($mockEventDemand));
+        $mockPerformanceDemand = $this->getMock(
+            PerformanceDemand::class
+        );
+        $mockPerformanceDemandFactory = $this->mockPerformanceDemandFactory();
+        $mockPerformanceDemandFactory->expects($this->once())
+            ->method('createFromSettings')
+            ->will($this->returnValue($mockPerformanceDemand));
+
+        $mockEvent = $this->getMock(
+            Event::class, ['getPerformances']
+        );
+        $mockEventRepository = $this->mockEventRepository();
+        $mockEventRepository->expects($this->once())
+            ->method('findDemanded')
+            ->with($mockEventDemand)
+            ->will($this->returnValue([$mockEvent]));
+
+        $mockEventRepository->expects($this->once())
+            ->method('remove')
+            ->with($mockEvent);
+
+        $this->subject->deleteEventsCommand(false);
+    }
+
+    /**
+     * @test
+     */
+    public function deleteEventsCommandKeepsEventsContainingPerformances()
+    {
+        $mockEventDemand = $this->getMock(
+            EventDemand::class
+        );
+        $mockPerformanceRepository = $this->mockPerformanceRepository();
+        $mockPerformanceRepository->expects($this->once())
+            ->method('findDemanded')
+            ->will($this->returnValue([]));
+
+        $eventDemandFactory = $this->mockEventDemandFactory();
+        $eventDemandFactory->expects($this->once())
+            ->method('createFromSettings')
+            ->will($this->returnValue($mockEventDemand));
+        $mockPerformanceDemand = $this->getMock(
+            PerformanceDemand::class
+        );
+        $mockPerformanceDemandFactory = $this->mockPerformanceDemandFactory();
+        $mockPerformanceDemandFactory->expects($this->once())
+            ->method('createFromSettings')
+            ->will($this->returnValue($mockPerformanceDemand));
+
+        $mockEvent = $this->getMock(
+            Event::class, ['getPerformances']
+        );
+        $mockPerformance = $this->getMock(
+            Performance::class
+        );
+        $mockEvent->expects($this->once())
+            ->method('getPerformances')
+            ->will($this->returnValue([$mockPerformance]));
+        $mockEventRepository = $this->mockEventRepository();
+        $mockEventRepository->expects($this->once())
+            ->method('findDemanded')
+            ->with($mockEventDemand)
+            ->will($this->returnValue([$mockEvent]));
+
+        $mockEventRepository->expects($this->never())
+            ->method('remove')
+            ->with($mockEvent);
+
+        $this->subject->deleteEventsCommand(false);
+    }
+
+    /**
+     * @test
+     */
+    public function deleteEventsCommandRemovesPerformances()
+    {
+        $mockEventDemand = $this->getMock(
+            EventDemand::class
+        );
+        $mockPerformance = $this->getMock(
+            Performance::class
+        );
+
+        $mockPerformanceRepository = $this->mockPerformanceRepository();
+        $mockPerformanceRepository->expects($this->once())
+            ->method('findDemanded')
+            ->will($this->returnValue([$mockPerformance]));
+
+        $eventDemandFactory = $this->mockEventDemandFactory();
+        $eventDemandFactory->expects($this->once())
+            ->method('createFromSettings')
+            ->will($this->returnValue($mockEventDemand));
+        $mockPerformanceDemand = $this->getMock(
+            PerformanceDemand::class
+        );
+        $mockPerformanceDemandFactory = $this->mockPerformanceDemandFactory();
+        $mockPerformanceDemandFactory->expects($this->once())
+            ->method('createFromSettings')
+            ->will($this->returnValue($mockPerformanceDemand));
+
+        $mockEvent = $this->getMock(
+            Event::class, ['getPerformances']
+        );
+        $mockEventRepository = $this->mockEventRepository();
+        $mockEventRepository->expects($this->once())
+            ->method('findDemanded')
+            ->will($this->returnValue([]));
+
+        $mockEventRepository->expects($this->never())
+            ->method('remove')
+            ->with($mockEvent);
+        $mockPerformanceRepository->expects($this->once())
+            ->method('remove')
+            ->with($mockPerformance);
+
+        $this->subject->deleteEventsCommand(false);
+    }
+
+    /**
+     * @test
+     */
     public function deletePerformancesCommandGetsDemandFromFactory()
     {
         $settings = [
@@ -284,5 +422,34 @@ class CleanUpCommandControllerTest extends UnitTestCase
             ->with($mockPerformanceDemand);
 
         $this->subject->deletePerformancesCommand();
+    }
+
+    /**
+     * @test
+     */
+    public function deletePerformancesCommandDeletesPerformances()
+    {
+        $mockPerformanceDemand = $this->getMock(
+            PerformanceDemand::class
+        );
+        $mockPerformance = $this->getMock(
+            Performance::class
+        );
+        $mockPerformanceDemandFactory = $this->mockPerformanceDemandFactory();
+        $mockPerformanceDemandFactory->expects($this->once())
+            ->method('createFromSettings')
+            ->will($this->returnValue($mockPerformanceDemand));
+
+        $mockPerformanceRepository = $this->mockPerformanceRepository();
+
+        $mockPerformanceRepository->expects($this->once())
+            ->method('findDemanded')
+            ->with($mockPerformanceDemand)
+            ->will($this->returnValue([$mockPerformance]));
+        $mockPerformanceRepository->expects($this->once())
+            ->method('remove')
+            ->with($mockPerformance);
+
+        $this->subject->deletePerformancesCommand(false);
     }
 }
