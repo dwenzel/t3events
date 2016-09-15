@@ -24,6 +24,7 @@ $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_befunc.php']['getFl
 
 
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['extbase']['commandControllers'][] = 'Webfox\\T3events\\Command\\TaskCommandController';
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['extbase']['commandControllers']['tx_t3events_CleanUp'] = 'Webfox\\T3events\\Command\\CleanUpCommandController';
 
 // Register cache frontend for proxy class generation
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['t3events'] = array(
