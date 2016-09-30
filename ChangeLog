@@ -1,3 +1,10 @@
+2016-09-30         [RELEASE] Release of t3events 0.28.0 (Dirk Wenzel)
+2016-09-15 c998c90 [TASK] Unit tests for CleanUpCommandController added. (Dirk Wenzel)
+2016-09-15 47d3f41 [TASK] CleanUpCommandController implemented. (Dirk Wenzel)
+2016-09-14 305d92f [TASK] traits for PerformanceDemandFactory, EventDemandFactory, PerformanceRepository and EventRepository implemented (Dirk Wenzel)
+2016-09-06 271f294 [BUGFIX] failing unit test for Genre fixed (Dirk Wenzel)
+2016-09-06 a901b00 [TASK] new field link added to domain models Genre, Audience, EventType and Venue (Dirk Wenzel)
+
 2016-08-12         [RELEASE] Release of t3events 0.27.0 (Dirk Wenzel)
 2016-08-07 69fd256 [TASK] obsolete OpenOffice style doc removed (Dirk Wenzel)
 2016-08-07 1e7cc29 [TASK] Makefile and conf.py for sphinx documentation added. (Dirk Wenzel)

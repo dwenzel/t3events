@@ -27,10 +27,10 @@ return array(
 		'searchFields' => 'title,description,',
 		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('t3events') . 'Resources/Public/Icons/tx_t3events_domain_model_audience.gif'
 	), 'interface' => array(
-		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, description',
+		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, description,link',
 	),
 	'types' => array(
-		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, title, description;;;richtext:rte_transform[mode=ts_links], '),
+		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, title, description;;;richtext:rte_transform[mode=ts_links],link '),
 	),
 	'palettes' => array(
 		'1' => array('showitem' => ''),
@@ -117,6 +117,28 @@ return array(
 				)
 			),
 		),
-
+		'link' => [
+			'exclude' => 1,
+			'label' => $ll . 'label.link',
+			'config' => [
+				'type' => 'input',
+				'softref' => 'typolink',
+				'wizards' => [
+					'_PADDING' => 2,
+					'link' => [
+						'type' => 'popup',
+						'title' => $ll . 'button.openLinkWizard',
+						'icon' => 'EXT:backend/Resources/Public/Images/FormFieldWizard/wizard_link.gif',
+						'module' => array(
+							'name' => 'wizard_element_browser',
+							'urlParameters' => array(
+								'mode' => 'wizard'
+							) ,
+						) ,
+						'JSopenParams' => 'height=600,width=500,status=0,menubar=0,scrollbars=1'
+					]
+				]
+			]
+		]
 	),
 );

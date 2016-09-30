@@ -76,11 +76,39 @@ class GenreTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		);
 	}
 
+	/**
+	 * @test
+	 */
 	public function getLanguageUidReturnsLanguageUid() {
-		$this->fixture->_setProperty('_languagUid', 5);
+		$this->fixture->_setProperty('_languageUid', 5);
 		$this->assertSame(
 			5,
 			$this->fixture->getLanguageUid()
+		);
+	}
+
+
+	/**
+	 * @test
+	 */
+	public function getLinkReturnsInitiallyNull()
+	{
+		$this->assertNull(
+			$this->fixture->getLink()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function setLinkForStringSetsLink()
+	{
+		$link = 'foo';
+		$this->fixture->setLink($link);
+
+		$this->assertSame(
+			$link,
+			$this->fixture->getLink()
 		);
 	}
 }

@@ -33,6 +33,13 @@ class Audience extends AbstractEntity {
 	protected $title;
 
 	/**
+	 * Link
+	 *
+	 * @var string
+	 */
+	protected $link;
+
+	/**
 	 * description
 	 *
 	 * @var string
@@ -77,4 +84,23 @@ class Audience extends AbstractEntity {
 		$this->description = $description;
 	}
 
+	/**
+     * Gets the link
+     *
+	 * @return string
+	 */
+	public function getLink()
+	{
+		return $this->link;
+	}
+
+	/**
+     * Sets the link
+     *
+	 * @param string $link
+	 */
+	public function setLink($link)
+	{
+		$this->link = $link;
+	}
 }
