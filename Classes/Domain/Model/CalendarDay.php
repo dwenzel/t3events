@@ -1,5 +1,5 @@
 <?php
-namespace Webfox\T3events\Domain\Model;
+namespace DWenzel\T3events\Domain\Model;
 
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
@@ -25,7 +25,7 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
  * Class CalendarDay
  * represents a day in a calendar object
  *
- * @package Webfox\T3events\Domain\Model
+ * @package DWenzel\T3events\Domain\Model
  */
 class CalendarDay {
 

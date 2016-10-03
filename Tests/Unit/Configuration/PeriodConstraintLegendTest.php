@@ -1,10 +1,10 @@
 <?php
-namespace Webfox\T3events\Tests\Unit\Configuration;
+namespace DWenzel\T3events\Tests\Unit\Configuration;
 
 use TYPO3\CMS\Core\Tests\UnitTestCase;
-use Webfox\T3events\Configuration\PeriodConstraintLegend;
-use Webfox\T3events\DataProvider\Legend\LayeredLegendDataProviderInterface;
-use Webfox\T3events\DataProvider\Legend\PeriodDataProviderFactory;
+use DWenzel\T3events\Configuration\PeriodConstraintLegend;
+use DWenzel\T3events\DataProvider\Legend\LayeredLegendDataProviderInterface;
+use DWenzel\T3events\DataProvider\Legend\PeriodDataProviderFactory;
 use TYPO3\CMS\Lang\LanguageService;
 /***************************************************************
  *  Copyright notice
@@ -36,13 +36,13 @@ class PeriodConstraintLegendTest extends UnitTestCase
     public function setUp()
     {
         $this->subject = $this->getAccessibleMock(
-            PeriodConstraintLegend::class, ['dummy']
+            \DWenzel\T3events\Configuration\PeriodConstraintLegend::class, ['dummy']
         );
     }
 
     /**
      * @test
-     * @expectedException \Webfox\T3events\MissingFileException
+     * @expectedException \DWenzel\T3events\MissingFileException
      * @expectedExceptionCode 1462887081
      */
     public function initializeThrowsMissingFileException()
@@ -58,7 +58,7 @@ class PeriodConstraintLegendTest extends UnitTestCase
     public function initializeSetsDataProvider()
     {
         $this->subject = $this->getMock(
-            PeriodConstraintLegend::class,
+            \DWenzel\T3events\Configuration\PeriodConstraintLegend::class,
             ['getDataProviderFactory', 'load'], [], '', false
         );
         $params = ['foo'];
@@ -140,7 +140,7 @@ class PeriodConstraintLegendTest extends UnitTestCase
     public function renderSetsLabels()
     {
         $this->subject = $this->getMock(
-            PeriodConstraintLegend::class,
+            \DWenzel\T3events\Configuration\PeriodConstraintLegend::class,
             ['initialize', 'updateLayers', 'saveXML', 'getLanguageService', 'replaceNodeText'], [], '', false
         );
         $params = ['foo'];
@@ -152,15 +152,15 @@ class PeriodConstraintLegendTest extends UnitTestCase
         $mockLanguageService->expects($this->exactly(2))
             ->method('sL')
             ->withConsecutive(
-                [PeriodConstraintLegend::LANGUAGE_FILE . PeriodConstraintLegend::START_POINT_KEY],
-                [PeriodConstraintLegend::LANGUAGE_FILE . PeriodConstraintLegend::END_POINT_KEY]
+                [PeriodConstraintLegend::LANGUAGE_FILE . \DWenzel\T3events\Configuration\PeriodConstraintLegend::START_POINT_KEY],
+                [PeriodConstraintLegend::LANGUAGE_FILE . \DWenzel\T3events\Configuration\PeriodConstraintLegend::END_POINT_KEY]
             )
             ->will($this->returnValue('foo'));
 
         $this->subject->expects($this->exactly(2))
             ->method('replaceNodeText')
             ->withConsecutive(
-                [PeriodConstraintLegend::START_TEXT_LAYER_ID, 'foo'],
+                [\DWenzel\T3events\Configuration\PeriodConstraintLegend::START_TEXT_LAYER_ID, 'foo'],
                 [PeriodConstraintLegend::END_TEXT_LAYER_ID, 'foo']
             );
         $this->subject->render($params);

@@ -1,10 +1,10 @@
 <?php
-namespace Webfox\T3events\Domain\Model\Dto;
+namespace DWenzel\T3events\Domain\Model\Dto;
 
 /***************************************************************
  *  Copyright notice
- *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
- *  Michael Kasten <kasten@webfox01.de>, Agentur Webfox
+ *  (c) 2012 Dirk Wenzel <wenzel@dWenzel01.de>, Agentur DWenzel
+ *  Michael Kasten <kasten@dWenzel01.de>, Agentur DWenzel
  *  All rights reserved
  *  This script is part of the TYPO3 project. The TYPO3 project is
  *  free software; you can redistribute it and/or modify
@@ -25,7 +25,7 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
  * Class AbstractDemand
  * Parent class for demand objects
  *
- * @package Webfox\T3events\Domain\Model\Dto
+ * @package DWenzel\T3events\Domain\Model\Dto
  * @deprecated use demand traits instead
  */
 class AbstractDemand extends AbstractEntity implements DemandInterface

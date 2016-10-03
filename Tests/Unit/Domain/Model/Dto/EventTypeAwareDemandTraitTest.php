@@ -1,16 +1,16 @@
 <?php
-namespace Webfox\T3events\Tests\Unit\Domain\Model\Dto;
+namespace DWenzel\T3events\Tests\Unit\Domain\Model\Dto;
 
 use TYPO3\CMS\Core\Tests\UnitTestCase;
-use Webfox\T3events\Domain\Model\Dto\EventTypeAwareDemandTrait;
+use DWenzel\T3events\Domain\Model\Dto\EventTypeAwareDemandTrait;
 
 /**
- * Test case for class \Webfox\T3events\Domain\Model\Dto\EventTypeAwareDemandTrait.
+ * Test case for class \DWenzel\T3events\Domain\Model\Dto\EventTypeAwareDemandTrait.
  */
 class EventTypeAwareDemandTraitTest extends UnitTestCase {
 
 	/**
-	 * @var \Webfox\T3events\Domain\Model\Dto\EventTypeAwareDemandTrait
+	 * @var \DWenzel\T3events\Domain\Model\Dto\EventTypeAwareDemandTrait
 	 */
 	protected $subject;
 

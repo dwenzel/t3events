@@ -1,14 +1,14 @@
 <?php
-namespace Webfox\T3events\Domain\Repository;
+namespace DWenzel\T3events\Domain\Repository;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
-use Webfox\T3events\Domain\Model\Dto\DemandInterface;
+use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
 
 /**
  * Class DemandedRepositoryTrait
  *
- * @package Webfox\T3events\Domain\Repository
+ * @package DWenzel\T3events\Domain\Repository
  */
 trait DemandedRepositoryTrait {
 
@@ -16,7 +16,7 @@ trait DemandedRepositoryTrait {
 	 * Returns an array of constraints created from a given demand object.
 	 *
 	 * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
-	 * @param \Webfox\T3events\Domain\Model\Dto\DemandInterface $demand
+	 * @param \DWenzel\T3events\Domain\Model\Dto\DemandInterface $demand
 	 * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint>
 	 * @abstract
 	 */
@@ -48,7 +48,7 @@ trait DemandedRepositoryTrait {
 	/**
 	 * Returns the objects of this repository matching the demand.
 	 *
-	 * @param \Webfox\T3events\Domain\Model\Dto\DemandInterface $demand
+	 * @param \DWenzel\T3events\Domain\Model\Dto\DemandInterface $demand
 	 * @param boolean $respectEnableFields
 	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 	 */
@@ -62,7 +62,7 @@ trait DemandedRepositoryTrait {
 	/**
 	 * Returns an array of orderings created from a given demand object.
 	 *
-	 * @param \Webfox\T3events\Domain\Model\Dto\DemandInterface $demand
+	 * @param \DWenzel\T3events\Domain\Model\Dto\DemandInterface $demand
 	 * @return \array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint>
 	 */
 	public function createOrderingsFromDemand(DemandInterface $demand) {
@@ -178,7 +178,7 @@ trait DemandedRepositoryTrait {
 	 * Create search constraints from demand
 	 *
 	 * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
-	 * @param \Webfox\T3events\Domain\Model\Dto\SearchAwareDemandInterface $demand
+	 * @param \DWenzel\T3events\Domain\Model\Dto\SearchAwareDemandInterface $demand
 	 * @return array<\TYPO3\CMS\Extbase\Persistence\QOM\Constraint>
 	 */
 	protected function createSearchConstraints(QueryInterface $query, $demand) {

@@ -1,5 +1,5 @@
 <?php
-namespace Webfox\T3events\Tests\Unit\Domain\Repository;
+namespace DWenzel\T3events\Tests\Unit\Domain\Repository;
 
 /***************************************************************
  *  Copyright notice
@@ -22,29 +22,29 @@ namespace Webfox\T3events\Tests\Unit\Domain\Repository;
 use TYPO3\CMS\Extbase\Persistence\Generic\Query;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
-use Webfox\T3events\Domain\Model\Dto\EventDemand;
-use Webfox\T3events\Domain\Repository\EventRepository;
+use DWenzel\T3events\Domain\Model\Dto\EventDemand;
+use DWenzel\T3events\Domain\Repository\EventRepository;
 
 /**
- * Test case for class \Webfox\T3events\Domain\Repository\EventRepository.
+ * Test case for class \DWenzel\T3events\Domain\Repository\EventRepository.
  *
  * @copyright Copyright belongs to the respective authors
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  * @package TYPO3
  * @subpackage Events
  * @author Dirk Wenzel <dirk.wenzel@cps-it.de>
- * @coversDefaultClass \Webfox\T3events\Domain\Repository\EventRepository
+ * @coversDefaultClass \DWenzel\T3events\Domain\Repository\EventRepository
  */
 class EventRepositoryTest extends UnitTestCase {
 
 	/**
-	 * @var \Webfox\T3events\Domain\Repository\EventRepository
+	 * @var \DWenzel\T3events\Domain\Repository\EventRepository
 	 */
 	protected $fixture;
 
 	public function setUp() {
 		$this->fixture = $this->getAccessibleMock(
-			'Webfox\\T3events\\Domain\\Repository\\EventRepository',
+			'DWenzel\\T3events\\Domain\\Repository\\EventRepository',
 			array('dummy'), array(), '', FALSE);
 	}
 
@@ -54,7 +54,7 @@ class EventRepositoryTest extends UnitTestCase {
 	 */
 	public function createConstraintsFromDemandInitiallyReturnsEmptyArray() {
 		$demand = $this->getMock(
-			'Webfox\\T3events\\Domain\\Model\\Dto\\EventDemand'
+			'DWenzel\\T3events\\Domain\\Model\\Dto\\EventDemand'
 		);
 		$query = $this->getMock(
 			'TYPO3\\CMS\\Extbase\\Persistence\\QueryInterface',
@@ -73,10 +73,10 @@ class EventRepositoryTest extends UnitTestCase {
 	 */
 	public function createConstraintsFromDemandCallsCreatePeriodConstraints() {
 		$this->fixture = $this->getAccessibleMock(
-			'Webfox\\T3events\\Domain\\Repository\\EventRepository',
+			'DWenzel\\T3events\\Domain\\Repository\\EventRepository',
 			array('createPeriodConstraints'), array(), '', FALSE);
 		$demand = $this->getMock(
-			'Webfox\\T3events\\Domain\\Model\\Dto\\EventDemand'
+			'DWenzel\\T3events\\Domain\\Model\\Dto\\EventDemand'
 		);
 		$query = $this->getMock(
 			'TYPO3\\CMS\\Extbase\\Persistence\\QueryInterface',
@@ -95,10 +95,10 @@ class EventRepositoryTest extends UnitTestCase {
 	 */
 	public function createConstraintsFromDemandCallsCreateCategoryConstraints() {
 		$this->fixture = $this->getAccessibleMock(
-			'Webfox\\T3events\\Domain\\Repository\\EventRepository',
+			'DWenzel\\T3events\\Domain\\Repository\\EventRepository',
 			array('createCategoryConstraints'), array(), '', FALSE);
 		$demand = $this->getMock(
-			'Webfox\\T3events\\Domain\\Model\\Dto\\EventDemand'
+			'DWenzel\\T3events\\Domain\\Model\\Dto\\EventDemand'
 		);
 		$query = $this->getMock(
 			'TYPO3\\CMS\\Extbase\\Persistence\\QueryInterface',
@@ -117,10 +117,10 @@ class EventRepositoryTest extends UnitTestCase {
 	 */
 	public function createConstraintsFromDemandCallsCreateSearchConstraints() {
 		$this->fixture = $this->getAccessibleMock(
-			'Webfox\\T3events\\Domain\\Repository\\EventRepository',
+			'DWenzel\\T3events\\Domain\\Repository\\EventRepository',
 			array('createSearchConstraints'), array(), '', FALSE);
 		$demand = $this->getMock(
-			'Webfox\\T3events\\Domain\\Model\\Dto\\EventDemand'
+			'DWenzel\\T3events\\Domain\\Model\\Dto\\EventDemand'
 		);
 		$query = $this->getMock(
 			'TYPO3\\CMS\\Extbase\\Persistence\\QueryInterface',
@@ -139,10 +139,10 @@ class EventRepositoryTest extends UnitTestCase {
 	 */
 	public function createConstraintsFromDemandCallsCreateLocationConstraints() {
 		$this->fixture = $this->getAccessibleMock(
-			'Webfox\\T3events\\Domain\\Repository\\EventRepository',
+			'DWenzel\\T3events\\Domain\\Repository\\EventRepository',
 			array('createLocationConstraints'), array(), '', FALSE);
 		$demand = $this->getMock(
-			'Webfox\\T3events\\Domain\\Model\\Dto\\EventDemand'
+			'DWenzel\\T3events\\Domain\\Model\\Dto\\EventDemand'
 		);
 		$query = $this->getMock(
 			'TYPO3\\CMS\\Extbase\\Persistence\\QueryInterface',
@@ -181,10 +181,10 @@ class EventRepositoryTest extends UnitTestCase {
 	 */
 	public function createConstraintsFromDemandCombinesSearchConstraintsLogicalOr() {
 		$this->fixture = $this->getAccessibleMock(
-			'Webfox\\T3events\\Domain\\Repository\\EventRepository',
+			'DWenzel\\T3events\\Domain\\Repository\\EventRepository',
 			array('createSearchConstraints', 'combineConstraints'), array(), '', FALSE);
 		$demand = $this->getMock(
-			'Webfox\\T3events\\Domain\\Model\\Dto\\EventDemand'
+			'DWenzel\\T3events\\Domain\\Model\\Dto\\EventDemand'
 		);
 		$constraints = array();
 		$query = $this->getMock(
@@ -211,10 +211,10 @@ class EventRepositoryTest extends UnitTestCase {
 	 */
 	public function createConstraintsFromDemandCombinesLocationConstraintsLogicalAnd() {
 		$this->fixture = $this->getAccessibleMock(
-			'Webfox\\T3events\\Domain\\Repository\\EventRepository',
+			'DWenzel\\T3events\\Domain\\Repository\\EventRepository',
 			array('createLocationConstraints', 'combineConstraints'), array(), '', FALSE);
 		$demand = $this->getMock(
-			'Webfox\\T3events\\Domain\\Model\\Dto\\EventDemand'
+			'DWenzel\\T3events\\Domain\\Model\\Dto\\EventDemand'
 		);
 		$constraints = array();
 		$query = $this->getMock(
@@ -269,10 +269,10 @@ class EventRepositoryTest extends UnitTestCase {
 	 */
 	public function createConstraintsFromDemandCombinesCategoryConstraints() {
 		$this->fixture = $this->getAccessibleMock(
-			'Webfox\\T3events\\Domain\\Repository\\EventRepository',
+			'DWenzel\\T3events\\Domain\\Repository\\EventRepository',
 			array('createCategoryConstraints', 'combineConstraints'), array(), '', FALSE);
 		$demand = $this->getMock(
-			'Webfox\\T3events\\Domain\\Model\\Dto\\EventDemand'
+			'DWenzel\\T3events\\Domain\\Model\\Dto\\EventDemand'
 		);
 		$constraints = array();
 		$query = $this->getMock(
@@ -299,10 +299,10 @@ class EventRepositoryTest extends UnitTestCase {
 	 */
 	public function createConstraintsFromDemandCombinesPeriodConstraintsLogicalAnd() {
 		$this->fixture = $this->getAccessibleMock(
-			'Webfox\\T3events\\Domain\\Repository\\EventRepository',
+			'DWenzel\\T3events\\Domain\\Repository\\EventRepository',
 			array('createPeriodConstraints', 'combineConstraints'), array(), '', FALSE);
 		$demand = $this->getMock(
-			'Webfox\\T3events\\Domain\\Model\\Dto\\EventDemand'
+			'DWenzel\\T3events\\Domain\\Model\\Dto\\EventDemand'
 		);
 		$constraints = array();
 		$query = $this->getMock(
@@ -329,7 +329,7 @@ class EventRepositoryTest extends UnitTestCase {
 	 */
 	public function createSearchConstraintsInitiallyReturnsEmptyArray() {
 		$demand = $this->getMock(
-			'Webfox\\T3events\\Domain\\Model\\Dto\\EventDemand'
+			'DWenzel\\T3events\\Domain\\Model\\Dto\\EventDemand'
 		);
 		$query = $this->getMock(
 			'TYPO3\\CMS\\Extbase\\Persistence\\QueryInterface',
@@ -348,11 +348,11 @@ class EventRepositoryTest extends UnitTestCase {
 	 */
 	public function createSearchConstraintsReturnsEmptyArrayForEmptySubject() {
 		$demand = $this->getMock(
-			'Webfox\\T3events\\Domain\\Model\\Dto\\EventDemand',
+			'DWenzel\\T3events\\Domain\\Model\\Dto\\EventDemand',
 			array('getSearch')
 		);
 		$mockSearch = $this->getMock(
-			'Webfox\\T3events\\Domain\\Model\\Dto\\Search',
+			'DWenzel\\T3events\\Domain\\Model\\Dto\\Search',
 			array('getSubject')
 		);
 		$query = $this->getMock(
@@ -382,11 +382,11 @@ class EventRepositoryTest extends UnitTestCase {
 	 */
 	public function createSearchConstraintsThrowsExceptionForMissingSearchFields() {
 		$demand = $this->getMock(
-			'Webfox\\T3events\\Domain\\Model\\Dto\\EventDemand',
+			'DWenzel\\T3events\\Domain\\Model\\Dto\\EventDemand',
 			array('getSearch')
 		);
 		$mockSearch = $this->getMock(
-			'Webfox\\T3events\\Domain\\Model\\Dto\\Search',
+			'DWenzel\\T3events\\Domain\\Model\\Dto\\Search',
 			array('getSubject')
 		);
 		$query = $this->getMock(
@@ -415,11 +415,11 @@ class EventRepositoryTest extends UnitTestCase {
 	 */
 	public function createSearchConstraintsCreatesConstraints() {
 		$demand = $this->getMock(
-			'Webfox\\T3events\\Domain\\Model\\Dto\\EventDemand',
+			'DWenzel\\T3events\\Domain\\Model\\Dto\\EventDemand',
 			array('getSearch')
 		);
 		$mockSearch = $this->getMock(
-			'Webfox\\T3events\\Domain\\Model\\Dto\\Search',
+			'DWenzel\\T3events\\Domain\\Model\\Dto\\Search',
 			array('getSubject', 'getFields')
 		);
 		$subject = 'foo';

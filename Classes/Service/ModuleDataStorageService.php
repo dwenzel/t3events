@@ -1,5 +1,5 @@
 <?php
-namespace Webfox\T3events\Service;
+namespace DWenzel\T3events\Service;
 
 /**
  * This file is part of the TYPO3 CMS project.
@@ -16,7 +16,7 @@ namespace Webfox\T3events\Service;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
-use Webfox\T3events\Domain\Model\Dto\ModuleData;
+use DWenzel\T3events\Domain\Model\Dto\ModuleData;
 
 /**
  * Module data storage service.
@@ -44,7 +44,7 @@ class ModuleDataStorageService implements SingletonInterface {
 	 * Loads module data for a given key or returns a fresh object initially
 	 *
 	 * @param string $key
-	 * @return \Webfox\T3events\Domain\Model\Dto\ModuleData
+	 * @return \DWenzel\T3events\Domain\Model\Dto\ModuleData
 	 */
 	public function loadModuleData($key) {
 		if ($this->getBackendUserAuthentication() instanceof BackendUserAuthentication) {
@@ -61,7 +61,7 @@ class ModuleDataStorageService implements SingletonInterface {
 	/**
 	 * Persists serialized module data to user settings
 	 *
-	 * @param \Webfox\T3events\Domain\Model\Dto\ModuleData $moduleData
+	 * @param \DWenzel\T3events\Domain\Model\Dto\ModuleData $moduleData
 	 * @param string $key
 	 * @return void
 	 */

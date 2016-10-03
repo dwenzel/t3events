@@ -1,10 +1,10 @@
 <?php
-namespace Webfox\T3events\Tests\Unit\Domain\Model\Dto;
+namespace DWenzel\T3events\Tests\Unit\Domain\Model\Dto;
 
 	/***************************************************************
 	 *  Copyright notice
-	 *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
-	 *            Michael Kasten <kasten@webfox01.de>, Agentur Webfox
+	 *  (c) 2012 Dirk Wenzel <wenzel@dWenzel01.de>, Agentur DWenzel
+	 *            Michael Kasten <kasten@dWenzel01.de>, Agentur DWenzel
 	 *  All rights reserved
 	 *  This script is part of the TYPO3 project. The TYPO3 project is
 	 *  free software; you can redistribute it and/or modify
@@ -21,26 +21,26 @@ namespace Webfox\T3events\Tests\Unit\Domain\Model\Dto;
 	 ***************************************************************/
 
 /**
- * Test case for class \Webfox\T3events\Domain\Model\Dto\AbstractDemand.
+ * Test case for class \DWenzel\T3events\Domain\Model\Dto\AbstractDemand.
  *
  * @version $Id$
  * @copyright Copyright belongs to the respective authors
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  * @package TYPO3
  * @subpackage Events
- * @author Dirk Wenzel <wenzel@webfox01.de>
- * @author Michael Kasten <kasten@webfox01.de>
- * @coversDefaultClass \Webfox\T3events\Domain\Model\Dto\AbstractDemand
+ * @author Dirk Wenzel <wenzel@dWenzel01.de>
+ * @author Michael Kasten <kasten@dWenzel01.de>
+ * @coversDefaultClass \DWenzel\T3events\Domain\Model\Dto\AbstractDemand
  */
 class AbstractDemandTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 	/**
-	 * @var \Webfox\T3events\Domain\Model\Dto\AbstractDemand
+	 * @var \DWenzel\T3events\Domain\Model\Dto\AbstractDemand
 	 */
 	protected $fixture;
 
 	public function setUp() {
-		$this->fixture = new \Webfox\T3events\Domain\Model\Dto\AbstractDemand();
+		$this->fixture = new \DWenzel\T3events\Domain\Model\Dto\AbstractDemand();
 	}
 
 	public function tearDown() {

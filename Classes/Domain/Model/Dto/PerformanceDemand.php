@@ -1,10 +1,10 @@
 <?php
-namespace Webfox\T3events\Domain\Model\Dto;
+namespace DWenzel\T3events\Domain\Model\Dto;
 
 /***************************************************************
  *  Copyright notice
- *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
- *  Michael Kasten <kasten@webfox01.de>, Agentur Webfox
+ *  (c) 2012 Dirk Wenzel <wenzel@dWenzel01.de>, Agentur DWenzel
+ *  Michael Kasten <kasten@dWenzel01.de>, Agentur DWenzel
  *  All rights reserved
  *  This script is part of the TYPO3 project. The TYPO3 project is
  *  free software; you can redistribute it and/or modify
@@ -19,13 +19,13 @@ namespace Webfox\T3events\Domain\Model\Dto;
  *  GNU General Public License for more details.
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-use Webfox\T3events\Domain\Model\PerformanceStatus;
+use DWenzel\T3events\Domain\Model\PerformanceStatus;
 
 /**
  * Class PerformanceDemand
  * Demand object for querying performances
  *
- * @package Webfox\T3events\Domain\Model\Dto
+ * @package DWenzel\T3events\Domain\Model\Dto
  */
 class PerformanceDemand
     extends AbstractDemand
@@ -50,7 +50,7 @@ class PerformanceDemand
      * A single status
      * see $statuses for multiple
      *
-     * @var \Webfox\T3events\Domain\Model\PerformanceStatus
+     * @var \DWenzel\T3events\Domain\Model\PerformanceStatus
      */
     protected $status;
 
@@ -95,7 +95,7 @@ class PerformanceDemand
     /**
      * Returns the performance status
      *
-     * @return \Webfox\T3events\Domain\Model\PerformanceStatus
+     * @return \DWenzel\T3events\Domain\Model\PerformanceStatus
      */
     public function getStatus()
     {
@@ -105,7 +105,7 @@ class PerformanceDemand
     /**
      * sets the status
      *
-     * @param \Webfox\T3events\Domain\Model\PerformanceStatus $status
+     * @param \DWenzel\T3events\Domain\Model\PerformanceStatus $status
      * @return void
      */
     public function setStatus(PerformanceStatus $status)

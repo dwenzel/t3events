@@ -1,12 +1,12 @@
 <?php
-namespace Webfox\T3events\Tests\Controller;
+namespace DWenzel\T3events\Tests\Controller;
 
 use TYPO3\CMS\Extbase\Object\ObjectManager;
-use Webfox\T3events\Domain\Model\Dto\ModuleData;
-use Webfox\T3events\Service\ModuleDataStorageService;
+use DWenzel\T3events\Domain\Model\Dto\ModuleData;
+use DWenzel\T3events\Service\ModuleDataStorageService;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
-use Webfox\T3events\Controller\ModuleDataTrait;
-use Webfox\T3events\Utility\SettingsUtility;
+use DWenzel\T3events\Controller\ModuleDataTrait;
+use DWenzel\T3events\Utility\SettingsUtility;
 
 /***************************************************************
  *
@@ -36,12 +36,12 @@ use Webfox\T3events\Utility\SettingsUtility;
 /**
  * Class ModuleDataTraitTest
  *
- * @package Webfox\T3events\Tests\Controller
+ * @package DWenzel\T3events\Tests\Controller
  */
 class ModuleDataTraitTest extends UnitTestCase {
 
 	/**
-	 * @var ModuleDataTrait
+	 * @var \DWenzel\T3events\Controller\ModuleDataTrait
 	 */
 	protected $subject;
 
@@ -120,7 +120,7 @@ class ModuleDataTraitTest extends UnitTestCase {
     {
         $expectedSettings = ['foo'];
         $this->subject = $this->getMockForTrait(
-            ModuleDataTrait::class,
+            \DWenzel\T3events\Controller\ModuleDataTrait::class,
             [], '', true, true, true, ['mergeSettings']
         );
 

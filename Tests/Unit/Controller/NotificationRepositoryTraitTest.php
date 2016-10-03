@@ -1,9 +1,9 @@
 <?php
-namespace Webfox\T3events\Tests\Controller;
+namespace DWenzel\T3events\Tests\Controller;
 
 use TYPO3\CMS\Core\Tests\UnitTestCase;
-use Webfox\T3events\Controller\NotificationRepositoryTrait;
-use Webfox\T3events\Domain\Repository\NotificationRepository;
+use DWenzel\T3events\Controller\NotificationRepositoryTrait;
+use DWenzel\T3events\Domain\Repository\NotificationRepository;
 
 /***************************************************************
  *  Copyright notice
@@ -35,7 +35,7 @@ class NotificationRepositoryTraitTest extends UnitTestCase
     public function setUp()
     {
         $this->subject = $this->getMockForTrait(
-            NotificationRepositoryTrait::class
+            \DWenzel\T3events\Controller\NotificationRepositoryTrait::class
         );
     }
 

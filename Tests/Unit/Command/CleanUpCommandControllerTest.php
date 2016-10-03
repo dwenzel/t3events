@@ -1,5 +1,5 @@
 <?php
-namespace CPSIT\T3events\Tests\Unit\Command;
+namespace DWenzel\T3events\Tests\Unit\Command;
 
 /***************************************************************
  *  Copyright notice
@@ -20,15 +20,15 @@ namespace CPSIT\T3events\Tests\Unit\Command;
  ***************************************************************/
 
 use TYPO3\CMS\Core\Tests\UnitTestCase;
-use Webfox\T3events\Command\CleanUpCommandController;
-use Webfox\T3events\Domain\Factory\Dto\EventDemandFactory;
-use Webfox\T3events\Domain\Factory\Dto\PerformanceDemandFactory;
-use Webfox\T3events\Domain\Model\Dto\EventDemand;
-use Webfox\T3events\Domain\Model\Dto\PerformanceDemand;
-use Webfox\T3events\Domain\Model\Event;
-use Webfox\T3events\Domain\Model\Performance;
-use Webfox\T3events\Domain\Repository\EventRepository;
-use Webfox\T3events\Domain\Repository\PerformanceRepository;
+use DWenzel\T3events\Command\CleanUpCommandController;
+use DWenzel\T3events\Domain\Factory\Dto\EventDemandFactory;
+use DWenzel\T3events\Domain\Factory\Dto\PerformanceDemandFactory;
+use DWenzel\T3events\Domain\Model\Dto\EventDemand;
+use DWenzel\T3events\Domain\Model\Dto\PerformanceDemand;
+use DWenzel\T3events\Domain\Model\Event;
+use DWenzel\T3events\Domain\Model\Performance;
+use DWenzel\T3events\Domain\Repository\EventRepository;
+use DWenzel\T3events\Domain\Repository\PerformanceRepository;
 
 /**
  * Class CleanUpCommandControllerTest
@@ -48,7 +48,7 @@ class CleanUpCommandControllerTest extends UnitTestCase
     public function setUp()
     {
         $this->subject = $this->getAccessibleMock(
-            CleanUpCommandController::class, ['dummy', 'outputLine']
+            \DWenzel\T3events\Command\CleanUpCommandController::class, ['dummy', 'outputLine']
         );
     }
 

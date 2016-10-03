@@ -1,16 +1,16 @@
 <?php
-namespace Webfox\T3events\Domain\Repository;
+namespace DWenzel\T3events\Domain\Repository;
 
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 
 /**
  * Class LocationConstraintRepositoryTrait
  *
- * @package Webfox\T3events\Domain\Repository
+ * @package DWenzel\T3events\Domain\Repository
  */
 trait LocationConstraintRepositoryTrait {
 	/**
-	 * @var \Webfox\T3events\Utility\GeoCoder
+	 * @var \DWenzel\T3events\Utility\GeoCoder
 	 * @inject
 	 */
 	protected $geoCoder;
@@ -19,7 +19,7 @@ trait LocationConstraintRepositoryTrait {
 	 * Create location constraints from demand
 	 *
 	 * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
-	 * @param \Webfox\T3events\Domain\Model\Dto\SearchAwareDemandInterface $demand
+	 * @param \DWenzel\T3events\Domain\Model\Dto\SearchAwareDemandInterface $demand
 	 * @return array<\TYPO3\CMS\Extbase\Persistence\QOM\Constraint>
 	 */
 	public function createLocationConstraints(QueryInterface $query, $demand) {

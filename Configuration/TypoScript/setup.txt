@@ -142,7 +142,7 @@ plugin.tx_t3events {
 config.tx_extbase.objects {
 	# overwrite class to allow USER_INT from flexform
 	TYPO3\CMS\Extbase\Service\ExtensionService {
-		className = Webfox\T3events\Service\ExtensionService
+		className = DWenzel\T3events\Service\ExtensionService
 	}
 }
 

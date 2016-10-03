@@ -1,9 +1,9 @@
 <?php
-namespace Webfox\T3events\Tests\Controller;
+namespace DWenzel\T3events\Tests\Controller;
 
 use TYPO3\CMS\Core\Tests\UnitTestCase;
-use Webfox\T3events\Controller\CompanyRepositoryTrait;
-use Webfox\T3events\Domain\Repository\CompanyRepository;
+use DWenzel\T3events\Controller\CompanyRepositoryTrait;
+use DWenzel\T3events\Domain\Repository\CompanyRepository;
 
 /***************************************************************
  *  Copyright notice
@@ -25,7 +25,7 @@ use Webfox\T3events\Domain\Repository\CompanyRepository;
 class CompanyRepositoryTraitTest extends UnitTestCase
 {
     /**
-     * @var CompanyRepositoryTrait
+     * @var \DWenzel\T3events\Controller\CompanyRepositoryTrait
      */
     protected $subject;
 
@@ -35,7 +35,7 @@ class CompanyRepositoryTraitTest extends UnitTestCase
     public function setUp()
     {
         $this->subject = $this->getMockForTrait(
-            CompanyRepositoryTrait::class
+            \DWenzel\T3events\Controller\CompanyRepositoryTrait::class
         );
     }
 

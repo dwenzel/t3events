@@ -1,12 +1,12 @@
 <?php
-namespace Webfox\T3events\Domain\Factory\Dto;
+namespace DWenzel\T3events\Domain\Factory\Dto;
 
-use Webfox\T3events\Domain\Model\Dto\DemandInterface;
+use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
 
 /**
  * Interface DemandFactoryInterface
  *
- * @package Webfox\T3events\Domain\Factory
+ * @package DWenzel\T3events\Domain\Factory
  */
 interface DemandFactoryInterface {
 	/**

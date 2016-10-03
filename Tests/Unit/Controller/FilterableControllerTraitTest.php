@@ -1,10 +1,10 @@
 <?php
-namespace Webfox\T3events\Tests\Controller;
+namespace DWenzel\T3events\Tests\Controller;
 
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
-use Webfox\T3events\Controller\FilterableControllerTrait;
-use Webfox\T3events\Domain\Repository\AudienceRepository;
+use DWenzel\T3events\Controller\FilterableControllerTrait;
+use DWenzel\T3events\Domain\Repository\AudienceRepository;
 
 /***************************************************************
  *
@@ -31,7 +31,7 @@ use Webfox\T3events\Domain\Repository\AudienceRepository;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 class DummyControllerWithAudienceRepository {
-	use FilterableControllerTrait;
+	use \DWenzel\T3events\Controller\FilterableControllerTrait;
 
 	protected $audienceRepository;
 
@@ -51,18 +51,18 @@ class DummyControllerWithAudienceRepository {
 /**
  * Class FilterableControllerTraitTest
  *
- * @package Webfox\T3events\Tests\Controller
+ * @package DWenzel\T3events\Tests\Controller
  */
 class FilterableControllerTraitTest extends UnitTestCase {
 
 	/**
-	 * @var FilterableControllerTrait
+	 * @var \DWenzel\T3events\Controller\FilterableControllerTrait
 	 */
 	protected $subject;
 
 	public function setUp() {
 		$this->subject = $this->getMockForTrait(
-			FilterableControllerTrait::class
+			\DWenzel\T3events\Controller\FilterableControllerTrait::class
 		);
 	}
 
@@ -203,7 +203,7 @@ class FilterableControllerTraitTest extends UnitTestCase {
 	 */
 	public function getFilterOptionsAddsSelectedPeriodOptions() {
 		$this->subject = $this->getMockForTrait(
-			FilterableControllerTrait::class
+			\DWenzel\T3events\Controller\FilterableControllerTrait::class
 		);
 		$this->subject->expects($this->any())
 			->method('translate')

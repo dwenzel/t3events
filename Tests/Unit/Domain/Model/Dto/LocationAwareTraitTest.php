@@ -1,5 +1,5 @@
 <?php
-namespace Webfox\T3events\Tests;
+namespace DWenzel\T3events\Tests;
 
 /**
  * This file is part of the TYPO3 CMS project.
@@ -11,17 +11,17 @@ namespace Webfox\T3events\Tests;
  * The TYPO3 project - inspiring people to share!
  */
 use TYPO3\CMS\Core\Tests\UnitTestCase;
-use Webfox\T3events\Domain\Model\Dto\LocationAwareTrait;
+use DWenzel\T3events\Domain\Model\Dto\LocationAwareTrait;
 
 /**
- * Test case for class \Webfox\T3events\Domain\Model\Dto\LocationAwareTrait.
+ * Test case for class \DWenzel\T3events\Domain\Model\Dto\LocationAwareTrait.
  *
- * @author Dirk Wenzel <wenzel@webfox01.de>
+ * @author Dirk Wenzel <wenzel@dWenzel01.de>
  */
 class LocationAwareTraitTest extends UnitTestCase {
 
 	/**
-	 * @var \Webfox\T3events\Domain\Model\Dto\LocationAwareTrait
+	 * @var \DWenzel\T3events\Domain\Model\Dto\LocationAwareTrait
 	 */
 	protected $fixture;
 

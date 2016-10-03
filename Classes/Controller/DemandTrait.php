@@ -1,24 +1,24 @@
 <?php
-namespace Webfox\T3events\Controller;
+namespace DWenzel\T3events\Controller;
 
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
-use Webfox\T3events\Domain\Model\Dto\DemandInterface;
-use Webfox\T3events\Domain\Model\Dto\EventDemand;
-use Webfox\T3events\Domain\Model\Dto\EventLocationAwareDemandInterface;
-use Webfox\T3events\Domain\Model\Dto\EventTypeAwareDemandInterface;
-use Webfox\T3events\Domain\Model\Dto\GenreAwareDemandInterface;
-use Webfox\T3events\Domain\Model\Dto\SearchAwareDemandInterface;
-use Webfox\T3events\Domain\Model\Dto\VenueAwareDemandInterface;
+use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
+use DWenzel\T3events\Domain\Model\Dto\EventDemand;
+use DWenzel\T3events\Domain\Model\Dto\EventLocationAwareDemandInterface;
+use DWenzel\T3events\Domain\Model\Dto\EventTypeAwareDemandInterface;
+use DWenzel\T3events\Domain\Model\Dto\GenreAwareDemandInterface;
+use DWenzel\T3events\Domain\Model\Dto\SearchAwareDemandInterface;
+use DWenzel\T3events\Domain\Model\Dto\VenueAwareDemandInterface;
 
 /**
  * Class DemandTrait
  *
- * @package Webfox\T3events\Controller
+ * @package DWenzel\T3events\Controller
  */
 trait DemandTrait
 {
     /**
-     * @var \Webfox\T3events\Utility\SettingsUtility
+     * @var \DWenzel\T3events\Utility\SettingsUtility
      */
     protected $settingsUtility;
 
@@ -34,7 +34,7 @@ trait DemandTrait
      *
      * @param array $searchRequest An array with the search request
      * @param array $settings Settings for search
-     * @return \Webfox\T3events\Domain\Model\Dto\Search $search
+     * @return \DWenzel\T3events\Domain\Model\Dto\Search $search
      */
     abstract public function createSearchObject($searchRequest, $settings);
 

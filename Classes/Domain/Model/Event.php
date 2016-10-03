@@ -1,10 +1,10 @@
 <?php
-namespace Webfox\T3events\Domain\Model;
+namespace DWenzel\T3events\Domain\Model;
 
 	/***************************************************************
 	 *  Copyright notice
-	 *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
-	 *  Michael Kasten <kasten@webfox01.de>, Agentur Webfox
+	 *  (c) 2012 Dirk Wenzel <wenzel@dWenzel01.de>, Agentur DWenzel
+	 *  Michael Kasten <kasten@dWenzel01.de>, Agentur DWenzel
 	 *  All rights reserved
 	 *  This script is part of the TYPO3 project. The TYPO3 project is
 	 *  free software; you can redistribute it and/or modify
@@ -81,7 +81,7 @@ class Event extends AbstractEntity {
 	 * genre
 	 *
 	 * @lazy
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\T3events\Domain\Model\Genre>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Genre>
 	 */
 	protected $genre;
 
@@ -89,7 +89,7 @@ class Event extends AbstractEntity {
 	 * venue
 	 *
 	 * @lazy
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\T3events\Domain\Model\Venue>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Venue>
 	 */
 	protected $venue;
 
@@ -97,7 +97,7 @@ class Event extends AbstractEntity {
 	 * eventType
 	 *
 	 * @lazy
-	 * @var \Webfox\T3events\Domain\Model\EventType
+	 * @var \DWenzel\T3events\Domain\Model\EventType
 	 */
 	protected $eventType;
 
@@ -105,7 +105,7 @@ class Event extends AbstractEntity {
 	 * performances
 	 *
 	 * @lazy
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\T3events\Domain\Model\Performance>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Performance>
 	 */
 	protected $performances;
 
@@ -113,7 +113,7 @@ class Event extends AbstractEntity {
 	 * organizer
 	 *
 	 * @lazy
-	 * @var \Webfox\T3events\Domain\Model\Organizer
+	 * @var \DWenzel\T3events\Domain\Model\Organizer
 	 */
 	protected $organizer;
 
@@ -121,7 +121,7 @@ class Event extends AbstractEntity {
 	 * Audience
 	 *
 	 * @lazy
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\T3events\Domain\Model\Audience>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Audience>
 	 */
 	protected $audience;
 
@@ -266,7 +266,7 @@ class Event extends AbstractEntity {
 	/**
 	 * Adds a Genre
 	 *
-	 * @param \Webfox\T3events\Domain\Model\Genre $genre
+	 * @param \DWenzel\T3events\Domain\Model\Genre $genre
 	 * @return void
 	 */
 	public function addGenre(Genre $genre) {
@@ -276,7 +276,7 @@ class Event extends AbstractEntity {
 	/**
 	 * Removes a Genre
 	 *
-	 * @param \Webfox\T3events\Domain\Model\Genre $genreToRemove The Genre to be removed
+	 * @param \DWenzel\T3events\Domain\Model\Genre $genreToRemove The Genre to be removed
 	 * @return void
 	 */
 	public function removeGenre(Genre $genreToRemove) {
@@ -286,7 +286,7 @@ class Event extends AbstractEntity {
 	/**
 	 * Returns the genre
 	 *
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\T3events\Domain\Model\Genre> $genre
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Genre> $genre
 	 */
 	public function getGenre() {
 		return $this->genre;
@@ -295,7 +295,7 @@ class Event extends AbstractEntity {
 	/**
 	 * Sets the genre
 	 *
-	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\T3events\Domain\Model\Genre> $genre
+	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Genre> $genre
 	 * @return void
 	 */
 	public function setGenre(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $genre) {
@@ -305,7 +305,7 @@ class Event extends AbstractEntity {
 	/**
 	 * Returns the venue
 	 *
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\T3events\Domain\Model\Venue> $venue
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Venue> $venue
 	 */
 	public function getVenue() {
 		return $this->venue;
@@ -314,7 +314,7 @@ class Event extends AbstractEntity {
 	/**
 	 * Sets a venue
 	 *
-	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\T3events\Domain\Model\Venue> $venue
+	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Venue> $venue
 	 * @return void
 	 */
 	public function setVenue(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $venue) {
@@ -324,7 +324,7 @@ class Event extends AbstractEntity {
 	/**
 	 * Adds a venue
 	 *
-	 * @param \Webfox\T3events\Domain\Model\Venue $venue
+	 * @param \DWenzel\T3events\Domain\Model\Venue $venue
 	 * @return void
 	 */
 	public function addVenue(Venue $venue) {
@@ -334,7 +334,7 @@ class Event extends AbstractEntity {
 	/**
 	 * Removes a venue
 	 *
-	 * @param \Webfox\T3events\Domain\Model\Venue $venueToRemove The Venue to be removed
+	 * @param \DWenzel\T3events\Domain\Model\Venue $venueToRemove The Venue to be removed
 	 * @return void
 	 */
 	public function removeVenue(Venue $venueToRemove) {
@@ -344,7 +344,7 @@ class Event extends AbstractEntity {
 	/**
 	 * Returns the eventType
 	 *
-	 * @return \Webfox\T3events\Domain\Model\EventType $eventType
+	 * @return \DWenzel\T3events\Domain\Model\EventType $eventType
 	 */
 	public function getEventType() {
 		return $this->eventType;
@@ -353,7 +353,7 @@ class Event extends AbstractEntity {
 	/**
 	 * Sets the eventType
 	 *
-	 * @param \Webfox\T3events\Domain\Model\EventType $eventType
+	 * @param \DWenzel\T3events\Domain\Model\EventType $eventType
 	 * @return void
 	 */
 	public function setEventType(EventType $eventType) {
@@ -382,7 +382,7 @@ class Event extends AbstractEntity {
 	/**
 	 * Returns the organizer
 	 *
-	 * @return \Webfox\T3events\Domain\Model\Organizer $organizer
+	 * @return \DWenzel\T3events\Domain\Model\Organizer $organizer
 	 */
 	public function getOrganizer() {
 		return $this->organizer;
@@ -391,7 +391,7 @@ class Event extends AbstractEntity {
 	/**
 	 * Sets the organizer
 	 *
-	 * @param \Webfox\T3events\Domain\Model\Organizer $organizer
+	 * @param \DWenzel\T3events\Domain\Model\Organizer $organizer
 	 * @return void
 	 */
 	public function setOrganizer(Organizer $organizer) {
@@ -416,8 +416,8 @@ class Event extends AbstractEntity {
 	/**
 	 * Adds a Performance
 	 *
-	 * @param \Webfox\T3events\Domain\Model\Performance $performance
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\T3events\Domain\Model\Performance> performances
+	 * @param \DWenzel\T3events\Domain\Model\Performance $performance
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Performance> performances
 	 */
 	public function addPerformance(Performance $performance) {
 		$this->performances->attach($performance);
@@ -426,8 +426,8 @@ class Event extends AbstractEntity {
 	/**
 	 * Removes a Performance
 	 *
-	 * @param \Webfox\T3events\Domain\Model\Performance $performanceToRemove The Performance to be removed
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\T3events\Domain\Model\Performance> performances
+	 * @param \DWenzel\T3events\Domain\Model\Performance $performanceToRemove The Performance to be removed
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Performance> performances
 	 */
 	public function removePerformance(Performance $performanceToRemove) {
 		$this->performances->detach($performanceToRemove);
@@ -436,7 +436,7 @@ class Event extends AbstractEntity {
 	/**
 	 * Returns the performances(s)
 	 *
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\T3events\Domain\Model\Performance> performances
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Performance> performances
 	 */
 	public function getPerformances() {
 		return $this->performances;
@@ -445,8 +445,8 @@ class Event extends AbstractEntity {
 	/**
 	 * Sets the performances
 	 *
-	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\T3events\Domain\Model\Performance> $performances
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\T3events\Domain\Model\Performance> performances
+	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Performance> $performances
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Performance> performances
 	 */
 	public function setPerformances(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $performances) {
 		$this->performances = $performances;
@@ -455,7 +455,7 @@ class Event extends AbstractEntity {
 	/**
 	 * Returns the audience
 	 *
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\T3events\Domain\Model\Audience> $audience
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Audience> $audience
 	 */
 	public function getAudience() {
 		return $this->audience;
@@ -464,7 +464,7 @@ class Event extends AbstractEntity {
 	/**
 	 * Sets a audience
 	 *
-	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\T3events\Domain\Model\Audience> $audience
+	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Audience> $audience
 	 * @return void
 	 */
 	public function setAudience(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $audience) {
@@ -474,7 +474,7 @@ class Event extends AbstractEntity {
 	/**
 	 * Adds a audience
 	 *
-	 * @param \Webfox\T3events\Domain\Model\Audience $audience
+	 * @param \DWenzel\T3events\Domain\Model\Audience $audience
 	 * @return void
 	 */
 	public function addAudience(Audience $audience) {
@@ -484,7 +484,7 @@ class Event extends AbstractEntity {
 	/**
 	 * Removes a audience
 	 *
-	 * @param \Webfox\T3events\Domain\Model\Audience $audienceToRemove The Audience to be removed
+	 * @param \DWenzel\T3events\Domain\Model\Audience $audienceToRemove The Audience to be removed
 	 * @return void
 	 */
 	public function removeAudience(Audience $audienceToRemove) {

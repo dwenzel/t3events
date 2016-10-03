@@ -1,5 +1,5 @@
 <?php
-namespace Webfox\T3events\ViewHelpers\Event;
+namespace DWenzel\T3events\ViewHelpers\Event;
 
 /***************************************************************
  *  Copyright notice
@@ -17,7 +17,7 @@ namespace Webfox\T3events\ViewHelpers\Event;
  *  GNU General Public License for more details.
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-use Webfox\T3events\Domain\Model\Performance;
+use DWenzel\T3events\Domain\Model\Performance;
 
 /**
  * Render a list of performances of a given event
@@ -41,17 +41,17 @@ class PerformancesViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTa
 	/**
 	 * eventRepository
 	 *
-	 * @var \Webfox\T3events\Domain\Repository\EventRepository
+	 * @var \DWenzel\T3events\Domain\Repository\EventRepository
 	 */
 	protected $eventRepository;
 
 	/**
 	 * injectEventRepository
 	 *
-	 * @param \Webfox\T3events\Domain\Repository\EventRepository $eventRepository
+	 * @param \DWenzel\T3events\Domain\Repository\EventRepository $eventRepository
 	 * @return void
 	 */
-	public function injectEventRepository(\Webfox\T3events\Domain\Repository\EventRepository $eventRepository) {
+	public function injectEventRepository(\DWenzel\T3events\Domain\Repository\EventRepository $eventRepository) {
 		$this->eventRepository = $eventRepository;
 	}
 
@@ -60,7 +60,7 @@ class PerformancesViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTa
 	 */
 
 	public function initializeArguments() {
-		parent::registerArgument('event', '\\Webfox\\T3events\\Domain\\Model\\Event', 'Event whose performances should be rendered.', TRUE);
+		parent::registerArgument('event', '\\DWenzel\\T3events\\Domain\\Model\\Event', 'Event whose performances should be rendered.', TRUE);
 		parent::registerArgument('tagName', 'string', 'Tag name to use for enclosing container', FALSE, 'div');
 		parent::registerArgument('tagNameChildren', 'string', 'Tag name to use for child nodes', FALSE, 'span');
 		parent::registerArgument('type', 'string', 'Result type: available options are complete, uniqueLocationsList, list, dateRange, crucialStatus', TRUE);

@@ -1,9 +1,9 @@
 <?php
-namespace Webfox\T3events\Tests\Unit\Domain\Model\Dto;
+namespace DWenzel\T3events\Tests\Unit\Domain\Model\Dto;
 /***************************************************************
  *  Copyright notice
- *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
- *  Michael Kasten <kasten@webfox01.de>, Agentur Webfox
+ *  (c) 2012 Dirk Wenzel <wenzel@dWenzel01.de>, Agentur DWenzel
+ *  Michael Kasten <kasten@dWenzel01.de>, Agentur DWenzel
  *  All rights reserved
  *  This script is part of the TYPO3 project. The TYPO3 project is
  *  free software; you can redistribute it and/or modify
@@ -18,24 +18,24 @@ namespace Webfox\T3events\Tests\Unit\Domain\Model\Dto;
  *  GNU General Public License for more details.
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-use Webfox\T3events\Domain\Model\Dto\PerformanceDemand;
+use DWenzel\T3events\Domain\Model\Dto\PerformanceDemand;
 
 /**
- * Test case for class \Webfox\T3events\Domain\Model\Dto\PerformanceDemand.
+ * Test case for class \DWenzel\T3events\Domain\Model\Dto\PerformanceDemand.
  *
- * @author Dirk Wenzel <wenzel@webfox01.de>
- * @coversDefaultClass \Webfox\T3events\Domain\Model\Dto\PerformanceDemand
+ * @author Dirk Wenzel <wenzel@dWenzel01.de>
+ * @coversDefaultClass \DWenzel\T3events\Domain\Model\Dto\PerformanceDemand
  */
 class PerformanceDemandTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 	/**
-	 * @var \Webfox\T3events\Domain\Model\Dto\PerformanceDemand
+	 * @var \DWenzel\T3events\Domain\Model\Dto\PerformanceDemand
 	 */
 	protected $fixture;
 
 
 	public function setUp() {
-		$this->fixture = new \Webfox\T3events\Domain\Model\Dto\PerformanceDemand();
+		$this->fixture = new \DWenzel\T3events\Domain\Model\Dto\PerformanceDemand();
 	}
 
 	public function tearDown() {
@@ -70,7 +70,7 @@ class PerformanceDemandTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function setStatusForPerformanceStatusSetsStatus() {
-		$status = new \Webfox\T3events\Domain\Model\PerformanceStatus();
+		$status = new \DWenzel\T3events\Domain\Model\PerformanceStatus();
 
 		$this->fixture->setStatus($status);
 

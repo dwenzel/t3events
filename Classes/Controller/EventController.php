@@ -1,10 +1,10 @@
 <?php
-namespace Webfox\T3events\Controller;
+namespace DWenzel\T3events\Controller;
 
 /***************************************************************
  *  Copyright notice
- *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
- *  Michael Kasten <kasten@webfox01.de>, Agentur Webfox
+ *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur DWenzel
+ *  Michael Kasten <kasten@webfox01.de>, Agentur DWenzel
  *  All rights reserved
  *  This script is part of the TYPO3 project. The TYPO3 project is
  *  free software; you can redistribute it and/or modify
@@ -19,18 +19,21 @@ namespace Webfox\T3events\Controller;
  *  GNU General Public License for more details.
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
-use Webfox\T3events\Domain\Model\Dto\CalendarConfiguration;
-use Webfox\T3events\Domain\Model\Dto\EventDemand;
-use Webfox\T3events\Domain\Model\Event;
+
+
+use DWenzel\T3events\Domain\Model\Dto\CalendarConfiguration;
+use DWenzel\T3events\Domain\Model\Dto\EventDemand;
+use DWenzel\T3events\Domain\Model\Event;
 
 /**
  * Class EventController
  *
- * @package Webfox\T3events\Controller
+ * @package DWenzel\T3events\Controller
  */
 class EventController extends ActionController
 {
@@ -44,7 +47,7 @@ class EventController extends ActionController
     /**
      * eventRepository
      *
-     * @var \Webfox\T3events\Domain\Repository\EventRepository
+     * @var \DWenzel\T3events\Domain\Repository\EventRepository
      * @inject
      */
     protected $eventRepository;
@@ -52,7 +55,7 @@ class EventController extends ActionController
     /**
      * genreRepository
      *
-     * @var \Webfox\T3events\Domain\Repository\GenreRepository
+     * @var \DWenzel\T3events\Domain\Repository\GenreRepository
      * @inject
      */
     protected $genreRepository;
@@ -60,7 +63,7 @@ class EventController extends ActionController
     /**
      * venueRepository
      *
-     * @var \Webfox\T3events\Domain\Repository\VenueRepository
+     * @var \DWenzel\T3events\Domain\Repository\VenueRepository
      * @inject
      */
     protected $venueRepository;
@@ -68,7 +71,7 @@ class EventController extends ActionController
     /**
      * eventTypeRepository
      *
-     * @var \Webfox\T3events\Domain\Repository\EventTypeRepository
+     * @var \DWenzel\T3events\Domain\Repository\EventTypeRepository
      * @inject
      */
     protected $eventTypeRepository;
@@ -150,10 +153,10 @@ class EventController extends ActionController
     /**
      * action show
      *
-     * @param \Webfox\T3events\Domain\Model\Event $event
+     * @param \DWenzel\T3events\Domain\Model\Event $event
      * @return void
      */
-    public function showAction(\Webfox\T3events\Domain\Model\Event $event)
+    public function showAction(\DWenzel\T3events\Domain\Model\Event $event)
     {
         $templateVariables = [
             'settings' => $this->settings,
@@ -220,12 +223,12 @@ class EventController extends ActionController
      * Create demand from settings
      *
      * @param \array $settings
-     * @return \Webfox\T3events\Domain\Model\Dto\EventDemand
+     * @return \DWenzel\T3events\Domain\Model\Dto\EventDemand
      */
     public function createDemandFromSettings($settings)
     {
         /** @var EventDemand $demand */
-        $demand = $this->objectManager->get('Webfox\\T3events\\Domain\\Model\\Dto\\EventDemand');
+        $demand = $this->objectManager->get('DWenzel\\T3events\\Domain\\Model\\Dto\\EventDemand');
 
         foreach ($settings as $propertyName => $propertyValue) {
             if (empty($propertyValue)) {
@@ -281,7 +284,7 @@ class EventController extends ActionController
     /**
      * overwrite demand object
      *
-     * @param \Webfox\T3events\Domain\Model\Dto\EventDemand $demand
+     * @param \DWenzel\T3events\Domain\Model\Dto\EventDemand $demand
      * @param \array $overwriteDemand
      */
     public function overwriteDemandObject(&$demand, $overwriteDemand)
@@ -338,7 +341,7 @@ class EventController extends ActionController
     {
         /** @var CalendarConfiguration $calendarConfiguration */
         $calendarConfiguration = $this->objectManager->get(
-            'Webfox\\T3events\\Domain\\Model\\Dto\\CalendarConfiguration'
+            'DWenzel\\T3events\\Domain\\Model\\Dto\\CalendarConfiguration'
         );
 
         if (isset($settings['displayPeriod'])) {

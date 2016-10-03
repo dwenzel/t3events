@@ -1,5 +1,5 @@
 <?php
-namespace Webfox\T3events\Controller;
+namespace DWenzel\T3events\Controller;
 
 /**
  * This file is part of the TYPO3 CMS project.
@@ -15,7 +15,7 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 /**
  * Class AbstractController
  *
- * @package Webfox\T3events\Controller
+ * @package DWenzel\T3events\Controller
  * @deprecated Use controller traits instead
  */
 class AbstractController extends ActionController
@@ -39,7 +39,7 @@ class AbstractController extends ActionController
     /**
      * @var string
      */
-    protected $unknownErrorMessage = 'An unknown error occured.';
+    protected $unknownErrorMessage = 'An unknown error occurred.';
 
     /**
      * Initialize Action

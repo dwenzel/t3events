@@ -1,18 +1,18 @@
 <?php
-namespace Webfox\T3events\Controller;
+namespace DWenzel\T3events\Controller;
 
-use Webfox\T3events\Session\SessionInterface;
+use DWenzel\T3events\Session\SessionInterface;
 
 /**
  * Class SessionTrait
  * Provides session handling for controllers
  *
- * @package Webfox\T3events\Controller
+ * @package DWenzel\T3events\Controller
  */
 trait SessionTrait
 {
     /**
-     * @var \Webfox\T3events\Session\SessionInterface
+     * @var \DWenzel\T3events\Session\SessionInterface
      */
     protected $session;
 
@@ -24,7 +24,7 @@ trait SessionTrait
     protected $namespace;
 
     /**
-     * @param \Webfox\T3events\Session\SessionInterface $session
+     * @param \DWenzel\T3events\Session\SessionInterface $session
      */
     public function injectSession(SessionInterface $session)
     {

@@ -1,22 +1,22 @@
 <?php
-namespace Webfox\T3events\Domain\Model\Dto;
+namespace DWenzel\T3events\Domain\Model\Dto;
 
 /**
  * Class SearchAwareDemandTrait
  * Provides properties and methods for (full-text) search aware demand objects
  *
- * @package Webfox\T3events\Domain\Model\Dto
+ * @package DWenzel\T3events\Domain\Model\Dto
  */
 trait SearchAwareDemandTrait {
 	/**
-	 * @var \Webfox\T3events\Domain\Model\Dto\Search
+	 * @var \DWenzel\T3events\Domain\Model\Dto\Search
 	 */
 	protected $search;
 
 	/**
 	 * Get search
 	 *
-	 * @return \Webfox\T3events\Domain\Model\Dto\Search
+	 * @return \DWenzel\T3events\Domain\Model\Dto\Search
 	 */
 	public function getSearch() {
 		return $this->search;
@@ -25,7 +25,7 @@ trait SearchAwareDemandTrait {
 	/**
 	 * Set search object
 	 *
-	 * @param \Webfox\T3events\Domain\Model\Dto\Search $search A search object
+	 * @param \DWenzel\T3events\Domain\Model\Dto\Search $search A search object
 	 * @return void
 	 */
 	public function setSearch(Search $search) {

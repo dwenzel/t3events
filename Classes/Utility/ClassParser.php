@@ -1,12 +1,12 @@
 <?php
 
-namespace Webfox\T3events\Utility;
+namespace DWenzel\T3events\Utility;
 
 /**
  * Class ClassParser
  *
  * @author Georg Ringer <typo3@ringerge.org>
- * @package Webfox\T3events\Utility
+ * @package DWenzel\T3events\Utility
  */
 class ClassParser {
 

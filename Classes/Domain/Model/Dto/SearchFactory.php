@@ -1,5 +1,5 @@
 <?php
-namespace Webfox\T3events\Domain\Model\Dto;
+namespace DWenzel\T3events\Domain\Model\Dto;
 
 use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 
@@ -42,7 +42,7 @@ class SearchFactory
      *
      * @param array $searchRequest An array with the search request
      * @param array $settings Settings for search
-     * @return \Webfox\T3events\Domain\Model\Dto\Search $search
+     * @return \DWenzel\T3events\Domain\Model\Dto\Search $search
      */
     public function get($searchRequest, $settings)
     {

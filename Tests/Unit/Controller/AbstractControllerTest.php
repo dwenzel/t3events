@@ -1,5 +1,5 @@
 <?php
-namespace Webfox\T3events\Tests;
+namespace DWenzel\T3events\Tests;
 
 	/**
 	 * This file is part of the TYPO3 CMS project.
@@ -13,23 +13,23 @@ namespace Webfox\T3events\Tests;
 use TYPO3\CMS\Extbase\Mvc\Request;
 use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use Webfox\T3events\Controller\AbstractController;
+use DWenzel\T3events\Controller\AbstractController;
 
 /**
- * Test case for class Webfox\T3events\Controller\AbstractController.
+ * Test case for class DWenzel\T3events\Controller\AbstractController.
  *
  * @version $Id$
  * @copyright Copyright belongs to the respective authors
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  * @package TYPO3
  * @subpackage Ajax Map
- * @author Dirk Wenzel <wenzel@webfox01.de>
- * @coversDefaultClass \Webfox\T3events\Controller\AbstractController
+ * @author Dirk Wenzel <wenzel@dWenzel01.de>
+ * @coversDefaultClass \DWenzel\T3events\Controller\AbstractController
  */
 class AbstractControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 	/**
-	 * @var \Webfox\T3events\Controller\AbstractController
+	 * @var \DWenzel\T3events\Controller\AbstractController
 	 */
 	protected $fixture;
 
@@ -41,7 +41,7 @@ class AbstractControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	public function setUp() {
 		$objectManager = $this->getMock('\\TYPO3\\CMS\\Extbase\\Object\\ObjectManager', array(), array(), '', FALSE);
 		$this->fixture = $this->getAccessibleMock(
-			'\Webfox\T3events\Controller\AbstractController', array('dummy'), array(), '', FALSE);
+			'\DWenzel\T3events\Controller\AbstractController', array('dummy'), array(), '', FALSE);
 		$this->fixture->_set('objectManager', $objectManager);
 	}
 
@@ -50,7 +50,7 @@ class AbstractControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @covers ::initializeAction
 	 */
 	public function initializeActionSetsRequestAndReferrerArguments() {
-		$fixture = $this->getMock('\Webfox\T3events\Controller\AbstractController',
+		$fixture = $this->getMock('\DWenzel\T3events\Controller\AbstractController',
 			array('setRequestArguments', 'setReferrerArguments'), array(), '', FALSE);
 		$fixture->expects($this->once())
 			->method('setRequestArguments');

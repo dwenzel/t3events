@@ -1,5 +1,5 @@
 <?php
-namespace Webfox\T3events\Domain\Model\Dto;
+namespace DWenzel\T3events\Domain\Model\Dto;
 
 /***************************************************************
  *  Copyright notice

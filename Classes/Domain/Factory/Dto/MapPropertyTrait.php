@@ -1,11 +1,11 @@
 <?php
-namespace Webfox\T3events\Domain\Factory\Dto;
+namespace DWenzel\T3events\Domain\Factory\Dto;
 
 /**
  * Class MapPropertyTrait
  * Allows to map predefined property names
  *
- * @package Webfox\T3events\Domain\Factory\Dto
+ * @package DWenzel\T3events\Domain\Factory\Dto
  */
 trait MapPropertyTrait
 {

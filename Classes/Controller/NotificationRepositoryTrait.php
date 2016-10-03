@@ -1,5 +1,5 @@
 <?php
-namespace Webfox\T3events\Controller;
+namespace DWenzel\T3events\Controller;
 
 /***************************************************************
  *  Copyright notice
@@ -18,25 +18,25 @@ namespace Webfox\T3events\Controller;
  *  GNU General Public License for more details.
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-use Webfox\T3events\Domain\Repository\NotificationRepository;
+use DWenzel\T3events\Domain\Repository\NotificationRepository;
 /**
  * Class NotificationRepositoryTrait
  *
- * @package Webfox\T3events\Controller
+ * @package DWenzel\T3events\Controller
  */
 trait NotificationRepositoryTrait
 {
     /**
      * Notification Repository
      *
-     * @var \Webfox\T3events\Domain\Repository\NotificationRepository
+     * @var \DWenzel\T3events\Domain\Repository\NotificationRepository
      */
     protected $notificationRepository;
 
     /**
      * injectNotificationRepository
      *
-     * @param \Webfox\T3events\Domain\Repository\NotificationRepository $notificationRepository
+     * @param \DWenzel\T3events\Domain\Repository\NotificationRepository $notificationRepository
      * @return void
      */
     public function injectNotificationRepository(NotificationRepository $notificationRepository)

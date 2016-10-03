@@ -1,10 +1,10 @@
 <?php
-namespace Webfox\T3events\Domain\Factory\Dto;
+namespace DWenzel\T3events\Domain\Factory\Dto;
 
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
-use Webfox\T3events\Domain\Model\Dto\OrderAwareDemandInterface;
+use DWenzel\T3events\Domain\Model\Dto\OrderAwareDemandInterface;
 
 /***************************************************************
  *  Copyright notice
@@ -28,7 +28,7 @@ use Webfox\T3events\Domain\Model\Dto\OrderAwareDemandInterface;
  * Class AbstractDemandFactory
  * Abstract parent for factories creating demand objects
  *
- * @package Webfox\T3events\Domain\Factory\Dto
+ * @package DWenzel\T3events\Domain\Factory\Dto
  */
 abstract class AbstractDemandFactory
 {

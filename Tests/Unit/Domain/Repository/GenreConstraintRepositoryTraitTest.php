@@ -1,14 +1,14 @@
 <?php
-namespace Webfox\T3events\Tests\Unit\Domain\Model\Dto;
+namespace DWenzel\T3events\Tests\Unit\Domain\Model\Dto;
 
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 use TYPO3\CMS\Extbase\Persistence\Generic\Query;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
-use Webfox\T3events\Domain\Model\Dto\GenreAwareDemandInterface;
-use Webfox\T3events\Domain\Repository\GenreConstraintRepositoryTrait;
+use DWenzel\T3events\Domain\Model\Dto\GenreAwareDemandInterface;
+use DWenzel\T3events\Domain\Repository\GenreConstraintRepositoryTrait;
 
 /**
- * Test case for class \Webfox\T3events\Domain\Repository\GenreConstraintRepositoryTrait.
+ * Test case for class \DWenzel\T3events\Domain\Repository\GenreConstraintRepositoryTrait.
  */
 class GenreConstraintRepositoryTraitTest extends UnitTestCase {
 	/**
@@ -17,7 +17,7 @@ class GenreConstraintRepositoryTraitTest extends UnitTestCase {
 	const GENRE_FIELD = 'foo';
 
 	/**
-	 * @var \Webfox\T3events\Domain\Repository\GenreConstraintRepositoryTrait
+	 * @var \DWenzel\T3events\Domain\Repository\GenreConstraintRepositoryTrait
 	 */
 	protected $subject;
 

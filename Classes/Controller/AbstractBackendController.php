@@ -1,5 +1,5 @@
 <?php
-namespace Webfox\T3events\Controller;
+namespace DWenzel\T3events\Controller;
 
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\FormProtection\FormProtectionFactory;
@@ -9,15 +9,15 @@ use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Mvc\Exception\StopActionException;
 use TYPO3\CMS\Extbase\Mvc\RequestInterface;
 use TYPO3\CMS\Extbase\Mvc\ResponseInterface;
-use Webfox\T3events\Domain\Repository\AudienceRepository;
-use Webfox\T3events\Domain\Repository\EventTypeRepository;
-use Webfox\T3events\Domain\Repository\GenreRepository;
-use Webfox\T3events\Domain\Repository\VenueRepository;
+use DWenzel\T3events\Domain\Repository\AudienceRepository;
+use DWenzel\T3events\Domain\Repository\EventTypeRepository;
+use DWenzel\T3events\Domain\Repository\GenreRepository;
+use DWenzel\T3events\Domain\Repository\VenueRepository;
 
 /**
  * Class AbstractBackendController
  *
- * @package Webfox\T3events\Controller
+ * @package DWenzel\T3events\Controller
  */
 class AbstractBackendController extends AbstractController
 {
@@ -27,28 +27,28 @@ class AbstractBackendController extends AbstractController
     /**
      * eventTypeRepository
      *
-     * @var \Webfox\T3events\Domain\Repository\EventTypeRepository
+     * @var \DWenzel\T3events\Domain\Repository\EventTypeRepository
      */
     protected $eventTypeRepository;
 
     /**
      * genreRepository
      *
-     * @var \Webfox\T3events\Domain\Repository\GenreRepository
+     * @var \DWenzel\T3events\Domain\Repository\GenreRepository
      */
     protected $genreRepository;
 
     /**
      * audienceRepository
      *
-     * @var \Webfox\T3events\Domain\Repository\AudienceRepository
+     * @var \DWenzel\T3events\Domain\Repository\AudienceRepository
      */
     protected $audienceRepository;
 
     /**
      * Notification Service
      *
-     * @var \Webfox\T3events\Service\NotificationService
+     * @var \DWenzel\T3events\Service\NotificationService
      * @inject
      */
     protected $notificationService;
@@ -78,7 +78,7 @@ class AbstractBackendController extends AbstractController
     /**
      * venueRepository
      *
-     * @var \Webfox\T3events\Domain\Repository\VenueRepository
+     * @var \DWenzel\T3events\Domain\Repository\VenueRepository
      */
     protected $venueRepository;
 
@@ -95,7 +95,7 @@ class AbstractBackendController extends AbstractController
     /**
      * injectEventTypeRepository
      *
-     * @param \Webfox\T3events\Domain\Repository\EventTypeRepository $eventTypeRepository
+     * @param \DWenzel\T3events\Domain\Repository\EventTypeRepository $eventTypeRepository
      * @return void
      */
     public function injectEventTypeRepository(EventTypeRepository $eventTypeRepository)
@@ -106,7 +106,7 @@ class AbstractBackendController extends AbstractController
     /**
      * injectGenreRepository
      *
-     * @param \Webfox\T3events\Domain\Repository\GenreRepository $genreRepository
+     * @param \DWenzel\T3events\Domain\Repository\GenreRepository $genreRepository
      * @return void
      */
     public function injectGenreRepository(GenreRepository $genreRepository)
@@ -117,7 +117,7 @@ class AbstractBackendController extends AbstractController
     /**
      * injectAudienceRepository
      *
-     * @param \Webfox\T3events\Domain\Repository\AudienceRepository $audienceRepository
+     * @param \DWenzel\T3events\Domain\Repository\AudienceRepository $audienceRepository
      * @return void
      */
     public function injectAudienceRepository(AudienceRepository $audienceRepository)
@@ -128,7 +128,7 @@ class AbstractBackendController extends AbstractController
     /**
      * injectVenueRepository
      *
-     * @param \Webfox\T3events\Domain\Repository\VenueRepository $venueRepository
+     * @param \DWenzel\T3events\Domain\Repository\VenueRepository $venueRepository
      * @return void
      */
     public function injectVenueRepository(VenueRepository $venueRepository)

@@ -1,5 +1,5 @@
 <?php
-namespace Webfox\T3events\Tests\Unit\Domain\Repository;
+namespace DWenzel\T3events\Tests\Unit\Domain\Repository;
 
 use CPSIT\ZewEvents\Domain\Model\Dto\PerformanceDemand;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
@@ -10,8 +10,8 @@ use TYPO3\CMS\Extbase\Persistence\Generic\Query;
 use TYPO3\CMS\Extbase\Persistence\Generic\QuerySettingsInterface;
 use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
-use Webfox\T3events\Domain\Model\Dto\DemandInterface;
-use Webfox\T3events\Domain\Repository\PerformanceRepository;
+use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
+use DWenzel\T3events\Domain\Repository\PerformanceRepository;
 
 /***************************************************************
  *
@@ -41,8 +41,8 @@ use Webfox\T3events\Domain\Repository\PerformanceRepository;
 /**
  * Class PerformanceRepositoryTest
  *
- * @package Webfox\T3events\Tests\Unit\Domain\Repository
- * @coversDefaultClass \Webfox\T3events\Domain\Repository\PerformanceRepository
+ * @package DWenzel\T3events\Tests\Unit\Domain\Repository
+ * @coversDefaultClass \DWenzel\T3events\Domain\Repository\PerformanceRepository
  */
 class PerformanceRepositoryTest extends UnitTestCase {
 

@@ -1,5 +1,5 @@
 <?php
-namespace Webfox\T3events\Domain\Factory\Dto;
+namespace DWenzel\T3events\Domain\Factory\Dto;
 
 /***************************************************************
  *  Copyright notice
@@ -18,15 +18,18 @@ namespace Webfox\T3events\Domain\Factory\Dto;
  *  GNU General Public License for more details.
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-use Webfox\T3events\Domain\Model\Dto\DemandInterface;
-use Webfox\T3events\Domain\Model\Dto\PerformanceDemand;
-use Webfox\T3events\Domain\Model\Dto\PeriodAwareDemandInterface;
+
+
+
+use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
+use DWenzel\T3events\Domain\Model\Dto\PerformanceDemand;
+use DWenzel\T3events\Domain\Model\Dto\PeriodAwareDemandInterface;
 
 /**
  * Class PerformanceDemandFactory
  * Creates PerformanceDemand objects
  *
- * @package Webfox\T3events\Domain\Factory\Dto
+ * @package DWenzel\T3events\Domain\Factory\Dto
  */
 class PerformanceDemandFactory
     extends AbstractDemandFactory

@@ -1,5 +1,5 @@
 <?php
-namespace Webfox\T3events\ViewHelpers\Be;
+namespace DWenzel\T3events\ViewHelpers\Be;
 
  /***************************************************************
  *
@@ -36,7 +36,7 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\Facets\CompilableInterface;
 /**
  * Class EditRecordViewHelper
  *
- * @package Webfox\T3events\Tests\ViewHelpers\Be
+ * @package DWenzel\T3events\Tests\ViewHelpers\Be
  */
 class EditRecordViewHelper extends AbstractViewHelper implements CompilableInterface {
 	/**

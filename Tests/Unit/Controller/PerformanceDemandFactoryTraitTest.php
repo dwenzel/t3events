@@ -1,8 +1,8 @@
 <?php
-namespace Webfox\T3events\Tests\Unit\Controller;
+namespace DWenzel\T3events\Tests\Unit\Controller;
 
-use Webfox\T3events\Controller\PerformanceDemandFactoryTrait;
-use Webfox\T3events\Domain\Factory\Dto\PerformanceDemandFactory;
+use DWenzel\T3events\Controller\PerformanceDemandFactoryTrait;
+use DWenzel\T3events\Domain\Factory\Dto\PerformanceDemandFactory;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 
 /***************************************************************
@@ -35,7 +35,7 @@ class PerformanceDemandFactoryTraitTest extends UnitTestCase
     public function setUp()
     {
         $this->subject = $this->getMockForTrait(
-            PerformanceDemandFactoryTrait::class
+            \DWenzel\T3events\Controller\PerformanceDemandFactoryTrait::class
         );
     }
 

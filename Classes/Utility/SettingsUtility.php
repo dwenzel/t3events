@@ -1,5 +1,5 @@
 <?php
-namespace Webfox\T3events\Utility;
+namespace DWenzel\T3events\Utility;
 
 /***************************************************************
  *
@@ -29,17 +29,17 @@ use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface;
-use TYPO3\CMS\Extbase\Mvc\Controller\ControllerInterface;
+
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
-use Webfox\T3events\Resource\ResourceFactory;
+use DWenzel\T3events\Resource\ResourceFactory;
 
 /**
  * Class SettingsUtility
  *
- * @package Webfox\T3events\Utility
+ * @package DWenzel\T3events\Utility
  */
 class SettingsUtility implements SingletonInterface {
 
@@ -84,7 +84,7 @@ class SettingsUtility implements SingletonInterface {
 	/**
 	 * injects the ResourceFactory
 	 *
-	 * @param ResourceFactory $resourceFactory
+	 * @param \DWenzel\T3events\Resource\ResourceFactory $resourceFactory
 	 */
 	public function injectResourceFactory(ResourceFactory $resourceFactory) {
 		$this->resourceFactory = $resourceFactory;

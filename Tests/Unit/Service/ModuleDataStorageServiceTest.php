@@ -1,8 +1,8 @@
 <?php
-namespace Webfox\T3events\Tests\Unit\Service;
+namespace DWenzel\T3events\Tests\Unit\Service;
 
-use Webfox\T3events\Domain\Model\Dto\ModuleData;
-use Webfox\T3events\Service\ModuleDataStorageService;
+use DWenzel\T3events\Domain\Model\Dto\ModuleData;
+use DWenzel\T3events\Service\ModuleDataStorageService;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
@@ -34,13 +34,13 @@ use TYPO3\CMS\Extbase\Object\ObjectManager;
 class ModuleDataStorageServiceTest extends UnitTestCase {
 
 	/**
-	 * @var ModuleDataStorageService
+	 * @var \DWenzel\T3events\Service\ModuleDataStorageService
 	 */
 	protected $subject;
 
 	public function setUp() {
 		$this->subject = $this->getAccessibleMock(
-			ModuleDataStorageService::class, ['dummy']
+			\DWenzel\T3events\Service\ModuleDataStorageService::class, ['dummy']
 		);
 	}
 
@@ -84,7 +84,7 @@ class ModuleDataStorageServiceTest extends UnitTestCase {
 	 */
 	public function persistModuleDataCanBePersisted() {
 		$this->subject = $this->getAccessibleMock(
-			ModuleDataStorageService::class, ['getBackendUserAuthentication']
+			\DWenzel\T3events\Service\ModuleDataStorageService::class, ['getBackendUserAuthentication']
 		);
 		$key = 'foo';
 		$moduleData = new ModuleData();
@@ -128,7 +128,7 @@ class ModuleDataStorageServiceTest extends UnitTestCase {
 	 */
 	public function loadModuleDataReturnsModuleDataFromBackendUserAuthentication() {
 		$this->subject = $this->getAccessibleMock(
-			ModuleDataStorageService::class, ['getBackendUserAuthentication']
+			\DWenzel\T3events\Service\ModuleDataStorageService::class, ['getBackendUserAuthentication']
 		);
 		$key = 'foo';
 		$mockBackendUserAuthentication = $this->mockBackendUserAuthentication();

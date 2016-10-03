@@ -1,11 +1,12 @@
 <?php
-namespace Webfox\T3events\Domain\Factory\Dto;
+namespace DWenzel\T3events\Domain\Factory\Dto;
 
-use TYPO3\CMS\Extbase\Object\ObjectManager;
-use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
-use Webfox\T3events\Domain\Model\Dto\DemandInterface;
-use Webfox\T3events\Domain\Model\Dto\EventDemand;
-use Webfox\T3events\Domain\Model\Dto\PeriodAwareDemandInterface;
+
+
+
+use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
+use DWenzel\T3events\Domain\Model\Dto\EventDemand;
+use DWenzel\T3events\Domain\Model\Dto\PeriodAwareDemandInterface;
 
 /***************************************************************
  *  Copyright notice
@@ -29,7 +30,7 @@ use Webfox\T3events\Domain\Model\Dto\PeriodAwareDemandInterface;
  * Class EventDemandFactory
  * Creates EventDemand objects
  *
- * @package Webfox\T3events\Domain\Factory\Dto
+ * @package DWenzel\T3events\Domain\Factory\Dto
  */
 class EventDemandFactory extends AbstractDemandFactory
 	implements DemandFactoryInterface {

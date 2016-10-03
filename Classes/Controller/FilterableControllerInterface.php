@@ -1,5 +1,5 @@
 <?php
-namespace Webfox\T3events\Controller;
+namespace DWenzel\T3events\Controller;
 
  /***************************************************************
  *
@@ -28,7 +28,7 @@ namespace Webfox\T3events\Controller;
 /**
  * Interface FilterableControllerInterface
  *
- * @package Webfox\T3events\Controller
+ * @package DWenzel\T3events\Controller
  */
 interface FilterableControllerInterface {
 	/**

@@ -1,8 +1,9 @@
 <?php
-namespace Webfox\T3events\Utility;
+namespace DWenzel\T3events\Utility;
 
+use DWenzel\T3events\Utility\EmConfigurationUtility;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
-use Webfox\T3events\Domain\Model\Dto\EmConfiguration;
+use DWenzel\T3events\Domain\Model\Dto\EmConfiguration;
 
 /***************************************************************
  *

@@ -1,5 +1,5 @@
 <?php
-namespace Webfox\T3events\Tests\Unit\Domain\Repository;
+namespace DWenzel\T3events\Tests\Unit\Domain\Repository;
 
 /***************************************************************
  *  Copyright notice
@@ -20,14 +20,14 @@ namespace Webfox\T3events\Tests\Unit\Domain\Repository;
  ***************************************************************/
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
-use Webfox\T3events\Domain\Model\Dto\PeriodAwareDemandInterface;
-use Webfox\T3events\Domain\Repository\PeriodConstraintRepositoryTrait;
+use DWenzel\T3events\Domain\Model\Dto\PeriodAwareDemandInterface;
+use DWenzel\T3events\Domain\Repository\PeriodConstraintRepositoryTrait;
 
 /**
- * Test case for class \Webfox\T3events\Domain\Repository\PeriodConstraintRepositoryTrait.
+ * Test case for class \DWenzel\T3events\Domain\Repository\PeriodConstraintRepositoryTrait.
  *
  * @author Dirk Wenzel <t3events@gmx.de>
- * @coversDefaultClass \Webfox\T3events\Domain\Repository\PeriodConstraintRepositoryTrait
+ * @coversDefaultClass \DWenzel\T3events\Domain\Repository\PeriodConstraintRepositoryTrait
  */
 class PeriodConstraintRepositoryTraitTest extends UnitTestCase
 {
@@ -41,7 +41,7 @@ class PeriodConstraintRepositoryTraitTest extends UnitTestCase
     const END_DATE_FIELD = 'bar';
 
     /**
-     * @var \Webfox\T3events\Domain\Repository\PeriodConstraintRepositoryTrait
+     * @var \DWenzel\T3events\Domain\Repository\PeriodConstraintRepositoryTrait
      */
     protected $subject;
 

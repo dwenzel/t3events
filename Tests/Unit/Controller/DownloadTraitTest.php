@@ -1,15 +1,15 @@
 <?php
-namespace Webfox\T3events\Tests\Controller;
+namespace DWenzel\T3events\Tests\Controller;
 
 use TYPO3\CMS\Core\Tests\UnitTestCase;
-use Webfox\T3events\Controller\DownloadTrait;
+use DWenzel\T3events\Controller\DownloadTrait;
 use TYPO3\CMS\Core\Resource\Driver\LocalDriver;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Mvc\Web\Response;
 /**
  * Class DownloadTraitTest
  *
- * @package Webfox\T3events\Tests\Controller
+ * @package DWenzel\T3events\Tests\Controller
  */
 class DownloadTraitTest extends UnitTestCase
 {
@@ -171,7 +171,7 @@ class DownloadTraitTest extends UnitTestCase
     /**
      * @test
      * @dataProvider forbiddenFileTypesForDownloadHeadersDataProvider
-     * @expectedException \Webfox\T3events\InvalidFileTypeException
+     * @expectedException \DWenzel\T3events\InvalidFileTypeException
      * @expectedExceptionCode 1456009720
      */
     public function sendDownloadHeadersDoesNotSendHeadersForForbiddenFileTypes($fileExtension) {

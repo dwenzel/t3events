@@ -1,5 +1,5 @@
 <?php
-namespace Webfox\T3events\Tests\Unit\Domain\Repository;
+namespace DWenzel\T3events\Tests\Unit\Domain\Repository;
 
 /***************************************************************
  *  Copyright notice
@@ -25,25 +25,25 @@ use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
 /**
- * Test case for class \Webfox\T3events\Domain\Repository\AbstractDemandedRepository.
+ * Test case for class \DWenzel\T3events\Domain\Repository\AbstractDemandedRepository.
  *
  * @copyright Copyright belongs to the respective authors
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  * @package TYPO3
  * @subpackage Events
  * @author Dirk Wenzel <dirk.wenzel@cps-it.de>
- * @coversDefaultClass \Webfox\T3events\Domain\Repository\AbstractDemandedRepository
+ * @coversDefaultClass \DWenzel\T3events\Domain\Repository\AbstractDemandedRepository
  */
 class AbstractDemandedRepositoryTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 	/**
-	 * @var \Webfox\T3events\Domain\Repository\AbstractDemandedRepository
+	 * @var \DWenzel\T3events\Domain\Repository\AbstractDemandedRepository
 	 */
 	protected $fixture;
 
 	public function setUp() {
 		$this->fixture = $this->getAccessibleMock(
-			'Webfox\\T3events\\Domain\\Repository\\AbstractDemandedRepository',
+			'DWenzel\\T3events\\Domain\\Repository\\AbstractDemandedRepository',
 			array('createConstraintsFromDemand', 'createQuery'), array(), '', FALSE);
 	}
 
@@ -54,7 +54,7 @@ class AbstractDemandedRepositoryTest extends \TYPO3\CMS\Core\Tests\UnitTestCase 
 	public function createOrderingsFromDemandReturnsInitiallyEmptyArray() {
 		$expectedResult = array();
 		$demand = $this->getMockForAbstractClass(
-			'Webfox\\T3events\\Domain\\Model\\Dto\\AbstractDemand'
+			'DWenzel\\T3events\\Domain\\Model\\Dto\\AbstractDemand'
 		);
 		$this->assertEquals(
 			$expectedResult,
@@ -69,7 +69,7 @@ class AbstractDemandedRepositoryTest extends \TYPO3\CMS\Core\Tests\UnitTestCase 
 	public function createOrderingsFromDemandReturnsEmptyArrayForEmptyOrderList() {
 		$expectedResult = array();
 		$mockDemand = $this->getMock(
-			'Webfox\\T3events\\Domain\\Model\\Dto\\AbstractDemand',
+			'DWenzel\\T3events\\Domain\\Model\\Dto\\AbstractDemand',
 			array('getOrder'), array(), '', FALSE
 		);
 		$emptyOrderList = '';
@@ -93,7 +93,7 @@ class AbstractDemandedRepositoryTest extends \TYPO3\CMS\Core\Tests\UnitTestCase 
 			$fieldName => QueryInterface::ORDER_ASCENDING
 		);
 		$mockDemand = $this->getMock(
-			'Webfox\\T3events\\Domain\\Model\\Dto\\AbstractDemand',
+			'DWenzel\\T3events\\Domain\\Model\\Dto\\AbstractDemand',
 			array('getOrder'), array(), '', FALSE
 		);
 
@@ -117,7 +117,7 @@ class AbstractDemandedRepositoryTest extends \TYPO3\CMS\Core\Tests\UnitTestCase 
 			'foo' => QueryInterface::ORDER_DESCENDING
 		);
 		$mockDemand = $this->getMock(
-			'Webfox\\T3events\\Domain\\Model\\Dto\\AbstractDemand',
+			'DWenzel\\T3events\\Domain\\Model\\Dto\\AbstractDemand',
 			array('getOrder'), array(), '', FALSE
 		);
 
@@ -142,7 +142,7 @@ class AbstractDemandedRepositoryTest extends \TYPO3\CMS\Core\Tests\UnitTestCase 
 			'bar' => QueryInterface::ORDER_ASCENDING
 		);
 		$mockDemand = $this->getMock(
-			'Webfox\\T3events\\Domain\\Model\\Dto\\AbstractDemand',
+			'DWenzel\\T3events\\Domain\\Model\\Dto\\AbstractDemand',
 			array('getOrder'), array(), '', FALSE
 		);
 
@@ -162,10 +162,10 @@ class AbstractDemandedRepositoryTest extends \TYPO3\CMS\Core\Tests\UnitTestCase 
 	 */
 	public function findDemandedGeneratesAndExecutesQuery() {
 		$fixture = $this->getAccessibleMock(
-			'Webfox\\T3events\\Domain\\Repository\\AbstractDemandedRepository',
+			'DWenzel\\T3events\\Domain\\Repository\\AbstractDemandedRepository',
 			array('createConstraintsFromDemand', 'generateQuery'), array(), '', FALSE);
 		$mockDemand = $this->getMock(
-			'Webfox\\T3events\\Domain\\Model\\Dto\\AbstractDemand',
+			'DWenzel\\T3events\\Domain\\Model\\Dto\\AbstractDemand',
 			array(), array(), '', FALSE
 		);
 		$mockQuery = $this->getMock(
@@ -195,10 +195,10 @@ class AbstractDemandedRepositoryTest extends \TYPO3\CMS\Core\Tests\UnitTestCase 
 	 */
 	public function generateQueryCreatesQueryAndConstraints() {
 		$fixture = $this->getAccessibleMock(
-			'Webfox\\T3events\\Domain\\Repository\\AbstractDemandedRepository',
+			'DWenzel\\T3events\\Domain\\Repository\\AbstractDemandedRepository',
 			array('createConstraintsFromDemand', 'createQuery'), array(), '', FALSE);
 		$mockDemand = $this->getMock(
-			'Webfox\\T3events\\Domain\\Model\\Dto\\AbstractDemand',
+			'DWenzel\\T3events\\Domain\\Model\\Dto\\AbstractDemand',
 			array(), array(), '', FALSE
 		);
 		$mockQuery = $this->getMockForAbstractClass(
@@ -226,10 +226,10 @@ class AbstractDemandedRepositoryTest extends \TYPO3\CMS\Core\Tests\UnitTestCase 
 	 */
 	public function generateQueryReturnsQueryMatchingConstraints() {
 		$fixture = $this->getAccessibleMock(
-			'Webfox\\T3events\\Domain\\Repository\\AbstractDemandedRepository',
+			'DWenzel\\T3events\\Domain\\Repository\\AbstractDemandedRepository',
 			array('createConstraintsFromDemand', 'createQuery'), array(), '', FALSE);
 		$mockDemand = $this->getMock(
-			'Webfox\\T3events\\Domain\\Model\\Dto\\AbstractDemand',
+			'DWenzel\\T3events\\Domain\\Model\\Dto\\AbstractDemand',
 			array(), array(), '', FALSE
 		);
 		$mockQuery = $this->getMock(
@@ -263,10 +263,10 @@ class AbstractDemandedRepositoryTest extends \TYPO3\CMS\Core\Tests\UnitTestCase 
 	 */
 	public function generateQuerySetsOrderings() {
 		$fixture = $this->getAccessibleMock(
-			'Webfox\\T3events\\Domain\\Repository\\AbstractDemandedRepository',
+			'DWenzel\\T3events\\Domain\\Repository\\AbstractDemandedRepository',
 			array('createQuery', 'createConstraintsFromDemand', 'createOrderingsFromDemand'), array(), '', FALSE);
 		$mockDemand = $this->getMock(
-			'Webfox\\T3events\\Domain\\Model\\Dto\\AbstractDemand',
+			'DWenzel\\T3events\\Domain\\Model\\Dto\\AbstractDemand',
 			array(), array(), '', FALSE
 		);
 		$mockQuery = $this->getMock(
@@ -295,10 +295,10 @@ class AbstractDemandedRepositoryTest extends \TYPO3\CMS\Core\Tests\UnitTestCase 
 	 */
 	public function generateQuerySetsIgnoreEnableFields() {
 		$fixture = $this->getAccessibleMock(
-			'Webfox\\T3events\\Domain\\Repository\\AbstractDemandedRepository',
+			'DWenzel\\T3events\\Domain\\Repository\\AbstractDemandedRepository',
 			array('createQuery', 'createConstraintsFromDemand', 'createOrderingsFromDemand'), array(), '', FALSE);
 		$mockDemand = $this->getMock(
-			'Webfox\\T3events\\Domain\\Model\\Dto\\AbstractDemand',
+			'DWenzel\\T3events\\Domain\\Model\\Dto\\AbstractDemand',
 			array(), array(), '', FALSE
 		);
 		$mockQuerySettings = $this->getMock(
@@ -332,14 +332,14 @@ class AbstractDemandedRepositoryTest extends \TYPO3\CMS\Core\Tests\UnitTestCase 
 	public function generateQueryCallsFindDemandedHook() {
 		$this->markTestSkipped('insufficient mocking');
 		$mockDemand = $this->getMockForAbstractClass(
-			'Webfox\\T3events\\Domain\\Model\\Dto\\DemandInterface'
+			'DWenzel\\T3events\\Domain\\Model\\Dto\\DemandInterface'
 		);
 
 		$GLOBALS['TYPO3_CONF_VARS']['EXT']['t3events']['Domain/Repository/AbstractDemandedRepository.php']['findDemanded']['t3events']
-			= 'Webfox\\T3events\\Tests\\Unit\\Domain\\Repository\\Fixtures\\FindDemandedHookFixture->updateQuerySlot';
+			= 'DWenzel\\T3events\\Tests\\Unit\\Domain\\Repository\\Fixtures\\FindDemandedHookFixture->updateQuerySlot';
 		require_once('Fixtures/FindDemandedHookFixture.php');
 		$mockHook = $this->getAccessibleMock(
-			'Webfox\\T3events\\Tests\\Unit\\Domain\\Repository\\Fixtures\\FindDemandedHookFixture',
+			'DWenzel\\T3events\\Tests\\Unit\\Domain\\Repository\\Fixtures\\FindDemandedHookFixture',
 			array('updateQuerySlot'));
 		$expectedParams = array(
 			'demand' => NULL,
@@ -360,9 +360,9 @@ class AbstractDemandedRepositoryTest extends \TYPO3\CMS\Core\Tests\UnitTestCase 
 	 */
 	public function generateQuerySetsLimitFromDemand() {
 		$fixture = $this->getAccessibleMock(
-			'Webfox\\T3events\\Domain\\Repository\\AbstractDemandedRepository',
+			'DWenzel\\T3events\\Domain\\Repository\\AbstractDemandedRepository',
 			array('createQuery', 'createConstraintsFromDemand'), array(), '', FALSE);
-		$mockDemand = $this->getAccessibleMockForAbstractClass('Webfox\\T3events\\Domain\\Model\\Dto\\AbstractDemand');
+		$mockDemand = $this->getAccessibleMockForAbstractClass('DWenzel\\T3events\\Domain\\Model\\Dto\\AbstractDemand');
 		$limit = 3;
 		$mockDemand->setLimit($limit);
 		$mockQuery = $this->getMock(
@@ -387,9 +387,9 @@ class AbstractDemandedRepositoryTest extends \TYPO3\CMS\Core\Tests\UnitTestCase 
 	 */
 	public function generateQuerySetsOffsetFromDemand() {
 		$fixture = $this->getAccessibleMock(
-			'Webfox\\T3events\\Domain\\Repository\\AbstractDemandedRepository',
+			'DWenzel\\T3events\\Domain\\Repository\\AbstractDemandedRepository',
 			array('createQuery', 'createConstraintsFromDemand'), array(), '', FALSE);
-		$mockDemand = $this->getAccessibleMockForAbstractClass('Webfox\\T3events\\Domain\\Model\\Dto\\AbstractDemand');
+		$mockDemand = $this->getAccessibleMockForAbstractClass('DWenzel\\T3events\\Domain\\Model\\Dto\\AbstractDemand');
 		$offset = 3;
 		$mockDemand->setOffset($offset);
 		$mockQuery = $this->getMock(
@@ -415,9 +415,9 @@ class AbstractDemandedRepositoryTest extends \TYPO3\CMS\Core\Tests\UnitTestCase 
 	 */
 	public function generateQuerySetsStoragePageIdsFromDemand() {
 		$fixture = $this->getAccessibleMock(
-			'Webfox\\T3events\\Domain\\Repository\\AbstractDemandedRepository',
+			'DWenzel\\T3events\\Domain\\Repository\\AbstractDemandedRepository',
 			array('createQuery', 'createConstraintsFromDemand'), array(), '', FALSE);
-		$mockDemand = $this->getAccessibleMockForAbstractClass('Webfox\\T3events\\Domain\\Model\\Dto\\AbstractDemand');
+		$mockDemand = $this->getAccessibleMockForAbstractClass('DWenzel\\T3events\\Domain\\Model\\Dto\\AbstractDemand');
 		$storagePageIds = '3,5';
 		$mockDemand->setStoragePages($storagePageIds);
 		$mockDemand->setOffset($storagePageIds);
@@ -444,7 +444,7 @@ class AbstractDemandedRepositoryTest extends \TYPO3\CMS\Core\Tests\UnitTestCase 
 	 */
 	public function combineConstraintsInitiallyCombinesLogicalAnd() {
 		$fixture = $this->getAccessibleMock(
-			'Webfox\\T3events\\Domain\\Repository\\AbstractDemandedRepository',
+			'DWenzel\\T3events\\Domain\\Repository\\AbstractDemandedRepository',
 			array('dummy', 'createConstraintsFromDemand'), array(), '', FALSE);
 		$constraints = array();
 		/** @var QueryInterface $mockQuery */
@@ -474,7 +474,7 @@ class AbstractDemandedRepositoryTest extends \TYPO3\CMS\Core\Tests\UnitTestCase 
 	 */
 	public function combineConstraintsCombinesLogicalOr() {
 		$fixture = $this->getAccessibleMock(
-			'Webfox\\T3events\\Domain\\Repository\\AbstractDemandedRepository',
+			'DWenzel\\T3events\\Domain\\Repository\\AbstractDemandedRepository',
 			array('dummy', 'createConstraintsFromDemand'), array(), '', FALSE);
 		$constraints = array();
 		$conjunction = 'or';
@@ -506,7 +506,7 @@ class AbstractDemandedRepositoryTest extends \TYPO3\CMS\Core\Tests\UnitTestCase 
 	 */
 	public function combineConstraintsCombinesLogicalNotAnd() {
 		$fixture = $this->getAccessibleMock(
-			'Webfox\\T3events\\Domain\\Repository\\AbstractDemandedRepository',
+			'DWenzel\\T3events\\Domain\\Repository\\AbstractDemandedRepository',
 			array('dummy', 'createConstraintsFromDemand'), array(), '', FALSE);
 		$constraints = array();
 		$conjunction = 'NotAnd';
@@ -543,7 +543,7 @@ class AbstractDemandedRepositoryTest extends \TYPO3\CMS\Core\Tests\UnitTestCase 
 	 */
 	public function combineConstraintsCombinesLogicalNotOr() {
 		$fixture = $this->getAccessibleMock(
-			'Webfox\\T3events\\Domain\\Repository\\AbstractDemandedRepository',
+			'DWenzel\\T3events\\Domain\\Repository\\AbstractDemandedRepository',
 			array('dummy', 'createConstraintsFromDemand'), array(), '', FALSE);
 		$constraints = array();
 		$conjunction = 'NotOr';

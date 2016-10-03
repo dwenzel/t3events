@@ -1,10 +1,10 @@
 <?php
-namespace Webfox\T3events\Tests\Unit\Domain\Model;
+namespace DWenzel\T3events\Tests\Unit\Domain\Model;
 
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 use TYPO3\CMS\Extbase\Domain\Model\Category;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
-use Webfox\T3events\Domain\Model\CategorizableTrait;
+use DWenzel\T3events\Domain\Model\CategorizableTrait;
 
 /***************************************************************
  *
@@ -33,7 +33,7 @@ use Webfox\T3events\Domain\Model\CategorizableTrait;
 class CategorizableTraitTest extends UnitTestCase {
 
 	/**
-	 * @var \Webfox\T3events\Domain\Model\CategorizableTrait
+	 * @var \DWenzel\T3events\Domain\Model\CategorizableTrait
 	 */
 	protected $subject;
 

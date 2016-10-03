@@ -1,12 +1,12 @@
 <?php
-namespace Webfox\T3events\Command;
+namespace DWenzel\T3events\Command;
 
 use TYPO3\CMS\Extbase\Mvc\Controller\CommandController;
-use Webfox\T3events\Controller\EventDemandFactoryTrait;
-use Webfox\T3events\Controller\EventRepositoryTrait;
-use Webfox\T3events\Controller\PerformanceDemandFactoryTrait;
-use Webfox\T3events\Controller\PerformanceRepositoryTrait;
-use Webfox\T3events\Domain\Model\Event;
+use DWenzel\T3events\Controller\EventDemandFactoryTrait;
+use DWenzel\T3events\Controller\EventRepositoryTrait;
+use DWenzel\T3events\Controller\PerformanceDemandFactoryTrait;
+use DWenzel\T3events\Controller\PerformanceRepositoryTrait;
+use DWenzel\T3events\Domain\Model\Event;
 
 /***************************************************************
  *  Copyright notice

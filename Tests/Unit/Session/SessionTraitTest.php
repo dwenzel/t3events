@@ -1,9 +1,9 @@
 <?php
-namespace Webfox\T3events\Tests\Unit\Session;
+namespace DWenzel\T3events\Tests\Unit\Session;
 
 use TYPO3\CMS\Core\Tests\UnitTestCase;
-use Webfox\T3events\Controller\SessionTrait;
-use Webfox\T3events\Session\SessionInterface;
+use DWenzel\T3events\Controller\SessionTrait;
+use DWenzel\T3events\Session\SessionInterface;
 
 /***************************************************************
  *  Copyright notice
@@ -24,18 +24,18 @@ use Webfox\T3events\Session\SessionInterface;
  ***************************************************************/
 
 class DummyClassWithNamespace {
-    use SessionTrait;
+    use DWenzel\T3events\Controller\SessionTrait;
 }
 
 /**
  * Class SessionTraitTest
  *
- * @package Webfox\T3events\Tests\Unit\Session
+ * @package DWenzel\T3events\Tests\Unit\Session
  */
 class SessionTraitTest extends UnitTestCase
 {
     /**
-     * @var SessionTrait
+     * @var \DWenzel\T3events\Controller\SessionTrait
      */
     protected $subject;
 
@@ -55,7 +55,7 @@ class SessionTraitTest extends UnitTestCase
     public function sessionCanBeInjected()
     {
         $mockSession = $this->getMockForAbstractClass(
-            SessionInterface::class
+            \DWenzel\T3events\Session\SessionInterface::class
         );
 
         $this->subject->injectSession($mockSession);
@@ -81,7 +81,7 @@ class SessionTraitTest extends UnitTestCase
             $namespace
         );
         $mockSession = $this->getMock(
-            SessionInterface::class,
+            \DWenzel\T3events\Session\SessionInterface::class,
             ['has', 'get', 'clean', 'set', 'setNamespace']
         );
 

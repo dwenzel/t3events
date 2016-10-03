@@ -1,5 +1,5 @@
 <?php
-namespace Webfox\T3events\Tests\Unit\Domain\Repository;
+namespace DWenzel\T3events\Tests\Unit\Domain\Repository;
 
 /***************************************************************
  *  Copyright notice
@@ -21,19 +21,19 @@ namespace Webfox\T3events\Tests\Unit\Domain\Repository;
 
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
-use Webfox\T3events\Domain\Model\Dto\DemandInterface;
-use Webfox\T3events\Domain\Repository\AudienceRepository;
+use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
+use DWenzel\T3events\Domain\Repository\AudienceRepository;
 
 /**
- * Test case for class \Webfox\T3events\Domain\Repository\AudienceRepository.
+ * Test case for class \DWenzel\T3events\Domain\Repository\AudienceRepository.
  *
  * @author Dirk Wenzel <dirk.wenzel@cps-it.de>
- * @coversDefaultClass \Webfox\T3events\Domain\Repository\AudienceRepository
+ * @coversDefaultClass \DWenzel\T3events\Domain\Repository\AudienceRepository
  */
 class AudienceRepositoryTest extends UnitTestCase {
 
 	/**
-	 * @var \Webfox\T3events\Domain\Repository\AudienceRepository
+	 * @var \DWenzel\T3events\Domain\Repository\AudienceRepository
 	 */
 	protected $fixture;
 

@@ -1,5 +1,7 @@
 <?php
-namespace Webfox\T3events\DataProvider\Legend;
+namespace DWenzel\T3events\DataProvider\Legend;
+
+
 
 /***************************************************************
  *  Copyright notice

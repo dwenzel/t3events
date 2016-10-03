@@ -1,5 +1,5 @@
 <?php
-namespace Webfox\T3events\DataProvider\Legend;
+namespace DWenzel\T3events\DataProvider\Legend;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 

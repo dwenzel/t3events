@@ -1,11 +1,11 @@
 <?php
-namespace Webfox\T3events\Command;
+namespace DWenzel\T3events\Command;
 
 	/***************************************************************
 	 * <?php
 	 *  Copyright notice
-	 *  (c) 2013 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
-	 *  Michael Kasten <kasten@webfox01.de>, Agentur Webfox
+	 *  (c) 2013 Dirk Wenzel <wenzel@webfox01.de>, Agentur DWenzel
+	 *  Michael Kasten <kasten@webfox01.de>, Agentur DWenzel
 	 *  All rights reserved
 	 *  This script is part of the TYPO3 project. The TYPO3 project is
 	 *  free software; you can redistribute it and/or modify
@@ -20,6 +20,7 @@ namespace Webfox\T3events\Command;
 	 *  GNU General Public License for more details.
 	 *  This copyright notice MUST APPEAR in all copies of the script!
 	 ***************************************************************/
+
 /**
  * @package t3events
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
@@ -30,7 +31,7 @@ class TaskCommandController extends \TYPO3\CMS\Extbase\MVC\Controller\CommandCon
 	/**
 	 * taskRepository
 	 *
-	 * @var \Webfox\T3events\Domain\Repository\TaskRepository
+	 * @var \DWenzel\T3events\Domain\Repository\TaskRepository
 	 * @inject
 	 */
 	protected $taskRepository;
@@ -38,17 +39,18 @@ class TaskCommandController extends \TYPO3\CMS\Extbase\MVC\Controller\CommandCon
 	/**
 	 * performanceRepository
 	 *
-	 * @var \Webfox\T3events\Domain\Repository\PerformanceRepository
+	 * @var \DWenzel\T3events\Domain\Repository\PerformanceRepository
 	 * @inject
 	 */
 	protected $performanceRepository;
 
-	/**
-	 * Run update tasks
-	 *
-	 * @param \string $email E-Mail
-	 * @return void
-	 */
+    /**
+     * Run update tasks
+     *
+     * @param string $email E-Mail
+     * @return bool
+     * @throws \TYPO3\CMS\Core\Exception
+     */
 	public function runCommand($email) {
 		$message = $this->runHidePerformanceTasks();
 		$message .= $this->runUpdatePerformanceStatusTasks();
@@ -82,7 +84,7 @@ class TaskCommandController extends \TYPO3\CMS\Extbase\MVC\Controller\CommandCon
 				$mailer->setTo($email);
 				$mailsSend = $mailer->send();
 				$success = ($mailsSend > 0);
-			} catch (Exception $e) {
+			} catch (\Exception $e) {
 				throw new \TYPO3\CMS\Core\Exception($e->getMessage());
 			}
 		}
@@ -109,7 +111,7 @@ class TaskCommandController extends \TYPO3\CMS\Extbase\MVC\Controller\CommandCon
 				. 'Action: hide performance' . LF;
 
 			// prepare demand for query
-			$demand = $this->objectManager->get('\Webfox\T3events\Domain\Model\Dto\PerformanceDemand');
+			$demand = $this->objectManager->get('\DWenzel\T3events\Domain\Model\Dto\PerformanceDemand');
 
 			//$demand->setDate(time());
 			$demand->setDate(time() - ($hideTask->getPeriod() * 3600));
@@ -162,7 +164,7 @@ class TaskCommandController extends \TYPO3\CMS\Extbase\MVC\Controller\CommandCon
 				. 'new status: ' . $updateTask->getNewStatus() . LF;
 
 			// prepare demand for query
-			$demand = $this->objectManager->get('\Webfox\T3events\Domain\Model\Dto\PerformanceDemand');
+			$demand = $this->objectManager->get('\DWenzel\T3events\Domain\Model\Dto\PerformanceDemand');
 			$demand->setStatus($updateTask->getOldStatus());
 
 			$demand->setDate(time() - ($updateTask->getPeriod() * 3600));

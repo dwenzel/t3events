@@ -1,5 +1,5 @@
 <?php
-namespace Webfox\T3events\ViewHelpers\Format;
+namespace DWenzel\T3events\ViewHelpers\Format;
 
 /***************************************************************
 * Copyright notice
