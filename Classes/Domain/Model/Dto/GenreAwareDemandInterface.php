@@ -1,14 +1,14 @@
 <?php
-namespace Webfox\T3events\Domain\Model\Dto;
+namespace DWenzel\T3events\Domain\Model\Dto;
 
 /**
  * Interface GenreAwareDemandInterface
  *
- * @package Webfox\T3events\Domain\Model\Dto
+ * @package DWenzel\T3events\Domain\Model\Dto
  */
 interface GenreAwareDemandInterface {
 	/**
-	 * @return sting
+	 * @return string
 	 */
 	public function getGenres();
 

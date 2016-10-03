@@ -1,5 +1,5 @@
 <?php
-namespace Webfox\T3events\Controller;
+namespace DWenzel\T3events\Controller;
 
 /***************************************************************
  *  Copyright notice
@@ -19,23 +19,23 @@ namespace Webfox\T3events\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use Webfox\T3events\Domain\Repository\CategoryRepository;
+use DWenzel\T3events\Domain\Repository\CategoryRepository;
 /**
  * Class CategoryRepositoryTrait
  *
- * @package Webfox\T3events\Controller
+ * @package DWenzel\T3events\Controller
  */
 trait CategoryRepositoryTrait
 {
     /**
-     * @var \Webfox\T3events\Domain\Repository\CategoryRepository
+     * @var \DWenzel\T3events\Domain\Repository\CategoryRepository
      */
     protected $categoryRepository;
 
     /**
      * injectCategoryRepository
      *
-     * @param \Webfox\T3events\Domain\Repository\CategoryRepository $categoryRepository
+     * @param \DWenzel\T3events\Domain\Repository\CategoryRepository $categoryRepository
      * @return void
      */
     public function injectCategoryRepository(CategoryRepository $categoryRepository)

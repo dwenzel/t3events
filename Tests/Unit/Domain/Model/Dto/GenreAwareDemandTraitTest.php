@@ -1,16 +1,16 @@
 <?php
-namespace Webfox\T3events\Tests\Unit\Domain\Model\Dto;
+namespace DWenzel\T3events\Tests\Unit\Domain\Model\Dto;
 
 use TYPO3\CMS\Core\Tests\UnitTestCase;
-use Webfox\T3events\Domain\Model\Dto\GenreAwareDemandTrait;
+use DWenzel\T3events\Domain\Model\Dto\GenreAwareDemandTrait;
 
 /**
- * Test case for class \Webfox\T3events\Domain\Model\Dto\GenreAwareDemandTrait.
+ * Test case for class \DWenzel\T3events\Domain\Model\Dto\GenreAwareDemandTrait.
  */
 class GenreAwareDemandTraitTest extends UnitTestCase {
 
 	/**
-	 * @var \Webfox\T3events\Domain\Model\Dto\GenreAwareDemandTrait
+	 * @var \DWenzel\T3events\Domain\Model\Dto\GenreAwareDemandTrait
 	 */
 	protected $subject;
 

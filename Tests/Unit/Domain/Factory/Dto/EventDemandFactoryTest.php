@@ -1,11 +1,11 @@
 <?php
-namespace Webfox\T3events\Tests\Unit\Domain\Factory\Dto;
+namespace DWenzel\T3events\Tests\Unit\Domain\Factory\Dto;
 
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
-use Webfox\T3events\Domain\Factory\Dto\EventDemandFactory;
-use Webfox\T3events\Domain\Model\Dto\EventDemand;
-use Webfox\T3events\Domain\Model\Dto\PeriodAwareDemandInterface;
+use DWenzel\T3events\Domain\Factory\Dto\EventDemandFactory;
+use DWenzel\T3events\Domain\Model\Dto\EventDemand;
+use DWenzel\T3events\Domain\Model\Dto\PeriodAwareDemandInterface;
 
 /***************************************************************
  *
@@ -43,7 +43,7 @@ class EventDemandFactoryTest extends UnitTestCase {
 	 */
 	public function setUp() {
 		$this->subject = $this->getAccessibleMock(
-			EventDemandFactory::class, ['dummy'], [], '', false
+			\DWenzel\T3events\Domain\Factory\Dto\EventDemandFactory::class, ['dummy'], [], '', false
 		);
 	}
 

@@ -1,14 +1,14 @@
 <?php
-namespace Webfox\T3events\Tests\Unit\Domain\Model\Dto;
+namespace DWenzel\T3events\Tests\Unit\Domain\Model\Dto;
 
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 use TYPO3\CMS\Extbase\Persistence\Generic\Query;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
-use Webfox\T3events\Domain\Model\Dto\CategoryAwareDemandInterface;
-use Webfox\T3events\Domain\Repository\CategoryConstraintRepositoryTrait;
+use DWenzel\T3events\Domain\Model\Dto\CategoryAwareDemandInterface;
+use DWenzel\T3events\Domain\Repository\CategoryConstraintRepositoryTrait;
 
 /**
- * Test case for class \Webfox\T3events\Domain\Repository\CategoryConstraintRepositoryTrait.
+ * Test case for class \DWenzel\T3events\Domain\Repository\CategoryConstraintRepositoryTrait.
  */
 class CategoryConstraintRepositoryTraitTest extends UnitTestCase {
 	/**
@@ -17,7 +17,7 @@ class CategoryConstraintRepositoryTraitTest extends UnitTestCase {
 	const CATEGORY_FIELD = 'foo';
 
 	/**
-	 * @var \Webfox\T3events\Domain\Repository\CategoryConstraintRepositoryTrait
+	 * @var \DWenzel\T3events\Domain\Repository\CategoryConstraintRepositoryTrait
 	 */
 	protected $subject;
 

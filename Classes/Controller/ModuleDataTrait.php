@@ -1,25 +1,25 @@
 <?php
-namespace Webfox\T3events\Controller;
+namespace DWenzel\T3events\Controller;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use Webfox\T3events\Domain\Model\Dto\ModuleData;
-use Webfox\T3events\Service\ModuleDataStorageService;
+use DWenzel\T3events\Domain\Model\Dto\ModuleData;
+use DWenzel\T3events\Service\ModuleDataStorageService;
 
 /**
  * Class ModuleDataTrait
  * Provides functionality for backend module controller
  *
- * @package Webfox\T3events\Controller
+ * @package DWenzel\T3events\Controller
  */
 trait ModuleDataTrait
 {
     /**
-     * @var \Webfox\T3events\Domain\Model\Dto\ModuleData
+     * @var \DWenzel\T3events\Domain\Model\Dto\ModuleData
      */
     protected $moduleData;
 
     /**
-     * @var \Webfox\T3events\Service\ModuleDataStorageService
+     * @var \DWenzel\T3events\Service\ModuleDataStorageService
      */
     protected $moduleDataStorageService;
 

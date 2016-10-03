@@ -1,10 +1,10 @@
 <?php
-namespace Webfox\T3events\Controller;
+namespace DWenzel\T3events\Controller;
 
 /**
  * Class SignalTrait
  *
- * @package Webfox\T3events\Tests\Controller
+ * @package DWenzel\T3events\Tests\Controller
  */
 trait SignalTrait
 {

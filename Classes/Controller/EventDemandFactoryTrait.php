@@ -1,5 +1,5 @@
 <?php
-namespace Webfox\T3events\Controller;
+namespace DWenzel\T3events\Controller;
 
 /***************************************************************
  *  Copyright notice
@@ -18,25 +18,25 @@ namespace Webfox\T3events\Controller;
  *  GNU General Public License for more details.
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-use Webfox\T3events\Domain\Factory\Dto\EventDemandFactory;
+use DWenzel\T3events\Domain\Factory\Dto\EventDemandFactory;
 
 /**
  * Class EventDemandFactoryTrait
  * Provides an EventDemandFactory
  *
- * @package Webfox\T3events\Controller
+ * @package DWenzel\T3events\Controller
  */
 trait EventDemandFactoryTrait
 {
     /**
-     * @var \Webfox\T3events\Domain\Factory\Dto\EventDemandFactory
+     * @var \DWenzel\T3events\Domain\Factory\Dto\EventDemandFactory
      */
     protected $eventDemandFactory;
 
     /**
      * Injects the eventDemandFactory
      *
-     * @param EventDemandFactory $eventDemandFactory
+     * @param \DWenzel\T3events\Domain\Factory\Dto\EventDemandFactory $eventDemandFactory
      * @return void
      */
     public function injectEventDemandFactory(EventDemandFactory $eventDemandFactory)

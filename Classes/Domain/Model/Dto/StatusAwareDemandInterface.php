@@ -1,8 +1,8 @@
 <?php
 
-namespace Webfox\T3events\Domain\Model\Dto;
+namespace DWenzel\T3events\Domain\Model\Dto;
 
-use Webfox\T3events\Domain\Model\PerformanceStatus;
+use DWenzel\T3events\Domain\Model\PerformanceStatus;
 
 
 /**
@@ -13,14 +13,14 @@ interface StatusAwareDemandInterface {
 	/**
 	 * Returns the performance status
 	 *
-	 * @return \Webfox\T3events\Domain\Model\PerformanceStatus
+	 * @return \DWenzel\T3events\Domain\Model\PerformanceStatus
 	 */
 	public function getStatus();
 
 	/**
 	 * sets the status
 	 *
-	 * @param \Webfox\T3events\Domain\Model\PerformanceStatus $status
+	 * @param \DWenzel\T3events\Domain\Model\PerformanceStatus $status
 	 * @return void
 	 */
 	public function setStatus(PerformanceStatus $status);

@@ -1,6 +1,6 @@
 <?php
 
-namespace Webfox\T3events\Tests\Unit\Domain\Model;
+namespace DWenzel\T3events\Tests\Unit\Domain\Model;
 
 	/***************************************************************
 	 *  Copyright notice
@@ -22,23 +22,23 @@ namespace Webfox\T3events\Tests\Unit\Domain\Model;
 	 ***************************************************************/
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
-use Webfox\T3events\Domain\Model\Person;
+use DWenzel\T3events\Domain\Model\Person;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
-use Webfox\T3events\Domain\Model\PersonType;
+use DWenzel\T3events\Domain\Model\PersonType;
 
 /**
- * Test case for class \Webfox\T3events\Domain\Model\Person.
+ * Test case for class \DWenzel\T3events\Domain\Model\Person.
  *
  * @copyright Copyright belongs to the respective authors
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  * @author Dirk Wenzel <wenzel@cps-it.de>
  * @author Boerge Franck <franck@cps-it.de>
- * @coversDefaultClass \Webfox\T3events\Domain\Model\Person
+ * @coversDefaultClass \DWenzel\T3events\Domain\Model\Person
  */
 class PersonTest extends UnitTestCase {
 
 	/**
-	 * @var \Webfox\T3events\Domain\Model\Person
+	 * @var \DWenzel\T3events\Domain\Model\Person
 	 */
 	protected $subject = NULL;
 

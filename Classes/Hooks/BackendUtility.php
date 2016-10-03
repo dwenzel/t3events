@@ -1,5 +1,5 @@
 <?php
-namespace Webfox\T3events\Hooks;
+namespace DWenzel\T3events\Hooks;
 
 /**
  * This file is part of the TYPO3 CMS project.

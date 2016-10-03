@@ -1,11 +1,11 @@
 <?php
-namespace Webfox\T3events\Tests\Controller;
+namespace DWenzel\T3events\Tests\Controller;
 
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
-use Webfox\T3events\Controller\SearchTrait;
-use Webfox\T3events\Domain\Model\Dto\Search;
-use Webfox\T3events\Domain\Model\Dto\SearchFactory;
+use DWenzel\T3events\Controller\SearchTrait;
+use DWenzel\T3events\Domain\Model\Dto\Search;
+use DWenzel\T3events\Domain\Model\Dto\SearchFactory;
 
 /***************************************************************
  *  Copyright notice

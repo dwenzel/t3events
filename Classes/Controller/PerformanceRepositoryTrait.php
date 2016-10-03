@@ -1,5 +1,5 @@
 <?php
-namespace Webfox\T3events\Controller;
+namespace DWenzel\T3events\Controller;
 
 /***************************************************************
  *  Copyright notice
@@ -18,20 +18,20 @@ namespace Webfox\T3events\Controller;
  *  GNU General Public License for more details.
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-use Webfox\T3events\Domain\Repository\PerformanceRepository;
+use DWenzel\T3events\Domain\Repository\PerformanceRepository;
 
 /**
  * Class PerformanceRepositoryTrait
  * Provides a PerformanceRepository
  *
- * @package Webfox\T3events\Controller
+ * @package DWenzel\T3events\Controller
  */
 trait PerformanceRepositoryTrait
 {
     /**
      * Performance repository
      *
-     * @var \Webfox\T3events\Domain\Repository\PerformanceRepository
+     * @var \DWenzel\T3events\Domain\Repository\PerformanceRepository
      */
     protected $performanceRepository;
 
@@ -39,6 +39,7 @@ trait PerformanceRepositoryTrait
      * Injects the performance repository
      *
      * @inject
+     * @param \DWenzel\T3events\Domain\Repository\PerformanceRepository $performanceRepository
      */
     public function injectPerformanceRepository(PerformanceRepository $performanceRepository)
     {

@@ -1,5 +1,5 @@
 <?php
-namespace Webfox\T3events\ViewHelpers\Event\Performances\Locations;
+namespace DWenzel\T3events\ViewHelpers\Event\Performances\Locations;
 
 	/***************************************************************
 	 *  Copyright notice
@@ -32,7 +32,7 @@ class CountViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelpe
 	 */
 
 	public function initializeArguments() {
-		parent::registerArgument('event', '\\Webfox\\T3events\\Domain\\Model\\Event', 'Event whose performances should be rendered.', TRUE);
+		parent::registerArgument('event', '\\DWenzel\\T3events\\Domain\\Model\\Event', 'Event whose performances should be rendered.', TRUE);
 	}
 
 	/**

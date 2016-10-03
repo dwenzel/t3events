@@ -1,5 +1,5 @@
 <?php
-namespace Webfox\T3events\Controller;
+namespace DWenzel\T3events\Controller;
 
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Core\Messaging\FlashMessageQueue;
@@ -15,7 +15,7 @@ use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
  * does not rely on a controller context. Therefore it can
  * enqueue messages outside of action methods too.
  *
- * @package Webfox\T3events\Controller
+ * @package DWenzel\T3events\Controller
  */
 trait FlashMessageTrait
 {

@@ -1,5 +1,5 @@
 <?php
-namespace Webfox\T3events\Utility;
+namespace DWenzel\T3events\Utility;
 
 /**
  * This file is part of the TYPO3 CMS project.
@@ -11,7 +11,7 @@ namespace Webfox\T3events\Utility;
  * The TYPO3 project - inspiring people to share!
  */
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use Webfox\T3events\Domain\Model\GeoCodingInterface;
+use DWenzel\T3events\Domain\Model\GeoCodingInterface;
 
 /**
  * Geo coding utility
@@ -40,8 +40,8 @@ class GeoCoder {
 	/**
 	 * Get geo location encoded from Google Maps geocode service.
 	 *
-	 * @param \string $address An address to encode.
-	 * @return \array Array containing geo location information
+	 * @param string $address An address to encode.
+	 * @return array|false Array containing geo location information
 	 */
 	public function getLocation($address) {
 		$url = $this->serviceUrl . urlencode($address);
@@ -67,16 +67,17 @@ class GeoCoder {
 		return GeneralUtility::getUrl($url);
 	}
 
-	/**
-	 * calculate destination lat/lng given a starting point, bearing, and distance
-	 *
-	 * @param \float $lat Latitude
-	 * @param \float $lng Longitude
-	 * @param \integer $distance Distance
-	 * @param \string $units Units: default km. Any other value will result in computing with mile based constants.
-	 * @return \array An array with lat and lng values
-	 * @codeCoverageIgnore
-	 */
+    /**
+     * calculate destination lat/lng given a starting point, bearing, and distance
+     *
+     * @param \float $lat Latitude
+     * @param \float $lng Longitude
+     * @param $bearing
+     * @param \integer $distance Distance
+     * @param \string $units Units: default km. Any other value will result in computing with mile based constants.
+     * @return array An array with lat and lng values
+     * @codeCoverageIgnore
+     */
 	public function destination($lat, $lng, $bearing, $distance, $units = 'km') {
 		$radius = strcasecmp($units, 'km') ? 3963.19 : 6378.137;
 		$rLat = deg2rad($lat);
@@ -135,12 +136,12 @@ class GeoCoder {
 	/**
 	 * Update Geo Location
 	 * Sets latitude and longitude of an object. The object
-	 * must implement the \Webfox\T3events\Domain\Model\GeoCodingInterface.
+	 * must implement the \DWenzel\T3events\Domain\Model\GeoCodingInterface.
 	 * Will first read city and zip attributes then tries to
 	 * get geo location values and if succeeds update the latitude and
 	 * longitude values of the object.
 	 *
-	 * @var \Webfox\T3events\Domain\Model\GeoCodingInterface $object
+	 * @var \DWenzel\T3events\Domain\Model\GeoCodingInterface $object
 	 */
 	public function updateGeoLocation(GeoCodingInterface &$object) {
 		$city = $object->getPlace();

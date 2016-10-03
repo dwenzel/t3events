@@ -1,10 +1,10 @@
 <?php
-namespace Webfox\T3events\Tests\Unit\Controller;
+namespace DWenzel\T3events\Tests\Unit\Controller;
 
 	/***************************************************************
 	 *  Copyright notice
-	 *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
-	 *            Michael Kasten <kasten@webfox01.de>, Agentur Webfox
+	 *  (c) 2012 Dirk Wenzel <wenzel@dWenzel01.de>, Agentur DWenzel
+	 *            Michael Kasten <kasten@dWenzel01.de>, Agentur DWenzel
 	 *  All rights reserved
 	 *  This script is part of the TYPO3 project. The TYPO3 project is
 	 *  free software; you can redistribute it and/or modify
@@ -21,25 +21,25 @@ namespace Webfox\T3events\Tests\Unit\Controller;
 	 ***************************************************************/
 
 /**
- * Test case for class \Webfox\T3events\Controller\TeaserController.
+ * Test case for class \DWenzel\T3events\Controller\TeaserController.
  *
  * @version $Id$
  * @copyright Copyright belongs to the respective authors
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  * @package TYPO3
  * @subpackage Events
- * @author Dirk Wenzel <wenzel@webfox01.de>
- * @author Michael Kasten <kasten@webfox01.de>
+ * @author Dirk Wenzel <wenzel@dWenzel01.de>
+ * @author Michael Kasten <kasten@dWenzel01.de>
  */
 class TeaserControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 	/**
-	 * @var \Webfox\T3events\Controller\TeaserController
+	 * @var \DWenzel\T3events\Controller\TeaserController
 	 */
 	protected $fixture;
 
 	public function setUp() {
-		$this->fixture = $this->getAccessibleMock('Webfox\\T3events\\Controller\\TeaserController',
+		$this->fixture = $this->getAccessibleMock('DWenzel\\T3events\\Controller\\TeaserController',
 			array('dummy'), array(), '', FALSE);
 		$objectManager = $this->getMock('TYPO3\\CMS\\Extbase\\Object\\ObjectManager', array(), array(), '', FALSE);
 		$this->fixture->_set('objectManager', $objectManager);
@@ -54,11 +54,11 @@ class TeaserControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function createDemandObjectFromSettingsInitiallyReturnsDemandObject() {
-		$mockDemand = $this->getMockBuilder('Webfox\\T3events\\Domain\\Model\\Dto\\TeaserDemand')->getMock();
+		$mockDemand = $this->getMockBuilder('DWenzel\\T3events\\Domain\\Model\\Dto\\TeaserDemand')->getMock();
 		$settings = array();
 
 		$this->fixture->_get('objectManager')->expects($this->once())->method('get')
-			->with('Webfox\\T3events\\Domain\\Model\\Dto\\TeaserDemand')
+			->with('DWenzel\\T3events\\Domain\\Model\\Dto\\TeaserDemand')
 			->will($this->returnValue($mockDemand));
 		$this->fixture->createDemandObjectFromSettings($settings);
 	}
@@ -67,11 +67,11 @@ class TeaserControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function createDemandObjectFromSettingsSetsInitialValueForSortBy() {
-		$mockDemand = $this->getMockBuilder('Webfox\\T3events\\Domain\\Model\\Dto\\TeaserDemand')->getMock();
+		$mockDemand = $this->getMockBuilder('DWenzel\\T3events\\Domain\\Model\\Dto\\TeaserDemand')->getMock();
 		$settings = array();
 
 		$this->fixture->_get('objectManager')->expects($this->once())->method('get')
-			->with('Webfox\\T3events\\Domain\\Model\\Dto\\TeaserDemand')
+			->with('DWenzel\\T3events\\Domain\\Model\\Dto\\TeaserDemand')
 			->will($this->returnValue($mockDemand));
 		$mockDemand->expects($this->once())->method('setSortBy')
 			->with('event.performances.date');
@@ -82,11 +82,11 @@ class TeaserControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function createDemandObjectFromSettingsSetsSortByForTitle() {
-		$mockDemand = $this->getMockBuilder('Webfox\\T3events\\Domain\\Model\\Dto\\TeaserDemand')->getMock();
+		$mockDemand = $this->getMockBuilder('DWenzel\\T3events\\Domain\\Model\\Dto\\TeaserDemand')->getMock();
 		$settings = array('sortBy' => 'title');
 
 		$this->fixture->_get('objectManager')->expects($this->once())->method('get')
-			->with('Webfox\\T3events\\Domain\\Model\\Dto\\TeaserDemand')
+			->with('DWenzel\\T3events\\Domain\\Model\\Dto\\TeaserDemand')
 			->will($this->returnValue($mockDemand));
 		$mockDemand->expects($this->once())->method('setSortBy')
 			->with('event.headline');
@@ -97,11 +97,11 @@ class TeaserControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function createDemandObjectFromSettingsSetsSortByForRandom() {
-		$mockDemand = $this->getMockBuilder('Webfox\\T3events\\Domain\\Model\\Dto\\TeaserDemand')->getMock();
+		$mockDemand = $this->getMockBuilder('DWenzel\\T3events\\Domain\\Model\\Dto\\TeaserDemand')->getMock();
 		$settings = array('sortBy' => 'random');
 
 		$this->fixture->_get('objectManager')->expects($this->once())->method('get')
-			->with('Webfox\\T3events\\Domain\\Model\\Dto\\TeaserDemand')
+			->with('DWenzel\\T3events\\Domain\\Model\\Dto\\TeaserDemand')
 			->will($this->returnValue($mockDemand));
 		$mockDemand->expects($this->once())->method('setSortBy')
 			->with('random');
@@ -112,12 +112,12 @@ class TeaserControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function createDemandObjectFromSettingsSetsVenues() {
-		$mockDemand = $this->getMockBuilder('Webfox\\T3events\\Domain\\Model\\Dto\\TeaserDemand')->getMock();
+		$mockDemand = $this->getMockBuilder('DWenzel\\T3events\\Domain\\Model\\Dto\\TeaserDemand')->getMock();
 		$settings = array('venues' => '1,3');
 		$venues = array(0 => '1', 1 => '3');
 
 		$this->fixture->_get('objectManager')->expects($this->once())->method('get')
-			->with('Webfox\\T3events\\Domain\\Model\\Dto\\TeaserDemand')
+			->with('DWenzel\\T3events\\Domain\\Model\\Dto\\TeaserDemand')
 			->will($this->returnValue($mockDemand));
 		$mockDemand->expects($this->once())->method('setVenues')
 			->with($venues);
@@ -128,11 +128,11 @@ class TeaserControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function createDemandObjectFromSettingsSetsPeriod() {
-		$mockDemand = $this->getMockBuilder('Webfox\\T3events\\Domain\\Model\\Dto\\TeaserDemand')->getMock();
+		$mockDemand = $this->getMockBuilder('DWenzel\\T3events\\Domain\\Model\\Dto\\TeaserDemand')->getMock();
 		$settings = array('period' => 'foo');
 
 		$this->fixture->_get('objectManager')->expects($this->once())->method('get')
-			->with('Webfox\\T3events\\Domain\\Model\\Dto\\TeaserDemand')
+			->with('DWenzel\\T3events\\Domain\\Model\\Dto\\TeaserDemand')
 			->will($this->returnValue($mockDemand));
 		$mockDemand->expects($this->once())->method('setPeriod')
 			->with('foo');
@@ -143,11 +143,11 @@ class TeaserControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function createDemandObjectFromSettingsSetsLimit() {
-		$mockDemand = $this->getMockBuilder('Webfox\\T3events\\Domain\\Model\\Dto\\TeaserDemand')->getMock();
+		$mockDemand = $this->getMockBuilder('DWenzel\\T3events\\Domain\\Model\\Dto\\TeaserDemand')->getMock();
 		$settings = array('maxItems' => '3');
 
 		$this->fixture->_get('objectManager')->expects($this->once())->method('get')
-			->with('Webfox\\T3events\\Domain\\Model\\Dto\\TeaserDemand')
+			->with('DWenzel\\T3events\\Domain\\Model\\Dto\\TeaserDemand')
 			->will($this->returnValue($mockDemand));
 		$mockDemand->expects($this->once())->method('setLimit')
 			->with(3);
@@ -158,14 +158,14 @@ class TeaserControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function createDemandObjectFromSettingsSetsLimitForHighlights() {
-		$mockDemand = $this->getMockBuilder('Webfox\\T3events\\Domain\\Model\\Dto\\TeaserDemand')->getMock();
+		$mockDemand = $this->getMockBuilder('DWenzel\\T3events\\Domain\\Model\\Dto\\TeaserDemand')->getMock();
 		$settings = array(
 			'maxItems' => '3',
 			'highlightsToTop' => 1,
 			'maxHighlighted' => 2);
 
 		$this->fixture->_get('objectManager')->expects($this->once())->method('get')
-			->with('Webfox\\T3events\\Domain\\Model\\Dto\\TeaserDemand')
+			->with('DWenzel\\T3events\\Domain\\Model\\Dto\\TeaserDemand')
 			->will($this->returnValue($mockDemand));
 		$mockDemand->expects($this->once())->method('setHighlights')->with(1);
 		$mockDemand->expects($this->once())->method('getHighlights')->will($this->returnValue(1));
@@ -177,11 +177,11 @@ class TeaserControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function createDemandObjectFromSettingsSetsHighlights() {
-		$mockDemand = $this->getMockBuilder('Webfox\\T3events\\Domain\\Model\\Dto\\TeaserDemand')->getMock();
+		$mockDemand = $this->getMockBuilder('DWenzel\\T3events\\Domain\\Model\\Dto\\TeaserDemand')->getMock();
 		$settings = array('highlightsToTop' => TRUE);
 
 		$this->fixture->_get('objectManager')->expects($this->once())->method('get')
-			->with('Webfox\\T3events\\Domain\\Model\\Dto\\TeaserDemand')
+			->with('DWenzel\\T3events\\Domain\\Model\\Dto\\TeaserDemand')
 			->will($this->returnValue($mockDemand));
 		$mockDemand->expects($this->once())->method('setHighlights')
 			->with(TRUE);

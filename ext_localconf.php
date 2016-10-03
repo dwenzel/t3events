@@ -4,7 +4,7 @@ if (!defined('TYPO3_MODE')) {
 }
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-	'Webfox.' . $_EXTKEY,
+	'DWenzel.' . $_EXTKEY,
 	'Events',
 	array(
 		'Event' => 'list, show, quickMenu',
@@ -20,11 +20,11 @@ if (!defined('TYPO3_MODE')) {
 
 // Modify flexform values
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_befunc.php']['getFlexFormDSClass']['t3events'] =
-	'Webfox\\T3events\\Hooks\\BackendUtility';
+	'DWenzel\\T3events\\Hooks\\BackendUtility';
 
 
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['extbase']['commandControllers'][] = 'Webfox\\T3events\\Command\\TaskCommandController';
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['extbase']['commandControllers']['tx_t3events_CleanUp'] = 'Webfox\\T3events\\Command\\CleanUpCommandController';
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['extbase']['commandControllers'][] = 'DWenzel\\T3events\\Command\\TaskCommandController';
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['extbase']['commandControllers']['tx_t3events_CleanUp'] = 'DWenzel\\T3events\\Command\\CleanUpCommandController';
 
 // Register cache frontend for proxy class generation
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['t3events'] = array(
@@ -39,4 +39,4 @@ $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['t3events']
 	),
 );
 
-\Webfox\T3events\Utility\ClassLoader::registerAutoloader();
+\DWenzel\T3events\Utility\ClassLoader::registerAutoloader();

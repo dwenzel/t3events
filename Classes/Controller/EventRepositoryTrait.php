@@ -1,5 +1,5 @@
 <?php
-namespace Webfox\T3events\Controller;
+namespace DWenzel\T3events\Controller;
 
 /***************************************************************
  *  Copyright notice
@@ -18,20 +18,20 @@ namespace Webfox\T3events\Controller;
  *  GNU General Public License for more details.
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-use Webfox\T3events\Domain\Repository\EventRepository;
+use DWenzel\T3events\Domain\Repository\EventRepository;
 
 /**
  * Class EventRepositoryTrait
  * Provides a EventRepository
  *
- * @package Webfox\T3events\Controller
+ * @package DWenzel\T3events\Controller
  */
 trait EventRepositoryTrait
 {
     /**
      * Event repository
      *
-     * @var \Webfox\T3events\Domain\Repository\EventRepository
+     * @var \DWenzel\T3events\Domain\Repository\EventRepository
      */
     protected $eventRepository;
 

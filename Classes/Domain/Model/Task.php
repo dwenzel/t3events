@@ -1,10 +1,10 @@
 <?php
-namespace Webfox\T3events\Domain\Model;
+namespace DWenzel\T3events\Domain\Model;
 
 	/***************************************************************
 	 *  Copyright notice
-	 *  (c) 2013 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
-	 *  Michael Kasten <kasten@webfox01.de>, Agentur Webfox
+	 *  (c) 2013 Dirk Wenzel <wenzel@dWenzel01.de>, Agentur DWenzel
+	 *  Michael Kasten <kasten@dWenzel01.de>, Agentur DWenzel
 	 *  All rights reserved
 	 *  This script is part of the TYPO3 project. The TYPO3 project is
 	 *  free software; you can redistribute it and/or modify
@@ -50,14 +50,14 @@ class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Select a status
 	 *
-	 * @var \Webfox\T3events\Domain\Model\PerformanceStatus
+	 * @var \DWenzel\T3events\Domain\Model\PerformanceStatus
 	 */
 	protected $oldStatus;
 
 	/**
 	 * Select the new status
 	 *
-	 * @var \Webfox\T3events\Domain\Model\PerformanceStatus
+	 * @var \DWenzel\T3events\Domain\Model\PerformanceStatus
 	 */
 	protected $newStatus;
 
@@ -128,7 +128,7 @@ class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Returns the oldStatus
 	 *
-	 * @return \Webfox\T3events\Domain\Model\PerformanceStatus $oldStatus
+	 * @return \DWenzel\T3events\Domain\Model\PerformanceStatus $oldStatus
 	 */
 	public function getOldStatus() {
 		return $this->oldStatus;
@@ -137,7 +137,7 @@ class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the oldStatus
 	 *
-	 * @param \Webfox\T3events\Domain\Model\PerformanceStatus $oldStatus
+	 * @param \DWenzel\T3events\Domain\Model\PerformanceStatus $oldStatus
 	 * @return void
 	 */
 	public function setOldStatus($oldStatus) {
@@ -147,7 +147,7 @@ class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Returns the newStatus
 	 *
-	 * @return \Webfox\T3events\Domain\Model\PerformanceStatus $newStatus
+	 * @return \DWenzel\T3events\Domain\Model\PerformanceStatus $newStatus
 	 */
 	public function getNewStatus() {
 		return $this->newStatus;
@@ -156,7 +156,7 @@ class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the newStatus
 	 *
-	 * @param \Webfox\T3events\Domain\Model\PerformanceStatus $newStatus
+	 * @param \DWenzel\T3events\Domain\Model\PerformanceStatus $newStatus
 	 * @return void
 	 */
 	public function setNewStatus($newStatus) {

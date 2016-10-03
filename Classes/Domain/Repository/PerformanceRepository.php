@@ -1,10 +1,10 @@
 <?php
-namespace Webfox\T3events\Domain\Repository;
+namespace DWenzel\T3events\Domain\Repository;
 
 /***************************************************************
  *  Copyright notice
- *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
- *  Michael Kasten <kasten@webfox01.de>, Agentur Webfox
+ *  (c) 2012 Dirk Wenzel <wenzel@dWenzel01.de>, Agentur DWenzel
+ *  Michael Kasten <kasten@dWenzel01.de>, Agentur DWenzel
  *  All rights reserved
  *  This script is part of the TYPO3 project. The TYPO3 project is
  *  free software; you can redistribute it and/or modify
@@ -21,10 +21,10 @@ namespace Webfox\T3events\Domain\Repository;
  ***************************************************************/
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
-use Webfox\T3events\Domain\Model\Dto\DemandInterface;
-use Webfox\T3events\Domain\Model\Dto\PerformanceDemand;
-use Webfox\T3events\Domain\Model\Dto\PeriodAwareDemandInterface;
-use Webfox\T3events\Utility\EmConfigurationUtility;
+use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
+use DWenzel\T3events\Domain\Model\Dto\PerformanceDemand;
+use DWenzel\T3events\Domain\Model\Dto\PeriodAwareDemandInterface;
+use DWenzel\T3events\Utility\EmConfigurationUtility;
 
 /**
  * @package t3events
@@ -52,7 +52,7 @@ class PerformanceRepository
 
     /**
      * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
-     * @param \Webfox\T3events\Domain\Model\Dto\DemandInterface|PerformanceDemand $demand
+     * @param \DWenzel\T3events\Domain\Model\Dto\DemandInterface|PerformanceDemand $demand
      * @return array
      */
     protected function createCategoryConstraints(QueryInterface $query, DemandInterface $demand)
@@ -91,12 +91,12 @@ class PerformanceRepository
      * Returns an array of constraints created from a given demand object.
      *
      * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
-     * @param \Webfox\T3events\Domain\Model\Dto\DemandInterface $demand
+     * @param \DWenzel\T3events\Domain\Model\Dto\DemandInterface $demand
      * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint>
      */
     protected function createConstraintsFromDemand(
         \TYPO3\CMS\Extbase\Persistence\QueryInterface $query,
-        \Webfox\T3events\Domain\Model\Dto\DemandInterface $demand
+        \DWenzel\T3events\Domain\Model\Dto\DemandInterface $demand
     ) {
         /** @var PerformanceDemand $demand */
         $constraints = [];

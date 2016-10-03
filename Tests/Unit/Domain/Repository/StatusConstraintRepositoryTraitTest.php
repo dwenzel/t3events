@@ -1,5 +1,5 @@
 <?php
-namespace Webfox\T3events\Tests\Unit\Domain\Model\Dto;
+namespace DWenzel\T3events\Tests\Unit\Domain\Model\Dto;
 
 	/***************************************************************
 	 *  Copyright notice
@@ -21,16 +21,16 @@ namespace Webfox\T3events\Tests\Unit\Domain\Model\Dto;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 use TYPO3\CMS\Extbase\Persistence\Generic\Query;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
-use Webfox\T3events\Domain\Model\Dto\PeriodAwareDemandInterface;
-use Webfox\T3events\Domain\Model\Dto\StatusAwareDemandInterface;
-use Webfox\T3events\Domain\Repository\PeriodConstraintRepositoryTrait;
-use Webfox\T3events\Domain\Repository\StatusConstraintRepositoryTrait;
+use DWenzel\T3events\Domain\Model\Dto\PeriodAwareDemandInterface;
+use DWenzel\T3events\Domain\Model\Dto\StatusAwareDemandInterface;
+use DWenzel\T3events\Domain\Repository\PeriodConstraintRepositoryTrait;
+use DWenzel\T3events\Domain\Repository\StatusConstraintRepositoryTrait;
 
 /**
- * Test case for class \Webfox\T3events\Domain\Repository\PeriodConstraintRepositoryTrait.
+ * Test case for class \DWenzel\T3events\Domain\Repository\PeriodConstraintRepositoryTrait.
  *
  * @author Dirk Wenzel <t3events@gmx.de>
- * @coversDefaultClass \Webfox\T3events\Domain\Repository\StatusConstraintRepositoryTrait
+ * @coversDefaultClass \DWenzel\T3events\Domain\Repository\StatusConstraintRepositoryTrait
  */
 class StatusConstraintRepositoryTraitTest extends UnitTestCase {
 	/**
@@ -39,7 +39,7 @@ class StatusConstraintRepositoryTraitTest extends UnitTestCase {
 	const STATUS_FIELD = 'foo';
 
 	/**
-	 * @var \Webfox\T3events\Domain\Repository\StatusConstraintRepositoryTrait
+	 * @var \DWenzel\T3events\Domain\Repository\StatusConstraintRepositoryTrait
 	 */
 	protected $subject;
 

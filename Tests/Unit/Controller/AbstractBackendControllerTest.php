@@ -1,16 +1,16 @@
 <?php
-namespace Webfox\T3events\Tests\Controller;
+namespace DWenzel\T3events\Tests\Controller;
 
-use Webfox\T3events\Domain\Repository\AudienceRepository;
-use Webfox\T3events\Domain\Repository\CompanyRepository;
-use Webfox\T3events\Domain\Repository\EventTypeRepository;
-use Webfox\T3events\Domain\Repository\GenreRepository;
-use Webfox\T3events\Domain\Repository\VenueRepository;
-use Webfox\T3events\Service\ModuleDataStorageService;
+use DWenzel\T3events\Domain\Repository\AudienceRepository;
+use DWenzel\T3events\Domain\Repository\CompanyRepository;
+use DWenzel\T3events\Domain\Repository\EventTypeRepository;
+use DWenzel\T3events\Domain\Repository\GenreRepository;
+use DWenzel\T3events\Domain\Repository\VenueRepository;
+use DWenzel\T3events\Service\ModuleDataStorageService;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
-use Webfox\T3events\Controller\AbstractBackendController;
-use Webfox\T3events\Domain\Model\Dto\ModuleData;
+use DWenzel\T3events\Controller\AbstractBackendController;
+use DWenzel\T3events\Domain\Model\Dto\ModuleData;
 
 /***************************************************************
  *

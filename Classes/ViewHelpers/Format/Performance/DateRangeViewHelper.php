@@ -1,5 +1,5 @@
 <?php
-namespace Webfox\T3events\ViewHelpers\Format\Performance;
+namespace DWenzel\T3events\ViewHelpers\Format\Performance;
 
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
 
@@ -23,13 +23,13 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
 class DateRangeViewHelper extends AbstractTagBasedViewHelper {
 
 	/**
-	 * @var \Webfox\T3events\Domain\Model\Performance
+	 * @var \DWenzel\T3events\Domain\Model\Performance
 	 */
 	protected $performance;
 
 
 	public function initializeArguments() {
-		parent::registerArgument('performance', 'Webfox\\T3vents\\Domain\\Model\\Performance', 'Performance which should be rendered.', TRUE);
+		parent::registerArgument('performance', 'DWenzel\\T3vents\\Domain\\Model\\Performance', 'Performance which should be rendered.', TRUE);
 		parent::registerArgument('tagName', 'string', 'Tag name to use for enclosing container', FALSE, 'div');
 		parent::registerArgument('tagNameChildren', 'string', 'Tag name to use for child nodes', FALSE, 'span');
 		parent::registerArgument('class', 'string', 'Class attribute for enclosing container', FALSE, 'list');

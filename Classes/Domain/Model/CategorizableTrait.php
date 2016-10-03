@@ -1,5 +1,5 @@
 <?php
-namespace Webfox\T3events\Domain\Model;
+namespace DWenzel\T3events\Domain\Model;
 
 /**
  * TODO find out why typo3 cause the fatal error cannot use Category as Category because the name is already in use.

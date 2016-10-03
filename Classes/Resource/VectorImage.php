@@ -1,5 +1,5 @@
 <?php
-namespace Webfox\T3events\Resource;
+namespace DWenzel\T3events\Resource;
 
 /***************************************************************
  *  Copyright notice

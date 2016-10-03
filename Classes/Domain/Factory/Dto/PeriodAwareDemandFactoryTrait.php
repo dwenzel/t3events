@@ -1,18 +1,18 @@
 <?php
-namespace Webfox\T3events\Domain\Factory\Dto;
+namespace DWenzel\T3events\Domain\Factory\Dto;
 
 /**
  * Class PeriodAwareDemandFactoryTrait
  * Provides methods for creating period aware demands
  *
- * @package Webfox\T3events\Domain\Factory\Dto
+ * @package DWenzel\T3events\Domain\Factory\Dto
  */
 trait PeriodAwareDemandFactoryTrait
 {
     /**
      * Sets period constraints from settings
      *
-     * @param \Webfox\T3events\Domain\Model\Dto\PeriodAwareDemandInterface $demand
+     * @param \DWenzel\T3events\Domain\Model\Dto\PeriodAwareDemandInterface $demand
      * @param array $settings
      */
     public function setPeriodConstraints($demand, $settings)

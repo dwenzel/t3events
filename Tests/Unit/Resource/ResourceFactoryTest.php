@@ -1,5 +1,5 @@
 <?php
-namespace Webfox\T3events\Tests\Resource;
+namespace DWenzel\T3events\Tests\Resource;
 
 use TYPO3\CMS\Core\Resource\FileInterface;
 use TYPO3\CMS\Core\Resource\FileReference;
@@ -7,7 +7,7 @@ use TYPO3\CMS\Core\Resource\Folder;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 use TYPO3\CMS\Core\Resource\File;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
-use Webfox\T3events\Resource\ResourceFactory;
+use DWenzel\T3events\Resource\ResourceFactory;
 
 /***************************************************************
  *
@@ -36,7 +36,7 @@ use Webfox\T3events\Resource\ResourceFactory;
 class ResourceFactoryTest extends UnitTestCase {
 
 	/**
-	 * @var ResourceFactory
+	 * @var \DWenzel\T3events\Resource\ResourceFactory
 	 */
 	protected $subject;
 
@@ -45,7 +45,7 @@ class ResourceFactoryTest extends UnitTestCase {
 	 */
 	public function setUp() {
 		$this->subject = $this->getAccessibleMock(
-			ResourceFactory::class, ['dummy']
+			\DWenzel\T3events\Resource\ResourceFactory::class, ['dummy']
 		);
 	}
 
@@ -119,7 +119,7 @@ class ResourceFactoryTest extends UnitTestCase {
 	 */
 	public function createFileReferenceFromFileObjectCreatesObject() {
 		$this->subject = $this->getAccessibleMock(
-			ResourceFactory::class, ['createFileReferenceObject']
+			\DWenzel\T3events\Resource\ResourceFactory::class, ['createFileReferenceObject']
 		);
 		$mockCoreFileReference = $this->getMock(
 			FileReference::class, [], [], '', false

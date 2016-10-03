@@ -1,7 +1,7 @@
 config.tx_extbase {
 	persistence {
 		classes {
-			Webfox\T3events\Domain\Model\Content {
+			DWenzel\T3events\Domain\Model\Content {
 				mapping {
 					tableName = tt_content
 					columns {
@@ -12,19 +12,19 @@ config.tx_extbase {
 					}
 				}
 			}
-			Webfox\T3events\Domain\Model\Country {
+			DWenzel\T3events\Domain\Model\Country {
 				mapping {
 					tableName = static_countries
 				}
 			}
-			Webfox\T3events\Domain\Model\Person {
+			DWenzel\T3events\Domain\Model\Person {
 				mapping {
 					columns {
 						tx_extbase_type.mapOnProperty = type
 					}
 				}
 			}
-			Webfox\T3events\Domain\Model\Category {
+			DWenzel\T3events\Domain\Model\Category {
 				mapping {
 					tableName = sys_category
 				}
@@ -35,16 +35,16 @@ config.tx_extbase {
 
 config.tx_extbase {
     objects {
-        Webfox\T3events\Session\SessionInterface {
-            className = Webfox\T3events\Session\Typo3BackendSession
+        DWenzel\T3events\Session\SessionInterface {
+            className = DWenzel\T3events\Session\Typo3BackendSession
         }
     }
 }
 [globalString = TSFE:fe_user|loginType = FE]
     config.tx_extbase {
         objects {
-            Webfox\T3events\Session\SessionInterface {
-                className = Webfox\T3events\Session\Typo3Session
+            DWenzel\T3events\Session\SessionInterface {
+                className = DWenzel\T3events\Session\Typo3Session
             }
         }
     }

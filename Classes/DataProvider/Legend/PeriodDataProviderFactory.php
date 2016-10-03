@@ -1,12 +1,13 @@
 <?php
-namespace Webfox\T3events\DataProvider\Legend;
+namespace DWenzel\T3events\DataProvider\Legend;
+
 
 use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
-use Webfox\T3events\DataProvider\Legend\LayeredLegendDataProviderInterface;
-use Webfox\T3events\DataProvider\Legend\PeriodFutureDataProvider;
-use Webfox\T3events\InvalidConfigurationException;
+
+
+use DWenzel\T3events\InvalidConfigurationException;
 
 /***************************************************************
  *  Copyright notice
@@ -29,8 +30,8 @@ class PeriodDataProviderFactory
 {
     /**
      * @param array $params
-     * @return LayeredLegendDataProviderInterface
-     * @throws InvalidConfigurationException
+     * @return \DWenzel\T3events\DataProvider\Legend\LayeredLegendDataProviderInterface
+     * @throws \DWenzel\T3events\InvalidConfigurationException
      */
     public function get(array $params) {
         $class = PeriodUnknownDataProvider::class;

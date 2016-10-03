@@ -1,10 +1,10 @@
 <?php
-namespace Webfox\T3events\Domain\Model;
+namespace DWenzel\T3events\Domain\Model;
 
 	/***************************************************************
 	 *  Copyright notice
-	 *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
-	 *  Michael Kasten <kasten@webfox01.de>, Agentur Webfox
+	 *  (c) 2012 Dirk Wenzel <wenzel@dWenzel01.de>, Agentur DWenzel
+	 *  Michael Kasten <kasten@dWenzel01.de>, Agentur DWenzel
 	 *  All rights reserved
 	 *  This script is part of the TYPO3 project. The TYPO3 project is
 	 *  free software; you can redistribute it and/or modify
@@ -66,7 +66,7 @@ class Teaser extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 * location
 	 *
 	 * @lazy
-	 * @var \Webfox\T3events\Domain\Model\Venue
+	 * @var \DWenzel\T3events\Domain\Model\Venue
 	 */
 	protected $location;
 
@@ -74,7 +74,7 @@ class Teaser extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 * event
 	 *
 	 * @lazy
-	 * @var \Webfox\T3events\Domain\Model\Event
+	 * @var \DWenzel\T3events\Domain\Model\Event
 	 */
 	protected $event;
 
@@ -201,7 +201,7 @@ class Teaser extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Returns the location
 	 *
-	 * @return \Webfox\T3events\Domain\Model\Venue location
+	 * @return \DWenzel\T3events\Domain\Model\Venue location
 	 */
 	public function getLocation() {
 		return $this->location;
@@ -210,8 +210,8 @@ class Teaser extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the location
 	 *
-	 * @param \Webfox\T3events\Domain\Model\Venue $location
-	 * @return \Webfox\T3events\Domain\Model\Venue location
+	 * @param \DWenzel\T3events\Domain\Model\Venue $location
+	 * @return \DWenzel\T3events\Domain\Model\Venue location
 	 */
 	public function setLocation(Venue $location) {
 		$this->location = $location;
@@ -220,7 +220,7 @@ class Teaser extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Returns the event
 	 *
-	 * @return \Webfox\T3events\Domain\Model\Event $event
+	 * @return \DWenzel\T3events\Domain\Model\Event $event
 	 */
 	public function getEvent() {
 		return $this->event;
@@ -229,7 +229,7 @@ class Teaser extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the event
 	 *
-	 * @param \Webfox\T3events\Domain\Model\Event $event
+	 * @param \DWenzel\T3events\Domain\Model\Event $event
 	 * @return void
 	 */
 	public function setEvent(Event $event) {

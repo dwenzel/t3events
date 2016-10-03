@@ -1,5 +1,5 @@
 <?php
-namespace Webfox\T3events\Domain\Model;
+namespace DWenzel\T3events\Domain\Model;
 
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
@@ -44,7 +44,7 @@ class Person extends AbstractEntity {
 	protected $email = '';
 
 	/**
-	 * @var \Webfox\T3events\Domain\Model\PersonType
+	 * @var \DWenzel\T3events\Domain\Model\PersonType
 	 */
 	protected $personType;
 
@@ -136,14 +136,14 @@ class Person extends AbstractEntity {
 	}
 
 	/**
-	 * @return \Webfox\T3events\Domain\Model\PersonType
+	 * @return \DWenzel\T3events\Domain\Model\PersonType
 	 */
 	public function getPersonType() {
 		return $this->personType;
 	}
 
 	/**
-	 * @param \Webfox\T3events\Domain\Model\PersonType $personType
+	 * @param \DWenzel\T3events\Domain\Model\PersonType $personType
 	 */
 	public function setPersonType($personType) {
 		$this->personType = $personType;

@@ -1,11 +1,11 @@
 <?php
-namespace Webfox\T3events\Tests\Unit\Domain\Factory\Dto;
+namespace DWenzel\T3events\Tests\Unit\Domain\Factory\Dto;
 
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
-use Webfox\T3events\Domain\Factory\Dto\PerformanceDemandFactory;
-use Webfox\T3events\Domain\Model\Dto\PerformanceDemand;
-use Webfox\T3events\Domain\Model\Dto\PeriodAwareDemandInterface;
+use DWenzel\T3events\Domain\Factory\Dto\PerformanceDemandFactory;
+use DWenzel\T3events\Domain\Model\Dto\PerformanceDemand;
+use DWenzel\T3events\Domain\Model\Dto\PeriodAwareDemandInterface;
 
 /***************************************************************
  *
@@ -34,7 +34,7 @@ use Webfox\T3events\Domain\Model\Dto\PeriodAwareDemandInterface;
 class PerformanceDemandFactoryTest extends UnitTestCase {
 
 	/**
-	 * @var PerformanceDemandFactory
+	 * @var \DWenzel\T3events\Domain\Factory\Dto\PerformanceDemandFactory
 	 */
 	protected $subject;
 
@@ -43,7 +43,7 @@ class PerformanceDemandFactoryTest extends UnitTestCase {
 	 */
 	public function setUp() {
 		$this->subject = $this->getAccessibleMock(
-			PerformanceDemandFactory::class, ['dummy'], [], '', false
+			\DWenzel\T3events\Domain\Factory\Dto\PerformanceDemandFactory::class, ['dummy'], [], '', false
 		);
 	}
 

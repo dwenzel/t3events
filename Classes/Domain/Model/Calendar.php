@@ -1,7 +1,7 @@
 <?php
-namespace Webfox\T3events\Domain\Model;
+namespace DWenzel\T3events\Domain\Model;
 
-use Webfox\T3events\Domain\Model\Dto\CalendarConfiguration;
+use DWenzel\T3events\Domain\Model\Dto\CalendarConfiguration;
 
 /***************************************************************
  *  Copyright notice
@@ -38,7 +38,7 @@ class Calendar {
 	protected $currentWeek;
 
 	/**
-	 * @var CalenderYear
+	 * @var CalendarYear
 	 */
 	protected $currentYear;
 

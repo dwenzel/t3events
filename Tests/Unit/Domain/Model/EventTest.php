@@ -1,10 +1,10 @@
 <?php
-namespace Webfox\T3events\Tests\Unit\Domain\Model;
+namespace DWenzel\T3events\Tests\Unit\Domain\Model;
 
 /***************************************************************
  *  Copyright notice
- *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
- *            Michael Kasten <kasten@webfox01.de>, Agentur Webfox
+ *  (c) 2012 Dirk Wenzel <wenzel@dWenzel01.de>, Agentur DWenzel
+ *            Michael Kasten <kasten@dWenzel01.de>, Agentur DWenzel
  *  All rights reserved
  *  This script is part of the TYPO3 project. The TYPO3 project is
  *  free software; you can redistribute it and/or modify
@@ -22,26 +22,26 @@ namespace Webfox\T3events\Tests\Unit\Domain\Model;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 
 /**
- * Test case for class \Webfox\T3events\Domain\Model\Event.
+ * Test case for class \DWenzel\T3events\Domain\Model\Event.
  *
  * @version $Id$
  * @copyright Copyright belongs to the respective authors
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  * @package TYPO3
  * @subpackage Events
- * @author Dirk Wenzel <wenzel@webfox01.de>
- * @author Michael Kasten <kasten@webfox01.de>
- * @coversDefaultClass \Webfox\T3events\Domain\Model\Event
+ * @author Dirk Wenzel <wenzel@dWenzel01.de>
+ * @author Michael Kasten <kasten@dWenzel01.de>
+ * @coversDefaultClass \DWenzel\T3events\Domain\Model\Event
  */
 class EventTest extends UnitTestCase {
 
 	/**
-	 * @var \Webfox\T3events\Domain\Model\Event
+	 * @var \DWenzel\T3events\Domain\Model\Event
 	 */
 	protected $fixture;
 
 	public function setUp() {
-		$this->fixture = new \Webfox\T3events\Domain\Model\Event();
+		$this->fixture = new \DWenzel\T3events\Domain\Model\Event();
 	}
 
 	/**
@@ -185,7 +185,7 @@ class EventTest extends UnitTestCase {
 	 * @test
 	 */
 	public function setGenreForObjectStorageContainingGenreSetsGenre() {
-		$genre = new \Webfox\T3events\Domain\Model\Genre();
+		$genre = new \DWenzel\T3events\Domain\Model\Genre();
 		$objectStorageHoldingExactlyOneGenre = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$objectStorageHoldingExactlyOneGenre->attach($genre);
 		$this->fixture->setGenre($objectStorageHoldingExactlyOneGenre);
@@ -200,7 +200,7 @@ class EventTest extends UnitTestCase {
 	 * @test
 	 */
 	public function addGenreToObjectStorageHoldingGenre() {
-		$genre = new \Webfox\T3events\Domain\Model\Genre();
+		$genre = new \DWenzel\T3events\Domain\Model\Genre();
 		$objectStorageHoldingExactlyOneGenre = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$objectStorageHoldingExactlyOneGenre->attach($genre);
 		$this->fixture->addGenre($genre);
@@ -215,7 +215,7 @@ class EventTest extends UnitTestCase {
 	 * @test
 	 */
 	public function removeGenreFromObjectStorageHoldingGenre() {
-		$genre = new \Webfox\T3events\Domain\Model\Genre();
+		$genre = new \DWenzel\T3events\Domain\Model\Genre();
 		$localObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$localObjectStorage->attach($genre);
 		$localObjectStorage->detach($genre);
@@ -243,7 +243,7 @@ class EventTest extends UnitTestCase {
 	 * @test
 	 */
 	public function setVenueForObjectStorageContainingVenueSetsVenue() {
-		$venue = new \Webfox\T3events\Domain\Model\Venue();
+		$venue = new \DWenzel\T3events\Domain\Model\Venue();
 		$objectStorageHoldingExactlyOneVenue = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$objectStorageHoldingExactlyOneVenue->attach($venue);
 		$this->fixture->setVenue($objectStorageHoldingExactlyOneVenue);
@@ -258,7 +258,7 @@ class EventTest extends UnitTestCase {
 	 * @test
 	 */
 	public function addVenueToObjectStorageHoldingVenue() {
-		$venue = new \Webfox\T3events\Domain\Model\Venue();
+		$venue = new \DWenzel\T3events\Domain\Model\Venue();
 		$objectStorageHoldingExactlyOneVenue = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$objectStorageHoldingExactlyOneVenue->attach($venue);
 		$this->fixture->addVenue($venue);
@@ -273,7 +273,7 @@ class EventTest extends UnitTestCase {
 	 * @test
 	 */
 	public function removeVenueFromObjectStorageHoldingVenue() {
-		$venue = new \Webfox\T3events\Domain\Model\Venue();
+		$venue = new \DWenzel\T3events\Domain\Model\Venue();
 		$localObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$localObjectStorage->attach($venue);
 		$localObjectStorage->detach($venue);
@@ -301,7 +301,7 @@ class EventTest extends UnitTestCase {
 	 * @test
 	 */
 	public function setEventTypeForEventTypeSetsEventType() {
-		$dummyObject = new \Webfox\T3events\Domain\Model\EventType();
+		$dummyObject = new \DWenzel\T3events\Domain\Model\EventType();
 		$this->fixture->setEventType($dummyObject);
 
 		$this->assertSame(
@@ -325,7 +325,7 @@ class EventTest extends UnitTestCase {
 	 * @test
 	 */
 	public function setPerformancesForObjectStorageContainingPerformanceSetsPerformances() {
-		$performance = new \Webfox\T3events\Domain\Model\Performance();
+		$performance = new \DWenzel\T3events\Domain\Model\Performance();
 		$objectStorageHoldingExactlyOnePerformances = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$objectStorageHoldingExactlyOnePerformances->attach($performance);
 		$this->fixture->setPerformances($objectStorageHoldingExactlyOnePerformances);
@@ -340,7 +340,7 @@ class EventTest extends UnitTestCase {
 	 * @test
 	 */
 	public function addPerformanceToObjectStorageHoldingPerformances() {
-		$performance = new \Webfox\T3events\Domain\Model\Performance();
+		$performance = new \DWenzel\T3events\Domain\Model\Performance();
 		$objectStorageHoldingExactlyOnePerformance = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$objectStorageHoldingExactlyOnePerformance->attach($performance);
 		$this->fixture->addPerformance($performance);
@@ -355,7 +355,7 @@ class EventTest extends UnitTestCase {
 	 * @test
 	 */
 	public function removePerformanceFromObjectStorageHoldingPerformances() {
-		$performance = new \Webfox\T3events\Domain\Model\Performance();
+		$performance = new \DWenzel\T3events\Domain\Model\Performance();
 		$localObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$localObjectStorage->attach($performance);
 		$localObjectStorage->detach($performance);
@@ -382,7 +382,7 @@ class EventTest extends UnitTestCase {
 	 * @test
 	 */
 	public function setOrganizerForOrganizerSetsOrganizer() {
-		$dummyObject = new \Webfox\T3events\Domain\Model\Organizer();
+		$dummyObject = new \DWenzel\T3events\Domain\Model\Organizer();
 		$this->fixture->setOrganizer($dummyObject);
 
 		$this->assertSame(
@@ -407,13 +407,13 @@ class EventTest extends UnitTestCase {
 		$earliestDate = new \DateTime('@1');
 		$laterDate = new \DateTime('@5');
 		$mockPerformanceA = $this->getMock(
-			'\Webfox\T3events\Domain\Model\Performance',
+			'\DWenzel\T3events\Domain\Model\Performance',
 			array('getDate'), array(), '', FALSE);
 		$mockPerformanceB = $this->getMock(
-			'\Webfox\T3events\Domain\Model\Performance',
+			'\DWenzel\T3events\Domain\Model\Performance',
 			array('getDate'), array(), '', FALSE);
 		$fixture = $this->getAccessibleMock(
-			'\Webfox\T3events\Domain\Model\Event',
+			'\DWenzel\T3events\Domain\Model\Event',
 			array('dummy'), array(), '');
 		$fixture->addPerformance($mockPerformanceA);
 		$fixture->addPerformance($mockPerformanceB);
@@ -464,7 +464,7 @@ class EventTest extends UnitTestCase {
 	 * @test
 	 */
 	public function setAudienceForObjectStorageContainingAudienceSetsAudience() {
-		$audience = new \Webfox\T3events\Domain\Model\Audience();
+		$audience = new \DWenzel\T3events\Domain\Model\Audience();
 		$objectStorageHoldingExactlyOneAudience = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$objectStorageHoldingExactlyOneAudience->attach($audience);
 		$this->fixture->setAudience($objectStorageHoldingExactlyOneAudience);
@@ -479,7 +479,7 @@ class EventTest extends UnitTestCase {
 	 * @test
 	 */
 	public function addAudienceToObjectStorageHoldingAudience() {
-		$audience = new \Webfox\T3events\Domain\Model\Audience();
+		$audience = new \DWenzel\T3events\Domain\Model\Audience();
 		$objectStorageHoldingExactlyOneAudience = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$objectStorageHoldingExactlyOneAudience->attach($audience);
 		$this->fixture->addAudience($audience);
@@ -494,7 +494,7 @@ class EventTest extends UnitTestCase {
 	 * @test
 	 */
 	public function removeAudienceFromObjectStorageHoldingAudience() {
-		$audience = new \Webfox\T3events\Domain\Model\Audience();
+		$audience = new \DWenzel\T3events\Domain\Model\Audience();
 		$localObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$localObjectStorage->attach($audience);
 		$localObjectStorage->detach($audience);

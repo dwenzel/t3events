@@ -1,23 +1,23 @@
 <?php
-namespace Webfox\T3events\Tests\Controller;
+namespace DWenzel\T3events\Tests\Controller;
 
 use TYPO3\CMS\Core\Tests\UnitTestCase;
-use Webfox\T3events\Controller\DemandTrait;
-use Webfox\T3events\Domain\Model\Dto\AbstractDemand;
-use Webfox\T3events\Domain\Model\Dto\EventLocationAwareDemandInterface;
-use Webfox\T3events\Domain\Model\Dto\EventTypeAwareDemandInterface;
-use Webfox\T3events\Domain\Model\Dto\GenreAwareDemandInterface;
-use Webfox\T3events\Domain\Model\Dto\PerformanceDemand;
-use Webfox\T3events\Domain\Model\Dto\PeriodAwareDemandInterface;
-use Webfox\T3events\Domain\Model\Dto\Search;
-use Webfox\T3events\Domain\Model\Dto\SearchAwareDemandInterface;
-use Webfox\T3events\Domain\Model\Dto\VenueAwareDemandInterface;
-use Webfox\T3events\Utility\SettingsUtility;
+use DWenzel\T3events\Controller\DemandTrait;
+use DWenzel\T3events\Domain\Model\Dto\AbstractDemand;
+use DWenzel\T3events\Domain\Model\Dto\EventLocationAwareDemandInterface;
+use DWenzel\T3events\Domain\Model\Dto\EventTypeAwareDemandInterface;
+use DWenzel\T3events\Domain\Model\Dto\GenreAwareDemandInterface;
+use DWenzel\T3events\Domain\Model\Dto\PerformanceDemand;
+use DWenzel\T3events\Domain\Model\Dto\PeriodAwareDemandInterface;
+use DWenzel\T3events\Domain\Model\Dto\Search;
+use DWenzel\T3events\Domain\Model\Dto\SearchAwareDemandInterface;
+use DWenzel\T3events\Domain\Model\Dto\VenueAwareDemandInterface;
+use DWenzel\T3events\Utility\SettingsUtility;
 
 /**
  * Class DemandTraitTest
  *
- * @package Webfox\T3events\Tests\Controller
+ * @package DWenzel\T3events\Tests\Controller
  */
 class DemandTraitTest extends UnitTestCase
 {

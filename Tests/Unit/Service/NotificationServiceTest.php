@@ -1,12 +1,12 @@
 <?php
-namespace Webfox\T3events\Tests\Unit\Service;
+namespace DWenzel\T3events\Tests\Unit\Service;
 
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Fluid\View\StandaloneView;
-use Webfox\T3events\Domain\Model\Notification;
-use Webfox\T3events\Service\NotificationService;
+use DWenzel\T3events\Domain\Model\Notification;
+use DWenzel\T3events\Service\NotificationService;
 
 /***************************************************************
  *  Copyright notice
@@ -109,7 +109,7 @@ class NotificationServiceTest extends UnitTestCase
     public function notifySetsRecipients($recipient, $expectedRecipients)
     {
         $this->subject = $this->getAccessibleMock(
-            NotificationService::class,['dummy', 'buildTemplateView']
+            \DWenzel\T3events\Service\NotificationService::class,['dummy', 'buildTemplateView']
         );
 
         $mockTemplateView = $this->getMock(

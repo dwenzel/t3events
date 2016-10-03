@@ -25,17 +25,17 @@ use TYPO3\CMS\Core\Tests\UnitTestCase;
  * Class CompanyTest
  *
  * @package CPSIT\T3events\Tests\Unit\Domain\Model
- * @coversDefaultClass \Webfox\T3events\Domain\Model\Company
+ * @coversDefaultClass \DWenzel\T3events\Domain\Model\Company
  */
 class CompanyTest extends UnitTestCase {
 
 	/**
-	 * @var \Webfox\T3events\Domain\Model\Company
+	 * @var \DWenzel\T3events\Domain\Model\Company
 	 */
 	protected $subject = NULL;
 
 	protected function setUp() {
-		$this->subject = new \Webfox\T3events\Domain\Model\Company();
+		$this->subject = new \DWenzel\T3events\Domain\Model\Company();
 	}
 
 	protected function tearDown() {

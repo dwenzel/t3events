@@ -1,5 +1,5 @@
 <?php
-namespace Webfox\T3events\ViewHelpers;
+namespace DWenzel\T3events\ViewHelpers;
 
 	/***************************************************************
 	 *  Copyright notice

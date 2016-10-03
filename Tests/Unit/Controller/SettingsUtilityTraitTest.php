@@ -1,9 +1,9 @@
 <?php
-namespace Webfox\T3events\Tests\Controller;
+namespace DWenzel\T3events\Tests\Controller;
 
-use Webfox\T3events\Controller\SettingsUtilityTrait;
+use DWenzel\T3events\Controller\SettingsUtilityTrait;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
-use Webfox\T3events\Utility\SettingsUtility;
+use DWenzel\T3events\Utility\SettingsUtility;
 
 /***************************************************************
  *  Copyright notice
@@ -26,7 +26,7 @@ class SettingsUtilityTraitTest extends UnitTestCase
 {
 
     /**
-     * @var SettingsUtilityTrait
+     * @var \DWenzel\T3events\Controller\SettingsUtilityTrait
      */
     protected $fixture;
 
@@ -36,7 +36,7 @@ class SettingsUtilityTraitTest extends UnitTestCase
     public function setUp()
     {
         $this->fixture = $this->getMockForTrait(
-            SettingsUtilityTrait::class
+            \DWenzel\T3events\Controller\SettingsUtilityTrait::class
         );
     }
 

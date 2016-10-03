@@ -1,14 +1,14 @@
 <?php
-namespace Webfox\T3events\Controller;
+namespace DWenzel\T3events\Controller;
 use TYPO3\CMS\Core\Resource\Driver\LocalDriver;
-use Webfox\T3events\InvalidFileTypeException;
+use DWenzel\T3events\InvalidFileTypeException;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 use TYPO3\CMS\Extbase\Mvc\Web\Response;
 
 /**
  * Class DownloadTrait
  *
- * @package Webfox\T3events\Controller
+ * @package DWenzel\T3events\Controller
  */
 trait DownloadTrait
 {
@@ -32,7 +32,7 @@ trait DownloadTrait
     protected $settings;
 
     /**
-     * @var \Webfox\T3events\Utility\SettingsUtility
+     * @var \DWenzel\T3events\Utility\SettingsUtility
      */
     protected $settingsUtility;
 
@@ -83,7 +83,7 @@ trait DownloadTrait
      * @param string $fileExtension
      * @param object $objectForFileName
      * @return string
-     * @throws \Webfox\T3events\InvalidFileTypeException
+     * @throws \DWenzel\T3events\InvalidFileTypeException
      */
     public function getContentForDownload($fileExtension, $objectForFileName = null)
     {

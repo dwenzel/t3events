@@ -1,5 +1,5 @@
 <?php
-namespace Webfox\T3events\Domain\Repository;
+namespace DWenzel\T3events\Domain\Repository;
 
 /***************************************************************
  *  Copyright notice

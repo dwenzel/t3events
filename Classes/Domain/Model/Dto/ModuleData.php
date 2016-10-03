@@ -1,14 +1,14 @@
 <?php
-namespace Webfox\T3events\Domain\Model\Dto;
+namespace DWenzel\T3events\Domain\Model\Dto;
 
 /**
  * Class ModuleData
  *
- * @package Webfox\T3events\Domain\Model\Dto
+ * @package DWenzel\T3events\Domain\Model\Dto
  */
 class ModuleData {
 	/**
-	 * @var \Webfox\T3events\Domain\Model\Dto\DemandInterface
+	 * @var \DWenzel\T3events\Domain\Model\Dto\DemandInterface
 	 */
 	protected $demand;
 
@@ -20,7 +20,7 @@ class ModuleData {
 	/**
 	 * Get the demand
 	 *
-	 * @return \Webfox\T3events\Domain\Model\Dto\DemandInterface
+	 * @return \DWenzel\T3events\Domain\Model\Dto\DemandInterface
 	 */
 	public function getDemand() {
 		return $this->demand;
@@ -28,7 +28,7 @@ class ModuleData {
 
 	/**
 	 * Sets the demand
-	 * @param \Webfox\T3events\Domain\Model\Dto\DemandInterface $demand
+	 * @param \DWenzel\T3events\Domain\Model\Dto\DemandInterface $demand
 	 */
 	public function setDemand(DemandInterface$demand) {
 		$this->demand = $demand;

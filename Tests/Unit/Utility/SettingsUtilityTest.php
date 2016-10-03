@@ -1,6 +1,7 @@
 <?php
-namespace Webfox\T3events\Utility;
+namespace DWenzel\T3events\Utility;
 
+use DWenzel\T3events\Utility\SettingsUtility;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 use TYPO3\CMS\Core\Resource\File;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
@@ -9,7 +10,7 @@ use TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
-use Webfox\T3events\Resource\ResourceFactory;
+use DWenzel\T3events\Resource\ResourceFactory;
 
 /***************************************************************
  *
@@ -41,12 +42,12 @@ class DummyController {}
 /**
  * Class SettingsUtilityTest
  *
- * @package Webfox\T3events\Utility
+ * @package DWenzel\T3events\Utility
  */
 class SettingsUtilityTest extends UnitTestCase {
 
 	/**
-	 * @var \Webfox\T3events\Utility\SettingsUtility
+	 * @var \DWenzel\T3events\Utility\SettingsUtility
 	 */
 	protected $subject;
 
