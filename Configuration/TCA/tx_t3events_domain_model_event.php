@@ -26,7 +26,7 @@ return [
 			'fe_group' => 'fe_group',
 		],
 		'searchFields' => 'headline,subtitle,teaser,description,keywords,image,genre,venue,event_type,performances,organizer,',
-		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('t3events') . 'Resources/Public/Icons/tx_t3events_domain_model_event.gif'
+		'iconfile' => 'EXT:t3events/Resources/Public/Icons/tx_t3events_domain_model_event.gif'
 	],
 	'interface' => [
 		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, headline,
@@ -35,21 +35,18 @@ return [
 	'types' => [
 		'1' => [
 			'showitem' => '
-    	;;;;1-1-1,
-    	 event_type,headline, subtitle,teaser,description,image,
-    	--div--;LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_event.extended,
-    	sys_language_uid,audience,organizer, genre, venue, keywords,
-    	--div--;LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_event.performances,
-    	performances,
-    	l10n_parent, l10n_diffsource, ;;1,
-    	,--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,new_until,archive_date,hidden,starttime,endtime,fe_group'],
+			    	 event_type,headline, subtitle,teaser,description,image,
+			    	 --div--;LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_event.extended,
+			    	 sys_language_uid,audience,organizer, genre, venue, keywords,
+			    	 --div--;LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_event.performances,
+			    	 performances,
+			    	 --palette--;;paletteSys,
+			    	 --div--;LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tab.access,new_until,archive_date,hidden,starttime,endtime,fe_group'],
 	],
 	'palettes' => [
-		'1' => ['showitem' => ''],
-		'palettePerformance' => [
-			'showitem' => 'performances',
-			'canNotCollapse' => TRUE,
-		],
+		'paletteSys' => [
+		    'showitem' => 'l10n_parent, l10n_diffsource'
+        ],
 	],
 	'columns' => [
 		'sys_language_uid' => [
@@ -57,13 +54,14 @@ return [
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.language',
 			'config' => [
 				'type' => 'select',
+                'renderType' => 'selectSingle',
 				'foreign_table' => 'sys_language',
 				'foreign_table_where' => 'ORDER BY sys_language.title',
 				'items' => [
 					['LLL:EXT:lang/locallang_general.xml:LGL.allLanguages', -1],
 					['LLL:EXT:lang/locallang_general.xml:LGL.default_value', 0]
 				],
-				'noIconsBelowSelect' => TRUE,
+				'showIconTable' => TRUE,
 			],
 		],
 		'l10n_parent' => [
@@ -72,12 +70,13 @@ return [
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.l18n_parent',
 			'config' => [
 				'type' => 'select',
+                'renderType' => 'selectSingle',
 				'items' => [
 					['', 0],
 				],
 				'foreign_table' => 'tx_t3events_domain_model_event',
 				'foreign_table_where' => 'AND tx_t3events_domain_model_event.pid=###CURRENT_PID### AND tx_t3events_domain_model_event.sys_language_uid IN (-1,0)',
-				'noIconsBelowSelect' => TRUE,
+				'showIconTable' => TRUE,
 			],
 		],
 		'l10n_diffsource' => [
@@ -131,6 +130,7 @@ return [
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.fe_group',
 			'config' => [
 				'type' => 'select',
+                'renderType' => 'selectMultipleSideBySide',
 				'size' => 5,
 				'maxitems' => 20,
 				'items' => [
@@ -220,6 +220,7 @@ return [
 			'label' => $ll . 'tx_t3events_domain_model_event.genre',
 			'config' => [
 				'type' => 'select',
+                'renderType' => 'selectMultipleSideBySide',
 				'foreign_table' => 'tx_t3events_domain_model_genre',
 				'MM' => 'tx_t3events_event_genre_mm',
 				'size' => 10,
@@ -235,14 +236,14 @@ return [
 						'module' => [
 							'name' => 'wizard_edit',
 						],
-						'icon' => 'edit2.gif',
+						'icon' => 'EXT:backend/Resources/Public/Images/FormFieldWizard/wizard_edit.gif',
 						'popup_onlyOpenIfSelected' => 1,
 						'JSopenParams' => 'height=350,width=580,status=0,menubar=0,scrollbars=1',
 					],
 					'add' => [
 						'type' => 'script',
 						'title' => 'Create new',
-						'icon' => 'add.gif',
+						'icon' => 'EXT:backend/Resources/Public/Images/FormFieldWizard/wizard_add.gif',
 						'params' => [
 							'table' => 'tx_t3events_domain_model_genre',
 							'pid' => '###CURRENT_PID###',
@@ -260,6 +261,7 @@ return [
 			'label' => $ll . 'tx_t3events_domain_model_event.venue',
 			'config' => [
 				'type' => 'select',
+                'renderType' => 'selectMultipleSideBySide',
 				'foreign_table' => 'tx_t3events_domain_model_venue',
 				'MM' => 'tx_t3events_event_venue_mm',
 				'size' => 5,
@@ -273,10 +275,11 @@ return [
 			'label' => $ll . 'tx_t3events_domain_model_event.event_type',
 			'config' => [
 				'type' => 'select',
+                'renderType' => 'selectSingle',
 				'foreign_table' => 'tx_t3events_domain_model_eventtype',
 				'minitems' => 0,
 				'maxitems' => 1,
-				'noIconsBelowSelect' => TRUE,
+				'showIconTable' => TRUE,
 			],
 		],
 		'performances' => [
@@ -299,7 +302,7 @@ return [
 						'info' => FALSE,
 					],
 				],
-				'noIconsBelowSelect' => TRUE,
+				'showIconTable' => TRUE,
 			],
 		],
 		'organizer' => [
@@ -327,6 +330,7 @@ return [
 			'label' => $ll . 'tx_t3events_domain_model_audience',
 			'config' => [
 				'type' => 'select',
+                'renderType' => 'selectMultipleSideBySide',
 				'foreign_table' => 'tx_t3events_domain_model_audience',
 				'MM' => 'tx_t3events_event_audience_mm',
 				'size' => 10,
@@ -342,14 +346,14 @@ return [
 						'module' => [
 							'name' => 'wizard_edit'
 						],
-						'icon' => 'edit2.gif',
+						'icon' => 'EXT:backend/Resources/Public/Images/FormFieldWizard/wizard_edit.gif',
 						'popup_onlyOpenIfSelected' => 1,
 						'JSopenParams' => 'height=350,width=580,status=0,menubar=0,scrollbars=1',
 					],
 					'add' => [
 						'type' => 'script',
 						'title' => 'Create new',
-						'icon' => 'add.gif',
+						'icon' => 'EXT:backend/Resources/Public/Images/FormFieldWizard/wizard_add.gif',
 						'params' => [
 							'table' => 'tx_t3events_domain_model_audience',
 							'pid' => '###CURRENT_PID###',

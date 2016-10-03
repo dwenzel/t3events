@@ -3,8 +3,8 @@ if (!defined('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
-return array(
-	'ctrl' => array(
+return [
+	'ctrl' => [
 		'title' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_ticketclass',
 		'label' => 'title',
 		'tstamp' => 'tstamp',
@@ -19,174 +19,174 @@ return array(
 		'transOrigPointerField' => 'l10n_parent',
 		'transOrigDiffSourceField' => 'l10n_diffsource',
 		'delete' => 'deleted',
-		'enablecolumns' => array(
+		'enablecolumns' => [
 			'disabled' => 'hidden',
 			'starttime' => 'starttime',
 			'endtime' => 'endtime',
-		),
+        ],
 		'searchFields' => 'title,color,price,type,',
-		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('t3events') . 'Resources/Public/Icons/tx_t3events_domain_model_ticketclass.gif'
-	),
-	'interface' => array(
+		'iconfile' => 'EXT:t3events/Resources/Public/Icons/tx_t3events_domain_model_ticketclass.gif'
+    ],
+	'interface' => [
 		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, color, price, type',
-	),
-	'types' => array(
-		'1' => array('showitem' => '
-        ;;;;1-1-1,
+    ],
+	'types' => [
+		'1' => ['showitem' => '
+        --palette--;;paletteSys,
         --palette--;;paletteTitle,
         --palette--;;palettePrices,
-        --palette--;;paletteSys,
-        --div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,hidden,starttime, endtime'),
-	),
-	'palettes' => array(
-		'1' => array('showitem' => ''),
-		'paletteSys' => array(
-			'showitem' => 'sys_language_uid,l10n_parent, l10n_diffsource',
-		),
-		'paletteTitle' => array(
+        --div--;LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tab.access,starttime, endtime'],
+    ],
+	'palettes' => [
+		'paletteSys' => [
+			'showitem' => 'sys_language_uid,l10n_parent, l10n_diffsource,hidden',
+        ],
+		'paletteTitle' => [
 			'showitem' => 'color,title',
 			'canNotCollapse' => TRUE,
-		),
-		'palettePrices' => array(
+        ],
+		'palettePrices' => [
 			'showitem' => 'price,type',
 			'canNotCollapse' => TRUE,
-		),
-	),
-	'columns' => array(
-		'sys_language_uid' => array(
+        ],
+    ],
+	'columns' => [
+		'sys_language_uid' => [
 			'exclude' => 1,
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.language',
-			'config' => array(
-				'type' => 'select',
+			'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
 				'foreign_table' => 'sys_language',
 				'foreign_table_where' => 'ORDER BY sys_language.title',
-				'items' => array(
-					array('LLL:EXT:lang/locallang_general.xml:LGL.allLanguages', -1),
-					array('LLL:EXT:lang/locallang_general.xml:LGL.default_value', 0)
-				),
-			),
-		),
-		'l10n_parent' => array(
+				'items' => [
+					['LLL:EXT:lang/locallang_general.xml:LGL.allLanguages', -1],
+					['LLL:EXT:lang/locallang_general.xml:LGL.default_value', 0]
+                ],
+            ],
+        ],
+		'l10n_parent' => [
 			'displayCond' => 'FIELD:sys_language_uid:>:0',
 			'exclude' => 1,
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.l18n_parent',
-			'config' => array(
-				'type' => 'select',
-				'items' => array(
-					array('', 0),
-				),
+			'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+				'items' => [
+					['', 0],
+                ],
 				'foreign_table' => 'tx_t3events_domain_model_ticketclass',
 				'foreign_table_where' => 'AND tx_t3events_domain_model_ticketclass.pid=###CURRENT_PID### AND tx_t3events_domain_model_ticketclass.sys_language_uid IN (-1,0)',
-			),
-		),
-		'l10n_diffsource' => array(
-			'config' => array(
+            ],
+        ],
+		'l10n_diffsource' => [
+			'config' => [
 				'type' => 'passthrough',
-			),
-		),
-		't3ver_label' => array(
+            ],
+        ],
+		't3ver_label' => [
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.versionLabel',
-			'config' => array(
+			'config' => [
 				'type' => 'input',
 				'size' => 30,
 				'max' => 255,
-			)
-		),
-		'hidden' => array(
+            ]
+        ],
+		'hidden' => [
 			'exclude' => 1,
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.hidden',
-			'config' => array(
+			'config' => [
 				'type' => 'check',
-			),
-		),
-		'starttime' => array(
+            ],
+        ],
+		'starttime' => [
 			'exclude' => 1,
 			'l10n_mode' => 'mergeIfNotBlank',
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.starttime',
-			'config' => array(
+			'config' => [
 				'type' => 'input',
 				'size' => 13,
 				'max' => 20,
 				'eval' => 'datetime',
 				'checkbox' => 0,
 				'default' => 0,
-				'range' => array(
+				'range' => [
 					'lower' => mktime(0, 0, 0, date('m'), date('d'), date('Y'))
-				),
-			),
-		),
-		'endtime' => array(
+                ],
+            ],
+        ],
+		'endtime' => [
 			'exclude' => 1,
 			'l10n_mode' => 'mergeIfNotBlank',
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.endtime',
-			'config' => array(
+			'config' => [
 				'type' => 'input',
 				'size' => 13,
 				'max' => 20,
 				'eval' => 'datetime',
 				'checkbox' => 0,
 				'default' => 0,
-				'range' => array(
+				'range' => [
 					'lower' => mktime(0, 0, 0, date('m'), date('d'), date('Y'))
-				),
-			),
-		),
-		'title' => array(
+                ],
+            ],
+        ],
+		'title' => [
 			'exclude' => 1,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_ticketclass.title',
-			'config' => array(
+			'config' => [
 				'type' => 'input',
 				'size' => 10,
 				'eval' => 'trim'
-			),
-		),
-		'color' => array(
+            ],
+        ],
+		'color' => [
 			'exclude' => 1,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_ticketclass.color',
-			'config' => array(
+			'config' => [
 				'type' => 'input',
 				'size' => 4,
 				'eval' => 'trim',
-				'wizards' => array(
-					'colorpick' => array(
+				'wizards' => [
+					'colorpick' => [
 						'type' => 'colorbox',
 						'title' => 'Color picker',
-						'module' => array(
+						'module' => [
 							'name' => 'wizard_colorpicker',
-						),
+                        ],
 						'dim' => '20x20',
 						'tableStyle' => 'border: solid 1px #EEEEE; margin-left:20px',
 						'JSopenParams' => 'height=550,width=365,status=0,menubar=0,scrollbars=1',
-					)
-				),
-			),
-		),
-		'price' => array(
+                    ]
+                ],
+            ],
+        ],
+		'price' => [
 			'exclude' => 0,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_ticketclass.price',
-			'config' => array(
+			'config' => [
 				'type' => 'input',
 				'size' => 30,
 				'eval' => 'double2'
-			),
-		),
-		'type' => array(
+            ],
+        ],
+		'type' => [
 			'exclude' => 0,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_ticketclass.type',
-			'config' => array(
+			'config' => [
 				'type' => 'radio',
-				'items' => array(
-					array('LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_ticketclass.normal', 0),
-					array('LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_ticketclass.reduced', 1),
-					array('LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_ticketclass.special', 2),
-				),
+				'items' => [
+					['LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_ticketclass.normal', 0],
+					['LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_ticketclass.reduced', 1],
+					['LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_ticketclass.special', 2],
+                ],
 				'default' => 0,
-			),
-		),
-		'performance' => array(
-			'config' => array(
+            ],
+        ],
+		'performance' => [
+			'config' => [
 				'type' => 'passthrough',
-			),
-		),
-	),
-);
+            ],
+        ],
+    ],
+];

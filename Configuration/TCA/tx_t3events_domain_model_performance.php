@@ -2,9 +2,10 @@
 if (!defined('TYPO3_MODE')) {
 	die ('Access denied.');
 }
+$ll = 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:';
 
-return array(
-	'ctrl' => array(
+return [
+	'ctrl' => [
 		'title' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_performance',
 		'label' => 'date',
 		'label_alt' => 'event_location',
@@ -21,24 +22,24 @@ return array(
 		'transOrigPointerField' => 'l10n_parent',
 		'transOrigDiffSourceField' => 'l10n_diffsource',
 		'delete' => 'deleted',
-		'enablecolumns' => array(
+		'enablecolumns' => [
 			'disabled' => 'hidden',
 			'starttime' => 'starttime',
 			'endtime' => 'endtime',
 			'fe_group' => 'fe_group'
-		),
+        ],
 		'searchFields' => 'date,admission,begin,end,status_info,external_provider_link,additional_link,provider_type,image,plan,no_handling_fee,price_notice,event_location,ticket_class,status,',
-		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('t3events') . 'Resources/Public/Icons/tx_t3events_domain_model_performance.gif'
-	),
-	'interface' => array(
+		'iconfile' => 'EXT:t3events/Resources/Public/Icons/tx_t3events_domain_model_performance.gif'
+    ],
+	'interface' => [
 		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource,
 			hidden, date,end_date,admission, begin, end, status_info, external_provider_link,
 			additional_link, provider_type, image, plan, no_handling_fee, price_notice,
 			event_location, ticket_class, status,fe_group',
-	),
-	'types' => array(
-		'0' => array('showitem' => '
-		sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource;;1,
+    ],
+	'types' => [
+		'0' => ['showitem' => '
+		--palette--;;1,
         --palette--;;paletteTitle,
         --palette--;;paletteTime,
         status, status_info,image,
@@ -47,103 +48,106 @@ return array(
             --palette--;;paletteTicketsHead,
              no_handling_fee, ticket_class,
         --div--;Access,hidden,starttime, endtime,fe_group'
-		),
-	),
-	'palettes' => array(
-		'1' => array('showitem' => ''),
-		'paletteTitle' => array(
+		],
+	],
+	'palettes' => [
+		'1' => ['showitem' => 'sys_language_uid,l10n_parent,l10n_diffsource'],
+		'paletteTitle' => [
 			'showitem' => 'date, end_date, event_location',
 			'canNotCollapse' => TRUE,
-		),
-		'paletteTime' => array(
+        ],
+		'paletteTime' => [
 			'showitem' => 'admission, begin, end',
 			'canNotCollapse' => TRUE,
-		),
-		'paletteTicketsHead' => array(
+        ],
+		'paletteTicketsHead' => [
 			'showitem' => 'plan,price_notice,',
 			'canNotCollapse' => TRUE,
-		),
-	),
-	'columns' => array(
-		'sys_language_uid' => array(
+        ],
+    ],
+	'columns' => [
+		'sys_language_uid' => [
 			'exclude' => 1,
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.language',
-			'config' => array(
-				'type' => 'select',
+			'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
 				'foreign_table' => 'sys_language',
 				'foreign_table_where' => 'ORDER BY sys_language.title',
-				'items' => array(
-					array('LLL:EXT:lang/locallang_general.xml:LGL.allLanguages', -1),
-					array('LLL:EXT:lang/locallang_general.xml:LGL.default_value', 0)
-				),
-				'noIconsBelowSelect' => TRUE,
-			),
-		),
-		'l10n_parent' => array(
+				'items' => [
+					['LLL:EXT:lang/locallang_general.xml:LGL.allLanguages', -1],
+					['LLL:EXT:lang/locallang_general.xml:LGL.default_value', 0]
+                ],
+				'showIconTable' => TRUE,
+            ],
+        ],
+		'l10n_parent' => [
 			'displayCond' => 'FIELD:sys_language_uid:>:0',
 			'exclude' => 1,
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.l18n_parent',
-			'config' => array(
-				'type' => 'select',
-				'items' => array(
-					array('', 0),
-				),
+			'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+				'items' => [
+					['', 0],
+                ],
 				'foreign_table' => 'tx_t3events_domain_model_performance',
 				'foreign_table_where' => 'AND tx_t3events_domain_model_performance.pid=###CURRENT_PID### AND tx_t3events_domain_model_performance.sys_language_uid IN (-1,0)',
-				'noIconsBelowSelect' => TRUE,
-			),
-		),
-		'l10n_diffsource' => array(
-			'config' => array(
+				'showIconTable' => TRUE,
+            ],
+        ],
+		'l10n_diffsource' => [
+			'config' => [
 				'type' => 'passthrough',
-			),
-		),
-		't3ver_label' => array(
+            ],
+        ],
+		't3ver_label' => [
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.versionLabel',
-			'config' => array(
+			'config' => [
 				'type' => 'input',
 				'size' => 30,
 				'max' => 255,
-			)
-		),
-		'hidden' => array(
+            ]
+        ],
+		'hidden' => [
 			'exclude' => 1,
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.hidden',
-			'config' => array(
+			'config' => [
 				'type' => 'check',
-			),
-		),
-		'starttime' => array(
+            ],
+        ],
+		'starttime' => [
 			'exclude' => 1,
 			'l10n_mode' => 'mergeIfNotBlank',
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.starttime',
-			'config' => array(
+			'config' => [
 				'type' => 'input',
 				'size' => 13,
 				'max' => 20,
 				'eval' => 'datetime',
 				'checkbox' => 0,
 				'default' => 0,
-			),
-		),
-		'endtime' => array(
+            ],
+        ],
+		'endtime' => [
 			'exclude' => 1,
 			'l10n_mode' => 'mergeIfNotBlank',
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.endtime',
-			'config' => array(
+			'config' => [
 				'type' => 'input',
 				'size' => 13,
 				'max' => 20,
 				'eval' => 'datetime',
 				'checkbox' => 0,
 				'default' => 0,
-			),
-		),
+            ],
+        ],
 		'fe_group' => [
 			'exclude' => 1,
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.fe_group',
 			'config' => [
-				'type' => 'select',
+                'type' => 'select',
+                'renderType' => 'selectMultipleSideBySide',
 				'size' => 5,
 				'maxitems' => 20,
 				'items' => [
@@ -165,17 +169,17 @@ return array(
 				'foreign_table_where' => 'ORDER BY fe_groups.title',
 			],
 		],
-		'date' => array(
+		'date' => [
 			'exclude' => 0,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_performance.date',
-			'config' => array(
+			'config' => [
 				'type' => 'input',
 				'size' => 7,
 				'eval' => 'date',
 				'checkbox' => 1,
 				'default' => strtotime('today')
-			),
-		),
+            ],
+        ],
 		'end_date' => [
 			'exclude' => 1,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_performance.endDate',
@@ -187,82 +191,111 @@ return array(
 				'default' => strtotime('today')
 			]
 		],
-		'admission' => array(
+		'admission' => [
 			'exclude' => 0,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_performance.admission',
-			'config' => array(
+			'config' => [
 				'type' => 'input',
 				'size' => 4,
 				'eval' => 'time',
 				'checkbox' => 1,
-			),
-		),
-		'begin' => array(
+            ],
+        ],
+		'begin' => [
 			'exclude' => 0,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_performance.begin',
-			'config' => array(
+			'config' => [
 				'type' => 'input',
 				'size' => 4,
 				'eval' => 'time',
 				'checkbox' => 1,
-			),
-		),
-		'end' => array(
+            ],
+        ],
+		'end' => [
 			'exclude' => 0,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_performance.end',
-			'config' => array(
+			'config' => [
 				'type' => 'input',
 				'size' => 4,
 				'eval' => 'time',
 				'checkbox' => 1,
-			),
-		),
-		'status_info' => array(
+            ],
+        ],
+		'status_info' => [
 			'exclude' => 0,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_performance.status_info',
-			'config' => array(
+			'config' => [
 				'type' => 'text',
 				'columns' => 30,
 				'rows' => 5,
 				'eval' => 'trim',
-			),
-		),
-		'external_provider_link' => array(
+            ],
+        ],
+		'external_provider_link' => [
 			'exclude' => 0,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_performance.external_provider_link',
-			'config' => array(
-				'type' => 'input',
-				'size' => 30,
-				'eval' => 'trim'
-			),
-		),
-		'additional_link' => array(
+            'config' => [
+                'type' => 'input',
+                'softref' => 'typolink',
+                'wizards' => [
+                    '_PADDING' => 2,
+                    'link' => [
+                        'type' => 'popup',
+                        'title' => $ll . 'button.openLinkWizard',
+                        'icon' => 'EXT:backend/Resources/Public/Images/FormFieldWizard/wizard_link.gif',
+                        'module' => [
+                            'name' => 'wizard_link',
+                            'urlParameters' => [
+                                'mode' => 'wizard'
+                            ],
+                        ],
+                        'JSopenParams' => 'height=600,width=500,status=0,menubar=0,scrollbars=1'
+                    ]
+                ]
+            ]
+        ],
+		'additional_link' => [
 			'exclude' => 1,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_performance.additional_link',
-			'config' => array(
-				'type' => 'input',
-				'size' => 30,
-				'eval' => 'trim'
-			),
-		),
-		'provider_type' => array(
+            'config' => [
+                'type' => 'input',
+                'softref' => 'typolink',
+                'wizards' => [
+                    '_PADDING' => 2,
+                    'link' => [
+                        'type' => 'popup',
+                        'title' => $ll . 'button.openLinkWizard',
+                        'icon' => 'EXT:backend/Resources/Public/Images/FormFieldWizard/wizard_link.gif',
+                        'module' => [
+                            'name' => 'wizard_link',
+                            'urlParameters' => [
+                                'mode' => 'wizard'
+                            ],
+                        ],
+                        'JSopenParams' => 'height=600,width=500,status=0,menubar=0,scrollbars=1'
+                    ]
+                ]
+            ]
+        ],
+		'provider_type' => [
 			'exclude' => 0,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_performance.provider_type',
-			'config' => array(
-				'type' => 'select',
-				'items' => array(
-					array('LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_performance.internal', 0),
-					array('LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_performance.external', 1),
-				),
+			'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+				'items' => [
+					['LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_performance.internal', 0],
+					['LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_performance.external', 1],
+                ],
 				'size' => 1,
 				'maxitems' => 1,
 				'eval' => ''
-			),
-		),
-		'image' => array(
+            ],
+        ],
+		'image' => [
 			'exclude' => 0,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_performance.image',
-			'config' => array(
+			'config' => [
 				'type' => 'group',
 				'internal_type' => 'file',
 				'uploadfolder' => 'uploads/tx_t3events',
@@ -272,12 +305,12 @@ return array(
 				'allowed' => $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'],
 				'disallowed' => '',
 				'disable_controls' => '',
-			),
-		),
-		'plan' => array(
+            ],
+        ],
+		'plan' => [
 			'exclude' => 0,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_performance.plan',
-			'config' => array(
+			'config' => [
 				'type' => 'group',
 				'internal_type' => 'file',
 				'uploadfolder' => 'uploads/tx_t3events',
@@ -287,81 +320,83 @@ return array(
 				'allowed' => $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'],
 				'disallowed' => '',
 				'disable_controls' => '',
-			),
-		),
-		'no_handling_fee' => array(
+            ],
+        ],
+		'no_handling_fee' => [
 			'exclude' => 0,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_performance.no_handling_fee',
-			'config' => array(
+			'config' => [
 				'type' => 'check',
 				'default' => 0
-			),
-		),
-		'price_notice' => array(
+            ],
+        ],
+		'price_notice' => [
 			'exclude' => 0,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_performance.price_notice',
-			'config' => array(
+			'config' => [
 				'type' => 'text',
 				'columns' => 20,
 				'rows' => 3,
 				'eval' => 'trim',
-			),
-		),
-		'event_location' => array(
+            ],
+        ],
+		'event_location' => [
 			'exclude' => 0,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_performance.event_location',
-			'config' => array(
-				'type' => 'select',
-				'items' => array(
-					array('', 0),
-				),
+			'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+				'items' => [
+					['', 0],
+                ],
 				'foreign_table' => 'tx_t3events_domain_model_eventlocation',
 				'foreign_table_where' => ' AND tx_t3events_domain_model_eventlocation.sys_language_uid IN (-1,0)
                 							ORDER BY tx_t3events_domain_model_eventlocation.name',
 				'minitems' => 0,
 				'maxitems' => 1,
-				'noIconsBelowSelect' => TRUE,
-			),
-		),
-		'ticket_class' => array(
+				'showIconTable' => TRUE,
+            ],
+        ],
+		'ticket_class' => [
 			'exclude' => 0,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_performance.ticket_class',
-			'config' => array(
+			'config' => [
 				'type' => 'inline',
 				'foreign_table' => 'tx_t3events_domain_model_ticketclass',
 				'foreign_field' => 'performance',
 				'foreign_sortby' => 'sorting',
 				'maxitems' => 9999,
-				'appearance' => array(
+				'appearance' => [
 					'collapseAll' => 0,
 					'levelLinksPosition' => 'top',
 					'showSynchronizationLink' => 1,
 					'showPossibleLocalizationRecords' => 1,
 					'showAllLocalizationLink' => 1
-				),
-			),
-		),
-		'status' => array(
+                ],
+            ],
+        ],
+		'status' => [
 			'exclude' => 0,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_performance.status',
-			'config' => array(
-				'type' => 'select',
+			'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
 				'l10nmode' => 'mergeIfNotBlank',
-				'items' => array(
-					array('', 0),
-				),
+				'items' => [
+					['', 0],
+                ],
 				'foreign_table' => 'tx_t3events_domain_model_performancestatus',
 				'foreign_table_where' => ' AND (tx_t3events_domain_model_performancestatus.sys_language_uid = 0)
                                             AND (tx_t3events_domain_model_performancestatus.hidden = 0)
 				                            ORDER BY tx_t3events_domain_model_performancestatus.priority',
-				'noIconsBelowSelect' => TRUE,
-			),
-		),
-		'event' => array(
-			'config' => array(
+				'showIconTable' => TRUE,
+            ],
+        ],
+		'event' => [
+			'config' => [
 				'type' => 'passthrough',
 				'foreign_table' => 'tx_t3events_domain_model_event'
-			),
-		),
-	),
-);
+            ],
+        ],
+    ],
+];

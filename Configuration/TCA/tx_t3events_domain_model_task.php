@@ -3,8 +3,8 @@ if (!defined('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
-return array(
-	'ctrl' => array(
+return [
+	'ctrl' => [
 		'title' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_task',
 		'label' => 'name',
 		'tstamp' => 'tstamp',
@@ -19,192 +19,201 @@ return array(
 		'transOrigPointerField' => 'l10n_parent',
 		'transOrigDiffSourceField' => 'l10n_diffsource',
 		'delete' => 'deleted',
-		'enablecolumns' => array(
+		'enablecolumns' => [
 			'disabled' => 'hidden',
 			'starttime' => 'starttime',
 			'endtime' => 'endtime',
-		),
+        ],
 		'searchFields' => 'name,action,old_status,new_status,folder,',
-		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('t3events') . 'Resources/Public/Icons/tx_t3events_domain_model_task.png'
-	),
-	'interface' => array(
+		'iconfile' => 'EXT:t3events/Resources/Public/Icons/tx_t3events_domain_model_task.png'
+    ],
+	'interface' => [
 		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden,
 			name, description, action, period, old_status, new_status, folder',
-	),
-	'types' => array(
-		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource,
-			hidden;;1, name, description, action, period, old_status, new_status,
-			folder,--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,starttime, endtime'),
-	),
-	'palettes' => array(
-		'1' => array('showitem' => ''),
-	),
-	'columns' => array(
-		'sys_language_uid' => array(
+    ],
+	'types' => [
+		'1' => [
+		    'showitem' => '--palette--;;1,
+			name, description, action, period, old_status, new_status,
+			folder,--div--;LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tab.access,starttime, endtime'
+        ],
+	],
+	'palettes' => [
+		'1' => [
+		    'showitem' => 'sys_language_uid,l10n_parent,l10n_diffsource,hidden'
+        ],
+	],
+	'columns' => [
+		'sys_language_uid' => [
 			'exclude' => 1,
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.language',
-			'config' => array(
-				'type' => 'select',
+			'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
 				'foreign_table' => 'sys_language',
 				'foreign_table_where' => 'ORDER BY sys_language.title',
-				'items' => array(
-					array('LLL:EXT:lang/locallang_general.xml:LGL.allLanguages', -1),
-					array('LLL:EXT:lang/locallang_general.xml:LGL.default_value', 0)
-				),
-				'noIconsBelowSelect' => TRUE,
-			),
-		),
-		'l10n_parent' => array(
+				'items' => [
+					['LLL:EXT:lang/locallang_general.xml:LGL.allLanguages', -1],
+					['LLL:EXT:lang/locallang_general.xml:LGL.default_value', 0]
+                ],
+				'showIconTable' => TRUE,
+            ],
+        ],
+		'l10n_parent' => [
 			'displayCond' => 'FIELD:sys_language_uid:>:0',
 			'exclude' => 1,
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.l18n_parent',
-			'config' => array(
-				'type' => 'select',
-				'items' => array(
-					array('', 0),
-				),
+			'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+				'items' => [
+					['', 0],
+                ],
 				'foreign_table' => 'tx_t3events_domain_model_task',
 				'foreign_table_where' => 'AND tx_t3events_domain_model_task.pid=###CURRENT_PID### AND tx_t3events_domain_model_task.sys_language_uid IN (-1,0)',
-				'noIconsBelowSelect' => TRUE,
-			),
-		),
-		'l10n_diffsource' => array(
-			'config' => array(
+				'showIconTable' => TRUE,
+            ],
+        ],
+		'l10n_diffsource' => [
+			'config' => [
 				'type' => 'passthrough',
-			),
-		),
-		't3ver_label' => array(
+            ],
+        ],
+		't3ver_label' => [
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.versionLabel',
-			'config' => array(
+			'config' => [
 				'type' => 'input',
 				'size' => 30,
 				'max' => 255,
-			)
-		),
-		'hidden' => array(
+            ]
+        ],
+		'hidden' => [
 			'exclude' => 1,
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.hidden',
-			'config' => array(
+			'config' => [
 				'type' => 'check',
-			),
-		),
-		'starttime' => array(
+            ],
+        ],
+		'starttime' => [
 			'exclude' => 1,
 			'l10n_mode' => 'mergeIfNotBlank',
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.starttime',
-			'config' => array(
+			'config' => [
 				'type' => 'input',
 				'size' => 13,
 				'max' => 20,
 				'eval' => 'datetime',
 				'checkbox' => 0,
 				'default' => 0,
-				'range' => array(
+				'range' => [
 					'lower' => mktime(0, 0, 0, date('m'), date('d'), date('Y'))
-				),
-			),
-		),
-		'endtime' => array(
+                ],
+            ],
+        ],
+		'endtime' => [
 			'exclude' => 1,
 			'l10n_mode' => 'mergeIfNotBlank',
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.endtime',
-			'config' => array(
+			'config' => [
 				'type' => 'input',
 				'size' => 13,
 				'max' => 20,
 				'eval' => 'datetime',
 				'checkbox' => 0,
 				'default' => 0,
-				'range' => array(
+				'range' => [
 					'lower' => mktime(0, 0, 0, date('m'), date('d'), date('Y'))
-				),
-			),
-		),
-		'name' => array(
+                ],
+            ],
+        ],
+		'name' => [
 			'exclude' => 0,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_task.name',
-			'config' => array(
+			'config' => [
 				'type' => 'input',
 				'size' => 30,
 				'eval' => 'required,trim'
-			),
-		),
-		'description' => array(
+            ],
+        ],
+		'description' => [
 			'exclude' => 0,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_task.description',
-			'config' => array(
+			'config' => [
 				'type' => 'text',
 				'size' => 30,
 				'eval' => ''
-			),
-		),
-		'action' => array(
+            ],
+        ],
+		'action' => [
 			'exclude' => 0,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_task.action',
-			'config' => array(
-				'type' => 'select',
-				'items' => array(
-					array('LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_task.action.none', 0),
-					array('LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_task.action.updateStatus', 1),
-					array('delete', 2),
-					array('LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_task.action.hidePerformance', 3),
-				),
+			'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+				'items' => [
+					['LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_task.action.none', 0],
+					['LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_task.action.updateStatus', 1],
+					['delete', 2],
+					['LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_task.action.hidePerformance', 3],
+                ],
 				'size' => 1,
 				'maxitems' => 1,
 				'eval' => ''
-			),
-		),
-		'period' => array(
+            ],
+        ],
+		'period' => [
 			'exclude' => 0,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_task.period',
-			'config' => array(
+			'config' => [
 				'type' => 'input',
 				'size' => 5,
 				'eval' => 'int',
-			)
-		),
-		'old_status' => array(
+            ]
+        ],
+		'old_status' => [
 			'exclude' => 0,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_task.old_status',
-			'config' => array(
-				'type' => 'select',
+			'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
 				'foreign_table' => 'tx_t3events_domain_model_performancestatus',
 				'size' => 1,
 				'maxitems' => 1,
 				'eval' => '',
-				'noIconsBelowSelect' => TRUE,
-			),
+				'showIconTable' => TRUE,
+            ],
 			'displayCond' => 'FIELD:action:=:1',
-		),
-		'new_status' => array(
+        ],
+		'new_status' => [
 			'exclude' => 0,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_task.new_status',
-			'config' => array(
-				'type' => 'select',
+			'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
 				'foreign_table' => 'tx_t3events_domain_model_performancestatus',
 				'size' => 1,
 				'maxitems' => 1,
 				'eval' => '',
-				'noIconsBelowSelect' => TRUE,
-			),
+				'showIconTable' => TRUE,
+            ],
 			'displayCond' => 'FIELD:action:=:1',
-		),
-		'folder' => array(
+        ],
+		'folder' => [
 			'exclude' => 0,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_task.folder',
-			'config' => array(
+			'config' => [
 				'type' => 'group',
 				'internal_type' => 'db',
 				'allowed' => 'pages',
 				'size' => 5,
 				'minitems' => 0,
 				'maxitems' => 9999,
-				'wizards' => array(
-					'suggest' => array(
+				'wizards' => [
+					'suggest' => [
 						'type' => 'suggest',
-					),
-				),
-			),
-		),
-	),
-);
+                    ],
+                ],
+            ],
+        ],
+    ],
+];

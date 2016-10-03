@@ -545,6 +545,10 @@
 			<source>Title</source>
 			<target>Titel</target>
 		</trans-unit>
+		<trans-unit id="tab.access" approved="yes">
+			<source>Access</source>
+			<target>Zugriff</target>
+		</trans-unit>
 		</body>
 	</file>
 </xliff>
