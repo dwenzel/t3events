@@ -24,7 +24,7 @@ use DWenzel\T3events\Session\SessionInterface;
  ***************************************************************/
 
 class DummyClassWithNamespace {
-    use DWenzel\T3events\Controller\SessionTrait;
+    use SessionTrait;
 }
 
 /**
@@ -35,7 +35,7 @@ class DummyClassWithNamespace {
 class SessionTraitTest extends UnitTestCase
 {
     /**
-     * @var \DWenzel\T3events\Controller\SessionTrait
+     * @var SessionTrait
      */
     protected $subject;
 
@@ -55,7 +55,7 @@ class SessionTraitTest extends UnitTestCase
     public function sessionCanBeInjected()
     {
         $mockSession = $this->getMockForAbstractClass(
-            \DWenzel\T3events\Session\SessionInterface::class
+            SessionInterface::class
         );
 
         $this->subject->injectSession($mockSession);
@@ -81,7 +81,7 @@ class SessionTraitTest extends UnitTestCase
             $namespace
         );
         $mockSession = $this->getMock(
-            \DWenzel\T3events\Session\SessionInterface::class,
+            SessionInterface::class,
             ['has', 'get', 'clean', 'set', 'setNamespace']
         );
 
