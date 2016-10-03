@@ -1,10 +1,10 @@
 <?php
-namespace Webfox\T3events\Tests\Unit\Domain\Model;
+namespace DWenzel\T3events\Tests\Unit\Domain\Model;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
- *  Michael Kasten <kasten@webfox01.de>, Agentur Webfox
+ *  (c) 2012 Dirk Wenzel <wenzel@dWenzel01.de>, Agentur DWenzel
+ *  Michael Kasten <kasten@dWenzel01.de>, Agentur DWenzel
  *
  *  All rights reserved
  *
@@ -24,29 +24,29 @@ namespace Webfox\T3events\Tests\Unit\Domain\Model;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-use Webfox\T3events\Domain\Model\Event;
+use DWenzel\T3events\Domain\Model\Event;
 
 /**
- * Test case for class \Webfox\T3events\Domain\Model\Performance.
+ * Test case for class \DWenzel\T3events\Domain\Model\Performance.
  *
  * @version $Id$
  * @copyright Copyright belongs to the respective authors
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  * @package TYPO3
  * @subpackage Events
- * @author Dirk Wenzel <wenzel@webfox01.de>
- * @author Michael Kasten <kasten@webfox01.de>
- * @coversDefaultClass \Webfox\T3events\Domain\Model\Performance
+ * @author Dirk Wenzel <wenzel@dWenzel01.de>
+ * @author Michael Kasten <kasten@dWenzel01.de>
+ * @coversDefaultClass \DWenzel\T3events\Domain\Model\Performance
  */
 class PerformanceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 	/**
-	 * @var \Webfox\T3events\Domain\Model\Performance
+	 * @var \DWenzel\T3events\Domain\Model\Performance
 	 */
 	protected $fixture;
 
 	public function setUp() {
-		$this->fixture = new \Webfox\T3events\Domain\Model\Performance();
+		$this->fixture = new \DWenzel\T3events\Domain\Model\Performance();
 	}
 
 	public function tearDown() {
@@ -369,7 +369,7 @@ class PerformanceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @covers ::setEventLocation
 	 */
 	public function setEventLocationForEventLocationSetsEventLocation() {
-		$dummyObject = new \Webfox\T3events\Domain\Model\EventLocation();
+		$dummyObject = new \DWenzel\T3events\Domain\Model\EventLocation();
 		$this->fixture->setEventLocation($dummyObject);
 
 		$this->assertSame(
@@ -395,7 +395,7 @@ class PerformanceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @covers ::setTicketClass
 	 */
 	public function setTicketClassForObjectStorageContainingTicketClassSetsTicketClass() {
-		$ticketClas = new \Webfox\T3events\Domain\Model\TicketClass();
+		$ticketClas = new \DWenzel\T3events\Domain\Model\TicketClass();
 		$objectStorageHoldingExactlyOneTicketClass = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$objectStorageHoldingExactlyOneTicketClass->attach($ticketClas);
 		$this->fixture->setTicketClass($objectStorageHoldingExactlyOneTicketClass);
@@ -411,7 +411,7 @@ class PerformanceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @covers ::addTicketClass
 	 */
 	public function addTicketClassToObjectStorageHoldingTicketClass() {
-		$ticketClass = new \Webfox\T3events\Domain\Model\TicketClass();
+		$ticketClass = new \DWenzel\T3events\Domain\Model\TicketClass();
 		$objectStorageHoldingExactlyOneTicketClass = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$objectStorageHoldingExactlyOneTicketClass->attach($ticketClass);
 		$this->fixture->addTicketClass($ticketClass);
@@ -427,7 +427,7 @@ class PerformanceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @covers ::removeTicketClass
 	 */
 	public function removeTicketClassFromObjectStorageHoldingTicketClass() {
-		$ticketClass = new \Webfox\T3events\Domain\Model\TicketClass();
+		$ticketClass = new \DWenzel\T3events\Domain\Model\TicketClass();
 		$localObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$localObjectStorage->attach($ticketClass);
 		$localObjectStorage->detach($ticketClass);
@@ -456,7 +456,7 @@ class PerformanceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @covers ::setStatus
 	 */
 	public function setStatusForPerformanceStatusSetsStatus() {
-		$dummyObject = new \Webfox\T3events\Domain\Model\PerformanceStatus();
+		$dummyObject = new \DWenzel\T3events\Domain\Model\PerformanceStatus();
 		$this->fixture->setStatus($dummyObject);
 
 		$this->assertSame(

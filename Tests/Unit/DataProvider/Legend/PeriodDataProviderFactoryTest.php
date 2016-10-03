@@ -1,14 +1,14 @@
 <?php
-namespace Webfox\T3events\Tests\Unit\DataProvider\Legend;
+namespace DWenzel\T3events\Tests\Unit\DataProvider\Legend;
 
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
-use Webfox\T3events\DataProvider\Legend\PeriodAllDataProvider;
-use Webfox\T3events\DataProvider\Legend\PeriodDataProviderFactory;
-use Webfox\T3events\DataProvider\Legend\PeriodFutureDataProvider;
-use Webfox\T3events\DataProvider\Legend\PeriodPastDataProvider;
-use Webfox\T3events\DataProvider\Legend\PeriodSpecificDataProvider;
-use Webfox\T3events\DataProvider\Legend\PeriodUnknownDataProvider;
+use DWenzel\T3events\DataProvider\Legend\PeriodAllDataProvider;
+use DWenzel\T3events\DataProvider\Legend\PeriodDataProviderFactory;
+use DWenzel\T3events\DataProvider\Legend\PeriodFutureDataProvider;
+use DWenzel\T3events\DataProvider\Legend\PeriodPastDataProvider;
+use DWenzel\T3events\DataProvider\Legend\PeriodSpecificDataProvider;
+use DWenzel\T3events\DataProvider\Legend\PeriodUnknownDataProvider;
 
 /***************************************************************
  *  Copyright notice
@@ -60,10 +60,10 @@ class PeriodDataProviderFactoryTest extends UnitTestCase
     public function getValidParamsDataProvider()
     {
         $validClasses = [
-            'futureOnly' => PeriodFutureDataProvider::class,
-            'pastOnly' => PeriodPastDataProvider::class,
-            'specific' => PeriodSpecificDataProvider::class,
-            'all' => PeriodAllDataProvider::class,
+            'futureOnly' => \DWenzel\T3events\DataProvider\Legend\PeriodFutureDataProvider::class,
+            'pastOnly' => \DWenzel\T3events\DataProvider\Legend\PeriodPastDataProvider::class,
+            'specific' => \DWenzel\T3events\DataProvider\Legend\PeriodSpecificDataProvider::class,
+            'all' => \DWenzel\T3events\DataProvider\Legend\PeriodAllDataProvider::class,
         ];
         $data = [];
         foreach ($validClasses as $key=>$class) {
@@ -102,7 +102,7 @@ class PeriodDataProviderFactoryTest extends UnitTestCase
      * @dataProvider getValidParamsDataProvider
      * @param $params
      * @param $expectedClass
-     * @throws \Webfox\T3events\InvalidConfigurationException
+     * @throws \DWenzel\T3events\InvalidConfigurationException
      */
     public function getReturnsDataProvider($params, $expectedClass)
     {

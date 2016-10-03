@@ -1,5 +1,5 @@
 <?php
-namespace Webfox\T3events\Tests;
+namespace DWenzel\T3events\Tests;
 
 /**
  * This file is part of the TYPO3 CMS project.
@@ -13,25 +13,25 @@ namespace Webfox\T3events\Tests;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 
 /**
- * Test case for class \Webfox\T3events\Domain\Model\Dto\Search.
+ * Test case for class \DWenzel\T3events\Domain\Model\Dto\Search.
  *
  * @version $Id$
  * @copyright Copyright belongs to the respective authors
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  * @package TYPO3
  * @subpackage Placement Service
- * @author Dirk Wenzel <wenzel@webfox01.de>
- * @author Michael Kasten <kasten@webfox01.de>
+ * @author Dirk Wenzel <wenzel@dWenzel01.de>
+ * @author Michael Kasten <kasten@dWenzel01.de>
  */
 class SearchTest extends UnitTestCase {
 
 	/**
-	 * @var \Webfox\T3events\Domain\Model\Dto\Search
+	 * @var \DWenzel\T3events\Domain\Model\Dto\Search
 	 */
 	protected $fixture;
 
 	public function setUp() {
-		$this->fixture = new \Webfox\T3events\Domain\Model\Dto\Search();
+		$this->fixture = new \DWenzel\T3events\Domain\Model\Dto\Search();
 	}
 
 	public function tearDown() {

@@ -1,14 +1,14 @@
 <?php
-namespace Webfox\T3events\Tests\Unit\Domain\Model\Dto;
+namespace DWenzel\T3events\Tests\Unit\Domain\Model\Dto;
 
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 use TYPO3\CMS\Extbase\Persistence\Generic\Query;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
-use Webfox\T3events\Domain\Model\Dto\EventTypeAwareDemandInterface;
-use Webfox\T3events\Domain\Repository\EventTypeConstraintRepositoryTrait;
+use DWenzel\T3events\Domain\Model\Dto\EventTypeAwareDemandInterface;
+use DWenzel\T3events\Domain\Repository\EventTypeConstraintRepositoryTrait;
 
 /**
- * Test case for class \Webfox\T3events\Domain\Repository\EventTypeConstraintRepositoryTrait.
+ * Test case for class \DWenzel\T3events\Domain\Repository\EventTypeConstraintRepositoryTrait.
  */
 class EventTypeConstraintRepositoryTraitTest extends UnitTestCase {
 	/**
@@ -17,7 +17,7 @@ class EventTypeConstraintRepositoryTraitTest extends UnitTestCase {
 	const EVENT_TYPE_FIELD = 'foo';
 
 	/**
-	 * @var \Webfox\T3events\Domain\Repository\EventTypeConstraintRepositoryTrait
+	 * @var \DWenzel\T3events\Domain\Repository\EventTypeConstraintRepositoryTrait
 	 */
 	protected $subject;
 

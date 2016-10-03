@@ -1,10 +1,10 @@
 <?php
-namespace Webfox\T3events\Domain\Model;
+namespace DWenzel\T3events\Domain\Model;
 
 	/***************************************************************
 	 *  Copyright notice
-	 *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
-	 *  Michael Kasten <kasten@webfox01.de>, Agentur Webfox
+	 *  (c) 2012 Dirk Wenzel <wenzel@dWenzel01.de>, Agentur DWenzel
+	 *  Michael Kasten <kasten@dWenzel01.de>, Agentur DWenzel
 	 *  All rights reserved
 	 *  This script is part of the TYPO3 project. The TYPO3 project is
 	 *  free software; you can redistribute it and/or modify
@@ -111,7 +111,7 @@ class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $priceNotice;
 
 	/**
-	 * @var \Webfox\T3events\Domain\Model\Event
+	 * @var \DWenzel\T3events\Domain\Model\Event
 	 */
 	protected $event;
 
@@ -119,7 +119,7 @@ class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 * eventLocation
 	 *
 	 * @lazy
-	 * @var \Webfox\T3events\Domain\Model\EventLocation
+	 * @var \DWenzel\T3events\Domain\Model\EventLocation
 	 */
 	protected $eventLocation;
 
@@ -127,7 +127,7 @@ class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 * ticketClass
 	 *
 	 * @lazy
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\T3events\Domain\Model\TicketClass>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\TicketClass>
 	 */
 	protected $ticketClass;
 
@@ -135,7 +135,7 @@ class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 * status
 	 *
 	 * @lazy
-	 * @var \Webfox\T3events\Domain\Model\PerformanceStatus
+	 * @var \DWenzel\T3events\Domain\Model\PerformanceStatus
 	 */
 	protected $status;
 
@@ -148,8 +148,6 @@ class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
 	 * __construct
-	 *
-	 * @return void
 	 */
 	public function __construct() {
 		//Do not remove the next line: It would break the functionality
@@ -173,7 +171,7 @@ class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Returns the eventLocation
 	 *
-	 * @return \Webfox\T3events\Domain\Model\Event
+	 * @return \DWenzel\T3events\Domain\Model\Event
 	 */
 	public function getEvent() {
 		return $this->event;
@@ -182,7 +180,7 @@ class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the event
 	 *
-	 * @param \Webfox\T3events\Domain\Model\Event $event
+	 * @param \DWenzel\T3events\Domain\Model\Event $event
 	 */
 	public function setEvent(Event $event) {
 		$this->event = $event;
@@ -191,7 +189,7 @@ class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Returns the eventLocation
 	 *
-	 * @return \Webfox\T3events\Domain\Model\EventLocation eventLocation
+	 * @return \DWenzel\T3events\Domain\Model\EventLocation eventLocation
 	 */
 	public function getEventLocation() {
 		return $this->eventLocation;
@@ -200,10 +198,10 @@ class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the eventLocation
 	 *
-	 * @param \Webfox\T3events\Domain\Model\EventLocation $eventLocation
-	 * @return \Webfox\T3events\Domain\Model\EventLocation eventLocation
+	 * @param \DWenzel\T3events\Domain\Model\EventLocation $eventLocation
+	 * @return \DWenzel\T3events\Domain\Model\EventLocation eventLocation
 	 */
-	public function setEventLocation(\Webfox\T3events\Domain\Model\EventLocation $eventLocation) {
+	public function setEventLocation(\DWenzel\T3events\Domain\Model\EventLocation $eventLocation) {
 		$this->eventLocation = $eventLocation;
 	}
 
@@ -394,7 +392,7 @@ class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Returns the status
 	 *
-	 * @return \Webfox\T3events\Domain\Model\PerformanceStatus $status
+	 * @return \DWenzel\T3events\Domain\Model\PerformanceStatus $status
 	 */
 	public function getStatus() {
 		return $this->status;
@@ -403,10 +401,10 @@ class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the status
 	 *
-	 * @param \Webfox\T3events\Domain\Model\PerformanceStatus $status
+	 * @param \DWenzel\T3events\Domain\Model\PerformanceStatus $status
 	 * @return void
 	 */
-	public function setStatus(\Webfox\T3events\Domain\Model\PerformanceStatus $status) {
+	public function setStatus(\DWenzel\T3events\Domain\Model\PerformanceStatus $status) {
 		$this->status = $status;
 	}
 
@@ -432,27 +430,27 @@ class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Adds a TicketClass
 	 *
-	 * @param \Webfox\T3events\Domain\Model\TicketClass $ticketClass
+	 * @param \DWenzel\T3events\Domain\Model\TicketClass $ticketClass
 	 * @return void
 	 */
-	public function addTicketClass(\Webfox\T3events\Domain\Model\TicketClass $ticketClass) {
+	public function addTicketClass(\DWenzel\T3events\Domain\Model\TicketClass $ticketClass) {
 		$this->ticketClass->attach($ticketClass);
 	}
 
 	/**
 	 * Removes a TicketClass
 	 *
-	 * @param \Webfox\T3events\Domain\Model\TicketClass $ticketClassToRemove The TicketClass to be removed
+	 * @param \DWenzel\T3events\Domain\Model\TicketClass $ticketClassToRemove The TicketClass to be removed
 	 * @return void
 	 */
-	public function removeTicketClass(\Webfox\T3events\Domain\Model\TicketClass $ticketClassToRemove) {
+	public function removeTicketClass(\DWenzel\T3events\Domain\Model\TicketClass $ticketClassToRemove) {
 		$this->ticketClass->detach($ticketClassToRemove);
 	}
 
 	/**
 	 * Returns the ticketClass
 	 *
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\T3events\Domain\Model\TicketClass> $ticketClass
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\TicketClass> $ticketClass
 	 */
 	public function getTicketClass() {
 		return $this->ticketClass;
@@ -461,7 +459,7 @@ class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the ticketClass
 	 *
-	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\T3events\Domain\Model\TicketClass> $ticketClass
+	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\TicketClass> $ticketClass
 	 * @return void
 	 */
 	public function setTicketClass(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $ticketClass) {

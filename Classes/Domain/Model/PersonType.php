@@ -1,5 +1,5 @@
 <?php
-namespace Webfox\T3events\Domain\Model;
+namespace DWenzel\T3events\Domain\Model;
 
 /***************************************************************
  *  Copyright notice
@@ -23,7 +23,7 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractValueObject;
 /**
  * Class PersonType
  *
- * @package Webfox\T3events\Domain\Model
+ * @package DWenzel\T3events\Domain\Model
  */
 class PersonType extends AbstractValueObject {
 

@@ -1,10 +1,10 @@
 <?php
-namespace Webfox\T3events\Controller;
+namespace DWenzel\T3events\Controller;
 
 /***************************************************************
  *  Copyright notice
- *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
- *  Michael Kasten <kasten@webfox01.de>, Agentur Webfox
+ *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur DWenzel
+ *  Michael Kasten <kasten@webfox01.de>, Agentur DWenzel
  *  All rights reserved
  *  This script is part of the TYPO3 project. The TYPO3 project is
  *  free software; you can redistribute it and/or modify
@@ -19,19 +19,24 @@ namespace Webfox\T3events\Controller;
  *  GNU General Public License for more details.
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+
+
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
-use Webfox\T3events\Domain\Model\Dto\PerformanceDemand;
-use Webfox\T3events\Domain\Model\Performance;
-use Webfox\T3events\Domain\Repository\EventTypeRepository;
-use Webfox\T3events\Domain\Repository\GenreRepository;
-use Webfox\T3events\Domain\Repository\PerformanceRepository;
-use Webfox\T3events\Domain\Repository\VenueRepository;
+
+
+use DWenzel\T3events\Domain\Model\Dto\PerformanceDemand;
+use DWenzel\T3events\Domain\Model\Performance;
+use DWenzel\T3events\Domain\Repository\EventTypeRepository;
+use DWenzel\T3events\Domain\Repository\GenreRepository;
+use DWenzel\T3events\Domain\Repository\PerformanceRepository;
+use DWenzel\T3events\Domain\Repository\VenueRepository;
 
 /**
  * Class PerformanceController
  *
- * @package Webfox\T3events\Controller
+ * @package DWenzel\T3events\Controller
  */
 class PerformanceController
     extends ActionController
@@ -49,28 +54,28 @@ class PerformanceController
     /**
      * performanceRepository
      *
-     * @var \Webfox\T3events\Domain\Repository\PerformanceRepository
+     * @var \DWenzel\T3events\Domain\Repository\PerformanceRepository
      */
     protected $performanceRepository;
 
     /**
      * genreRepository
      *
-     * @var \Webfox\T3events\Domain\Repository\GenreRepository
+     * @var \DWenzel\T3events\Domain\Repository\GenreRepository
      */
     protected $genreRepository;
 
     /**
      * venueRepository
      *
-     * @var \Webfox\T3events\Domain\Repository\VenueRepository
+     * @var \DWenzel\T3events\Domain\Repository\VenueRepository
      */
     protected $venueRepository;
 
     /**
      * eventTypeRepository
      *
-     * @var \Webfox\T3events\Domain\Repository\EventTypeRepository
+     * @var \DWenzel\T3events\Domain\Repository\EventTypeRepository
      */
     protected $eventTypeRepository;
 
@@ -92,7 +97,7 @@ class PerformanceController
     /**
      * injectPerformanceRepository
      *
-     * @param \Webfox\T3events\Domain\Repository\PerformanceRepository $performanceRepository
+     * @param \DWenzel\T3events\Domain\Repository\PerformanceRepository $performanceRepository
      * @return void
      */
     public function injectPerformanceRepository(PerformanceRepository $performanceRepository)
@@ -103,7 +108,7 @@ class PerformanceController
     /**
      * injectGenreRepository
      *
-     * @param \Webfox\T3events\Domain\Repository\GenreRepository $genreRepository
+     * @param \DWenzel\T3events\Domain\Repository\GenreRepository $genreRepository
      * @return void
      */
     public function injectGenreRepository(GenreRepository $genreRepository)
@@ -114,7 +119,7 @@ class PerformanceController
     /**
      * injectVenueRepository
      *
-     * @param \Webfox\T3events\Domain\Repository\VenueRepository $venueRepository
+     * @param \DWenzel\T3events\Domain\Repository\VenueRepository $venueRepository
      * @return void
      */
     public function injectVenueRepository(VenueRepository $venueRepository)
@@ -125,7 +130,7 @@ class PerformanceController
     /**
      * injectEventTypeRepository
      *
-     * @param \Webfox\T3events\Domain\Repository\EventTypeRepository $eventTypeRepository
+     * @param \DWenzel\T3events\Domain\Repository\EventTypeRepository $eventTypeRepository
      * @return void
      */
     public function injectEventTypeRepository(EventTypeRepository $eventTypeRepository)
@@ -184,7 +189,7 @@ class PerformanceController
     /**
      * action show
      *
-     * @param \Webfox\T3events\Domain\Model\Performance $performance
+     * @param \DWenzel\T3events\Domain\Model\Performance $performance
      * @return void
      */
     public function showAction(Performance $performance)
@@ -234,12 +239,12 @@ class PerformanceController
      * Create Demand from Settings
      *
      * @param \array $settings
-     * @return \Webfox\T3events\Domain\Model\Dto\PerformanceDemand
+     * @return \DWenzel\T3events\Domain\Model\Dto\PerformanceDemand
      */
     protected function createDemandFromSettings($settings)
     {
         /** @var PerformanceDemand $demand */
-        $demand = $this->objectManager->get('Webfox\\T3events\\Domain\\Model\\Dto\\PerformanceDemand');
+        $demand = $this->objectManager->get('DWenzel\\T3events\\Domain\\Model\\Dto\\PerformanceDemand');
 
         if ($settings['sortBy'] == 'performances.date') {
             $settings['sortBy'] = 'date';

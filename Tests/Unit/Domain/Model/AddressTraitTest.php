@@ -1,6 +1,6 @@
 <?php
 
-namespace Webfox\T3events\Tests\Unit\Domain\Model;
+namespace DWenzel\T3events\Tests\Unit\Domain\Model;
 
 	/***************************************************************
 	 *  Copyright notice
@@ -19,19 +19,19 @@ namespace Webfox\T3events\Tests\Unit\Domain\Model;
 	 *  GNU General Public License for more details.
 	 *  This copyright notice MUST APPEAR in all copies of the script!
 	 ***************************************************************/
-use Webfox\T3events\Domain\Model\AddressTrait;
+use DWenzel\T3events\Domain\Model\AddressTrait;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 
 /**
- * Test case for class \Webfox\T3events\Domain\Model\AddressTrait.
+ * Test case for class \DWenzel\T3events\Domain\Model\AddressTrait.
  *
  * @author Dirk Wenzel <wenzel@cps-it.de>
- * @coversDefaultClass \Webfox\T3events\Domain\Model\AddressTrait
+ * @coversDefaultClass \DWenzel\T3events\Domain\Model\AddressTrait
  */
 class AddressTraitTest extends UnitTestCase {
 
 	/**
-	 * @var \Webfox\T3events\Domain\Model\AddressTrait
+	 * @var \DWenzel\T3events\Domain\Model\AddressTrait
 	 */
 	protected $subject = NULL;
 

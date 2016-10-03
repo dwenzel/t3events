@@ -1,10 +1,10 @@
 <?php
-namespace Webfox\T3events\Tests\Unit\Domain\Model\Dto;
+namespace DWenzel\T3events\Tests\Unit\Domain\Model\Dto;
 
 	/***************************************************************
 	 *  Copyright notice
-	 *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
-	 *            Michael Kasten <kasten@webfox01.de>, Agentur Webfox
+	 *  (c) 2012 Dirk Wenzel <wenzel@dWenzel01.de>, Agentur DWenzel
+	 *            Michael Kasten <kasten@dWenzel01.de>, Agentur DWenzel
 	 *  All rights reserved
 	 *  This script is part of the TYPO3 project. The TYPO3 project is
 	 *  free software; you can redistribute it and/or modify
@@ -20,24 +20,24 @@ namespace Webfox\T3events\Tests\Unit\Domain\Model\Dto;
 	 *  This copyright notice MUST APPEAR in all copies of the script!
 	 ***************************************************************/
 use TYPO3\CMS\Core\Tests\UnitTestCase;
-use Webfox\T3events\Domain\Model\Dto\PeriodAwareDemandTrait;
+use DWenzel\T3events\Domain\Model\Dto\PeriodAwareDemandTrait;
 
 /**
- * Test case for class \Webfox\T3events\Domain\Model\Dto\PeriodAwareDemandTrait.
+ * Test case for class \DWenzel\T3events\Domain\Model\Dto\PeriodAwareDemandTrait.
  *
  * @version $Id$
  * @copyright Copyright belongs to the respective authors
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  * @package TYPO3
  * @subpackage Events
- * @author Dirk Wenzel <wenzel@webfox01.de>
- * @author Michael Kasten <kasten@webfox01.de>
- * @coversDefaultClass \Webfox\T3events\Domain\Model\Dto\PeriodAwareDemandTrait
+ * @author Dirk Wenzel <wenzel@dWenzel01.de>
+ * @author Michael Kasten <kasten@dWenzel01.de>
+ * @coversDefaultClass \DWenzel\T3events\Domain\Model\Dto\PeriodAwareDemandTrait
  */
 class PeriodAwareDemandTraitTest extends UnitTestCase {
 
 	/**
-	 * @var \Webfox\T3events\Domain\Model\Dto\PeriodAwareDemandTrait
+	 * @var \DWenzel\T3events\Domain\Model\Dto\PeriodAwareDemandTrait
 	 */
 	protected $fixture;
 

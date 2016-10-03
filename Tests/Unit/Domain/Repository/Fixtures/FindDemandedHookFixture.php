@@ -1,7 +1,7 @@
 <?php
-namespace Webfox\T3events\Tests\Unit\Domain\Repository\Fixtures;
+namespace DWenzel\T3events\Tests\Unit\Domain\Repository\Fixtures;
 
-use Webfox\T3events\Domain\Repository\AbstractDemandedRepository;
+use DWenzel\T3events\Domain\Repository\AbstractDemandedRepository;
 
 /***************************************************************
  *  Copyright notice
@@ -24,7 +24,7 @@ use Webfox\T3events\Domain\Repository\AbstractDemandedRepository;
 /**
  * Class FindDemandedHookFixture
  *
- * @package Webfox\T3events\Tests\Unit\Domain\Repository\Fixtures
+ * @package DWenzel\T3events\Tests\Unit\Domain\Repository\Fixtures
  */
 class FindDemandedHookFixture {
 	/**

@@ -1,5 +1,5 @@
 <?php
-namespace Webfox\T3events\Service;
+namespace DWenzel\T3events\Service;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
@@ -7,7 +7,7 @@ use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 /**
  * Class NotificationService
  *
- * @package Webfox\T3events\Service
+ * @package DWenzel\T3events\Service
  */
 class NotificationService {
 
@@ -86,7 +86,7 @@ class NotificationService {
 	 * Sends a prepared notification
 	 * Returns true on success and false on failure.
 	 *
-	 * @param \Webfox\T3events\Domain\Model\Notification $notification
+	 * @param \DWenzel\T3events\Domain\Model\Notification $notification
 	 * @return bool
 	 */
 	public function send(&$notification) {
@@ -114,14 +114,17 @@ class NotificationService {
 		return $message->isSent();
 	}
 
-	/**
-	 * Get a template view
-	 * Uses the given template name
-	 *
-	 * @var \string $templateName
-	 * @var \string $format Format for content. Default is html
-	 * @return \TYPO3\CMS\Fluid\View\StandaloneView
-	 */
+    /**
+     * Get a template view
+     * Uses the given template name
+     *
+     * @param string $templateName
+     * @param null|string $format
+     * @param null|string $folderName
+     * @return \TYPO3\CMS\Fluid\View\StandaloneView
+     * @internal param string $templateName
+     * @internal param string $format Format for content. Default is html
+     */
 	protected function buildTemplateView($templateName, $format = NULL, $folderName = NULL) {
 		/** @var \TYPO3\CMS\Fluid\View\StandaloneView $emailView */
 		$emailView = $this->objectManager->get('TYPO3\\CMS\\Fluid\\View\\StandaloneView');
@@ -188,11 +191,11 @@ class NotificationService {
 	/**
 	 * Clones a given notification
 	 *
-	 * @param \Webfox\T3events\Domain\Model\Notification $oldNotification
-	 * @return \Webfox\T3events\Domain\Model\Notification
+	 * @param \DWenzel\T3events\Domain\Model\Notification $oldNotification
+	 * @return \DWenzel\T3events\Domain\Model\Notification
 	 */
 	public function duplicate($oldNotification) {
-		$notification = $this->objectManager->get('\\Webfox\\T3events\\Domain\\Model\\Notification');
+		$notification = $this->objectManager->get('\\DWenzel\\T3events\\Domain\\Model\\Notification');
 		$accessibleProperties = \TYPO3\CMS\Extbase\Reflection\ObjectAccess::getSettablePropertyNames($notification);
 		foreach ($accessibleProperties as $property) {
 			\TYPO3\CMS\Extbase\Reflection\ObjectAccess::setProperty(

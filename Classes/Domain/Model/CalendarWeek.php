@@ -1,5 +1,5 @@
 <?php
-namespace Webfox\T3events\Domain\Model;
+namespace DWenzel\T3events\Domain\Model;
 
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
@@ -23,14 +23,12 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 class CalendarWeek {
 
 	/**
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Webfox\T3events\Domain\Model\CalendarDay>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\CalendarDay>
 	 */
 	protected $days;
 
 	/**
 	 * __construct
-	 *
-	 * @return void
 	 */
 	public function __construct() {
 		//Do not remove the next line: It would break the functionality
@@ -63,7 +61,7 @@ class CalendarWeek {
 	/**
 	 * Sets the Days
 	 *
-	 * @param ObjectStorage <\Webfox\T3events\Domain\Model\CalendarDay> $days
+	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\CalendarDay> $days
 	 */
 	public function setDays(ObjectStorage $days) {
 		$this->days = $days;

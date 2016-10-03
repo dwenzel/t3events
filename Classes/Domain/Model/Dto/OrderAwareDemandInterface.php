@@ -1,11 +1,11 @@
 <?php
-namespace Webfox\T3events\Domain\Model\Dto;
+namespace DWenzel\T3events\Domain\Model\Dto;
 
 /**
  * Interface OrderAwareDemandInterface
  * Describes methods for order aware demands
  *
- * @package Webfox\T3events\Domain\Model\Dto
+ * @package DWenzel\T3events\Domain\Model\Dto
  */
 interface OrderAwareDemandInterface
 {

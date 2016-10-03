@@ -1,16 +1,16 @@
 <?php
-namespace Webfox\T3events\Configuration;
+namespace DWenzel\T3events\Configuration;
 
-use TYPO3\CMS\Core\Localization\Exception\FileNotFoundException;
+
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Lang\LanguageService;
-use Webfox\T3events\DataProvider\Legend\LayeredLegendDataProviderInterface;
-use Webfox\T3events\DataProvider\Legend\PeriodAllDataProvider;
-use Webfox\T3events\DataProvider\Legend\PeriodDataProviderFactory;
-use Webfox\T3events\DataProvider\Legend\PeriodFutureDataProvider;
-use Webfox\T3events\DataProvider\Legend\PeriodPastDataProvider;
-use Webfox\T3events\MissingFileException;
-use Webfox\T3events\Resource\VectorImage;
+use DWenzel\T3events\DataProvider\Legend\LayeredLegendDataProviderInterface;
+use DWenzel\T3events\DataProvider\Legend\PeriodAllDataProvider;
+use DWenzel\T3events\DataProvider\Legend\PeriodDataProviderFactory;
+use DWenzel\T3events\DataProvider\Legend\PeriodFutureDataProvider;
+use DWenzel\T3events\DataProvider\Legend\PeriodPastDataProvider;
+use DWenzel\T3events\MissingFileException;
+use DWenzel\T3events\Resource\VectorImage;
 
 /***************************************************************
  *  Copyright notice
@@ -33,7 +33,7 @@ use Webfox\T3events\Resource\VectorImage;
 /**
  * Class PeriodConstraintLegend
  *
- * @package Webfox\T3events\Configuration
+ * @package DWenzel\T3events\Configuration
  */
 class PeriodConstraintLegend extends VectorImage
 {
@@ -69,7 +69,7 @@ class PeriodConstraintLegend extends VectorImage
 
     /**
      * @param $params
-     * @throws \Webfox\T3events\MissingFileException
+     * @throws \DWenzel\T3events\MissingFileException
      */
     public function initialize($params)
     {

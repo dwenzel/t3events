@@ -1,10 +1,10 @@
 <?php
-namespace Webfox\T3events\Session;
+namespace DWenzel\T3events\Session;
 
 /**
  * Interface NamespaceAwareInterface
  *
- * @package Webfox\T3events\Session
+ * @package DWenzel\T3events\Session
  */
 interface NamespaceAwareInterface {
 	/**

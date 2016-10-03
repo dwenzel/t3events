@@ -1,5 +1,5 @@
 <?php
-namespace Webfox\T3events\Domain\Factory\Dto;
+namespace DWenzel\T3events\Domain\Factory\Dto;
 
 /**
  * Class SkipPropertiesTrait

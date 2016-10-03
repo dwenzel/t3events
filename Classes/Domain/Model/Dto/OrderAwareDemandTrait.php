@@ -1,11 +1,11 @@
 <?php
-namespace Webfox\T3events\Domain\Model\Dto;
+namespace DWenzel\T3events\Domain\Model\Dto;
 
 /**
  * Class OrderAwareDemandTrait
  * Provides properties and methods for order aware demand objects
  *
- * @package Webfox\T3events\Domain\Model\Dto
+ * @package DWenzel\T3events\Domain\Model\Dto
  */
 trait OrderAwareDemandTrait
 {

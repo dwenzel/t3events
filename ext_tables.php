@@ -6,7 +6,7 @@ if (!defined('TYPO3_MODE')) {
 $emSettings = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][$_EXTKEY]);
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-	'Webfox.' . $_EXTKEY,
+	'DWenzel.' . $_EXTKEY,
 	'Events',
 	'Events'
 );

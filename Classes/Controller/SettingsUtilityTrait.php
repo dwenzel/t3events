@@ -1,8 +1,8 @@
 <?php
-namespace Webfox\T3events\Controller;
+namespace DWenzel\T3events\Controller;
 
 use TYPO3\CMS\Extbase\Utility\ArrayUtility;
-use Webfox\T3events\Utility\SettingsUtility;
+use DWenzel\T3events\Utility\SettingsUtility;
 
 /**
  * Class SettingsUtilityTrait
@@ -13,7 +13,7 @@ use Webfox\T3events\Utility\SettingsUtility;
 trait SettingsUtilityTrait
 {
     /**
-     * @var \Webfox\T3events\Utility\SettingsUtility
+     * @var \DWenzel\T3events\Utility\SettingsUtility
      */
     protected $settingsUtility;
 
@@ -30,7 +30,7 @@ trait SettingsUtilityTrait
     /**
      * injects the settings utility
      *
-     * @param SettingsUtility $settingsUtility
+     * @param \DWenzel\T3events\Utility\SettingsUtility $settingsUtility
      */
     public function injectSettingsUtility(SettingsUtility $settingsUtility) {
         $this->settingsUtility = $settingsUtility;

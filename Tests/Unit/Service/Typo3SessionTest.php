@@ -1,21 +1,21 @@
 <?php
-namespace Webfox\T3events\Tests\Unit\Service;
+namespace DWenzel\T3events\Tests\Unit\Service;
 
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
-use Webfox\T3events\Session\Typo3Session;
+use DWenzel\T3events\Session\Typo3Session;
 
 /**
  * Class Typo3SessionTest
  *
- * @package Webfox\T3events\Tests\Unit\Service
+ * @package DWenzel\T3events\Tests\Unit\Service
  */
 class Typo3SessionTest extends UnitTestCase {
 	const SESSION_NAMESPACE = 'testNamespace';
 
 	/**
-	 * @var \Webfox\T3events\Session\Typo3Session
+	 * @var \DWenzel\T3events\Session\Typo3Session
 	 */
 	protected $subject;
 

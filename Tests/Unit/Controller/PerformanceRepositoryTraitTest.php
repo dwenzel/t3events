@@ -1,9 +1,9 @@
 <?php
-namespace Webfox\T3events\Tests\Controller;
+namespace DWenzel\T3events\Tests\Controller;
 
 use TYPO3\CMS\Core\Tests\UnitTestCase;
-use Webfox\T3events\Controller\PerformanceRepositoryTrait;
-use Webfox\T3events\Domain\Repository\PerformanceRepository;
+use DWenzel\T3events\Controller\PerformanceRepositoryTrait;
+use DWenzel\T3events\Domain\Repository\PerformanceRepository;
 
 /***************************************************************
  *  Copyright notice
@@ -25,7 +25,7 @@ use Webfox\T3events\Domain\Repository\PerformanceRepository;
 class PerformanceRepositoryTraitTest extends UnitTestCase
 {
     /**
-     * @var PerformanceRepositoryTrait
+     * @var \DWenzel\T3events\Controller\PerformanceRepositoryTrait
      */
     protected $subject;
 

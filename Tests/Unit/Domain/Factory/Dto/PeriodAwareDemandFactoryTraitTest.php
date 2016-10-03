@@ -1,9 +1,9 @@
 <?php
-namespace Webfox\T3events\Tests\Unit\Domain\Factory\Dto;
+namespace DWenzel\T3events\Tests\Unit\Domain\Factory\Dto;
 
 use TYPO3\CMS\Core\Tests\UnitTestCase;
-use Webfox\T3events\Domain\Factory\Dto\PeriodAwareDemandFactoryTrait;
-use Webfox\T3events\Domain\Model\Dto\PeriodAwareDemandInterface;
+use DWenzel\T3events\Domain\Factory\Dto\PeriodAwareDemandFactoryTrait;
+use DWenzel\T3events\Domain\Model\Dto\PeriodAwareDemandInterface;
 
 /***************************************************************
  *  Copyright notice
@@ -25,7 +25,7 @@ use Webfox\T3events\Domain\Model\Dto\PeriodAwareDemandInterface;
 class PeriodAwareDemandFactoryTraitTest extends UnitTestCase
 {
     /**
-     * @var PeriodAwareDemandFactoryTrait
+     * @var \DWenzel\T3events\Domain\Factory\Dto\PeriodAwareDemandFactoryTrait
      */
     protected $subject;
 
@@ -35,7 +35,7 @@ class PeriodAwareDemandFactoryTraitTest extends UnitTestCase
     public function setUp()
     {
         $this->subject = $this->getMockForTrait(
-            PeriodAwareDemandFactoryTrait::class
+            \DWenzel\T3events\Domain\Factory\Dto\PeriodAwareDemandFactoryTrait::class
         );
     }
 

@@ -1,11 +1,11 @@
 <?php
-namespace Webfox\T3events\Controller;
+namespace DWenzel\T3events\Controller;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 /**
  * Class TranslateTrait
  *
- * @package Webfox\T3events\Controller
+ * @package DWenzel\T3events\Controller
  */
 trait TranslateTrait
 {

@@ -3,8 +3,8 @@ if (!defined('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
-return array(
-	'ctrl' => array(
+return [
+	'ctrl' => [
 		'title' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_teaser',
 		'label' => 'title',
 		'tstamp' => 'tstamp',
@@ -19,138 +19,144 @@ return array(
 		'transOrigPointerField' => 'l10n_parent',
 		'transOrigDiffSourceField' => 'l10n_diffsource',
 		'delete' => 'deleted',
-		'enablecolumns' => array(
+		'enablecolumns' => [
 			'disabled' => 'hidden',
 			'starttime' => 'starttime',
 			'endtime' => 'endtime',
-		),
+        ],
 		'searchFields' => 'title,details,inherit_data,image,is_highlight,location,event,',
-		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('t3events') . 'Resources/Public/Icons/tx_t3events_domain_model_teaser.gif'
-	),
-	'interface' => array(
+		'iconfile' => 'EXT:t3events/Resources/Public/Icons/tx_t3events_domain_model_teaser.gif'
+    ],
+	'interface' => [
 		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden,
 			title, details, inherit_data, image, is_highlight, location, event, external_link',
-	),
-	'types' => array(
-		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource,
-			hidden;;1, title, details, inherit_data, image, is_highlight, location, event,
-			external_link,--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,starttime, endtime'),
-	),
-	'palettes' => array(
-		'1' => array('showitem' => ''),
-	),
-	'columns' => array(
-		'sys_language_uid' => array(
+    ],
+	'types' => [
+		'1' => [
+		    'showitem' => '--palette--;;1, 
+		    title, details, inherit_data, image, is_highlight, location, event,
+			external_link,--div--;LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tab.access,starttime, endtime'
+        ],
+	],
+	'palettes' => [
+		'1' => [
+		    'showitem' => 'sys_language_uid,l10n_parent,l10n_diffsource,hidden'
+        ],
+	],
+	'columns' => [
+		'sys_language_uid' => [
 			'exclude' => 1,
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.language',
-			'config' => array(
-				'type' => 'select',
+			'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
 				'foreign_table' => 'sys_language',
 				'foreign_table_where' => 'ORDER BY sys_language.title',
-				'items' => array(
-					array('LLL:EXT:lang/locallang_general.xml:LGL.allLanguages', -1),
-					array('LLL:EXT:lang/locallang_general.xml:LGL.default_value', 0)
-				),
-				'noIconsBelowSelect' => TRUE,
-			),
-		),
-		'l10n_parent' => array(
+				'items' => [
+					['LLL:EXT:lang/locallang_general.xml:LGL.allLanguages', -1],
+					['LLL:EXT:lang/locallang_general.xml:LGL.default_value', 0]
+                ],
+				'showIconTable' => TRUE,
+            ],
+        ],
+		'l10n_parent' => [
 			'displayCond' => 'FIELD:sys_language_uid:>:0',
 			'exclude' => 1,
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.l18n_parent',
-			'config' => array(
-				'type' => 'select',
-				'items' => array(
-					array('', 0),
-				),
+			'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+				'items' => [
+					['', 0],
+                ],
 				'foreign_table' => 'tx_t3events_domain_model_teaser',
 				'foreign_table_where' => 'AND tx_t3events_domain_model_teaser.pid=###CURRENT_PID### AND tx_t3events_domain_model_teaser.sys_language_uid IN (-1,0)',
-				'noIconsBelowSelect' => TRUE,
-			),
-		),
-		'l10n_diffsource' => array(
-			'config' => array(
+				'showIconTable' => TRUE,
+            ],
+        ],
+		'l10n_diffsource' => [
+			'config' => [
 				'type' => 'passthrough',
-			),
-		),
-		't3ver_label' => array(
+            ],
+        ],
+		't3ver_label' => [
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.versionLabel',
-			'config' => array(
+			'config' => [
 				'type' => 'input',
 				'size' => 30,
 				'max' => 255,
-			)
-		),
-		'hidden' => array(
+            ]
+        ],
+		'hidden' => [
 			'exclude' => 1,
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.hidden',
-			'config' => array(
+			'config' => [
 				'type' => 'check',
-			),
-		),
-		'starttime' => array(
+            ],
+        ],
+		'starttime' => [
 			'exclude' => 1,
 			'l10n_mode' => 'mergeIfNotBlank',
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.starttime',
-			'config' => array(
+			'config' => [
 				'type' => 'input',
 				'size' => 13,
 				'max' => 20,
 				'eval' => 'datetime',
 				'checkbox' => 0,
 				'default' => 0,
-				'range' => array(
+				'range' => [
 					'lower' => mktime(0, 0, 0, date('m'), date('d'), date('Y'))
-				),
-			),
-		),
-		'endtime' => array(
+                ],
+            ],
+        ],
+		'endtime' => [
 			'exclude' => 1,
 			'l10n_mode' => 'mergeIfNotBlank',
 			'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.endtime',
-			'config' => array(
+			'config' => [
 				'type' => 'input',
 				'size' => 13,
 				'max' => 20,
 				'eval' => 'datetime',
 				'checkbox' => 0,
 				'default' => 0,
-				'range' => array(
+				'range' => [
 					'lower' => mktime(0, 0, 0, date('m'), date('d'), date('Y'))
-				),
-			),
-		),
-		'title' => array(
+                ],
+            ],
+        ],
+		'title' => [
 			'exclude' => 0,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_teaser.title',
-			'config' => array(
+			'config' => [
 				'type' => 'input',
 				'size' => 30,
 				'eval' => 'trim,required'
-			),
-		),
-		'details' => array(
+            ],
+        ],
+		'details' => [
 			'exclude' => 1,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_teaser.details',
-			'config' => array(
+			'config' => [
 				'type' => 'text',
 				'cols' => 40,
 				'rows' => 15,
 				'eval' => 'trim'
-			),
-		),
-		'inherit_data' => array(
+            ],
+        ],
+		'inherit_data' => [
 			'exclude' => 1,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_teaser.inherit_data',
-			'config' => array(
+			'config' => [
 				'type' => 'check',
 				'default' => 0
-			),
-		),
-		'image' => array(
+            ],
+        ],
+		'image' => [
 			'exclude' => 1,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_teaser.image',
-			'config' => array(
+			'config' => [
 				'type' => 'group',
 				'internal_type' => 'file',
 				'uploadfolder' => 'uploads/tx_t3events',
@@ -158,79 +164,93 @@ return array(
 				'size' => 1,
 				'allowed' => $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'],
 				'disallowed' => '',
-			),
-		),
-		'is_highlight' => array(
+            ],
+        ],
+		'is_highlight' => [
 			'exclude' => 0,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_teaser.is_highlight',
-			'config' => array(
+			'config' => [
 				'type' => 'check',
 				'default' => 0
-			),
-		),
-		'location' => array(
+            ],
+        ],
+		'location' => [
 			'exclude' => 0,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_teaser.location',
-			'config' => array(
-				'type' => 'select',
-				'foreign_table' => 'tx_t3events_domain_model_venue',
+			'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'foreign_table' => 'tx_t3events_domain_model_venue',
 				'minitems' => 0,
 				'maxitems' => 1,
-				'eval' => 'required',
-				'noIconsBelowSelect' => TRUE,
-			),
-		),
-		'event' => array(
+				'showIconTable' => TRUE,
+            ],
+        ],
+		'event' => [
 			'exclude' => 0,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_teaser.event',
-			'config' => array(
+			'config' => [
 				'type' => 'group',
 				'foreign_table' => 'tx_t3events_domain_model_event',
 				'internal_type' => 'db',
 				'allowed' => 'tx_t3events_domain_model_event',
 				'size' => 1,
 				'minitems' => 1,
-				'wizards' => array(
+				'wizards' => [
 					'_PADDING' => 1,
 					'_VERTICAL' => 1,
-					'edit' => array(
+					'edit' => [
 						'type' => 'popup',
 						'title' => 'Edit',
-						'module' => array(
+						'module' => [
 							'name' => 'wizard_edit',
-						),
-						'icon' => 'edit2.gif',
+                        ],
+						'icon' => 'EXT:backend/Resources/Public/Images/FormFieldWizard/wizard_edit.gif',
 						'popup_onlyOpenIfSelected' => 1,
 						'JSopenParams' => 'height=810,width=740,status=0,menubar=0,scrollbars=1',
-					),
-					'add' => Array(
+                    ],
+					'add' => [
 						'type' => 'script',
 						'title' => 'Create new',
-						'icon' => 'add.gif',
-						'params' => array(
+						'icon' => 'EXT:backend/Resources/Public/Images/FormFieldWizard/wizard_add.gif',
+						'params' => [
 							'table' => 'tx_t3events_domain_model_event',
 							'pid' => '###CURRENT_PID###',
 							'setValue' => 'prepend'
-						),
-						'module' => array(
+                        ],
+						'module' => [
 							'name' => 'wizard_add',
-						),
-					),
-					'suggest' => array(
+                        ],
+                    ],
+					'suggest' => [
 						'type' => 'suggest',
-					),
-				),
-			),
-		),
-		'external_link' => array(
+                    ],
+                ],
+            ],
+        ],
+		'external_link' => [
 			'exclude' => 1,
 			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_teaser.external_link',
-			'config' => array(
-				'type' => 'input',
-				'size' => 30,
-				'eval' => 'trim'
-			),
-		),
+            'config' => [
+                'type' => 'input',
+                'softref' => 'typolink',
+                'wizards' => [
+                    '_PADDING' => 2,
+                    'link' => [
+                        'type' => 'popup',
+                        'title' => $ll . 'button.openLinkWizard',
+                        'icon' => 'EXT:backend/Resources/Public/Images/FormFieldWizard/wizard_link.gif',
+                        'module' => [
+                            'name' => 'wizard_link',
+                            'urlParameters' => [
+                                'mode' => 'wizard'
+                            ],
+                        ],
+                        'JSopenParams' => 'height=600,width=500,status=0,menubar=0,scrollbars=1'
+                    ]
+                ]
+            ]
+        ],
 
-	),
-);
+    ],
+];

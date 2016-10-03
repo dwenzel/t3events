@@ -1,8 +1,8 @@
 <?php
-namespace Webfox\T3events\Tests\Unit\Domain\Model\Dto;
+namespace DWenzel\T3events\Tests\Unit\Domain\Model\Dto;
 
 use TYPO3\CMS\Core\Tests\UnitTestCase;
-use Webfox\T3events\Domain\Model\Dto\CalendarConfiguration;
+use DWenzel\T3events\Domain\Model\Dto\CalendarConfiguration;
 
 /***************************************************************
  *  Copyright notice
@@ -25,8 +25,8 @@ use Webfox\T3events\Domain\Model\Dto\CalendarConfiguration;
 /**
  * Class CalendarConfigurationTest
  *
- * @package Webfox\T3events\Tests\Unit\Domain\Model\Dto
- * @coversDefaultClass Webfox\T3events\Domain\Model\Dto\CalendarConfiguration
+ * @package DWenzel\T3events\Tests\Unit\Domain\Model\Dto
+ * @coversDefaultClass DWenzel\T3events\Domain\Model\Dto\CalendarConfiguration
  */
 class CalendarConfigurationTest extends UnitTestCase {
 

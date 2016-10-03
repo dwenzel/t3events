@@ -1,14 +1,14 @@
 <?php
-namespace Webfox\T3events\Utility;
+namespace DWenzel\T3events\Utility;
 
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use Webfox\T3events\Domain\Model\Dto\EmConfiguration;
+use DWenzel\T3events\Domain\Model\Dto\EmConfiguration;
 
 /**
  * Class EmConfigurationUtility
  *
- * @package Webfox\T3events\Utility
+ * @package DWenzel\T3events\Utility
  */
 class EmConfigurationUtility {
 

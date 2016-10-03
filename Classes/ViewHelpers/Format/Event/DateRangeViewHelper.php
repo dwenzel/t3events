@@ -1,9 +1,9 @@
 <?php
-namespace Webfox\T3events\ViewHelpers\Format\Event;
+namespace DWenzel\T3events\ViewHelpers\Format\Event;
 
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
-use Webfox\T3events\Domain\Model\Event;
-use Webfox\T3events\Domain\Model\Performance;
+use DWenzel\T3events\Domain\Model\Event;
+use DWenzel\T3events\Domain\Model\Performance;
 
 /***************************************************************
  *  Copyright notice
@@ -31,7 +31,7 @@ class DateRangeViewHelper extends AbstractTagBasedViewHelper {
 
 
 	public function initializeArguments() {
-		parent::registerArgument('event', 'Webfox\\T3events\\Domain\\Model\\Event', 'Event whose performances should be rendered.', TRUE);
+		parent::registerArgument('event', 'DWenzel\\T3events\\Domain\\Model\\Event', 'Event whose performances should be rendered.', TRUE);
 		parent::registerArgument('format', 'string', 'A string describing the date format - see php date() for options', FALSE, 'd.m.Y');
 		parent::registerArgument('startFormat', 'string', 'A string describing the date format - see php date() for options', FALSE, 'd.m.Y');
 		parent::registerArgument('endFormat', 'string', 'A string describing the date format - see php date() for options', FALSE, 'd.m.Y');

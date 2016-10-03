@@ -1,8 +1,8 @@
 <?php
-namespace Webfox\T3events\Domain\Repository;
+namespace DWenzel\T3events\Domain\Repository;
 
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
-use Webfox\T3events\Domain\Model\Dto\DemandInterface;
+use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
 
 /***************************************************************
  *
@@ -37,7 +37,7 @@ class CategoryRepository
 	 * Returns an array of constraints created from a given demand object.
 	 *
 	 * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
-	 * @param \Webfox\T3events\Domain\Model\Dto\DemandInterface $demand
+	 * @param \DWenzel\T3events\Domain\Model\Dto\DemandInterface $demand
 	 * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint>
 	 */
 	protected function createConstraintsFromDemand(QueryInterface $query, DemandInterface $demand) {

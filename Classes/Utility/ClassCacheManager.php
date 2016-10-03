@@ -1,5 +1,5 @@
 <?php
-namespace Webfox\T3events\Utility;
+namespace DWenzel\T3events\Utility;
 
 /**
  * This file is part of the TYPO3 CMS project.

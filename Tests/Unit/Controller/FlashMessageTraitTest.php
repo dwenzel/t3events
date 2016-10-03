@@ -1,5 +1,5 @@
 <?php
-namespace Webfox\T3events\Tests\Controller;
+namespace DWenzel\T3events\Tests\Controller;
 
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Core\Messaging\FlashMessageQueue;
@@ -8,7 +8,7 @@ use TYPO3\CMS\Core\Tests\UnitTestCase;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Mvc\Web\Request;
-use Webfox\T3events\Controller\FlashMessageTrait;
+use DWenzel\T3events\Controller\FlashMessageTrait;
 use TYPO3\CMS\Extbase\Service\ExtensionService;
 
 /***************************************************************
@@ -183,7 +183,7 @@ class FlashMessageTraitTest extends UnitTestCase
         $extensionName = 'barExtension';
         $pluginName = 'bazPlugin';
         $this->subject = $this->getMockForTrait(
-            FlashMessageTrait::class, [], '', true, true, true, ['useLegacyFlashMessageHandling']
+            \DWenzel\T3events\Controller\FlashMessageTrait::class, [], '', true, true, true, ['useLegacyFlashMessageHandling']
         );
 
         $mockExtensionService = $this->mockExtensionService();

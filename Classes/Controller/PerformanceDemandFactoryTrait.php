@@ -1,5 +1,5 @@
 <?php
-namespace Webfox\T3events\Controller;
+namespace DWenzel\T3events\Controller;
 
 /***************************************************************
  *  Copyright notice
@@ -18,18 +18,18 @@ namespace Webfox\T3events\Controller;
  *  GNU General Public License for more details.
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-use Webfox\T3events\Domain\Factory\Dto\PerformanceDemandFactory;
+use DWenzel\T3events\Domain\Factory\Dto\PerformanceDemandFactory;
 
 /**
  * Class PerformanceDemandFactoryTrait
  * Provides a PerformanceDemandFactory
  *
- * @package Webfox\T3events\Controller
+ * @package DWenzel\T3events\Controller
  */
 trait PerformanceDemandFactoryTrait
 {
     /**
-     * @var \Webfox\T3events\Domain\Factory\Dto\PerformanceDemandFactory
+     * @var \DWenzel\T3events\Domain\Factory\Dto\PerformanceDemandFactory
      */
     protected $performanceDemandFactory;
 

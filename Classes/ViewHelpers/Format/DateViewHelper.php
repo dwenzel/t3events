@@ -1,5 +1,5 @@
 <?php
-namespace Webfox\T3events\ViewHelpers\Format;
+namespace DWenzel\T3events\ViewHelpers\Format;
 
 /*                                                                        *
  * This script is backported from the TYPO3 Flow package "TYPO3.Fluid".   *

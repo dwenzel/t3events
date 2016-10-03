@@ -1,12 +1,12 @@
 <?php
-namespace Webfox\T3events\Tests\Unit\Domain\Model;
+namespace DWenzel\T3events\Tests\Unit\Domain\Model;
 
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
-use Webfox\T3events\Domain\Model\CalendarDay;
-use Webfox\T3events\Domain\Model\CalendarMonth;
-use Webfox\T3events\Domain\Model\CalendarWeek;
-use Webfox\T3events\Domain\Model\Event;
+use DWenzel\T3events\Domain\Model\CalendarDay;
+use DWenzel\T3events\Domain\Model\CalendarMonth;
+use DWenzel\T3events\Domain\Model\CalendarWeek;
+use DWenzel\T3events\Domain\Model\Event;
 
 /***************************************************************
  *  Copyright notice
@@ -29,8 +29,8 @@ use Webfox\T3events\Domain\Model\Event;
 /**
  * Class CalendarMonthTest
  *
- * @package Webfox\T3events\Tests\Unit\Domain\Model
- * @coversDefaultClass \Webfox\T3events\Domain\Model\CalendarWeek
+ * @package DWenzel\T3events\Tests\Unit\Domain\Model
+ * @coversDefaultClass \DWenzel\T3events\Domain\Model\CalendarWeek
  */
 class CalendarWeekTest extends UnitTestCase {
 
@@ -41,7 +41,7 @@ class CalendarWeekTest extends UnitTestCase {
 
 	public function setUp() {
 		$this->fixture = $this->getAccessibleMock(
-			'Webfox\\T3events\\Domain\\Model\\CalendarWeek',
+			'DWenzel\\T3events\\Domain\\Model\\CalendarWeek',
 			array('dummy'), array(), '', TRUE
 		);
 	}

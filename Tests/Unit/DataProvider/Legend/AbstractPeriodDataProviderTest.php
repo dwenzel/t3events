@@ -1,9 +1,9 @@
 <?php
-namespace Webfox\T3events\Tests\Unit\DataProvider\Legend;
+namespace DWenzel\T3events\Tests\Unit\DataProvider\Legend;
 
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use Webfox\T3events\DataProvider\Legend\AbstractPeriodDataProvider;
+use DWenzel\T3events\DataProvider\Legend\AbstractPeriodDataProvider;
 
 /***************************************************************
  *  Copyright notice
@@ -25,7 +25,7 @@ use Webfox\T3events\DataProvider\Legend\AbstractPeriodDataProvider;
 class AbstractPeriodDataProviderTest extends UnitTestCase
 {
     /**
-     * @var AbstractPeriodDataProvider
+     * @var \DWenzel\T3events\DataProvider\Legend\AbstractPeriodDataProvider
      */
     protected $subject;
 
@@ -35,7 +35,7 @@ class AbstractPeriodDataProviderTest extends UnitTestCase
     public function setUp()
     {
         $this->subject = $this->getAccessibleMockForAbstractClass(
-            AbstractPeriodDataProvider::class
+            \DWenzel\T3events\DataProvider\Legend\AbstractPeriodDataProvider::class
         );
     }
 
@@ -81,7 +81,7 @@ class AbstractPeriodDataProviderTest extends UnitTestCase
      */
     public function getVisibleLayerIdsReturnsInitialValue()
     {
-        $expectedLayerIds = GeneralUtility::trimExplode(',', AbstractPeriodDataProvider::VISIBLE_LAYERS, true);
+        $expectedLayerIds = GeneralUtility::trimExplode(',', \DWenzel\T3events\DataProvider\Legend\AbstractPeriodDataProvider::VISIBLE_LAYERS, true);
         $this->assertSame(
             $expectedLayerIds,
             $this->subject->getVisibleLayerIds()

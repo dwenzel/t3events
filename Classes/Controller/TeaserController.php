@@ -1,10 +1,10 @@
 <?php
-namespace Webfox\T3events\Controller;
+namespace DWenzel\T3events\Controller;
 
 /***************************************************************
  *  Copyright notice
- *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
- *  Michael Kasten <kasten@webfox01.de>, Agentur Webfox
+ *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur DWenzel
+ *  Michael Kasten <kasten@webfox01.de>, Agentur DWenzel
  *  All rights reserved
  *  This script is part of the TYPO3 project. The TYPO3 project is
  *  free software; you can redistribute it and/or modify
@@ -30,7 +30,7 @@ class TeaserController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
 	/**
 	 * teaserRepository
 	 *
-	 * @var \Webfox\T3events\Domain\Repository\TeaserRepository
+	 * @var \DWenzel\T3events\Domain\Repository\TeaserRepository
 	 */
 	protected $teaserRepository;
 
@@ -64,30 +64,30 @@ class TeaserController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
 	/**
 	 * action show
 	 *
-	 * @param \Webfox\T3events\Domain\Model\Teaser $teaser
+	 * @param \DWenzel\T3events\Domain\Model\Teaser $teaser
 	 * @return void
 	 */
-	public function showAction(\Webfox\T3events\Domain\Model\Teaser $teaser) {
+	public function showAction(\DWenzel\T3events\Domain\Model\Teaser $teaser) {
 		$this->view->assign('teaser', $teaser);
 	}
 
 	/**
 	 * injectTeaserRepository
 	 *
-	 * @param \Webfox\T3events\Domain\Repository\TeaserRepository $teaserRepository
+	 * @param \DWenzel\T3events\Domain\Repository\TeaserRepository $teaserRepository
 	 * @return void
 	 */
-	public function injectTeaserRepository(\Webfox\T3events\Domain\Repository\TeaserRepository $teaserRepository) {
+	public function injectTeaserRepository(\DWenzel\T3events\Domain\Repository\TeaserRepository $teaserRepository) {
 		$this->teaserRepository = $teaserRepository;
 	}
 
 	/**
 	 * action showEvent
 	 *
-	 * @param \Webfox\T3events\Domain\Model\Teaser $teaser
+	 * @param \DWenzel\T3events\Domain\Model\Teaser $teaser
 	 * @return void
 	 */
-	public function showEventAction(\Webfox\T3events\Domain\Model\Teaser $teaser) {
+	public function showEventAction(\DWenzel\T3events\Domain\Model\Teaser $teaser) {
 		/**
 		 * @todo this action fails if request doesn'nt contain a teaser but an event
 		 */
@@ -99,10 +99,10 @@ class TeaserController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
 	 * Create demand from settings
 	 *
 	 * @param \array $settings
-	 * @return \Webfox\T3events\Domain\Model\Dto\TeaserDemand
+	 * @return \DWenzel\T3events\Domain\Model\Dto\TeaserDemand
 	 **/
 	public function createDemandObjectFromSettings($settings) {
-		$demand = $this->objectManager->get('Webfox\\T3events\\Domain\\Model\\Dto\\TeaserDemand');
+		$demand = $this->objectManager->get('DWenzel\\T3events\\Domain\\Model\\Dto\\TeaserDemand');
 		$sortBy = $settings['sortBy'];
 		$sortDirection = $settings['sortDirection'];
 		// common demand settings

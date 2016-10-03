@@ -1,8 +1,8 @@
 <?php
-namespace Webfox\T3events\Controller;
+namespace DWenzel\T3events\Controller;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use Webfox\T3events\Domain\Repository\DemandedRepositoryInterface;
+use DWenzel\T3events\Domain\Repository\DemandedRepositoryInterface;
 
 /***************************************************************
  *

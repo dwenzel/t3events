@@ -1,9 +1,9 @@
 <?php
-namespace Webfox\T3events\ViewHelpers\Widget;
+namespace DWenzel\T3events\ViewHelpers\Widget;
 
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Fluid\Core\Widget\AbstractWidgetViewHelper;
-use Webfox\T3events\Domain\Model\Dto\CalendarConfiguration;
+use DWenzel\T3events\Domain\Model\Dto\CalendarConfiguration;
 
 /**
  * This ViewHelper renders a Calendar.
@@ -15,7 +15,7 @@ use Webfox\T3events\Domain\Model\Dto\CalendarConfiguration;
 class CalendarViewHelper extends AbstractWidgetViewHelper {
 
 	/**
-	 * @var \Webfox\T3events\ViewHelpers\Widget\Controller\CalendarController
+	 * @var \DWenzel\T3events\ViewHelpers\Widget\Controller\CalendarController
 	 * @inject
 	 */
 	protected $controller;
@@ -42,7 +42,7 @@ class CalendarViewHelper extends AbstractWidgetViewHelper {
 
 	/**
 	 * @param \TYPO3\CMS\Extbase\Persistence\QueryResultInterface $objects
-	 * @param \Webfox\T3events\Domain\Model\Dto\CalendarConfiguration $configuration
+	 * @param \DWenzel\T3events\Domain\Model\Dto\CalendarConfiguration $configuration
 	 * @param string $id
 	 * @return string
 	 */

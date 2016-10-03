@@ -1,10 +1,10 @@
 <?php
-namespace Webfox\T3events\Tests\Unit\Controller;
+namespace DWenzel\T3events\Tests\Unit\Controller;
 
 	/***************************************************************
 	 *  Copyright notice
-	 *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
-	 *            Michael Kasten <kasten@webfox01.de>, Agentur Webfox
+	 *  (c) 2012 Dirk Wenzel <wenzel@dWenzel01.de>, Agentur DWenzel
+	 *            Michael Kasten <kasten@dWenzel01.de>, Agentur DWenzel
 	 *  All rights reserved
 	 *  This script is part of the TYPO3 project. The TYPO3 project is
 	 *  free software; you can redistribute it and/or modify
@@ -22,42 +22,42 @@ namespace Webfox\T3events\Tests\Unit\Controller;
 use TYPO3\CMS\Extbase\Mvc\Request;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Fluid\View\TemplateView;
-use Webfox\T3events\Controller\PerformanceController;
-use Webfox\T3events\Domain\Model\Dto\PerformanceDemand;
-use Webfox\T3events\Domain\Model\Dto\Search;
-use Webfox\T3events\Domain\Model\Performance;
-use Webfox\T3events\Domain\Repository\CategoryRepository;
-use Webfox\T3events\Domain\Repository\EventTypeRepository;
-use Webfox\T3events\Domain\Repository\GenreRepository;
-use Webfox\T3events\Domain\Repository\PerformanceRepository;
-use Webfox\T3events\Domain\Repository\VenueRepository;
-use Webfox\T3events\Session\SessionInterface;
+use DWenzel\T3events\Controller\PerformanceController;
+use DWenzel\T3events\Domain\Model\Dto\PerformanceDemand;
+use DWenzel\T3events\Domain\Model\Dto\Search;
+use DWenzel\T3events\Domain\Model\Performance;
+use DWenzel\T3events\Domain\Repository\CategoryRepository;
+use DWenzel\T3events\Domain\Repository\EventTypeRepository;
+use DWenzel\T3events\Domain\Repository\GenreRepository;
+use DWenzel\T3events\Domain\Repository\PerformanceRepository;
+use DWenzel\T3events\Domain\Repository\VenueRepository;
+use DWenzel\T3events\Session\SessionInterface;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
-use Webfox\T3events\Session\Typo3Session;
-use Webfox\T3events\Utility\SettingsUtility;
+use DWenzel\T3events\Session\Typo3Session;
+use DWenzel\T3events\Utility\SettingsUtility;
 
 /**
- * Test case for class \Webfox\T3events\Controller\PerformanceController.
+ * Test case for class \DWenzel\T3events\Controller\PerformanceController.
  *
  * @copyright Copyright belongs to the respective authors
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  * @package TYPO3
  * @subpackage Events
- * @author Dirk Wenzel <wenzel@webfox01.de>
- * @author Michael Kasten <kasten@webfox01.de>
- * @coversDefaultClass \Webfox\T3events\Controller\PerformanceController
+ * @author Dirk Wenzel <wenzel@dWenzel01.de>
+ * @author Michael Kasten <kasten@dWenzel01.de>
+ * @coversDefaultClass \DWenzel\T3events\Controller\PerformanceController
  */
 class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
 	/**
-	 * @var \Webfox\T3events\Controller\PerformanceController
+	 * @var \DWenzel\T3events\Controller\PerformanceController
 	 */
 	protected $fixture;
 
 	public function setUp() {
-		$this->fixture = $this->getAccessibleMock('Webfox\\T3events\\Controller\\PerformanceController',
+		$this->fixture = $this->getAccessibleMock('DWenzel\\T3events\\Controller\\PerformanceController',
 			['dummy', 'emitSignal', 'createSearchObject'], array(), '', FALSE);
 		$view = $this->getMock(
 			TemplateView::class, ['assign', 'assignMultiple'], [], '', FALSE);
@@ -96,7 +96,7 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 */
 	public function injectPerformanceRepositorySetsPerformanceRepository() {
 		$repository = $this->getMock(
-			'Webfox\\T3events\\Domain\\Repository\\PerformanceRepository',
+			'DWenzel\\T3events\\Domain\\Repository\\PerformanceRepository',
 			array(), array(), '', false
 		);
 		$this->fixture->injectPerformanceRepository($repository);
@@ -113,7 +113,7 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 */
 	public function injectGenreRepositorySetsGenreRepository() {
 		$repository = $this->getMock(
-			'Webfox\\T3events\\Domain\\Repository\\GenreRepository',
+			'DWenzel\\T3events\\Domain\\Repository\\GenreRepository',
 			array(), array(), '', false
 		);
 		$this->fixture->injectGenreRepository($repository);
@@ -130,7 +130,7 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 */
 	public function injectVenueRepositorySetsVenueRepository() {
 		$repository = $this->getMock(
-			'Webfox\\T3events\\Domain\\Repository\\VenueRepository',
+			'DWenzel\\T3events\\Domain\\Repository\\VenueRepository',
 			array(), array(), '', false
 		);
 		$this->fixture->injectVenueRepository($repository);
@@ -147,7 +147,7 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 */
 	public function injectEventTypeRepositorySetsEventTypeRepository() {
 		$repository = $this->getMock(
-			'Webfox\\T3events\\Domain\\Repository\\EventTypeRepository',
+			'DWenzel\\T3events\\Domain\\Repository\\EventTypeRepository',
 			array(), array(), '', false
 		);
 		$this->fixture->injectEventTypeRepository($repository);
@@ -235,10 +235,10 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @covers ::createDemandFromSettings
 	 */
 	public function createDemandFromSettingsReturnsDemandObject() {
-		$fixture = $this->getAccessibleMock('Webfox\\T3events\\Controller\\PerformanceController',
+		$fixture = $this->getAccessibleMock('DWenzel\\T3events\\Controller\\PerformanceController',
 			array('dummy'), array(),'', FALSE);
 		$settings = array('foo' => 'bar');
-		$mockDemand = $this->getMock('Webfox\\T3events\\Domain\\Model\\Dto\\PerformanceDemand',
+		$mockDemand = $this->getMock('DWenzel\\T3events\\Domain\\Model\\Dto\\PerformanceDemand',
 			array(), array(), '', FALSE);
 		$mockObjectManager = $this->getMock('TYPO3\\CMS\\Extbase\\Object\\ObjectManager',
 			array('get'), array(), '', FALSE);
@@ -246,7 +246,7 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$fixture->_set('objectManager', $mockObjectManager);
 
 		$mockObjectManager->expects($this->once())->method('get')
-			->with('Webfox\\T3events\\Domain\\Model\\Dto\\PerformanceDemand')
+			->with('DWenzel\\T3events\\Domain\\Model\\Dto\\PerformanceDemand')
 			->will($this->returnValue($mockDemand));
 
 		$this->assertSame(
@@ -260,10 +260,10 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @covers ::createDemandFromSettings
 	 */
 	public function createDemandFromSettingsSetsDefaultSortBy() {
-		$fixture = $this->getAccessibleMock('Webfox\\T3events\\Controller\\PerformanceController',
+		$fixture = $this->getAccessibleMock('DWenzel\\T3events\\Controller\\PerformanceController',
 			array('dummy'), array(),'', FALSE);
 		$settings = array('sortBy' => 'bar');
-		$mockDemand = $this->getMock('Webfox\\T3events\\Domain\\Model\\Dto\\PerformanceDemand',
+		$mockDemand = $this->getMock('DWenzel\\T3events\\Domain\\Model\\Dto\\PerformanceDemand',
 			array(), array(), '', FALSE);
 		$mockObjectManager = $this->getMock('TYPO3\\CMS\\Extbase\\Object\\ObjectManager',
 			array('get'), array(), '', FALSE);
@@ -283,10 +283,10 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @covers ::createDemandFromSettings
 	 */
 	public function createDemandFromSettingsSetsSortByForTitle() {
-		$fixture = $this->getAccessibleMock('Webfox\\T3events\\Controller\\PerformanceController',
+		$fixture = $this->getAccessibleMock('DWenzel\\T3events\\Controller\\PerformanceController',
 			array('dummy'), array(),'', FALSE);
 		$settings = array('sortBy' => 'title');
-		$mockDemand = $this->getMock('Webfox\\T3events\\Domain\\Model\\Dto\\PerformanceDemand',
+		$mockDemand = $this->getMock('DWenzel\\T3events\\Domain\\Model\\Dto\\PerformanceDemand',
 			array(), array(), '', FALSE);
 		$mockObjectManager = $this->getMock('\TYPO3\\CMS\\Extbase\\Object\\ObjectManager',
 			array('get'), array(), '', FALSE);
@@ -306,10 +306,10 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @covers ::createDemandFromSettings
 	 */
 	public function createDemandFromSettingsSetsSortByForDate() {
-		$fixture = $this->getAccessibleMock('Webfox\\T3events\\Controller\\PerformanceController',
+		$fixture = $this->getAccessibleMock('DWenzel\\T3events\\Controller\\PerformanceController',
 			array('dummy'), array(),'', FALSE);
 		$settings = array('sortBy' => 'date');
-		$mockDemand = $this->getMock('Webfox\\T3events\\Domain\\Model\\Dto\\PerformanceDemand',
+		$mockDemand = $this->getMock('DWenzel\\T3events\\Domain\\Model\\Dto\\PerformanceDemand',
 			array(), array(), '', FALSE);
 		$mockObjectManager = $this->getMock('TYPO3\\CMS\\Extbase\\Object\ObjectManager',
 			array('get'), array(), '', FALSE);
@@ -329,10 +329,10 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @covers ::createDemandFromSettings
 	 */
 	public function createDemandFromSettingsSetsEventTypes() {
-		$fixture = $this->getAccessibleMock('Webfox\\T3events\\Controller\\PerformanceController',
+		$fixture = $this->getAccessibleMock('DWenzel\\T3events\\Controller\\PerformanceController',
 			array('dummy'), array(),'', FALSE);
 		$settings = array('eventTypes' => '1,2,3');
-		$mockDemand = $this->getMock('Webfox\\T3events\\Domain\\Model\\Dto\\PerformanceDemand',
+		$mockDemand = $this->getMock('DWenzel\\T3events\\Domain\\Model\\Dto\\PerformanceDemand',
 			array(), array(), '', FALSE);
 		$mockObjectManager = $this->getMock('TYPO3\\CMS\\Extbase\\Object\\ObjectManager',
 			array('get'), array(), '', FALSE);
@@ -352,10 +352,10 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @covers ::createDemandFromSettings
 	 */
 	public function createDemandFromSettingsSetsSortDirection() {
-		$fixture = $this->getAccessibleMock('Webfox\\T3events\\Controller\\PerformanceController',
+		$fixture = $this->getAccessibleMock('DWenzel\\T3events\\Controller\\PerformanceController',
 			array('dummy'), array(),'', FALSE);
 		$settings = array('sortDirection' => 'foo');
-		$mockDemand = $this->getMock('Webfox\\T3events\\Domain\\Model\\Dto\\PerformanceDemand',
+		$mockDemand = $this->getMock('DWenzel\\T3events\\Domain\\Model\\Dto\\PerformanceDemand',
 			array(), array(), '', FALSE);
 		$mockObjectManager = $this->getMock('TYPO3\\CMS\\Extbase\\Object\\ObjectManager',
 			array('get'), array(), '', FALSE);
@@ -375,10 +375,10 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @covers ::createDemandFromSettings
 	 */
 	public function createDemandFromSettingsSetsLimit() {
-		$fixture = $this->getAccessibleMock('Webfox\\T3events\\Controller\\PerformanceController',
+		$fixture = $this->getAccessibleMock('DWenzel\\T3events\\Controller\\PerformanceController',
 			array('dummy'), array(),'', FALSE);
 		$settings = array('maxItems' => '99');
-		$mockDemand = $this->getMock('Webfox\\T3events\\Domain\\Model\\Dto\\PerformanceDemand',
+		$mockDemand = $this->getMock('DWenzel\\T3events\\Domain\\Model\\Dto\\PerformanceDemand',
 			array(), array(), '', FALSE);
 		$mockObjectManager = $this->getMock('TYPO3\\CMS\\Extbase\\Object\\ObjectManager',
 			array('get'), array(), '', FALSE);
@@ -398,10 +398,10 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @covers ::createDemandFromSettings
 	 */
 	public function createDemandFromSettingsSetsVenues() {
-		$fixture = $this->getAccessibleMock('Webfox\\T3events\\Controller\\PerformanceController',
+		$fixture = $this->getAccessibleMock('DWenzel\\T3events\\Controller\\PerformanceController',
 			array('dummy'), array(),'', FALSE);
 		$settings = array('venues' => '1,2,3');
-		$mockDemand = $this->getMock('Webfox\\T3events\\Domain\\Model\\Dto\\PerformanceDemand',
+		$mockDemand = $this->getMock('DWenzel\\T3events\\Domain\\Model\\Dto\\PerformanceDemand',
 			array(), array(), '', FALSE);
 		$mockObjectManager = $this->getMock('TYPO3\\CMS\\Extbase\\Object\\ObjectManager',
 			array('get'), array(), '', FALSE);
@@ -421,10 +421,10 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @covers ::createDemandFromSettings
 	 */
 	public function createDemandFromSettingsDoesNotSetVenuesForEmptyString() {
-		$fixture = $this->getAccessibleMock('Webfox\\T3events\\Controller\\PerformanceController',
+		$fixture = $this->getAccessibleMock('DWenzel\\T3events\\Controller\\PerformanceController',
 			array('dummy'), array(),'', FALSE);
 		$settings = array('venues' => '');
-		$mockDemand = $this->getMock('Webfox\\T3events\\Domain\\Model\\Dto\\PerformanceDemand',
+		$mockDemand = $this->getMock('DWenzel\\T3events\\Domain\\Model\\Dto\\PerformanceDemand',
 			array(), array(), '', FALSE);
 		$mockObjectManager = $this->getMock('TYPO3\\CMS\\Extbase\\Object\\ObjectManager',
 			array('get'), array(), '', FALSE);
@@ -443,10 +443,10 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @covers ::createDemandFromSettings
 	 */
 	public function createDemandFromSettingsSetsGenres() {
-		$fixture = $this->getAccessibleMock('Webfox\\T3events\\Controller\\PerformanceController',
+		$fixture = $this->getAccessibleMock('DWenzel\\T3events\\Controller\\PerformanceController',
 			array('dummy'), array(),'', FALSE);
 		$settings = array('genres' => '1,2,3');
-		$mockDemand = $this->getMock('Webfox\\T3events\\Domain\\Model\\Dto\\PerformanceDemand',
+		$mockDemand = $this->getMock('DWenzel\\T3events\\Domain\\Model\\Dto\\PerformanceDemand',
 			array(), array(), '', FALSE);
 		$mockObjectManager = $this->getMock('TYPO3\\CMS\\Extbase\\Object\\ObjectManager',
 			array('get'), array(), '', FALSE);
@@ -466,10 +466,10 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @covers ::createDemandFromSettings
 	 */
 	public function createDemandFromSettingsDoesNotSetGenresForEmptyString() {
-		$fixture = $this->getAccessibleMock('Webfox\\T3events\\Controller\\PerformanceController',
+		$fixture = $this->getAccessibleMock('DWenzel\\T3events\\Controller\\PerformanceController',
 			array('dummy'), array(),'', FALSE);
 		$settings = array('genres' => '');
-		$mockDemand = $this->getMock('Webfox\\T3events\\Domain\\Model\\Dto\\PerformanceDemand',
+		$mockDemand = $this->getMock('DWenzel\\T3events\\Domain\\Model\\Dto\\PerformanceDemand',
 			array(), array(), '', FALSE);
 		$mockObjectManager = $this->getMock('TYPO3\\CMS\\Extbase\\Object\\ObjectManager',
 			array('get'), array(), '', FALSE);
@@ -488,10 +488,10 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @covers ::createDemandFromSettings
 	 */
 	public function createDemandFromSettingsSetsPeriod() {
-		$fixture = $this->getAccessibleMock('Webfox\\T3events\\Controller\\PerformanceController',
+		$fixture = $this->getAccessibleMock('DWenzel\\T3events\\Controller\\PerformanceController',
 			array('dummy'), array(),'', FALSE);
 		$settings = array('period' => 'foo');
-		$mockDemand = $this->getMock('Webfox\\T3events\\Domain\\Model\\Dto\\PerformanceDemand',
+		$mockDemand = $this->getMock('DWenzel\\T3events\\Domain\\Model\\Dto\\PerformanceDemand',
 			array(), array(), '', FALSE);
 		$mockObjectManager = $this->getMock('TYPO3\\CMS\\Extbase\\Object\\ObjectManager',
 			array('get'), array(), '', FALSE);
@@ -512,13 +512,13 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @covers ::createDemandFromSettings
 	 */
 	public function createDemandFromSettingsDoesNotSetPeriodTypeIfPeriodIsNotSpecific() {
-		$fixture = $this->getAccessibleMock('Webfox\\T3events\\Controller\\PerformanceController',
+		$fixture = $this->getAccessibleMock('DWenzel\\T3events\\Controller\\PerformanceController',
 			array('dummy'), array(),'', FALSE);
 		$settings = array(
 			'period' => 'futureOnly',
 			'periodType' => 'foo'
 		);
-		$mockDemand = $this->getMock('Webfox\\T3events\\Domain\\Model\\Dto\\PerformanceDemand',
+		$mockDemand = $this->getMock('DWenzel\\T3events\\Domain\\Model\\Dto\\PerformanceDemand',
 			array(), array(), '', FALSE);
 		$mockObjectManager = $this->getMock('TYPO3\\CMS\\Extbase\\Object\\ObjectManager',
 			array('get'), array(), '', FALSE);
@@ -537,13 +537,13 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @covers ::createDemandFromSettings
 	 */
 	public function createDemandFromSettingsSetsPeriodTypeForSpecificPeriod() {
-		$fixture = $this->getAccessibleMock('Webfox\\T3events\\Controller\\PerformanceController',
+		$fixture = $this->getAccessibleMock('DWenzel\\T3events\\Controller\\PerformanceController',
 			array('dummy'), array(),'', FALSE);
 		$settings = array(
 			'period' => 'specific',
 			'periodType' => 'foo'
 		);
-		$mockDemand = $this->getMock('Webfox\\T3events\\Domain\\Model\\Dto\\PerformanceDemand',
+		$mockDemand = $this->getMock('DWenzel\\T3events\\Domain\\Model\\Dto\\PerformanceDemand',
 			array(), array(), '', FALSE);
 		$mockObjectManager = $this->getMock('TYPO3\\CMS\\Extbase\\Object\\ObjectManager',
 			array('get'), array(), '', FALSE);
@@ -563,13 +563,13 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @covers ::createDemandFromSettings
 	 */
 	public function createDemandFromSettingsDoesNotSetPeriodStartForMissingPeriodType() {
-		$fixture = $this->getAccessibleMock('Webfox\\T3events\\Controller\\PerformanceController',
+		$fixture = $this->getAccessibleMock('DWenzel\\T3events\\Controller\\PerformanceController',
 			array('dummy'), array(),'', FALSE);
 		$settings = array(
 			'periodStart' => 1,
 			'periodDuration' => 99
 		);
-		$mockDemand = $this->getMock('Webfox\\T3events\\Domain\\Model\\Dto\\PerformanceDemand',
+		$mockDemand = $this->getMock('DWenzel\\T3events\\Domain\\Model\\Dto\\PerformanceDemand',
 			array(), array(), '', FALSE);
 		$mockObjectManager = $this->getMock('TYPO3\\CMS\\Extbase\\Object\\ObjectManager',
 			array('get'), array(), '', FALSE);
@@ -588,13 +588,13 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @covers ::createDemandFromSettings
 	 */
 	public function createDemandFromSettingsDoesNotSetPeriodDurationForMissingPeriodType() {
-		$fixture = $this->getAccessibleMock('Webfox\\T3events\\Controller\\PerformanceController',
+		$fixture = $this->getAccessibleMock('DWenzel\\T3events\\Controller\\PerformanceController',
 			array('dummy'), array(),'', FALSE);
 		$settings = array(
 			'periodStart' => 1,
 			'periodDuration' => 99
 		);
-		$mockDemand = $this->getMock('Webfox\\T3events\\Domain\\Model\\Dto\\PerformanceDemand',
+		$mockDemand = $this->getMock('DWenzel\\T3events\\Domain\\Model\\Dto\\PerformanceDemand',
 			array(), array(), '', FALSE);
 		$mockObjectManager = $this->getMock('TYPO3\\CMS\\Extbase\\Object\\ObjectManager',
 			array('get'), array(), '', FALSE);
@@ -613,14 +613,14 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @covers ::createDemandFromSettings
 	 */
 	public function createDemandFromSettingsDoesNotSetPeriodStartForPeriodTypeByDate() {
-		$fixture = $this->getAccessibleMock('Webfox\\T3events\\Controller\\PerformanceController',
+		$fixture = $this->getAccessibleMock('DWenzel\\T3events\\Controller\\PerformanceController',
 			array('dummy'), array(),'', FALSE);
 		$settings = array(
 			'periodType' => 'byDate',
 			'periodStart' => 1,
 			'periodDuration' => 99
 		);
-		$mockDemand = $this->getMock('Webfox\\T3events\\Domain\\Model\\Dto\\PerformanceDemand',
+		$mockDemand = $this->getMock('DWenzel\\T3events\\Domain\\Model\\Dto\\PerformanceDemand',
 			array(), array(), '', FALSE);
 		$mockObjectManager = $this->getMock('TYPO3\\CMS\\Extbase\\Object\\ObjectManager',
 			array('get'), array(), '', FALSE);
@@ -639,14 +639,14 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @covers ::createDemandFromSettings
 	 */
 	public function createDemandFromSettingsDoesNotSetPeriodDurationForPeriodTypeByDate() {
-		$fixture = $this->getAccessibleMock('Webfox\\T3events\\Controller\\PerformanceController',
+		$fixture = $this->getAccessibleMock('DWenzel\\T3events\\Controller\\PerformanceController',
 			array('dummy'), array(),'', FALSE);
 		$settings = array(
 			'periodType' => 'byDate',
 			'periodStart' => 1,
 			'periodDuration' => 99
 		);
-		$mockDemand = $this->getMock('Webfox\\T3events\\Domain\\Model\\Dto\\PerformanceDemand',
+		$mockDemand = $this->getMock('DWenzel\\T3events\\Domain\\Model\\Dto\\PerformanceDemand',
 			array(), array(), '', FALSE);
 		$mockObjectManager = $this->getMock('TYPO3\\CMS\\Extbase\\Object\\ObjectManager',
 			array('get'), array(), '', FALSE);
@@ -665,13 +665,13 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @covers ::createDemandFromSettings
 	 */
 	public function createDemandFromSettingsSetsPeriodStart() {
-		$fixture = $this->getAccessibleMock('Webfox\\T3events\\Controller\\PerformanceController',
+		$fixture = $this->getAccessibleMock('DWenzel\\T3events\\Controller\\PerformanceController',
 			array('dummy'), array(),'', FALSE);
 		$settings = array(
 			'periodType' => 'aPeriodType',
 			'periodStart' => 1
 		);
-		$mockDemand = $this->getMock('Webfox\\T3events\\Domain\\Model\\Dto\\PerformanceDemand',
+		$mockDemand = $this->getMock('DWenzel\\T3events\\Domain\\Model\\Dto\\PerformanceDemand',
 			array(), array(), '', FALSE);
 		$mockObjectManager = $this->getMock('TYPO3\\CMS\\Extbase\\Object\\ObjectManager',
 			array('get'), array(), '', FALSE);
@@ -691,13 +691,13 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @covers ::createDemandFromSettings
 	 */
 	public function createDemandFromSettingsSetsPeriodDuration() {
-		$fixture = $this->getAccessibleMock('Webfox\\T3events\\Controller\\PerformanceController',
+		$fixture = $this->getAccessibleMock('DWenzel\\T3events\\Controller\\PerformanceController',
 			array('dummy'), array(),'', FALSE);
 		$settings = array(
 			'periodType' => 'aPeriodType',
 			'periodDuration' => 99
 		);
-		$mockDemand = $this->getMock('Webfox\\T3events\\Domain\\Model\\Dto\\PerformanceDemand',
+		$mockDemand = $this->getMock('DWenzel\\T3events\\Domain\\Model\\Dto\\PerformanceDemand',
 			array(), array(), '', FALSE);
 		$mockObjectManager = $this->getMock('TYPO3\\CMS\\Extbase\\Object\\ObjectManager',
 			array('get'), array(), '', FALSE);
@@ -717,13 +717,13 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @covers ::createDemandFromSettings
 	 */
 	public function createDemandFromSettingsDoesNotSetStartDateForWrongPeriodType() {
-		$fixture = $this->getAccessibleMock('Webfox\\T3events\\Controller\\PerformanceController',
+		$fixture = $this->getAccessibleMock('DWenzel\\T3events\\Controller\\PerformanceController',
 			array('dummy'), array(),'', FALSE);
 		$settings = array(
 			'periodType' => 'aWrongPeriodType', // must be 'byDate'
 			'periodStartDate' => 12345
 		);
-		$mockDemand = $this->getMock('Webfox\\T3events\\Domain\\Model\\Dto\\PerformanceDemand',
+		$mockDemand = $this->getMock('DWenzel\\T3events\\Domain\\Model\\Dto\\PerformanceDemand',
 			array(), array(), '', FALSE);
 		$mockObjectManager = $this->getMock('TYPO3\\CMS\\Extbase\\Object\\ObjectManager',
 			array('get'), array(), '', FALSE);
@@ -742,13 +742,13 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @covers ::createDemandFromSettings
 	 */
 	public function createDemandFromSettingsDoesNotSetEndDateForWrongPeriodType() {
-		$fixture = $this->getAccessibleMock('Webfox\\T3events\\Controller\\PerformanceController',
+		$fixture = $this->getAccessibleMock('DWenzel\\T3events\\Controller\\PerformanceController',
 			array('dummy'), array(),'', FALSE);
 		$settings = array(
 			'periodType' => 'aWrongPeriodType', // must be 'byDate'
 			'periodEndDate' => 12345
 		);
-		$mockDemand = $this->getMock('Webfox\\T3events\\Domain\\Model\\Dto\\PerformanceDemand',
+		$mockDemand = $this->getMock('DWenzel\\T3events\\Domain\\Model\\Dto\\PerformanceDemand',
 			array(), array(), '', FALSE);
 		$mockObjectManager = $this->getMock('TYPO3\\CMS\\Extbase\\Object\\ObjectManager',
 			array('get'), array(), '', FALSE);
@@ -767,12 +767,12 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @covers ::createDemandFromSettings
 	 */
 	public function createDemandFromSettingsDoesNotSetStartDateIfPeriodStartDateIsMissing() {
-		$fixture = $this->getAccessibleMock('Webfox\\T3events\\Controller\\PerformanceController',
+		$fixture = $this->getAccessibleMock('DWenzel\\T3events\\Controller\\PerformanceController',
 			array('dummy'), array(),'', FALSE);
 		$settings = array(
 			'periodType' => 'byDate',
 		);
-		$mockDemand = $this->getMock('Webfox\\T3events\\Domain\\Model\\Dto\\PerformanceDemand',
+		$mockDemand = $this->getMock('DWenzel\\T3events\\Domain\\Model\\Dto\\PerformanceDemand',
 			array(), array(), '', FALSE);
 		$mockObjectManager = $this->getMock('TYPO3\\CMS\\Extbase\\Object\\ObjectManager',
 			array('get'), array(), '', FALSE);
@@ -791,12 +791,12 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @covers ::createDemandFromSettings
 	 */
 	public function createDemandFromSettingsDoesNotSetEndDateIfPeriodEndDateIsMissing() {
-		$fixture = $this->getAccessibleMock('Webfox\\T3events\\Controller\\PerformanceController',
+		$fixture = $this->getAccessibleMock('DWenzel\\T3events\\Controller\\PerformanceController',
 			array('dummy'), array(),'', FALSE);
 		$settings = array(
 			'periodType' => 'byDate',
 		);
-		$mockDemand = $this->getMock('Webfox\\T3events\\Domain\\Model\\Dto\\PerformanceDemand',
+		$mockDemand = $this->getMock('DWenzel\\T3events\\Domain\\Model\\Dto\\PerformanceDemand',
 			array(), array(), '', FALSE);
 		$mockObjectManager = $this->getMock('TYPO3\\CMS\\Extbase\\Object\\ObjectManager',
 			array('get'), array(), '', FALSE);
@@ -815,7 +815,7 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @covers ::createDemandFromSettings
 	 */
 	public function createDemandFromSettingsSetsStartDate() {
-		$fixture = $this->getAccessibleMock('Webfox\\T3events\\Controller\\PerformanceController',
+		$fixture = $this->getAccessibleMock('DWenzel\\T3events\\Controller\\PerformanceController',
 			array('dummy'), array(),'', FALSE);
 		$settings = array(
 			'periodType' => 'byDate',
@@ -824,7 +824,7 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
         $timeZone = new \DateTimeZone(date_default_timezone_get());
 		$expectedDate = new \DateTime('midnight', $timeZone);
         $expectedDate->setTimestamp((int)$settings['periodStartDate']);
-		$mockDemand = $this->getMock('Webfox\\T3events\\Domain\\Model\\Dto\\PerformanceDemand',
+		$mockDemand = $this->getMock('DWenzel\\T3events\\Domain\\Model\\Dto\\PerformanceDemand',
 			array(), array(), '', FALSE);
 		$mockObjectManager = $this->getMock('TYPO3\\CMS\\Extbase\\Object\\ObjectManager',
 			array('get'), array(), '', FALSE);
@@ -844,7 +844,7 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @covers ::createDemandFromSettings
 	 */
 	public function createDemandFromSettingsSetsEndDate() {
-		$fixture = $this->getAccessibleMock('Webfox\\T3events\\Controller\\PerformanceController',
+		$fixture = $this->getAccessibleMock('DWenzel\\T3events\\Controller\\PerformanceController',
 			array('dummy'), array(),'', FALSE);
 		$settings = array(
 			'periodType' => 'byDate',
@@ -853,7 +853,7 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
         $timeZone = new \DateTimeZone(date_default_timezone_get());
         $expectedDate = new \DateTime('midnight', $timeZone);
         $expectedDate->setTimestamp((int)$settings['periodEndDate']);
-        $mockDemand = $this->getMock('Webfox\\T3events\\Domain\\Model\\Dto\\PerformanceDemand',
+        $mockDemand = $this->getMock('DWenzel\\T3events\\Domain\\Model\\Dto\\PerformanceDemand',
 			array('setEndDate'), array(), '', FALSE);
 		$mockObjectManager = $this->getMock('TYPO3\\CMS\\Extbase\\Object\\ObjectManager',
 			array('get'), array(), '', FALSE);
@@ -873,12 +873,12 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @covers ::createDemandFromSettings
 	 */
 	public function createDemandFromSettingsSetsCategoryConjunction() {
-		$fixture = $this->getAccessibleMock('Webfox\\T3events\\Controller\\PerformanceController',
+		$fixture = $this->getAccessibleMock('DWenzel\\T3events\\Controller\\PerformanceController',
 			array('dummy'), array(),'', FALSE);
 		$settings = array(
 			'categoryConjunction' => 'bar',
 		);
-		$mockDemand = $this->getMock('Webfox\\T3events\\Domain\\Model\\Dto\\PerformanceDemand',
+		$mockDemand = $this->getMock('DWenzel\\T3events\\Domain\\Model\\Dto\\PerformanceDemand',
 			array(), array(), '', FALSE);
 		$mockObjectManager = $this->getMock('TYPO3\\CMS\\Extbase\\Object\\ObjectManager',
 			array('get'), array(), '', FALSE);
@@ -914,7 +914,7 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @covers ::overwriteDemandObject
 	 */
 	public function overwriteDemandObjectSetsVenues() {
-		$demand = $this->getMock('Webfox\\T3events\\Domain\\Model\\Dto\\PerformanceDemand');
+		$demand = $this->getMock('DWenzel\\T3events\\Domain\\Model\\Dto\\PerformanceDemand');
 		$overwriteDemand = ['venue' => '1,2,3'];
 
 		$demand->expects($this->once())->method('setVenues')
@@ -1002,7 +1002,7 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @covers ::overwriteDemandObject
 	 */
 	public function overwriteDemandObjectSetsSortBy() {
-		$demand = $this->getMock('Webfox\\T3events\\Domain\\Model\\Dto\\PerformanceDemand');
+		$demand = $this->getMock('DWenzel\\T3events\\Domain\\Model\\Dto\\PerformanceDemand');
 		$overwriteDemand = array(
 			'sortBy' => 'foo'
 		);
@@ -1018,7 +1018,7 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @covers ::overwriteDemandObject
 	 */
 	public function overwriteDemandObjectSetsSortOrder() {
-		$demand = $this->getMock('Webfox\\T3events\\Domain\\Model\\Dto\\PerformanceDemand');
+		$demand = $this->getMock('DWenzel\\T3events\\Domain\\Model\\Dto\\PerformanceDemand');
 		$overwriteDemand = array(
 			'sortBy' => 'foo',
 			'sortDirection' => 'bar'
@@ -1035,7 +1035,7 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @covers ::overwriteDemandObject
 	 */
 	public function overwriteDemandObjectSetsDefaultSortDirectionAscending() {
-		$demand = $this->getMock('Webfox\\T3events\\Domain\\Model\\Dto\\PerformanceDemand');
+		$demand = $this->getMock('DWenzel\\T3events\\Domain\\Model\\Dto\\PerformanceDemand');
 		$overwriteDemand = array(
 			'sortDirection' => 'foo'
 		);
@@ -1051,7 +1051,7 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @covers ::overwriteDemandObject
 	 */
 	public function overwriteDemandObjectSetsSortDirectionDescending() {
-		$demand = $this->getMock('Webfox\\T3events\\Domain\\Model\\Dto\\PerformanceDemand');
+		$demand = $this->getMock('DWenzel\\T3events\\Domain\\Model\\Dto\\PerformanceDemand');
 		$overwriteDemand = array(
 			'sortDirection' => 'desc'
 		);
@@ -1108,15 +1108,15 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 */
 	public function listActionCallsCreateDemandFromSettings() {
 		$this->fixture = $this->getAccessibleMock(
-			'Webfox\\T3events\\Controller\\PerformanceController',
+			'DWenzel\\T3events\\Controller\\PerformanceController',
 			array('createDemandFromSettings', 'overwriteDemandObject', 'emitSignal'), array(), '', false
 		);
 		$repository = $this->getMock(
-			'Webfox\\T3events\\Domain\\Repository\\PerformanceRepository',
+			'DWenzel\\T3events\\Domain\\Repository\\PerformanceRepository',
 			array(), array(), '', false
 		);
 		$mockDemand = $this->getMock(
-			'Webfox\\T3events\\Domain\\Model\\Dto\\PerformanceDemand'
+			'DWenzel\\T3events\\Domain\\Model\\Dto\\PerformanceDemand'
 		);
 		$this->fixture->injectPerformanceRepository($repository);
 		$view = $this->getMock(
@@ -1166,12 +1166,12 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 */
 	public function listActionCallsFindDemanded() {
 		$this->fixture = $this->getAccessibleMock(
-			'Webfox\\T3events\\Controller\\PerformanceController',
+			'DWenzel\\T3events\\Controller\\PerformanceController',
 			array('overwriteDemandObject', 'createDemandFromSettings', 'emitSignal'),
 			array(), '', false
 		);
 		$repository = $this->getMock(
-			'Webfox\\T3events\\Domain\\Repository\\PerformanceRepository',
+			'DWenzel\\T3events\\Domain\\Repository\\PerformanceRepository',
 			array('findDemanded'), array(), '', false
 		);
 		$this->fixture->injectPerformanceRepository($repository);
@@ -1181,7 +1181,7 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$settings = array('foo');
 		$this->fixture->_set('settings', $settings);
 		$mockDemand = $this->getMock(
-			'Webfox\\T3events\\Domain\\Model\\Dto\\PerformanceDemand'
+			'DWenzel\\T3events\\Domain\\Model\\Dto\\PerformanceDemand'
 		);
 
 		$this->fixture->expects($this->once())
@@ -1329,7 +1329,7 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 */
 	public function createDemandFromSettingsSetsStatuses() {
 		$fixture = $this->getAccessibleMock(
-			PerformanceController::class,
+			\DWenzel\T3events\Controller\PerformanceController::class,
 			array('dummy'), array(),'', FALSE);
 		$settings = array('statuses' => '1,2,3');
 		$mockDemand = $this->getMock(
@@ -1358,7 +1358,7 @@ class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 */
 	public function createDemandFromSettingsSetsExcludeSelectedStatuses() {
 		$fixture = $this->getAccessibleMock(
-			PerformanceController::class,
+			\DWenzel\T3events\Controller\PerformanceController::class,
 			array('dummy'), array(),'', FALSE);
 		$settings = array('excludeSelectedStatuses' => 1);
 		$mockDemand = $this->getMock(

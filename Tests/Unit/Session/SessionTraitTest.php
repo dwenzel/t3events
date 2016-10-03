@@ -1,9 +1,9 @@
 <?php
-namespace Webfox\T3events\Tests\Unit\Session;
+namespace DWenzel\T3events\Tests\Unit\Session;
 
 use TYPO3\CMS\Core\Tests\UnitTestCase;
-use Webfox\T3events\Controller\SessionTrait;
-use Webfox\T3events\Session\SessionInterface;
+use DWenzel\T3events\Controller\SessionTrait;
+use DWenzel\T3events\Session\SessionInterface;
 
 /***************************************************************
  *  Copyright notice
@@ -30,7 +30,7 @@ class DummyClassWithNamespace {
 /**
  * Class SessionTraitTest
  *
- * @package Webfox\T3events\Tests\Unit\Session
+ * @package DWenzel\T3events\Tests\Unit\Session
  */
 class SessionTraitTest extends UnitTestCase
 {

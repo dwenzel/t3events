@@ -1,5 +1,5 @@
 <?php
-namespace Webfox\T3events\Controller;
+namespace DWenzel\T3events\Controller;
 
 /***************************************************************
  *  Copyright notice
@@ -18,25 +18,25 @@ namespace Webfox\T3events\Controller;
  *  GNU General Public License for more details.
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-use Webfox\T3events\Domain\Repository\CompanyRepository;
+use DWenzel\T3events\Domain\Repository\CompanyRepository;
 /**
  * Class CompanyRepositoryTrait
  *
- * @package Webfox\T3events\Controller
+ * @package DWenzel\T3events\Controller
  */
 trait CompanyRepositoryTrait
 {
     /**
      * Company Repository
      *
-     * @var \Webfox\T3events\Domain\Repository\CompanyRepository
+     * @var \DWenzel\T3events\Domain\Repository\CompanyRepository
      */
     protected $companyRepository;
 
     /**
      * injectCompanyRepository
      *
-     * @param \Webfox\T3events\Domain\Repository\CompanyRepository $companyRepository
+     * @param \DWenzel\T3events\Domain\Repository\CompanyRepository $companyRepository
      * @return void
      */
     public function injectCompanyRepository(CompanyRepository $companyRepository)

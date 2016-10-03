@@ -1,5 +1,5 @@
 <?php
-namespace Webfox\T3events\Session;
+namespace DWenzel\T3events\Session;
 
 /***************************************************************
  *  Copyright notice
@@ -18,10 +18,12 @@ namespace Webfox\T3events\Session;
  *  GNU General Public License for more details.
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+
 /**
  * Class Typo3Session
  *
- * @package Webfox\T3events\Session
+ * @package DWenzel\T3events\Session
  */
 class Typo3Session implements SessionInterface {
 

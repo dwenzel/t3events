@@ -1,8 +1,8 @@
 <?php
-namespace Webfox\T3events\Tests\Unit\Domain\Model;
+namespace DWenzel\T3events\Tests\Unit\Domain\Model;
 
 use TYPO3\CMS\Core\Tests\UnitTestCase;
-use Webfox\T3events\Domain\Model\Content;
+use DWenzel\T3events\Domain\Model\Content;
 
 /***************************************************************
  *

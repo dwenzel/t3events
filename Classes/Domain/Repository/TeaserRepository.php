@@ -1,10 +1,10 @@
 <?php
-namespace Webfox\T3events\Domain\Repository;
+namespace DWenzel\T3events\Domain\Repository;
 
 	/***************************************************************
 	 *  Copyright notice
-	 *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
-	 *  Michael Kasten <kasten@webfox01.de>, Agentur Webfox
+	 *  (c) 2012 Dirk Wenzel <wenzel@dWenzel01.de>, Agentur DWenzel
+	 *  Michael Kasten <kasten@dWenzel01.de>, Agentur DWenzel
 	 *  All rights reserved
 	 *  This script is part of the TYPO3 project. The TYPO3 project is
 	 *  free software; you can redistribute it and/or modify
@@ -29,10 +29,10 @@ class TeaserRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 	/**
 	 * findDemanded
 	 *
-	 * @param \Webfox\T3events\Domain\Model\Dto\TeaserDemand
-	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResult Matching Teasers
+	 * @param \DWenzel\T3events\Domain\Model\Dto\TeaserDemand
+	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface Matching Teasers
 	 */
-	public function findDemanded(\Webfox\T3events\Domain\Model\Dto\TeaserDemand $demand) {
+	public function findDemanded(\DWenzel\T3events\Domain\Model\Dto\TeaserDemand $demand) {
 		$query = $this->createQuery();
 		$sortBy = $demand->getSortBy();
 		$period = $demand->getPeriod();

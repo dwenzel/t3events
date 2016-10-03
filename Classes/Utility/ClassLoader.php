@@ -1,5 +1,5 @@
 <?php
-namespace Webfox\T3events\Utility;
+namespace DWenzel\T3events\Utility;
 
 /**
  * (c) 2014 Sebastian Fischer <typo3@evoweb.de>
@@ -15,7 +15,6 @@ namespace Webfox\T3events\Utility;
 use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Core;
 
 /**
  * Class ClassLoader
@@ -84,7 +83,7 @@ class ClassLoader implements \TYPO3\CMS\Core\SingletonInterface {
 	}
 
 	/**
-	 * Get extension key from namespaced classname
+	 * Get extension key from namespaced class name
 	 *
 	 * @param string $className
 	 * @return string
@@ -109,7 +108,7 @@ class ClassLoader implements \TYPO3\CMS\Core\SingletonInterface {
 	 * @return bool
 	 */
 	protected function isValidClassName($className) {
-		if (GeneralUtility::isFirstPartOfStr($className, 'Webfox\\T3events\\')) {
+		if (GeneralUtility::isFirstPartOfStr($className, 'DWenzel\\T3events\\')) {
 			$modifiedClassName = $this->changeClassName($className);
 			if (isset($GLOBALS['TYPO3_CONF_VARS']['EXT']['t3events']['classes'][$modifiedClassName])) {
 				return TRUE;
@@ -120,6 +119,6 @@ class ClassLoader implements \TYPO3\CMS\Core\SingletonInterface {
 	}
 
 	protected function changeClassName($className) {
-		return str_replace('\\', '/', str_replace('Webfox\\T3events\\', '', $className));
+		return str_replace('\\', '/', str_replace('DWenzel\\T3events\\', '', $className));
 	}
 }

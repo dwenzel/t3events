@@ -1,9 +1,9 @@
 <?php
-namespace Webfox\T3events\Tests\Controller;
+namespace DWenzel\T3events\Tests\Controller;
 
 use TYPO3\CMS\Core\Tests\UnitTestCase;
-use Webfox\T3events\Controller\CategoryRepositoryTrait;
-use Webfox\T3events\Domain\Repository\CategoryRepository;
+use DWenzel\T3events\Controller\CategoryRepositoryTrait;
+use DWenzel\T3events\Domain\Repository\CategoryRepository;
 
 /***************************************************************
  *  Copyright notice
@@ -26,7 +26,7 @@ use Webfox\T3events\Domain\Repository\CategoryRepository;
 /**
  * Class CategoryRepositoryTraitTest
  *
- * @package Webfox\T3events\Tests\Controller
+ * @package DWenzel\T3events\Tests\Controller
  */
 class CategoryRepositoryTraitTest extends UnitTestCase
 {
@@ -41,7 +41,7 @@ class CategoryRepositoryTraitTest extends UnitTestCase
     public function setUp()
     {
         $this->subject = $this->getMockForTrait(
-            CategoryRepositoryTrait::class
+            \DWenzel\T3events\Controller\CategoryRepositoryTrait::class
         );
     }
 

@@ -1,12 +1,12 @@
 <?php
-namespace Webfox\T3events\Domain\Model\Dto;
+namespace DWenzel\T3events\Domain\Model\Dto;
 
 /**
  * Class PeriodAwareDemandTrait
  * Provides properties and methods for classes which
  * implement the PeriodAwareDemandInterface
  *
- * @package Webfox\T3events\Domain\Model\Dto
+ * @package DWenzel\T3events\Domain\Model\Dto
  */
 trait PeriodAwareDemandTrait {
 	/**

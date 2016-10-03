@@ -1,15 +1,15 @@
 <?php
-namespace Webfox\T3events\ViewHelpers\Widget\Controller;
+namespace DWenzel\T3events\ViewHelpers\Widget\Controller;
 
 use TYPO3\CMS\Fluid\Core\Widget\AbstractWidgetController;
-use Webfox\T3events\Domain\Model\Calendar;
-use Webfox\T3events\Domain\Model\CalendarDay;
-use Webfox\T3events\Domain\Model\CalendarMonth;
-use Webfox\T3events\Domain\Model\CalendarWeek;
-use Webfox\T3events\Domain\Model\CalendarYear;
-use Webfox\T3events\Domain\Model\Dto\CalendarConfiguration;
-use Webfox\T3events\Domain\Model\Event;
-use Webfox\T3events\Domain\Model\Performance;
+use DWenzel\T3events\Domain\Model\Calendar;
+use DWenzel\T3events\Domain\Model\CalendarDay;
+use DWenzel\T3events\Domain\Model\CalendarMonth;
+use DWenzel\T3events\Domain\Model\CalendarWeek;
+use DWenzel\T3events\Domain\Model\CalendarYear;
+use DWenzel\T3events\Domain\Model\Dto\CalendarConfiguration;
+use DWenzel\T3events\Domain\Model\Event;
+use DWenzel\T3events\Domain\Model\Performance;
 
 /***************************************************************
  *  Copyright notice
@@ -32,7 +32,7 @@ use Webfox\T3events\Domain\Model\Performance;
 /**
  * Class CalendarController
  *
- * @package Webfox\T3events\ViewHelpers\Widget\Controller
+ * @package DWenzel\T3events\ViewHelpers\Widget\Controller
  */
 class CalendarController extends AbstractWidgetController {
 
@@ -118,7 +118,7 @@ class CalendarController extends AbstractWidgetController {
 	 */
 	protected function getCalendar($configuration) {
 		/** @var Calendar $calendar */
-		$calendar = $this->objectManager->get('Webfox\\T3events\\Domain\\Model\\Calendar');
+		$calendar = $this->objectManager->get('DWenzel\\T3events\\Domain\\Model\\Calendar');
 		$viewMode = $configuration->getViewMode();
 		$calendar->setViewMode($viewMode);
 		$displayPeriod = $configuration->getDisplayPeriod();
@@ -202,7 +202,7 @@ class CalendarController extends AbstractWidgetController {
 	 */
 	protected function getCalendarMonth($startDate, $currentDate) {
 		/** @var CalendarMonth $calendarMonth */
-		$calendarMonth = $this->objectManager->get('Webfox\\T3events\\Domain\\Model\\CalendarMonth');
+		$calendarMonth = $this->objectManager->get('DWenzel\\T3events\\Domain\\Model\\CalendarMonth');
 		$calendarMonth->setStartDate($startDate);
 		$month = (int) $startDate->format('n');
 		$year = (int) $startDate->format('Y');
@@ -235,7 +235,7 @@ class CalendarController extends AbstractWidgetController {
 		// add calendar weeks
 		for ($weekNumber = 0; $weekNumber < $numberOfWeeks; $weekNumber++) {
 			/** @var CalendarWeek $week */
-			$week = $this->objectManager->get('Webfox\\T3events\\Domain\\Model\\CalendarWeek');
+			$week = $this->objectManager->get('DWenzel\\T3events\\Domain\\Model\\CalendarWeek');
 			for ($weekDay = 0; $weekDay < 7; $weekDay++) {
 				$week->addDay(array_shift($calendarDays));
 			}
@@ -285,7 +285,7 @@ class CalendarController extends AbstractWidgetController {
 	 */
 	protected function getCalendarWeek($date, $currentDate = NULL, $addEvents = FALSE) {
 		/** @var CalendarWeek $week */
-		$calendarWeek = $this->objectManager->get('Webfox\\T3events\\Domain\\Model\\CalendarWeek');
+		$calendarWeek = $this->objectManager->get('DWenzel\\T3events\\Domain\\Model\\CalendarWeek');
 		$startDate = new \DateTime('@' . $date);
 		for ($weekDay = 0; $weekDay < 7; $weekDay++) {
 			if ($weekDay > 0) {
@@ -310,7 +310,7 @@ class CalendarController extends AbstractWidgetController {
 	 */
 	protected function getCalendarYear($date, $currentDate = NULL, $addEvents = FALSE) {
 		/** @var CalendarYear $year */
-		$calendarYear = $this->objectManager->get('Webfox\\T3events\\Domain\\Model\\CalendarYear');
+		$calendarYear = $this->objectManager->get('DWenzel\\T3events\\Domain\\Model\\CalendarYear');
 		$startDate = new \DateTime('@' . $date);
 		$calendarYear->setStartDate($this->configuration->getStartDate());
 		for ($monthOfYear = 0; $monthOfYear < 12; $monthOfYear++) {

@@ -1,15 +1,15 @@
 <?php
 
-namespace Webfox\T3events\Domain\Repository;
+namespace DWenzel\T3events\Domain\Repository;
 
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
-use Webfox\T3events\Domain\Model\Dto\DemandInterface;
+use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
 
 
 /***************************************************************
  *  Copyright notice
- *  (c) 2013 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
- *  Michael Kasten <kasten@webfox01.de>, Agentur Webfox
+ *  (c) 2013 Dirk Wenzel <wenzel@dWenzel01.de>, Agentur DWenzel
+ *  Michael Kasten <kasten@dWenzel01.de>, Agentur DWenzel
  *  All rights reserved
  *  This script is part of the TYPO3 project. The TYPO3 project is
  *  free software; you can redistribute it and/or modify
@@ -36,7 +36,7 @@ interface DemandedRepositoryInterface {
 	/**
 	 * Returns an array of orderings created from a given demand object.
 	 *
-	 * @param \Webfox\T3events\Domain\Model\Dto\DemandInterface $demand
+	 * @param \DWenzel\T3events\Domain\Model\Dto\DemandInterface $demand
 	 * @return \array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint>
 	 */
 	public function createOrderingsFromDemand(DemandInterface $demand);
@@ -44,7 +44,7 @@ interface DemandedRepositoryInterface {
 	/**
 	 * Returns the objects of this repository matching the demand.
 	 *
-	 * @param \Webfox\T3events\Domain\Model\Dto\DemandInterface $demand
+	 * @param \DWenzel\T3events\Domain\Model\Dto\DemandInterface $demand
 	 * @param boolean $respectEnableFields
 	 * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 	 */

@@ -1,8 +1,8 @@
 <?php
-namespace Webfox\T3events\Tests\Resource;
+namespace DWenzel\T3events\Tests\Resource;
 
 use TYPO3\CMS\Core\Tests\UnitTestCase;
-use Webfox\T3events\Resource\VectorImage;
+use DWenzel\T3events\Resource\VectorImage;
 
 /***************************************************************
  *  Copyright notice
@@ -24,14 +24,14 @@ use Webfox\T3events\Resource\VectorImage;
 class VectorImageTest extends UnitTestCase
 {
     /**
-     * @var VectorImage
+     * @var \DWenzel\T3events\Resource\VectorImage
      */
     protected $subject;
 
     public function setUp()
     {
         $this->subject = $this->getAccessibleMock(
-            VectorImage::class, ['dummy'], [], '', true
+            \DWenzel\T3events\Resource\VectorImage::class, ['dummy'], [], '', true
         );
         // initialize property
         $this->subject->getXPath();
@@ -101,7 +101,7 @@ class VectorImageTest extends UnitTestCase
     public function showElementsSetsAttributeForExistingElement()
     {
         $this->subject = $this->getAccessibleMock(
-            VectorImage::class, ['getElementById'], [], '', true
+            \DWenzel\T3events\Resource\VectorImage::class, ['getElementById'], [], '', true
         );
 
         /** @var \DOMElement $mockElement */
@@ -130,7 +130,7 @@ class VectorImageTest extends UnitTestCase
     {
         $nonExistingElementId = 'foo';
         $this->subject = $this->getAccessibleMock(
-            VectorImage::class, ['removeChild', 'appendChild'], [], '', true
+            \DWenzel\T3events\Resource\VectorImage::class, ['removeChild', 'appendChild'], [], '', true
         );
         $this->subject->expects($this->never())
             ->method('removeChild');

@@ -1,5 +1,5 @@
 <?php
-namespace Webfox\T3events\Resource;
+namespace DWenzel\T3events\Resource;
 
  /***************************************************************
  *
@@ -35,7 +35,7 @@ use TYPO3\CMS\Extbase\Object\ObjectManager;
 /**
  * Class ResourceFactory
  *
- * @package Webfox\T3events\Resource
+ * @package DWenzel\T3events\Resource
  */
 class ResourceFactory extends CoreResourceFactory {
 	/**

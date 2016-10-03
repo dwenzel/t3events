@@ -1,6 +1,6 @@
 <?php
 
-namespace Webfox\T3events\Domain\Repository;
+namespace DWenzel\T3events\Domain\Repository;
 
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 
@@ -14,7 +14,7 @@ interface LocationConstraintRepositoryInterface {
 	 * Create location constraints from demand
 	 *
 	 * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
-	 * @param \Webfox\T3events\Domain\Model\Dto\EventDemand $demand
+	 * @param \DWenzel\T3events\Domain\Model\Dto\EventDemand $demand
 	 * @return array<\TYPO3\CMS\Extbase\Persistence\QOM\Constraint>
 	 */
 	public function createLocationConstraints(QueryInterface $query, $demand);

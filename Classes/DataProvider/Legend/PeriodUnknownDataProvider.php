@@ -1,5 +1,5 @@
 <?php
-namespace Webfox\T3events\DataProvider\Legend;
+namespace DWenzel\T3events\DataProvider\Legend;
 
 /***************************************************************
  *  Copyright notice
@@ -19,11 +19,13 @@ namespace Webfox\T3events\DataProvider\Legend;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+
+
 /**
  * Class PeriodUnknownDataProvider
  * Provides data for the default layered legend of period 'all'
  *
- * @package Webfox\T3events\DataProvider\Legend
+ * @package DWenzel\T3events\DataProvider\Legend
  */
 class PeriodUnknownDataProvider
 extends AbstractPeriodDataProvider

@@ -5,8 +5,8 @@ if (!defined('TYPO3_MODE')) {
 
 $ll = 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:';
 
-return array(
-	'ctrl' => array(
+return [
+	'ctrl' => [
 		'title' => $ll . 'tx_t3events_domain_model_person',
 		'label' => 'name',
 		'tstamp' => 'tstamp',
@@ -22,212 +22,219 @@ return array(
 		'transOrigDiffSourceField' => 'l10n_diffsource',
 		'delete' => 'deleted',
 		'type' => 'tx_extbase_type',
-		'enablecolumns' => array(
+		'enablecolumns' => [
 			'disabled' => 'hidden',
 			'starttime' => 'starttime',
 			'endtime' => 'endtime',
-		),
+        ],
 		'searchFields' => 'name, last_name, first_name',
-		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('t3events') . 'Resources/Public/Icons/tx_t3events_domain_model_person.png'
-	),
-	'interface' => array(
+		'iconfile' => 'EXT:t3events/Resources/Public/Icons/tx_t3events_domain_model_person.png'
+    ],
+	'interface' => [
 		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, person_type,title, name, first_name, last_name, gender,address, zip, city, phone, email,www',
-	),
-	'types' => array(
-		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, person_type, gender, title,name, first_name, last_name, address, zip, city, phone, email,www, images,  --div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.access,tx_extbase_type, starttime, endtime'),
-	),
-	'palettes' => array(
-		'1' => array('showitem' => ''),
-	),
-	'columns' => array(
-		'sys_language_uid' => array(
+    ],
+	'types' => [
+		'1' => [
+		    'showitem' => '--palette--;;1, person_type, gender, title,name, first_name, last_name, address, zip, city, phone, email,www, images,  --div--;LLL:EXT:cms/locallang_ttc.xlf:tab.access,tx_extbase_type, starttime, endtime'
+        ],
+	],
+	'palettes' => [
+		'1' => ['showitem' => 'sys_language_uid,l10n_parent,l10n_diffsource,hidden'],
+    ],
+	'columns' => [
+		'sys_language_uid' => [
 			'exclude' => 1,
 			'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.language',
-			'config' => array(
-				'type' => 'select',
+			'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
 				'foreign_table' => 'sys_language',
 				'foreign_table_where' => 'ORDER BY sys_language.title',
-				'items' => array(
-					array('LLL:EXT:lang/locallang_general.xlf:LGL.allLanguages', -1),
-					array('LLL:EXT:lang/locallang_general.xlf:LGL.default_value', 0)
-				),
-				'noIconsBelowSelect' => TRUE,
-			),
-		),
-		'l10n_parent' => array(
+				'items' => [
+					['LLL:EXT:lang/locallang_general.xlf:LGL.allLanguages', -1],
+					['LLL:EXT:lang/locallang_general.xlf:LGL.default_value', 0]
+                ],
+				'showIconTable' => TRUE,
+            ],
+        ],
+		'l10n_parent' => [
 			'displayCond' => 'FIELD:sys_language_uid:>:0',
 			'exclude' => 1,
 			'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.l18n_parent',
-			'config' => array(
-				'type' => 'select',
-				'items' => array(
-					array('', 0),
-				),
+			'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+				'items' => [
+					['', 0],
+                ],
 				'foreign_table' => 'tx_t3events_domain_model_person',
 				'foreign_table_where' => 'AND tx_t3events_domain_model_person.pid=###CURRENT_PID### AND tx_t3events_domain_model_person.sys_language_uid IN (-1,0)',
-				'noIconsBelowSelect' => TRUE,
-			),
-		),
-		'l10n_diffsource' => array(
-			'config' => array(
+				'showIconTable' => TRUE,
+            ],
+        ],
+		'l10n_diffsource' => [
+			'config' => [
 				'type' => 'passthrough',
-			),
-		),
-		'hidden' => array(
+            ],
+        ],
+		'hidden' => [
 			'exclude' => 1,
 			'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.hidden',
-			'config' => array(
+			'config' => [
 				'type' => 'check',
-			),
-		),
-		'starttime' => array(
+            ],
+        ],
+		'starttime' => [
 			'exclude' => 1,
 			'l10n_mode' => 'mergeIfNotBlank',
 			'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.starttime',
-			'config' => array(
+			'config' => [
 				'type' => 'input',
 				'size' => 13,
 				'max' => 20,
 				'eval' => 'datetime',
 				'checkbox' => 0,
 				'default' => 0,
-				'range' => array(
+				'range' => [
 					'lower' => mktime(0, 0, 0, date('m'), date('d'), date('Y'))
-				),
-			),
-		),
-		'endtime' => array(
+                ],
+            ],
+        ],
+		'endtime' => [
 			'exclude' => 1,
 			'l10n_mode' => 'mergeIfNotBlank',
 			'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.endtime',
-			'config' => array(
+			'config' => [
 				'type' => 'input',
 				'size' => 13,
 				'max' => 20,
 				'eval' => 'datetime',
 				'checkbox' => 0,
 				'default' => 0,
-				'range' => array(
+				'range' => [
 					'lower' => mktime(0, 0, 0, date('m'), date('d'), date('Y'))
-				),
-			),
-		),
-		'tx_extbase_type' => array(
+                ],
+            ],
+        ],
+		'tx_extbase_type' => [
 			'exclude' => 1,
 			'label' => $ll . 'tx_t3events_domain_model_person.tx_extbase_type',
-			'config' => array(
-				'type' => 'select',
-				'items' => array(
-					array($ll . 'tx_t3events_domain_model_person.type.default', 'Tx_T3events_Default'),
-					array($ll . 'tx_t3events_domain_model_person.type.contact', 'Tx_T3events_Contact'),
-				),
+			'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+				'items' => [
+					[$ll . 'tx_t3events_domain_model_person.type.default', 'Tx_T3events_Default'],
+					[$ll . 'tx_t3events_domain_model_person.type.contact', 'Tx_T3events_Contact'],
+                ],
 				'size' => 1,
 				'maxitems' => 1,
 				'eval' => ''
-			),
-		),
-		'person_type' => array(
+            ],
+        ],
+		'person_type' => [
 			'exclude' => 0,
 			'label' => $ll . 'tx_t3events_domain_model_person.person_type',
-			'config' => array(
-				'type' => 'select',
+			'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
 				'foreign_table' => 'tx_t3events_domain_model_persontype',
 				'minitems' => 0,
 				'maxitems' => 1,
-				'noIconsBelowSelect' => TRUE,
-			),
-		),
-		'name' => array(
+				'showIconTable' => TRUE,
+            ],
+        ],
+		'name' => [
 			'label' => $ll . 'tx_t3events_domain_model_person.name',
-			'config' => array(
+			'config' => [
 				'type' => 'input',
-			),
-		),
-		'title' => array(
+            ],
+        ],
+		'title' => [
 			'label' => $ll . 'tx_t3events_domain_model_person.title',
-			'config' => array(
+			'config' => [
 				'type' => 'input',
-			),
-		),
-		'first_name' => array(
+            ],
+        ],
+		'first_name' => [
 			'exclude' => 0,
 			'label' => $ll . 'tx_t3events_domain_model_person.first_name',
-			'config' => array(
+			'config' => [
 				'type' => 'input',
 				'size' => 30,
 				'eval' => 'trim,required'
-			),
-		),
-		'last_name' => array(
+            ],
+        ],
+		'last_name' => [
 			'exclude' => 0,
 			'label' => $ll . 'tx_t3events_domain_model_person.last_name',
-			'config' => array(
+			'config' => [
 				'type' => 'input',
 				'size' => 30,
 				'eval' => 'trim,required'
-			),
-		),
-		'gender' => array(
+            ],
+        ],
+		'gender' => [
 			'exclude' => 0,
 			'label' => $ll . 'tx_t3events_domain_model_person.gender',
-			'config' => array(
-				'type' => 'select',
-				'items' => array(
-					array($ll . 'tx_t3events_domain_model_person.gender.I.0', 0),
-					array($ll . 'tx_t3events_domain_model_person.gender.I.1', 1),
-				),
+			'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+				'items' => [
+					[$ll . 'tx_t3events_domain_model_person.gender.I.0', 0],
+					[$ll . 'tx_t3events_domain_model_person.gender.I.1', 1],
+                ],
 				'minitems' => 0,
 				'maxitems' => 1,
 				'eval' => 'required',
-				'noIconsBelowSelect' => TRUE,
-			),
-		),
-		'address' => array(
+				'showIconTable' => TRUE,
+            ],
+        ],
+		'address' => [
 			'exclude' => 1,
 			'label' => $ll . 'tx_t3events_domain_model_person.address',
-			'config' => array(
+			'config' => [
 				'type' => 'text',
 				'cols' => 40,
 				'rows' => 15,
 				'eval' => 'trim'
-			)
-		),
-		'zip' => array(
+            ]
+        ],
+		'zip' => [
 			'exclude' => 1,
 			'label' => $ll . 'tx_t3events_domain_model_person.zip',
-			'config' => array(
+			'config' => [
 				'type' => 'input',
 				'size' => 30,
 				'eval' => 'trim'
-			),
-		),
-		'city' => array(
+            ],
+        ],
+		'city' => [
 			'exclude' => 1,
 			'label' => $ll . 'tx_t3events_domain_model_person.city',
-			'config' => array(
+			'config' => [
 				'type' => 'input',
 				'size' => 30,
 				'eval' => 'trim'
-			),
-		),
-		'phone' => array(
+            ],
+        ],
+		'phone' => [
 			'exclude' => 1,
 			'label' => $ll . 'tx_t3events_domain_model_person.phone',
-			'config' => array(
+			'config' => [
 				'type' => 'input',
 				'size' => 30,
 				'eval' => 'trim'
-			),
-		),
-		'email' => array(
+            ],
+        ],
+		'email' => [
 			'exclude' => 1,
 			'label' => $ll . 'tx_t3events_domain_model_person.email',
-			'config' => array(
+			'config' => [
 				'type' => 'input',
 				'size' => 30,
 				'eval' => 'trim'
-			),
-		),
+            ],
+        ],
 		'www' => [
 			'exclude' => 0,
 			'label' => $ll . 'tx_t3events_domain_model_person.www',
@@ -268,5 +275,5 @@ return array(
 				$GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']
 			)
 		],
-	),
-);
+    ],
+];
