@@ -1,3 +1,8 @@
+2016-10-03         [RELEASE] Release of t3events 0.29.0 (Dirk Wenzel)
+2016-10-03 05580c8 [BUGFIX] fixed error in SessionTraitTest caused by typo in use statement (Dirk Wenzel)
+2016-10-03 4092783 [TASK] vendor name changed. (Dirk Wenzel)
+2016-10-03 a51504d [TASK] deprecated settings in table configuration replaced. Localized string for tab 'access' added. (Dirk Wenzel)
+
 2016-09-30         [RELEASE] Release of t3events 0.28.0 (Dirk Wenzel)
 2016-09-15 c998c90 [TASK] Unit tests for CleanUpCommandController added. (Dirk Wenzel)
 2016-09-15 47d3f41 [TASK] CleanUpCommandController implemented. (Dirk Wenzel)
