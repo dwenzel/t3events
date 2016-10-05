@@ -3,9 +3,9 @@ namespace DWenzel\T3events\Tests\ViewHelpers\Widget\Controller;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2012 Dirk Wenzel <wenzel@dWenzel01.de>, Agentur DWenzel
- *  			Michael Kasten <kasten@dWenzel01.de>, Agentur DWenzel
- *  			
+ *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
+ *  			Michael Kasten <kasten@webfox01.de>, Agentur Webfox
+ *
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is

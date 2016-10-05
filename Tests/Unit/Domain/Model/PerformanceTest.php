@@ -3,8 +3,8 @@ namespace DWenzel\T3events\Tests\Unit\Domain\Model;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2012 Dirk Wenzel <wenzel@dWenzel01.de>, Agentur DWenzel
- *  Michael Kasten <kasten@dWenzel01.de>, Agentur DWenzel
+ *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
+ *  Michael Kasten <kasten@webfox01.de>, Agentur Webfox
  *
  *  All rights reserved
  *
@@ -34,8 +34,8 @@ use DWenzel\T3events\Domain\Model\Event;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  * @package TYPO3
  * @subpackage Events
- * @author Dirk Wenzel <wenzel@dWenzel01.de>
- * @author Michael Kasten <kasten@dWenzel01.de>
+ * @author Dirk Wenzel <wenzel@webfox01.de>
+ * @author Michael Kasten <kasten@webfox01.de>
  * @coversDefaultClass \DWenzel\T3events\Domain\Model\Performance
  */
 class PerformanceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
