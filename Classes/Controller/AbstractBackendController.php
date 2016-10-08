@@ -22,28 +22,9 @@ use DWenzel\T3events\Domain\Repository\VenueRepository;
 class AbstractBackendController extends AbstractController
 {
     use ModuleDataTrait, DownloadTrait, CompanyRepositoryTrait,
+        EventTypeRepositoryTrait, AudienceRepositoryTrait,
+        GenreRepositoryTrait, VenueRepositoryTrait,
         NotificationRepositoryTrait, CategoryRepositoryTrait;
-
-    /**
-     * eventTypeRepository
-     *
-     * @var \DWenzel\T3events\Domain\Repository\EventTypeRepository
-     */
-    protected $eventTypeRepository;
-
-    /**
-     * genreRepository
-     *
-     * @var \DWenzel\T3events\Domain\Repository\GenreRepository
-     */
-    protected $genreRepository;
-
-    /**
-     * audienceRepository
-     *
-     * @var \DWenzel\T3events\Domain\Repository\AudienceRepository
-     */
-    protected $audienceRepository;
 
     /**
      * Notification Service
@@ -76,13 +57,6 @@ class AbstractBackendController extends AbstractController
     protected $tsConfiguration = [];
 
     /**
-     * venueRepository
-     *
-     * @var \DWenzel\T3events\Domain\Repository\VenueRepository
-     */
-    protected $venueRepository;
-
-    /**
      * Constructor
      */
     public function __construct()
@@ -90,50 +64,6 @@ class AbstractBackendController extends AbstractController
         parent::__construct();
         $extension = GeneralUtility::camelCaseToLowerCaseUnderscored($this->extensionName);
         $this->setTsConfig($extension);
-    }
-
-    /**
-     * injectEventTypeRepository
-     *
-     * @param \DWenzel\T3events\Domain\Repository\EventTypeRepository $eventTypeRepository
-     * @return void
-     */
-    public function injectEventTypeRepository(EventTypeRepository $eventTypeRepository)
-    {
-        $this->eventTypeRepository = $eventTypeRepository;
-    }
-
-    /**
-     * injectGenreRepository
-     *
-     * @param \DWenzel\T3events\Domain\Repository\GenreRepository $genreRepository
-     * @return void
-     */
-    public function injectGenreRepository(GenreRepository $genreRepository)
-    {
-        $this->genreRepository = $genreRepository;
-    }
-
-    /**
-     * injectAudienceRepository
-     *
-     * @param \DWenzel\T3events\Domain\Repository\AudienceRepository $audienceRepository
-     * @return void
-     */
-    public function injectAudienceRepository(AudienceRepository $audienceRepository)
-    {
-        $this->audienceRepository = $audienceRepository;
-    }
-
-    /**
-     * injectVenueRepository
-     *
-     * @param \DWenzel\T3events\Domain\Repository\VenueRepository $venueRepository
-     * @return void
-     */
-    public function injectVenueRepository(VenueRepository $venueRepository)
-    {
-        $this->venueRepository = $venueRepository;
     }
 
     /**
