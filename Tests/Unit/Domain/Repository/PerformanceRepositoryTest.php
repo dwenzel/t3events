@@ -1,7 +1,6 @@
 <?php
 namespace DWenzel\T3events\Tests\Unit\Domain\Repository;
 
-use CPSIT\ZewEvents\Domain\Model\Dto\PerformanceDemand;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
@@ -110,7 +109,7 @@ class PerformanceRepositoryTest extends UnitTestCase {
 
 		$this->assertEquals(
 			[$comparison],
-			$this->subject->_call('createConstraintsFromDemand', $query, $demand)
+			$this->subject->createConstraintsFromDemand($query, $demand)
 		);
 	}
 
@@ -138,7 +137,7 @@ class PerformanceRepositoryTest extends UnitTestCase {
 		$this->subject->expects($this->once())
 			->method('createStatusConstraints')
 			->with($query, $demand);
-		$this->subject->_call('createConstraintsFromDemand', $query, $demand);
+		$this->subject->createConstraintsFromDemand($query, $demand);
 	}
 
 	/**
@@ -173,7 +172,7 @@ class PerformanceRepositoryTest extends UnitTestCase {
 			->method('in')
 			->with('eventLocation', $expectedLocationParams);
 
-		$this->subject->_call('createConstraintsFromDemand', $query, $demand);
+		$this->subject->createConstraintsFromDemand($query, $demand);
 	}
 
 	/**
@@ -209,7 +208,7 @@ class PerformanceRepositoryTest extends UnitTestCase {
 			->method('combineConstraints')
 			->with($query, $constraints, $mockStatusConstraints, 'OR');
 
-		$this->subject->_call('createConstraintsFromDemand', $query, $demand);
+		$this->subject->createConstraintsFromDemand($query, $demand);
 	}
 
 
@@ -250,7 +249,7 @@ class PerformanceRepositoryTest extends UnitTestCase {
 			->method('combineConstraints')
 			->with($query, $constraints, $mockStatusConstraints, 'NOTOR');
 
-		$this->subject->_call('createConstraintsFromDemand', $query, $demand);
+		$this->subject->createConstraintsFromDemand($query, $demand);
 	}
 
 	/**

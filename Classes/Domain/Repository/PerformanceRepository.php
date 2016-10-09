@@ -94,7 +94,7 @@ class PerformanceRepository
      * @param \DWenzel\T3events\Domain\Model\Dto\DemandInterface $demand
      * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint>
      */
-    protected function createConstraintsFromDemand(
+    public function createConstraintsFromDemand(
         \TYPO3\CMS\Extbase\Persistence\QueryInterface $query,
         \DWenzel\T3events\Domain\Model\Dto\DemandInterface $demand
     ) {

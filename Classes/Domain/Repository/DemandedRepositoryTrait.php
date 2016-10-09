@@ -20,7 +20,7 @@ trait DemandedRepositoryTrait {
 	 * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint>
 	 * @abstract
 	 */
-	abstract protected function createConstraintsFromDemand(QueryInterface $query, DemandInterface $demand);
+	abstract public function createConstraintsFromDemand(QueryInterface $query, DemandInterface $demand);
 
 	/**
 	 * Returns a query for objects of this repository
