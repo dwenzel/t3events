@@ -345,7 +345,7 @@ class PerformanceRepositoryTest extends UnitTestCase {
                 'combineConstraints'
             ], [], '', false);
         $demand = $this->getMockForAbstractClass(
-            DemandInterface::class, [], '', true, true, true,
+            PerformanceDemand::class, [], '', true, true, true,
             [
                 'getGenres',
                 'getVenues',
@@ -363,7 +363,7 @@ class PerformanceRepositoryTest extends UnitTestCase {
         $query->expects($this->never())
             ->method('contains');
 
-        $demand->expects($this->once())
+        $demand->expects($this->any())
             ->method($getter)
             ->will($this->returnValue($value));
 
@@ -423,7 +423,7 @@ class PerformanceRepositoryTest extends UnitTestCase {
                 'combineConstraints'
             ], [], '', false);
         $demand = $this->getMockForAbstractClass(
-            DemandInterface::class, [], '', true, true, true,
+            PerformanceDemand::class, [], '', true, true, true,
             [
                 'getGenres',
                 'getVenues',
@@ -518,8 +518,6 @@ class PerformanceRepositoryTest extends UnitTestCase {
             QueryInterface::class,
             [], [], '', false
         );
-
-        $mockPeriodConstraints = ['foo'];
 
         $this->subject->expects($this->once())
             ->method('createPeriodConstraints')

@@ -19,6 +19,10 @@ namespace DWenzel\T3events\Domain\Repository;
  *  GNU General Public License for more details.
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+use DWenzel\T3events\Domain\Model\Dto\CategoryAwareDemandInterface;
+use DWenzel\T3events\Domain\Model\Dto\EventTypeAwareDemandInterface;
+use DWenzel\T3events\Domain\Model\Dto\GenreAwareDemandInterface;
+use DWenzel\T3events\Domain\Model\Dto\VenueAwareDemandInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
@@ -32,11 +36,15 @@ use DWenzel\T3events\Utility\EmConfigurationUtility;
  */
 class PerformanceRepository
     extends AbstractDemandedRepository
-    implements PeriodConstraintRepositoryInterface
+    implements PeriodConstraintRepositoryInterface, GenreConstraintRepositoryInterface,
+    EventTypeConstraintRepositoryInterface, VenueConstraintRepositoryInterface,
+    CategoryConstraintRepositoryInterface
 {
-    use PeriodConstraintRepositoryTrait, StatusConstraintRepositoryTrait;
+    use PeriodConstraintRepositoryTrait, StatusConstraintRepositoryTrait,
+        GenreConstraintRepositoryTrait, EventTypeConstraintRepositoryTrait,
+        VenueConstraintRepositoryTrait, CategoryConstraintRepositoryTrait;
 
-    protected $defaultOrderings = array('sorting' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING);
+    protected $defaultOrderings = array('sorting' => QueryInterface::ORDER_ASCENDING);
 
     /**
      * initializes the repository
@@ -51,52 +59,13 @@ class PerformanceRepository
     }
 
     /**
-     * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
-     * @param \DWenzel\T3events\Domain\Model\Dto\DemandInterface|PerformanceDemand $demand
-     * @return array
-     */
-    protected function createCategoryConstraints(QueryInterface $query, DemandInterface $demand)
-    {
-        $constraints = [];
-
-        if (!empty($demand->getGenres())) {
-            $genres = GeneralUtility::intExplode(',', $demand->getGenres());
-            foreach ($genres as $genre) {
-                $constraints[] = $query->contains('event.genre', $genre);
-            }
-        }
-        if (!empty($demand->getVenues())) {
-            $venues = GeneralUtility::intExplode(',', $demand->getVenues());
-            foreach ($venues as $venue) {
-                $constraints[] = $query->contains('event.venue', $venue);
-            }
-        }
-        if (!empty($demand->getEventTypes())) {
-            $eventTypes = GeneralUtility::intExplode(',', $demand->getEventTypes());
-            $constraints[] = $query->in('event.eventType', $eventTypes);
-        }
-
-
-        if ($demand->getCategories()) {
-            $categories = GeneralUtility::intExplode(',', $demand->getCategories());
-            foreach ($categories as $category) {
-                $constraints[] = $query->contains('event.categories', $category);
-            }
-        }
-
-        return $constraints;
-    }
-
-    /**
      * Returns an array of constraints created from a given demand object.
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
-     * @param \DWenzel\T3events\Domain\Model\Dto\DemandInterface $demand
+     * @param QueryInterface $query
+     * @param DemandInterface $demand
      * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint>
      */
-    public function createConstraintsFromDemand(
-        \TYPO3\CMS\Extbase\Persistence\QueryInterface $query,
-        \DWenzel\T3events\Domain\Model\Dto\DemandInterface $demand
+    public function createConstraintsFromDemand(QueryInterface $query, DemandInterface $demand
     ) {
         /** @var PerformanceDemand $demand */
         $constraints = [];
@@ -107,9 +76,31 @@ class PerformanceRepository
         ) {
             $this->combineConstraints($query, $constraints, $periodConstraints, 'AND');
         }
-        if ((bool)$categoryConstraints = $this->createCategoryConstraints($query, $demand)) {
+
+        if ($demand instanceof GenreAwareDemandInterface &&
+            (bool)$genreConstraints = $this->createGenreConstraints($query, $demand))
+        {
+            $this->combineConstraints($query, $constraints, $genreConstraints, $demand->getCategoryConjunction());
+        }
+
+        if ($demand instanceof EventTypeAwareDemandInterface &&
+            (bool)$eventTypeConstraints = $this->createEventTypeConstraints($query, $demand))
+        {
+            $this->combineConstraints($query, $constraints, $eventTypeConstraints, $demand->getCategoryConjunction());
+        }
+
+        if ($demand instanceof VenueAwareDemandInterface &&
+            (bool)$venueConstraints = $this->createVenueConstraints($query, $demand))
+        {
+            $this->combineConstraints($query, $constraints, $venueConstraints, $demand->getCategoryConjunction());
+        }
+
+        if ($demand instanceof CategoryAwareDemandInterface &&
+            (bool)$categoryConstraints = $this->createCategoryConstraints($query, $demand))
+        {
             $this->combineConstraints($query, $constraints, $categoryConstraints, $demand->getCategoryConjunction());
         }
+
         if ((bool)$searchConstraints = $this->createSearchConstraints($query, $demand)) {
             $this->combineConstraints($query, $constraints, $searchConstraints, 'OR');
         }

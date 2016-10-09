@@ -77,66 +77,6 @@ class PerformanceDemandTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		$this->assertEquals($status, $this->fixture->getStatus());
 	}
 
-	//
-
-	/**
-	 * @test
-	 * @covers ::getGenres
-	 */
-	public function getGenresReturnsInitialNull(){
-		$this->assertSame(NULL, $this->fixture->getGenres());
-	}
-
-	/**
-	 * @test
-	 * @covers ::setGenres
-	 */
-	public function setGenresForStringSetsGenres(){
-		$this->fixture->setGenres('1');
-		$this->assertSame('1', $this->fixture->getGenres());
-	}
-
-	/**
-	 * @test
-	 * @covers ::getVenues
-	 */
-	public function getVenuesReturnsInitialNull(){
-		$this->assertSame(NULL, $this->fixture->getVenues());
-	}
-
-	/**
-	 * @test
-	 * @covers ::setVenues
-	 */
-	public function setVenuesForStringSetsVenues(){
-		$this->fixture->setVenues('1');
-		$this->assertSame('1', $this->fixture->getVenues());
-	}
-
-	/**
-	 * @test
-	 * @covers ::getEventTypes
-	 */
-	public function getEventTypesReturnsInitialNull() {
-		$this->assertEquals(
-			NULL,
-			$this->fixture->getEventTypes()
-		);
-	}
-
-	/**
-	 * @test
-	 * @covers ::setEventTypes
-	 */
-	public function setEventTypesForStringSetsEventTypes(){
-		$this->fixture->setEventTypes('1,2,3');
-
-		$this->assertSame(
-			'1,2,3',
-			$this->fixture->getEventTypes()
-		);
-	}
-
 	/**
 	 * @test
 	 */
