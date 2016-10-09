@@ -3,6 +3,7 @@ namespace DWenzel\T3events\Tests\Unit\Domain\Repository;
 
 use DWenzel\T3events\Domain\Model\Dto\GenreAwareDemandTrait;
 use DWenzel\T3events\Domain\Model\Dto\PerformanceDemand;
+use DWenzel\T3events\Domain\Model\Dto\PeriodAwareDemandInterface;
 use DWenzel\T3events\Domain\Model\Dto\Search;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -458,4 +459,109 @@ class PerformanceRepositoryTest extends UnitTestCase {
         $this->subject->createConstraintsFromDemand($query, $demand);
     }
 
+    /**
+     * @test
+     */
+    public function createConstraintsFromDemandSetsStoragePages()
+    {
+        $this->subject = $this->getAccessibleMock(
+            PerformanceRepository::class,
+            [
+                'combineConstraints'
+            ], [], '', false);
+        $demand = $this->getMockForAbstractClass(
+            DemandInterface::class, [], '', true, true, true,
+            [
+                'getGenres',
+                'getVenues',
+                'getEventTypes',
+                'getCategories',
+                'getSearch',
+                'getStatusField',
+                'getStatuses',
+                'getEventLocations',
+                'getStoragePages'
+            ]
+        );
+        $storagePageList = '3,4';
+        $storagePages =  GeneralUtility::intExplode(',', $storagePageList);
+        $demand->expects($this->any())
+            ->method('getStoragePages')
+            ->will($this->returnValue($storagePageList));
+        $query = $this->getMockForAbstractClass(QueryInterface::class);
+        $query->expects($this->once())
+            ->method('in')
+            ->with('pid', $storagePages);
+
+        $this->subject->createConstraintsFromDemand($query, $demand);
+    }
+
+    /**
+     * @test
+     */
+    public function createConstraintsFromDemandCreatesPeriodConstraints() {
+        $this->subject = $this->getAccessibleMock(
+            PerformanceRepository::class,
+            [
+                'createPeriodConstraints',
+                'createStatusConstraints',
+                'createSearchConstraints',
+                'createCategoryConstraints',
+                'combineConstraints'
+            ], [], '', false);
+        /** @var DemandInterface $demand */
+        $demand = $this->getMockForAbstractClass(
+            PerformanceDemand::class, [], '', true, true, true,
+            []
+        );
+        $query = $this->getMock(
+            QueryInterface::class,
+            [], [], '', false
+        );
+
+        $mockPeriodConstraints = ['foo'];
+
+        $this->subject->expects($this->once())
+            ->method('createPeriodConstraints')
+            ->with($query, $demand);
+
+        $this->subject->createConstraintsFromDemand($query, $demand);
+    }
+
+    /**
+     * @test
+     */
+    public function createConstraintsFromDemandCombinesPeriodConstraintsLogicalAnd() {
+        $this->subject = $this->getAccessibleMock(
+            PerformanceRepository::class,
+            [
+                'createPeriodConstraints',
+                'createStatusConstraints',
+                'createSearchConstraints',
+                'createCategoryConstraints',
+                'combineConstraints'
+            ], [], '', false);
+        /** @var DemandInterface $demand */
+        $demand = $this->getMockForAbstractClass(
+            PerformanceDemand::class, [], '', true, true, true,
+            []
+        );
+        $query = $this->getMock(
+            QueryInterface::class,
+            [], [], '', false
+        );
+
+        $constraints = [null];
+        $mockPeriodConstraints = ['foo'];
+
+        $this->subject->expects($this->once())
+            ->method('createPeriodConstraints')
+            ->will($this->returnValue($mockPeriodConstraints)
+            );
+        $this->subject->expects($this->once())
+            ->method('combineConstraints')
+            ->with($query, $constraints, $mockPeriodConstraints, 'AND');
+
+        $this->subject->createConstraintsFromDemand($query, $demand);
+    }
 }
