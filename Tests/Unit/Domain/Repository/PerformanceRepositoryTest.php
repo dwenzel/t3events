@@ -1,6 +1,7 @@
 <?php
 namespace DWenzel\T3events\Tests\Unit\Domain\Repository;
 
+use DWenzel\T3events\Domain\Model\Dto\Search;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
@@ -211,7 +212,6 @@ class PerformanceRepositoryTest extends UnitTestCase {
 		$this->subject->createConstraintsFromDemand($query, $demand);
 	}
 
-
 	/**
 	 * @test
 	 */
@@ -298,4 +298,74 @@ class PerformanceRepositoryTest extends UnitTestCase {
 		$this->subject->initializeObject();
 
 	}
+
+	public function emptyDemandValuesDataProvider ()
+    {
+        $mockSearchObjectWithNullSubject = $this->getMock(
+            Search::class, ['getSubject']
+        );
+        $mockSearchObjectWithNullSubject->expects($this->any())
+            ->method('getSubject')
+            ->will($this->returnValue(null));
+        $mockSearchObjectWithEmptySubject = $this->getMock(
+            Search::class, ['getSubject']
+        );
+        $mockSearchObjectWithEmptySubject->expects($this->any())
+            ->method('getSubject')
+            ->will($this->returnValue(''));
+        return [
+            ['getGenres', null],
+            ['getGenres', ''],
+            ['getVenues', null],
+            ['getVenues', ''],
+            ['getEventTypes', null],
+            ['getEventTypes', ''],
+            ['getCategories', null],
+            ['getCategories', ''],
+            ['getSearch', $mockSearchObjectWithNullSubject],
+            ['getSearch', $mockSearchObjectWithEmptySubject],
+        ];
+    }
+
+    /**
+     * @test
+     * @dataProvider emptyDemandValuesDataProvider
+     * @param string $getter
+     * @param string|null $value
+     */
+    public function createConstraintsFromDemandDoesNotCreateConstraintsForEmptyValues($getter, $value) {
+        $this->subject = $this->getAccessibleMock(
+            PerformanceRepository::class,
+            [
+                'combineConstraints'
+            ], [], '', false);
+        $demand = $this->getMockForAbstractClass(
+            DemandInterface::class, [], '', true, true, true,
+            [
+                'getGenres',
+                'getVenues',
+                'getEventTypes',
+                'getCategories',
+                'getSearch',
+                'getStatusField',
+                'getStatuses',
+                'getEventLocations'
+            ]
+        );
+        $query = $this->getMockForAbstractClass(QueryInterface::class);
+        $query->expects($this->never())
+            ->method('in');
+        $query->expects($this->never())
+            ->method('contains');
+
+        $demand->expects($this->once())
+            ->method($getter)
+            ->will($this->returnValue($value));
+
+        $this->subject->expects($this->never())
+            ->method('combineConstraints');
+
+        $this->subject->createConstraintsFromDemand($query, $demand);
+    }
+
 }
