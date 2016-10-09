@@ -1,10 +1,13 @@
 <?php
 namespace DWenzel\T3events\Tests\Unit\Domain\Repository;
 
+use DWenzel\T3events\Domain\Model\Dto\GenreAwareDemandTrait;
+use DWenzel\T3events\Domain\Model\Dto\PerformanceDemand;
 use DWenzel\T3events\Domain\Model\Dto\Search;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
+use TYPO3\CMS\Extbase\Persistence\Generic\Qom\ComparisonInterface;
 use TYPO3\CMS\Extbase\Persistence\Generic\Qom\ConstraintInterface;
 use TYPO3\CMS\Extbase\Persistence\Generic\Query;
 use TYPO3\CMS\Extbase\Persistence\Generic\QuerySettingsInterface;
@@ -12,6 +15,7 @@ use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
 use DWenzel\T3events\Domain\Repository\PerformanceRepository;
+use TYPO3\CMS\Extbase\Persistence\Repository;
 
 /***************************************************************
  *
@@ -72,11 +76,6 @@ class PerformanceRepositoryTest extends UnitTestCase {
 
 		return $mockObjectManager;
 	}
-
-	/**
-	 * @test
-	 * @covers ::createConstraintsFromDemand
-	 */
 
 	/**
 	 * @test
@@ -299,7 +298,12 @@ class PerformanceRepositoryTest extends UnitTestCase {
 
 	}
 
-	public function emptyDemandValuesDataProvider ()
+    /**
+     * Data provider for empty demand values
+     *
+     * @return array
+     */
+    public function emptyDemandValuesDataProvider ()
     {
         $mockSearchObjectWithNullSubject = $this->getMock(
             Search::class, ['getSubject']
@@ -364,6 +368,92 @@ class PerformanceRepositoryTest extends UnitTestCase {
 
         $this->subject->expects($this->never())
             ->method('combineConstraints');
+
+        $this->subject->createConstraintsFromDemand($query, $demand);
+    }
+
+    /**
+     * Data provider for non-empty demand values
+     *
+     * @return array
+     */
+    public function nonEmptyDemandValuesDataProvider ()
+    {
+        $searchSubject = 'foo';
+        $searchField = 'bar';
+        $mockSearchObjectWithEmptySubject = $this->getMock(
+            Search::class, ['getSubject', 'getFields']
+        );
+        $mockSearchObjectWithEmptySubject->expects($this->any())
+            ->method('getSubject')
+            ->will($this->returnValue($searchSubject));
+        $mockSearchObjectWithEmptySubject->expects($this->any())
+            ->method('getFields')
+            ->will($this->returnValue($searchField));
+
+        return [
+            ['getGenres', '1', 'contains', PerformanceDemand::GENRE_FIELD, 1],
+            ['getVenues', '3', 'contains', PerformanceDemand::VENUE_FIELD, 3],
+            ['getEventTypes', '5,6', 'in', PerformanceDemand::EVENT_TYPE_FIELD, [5,6]],
+            ['getCategories', '7', 'contains', PerformanceDemand::CATEGORY_FIELD, 7],
+            ['getSearch', $mockSearchObjectWithEmptySubject, 'like', $searchField, '%' . $searchSubject . '%']
+        ];
+    }
+
+    /**
+     * @test
+     * @dataProvider nonEmptyDemandValuesDataProvider
+     * @param string $getter
+     * @param string|null $demandValue
+     * @param string $comparisonMethod
+     * @param string $propertyName
+     * @param int|string $operand
+     */
+    public function createConstraintsFromDemandCreateConstraintsForNonEmptyValues(
+        $getter,
+        $demandValue,
+        $comparisonMethod,
+        $propertyName,
+        $operand
+    ) {
+        $this->subject = $this->getAccessibleMock(
+            PerformanceRepository::class,
+            [
+                'combineConstraints'
+            ], [], '', false);
+        $demand = $this->getMockForAbstractClass(
+            DemandInterface::class, [], '', true, true, true,
+            [
+                'getGenres',
+                'getVenues',
+                'getEventTypes',
+                'getCategories',
+                'getSearch',
+                'getStatusField',
+                'getStatuses',
+                'getEventLocations',
+                'getCategoryConjunction'
+            ]
+        );
+        $mockComparison = $this->getMock(
+            ComparisonInterface::class
+        );
+        $query = $this->getMockForAbstractClass(QueryInterface::class);
+        $query->expects($this->once())
+            ->method($comparisonMethod)
+            ->with($propertyName, $operand)
+            ->will($this->returnValue($mockComparison));
+
+        $demand->expects($this->any())
+            ->method('getCategoryConjunction')
+            ->will($this->returnValue('OR'));
+        $demand->expects($this->any())
+            ->method($getter)
+            ->will($this->returnValue($demandValue));
+
+        $this->subject->expects($this->once())
+            ->method('combineConstraints')
+            ->with($query, [null], [$mockComparison]);
 
         $this->subject->createConstraintsFromDemand($query, $demand);
     }
