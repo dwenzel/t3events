@@ -31,9 +31,11 @@ before_script:
 
 script:
 - >
-  echo;
-  echo "Running unit tests";
-  .Build/bin/phpunit --colors -c Tests/Build/UnitTests.xml Tests/Unit/
+  if [[ "$COVERAGE" != "1" ]]; then
+    echo;
+    echo "Running unit tests";
+    .Build/bin/phpunit --colors -c Tests/Build/UnitTests.xml Tests/Unit/
+  fi
 
 - >
   if [[ "$COVERAGE" == "1" ]]; then
