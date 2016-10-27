@@ -3,8 +3,8 @@ namespace DWenzel\T3events\Hooks;
 
 /***************************************************************
  *  Copyright notice
- *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur DWenzel
- *  Michael Kasten <kasten@webfox01.de>, Agentur DWenzel
+ *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
+ *  Michael Kasten <kasten@webfox01.de>, Agentur Webfox
  *    method user_templateLayout has been taken from extension tx_news by
  *  Georg Ringer
  *  All rights reserved

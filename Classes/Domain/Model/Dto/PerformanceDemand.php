@@ -122,3 +122,4 @@ class PerformanceDemand
         return static::AUDIENCE_FIELD;
     }
 }
+

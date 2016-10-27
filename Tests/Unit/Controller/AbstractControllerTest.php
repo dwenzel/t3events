@@ -23,7 +23,7 @@ use DWenzel\T3events\Controller\AbstractController;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  * @package TYPO3
  * @subpackage Ajax Map
- * @author Dirk Wenzel <wenzel@dWenzel01.de>
+ * @author Dirk Wenzel <wenzel@webfox01.de>
  * @coversDefaultClass \DWenzel\T3events\Controller\AbstractController
  */
 class AbstractControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {

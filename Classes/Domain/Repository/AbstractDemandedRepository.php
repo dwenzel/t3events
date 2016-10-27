@@ -1,16 +1,12 @@
 <?php
 namespace DWenzel\T3events\Domain\Repository;
 
-/**
- * @package t3events
- * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- */
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
 /***************************************************************
  *  Copyright notice
- *  (c) 2013 Dirk Wenzel <wenzel@dWenzel01.de>, Agentur DWenzel
- *  Michael Kasten <kasten@dWenzel01.de>, Agentur DWenzel
+ *  (c) 2013 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
+ *  Michael Kasten <kasten@webfox01.de>, Agentur Webfox
  *  All rights reserved
  *  This script is part of the TYPO3 project. The TYPO3 project is
  *  free software; you can redistribute it and/or modify
@@ -25,11 +21,16 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
  *  GNU General Public License for more details.
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+/**
+ * Class AbstractDemandedRepository
+ * @deprecated Use respository traits instead
+ */
 abstract class AbstractDemandedRepository
 	extends Repository
 	implements DemandedRepositoryInterface {
 	use DemandedRepositoryTrait;
-
+    // todo move _call to trait
 	/**
 	 * Dispatches magic methods
 	 * We have to overwrite the parent method in order

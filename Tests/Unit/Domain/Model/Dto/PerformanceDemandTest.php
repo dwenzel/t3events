@@ -2,8 +2,8 @@
 namespace DWenzel\T3events\Tests\Unit\Domain\Model\Dto;
 /***************************************************************
  *  Copyright notice
- *  (c) 2012 Dirk Wenzel <wenzel@dWenzel01.de>, Agentur DWenzel
- *  Michael Kasten <kasten@dWenzel01.de>, Agentur DWenzel
+ *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
+ *  Michael Kasten <kasten@webfox01.de>, Agentur Webfox
  *  All rights reserved
  *  This script is part of the TYPO3 project. The TYPO3 project is
  *  free software; you can redistribute it and/or modify
@@ -23,7 +23,7 @@ use DWenzel\T3events\Domain\Model\Dto\PerformanceDemand;
 /**
  * Test case for class \DWenzel\T3events\Domain\Model\Dto\PerformanceDemand.
  *
- * @author Dirk Wenzel <wenzel@dWenzel01.de>
+ * @author Dirk Wenzel <wenzel@webfox01.de>
  * @coversDefaultClass \DWenzel\T3events\Domain\Model\Dto\PerformanceDemand
  */
 class PerformanceDemandTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {

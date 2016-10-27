@@ -1,22 +1,20 @@
 language: php
 
-php:
-  - 5.5
-  - 5.6
-  - '7'
-
 matrix:
+  fast_finish: true
   include:
     - php: 5.5
-      env: TYPO3_VERSION=6.2.*
-    - php: '7'
-      env: TYPO3_VERSION=7.6.* COVERAGE=1
+      env: TYPO3_VERSION=^6.2
+    - php: 5.6
+      env: TYPO3_VERSION=^7.6
+    - php: 7.0
+      env: TYPO3_VERSION=^7.6 COVERAGE=1
+    - php: 7.0
+      env: TYPO3_VERSION=^8
 
-env: 
-  global: 
+env:
+  global:
     secure: S8QheEMVpSRsPPIhYQZ4tUCTbxpM7csZ0GydJaPY8p/FAEnZLiH6xcsiTGKOljva5HDelCdBvunaWtUO/+CdKIgsdbQGbqc1aWmG6gr+ShQk4X3KzeAA91AFmkJOR6Jv69lUTm6Uo9AKs1JtuVZsOa1aoOmfApohqFuXsRBNXlg=
-  matrix:
-    - TYPO3_VERSION=7.6.*
 
 cache:
   directories:
@@ -26,18 +24,19 @@ before_install:
   - composer self-update
   - composer --version
 
-before_script: 
+before_script:
   - composer require typo3/cms=$TYPO3_VERSION
   - git checkout composer.json
   - export TYPO3_PATH_WEB=$PWD/.Build/Web
 
-script: 
+script:
 - >
-  if [[ "$COVERAGE" == "0" ]]; then 
+  if [[ "$COVERAGE" != "1" ]]; then
     echo;
     echo "Running unit tests";
     .Build/bin/phpunit --colors -c Tests/Build/UnitTests.xml Tests/Unit/
   fi
+
 - >
   if [[ "$COVERAGE" == "1" ]]; then
     echo;

@@ -20,8 +20,8 @@ use TYPO3\CMS\Core\Tests\UnitTestCase;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  * @package TYPO3
  * @subpackage Placement Service
- * @author Dirk Wenzel <wenzel@dWenzel01.de>
- * @author Michael Kasten <kasten@dWenzel01.de>
+ * @author Dirk Wenzel <wenzel@webfox01.de>
+ * @author Michael Kasten <kasten@webfox01.de>
  */
 class SearchTest extends UnitTestCase {
 

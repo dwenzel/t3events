@@ -16,7 +16,7 @@ use DWenzel\T3events\Domain\Model\Dto\LocationAwareTrait;
 /**
  * Test case for class \DWenzel\T3events\Domain\Model\Dto\LocationAwareTrait.
  *
- * @author Dirk Wenzel <wenzel@dWenzel01.de>
+ * @author Dirk Wenzel <wenzel@webfox01.de>
  */
 class LocationAwareTraitTest extends UnitTestCase {
 
