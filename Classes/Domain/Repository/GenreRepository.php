@@ -35,7 +35,7 @@ class GenreRepository extends AbstractDemandedRepository{
 	 * @param \DWenzel\T3events\Domain\Model\Dto\DemandInterface $demand
 	 * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint>
 	 */
-	protected function createConstraintsFromDemand(QueryInterface $query, DemandInterface $demand) {
+	public function createConstraintsFromDemand(QueryInterface $query, DemandInterface $demand) {
 		// TODO: Implement createConstraintsFromDemand() method.
 		return [];
 	}

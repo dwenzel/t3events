@@ -1,10 +1,7 @@
 <?php
-namespace DWenzel\T3events\Domain\Repository;
+namespace DWenzel\T3events\Domain\Model\Dto;
 
-use TYPO3\CMS\Extbase\Persistence\QueryInterface;
-use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
-
-/***************************************************************
+ /***************************************************************
  *
  *  Copyright notice
  *
@@ -28,22 +25,24 @@ use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-class CategoryRepository
-	extends \TYPO3\CMS\Extbase\Domain\Repository\CategoryRepository
-	implements DemandedRepositoryInterface {
-	use DemandedRepositoryTrait;
+trait VenueAwareDemandTrait {
 
 	/**
-	 * Returns an array of constraints created from a given demand object.
-	 *
-	 * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
-	 * @param \DWenzel\T3events\Domain\Model\Dto\DemandInterface $demand
-	 * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint>
+	 * @var string
 	 */
-	public function createConstraintsFromDemand(QueryInterface $query, DemandInterface $demand) {
-		$constraints = [];
+	protected $venues;
 
-		return $constraints;
+	/**
+	 * @return string
+	 */
+	public function getVenues() {
+		return $this->venues;
 	}
 
+	/**
+	 * @param string $venues
+	 */
+	public function setVenues($venues) {
+		$this->venues = $venues;
+	}
 }

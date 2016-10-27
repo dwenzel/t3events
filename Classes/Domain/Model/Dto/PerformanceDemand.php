@@ -1,25 +1,18 @@
 <?php
 namespace DWenzel\T3events\Domain\Model\Dto;
 
-/***************************************************************
- *  Copyright notice
- *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
- *  Michael Kasten <kasten@webfox01.de>, Agentur Webfox
- *  All rights reserved
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 3 of the License, or
- *  (at your option) any later version.
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
-use DWenzel\T3events\Domain\Model\PerformanceStatus;
+/**
+ * This file is part of the TYPO3 CMS project.
+ *
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with this source code.
+ *
+ * The TYPO3 project - inspiring people to share!
+ */
 
 /**
  * Class PerformanceDemand
@@ -29,14 +22,18 @@ use DWenzel\T3events\Domain\Model\PerformanceStatus;
  */
 class PerformanceDemand
     extends AbstractDemand
-    implements DemandInterface, PeriodAwareDemandInterface,
-    SearchAwareDemandInterface, StatusAwareDemandInterface,
-    EventLocationAwareDemandInterface, GenreAwareDemandInterface,
-    VenueAwareDemandInterface, EventTypeAwareDemandInterface,
-    CategoryAwareDemandInterface, OrderAwareDemandInterface
+    implements DemandInterface,
+    AudienceAwareDemandInterface, CategoryAwareDemandInterface,
+    EventLocationAwareDemandInterface, EventTypeAwareDemandInterface,
+    GenreAwareDemandInterface, OrderAwareDemandInterface,
+    PeriodAwareDemandInterface, SearchAwareDemandInterface,
+    StatusAwareDemandInterface, VenueAwareDemandInterface
 {
-    use PeriodAwareDemandTrait, SearchAwareDemandTrait,
-        CategoryAwareDemandTrait, OrderAwareDemandTrait;
+    use AudienceAwareDemandTrait, CategoryAwareDemandTrait,
+        EventTypeAwareDemandTrait, EventLocationAwareDemandTrait,
+        GenreAwareDemandTrait, OrderAwareDemandTrait,
+        PeriodAwareDemandTrait, SearchAwareDemandTrait,
+        StatusAwareDemandTrait, VenueAwareDemandTrait;
     const START_DATE_FIELD = 'date';
     const END_DATE_FIELD = 'endDate';
     const STATUS_FIELD = 'status';
@@ -45,157 +42,7 @@ class PerformanceDemand
     const GENRE_FIELD = 'event.genre';
     const VENUE_FIELD = 'event.venue';
     const EVENT_TYPE_FIELD = 'event.eventType';
-
-    /**
-     * A single status
-     * see $statuses for multiple
-     *
-     * @var \DWenzel\T3events\Domain\Model\PerformanceStatus
-     */
-    protected $status;
-
-    /**
-     * Statuses (multiple)
-     *
-     * @var string
-     */
-    protected $statuses;
-
-    /**
-     * @var bool
-     */
-    protected $excludeSelectedStatuses;
-
-    /**
-     * @var string
-     */
-    protected $eventLocations;
-
-    /**
-     * Genres
-     *
-     * @var string Genres
-     */
-    protected $genres;
-
-    /**
-     * Venues
-     *
-     * @var string Venues
-     */
-    protected $venues;
-
-    /**
-     * Event Types
-     *
-     * @var string
-     */
-    protected $eventTypes;
-
-    /**
-     * Returns the performance status
-     *
-     * @return \DWenzel\T3events\Domain\Model\PerformanceStatus
-     */
-    public function getStatus()
-    {
-        return $this->status;
-    }
-
-    /**
-     * sets the status
-     *
-     * @param \DWenzel\T3events\Domain\Model\PerformanceStatus $status
-     * @return void
-     */
-    public function setStatus(PerformanceStatus $status)
-    {
-        $this->status = $status;
-    }
-
-    /**
-     * Gets the event locations
-     *
-     * @return string
-     */
-    public function getEventLocations()
-    {
-        return $this->eventLocations;
-    }
-
-    /**
-     * Sets the event locations
-     *
-     * @var string $eventLocations
-     * @return void
-     */
-    public function setEventLocations($eventLocations)
-    {
-        $this->eventLocations = $eventLocations;
-    }
-
-    /**
-     * Returns the genres
-     *
-     * @return string
-     */
-    public function getGenres()
-    {
-        return $this->genres;
-    }
-
-    /**
-     * Sets the genres
-     *
-     * @param string $genres Comma separated string of genre ids
-     * @return void
-     */
-    public function setGenres($genres)
-    {
-        $this->genres = $genres;
-    }
-
-    /**
-     * Returns the venues
-     *
-     * @return string $venues
-     */
-    public function getVenues()
-    {
-        return $this->venues;
-    }
-
-    /**
-     * Sets the venues
-     *
-     * @param string $venues
-     * @return void
-     */
-    public function setVenues($venues)
-    {
-        $this->venues = $venues;
-    }
-
-    /**
-     * Returns the Event Types
-     *
-     * @return string $eventTypes
-     */
-    public function getEventTypes()
-    {
-        return $this->eventTypes;
-    }
-
-    /**
-     * Set event types
-     *
-     * @param string $eventTypes
-     * @return void
-     */
-    public function setEventTypes($eventTypes)
-    {
-        $this->eventTypes = $eventTypes;
-    }
+    const AUDIENCE_FIELD = 'event.audience';
 
     /**
      * Gets the start date field
@@ -204,7 +51,7 @@ class PerformanceDemand
      */
     public function getStartDateField()
     {
-        return self::START_DATE_FIELD;
+        return static::START_DATE_FIELD;
     }
 
     /**
@@ -214,7 +61,7 @@ class PerformanceDemand
      */
     public function getEndDateField()
     {
-        return self::END_DATE_FIELD;
+        return static::END_DATE_FIELD;
     }
 
     /**
@@ -224,7 +71,7 @@ class PerformanceDemand
      */
     public function getStatusField()
     {
-        return self::STATUS_FIELD;
+        return static::STATUS_FIELD;
     }
 
     /**
@@ -232,39 +79,7 @@ class PerformanceDemand
      */
     public function getCategoryField()
     {
-        return self::CATEGORY_FIELD;
-    }
-
-    /**
-     * @return string
-     */
-    public function getStatuses()
-    {
-        return $this->statuses;
-    }
-
-    /**
-     * @param string $statuses
-     */
-    public function setStatuses($statuses)
-    {
-        $this->statuses = $statuses;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function isExcludeSelectedStatuses()
-    {
-        return $this->excludeSelectedStatuses;
-    }
-
-    /**
-     * @param boolean $excludeSelectedStatuses
-     */
-    public function setExcludeSelectedStatuses($excludeSelectedStatuses)
-    {
-        $this->excludeSelectedStatuses = $excludeSelectedStatuses;
+        return static::CATEGORY_FIELD;
     }
 
     /**
@@ -272,7 +87,7 @@ class PerformanceDemand
      */
     public function getEventLocationField()
     {
-        return self::EVENT_LOCATION_FIELD;
+        return static::EVENT_LOCATION_FIELD;
     }
 
     /**
@@ -280,7 +95,7 @@ class PerformanceDemand
      */
     public function getGenreField()
     {
-        return self::GENRE_FIELD;
+        return static::GENRE_FIELD;
     }
 
     /**
@@ -288,7 +103,7 @@ class PerformanceDemand
      */
     public function getVenueField()
     {
-        return self::VENUE_FIELD;
+        return static::VENUE_FIELD;
     }
 
     /**
@@ -296,6 +111,15 @@ class PerformanceDemand
      */
     public function getEventTypeField()
     {
-        return self::EVENT_TYPE_FIELD;
+        return static::EVENT_TYPE_FIELD;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAudienceField()
+    {
+        return static::AUDIENCE_FIELD;
     }
 }
+

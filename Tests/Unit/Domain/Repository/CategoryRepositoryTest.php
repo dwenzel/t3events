@@ -22,24 +22,24 @@ namespace DWenzel\T3events\Tests\Unit\Domain\Repository;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
-use DWenzel\T3events\Domain\Repository\VenueRepository;
+use DWenzel\T3events\Domain\Repository\CategoryRepository;
 
 /**
- * Test case for class \DWenzel\T3events\Domain\Repository\VenueRepository.
+ * Test case for class \DWenzel\T3events\Domain\Repository\CategoryRepository.
  *
  * @author Dirk Wenzel <dirk.wenzel@cps-it.de>
- * @coversDefaultClass \DWenzel\T3events\Domain\Repository\VenueRepository
+ * @coversDefaultClass \DWenzel\T3events\Domain\Repository\CategoryRepository
  */
-class VenueRepositoryTest extends UnitTestCase {
+class CategoryRepositoryTest extends UnitTestCase {
 
 	/**
-	 * @var \DWenzel\T3events\Domain\Repository\VenueRepository
+	 * @var \DWenzel\T3events\Domain\Repository\CategoryRepository
 	 */
 	protected $fixture;
 
 	public function setUp() {
 		$this->fixture = $this->getAccessibleMock(
-			VenueRepository::class,
+			CategoryRepository::class,
 			['dummy'], [], '', FALSE);
 	}
 
