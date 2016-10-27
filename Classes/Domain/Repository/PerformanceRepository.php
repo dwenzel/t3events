@@ -19,6 +19,7 @@ namespace DWenzel\T3events\Domain\Repository;
  *  GNU General Public License for more details.
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+use DWenzel\T3events\Domain\Model\Dto\AudienceAwareDemandInterface;
 use DWenzel\T3events\Domain\Model\Dto\CategoryAwareDemandInterface;
 use DWenzel\T3events\Domain\Model\Dto\EventTypeAwareDemandInterface;
 use DWenzel\T3events\Domain\Model\Dto\GenreAwareDemandInterface;
@@ -38,11 +39,12 @@ class PerformanceRepository
     extends AbstractDemandedRepository
     implements PeriodConstraintRepositoryInterface, GenreConstraintRepositoryInterface,
     EventTypeConstraintRepositoryInterface, VenueConstraintRepositoryInterface,
-    CategoryConstraintRepositoryInterface
+    CategoryConstraintRepositoryInterface, AudienceConstraintRepositoryInterface
 {
     use PeriodConstraintRepositoryTrait, StatusConstraintRepositoryTrait,
         GenreConstraintRepositoryTrait, EventTypeConstraintRepositoryTrait,
-        VenueConstraintRepositoryTrait, CategoryConstraintRepositoryTrait;
+        VenueConstraintRepositoryTrait, CategoryConstraintRepositoryTrait,
+        AudienceConstraintRepositoryTrait;
 
     protected $defaultOrderings = array('sorting' => QueryInterface::ORDER_ASCENDING);
 
@@ -99,6 +101,12 @@ class PerformanceRepository
             (bool)$categoryConstraints = $this->createCategoryConstraints($query, $demand))
         {
             $this->combineConstraints($query, $constraints, $categoryConstraints, $demand->getCategoryConjunction());
+        }
+
+        if ($demand instanceof AudienceAwareDemandInterface &&
+            (bool)$audienceConstraints = $this->createAudienceConstraints($query, $demand))
+        {
+            $this->combineConstraints($query, $constraints, $audienceConstraints, $demand->getConstraintsConjunction());
         }
 
         if ((bool)$searchConstraints = $this->createSearchConstraints($query, $demand)) {
