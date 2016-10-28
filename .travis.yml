@@ -53,3 +53,8 @@ after_script:
     .Build/bin/coveralls -v
   fi
 
+after_success:
+- >
+  if [[ "$COVERAGE" == "1" ]]; then
+    bash <(curl -s https://codecov.io/bash)
+  fi
