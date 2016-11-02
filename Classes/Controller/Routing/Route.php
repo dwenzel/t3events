@@ -1,5 +1,5 @@
 <?php
-namespace Dwenzel\T3events\Controller\Routing;
+namespace DWenzel\T3events\Controller\Routing;
 
 /**
  * This file is part of the TYPO3 CMS project.

@@ -1,5 +1,5 @@
 <?php
-namespace Dwenzel\T3events\Domain\Model\Dto;
+namespace DWenzel\T3events\Domain\Model\Dto;
 use DWenzel\T3events\Domain\Model\PerformanceStatus;
 
 /**

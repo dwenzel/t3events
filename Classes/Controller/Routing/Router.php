@@ -1,5 +1,5 @@
 <?php
-namespace Dwenzel\T3events\Controller\Routing;
+namespace DWenzel\T3events\Controller\Routing;
 
 /**
  * This file is part of the TYPO3 CMS project.
@@ -16,7 +16,7 @@ use TYPO3\CMS\Core\SingletonInterface;
  * Class Router
  * routes between controller actions
  *
- * @package Dwenzel\T3events\Controller\Routing
+ * @package DWenzel\T3events\Controller\Routing
  */
 class Router implements SingletonInterface
 {

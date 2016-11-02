@@ -1,7 +1,7 @@
 <?php
 namespace CPSIT\T3events\Tests\Controller\Routing;
 
-use Dwenzel\T3events\Controller\Routing\Route;
+use DWenzel\T3events\Controller\Routing\Route;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 
 /**

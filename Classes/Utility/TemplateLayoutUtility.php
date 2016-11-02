@@ -19,7 +19,7 @@ use TYPO3\CMS\Core\SingletonInterface;
 
 /**
  * Class TemplateLayoutUtility
- * @package Dwenzel\T3events\Utility
+ * @package DWenzel\T3events\Utility
  */
 class TemplateLayoutUtility implements SingletonInterface
 {
