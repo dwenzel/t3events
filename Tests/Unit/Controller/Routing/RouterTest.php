@@ -13,6 +13,7 @@ namespace CPSIT\T3events\Tests\Controller\Routing;
 
 use DWenzel\T3events\Controller\Routing\Route;
 use DWenzel\T3events\Controller\Routing\Router;
+use DWenzel\T3events\Controller\Routing\RouterInterface;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 
@@ -24,7 +25,7 @@ use TYPO3\CMS\Core\Tests\UnitTestCase;
 class RouterTest extends UnitTestCase
 {
     /**
-     * @var Router|\PHPUnit_Framework_MockObject_MockObject|\TYPO3\CMS\Core\Tests\AccessibleObjectInterface
+     * @var RouterInterface|\PHPUnit_Framework_MockObject_MockObject|\TYPO3\CMS\Core\Tests\AccessibleObjectInterface
      */
     protected $subject;
 

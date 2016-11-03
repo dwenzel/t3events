@@ -28,8 +28,13 @@ class Route
     const METHOD_REDIRECT_TO_URI = 'redirectToUri';
 
     /**
+     * @const ORIGIN_SEPARATOR
+     */
+    const ORIGIN_SEPARATOR = '|';
+
+    /**
      * Origin of route
-     * @var string A pipe separated string of fully qualified controller class name and action method
+     * @var string A string of fully qualified controller class name and action method separated by ORIGIN_SEPARATOR.
      */
     protected $origin;
 
