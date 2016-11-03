@@ -10,7 +10,6 @@ namespace DWenzel\T3events\Controller\Routing;
  * LICENSE.txt file that was distributed with this source code.
  * The TYPO3 project - inspiring people to share!
  */
-use DWenzel\T3events\Controller\RoutableControllerInterface;
 use TYPO3\CMS\Core\SingletonInterface;
 
 /**
@@ -20,7 +19,7 @@ use TYPO3\CMS\Core\SingletonInterface;
  * @package DWenzel\T3events\Controller\Routing
  */
 class Router
-    implements SingletonInterface, RouterInterface, RouterInterface
+    implements SingletonInterface, RouterInterface
 {
     /**
      * @var array
