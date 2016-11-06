@@ -108,6 +108,7 @@ class RouteTest extends UnitTestCase
     public function getOptionReturnsDefaultOptions()
     {
         $expectedOptions = [
+            'actionName' => null,
             'controllerName' => null,
             'extensionName' => null,
             'arguments' => null,
@@ -205,29 +206,6 @@ class RouteTest extends UnitTestCase
     {
         $this->assertFalse(
             $this->subject->hasOption('nameOfUnSetOption')
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function getActionNameInitiallyReturnsNull()
-    {
-        $this->assertNull(
-            $this->subject->getActionName()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function setActionNameSetsActionName()
-    {
-        $actionName = 'foo';
-        $this->subject->setActionName($actionName);
-        $this->assertSame(
-            $actionName,
-            $this->subject->getActionName()
         );
     }
 }

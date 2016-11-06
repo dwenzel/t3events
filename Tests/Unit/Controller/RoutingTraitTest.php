@@ -128,18 +128,43 @@ class RoutingTraitTest extends UnitTestCase
     /**
      * @test
      */
+    public function dispatchGetsIdentifierFromRequest()
+    {
+
+        $identifier = 'foo';
+        $this->mockIsRoutableReturnsTrue();
+
+        $mockRequest = $this->getMock(
+            Request::class, ['getControllerActionName', 'getControllerObjectName']
+        );
+        $this->inject($this->subject, 'request', $mockRequest);
+        $mockRequest->expects($this->once())
+            ->method('getControllerActionName');
+        $mockRequest->expects($this->once())
+            ->method('getControllerObjectName');
+        $mockRoute = $this->getMock(Route::class, ['getMethod'], [$identifier]);
+
+        $mockRouter = $this->getMockForAbstractClass(
+            RouterInterface::class, ['getRoute']
+        );
+        $this->subject->injectRouter($mockRouter);
+        $mockRouter->expects($this->once())
+            ->method('getRoute')
+            ->will($this->returnValue($mockRoute));
+
+        $this->subject->dispatch();
+    }
+
+    /**
+     * @test
+     */
     public function dispatchGetsRouteForIdentifier()
     {
         $identifier = 'foo';
         $routableActions = ['foo'];
         $mockRoute = $this->getMock(Route::class, null, [$identifier]);
 
-        $this->subject = $this->getMockForTrait(
-            RoutingTrait::class, [], '', true, true, true, ['isRoutable']
-        );
-        $this->subject->expects($this->once())
-            ->method('isRoutable')
-            ->will($this->returnValue(true));
+        $this->mockIsRoutableReturnsTrue();
 
         $this->inject($this->subject, 'routableActions', $routableActions);
         $mockRouter = $this->getMockForAbstractClass(
@@ -188,5 +213,15 @@ class RoutingTraitTest extends UnitTestCase
         $this->subject->expects($this->once())
             ->method($method);
         $this->subject->dispatch($identifier);
+    }
+
+    protected function mockIsRoutableReturnsTrue()
+    {
+        $this->subject = $this->getMockForTrait(
+            RoutingTrait::class, [], '', true, true, true, ['isRoutable']
+        );
+        $this->subject->expects($this->once())
+            ->method('isRoutable')
+            ->will($this->returnValue(true));
     }
 }

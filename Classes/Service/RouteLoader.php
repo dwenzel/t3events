@@ -60,7 +60,7 @@ class RouteLoader
      */
     public function register($origin, $action, $method = null, array $options = null)
     {
-        $route = $this->createRoute($origin)->setActionName($action);
+        $route = $this->createRoute($origin);
 
         if (!is_null($method)) {
             $route->setMethod($method);

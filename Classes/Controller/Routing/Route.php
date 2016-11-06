@@ -42,6 +42,7 @@ class Route
      * Options for routing method
      * default is
      * [
+     *  'actionName' => null,
      *  'controllerName' => null,
      *  'extensionName' => null,
      *  'arguments' => null,
@@ -53,6 +54,7 @@ class Route
      * @var array
      */
     protected $options = [
+        'actionName' => null,
         'controllerName' => null,
         'extensionName' => null,
         'arguments' => null,
@@ -61,13 +63,6 @@ class Route
         'statusCode' => 303,
         'uri' => null
     ];
-
-    /**
-     * Action name
-     *
-     * @var string
-     */
-    protected $actionName;
 
     /**
      * Routing method which should be applied
@@ -192,27 +187,4 @@ class Route
         return array_key_exists($name, $this->options);
     }
 
-    /**
-     * Get the action name
-     *
-     * @return string
-     */
-    public function getActionName()
-    {
-        return $this->actionName;
-    }
-
-    /**
-     * Sets the action name
-     *
-     * This method implements a fluent interface.
-     *
-     * @param string $actionName
-     * @return Route
-     */
-    public function setActionName($actionName)
-    {
-        $this->actionName = $actionName;
-        return $this;
-    }
 }

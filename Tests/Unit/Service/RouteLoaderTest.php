@@ -117,28 +117,6 @@ class RouteLoaderTest extends UnitTestCase
     /**
      * @test
      */
-    public function registerSetsActionNameOfRoute()
-    {
-        $origin = 'foo|bar';
-        $actionName = 'baz';
-        $this->mockRouter();
-
-        $mockRoute = $this->mockCreateRoute();
-
-        $mockRoute->expects($this->once())
-            ->method('setActionName')
-            ->with($actionName)
-            ->will($this->returnValue($mockRoute));
-
-        $this->subject->register(
-            $origin,
-            $actionName
-        );
-    }
-
-    /**
-     * @test
-     */
     public function registerSetsMethodOfRoute()
     {
         $origin = 'foo|bar';
