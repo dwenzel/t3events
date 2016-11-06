@@ -63,6 +63,13 @@ class Route
     ];
 
     /**
+     * Action name
+     *
+     * @var string
+     */
+    protected $actionName;
+
+    /**
      * Routing method which should be applied
      * @var string Allowed: forward, redirect (default), redirectToUri
      */
@@ -117,8 +124,7 @@ class Route
      */
     public function setMethod($method)
     {
-        if (in_array($method, static::$validMethods))
-        {
+        if (in_array($method, static::$validMethods)) {
             $this->method = $method;
         }
 
@@ -141,7 +147,7 @@ class Route
      */
     public function getOption($name)
     {
-        return isset($this->options[$name])? $this->options[$name] : null;
+        return isset($this->options[$name]) ? $this->options[$name] : null;
     }
 
     /**
@@ -184,5 +190,29 @@ class Route
     public function hasOption($name)
     {
         return array_key_exists($name, $this->options);
+    }
+
+    /**
+     * Get the action name
+     *
+     * @return string
+     */
+    public function getActionName()
+    {
+        return $this->actionName;
+    }
+
+    /**
+     * Sets the action name
+     *
+     * This method implements a fluent interface.
+     *
+     * @param string $actionName
+     * @return Route
+     */
+    public function setActionName($actionName)
+    {
+        $this->actionName = $actionName;
+        return $this;
     }
 }

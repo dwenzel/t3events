@@ -1,5 +1,5 @@
 <?php
-namespace CPSIT\T3events\Tests\Controller\Routing;
+namespace DWenzel\T3events\Tests\Controller\Routing;
 
 /**
  * This file is part of the TYPO3 CMS project.
@@ -115,5 +115,15 @@ class RouterTest extends UnitTestCase
             $mockRoute,
             $this->subject->getRoute($identifier)
         );
+    }
+
+    /**
+     * @test
+     * @expectedException \DWenzel\T3events\ResourceNotFoundException
+     * @expectedExceptionCode 1478437880
+     */
+    public function getRouteThrowsExceptionForMissingRoute()
+    {
+        $this->subject->getRoute('invalidRouteIdentifier');
     }
 }

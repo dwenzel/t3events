@@ -10,6 +10,7 @@ namespace DWenzel\T3events\Controller\Routing;
  * LICENSE.txt file that was distributed with this source code.
  * The TYPO3 project - inspiring people to share!
  */
+use DWenzel\T3events\ResourceNotFoundException;
 use TYPO3\CMS\Core\SingletonInterface;
 
 /**
@@ -44,9 +45,11 @@ class Router
 
     /**
      * Get a route by identifier
+     * Throws an exception if no route can be found for an identifier.
      *
      * @param string $identifier Identifier
-     * @return
+     * @return Route|mixed
+     * @throws ResourceNotFoundException
      */
     public function getRoute($identifier)
     {
@@ -54,7 +57,7 @@ class Router
             return $this->routes[$identifier];
         }
 
-        //todo throw ResourceNotFoundException
+        throw new ResourceNotFoundException(sprintf('No route for identifier %s found.', $identifier), 1478437880);
     }
 
     /**

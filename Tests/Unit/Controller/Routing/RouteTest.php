@@ -1,5 +1,5 @@
 <?php
-namespace CPSIT\T3events\Tests\Controller\Routing;
+namespace DWenzel\T3events\Tests\Controller\Routing;
 
 use DWenzel\T3events\Controller\Routing\Route;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
@@ -205,6 +205,29 @@ class RouteTest extends UnitTestCase
     {
         $this->assertFalse(
             $this->subject->hasOption('nameOfUnSetOption')
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getActionNameInitiallyReturnsNull()
+    {
+        $this->assertNull(
+            $this->subject->getActionName()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function setActionNameSetsActionName()
+    {
+        $actionName = 'foo';
+        $this->subject->setActionName($actionName);
+        $this->assertSame(
+            $actionName,
+            $this->subject->getActionName()
         );
     }
 }
