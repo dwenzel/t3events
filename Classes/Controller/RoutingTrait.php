@@ -77,12 +77,16 @@ trait RoutingTrait
             $route = $this->router->getRoute($identifier);
 
             $method = $route->getMethod();
+            $options = $route->getOptions();
+            if (!is_null($arguments)) {
+                $options['arguments'] = $arguments;
+            }
+            $options = array_values($options);
 
-            if (method_exists($this, $method))
-            {
+            if (method_exists($this, $method)) {
                 call_user_func_array(
                     [$this, $method],
-                    $route->getOptions()
+                    $options
                 );
             }
         }
