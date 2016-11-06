@@ -11,6 +11,7 @@ namespace DWenzel\T3events\Tests\Controller;
  * The TYPO3 project - inspiring people to share!
  */
 
+use DWenzel\T3events\Controller\Routing\Route;
 use DWenzel\T3events\Controller\Routing\RouterInterface;
 use DWenzel\T3events\Controller\RoutingTrait;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
@@ -131,6 +132,7 @@ class RoutingTraitTest extends UnitTestCase
     {
         $identifier = 'foo';
         $routableActions = ['foo'];
+        $mockRoute = $this->getMock(Route::class, null, [$identifier]);
 
         $this->subject = $this->getMockForTrait(
             RoutingTrait::class, [], '', true, true, true, ['isRoutable']
@@ -147,8 +149,44 @@ class RoutingTraitTest extends UnitTestCase
         $this->subject->injectRouter($mockRouter);
         $mockRouter->expects($this->once())
             ->method('getRoute')
-            ->with($identifier);
+            ->with($identifier)
+            ->will($this->returnValue($mockRoute));
 
+        $this->subject->dispatch($identifier);
+    }
+
+    /**
+     * @test
+     */
+    public function dispatchCallsMethodFromRoute()
+    {
+        $identifier = 'foo';
+        $routableActions = ['foo'];
+        $method = 'bam';
+        $mockRoute = $this->getMock(Route::class, ['getMethod'], [$identifier]);
+
+        $this->subject = $this->getMockForTrait(
+            RoutingTrait::class, [], '', true, true, true, ['isRoutable', $method]
+        );
+        $this->subject->expects($this->once())
+            ->method('isRoutable')
+            ->will($this->returnValue(true));
+
+        $this->inject($this->subject, 'routableActions', $routableActions);
+        $mockRouter = $this->getMockForAbstractClass(
+            RouterInterface::class, ['getRoute']
+        );
+
+        $this->subject->injectRouter($mockRouter);
+        $mockRouter->expects($this->once())
+            ->method('getRoute')
+            ->will($this->returnValue($mockRoute));
+        $mockRoute->expects($this->once())
+            ->method('getMethod')
+            ->will($this->returnValue($method));
+
+        $this->subject->expects($this->once())
+            ->method($method);
         $this->subject->dispatch($identifier);
     }
 }

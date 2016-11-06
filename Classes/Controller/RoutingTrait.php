@@ -75,7 +75,16 @@ trait RoutingTrait
                 $identifier = $this->getOrigin();
             }
             $route = $this->router->getRoute($identifier);
-            // todo: determine and perform routing method.
+
+            $method = $route->getMethod();
+
+            if (method_exists($this, $method))
+            {
+                call_user_func_array(
+                    [$this, $method],
+                    $route->getOptions()
+                );
+            }
         }
     }
 
