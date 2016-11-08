@@ -17,7 +17,7 @@ use TYPO3\CMS\Core\SingletonInterface;
 /**
  * Class TemplateLayoutUtility
  *
- * @package Dwenzel\T3events\Utility
+ * @package DWenzel\T3events\Utility
  */
 class TemplateLayoutUtility implements SingletonInterface
 {
@@ -66,7 +66,7 @@ class TemplateLayoutUtility implements SingletonInterface
             $pageTSKey = $this->getPageTSKey($extensionKey);
             $hasPageTSConf = $this->hasTSConfigTemplateLayouts($pageTSConfig, $pageTSKey);
 
-            if ((bool)$pageTSConfig && $this->hasTSConfigTemplateLayouts($pageTSConfig, $pageTSKey)) {
+            if ((bool)$pageTSConfig && $hasPageTSConf) {
                 foreach ($pageTSConfig[$pageTSKey]['templateLayouts.'] as $templateName => $title) {
                     $templateLayouts[] = [$title, $templateName];
                 }

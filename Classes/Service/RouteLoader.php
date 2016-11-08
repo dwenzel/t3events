@@ -1,0 +1,87 @@
+<?php
+namespace DWenzel\T3events\Service;
+
+/**
+ * This file is part of the TYPO3 CMS project.
+ *
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with this source code.
+ *
+ * The TYPO3 project - inspiring people to share!
+ */
+use DWenzel\T3events\Controller\Routing\Route;
+use DWenzel\T3events\Controller\Routing\Router;
+use DWenzel\T3events\Controller\Routing\RouterInterface;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
+
+/**
+ * Class RouteLoader
+ * @package DWenzel\T3events\Service
+ */
+class RouteLoader
+{
+    /**
+     * @var Router
+     */
+    protected $router;
+
+    public function getRouter()
+    {
+        if (!$this->router instanceof RouterInterface) {
+            $this->router = GeneralUtility::makeInstance(Router::class);
+        }
+
+        return $this->router;
+    }
+
+    /**
+     * Injects the router
+     *
+     * @param RouterInterface $router
+     */
+    public function injectRouter(RouterInterface $router)
+    {
+        $this->router = $router;
+    }
+
+    /**
+     * Registers a route
+     * The route will be added to the Router
+     *
+     * @param string $origin A string of fully qualified controller class name and action method separated by ORIGIN_SEPARATOR.
+     * @param string $action The target action name
+     * @param string|null $method Routing method. Allowed: redirect (default), forward, redirectToUri
+     * @param array|null $options Options for the route.
+     */
+    public function register($origin, $action, $method = null, array $options = null)
+    {
+        $route = $this->createRoute($origin);
+
+        if (!is_null($method)) {
+            $route->setMethod($method);
+        }
+
+        if (!is_null($options)) {
+            $route->setOptions($options);
+        }
+        $this->router->addRoute($route);
+    }
+
+    /**
+     * Get a route instance
+     * This method is for testing purposes only
+     *
+     * @param string $origin A string of fully qualified controller class name and action method separated by ORIGIN_SEPARATOR.
+     * @return Route A new route object
+     * @codeCoverageIgnore
+     */
+    protected function createRoute($origin)
+    {
+        return GeneralUtility::makeInstance(Route::class, $origin);
+    }
+}
