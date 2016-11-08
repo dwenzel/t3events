@@ -71,9 +71,10 @@ class TemplateLayoutUtilityTest extends UnitTestCase
     public function hasLayoutsReturnsTrueIfIssetInPagesTsConfig()
     {
         $extensionKey = 'foo';
+        $pageTSKey = 'tx_' . $extensionKey . '.';
         $pageId = 1;
         $pagesTSConfig = [
-            $extensionKey . '.' => [
+            $pageTSKey => [
                 'templateLayouts.' => ['foo' => 'bar']
             ]
         ];
@@ -120,16 +121,19 @@ class TemplateLayoutUtilityTest extends UnitTestCase
      */
     public function getLayoutsReturnsValueFromPageTSConfig()
     {
+        $extensionKey = 'foo';
+        $pageTSKey = 'tx_' . $extensionKey . '.';
+
         $templateLayouts = [
             'foo' => 'bar'
         ];
         $expectedLayouts = [
             ['bar', 'foo']
         ];
-        $extensionKey = 'foo';
+
         $pageId = 1;
         $pagesTSConfig = [
-            $extensionKey . '.' => [
+            $pageTSKey => [
                 'templateLayouts.' => $templateLayouts
             ]
         ];

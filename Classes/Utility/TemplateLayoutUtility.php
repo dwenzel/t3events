@@ -3,14 +3,11 @@ namespace DWenzel\T3events\Utility;
 
 /**
  * This file is part of the TYPO3 CMS project.
- *
  * It is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License, either version 2
  * of the License, or any later version.
- *
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
- *
  * The TYPO3 project - inspiring people to share!
  */
 
@@ -19,6 +16,7 @@ use TYPO3\CMS\Core\SingletonInterface;
 
 /**
  * Class TemplateLayoutUtility
+ *
  * @package Dwenzel\T3events\Utility
  */
 class TemplateLayoutUtility implements SingletonInterface
@@ -37,9 +35,11 @@ class TemplateLayoutUtility implements SingletonInterface
         if (!is_null($pageId)) {
             $pageTSConfig = $this->getPageTSConfig($pageId);
         }
+        $pageTSKey = $this->getPageTSKey($extensionKey);
+
         return (
             $this->hasTYPO3ConfVarsTemplateLayouts($extensionKey)
-            || $this->hasTSConfigTemplateLayouts($pageTSConfig, $extensionKey)
+            || $this->hasTSConfigTemplateLayouts($pageTSConfig, $pageTSKey)
         );
     }
 
@@ -58,15 +58,21 @@ class TemplateLayoutUtility implements SingletonInterface
 
         if ($this->hasLayouts($extensionKey, $pageId)) {
             if ($this->hasTYPO3ConfVarsTemplateLayouts($extensionKey)) {
-                $templateLayouts = array_merge($templateLayouts, $GLOBALS['TYPO3_CONF_VARS']['EXT'][$extensionKey]['templateLayouts']);
+                $templateLayouts = array_merge($templateLayouts,
+                    $GLOBALS['TYPO3_CONF_VARS']['EXT'][$extensionKey]['templateLayouts']);
             }
 
             $pageTSConfig = $this->getPageTSConfig($pageId);
-            if ((bool)$pageTSConfig && $this->hasTSConfigTemplateLayouts($pageTSConfig, $extensionKey)) {
-                foreach ($pageTSConfig[$extensionKey . '.']['templateLayouts.'] as $templateName => $title)
+            $pageTSKey = $this->getPageTSKey($extensionKey);
+            $hasPageTSConf = $this->hasTSConfigTemplateLayouts($pageTSConfig, $pageTSKey);
+
+            if ((bool)$pageTSConfig && $this->hasTSConfigTemplateLayouts($pageTSConfig, $pageTSKey)) {
+                foreach ($pageTSConfig[$pageTSKey]['templateLayouts.'] as $templateName => $title) {
                     $templateLayouts[] = [$title, $templateName];
+                }
             }
         }
+
         return $templateLayouts;
     }
 
@@ -85,14 +91,26 @@ class TemplateLayoutUtility implements SingletonInterface
 
     /**
      * Tells if page TS config is hast templateLayouts for an extension key
+     *
      * @param array $pageTSConfig TSConfig for a page
-     * @param string $extensionKey Extension key
+     * @param string $pageTSKey Extension key
      * @return bool
      */
-    protected function hasTSConfigTemplateLayouts($pageTSConfig, $extensionKey)
+    protected function hasTSConfigTemplateLayouts($pageTSConfig, $pageTSKey)
     {
-        return isset($pageTSConfig[$extensionKey . '.']['templateLayouts.'])
-        && is_array($pageTSConfig[$extensionKey . '.']['templateLayouts.']);
+        return isset($pageTSConfig[$pageTSKey]['templateLayouts.'])
+        && is_array($pageTSConfig[$pageTSKey]['templateLayouts.']);
+    }
+
+    /**
+     * Get the Page TS key for a extension key
+     *
+     * @param string $extensionKey
+     * @return string
+     */
+    protected function getPageTSKey($extensionKey)
+    {
+        return 'tx_' . $extensionKey . '.';
     }
 
     /**
