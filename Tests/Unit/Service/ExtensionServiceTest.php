@@ -2,11 +2,6 @@
 
 namespace DWenzel\T3events\Tests\Unit\Service;
 
-use DWenzel\T3events\Service\ExtensionService;
-use TYPO3\CMS\Core\Tests\UnitTestCase;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-
-
 /**
  * This file is part of the TYPO3 CMS project.
  *
@@ -19,6 +14,10 @@ use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
  *
  * The TYPO3 project - inspiring people to share!
  */
+
+use DWenzel\T3events\Service\ExtensionService;
+use TYPO3\CMS\Core\Tests\UnitTestCase;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 
 /**
  * Class ExtensionServiceTest
@@ -56,7 +55,7 @@ class ExtensionServiceTest extends UnitTestCase
             ConfigurationManagerInterface::class
         );
 
-        $this->inject($this->subject, 'ConfigurationManager', $mockConfigurationManager);
+        $this->subject->injectConfigurationManager($mockConfigurationManager);
 
         $mockConfigurationManager->expects($this->any())
             ->method('getConfiguration')
@@ -88,7 +87,7 @@ class ExtensionServiceTest extends UnitTestCase
             ConfigurationManagerInterface::class
         );
 
-        $this->inject($this->subject, 'ConfigurationManager', $mockConfigurationManager);
+        $this->subject->injectConfigurationManager($mockConfigurationManager);
 
         $mockConfigurationManager->expects($this->any())
             ->method('getConfiguration')
