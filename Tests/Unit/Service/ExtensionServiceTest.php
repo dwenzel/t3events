@@ -56,7 +56,7 @@ class ExtensionServiceTest extends UnitTestCase
             ConfigurationManagerInterface::class
         );
 
-        $this->subject->injectConfigurationManager($mockConfigurationManager);
+        $this->inject($this->subject, 'ConfigurationManager', $mockConfigurationManager);
 
         $mockConfigurationManager->expects($this->any())
             ->method('getConfiguration')
@@ -88,7 +88,7 @@ class ExtensionServiceTest extends UnitTestCase
             ConfigurationManagerInterface::class
         );
 
-        $this->subject->injectConfigurationManager($mockConfigurationManager);
+        $this->inject($this->subject, 'ConfigurationManager', $mockConfigurationManager);
 
         $mockConfigurationManager->expects($this->any())
             ->method('getConfiguration')
