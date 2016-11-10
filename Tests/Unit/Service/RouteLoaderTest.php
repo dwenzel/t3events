@@ -1,13 +1,5 @@
 <?php
-
 namespace DWenzel\T3events\Tests\Unit\Service;
-
-use DWenzel\T3events\Controller\Routing\Route;
-use DWenzel\T3events\Controller\Routing\RouterInterface;
-use DWenzel\T3events\DataProvider\RouteLoader\RouteLoaderDataProviderInterface;
-use DWenzel\T3events\Service\RouteLoader;
-use TYPO3\CMS\Core\Tests\UnitTestCase;
-
 
 /**
  * This file is part of the TYPO3 CMS project.
@@ -20,6 +12,17 @@ use TYPO3\CMS\Core\Tests\UnitTestCase;
  * LICENSE.txt file that was distributed with this source code.
  *
  * The TYPO3 project - inspiring people to share!
+ */
+
+use DWenzel\T3events\Controller\Routing\Route;
+use DWenzel\T3events\Controller\Routing\RouterInterface;
+use DWenzel\T3events\DataProvider\RouteLoader\RouteLoaderDataProviderInterface;
+use DWenzel\T3events\Service\RouteLoader;
+use TYPO3\CMS\Core\Tests\UnitTestCase;
+
+/**
+ * Class RouteLoaderTest
+ * @package DWenzel\T3events\Tests\Unit\Service
  */
 class RouteLoaderTest extends UnitTestCase
 {
@@ -96,8 +99,6 @@ class RouteLoaderTest extends UnitTestCase
     public function registerAddsRouteToRouter()
     {
         $origin = 'foo|bar';
-        $actionName = 'baz';
-
         $mockRoute = $this->mockCreateRoute();
 
         $mockRouter = $this->mockRouter();
