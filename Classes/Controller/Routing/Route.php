@@ -34,6 +34,7 @@ class Route
 
     /**
      * Origin of route
+     *
      * @var string A string of fully qualified controller class name and action method separated by ORIGIN_SEPARATOR.
      */
     protected $origin;
@@ -51,6 +52,7 @@ class Route
      *  'statusCode' => 303,
      *  'uri' => null
      * ]
+     *
      * @var array
      */
     protected $options = [
@@ -66,6 +68,7 @@ class Route
 
     /**
      * Routing method which should be applied
+     *
      * @var string Allowed: forward, redirect (default), redirectToUri
      */
     protected $method = self::METHOD_REDIRECT;
@@ -76,7 +79,9 @@ class Route
      * @var array
      */
     static protected $validMethods = [
-        self::METHOD_REDIRECT, self::METHOD_FORWARD, self::METHOD_REDIRECT_TO_URI
+        self::METHOD_REDIRECT,
+        self::METHOD_FORWARD,
+        self::METHOD_REDIRECT_TO_URI
     ];
 
     /**
@@ -138,6 +143,8 @@ class Route
 
     /**
      * Get an option value
+     *
+     * @param string $name Name of the option
      * @return mixed The Option value or null when option is not set
      */
     public function getOption($name)
@@ -156,23 +163,25 @@ class Route
     public function setOption($name, $value)
     {
         $this->options[$name] = $value;
+
         return $this;
     }
 
     /**
      * Set the options
-     *
      * This method implements a fluent interface.
      * Expects an array of
      * [
      *  <optionName> => <optionValue>
      * ]
+     *
      * @param array $options An array of option
      * @return Route The current route instance.
      */
     public function setOptions(array $options)
     {
         $this->options = $options;
+
         return $this;
     }
 

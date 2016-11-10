@@ -21,13 +21,6 @@ use DWenzel\T3events\Controller\Routing\Route;
 interface RoutableControllerInterface
 {
     /**
-     * Get the routable actions
-     *
-     * @return array Array action method identifiers (method name without 'Action')
-     */
-    public function getRoutableActions();
-
-    /**
      * Dispatch the current action method
      * Searches for a route and if any found executes its method
      *

@@ -15,7 +15,8 @@ use DWenzel\T3events\Controller\Routing\RouterInterface;
 use TYPO3\CMS\Extbase\Mvc\Web\Request;
 
 /**
- * Class RouteTrait
+ * Class RoutingTrait
+ * Allows to dispatch requests between action controllers.
  *
  * @package DWenzel\T3events\Controller
  */
@@ -32,13 +33,6 @@ trait RoutingTrait
     protected $request;
 
     /**
-     * Routable Actions
-     *
-     * @var array An array containing action names
-     */
-    static protected $routableActions;
-
-    /**
      * Injects the router
      *
      * @param RouterInterface $router
@@ -49,47 +43,36 @@ trait RoutingTrait
     }
 
     /**
-     * Get all routable actions
-     *
-     * @return array
-     */
-    public static function getRoutableActions()
-    {
-        return is_array(static::$routableActions) ? static::$routableActions : [];
-    }
-
-    /**
      * Dispatch the current action method
      * Searches for a route and if any found executes its method
      *
      * @see Route
-     * @param string|null $identifier An identifier for the route. If empty a default identifier for controller class and action name will be used.
      * @param array|null $arguments Optional arguments for routing method
-     * @return mixed
+     * @param string|null $identifier An identifier for the route. If empty a default identifier for controller class and action name will be used.
+     * @return mixed|void
      */
-    public function dispatch($identifier = null, array $arguments = null)
+    public function dispatch(array $arguments = null, $identifier = null)
     {
-        if ($this->isRoutable()) {
-
-            if (is_null($identifier)) {
-                $identifier = $this->getOrigin();
-            }
-            $route = $this->router->getRoute($identifier);
-
-            $method = $route->getMethod();
-            $options = $route->getOptions();
-            if (!is_null($arguments)) {
-                $options['arguments'] = $arguments;
-            }
-            $options = array_values($options);
-
-            if (method_exists($this, $method)) {
-                call_user_func_array(
-                    [$this, $method],
-                    $options
-                );
-            }
+        if (is_null($identifier)) {
+            $identifier = $this->getOrigin();
         }
+        $route = $this->router->getRoute($identifier);
+
+        $method = $route->getMethod();
+        $options = $route->getOptions();
+        if (!is_null($arguments)) {
+            $options['arguments'] = $arguments;
+        }
+        $options = array_values($options);
+
+        if (method_exists($this, $method)) {
+            call_user_func_array(
+                [$this, $method],
+                $options
+            );
+        }
+
+        return;
     }
 
     /**
@@ -105,21 +88,5 @@ trait RoutingTrait
         $controllerObjectName = $this->request->getControllerObjectName();
 
         return $controllerObjectName . Route::ORIGIN_SEPARATOR . $actionName;
-    }
-
-    /**
-     * Tells if the current action is routable
-     * Will determine origin by request if no is given.
-     *
-     * @param string|null $origin A string of fully qualified controller class name and action method separated by Route::ORIGIN_SEPARATOR
-     * @return bool
-     */
-    public function isRoutable($origin = null)
-    {
-        if (is_null($origin)) {
-            $origin = $this->getOrigin();
-        }
-
-        return in_array($origin, $this->getRoutableActions());
     }
 }

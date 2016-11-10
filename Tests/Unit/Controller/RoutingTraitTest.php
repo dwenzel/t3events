@@ -40,19 +40,6 @@ class RoutingTraitTest extends UnitTestCase
     }
 
     /**
-     * mock isRoutable returns true
-     */
-    protected function mockIsRoutableReturnsTrue()
-    {
-        $this->subject = $this->getMockForTrait(
-            RoutingTrait::class, [], '', true, true, true, ['isRoutable']
-        );
-        $this->subject->expects($this->once())
-            ->method('isRoutable')
-            ->will($this->returnValue(true));
-    }
-
-    /**
      * @test
      */
     public function routerCanBeInjected()
@@ -70,82 +57,10 @@ class RoutingTraitTest extends UnitTestCase
     /**
      * @test
      */
-    public function getRoutableActionsInitiallyReturnsEmptyArray()
-    {
-        $this->assertSame(
-            [],
-            $this->subject->getRoutableActions()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function getRoutableActionsReturnsRoutableActions()
-    {
-        $routableActions = ['foo'];
-        $this->inject($this->subject, 'routableActions', $routableActions);
-        $this->assertSame(
-            $routableActions,
-            $this->subject->getRoutableActions()
-        );
-    }
-
-    /**
-     * Data provider
-     *
-     * @return array
-     */
-    public function originDataProvider()
-    {
-        return [
-            ['foo', ['foo'], true],
-            ['bar', ['foo'], false]
-        ];
-    }
-
-    /**
-     * @test
-     * @dataProvider originDataProvider
-     * @param string $origin
-     * @param array $routableActions
-     * @param bool $expectedResult
-     */
-    public function isRoutableReturnResultForOrigin($origin, $routableActions, $expectedResult)
-    {
-        $routableActions = ['foo'];
-        $this->inject($this->subject, 'routableActions', $routableActions);
-        $this->assertSame(
-            $expectedResult,
-            $this->subject->isRoutable($origin)
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function isRoutableGetsOriginFromRequest()
-    {
-        $mockRequest = $this->getMock(
-            Request::class, ['getControllerActionName', 'getControllerObjectName']
-        );
-        $this->inject($this->subject, 'request', $mockRequest);
-        $mockRequest->expects($this->once())
-            ->method('getControllerActionName');
-        $mockRequest->expects($this->once())
-            ->method('getControllerObjectName');
-
-        $this->subject->isRoutable();
-    }
-
-    /**
-     * @test
-     */
     public function dispatchGetsIdentifierFromRequest()
     {
 
         $identifier = 'foo';
-        $this->mockIsRoutableReturnsTrue();
 
         $mockRequest = $this->getMock(
             Request::class, ['getControllerActionName', 'getControllerObjectName']
@@ -176,8 +91,6 @@ class RoutingTraitTest extends UnitTestCase
         $identifier = 'foo';
         $mockRoute = $this->getMock(Route::class, null, [$identifier]);
 
-        $this->mockIsRoutableReturnsTrue();
-
         $mockRouter = $this->getMockForAbstractClass(
             RouterInterface::class, ['getRoute']
         );
@@ -188,7 +101,7 @@ class RoutingTraitTest extends UnitTestCase
             ->with($identifier)
             ->will($this->returnValue($mockRoute));
 
-        $this->subject->dispatch($identifier);
+        $this->subject->dispatch(null, $identifier);
     }
 
     /**
@@ -201,12 +114,8 @@ class RoutingTraitTest extends UnitTestCase
         $mockRoute = $this->getMock(Route::class, ['getMethod'], [$identifier]);
 
         $this->subject = $this->getMockForTrait(
-            RoutingTrait::class, [], '', true, true, true, ['isRoutable', $method]
+            RoutingTrait::class, [], '', true, true, true, [$method]
         );
-        $this->subject->expects($this->once())
-            ->method('isRoutable')
-            ->will($this->returnValue(true));
-
         $mockRouter = $this->getMockForAbstractClass(
             RouterInterface::class, ['getRoute']
         );
@@ -221,7 +130,7 @@ class RoutingTraitTest extends UnitTestCase
 
         $this->subject->expects($this->once())
             ->method($method);
-        $this->subject->dispatch($identifier);
+        $this->subject->dispatch(null, $identifier);
     }
 
     /**
@@ -254,11 +163,8 @@ class RoutingTraitTest extends UnitTestCase
         $mockRoute = $this->getMock(Route::class, ['getOptions', 'getMethod'], [$identifier]);
 
         $this->subject = $this->getMockForTrait(
-            RoutingTrait::class, [], '', true, true, true, ['isRoutable', $method]
+            RoutingTrait::class, [], '', true, true, true, [$method]
         );
-        $this->subject->expects($this->once())
-            ->method('isRoutable')
-            ->will($this->returnValue(true));
 
         $mockRouter = $this->getMockForAbstractClass(
             RouterInterface::class, ['getRoute']
@@ -288,6 +194,6 @@ class RoutingTraitTest extends UnitTestCase
                 $expectedOptions[6]
             );
 
-        $this->subject->dispatch($identifier, $arguments);
+        $this->subject->dispatch($arguments, $identifier);
     }
 }
