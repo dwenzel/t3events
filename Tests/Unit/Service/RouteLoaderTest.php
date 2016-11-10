@@ -4,6 +4,7 @@ namespace DWenzel\T3events\Tests\Unit\Service;
 
 use DWenzel\T3events\Controller\Routing\Route;
 use DWenzel\T3events\Controller\Routing\RouterInterface;
+use DWenzel\T3events\DataProvider\RouteLoader\RouteLoaderDataProviderInterface;
 use DWenzel\T3events\Service\RouteLoader;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 
@@ -57,12 +58,8 @@ class RouteLoaderTest extends UnitTestCase
         $origin = 'foo|bar';
 
         $mockRoute = $this->getMock(
-            Route::class, ['setActionName', 'setMethod', 'setOptions'], [$origin]
+            Route::class, ['setMethod', 'setOptions'], [$origin]
         );
-
-        $mockRoute->expects($this->any())
-            ->method('setActionName')
-            ->will($this->returnValue($mockRoute));
 
         $this->subject->expects($this->once())
             ->method('createRoute')
@@ -109,8 +106,7 @@ class RouteLoaderTest extends UnitTestCase
             ->with($mockRoute);
 
         $this->subject->register(
-            $origin,
-            $actionName
+            $origin
         );
     }
 
@@ -132,9 +128,7 @@ class RouteLoaderTest extends UnitTestCase
             ->will($this->returnValue($mockRoute));
 
         $this->subject->register(
-            $origin,
-            null,
-            $method
+            $origin, $method
         );
     }
 
@@ -156,10 +150,67 @@ class RouteLoaderTest extends UnitTestCase
             ->will($this->returnValue($mockRoute));
 
         $this->subject->register(
-            $origin,
-            null,
-            null,
-            $options
+            $origin, null, $options
         );
+    }
+
+    /**
+     * @test
+     */
+    public function loadFromProviderGetsConfiguration()
+    {
+        $config = [];
+        $mockDataProvider = $this->getMockForAbstractClass(
+            RouteLoaderDataProviderInterface::class
+        );
+
+        $mockDataProvider->expects($this->once())
+            ->method('getConfiguration')
+            ->will($this->returnValue($config));
+
+        $this->subject->loadFromProvider($mockDataProvider);
+
+
+    }
+
+    /**
+     * @test
+     */
+    public function loadFromProviderRegistersRoutes()
+    {
+        $origin = 'origin';
+        $method = 'forward';
+        $options = [
+            'foo' => 'bar'
+        ];
+        $config = [
+            [$origin, $method, $options]
+        ];
+        $mockDataProvider = $this->getMockForAbstractClass(
+            RouteLoaderDataProviderInterface::class
+        );
+        $mockRoute = $this->getMock(
+            Route::class,
+            ['setMethod', 'setOptions'],
+            [$origin]
+        );
+        $mockDataProvider->expects($this->once())
+            ->method('getConfiguration')
+            ->will($this->returnValue($config));
+        $this->subject->expects($this->once())
+            ->method('createRoute')
+            ->will($this->returnValue($mockRoute));
+        $mockRoute->expects($this->once())
+            ->method('setMethod')
+            ->with($method);
+        $mockRoute->expects($this->once())
+            ->method('setOptions')
+            ->with($options);
+        $mockRouter = $this->mockRouter();
+        $mockRouter->expects($this->once())
+            ->method('addRoute')
+            ->with($mockRoute);
+
+        $this->subject->loadFromProvider($mockDataProvider);
     }
 }
