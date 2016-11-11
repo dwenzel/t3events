@@ -60,9 +60,21 @@ trait RoutingTrait
 
         $method = $route->getMethod();
         $options = $route->getOptions();
+
+        $targetArguments = null;
         if (!is_null($arguments)) {
-            $options['arguments'] = $arguments;
+            $targetArguments = $arguments;
         }
+        if ($route->hasOption('arguments'))
+        {
+            $defaultArguments = $route->getOption('arguments');
+            if(is_array($defaultArguments))
+            {
+                $targetArguments = array_merge($defaultArguments, $targetArguments);
+            }
+        }
+        $options['arguments'] = $targetArguments;
+
         $options = array_values($options);
 
         if (method_exists($this, $method)) {
