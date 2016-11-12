@@ -49,3 +49,17 @@ config.tx_extbase {
         }
     }
 [global]
+
+module.tx_t3events {
+	view {
+		templateRootPaths {
+			10 = {$module.tx_t3events.view.templateRootPath.10}
+		}
+		partialRootPaths {
+			10 = {$module.tx_t3events.view.partialRootPath.10}
+		}
+		layoutRootPaths {
+			10 = {$module.tx_t3events.view.layoutRootPath.10}
+		}
+	}
+}
