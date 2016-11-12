@@ -136,7 +136,7 @@ class RoutingTraitTest extends UnitTestCase
     /**
      * @test
      */
-    public function dispatchUsesArguments()
+    public function dispatchUsesArgumentsFromOrigin()
     {
         $arguments = ['foo' => 'bar'];
         $optionsFromRoute = [
@@ -195,5 +195,76 @@ class RoutingTraitTest extends UnitTestCase
             );
 
         $this->subject->dispatch($arguments, $identifier);
+    }
+
+    /**
+     * @test
+     */
+    public function dispatchUsesDefaultArguments()
+    {
+        $defaultArguments =[
+            'baz' => 'boom',
+            'foo' => null
+        ];
+        $argumentsFromOrigin = ['foo' => 'bar'];
+        $optionsFromRoute = [
+            'actionName' => null,
+            'controllerName' => null,
+            'extensionName' => null,
+            'arguments' => $defaultArguments,
+            'pageUid' => null,
+            'delay' => 0,
+            'statusCode' => 303,
+        ];
+        $expectedArguments = array_merge($defaultArguments, $argumentsFromOrigin);
+        $expectedOptions = [
+            null,
+            null,
+            null,
+            $expectedArguments,
+            null,
+            0,
+            303
+        ];
+        $identifier = 'foo';
+        $method = 'bam';
+        $mockRoute = $this->getMock(Route::class, ['getOptions', 'getOption', 'getMethod'], [$identifier]);
+        $this->subject = $this->getMockForTrait(
+            RoutingTrait::class, [], '', true, true, true, [$method]
+        );
+
+        $mockRouter = $this->getMockForAbstractClass(
+            RouterInterface::class, ['getRoute']
+        );
+
+        $this->subject->injectRouter($mockRouter);
+        $mockRouter->expects($this->once())
+            ->method('getRoute')
+            ->will($this->returnValue($mockRoute));
+
+        $mockRoute->expects($this->once())
+            ->method('getMethod')
+            ->will($this->returnValue($method));
+        $mockRoute->expects($this->once())
+            ->method('getOptions')
+            ->will($this->returnValue($optionsFromRoute));
+        $mockRoute->expects($this->atLeastOnce())
+            ->method('getOption')
+            ->with('arguments')
+            ->will($this->returnValue($defaultArguments));
+
+        $this->subject->expects($this->once())
+            ->method($method)
+            ->with(
+                $expectedOptions[0],
+                $expectedOptions[1],
+                $expectedOptions[2],
+                $expectedOptions[3],
+                $expectedOptions[4],
+                $expectedOptions[5],
+                $expectedOptions[6]
+            );
+
+        $this->subject->dispatch($argumentsFromOrigin, $identifier);
     }
 }
