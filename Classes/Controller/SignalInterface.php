@@ -19,5 +19,5 @@ interface SignalInterface
      * @param string $name Signal name
      * @param array $arguments Signal arguments
      */
-    function emitSignal($class, $name, array &$arguments);
+    public function emitSignal($class, $name, array &$arguments);
 }
