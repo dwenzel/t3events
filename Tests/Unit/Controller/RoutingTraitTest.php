@@ -14,9 +14,15 @@ namespace DWenzel\T3events\Tests\Controller;
 use DWenzel\T3events\Controller\Routing\Route;
 use DWenzel\T3events\Controller\Routing\RouterInterface;
 use DWenzel\T3events\Controller\RoutingTrait;
+use DWenzel\T3events\Controller\SignalInterface;
+use DWenzel\T3events\Controller\SignalTrait;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 use TYPO3\CMS\Extbase\Mvc\Web\Request;
 
+class MockSignalController
+implements SignalInterface {
+    use RoutingTrait, SignalTrait;
+}
 /**
  * Class RouteTraitTest
  *
@@ -25,7 +31,7 @@ use TYPO3\CMS\Extbase\Mvc\Web\Request;
 class RoutingTraitTest extends UnitTestCase
 {
     /**
-     * @var RoutingTrait
+     * @var RoutingTrait|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $subject;
 
@@ -266,5 +272,34 @@ class RoutingTraitTest extends UnitTestCase
             );
 
         $this->subject->dispatch($argumentsFromOrigin, $identifier);
+    }
+
+    /**
+     * @test
+     */
+    public function dispatchEmitsSignalDispatchBegin()
+    {
+        $this->subject = $this->getMock(
+            MockSignalController::class, ['emitSignal']
+        );
+        $arguments = ['foo'];
+        $identifier = 'bar';
+        $mockRoute = $this->getMock(Route::class, [], [$identifier]);
+        $mockRouter = $this->getMockForAbstractClass(
+            RouterInterface::class, ['getRoute']
+        );
+        $mockRouter->expects($this->once())
+            ->method('getRoute')
+            ->will($this->returnValue($mockRoute));
+
+        $this->subject->injectRouter($mockRouter);
+
+        $this->subject->expects($this->once())
+            ->method('emitSignal')
+            ->with(
+                $this->equalTo(MockSignalController::class),
+                $this->equalTo('dispatchBegin')
+            );
+        $this->subject->dispatch($arguments, $identifier);
     }
 }

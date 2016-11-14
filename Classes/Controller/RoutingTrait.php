@@ -61,15 +61,22 @@ trait RoutingTrait
         $method = $route->getMethod();
         $options = $route->getOptions();
 
+        if ($this instanceof SignalInterface) {
+            $signalArguments = [
+                'arguments' => $arguments,
+                'identifier' => $identifier,
+                'route' => $route
+            ];
+            $this->emitSignal(__CLASS__, 'dispatchBegin', $signalArguments);
+        }
         $targetArguments = null;
         if (!is_null($arguments)) {
             $targetArguments = $arguments;
         }
-        if ($route->hasOption('arguments'))
-        {
+
+        if ($route->hasOption('arguments')) {
             $defaultArguments = $route->getOption('arguments');
-            if(is_array($defaultArguments))
-            {
+            if (is_array($defaultArguments)) {
                 $targetArguments = array_merge($defaultArguments, $targetArguments);
             }
         }
@@ -94,7 +101,8 @@ trait RoutingTrait
      *
      * @return string
      */
-    protected function getOrigin()
+    protected
+    function getOrigin()
     {
         $actionName = $this->request->getControllerActionName();
         $controllerObjectName = $this->request->getControllerObjectName();
