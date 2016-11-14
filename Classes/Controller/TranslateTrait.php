@@ -20,6 +20,11 @@ trait TranslateTrait
      */
     public function translate($key, $extension = 't3events', $arguments = null)
     {
+        if (defined(get_class($this) . '::EXTENSION_KEY'))
+        {
+            $extension = static::EXTENSION_KEY;
+        }
+
         $translatedString = LocalizationUtility::translate($key, $extension, $arguments);
         if (is_null($translatedString)) {
             return $key;
