@@ -1,12 +1,9 @@
 <?php
-namespace DWenzel\T3events\Domain\Repository;
-
-use TYPO3\CMS\Extbase\Persistence\Repository;
+namespace DWenzel\T3events;
 
 /***************************************************************
  *  Copyright notice
- *  (c) 2013 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
- *  Michael Kasten <kasten@webfox01.de>, Agentur Webfox
+ *  (c) 2016 Dirk Wenzel <dirk.wenzel@cps-it.de>
  *  All rights reserved
  *  This script is part of the TYPO3 project. The TYPO3 project is
  *  free software; you can redistribute it and/or modify
@@ -21,13 +18,7 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
  *  GNU General Public License for more details.
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+class UnsupportedMethodException extends \Exception
+{
 
-/**
- * Class AbstractDemandedRepository
- * @deprecated Use respository traits instead
- */
-abstract class AbstractDemandedRepository
-	extends Repository
-	implements DemandedRepositoryInterface {
-	use DemandedRepositoryTrait;
 }
