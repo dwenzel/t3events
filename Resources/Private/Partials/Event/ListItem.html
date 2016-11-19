@@ -44,8 +44,11 @@
 
 				<f:comment>locations</f:comment>
 				<p class="locations">
-					<f:translate key="label.differentLocations">
-					</f:translate>
+					{ts:location.count(event: event)} <f:translate key="label.differentLocations" />
+					<ts:event.performances
+							event="{event}"
+							type="uniqueLocationsList"
+							tagName="span" />
 				</p>
 
 				<f:comment>dates</f:comment>
