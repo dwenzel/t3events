@@ -12,5 +12,6 @@ Add the namespace to your template:
 
 ## Location
 [Count](./Location/CountViewHelper.md)
+[Unique](./Location/UniqueViewHelper.md)
 
 For more usage examples see default templates.
