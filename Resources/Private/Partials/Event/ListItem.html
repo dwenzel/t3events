@@ -41,7 +41,6 @@
 		</p>
 		<f:if condition="{event.performances->f:count()}>1">
 			<f:then>
-				<f:debug>{ts:location.unique(event: event)}</f:debug>
 				<f:comment>locations</f:comment>
 				<p class="locations">
 					{ts:location.count(event: event)} <f:translate key="label.differentLocations" />
