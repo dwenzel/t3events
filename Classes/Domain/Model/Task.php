@@ -41,12 +41,19 @@ class Task extends AbstractEntity {
 	 */
 	protected $action;
 
+    /**
+     * Period
+     *
+     * @var string
+     */
+    protected $period;
+
 	/**
 	 * Enter a period of action in seconds. Negative values are possible too.
 	 *
 	 * @var integer
 	 */
-	protected $period;
+	protected $periodDuration;
 
 	/**
 	 * Select a status
@@ -108,22 +115,22 @@ class Task extends AbstractEntity {
 	}
 
 	/**
-	 * get the time period of action
+	 * Get the periodDuration
 	 *
-	 * @return integer $period
+	 * @return integer
 	 */
-	public function getPeriod() {
-		return $this->period;
+	public function getPeriodDuration() {
+		return $this->periodDuration;
 	}
 
 	/**
 	 * sets the time period of action
 	 *
-	 * @param integer $period
+	 * @param integer $periodDuration
 	 * @return void
 	 */
-	public function setPeriod($period) {
-		$this->period = $period;
+	public function setPeriodDuration($periodDuration) {
+		$this->periodDuration = $periodDuration;
 	}
 
 	/**
@@ -183,5 +190,24 @@ class Task extends AbstractEntity {
 		$this->folder = $folder;
 	}
 
+    /**
+     * Get the period
+     *
+     * @return string A string describing the period constraint. Allowed: all, pastOnly, futureOnly
+     */
+    public function getPeriod()
+    {
+        return $this->period;
+    }
+
+    /**
+     * Set the period
+     *
+     * @param string $period A string describing the period constraint. Allowed: all, pastOnly, futureOnly
+     */
+    public function setPeriod($period)
+    {
+        $this->period = $period;
+    }
 }
 

@@ -187,4 +187,58 @@ class TaskCommandControllerTest extends UnitTestCase
 
         $this->subject->updateStatusCommand();
     }
+
+    /**
+     * @test
+     */
+    public function updateStatusCommandRequiresDemandWithPeriod()
+    {
+        $period = 'foo';
+        $settings = [
+            'period' => $period
+        ];
+        $mockTask = $this->getMock(Task::class, ['getPeriod']);
+        $mockResult = [$mockTask];
+
+        $this->taskRepository->expects($this->once())
+            ->method('findByAction')
+            ->will($this->returnValue($mockResult));
+        $mockTask->expects($this->atLeastOnce())
+            ->method('getPeriod')
+            ->will($this->returnValue($period));
+
+        $this->performanceDemandFactory->expects($this->once())
+            ->method('createFromSettings')
+            ->with($settings);
+
+        $this->subject->updateStatusCommand();
+
+    }
+
+    /**
+     * @test
+     */
+    public function updateStatusCommandRequiresDemandWithPeriodDuration()
+    {
+        $periodDuration = 'foo';
+        $settings = [
+            'periodDuration' => $periodDuration
+        ];
+        $mockTask = $this->getMock(Task::class, ['getPeriodDuration']);
+        $mockResult = [$mockTask];
+
+        $this->taskRepository->expects($this->once())
+            ->method('findByAction')
+            ->will($this->returnValue($mockResult));
+        $mockTask->expects($this->atLeastOnce())
+            ->method('getPeriodDuration')
+            ->will($this->returnValue($periodDuration));
+
+        $this->performanceDemandFactory->expects($this->once())
+            ->method('createFromSettings')
+            ->with($settings);
+
+        $this->subject->updateStatusCommand();
+
+    }
 }
