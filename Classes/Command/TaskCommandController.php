@@ -18,6 +18,7 @@ use DWenzel\T3events\Controller\PerformanceDemandFactoryTrait;
 use DWenzel\T3events\Controller\PerformanceRepositoryTrait;
 use DWenzel\T3events\Controller\TaskRepositoryTrait;
 use DWenzel\T3events\Domain\Model\Dto\PerformanceDemand;
+use DWenzel\T3events\Domain\Model\Performance;
 use DWenzel\T3events\Domain\Model\Task;
 use TYPO3\CMS\Extbase\MVC\Controller\CommandController;
 
@@ -33,7 +34,7 @@ class TaskCommandController extends CommandController
 
     /**
      * Run update tasks
-     *
+     * This method is for compatibility purposes only.
      * @param string $email E-Mail
      * @return bool
      * @throws \TYPO3\CMS\Core\Exception
@@ -41,7 +42,7 @@ class TaskCommandController extends CommandController
     public function runCommand($email)
     {
         $message = $this->runHidePerformanceTasks();
-        $message .= $this->runUpdatePerformanceStatusTasks();
+        $this->updateStatusCommand($email);
         if (!empty($email)) {
             // Get call method
             if (basename(PATH_thisScript) == 'cli_dispatch.phpsh') {
@@ -107,9 +108,18 @@ class TaskCommandController extends CommandController
                 if (!empty($taskPeriodDuration)) {
                     $settings['periodDuration'] = $taskPeriodDuration;
                 }
-                // todo set start date
                 /** @var PerformanceDemand $performanceDemand */
                 $performanceDemand = $this->performanceDemandFactory->createFromSettings($settings);
+                $performances = $this->performanceRepository->findDemanded($performanceDemand);
+                if (count($performances)) {
+                    $newStatus = $task->getNewStatus();
+                    /** @var Performance $performance */
+                    foreach ($performances as $performance)
+                    {
+                        $performance->setStatus($newStatus);
+                        $this->performanceRepository->update($performance);
+                    }
+                }
             }
         }
     }
@@ -160,60 +170,6 @@ class TaskCommandController extends CommandController
 
             $message .= '----------------------------------------' . LF;
 
-        }
-
-        return $message;
-    }
-
-    /**
-     * Run 'Update Performance Status' Tasks
-     * Changes the performance status of all performance which meet the given constrains.
-     * Returns a message string for reporting.
-     *
-     * @return \string
-     */
-    public function runUpdatePerformanceStatusTasks()
-    {
-        // find task with update action
-        $updateTasks = $this->taskRepository->findByAction(1);
-        $message = '';
-        // process all update tasks
-
-        /** @var Task $updateTask */
-        foreach ($updateTasks as $updateTask) {
-            $message .= '----------------------------------------' . LF
-                . 'Task: ' . $updateTask->getUid() . ' ,title: ' . $updateTask->getName() . LF
-                . '----------------------------------------' . LF
-                . 'Action: update performance status' . LF
-                . 'old status: ' . $updateTask->getOldStatus() . LF
-                . 'new status: ' . $updateTask->getNewStatus() . LF;
-
-            /** @var PerformanceDemand $demand */
-            $demand = $this->objectManager->get('\DWenzel\T3events\Domain\Model\Dto\PerformanceDemand');
-            $demand->setStatus($updateTask->getOldStatus());
-
-            $demand->setDate(time() - ($updateTask->getPeriod() * 3600));
-
-            if ($updateTask->getFolder() != '') {
-                $demand->setStoragePages($updateTask->getFolder());
-            }
-
-            // find demanded
-            $performances = $this->performanceRepository->findDemanded($demand);
-
-            $message .= 'performances matching:' . count($performances) . LF;
-
-            foreach ($performances as $performance) {
-                //perform update
-                $performance->setStatus($updateTask->getNewStatus());
-                $message .= ' performance date: ' . $performance->getDate()->format('Y-m-d');
-                if ($performance->getEventLocation()) {
-                    $message .= ' location: ' . $performance->getEventLocation()->getName();
-                }
-                $this->performanceRepository->update($performance);
-                $message .= LF;
-            }
-            $message .= '----------------------------------------' . LF;
         }
 
         return $message;

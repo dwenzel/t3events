@@ -19,6 +19,8 @@ namespace DWenzel\T3events\Tests\Unit\Command;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use DWenzel\T3events\Domain\Model\Dto\PerformanceDemand;
+use DWenzel\T3events\Domain\Model\Performance;
 use DWenzel\T3events\Domain\Model\PerformanceStatus;
 use DWenzel\T3events\Domain\Model\Task;
 use DWenzel\T3events\Domain\Repository\TaskRepository;
@@ -50,6 +52,11 @@ class TaskCommandControllerTest extends UnitTestCase
     protected $performanceDemandFactory;
 
     /**
+     * @var PerformanceRepository|\PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $performanceRepository;
+
+    /**
      * set up the subject
      */
     public function setUp()
@@ -59,6 +66,7 @@ class TaskCommandControllerTest extends UnitTestCase
         );
         $this->mockTaskRepository();
         $this->mockPerformanceDemandFactory();
+        $this->mockPerformanceRepository();
     }
 
     /**
@@ -81,9 +89,10 @@ class TaskCommandControllerTest extends UnitTestCase
     protected function mockPerformanceRepository()
     {
         $mockPerformanceRepository = $this->getMock(
-            PerformanceRepository::class, ['findDemanded', 'remove'], [], '', false
+            PerformanceRepository::class, ['findDemanded', 'update'], [], '', false
         );
         $this->subject->injectPerformanceRepository($mockPerformanceRepository);
+        $this->performanceRepository = $mockPerformanceRepository;
 
         return $mockPerformanceRepository;
     }
@@ -121,6 +130,9 @@ class TaskCommandControllerTest extends UnitTestCase
         $settings = [];
         $mockTask = $this->getMock(Task::class);
         $mockResult = [$mockTask];
+        $mockDemand = $this->getMock(
+            PerformanceDemand::class
+        );
 
         $this->taskRepository->expects($this->once())
             ->method('findByAction')
@@ -128,7 +140,8 @@ class TaskCommandControllerTest extends UnitTestCase
 
         $this->performanceDemandFactory->expects($this->once())
             ->method('createFromSettings')
-            ->with($settings);
+            ->with($settings)
+            ->will($this->returnValue($mockDemand));
         $this->subject->updateStatusCommand();
     }
 
@@ -144,6 +157,9 @@ class TaskCommandControllerTest extends UnitTestCase
         $mockOldStatus = $this->getMock(PerformanceStatus::class, ['getUid']);
         $mockTask = $this->getMock(Task::class, ['getOldStatus']);
         $mockResult = [$mockTask];
+        $mockDemand = $this->getMock(
+            PerformanceDemand::class
+        );
 
         $this->taskRepository->expects($this->once())
             ->method('findByAction')
@@ -157,7 +173,8 @@ class TaskCommandControllerTest extends UnitTestCase
 
         $this->performanceDemandFactory->expects($this->once())
             ->method('createFromSettings')
-            ->with($settings);
+            ->with($settings)
+            ->will($this->returnValue($mockDemand));
 
         $this->subject->updateStatusCommand();
     }
@@ -173,6 +190,9 @@ class TaskCommandControllerTest extends UnitTestCase
         ];
         $mockTask = $this->getMock(Task::class, ['getFolder']);
         $mockResult = [$mockTask];
+        $mockDemand = $this->getMock(
+            PerformanceDemand::class
+        );
 
         $this->taskRepository->expects($this->once())
             ->method('findByAction')
@@ -183,7 +203,8 @@ class TaskCommandControllerTest extends UnitTestCase
 
         $this->performanceDemandFactory->expects($this->once())
             ->method('createFromSettings')
-            ->with($settings);
+            ->with($settings)
+            ->will($this->returnValue($mockDemand));
 
         $this->subject->updateStatusCommand();
     }
@@ -199,6 +220,9 @@ class TaskCommandControllerTest extends UnitTestCase
         ];
         $mockTask = $this->getMock(Task::class, ['getPeriod']);
         $mockResult = [$mockTask];
+        $mockDemand = $this->getMock(
+            PerformanceDemand::class
+        );
 
         $this->taskRepository->expects($this->once())
             ->method('findByAction')
@@ -209,7 +233,8 @@ class TaskCommandControllerTest extends UnitTestCase
 
         $this->performanceDemandFactory->expects($this->once())
             ->method('createFromSettings')
-            ->with($settings);
+            ->with($settings)
+            ->will($this->returnValue($mockDemand));
 
         $this->subject->updateStatusCommand();
 
@@ -226,6 +251,9 @@ class TaskCommandControllerTest extends UnitTestCase
         ];
         $mockTask = $this->getMock(Task::class, ['getPeriodDuration']);
         $mockResult = [$mockTask];
+        $mockDemand = $this->getMock(
+            PerformanceDemand::class
+        );
 
         $this->taskRepository->expects($this->once())
             ->method('findByAction')
@@ -236,9 +264,73 @@ class TaskCommandControllerTest extends UnitTestCase
 
         $this->performanceDemandFactory->expects($this->once())
             ->method('createFromSettings')
-            ->with($settings);
+            ->with($settings)
+            ->will($this->returnValue($mockDemand));
 
         $this->subject->updateStatusCommand();
 
+    }
+
+    /**
+     * @test
+     */
+    public function updateStatusCommandGetsPerformancesFromRepository()
+    {
+        $settings = [];
+        $mockTask = $this->getMock(Task::class);
+        $mockResult = [$mockTask];
+        $mockDemand = $this->getMock(
+            PerformanceDemand::class
+        );
+        $this->taskRepository->expects($this->once())
+            ->method('findByAction')
+            ->will($this->returnValue($mockResult));
+        $this->performanceDemandFactory->expects($this->once())
+            ->method('createFromSettings')
+            ->with($settings)
+            ->will($this->returnValue($mockDemand));
+
+        $this->performanceRepository ->expects($this->once())
+            ->method('findDemanded')
+            ->with($mockDemand);
+
+        $this->subject->updateStatusCommand();
+    }
+
+    /**
+     * @test
+     */
+    public function updateStatusCommandSetsNewStatus()
+    {
+        $mockNewStatus = $this->getMock(PerformanceStatus::class);
+        $mockTask = $this->getMock(Task::class, ['getNewStatus']);
+        $mockTasksResult = [$mockTask];
+        $mockDemand = $this->getMock(
+            PerformanceDemand::class
+        );
+        $mockPerformance = $this->getMock(
+            Performance::class, ['setStatus']
+        );
+        $mockPerformanceResult = [$mockPerformance];
+
+        $this->taskRepository->expects($this->once())
+            ->method('findByAction')
+            ->will($this->returnValue($mockTasksResult));
+        $this->performanceDemandFactory->expects($this->once())
+            ->method('createFromSettings')
+            ->will($this->returnValue($mockDemand));
+        $this->performanceRepository ->expects($this->once())
+            ->method('findDemanded')
+            ->will($this->returnValue($mockPerformanceResult));
+        $mockTask->expects($this->once())
+            ->method('getNewStatus')
+            ->will($this->returnValue($mockNewStatus));
+        $mockPerformance->expects($this->once())
+            ->method('setStatus')
+            ->with($mockNewStatus);
+        $this->performanceRepository->expects($this->once())
+            ->method('update')
+            ->with($mockPerformance);
+        $this->subject->updateStatusCommand();
     }
 }
