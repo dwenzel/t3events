@@ -2,12 +2,6 @@
 
 namespace DWenzel\T3events\Tests\Update;
 
-use DWenzel\T3events\Update\MigrateTaskRecords;
-use TYPO3\CMS\Core\Database\DatabaseConnection;
-use TYPO3\CMS\Core\Messaging\FlashMessage;
-use TYPO3\CMS\Core\Tests\UnitTestCase;
-
-
 /**
  * This file is part of the TYPO3 CMS project.
  *
@@ -19,6 +13,15 @@ use TYPO3\CMS\Core\Tests\UnitTestCase;
  * LICENSE.txt file that was distributed with this source code.
  *
  * The TYPO3 project - inspiring people to share!
+ */
+
+use DWenzel\T3events\Update\MigrateTaskRecords;
+use TYPO3\CMS\Core\Database\DatabaseConnection;
+use TYPO3\CMS\Core\Messaging\FlashMessage;
+use TYPO3\CMS\Core\Tests\UnitTestCase;
+
+/**
+ * Class MigrateTaskRecordsTest
  */
 class MigrateTaskRecordsTest extends UnitTestCase
 {
@@ -41,7 +44,15 @@ class MigrateTaskRecordsTest extends UnitTestCase
             MigrateTaskRecords::class, ['dummy', 'getDatabaseConnection']
         );
         $this->database = $this->getMock(
-            DatabaseConnection::class, ['exec_SELECTquery', 'sql_fetch_assoc', 'sql_error', 'debug_lastBuiltQuery'], [], '', false
+            DatabaseConnection::class,
+            [
+                'exec_SELECTquery',
+                'sql_fetch_assoc',
+                'sql_error',
+                'debug_lastBuiltQuery',
+                'admin_get_fields',
+                'exec_UPDATEquery'
+            ], [], '', false
         );
         $this->subject->expects($this->any())
             ->method(('getDatabaseConnection'))
@@ -126,6 +137,59 @@ class MigrateTaskRecordsTest extends UnitTestCase
             ->method('getTasksWithDeprecatedProperties')
             ->will($this->returnValue($tasks));
 
+        $this->subject->performUpdate($dbQueries, $customMessages);
+
+        $this->assertSame(
+            $customMessages,
+            $expectedMessages
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function performUpdateUpdatesValidRecords()
+    {
+        $validTask = [
+            'uid' => 5,
+            'period' => '5'
+        ];
+        $dbQueries = [];
+        $customMessages = [];
+        $tasks = [$validTask];
+        $expectedFieldArray = [
+            'period_duration' => $validTask['period'],
+            'period' => ''
+        ];
+        $expectedMessages = [
+            [
+                FlashMessage::INFO,
+                MigrateTaskRecords::TITLE_UPDATE_REQUIRED,
+                sprintf(MigrateTaskRecords::MESSAGE_UPDATE_REQUIRED, count($tasks))
+            ],
+            [
+                FlashMessage::INFO,
+                MigrateTaskRecords::TITLE_UPDATED,
+                sprintf(MigrateTaskRecords::MESSAGE_UPDATED, count($tasks))
+            ]
+        ];
+        $this->subject = $this->getMock(
+            MigrateTaskRecords::class, ['getTasksWithDeprecatedProperties', 'getDatabaseConnection']
+        );
+        $this->subject->expects($this->once())
+            ->method('getTasksWithDeprecatedProperties')
+            ->will($this->returnValue($tasks));
+        $this->subject->expects($this->once())
+            ->method('getDatabaseConnection')
+            ->will($this->returnValue($this->database));
+
+        $this->database->expects($this->once())
+            ->method('exec_UPDATEquery')
+            ->with(
+                MigrateTaskRecords::TASK_TABLE,
+                'uid=' . $validTask['uid'],
+                $expectedFieldArray
+            );
         $this->subject->performUpdate($dbQueries, $customMessages);
 
         $this->assertSame(

@@ -31,6 +31,8 @@ class MigrateTaskRecords extends AbstractUpdate
     const TASK_TABLE = 'tx_t3events_domain_model_task';
     const MESSAGE_UPDATE_REQUIRED = 'Found %s Task records which need to be updated';
     const TITLE_UPDATE_REQUIRED = 'Update required';
+    const MESSAGE_UPDATED = '%s Task records updated.';
+    const TITLE_UPDATED = 'Update success';
 
     /**
      * Checks whether updates are required.
@@ -61,6 +63,7 @@ class MigrateTaskRecords extends AbstractUpdate
         $tasks = $this->getTasksWithDeprecatedProperties($dbQueries, $customMessages);
         $taskCount = count($tasks);
         if ($taskCount) {
+            $success = true;
             $message = sprintf(self::MESSAGE_UPDATE_REQUIRED, $taskCount);
             $title = self::TITLE_UPDATE_REQUIRED;
             $severity = FlashMessage::INFO;
@@ -69,6 +72,33 @@ class MigrateTaskRecords extends AbstractUpdate
                 $title,
                 $message
             ];
+            $updatedCount = 0;
+            foreach ($tasks as $record) {
+                if (
+                    !empty($record['period'])
+                    && empty($record['period_duration'])
+                ) {
+                    $updatedCount++;
+                    $this->getDatabaseConnection()->exec_UPDATEquery(
+                        self::TASK_TABLE,
+                        'uid=' . $record['uid'],
+                        [
+                            'period_duration' => $record['period'],
+                            'period' => ''
+                        ]
+                    );
+                }
+            }
+            if ($updatedCount > 0) {
+                $message = sprintf(self::MESSAGE_UPDATED, $updatedCount);
+                $title = self::TITLE_UPDATED;
+                $severity = FlashMessage::INFO;
+                $customMessages[] = [
+                    $severity,
+                    $title,
+                    $message
+                ];
+            }
         }
 
         return $success;
@@ -83,8 +113,15 @@ class MigrateTaskRecords extends AbstractUpdate
      */
     protected function getTasksWithDeprecatedProperties(&$dbQueries, &$customMessages)
     {
+        $tasks = [];
         $db = $this->getDatabaseConnection();
+        $fieldDefinition = $db->admin_get_fields(self::TASK_TABLE);
         $fields = 'uid, period';
+
+        if (isset($fieldDefinition['period_duration'])) {
+            $fields .= ', period_duration';
+        }
+
         $table = self::TASK_TABLE;
         $where = 'period!=0';
         $res = $db->exec_SELECTquery($fields, $table, $where);
@@ -92,7 +129,6 @@ class MigrateTaskRecords extends AbstractUpdate
         if ($db->sql_error()) {
             $customMessages = 'SQL-ERROR: ' . htmlspecialchars($db->sql_error());
         }
-        $tasks = [];
         while ($row = $db->sql_fetch_assoc($res)) {
             $tasks[] = $row;
         }

@@ -25,17 +25,18 @@ return [
 			'starttime' => 'starttime',
 			'endtime' => 'endtime',
         ],
+        'requestUpdate' => 'action,period',
 		'searchFields' => 'name,action,old_status,new_status,folder,',
 		'iconfile' => 'EXT:t3events/Resources/Public/Icons/tx_t3events_domain_model_task.png'
     ],
 	'interface' => [
 		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden,
-			name, description, action, period, old_status, new_status, folder',
+			name, description, action, period, period_duration, old_status, new_status, folder',
     ],
 	'types' => [
 		'1' => [
 		    'showitem' => '--palette--;;1,
-			name, description, action, period, old_status, new_status,
+			name, description, action, period, period_duration, old_status, new_status,
 			folder,--div--;LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tab.access,starttime, endtime'
         ],
 	],
@@ -162,14 +163,33 @@ return [
 				'eval' => ''
             ],
         ],
-		'period' => [
+        'period' => [
+            'exclude' => 0,
+            'label' => $ll . 'label.period',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'items' => [
+                    ['', ''],
+                    [$ll . 'label.period.all', \DWenzel\T3events\Domain\Repository\PeriodConstraintRepositoryInterface::PERIOD_ALL],
+                    [$ll . 'label.period.past', \DWenzel\T3events\Domain\Repository\PeriodConstraintRepositoryInterface::PERIOD_PAST],
+                    [$ll . 'label.period.future', \DWenzel\T3events\Domain\Repository\PeriodConstraintRepositoryInterface::PERIOD_FUTURE],
+                    [$ll . 'label.period.specific', \DWenzel\T3events\Domain\Repository\PeriodConstraintRepositoryInterface::PERIOD_SPECIFIC]
+                ],
+                'size' => 1,
+                'maxitems' => 1,
+                'eval' => '',
+            ],
+        ],
+		'period_duration' => [
 			'exclude' => 0,
-			'label' => $ll . 'tx_t3events_domain_model_task.period',
+			'label' => $ll . 'label.period_duration',
 			'config' => [
 				'type' => 'input',
 				'size' => 5,
 				'eval' => 'int',
-            ]
+            ],
+			'displayCond' => 'FIELD:period:=:' . \DWenzel\T3events\Domain\Repository\PeriodConstraintRepositoryInterface::PERIOD_SPECIFIC,
         ],
 		'old_status' => [
 			'exclude' => 0,
