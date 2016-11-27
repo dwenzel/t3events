@@ -1,48 +1,34 @@
 <?php
 namespace DWenzel\T3events\Command;
 
-	/***************************************************************
-	 * <?php
-	 *  Copyright notice
-	 *  (c) 2013 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
-	 *  Michael Kasten <kasten@webfox01.de>, Agentur Webfox
-	 *  All rights reserved
-	 *  This script is part of the TYPO3 project. The TYPO3 project is
-	 *  free software; you can redistribute it and/or modify
-	 *  it under the terms of the GNU General Public License as published by
-	 *  the Free Software Foundation; either version 3 of the License, or
-	 *  (at your option) any later version.
-	 *  The GNU General Public License can be found at
-	 *  http://www.gnu.org/copyleft/gpl.html.
-	 *  This script is distributed in the hope that it will be useful,
-	 *  but WITHOUT ANY WARRANTY; without even the implied warranty of
-	 *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	 *  GNU General Public License for more details.
-	 *  This copyright notice MUST APPEAR in all copies of the script!
-	 ***************************************************************/
-
 /**
- * @package t3events
- * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
+ * This file is part of the TYPO3 CMS project.
+ *
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with this source code.
+ *
+ * The TYPO3 project - inspiring people to share!
  */
 
-class TaskCommandController extends \TYPO3\CMS\Extbase\MVC\Controller\CommandController {
+use DWenzel\T3events\Controller\PerformanceDemandFactoryTrait;
+use DWenzel\T3events\Controller\PerformanceRepositoryTrait;
+use DWenzel\T3events\Controller\TaskRepositoryTrait;
+use DWenzel\T3events\Domain\Model\Dto\PerformanceDemand;
+use DWenzel\T3events\Domain\Model\Task;
+use TYPO3\CMS\Extbase\MVC\Controller\CommandController;
 
-	/**
-	 * taskRepository
-	 *
-	 * @var \DWenzel\T3events\Domain\Repository\TaskRepository
-	 * @inject
-	 */
-	protected $taskRepository;
-
-	/**
-	 * performanceRepository
-	 *
-	 * @var \DWenzel\T3events\Domain\Repository\PerformanceRepository
-	 * @inject
-	 */
-	protected $performanceRepository;
+/**
+ * Class TaskCommandController
+ *
+ * @package DWenzel\T3events\Command
+ */
+class TaskCommandController extends CommandController {
+    use PerformanceRepositoryTrait, PerformanceDemandFactoryTrait,
+        TaskRepositoryTrait;
 
     /**
      * Run update tasks
@@ -89,9 +75,43 @@ class TaskCommandController extends \TYPO3\CMS\Extbase\MVC\Controller\CommandCon
 			}
 		}
 
-		return TRUE;
-
+		return true;
 	}
+
+    /**
+     * Runs update status tasks
+     *
+     * @param string $email
+     */
+	public function updateStatusCommand($email = null)
+    {
+        $tasks = $this->taskRepository->findByAction(Task::ACTION_UPDATE_STATUS);
+        if(count($tasks))
+        {
+            /** @var Task $task */
+            foreach ($tasks as $task)
+            {
+                $settings = [];
+                if ($status = $task->getOldStatus())
+                {
+                    $settings['statuses'] = $status->getUid();
+                }
+
+                if (!empty($task->getFolder()))
+                {
+                    $settings['storagePages'] = $task->getFolder();
+                }
+                $taskPeriod = $task->getPeriod();
+                if (null === $taskPeriod)
+                {
+                    $settings['period'] = 'pastOnly';
+                }
+                // todo set start date
+                /** @var PerformanceDemand $performanceDemand */
+                $performanceDemand = $this->performanceDemandFactory->createFromSettings($settings);
+            }
+        }
+    }
 
 	/**
 	 * Run 'hide performance' task
@@ -100,7 +120,8 @@ class TaskCommandController extends \TYPO3\CMS\Extbase\MVC\Controller\CommandCon
 	 * @return \string
 	 */
 	public function runHidePerformanceTasks() {
-		$hideTasks = $this->taskRepository->findByAction(3);
+
+		$hideTasks = $this->taskRepository->findByAction(Task::ACTION_HIDE_PERFORMANCE);
 		$message = '';
 
 		//process all 'hide performance' tasks
@@ -111,9 +132,8 @@ class TaskCommandController extends \TYPO3\CMS\Extbase\MVC\Controller\CommandCon
 				. 'Action: hide performance' . LF;
 
 			// prepare demand for query
-			$demand = $this->objectManager->get('\DWenzel\T3events\Domain\Model\Dto\PerformanceDemand');
+			$demand = $this->objectManager->get(PerformanceDemand::class);
 
-			//$demand->setDate(time());
 			$demand->setDate(time() - ($hideTask->getPeriod() * 3600));
 
 			$storagePage = $hideTask->getFolder();
@@ -155,7 +175,9 @@ class TaskCommandController extends \TYPO3\CMS\Extbase\MVC\Controller\CommandCon
 		$updateTasks = $this->taskRepository->findByAction(1);
 		$message = '';
 		// process all update tasks
-		foreach ($updateTasks as $updateTask) {
+
+        /** @var Task $updateTask */
+        foreach ($updateTasks as $updateTask) {
 			$message .= '----------------------------------------' . LF
 				. 'Task: ' . $updateTask->getUid() . ' ,title: ' . $updateTask->getName() . LF
 				. '----------------------------------------' . LF
@@ -163,8 +185,8 @@ class TaskCommandController extends \TYPO3\CMS\Extbase\MVC\Controller\CommandCon
 				. 'old status: ' . $updateTask->getOldStatus() . LF
 				. 'new status: ' . $updateTask->getNewStatus() . LF;
 
-			// prepare demand for query
-			$demand = $this->objectManager->get('\DWenzel\T3events\Domain\Model\Dto\PerformanceDemand');
+			/** @var PerformanceDemand $demand */
+            $demand = $this->objectManager->get('\DWenzel\T3events\Domain\Model\Dto\PerformanceDemand');
 			$demand->setStatus($updateTask->getOldStatus());
 
 			$demand->setDate(time() - ($updateTask->getPeriod() * 3600));

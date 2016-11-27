@@ -2,10 +2,11 @@
 if (!defined('TYPO3_MODE')) {
 	die ('Access denied.');
 }
+$ll = 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:';
 
 return [
 	'ctrl' => [
-		'title' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_task',
+		'title' => $ll . 'tx_t3events_domain_model_task',
 		'label' => 'name',
 		'tstamp' => 'tstamp',
 		'crdate' => 'crdate',
@@ -128,7 +129,7 @@ return [
         ],
 		'name' => [
 			'exclude' => 0,
-			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_task.name',
+			'label' => $ll . 'tx_t3events_domain_model_task.name',
 			'config' => [
 				'type' => 'input',
 				'size' => 30,
@@ -137,7 +138,7 @@ return [
         ],
 		'description' => [
 			'exclude' => 0,
-			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_task.description',
+			'label' => $ll . 'tx_t3events_domain_model_task.description',
 			'config' => [
 				'type' => 'text',
 				'size' => 30,
@@ -146,15 +147,15 @@ return [
         ],
 		'action' => [
 			'exclude' => 0,
-			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_task.action',
+			'label' => $ll . 'tx_t3events_domain_model_task.action',
 			'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
 				'items' => [
-					['LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_task.action.none', 0],
-					['LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_task.action.updateStatus', 1],
-					['delete', 2],
-					['LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_task.action.hidePerformance', 3],
+					[$ll . 'tx_t3events_domain_model_task.action.none', \DWenzel\T3events\Domain\Model\Task::ACTION_NONE],
+					[$ll . 'tx_t3events_domain_model_task.action.updateStatus', \DWenzel\T3events\Domain\Model\Task::ACTION_UPDATE_STATUS],
+					['delete', \DWenzel\T3events\Domain\Model\Task::ACTION_DELETE],
+					[$ll . 'tx_t3events_domain_model_task.action.hidePerformance', \DWenzel\T3events\Domain\Model\Task::ACTION_HIDE_PERFORMANCE],
                 ],
 				'size' => 1,
 				'maxitems' => 1,
@@ -163,7 +164,7 @@ return [
         ],
 		'period' => [
 			'exclude' => 0,
-			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_task.period',
+			'label' => $ll . 'tx_t3events_domain_model_task.period',
 			'config' => [
 				'type' => 'input',
 				'size' => 5,
@@ -172,7 +173,7 @@ return [
         ],
 		'old_status' => [
 			'exclude' => 0,
-			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_task.old_status',
+			'label' => $ll . 'tx_t3events_domain_model_task.old_status',
 			'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
@@ -186,7 +187,7 @@ return [
         ],
 		'new_status' => [
 			'exclude' => 0,
-			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_task.new_status',
+			'label' => $ll . 'tx_t3events_domain_model_task.new_status',
 			'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
@@ -200,7 +201,7 @@ return [
         ],
 		'folder' => [
 			'exclude' => 0,
-			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_task.folder',
+			'label' => $ll . 'tx_t3events_domain_model_task.folder',
 			'config' => [
 				'type' => 'group',
 				'internal_type' => 'db',
