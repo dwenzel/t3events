@@ -58,7 +58,7 @@ return [
 					['LLL:EXT:lang/locallang_general.xml:LGL.allLanguages', -1],
 					['LLL:EXT:lang/locallang_general.xml:LGL.default_value', 0]
                 ],
-				'showIconTable' => TRUE,
+				'showIconTable' => false,
             ],
         ],
 		'l10n_parent' => [
@@ -73,7 +73,7 @@ return [
                 ],
 				'foreign_table' => 'tx_t3events_domain_model_task',
 				'foreign_table_where' => 'AND tx_t3events_domain_model_task.pid=###CURRENT_PID### AND tx_t3events_domain_model_task.sys_language_uid IN (-1,0)',
-				'showIconTable' => TRUE,
+				'showIconTable' => false,
             ],
         ],
 		'l10n_diffsource' => [
@@ -201,7 +201,7 @@ return [
 				'size' => 1,
 				'maxitems' => 1,
 				'eval' => '',
-				'showIconTable' => TRUE,
+				'showIconTable' => false,
             ],
 			'displayCond' => 'FIELD:action:=:1',
         ],
@@ -215,7 +215,7 @@ return [
 				'size' => 1,
 				'maxitems' => 1,
 				'eval' => '',
-				'showIconTable' => TRUE,
+				'showIconTable' => false,
             ],
 			'displayCond' => 'FIELD:action:=:1',
         ],

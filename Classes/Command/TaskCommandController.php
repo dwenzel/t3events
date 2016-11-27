@@ -84,7 +84,7 @@ class TaskCommandController extends CommandController
     /**
      * Runs update status tasks
      *
-     * @param string $email
+     * @param string $email Email address for notification (not implemented yet)
      */
     public function updateStatusCommand($email = null)
     {
@@ -92,30 +92,12 @@ class TaskCommandController extends CommandController
         if (count($tasks)) {
             /** @var Task $task */
             foreach ($tasks as $task) {
-                $settings = [];
-                if ($status = $task->getOldStatus()) {
-                    $settings['statuses'] = $status->getUid();
-                }
+                $performances = $this->getPerformancesForTask($task);
 
-                if (!empty($task->getFolder())) {
-                    $settings['storagePages'] = $task->getFolder();
-                }
-                $taskPeriod = $task->getPeriod();
-                if (!empty($taskPeriod)) {
-                    $settings['period'] = $taskPeriod;
-                }
-                $taskPeriodDuration = $task->getPeriodDuration();
-                if (!empty($taskPeriodDuration)) {
-                    $settings['periodDuration'] = $taskPeriodDuration;
-                }
-                /** @var PerformanceDemand $performanceDemand */
-                $performanceDemand = $this->performanceDemandFactory->createFromSettings($settings);
-                $performances = $this->performanceRepository->findDemanded($performanceDemand);
                 if (count($performances)) {
                     $newStatus = $task->getNewStatus();
                     /** @var Performance $performance */
-                    foreach ($performances as $performance)
-                    {
+                    foreach ($performances as $performance) {
                         $performance->setStatus($newStatus);
                         $this->performanceRepository->update($performance);
                     }
@@ -174,5 +156,47 @@ class TaskCommandController extends CommandController
 
         return $message;
     }
-}
 
+    /**
+     * Get the settings for creating a demand by factory
+     *
+     * @param Task $task
+     * @return array Settings for demand factory
+     */
+    protected function getSettingsForDemand($task)
+    {
+        $settings = [];
+        if ($status = $task->getOldStatus()) {
+            $settings['statuses'] = $status->getUid();
+        }
+
+        if (!empty($task->getFolder())) {
+            $settings['storagePages'] = $task->getFolder();
+        }
+        $taskPeriod = $task->getPeriod();
+        if (!empty($taskPeriod)) {
+            $settings['period'] = $taskPeriod;
+        }
+        $taskPeriodDuration = $task->getPeriodDuration();
+        if (!empty($taskPeriodDuration)) {
+            $settings['periodDuration'] = $taskPeriodDuration;
+            return $settings;
+        }
+        return $settings;
+    }
+
+    /**
+     * Get the performances matching a tasks constraints
+     *
+     * @param Task $task
+     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     */
+    protected function getPerformancesForTask($task)
+    {
+        $settings = $this->getSettingsForDemand($task);
+        /** @var PerformanceDemand $performanceDemand */
+        $performanceDemand = $this->performanceDemandFactory->createFromSettings($settings);
+        $performances = $this->performanceRepository->findDemanded($performanceDemand);
+        return $performances;
+    }
+}
