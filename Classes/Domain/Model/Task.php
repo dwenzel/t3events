@@ -1,51 +1,59 @@
 <?php
 namespace DWenzel\T3events\Domain\Model;
 
-	/***************************************************************
-	 *  Copyright notice
-	 *  (c) 2013 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
-	 *  Michael Kasten <kasten@webfox01.de>, Agentur Webfox
-	 *  All rights reserved
-	 *  This script is part of the TYPO3 project. The TYPO3 project is
-	 *  free software; you can redistribute it and/or modify
-	 *  it under the terms of the GNU General Public License as published by
-	 *  the Free Software Foundation; either version 3 of the License, or
-	 *  (at your option) any later version.
-	 *  The GNU General Public License can be found at
-	 *  http://www.gnu.org/copyleft/gpl.html.
-	 *  This script is distributed in the hope that it will be useful,
-	 *  but WITHOUT ANY WARRANTY; without even the implied warranty of
-	 *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	 *  GNU General Public License for more details.
-	 *  This copyright notice MUST APPEAR in all copies of the script!
-	 ***************************************************************/
+/**
+ * This file is part of the TYPO3 CMS project.
+ *
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with this source code.
+ *
+ * The TYPO3 project - inspiring people to share!
+ */
+
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 /**
- * @package t3events
- * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
+ * Class Task
+ *
+ * @package DWenzel\T3events\Domain\Model
  */
-class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
+class Task extends AbstractEntity {
+    const ACTION_NONE = 0;
+    const ACTION_UPDATE_STATUS = 1;
+    const ACTION_DELETE = 2;
+    const ACTION_HIDE_PERFORMANCE = 3;
 
 	/**
 	 * Provide a name for the task
 	 *
-	 * @var \string
+	 * @var string
 	 */
 	protected $name;
 
 	/**
 	 * Select an action to perform
 	 *
-	 * @var \integer
+	 * @var integer
 	 */
 	protected $action;
+
+    /**
+     * Period
+     *
+     * @var string
+     */
+    protected $period;
 
 	/**
 	 * Enter a period of action in seconds. Negative values are possible too.
 	 *
-	 * @var \integer
+	 * @var integer
 	 */
-	protected $period;
+	protected $periodDuration;
 
 	/**
 	 * Select a status
@@ -64,14 +72,14 @@ class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * folder
 	 *
-	 * @var \string
+	 * @var string
 	 */
 	protected $folder;
 
 	/**
 	 * Returns the name
 	 *
-	 * @return \string $name
+	 * @return string $name
 	 */
 	public function getName() {
 		return $this->name;
@@ -80,7 +88,7 @@ class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the name
 	 *
-	 * @param \string $name
+	 * @param string $name
 	 * @return void
 	 */
 	public function setName($name) {
@@ -90,7 +98,7 @@ class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Returns the action
 	 *
-	 * @return \integer $action
+	 * @return integer $action
 	 */
 	public function getAction() {
 		return $this->action;
@@ -99,7 +107,7 @@ class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the action
 	 *
-	 * @param \integer $action
+	 * @param integer $action
 	 * @return void
 	 */
 	public function setAction($action) {
@@ -107,22 +115,22 @@ class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 
 	/**
-	 * get the time period of action
+	 * Get the periodDuration
 	 *
-	 * @return \integer $period
+	 * @return integer
 	 */
-	public function getPeriod() {
-		return $this->period;
+	public function getPeriodDuration() {
+		return $this->periodDuration;
 	}
 
 	/**
 	 * sets the time period of action
 	 *
-	 * @param \integer $period
+	 * @param integer $periodDuration
 	 * @return void
 	 */
-	public function setPeriod($period) {
-		$this->period = $period;
+	public function setPeriodDuration($periodDuration) {
+		$this->periodDuration = $periodDuration;
 	}
 
 	/**
@@ -166,7 +174,7 @@ class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Returns the folder
 	 *
-	 * @return \string $folder
+	 * @return string $folder
 	 */
 	public function getFolder() {
 		return $this->folder;
@@ -175,12 +183,31 @@ class Task extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the folder
 	 *
-	 * @param \string $folder
+	 * @param string $folder
 	 * @return void
 	 */
 	public function setFolder($folder) {
 		$this->folder = $folder;
 	}
 
+    /**
+     * Get the period
+     *
+     * @return string A string describing the period constraint. Allowed: all, pastOnly, futureOnly
+     */
+    public function getPeriod()
+    {
+        return $this->period;
+    }
+
+    /**
+     * Set the period
+     *
+     * @param string $period A string describing the period constraint. Allowed: all, pastOnly, futureOnly
+     */
+    public function setPeriod($period)
+    {
+        $this->period = $period;
+    }
 }
 

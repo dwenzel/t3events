@@ -18,6 +18,21 @@
 		<trans-unit id="label.link">
 			<source>Link</source>
 		</trans-unit>
+		<trans-unit id="label.period.all">
+			<source>all</source>
+		</trans-unit>
+		<trans-unit id="label.period_duration">
+			<source>Duration</source>
+		</trans-unit>
+		<trans-unit id="label.period.past">
+			<source>past only</source>
+		</trans-unit>
+		<trans-unit id="label.period.future">
+			<source>future only</source>
+		</trans-unit>
+		<trans-unit id="label.period.specific">
+			<source>specific</source>
+		</trans-unit>
 		<trans-unit id="static_countries.tx_extbase_type.Tx_T3events_Country">
 			<source>Events Country</source>
 		</trans-unit>
@@ -345,8 +360,8 @@
 		<trans-unit id="tx_t3events_domain_model_task.old_status">
 			<source>Old Status</source>
 		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_task.period">
-			<source>Time Period</source>
+		<trans-unit id="label.period">
+			<source>Period</source>
 		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_teaser">
 			<source>Teaser</source>

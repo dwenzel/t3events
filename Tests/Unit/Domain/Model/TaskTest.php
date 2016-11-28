@@ -1,49 +1,37 @@
 <?php
 namespace DWenzel\T3events\Tests\Unit\Domain\Model;
 
-	/***************************************************************
-	 *  Copyright notice
-	 *  (c) 2013 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
-	 *            Michael Kasten <kasten@webfox01.de>, Agentur Webfox
-	 *  All rights reserved
-	 *  This script is part of the TYPO3 project. The TYPO3 project is
-	 *  free software; you can redistribute it and/or modify
-	 *  it under the terms of the GNU General Public License as published by
-	 *  the Free Software Foundation; either version 2 of the License, or
-	 *  (at your option) any later version.
-	 *  The GNU General Public License can be found at
-	 *  http://www.gnu.org/copyleft/gpl.html.
-	 *  This script is distributed in the hope that it will be useful,
-	 *  but WITHOUT ANY WARRANTY; without even the implied warranty of
-	 *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	 *  GNU General Public License for more details.
-	 *  This copyright notice MUST APPEAR in all copies of the script!
-	 ***************************************************************/
+/**
+ * This file is part of the TYPO3 CMS project.
+ *
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with this source code.
+ *
+ * The TYPO3 project - inspiring people to share!
+ */
+use DWenzel\T3events\Domain\Model\Task;
+use TYPO3\CMS\Core\Tests\UnitTestCase;
+
 
 /**
  * Test case for class \DWenzel\T3events\Domain\Model\Task.
  *
- * @version $Id$
- * @copyright Copyright belongs to the respective authors
- * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- * @package TYPO3
- * @subpackage Events
- * @author Dirk Wenzel <wenzel@webfox01.de>
- * @author Michael Kasten <kasten@webfox01.de>
  */
-class TaskTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
+class TaskTest extends UnitTestCase  {
 
 	/**
 	 * @var \DWenzel\T3events\Domain\Model\Task
 	 */
-	protected $fixture;
+	protected $subject;
 
 	public function setUp() {
-		$this->fixture = new \DWenzel\T3events\Domain\Model\Task();
-	}
-
-	public function tearDown() {
-		unset($this->fixture);
+		$this->subject = $this->getMock(
+		    Task::class, ['dummy']
+        );
 	}
 
 	/**
@@ -52,7 +40,7 @@ class TaskTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	public function getNameReturnsInitialValueForString() {
 		$this->assertSame(
 			NULL,
-			$this->fixture->getName()
+			$this->subject->getName()
 		);
 	}
 
@@ -60,11 +48,11 @@ class TaskTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function setNameForStringSetsName() {
-		$this->fixture->setName('Conceived at T3CON10');
+		$this->subject->setName('Conceived at T3CON10');
 
 		$this->assertSame(
 			'Conceived at T3CON10',
-			$this->fixture->getName()
+			$this->subject->getName()
 		);
 	}
 
@@ -74,7 +62,7 @@ class TaskTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	public function getActionReturnsInitialNull() {
 		$this->assertSame(
 			NULL,
-			$this->fixture->getAction()
+			$this->subject->getAction()
 		);
 	}
 
@@ -82,11 +70,11 @@ class TaskTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function setActionForIntegerSetsAction() {
-		$this->fixture->setAction(12);
+		$this->subject->setAction(12);
 
 		$this->assertSame(
 			12,
-			$this->fixture->getAction()
+			$this->subject->getAction()
 		);
 	}
 
@@ -96,19 +84,42 @@ class TaskTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	public function getPeriodReturnsInitialNull() {
 		$this->assertSame(
 			NULL,
-			$this->fixture->getPeriod()
+			$this->subject->getPeriod()
 		);
 	}
 
-	/**
+    /**
+     * @test
+     */
+    public function setPeriodForStringSetsPeriod()
+    {
+        $period = 'foo';
+        $this->subject->setPeriod($period);
+        $this->assertSame(
+            $period,
+            $this->subject->getPeriod()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getPeriodDurationReturnsInitialNull() {
+        $this->assertSame(
+            NULL,
+            $this->subject->getPeriodDuration()
+        );
+    }
+
+    /**
 	 * @test
 	 */
-	public function setPeriodForIntegerSetsPeriod() {
-		$this->fixture->setPeriod(-30000);
+	public function setPeriodDurationForIntegerSetsPeriodDuration() {
+		$this->subject->setPeriodDuration(-30000);
 
 		$this->assertSame(
 			-30000,
-			$this->fixture->getPeriod()
+			$this->subject->getPeriodDuration()
 		);
 	}
 
@@ -118,7 +129,7 @@ class TaskTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	public function getOldStatusReturnsInitialNull() {
 		$this->assertSame(
 			NULL,
-			$this->fixture->getOldStatus()
+			$this->subject->getOldStatus()
 		);
 	}
 
@@ -127,11 +138,11 @@ class TaskTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 */
 	public function setOldStatusForPerformanceStatusSetsOldStatus() {
 		$status = new \DWenzel\T3events\Domain\Model\PerformanceStatus();
-		$this->fixture->setOldStatus($status);
+		$this->subject->setOldStatus($status);
 
 		$this->assertSame(
 			$status,
-			$this->fixture->getOldStatus()
+			$this->subject->getOldStatus()
 		);
 	}
 
@@ -141,7 +152,7 @@ class TaskTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	public function getNewStatusReturnsInitialNull() {
 		$this->assertSame(
 			NULL,
-			$this->fixture->getNewStatus()
+			$this->subject->getNewStatus()
 		);
 	}
 
@@ -150,11 +161,11 @@ class TaskTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 */
 	public function setNewStatusForPerformanceStatusSetsNewStatus() {
 		$status = new \DWenzel\T3events\Domain\Model\PerformanceStatus();
-		$this->fixture->setNewStatus($status);
+		$this->subject->setNewStatus($status);
 
 		$this->assertSame(
 			$status,
-			$this->fixture->getNewStatus()
+			$this->subject->getNewStatus()
 		);
 	}
 
@@ -164,7 +175,7 @@ class TaskTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	public function getFolderReturnsInitialNull() {
 		$this->assertSame(
 			NULL,
-			$this->fixture->getFolder()
+			$this->subject->getFolder()
 		);
 	}
 
@@ -172,11 +183,11 @@ class TaskTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function setFolderForStringSetsFolder() {
-		$this->fixture->setFolder('Conceived at T3CON10');
+		$this->subject->setFolder('Conceived at T3CON10');
 
 		$this->assertSame(
 			'Conceived at T3CON10',
-			$this->fixture->getFolder()
+			$this->subject->getFolder()
 		);
 	}
 
