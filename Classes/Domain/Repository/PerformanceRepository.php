@@ -1,52 +1,46 @@
 <?php
 namespace DWenzel\T3events\Domain\Repository;
 
-/***************************************************************
- *  Copyright notice
- *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
- *  Michael Kasten <kasten@webfox01.de>, Agentur Webfox
- *  All rights reserved
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 3 of the License, or
- *  (at your option) any later version.
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+/**
+ * This file is part of the TYPO3 CMS project.
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with this source code.
+ * The TYPO3 project - inspiring people to share!
+ */
 use DWenzel\T3events\Domain\Model\Dto\AudienceAwareDemandInterface;
 use DWenzel\T3events\Domain\Model\Dto\CategoryAwareDemandInterface;
+use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
 use DWenzel\T3events\Domain\Model\Dto\EventTypeAwareDemandInterface;
 use DWenzel\T3events\Domain\Model\Dto\GenreAwareDemandInterface;
-use DWenzel\T3events\Domain\Model\Dto\VenueAwareDemandInterface;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Persistence\QueryInterface;
-use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
 use DWenzel\T3events\Domain\Model\Dto\PerformanceDemand;
 use DWenzel\T3events\Domain\Model\Dto\PeriodAwareDemandInterface;
+use DWenzel\T3events\Domain\Model\Dto\VenueAwareDemandInterface;
 use DWenzel\T3events\Utility\EmConfigurationUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
+use TYPO3\CMS\Extbase\Persistence\QueryInterface;
+use TYPO3\CMS\Extbase\Persistence\Repository;
 
 /**
- * @package t3events
- * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
+ * Class PerformanceRepository
+ *
+ * @package DWenzel\T3events\Domain\Repository
  */
 class PerformanceRepository
-    extends AbstractDemandedRepository
-    implements PeriodConstraintRepositoryInterface, GenreConstraintRepositoryInterface,
+    extends Repository
+    implements DemandedRepositoryInterface, PeriodConstraintRepositoryInterface, GenreConstraintRepositoryInterface,
     EventTypeConstraintRepositoryInterface, VenueConstraintRepositoryInterface,
     CategoryConstraintRepositoryInterface, AudienceConstraintRepositoryInterface
 {
-    use PeriodConstraintRepositoryTrait, StatusConstraintRepositoryTrait,
+    use DemandedRepositoryTrait, PeriodConstraintRepositoryTrait, StatusConstraintRepositoryTrait,
         GenreConstraintRepositoryTrait, EventTypeConstraintRepositoryTrait,
         VenueConstraintRepositoryTrait, CategoryConstraintRepositoryTrait,
         AudienceConstraintRepositoryTrait;
 
-    protected $defaultOrderings = array('sorting' => QueryInterface::ORDER_ASCENDING);
+    protected $defaultOrderings = ['sorting' => QueryInterface::ORDER_ASCENDING];
 
     /**
      * initializes the repository
@@ -55,7 +49,7 @@ class PerformanceRepository
     {
         $emConfiguration = EmConfigurationUtility::getSettings();
         if (!(bool)$emConfiguration->isRespectPerformanceStoragePage()) {
-            $this->defaultQuerySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
+            $this->defaultQuerySettings = $this->objectManager->get(Typo3QuerySettings::class);
             $this->defaultQuerySettings->setRespectStoragePage(false);
         }
     }
@@ -67,7 +61,9 @@ class PerformanceRepository
      * @param DemandInterface $demand
      * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint>
      */
-    public function createConstraintsFromDemand(QueryInterface $query, DemandInterface $demand
+    public function createConstraintsFromDemand(
+        QueryInterface $query,
+        DemandInterface $demand
     ) {
         /** @var PerformanceDemand $demand */
         $constraints = [];
@@ -80,32 +76,32 @@ class PerformanceRepository
         }
 
         if ($demand instanceof GenreAwareDemandInterface &&
-            (bool)$genreConstraints = $this->createGenreConstraints($query, $demand))
-        {
+            (bool)$genreConstraints = $this->createGenreConstraints($query, $demand)
+        ) {
             $this->combineConstraints($query, $constraints, $genreConstraints, $demand->getCategoryConjunction());
         }
 
         if ($demand instanceof EventTypeAwareDemandInterface &&
-            (bool)$eventTypeConstraints = $this->createEventTypeConstraints($query, $demand))
-        {
+            (bool)$eventTypeConstraints = $this->createEventTypeConstraints($query, $demand)
+        ) {
             $this->combineConstraints($query, $constraints, $eventTypeConstraints, $demand->getCategoryConjunction());
         }
 
         if ($demand instanceof VenueAwareDemandInterface &&
-            (bool)$venueConstraints = $this->createVenueConstraints($query, $demand))
-        {
+            (bool)$venueConstraints = $this->createVenueConstraints($query, $demand)
+        ) {
             $this->combineConstraints($query, $constraints, $venueConstraints, $demand->getCategoryConjunction());
         }
 
         if ($demand instanceof CategoryAwareDemandInterface &&
-            (bool)$categoryConstraints = $this->createCategoryConstraints($query, $demand))
-        {
+            (bool)$categoryConstraints = $this->createCategoryConstraints($query, $demand)
+        ) {
             $this->combineConstraints($query, $constraints, $categoryConstraints, $demand->getCategoryConjunction());
         }
 
         if ($demand instanceof AudienceAwareDemandInterface &&
-            (bool)$audienceConstraints = $this->createAudienceConstraints($query, $demand))
-        {
+            (bool)$audienceConstraints = $this->createAudienceConstraints($query, $demand)
+        ) {
             $this->combineConstraints($query, $constraints, $audienceConstraints, $demand->getConstraintsConjunction());
         }
 
