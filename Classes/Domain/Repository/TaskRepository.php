@@ -23,6 +23,9 @@ class TaskRepository
     extends Repository
     implements TaskRepositoryInterface
 {
+    /**
+     * initializes the object
+     */
     public function initializeObject()
     {
         $querySettings = $this->objectManager->get(Typo3QuerySettings::class);
