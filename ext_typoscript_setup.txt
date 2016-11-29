@@ -38,7 +38,10 @@ config.tx_extbase {
         DWenzel\T3events\Session\SessionInterface {
             className = DWenzel\T3events\Session\Typo3BackendSession
         }
-    }
+		DWenzel\T3events\Domain\Repository\TaskRepositoryInterface {
+			className = DWenzel\T3events\Domain\Repository\TaskRepository
+		}
+	}
 }
 [globalString = TSFE:fe_user|loginType = FE]
     config.tx_extbase {

@@ -10,28 +10,27 @@ namespace DWenzel\T3events\Controller;
  * LICENSE.txt file that was distributed with this source code.
  * The TYPO3 project - inspiring people to share!
  */
-use DWenzel\T3events\Domain\Repository\TaskRepository;
+use DWenzel\T3events\Domain\Repository\TaskRepositoryInterface;
 
 /**
  * Class TaskRepositoryTrait
  * Provides a TaskRepository
-
  */
 trait TaskRepositoryTrait
 {
     /**
-     * Event repository
+     * Task repository
      *
-     * @var \DWenzel\T3events\Domain\Repository\TaskRepository
+     * @var \DWenzel\T3events\Domain\Repository\TaskRepositoryInterface
      */
     protected $taskRepository;
 
     /**
-     * Injects the event repository
+     * Injects the task repository
      *
-     * @inject
+     * @param \DWenzel\T3events\Domain\Repository\TaskRepositoryInterface $taskRepository
      */
-    public function injectTaskRepository(TaskRepository $taskRepository)
+    public function injectTaskRepository(TaskRepositoryInterface $taskRepository)
     {
         $this->taskRepository = $taskRepository;
     }
