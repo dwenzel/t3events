@@ -80,4 +80,36 @@
             </f:if>
         </td>
     </tr>
+    <tr>
+        <td>
+            <f:translate key="tx_t3events_domain_model_event.files" />
+        </td>
+        <td>
+            <f:if condition="{event.files -> f:count()} > 0">
+                <ul class="events-single-files">
+                    <f:for each="{event.files}" as="file">
+                        <li>
+                            <f:link.typolink parameter="{file.originalResource.publicUrl}" target="_blank">
+                                <f:if condition="{file.title}">
+                                    <f:then>
+                                        {file.title}
+                                    </f:then>
+                                    <f:else>
+                                        <f:if condition="{file.originalResource.title}">
+                                            <f:then>
+                                                {file.originalResource.title}
+                                            </f:then>
+                                            <f:else>
+                                                {file.originalResource.originalFile.name}
+                                            </f:else>
+                                        </f:if>
+                                    </f:else>
+                                </f:if>
+                            </f:link.typolink>
+                        </li>
+                    </f:for>
+                </ul>
+            </f:if>
+        </td>
+    </tr>
 </table>

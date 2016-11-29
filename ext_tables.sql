@@ -21,6 +21,7 @@ CREATE TABLE tx_t3events_domain_model_event (
 	new_until int(10) unsigned DEFAULT '0' NOT NULL,
 	archive_date int(10) unsigned DEFAULT '0' NOT NULL,
 	images int(11) unsigned DEFAULT '0' NOT NULL,
+    files int(11) unsigned DEFAULT '0' NOT NULL,
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
 	crdate int(11) unsigned DEFAULT '0' NOT NULL,

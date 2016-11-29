@@ -343,6 +343,10 @@
 			<source>Teaser</source>
 			<target>Teaser</target>
 		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_event.files" approved="yes" xml:space="preserve">
+			<source>Files</source>
+			<target>Dateien</target>
+		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_eventlocation" approved="yes" xml:space="preserve">
 			<source>Event Location</source>
 			<target>Veranstaltungsort</target>

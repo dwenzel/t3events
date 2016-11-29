@@ -157,6 +157,10 @@
             <source>Images</source>
             <target>Bilder</target>
         </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_event.files" approved="yes">
+            <source>Files</source>
+            <target>Dateien</target>
+        </trans-unit>
 		<trans-unit id="tx_t3events_domain_model_eventlocation" approved="yes">
 			<source>Event Location</source>
 			<target>Veranstaltungsort</target>

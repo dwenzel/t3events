@@ -85,6 +85,14 @@ class Event extends AbstractEntity {
      */
     protected $images;
 
+    /**
+     * files
+     *
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
+     * @lazy
+     */
+    protected $files;
+
 	/**
 	 * genre
 	 *
@@ -153,6 +161,7 @@ class Event extends AbstractEntity {
 	 */
 	protected function initStorageObjects() {
         $this->images = new ObjectStorage();
+        $this->files = new ObjectStorage();
 		$this->genre = new ObjectStorage();
 		$this->venue = new ObjectStorage();
 		$this->audience = new ObjectStorage();
@@ -291,6 +300,27 @@ class Event extends AbstractEntity {
     public function setImages($images)
     {
         $this->images = $images;
+    }
+
+    /**
+     * Get the files
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage
+     */
+    public function getFiles()
+    {
+        return $this->files;
+    }
+
+    /**
+     * Sets the files
+     *
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $files
+     * @return void
+     */
+    public function setFiles($files)
+    {
+        $this->files = $files;
     }
 
 	/**
