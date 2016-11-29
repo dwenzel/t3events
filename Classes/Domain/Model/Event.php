@@ -93,6 +93,14 @@ class Event extends AbstractEntity {
      */
     protected $files;
 
+    /**
+     * related
+     *
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Event>
+     * @lazy
+     */
+    protected $related;
+
 	/**
 	 * genre
 	 *
@@ -162,6 +170,7 @@ class Event extends AbstractEntity {
 	protected function initStorageObjects() {
         $this->images = new ObjectStorage();
         $this->files = new ObjectStorage();
+        $this->related = new ObjectStorage();
 		$this->genre = new ObjectStorage();
 		$this->venue = new ObjectStorage();
 		$this->audience = new ObjectStorage();
@@ -321,6 +330,27 @@ class Event extends AbstractEntity {
     public function setFiles($files)
     {
         $this->files = $files;
+    }
+
+    /**
+     * Get the related events
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Event>
+     */
+    public function getRelated()
+    {
+        return $this->related;
+    }
+
+    /**
+     * Sets the related events
+     *
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Event> $related
+     * @return void
+     */
+    public function setRelated(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $related)
+    {
+        $this->related = $related;
     }
 
 	/**

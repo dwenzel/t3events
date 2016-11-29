@@ -123,6 +123,9 @@
         <trans-unit id="tx_t3events_domain_model_event.files">
             <source>Files</source>
         </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_event.related">
+            <source>Related events</source>
+        </trans-unit>
 		<trans-unit id="tx_t3events_domain_model_eventlocation">
 			<source>Event Location</source>
 		</trans-unit>

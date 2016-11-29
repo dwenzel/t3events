@@ -128,5 +128,21 @@
                 </f:for>
             </dl>
         </f:if>
+
+        <f:if condition="{event.related -> f:count()} > 0">
+            <dl class="events-single-related">
+                <dt><f:translate key="tx_t3events_domain_model_event.related" /></dt>
+                <f:for each="{event.related}" as="relatedEvent">
+                    <dd>
+                        <f:link.action
+                            action="show"
+                            arguments="{event: relatedEvent}"
+                            pageUid="{settings.detailPid}">
+                            {relatedEvent.headline}
+                        </f:link.action>
+                    </dd>
+                </f:for>
+            </dl>
+        </f:if>
     </div>
 </div>
