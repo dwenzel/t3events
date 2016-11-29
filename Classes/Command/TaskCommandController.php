@@ -3,19 +3,17 @@ namespace DWenzel\T3events\Command;
 
 /**
  * This file is part of the TYPO3 CMS project.
- *
  * It is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License, either version 2
  * of the License, or any later version.
- *
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
- *
  * The TYPO3 project - inspiring people to share!
  */
 
 use DWenzel\T3events\Controller\PerformanceDemandFactoryTrait;
 use DWenzel\T3events\Controller\PerformanceRepositoryTrait;
+use DWenzel\T3events\Controller\PersistenceManagerTrait;
 use DWenzel\T3events\Controller\TaskRepositoryTrait;
 use DWenzel\T3events\Domain\Model\Dto\PerformanceDemand;
 use DWenzel\T3events\Domain\Model\Performance;
@@ -30,11 +28,12 @@ use TYPO3\CMS\Extbase\MVC\Controller\CommandController;
 class TaskCommandController extends CommandController
 {
     use PerformanceRepositoryTrait, PerformanceDemandFactoryTrait,
-        TaskRepositoryTrait;
+        PersistenceManagerTrait, TaskRepositoryTrait;
 
     /**
      * Run update tasks
      * This method is for compatibility purposes only.
+     *
      * @param string $email E-Mail
      * @return bool
      * @throws \TYPO3\CMS\Core\Exception
@@ -93,7 +92,6 @@ class TaskCommandController extends CommandController
             /** @var Task $task */
             foreach ($tasks as $task) {
                 $performances = $this->getPerformancesForTask($task);
-
                 if (count($performances)) {
                     $newStatus = $task->getNewStatus();
                     /** @var Performance $performance */
@@ -103,6 +101,7 @@ class TaskCommandController extends CommandController
                     }
                 }
             }
+            $this->persistenceManager->persistAll();
         }
     }
 
@@ -180,8 +179,10 @@ class TaskCommandController extends CommandController
         $taskPeriodDuration = $task->getPeriodDuration();
         if (!empty($taskPeriodDuration)) {
             $settings['periodDuration'] = $taskPeriodDuration;
+
             return $settings;
         }
+
         return $settings;
     }
 
@@ -197,6 +198,7 @@ class TaskCommandController extends CommandController
         /** @var PerformanceDemand $performanceDemand */
         $performanceDemand = $this->performanceDemandFactory->createFromSettings($settings);
         $performances = $this->performanceRepository->findDemanded($performanceDemand);
+
         return $performances;
     }
 }

@@ -178,7 +178,6 @@ return [
                 ],
                 'size' => 1,
                 'maxitems' => 1,
-                'eval' => '',
             ],
         ],
 		'period_duration' => [

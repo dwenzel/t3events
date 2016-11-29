@@ -28,6 +28,7 @@ use TYPO3\CMS\Core\Tests\UnitTestCase;
 use DWenzel\T3events\Command\TaskCommandController;
 use DWenzel\T3events\Domain\Factory\Dto\PerformanceDemandFactory;
 use DWenzel\T3events\Domain\Repository\PerformanceRepository;
+use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 
 /**
  * Class TaskCommandControllerTest
@@ -57,6 +58,11 @@ class TaskCommandControllerTest extends UnitTestCase
     protected $performanceRepository;
 
     /**
+     * @var PersistenceManager| \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $persistenceManager;
+
+    /**
      * set up the subject
      */
     public function setUp()
@@ -67,6 +73,10 @@ class TaskCommandControllerTest extends UnitTestCase
         $this->mockTaskRepository();
         $this->mockPerformanceDemandFactory();
         $this->mockPerformanceRepository();
+        $this->persistenceManager = $this->getMock(
+            PersistenceManager::class, ['persistAll']
+        );
+        $this->subject->injectPersistenceManager($this->persistenceManager);
     }
 
     /**
@@ -331,6 +341,33 @@ class TaskCommandControllerTest extends UnitTestCase
         $this->performanceRepository->expects($this->once())
             ->method('update')
             ->with($mockPerformance);
+        $this->subject->updateStatusCommand();
+    }
+
+    /**
+     * @test
+     */
+    public function updateStatusCommandPersistsAll()
+    {
+        $settings = [];
+        $mockTask = $this->getMock(Task::class);
+        $mockResult = [$mockTask];
+        $mockDemand = $this->getMock(
+            PerformanceDemand::class
+        );
+        $this->taskRepository->expects($this->once())
+            ->method('findByAction')
+            ->will($this->returnValue($mockResult));
+        $this->performanceDemandFactory->expects($this->once())
+            ->method('createFromSettings')
+            ->will($this->returnValue($mockDemand));
+
+        $this->performanceRepository ->expects($this->once())
+            ->method('findDemanded')
+            ->with($mockDemand);
+        $this->persistenceManager->expects($this->once())
+            ->method('persistAll');
+
         $this->subject->updateStatusCommand();
     }
 }
