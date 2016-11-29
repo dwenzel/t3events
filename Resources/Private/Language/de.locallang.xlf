@@ -451,6 +451,10 @@
 			<source>image</source>
 			<target>Bild</target>
 		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_performance.images" approved="yes" xml:space="preserve">
+			<source>Images</source>
+			<target>Bilder</target>
+		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_performance.no_handling_fee" approved="yes" xml:space="preserve">
 			<source>no handling fee</source>
 			<target>Keine Bearbeitungsgebühr</target>

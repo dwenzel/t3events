@@ -27,6 +27,41 @@
 			</div>
 		</f:else>
 	</f:if>
+
+    <f:if condition="{event.images}">
+        <f:for each="{event.images}" as="image">
+            <f:if condition="{image.originalResource.link}">
+                <f:then>
+                    <f:link.typolink parameter="{image.originalResource.link}">
+                        <f:image
+                            image="{image}"
+                            title="{image.title}"
+                            alt="{image.alternative}"
+                            maxHeight="{settings.event.detail.media.image.maxHeight}"
+                            maxWidth="{settings.event.detail.media.image.maxWidth}"
+                        />
+
+                        <f:if condition="{image.originalResource.description}">
+                            <p class="event-single-imgcaption">{image.originalResource.description}</p>
+                        </f:if>
+                    </f:link.typolink>
+                </f:then>
+                <f:else>
+                    <f:image
+                        image="{image}"
+                        title="{image.title}"
+                        alt="{image.alternative}"
+                        maxHeight="{settings.event.detail.media.image.maxHeight}"
+                        maxWidth="{settings.event.detail.media.image.maxWidth}"
+                    />
+
+                    <f:if condition="{image.originalResource.description}">
+                        <p class="event-single-imgcaption">{image.originalResource.description}</p>
+                    </f:if>
+                </f:else>
+            </f:if>
+        </f:for>
+    </f:if>
 </div>
 <div class="eventRight fl">
 	<div class="eventDescription">
