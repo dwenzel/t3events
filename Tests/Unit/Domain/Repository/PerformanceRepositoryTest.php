@@ -126,9 +126,8 @@ class PerformanceRepositoryTest extends UnitTestCase {
 				'createCategoryConstraints',
 				'createSearchConstraints'
 			], [], '', false);
-		$demand = $this->getMockForAbstractClass(
-			DemandInterface::class, [], '', true, true, true,
-			['getEventLocations']
+		$demand = $this->getMock(
+			PerformanceDemand::class, ['getEventLocations']
 		);
 		$query = $this->getMock(
 			QueryInterface::class,
@@ -153,9 +152,8 @@ class PerformanceRepositoryTest extends UnitTestCase {
 				'createSearchConstraints',
 				'createCategoryConstraints'
 			], [], '', false);
-		$demand = $this->getMockForAbstractClass(
-			DemandInterface::class, [], '', true, true, true,
-			['getEventLocations']
+		$demand = $this->getMock(
+			PerformanceDemand::class, ['getEventLocations']
 		);
 		$query = $this->getMock(
 			QueryInterface::class,
@@ -188,9 +186,8 @@ class PerformanceRepositoryTest extends UnitTestCase {
 				'createCategoryConstraints',
 				'combineConstraints'
 			], [], '', false);
-		$demand = $this->getMockForAbstractClass(
-			DemandInterface::class, [], '', true, true, true,
-			['getEventLocations', 'isExcludeSelectedStatuses']
+		$demand = $this->getMock(
+			PerformanceDemand::class, ['getEventLocations', 'isExcludeSelectedStatuses']
 		);
 		$query = $this->getMock(
 			QueryInterface::class,
@@ -224,9 +221,8 @@ class PerformanceRepositoryTest extends UnitTestCase {
 				'createCategoryConstraints',
 				'combineConstraints'
 			], [], '', false);
-		$demand = $this->getMockForAbstractClass(
-			DemandInterface::class, [], '', true, true, true,
-			['getEventLocations', 'isExcludeSelectedStatuses']
+		$demand = $this->getMock(
+			PerformanceDemand::class, ['getEventLocations', 'isExcludeSelectedStatuses']
 		);
 		$query = $this->getMock(
 			QueryInterface::class,
