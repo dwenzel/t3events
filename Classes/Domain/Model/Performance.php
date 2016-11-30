@@ -352,9 +352,31 @@ class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	}
 
     /**
+     * Adds an image
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $image Image
+     * @return void
+     */
+    public function addImages(\TYPO3\CMS\Extbase\Domain\Model\FileReference $image)
+    {
+        $this->images->attach($image);
+    }
+
+    /**
+     * Removes an image
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $imageToRemove Image
+     * @return void
+     */
+    public function removeImages(\TYPO3\CMS\Extbase\Domain\Model\FileReference $imageToRemove)
+    {
+        $this->images->detach($imageToRemove);
+    }
+
+    /**
      * Returns the images
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage $images
      */
     public function getImages()
     {
@@ -364,10 +386,10 @@ class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
     /**
      * Sets the images
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $images
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $images Images
      * @return void
      */
-    public function setImages($images)
+    public function setImages(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $images)
     {
         $this->images = $images;
     }

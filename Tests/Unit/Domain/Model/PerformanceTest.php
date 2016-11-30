@@ -263,6 +263,69 @@ class PerformanceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 		);
 	}
 
+    /**
+     * @test
+     * @covers ::getImages
+     */
+    public function getImagesReturnsInitialValueForObjectStorageContainingImages() {
+        $newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->assertEquals(
+            $newObjectStorage,
+            $this->fixture->getImages()
+        );
+    }
+
+    /**
+     * @test
+     * @covers ::setImages
+     */
+    public function setImagesForObjectStorageContainingImagesSetsImages() {
+        $images = new \TYPO3\CMS\Extbase\Domain\Model\FileReference();
+        $objectStorageHoldingExactlyOneImage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $objectStorageHoldingExactlyOneImage->attach($images);
+        $this->fixture->setImages($objectStorageHoldingExactlyOneImage);
+
+        $this->assertEquals(
+            $objectStorageHoldingExactlyOneImage,
+            $this->fixture->getImages()
+        );
+    }
+
+    /**
+     * @test
+     * @covers ::addImages
+     */
+    public function addImagesToObjectStorageHoldingImages()
+    {
+        $images = new \TYPO3\CMS\Extbase\Domain\Model\FileReference();
+        $objectStorageHoldingExactlyOneImage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $objectStorageHoldingExactlyOneImage->attach($images);
+        $this->fixture->addImages($images);
+
+        $this->assertEquals(
+            $objectStorageHoldingExactlyOneImage,
+            $this->fixture->getImages()
+        );
+    }
+
+    /**
+     * @test
+     * @covers ::removeImages
+     */
+    public function removeImagesFromObjectStorageHoldingImages() {
+        $images = new \TYPO3\CMS\Extbase\Domain\Model\FileReference();
+        $localObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $localObjectStorage->attach($images);
+        $localObjectStorage->detach($images);
+        $this->fixture->addImages($images);
+        $this->fixture->removeImages($images);
+
+        $this->assertEquals(
+            $localObjectStorage,
+            $this->fixture->getImages()
+        );
+    }
+
 	/**
 	 * @test
 	 * @covers ::getPlan
