@@ -149,6 +149,22 @@
 			<source>Venue</source>
 			<target>Einrichtung</target>
 		</trans-unit>
+        <trans-unit id="tx_t3events_domain_model_event.tab.relations" approved="yes">
+            <source>Relations</source>
+            <target>Relationen</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_event.images" approved="yes">
+            <source>Images</source>
+            <target>Bilder</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_event.files" approved="yes">
+            <source>Files</source>
+            <target>Dateien</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_event.related" approved="yes">
+            <source>Related events</source>
+            <target>Verwandte Events</target>
+        </trans-unit>
 		<trans-unit id="tx_t3events_domain_model_eventlocation" approved="yes">
 			<source>Event Location</source>
 			<target>Veranstaltungsort</target>
@@ -337,6 +353,14 @@
 			<source>Ticket Class</source>
 			<target>Preisklasse</target>
 		</trans-unit>
+        <trans-unit id="tx_t3events_domain_model_performance.tab.relations" approved="yes">
+            <source>Relations</source>
+            <target>Relationen</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_performance.images" approved="yes">
+            <source>Images</source>
+            <target>Bilder</target>
+        </trans-unit>
 		<trans-unit id="tx_t3events_domain_model_performancestatus" approved="yes">
 			<source>Performance Status</source>
 			<target>Status</target>

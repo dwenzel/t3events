@@ -256,6 +256,15 @@
 		<trans-unit id="tx_t3events_domain_model_event.image" xml:space="preserve">
 			<source>image</source>
 		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_event.files" xml:space="preserve">
+			<source>Files</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_event.related" xml:space="preserve">
+			<source>Related events</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_performance.images" xml:space="preserve">
+			<source>Images</source>
+		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_event.keywords" xml:space="preserve">
 			<source>keywords</source>
 		</trans-unit>

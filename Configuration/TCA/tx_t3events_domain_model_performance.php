@@ -34,7 +34,7 @@ return [
 	'interface' => [
 		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource,
 			hidden, date,end_date,admission, begin, end, status_info, external_provider_link,
-			additional_link, provider_type, image, plan, no_handling_fee, price_notice,
+			additional_link, provider_type, image, images, plan, no_handling_fee, price_notice,
 			event_location, ticket_class, status,fe_group',
     ],
 	'types' => [
@@ -42,7 +42,9 @@ return [
 		--palette--;;1,
         --palette--;;paletteTitle,
         --palette--;;paletteTime,
-        status, status_info,image,
+        status, status_info,
+        --div--;' . $ll . 'tx_t3events_domain_model_event.tab.relations,
+            images, image,
         --div--;Links,provider_type, external_provider_link,additional_link,
         --div--;Tickets,
             --palette--;;paletteTicketsHead,
@@ -306,6 +308,48 @@ return [
 				'disallowed' => '',
 				'disable_controls' => '',
             ],
+        ],
+        'images' => [
+            'label' => $ll . 'tx_t3events_domain_model_performance.images',
+            'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig('images', [
+                'appearance' => [
+                    'createNewRelationLinkTitle' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:images.addFileReference'
+                ],
+                // custom configuration for displaying fields in the overlay/reference table
+                // to use the imageoverlayPalette instead of the basicoverlayPalette
+                'foreign_types' => [
+                    '0' => [
+                        'showitem' => '
+                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
+                            --palette--;;filePalette'
+                    ],
+                    \TYPO3\CMS\Core\Resource\File::FILETYPE_TEXT => [
+                        'showitem' => '
+                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
+                            --palette--;;filePalette'
+                    ],
+                    \TYPO3\CMS\Core\Resource\File::FILETYPE_IMAGE => [
+                        'showitem' => '
+                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
+                            --palette--;;filePalette'
+                    ],
+                    \TYPO3\CMS\Core\Resource\File::FILETYPE_AUDIO => [
+                        'showitem' => '
+                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.audioOverlayPalette;audioOverlayPalette,
+                            --palette--;;filePalette'
+                    ],
+                    \TYPO3\CMS\Core\Resource\File::FILETYPE_VIDEO => [
+                        'showitem' => '
+                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.videoOverlayPalette;videoOverlayPalette,
+                            --palette--;;filePalette'
+                    ],
+                    \TYPO3\CMS\Core\Resource\File::FILETYPE_APPLICATION => [
+                        'showitem' => '
+                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
+                            --palette--;;filePalette'
+                    ]
+                ]
+            ], $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'])
         ],
 		'plan' => [
 			'exclude' => 0,

@@ -71,6 +71,47 @@
 			{performance.image}
 		</td>
 	</tr>
+    <tr>
+        <td>
+            <f:translate key="tx_t3events_domain_model_performance.images" />
+        </td>
+        <td>
+            <f:if condition="{performance.images}">
+                <f:for each="{performance.images}" as="image">
+                    <f:if condition="{image.originalResource.link}">
+                        <f:then>
+                            <f:link.typolink parameter="{image.originalResource.link}">
+                                <f:image
+                                    image="{image}"
+                                    title="{image.title}"
+                                    alt="{image.alternative}"
+                                    maxHeight="{settings.performance.detail.media.image.maxHeight}"
+                                    maxWidth="{settings.performance.detail.media.image.maxWidth}"
+                                />
+
+                                <f:if condition="{image.originalResource.description}">
+                                    <p class="performance-single-imgcaption">{image.originalResource.description}</p>
+                                </f:if>
+                            </f:link.typolink>
+                        </f:then>
+                        <f:else>
+                            <f:image
+                                image="{image}"
+                                title="{image.title}"
+                                alt="{image.alternative}"
+                                maxHeight="{settings.performance.detail.media.image.maxHeight}"
+                                maxWidth="{settings.performance.detail.media.image.maxWidth}"
+                            />
+
+                            <f:if condition="{image.originalResource.description}">
+                                <p class="performance-single-imgcaption">{image.originalResource.description}</p>
+                            </f:if>
+                        </f:else>
+                    </f:if>
+                </f:for>
+            </f:if>
+        </td>
+    </tr>
 	<tr>
 		<td>
 			<f:translate key="tx_t3events_domain_model_performance.plan" />

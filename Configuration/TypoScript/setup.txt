@@ -61,6 +61,10 @@ plugin.tx_t3events {
 			}
 			detail {
 				errorHandling = {$plugin.tx_t3events.settings.detail.errorHandling}
+                media.image {
+                    maxHeight = 300
+                    maxWidth = 500
+                }
 			}
 			single {
 				dummyImage = EXT:t3events/Resources/Public/Images/dummy-image.png
@@ -85,6 +89,10 @@ plugin.tx_t3events {
 		performance {
 			detail {
 				errorHandling = {$plugin.tx_t3events.settings.detail.errorHandling}
+                media.image {
+                    maxHeight = 300
+                    maxWidth = 500
+                }
 			}
 			list {
                 search {
