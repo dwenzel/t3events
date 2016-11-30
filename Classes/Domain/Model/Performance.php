@@ -89,6 +89,14 @@ class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 */
 	protected $image;
 
+    /**
+     * images
+     *
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
+     * @lazy
+     */
+    protected $images;
+
 	/**
 	 * plan
 	 *
@@ -165,6 +173,7 @@ class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 		 * It will be rewritten on each save in the extension builder
 		 * You may modify the constructor of this class instead
 		 */
+        $this->images = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$this->ticketClass = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 	}
 
@@ -341,6 +350,49 @@ class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	public function setImage($image) {
 		$this->image = $image;
 	}
+
+    /**
+     * Adds an image
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $image Image
+     * @return void
+     */
+    public function addImages(\TYPO3\CMS\Extbase\Domain\Model\FileReference $image)
+    {
+        $this->images->attach($image);
+    }
+
+    /**
+     * Removes an image
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $imageToRemove Image
+     * @return void
+     */
+    public function removeImages(\TYPO3\CMS\Extbase\Domain\Model\FileReference $imageToRemove)
+    {
+        $this->images->detach($imageToRemove);
+    }
+
+    /**
+     * Returns the images
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage $images
+     */
+    public function getImages()
+    {
+        return $this->images;
+    }
+
+    /**
+     * Sets the images
+     *
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $images Images
+     * @return void
+     */
+    public function setImages(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $images)
+    {
+        $this->images = $images;
+    }
 
 	/**
 	 * Returns the plan

@@ -20,6 +20,9 @@ CREATE TABLE tx_t3events_domain_model_event (
 	audience int(11) unsigned DEFAULT '0' NOT NULL,
 	new_until int(10) unsigned DEFAULT '0' NOT NULL,
 	archive_date int(10) unsigned DEFAULT '0' NOT NULL,
+	images int(11) unsigned DEFAULT '0' NOT NULL,
+    files int(11) unsigned DEFAULT '0' NOT NULL,
+    related varchar(1024) DEFAULT '' NOT NULL,
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
 	crdate int(11) unsigned DEFAULT '0' NOT NULL,
@@ -51,6 +54,20 @@ CREATE TABLE tx_t3events_domain_model_event (
 	KEY t3ver_oid (t3ver_oid,t3ver_wsid),
 	KEY language (l10n_parent,sys_language_uid)
 
+);
+
+#
+# Table structure for table 'tx_t3events_event_event_mm'
+#
+CREATE TABLE tx_t3events_event_event_mm (
+	uid_local int(11) unsigned DEFAULT '0' NOT NULL,
+	uid_foreign int(11) unsigned DEFAULT '0' NOT NULL,
+	sorting int(11) unsigned DEFAULT '0' NOT NULL,
+	sorting_foreign int(11) unsigned DEFAULT '0' NOT NULL,
+	foreign_field varchar(255) DEFAULT '' NOT NULL,
+
+	KEY uid_local (uid_local),
+	KEY uid_foreign (uid_foreign)
 );
 
 #
@@ -163,6 +180,7 @@ CREATE TABLE tx_t3events_domain_model_performance (
 	event_location int(11) unsigned DEFAULT '0',
 	ticket_class int(11) unsigned DEFAULT '0' NOT NULL,
 	status int(11) unsigned DEFAULT '0',
+	images int(11) unsigned DEFAULT '0' NOT NULL,
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
 	crdate int(11) unsigned DEFAULT '0' NOT NULL,

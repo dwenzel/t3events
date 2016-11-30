@@ -170,6 +170,180 @@ class EventTest extends UnitTestCase {
 		);
 	}
 
+    /**
+     * @test
+     */
+    public function getImagesReturnsInitialValueForObjectStorageContainingImages() {
+        $newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->assertEquals(
+            $newObjectStorage,
+            $this->fixture->getImages()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function setImagesForObjectStorageContainingImagesSetsImages() {
+        $images = new \TYPO3\CMS\Extbase\Domain\Model\FileReference();
+        $objectStorageHoldingExactlyOneImage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $objectStorageHoldingExactlyOneImage->attach($images);
+        $this->fixture->setImages($objectStorageHoldingExactlyOneImage);
+
+        $this->assertEquals(
+            $objectStorageHoldingExactlyOneImage,
+            $this->fixture->getImages()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function addImagesToObjectStorageHoldingImages() {
+        $images = new \TYPO3\CMS\Extbase\Domain\Model\FileReference();
+        $objectStorageHoldingExactlyOneImage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $objectStorageHoldingExactlyOneImage->attach($images);
+        $this->fixture->addImages($images);
+
+        $this->assertEquals(
+            $objectStorageHoldingExactlyOneImage,
+            $this->fixture->getImages()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function removeImagesFromObjectStorageHoldingImages() {
+        $images = new \TYPO3\CMS\Extbase\Domain\Model\FileReference();
+        $localObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $localObjectStorage->attach($images);
+        $localObjectStorage->detach($images);
+        $this->fixture->addImages($images);
+        $this->fixture->removeImages($images);
+
+        $this->assertEquals(
+            $localObjectStorage,
+            $this->fixture->getImages()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getFilesReturnsInitialValueForObjectStorageContainingFiles() {
+        $newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->assertEquals(
+            $newObjectStorage,
+            $this->fixture->getFiles()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function setFilesForObjectStorageContainingFilesSetsFiles() {
+        $files = new \TYPO3\CMS\Extbase\Domain\Model\FileReference();
+        $objectStorageHoldingExactlyOneImage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $objectStorageHoldingExactlyOneImage->attach($files);
+        $this->fixture->setFiles($objectStorageHoldingExactlyOneImage);
+
+        $this->assertEquals(
+            $objectStorageHoldingExactlyOneImage,
+            $this->fixture->getFiles()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function addFilesToObjectStorageHoldingFiles() {
+        $files = new \TYPO3\CMS\Extbase\Domain\Model\FileReference();
+        $objectStorageHoldingExactlyOneImage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $objectStorageHoldingExactlyOneImage->attach($files);
+        $this->fixture->addFiles($files);
+
+        $this->assertEquals(
+            $objectStorageHoldingExactlyOneImage,
+            $this->fixture->getFiles()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function removeFilesFromObjectStorageHoldingFiles() {
+        $files = new \TYPO3\CMS\Extbase\Domain\Model\FileReference();
+        $localObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $localObjectStorage->attach($files);
+        $localObjectStorage->detach($files);
+        $this->fixture->addFiles($files);
+        $this->fixture->removeFiles($files);
+
+        $this->assertEquals(
+            $localObjectStorage,
+            $this->fixture->getFiles()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getRelatedReturnsInitialValueForObjectStorageContainingRelated() {
+        $newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->assertEquals(
+            $newObjectStorage,
+            $this->fixture->getRelated()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function setRelatedForObjectStorageContainingRelatedSetsRelated() {
+        $related = new \DWenzel\T3events\Domain\Model\Event();
+        $objectStorageHoldingExactlyOneRelated = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $objectStorageHoldingExactlyOneRelated->attach($related);
+        $this->fixture->setRelated($objectStorageHoldingExactlyOneRelated);
+
+        $this->assertSame(
+            $objectStorageHoldingExactlyOneRelated,
+            $this->fixture->getRelated()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function addRelatedToObjectStorageHoldingRelated() {
+        $related = new \DWenzel\T3events\Domain\Model\Event();
+        $objectStorageHoldingExactlyOneRelated = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $objectStorageHoldingExactlyOneRelated->attach($related);
+        $this->fixture->addRelated($related);
+
+        $this->assertEquals(
+            $objectStorageHoldingExactlyOneRelated,
+            $this->fixture->getRelated()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function removeRelatedFromObjectStorageHoldingRelated() {
+        $related = new \DWenzel\T3events\Domain\Model\Event();
+        $localObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $localObjectStorage->attach($related);
+        $localObjectStorage->detach($related);
+        $this->fixture->addRelated($related);
+        $this->fixture->removeRelated($related);
+
+        $this->assertEquals(
+            $localObjectStorage,
+            $this->fixture->getRelated()
+        );
+    }
+
 	/**
 	 * @test
 	 */
