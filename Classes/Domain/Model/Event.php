@@ -291,9 +291,31 @@ class Event extends AbstractEntity {
 	}
 
     /**
-     * Get the images
+     * Adds an image
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $image Image
+     * @return void
+     */
+    public function addImages(\TYPO3\CMS\Extbase\Domain\Model\FileReference $image)
+    {
+        $this->images->attach($image);
+    }
+
+    /**
+     * Removes an image
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $imageToRemove Image
+     * @return void
+     */
+    public function removeImages(\TYPO3\CMS\Extbase\Domain\Model\FileReference $imageToRemove)
+    {
+        $this->images->detach($imageToRemove);
+    }
+
+    /**
+     * Returns the images
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage $images
      */
     public function getImages()
     {
@@ -303,18 +325,40 @@ class Event extends AbstractEntity {
     /**
      * Sets the images
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $images
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $images Images
      * @return void
      */
-    public function setImages($images)
+    public function setImages(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $images)
     {
         $this->images = $images;
     }
 
     /**
-     * Get the files
+     * Adds a file
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $file File
+     * @return void
+     */
+    public function addFiles(\TYPO3\CMS\Extbase\Domain\Model\FileReference $file)
+    {
+        $this->files->attach($file);
+    }
+
+    /**
+     * Removes a file
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $fileToRemove File
+     * @return void
+     */
+    public function removeFiles(\TYPO3\CMS\Extbase\Domain\Model\FileReference $fileToRemove)
+    {
+        $this->files->detach($fileToRemove);
+    }
+
+    /**
+     * Returns the files
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage $files
      */
     public function getFiles()
     {
@@ -324,16 +368,36 @@ class Event extends AbstractEntity {
     /**
      * Sets the files
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $files
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $files Files
      * @return void
      */
-    public function setFiles($files)
+    public function setFiles(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $files)
     {
         $this->files = $files;
     }
 
     /**
-     * Get the related events
+     * Adds a related event
+     *
+     * @param \DWenzel\T3events\Domain\Model\Event $related
+     * @return void
+     */
+    public function addRelated(\DWenzel\T3events\Domain\Model\Event $event) {
+        $this->related->attach($event);
+    }
+
+    /**
+     * Removes a related event
+     *
+     * @param \DWenzel\T3events\Domain\Model\Event $eventToRemove The related event to be removed
+     * @return void
+     */
+    public function removeRelated(\DWenzel\T3events\Domain\Model\Event $eventToRemove) {
+        $this->related->detach($eventToRemove);
+    }
+
+    /**
+     * Returns the related events
      *
      * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Event>
      */
