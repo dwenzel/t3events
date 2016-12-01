@@ -17,6 +17,7 @@ use DWenzel\T3events\Domain\Model\Dto\EventTypeAwareDemandInterface;
 use DWenzel\T3events\Domain\Model\Dto\GenreAwareDemandInterface;
 use DWenzel\T3events\Domain\Model\Dto\PerformanceDemand;
 use DWenzel\T3events\Domain\Model\Dto\PeriodAwareDemandInterface;
+use DWenzel\T3events\Domain\Model\Dto\StatusAwareDemandInterface;
 use DWenzel\T3events\Domain\Model\Dto\VenueAwareDemandInterface;
 use DWenzel\T3events\Utility\EmConfigurationUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -31,7 +32,8 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
  */
 class PerformanceRepository
     extends Repository
-    implements DemandedRepositoryInterface, PeriodConstraintRepositoryInterface, GenreConstraintRepositoryInterface,
+    implements DemandedRepositoryInterface, PeriodConstraintRepositoryInterface,
+    StatusConstraintRepositoryInterface, GenreConstraintRepositoryInterface,
     EventTypeConstraintRepositoryInterface, VenueConstraintRepositoryInterface,
     CategoryConstraintRepositoryInterface, AudienceConstraintRepositoryInterface
 {
@@ -108,7 +110,8 @@ class PerformanceRepository
         if ((bool)$searchConstraints = $this->createSearchConstraints($query, $demand)) {
             $this->combineConstraints($query, $constraints, $searchConstraints, 'OR');
         }
-        if ((bool)$statusConstraints = $this->createStatusConstraints($query, $demand)) {
+        if ($demand instanceof StatusAwareDemandInterface &&
+            (bool)$statusConstraints = $this->createStatusConstraints($query, $demand)) {
             $conjunction = 'OR';
             if ($demand->isExcludeSelectedStatuses()) {
                 $conjunction = 'NOTOR';
