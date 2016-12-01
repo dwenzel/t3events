@@ -141,10 +141,6 @@
 			<source>Subtitle</source>
 			<target>Untertitel</target>
 		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_event.teaser" approved="yes">
-			<source>Teaser</source>
-			<target>Teaser</target>
-		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_event.venue" approved="yes">
 			<source>Venue</source>
 			<target>Einrichtung</target>
@@ -508,10 +504,6 @@
 		<trans-unit id="label.period_duration" approved="yes">
 			<source>Duration</source>
 			<target>Dauer</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_teaser" approved="yes">
-			<source>Teaser</source>
-			<target>Teaser</target>
 		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_teaser.details" approved="yes">
 			<source>Details</source>

@@ -22,18 +22,10 @@ plugin.tx_t3events {
 	settings {
 		debug {
 			settings = 0
-			teasers = 0
 			highlights = 0
 			list {
 				events = 0
 				demand = 0
-			}
-		}
-		teaser {
-			dummyImage = EXT:t3events/Resources/Public/Images/dummy-image.png
-			image {
-				width = 93
-				height = 93
 			}
 		}
 		event {

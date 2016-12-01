@@ -108,9 +108,6 @@
 		<trans-unit id="tx_t3events_domain_model_event.subtitle">
 			<source>Subtitle</source>
 		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_event.teaser">
-			<source>Teaser</source>
-		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_event.venue">
 			<source>Venue</source>
 		</trans-unit>
@@ -380,9 +377,6 @@
 		</trans-unit>
 		<trans-unit id="label.period">
 			<source>Period</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_teaser">
-			<source>Teaser</source>
 		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_teaser.details">
 			<source>Details</source>

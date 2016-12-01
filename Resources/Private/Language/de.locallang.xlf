@@ -339,10 +339,6 @@
 			<source>performances</source>
 			<target>Vorstellungen</target>
 		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_event.teaser" approved="yes" xml:space="preserve">
-			<source>Teaser</source>
-			<target>Teaser</target>
-		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_event.files" approved="yes" xml:space="preserve">
 			<source>Files</source>
 			<target>Dateien</target>
@@ -500,38 +496,6 @@
 			<target>priority</target>
 		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_performancestatus.title" approved="yes" xml:space="preserve">
-			<source>title</source>
-			<target>title</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_teaser" approved="yes" xml:space="preserve">
-			<source>Teaser</source>
-			<target>Teaser</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_teaser.details" approved="yes" xml:space="preserve">
-			<source>details</source>
-			<target>details</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_teaser.event" approved="yes" xml:space="preserve">
-			<source>event</source>
-			<target>Veranstaltung</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_teaser.image" approved="yes" xml:space="preserve">
-			<source>image</source>
-			<target>Bild</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_teaser.inherit_data" approved="yes" xml:space="preserve">
-			<source>inheritData</source>
-			<target>inheritData</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_teaser.is_highlight" approved="yes" xml:space="preserve">
-			<source>isHighlight</source>
-			<target>hervorgehoben</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_teaser.location" approved="yes" xml:space="preserve">
-			<source>location</source>
-			<target>location</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_teaser.title" approved="yes" xml:space="preserve">
 			<source>title</source>
 			<target>title</target>
 		</trans-unit>
