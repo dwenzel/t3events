@@ -1,62 +1,59 @@
 <?php
 namespace DWenzel\T3events\Tests\Controller;
 
-/***************************************************************
- *  Copyright notice
- *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
- *            Michael Kasten <kasten@webfox01.de>, Agentur Webfox
- *  All rights reserved
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
-use DWenzel\T3calendar\Domain\Model\Dto\CalendarConfiguration;
+/**
+ * This file is part of the TYPO3 CMS project.
+ *
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with this source code.
+ *
+ * The TYPO3 project - inspiring people to share!
+ */
+
 use DWenzel\T3calendar\Domain\Model\Dto\CalendarConfigurationFactory;
+use DWenzel\T3calendar\Domain\Model\Dto\CalendarConfigurationFactoryInterface;
 use DWenzel\T3events\Domain\Factory\Dto\EventDemandFactory;
 use DWenzel\T3events\Controller\EventController;
 use DWenzel\T3events\Domain\Model\Dto\EventDemand;
+use DWenzel\T3events\Domain\Model\Event;
 use DWenzel\T3events\Session\SessionInterface;
 use DWenzel\T3events\Utility\SettingsUtility;
+use TYPO3\CMS\Core\Tests\AccessibleObjectInterface;
+use TYPO3\CMS\Core\Tests\UnitTestCase;
 use TYPO3\CMS\Extbase\Mvc\Request;
-use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
+use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
+use TYPO3\CMS\Fluid\View\TemplateView;
 
 /**
  * Test case for class \DWenzel\T3events\Controller\EventController.
  *
- * @version $Id$
- * @copyright Copyright belongs to the respective authors
- * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- * @package TYPO3
- * @subpackage Events
- * @author Dirk Wenzel <wenzel@webfox01.de>
- * @author Michael Kasten <kasten@webfox01.de>
  * @coversDefaultClass \DWenzel\T3events\Controller\EventController
  */
-class EventControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
+class EventControllerTest extends UnitTestCase {
 
 	/**
-	 * @var \DWenzel\T3events\Controller\EventController
+	 * @var \DWenzel\T3events\Controller\EventController|\PHPUnit_Framework_MockObject_MockObject|AccessibleObjectInterface
 	 */
 	protected $subject;
-
-	/**
-	 * @var \PHPUnit_Framework_MockObject_MockObject|\TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController|\TYPO3\CMS\Core\Tests\AccessibleObjectInterface
-	 */
-	protected $tsfe = NULL;
 
     /**
      * @var CalendarConfigurationFactory|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $calendarConfigurationFactory;
+
+    /**
+     * @var array
+     */
+    protected $settings = [];
+
+    /**
+     * @var ViewInterface|\PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $view;
 
     /**
      * @var EventDemandFactory|\PHPUnit_Framework_MockObject_MockObject
@@ -76,28 +73,23 @@ class EventControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 			array(), array(), '', FALSE);
 		$eventTypeRepository = $this->getMock('DWenzel\\T3events\\Domain\\Repository\\EventTypeRepository',
 			array(), array(), '', FALSE);
-		$this->tsfe = $this->getAccessibleMock('TYPO3\\CMS\\Frontend\\Controller\\TypoScriptFrontendController',
-			array('dummy'), array(), '', FALSE);
-		$mockFEAuthentication = $this->getMock('TYPO3\\CMS\\Frontend\\Authentication\\FrontendUserAuthentication',
-			array('setKey', 'storeSessionData'), array(), '', FALSE);
-		$this->tsfe->_set('fe_user', $mockFEAuthentication);
-		$GLOBALS['TSFE'] = $this->tsfe;
         $mockSession = $this->getMock(
             SessionInterface::class, ['has', 'get', 'clean', 'set', 'setNamespace']
         );
-        $view = $this->getMock('TYPO3\\CMS\\Fluid\\View\\TemplateView', array(), array(), '', FALSE);
+        $this->view = $this->getMock(TemplateView::class,['assign', 'assignMultiple'], [], '', false);
         $mockRequest = $this->getMock(Request::class);
 
         $this->subject->_set('eventRepository', $eventRepository);
 		$this->subject->_set('genreRepository', $genreRepository);
 		$this->subject->_set('venueRepository', $venueRepository);
 		$this->subject->_set('eventTypeRepository', $eventTypeRepository);
-		$this->subject->_set('view', $view);
+		$this->subject->_set('view', $this->view);
         $this->subject->_set('session', $mockSession);
         $this->subject->_set('request', $mockRequest);
+        $this->subject->_set('settings', $this->settings);
         $this->calendarConfigurationFactory = $this->getMock(
             CalendarConfigurationFactory::class, ['create']);
-        $mockCalendarConfiguration = $this->getMockForAbstractClass(\DWenzel\T3calendar\Domain\Model\Dto\CalendarConfigurationFactoryInterface::class);
+        $mockCalendarConfiguration = $this->getMockForAbstractClass(CalendarConfigurationFactoryInterface::class);
         $this->calendarConfigurationFactory->expects($this->any())
             ->method('create')
             ->will($this->returnValue($mockCalendarConfiguration));
@@ -344,6 +336,34 @@ class EventControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
         $mockSession->expects($this->once())
             ->method('clean');
         $this->subject->initializeQuickMenuAction();
+    }
+
+    /**
+     * @test
+     */
+    public function showActionAssignsVariablesToView()
+    {
+        $mockEvent = $this->getMock(Event::class);
+
+        $this->view->expects($this->once())
+            ->method('assignMultiple');
+        $this->subject->showAction($mockEvent);
+    }
+
+    /**
+     * @test
+     */
+    public function showActionEmitsSignal()
+    {
+        $mockEvent = $this->getMock(Event::class);
+
+        $this->subject->expects($this->once())
+            ->method('emitSignal')
+            ->with(
+                EventController::class,
+                EventController::EVENT_SHOW_ACTION
+            );
+        $this->subject->showAction($mockEvent);
     }
 
 }
