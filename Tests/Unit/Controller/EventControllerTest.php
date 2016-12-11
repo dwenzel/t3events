@@ -20,13 +20,21 @@ use DWenzel\T3events\Domain\Factory\Dto\EventDemandFactory;
 use DWenzel\T3events\Controller\EventController;
 use DWenzel\T3events\Domain\Model\Dto\EventDemand;
 use DWenzel\T3events\Domain\Model\Event;
+use DWenzel\T3events\Domain\Repository\EventRepository;
+use DWenzel\T3events\Domain\Repository\EventTypeRepository;
+use DWenzel\T3events\Domain\Repository\GenreRepository;
+use DWenzel\T3events\Domain\Repository\VenueRepository;
 use DWenzel\T3events\Session\SessionInterface;
 use DWenzel\T3events\Utility\SettingsUtility;
+use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Tests\AccessibleObjectInterface;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Mvc\Request;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Fluid\View\TemplateView;
+use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
  * Test case for class \DWenzel\T3events\Controller\EventController.
@@ -60,32 +68,41 @@ class EventControllerTest extends UnitTestCase {
      */
     protected $eventDemandFactory;
 
+    /**
+     * @var EventRepository|\PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $eventRepository;
+
 	public function setUp() {
 		$this->subject = $this->getAccessibleMock(
 		    EventController::class,
-			['dummy', 'emitSignal'], [], '', false
+			['overwriteDemandObject', 'emitSignal', 'addFlashMessage', 'translate'], [], '', false
         );
-		$eventRepository = $this->getMock('DWenzel\\T3events\\Domain\\Repository\\EventRepository',
-			array(), array(), '', FALSE);
-		$genreRepository = $this->getMock('DWenzel\\T3events\\Domain\\Repository\\GenreRepository',
-			array(), array(), '', FALSE);
-		$venueRepository = $this->getMock('DWenzel\\T3events\\Domain\\Repository\\VenueRepository',
-			array(), array(), '', FALSE);
-		$eventTypeRepository = $this->getMock('DWenzel\\T3events\\Domain\\Repository\\EventTypeRepository',
-			array(), array(), '', FALSE);
+        $this->eventDemandFactory = $this->getMock(EventDemandFactory::class, ['createFromSettings']);
+        $mockDemand = $this->getMock(EventDemand::class);
+        $this->eventDemandFactory->method('createFromSettings')->will($this->returnValue($mockDemand));
+        $this->subject->injectEventDemandFactory($this->eventDemandFactory);
+        $mockResult = $this->getMock(QueryResultInterface::class);
+        $this->eventRepository = $this->getMock(
+		    EventRepository::class,
+            ['findDemanded'], [], '', false);
+        $this->eventRepository->method('findDemanded')->will($this->returnValue($mockResult));
+        $this->subject->injectEventRepository($this->eventRepository);
+
         $mockSession = $this->getMock(
             SessionInterface::class, ['has', 'get', 'clean', 'set', 'setNamespace']
         );
         $this->view = $this->getMock(TemplateView::class,['assign', 'assignMultiple'], [], '', false);
         $mockRequest = $this->getMock(Request::class);
 
-        $this->subject->_set('eventRepository', $eventRepository);
-		$this->subject->_set('genreRepository', $genreRepository);
-		$this->subject->_set('venueRepository', $venueRepository);
-		$this->subject->_set('eventTypeRepository', $eventTypeRepository);
 		$this->subject->_set('view', $this->view);
-        $this->subject->_set('session', $mockSession);
+        $this->subject->injectSession($mockSession);
         $this->subject->_set('request', $mockRequest);
+
+        $mockContentObjectRenderer = $this->getMock(ContentObjectRenderer::class);
+        $mockConfigurationManager = $this->getMockForAbstractClass(ConfigurationManagerInterface::class);
+        $mockConfigurationManager->method('getContentObject')->will($this->returnValue($mockContentObjectRenderer));
+        $this->subject->injectConfigurationManager($mockConfigurationManager);
         $this->subject->_set('settings', $this->settings);
         $this->calendarConfigurationFactory = $this->getMock(
             CalendarConfigurationFactory::class, ['create']);
@@ -140,166 +157,6 @@ class EventControllerTest extends UnitTestCase {
 			$this->subject->createDemandFromSettings($settings)
 		);
 	}
-
-	/**
-	 * @test
-	 * @covers ::overwriteDemandObject
-	 */
-	public function overwriteDemandObjectDoesNotChangeDemandForEmptyOverwriteDemand() {
-		$demand = $this->getMock(EventDemand::class, ['dummy']);
-		$clonedDemand = $this->getMock(EventDemand::class, ['dummy']);
-		$overwriteDemand = [];
-
-		$this->subject->overwriteDemandObject($demand, $overwriteDemand);
-		$this->assertEquals(
-			$demand,
-			$clonedDemand
-		);
-	}
-
-	/**
-	 * @test
-	 * @covers ::overwriteDemandObject
-	 */
-	public function overwriteDemandObjectSetsGenre() {
-		$demand = $this->getMock('DWenzel\\T3events\\Domain\\Model\\Dto\\EventDemand');
-		$overwriteDemand = array(
-			'genre' => '1,2,3'
-		);
-
-		$demand->expects($this->once())->method('setGenre')
-			->with('1,2,3');
-
-		$this->subject->overwriteDemandObject($demand, $overwriteDemand);
-	}
-
-	/**
-	 * @test
-	 * @covers ::overwriteDemandObject
-	 */
-	public function overwriteDemandObjectSetsVenue() {
-		$demand = $this->getMock('DWenzel\\T3events\\Domain\\Model\\Dto\\EventDemand');
-		$overwriteDemand = array(
-			'venue' => '1,2,3'
-		);
-
-		$demand->expects($this->once())->method('setVenue')
-			->with('1,2,3');
-
-		$this->subject->overwriteDemandObject($demand, $overwriteDemand);
-	}
-
-	/**
-	 * @test
-	 * @covers ::overwriteDemandObject
-	 */
-	public function overwriteDemandObjectSetsEventType() {
-		$demand = $this->getMock('DWenzel\\T3events\\Domain\\Model\\Dto\\EventDemand');
-		$overwriteDemand = array(
-			'eventType' => '1,2,3'
-		);
-
-		$demand->expects($this->once())->method('setEventType')
-			->with('1,2,3');
-
-		$this->subject->overwriteDemandObject($demand, $overwriteDemand);
-	}
-
-	/**
-	 * @test
-	 * @covers ::overwriteDemandObject
-	 */
-	public function overwriteDemandObjectSetsCategoryConjunction() {
-		$demand = $this->getMock('DWenzel\\T3events\\Domain\\Model\\Dto\\EventDemand');
-		$overwriteDemand = array(
-			'categoryConjunction' => 'asc'
-		);
-
-		$demand->expects($this->once())->method('setCategoryConjunction')
-			->with('asc');
-
-		$this->subject->overwriteDemandObject($demand, $overwriteDemand);
-	}
-
-	/**
-	 * @test
-	 * @covers ::overwriteDemandObject
-	 */
-	public function overwriteDemandObjectSetsSortBy() {
-		$demand = $this->getMock('DWenzel\\T3events\\Domain\\Model\\Dto\\EventDemand');
-		$overwriteDemand = array(
-			'sortBy' => 'foo'
-		);
-
-		$demand->expects($this->once())->method('setSortBy')
-			->with('foo');
-
-		$this->subject->overwriteDemandObject($demand, $overwriteDemand);
-	}
-
-	/**
-	 * @test
-	 * @covers ::overwriteDemandObject
-	 */
-	public function overwriteDemandObjectSetsSortOrder() {
-		$demand = $this->getMock('DWenzel\\T3events\\Domain\\Model\\Dto\\EventDemand');
-		$overwriteDemand = array(
-			'sortBy' => 'foo',
-			'sortDirection' => 'bar'
-		);
-
-		$demand->expects($this->once())->method('setOrder')
-			->with('foo|bar');
-
-		$this->subject->overwriteDemandObject($demand, $overwriteDemand);
-	}
-
-	/**
-	 * @test
-	 * @covers ::overwriteDemandObject
-	 */
-	public function overwriteDemandObjectSetsDefaultSortDirectionAscending() {
-		$demand = $this->getMock('DWenzel\\T3events\\Domain\\Model\\Dto\\EventDemand');
-		$overwriteDemand = array(
-			'sortDirection' => 'foo'
-		);
-
-		$demand->expects($this->once())->method('setSortDirection')
-			->with('asc');
-
-		$this->subject->overwriteDemandObject($demand, $overwriteDemand);
-	}
-
-	/**
-	 * @test
-	 * @covers ::overwriteDemandObject
-	 */
-	public function overwriteDemandObjectSetsSortDirectionDescending() {
-		$demand = $this->getMock('DWenzel\\T3events\\Domain\\Model\\Dto\\EventDemand');
-		$overwriteDemand = array(
-			'sortDirection' => 'desc'
-		);
-
-		$demand->expects($this->once())->method('setSortDirection')
-			->with('desc');
-
-		$this->subject->overwriteDemandObject($demand, $overwriteDemand);
-	}
-
-	/**
-     * @test
-     */
-	public function calendarActionGetsConfigurationFromFactory()
-    {
-        $settings = [];
-        $this->subject->_set('settings', $settings);
-        $this->mockGetEventDemandFromFactory();
-        $this->calendarConfigurationFactory->expects($this->once())
-            ->method('create')
-            ->with($settings);
-        $this->subject->calendarAction();
-    }
-
 
     /**
      * @test
@@ -366,5 +223,88 @@ class EventControllerTest extends UnitTestCase {
         $this->subject->showAction($mockEvent);
     }
 
+    /**
+     * @test
+     */
+    public function listActionGetsEventDemandFromFactory()
+    {
+        $mockDemand = $this->getMock(EventDemand::class);
+        $this->eventDemandFactory->expects($this->once())
+            ->method('createFromSettings')
+            ->with($this->settings)
+            ->will($this->returnValue($mockDemand));
+
+        $this->subject->listAction();
+    }
+
+    /**
+     * @test
+     */
+    public function listActionOverwritesDemandObject()
+    {
+        $mockDemand = $this->getMock(EventDemand::class);
+        $this->eventDemandFactory->method('createFromSettings')
+            ->will($this->returnValue($mockDemand));
+        $this->subject->expects($this->once())
+            ->method('overwriteDemandObject')
+            ->with($mockDemand);
+
+        $this->subject->listAction();
+    }
+
+    /**
+     * @test
+     */
+    public function listActionGetsEventsFromRepository()
+    {
+        $this->eventRepository->expects($this->once())
+            ->method('findDemanded')
+            ->with($this->isInstanceOf(EventDemand::class));
+
+        $this->subject->listAction();
+    }
+
+    /**
+     * @test
+     */
+    public function listActionAddsFlashMessageForEmptyResult()
+    {
+        $title = 'foo';
+        $message = 'bar';
+        $this->subject->expects($this->exactly(2))
+            ->method('translate')
+            ->withConsecutive(
+                ['tx_t3events.noEventsForSelectionMessage'],
+                ['tx_t3events.noEventsForSelectionTitle']
+            )
+            ->will($this->onConsecutiveCalls($message, $title));
+        $this->subject->expects($this->once())
+            ->method('addFlashMessage')
+            ->with($message, $title, FlashMessage::WARNING);
+
+        $this->subject->listAction();
+    }
+
+    /**
+     * @test
+     */
+    public function listActionEmitsSignal()
+    {
+        $this->subject->expects($this->once())
+            ->method('emitSignal')
+            ->with(EventController::class, EventController::EVENT_LIST_ACTION);
+        $this->subject->listAction();
+    }
+
+    /**
+     * @test
+     */
+    public function listActionAssignsVariablesToView()
+    {
+        $this->view->expects($this->once())
+            ->method('assignMultiple');
+
+        $this->subject->listAction();
+    }
 }
 

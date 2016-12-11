@@ -30,46 +30,16 @@ class EventController extends ActionController
 {
     use CalendarFactoryTrait, CalendarConfigurationFactoryTrait,
         DemandTrait, EventDemandFactoryTrait,
-        EntityNotFoundHandlerTrait, FilterableControllerTrait,
-        SearchTrait, SessionTrait, SettingsUtilityTrait,
+        EventRepositoryTrait, EntityNotFoundHandlerTrait,
+        EventTypeRepositoryTrait, FilterableControllerTrait,
+        GenreRepositoryTrait, SearchTrait, SessionTrait,
+        SettingsUtilityTrait, VenueRepositoryTrait,
         TranslateTrait;
 
     const EVENT_QUICK_MENU_ACTION = 'quickMenuAction';
     const EVENT_LIST_ACTION = 'listAction';
     const EVENT_SHOW_ACTION = 'showAction';
     const EVENT_CALENDAR_ACTION = 'calendarAction';
-
-    /**
-     * eventRepository
-     *
-     * @var \DWenzel\T3events\Domain\Repository\EventRepository
-     * @inject
-     */
-    protected $eventRepository;
-
-    /**
-     * genreRepository
-     *
-     * @var \DWenzel\T3events\Domain\Repository\GenreRepository
-     * @inject
-     */
-    protected $genreRepository;
-
-    /**
-     * venueRepository
-     *
-     * @var \DWenzel\T3events\Domain\Repository\VenueRepository
-     * @inject
-     */
-    protected $venueRepository;
-
-    /**
-     * eventTypeRepository
-     *
-     * @var \DWenzel\T3events\Domain\Repository\EventTypeRepository
-     * @inject
-     */
-    protected $eventTypeRepository;
 
     /**
      * initializes all actions
@@ -109,16 +79,8 @@ class EventController extends ActionController
 
         /** @var QueryResultInterface $events */
         if (
-            (
-                $events instanceof QueryResultInterface
-                AND !$events->count()
-                AND !$this->settings['hideIfEmptyResult']
-            )
-            OR
-            (
-                !count($events)
-                AND !$this->settings['hideIfEmptyResult']
-            )
+            !$events->count()
+            && !$this->settings['hideIfEmptyResult']
         ) {
             $this->addFlashMessage(
                 $this->translate('tx_t3events.noEventsForSelectionMessage'),
@@ -162,9 +124,8 @@ class EventController extends ActionController
      */
     public function quickMenuAction()
     {
-
         // get session data
-        $overwriteDemand = unserialize($this->session->set('tx_t3events_overwriteDemand'));
+        $overwriteDemand = unserialize($this->session->get('tx_t3events_overwriteDemand'));
 
         // get filter options from plugin
         $genres = $this->genreRepository->findMultipleByUid($this->settings['genres'], 'title');
