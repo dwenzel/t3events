@@ -149,10 +149,10 @@ class EventController extends ActionController
     /**
      * action calendar
      *
-     * @param \array $overwriteDemand
+     * @param array $overwriteDemand
      * @return void
      */
-    public function calendarAction($overwriteDemand = null)
+    public function calendarAction(array $overwriteDemand = null)
     {
         $demand = $this->eventDemandFactory->createFromSettings($this->settings);
         $this->overwriteDemandObject($demand, $overwriteDemand);
