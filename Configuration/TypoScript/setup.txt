@@ -1,92 +1,101 @@
 plugin.tx_t3events {
-	# prevent exception #1313855175 with two plugins at the same page (http://forge.typo3.org/issues/31322):
-	mvc.callDefaultActionIfActionCantBeResolved = 1
+    # prevent exception #1313855175 with two plugins at the same page (http://forge.typo3.org/issues/31322):
+    mvc.callDefaultActionIfActionCantBeResolved = 1
 
-	view {
-		templateRootPath = {$plugin.tx_t3events.view.templateRootPath}
-		partialRootPath = {$plugin.tx_t3events.view.partialRootPath}
-		layoutRootPath = {$plugin.tx_t3events.view.layoutRootPath}
-	}
+    view {
+        templateRootPath = {$plugin.tx_t3events.view.templateRootPath}
+        partialRootPath = {$plugin.tx_t3events.view.partialRootPath}
+        layoutRootPath = {$plugin.tx_t3events.view.layoutRootPath}
+    }
 
-	persistence {
-		storagePid = {$plugin.tx_t3events.persistence.storagePid}
-	}
+    persistence {
+        storagePid = {$plugin.tx_t3events.persistence.storagePid}
+    }
 
-	features {
-		# uncomment the following line to enable the new Property Mapper.
-		# rewrittenPropertyMapper = 1
-	}
+    features {
+        # uncomment the following line to enable the new Property Mapper.
+        # rewrittenPropertyMapper = 1
+    }
 }
 
 plugin.tx_t3events {
-	settings {
-		debug {
-			settings = 0
-			highlights = 0
-			list {
-				events = 0
-				demand = 0
-			}
-		}
-		event {
-			list {
-				dummyImage = EXT:t3events/Resources/Public/Images/dummy-image.png
-				image {
-					width = 120
-					height = 120
-				}
-				search {
-					fields = {$plugin.tx_t3events.settings.event.search.fields}
-					radius {
-						unit = km
-						options {
-							50000 = 50 km
-							100000 = 100 km
-							250000 = 250 km
-							500000 = 500 km
-							1000000 = 1000 km
-						}
-					}
-				}
-				paginate = 1
-				showSortBy = 1
-			}
-			detail {
-				errorHandling = {$plugin.tx_t3events.settings.detail.errorHandling}
+    settings {
+        debug {
+            settings = 0
+            highlights = 0
+            list {
+                events = 0
+                demand = 0
+            }
+        }
+
+        event {
+            list {
+                dummyImage = EXT:t3events/Resources/Public/Images/dummy-image.png
+                image {
+                    width = 120
+                    height = 120
+                }
+
+                search {
+                    fields = {$plugin.tx_t3events.settings.event.search.fields}
+                    radius {
+                        unit = km
+                        options {
+                            50000 = 50 km
+                            100000 = 100 km
+                            250000 = 250 km
+                            500000 = 500 km
+                            1000000 = 1000 km
+                        }
+                    }
+                }
+
+                paginate = 1
+                showSortBy = 1
+            }
+
+            detail {
+                errorHandling = {$plugin.tx_t3events.settings.detail.errorHandling}
                 media.image {
                     maxHeight = 300
                     maxWidth = 500
                 }
-			}
-			single {
-				dummyImage = EXT:t3events/Resources/Public/Images/dummy-image.png
-				image {
-					width = 200
-					height = 200
-				}
-				eventLocation {
-					image {
-						width = 290m
-						height = 200
-					}
-				}
-				plan {
-					image {
-						width = 290m
-						height = 450
-					}
-				}
-			}
-		}
-		performance {
-			detail {
-				errorHandling = {$plugin.tx_t3events.settings.detail.errorHandling}
+            }
+
+            single {
+                dummyImage = EXT:t3events/Resources/Public/Images/dummy-image.png
+                image {
+                    width = 200
+                    height = 200
+                }
+
+                eventLocation {
+                    image {
+                        width = 290m
+                        height = 200
+                    }
+                }
+
+                plan {
+                    image {
+                        width = 290m
+                        height = 450
+                    }
+                }
+            }
+        }
+
+        performance {
+            detail {
+                errorHandling = {$plugin.tx_t3events.settings.detail.errorHandling}
                 media.image {
                     maxHeight = 300
                     maxWidth = 500
                 }
-			}
-			list {
+            }
+
+            list {
                 search {
                     fields = {$plugin.tx_t3events.settings.performance.search.fields}
                     radius {
@@ -100,20 +109,22 @@ plugin.tx_t3events {
                         }
                     }
                 }
+
                 # legacy sorting
                 sortBy = date
                 sortDirection = asc
                 # todo read order
                 # order = date|asc
             }
+
             quickMenu {
                 showSearchField = 1
             }
-		}
-	}
+        }
+    }
 
-	// settings
-	_CSS_DEFAULT_STYLE (
+    // settings
+    _CSS_DEFAULT_STYLE (
 		input.f3-form-error {
 			background-color:#FF9F9F;
 			border: 1px #FF0000 solid;
@@ -131,7 +142,7 @@ plugin.tx_t3events {
 		.tx-t3events table td {
 			vertical-align:top;
 		}
-	)
+    )
 }
 
 ####################
@@ -140,10 +151,10 @@ plugin.tx_t3events {
 #config.tx_extbase.view.widget.Tx_Fluid_ViewHelpers_Widget_PaginateViewHelper.templateRootPath = {$plugin.tx_t3events.view.templateRootPath}
 
 config.tx_extbase.objects {
-	# overwrite class to allow USER_INT from flexform
-	TYPO3\CMS\Extbase\Service\ExtensionService {
-		className = DWenzel\T3events\Service\ExtensionService
-	}
+    # overwrite class to allow USER_INT from flexform
+    TYPO3\CMS\Extbase\Service\ExtensionService {
+        className = DWenzel\T3events\Service\ExtensionService
+    }
 }
 
 ####################
@@ -156,14 +167,66 @@ page.includeCSS.t3eventsBasic = EXT:t3events/Resources/Public/Css/t3eventsBasic.
 # provides a workaround for missing localization of <f:format.date /> view helper
 lib.dateMe = TEXT
 lib.dateMe {
-	current = 1
-	strftime = %a, %d.%m.%y
+    current = 1
+    strftime = %a, %d.%m.%y
 }
 
 # Rendering of content elements in detail view
 lib.tx_t3events.contentElementRendering = RECORDS
 lib.tx_t3events.contentElementRendering {
-	tables = tt_content
-	source.current = 1
-	dontCheckPid = 1
+    tables = tt_content
+    source.current = 1
+    dontCheckPid = 1
 }
+
+# Page type for ICS download
+pagePerformanceICS = PAGE
+pagePerformanceICS {
+    typeNum = 1481289579
+    headerData >
+    config {
+        disableAllHeaderCode = 1
+        xhtml_cleaning = 0
+        admPanel = 0
+        debug = 0
+        no_cache = 1
+        additionalHeaders =  Content-Type:text/calendar;charset=utf-8|Content-Disposition:attachment;filename=events.ics
+    }
+
+    10 = USER
+    10 {
+        userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
+        extensionName = T3events
+        vendorName = DWenzel
+        pluginName = Events
+        controller = Performance
+        action = show
+        switchableControllerActions {
+            Performance {
+                1 = show
+            }
+        }
+    }
+}
+
+[compatVersion = 7.6.1]
+    pageEventICS.config.additionalHeaders >
+    pageEventICS.config.additionalHeaders {
+        10.header = Content-Type:text/calendar;charset=utf-8
+        20.header = Content-Disposition:attachment;filename=events.ics
+    }
+[global]
+
+pageEventICS < pagePerformanceICS
+pageEventICS {
+    typeNum = 1481289580
+    10 {
+        controller = Event
+        switchableControllerActions {
+            Event {
+                1 = show
+            }
+        }
+    }
+}
+

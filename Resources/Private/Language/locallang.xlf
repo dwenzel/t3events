@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2016-06-17T12:35:16Z">
+	<file source-language="en" datatype="plaintext" original="messages" date="2016-12-13T12:38:35Z">
 		<header>
 			<type>module</type>
 			<description>Language labels for the Events extension in the FRONTEND</description>
@@ -15,6 +15,9 @@
 		</trans-unit>
 		<trans-unit id="button.cancel" xml:space="preserve">
 			<source>Cancel</source>
+		</trans-unit>
+		<trans-unit id="button.downloadICS" xml:space="preserve">
+			<source>ICS file</source>
 		</trans-unit>
 		<trans-unit id="button.reset" xml:space="preserve">
 			<source>reset</source>
@@ -247,6 +250,9 @@
 		<trans-unit id="tx_t3events_domain_model_event.event_type" xml:space="preserve">
 			<source>eventType</source>
 		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_event.files" xml:space="preserve">
+			<source>Files</source>
+		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_event.genre" xml:space="preserve">
 			<source>genre</source>
 		</trans-unit>
@@ -255,15 +261,6 @@
 		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_event.image" xml:space="preserve">
 			<source>image</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_event.files" xml:space="preserve">
-			<source>Files</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_event.related" xml:space="preserve">
-			<source>Related events</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performance.images" xml:space="preserve">
-			<source>Images</source>
 		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_event.keywords" xml:space="preserve">
 			<source>keywords</source>
@@ -276,6 +273,9 @@
 		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_event.performances" xml:space="preserve">
 			<source>performances</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_event.related" xml:space="preserve">
+			<source>Related events</source>
 		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_event.subtitle" xml:space="preserve">
 			<source>subtitle</source>
@@ -360,6 +360,9 @@
 		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_performance.image" xml:space="preserve">
 			<source>image</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_performance.images" xml:space="preserve">
+			<source>Images</source>
 		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_performance.no_handling_fee" xml:space="preserve">
 			<source>no handling fee</source>
