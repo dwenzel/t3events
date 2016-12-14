@@ -33,19 +33,19 @@
 
 <f:section name="pagination">
 	<f:widget.paginate objects="{performances}" as="paginatedPerformances" configuration="{itemsPerPage: 20, insertAbove: 1, insertBelow: 1, maximumNumberOfLinks: 3}">
-		<f:render section="performanceList" arguments="{performances: paginatedPerformances, settings: settings}"/>
+		<f:render section="performanceList" arguments="{performances: '{paginatedPerformances}', settings: settings}"/>
 	</f:widget.paginate>
 </f:section>
 <f:section name="performanceList">
 	<f:for each="{performances}" as="performance" iteration="iteration">
 		{f:if(condition: '{iteration.isFirst}', then: ' <hr /> ')}
-		<f:render partial="Performance/ListItem" arguments="{performance: performance, settings: settings}" />
+		<f:render partial="Performance/ListItem" arguments="{performance: '{performance}', settings: settings}" />
 		<hr />
 	</f:for>
 </f:section>
 
 <f:section name="performanceShortList">
 	<f:for each="{performances}" as="performance" iteration="iteration">
-		<f:render partial="Performance/ListItemShort" arguments="{performance: performance, settings: settings}" />
+		<f:render partial="Performance/ListItemShort" arguments="{performance: '{performance}', settings: settings}" />
 	</f:for>
 </f:section>
