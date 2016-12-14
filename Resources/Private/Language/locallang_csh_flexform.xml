@@ -8,11 +8,10 @@
 	<data type="array">
 		<languageKey index="default" type="array">
 			<label index="switchableControllerActions.description"><![CDATA[
-					<b>Choose plugin type.</b><br /> 
-					<i>Teaser</i>: show teasers for events.<br /> 
-					<i>Events List/Detail</i>: show list and single view for events.<br /> 
-					<i>Quickmenu</i>: show select fields for genres and venues.<br /> 
-					Please configure the plugin and provide a storage page with event/teaser records in Behavior tab. Some options are only valid for the Event/List view and ignored in Teaser and Quickmenu view.
+					<b>Choose plugin type.</b><br />
+					<i>Events List/Detail</i>: show list and single view for events.<br />
+					<i>Quickmenu</i>: show select fields for genres and venues.<br />
+					Please configure the plugin and provide a storage page with event records in Behavior tab. Some options are only valid for the Event/List view and ignored in Quickmenu view.
 					]]>
 			</label>
 			<label index="settings.cache.makeNonCacheable.description"><![CDATA[
@@ -23,11 +22,10 @@
 		</languageKey>
 		<languageKey index="de" type="array">
 			<label index="switchableControllerActions.description"><![CDATA[
-				<b>Plugintyp auswählen.</b><br /> 
-				<i>Teaser</i>: zeigt Teaser für Veranstaltungen.<br /> 
-				<i>Veranstaltungen Liste/Detail</i>: Zeigt Listen- und Einzelansicht für Veranstaltungen.<br /> 
+				<b>Plugintyp auswählen.</b><br />
+				<i>Veranstaltungen Liste/Detail</i>: Zeigt Listen- und Einzelansicht für Veranstaltungen.<br />
 				Schnellmenü: Zeigt Auswahlfelder für Genres Einrichtungen und Veranstaltungstypen. <br />
-				Bitte konfigurieren Sie das Plugin und geben Sie im Reiter 'Verhalten' eine oder mehrere Seiten mit Datensätzen für Veranstaltungen und Teaser an. Einige Optionen gelten nur für 'Veranstaltungen Liste/Details' und werden in 'Schnellmenü' und 'Teaser' ignoriert.
+				Bitte konfigurieren Sie das Plugin und geben Sie im Reiter 'Verhalten' eine oder mehrere Seiten mit Datensätzen für Veranstaltungen an. Einige Optionen gelten nur für 'Veranstaltungen Liste/Details' und werden in 'Schnellmenü' ignoriert.
 				]]>
 			</label>
 			<label index="settings.cache.makeNonCacheable.description">Inhalte des Plugins nicht zwischenspeichern.</label>

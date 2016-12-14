@@ -21,6 +21,22 @@
 			<source>Link</source>
 			<target>Link</target>
 		</trans-unit>
+		<trans-unit id="label.period.all" approved="yes">
+			<source>all</source>
+			<target>alle</target>
+		</trans-unit>
+		<trans-unit id="label.period.past" approved="yes">
+			<source>past only</source>
+			<target>nur vergangene</target>
+		</trans-unit>
+		<trans-unit id="label.period.future" approved="yes">
+			<source>future only</source>
+			<target>nur zukünftige</target>
+		</trans-unit>
+		<trans-unit id="label.period.specific" approved="yes">
+			<source>specific</source>
+			<target>spezifisch</target>
+		</trans-unit>
 		<trans-unit id="static_countries.tx_extbase_type.Tx_T3events_Country" approved="yes">
 			<source>Events Country</source>
 			<target>Land</target>
@@ -125,14 +141,26 @@
 			<source>Subtitle</source>
 			<target>Untertitel</target>
 		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_event.teaser" approved="yes">
-			<source>Teaser</source>
-			<target>Teaser</target>
-		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_event.venue" approved="yes">
 			<source>Venue</source>
 			<target>Einrichtung</target>
 		</trans-unit>
+        <trans-unit id="tx_t3events_domain_model_event.tab.relations" approved="yes">
+            <source>Relations</source>
+            <target>Relationen</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_event.images" approved="yes">
+            <source>Images</source>
+            <target>Bilder</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_event.files" approved="yes">
+            <source>Files</source>
+            <target>Dateien</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_event.related" approved="yes">
+            <source>Related events</source>
+            <target>Verwandte Events</target>
+        </trans-unit>
 		<trans-unit id="tx_t3events_domain_model_eventlocation" approved="yes">
 			<source>Event Location</source>
 			<target>Veranstaltungsort</target>
@@ -321,6 +349,14 @@
 			<source>Ticket Class</source>
 			<target>Preisklasse</target>
 		</trans-unit>
+        <trans-unit id="tx_t3events_domain_model_performance.tab.relations" approved="yes">
+            <source>Relations</source>
+            <target>Relationen</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_performance.images" approved="yes">
+            <source>Images</source>
+            <target>Bilder</target>
+        </trans-unit>
 		<trans-unit id="tx_t3events_domain_model_performancestatus" approved="yes">
 			<source>Performance Status</source>
 			<target>Status</target>
@@ -461,13 +497,13 @@
 			<source>Old Status</source>
 			<target>Alter Status</target>
 		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_task.period" approved="yes">
-			<source>Time Period</source>
+		<trans-unit id="label.period" approved="yes">
+			<source>Period</source>
 			<target>Zeitraum</target>
 		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_teaser" approved="yes">
-			<source>Teaser</source>
-			<target>Teaser</target>
+		<trans-unit id="label.period_duration" approved="yes">
+			<source>Duration</source>
+			<target>Dauer</target>
 		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_teaser.details" approved="yes">
 			<source>Details</source>

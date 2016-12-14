@@ -63,7 +63,7 @@ class EventRepositoryTest extends UnitTestCase {
 
 		$this->assertEquals(
 			array(),
-			$this->fixture->_call('createConstraintsFromDemand', $query, $demand)
+			$this->fixture->createConstraintsFromDemand($query, $demand)
 		);
 	}
 
@@ -86,7 +86,7 @@ class EventRepositoryTest extends UnitTestCase {
 		$this->fixture->expects($this->once())
 			->method('createPeriodConstraints')
 			->with($query, $demand);
-		$this->fixture->_call('createConstraintsFromDemand', $query, $demand);
+		$this->fixture->createConstraintsFromDemand($query, $demand);
 	}
 
 	/**
@@ -108,7 +108,7 @@ class EventRepositoryTest extends UnitTestCase {
 		$this->fixture->expects($this->once())
 			->method('createCategoryConstraints')
 			->with($query, $demand);
-		$this->fixture->_call('createConstraintsFromDemand', $query, $demand);
+		$this->fixture->createConstraintsFromDemand($query, $demand);
 	}
 
 	/**
@@ -130,7 +130,7 @@ class EventRepositoryTest extends UnitTestCase {
 		$this->fixture->expects($this->once())
 			->method('createSearchConstraints')
 			->with($query, $demand);
-		$this->fixture->_call('createConstraintsFromDemand', $query, $demand);
+		$this->fixture->createConstraintsFromDemand($query, $demand);
 	}
 
 	/**
@@ -152,7 +152,7 @@ class EventRepositoryTest extends UnitTestCase {
 		$this->fixture->expects($this->once())
 			->method('createLocationConstraints')
 			->with($query, $demand);
-		$this->fixture->_call('createConstraintsFromDemand', $query, $demand);
+		$this->fixture->createConstraintsFromDemand($query, $demand);
 	}
 
 	/**
@@ -172,7 +172,7 @@ class EventRepositoryTest extends UnitTestCase {
 		$this->fixture->expects($this->once())
 			->method('createAudienceConstraints')
 			->with($query, $demand);
-		$this->fixture->_call('createConstraintsFromDemand', $query, $demand);
+		$this->fixture->createConstraintsFromDemand($query, $demand);
 	}
 
 	/**
@@ -202,7 +202,7 @@ class EventRepositoryTest extends UnitTestCase {
 			->method('combineConstraints')
 			->with($query, $constraints, $mockSearchConstraints, 'OR');
 
-		$this->fixture->_call('createConstraintsFromDemand', $query, $demand);
+		$this->fixture->createConstraintsFromDemand($query, $demand);
 	}
 
 	/**
@@ -232,7 +232,7 @@ class EventRepositoryTest extends UnitTestCase {
 			->method('combineConstraints')
 			->with($query, $constraints, $mockLocationConstraints, 'AND');
 
-		$this->fixture->_call('createConstraintsFromDemand', $query, $demand);
+		$this->fixture->createConstraintsFromDemand($query, $demand);
 	}
 
 	/**
@@ -260,7 +260,7 @@ class EventRepositoryTest extends UnitTestCase {
 			->method('combineConstraints')
 			->with($query, $constraints, $mockAudienceConstraints, 'AND');
 
-		$this->fixture->_call('createConstraintsFromDemand', $query, $demand);
+		$this->fixture->createConstraintsFromDemand($query, $demand);
 	}
 
 	/**
@@ -290,7 +290,7 @@ class EventRepositoryTest extends UnitTestCase {
 			->method('combineConstraints')
 			->with($query, $constraints, $mockCategoryConstraints, NULL);
 
-		$this->fixture->_call('createConstraintsFromDemand', $query, $demand);
+		$this->fixture->createConstraintsFromDemand($query, $demand);
 	}
 
 	/**
@@ -320,7 +320,7 @@ class EventRepositoryTest extends UnitTestCase {
 			->method('combineConstraints')
 			->with($query, $constraints, $mockPeriodConstraints, 'AND');
 
-		$this->fixture->_call('createConstraintsFromDemand', $query, $demand);
+		$this->fixture->createConstraintsFromDemand($query, $demand);
 	}
 
 	/**
@@ -469,7 +469,7 @@ class EventRepositoryTest extends UnitTestCase {
 		$demand = $this->getMock(EventDemand::class);
 		$this->assertSame(
 			[],
-			$this->fixture->_call('createConstraintsFromDemand', $query, $demand)
+			$this->fixture->createConstraintsFromDemand($query, $demand)
 		);
 	}
 

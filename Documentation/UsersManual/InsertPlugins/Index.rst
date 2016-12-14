@@ -17,7 +17,7 @@ Insert Plugins
 ^^^^^^^^^^^^^^
 
 Insert a record of type plugin, in tab 'Plugin' select 'Events' and
-choose what to display (Teaser, Event List or Quick Menu).
+choose what to display (Event List or Quick Menu).
 
 In tab 'Behavior' Select the system folder with your records as Record
 Storage Page.

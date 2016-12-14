@@ -1,77 +1,83 @@
 <?php
 namespace DWenzel\T3events\Hooks;
 
-/***************************************************************
- *  Copyright notice
- *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur DWenzel
- *  Michael Kasten <kasten@webfox01.de>, Agentur DWenzel
- *    method user_templateLayout has been taken from extension tx_news by
- *  Georg Ringer
- *  All rights reserved
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 3 of the License, or
- *  (at your option) any later version.
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
-use TYPO3\CMS\Backend\Utility\BackendUtility as CoreBackendUtility;
+/**
+ * This file is part of the TYPO3 CMS project.
+ *
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with this source code.
+ *
+ * The TYPO3 project - inspiring people to share!
+ */
+
+use DWenzel\T3events\Utility\TemplateLayoutUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
- * @package t3events
- * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
+ * Class ItemsProcFunc
+ * @package DWenzel\T3events\Hooks
  */
-class ItemsProcFunc {
+class ItemsProcFunc
+{
 
-	/**
-	 * Itemsproc function to extend the selection of templateLayouts in the plugin
-	 *
-	 * @param \array &$config configuration array
-	 * @return void
-	 */
-	public function user_templateLayout(array &$config) {
-		// Check if the layouts are extended by ext_tables
-		if (isset($GLOBALS['TYPO3_CONF_VARS']['EXT']['t3events']['templateLayouts'])
-			&& is_array($GLOBALS['TYPO3_CONF_VARS']['EXT']['t3events']['templateLayouts'])
-		) {
+    /**
+     * Key for look up in TYPO3_CONF_VARS and page TS config
+     * Must be overwritten when sub classing this in another extension.
+     *
+     * @const EXTENSION_KEY
+     */
+    const EXTENSION_KEY = 't3events';
 
-			// Add every item
-			foreach ($GLOBALS['TYPO3_CONF_VARS']['EXT']['t3events']['templateLayouts'] as $layouts) {
-				$additionalLayout = array(
-					$GLOBALS['LANG']->sL($layouts[0], TRUE),
-					$layouts[1]
-				);
-				array_push($config['items'], $additionalLayout);
-			}
-		}
+    /**
+     * @var TemplateLayoutUtility
+     */
+    protected $templateLayoutUtility;
 
-		if (is_numeric($config['row']['pid'])) {
-			$pagesTsConfig = CoreBackendUtility::getPagesTSconfig($config['row']['pid']);
-		}
-		if (is_numeric($config['flexParentDatabaseRow']['pid'])) {
-			$pagesTsConfig = CoreBackendUtility::getPagesTSconfig($config['flexParentDatabaseRow']['pid']);
-		}
-		// Add tsconfig values
-		if ((bool) $pagesTsConfig
-			AND (
-				isset($pagesTsConfig['tx_t3events.']['templateLayouts.'])
-				&& is_array($pagesTsConfig['tx_t3events.']['templateLayouts.'])
-			)
-		) {
-			foreach ($pagesTsConfig['tx_t3events.']['templateLayouts.'] as $key => $label) {
-				$additionalLayout = array(
-					$GLOBALS['LANG']->sL($label, TRUE),
-					$key
-				);
-				array_push($config['items'], $additionalLayout);
-			}
-		}
-	}
+    public function __construct()
+    {
+        $this->templateLayoutUtility = GeneralUtility::makeInstance(TemplateLayoutUtility::class);
+    }
+
+    /**
+     * Items process function to extend the selection of templateLayouts in the plugin
+     *
+     * @param array &$config configuration array
+     * @return void
+     */
+    public function user_templateLayout(array &$config)
+    {
+        $pageId = null;
+        if (is_numeric($config['row']['pid'])) {
+            $pageId = $config['row']['pid'];
+        }
+        if (is_numeric($config['flexParentDatabaseRow']['pid'])) {
+            $pageId = $config['flexParentDatabaseRow']['pid'];
+        }
+
+        $templateLayouts = $this->templateLayoutUtility->getLayouts(static::EXTENSION_KEY, $pageId);
+
+        foreach ($templateLayouts as $layout) {
+
+            $additionalLayout = [
+                htmlspecialchars($this->getLanguageService()->sL($layout[0])),
+                $layout[1]
+            ];
+            array_push($config['items'], $additionalLayout);
+        }
+    }
+
+    /**
+     * Returns Language Service
+     *
+     * @return \TYPO3\CMS\Lang\LanguageService
+     * @codeCoverageIgnore
+     */
+    protected function getLanguageService()
+    {
+        return $GLOBALS['LANG'];
+    }
 }
-

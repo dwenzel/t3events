@@ -329,35 +329,6 @@ class AbstractDemandedRepositoryTest extends \TYPO3\CMS\Core\Tests\UnitTestCase 
 	 * @test
 	 * @covers ::generateQuery
 	 */
-	public function generateQueryCallsFindDemandedHook() {
-		$this->markTestSkipped('insufficient mocking');
-		$mockDemand = $this->getMockForAbstractClass(
-			'DWenzel\\T3events\\Domain\\Model\\Dto\\DemandInterface'
-		);
-
-		$GLOBALS['TYPO3_CONF_VARS']['EXT']['t3events']['Domain/Repository/AbstractDemandedRepository.php']['findDemanded']['t3events']
-			= 'DWenzel\\T3events\\Tests\\Unit\\Domain\\Repository\\Fixtures\\FindDemandedHookFixture->updateQuerySlot';
-		require_once('Fixtures/FindDemandedHookFixture.php');
-		$mockHook = $this->getAccessibleMock(
-			'DWenzel\\T3events\\Tests\\Unit\\Domain\\Repository\\Fixtures\\FindDemandedHookFixture',
-			array('updateQuerySlot'));
-		$expectedParams = array(
-			'demand' => NULL,
-			'respectEnableFields' => NULL,
-			'query' => NULL,
-			'constraints' => NULL
-		);
-		$mockHook->expects($this->once())
-			->method('updateQuerySlot')
-			->with($expectedParams, $this->fixture);
-
-		$this->fixture->_call('generateQuery', $mockDemand);
-	}
-
-	/**
-	 * @test
-	 * @covers ::generateQuery
-	 */
 	public function generateQuerySetsLimitFromDemand() {
 		$fixture = $this->getAccessibleMock(
 			'DWenzel\\T3events\\Domain\\Repository\\AbstractDemandedRepository',

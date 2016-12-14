@@ -2,8 +2,8 @@
 namespace DWenzel\T3events\Tests\Unit\Domain\Model\Dto;
 /***************************************************************
  *  Copyright notice
- *  (c) 2012 Dirk Wenzel <wenzel@dWenzel01.de>, Agentur DWenzel
- *  Michael Kasten <kasten@dWenzel01.de>, Agentur DWenzel
+ *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
+ *  Michael Kasten <kasten@webfox01.de>, Agentur Webfox
  *  All rights reserved
  *  This script is part of the TYPO3 project. The TYPO3 project is
  *  free software; you can redistribute it and/or modify
@@ -23,7 +23,7 @@ use DWenzel\T3events\Domain\Model\Dto\PerformanceDemand;
 /**
  * Test case for class \DWenzel\T3events\Domain\Model\Dto\PerformanceDemand.
  *
- * @author Dirk Wenzel <wenzel@dWenzel01.de>
+ * @author Dirk Wenzel <wenzel@webfox01.de>
  * @coversDefaultClass \DWenzel\T3events\Domain\Model\Dto\PerformanceDemand
  */
 class PerformanceDemandTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
@@ -31,22 +31,20 @@ class PerformanceDemandTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	/**
 	 * @var \DWenzel\T3events\Domain\Model\Dto\PerformanceDemand
 	 */
-	protected $fixture;
+	protected $subject;
 
 
 	public function setUp() {
-		$this->fixture = new \DWenzel\T3events\Domain\Model\Dto\PerformanceDemand();
-	}
-
-	public function tearDown() {
-		unset($this->fixture);
+		$this->subject = $this->getMock(
+		    PerformanceDemand::class, ['dummy']
+        );
 	}
 
 	/**
 	 * @test
 	 */
 	public function getDateReturnsInitialNull() {
-		$this->assertSame(NULL, $this->fixture->getDate());
+		$this->assertSame(NULL, $this->subject->getDate());
 	}
 
 	/**
@@ -54,108 +52,9 @@ class PerformanceDemandTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 */
 	public function setDateForDateTimeSetsDate() {
 		$now = date('Y-m-d H:i:s');
-		$this->fixture->setDate($now);
+		$this->subject->setDate($now);
 
-		$this->assertEquals($now, $this->fixture->getDate());
-	}
-
-	/**
-	 * @test
-	 */
-	public function getStatusReturnsInitialNull() {
-		$this->assertSame(NULL, $this->fixture->getStatus());
-	}
-
-	/**
-	 * @test
-	 */
-	public function setStatusForPerformanceStatusSetsStatus() {
-		$status = new \DWenzel\T3events\Domain\Model\PerformanceStatus();
-
-		$this->fixture->setStatus($status);
-
-		$this->assertEquals($status, $this->fixture->getStatus());
-	}
-
-	//
-
-	/**
-	 * @test
-	 * @covers ::getGenres
-	 */
-	public function getGenresReturnsInitialNull(){
-		$this->assertSame(NULL, $this->fixture->getGenres());
-	}
-
-	/**
-	 * @test
-	 * @covers ::setGenres
-	 */
-	public function setGenresForStringSetsGenres(){
-		$this->fixture->setGenres('1');
-		$this->assertSame('1', $this->fixture->getGenres());
-	}
-
-	/**
-	 * @test
-	 * @covers ::getVenues
-	 */
-	public function getVenuesReturnsInitialNull(){
-		$this->assertSame(NULL, $this->fixture->getVenues());
-	}
-
-	/**
-	 * @test
-	 * @covers ::setVenues
-	 */
-	public function setVenuesForStringSetsVenues(){
-		$this->fixture->setVenues('1');
-		$this->assertSame('1', $this->fixture->getVenues());
-	}
-
-	/**
-	 * @test
-	 * @covers ::getEventTypes
-	 */
-	public function getEventTypesReturnsInitialNull() {
-		$this->assertEquals(
-			NULL,
-			$this->fixture->getEventTypes()
-		);
-	}
-
-	/**
-	 * @test
-	 * @covers ::setEventTypes
-	 */
-	public function setEventTypesForStringSetsEventTypes(){
-		$this->fixture->setEventTypes('1,2,3');
-
-		$this->assertSame(
-			'1,2,3',
-			$this->fixture->getEventTypes()
-		);
-	}
-
-	/**
-	 * @test
-	 */
-	public function getEventLocationsForStringInitiallyReturnsNull() {
-		$this->assertNull(
-			$this->fixture->getEventLocations()
-		);
-	}
-
-	/**
-	 * @test
-	 */
-	public function setEventLocationsForStringSetsEventLocations() {
-		$eventLocations = '1,2';
-		$this->fixture->setEventLocations($eventLocations);
-		$this->assertSame(
-			$eventLocations,
-			$this->fixture->getEventLocations()
-		);
+		$this->assertEquals($now, $this->subject->getDate());
 	}
 
 	/**
@@ -164,7 +63,7 @@ class PerformanceDemandTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	public function getStartDateFieldForStringReturnsStartDateFieldConstant() {
 		$this->assertSame(
 			PerformanceDemand::START_DATE_FIELD,
-			$this->fixture->getStartDateField()
+			$this->subject->getStartDateField()
 		);
 	}
 
@@ -174,7 +73,7 @@ class PerformanceDemandTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	public function getEndDateFieldForStringReturnsEndDateFieldConstant() {
 		$this->assertSame(
 			PerformanceDemand::END_DATE_FIELD,
-			$this->fixture->getEndDateField()
+			$this->subject->getEndDateField()
 		);
 	}
 
@@ -184,7 +83,7 @@ class PerformanceDemandTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	public function getStatusFieldForStringReturnsStatusFieldConstant() {
 		$this->assertSame(
 			PerformanceDemand::STATUS_FIELD,
-			$this->fixture->getStatusField()
+			$this->subject->getStatusField()
 		);
 	}
 
@@ -194,36 +93,7 @@ class PerformanceDemandTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	public function getCategoryFieldForStringReturnsCategoryFieldConstant() {
 		$this->assertSame(
 			PerformanceDemand::CATEGORY_FIELD,
-			$this->fixture->getCategoryField()
-		);
-	}
-
-	/**
-	 * @test
-	 */
-	public function getStatusesForStringReturnsInitiallyNull() {
-		$this->assertNull(
-			$this->fixture->getStatuses()
-		);
-	}
-
-	/**
-	 * @test
-	 */
-	public function setStatusesForStringSetsStatuses() {
-		$this->fixture->setStatuses('foo,bar');
-		$this->assertSame(
-			'foo,bar',
-			$this->fixture->getStatuses()
-		);
-	}
-
-	/**
-	 * @test
-	 */
-	public function isExcludeSelectedStatusForBoolReturnsInitiallyNull() {
-		$this->assertNull(
-			$this->fixture->isExcludeSelectedStatuses()
+			$this->subject->getCategoryField()
 		);
 	}
 
@@ -231,9 +101,9 @@ class PerformanceDemandTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 	 * @test
 	 */
 	public function excludeSelectedStatusForBoolCanBeSet() {
-		$this->fixture->setExcludeSelectedStatuses(true);
+		$this->subject->setExcludeSelectedStatuses(true);
 		$this->assertTrue(
-			$this->fixture->isExcludeSelectedStatuses()
+			$this->subject->isExcludeSelectedStatuses()
 		);
 	}
 
@@ -244,7 +114,18 @@ class PerformanceDemandTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
     {
         $this->assertSame(
             PerformanceDemand::EVENT_LOCATION_FIELD,
-            $this->fixture->getEventLocationField()
+            $this->subject->getEventLocationField()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getAudienceFieldReturnsClassConstant()
+    {
+        $this->assertSame(
+            PerformanceDemand::AUDIENCE_FIELD,
+            $this->subject->getAudienceField()
         );
     }
 
@@ -255,7 +136,7 @@ class PerformanceDemandTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
     {
         $this->assertSame(
             PerformanceDemand::GENRE_FIELD,
-            $this->fixture->getGenreField()
+            $this->subject->getGenreField()
         );
     }
 
@@ -266,7 +147,7 @@ class PerformanceDemandTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
     {
         $this->assertSame(
             PerformanceDemand::VENUE_FIELD,
-            $this->fixture->getVenueField()
+            $this->subject->getVenueField()
         );
     }
 
@@ -277,7 +158,7 @@ class PerformanceDemandTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
     {
         $this->assertSame(
             PerformanceDemand::EVENT_TYPE_FIELD,
-            $this->fixture->getEventTypeField()
+            $this->subject->getEventTypeField()
         );
     }
 }

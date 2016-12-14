@@ -44,7 +44,6 @@
       <label index="flexforms_general.mode.performance_list_show">List/Detail</label>
       <label index="flexforms_general.mode.performance_show">Detail</label>
       <label index="flexforms_general.mode.quick_menu">Quick Menu</label>
-      <label index="flexforms_general.mode.teaser">Teaser</label>
       <label index="flexforms_general.pages">Pages</label>
       <label index="flexforms_general.period">Period</label>
       <label index="flexforms_general.period.all">all</label>
@@ -123,7 +122,6 @@
       <label index="flexforms_general.mode.performance_list_show">Liste/Detail</label>
       <label index="flexforms_general.mode.performance_show">Detail</label>
       <label index="flexforms_general.mode.quick_menu">Schnellmenü</label>
-      <label index="flexforms_general.mode.teaser">Teaser</label>
       <label index="flexforms_general.pages">Seiten</label>
       <label index="flexforms_general.period">Zeitabschnitt</label>
       <label index="flexforms_general.period.all">alle</label>

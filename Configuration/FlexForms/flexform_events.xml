@@ -19,46 +19,42 @@
 								<type>select</type>
 								<items>
 									<numIndex index="0">
-										<numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.mode.teaser</numIndex>
-										<numIndex index="1">Teaser->list;Teaser->showEvent;Event->show</numIndex>
-									</numIndex>
-									<numIndex index="1">
 										<numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.label.events</numIndex>
 										<numIndex index="1">--div--</numIndex>
 									</numIndex>
-									<numIndex index="2">
+									<numIndex index="1">
 										<numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.mode.event_list</numIndex>
 										<numIndex index="1">Event->list;Event->show</numIndex>
 									</numIndex>
 
-									<numIndex index="3">
+									<numIndex index="2">
 										<numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.mode.event_show</numIndex>
 										<numIndex index="1">Event->show</numIndex>
 									</numIndex>
 
-									<numIndex index="4">
+									<numIndex index="3">
 										<numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.mode.quick_menu</numIndex>
 										<numIndex index="1">Event->quickMenu</numIndex>
 									</numIndex>
 
-									<numIndex index="5">
+									<numIndex index="4">
 										<numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.mode.event_calendar</numIndex>
 										<numIndex index="1">Event->calendar</numIndex>
 									</numIndex>
-									<numIndex index="6">
+									<numIndex index="5">
 										<numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.label.performances</numIndex>
 										<numIndex index="1">--div--</numIndex>
 									</numIndex>
-									<numIndex index="7">
+									<numIndex index="6">
 										<numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.mode.performance_list_show</numIndex>
 										<numIndex index="1">Performance->list;Performance->show</numIndex>
 									</numIndex>
 
-									<numIndex index="8">
+									<numIndex index="7">
 										<numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.mode.performance_show</numIndex>
 										<numIndex index="1">Performance->show</numIndex>
 									</numIndex>
-									<numIndex index="9">
+									<numIndex index="8">
 										<numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.mode.quick_menu</numIndex>
 										<numIndex index="1">Performance->quickMenu</numIndex>
 									</numIndex>
@@ -130,18 +126,6 @@
 							</config>
 						</TCEforms>
 					</settings.sortDirection>
-
-					<settings.highlightsToTop>
-						<TCEforms>
-							<label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.highlightsToTop</label>
-							<displayCond>FIELD:switchableControllerActions:=:Teaser->list;Teaser->showEvent;Event->show</displayCond>
-							<config>
-								<type>check</type>
-								<default>1</default>
-							</config>
-							<onChange>reload</onChange>
-						</TCEforms>
-					</settings.highlightsToTop>
 
 					<settings.viewMode>
 						<TCEforms>
@@ -240,21 +224,6 @@
 						</TCEforms>
 					</settings.maxItems>
 
-					<!-- highlighted count -->
-					<settings.maxHighlighted>
-						<TCEforms>
-							<label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.maxHighlighted</label>
-							<config>
-								<type>input</type>
-								<size>3</size>
-								<range>
-									<lower>1</lower>
-								</range>
-								<eval>int,trim</eval>
-							</config>
-							<displayCond>FIELD:switchableControllerActions:=:Teaser->list;Teaser->showEvent;Event->show</displayCond>
-						</TCEforms>
-					</settings.maxHighlighted>
 					<view.pluginNamespace>
 						<TCEforms>
 							<label>Plugin Namespace</label>

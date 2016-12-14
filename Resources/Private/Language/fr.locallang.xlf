@@ -391,10 +391,6 @@
 			<source>title</source>
 			<target>titre</target>
 		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_teaser" approved="yes" xml:space="preserve">
-			<source>Teaser</source>
-			<target>entête</target>
-		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_teaser.details" approved="yes" xml:space="preserve">
 			<source>details</source>
 			<target>detail</target>

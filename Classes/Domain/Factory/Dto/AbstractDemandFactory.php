@@ -91,7 +91,8 @@ abstract class AbstractDemandFactory
      * the $mappedProperties and $compositeProperties.
      * The $mappedProperties array allows to map legacy values from settings
      * to existing properties of the demand object.
-     * Property names found in the $compositeProperties are skipped
+     * Property names found in the $compositeProperties are skipped here
+     * and must be set by concrete factory
      *
      * @param $demand
      * @param array $settings

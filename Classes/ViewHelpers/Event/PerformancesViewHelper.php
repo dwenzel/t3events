@@ -1,34 +1,32 @@
 <?php
 namespace DWenzel\T3events\ViewHelpers\Event;
 
-/***************************************************************
- *  Copyright notice
- *  (c)* 2012 Dirk Wenzel <wenzel@webfox01.de> All rights reserved
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+/**
+ * This file is part of the TYPO3 CMS project.
+ *
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with this source code.
+ *
+ * The TYPO3 project - inspiring people to share!
+ */
+
+use DWenzel\T3events\Domain\Model\Event;
 use DWenzel\T3events\Domain\Model\Performance;
+use DWenzel\T3events\Domain\Repository\EventRepository;
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
 
 /**
  * Render a list of performances of a given event
  *
- * @author Dirk Wenzel
- * @package T3events
- * @subpackage ViewHelpers/Event
+ * @deprecated
  */
-class PerformancesViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper {
+class PerformancesViewHelper extends AbstractTagBasedViewHelper {
 
-	/*
+    /**
 	* @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage
 	*/
 	protected $performances;
@@ -41,29 +39,28 @@ class PerformancesViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTa
 	/**
 	 * eventRepository
 	 *
-	 * @var \DWenzel\T3events\Domain\Repository\EventRepository
+	 * @var EventRepository
 	 */
 	protected $eventRepository;
 
 	/**
 	 * injectEventRepository
 	 *
-	 * @param \DWenzel\T3events\Domain\Repository\EventRepository $eventRepository
+	 * @param EventRepository $eventRepository
 	 * @return void
 	 */
-	public function injectEventRepository(\DWenzel\T3events\Domain\Repository\EventRepository $eventRepository) {
+	public function injectEventRepository(EventRepository $eventRepository) {
 		$this->eventRepository = $eventRepository;
 	}
 
 	/**
-	 * Inititalize Arguments
+	 * Initialize Arguments
 	 */
-
 	public function initializeArguments() {
-		parent::registerArgument('event', '\\DWenzel\\T3events\\Domain\\Model\\Event', 'Event whose performances should be rendered.', TRUE);
+		parent::registerArgument('event', Event::class, 'Event whose performances should be rendered.', TRUE);
 		parent::registerArgument('tagName', 'string', 'Tag name to use for enclosing container', FALSE, 'div');
 		parent::registerArgument('tagNameChildren', 'string', 'Tag name to use for child nodes', FALSE, 'span');
-		parent::registerArgument('type', 'string', 'Result type: available options are complete, uniqueLocationsList, list, dateRange, crucialStatus', TRUE);
+		parent::registerArgument('type', 'string', 'Result type: available options are complete, list, dateRange, crucialStatus', TRUE);
 		parent::registerArgument('class', 'string', 'Class attribute for enclosing container', FALSE, 'list');
 		parent::registerArgument('classChildren', 'string', 'Class attribute for children', FALSE, 'single');
 		parent::registerArgument('classFirst', 'string', 'Class name for first child', FALSE, 'first');
@@ -88,9 +85,6 @@ class PerformancesViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTa
 		$content = '';
 		$title = '';
 		switch ($type) {
-			case 'uniqueLocationsList':
-				$content = $this->renderChildrenList($this->getLocationsArr());
-				break;
 			case 'dateRange':
 				$content = $this->getDateRange();
 				break;
@@ -117,65 +111,6 @@ class PerformancesViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTa
 		$this->renderChildren();
 		$content = $this->tag->render();
 		$content .= $this->renderChildren();
-
-		return $content;
-	}
-
-	/**
-	 * Get array of locations for event
-	 *
-	 * @param boolean $unique Remove duplicate entries
-	 * @return array
-	 */
-	public function getLocationsArr($unique = TRUE) {
-		$contentArr = array();
-
-		// get place and name of performances
-		foreach ($this->performances as $performance) {
-			$eventLocation = $performance->getEventLocation();
-			if ($eventLocation) {
-				$val = ($eventLocation->getPlace()) ? $eventLocation->getPlace() : '';
-				$val .= ($eventLocation->getName()) ? ' ' . $eventLocation->getName() : '';
-				array_push($contentArr, $val);
-			}
-		}
-		// make array unique
-		$contentArr = ($unique) ? array_values(array_unique($contentArr)) : $contentArr;
-
-		// add separator
-		$contentArrCount = count($contentArr);
-		for ($i = 0; $i < $contentArrCount - 1; $i++) {
-			$contentArr[$i] = $contentArr[$i] . $this->arguments['childSeparator'];
-		}
-
-		return $contentArr;
-	}
-
-	/**
-	 * Render location list children
-	 *
-	 * @param \array $children
-	 * @return \string
-	 */
-	public function renderChildrenList($children) {
-		$content = '';
-		$tagBuilder = new \TYPO3\CMS\Fluid\Core\ViewHelper\TagBuilder;
-		$tagBuilder->setTagName($this->arguments['tagNameChildren']);
-		$tagBuilder->forceClosingTag(TRUE);
-		$itemCount = count($children);
-		for ($i = 0; $i < $itemCount; $i++) {
-			$class = $this->arguments['classChildren'];
-			if ($i == 0) {
-				$class .= ' ' . $this->arguments['classFirst'];
-			}
-			if ($i == ($itemCount - 1)) {
-				$class .= ' ' . $this->arguments['classLast'];
-			}
-			$tagBuilder->setContent($children[$i]);
-			$tagBuilder->addAttribute('class', $class);
-			$content .= $tagBuilder->render();
-		}
-		$tagBuilder->reset();
 
 		return $content;
 	}

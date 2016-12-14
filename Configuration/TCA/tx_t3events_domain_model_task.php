@@ -2,10 +2,11 @@
 if (!defined('TYPO3_MODE')) {
 	die ('Access denied.');
 }
+$ll = 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:';
 
 return [
 	'ctrl' => [
-		'title' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_task',
+		'title' => $ll . 'tx_t3events_domain_model_task',
 		'label' => 'name',
 		'tstamp' => 'tstamp',
 		'crdate' => 'crdate',
@@ -24,17 +25,18 @@ return [
 			'starttime' => 'starttime',
 			'endtime' => 'endtime',
         ],
+        'requestUpdate' => 'action,period',
 		'searchFields' => 'name,action,old_status,new_status,folder,',
 		'iconfile' => 'EXT:t3events/Resources/Public/Icons/tx_t3events_domain_model_task.png'
     ],
 	'interface' => [
 		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden,
-			name, description, action, period, old_status, new_status, folder',
+			name, description, action, period, period_duration, old_status, new_status, folder',
     ],
 	'types' => [
 		'1' => [
 		    'showitem' => '--palette--;;1,
-			name, description, action, period, old_status, new_status,
+			name, description, action, period, period_duration, old_status, new_status,
 			folder,--div--;LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tab.access,starttime, endtime'
         ],
 	],
@@ -56,7 +58,7 @@ return [
 					['LLL:EXT:lang/locallang_general.xml:LGL.allLanguages', -1],
 					['LLL:EXT:lang/locallang_general.xml:LGL.default_value', 0]
                 ],
-				'showIconTable' => TRUE,
+				'showIconTable' => false,
             ],
         ],
 		'l10n_parent' => [
@@ -71,7 +73,7 @@ return [
                 ],
 				'foreign_table' => 'tx_t3events_domain_model_task',
 				'foreign_table_where' => 'AND tx_t3events_domain_model_task.pid=###CURRENT_PID### AND tx_t3events_domain_model_task.sys_language_uid IN (-1,0)',
-				'showIconTable' => TRUE,
+				'showIconTable' => false,
             ],
         ],
 		'l10n_diffsource' => [
@@ -128,7 +130,7 @@ return [
         ],
 		'name' => [
 			'exclude' => 0,
-			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_task.name',
+			'label' => $ll . 'tx_t3events_domain_model_task.name',
 			'config' => [
 				'type' => 'input',
 				'size' => 30,
@@ -137,7 +139,7 @@ return [
         ],
 		'description' => [
 			'exclude' => 0,
-			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_task.description',
+			'label' => $ll . 'tx_t3events_domain_model_task.description',
 			'config' => [
 				'type' => 'text',
 				'size' => 30,
@@ -146,33 +148,51 @@ return [
         ],
 		'action' => [
 			'exclude' => 0,
-			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_task.action',
+			'label' => $ll . 'tx_t3events_domain_model_task.action',
 			'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
 				'items' => [
-					['LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_task.action.none', 0],
-					['LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_task.action.updateStatus', 1],
-					['delete', 2],
-					['LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_task.action.hidePerformance', 3],
+					[$ll . 'tx_t3events_domain_model_task.action.none', \DWenzel\T3events\Domain\Model\Task::ACTION_NONE],
+					[$ll . 'tx_t3events_domain_model_task.action.updateStatus', \DWenzel\T3events\Domain\Model\Task::ACTION_UPDATE_STATUS],
+					['delete', \DWenzel\T3events\Domain\Model\Task::ACTION_DELETE],
+					[$ll . 'tx_t3events_domain_model_task.action.hidePerformance', \DWenzel\T3events\Domain\Model\Task::ACTION_HIDE_PERFORMANCE],
                 ],
 				'size' => 1,
 				'maxitems' => 1,
 				'eval' => ''
             ],
         ],
-		'period' => [
+        'period' => [
+            'exclude' => 0,
+            'label' => $ll . 'label.period',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'items' => [
+                    ['', ''],
+                    [$ll . 'label.period.all', \DWenzel\T3events\Domain\Repository\PeriodConstraintRepositoryInterface::PERIOD_ALL],
+                    [$ll . 'label.period.past', \DWenzel\T3events\Domain\Repository\PeriodConstraintRepositoryInterface::PERIOD_PAST],
+                    [$ll . 'label.period.future', \DWenzel\T3events\Domain\Repository\PeriodConstraintRepositoryInterface::PERIOD_FUTURE],
+                    [$ll . 'label.period.specific', \DWenzel\T3events\Domain\Repository\PeriodConstraintRepositoryInterface::PERIOD_SPECIFIC]
+                ],
+                'size' => 1,
+                'maxitems' => 1,
+            ],
+        ],
+		'period_duration' => [
 			'exclude' => 0,
-			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_task.period',
+			'label' => $ll . 'label.period_duration',
 			'config' => [
 				'type' => 'input',
 				'size' => 5,
 				'eval' => 'int',
-            ]
+            ],
+			'displayCond' => 'FIELD:period:=:' . \DWenzel\T3events\Domain\Repository\PeriodConstraintRepositoryInterface::PERIOD_SPECIFIC,
         ],
 		'old_status' => [
 			'exclude' => 0,
-			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_task.old_status',
+			'label' => $ll . 'tx_t3events_domain_model_task.old_status',
 			'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
@@ -180,13 +200,13 @@ return [
 				'size' => 1,
 				'maxitems' => 1,
 				'eval' => '',
-				'showIconTable' => TRUE,
+				'showIconTable' => false,
             ],
 			'displayCond' => 'FIELD:action:=:1',
         ],
 		'new_status' => [
 			'exclude' => 0,
-			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_task.new_status',
+			'label' => $ll . 'tx_t3events_domain_model_task.new_status',
 			'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
@@ -194,13 +214,13 @@ return [
 				'size' => 1,
 				'maxitems' => 1,
 				'eval' => '',
-				'showIconTable' => TRUE,
+				'showIconTable' => false,
             ],
 			'displayCond' => 'FIELD:action:=:1',
         ],
 		'folder' => [
 			'exclude' => 0,
-			'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_task.folder',
+			'label' => $ll . 'tx_t3events_domain_model_task.folder',
 			'config' => [
 				'type' => 'group',
 				'internal_type' => 'db',

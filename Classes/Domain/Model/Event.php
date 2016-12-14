@@ -3,8 +3,8 @@ namespace DWenzel\T3events\Domain\Model;
 
 	/***************************************************************
 	 *  Copyright notice
-	 *  (c) 2012 Dirk Wenzel <wenzel@dWenzel01.de>, Agentur DWenzel
-	 *  Michael Kasten <kasten@dWenzel01.de>, Agentur DWenzel
+	 *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
+	 *  Michael Kasten <kasten@webfox01.de>, Agentur Webfox
 	 *  All rights reserved
 	 *  This script is part of the TYPO3 project. The TYPO3 project is
 	 *  free software; you can redistribute it and/or modify
@@ -77,6 +77,30 @@ class Event extends AbstractEntity {
 	 */
 	protected $image;
 
+    /**
+     * images
+     *
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
+     * @lazy
+     */
+    protected $images;
+
+    /**
+     * files
+     *
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
+     * @lazy
+     */
+    protected $files;
+
+    /**
+     * related
+     *
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Event>
+     * @lazy
+     */
+    protected $related;
+
 	/**
 	 * genre
 	 *
@@ -144,6 +168,9 @@ class Event extends AbstractEntity {
 	 * @return void
 	 */
 	protected function initStorageObjects() {
+        $this->images = new ObjectStorage();
+        $this->files = new ObjectStorage();
+        $this->related = new ObjectStorage();
 		$this->genre = new ObjectStorage();
 		$this->venue = new ObjectStorage();
 		$this->audience = new ObjectStorage();
@@ -262,6 +289,133 @@ class Event extends AbstractEntity {
 	public function setImage($image) {
 		$this->image = $image;
 	}
+
+    /**
+     * Adds an image
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $image Image
+     * @return void
+     */
+    public function addImages(\TYPO3\CMS\Extbase\Domain\Model\FileReference $image)
+    {
+        $this->images->attach($image);
+    }
+
+    /**
+     * Removes an image
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $imageToRemove Image
+     * @return void
+     */
+    public function removeImages(\TYPO3\CMS\Extbase\Domain\Model\FileReference $imageToRemove)
+    {
+        $this->images->detach($imageToRemove);
+    }
+
+    /**
+     * Returns the images
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage $images
+     */
+    public function getImages()
+    {
+        return $this->images;
+    }
+
+    /**
+     * Sets the images
+     *
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $images Images
+     * @return void
+     */
+    public function setImages(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $images)
+    {
+        $this->images = $images;
+    }
+
+    /**
+     * Adds a file
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $file File
+     * @return void
+     */
+    public function addFiles(\TYPO3\CMS\Extbase\Domain\Model\FileReference $file)
+    {
+        $this->files->attach($file);
+    }
+
+    /**
+     * Removes a file
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $fileToRemove File
+     * @return void
+     */
+    public function removeFiles(\TYPO3\CMS\Extbase\Domain\Model\FileReference $fileToRemove)
+    {
+        $this->files->detach($fileToRemove);
+    }
+
+    /**
+     * Returns the files
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage $files
+     */
+    public function getFiles()
+    {
+        return $this->files;
+    }
+
+    /**
+     * Sets the files
+     *
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $files Files
+     * @return void
+     */
+    public function setFiles(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $files)
+    {
+        $this->files = $files;
+    }
+
+    /**
+     * Adds a related event
+     *
+     * @param \DWenzel\T3events\Domain\Model\Event $related
+     * @return void
+     */
+    public function addRelated(\DWenzel\T3events\Domain\Model\Event $event) {
+        $this->related->attach($event);
+    }
+
+    /**
+     * Removes a related event
+     *
+     * @param \DWenzel\T3events\Domain\Model\Event $eventToRemove The related event to be removed
+     * @return void
+     */
+    public function removeRelated(\DWenzel\T3events\Domain\Model\Event $eventToRemove) {
+        $this->related->detach($eventToRemove);
+    }
+
+    /**
+     * Returns the related events
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Event>
+     */
+    public function getRelated()
+    {
+        return $this->related;
+    }
+
+    /**
+     * Sets the related events
+     *
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Event> $related
+     * @return void
+     */
+    public function setRelated(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $related)
+    {
+        $this->related = $related;
+    }
 
 	/**
 	 * Adds a Genre

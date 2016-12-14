@@ -353,19 +353,10 @@ i.fa {
 	padding: 10px 0 0 10px;
 }
 
-.tx-t3events .ticketWrap .teaser-headline h3 {
-	text-transform: uppercase;
-}
-
-.tx-t3events .ticketWrap .teaser-headline a {
-	text-decoration: none;
-}
-
 .tx-t3events .ticketWrap h3 {
 	font-size: 1.2em;
 }
 
-.tx-t3events .ticketWrap .teaser-buttons a.button,
 .tx-t3events .ticketWrap a.button-2 {
 	display: block;
 	text-decoration: none;
@@ -373,14 +364,6 @@ i.fa {
 	border: none;
 	padding: 4px 8px;
 	border-radius: 2px;
-}
-
-.tx-t3events .ticketWrap .teaser-buttons a.button {
-	display: none;
-}
-
-.tx-t3events .ticketWrap .teaser-buttons a.button:hover {
-	color: #FFFFFF;
 }
 
 .tx-t3events .ticketsteps {
@@ -632,28 +615,23 @@ a.button-lightblue {
 
 }
 
-.tx-t3events .performanceItem span.commingSoon,
-.tx-t3events .teaser-price span.commingSoon {
+.tx-t3events .performanceItem span.commingSoon{
 	color: #0983A5;
 }
 
-.tx-t3events .performanceItem span.unavailable,
-.tx-t3events .teaser-price span.unavailable {
+.tx-t3events .performanceItem span.unavailable {
 	color: #999999;
 }
 
-.tx-t3events .performanceItem span.available,
-.tx-t3events .teaser-price span.available {
+.tx-t3events .performanceItem span.available {
 	color: #336600;
 }
 
-.tx-t3events .performanceItem span.fewTicketsLeft,
-.tx-t3events .teaser-price span.fewTicketsLeft {
+.tx-t3events .performanceItem span.fewTicketsLeft {
 	color: #FF9000;
 }
 
-.tx-t3events .performanceItem span.tempUnavailable,
-.tx-t3events .teaser-price span.tempUnavailable {
+.tx-t3events .performanceItem span.tempUnavailable {
 	color: #999999;
 }
 
@@ -761,22 +739,6 @@ screen width 466px or above
 		width: 99%;
 	}
 
-	.ticketWrap .teaser-buttons {
-		position: absolute;
-		right: 0.5em;
-	}
-
-	.ticketWrap .teaser-buttons a.button {
-		display: block;
-	}
-
-	.ticketWrap .teaser-headline,
-	.ticketWrap .teaser-price,
-	.ticketWrap .teaser-details {
-		float: left;
-		width: 58%;
-	}
-
 	/*Forms*/
 	#tx_t3eventsSortBy {
 		display: block;
@@ -806,23 +768,6 @@ screen width 768px or above
 	.ticketWrap .ticketDesc {
 		width: 47%;
 	}
-
-	.ticketWrap .teaser-buttons {
-		position: absolute;
-		right: 1.1em;
-	}
-
-	.ticketWrap .teaser-buttons a.button {
-		display: block;
-	}
-
-	.ticketWrap .teaser-headline,
-	.ticketWrap .teaser-price,
-	.ticketWrap .teaser-details {
-		float: left;
-		width: 66%;
-	}
-
 }
 
 /*
@@ -873,41 +818,6 @@ screen width 960px or above
 	/* Ticket */
 	.ticketsteps .csc-textpic-text {
 		display: block;
-	}
-
-	.ticketWrap .teaser-headline {
-		width: 100%;
-		float: left;
-	}
-
-	.ticketWrap .teaser-price {
-		position: absolute;
-		left: 75%;
-	}
-
-	.ticketWrap .teaser-buttons {
-		top: 5em;
-	}
-
-	.ticketWrap .teaser-buttons a.button {
-		width: 3em;
-		float: right;
-	}
-
-	.ticketWrap .teaser-buttons a.button-2 {
-		float: left;
-		margin-right: 0.3em;
-	}
-
-	.ticketWrap .teaser-headline {
-	}
-
-	.ticketWrap .teaser-details {
-		width: 78%;
-	}
-
-	.ticketWrap .teaser-details p {
-		line-height: 1.6em;
 	}
 
 	.ticketWrap .ticketDesc {

@@ -3,8 +3,8 @@ namespace DWenzel\T3events\Tests\Unit\Domain\Model;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2012 Dirk Wenzel <wenzel@dWenzel01.de>, Agentur DWenzel
- *  Michael Kasten <kasten@dWenzel01.de>, Agentur DWenzel
+ *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
+ *  Michael Kasten <kasten@webfox01.de>, Agentur Webfox
  *
  *  All rights reserved
  *
@@ -34,8 +34,8 @@ use DWenzel\T3events\Domain\Model\Event;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  * @package TYPO3
  * @subpackage Events
- * @author Dirk Wenzel <wenzel@dWenzel01.de>
- * @author Michael Kasten <kasten@dWenzel01.de>
+ * @author Dirk Wenzel <wenzel@webfox01.de>
+ * @author Michael Kasten <kasten@webfox01.de>
  * @coversDefaultClass \DWenzel\T3events\Domain\Model\Performance
  */
 class PerformanceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
@@ -262,6 +262,69 @@ class PerformanceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 			$this->fixture->getImage()
 		);
 	}
+
+    /**
+     * @test
+     * @covers ::getImages
+     */
+    public function getImagesReturnsInitialValueForObjectStorageContainingImages() {
+        $newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->assertEquals(
+            $newObjectStorage,
+            $this->fixture->getImages()
+        );
+    }
+
+    /**
+     * @test
+     * @covers ::setImages
+     */
+    public function setImagesForObjectStorageContainingImagesSetsImages() {
+        $images = new \TYPO3\CMS\Extbase\Domain\Model\FileReference();
+        $objectStorageHoldingExactlyOneImage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $objectStorageHoldingExactlyOneImage->attach($images);
+        $this->fixture->setImages($objectStorageHoldingExactlyOneImage);
+
+        $this->assertEquals(
+            $objectStorageHoldingExactlyOneImage,
+            $this->fixture->getImages()
+        );
+    }
+
+    /**
+     * @test
+     * @covers ::addImages
+     */
+    public function addImagesToObjectStorageHoldingImages()
+    {
+        $images = new \TYPO3\CMS\Extbase\Domain\Model\FileReference();
+        $objectStorageHoldingExactlyOneImage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $objectStorageHoldingExactlyOneImage->attach($images);
+        $this->fixture->addImages($images);
+
+        $this->assertEquals(
+            $objectStorageHoldingExactlyOneImage,
+            $this->fixture->getImages()
+        );
+    }
+
+    /**
+     * @test
+     * @covers ::removeImages
+     */
+    public function removeImagesFromObjectStorageHoldingImages() {
+        $images = new \TYPO3\CMS\Extbase\Domain\Model\FileReference();
+        $localObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $localObjectStorage->attach($images);
+        $localObjectStorage->detach($images);
+        $this->fixture->addImages($images);
+        $this->fixture->removeImages($images);
+
+        $this->assertEquals(
+            $localObjectStorage,
+            $this->fixture->getImages()
+        );
+    }
 
 	/**
 	 * @test

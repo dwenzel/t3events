@@ -53,7 +53,7 @@ class PersonRepositoryTest extends UnitTestCase {
 
 		$this->assertEquals(
 			[],
-			$this->fixture->_call('createConstraintsFromDemand', $query, $demand)
+			$this->fixture->createConstraintsFromDemand($query, $demand)
 		);
 	}
 

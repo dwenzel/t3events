@@ -8,8 +8,8 @@ use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
 
 /***************************************************************
  *  Copyright notice
- *  (c) 2013 Dirk Wenzel <wenzel@dWenzel01.de>, Agentur DWenzel
- *  Michael Kasten <kasten@dWenzel01.de>, Agentur DWenzel
+ *  (c) 2013 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
+ *  Michael Kasten <kasten@webfox01.de>, Agentur Webfox
  *  All rights reserved
  *  This script is part of the TYPO3 project. The TYPO3 project is
  *  free software; you can redistribute it and/or modify
@@ -41,7 +41,17 @@ interface DemandedRepositoryInterface {
 	 */
 	public function createOrderingsFromDemand(DemandInterface $demand);
 
-	/**
+    /**
+     * Returns an array of constraints created from a given demand object.
+     *
+     * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
+     * @param \DWenzel\T3events\Domain\Model\Dto\DemandInterface $demand
+     * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint>
+     * @abstract
+     */
+    public function createConstraintsFromDemand(QueryInterface $query, DemandInterface $demand);
+
+    /**
 	 * Returns the objects of this repository matching the demand.
 	 *
 	 * @param \DWenzel\T3events\Domain\Model\Dto\DemandInterface $demand

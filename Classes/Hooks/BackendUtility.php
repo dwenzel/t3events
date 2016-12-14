@@ -35,16 +35,6 @@ class BackendUtility {
 		'template' => 'hideIfEmptyResult'
 	);
 
-	/**
-	 * Fields which are removed in events teaser view
-	 *
-	 * @var \array
-	 */
-	public $removedFieldsInEventTeaserView = array(
-		'sDEF' => 'quickMenuType',
-		'template' => 'hideIfEmptyResult'
-	);
-
 	public $removedFieldsInEventCalendarView = array(
 		'sDEF' => 'sortDirection,sortBy,cache.makeNonCacheable',
 		'template' => 'hideIfEmptyResult'
@@ -109,9 +99,6 @@ class BackendUtility {
 			switch ($selectedView) {
 				case 'Event->quickMenu':
 					$this->deleteFromStructure($dataStructure, $this->removedFieldsInEventQuickMenuView);
-					break;
-				case 'Teaser->list':
-					$this->deleteFromStructure($dataStructure, $this->removedFieldsInEventTeaserView);
 					break;
 				case 'Event->calendar':
 					$this->deleteFromStructure($dataStructure, $this->removedFieldsInEventCalendarView);

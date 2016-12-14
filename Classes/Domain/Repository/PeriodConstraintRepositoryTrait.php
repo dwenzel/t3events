@@ -12,6 +12,7 @@ use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 *@package DWenzel\T3events\Domain\Repository
  */
 trait PeriodConstraintRepositoryTrait {
+
 	/**
 	 * Create period constraints from demand (time restriction)
 	 *
@@ -34,7 +35,7 @@ trait PeriodConstraintRepositoryTrait {
         $endDateField = $demand->getEndDateField();
 
 		switch ($demand->getPeriod()) {
-			case 'futureOnly' :
+            case PeriodConstraintRepositoryInterface::PERIOD_FUTURE:
                 if ($respectEndDate) {
                     $periodConstraint[] = $query->logicalOr(
                         $query->greaterThanOrEqual($startDateField, $lowerLimit),
@@ -44,7 +45,7 @@ trait PeriodConstraintRepositoryTrait {
                     $periodConstraint[] = $query->greaterThanOrEqual($startDateField, $lowerLimit);
                 }
 				break;
-			case 'pastOnly' :
+            case PeriodConstraintRepositoryInterface::PERIOD_PAST:
                 if ($respectEndDate) {
                     $periodConstraint[] = $query->logicalAnd(
                         $query->lessThanOrEqual($endDateField, $upperLimit),
@@ -54,7 +55,7 @@ trait PeriodConstraintRepositoryTrait {
                     $periodConstraint[] = $query->lessThanOrEqual($startDateField, $lowerLimit);
                 }
 				break;
-			case 'specific' :
+            case PeriodConstraintRepositoryInterface::PERIOD_SPECIFIC:
                 if ($respectEndDate) {
                     $periodConstraint[] = $query->logicalOr(
                         $query->logicalAnd(

@@ -18,6 +18,21 @@
 		<trans-unit id="label.link">
 			<source>Link</source>
 		</trans-unit>
+		<trans-unit id="label.period.all">
+			<source>all</source>
+		</trans-unit>
+		<trans-unit id="label.period_duration">
+			<source>Duration</source>
+		</trans-unit>
+		<trans-unit id="label.period.past">
+			<source>past only</source>
+		</trans-unit>
+		<trans-unit id="label.period.future">
+			<source>future only</source>
+		</trans-unit>
+		<trans-unit id="label.period.specific">
+			<source>specific</source>
+		</trans-unit>
 		<trans-unit id="static_countries.tx_extbase_type.Tx_T3events_Country">
 			<source>Events Country</source>
 		</trans-unit>
@@ -93,12 +108,21 @@
 		<trans-unit id="tx_t3events_domain_model_event.subtitle">
 			<source>Subtitle</source>
 		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_event.teaser">
-			<source>Teaser</source>
-		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_event.venue">
 			<source>Venue</source>
 		</trans-unit>
+        <trans-unit id="tx_t3events_domain_model_event.tab.relations">
+            <source>Relations</source>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_event.images">
+            <source>Images</source>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_event.files">
+            <source>Files</source>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_event.related">
+            <source>Related events</source>
+        </trans-unit>
 		<trans-unit id="tx_t3events_domain_model_eventlocation">
 			<source>Event Location</source>
 		</trans-unit>
@@ -240,6 +264,12 @@
 		<trans-unit id="tx_t3events_domain_model_performance.ticket_class">
 			<source>Ticket Class</source>
 		</trans-unit>
+        <trans-unit id="tx_t3events_domain_model_performance.tab.relations">
+            <source>Relations</source>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_performance.images">
+            <source>Images</source>
+        </trans-unit>
 		<trans-unit id="tx_t3events_domain_model_performancestatus">
 			<source>Performance Status</source>
 		</trans-unit>
@@ -345,11 +375,8 @@
 		<trans-unit id="tx_t3events_domain_model_task.old_status">
 			<source>Old Status</source>
 		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_task.period">
-			<source>Time Period</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_teaser">
-			<source>Teaser</source>
+		<trans-unit id="label.period">
+			<source>Period</source>
 		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_teaser.details">
 			<source>Details</source>

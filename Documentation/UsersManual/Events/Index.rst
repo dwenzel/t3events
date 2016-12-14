@@ -93,8 +93,7 @@ Single Performance
   For example: 'online booking not available anymore please order by
   phone'
 
-- Image: Will be shown in list and single view of events and may be
-  choosen to show in teaser view
+- Image: Will be shown in list and single view of events
 
 **Links Tab**
 
