@@ -1,6 +1,7 @@
 <?php
 namespace DWenzel\T3events\Tests\Controller;
 
+use DWenzel\T3events\Domain\Model\Dto\EventDemand;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 use DWenzel\T3events\Controller\DemandTrait;
 use DWenzel\T3events\Domain\Model\Dto\AbstractDemand;
@@ -61,6 +62,24 @@ class DemandTraitTest extends UnitTestCase
         $overwriteDemand = ['genre' => '1,2,3'];
 
         $demand->expects($this->once())->method('setGenres')
+            ->with('1,2,3');
+
+        $this->subject->overwriteDemandObject($demand, $overwriteDemand);
+    }
+
+    /**
+     * @test
+     */
+    public function overwriteDemandObjectSetsGenre()
+    {
+        // support for legacy field 'genre'
+        $demand = $this->getMockForAbstractClass(
+            EventDemand::class,
+            [], '', true, true, true, ['setGenre']
+        );
+        $overwriteDemand = ['genre' => '1,2,3'];
+
+        $demand->expects($this->once())->method('setGenre')
             ->with('1,2,3');
 
         $this->subject->overwriteDemandObject($demand, $overwriteDemand);

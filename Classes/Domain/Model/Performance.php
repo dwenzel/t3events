@@ -1,30 +1,29 @@
 <?php
 namespace DWenzel\T3events\Domain\Model;
 
-	/***************************************************************
-	 *  Copyright notice
-	 *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
-	 *  Michael Kasten <kasten@webfox01.de>, Agentur Webfox
-	 *  All rights reserved
-	 *  This script is part of the TYPO3 project. The TYPO3 project is
-	 *  free software; you can redistribute it and/or modify
-	 *  it under the terms of the GNU General Public License as published by
-	 *  the Free Software Foundation; either version 3 of the License, or
-	 *  (at your option) any later version.
-	 *  The GNU General Public License can be found at
-	 *  http://www.gnu.org/copyleft/gpl.html.
-	 *  This script is distributed in the hope that it will be useful,
-	 *  but WITHOUT ANY WARRANTY; without even the implied warranty of
-	 *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	 *  GNU General Public License for more details.
-	 *  This copyright notice MUST APPEAR in all copies of the script!
-	 ***************************************************************/
+/**
+ * This file is part of the TYPO3 CMS project.
+ *
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with this source code.
+ *
+ * The TYPO3 project - inspiring people to share!
+ */
+use DWenzel\T3calendar\Domain\Model\CalendarItemInterface;
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /**
- * @package t3events
- * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
+ * Class Performance
+ * @package DWenzel\T3events\Domain\Model
  */
-class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
+class Performance 
+    extends AbstractEntity 
+    implements CalendarItemInterface {
 
 	/**
 	 * date
@@ -57,21 +56,21 @@ class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * statusInfo
 	 *
-	 * @var \string
+	 * @var string
 	 */
 	protected $statusInfo;
 
 	/**
 	 * externalProviderLink
 	 *
-	 * @var \string
+	 * @var string
 	 */
 	protected $externalProviderLink;
 
 	/**
 	 * additionalLink
 	 *
-	 * @var \string
+	 * @var string
 	 */
 	protected $additionalLink;
 
@@ -85,7 +84,7 @@ class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * image
 	 *
-	 * @var \string
+	 * @var string
 	 */
 	protected $image;
 
@@ -100,7 +99,7 @@ class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * plan
 	 *
-	 * @var \string
+	 * @var string
 	 */
 	protected $plan;
 
@@ -114,7 +113,7 @@ class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * priceNotice
 	 *
-	 * @var \string
+	 * @var string
 	 */
 	protected $priceNotice;
 
@@ -173,8 +172,8 @@ class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 		 * It will be rewritten on each save in the extension builder
 		 * You may modify the constructor of this class instead
 		 */
-        $this->images = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-		$this->ticketClass = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->images = new ObjectStorage();
+		$this->ticketClass = new ObjectStorage();
 	}
 
 	/**
@@ -316,7 +315,7 @@ class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Returns the statusInfo
 	 *
-	 * @return \string $statusInfo
+	 * @return string $statusInfo
 	 */
 	public function getStatusInfo() {
 		return $this->statusInfo;
@@ -325,7 +324,7 @@ class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the statusInfo
 	 *
-	 * @param \string $statusInfo
+	 * @param string $statusInfo
 	 * @return void
 	 */
 	public function setStatusInfo($statusInfo) {
@@ -335,7 +334,7 @@ class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Returns the image
 	 *
-	 * @return \string $image
+	 * @return string $image
 	 */
 	public function getImage() {
 		return $this->image;
@@ -344,7 +343,7 @@ class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the image
 	 *
-	 * @param \string $image
+	 * @param string $image
 	 * @return void
 	 */
 	public function setImage($image) {
@@ -389,7 +388,7 @@ class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
      * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $images Images
      * @return void
      */
-    public function setImages(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $images)
+    public function setImages(ObjectStorage $images)
     {
         $this->images = $images;
     }
@@ -397,7 +396,7 @@ class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Returns the plan
 	 *
-	 * @return \string $plan
+	 * @return string $plan
 	 */
 	public function getPlan() {
 		return $this->plan;
@@ -406,7 +405,7 @@ class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the plan
 	 *
-	 * @param \string $plan
+	 * @param string $plan
 	 * @return void
 	 */
 	public function setPlan($plan) {
@@ -463,7 +462,7 @@ class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Returns the priceNotice
 	 *
-	 * @return \string $priceNotice
+	 * @return string $priceNotice
 	 */
 	public function getPriceNotice() {
 		return $this->priceNotice;
@@ -472,7 +471,7 @@ class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the priceNotice
 	 *
-	 * @param \string $priceNotice
+	 * @param string $priceNotice
 	 * @return void
 	 */
 	public function setPriceNotice($priceNotice) {
@@ -514,14 +513,14 @@ class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\TicketClass> $ticketClass
 	 * @return void
 	 */
-	public function setTicketClass(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $ticketClass) {
+	public function setTicketClass(ObjectStorage $ticketClass) {
 		$this->ticketClass = $ticketClass;
 	}
 
 	/**
 	 * Returns the additionalLink
 	 *
-	 * @return \string additionalLink
+	 * @return string additionalLink
 	 */
 	public function getAdditionalLink() {
 		return $this->additionalLink;
@@ -530,8 +529,8 @@ class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the additionalLink
 	 *
-	 * @param \string $additionalLink
-	 * @return \string additionalLink
+	 * @param string $additionalLink
+	 * @return string additionalLink
 	 */
 	public function setAdditionalLink($additionalLink) {
 		$this->additionalLink = $additionalLink;
@@ -540,7 +539,7 @@ class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Returns the externalProviderLink
 	 *
-	 * @return \string externalProviderLink
+	 * @return string externalProviderLink
 	 */
 	public function getExternalProviderLink() {
 		return $this->externalProviderLink;
@@ -549,8 +548,8 @@ class Performance extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the externalProviderLink
 	 *
-	 * @param \string $externalProviderLink
-	 * @return \string externalProviderLink
+	 * @param string $externalProviderLink
+	 * @return string externalProviderLink
 	 */
 	public function setExternalProviderLink($externalProviderLink) {
 		$this->externalProviderLink = $externalProviderLink;
