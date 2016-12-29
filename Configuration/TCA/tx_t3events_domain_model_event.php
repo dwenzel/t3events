@@ -3,6 +3,14 @@ if (!defined('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 $ll = 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:';
+$editWizardIconPath = 'EXT:backend/Resources/Public/Images/FormFieldWizard/wizard_edit.gif';
+$addWizardIconPath = 'EXT:backend/Resources/Public/Images/FormFieldWizard/wizard_add.gif';
+$versionNumber = \TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version);
+if ($versionNumber < 7000000) {
+    $editWizardIconPath = 'edit2.gif';
+    $addWizardIconPath = 'add.gif';
+}
+
 return [
 	'ctrl' => [
 		'title' => $ll . 'tx_t3events_domain_model_event',
@@ -350,14 +358,14 @@ return [
 						'module' => [
 							'name' => 'wizard_edit',
 						],
-						'icon' => 'EXT:backend/Resources/Public/Images/FormFieldWizard/wizard_edit.gif',
+						'icon' => $editWizardIcon,
 						'popup_onlyOpenIfSelected' => 1,
 						'JSopenParams' => 'height=350,width=580,status=0,menubar=0,scrollbars=1',
 					],
 					'add' => [
 						'type' => 'script',
 						'title' => 'Create new',
-						'icon' => 'EXT:backend/Resources/Public/Images/FormFieldWizard/wizard_add.gif',
+						'icon' => $addWizardIcon,
 						'params' => [
 							'table' => 'tx_t3events_domain_model_genre',
 							'pid' => '###CURRENT_PID###',
@@ -460,14 +468,14 @@ return [
 						'module' => [
 							'name' => 'wizard_edit'
 						],
-						'icon' => 'EXT:backend/Resources/Public/Images/FormFieldWizard/wizard_edit.gif',
+						'icon' => $editWizardIcon,
 						'popup_onlyOpenIfSelected' => 1,
 						'JSopenParams' => 'height=350,width=580,status=0,menubar=0,scrollbars=1',
 					],
 					'add' => [
 						'type' => 'script',
 						'title' => 'Create new',
-						'icon' => 'EXT:backend/Resources/Public/Images/FormFieldWizard/wizard_add.gif',
+						'icon' => $addWizardIcon,
 						'params' => [
 							'table' => 'tx_t3events_domain_model_audience',
 							'pid' => '###CURRENT_PID###',
