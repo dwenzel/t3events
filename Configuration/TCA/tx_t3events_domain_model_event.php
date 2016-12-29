@@ -358,14 +358,14 @@ return [
 						'module' => [
 							'name' => 'wizard_edit',
 						],
-						'icon' => $editWizardIcon,
+						'icon' => $editWizardIconPath,
 						'popup_onlyOpenIfSelected' => 1,
 						'JSopenParams' => 'height=350,width=580,status=0,menubar=0,scrollbars=1',
 					],
 					'add' => [
 						'type' => 'script',
 						'title' => 'Create new',
-						'icon' => $addWizardIcon,
+						'icon' => $addWizardIconPath,
 						'params' => [
 							'table' => 'tx_t3events_domain_model_genre',
 							'pid' => '###CURRENT_PID###',
@@ -468,14 +468,14 @@ return [
 						'module' => [
 							'name' => 'wizard_edit'
 						],
-						'icon' => $editWizardIcon,
+						'icon' => $editWizardIconPath,
 						'popup_onlyOpenIfSelected' => 1,
 						'JSopenParams' => 'height=350,width=580,status=0,menubar=0,scrollbars=1',
 					],
 					'add' => [
 						'type' => 'script',
 						'title' => 'Create new',
-						'icon' => $addWizardIcon,
+						'icon' => $addWizardIconPath,
 						'params' => [
 							'table' => 'tx_t3events_domain_model_audience',
 							'pid' => '###CURRENT_PID###',
