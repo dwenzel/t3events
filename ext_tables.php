@@ -1,14 +1,14 @@
 <?php
 if (!defined('TYPO3_MODE')) {
-	die ('Access denied.');
+    die ('Access denied.');
 }
 
 $emSettings = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][$_EXTKEY]);
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-	'DWenzel.' . $_EXTKEY,
-	'Events',
-	'Events'
+    'DWenzel.' . $_EXTKEY,
+    'Events',
+    'Events'
 );
 
 \TYPO3\CMS\Core\Utility\GeneralUtility::requireOnce(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Classes/Hooks/ItemsProcFunc.php');
@@ -21,8 +21,8 @@ $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignat
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile($_EXTKEY, 'Configuration/TypoScript', 'Events');
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr(
-	'tt_content.pi_flexform.t3events_events.list',
-	'EXT:t3events/Resources/Private/Language/locallang_csh_flexform.xml'
+    'tt_content.pi_flexform.t3events_events.list',
+    'EXT:t3events/Resources/Private/Language/locallang_csh_flexform.xml'
 );
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_t3events_domain_model_event', 'EXT:t3events/Resources/Private/Language/locallang_csh_tx_t3events_domain_model_event.xml');
@@ -62,22 +62,51 @@ $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignat
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_t3events_domain_model_audience');
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr(
-	'tx_t3events_domain_model_notification',
-	'EXT:t3events/Resources/Private/Language/locallang_csh_tx_t3events_domain_model_notification.xlf');
+    'tx_t3events_domain_model_notification',
+    'EXT:t3events/Resources/Private/Language/locallang_csh_tx_t3events_domain_model_notification.xlf');
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_t3events_domain_model_notification');
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr(
-	'tx_t3events_domain_model_company',
-	'EXT:t3events/Resources/Private/Language/locallang_csh_tx_t3events_domain_model_company.xml'
+    'tx_t3events_domain_model_company',
+    'EXT:t3events/Resources/Private/Language/locallang_csh_tx_t3events_domain_model_company.xml'
 );
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_t3events_domain_model_company');
 
 // enable event module
+
 if ((bool)$emSettings['showEventModule']) {
-    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addModule(
-        'Events',
-        '',
-        '',
-        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Configuration/BackendModule/'
-    );
+    $versionNumber = \TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version);
+    if ($versionNumber < 7000000) {
+        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addModule('Events');
+    }
+    if ($versionNumber > 7000000 && $versionNumber < 8000000) {
+        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addModule(
+            'Events', null, null, null,
+            [
+                null,
+                'access' => 'group,user',
+                'name' => null,
+                'labels' => [
+                    'tabs_images' => [
+                        'tab' => 'EXT:t3events/Resources/Public/Icons/event-calendar.svg',
+                    ],
+                    'll_ref' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_mod_main.xlf',
+                ],
+            ]
+        );
+    }
+    if ($versionNumber >= 8000000) {
+        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addModule(
+            'Events',
+            '',
+            '',
+            [
+                'routeTarget' => '',
+                'access' => 'group,user',
+                'name' => 'events',
+                'icon' => 'EXT:t3events/Resources/Public/Icons/event-calendar.svg',
+                'labels' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_mod_main.xlf',
+            ]
+        );
+    }
 }
