@@ -21,8 +21,8 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
  * Class Performance
  * @package DWenzel\T3events\Domain\Model
  */
-class Performance 
-    extends AbstractEntity 
+class Performance
+    extends AbstractEntity
     implements CalendarItemInterface {
 
 	/**
@@ -119,7 +119,8 @@ class Performance
 
 	/**
 	 * @var \DWenzel\T3events\Domain\Model\Event
-	 */
+     * @lazy
+     */
 	protected $event;
 
 	/**

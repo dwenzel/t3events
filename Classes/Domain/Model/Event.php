@@ -32,14 +32,14 @@ class Event extends AbstractEntity {
 	/**
 	 * Hidden
 	 *
-	 * @var \int
+	 * @var int
 	 */
 	protected $hidden;
 
 	/**
 	 * Enter a title.
 	 *
-	 * @var \string
+	 * @var string
 	 * @validate NotEmpty
 	 */
 	protected $headline;
@@ -47,7 +47,7 @@ class Event extends AbstractEntity {
 	/**
 	 * subtitle
 	 *
-	 * @var \string
+	 * @var string
 	 */
 	protected $subtitle;
 
@@ -59,21 +59,21 @@ class Event extends AbstractEntity {
 	/**
 	 * description
 	 *
-	 * @var \string
+	 * @var string
 	 */
 	protected $description;
 
 	/**
 	 * keywords
 	 *
-	 * @var \string
+	 * @var string
 	 */
 	protected $keywords;
 
 	/**
 	 * image
 	 *
-	 * @var \string
+	 * @var string
 	 */
 	protected $image;
 
@@ -181,7 +181,7 @@ class Event extends AbstractEntity {
 	/**
 	 * Returns hidden
 	 *
-	 * @return \int
+	 * @return int
 	 */
 	public function getHidden() {
 		return $this->hidden;
@@ -190,7 +190,7 @@ class Event extends AbstractEntity {
 	/**
 	 * Sets hidden
 	 *
-	 * @param \int $hidden
+	 * @param int $hidden
 	 */
 	public function setHidden($hidden) {
 		$this->hidden = $hidden;
@@ -199,7 +199,7 @@ class Event extends AbstractEntity {
 	/**
 	 * Returns the subtitle
 	 *
-	 * @return \string $subtitle
+	 * @return string $subtitle
 	 */
 	public function getSubtitle() {
 		return $this->subtitle;
@@ -208,7 +208,7 @@ class Event extends AbstractEntity {
 	/**
 	 * Sets the subtitle
 	 *
-	 * @param \string $subtitle
+	 * @param string $subtitle
 	 * @return void
 	 */
 	public function setSubtitle($subtitle) {
@@ -236,7 +236,7 @@ class Event extends AbstractEntity {
 	/**
 	 * Returns the description
 	 *
-	 * @return \string $description
+	 * @return string $description
 	 */
 	public function getDescription() {
 		return $this->description;
@@ -245,7 +245,7 @@ class Event extends AbstractEntity {
 	/**
 	 * Sets the description
 	 *
-	 * @param \string $description
+	 * @param string $description
 	 * @return void
 	 */
 	public function setDescription($description) {
@@ -255,7 +255,7 @@ class Event extends AbstractEntity {
 	/**
 	 * Returns the keywords
 	 *
-	 * @return \string $keywords
+	 * @return string $keywords
 	 */
 	public function getKeywords() {
 		return $this->keywords;
@@ -264,7 +264,7 @@ class Event extends AbstractEntity {
 	/**
 	 * Sets the keywords
 	 *
-	 * @param \string $keywords
+	 * @param string $keywords
 	 * @return void
 	 */
 	public function setKeywords($keywords) {
@@ -274,7 +274,7 @@ class Event extends AbstractEntity {
 	/**
 	 * Returns the image
 	 *
-	 * @return \string $image
+	 * @return string $image
 	 */
 	public function getImage() {
 		return $this->image;
@@ -283,7 +283,7 @@ class Event extends AbstractEntity {
 	/**
 	 * Sets the image
 	 *
-	 * @param \string $image
+	 * @param string $image
 	 * @return void
 	 */
 	public function setImage($image) {
@@ -517,7 +517,7 @@ class Event extends AbstractEntity {
 	/**
 	 * Returns the headline
 	 *
-	 * @return \string headline
+	 * @return string headline
 	 */
 	public function getHeadline() {
 		return $this->headline;
@@ -526,8 +526,8 @@ class Event extends AbstractEntity {
 	/**
 	 * Sets the headline
 	 *
-	 * @param \string $headline
-	 * @return \string headline
+	 * @param string $headline
+	 * @return string headline
 	 */
 	public function setHeadline($headline) {
 		$this->headline = $headline;
