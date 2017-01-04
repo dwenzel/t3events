@@ -17,10 +17,10 @@ namespace DWenzel\T3events\Controller;
 
 use DWenzel\T3calendar\Domain\Factory\CalendarFactoryTrait;
 use DWenzel\T3calendar\Domain\Model\Dto\CalendarConfigurationFactoryTrait;
+use DWenzel\T3calendar\Persistence\CalendarItemStorage;
 use DWenzel\T3events\Domain\Model\Event;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
-use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
 /**
@@ -160,7 +160,7 @@ class EventController extends ActionController
         $this->overwriteDemandObject($demand, $overwriteDemand);
         $events = $this->eventRepository->findDemanded($demand);
         $calendarConfiguration = $this->calendarConfigurationFactory->create($this->settings);
-        $performances = new ObjectStorage();
+        $performances = new CalendarItemStorage();
         /** @var Event $event */
         foreach ($events as $event)
         {
