@@ -1,14 +1,14 @@
-{namespace ts=DWenzel\T3events\ViewHelpers}
+{namespace t3c=DWenzel\T3calendar\ViewHelpers}
 
 <f:layout name="Default" />
 
 This Template is responsible for creating a calendar view of events.
 <f:section name="main">
-	<div id="tx-t3events-calendar-widget">
-		<ts:widget.calendar
-			objects="{events}"
-			configuration="{calendarConfiguration}"
-			id="tx-t3events-calendar-widget"
-			/>
+	<div class="tx-t3calendar-widget" id="tx-t3calendar-calendar-widget">
+		<t3c:widget.calendar
+				objects="{performances}"
+				configuration="{calendarConfiguration}"
+				id="tx-t3calendar-calendar-widget"
+		/>
 	</div>
 </f:section>

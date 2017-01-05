@@ -1,34 +1,27 @@
 <?php
 namespace DWenzel\T3events\Controller;
 
-/***************************************************************
- *  Copyright notice
- *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
- *  Michael Kasten <kasten@webfox01.de>, Agentur Webfox
- *  All rights reserved
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 3 of the License, or
- *  (at your option) any later version.
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+/**
+ * This file is part of the TYPO3 CMS project.
+ *
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with this source code.
+ *
+ * The TYPO3 project - inspiring people to share!
+ */
 
+
+use DWenzel\T3calendar\Domain\Factory\CalendarFactoryTrait;
+use DWenzel\T3calendar\Domain\Model\Dto\CalendarConfigurationFactoryTrait;
+use DWenzel\T3calendar\Persistence\CalendarItemStorage;
+use DWenzel\T3events\Domain\Model\Event;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
-use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
-
-
-use DWenzel\T3events\Domain\Model\Dto\CalendarConfiguration;
-use DWenzel\T3events\Domain\Model\Dto\EventDemand;
-use DWenzel\T3events\Domain\Model\Event;
 
 /**
  * Class EventController
@@ -37,7 +30,13 @@ use DWenzel\T3events\Domain\Model\Event;
  */
 class EventController extends ActionController
 {
-    use FilterableControllerTrait, SessionTrait, EntityNotFoundHandlerTrait, SearchTrait, TranslateTrait;
+    use CalendarFactoryTrait, CalendarConfigurationFactoryTrait,
+        DemandTrait, EventDemandFactoryTrait,
+        EventRepositoryTrait, EntityNotFoundHandlerTrait,
+        EventTypeRepositoryTrait, FilterableControllerTrait,
+        GenreRepositoryTrait, SearchTrait, SessionTrait,
+        SettingsUtilityTrait, VenueRepositoryTrait,
+        TranslateTrait;
 
     const EVENT_QUICK_MENU_ACTION = 'quickMenuAction';
     const EVENT_LIST_ACTION = 'listAction';
@@ -45,36 +44,28 @@ class EventController extends ActionController
     const EVENT_CALENDAR_ACTION = 'calendarAction';
 
     /**
-     * eventRepository
-     *
-     * @var \DWenzel\T3events\Domain\Repository\EventRepository
-     * @inject
+     * initializes all actions
      */
-    protected $eventRepository;
+    public function initializeAction()
+    {
+        $this->settings = $this->mergeSettings();
+        if ($this->request->hasArgument('overwriteDemand')) {
+            $this->session->set(
+                'tx_t3events_overwriteDemand',
+                serialize($this->request->getArgument('overwriteDemand'))
+            );
+        }
+    }
 
     /**
-     * genreRepository
-     *
-     * @var \DWenzel\T3events\Domain\Repository\GenreRepository
-     * @inject
+     * initializes quick menu action
      */
-    protected $genreRepository;
-
-    /**
-     * venueRepository
-     *
-     * @var \DWenzel\T3events\Domain\Repository\VenueRepository
-     * @inject
-     */
-    protected $venueRepository;
-
-    /**
-     * eventTypeRepository
-     *
-     * @var \DWenzel\T3events\Domain\Repository\EventTypeRepository
-     * @inject
-     */
-    protected $eventTypeRepository;
+    public function initializeQuickMenuAction()
+    {
+        if (!$this->request->hasArgument('overwriteDemand')) {
+            $this->session->clean();
+        }
+    }
 
     /**
      * action list
@@ -84,52 +75,14 @@ class EventController extends ActionController
      */
     public function listAction($overwriteDemand = null)
     {
-        if (!is_null($overwriteDemand['uidList'])) {
-            $recordArr = [];
-            if (is_array($overwriteDemand['uidList'])) {
-                $recordList = implode(',', $overwriteDemand['uidList']);
-                $recordArr = $overwriteDemand['uidList'];
-            } elseif (is_string($overwriteDemand['uidList'])) {
-                $recordList = $overwriteDemand['uidList'];
-                $recordArr = explode(',', $overwriteDemand['uidList']);
-            }
-            $result = $this->eventRepository->findMultipleByUid($recordList);
-
-            // Order by the order of provided array
-            $withIndex = [];
-            $ordered = [];
-            // Create an associative array
-            /** @var Event $event */
-            foreach ($result as $event) {
-                $withIndex[$event->getUid()] = $event;
-            }
-            // add to ordered array in right order
-            if ((bool)$recordArr) {
-                foreach ($recordArr AS $uid) {
-                    if (isset($withIndex[$uid])) {
-                        $ordered[] = $withIndex[$uid];
-                    }
-                }
-            }
-            $events = $ordered;
-        } else {
-            $demand = $this->createDemandFromSettings($this->settings);
-            $this->overwriteDemandObject($demand, $overwriteDemand);
-            $events = $this->eventRepository->findDemanded($demand);
-        }
+        $demand = $this->eventDemandFactory->createFromSettings($this->settings);
+        $this->overwriteDemandObject($demand, $overwriteDemand);
+        $events = $this->eventRepository->findDemanded($demand);
 
         /** @var QueryResultInterface $events */
         if (
-            (
-                $events instanceof QueryResultInterface
-                AND !$events->count()
-                AND !$this->settings['hideIfEmptyResult']
-            )
-            OR
-            (
-                !count($events)
-                AND !$this->settings['hideIfEmptyResult']
-            )
+            !$events->count()
+            && !$this->settings['hideIfEmptyResult']
         ) {
             $this->addFlashMessage(
                 $this->translate('tx_t3events.noEventsForSelectionMessage'),
@@ -173,9 +126,8 @@ class EventController extends ActionController
      */
     public function quickMenuAction()
     {
-
         // get session data
-        $overwriteDemand = unserialize($GLOBALS['TSFE']->fe_user->getKey('ses', 'tx_t3events_overwriteDemand'));
+        $overwriteDemand = unserialize($this->session->get('tx_t3events_overwriteDemand'));
 
         // get filter options from plugin
         $genres = $this->genreRepository->findMultipleByUid($this->settings['genres'], 'title');
@@ -199,17 +151,24 @@ class EventController extends ActionController
     /**
      * action calendar
      *
-     * @param \array $overwriteDemand
+     * @param array $overwriteDemand
      * @return void
      */
-    public function calendarAction($overwriteDemand = null)
+    public function calendarAction(array $overwriteDemand = null)
     {
-        $demand = $this->createDemandFromSettings($this->settings);
+        $demand = $this->eventDemandFactory->createFromSettings($this->settings);
         $this->overwriteDemandObject($demand, $overwriteDemand);
         $events = $this->eventRepository->findDemanded($demand);
-        $calendarConfiguration = $this->createCalendarConfigurationFromSettings($this->settings);
+        $calendarConfiguration = $this->calendarConfigurationFactory->create($this->settings);
+        $performances = new CalendarItemStorage();
+        /** @var Event $event */
+        foreach ($events as $event)
+        {
+            $performances->addAll($event->getPerformances());
+        }
         $templateVariables = [
             'events' => $events,
+            'performances' => $performances,
             'demand' => $demand,
             'calendarConfiguration' => $calendarConfiguration,
             'overwriteDemand' => $overwriteDemand
@@ -224,167 +183,10 @@ class EventController extends ActionController
      *
      * @param \array $settings
      * @return \DWenzel\T3events\Domain\Model\Dto\EventDemand
+     * @deprecated Use EventDemandFactory->createFromSettings instead
      */
     public function createDemandFromSettings($settings)
     {
-        /** @var EventDemand $demand */
-        $demand = $this->objectManager->get('DWenzel\\T3events\\Domain\\Model\\Dto\\EventDemand');
-
-        foreach ($settings as $propertyName => $propertyValue) {
-            if (empty($propertyValue)) {
-                continue;
-            }
-            switch ($propertyName) {
-                case 'eventTypes':
-                    $demand->setEventType($propertyValue);
-                    break;
-                case 'venues':
-                    $demand->setVenue($propertyValue);
-                    break;
-                case 'maxItems':
-                    $demand->setLimit($propertyValue);
-                    break;
-                case 'genres':
-                    $demand->setGenre($propertyValue);
-                    break;
-                // all following fall through (see below)
-                case 'periodType':
-                case 'periodStart':
-                case 'periodEndDate':
-                case 'periodDuration':
-                case 'search':
-                    break;
-                default:
-                    if (ObjectAccess::isPropertySettable($demand, $propertyName)) {
-                        ObjectAccess::setProperty($demand, $propertyName, $propertyValue);
-                    }
-            }
-        }
-
-        $demand->setOrder($settings['sortBy'] . '|' . $settings['sortDirection']);
-        if ($settings['period'] == 'specific') {
-            $demand->setPeriodType($settings['periodType']);
-        }
-        if (isset($settings['periodType']) AND $settings['periodType'] != 'byDate') {
-            $demand->setPeriodStart($settings['periodStart']);
-            $demand->setPeriodDuration($settings['periodDuration']);
-        }
-        if ($settings['periodType'] == 'byDate') {
-            if ($settings['periodStartDate']) {
-                $demand->setStartDate($settings['periodStartDate']);
-            }
-            if ($settings['periodEndDate']) {
-                $demand->setEndDate($settings['periodEndDate']);
-            }
-        }
-
-        return $demand;
-    }
-
-    /**
-     * overwrite demand object
-     *
-     * @param \DWenzel\T3events\Domain\Model\Dto\EventDemand $demand
-     * @param \array $overwriteDemand
-     */
-    public function overwriteDemandObject(&$demand, $overwriteDemand)
-    {
-        if ((bool)$overwriteDemand) {
-            foreach ($overwriteDemand as $propertyName => $propertyValue) {
-                switch ($propertyName) {
-                    case 'sortDirection':
-                        if ($propertyValue === 'desc') {
-                            $demand->setSortDirection('desc');
-                        } else {
-                            $demand->setSortDirection('asc');
-                        }
-                        break;
-                    case 'sortBy':
-                        // @todo read multiple orderings from array
-                        $orderings = $propertyValue;
-                        if (isset($overwriteDemand['sortDirection'])) {
-                            $orderings .= '|' . $overwriteDemand['sortDirection'];
-                        }
-                        $demand->setOrder($orderings);
-                        $demand->setSortBy($overwriteDemand['sortBy']);
-
-                        break;
-                    case 'startDate':
-                        $demand->setStartDate(new \DateTime($propertyValue));
-                        break;
-                    case 'endDate':
-                        $demand->setEndDate(new \DateTime($propertyValue));
-                        break;
-                    case 'search':
-                        $searchObj = $this->createSearchObject(
-                            $overwriteDemand['search'],
-                            $this->settings['event']['search']
-                        );
-                        $demand->setSearch($searchObj);
-                        break;
-                    default:
-                        ObjectAccess::setProperty($demand, $propertyName, $propertyValue);
-                }
-            }
-        }
-        $GLOBALS['TSFE']->fe_user->setKey('ses', 'tx_t3events_overwriteDemand', serialize($overwriteDemand));
-        $GLOBALS['TSFE']->fe_user->storeSessionData();
-    }
-
-    /**
-     * Creates a calendar configuration from settings
-     *
-     * @param array $settings
-     * @return CalendarConfiguration
-     */
-    public function createCalendarConfigurationFromSettings($settings)
-    {
-        /** @var CalendarConfiguration $calendarConfiguration */
-        $calendarConfiguration = $this->objectManager->get(
-            'DWenzel\\T3events\\Domain\\Model\\Dto\\CalendarConfiguration'
-        );
-
-        if (isset($settings['displayPeriod'])) {
-            $calendarConfiguration->setDisplayPeriod((int)$settings['displayPeriod']);
-        } else {
-            $calendarConfiguration->setDisplayPeriod(CalendarConfiguration::PERIOD_MONTH);
-        }
-
-        $dateString = 'today';
-        /** @var \DateTimeZone $timeZone */
-        $timeZone = new \DateTimeZone(date_default_timezone_get());
-        /** @var \DateTime $startDate */
-        $startDate = new \DateTime($dateString, $timeZone);
-
-        $currentDate = new \DateTime($dateString, $timeZone);
-        $calendarConfiguration->setCurrentDate($currentDate);
-
-        switch ($calendarConfiguration->getDisplayPeriod()) {
-            case CalendarConfiguration::PERIOD_WEEK:
-                $dateString = 'monday this week';
-                break;
-            case CalendarConfiguration::PERIOD_YEAR:
-                $dateString = 'first day of january ' . $currentDate->format('Y');
-                break;
-            default:
-                $dateString = 'first day of this month';
-        }
-        if (isset($settings['startDate']) AND !empty($settings['startDate'])) {
-            $dateString = $settings['startDate'];
-        }
-        $startDate->modify($dateString);
-        $calendarConfiguration->setStartDate($startDate);
-
-        if (isset($settings['viewMode']) AND !empty($settings['viewMode'])) {
-            $calendarConfiguration->setViewMode((int)$settings['viewMode']);
-        } else {
-            $calendarConfiguration->setViewMode(CalendarConfiguration::VIEW_MODE_COMBO_PANE);
-        }
-
-        if (isset($settings['ajaxEnabled'])) {
-            $calendarConfiguration->setAjaxEnabled((bool)$settings['ajaxEnabled']);
-        }
-
-        return $calendarConfiguration;
+        return $this->eventDemandFactory->createFromSettings($settings);
     }
 }

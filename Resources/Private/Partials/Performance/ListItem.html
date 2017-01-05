@@ -1,11 +1,11 @@
 <div class="list-item" xmlns:f="http://typo3.org/ns/fluid/ViewHelpers">
 	<div class="date">
-		<f:format.date format="d.m.Y">{lesson.date}</f:format.date>
+		<f:format.date format="d.m.Y">{performance.date}</f:format.date>
 	</div>
 	<h2 class="header">
 		<f:link.action
 			action="show"
-			arguments="{performance: performance}"
+			arguments="{performance: '{performance}'}"
 			pageUid="{settings.detailPid}">
 			{performance.event.headline}
 		</f:link.action>
