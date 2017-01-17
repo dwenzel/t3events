@@ -16,18 +16,8 @@
       "role": "Developer"
     }
   ],
-  "repositories": [
-    {
-      "type": "vcs",
-      "url": "https://github.com/dwenzel/t3calendar.git"
-    },
-    {
-      "type": "vcs",
-      "url": "https://github.com/dwenzel/notification_service.git"
-    }
-  ],
   "require": {
-    "typo3/cms-core": ">=6.2.0,<8.4",
+    "typo3/cms": ">=6.2.0,<8.4",
     "dwenzel/t3calendar": "^0.1.0"
   },
   "require-dev": {
@@ -64,8 +54,8 @@
   },
   "extra": {
 		"branch-alias": {
-          "dev-master": "0.30.x-dev",
-          "dev-develop": "0.30.x-dev"
+          "dev-master": "0.31.x-dev",
+          "dev-develop": "0.31.x-dev"
 		},
     "typo3/cms": {
       "cms-package-dir": "{$vendor-dir}/typo3/cms",
