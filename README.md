@@ -13,6 +13,7 @@ This is an extension for the TYPO3 CMS.
 * [Introduction](./Documentation/Introduction/WhatDoesIdDo/Index.rst)
 * Configuration
     * [Overview](./Documentation/Configuration/Overview/Index.rst)
+    * [Templates](./Documentation/Configuration/Templates.md)
 * [ViewHelpers](./Documentation/ViewHelpers/ViewHelpers.md)
     * Format
         * [ArrayToCsv](./Documentation/ViewHelpers/Format/ArrayToCsv.md)
@@ -23,7 +24,7 @@ This is an extension for the TYPO3 CMS.
     * [Auxiliary Records](./Documentation/UsersManual/AuxiliaryRecords/Index.rst)
     * [Events](./Documentation/UsersManual/Events/Index.rst)
     * [Plugins](./Documentation/UsersManual/InsertPlugins/Index.rst)
-
+* [How To](./Documentation/HowTo/HowTo.md)
 
 ## Credits 
 Thanks for contribution and feedback

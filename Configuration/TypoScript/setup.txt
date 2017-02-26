@@ -3,9 +3,19 @@ plugin.tx_t3events {
     mvc.callDefaultActionIfActionCantBeResolved = 1
 
     view {
+        # keep old templateRootPath for backward compatibility
         templateRootPath = {$plugin.tx_t3events.view.templateRootPath}
+        templateRootPaths {
+            10 = {$plugin.tx_t3events.view.templateRootPath}
+        }
         partialRootPath = {$plugin.tx_t3events.view.partialRootPath}
+        partialRootPaths {
+            10 = {$plugin.tx_t3events.view.partialRootPath}
+        }
         layoutRootPath = {$plugin.tx_t3events.view.layoutRootPath}
+        layoutRootPaths {
+            10 = {$plugin.tx_t3events.view.layoutRootPath}
+        }
     }
 
     persistence {
