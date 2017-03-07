@@ -155,7 +155,7 @@ class FlashMessageTraitTest extends UnitTestCase
     public function getFlashMessageQueueInstantiatesLegacyQueue()
     {
         $versionNumber = \TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version);
-        if ($versionNumber < 7000000) {
+        if ($versionNumber > 7000000) {
             $this->markTestSkipped('Test for legacy flash message queue is obsolete.');
         }
 
