@@ -24,6 +24,8 @@ This is an extension for the TYPO3 CMS.
     * [Auxiliary Records](./Documentation/UsersManual/AuxiliaryRecords/Index.rst)
     * [Events](./Documentation/UsersManual/Events/Index.rst)
     * [Plugins](./Documentation/UsersManual/InsertPlugins/Index.rst)
+* Administrators Manual
+    * [Updating from previous versions](./Documentation/AdministratorsManual/UpdateScripts.md)
 * [How To](./Documentation/HowTo/HowTo.md)
 
 ## Credits 

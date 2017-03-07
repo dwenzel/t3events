@@ -27,6 +27,11 @@ class ext_update
     protected $taskUpdater;
 
     /**
+     * @var \DWenzel\T3events\Update\MigratePluginRecords
+     */
+    protected $pluginUpdater;
+
+    /**
      * Array of flash messages (params) array[][status,title,message]
      *
      * @var array
@@ -41,6 +46,7 @@ class ext_update
     public function __construct()
     {
         $this->taskUpdater = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\DWenzel\T3events\Update\MigrateTaskRecords::class);
+        $this->pluginUpdater = GeneralUtility::makeInstance(\DWenzel\T3events\Update\MigratePluginRecords::class);
         $this->dataBaseSchemaUpdate = GeneralUtility::makeInstance(\TYPO3\CMS\Install\Updates\InitialDatabaseSchemaUpdate::class);
     }
 
@@ -64,7 +70,8 @@ class ext_update
     public function access()
     {
         $description = '';
-        return $this->taskUpdater->checkForUpdate($description);
+        $showMenu = ($this->taskUpdater->checkForUpdate($description) || $this->pluginUpdater->checkForUpdate($description));
+        return $showMenu;
     }
 
     /**
@@ -78,6 +85,7 @@ class ext_update
         $dbQueries = [];
         if ($this->canPerformUpdate($messages)) {
             $this->taskUpdater->performUpdate($dbQueries, $messages);
+            $this->pluginUpdater->performUpdate($dbQueries, $messages);
         }
 
         $this->messageArray = $messages;
@@ -121,7 +129,7 @@ class ext_update
                 $messageItem[2],
                 $messageItem[1],
                 $messageItem[0]);
-            $output .= $this->renderFlashMessage($flashMessage);
+            $output .= $flashMessage->render();
         }
         return $output;
     }

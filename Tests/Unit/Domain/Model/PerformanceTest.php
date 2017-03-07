@@ -40,7 +40,9 @@ use DWenzel\T3events\Domain\Model\Event;
  */
 class PerformanceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
 
-	/**
+    const SKIP_MESSAGE_FILEREFERENCE = 'Skipped due to incompatible implementation in core.';
+
+    /**
 	 * @var \DWenzel\T3events\Domain\Model\Performance
 	 */
 	protected $fixture;
@@ -280,6 +282,9 @@ class PerformanceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
      * @covers ::setImages
      */
     public function setImagesForObjectStorageContainingImagesSetsImages() {
+        if (version_compare(PHP_VERSION, '7.0.0') >= 0) {
+            $this->markTestSkipped(self::SKIP_MESSAGE_FILEREFERENCE);
+        }
         $images = new \TYPO3\CMS\Extbase\Domain\Model\FileReference();
         $objectStorageHoldingExactlyOneImage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $objectStorageHoldingExactlyOneImage->attach($images);
@@ -297,6 +302,9 @@ class PerformanceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
      */
     public function addImagesToObjectStorageHoldingImages()
     {
+        if (version_compare(PHP_VERSION, '7.0.0') >= 0) {
+            $this->markTestSkipped(self::SKIP_MESSAGE_FILEREFERENCE);
+        }
         $images = new \TYPO3\CMS\Extbase\Domain\Model\FileReference();
         $objectStorageHoldingExactlyOneImage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $objectStorageHoldingExactlyOneImage->attach($images);
@@ -313,6 +321,9 @@ class PerformanceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
      * @covers ::removeImages
      */
     public function removeImagesFromObjectStorageHoldingImages() {
+        if (version_compare(PHP_VERSION, '7.0.0') >= 0) {
+            $this->markTestSkipped(self::SKIP_MESSAGE_FILEREFERENCE);
+        }
         $images = new \TYPO3\CMS\Extbase\Domain\Model\FileReference();
         $localObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $localObjectStorage->attach($images);
