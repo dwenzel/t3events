@@ -35,7 +35,9 @@ use DWenzel\T3events\Resource\ResourceFactory;
  ***************************************************************/
 class ResourceFactoryTest extends UnitTestCase {
 
-	/**
+    const SKIP_MESSAGE_FILEREFERENCE = 'Skipped due to incompatible implementation in core.';
+
+    /**
 	 * @var \DWenzel\T3events\Resource\ResourceFactory
 	 */
 	protected $subject;
@@ -118,7 +120,10 @@ class ResourceFactoryTest extends UnitTestCase {
 	 * @test
 	 */
 	public function createFileReferenceFromFileObjectCreatesObject() {
-		$this->subject = $this->getAccessibleMock(
+        if (version_compare(PHP_VERSION, '7.0.0') >= 0) {
+            $this->markTestSkipped(self::SKIP_MESSAGE_FILEREFERENCE);
+        }
+        $this->subject = $this->getAccessibleMock(
 			\DWenzel\T3events\Resource\ResourceFactory::class, ['createFileReferenceObject']
 		);
 		$mockCoreFileReference = $this->getMock(
