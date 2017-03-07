@@ -246,12 +246,6 @@ class PerformanceController
         /** @var PerformanceDemand $demand */
         $demand = $this->objectManager->get('DWenzel\\T3events\\Domain\\Model\\Dto\\PerformanceDemand');
 
-        if ($settings['sortBy'] == 'performances.date') {
-            $settings['sortBy'] = 'date';
-        }
-        if ($settings['sortBy'] == 'headline') {
-            $settings['sortBy'] = 'event.headline';
-        }
         foreach ($settings as $name => $value) {
             if (empty($value)) {
                 continue;
@@ -288,8 +282,6 @@ class PerformanceController
             $demand->setPeriodStart($settings['periodStart']);
             $demand->setPeriodDuration($settings['periodDuration']);
         }
-
-        $demand->setOrder($settings['sortBy'] . '|' . $settings['sortDirection']);
 
         if ($settings['periodType'] == 'byDate') {
             if ($settings['periodStartDate']) {

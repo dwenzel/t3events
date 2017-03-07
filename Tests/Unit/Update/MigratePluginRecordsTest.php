@@ -46,7 +46,8 @@ class MigratePluginRecordsTest extends UnitTestCase
         $this->database = $this->getMock(
             DatabaseConnection::class,
             [
-                'exec_SELECTquery',
+                'exec_SELECTcountRows',
+                'exec_SELECTgetRows',
                 'sql_fetch_assoc',
                 'sql_error',
                 'debug_lastBuiltQuery',
@@ -55,8 +56,65 @@ class MigratePluginRecordsTest extends UnitTestCase
             ], [], '', false
         );
         $this->subject->expects($this->any())
-            ->method(('getDatabaseConnection'))
+            ->method('getDatabaseConnection')
             ->will($this->returnValue($this->database));
+    }
+
+    /**
+     * Provides xml strings before and after update
+     *
+     * @return array
+     */
+    public function xmlWithDeprecatedSettingsDataProvider()
+    {
+        $legacyXml = <<<XML
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3FlexForms>
+    <data>
+        <sheet index="sDEF">
+            <language index="lDEF">
+                <field index="settings.sortBy">
+                    <value index="vDEF">performances.date</value>
+                </field>
+                <field index="settings.sortDirection">
+                    <value index="vDEF">asc</value>
+                </field>
+            </language>
+        </sheet>
+    </data>
+</T3FlexForms>
+XML;
+
+        $expectedXml = <<<XML
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3FlexForms>
+    <data>
+        <sheet index="sDEF">
+            <language index="lDEF">
+                <field index="settings.order">
+                    <value index="vDEF">performances.date|asc</value>
+                </field>
+            </language>
+        </sheet>
+    </data>
+</T3FlexForms>
+XML;
+        $expectedFlexFormSettings = [
+            'data' => [
+                'sDEF' => [
+                    'lDEF' => [
+                        'settings.sortBy' => [
+                            'vDEF' => 'performances.date'
+                        ],
+                        'settings.sortDirection' => [
+                            'vDEF' => 'asc'
+                        ]
+                    ]
+                ]
+            ]
+        ];
+
+        return [[$legacyXml, $expectedXml, $expectedFlexFormSettings]];
     }
 
     /**
@@ -73,35 +131,58 @@ class MigratePluginRecordsTest extends UnitTestCase
     /**
      * @test
      */
-    public function checkForUpdateGetsPluginsWithDeprecatedFieldsFromDatabase()
+    public function countPluginRecordsWithDeprecatedSettingsGetsNumberOfRecordsFromDatabase()
     {
-        $description = '';
-        $expectedFields = 'uid, period';
-        $expectedWhere = 'period!=0';
+        $expectedFields = '*';
+        $expectedTable = MigratePluginRecords::CONTENT_TABLE;
+        $expectedWhere = MigratePluginRecords::DEPRECATED_PLUGIN_WHERE_CLAUSE;
         $this->database->expects($this->once())
-            ->method('exec_SELECTquery')
-            ->with($expectedFields, MigratePluginRecords::Plugin_TABLE, $expectedWhere);
-        $this->subject->checkForUpdate($description);
+            ->method('exec_SELECTcountRows')
+            ->with(
+                $expectedFields,
+                $expectedTable,
+                $expectedWhere
+            );
+
+        $this->subject->countPluginRecordsWithDeprecatedSettings();
     }
 
     /**
      * @test
      */
-    public function checkForUpdateReturnsTrueIfPluginsWithDeprecatedFieldsExist()
+    public function checkForUpdateReturnsTrueIfPluginsWithDeprecatedSettingsFound()
     {
-        $this->markTestSkipped();
         $description = '';
-        $Plugins = ['foo'];
+        $plugins = 5;
         $this->subject = $this->getMock(
-            MigratePluginRecords::class, ['getPluginsWithDeprecatedProperties']
+            MigratePluginRecords::class, ['countPluginRecordsWithDeprecatedSettings']
         );
         $this->subject->expects($this->once())
-            ->method('getPluginsWithDeprecatedProperties')
-            ->will($this->returnValue($Plugins));
+            ->method('countPluginRecordsWithDeprecatedSettings')
+            ->will($this->returnValue($plugins));
 
         $this->assertTrue(
             $this->subject->checkForUpdate($description)
         );
+    }
+
+    /**
+     * @test
+     */
+    public function getPluginRecordsWithDeprecatedSettingsGetsNumberOfRecordsFromDatabase()
+    {
+        $expectedFields = 'uid,' . MigratePluginRecords::FLEX_FORM_FIELD;
+        $expectedTable = MigratePluginRecords::CONTENT_TABLE;
+        $expectedWhere = MigratePluginRecords::DEPRECATED_PLUGIN_WHERE_CLAUSE;
+        $this->database->expects($this->once())
+            ->method('exec_SELECTgetRows')
+            ->with(
+                $expectedFields,
+                $expectedTable,
+                $expectedWhere
+            );
+
+        $this->subject->getPluginRecordsWithDeprecatedSettings();
     }
 
     /**
@@ -121,24 +202,22 @@ class MigratePluginRecordsTest extends UnitTestCase
      */
     public function performUpdateAddsMessageIfPluginWithDeprecatedFieldsExist()
     {
-        $this->markTestSkipped();
-
         $dbQueries = [];
         $customMessages = [];
-        $Plugins = ['foo'];
+        $plugins = [[MigratePluginRecords::FLEX_FORM_FIELD]];
         $expectedMessages = [
             [
                 FlashMessage::INFO,
                 MigratePluginRecords::TITLE_UPDATE_REQUIRED,
-                sprintf(MigratePluginRecords::MESSAGE_UPDATE_REQUIRED, count($Plugins))
+                sprintf(MigratePluginRecords::MESSAGE_UPDATE_REQUIRED, count($plugins))
             ]
         ];
         $this->subject = $this->getMock(
-            MigratePluginRecords::class, ['getPluginsWithDeprecatedProperties']
+            MigratePluginRecords::class, ['getPluginRecordsWithDeprecatedSettings']
         );
         $this->subject->expects($this->once())
-            ->method('getPluginsWithDeprecatedProperties')
-            ->will($this->returnValue($Plugins));
+            ->method('getPluginRecordsWithDeprecatedSettings')
+            ->will($this->returnValue($plugins));
 
         $this->subject->performUpdate($dbQueries, $customMessages);
 
@@ -150,48 +229,105 @@ class MigratePluginRecordsTest extends UnitTestCase
 
     /**
      * @test
+     * @dataProvider xmlWithDeprecatedSettingsDataProvider
+     * @param string $legacyXml
+     * @param string $expectedXml
+     * @param array $expectedFlexFormSettings
      */
-    public function performUpdateUpdatesValidRecords()
+    public function performUpdateUpdatesValidRecords($legacyXml, $expectedXml, $expectedFlexFormSettings)
     {
-        $this->markTestSkipped();
-
         $validPlugin = [
             'uid' => 5,
-            'period' => '5'
+            MigratePluginRecords::FLEX_FORM_FIELD => $legacyXml
         ];
         $dbQueries = [];
         $customMessages = [];
-        $Plugins = [$validPlugin];
+        $pluginRecords = [$validPlugin];
         $expectedFieldArray = [
-            'period_duration' => $validPlugin['period'],
-            'period' => ''
+            MigratePluginRecords::FLEX_FORM_FIELD => $expectedXml
+        ];
+
+        $this->subject = $this->getMock(
+            MigratePluginRecords::class,
+            [
+                'getPluginRecordsWithDeprecatedSettings',
+                'getDatabaseConnection',
+                'getFlexFormSettings'
+            ]
+        );
+        $this->subject->expects($this->once())
+            ->method('getPluginRecordsWithDeprecatedSettings')
+            ->will($this->returnValue($pluginRecords));
+        $this->subject->expects($this->any())
+            ->method('getDatabaseConnection')
+            ->will($this->returnValue($this->database));
+        $this->subject->expects($this->once())
+            ->method('getFlexFormSettings')
+            ->willReturn($expectedFlexFormSettings);
+
+        $this->database->expects($this->once())
+            ->method('exec_UPDATEquery')
+            ->with(
+                MigratePluginRecords::CONTENT_TABLE,
+                'uid=' . $validPlugin['uid'],
+                $expectedFieldArray
+            );
+        $this->subject->performUpdate($dbQueries, $customMessages);
+    }
+
+    /**
+     * @test
+     * @dataProvider xmlWithDeprecatedSettingsDataProvider
+     * @param string $legacyXml
+     * @param string $expectedXml
+     * @param array $expectedFlexFormSettings
+     */
+    public function performUpdateReturnsCorrectMessages($legacyXml, $expectedXml, $expectedFlexFormSettings)
+    {
+        $validPlugin = [
+            'uid' => 5,
+            MigratePluginRecords::FLEX_FORM_FIELD => $legacyXml
+        ];
+        $dbQueries = [];
+        $customMessages = [];
+        $pluginRecords = [$validPlugin];
+        $expectedFieldArray = [
+            MigratePluginRecords::FLEX_FORM_FIELD => $expectedXml
         ];
         $expectedMessages = [
             [
                 FlashMessage::INFO,
                 MigratePluginRecords::TITLE_UPDATE_REQUIRED,
-                sprintf(MigratePluginRecords::MESSAGE_UPDATE_REQUIRED, count($Plugins))
+                sprintf(MigratePluginRecords::MESSAGE_UPDATE_REQUIRED, count($pluginRecords))
             ],
             [
                 FlashMessage::INFO,
                 MigratePluginRecords::TITLE_UPDATED,
-                sprintf(MigratePluginRecords::MESSAGE_UPDATED, count($Plugins))
+                sprintf(MigratePluginRecords::MESSAGE_UPDATED, count($pluginRecords))
             ]
         ];
         $this->subject = $this->getMock(
-            MigratePluginRecords::class, ['getPluginsWithDeprecatedProperties', 'getDatabaseConnection']
+            MigratePluginRecords::class,
+            [
+                'getPluginRecordsWithDeprecatedSettings',
+                'getDatabaseConnection',
+                'getFlexFormSettings'
+            ]
         );
         $this->subject->expects($this->once())
-            ->method('getPluginsWithDeprecatedProperties')
-            ->will($this->returnValue($Plugins));
-        $this->subject->expects($this->once())
+            ->method('getPluginRecordsWithDeprecatedSettings')
+            ->will($this->returnValue($pluginRecords));
+        $this->subject->expects($this->any())
             ->method('getDatabaseConnection')
             ->will($this->returnValue($this->database));
+        $this->subject->expects($this->once())
+            ->method('getFlexFormSettings')
+            ->willReturn($expectedFlexFormSettings);
 
         $this->database->expects($this->once())
             ->method('exec_UPDATEquery')
             ->with(
-                MigratePluginRecords::Plugin_TABLE,
+                MigratePluginRecords::CONTENT_TABLE,
                 'uid=' . $validPlugin['uid'],
                 $expectedFieldArray
             );
