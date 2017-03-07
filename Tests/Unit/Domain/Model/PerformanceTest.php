@@ -1,5 +1,6 @@
 <?php
 namespace DWenzel\T3events\Tests\Unit\Domain\Model;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -38,238 +39,259 @@ use DWenzel\T3events\Domain\Model\Event;
  * @author Michael Kasten <kasten@webfox01.de>
  * @coversDefaultClass \DWenzel\T3events\Domain\Model\Performance
  */
-class PerformanceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
+class PerformanceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
+{
+    /**
+     * @var \DWenzel\T3events\Domain\Model\Performance
+     */
+    protected $fixture;
 
-    const SKIP_MESSAGE_FILEREFERENCE = 'Skipped due to incompatible implementation in core.';
+    public function setUp()
+    {
+        $this->fixture = new \DWenzel\T3events\Domain\Model\Performance();
+    }
+
+    public function tearDown()
+    {
+        unset($this->fixture);
+    }
 
     /**
-	 * @var \DWenzel\T3events\Domain\Model\Performance
-	 */
-	protected $fixture;
+     * @test
+     * @covers ::getDate
+     */
+    public function getDateReturnsInitialValueForDateTime()
+    {
+        $this->assertNull($this->fixture->getDate());
+    }
 
-	public function setUp() {
-		$this->fixture = new \DWenzel\T3events\Domain\Model\Performance();
-	}
+    /**
+     * @test
+     * @covers ::setDate
+     */
+    public function setDateForDateTimeSetsDate()
+    {
+        $date = new \DateTime();
+        $this->fixture->setDate($date);
+        $this->assertSame(
+            $date,
+            $this->fixture->getDate()
+        );
+    }
 
-	public function tearDown() {
-		unset($this->fixture);
-	}
+    /**
+     * @test
+     * @covers ::getEndDate
+     */
+    public function getEndDateReturnsInitialValueForDateTime()
+    {
+        $this->assertNull($this->fixture->getEndDate());
+    }
 
-	/**
-	 * @test
-	 * @covers ::getDate
-	 */
-	public function getDateReturnsInitialValueForDateTime() {
-		$this->assertNull($this->fixture->getDate());
-	}
+    /**
+     * @test
+     * @covers ::setEndDate
+     */
+    public function setEndDateForDateTimeSetsEndDate()
+    {
+        $endDate = new \DateTime();
+        $this->fixture->setEndDate($endDate);
+        $this->assertSame(
+            $endDate,
+            $this->fixture->getEndDate()
+        );
+    }
 
-	/**
-	 * @test
-	 * @covers ::setDate
-	 */
-	public function setDateForDateTimeSetsDate() {
-		$date = new \DateTime();
-		$this->fixture->setDate($date);
-		$this->assertSame(
-			$date,
-			$this->fixture->getDate()
-		);
-	}
+    /**
+     * @test
+     * @covers ::getAdmission
+     */
+    public function getAdmissionReturnsInitialValueForInt()
+    {
+        $this->assertNull($this->fixture->getAdmission());
+    }
 
-	/**
-	 * @test
-	 * @covers ::getEndDate
-	 */
-	public function getEndDateReturnsInitialValueForDateTime() {
-		$this->assertNull($this->fixture->getEndDate());
-	}
+    /**
+     * @test
+     * @covers ::setAdmission
+     */
+    public function setAdmissionForIntSetsAdmission()
+    {
+        $this->fixture->setAdmission(99);
+        $this->assertSame(
+            99,
+            $this->fixture->getAdmission()
+        );
+    }
 
-	/**
-	 * @test
-	 * @covers ::setEndDate
-	 */
-	public function setEndDateForDateTimeSetsEndDate() {
-		$endDate = new \DateTime();
-		$this->fixture->setEndDate($endDate);
-		$this->assertSame(
-			$endDate,
-			$this->fixture->getEndDate()
-		);
-	}
+    /**
+     * @test
+     * @covers ::getBegin
+     */
+    public function getBeginReturnsInitialValueForInt()
+    {
+        $this->assertNull($this->fixture->getBegin());
+    }
 
-	/**
-	 * @test
-	 * @covers ::getAdmission
-	 */
-	public function getAdmissionReturnsInitialValueForInt() {
-		$this->assertNull($this->fixture->getAdmission());
-	}
+    /**
+     * @test
+     * @covers ::setBegin
+     */
+    public function setBeginForIntSetsBegin()
+    {
+        $this->fixture->setBegin(9999);
+        $this->assertSame(
+            9999,
+            $this->fixture->getBegin()
+        );
+    }
 
-	/**
-	 * @test
-	 * @covers ::setAdmission
-	 */
-	public function setAdmissionForIntSetsAdmission() {
-		$this->fixture->setAdmission(99);
-		$this->assertSame(
-			99,
-			$this->fixture->getAdmission()
-		);
-	}
+    /**
+     * @test
+     * @covers ::getEnd
+     */
+    public function getEndReturnsInitialValueForInt()
+    {
+        $this->assertNull($this->fixture->getEnd());
+    }
 
-	/**
-	 * @test
-	 * @covers ::getBegin
-	 */
-	public function getBeginReturnsInitialValueForInt() {
-		$this->assertNull($this->fixture->getBegin());
-	}
+    /**
+     * @test
+     * @covers ::setEnd
+     */
+    public function setEndForIntSetsEnd()
+    {
+        $this->fixture->setEnd(123);
+        $this->assertSame(
+            123,
+            $this->fixture->getEnd()
+        );
+    }
 
-	/**
-	 * @test
-	 * @covers ::setBegin
-	 */
-	public function setBeginForIntSetsBegin() {
-		$this->fixture->setBegin(9999);
-		$this->assertSame(
-			9999,
-			$this->fixture->getBegin()
-		);
-	}
+    /**
+     * @test
+     * @covers ::getStatusInfo
+     */
+    public function getStatusInfoReturnsInitialValueForString()
+    {
+        $this->assertNull($this->fixture->getStatusInfo());
+    }
 
-	/**
-	 * @test
-	 * @covers ::getEnd
-	 */
-	public function getEndReturnsInitialValueForInt() {
-		$this->assertNull($this->fixture->getEnd());
-	}
+    /**
+     * @test
+     * @covers ::setStatusInfo
+     */
+    public function setStatusInfoForStringSetsStatusInfo()
+    {
+        $this->fixture->setStatusInfo('Conceived at T3CON10');
 
-	/**
-	 * @test
-	 * @covers ::setEnd
-	 */
-	public function setEndForIntSetsEnd() {
-		$this->fixture->setEnd(123);
-		$this->assertSame(
-			123,
-			$this->fixture->getEnd()
-		);
-	}
+        $this->assertSame(
+            'Conceived at T3CON10',
+            $this->fixture->getStatusInfo()
+        );
+    }
 
-	/**
-	 * @test
-	 * @covers ::getStatusInfo
-	 */
-	public function getStatusInfoReturnsInitialValueForString() {
-		$this->assertNull($this->fixture->getStatusInfo());
-	}
+    /**
+     * @test
+     * @covers ::getExternalProviderLink
+     */
+    public function getExternalProviderLinkReturnsInitialValueForString()
+    {
+        $this->assertNull($this->fixture->getExternalProviderLink());
+    }
 
-	/**
-	 * @test
-	 * @covers ::setStatusInfo
-	 */
-	public function setStatusInfoForStringSetsStatusInfo() {
-		$this->fixture->setStatusInfo('Conceived at T3CON10');
+    /**
+     * @test
+     * @covers ::setExternalProviderLink
+     */
+    public function setExternalProviderLinkForStringSetsExternalProviderLink()
+    {
+        $this->fixture->setExternalProviderLink('Conceived at T3CON10');
 
-		$this->assertSame(
-			'Conceived at T3CON10',
-			$this->fixture->getStatusInfo()
-		);
-	}
+        $this->assertSame(
+            'Conceived at T3CON10',
+            $this->fixture->getExternalProviderLink()
+        );
+    }
 
-	/**
-	 * @test
-	 * @covers ::getExternalProviderLink
-	 */
-	public function getExternalProviderLinkReturnsInitialValueForString() {
-		$this->assertNull($this->fixture->getExternalProviderLink());
-	}
+    /**
+     * @test
+     * @covers ::getAdditionalLink
+     */
+    public function getAdditionalLinkReturnsInitialValueForString()
+    {
+        $this->assertNull($this->fixture->getAdditionalLink());
+    }
 
-	/**
-	 * @test
-	 * @covers ::setExternalProviderLink
-	 */
-	public function setExternalProviderLinkForStringSetsExternalProviderLink() {
-		$this->fixture->setExternalProviderLink('Conceived at T3CON10');
+    /**
+     * @test
+     * @covers ::setAdditionalLink
+     */
+    public function setAdditionalLinkForStringSetsAdditionalLink()
+    {
+        $this->fixture->setAdditionalLink('Conceived at T3CON10');
 
-		$this->assertSame(
-			'Conceived at T3CON10',
-			$this->fixture->getExternalProviderLink()
-		);
-	}
+        $this->assertSame(
+            'Conceived at T3CON10',
+            $this->fixture->getAdditionalLink()
+        );
+    }
 
-	/**
-	 * @test
-	 * @covers ::getAdditionalLink
-	 */
-	public function getAdditionalLinkReturnsInitialValueForString() {
-		$this->assertNull($this->fixture->getAdditionalLink());
-	}
+    /**
+     * @test
+     * @covers ::getProviderType
+     */
+    public function getProviderTypeReturnsInitialValueForInteger()
+    {
+        $this->assertSame(
+            0,
+            $this->fixture->getProviderType()
+        );
+    }
 
-	/**
-	 * @test
-	 * @covers ::setAdditionalLink
-	 */
-	public function setAdditionalLinkForStringSetsAdditionalLink() {
-		$this->fixture->setAdditionalLink('Conceived at T3CON10');
+    /**
+     * @test
+     * @covers ::setProviderType
+     */
+    public function setProviderTypeForIntegerSetsProviderType()
+    {
+        $this->fixture->setProviderType(12);
 
-		$this->assertSame(
-			'Conceived at T3CON10',
-			$this->fixture->getAdditionalLink()
-		);
-	}
+        $this->assertSame(
+            12,
+            $this->fixture->getProviderType()
+        );
+    }
 
-	/**
-	 * @test
-	 * @covers ::getProviderType
-	 */
-	public function getProviderTypeReturnsInitialValueForInteger() {
-		$this->assertSame(
-			0,
-			$this->fixture->getProviderType()
-		);
-	}
+    /**
+     * @test
+     * @covers ::getImage
+     */
+    public function getImageReturnsInitialValueForString()
+    {
+        $this->assertNull($this->fixture->getImage());
+    }
 
-	/**
-	 * @test
-	 * @covers ::setProviderType
-	 */
-	public function setProviderTypeForIntegerSetsProviderType() {
-		$this->fixture->setProviderType(12);
+    /**
+     * @test
+     * @covers ::setImage
+     */
+    public function setImageForStringSetsImage()
+    {
+        $this->fixture->setImage('Conceived at T3CON10');
 
-		$this->assertSame(
-			12,
-			$this->fixture->getProviderType()
-		);
-	}
-
-	/**
-	 * @test
-	 * @covers ::getImage
-	 */
-	public function getImageReturnsInitialValueForString() {
-		$this->assertNull($this->fixture->getImage());
-	}
-
-	/**
-	 * @test
-	 * @covers ::setImage
-	 */
-	public function setImageForStringSetsImage() {
-		$this->fixture->setImage('Conceived at T3CON10');
-
-		$this->assertSame(
-			'Conceived at T3CON10',
-			$this->fixture->getImage()
-		);
-	}
+        $this->assertSame(
+            'Conceived at T3CON10',
+            $this->fixture->getImage()
+        );
+    }
 
     /**
      * @test
      * @covers ::getImages
      */
-    public function getImagesReturnsInitialValueForObjectStorageContainingImages() {
+    public function getImagesReturnsInitialValueForObjectStorageContainingImages()
+    {
         $newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $this->assertEquals(
             $newObjectStorage,
@@ -281,10 +303,8 @@ class PerformanceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
      * @test
      * @covers ::setImages
      */
-    public function setImagesForObjectStorageContainingImagesSetsImages() {
-        if (version_compare(PHP_VERSION, '7.0.0') >= 0) {
-            $this->markTestSkipped(self::SKIP_MESSAGE_FILEREFERENCE);
-        }
+    public function setImagesForObjectStorageContainingImagesSetsImages()
+    {
         $images = new \TYPO3\CMS\Extbase\Domain\Model\FileReference();
         $objectStorageHoldingExactlyOneImage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $objectStorageHoldingExactlyOneImage->attach($images);
@@ -302,9 +322,6 @@ class PerformanceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
      */
     public function addImagesToObjectStorageHoldingImages()
     {
-        if (version_compare(PHP_VERSION, '7.0.0') >= 0) {
-            $this->markTestSkipped(self::SKIP_MESSAGE_FILEREFERENCE);
-        }
         $images = new \TYPO3\CMS\Extbase\Domain\Model\FileReference();
         $objectStorageHoldingExactlyOneImage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $objectStorageHoldingExactlyOneImage->attach($images);
@@ -320,10 +337,8 @@ class PerformanceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
      * @test
      * @covers ::removeImages
      */
-    public function removeImagesFromObjectStorageHoldingImages() {
-        if (version_compare(PHP_VERSION, '7.0.0') >= 0) {
-            $this->markTestSkipped(self::SKIP_MESSAGE_FILEREFERENCE);
-        }
+    public function removeImagesFromObjectStorageHoldingImages()
+    {
         $images = new \TYPO3\CMS\Extbase\Domain\Model\FileReference();
         $localObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $localObjectStorage->attach($images);
@@ -337,249 +352,269 @@ class PerformanceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
         );
     }
 
-	/**
-	 * @test
-	 * @covers ::getPlan
-	 */
-	public function getPlanReturnsInitialValueForString() {
-		$this->assertNull($this->fixture->getPlan());
-	}
+    /**
+     * @test
+     * @covers ::getPlan
+     */
+    public function getPlanReturnsInitialValueForString()
+    {
+        $this->assertNull($this->fixture->getPlan());
+    }
 
-	/**
-	 * @test
-	 * @covers ::setPlan
-	 */
-	public function setPlanForStringSetsPlan() {
-		$this->fixture->setPlan('Conceived at T3CON10');
+    /**
+     * @test
+     * @covers ::setPlan
+     */
+    public function setPlanForStringSetsPlan()
+    {
+        $this->fixture->setPlan('Conceived at T3CON10');
 
-		$this->assertSame(
-			'Conceived at T3CON10',
-			$this->fixture->getPlan()
-		);
-	}
+        $this->assertSame(
+            'Conceived at T3CON10',
+            $this->fixture->getPlan()
+        );
+    }
 
-	/**
-	 * @test
-	 * @covers ::getNoHandlingFee
-	 */
-	public function getNoHandlingFeeReturnsInitialValueForBoolean() {
-		$this->assertSame(
-			FALSE,
-			$this->fixture->getNoHandlingFee()
-		);
-	}
+    /**
+     * @test
+     * @covers ::getNoHandlingFee
+     */
+    public function getNoHandlingFeeReturnsInitialValueForBoolean()
+    {
+        $this->assertSame(
+            FALSE,
+            $this->fixture->getNoHandlingFee()
+        );
+    }
 
-	/**
-	 * @test
-	 * @covers ::isNoHandlingFee
-	 */
-	public function isNoHandlingFeeReturnsInitialValueForBoolean() {
-		$this->assertSame(
-			FALSE,
-			$this->fixture->isNoHandlingFee()
-		);
-	}
+    /**
+     * @test
+     * @covers ::isNoHandlingFee
+     */
+    public function isNoHandlingFeeReturnsInitialValueForBoolean()
+    {
+        $this->assertSame(
+            FALSE,
+            $this->fixture->isNoHandlingFee()
+        );
+    }
 
-	/**
-	 * @test
-	 * @covers ::isNoHandlingFee
-	 */
-	public function isNoHandlingFeeForBooleanReturnsCorrectValueForBoolean() {
-		$this->fixture->setNoHandlingFee(TRUE);
+    /**
+     * @test
+     * @covers ::isNoHandlingFee
+     */
+    public function isNoHandlingFeeForBooleanReturnsCorrectValueForBoolean()
+    {
+        $this->fixture->setNoHandlingFee(TRUE);
 
-		$this->assertSame(
-			TRUE,
-			$this->fixture->isNoHandlingFee()
-		);
-	}
+        $this->assertSame(
+            TRUE,
+            $this->fixture->isNoHandlingFee()
+        );
+    }
 
-	/**
-	 * @test
-	 * @covers ::setNoHandlingFee
-	 */
-	public function setNoHandlingFeeForBooleanSetsNoHandlingFee() {
-		$this->fixture->setNoHandlingFee(TRUE);
+    /**
+     * @test
+     * @covers ::setNoHandlingFee
+     */
+    public function setNoHandlingFeeForBooleanSetsNoHandlingFee()
+    {
+        $this->fixture->setNoHandlingFee(TRUE);
 
-		$this->assertSame(
-			TRUE,
-			$this->fixture->getNoHandlingFee()
-		);
-	}
+        $this->assertSame(
+            TRUE,
+            $this->fixture->getNoHandlingFee()
+        );
+    }
 
-	/**
-	 * @test
-	 * @covers ::getPriceNotice
-	 */
-	public function getPriceNoticeReturnsInitialValueForString() {
-		$this->assertNull($this->fixture->getPriceNotice());
-	}
+    /**
+     * @test
+     * @covers ::getPriceNotice
+     */
+    public function getPriceNoticeReturnsInitialValueForString()
+    {
+        $this->assertNull($this->fixture->getPriceNotice());
+    }
 
-	/**
-	 * @test
-	 * @covers ::setPriceNotice
-	 */
-	public function setPriceNoticeForStringSetsPriceNotice() {
-		$this->fixture->setPriceNotice('Conceived at T3CON10');
+    /**
+     * @test
+     * @covers ::setPriceNotice
+     */
+    public function setPriceNoticeForStringSetsPriceNotice()
+    {
+        $this->fixture->setPriceNotice('Conceived at T3CON10');
 
-		$this->assertSame(
-			'Conceived at T3CON10',
-			$this->fixture->getPriceNotice()
-		);
-	}
+        $this->assertSame(
+            'Conceived at T3CON10',
+            $this->fixture->getPriceNotice()
+        );
+    }
 
-	/**
-	 * @test
-	 * @covers ::getEventLocation
-	 */
-	public function getEventLocationReturnsInitialValueForEventLocation() {
-		$this->assertEquals(
-			NULL,
-			$this->fixture->getEventLocation()
-		);
-	}
+    /**
+     * @test
+     * @covers ::getEventLocation
+     */
+    public function getEventLocationReturnsInitialValueForEventLocation()
+    {
+        $this->assertEquals(
+            NULL,
+            $this->fixture->getEventLocation()
+        );
+    }
 
-	/**
-	 * @test
-	 * @covers ::setEventLocation
-	 */
-	public function setEventLocationForEventLocationSetsEventLocation() {
-		$dummyObject = new \DWenzel\T3events\Domain\Model\EventLocation();
-		$this->fixture->setEventLocation($dummyObject);
+    /**
+     * @test
+     * @covers ::setEventLocation
+     */
+    public function setEventLocationForEventLocationSetsEventLocation()
+    {
+        $dummyObject = new \DWenzel\T3events\Domain\Model\EventLocation();
+        $this->fixture->setEventLocation($dummyObject);
 
-		$this->assertSame(
-			$dummyObject,
-			$this->fixture->getEventLocation()
-		);
-	}
+        $this->assertSame(
+            $dummyObject,
+            $this->fixture->getEventLocation()
+        );
+    }
 
-	/**
-	 * @test
-	 * @covers ::getTicketClass
-	 */
-	public function getTicketClassReturnsInitialValueForObjectStorageContainingTicketClass() {
-		$newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-		$this->assertEquals(
-			$newObjectStorage,
-			$this->fixture->getTicketClass()
-		);
-	}
+    /**
+     * @test
+     * @covers ::getTicketClass
+     */
+    public function getTicketClassReturnsInitialValueForObjectStorageContainingTicketClass()
+    {
+        $newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->assertEquals(
+            $newObjectStorage,
+            $this->fixture->getTicketClass()
+        );
+    }
 
-	/**
-	 * @test
-	 * @covers ::setTicketClass
-	 */
-	public function setTicketClassForObjectStorageContainingTicketClassSetsTicketClass() {
-		$ticketClas = new \DWenzel\T3events\Domain\Model\TicketClass();
-		$objectStorageHoldingExactlyOneTicketClass = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-		$objectStorageHoldingExactlyOneTicketClass->attach($ticketClas);
-		$this->fixture->setTicketClass($objectStorageHoldingExactlyOneTicketClass);
+    /**
+     * @test
+     * @covers ::setTicketClass
+     */
+    public function setTicketClassForObjectStorageContainingTicketClassSetsTicketClass()
+    {
+        $ticketClas = new \DWenzel\T3events\Domain\Model\TicketClass();
+        $objectStorageHoldingExactlyOneTicketClass = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $objectStorageHoldingExactlyOneTicketClass->attach($ticketClas);
+        $this->fixture->setTicketClass($objectStorageHoldingExactlyOneTicketClass);
 
-		$this->assertSame(
-			$objectStorageHoldingExactlyOneTicketClass,
-			$this->fixture->getTicketClass()
-		);
-	}
+        $this->assertSame(
+            $objectStorageHoldingExactlyOneTicketClass,
+            $this->fixture->getTicketClass()
+        );
+    }
 
-	/**
-	 * @test
-	 * @covers ::addTicketClass
-	 */
-	public function addTicketClassToObjectStorageHoldingTicketClass() {
-		$ticketClass = new \DWenzel\T3events\Domain\Model\TicketClass();
-		$objectStorageHoldingExactlyOneTicketClass = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-		$objectStorageHoldingExactlyOneTicketClass->attach($ticketClass);
-		$this->fixture->addTicketClass($ticketClass);
+    /**
+     * @test
+     * @covers ::addTicketClass
+     */
+    public function addTicketClassToObjectStorageHoldingTicketClass()
+    {
+        $ticketClass = new \DWenzel\T3events\Domain\Model\TicketClass();
+        $objectStorageHoldingExactlyOneTicketClass = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $objectStorageHoldingExactlyOneTicketClass->attach($ticketClass);
+        $this->fixture->addTicketClass($ticketClass);
 
-		$this->assertEquals(
-			$objectStorageHoldingExactlyOneTicketClass,
-			$this->fixture->getTicketClass()
-		);
-	}
+        $this->assertEquals(
+            $objectStorageHoldingExactlyOneTicketClass,
+            $this->fixture->getTicketClass()
+        );
+    }
 
-	/**
-	 * @test
-	 * @covers ::removeTicketClass
-	 */
-	public function removeTicketClassFromObjectStorageHoldingTicketClass() {
-		$ticketClass = new \DWenzel\T3events\Domain\Model\TicketClass();
-		$localObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-		$localObjectStorage->attach($ticketClass);
-		$localObjectStorage->detach($ticketClass);
-		$this->fixture->addTicketClass($ticketClass);
-		$this->fixture->removeTicketClass($ticketClass);
+    /**
+     * @test
+     * @covers ::removeTicketClass
+     */
+    public function removeTicketClassFromObjectStorageHoldingTicketClass()
+    {
+        $ticketClass = new \DWenzel\T3events\Domain\Model\TicketClass();
+        $localObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $localObjectStorage->attach($ticketClass);
+        $localObjectStorage->detach($ticketClass);
+        $this->fixture->addTicketClass($ticketClass);
+        $this->fixture->removeTicketClass($ticketClass);
 
-		$this->assertEquals(
-			$localObjectStorage,
-			$this->fixture->getTicketClass()
-		);
-	}
+        $this->assertEquals(
+            $localObjectStorage,
+            $this->fixture->getTicketClass()
+        );
+    }
 
-	/**
-	 * @test
-	 * @covers ::getStatus
-	 */
-	public function getStatusReturnsInitialValueForPerformanceStatus() {
-		$this->assertEquals(
-			NULL,
-			$this->fixture->getStatus()
-		);
-	}
+    /**
+     * @test
+     * @covers ::getStatus
+     */
+    public function getStatusReturnsInitialValueForPerformanceStatus()
+    {
+        $this->assertEquals(
+            NULL,
+            $this->fixture->getStatus()
+        );
+    }
 
-	/**
-	 * @test
-	 * @covers ::setStatus
-	 */
-	public function setStatusForPerformanceStatusSetsStatus() {
-		$dummyObject = new \DWenzel\T3events\Domain\Model\PerformanceStatus();
-		$this->fixture->setStatus($dummyObject);
+    /**
+     * @test
+     * @covers ::setStatus
+     */
+    public function setStatusForPerformanceStatusSetsStatus()
+    {
+        $dummyObject = new \DWenzel\T3events\Domain\Model\PerformanceStatus();
+        $this->fixture->setStatus($dummyObject);
 
-		$this->assertSame(
-			$dummyObject,
-			$this->fixture->getStatus()
-		);
-	}
+        $this->assertSame(
+            $dummyObject,
+            $this->fixture->getStatus()
+        );
+    }
 
-	/**
-	 * @test
-	 * @covers ::getHidden
-	 */
-	public function getHiddenForIntegerReturnsInitialNull() {
-		$this->assertSame(
-			NULL,
-			$this->fixture->getHidden()
-		);
-	}
+    /**
+     * @test
+     * @covers ::getHidden
+     */
+    public function getHiddenForIntegerReturnsInitialNull()
+    {
+        $this->assertSame(
+            NULL,
+            $this->fixture->getHidden()
+        );
+    }
 
-	/**
-	 * @test
-	 * @covers ::setHidden
-	 */
-	public function setHiddenForIntegerSetsHidden() {
-		$this->fixture->setHidden(1);
-		$this->assertSame(1, $this->fixture->getHidden());
-	}
+    /**
+     * @test
+     * @covers ::setHidden
+     */
+    public function setHiddenForIntegerSetsHidden()
+    {
+        $this->fixture->setHidden(1);
+        $this->assertSame(1, $this->fixture->getHidden());
+    }
 
-	/**
-	 * @test
-	 * @covers ::getEvent
-	 */
-	public function getEventForObjectInitiallyReturnsNull() {
-		$this->assertNull(
-			$this->fixture->getEvent()
-		);
-	}
+    /**
+     * @test
+     * @covers ::getEvent
+     */
+    public function getEventForObjectInitiallyReturnsNull()
+    {
+        $this->assertNull(
+            $this->fixture->getEvent()
+        );
+    }
 
-	/**
-	 * @test
-	 * @covers ::setEvent
-	 */
-	public function setEventForObjectSetsEvent() {
-		$event = new Event();
-		$this->fixture->setEvent($event);
-		$this->assertSame(
-			$event,
-			$this->fixture->getEvent()
-		);
-	}
+    /**
+     * @test
+     * @covers ::setEvent
+     */
+    public function setEventForObjectSetsEvent()
+    {
+        $event = new Event();
+        $this->fixture->setEvent($event);
+        $this->assertSame(
+            $event,
+            $this->fixture->getEvent()
+        );
+    }
 }
 
