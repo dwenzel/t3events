@@ -94,7 +94,7 @@
                 <items type="array">
                   <numIndex index="0" type="array">
                     <numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.date</numIndex>
-                    <numIndex index="1">date|asc,begin|asc</numIndex>
+                    <numIndex index="1">performances.date|asc,performances.begin|asc</numIndex>
                   </numIndex>
                   <numIndex index="1" type="array">
                     <numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.title</numIndex>
@@ -104,32 +104,10 @@
                     <numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.empty</numIndex>
                     <numIndex index="1"></numIndex>
                   </numIndex>
-
                 </items>
               </config>
             </TCEforms>
           </settings.order>
-
-          <!-- sort direction -->
-          <settings.sortDirection>
-            <TCEforms>
-              <label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.sortDirection</label>
-              <displayCond>FIELD:switchableControllerActions:!=:Event->quickMenu</displayCond>
-              <config>
-                <type>select</type>
-                <items>
-                  <numIndex index="0">
-                    <numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.ascending</numIndex>
-                    <numIndex index="1">asc</numIndex>
-                  </numIndex>
-                  <numIndex index="1">
-                    <numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.descending</numIndex>
-                    <numIndex index="1">desc</numIndex>
-                  </numIndex>
-                </items>
-              </config>
-            </TCEforms>
-          </settings.sortDirection>
 
           <settings.viewMode>
             <TCEforms>
