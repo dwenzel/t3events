@@ -92,7 +92,7 @@ XML;
         <sheet index="sDEF">
             <language index="lDEF">
                 <field index="settings.order">
-                    <value index="vDEF">performances.date|asc</value>
+                    <value index="vDEF">performances.date|asc,performances.begin|asc</value>
                 </field>
             </language>
         </sheet>

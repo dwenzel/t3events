@@ -90,7 +90,7 @@ class MigratePluginRecords extends AbstractUpdate
                     $sortDirectionSettings = $flexFormSettings['data']['sDEF']['lDEF']['settings.sortDirection']['vDEF'];
                 }
                 if(!empty($sortBySettings)) {
-                    $flexFormSettings['data']['sDEF']['lDEF']['settings.order']['vDEF'] = $sortBySettings . '|'. $sortDirectionSettings;
+                    $flexFormSettings['data']['sDEF']['lDEF']['settings.order']['vDEF'] = $sortBySettings . '|'. $sortDirectionSettings . ',performances.begin|asc';
                     unset($flexFormSettings['data']['sDEF']['lDEF']['settings.sortBy']);
                     unset($flexFormSettings['data']['sDEF']['lDEF']['settings.sortDirection']);
 
