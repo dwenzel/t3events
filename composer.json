@@ -28,7 +28,7 @@
   ],
   "require": {
     "typo3/cms-core": ">=6.2.0,<8.4",
-    "dwenzel/t3calendar": "^0.1.0"
+    "dwenzel/t3calendar": "^0.2.0"
   },
   "require-dev": {
     "dwenzel/t3calendar": "dev-develop",
