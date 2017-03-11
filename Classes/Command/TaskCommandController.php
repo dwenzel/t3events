@@ -109,7 +109,7 @@ class TaskCommandController extends CommandController
      * Run 'hide performance' task
      * Hides all performances which meet the given constraints. Returns a message string for reporting.
      *
-     * @return \string
+     * @return string
      */
     public function runHidePerformanceTasks()
     {

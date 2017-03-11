@@ -238,7 +238,7 @@ class PerformanceController
     /**
      * Create Demand from Settings
      *
-     * @param \array $settings
+     * @param array $settings
      * @return \DWenzel\T3events\Domain\Model\Dto\PerformanceDemand
      */
     protected function createDemandFromSettings($settings)

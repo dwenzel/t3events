@@ -7,8 +7,6 @@ use TYPO3\CMS\Extbase\Mvc\Web\Response;
 
 /**
  * Class DownloadTrait
- *
- * @package DWenzel\T3events\Controller
  */
 trait DownloadTrait
 {

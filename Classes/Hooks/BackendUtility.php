@@ -26,7 +26,7 @@ class BackendUtility {
 	/**
 	 * Fields which are removed in event quick menu view
 	 *
-	 * @var \array
+	 * @var array
 	 */
 	public $removedFieldsInEventQuickMenuView = array(
 		'sDEF' => 'cache.makeNonCacheable',
@@ -52,11 +52,11 @@ class BackendUtility {
 	 * Hook function of t3lib_befunc
 	 * It is used to change the flexform for placements
 	 *
-	 * @param \array &$dataStructure Flexform structure
-	 * @param \array $conf some strange configuration
-	 * @param \array $row row of current record
-	 * @param \string $table table name
-	 * @param \string $fieldName some strange field name
+	 * @param array &$dataStructure Flexform structure
+	 * @param array $conf some strange configuration
+	 * @param array $row row of current record
+	 * @param string $table table name
+	 * @param string $fieldName some strange field name
 	 * @return void
 	 */
 	public function getFlexFormDS_postProcessDS(&$dataStructure, $conf, $row, $table, $fieldName) {
@@ -68,8 +68,8 @@ class BackendUtility {
 	/**
 	 * Update flexform configuration if a action is selected
 	 *
-	 * @param \array|\string &$dataStructure flexform structure
-	 * @param \array $row row of current record
+	 * @param array|string &$dataStructure flexform structure
+	 * @param array $row row of current record
 	 * @return void
 	 */
 	protected function updateFlexforms(array &$dataStructure, array $row) {
@@ -125,8 +125,8 @@ class BackendUtility {
 	/**
 	 * Remove fields from flexform structure
 	 *
-	 * @param \array &$dataStructure flexform structure
-	 * @param \array $fieldsToBeRemoved fields which need to be removed
+	 * @param array &$dataStructure flexform structure
+	 * @param array $fieldsToBeRemoved fields which need to be removed
 	 * @return void
 	 */
 	protected function deleteFromStructure(array &$dataStructure, array $fieldsToBeRemoved) {

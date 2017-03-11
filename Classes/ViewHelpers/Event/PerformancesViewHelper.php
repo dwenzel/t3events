@@ -75,7 +75,7 @@ class PerformancesViewHelper extends AbstractTagBasedViewHelper
     /**
      * Render method
      *
-     * @return \string
+     * @return string
      */
     public function render()
     {
@@ -122,7 +122,7 @@ class PerformancesViewHelper extends AbstractTagBasedViewHelper
     /**
      * Get date range of performances
      *
-     * @return \array
+     * @return array
      */
     public function getDateRange()
     {
@@ -152,7 +152,7 @@ class PerformancesViewHelper extends AbstractTagBasedViewHelper
     /**
      * Get crucial status over all performances. Returns the status with the highest priority.
      *
-     * @return \string
+     * @return string
      */
     public function getCrucialStatus()
     {

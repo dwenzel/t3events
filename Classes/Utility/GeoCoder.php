@@ -24,14 +24,14 @@ class GeoCoder {
 	/**
 	 * Service Url
 	 *
-	 * @var \string Base Url for geo coding service.
+	 * @var string Base Url for geo coding service.
 	 */
 	protected $serviceUrl = 'http://maps.google.com/maps/api/geocode/json?sensor=false&address=';
 
 	/**
 	 * Returns the base url of the geo coding service
 	 *
-	 * @return \string
+	 * @return string
 	 */
 	public function getServiceUrl() {
 		return $this->serviceUrl;
@@ -59,7 +59,7 @@ class GeoCoder {
 	 * Get url
 	 * Wrapper for GeneralUtility::getUrl to make it testable.
 	 *
-	 * @param \string $url File/Url to fetch
+	 * @param string $url File/Url to fetch
 	 * @return mixed Response
 	 * @codeCoverageIgnore
 	 */
@@ -70,11 +70,11 @@ class GeoCoder {
     /**
      * calculate destination lat/lng given a starting point, bearing, and distance
      *
-     * @param \float $lat Latitude
-     * @param \float $lng Longitude
+     * @param float $lat Latitude
+     * @param float $lng Longitude
      * @param $bearing
-     * @param \integer $distance Distance
-     * @param \string $units Units: default km. Any other value will result in computing with mile based constants.
+     * @param integer $distance Distance
+     * @param string $units Units: default km. Any other value will result in computing with mile based constants.
      * @return array An array with lat and lng values
      * @codeCoverageIgnore
      */
@@ -97,11 +97,11 @@ class GeoCoder {
 	/**
 	 * calculate bounding box
 	 *
-	 * @param \float $lat Latitude of location
-	 * @param \float $lng Longitude of location
-	 * @param \float $distance Distance around location
-	 * @param \string $units Unit: default km. Any other value will result in computing with mile based constants.
-	 * @return \array An array describing a bounding box
+	 * @param float $lat Latitude of location
+	 * @param float $lng Longitude of location
+	 * @param float $distance Distance around location
+	 * @param string $units Unit: default km. Any other value will result in computing with mile based constants.
+	 * @return array An array describing a bounding box
 	 * @codeCoverageIgnore
 	 */
 	public function getBoundsByRadius($lat, $lng, $distance, $units = 'km') {
@@ -114,12 +114,12 @@ class GeoCoder {
 	/**
 	 * calculate distance between two lat/lon coordinates
 	 *
-	 * @param \float $latA Latitude of location A
-	 * @param \float $lonA Longitude of location A
-	 * @param \float $latB Latitude of location B
-	 * @param \float $lonB Longitude of location B
-	 * @param \string $units Units: default km. Any other value will result in computing with mile based constants.
-	 * @return \float
+	 * @param float $latA Latitude of location A
+	 * @param float $lonA Longitude of location A
+	 * @param float $latB Latitude of location B
+	 * @param float $lonB Longitude of location B
+	 * @param string $units Units: default km. Any other value will result in computing with mile based constants.
+	 * @return float
 	 * @codeCoverageIgnore
 	 */
 	public function distance($latA, $lonA, $latB, $lonB, $units = 'km') {

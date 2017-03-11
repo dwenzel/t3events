@@ -39,13 +39,13 @@ interface DemandInterface {
 	public function setOffset($offset);
 
 	/**
-	 * @param \string $sortBy The sort criteria in dot notation
+	 * @param string $sortBy The sort criteria in dot notation
 	 * @return void
 	 */
 	public function setSortBy($sortBy);
 
 	/**
-	 * @return \string The sort criteria in dot notation
+	 * @return string The sort criteria in dot notation
 	 */
 	public function getSortBy();
 
@@ -60,12 +60,12 @@ interface DemandInterface {
 	public function setOrder($order);
 
 	/**
-	 * @param \string $sortDirection The sort direction
+	 * @param string $sortDirection The sort direction
 	 */
 	public function setSortDirection($sortDirection);
 
 	/**
-	 * @return \string The sort direction
+	 * @return string The sort direction
 	 */
 	public function getSortDirection();
 

@@ -29,7 +29,7 @@ class Genre extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * title
 	 *
-	 * @var \string
+	 * @var string
 	 */
 	protected $title;
 
@@ -43,7 +43,7 @@ class Genre extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Returns the title
 	 *
-	 * @return \string $title
+	 * @return string $title
 	 */
 	public function getTitle() {
 		return $this->title;
@@ -52,7 +52,7 @@ class Genre extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * Sets the title
 	 *
-	 * @param \string $title
+	 * @param string $title
 	 * @return void
 	 */
 	public function setTitle($title) {

@@ -70,7 +70,7 @@ class EventController extends ActionController
     /**
      * action list
      *
-     * @param \array $overwriteDemand
+     * @param array $overwriteDemand
      * @return void
      */
     public function listAction($overwriteDemand = null)
@@ -181,7 +181,7 @@ class EventController extends ActionController
     /**
      * Create demand from settings
      *
-     * @param \array $settings
+     * @param array $settings
      * @return \DWenzel\T3events\Domain\Model\Dto\EventDemand
      * @deprecated Use EventDemandFactory->createFromSettings instead
      */
