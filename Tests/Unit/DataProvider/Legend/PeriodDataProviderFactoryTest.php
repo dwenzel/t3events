@@ -70,7 +70,7 @@ class PeriodDataProviderFactoryTest extends UnitTestCase
         foreach ($validClasses as $key=>$class) {
             $periodValue = $key;
             // incoming array differs depending on TYPO3 version!
-            if ( $versionNumber >= 7006000 && $versionNumber < 7006016) {
+            if ( $versionNumber >= 7006000 && $versionNumber < 7006015) {
                 $periodValue = [$key];
             }
             $data[] = [
