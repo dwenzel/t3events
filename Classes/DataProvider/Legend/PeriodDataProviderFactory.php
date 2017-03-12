@@ -50,7 +50,8 @@ class PeriodDataProviderFactory
         $respectEndDatePath = 'constraints/lDEF/settings.respectEndDate/vDEF';
 
         $currentVersion = VersionNumberUtility::convertVersionNumberToInteger(VersionNumberUtility::getNumericTypo3Version());
-        if ($currentVersion >= 7006000) {
+        // incoming array differs depending on TYPO3 version!
+        if ($currentVersion >= 7006000 && $currentVersion < 7006015) {
             $periodPath = 'constraints/lDEF/settings.period/vDEF/0';
         }
 

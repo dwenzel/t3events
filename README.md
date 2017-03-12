@@ -10,7 +10,7 @@ This is an extension for the TYPO3 CMS.
 
 ## Table of Contents
 
-* [Introduction](./Documentation/Introduction/WhatDoesIdDo/Index.rst)
+* [Introduction](./Documentation/Introduction/WhatDoesItDo/Index.rst)
 * Configuration
     * [Overview](./Documentation/Configuration/Overview/Index.rst)
     * [Templates](./Documentation/Configuration/Templates.md)

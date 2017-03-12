@@ -29,23 +29,23 @@ class BackendUtility {
 	 * @var array
 	 */
 	public $removedFieldsInEventQuickMenuView = array(
-		'sDEF' => 'cache.makeNonCacheable',
-		'constraints' => 'period,periodType,periodStart,periodDuration',
-		'pages' => 'detailPid,backPid',
-		'template' => 'hideIfEmptyResult'
+		'sDEF' => 'settings.cache.makeNonCacheable',
+		'constraints' => 'legend,settings.period,settings.periodType,settings.periodStart,settings.periodDuration',
+		'pages' => 'settings.detailPid,settings.backPid',
+		'template' => 'settings.hideIfEmptyResult'
 	);
 
 	public $removedFieldsInEventCalendarView = array(
-		'sDEF' => 'sortDirection,sortBy,cache.makeNonCacheable',
-		'template' => 'hideIfEmptyResult'
+		'sDEF' => 'settings.sortDirection,settings.order,settings.sortBy,settings.cache.makeNonCacheable',
+		'template' => 'settings.hideIfEmptyResult'
 	);
 
 	public $removedFieldsInEventDetailView = array(
-		'sDEF' => 'sortDirection,sortBy,maxItems',
-		'constraints' => 'period,periodType,periodStart,periodDuration,
-			periodStartDate,periodEndDate,categoryConjunction,venues,genres,
-			eventTypes',
-		'template' => 'hideIfEmptyResult'
+		'sDEF' => 'settings.sortBy,settings.sortDirection,settings.order,settings.maxItems',
+		'constraints' => 'legend,settings.period,settings.periodType,settings.periodStart,settings.periodDuration,
+			settings.periodStartDate,settings.periodEndDate,settings.categoryConjunction,settings.venues,settings.genres,
+			settings.eventTypes,settings.statuses,settings.excludeSelectedStatuses,settings.categories',
+		'template' => 'settings.hideIfEmptyResult'
 	);
 
 	/**
@@ -134,7 +134,7 @@ class BackendUtility {
 			$fieldsInSheet = GeneralUtility::trimExplode(',', $sheetFields, TRUE);
 
 			foreach ($fieldsInSheet as $fieldName) {
-				unset($dataStructure['sheets'][$sheetName]['ROOT']['el']['settings.' . $fieldName]);
+				unset($dataStructure['sheets'][$sheetName]['ROOT']['el'][$fieldName]);
 			}
 		}
 	}
