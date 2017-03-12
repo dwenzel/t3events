@@ -2,7 +2,7 @@
 
 <div class="eventWrap">
 	<div class="eventImg">
-		<f:link.action action="show" arguments="{event: event}" pageUid="{settings.event.single.pid}">
+		<f:link.action action="show" arguments="{event: event}" pageUid="{settings.detailPid}">
 			<f:if condition="{event.image}">
 				<f:then>
 					<f:image src="uploads/tx_t3events/{event.image}"
@@ -20,7 +20,7 @@
 		</f:link.action>
 	</div>
 	<div class="eventDescription">
-		<f:link.action action="show" arguments="{event: event}" pageUid="{settings.event.single.pid}"
+		<f:link.action action="show" arguments="{event: event}" pageUid="{settings.detailPid}"
 			class="buttonTicket blueGradient">
 			<ts:event.performances event="{event}" type="crucialStatus"
 				class="ticketSignal" tagName="span" classChildren="status" />
@@ -28,14 +28,14 @@
 
 		</f:link.action>
 		<h2 class="eventHeader">
-			<f:link.action action="show" arguments="{event: event}" pageUid="{settings.event.single.pid}">
+			<f:link.action action="show" arguments="{event: event}" pageUid="{settings.detailPid}">
 				{event.headline}
 			</f:link.action>
 		</h2>
 
 
 		<p class="eventSubtitle">
-			<f:link.action action="show" arguments="{event: event}" pageUid="{settings.event.single.pid}">
+			<f:link.action action="show" arguments="{event: event}" pageUid="{settings.detailPid}">
 				{event.subtitle}
 			</f:link.action>
 		</p>
