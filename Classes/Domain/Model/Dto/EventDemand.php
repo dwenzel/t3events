@@ -20,7 +20,8 @@ namespace DWenzel\T3events\Domain\Model\Dto;
  */
 class EventDemand extends AbstractDemand
 	implements DemandInterface, PeriodAwareDemandInterface,
-	SearchAwareDemandInterface, AudienceAwareDemandInterface {
+	SearchAwareDemandInterface, AudienceAwareDemandInterface,
+    OrderAwareDemandInterface {
     // todo use demand traits
 	use PeriodAwareDemandTrait, SearchAwareDemandTrait,
 		AudienceAwareDemandTrait;
