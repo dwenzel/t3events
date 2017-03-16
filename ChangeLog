@@ -1,3 +1,6 @@
+2017-03-16         [RELEASE] Release of t3events 0.31.2 (Dirk Wenzel)
+2017-03-16 c7ac44e [BUGFIX] Fixed error in EventDemand which caused ordering in event list view to fail (provided by @Nemo64). Closes: #54 (Dirk Wenzel)
+
 2017-03-11         [RELEASE] Release of t3events 0.31.1 (Dirk Wenzel)
 2017-03-11 356498f [HOTFIX] require dwenzel/t3calendar:^0.2.0 Fixes #52 (Dirk Wenzel)
 
