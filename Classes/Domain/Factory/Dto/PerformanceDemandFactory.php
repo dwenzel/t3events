@@ -74,7 +74,11 @@ class PerformanceDemandFactory
                 $settings['sortBy'] = 'date';
             }
         }
-
+        if (!empty($settings['order'])
+            && $settings['order'] === 'performances.date|asc,performances.begin|asc'
+        ) {
+            $settings['order'] = 'date|asc,begin|asc';
+        }
         if ($demand instanceof PeriodAwareDemandInterface) {
             $this->setPeriodConstraints($demand, $settings);
         }
