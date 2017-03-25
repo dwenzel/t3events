@@ -21,7 +21,8 @@ It moves the content of the deprecated field _period_ to the field _period_durat
 
 ### Migrate Plugins
 This script updates all _Event_ plugins by updating the flex-form XML stored in the field _pi_flexform_ of tt_content. 
-It replaces the deprecated values `settings.sortBy` and `settings.sortDirection` by a new field `settings.order`.
+It replaces the deprecated values `settings.sortBy` and `settings.sortDirection` by a new field `settings.order` and the 
+deprecated value `Event->calendar` by `Performance->calendar`.
 
 **Note**: The correspondent TypoScript option are not evaluated any more. The default has been changed from:
 
