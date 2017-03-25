@@ -8,7 +8,7 @@ if (!defined('TYPO3_MODE')) {
 	'Events',
 	array(
 		'Event' => 'list, show, quickMenu',
-		'Performance' => 'list, show, quickMenu',
+		'Performance' => 'list,show,calendar,quickMenu',
 	),
 	// non-cacheable actions
 	array(

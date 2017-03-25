@@ -38,21 +38,21 @@
                   </numIndex>
 
                   <numIndex index="4">
-                    <numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.mode.event_calendar</numIndex>
-                    <numIndex index="1">Event->calendar</numIndex>
-                  </numIndex>
-                  <numIndex index="5">
                     <numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.label.performances</numIndex>
                     <numIndex index="1">--div--</numIndex>
                   </numIndex>
-                  <numIndex index="6">
+                  <numIndex index="5">
                     <numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.mode.performance_list_show</numIndex>
                     <numIndex index="1">Performance->list;Performance->show</numIndex>
                   </numIndex>
 
-                  <numIndex index="7">
+                  <numIndex index="6">
                     <numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.mode.performance_show</numIndex>
                     <numIndex index="1">Performance->show</numIndex>
+                  </numIndex>
+                  <numIndex index="7">
+                    <numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.mode.event_calendar</numIndex>
+                    <numIndex index="1">Performance->calendar</numIndex>
                   </numIndex>
                   <numIndex index="8">
                     <numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.mode.quick_menu</numIndex>
@@ -113,7 +113,7 @@
             <TCEforms>
               <label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.viewMode</label>
               <onChange>reload</onChange>
-              <displayCond>FIELD:switchableControllerActions:=:Event->calendar</displayCond>
+              <displayCond>FIELD:switchableControllerActions:=:Performance->calendar</displayCond>
               <config>
                 <type>select</type>
                 <items>
@@ -134,7 +134,7 @@
               <label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.displayPeriod</label>
               <displayCond>
                 <AND>
-                  <numIndex index="0">FIELD:switchableControllerActions:=:Event->calendar</numIndex>
+                  <numIndex index="0">FIELD:switchableControllerActions:=:Performance->calendar</numIndex>
                   <numIndex index="1">FIELD:settings.viewMode:=:1</numIndex>
                 </AND>
               </displayCond>
@@ -169,7 +169,7 @@
           <settings.ajaxEnabled>
             <TCEforms>
               <label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.ajaxEnabled</label>
-              <displayCond>FIELD:switchableControllerActions:=:Event->calendar</displayCond>
+              <displayCond>FIELD:switchableControllerActions:=:Performance->calendar</displayCond>
               <config>
                 <type>check</type>
               </config>
@@ -179,7 +179,7 @@
           <settings.showCalendarNavigation>
             <TCEforms>
               <label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.showCalendarNavigation</label>
-              <displayCond>FIELD:switchableControllerActions:=:Event->calendar</displayCond>
+              <displayCond>FIELD:switchableControllerActions:=:Performance->calendar</displayCond>
               <config>
                 <type>check</type>
               </config>

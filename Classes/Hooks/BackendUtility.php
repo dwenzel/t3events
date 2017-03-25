@@ -35,7 +35,7 @@ class BackendUtility {
 		'template' => 'settings.hideIfEmptyResult'
 	);
 
-	public $removedFieldsInEventCalendarView = array(
+	public $removedFieldsInPerformanceCalendarView = array(
 		'sDEF' => 'settings.sortDirection,settings.order,settings.sortBy,settings.cache.makeNonCacheable',
 		'template' => 'settings.hideIfEmptyResult'
 	);
@@ -100,8 +100,8 @@ class BackendUtility {
 				case 'Event->quickMenu':
 					$this->deleteFromStructure($dataStructure, $this->removedFieldsInEventQuickMenuView);
 					break;
-				case 'Event->calendar':
-					$this->deleteFromStructure($dataStructure, $this->removedFieldsInEventCalendarView);
+				case 'Performance->calendar':
+					$this->deleteFromStructure($dataStructure, $this->removedFieldsInPerformanceCalendarView);
 					break;
 				case 'Event->show':
 					$this->deleteFromStructure($dataStructure, $this->removedFieldsInEventDetailView);

@@ -6,6 +6,7 @@ namespace DWenzel\T3events\Update;
 use TYPO3\CMS\Core\Configuration\FlexForm\FlexFormTools;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 use TYPO3\CMS\Install\Updates\AbstractUpdate;
 
 /**
@@ -16,7 +17,7 @@ class MigratePluginRecords extends AbstractUpdate
 {
     const CONTENT_TABLE = 'tt_content';
     const FLEX_FORM_FIELD = 'pi_flexform';
-    const DEPRECATED_PLUGIN_WHERE_CLAUSE = "list_type='t3events_events' AND pi_flexform LIKE '%settings.sortBy%'";
+    const DEPRECATED_PLUGIN_WHERE_CLAUSE = "list_type='t3events_events' AND pi_flexform REGEXP 'settings.sortBy|Event-&gt;calendar'";
     const MESSAGE_UPDATE_REQUIRED = 'Found %s Plugin records which need to be updated';
     const TITLE_UPDATE_REQUIRED = 'Update required';
     const MESSAGE_UPDATED = '%s Plugin records updated.';
@@ -81,7 +82,12 @@ class MigratePluginRecords extends AbstractUpdate
             foreach ($pluginRecords as $record) {
                 $sortDirectionSettings = 'asc';
                 $flexFormSettings = $this->getFlexFormSettings($record);
+                $switchableControllerActionChanged = false;
 
+                if ($flexFormSettings['data']['sDEF']['lDEF']['switchableControllerActions']['vDEF'] == 'Event->calendar') {
+                    $flexFormSettings['data']['sDEF']['lDEF']['switchableControllerActions']['vDEF'] = 'Performance->calendar';
+                    $switchableControllerActionChanged = true;
+                }
                 if(isset($flexFormSettings['data']['sDEF']['lDEF']['settings.sortBy']['vDEF'])) {
                     $sortBySettings = $flexFormSettings['data']['sDEF']['lDEF']['settings.sortBy']['vDEF'];
                 }
@@ -89,7 +95,7 @@ class MigratePluginRecords extends AbstractUpdate
                 {
                     $sortDirectionSettings = $flexFormSettings['data']['sDEF']['lDEF']['settings.sortDirection']['vDEF'];
                 }
-                if(!empty($sortBySettings)) {
+                if(!empty($sortBySettings || $switchableControllerActionChanged)) {
                     $flexFormSettings['data']['sDEF']['lDEF']['settings.order']['vDEF'] = $sortBySettings . '|'. $sortDirectionSettings . ',performances.begin|asc';
                     unset($flexFormSettings['data']['sDEF']['lDEF']['settings.sortBy']);
                     unset($flexFormSettings['data']['sDEF']['lDEF']['settings.sortDirection']);

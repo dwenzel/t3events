@@ -17,8 +17,6 @@ namespace DWenzel\T3events\Controller;
 
 use DWenzel\T3calendar\Domain\Factory\CalendarFactoryTrait;
 use DWenzel\T3calendar\Domain\Model\Dto\CalendarConfigurationFactoryTrait;
-use DWenzel\T3calendar\Persistence\CalendarItemStorage;
-use DWenzel\T3events\Domain\Model\Event;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
@@ -146,36 +144,6 @@ class EventController extends ActionController
         $this->view->assignMultiple(
             $templateVariables
         );
-    }
-
-    /**
-     * action calendar
-     *
-     * @param array $overwriteDemand
-     * @return void
-     */
-    public function calendarAction(array $overwriteDemand = null)
-    {
-        $demand = $this->eventDemandFactory->createFromSettings($this->settings);
-        $this->overwriteDemandObject($demand, $overwriteDemand);
-        $events = $this->eventRepository->findDemanded($demand);
-        $calendarConfiguration = $this->calendarConfigurationFactory->create($this->settings);
-        $performances = new CalendarItemStorage();
-        /** @var Event $event */
-        foreach ($events as $event)
-        {
-            $performances->addAll($event->getPerformances());
-        }
-        $templateVariables = [
-            'events' => $events,
-            'performances' => $performances,
-            'demand' => $demand,
-            'calendarConfiguration' => $calendarConfiguration,
-            'overwriteDemand' => $overwriteDemand
-        ];
-
-        $this->emitSignal(__CLASS__, self::EVENT_CALENDAR_ACTION, $templateVariables);
-        $this->view->assignMultiple($templateVariables);
     }
 
     /**

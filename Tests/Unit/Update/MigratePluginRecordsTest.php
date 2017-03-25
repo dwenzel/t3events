@@ -73,6 +73,9 @@ class MigratePluginRecordsTest extends UnitTestCase
     <data>
         <sheet index="sDEF">
             <language index="lDEF">
+                <field index="switchableControllerActions">
+                    <value index="vDEF">Event-&gt;calendar</value>
+                </field>
                 <field index="settings.sortBy">
                     <value index="vDEF">performances.date</value>
                 </field>
@@ -91,6 +94,9 @@ XML;
     <data>
         <sheet index="sDEF">
             <language index="lDEF">
+                <field index="switchableControllerActions">
+                    <value index="vDEF">Performance-&gt;calendar</value>
+                </field>
                 <field index="settings.order">
                     <value index="vDEF">performances.date|asc,performances.begin|asc</value>
                 </field>
@@ -103,6 +109,9 @@ XML;
             'data' => [
                 'sDEF' => [
                     'lDEF' => [
+                        'switchableControllerActions' => [
+                            'vDEF' => 'Performance->calendar'
+                        ],
                         'settings.sortBy' => [
                             'vDEF' => 'performances.date'
                         ],
