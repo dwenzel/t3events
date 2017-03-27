@@ -18,7 +18,7 @@
   ],
   "require": {
     "typo3/cms": ">=6.2.0,<=8.99.99",
-    "dwenzel/t3calendar": "^0.2.0"
+    "dwenzel/t3calendar": "^0.3.0"
   },
   "require-dev": {
     "dwenzel/t3calendar": "dev-develop",
@@ -58,10 +58,10 @@
     ]
   },
   "extra": {
-		"branch-alias": {
-          "dev-master": "0.31.x-dev",
-          "dev-develop": "0.31.x-dev"
-		},
+    "branch-alias": {
+      "dev-master": "0.32.x-dev",
+      "dev-develop": "0.32.x-dev"
+    },
     "typo3/cms": {
       "cms-package-dir": "{$vendor-dir}/typo3/cms",
       "web-dir": ".Build/Web"
