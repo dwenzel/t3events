@@ -26,37 +26,37 @@ class BackendUtility {
 	/**
 	 * Fields which are removed in event quick menu view
 	 *
-	 * @var \array
+	 * @var array
 	 */
 	public $removedFieldsInEventQuickMenuView = array(
-		'sDEF' => 'cache.makeNonCacheable',
-		'constraints' => 'period,periodType,periodStart,periodDuration',
-		'pages' => 'detailPid,backPid',
-		'template' => 'hideIfEmptyResult'
+		'sDEF' => 'settings.cache.makeNonCacheable',
+		'constraints' => 'legend,settings.period,settings.periodType,settings.periodStart,settings.periodDuration',
+		'pages' => 'settings.detailPid,settings.backPid',
+		'template' => 'settings.hideIfEmptyResult'
 	);
 
-	public $removedFieldsInEventCalendarView = array(
-		'sDEF' => 'sortDirection,sortBy,cache.makeNonCacheable',
-		'template' => 'hideIfEmptyResult'
+	public $removedFieldsInPerformanceCalendarView = array(
+		'sDEF' => 'settings.sortDirection,settings.order,settings.sortBy,settings.cache.makeNonCacheable',
+		'template' => 'settings.hideIfEmptyResult'
 	);
 
 	public $removedFieldsInEventDetailView = array(
-		'sDEF' => 'sortDirection,sortBy,maxItems',
-		'constraints' => 'period,periodType,periodStart,periodDuration,
-			periodStartDate,periodEndDate,categoryConjunction,venues,genres,
-			eventTypes',
-		'template' => 'hideIfEmptyResult'
+		'sDEF' => 'settings.sortBy,settings.sortDirection,settings.order,settings.maxItems',
+		'constraints' => 'legend,settings.period,settings.periodType,settings.periodStart,settings.periodDuration,
+			settings.periodStartDate,settings.periodEndDate,settings.categoryConjunction,settings.venues,settings.genres,
+			settings.eventTypes,settings.statuses,settings.excludeSelectedStatuses,settings.categories',
+		'template' => 'settings.hideIfEmptyResult'
 	);
 
 	/**
 	 * Hook function of t3lib_befunc
 	 * It is used to change the flexform for placements
 	 *
-	 * @param \array &$dataStructure Flexform structure
-	 * @param \array $conf some strange configuration
-	 * @param \array $row row of current record
-	 * @param \string $table table name
-	 * @param \string $fieldName some strange field name
+	 * @param array &$dataStructure Flexform structure
+	 * @param array $conf some strange configuration
+	 * @param array $row row of current record
+	 * @param string $table table name
+	 * @param string $fieldName some strange field name
 	 * @return void
 	 */
 	public function getFlexFormDS_postProcessDS(&$dataStructure, $conf, $row, $table, $fieldName) {
@@ -68,8 +68,8 @@ class BackendUtility {
 	/**
 	 * Update flexform configuration if a action is selected
 	 *
-	 * @param \array|\string &$dataStructure flexform structure
-	 * @param \array $row row of current record
+	 * @param array|string &$dataStructure flexform structure
+	 * @param array $row row of current record
 	 * @return void
 	 */
 	protected function updateFlexforms(array &$dataStructure, array $row) {
@@ -100,8 +100,8 @@ class BackendUtility {
 				case 'Event->quickMenu':
 					$this->deleteFromStructure($dataStructure, $this->removedFieldsInEventQuickMenuView);
 					break;
-				case 'Event->calendar':
-					$this->deleteFromStructure($dataStructure, $this->removedFieldsInEventCalendarView);
+				case 'Performance->calendar':
+					$this->deleteFromStructure($dataStructure, $this->removedFieldsInPerformanceCalendarView);
 					break;
 				case 'Event->show':
 					$this->deleteFromStructure($dataStructure, $this->removedFieldsInEventDetailView);
@@ -125,8 +125,8 @@ class BackendUtility {
 	/**
 	 * Remove fields from flexform structure
 	 *
-	 * @param \array &$dataStructure flexform structure
-	 * @param \array $fieldsToBeRemoved fields which need to be removed
+	 * @param array &$dataStructure flexform structure
+	 * @param array $fieldsToBeRemoved fields which need to be removed
 	 * @return void
 	 */
 	protected function deleteFromStructure(array &$dataStructure, array $fieldsToBeRemoved) {
@@ -134,7 +134,7 @@ class BackendUtility {
 			$fieldsInSheet = GeneralUtility::trimExplode(',', $sheetFields, TRUE);
 
 			foreach ($fieldsInSheet as $fieldName) {
-				unset($dataStructure['sheets'][$sheetName]['ROOT']['el']['settings.' . $fieldName]);
+				unset($dataStructure['sheets'][$sheetName]['ROOT']['el'][$fieldName]);
 			}
 		}
 	}

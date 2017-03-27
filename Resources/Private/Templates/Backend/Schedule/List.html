@@ -1,0 +1,98 @@
+{namespace ts=DWenzel\T3events\ViewHelpers}
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en"
+      xmlns:f="https://xsd.helhum.io/ns/typo3/cms-fluid/master/ViewHelpers">
+<f:layout name="Default"/>
+
+<f:comment>Content</f:comment>
+<f:section name="main">
+    <f:comment>
+        <f:debug inline="true">{filterOptions}</f:debug>
+        <f:debug inline="true">{performances}</f:debug>
+    </f:comment>
+    <h1>{f:translate(key: 'header.schedules')}</h1>
+
+    <f:comment>Search form</f:comment>
+    <f:render partial="Backend/Common/SearchForm"
+              arguments="{overwriteDemand: overwriteDemand, filterOptions: filterOptions, showSubjectField: '{settings.search.showSubjectField}'}"/>
+    <f:flashMessages />
+
+    <f:comment>Paginated list</f:comment>
+    <f:if condition="{performances}">
+        <f:then>
+            <f:be.widget.paginate
+                    objects="{performances}"
+                    as="paginatedPerformances"
+                    configuration="{settings.paginate}"
+            >
+                <div class="panel panel-space panel-default recordlist">
+                    <table class="table table-striped table-hover typo3-dblist nowrap ">
+                        <thead>
+                        <tr class="c-headline">
+                            <th class="col-icon">ID</th>
+                            <th>{f:translate(key: 'label.date', default: 'Date')}</th>
+                            <th class="col-title">{f:translate(key: 'label.course', default: 'Event')}</th>
+                            <th>{f:translate(key: 'label.eventLocation', default: 'Location')}</th>
+                            <th>{f:translate(key: 'label.eventType', default: 'Event Type')}</th>
+                            <th>{f:translate(key: 'label.status', default: 'Status')}</th>
+                            <th class="col-control"></th>
+                        </tr>
+                        </thead>
+                        <f:for each="{paginatedPerformances}" as="schedule">
+                            <tr class="db_list_normal">
+                                <td nowrap="nowrap">{schedule.uid}</td>
+                                <td nowrap="nowrap">
+                                    <f:format.date format="d.m.Y">{schedule.date}</f:format.date>
+                                </td>
+                                <td nowrap="nowrap">
+                                    <f:if condition="{f:cObject(typoscriptObjectPath: 'lib.compatVersion76')}">
+                                        <f:then>
+                                            <a href="#" class="t3-js-clickmenutrigger"
+                                               data-table="tx_t3events_domain_model_performance" data-uid="{schedule.uid}"
+                                               data-listframe="0">
+                                                {schedule.event.headline}
+                                            </a>
+                                        </f:then>
+                                        <f:else>
+                                            <a href="" title="edit"
+                                               onclick="window.location.href='alt_doc.php?returnUrl='+T3_THIS_LOCATION+'&edit[tx_t3events_domain_model_performance][{schedule.uid}]=edit'; return false;">
+                                                {schedule.event.headline}
+                                            </a>
+                                        </f:else>
+                                    </f:if>
+                                </td>
+                                <td nowrap="nowrap">{schedule.eventLocation.name}</td>
+                                <td nowrap="nowrap">{schedule.event.eventType.title}</td>
+                                <td nowrap="nowrap">{schedule.status.title}</td>
+                                <td nowrap="nowrap">
+                                    <f:if condition="{f:cObject(typoscriptObjectPath: 'lib.compatVersion76')}">
+                                        <f:then>
+                                            <div
+                                                    class="btn btn-default">
+                                                <f:be.buttons.icon
+                                                        icon="actions-open"
+                                                        title="UID: {schedule.uid}"
+                                                        uri="{ts:be.editRecord(parameters:'edit[tx_t3events_domain_model_performance][{schedule.uid}]=edit')}"
+                                                />
+                                            </div>
+                                        </f:then>
+                                        <f:else>
+                                            <a href=""
+                                               onclick="window.location.href='alt_doc.php?returnUrl='+T3_THIS_LOCATION+'&edit[tx_t3events_domain_model_performance][{schedule.uid}]=edit'; return false;">
+                                                <f:be.buttons.icon icon="actions-document-open"/>
+                                            </a>
+
+                                        </f:else>
+                                    </f:if>
+                                </td>
+                            </tr>
+                        </f:for>
+                    </table>
+                </div>
+            </f:be.widget.paginate>
+        </f:then>
+    </f:if>
+</f:section>
+
+<f:comment>Header buttons</f:comment>
+<f:section name="headerButtons"/>
+

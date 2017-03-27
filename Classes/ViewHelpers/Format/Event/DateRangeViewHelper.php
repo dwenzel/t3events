@@ -54,7 +54,7 @@ class DateRangeViewHelper extends AbstractTagBasedViewHelper {
 	/**
 	 * Get date range of performances
 	 *
-	 * @return \array
+	 * @return array
 	 */
 	protected function getDateRange() {
 		$format = $this->arguments['format'];

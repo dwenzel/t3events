@@ -39,7 +39,7 @@ class NotificationService {
 	 * @param array $variables
 	 * @param array|null $attachments Variables which are passed to the template for rendering
 	 * @param array $attachments
-	 * @return \bool
+	 * @return bool
 	 */
 	public function notify($recipient, $sender, $subject, $templateName, $format = NULL, $folderName, $variables = array(), $attachments = NULL) {
 		$templateView = $this->buildTemplateView($templateName, $format, $folderName);
@@ -69,11 +69,11 @@ class NotificationService {
 	/**
 	 * Renders the body of a notification using a given template
 	 *
-	 * @param \string $templateName
-	 * @param \string|null $format
-	 * @param \string $folderName
-	 * @param \array $variables
-	 * @return \string
+	 * @param string $templateName
+	 * @param string|null $format
+	 * @param string $folderName
+	 * @param array $variables
+	 * @return string
 	 */
 	public function render($templateName, $format = NULL, $folderName, $variables = array()) {
 		$templateView = $this->buildTemplateView($templateName, $format, $folderName);
@@ -142,7 +142,7 @@ class NotificationService {
 	}
 
 	/**
-	 * @var \array $data An array containing data for attachement generation
+	 * @var array $data An array containing data for attachement generation
 	 * @return \Swift_Attachment
 	 */
 	protected function buildAttachmentFromTemplate($data) {
@@ -165,9 +165,9 @@ class NotificationService {
 	/**
 	 * Get template path and file name
 	 *
-	 * @var \string $templateName File name (without extension)
-	 * @var \string $folderName Optional folder name, default 'Email'
-	 * @return \string
+	 * @var string $templateName File name (without extension)
+	 * @var string $folderName Optional folder name, default 'Email'
+	 * @return string
 	 */
 	protected function getTemplatePathAndFileName($templateName, $folderName = 'Email') {
 		$extbaseFrameworkConfiguration = $this->configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);

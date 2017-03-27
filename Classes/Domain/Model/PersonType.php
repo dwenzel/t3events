@@ -30,14 +30,14 @@ class PersonType extends AbstractValueObject {
 	/**
 	 * title
 	 *
-	 * @var \string
+	 * @var string
 	 */
 	protected $title;
 
 	/**
 	 * Returns the title
 	 *
-	 * @return \string $title
+	 * @return string $title
 	 */
 	public function getTitle() {
 		return $this->title;
@@ -46,7 +46,7 @@ class PersonType extends AbstractValueObject {
 	/**
 	 * Sets the title
 	 *
-	 * @param \string $title
+	 * @param string $title
 	 * @return void
 	 */
 	public function setTitle($title) {

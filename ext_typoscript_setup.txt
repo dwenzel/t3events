@@ -1,36 +1,39 @@
 config.tx_extbase {
-	persistence {
-		classes {
-			DWenzel\T3events\Domain\Model\Content {
-				mapping {
-					tableName = tt_content
-					columns {
-						altText.mapOnProperty = altText
-						titleText.mapOnProperty = titleText
-						colPos.mapOnProperty = colPos
-						CType.mapOnProperty = CType
-					}
-				}
-			}
-			DWenzel\T3events\Domain\Model\Country {
-				mapping {
-					tableName = static_countries
-				}
-			}
-			DWenzel\T3events\Domain\Model\Person {
-				mapping {
-					columns {
-						tx_extbase_type.mapOnProperty = type
-					}
-				}
-			}
-			DWenzel\T3events\Domain\Model\Category {
-				mapping {
-					tableName = sys_category
-				}
-			}
-		}
-	}
+    persistence {
+        classes {
+            DWenzel\T3events\Domain\Model\Content {
+                mapping {
+                    tableName = tt_content
+                    columns {
+                        altText.mapOnProperty = altText
+                        titleText.mapOnProperty = titleText
+                        colPos.mapOnProperty = colPos
+                        CType.mapOnProperty = CType
+                    }
+                }
+            }
+
+            DWenzel\T3events\Domain\Model\Country {
+                mapping {
+                    tableName = static_countries
+                }
+            }
+
+            DWenzel\T3events\Domain\Model\Person {
+                mapping {
+                    columns {
+                        tx_extbase_type.mapOnProperty = type
+                    }
+                }
+            }
+
+            DWenzel\T3events\Domain\Model\Category {
+                mapping {
+                    tableName = sys_category
+                }
+            }
+        }
+    }
 }
 
 config.tx_extbase {
@@ -38,11 +41,13 @@ config.tx_extbase {
         DWenzel\T3events\Session\SessionInterface {
             className = DWenzel\T3events\Session\Typo3BackendSession
         }
-		DWenzel\T3events\Domain\Repository\TaskRepositoryInterface {
-			className = DWenzel\T3events\Domain\Repository\TaskRepository
-		}
-	}
+
+        DWenzel\T3events\Domain\Repository\TaskRepositoryInterface {
+            className = DWenzel\T3events\Domain\Repository\TaskRepository
+        }
+    }
 }
+
 [globalString = TSFE:fe_user|loginType = FE]
     config.tx_extbase {
         objects {
@@ -54,15 +59,77 @@ config.tx_extbase {
 [global]
 
 module.tx_t3events {
-	view {
-		templateRootPaths {
-			10 = {$module.tx_t3events.view.templateRootPath.10}
-		}
-		partialRootPaths {
-			10 = {$module.tx_t3events.view.partialRootPath.10}
-		}
-		layoutRootPaths {
-			10 = {$module.tx_t3events.view.layoutRootPath.10}
-		}
-	}
+    view {
+        templateRootPaths {
+            10 = {$module.tx_t3events.view.templateRootPaths.10}
+        }
+
+        partialRootPaths {
+            10 = {$module.tx_t3events.view.partialRootPaths.10}
+        }
+
+        layoutRootPaths {
+            10 = {$module.tx_t3events.view.layoutRootPaths.10}
+        }
+    }
+
+    settings {
+        storagePages = {$module.tx_t3events.persistence.storagePid}
+        event {
+            list {
+                maxItems = {$module.tx_t3events.settings.event.list.maxItems}
+                filter {
+                    genre =
+                    audience =
+                    venue =
+                    eventType =
+                    periods = futureOnly,pastOnly,all
+                }
+
+                paginate {
+                    itemsPerPage = 25
+                    insertBelow = 0
+                    insertAbove = 1
+                }
+            }
+
+            search {
+                fields = headline,subtitle
+                showSubjectField = 1
+            }
+        }
+
+        schedule {
+            list {
+                maxItems = {$module.tx_t3events.settings.schedule.list.maxItems}
+                period = all
+                filter {
+                    genre =
+                    audience =
+                    venue =
+                    eventType =
+                    periods = futureOnly,pastOnly,all
+                }
+
+                paginate {
+                    itemsPerPage = 25
+                    insertBelow = 0
+                    insertAbove = 1
+                }
+
+                search {
+                    fields = event.headline,event.subtitle
+                    showSubjectField = 1
+                }
+
+                order = date|asc,begin|asc
+            }
+        }
+    }
 }
+
+lib.compatVersion76 = TEXT
+lib.compatVersion76.value = false
+[compatVersion = 7.6.0]
+    lib.compatVersion76.value = true
+[global]

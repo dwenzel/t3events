@@ -40,9 +40,6 @@ $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignat
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_t3events_domain_model_venue', 'EXT:t3events/Resources/Private/Language/locallang_csh_tx_t3events_domain_model_venue.xml');
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_t3events_domain_model_venue');
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_t3events_domain_model_teaser', 'EXT:t3events/Resources/Private/Language/locallang_csh_tx_t3events_domain_model_teaser.xml');
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_t3events_domain_model_teaser');
-
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_t3events_domain_model_eventlocation', 'EXT:t3events/Resources/Private/Language/locallang_csh_tx_t3events_domain_model_eventlocation.xml');
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_t3events_domain_model_eventlocation');
 
@@ -74,10 +71,33 @@ $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignat
 
 // enable event module
 
-if ((bool)$emSettings['showEventModule']) {
+if (TYPO3_MODE === 'BE' && (bool)$emSettings['showEventModule']) {
     $versionNumber = \TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version);
+    $pathEventIcon = 'EXT:' . $_EXTKEY . '/Resources/Public/Icons/calendar.svg';
+    $pathScheduleIcon = 'EXT:' . $_EXTKEY . '/Resources/Public/Icons/calendar-blue.svg';
     if ($versionNumber < 7000000) {
-        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addModule('Events');
+        $pathEventIcon = 'EXT:' . $_EXTKEY . '/Resources/Public/Icons/tx_t3events_domain_model_event.gif';
+        $pathScheduleIcon = 'EXT:' . $_EXTKEY . '/Resources/Public/Icons/module_icon_schedule.png';
+    }
+
+    if ($versionNumber < 7000000) {
+       // \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addModule('Events');
+        /**
+         * Register Backend Modules
+         */
+        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
+            'DWenzel.' . $_EXTKEY,
+            'Events',
+            '',
+            '',
+            [],
+            [
+                'access' => 'user,group',
+                'icon' => $pathEventIcon,
+                'labels' => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_m1.xlf',
+            ]
+        );
+
     }
     if ($versionNumber > 7000000 && $versionNumber < 8000000) {
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addModule(
@@ -109,4 +129,38 @@ if ((bool)$emSettings['showEventModule']) {
             ]
         );
     }
+
+    /**
+     * Register Backend Modules
+     */
+    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
+        'DWenzel.' . $_EXTKEY,
+        'Events',
+        'm1',
+        '',
+        [
+            'Backend\Event' => 'list, show,reset',
+        ],
+        [
+            'access' => 'user,group',
+            'icon' => $pathEventIcon,
+            'labels' => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_m1.xlf',
+        ]
+    );
+
+    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
+        'DWenzel.' . $_EXTKEY,
+        'Events',
+        'm2',
+        '',
+        [
+            'Backend\Schedule' => 'list, show, edit, delete,reset',
+        ],
+        [
+            'access' => 'user,group',
+            'icon' => $pathScheduleIcon,
+            'labels' => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_m2.xlf',
+        ]
+    );
+
 }

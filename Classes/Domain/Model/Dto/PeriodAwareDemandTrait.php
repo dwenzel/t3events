@@ -50,7 +50,7 @@ trait PeriodAwareDemandTrait {
 	protected $respectEndDate = false;
 
 	/**
-	 * @return \string The time limit for the demand
+	 * @return string The time limit for the demand
 	 */
 	public function getPeriod() {
 		return $this->period;

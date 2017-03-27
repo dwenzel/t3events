@@ -62,22 +62,22 @@ class FlashMessageTraitTest extends UnitTestCase
         return $mockConfigurationManager;
     }
 
-    /**
-     * @return \PHPUnit_Framework_MockObject_MockObject
-     */
-    protected function mockFlashMessageService()
-    {
-        $mockFlashMessageService = $this->getMock(
-            FlashMessageService::class, ['getMessageQueueByIdentifier']
-        );
-        $this->inject(
-            $this->subject,
-            'flashMessageService',
-            $mockFlashMessageService
-        );
+        /**
+         * @return \PHPUnit_Framework_MockObject_MockObject
+         */
+        protected function mockFlashMessageService()
+        {
+            $mockFlashMessageService = $this->getMock(
+                FlashMessageService::class, ['getMessageQueueByIdentifier']
+            );
+            $this->inject(
+                $this->subject,
+                'flashMessageService',
+                $mockFlashMessageService
+            );
 
-        return $mockFlashMessageService;
-    }
+            return $mockFlashMessageService;
+        }
 
     /**
      * @return \PHPUnit_Framework_MockObject_MockObject
@@ -154,6 +154,11 @@ class FlashMessageTraitTest extends UnitTestCase
      */
     public function getFlashMessageQueueInstantiatesLegacyQueue()
     {
+        $versionNumber = \TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version);
+        if ($versionNumber > 7000000) {
+            $this->markTestSkipped('Test for legacy flash message queue is obsolete.');
+        }
+
         $this->subject = $this->getMockForTrait(
             FlashMessageTrait::class, [], '', true, true, true, ['useLegacyFlashMessageHandling']
         );

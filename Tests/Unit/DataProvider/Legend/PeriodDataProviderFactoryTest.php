@@ -66,9 +66,11 @@ class PeriodDataProviderFactoryTest extends UnitTestCase
             'all' => \DWenzel\T3events\DataProvider\Legend\PeriodAllDataProvider::class,
         ];
         $data = [];
+        $versionNumber = VersionNumberUtility::convertVersionNumberToInteger(VersionNumberUtility::getNumericTypo3Version());
         foreach ($validClasses as $key=>$class) {
             $periodValue = $key;
-            if (VersionNumberUtility::convertVersionNumberToInteger(VersionNumberUtility::getNumericTypo3Version()) >= 7006000) {
+            // incoming array differs depending on TYPO3 version!
+            if ( $versionNumber >= 7006000 && $versionNumber < 7006015) {
                 $periodValue = [$key];
             }
             $data[] = [

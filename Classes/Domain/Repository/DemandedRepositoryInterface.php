@@ -37,7 +37,7 @@ interface DemandedRepositoryInterface {
 	 * Returns an array of orderings created from a given demand object.
 	 *
 	 * @param \DWenzel\T3events\Domain\Model\Dto\DemandInterface $demand
-	 * @return \array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint>
+	 * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint>
 	 */
 	public function createOrderingsFromDemand(DemandInterface $demand);
 
@@ -71,9 +71,9 @@ interface DemandedRepositoryInterface {
 	 * Combine constraints
 	 *
 	 * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
-	 * @param \array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint> $constraints
-	 * @param \array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint> $additionalConstraints
-	 * @param \string $conjunction
+	 * @param array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint> $constraints
+	 * @param array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint> $additionalConstraints
+	 * @param string $conjunction
 	 */
 	public function combineConstraints($query, &$constraints, $additionalConstraints, $conjunction = NULL);
 }

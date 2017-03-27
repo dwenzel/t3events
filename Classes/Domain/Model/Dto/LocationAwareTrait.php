@@ -24,7 +24,7 @@ trait LocationAwareTrait {
 	/**
 	 * Bounding box
 	 *
-	 * @var \array
+	 * @var array
 	 */
 	protected $bounds;
 
@@ -69,7 +69,7 @@ trait LocationAwareTrait {
 	/**
 	 * Get Bounds
 	 *
-	 * @return \array An array describing a bounding box around a geolocation
+	 * @return array An array describing a bounding box around a geolocation
 	 */
 	public function getBounds() {
 		return $this->bounds;
@@ -78,7 +78,7 @@ trait LocationAwareTrait {
 	/**
 	 * Set Bounds
 	 *
-	 * @param \array $bounds
+	 * @param array $bounds
 	 * @return void
 	 */
 	public function setBounds($bounds) {

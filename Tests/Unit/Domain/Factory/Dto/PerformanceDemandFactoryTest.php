@@ -349,4 +349,30 @@ class PerformanceDemandFactoryTest extends UnitTestCase {
             $createdDemand->getOrder()
         );
     }
+
+    /**
+     * @test
+     */
+    public function createFromSettingsMapsOrderFromEventSettings()
+    {
+        $settings = [
+            'order' => 'performances.date|asc,performances.begin|asc',
+        ];
+        $expectedOrder = 'date|asc,begin|asc';
+
+        /** @var PerformanceDemand $mockDemand */
+        $mockDemand = $this->getMock(
+            PerformanceDemand::class, ['dummy']
+        );
+        $mockObjectManager = $this->mockObjectManager();
+        $mockObjectManager->expects($this->once())
+            ->method('get')
+            ->will($this->returnValue($mockDemand));
+        $createdDemand = $this->subject->createFromSettings($settings);
+
+        $this->assertSame(
+            $expectedOrder,
+            $createdDemand->getOrder()
+        );
+    }
 }

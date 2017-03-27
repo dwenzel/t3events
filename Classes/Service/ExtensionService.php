@@ -44,10 +44,10 @@ class ExtensionService
      * Method from parent class overwritten to allow evaluation of plugin setting 'makeNonCachable'.
      * Thus an editor is able to force an non caching behavior of the plugin.
      *
-     * @param \string $extensionName Name of the target extension, without underscores
-     * @param \string $pluginName Name of the target plugin
-     * @param \string $controllerName Name of the target controller
-     * @param \string $actionName Name of the action to be called
+     * @param string $extensionName Name of the target extension, without underscores
+     * @param string $pluginName Name of the target plugin
+     * @param string $controllerName Name of the target controller
+     * @param string $actionName Name of the action to be called
      * @return boolean TRUE if the specified plugin action is cacheable, otherwise FALSE
      */
     public function isActionCacheable($extensionName, $pluginName, $controllerName, $actionName)

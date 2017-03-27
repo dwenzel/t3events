@@ -16,23 +16,13 @@
       "role": "Developer"
     }
   ],
-  "repositories": [
-    {
-      "type": "vcs",
-      "url": "https://github.com/dwenzel/t3calendar.git"
-    },
-    {
-      "type": "vcs",
-      "url": "https://github.com/dwenzel/notification_service.git"
-    }
-  ],
   "require": {
-    "typo3/cms-core": ">=6.2.0,<8.4",
-    "dwenzel/t3calendar": "^0.2.0"
+    "typo3/cms": ">=6.2.0,<=8.99.99",
+    "dwenzel/t3calendar": "^0.3.0"
   },
   "require-dev": {
     "dwenzel/t3calendar": "dev-develop",
-    "phpunit/phpunit": "~4.8.0",
+    "phpunit/phpunit": ">=4.8.0,<5.4.0",
     "satooshi/php-coveralls": "dev-master"
   },
   "autoload": {
@@ -53,7 +43,12 @@
   },
   "config": {
     "vendor-dir": ".Build/vendor",
-    "bin-dir": ".Build/bin"
+    "bin-dir": ".Build/bin",
+    "preferred-install": {
+      "typo3/cms": "source",
+      "typo3/cms-core": "source",
+      "*": "dist"
+    }
   },
   "scripts": {
     "post-autoload-dump": [
@@ -63,10 +58,10 @@
     ]
   },
   "extra": {
-		"branch-alias": {
-          "dev-master": "0.31.x-dev",
-          "dev-develop": "0.31.x-dev"
-		},
+    "branch-alias": {
+      "dev-master": "0.32.x-dev",
+      "dev-develop": "0.32.x-dev"
+    },
     "typo3/cms": {
       "cms-package-dir": "{$vendor-dir}/typo3/cms",
       "web-dir": ".Build/Web"

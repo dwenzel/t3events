@@ -32,9 +32,9 @@ class TrimViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
 	/**
 	 * Trims content by stripping off $characters
 	 *
-	 * @param \string $content
-	 * @param \string $characters
-	 * @return \string
+	 * @param string $content
+	 * @param string $characters
+	 * @return string
 	 */
 	public function render($content = NULL, $characters = NULL) {
 		if ($content === NULL) {

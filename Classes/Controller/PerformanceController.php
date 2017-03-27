@@ -22,6 +22,7 @@ namespace DWenzel\T3events\Controller;
 
 
 
+use DWenzel\T3calendar\Domain\Model\Dto\CalendarConfigurationFactoryTrait;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 
@@ -42,13 +43,15 @@ class PerformanceController
     extends ActionController
     implements FilterableControllerInterface
 {
-    use FilterableControllerTrait, SessionTrait,
-        SettingsUtilityTrait, CategoryRepositoryTrait,
-        EntityNotFoundHandlerTrait, SearchTrait, TranslateTrait, DemandTrait;
+    use CategoryRepositoryTrait, CalendarConfigurationFactoryTrait,
+        DemandTrait, EntityNotFoundHandlerTrait, FilterableControllerTrait,
+        PerformanceDemandFactoryTrait, SearchTrait,SessionTrait,
+        SettingsUtilityTrait, TranslateTrait;
 
     const PERFORMANCE_LIST_ACTION = 'listAction';
     const PERFORMANCE_QUICK_MENU_ACTION = 'quickMenuAction';
     const PERFORMANCE_SHOW_ACTION = 'showAction';
+    const PERFORMANCE_CALENDAR_ACTION = 'calendarAction';
     const SESSION_NAME_SPACE = 'performanceController';
 
     /**
@@ -236,9 +239,32 @@ class PerformanceController
     }
 
     /**
+     * Calendar action
+     * @param array $overwriteDemand
+     */
+    public function calendarAction(array $overwriteDemand = null)
+    {
+        $demand = $this->performanceDemandFactory->createFromSettings($this->settings);
+        $this->overwriteDemandObject($demand, $overwriteDemand);
+        $performances = $this->performanceRepository->findDemanded($demand);
+
+        $calendarConfiguration = $this->calendarConfigurationFactory->create($this->settings);
+
+        $templateVariables = [
+            'performances' => $performances,
+            'demand' => $demand,
+            'calendarConfiguration' => $calendarConfiguration,
+            'overwriteDemand' => $overwriteDemand
+        ];
+
+        $this->emitSignal(__CLASS__, self::PERFORMANCE_CALENDAR_ACTION, $templateVariables);
+        $this->view->assignMultiple($templateVariables);
+    }
+
+    /**
      * Create Demand from Settings
      *
-     * @param \array $settings
+     * @param array $settings
      * @return \DWenzel\T3events\Domain\Model\Dto\PerformanceDemand
      */
     protected function createDemandFromSettings($settings)
@@ -246,12 +272,6 @@ class PerformanceController
         /** @var PerformanceDemand $demand */
         $demand = $this->objectManager->get('DWenzel\\T3events\\Domain\\Model\\Dto\\PerformanceDemand');
 
-        if ($settings['sortBy'] == 'performances.date') {
-            $settings['sortBy'] = 'date';
-        }
-        if ($settings['sortBy'] == 'headline') {
-            $settings['sortBy'] = 'event.headline';
-        }
         foreach ($settings as $name => $value) {
             if (empty($value)) {
                 continue;
@@ -288,8 +308,6 @@ class PerformanceController
             $demand->setPeriodStart($settings['periodStart']);
             $demand->setPeriodDuration($settings['periodDuration']);
         }
-
-        $demand->setOrder($settings['sortBy'] . '|' . $settings['sortDirection']);
 
         if ($settings['periodType'] == 'byDate') {
             if ($settings['periodStartDate']) {

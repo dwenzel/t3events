@@ -5,7 +5,7 @@ interface LocationAwareInterface {
 	/**
 	 * Get Bounds
 	 *
-	 * @return \array An array describing a bounding box around a geolocation
+	 * @return array An array describing a bounding box around a geolocation
 	 */
 	public function getBounds();
 
@@ -26,7 +26,7 @@ interface LocationAwareInterface {
 	/**
 	 * Set Bounds
 	 *
-	 * @param \array $bounds
+	 * @param array $bounds
 	 * @return void
 	 */
 	public function setBounds($bounds);
