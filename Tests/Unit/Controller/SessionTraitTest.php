@@ -13,7 +13,7 @@ namespace DWenzel\T3events\Tests\Unit\Controller;
 
 use DWenzel\T3events\Controller\SessionTrait;
 use DWenzel\T3events\Session\SessionInterface;
-use TYPO3\CMS\Core\Tests\UnitTestCase;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 
 class DummyClassWithNamespace
 {

@@ -26,7 +26,7 @@ use DWenzel\T3events\Domain\Model\Dto\PerformanceDemand;
  * @author Dirk Wenzel <wenzel@webfox01.de>
  * @coversDefaultClass \DWenzel\T3events\Domain\Model\Dto\PerformanceDemand
  */
-class PerformanceDemandTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
+class PerformanceDemandTest extends \Nimut\TestingFramework\TestCase\UnitTestCase {
 
 	/**
 	 * @var \DWenzel\T3events\Domain\Model\Dto\PerformanceDemand

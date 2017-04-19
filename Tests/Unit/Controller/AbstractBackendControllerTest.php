@@ -7,7 +7,7 @@ use DWenzel\T3events\Domain\Repository\EventTypeRepository;
 use DWenzel\T3events\Domain\Repository\GenreRepository;
 use DWenzel\T3events\Domain\Repository\VenueRepository;
 use DWenzel\T3events\Service\ModuleDataStorageService;
-use TYPO3\CMS\Core\Tests\UnitTestCase;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use DWenzel\T3events\Controller\AbstractBackendController;
 use DWenzel\T3events\Domain\Model\Dto\ModuleData;

@@ -13,7 +13,7 @@ namespace DWenzel\T3events\Tests\Controller;
 
 use DWenzel\T3events\Controller\TaskRepositoryTrait;
 use DWenzel\T3events\Domain\Repository\TaskRepository;
-use TYPO3\CMS\Core\Tests\UnitTestCase;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 
 /**
  * Class TaskRepositoryTraitTest

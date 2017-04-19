@@ -2,7 +2,7 @@
 namespace DWenzel\T3events\Utility;
 
 use DWenzel\T3events\Utility\EmConfigurationUtility;
-use TYPO3\CMS\Core\Tests\UnitTestCase;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 use DWenzel\T3events\Domain\Model\Dto\EmConfiguration;
 
 /***************************************************************
