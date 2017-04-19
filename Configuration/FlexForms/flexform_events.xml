@@ -261,7 +261,7 @@
           <settings.period>
             <TCEforms>
               <label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.period</label>
-              <displayCond>FIELD:switchableControllerActions:!=:Event->quickMenu</displayCond>
+              <displayCond>FIELD:sDEF.switchableControllerActions:!=:Event->quickMenu</displayCond>
               <onChange>reload</onChange>
               <config>
                 <type>select</type>
@@ -403,7 +403,7 @@
           <settings.quickMenuType>
             <TCEforms>
               <label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.quick_menu.type</label>
-              <displayCond>FIELD:switchableControllerActions:=:Event->quickMenu</displayCond>
+              <displayCond>FIELD:sDEF.switchableControllerActions:=:Event->quickMenu</displayCond>
               <onChange>reload</onChange>
               <config>
                 <type>select</type>
