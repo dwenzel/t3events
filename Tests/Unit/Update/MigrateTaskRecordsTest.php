@@ -75,6 +75,11 @@ class MigrateTaskRecordsTest extends UnitTestCase
      */
     public function checkForUpdateGetsTasksWithDeprecatedFieldsFromDatabase()
     {
+        $versionNumber = VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version);
+        if ($versionNumber >= 8000000) {
+            $this->markTestSkipped();
+        }
+
         $description = '';
         $expectedFields = 'uid, period';
         $expectedWhere = 'period!=0';
@@ -89,6 +94,11 @@ class MigrateTaskRecordsTest extends UnitTestCase
      */
     public function checkForUpdateReturnsTrueIfTasksWithDeprecatedFieldsExist()
     {
+        $versionNumber = VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version);
+        if ($versionNumber >= 8000000) {
+            $this->markTestSkipped();
+        }
+
         $description = '';
         $tasks = ['foo'];
         $this->subject = $this->getMock(

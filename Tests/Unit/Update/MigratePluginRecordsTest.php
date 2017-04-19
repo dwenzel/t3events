@@ -19,6 +19,7 @@ use DWenzel\T3events\Update\MigratePluginRecords;
 use TYPO3\CMS\Core\Database\DatabaseConnection;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 
 /**
  * Class MigratePluginRecordsTest
@@ -161,6 +162,10 @@ XML;
      */
     public function checkForUpdateReturnsTrueIfPluginsWithDeprecatedSettingsFound()
     {
+        $versionNumber = VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version);
+        if ($versionNumber >= 8000000) {
+            $this->markTestSkipped();
+        }
         $description = '';
         $plugins = 5;
         $this->subject = $this->getMock(
