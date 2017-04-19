@@ -54,7 +54,7 @@ use DWenzel\T3events\Utility\SettingsUtility;
  * @author Michael Kasten <kasten@webfox01.de>
  * @coversDefaultClass \DWenzel\T3events\Controller\PerformanceController
  */
-class PerformanceControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
+class PerformanceControllerTest extends \Nimut\TestingFramework\TestCase\UnitTestCase {
 
 	/**
 	 * @var \DWenzel\T3events\Controller\PerformanceController|\PHPUnit_Framework_MockObject_MockObject

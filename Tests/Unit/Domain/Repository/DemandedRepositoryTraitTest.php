@@ -12,7 +12,7 @@ namespace DWenzel\T3events\Tests\Unit\Domain\Repository;
  */
 
 use DWenzel\T3events\Domain\Repository\DemandedRepositoryTrait;
-use TYPO3\CMS\Core\Tests\UnitTestCase;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 

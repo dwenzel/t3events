@@ -16,7 +16,7 @@ namespace DWenzel\T3events\Tests\ViewHelpers\Location;
  */
 
 use DWenzel\T3events\ViewHelpers\Format\ArrayToCsvViewHelper;
-use TYPO3\CMS\Core\Tests\UnitTestCase;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 
 /**
  * Class ArrayToCsvTest
