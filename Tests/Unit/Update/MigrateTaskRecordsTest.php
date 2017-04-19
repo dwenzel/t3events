@@ -19,6 +19,7 @@ use DWenzel\T3events\Update\MigrateTaskRecords;
 use TYPO3\CMS\Core\Database\DatabaseConnection;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 
 /**
  * Class MigrateTaskRecordsTest
