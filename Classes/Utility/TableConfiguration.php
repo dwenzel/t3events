@@ -41,7 +41,7 @@ class TableConfiguration
     protected static $iconPaths = [
         8 => [
             'add' => 'actions-add',
-            'edit' => 'actions-add',
+            'edit' => 'actions-open',
             'link' => 'actions-wizard-link',
             'rte' => 'actions-open',
         ],
