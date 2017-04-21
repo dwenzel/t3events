@@ -67,7 +67,7 @@ class TableConfiguration
      * @param string $wizardName
      * @return string|null
      */
-    public static function getWizardIcon(string $wizardName)
+    public static function getWizardIcon($wizardName)
     {
         $version = self::getVersion();
         if (isset(self::$iconPaths[$version]) && !empty(self::$iconPaths[$version][$wizardName])) {
@@ -84,7 +84,9 @@ class TableConfiguration
     protected static function getVersion()
     {
         $version = 8;
-        $versionNumber = VersionNumberUtility::getNumericTypo3Version();
+        $versionNumber = VersionNumberUtility::convertVersionNumberToInteger(
+            VersionNumberUtility::getNumericTypo3Version()
+        );
         if ($versionNumber >= 6000000 && $versionNumber < 7000000) {
             $version = 6;
         }
