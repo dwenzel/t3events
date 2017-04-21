@@ -88,7 +88,7 @@ class TableConfigurationTest extends UnitTestCase
      * @param string $wizardName
      * @param string $expectedValue
      */
-    public function getWizardIconReturnsCorrectValue(string $wizardName, string $expectedValue)
+    public function getWizardIconReturnsCorrectValue($wizardName, $expectedValue)
     {
         $this->assertSame(
             $expectedValue,

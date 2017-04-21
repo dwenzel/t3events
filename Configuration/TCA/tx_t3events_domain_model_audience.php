@@ -3,34 +3,7 @@ if (!defined('TYPO3_MODE')) {
     die ('Access denied.');
 }
 $ll = 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:';
-$linkWizardConfig = [
-    'type' => 'popup',
-    'title' => $ll . 'button.openLinkWizard',
-    'icon' => \DWenzel\T3events\Utility\TableConfiguration::getWizardIcon('link'),
-    'module' => [
-        'name' => 'wizard_link',
-        'urlParameters' => [
-            'mode' => 'wizard'
-        ],
-    ],
-    'JSopenParams' => 'height=600,width=500,status=0,menubar=0,scrollbars=1'
-];
-$versionNumber = \TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version);
-
-if ($versionNumber < 7000000) {
-    $linkWizardConfig = [
-        'type' => 'popup',
-        'title' => 'LLL:EXT:cms/locallang_ttc.xlf:header_link_formlabel',
-        'icon' => 'link_popup.gif',
-        'module' => [
-            'name' => 'wizard_element_browser',
-            'urlParameters' => [
-                'mode' => 'wizard'
-            ]
-        ],
-        'JSopenParams' => 'height=300,width=500,status=0,menubar=0,scrollbars=1'
-    ];
-}
+$linkWizardIconPath = \DWenzel\T3events\Utility\TableConfiguration::getWizardIcon('link');
 
 return [
     'ctrl' => [
@@ -162,7 +135,18 @@ return [
                 'softref' => 'typolink',
                 'wizards' => [
                     '_PADDING' => 2,
-                    'link' => $linkWizardConfig
+                    'link' => [
+                        'type' => 'popup',
+                        'title' => $ll . 'button.openLinkWizard',
+                        'icon' => $linkWizardIconPath,
+                        'module' => [
+                            'name' => 'wizard_link',
+                            'urlParameters' => [
+                                'mode' => 'wizard'
+                            ],
+                        ],
+                        'JSopenParams' => 'height=600,width=500,status=0,menubar=0,scrollbars=1'
+                    ]
                 ]
             ]
         ]

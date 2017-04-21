@@ -54,7 +54,7 @@ class TableConfiguration
         6 => [
             'add' => 'add.gif',
             'edit' => 'edit2.gif',
-            'link' => 'link.gif',
+            'link' => 'link_popup.gif',
             'rte' => 'wizard_rte2.gif'
         ]
     ];
