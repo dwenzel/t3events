@@ -3,12 +3,10 @@ if (!defined('TYPO3_MODE')) {
     die ('Access denied.');
 }
 $ll = 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:';
-$editWizardIconPath = 'EXT:backend/Resources/Public/Images/FormFieldWizard/wizard_edit.gif';
-$addWizardIconPath = 'EXT:backend/Resources/Public/Images/FormFieldWizard/wizard_add.gif';
 $linkWizardConfig = [
     'type' => 'popup',
     'title' => $ll . 'button.openLinkWizard',
-    'icon' => 'EXT:backend/Resources/Public/Images/FormFieldWizard/wizard_link.gif',
+    'icon' => \DWenzel\T3events\Utility\TableConfiguration::getWizardIcon('link'),
     'module' => [
         'name' => 'wizard_link',
         'urlParameters' => [
@@ -20,9 +18,6 @@ $linkWizardConfig = [
 $versionNumber = \TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version);
 
 if ($versionNumber < 7000000) {
-    $editWizardIconPath = 'edit2.gif';
-    $addWizardIconPath = 'add.gif';
-
     $linkWizardConfig = [
         'type' => 'popup',
         'title' => 'LLL:EXT:cms/locallang_ttc.xlf:header_link_formlabel',
@@ -148,7 +143,7 @@ return [
                 'wizards' => [
                     'RTE' => [
                         'type' => 'script',
-                        'icon' => $editWizardIconPath,
+                        'icon' => \DWenzel\T3events\Utility\TableConfiguration::getWizardIcon('rte'),
                         'notNewRecords' => 1,
                         'RTEonly' => 1,
                         'title' => 'LLL:EXT:cms/locallang_ttc.xlf:bodytext.W.RTE',
