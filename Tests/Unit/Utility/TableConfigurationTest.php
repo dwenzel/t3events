@@ -51,7 +51,7 @@ class TableConfigurationTest extends UnitTestCase
         $iconStrings = [
             8 => [
                 ['add', 'actions-add'],
-                ['edit', 'actions-add'],
+                ['edit', 'actions-open'],
                 ['link', 'actions-wizard-link'],
                 ['rte', 'actions-open'],
             ],
@@ -64,14 +64,16 @@ class TableConfigurationTest extends UnitTestCase
             6 => [
                 ['add', 'add.gif'],
                 ['edit', 'edit2.gif'],
-                ['link', 'link.gif'],
+                ['link', 'link_popup.gif'],
                 ['rte', 'wizard_rte2.gif']
             ]
         ];
 
         /* expected icon strings by version */
         $version = 8;
-        $versionNumber = VersionNumberUtility::getNumericTypo3Version();
+        $versionNumber = VersionNumberUtility::convertVersionNumberToInteger(
+            VersionNumberUtility::getNumericTypo3Version()
+        );
         if ($versionNumber >= 6000000 && $versionNumber < 7000000) {
             $version = 6;
         }
