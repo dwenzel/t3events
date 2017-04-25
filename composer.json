@@ -23,8 +23,7 @@
   "require-dev": {
     "dwenzel/t3calendar": "dev-develop",
     "nimut/testing-framework": "^1.1",
-    "phpunit/phpunit": "^4.8 || ^5.6",
-    "satooshi/php-coveralls": "dev-master"
+    "phpunit/phpunit": "^4.8 || ^5.6"
   },
   "autoload": {
     "psr-4": {

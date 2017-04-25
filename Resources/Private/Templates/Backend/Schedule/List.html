@@ -14,7 +14,7 @@
     <f:comment>Search form</f:comment>
     <f:render partial="Backend/Common/SearchForm"
               arguments="{overwriteDemand: overwriteDemand, filterOptions: filterOptions, showSubjectField: '{settings.search.showSubjectField}'}"/>
-    <f:flashMessages />
+    <f:flashMessages/>
 
     <f:comment>Paginated list</f:comment>
     <f:if condition="{performances}">
@@ -47,7 +47,8 @@
                                     <f:if condition="{f:cObject(typoscriptObjectPath: 'lib.compatVersion76')}">
                                         <f:then>
                                             <a href="#" class="t3-js-clickmenutrigger"
-                                               data-table="tx_t3events_domain_model_performance" data-uid="{schedule.uid}"
+                                               data-table="tx_t3events_domain_model_performance"
+                                               data-uid="{schedule.uid}"
                                                data-listframe="0">
                                                 {schedule.event.headline}
                                             </a>
@@ -66,19 +67,19 @@
                                 <td nowrap="nowrap">
                                     <f:if condition="{f:cObject(typoscriptObjectPath: 'lib.compatVersion76')}">
                                         <f:then>
-                                            <div
-                                                    class="btn btn-default">
-                                                <f:be.buttons.icon
-                                                        icon="actions-open"
+                                            <div class="btn btn-default">
+                                                <!--suppress HtmlUnknownTarget -->
+                                                <a
+                                                        class="actions-open"
                                                         title="UID: {schedule.uid}"
-                                                        uri="{ts:be.editRecord(parameters:'edit[tx_t3events_domain_model_performance][{schedule.uid}]=edit')}"
-                                                />
+                                                        href="{ts:be.editRecord(parameters:'edit[tx_t3events_domain_model_performance][{schedule.uid}]=edit')}"
+                                                >{f:translate(key: 'button.edit', default: 'button.edit)}</a>
                                             </div>
                                         </f:then>
                                         <f:else>
                                             <a href=""
                                                onclick="window.location.href='alt_doc.php?returnUrl='+T3_THIS_LOCATION+'&edit[tx_t3events_domain_model_performance][{schedule.uid}]=edit'; return false;">
-                                                <f:be.buttons.icon icon="actions-document-open"/>
+                                                {f:translate(key: 'button.edit', default: 'button.edit)}
                                             </a>
 
                                         </f:else>

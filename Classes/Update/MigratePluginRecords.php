@@ -6,6 +6,7 @@ namespace DWenzel\T3events\Update;
 use TYPO3\CMS\Core\Configuration\FlexForm\FlexFormTools;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 use TYPO3\CMS\Install\Updates\AbstractUpdate;
 
@@ -35,6 +36,11 @@ class MigratePluginRecords extends AbstractUpdate
      */
     public function checkForUpdate(&$description)
     {
+        $versionNumber = VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version);
+        if ($versionNumber >= 8000000) {
+            return false;
+        }
+
         $updateRequired = false;
         if ($this->countPluginRecordsWithDeprecatedSettings()) {
             $updateRequired = true;

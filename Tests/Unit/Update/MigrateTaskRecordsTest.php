@@ -19,6 +19,7 @@ use DWenzel\T3events\Update\MigrateTaskRecords;
 use TYPO3\CMS\Core\Database\DatabaseConnection;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 
 /**
  * Class MigrateTaskRecordsTest
@@ -75,6 +76,11 @@ class MigrateTaskRecordsTest extends UnitTestCase
      */
     public function checkForUpdateGetsTasksWithDeprecatedFieldsFromDatabase()
     {
+        $versionNumber = VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version);
+        if ($versionNumber >= 8000000) {
+            $this->markTestSkipped();
+        }
+
         $description = '';
         $expectedFields = 'uid, period';
         $expectedWhere = 'period!=0';
@@ -89,6 +95,11 @@ class MigrateTaskRecordsTest extends UnitTestCase
      */
     public function checkForUpdateReturnsTrueIfTasksWithDeprecatedFieldsExist()
     {
+        $versionNumber = VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version);
+        if ($versionNumber >= 8000000) {
+            $this->markTestSkipped();
+        }
+
         $description = '';
         $tasks = ['foo'];
         $this->subject = $this->getMock(
