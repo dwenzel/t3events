@@ -37,7 +37,7 @@ script:
   if [[ "$COVERAGE" == "1" ]]; then
     echo;
     echo "Running unit tests";
-    .Build/bin/phpunit --colors -c .Build/vendor/nimut/testing-framework/res/Configuration/UnitTests.xml Tests/Unit/ --coverage-clover .Build/log/coverage/clover.xml
+    .Build/bin/phpunit --colors -c Tests/Build/UnitTests.xml Tests/Unit/ --coverage-clover .Build/log/coverage/clover.xml
   fi
 
 after_success:
