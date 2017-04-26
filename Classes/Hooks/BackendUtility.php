@@ -16,7 +16,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * Hook into BackendUtility to change flexform behaviour
  * depending on action selection
  * Originally written by Georg Ringer for tx_news.
- * adapted for tx_t3events by Dirk Wenzel.
+ * adapted for t3events by Dirk Wenzel.
  *
  * @package TYPO3
  * @subpackage tx_t3events
