@@ -21,12 +21,9 @@ namespace DWenzel\T3events\Controller;
  ***************************************************************/
 
 
-
 use DWenzel\T3calendar\Domain\Model\Dto\CalendarConfigurationFactoryTrait;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
-
-
 use DWenzel\T3events\Domain\Model\Dto\PerformanceDemand;
 use DWenzel\T3events\Domain\Model\Performance;
 use DWenzel\T3events\Domain\Repository\EventTypeRepository;
@@ -41,8 +38,7 @@ use DWenzel\T3events\Domain\Repository\VenueRepository;
  */
 class PerformanceController
     extends ActionController
-    implements FilterableControllerInterface
-{
+    implements FilterableControllerInterface {
     use CategoryRepositoryTrait, CalendarConfigurationFactoryTrait,
         DemandTrait, EntityNotFoundHandlerTrait, FilterableControllerTrait,
         PerformanceDemandFactoryTrait, SearchTrait,SessionTrait,
@@ -94,6 +90,7 @@ class PerformanceController
      */
     public function __construct()
     {
+        parent::__construct();
         $this->namespace = get_class($this);
     }
 

@@ -3,7 +3,7 @@ namespace DWenzel\T3events\Utility;
 
 use DWenzel\T3events\Resource\ResourceFactory;
 use TYPO3\CMS\Core\Resource\File;
-use TYPO3\CMS\Core\Tests\UnitTestCase;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Extbase\DomainObject\AbstractDomainObject;
 use TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface;

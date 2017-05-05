@@ -39,7 +39,7 @@ use DWenzel\T3events\Domain\Model\Event;
  * @author Michael Kasten <kasten@webfox01.de>
  * @coversDefaultClass \DWenzel\T3events\Domain\Model\Performance
  */
-class PerformanceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
+class PerformanceTest extends \Nimut\TestingFramework\TestCase\UnitTestCase
 {
     /**
      * @var \DWenzel\T3events\Domain\Model\Performance

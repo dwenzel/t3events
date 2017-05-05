@@ -31,7 +31,7 @@ namespace DWenzel\T3events\Tests\Unit\Domain\Model;
  * @author Dirk Wenzel <wenzel@webfox01.de>
  * @author Michael Kasten <kasten@webfox01.de>
  */
-class TicketClassTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
+class TicketClassTest extends \Nimut\TestingFramework\TestCase\UnitTestCase {
 
 	/**
 	 * @var \DWenzel\T3events\Domain\Model\TicketClass

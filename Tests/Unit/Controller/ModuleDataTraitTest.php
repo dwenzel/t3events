@@ -4,7 +4,7 @@ namespace DWenzel\T3events\Tests\Controller;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use DWenzel\T3events\Domain\Model\Dto\ModuleData;
 use DWenzel\T3events\Service\ModuleDataStorageService;
-use TYPO3\CMS\Core\Tests\UnitTestCase;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 use DWenzel\T3events\Controller\ModuleDataTrait;
 use DWenzel\T3events\Utility\SettingsUtility;
 

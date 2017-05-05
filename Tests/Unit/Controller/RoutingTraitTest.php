@@ -16,7 +16,7 @@ use DWenzel\T3events\Controller\Routing\RouterInterface;
 use DWenzel\T3events\Controller\RoutingTrait;
 use DWenzel\T3events\Controller\SignalInterface;
 use DWenzel\T3events\Controller\SignalTrait;
-use TYPO3\CMS\Core\Tests\UnitTestCase;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Extbase\Mvc\Web\Request;
 
 class MockSignalController

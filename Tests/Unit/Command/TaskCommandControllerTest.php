@@ -19,7 +19,7 @@ use DWenzel\T3events\Domain\Model\PerformanceStatus;
 use DWenzel\T3events\Domain\Model\Task;
 use DWenzel\T3events\Domain\Repository\PerformanceRepository;
 use DWenzel\T3events\Domain\Repository\TaskRepository;
-use TYPO3\CMS\Core\Tests\UnitTestCase;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 
 /**

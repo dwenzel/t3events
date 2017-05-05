@@ -22,7 +22,7 @@ namespace DWenzel\T3events\Tests\Unit\Domain\Model;
  ***************************************************************/
 use DWenzel\T3events\Domain\Model\Person;
 use DWenzel\T3events\Domain\Model\PersonType;
-use TYPO3\CMS\Core\Tests\UnitTestCase;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 

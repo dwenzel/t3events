@@ -19,7 +19,7 @@ namespace DWenzel\T3events\Tests\Unit\Domain\Model;
  *  GNU General Public License for more details.
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-use TYPO3\CMS\Core\Tests\UnitTestCase;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 
 /**
  * Test case for class \DWenzel\T3events\Domain\Model\Event.

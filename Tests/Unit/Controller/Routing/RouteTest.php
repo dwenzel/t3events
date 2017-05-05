@@ -2,7 +2,7 @@
 namespace DWenzel\T3events\Tests\Controller\Routing;
 
 use DWenzel\T3events\Controller\Routing\Route;
-use TYPO3\CMS\Core\Tests\UnitTestCase;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 
 /**
  * This file is part of the TYPO3 CMS project.

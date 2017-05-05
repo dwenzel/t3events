@@ -14,7 +14,7 @@ namespace DWenzel\T3events\Tests\Unit\Domain\Model;
  * The TYPO3 project - inspiring people to share!
  */
 use DWenzel\T3events\Domain\Model\Task;
-use TYPO3\CMS\Core\Tests\UnitTestCase;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 
 
 /**

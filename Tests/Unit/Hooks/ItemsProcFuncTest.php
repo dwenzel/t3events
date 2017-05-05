@@ -16,7 +16,7 @@ namespace DWenzel\T3events\Tests\Unit\Hooks;
 
 use DWenzel\T3events\Hooks\ItemsProcFunc;
 use DWenzel\T3events\Utility\TemplateLayoutUtility;
-use TYPO3\CMS\Core\Tests\UnitTestCase;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Lang\LanguageService;
 
 /**
