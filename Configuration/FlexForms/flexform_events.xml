@@ -316,7 +316,7 @@
               <label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.legendPeriodConstraints</label>
               <config>
                 <type>user</type>
-                                <userFunc>DWenzel\T3events\Configuration\PeriodConstraintLegend->render</userFunc>
+                <userFunc>DWenzel\T3events\Configuration\PeriodConstraintLegend->render</userFunc>
               </config>
             </TCEforms>
           </legend>
@@ -429,10 +429,10 @@
             <TCEforms>
               <label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.quick_menu.type</label>
               <displayCond>
-                <AND>
-                  <numIndex index="0">FIELD:sDEF.switchableControllerActions:!=:Event->quickMenu</numIndex>
-                  <numIndex index="1">FIELD:sDEF.switchableControllerActions:!=:Performance->quickMenu</numIndex>
-                </AND>
+                <OR>
+                  <numIndex index="0">FIELD:sDEF.switchableControllerActions:=:Event->quickMenu</numIndex>
+                  <numIndex index="1">FIELD:sDEF.switchableControllerActions:=:Performance->quickMenu</numIndex>
+                </OR>
               </displayCond>
               <onChange>reload</onChange>
               <config>
