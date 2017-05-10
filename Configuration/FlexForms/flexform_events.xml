@@ -66,7 +66,12 @@
           <settings.showRadiusSearch>
             <TCEforms>
               <label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xlf:flexforms_general.showRadiusSearch</label>
-              <displayCond>FIELD:switchableControllerActions:=:Event->quickMenu</displayCond>
+              <displayCond>
+                <OR>
+                  <numIndex index="0">FIELD:sDEF.switchableControllerActions:=:Event->quickMenu</numIndex>
+                  <numIndex index="1">FIELD:sDEF.switchableControllerActions:=:Performance->quickMenu</numIndex>
+                </OR>
+              </displayCond>
               <config>
                 <type>check</type>
                 <default>0</default>
@@ -77,7 +82,12 @@
           <settings.showSearchField>
             <TCEforms>
               <label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xlf:flexforms_general.showSearchField</label>
-              <displayCond>FIELD:switchableControllerActions:=:Event->quickMenu</displayCond>
+              <displayCond>
+                <OR>
+                  <numIndex index="0">FIELD:sDEF.switchableControllerActions:=:Event->quickMenu</numIndex>
+                  <numIndex index="1">FIELD:sDEF.switchableControllerActions:=:Performance->quickMenu</numIndex>
+                </OR>
+              </displayCond>
               <config>
                 <type>check</type>
                 <default>1</default>
@@ -88,7 +98,12 @@
           <settings.order>
             <TCEforms>
               <label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.sortBy</label>
-              <displayCond>FIELD:switchableControllerActions:!=:Event->quickMenu</displayCond>
+              <displayCond>
+                <AND>
+                  <numIndex index="0">FIELD:sDEF.switchableControllerActions:!=:Event->quickMenu</numIndex>
+                  <numIndex index="1">FIELD:sDEF.switchableControllerActions:!=:Performance->quickMenu</numIndex>
+                </AND>
+              </displayCond>
               <config>
                 <type>select</type>
                 <items type="array">
@@ -113,7 +128,7 @@
             <TCEforms>
               <label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.viewMode</label>
               <onChange>reload</onChange>
-              <displayCond>FIELD:switchableControllerActions:=:Performance->calendar</displayCond>
+              <displayCond>FIELD:sDEF.switchableControllerActions:=:Performance->calendar</displayCond>
               <config>
                 <type>select</type>
                 <items>
@@ -134,7 +149,7 @@
               <label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.displayPeriod</label>
               <displayCond>
                 <AND>
-                  <numIndex index="0">FIELD:switchableControllerActions:=:Performance->calendar</numIndex>
+                  <numIndex index="0">FIELD:sDEF.switchableControllerActions:=:Performance->calendar</numIndex>
                   <numIndex index="1">FIELD:settings.viewMode:=:1</numIndex>
                 </AND>
               </displayCond>
@@ -169,7 +184,7 @@
           <settings.ajaxEnabled>
             <TCEforms>
               <label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.ajaxEnabled</label>
-              <displayCond>FIELD:switchableControllerActions:=:Performance->calendar</displayCond>
+              <displayCond>FIELD:sDEF.switchableControllerActions:=:Performance->calendar</displayCond>
               <config>
                 <type>check</type>
               </config>
@@ -179,7 +194,7 @@
           <settings.showCalendarNavigation>
             <TCEforms>
               <label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.showCalendarNavigation</label>
-              <displayCond>FIELD:switchableControllerActions:=:Performance->calendar</displayCond>
+              <displayCond>FIELD:sDEF.switchableControllerActions:=:Performance->calendar</displayCond>
               <config>
                 <type>check</type>
               </config>
@@ -189,7 +204,12 @@
           <settings.maxItems>
             <TCEforms>
               <label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.maxItems</label>
-              <displayCond>FIELD:switchableControllerActions:!=:Event->quickMenu</displayCond>
+              <displayCond>
+                <AND>
+                  <numIndex index="0">FIELD:sDEF.switchableControllerActions:!=:Event->quickMenu</numIndex>
+                  <numIndex index="1">FIELD:sDEF.switchableControllerActions:!=:Performance->quickMenu</numIndex>
+                </AND>
+              </displayCond>
               <config>
                 <type>input</type>
                 <size>3</size>
@@ -261,7 +281,12 @@
           <settings.period>
             <TCEforms>
               <label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.period</label>
-              <displayCond>FIELD:sDEF.switchableControllerActions:!=:Event->quickMenu</displayCond>
+              <displayCond>
+                <AND>
+                  <numIndex index="0">FIELD:sDEF.switchableControllerActions:!=:Event->quickMenu</numIndex>
+                  <numIndex index="1">FIELD:sDEF.switchableControllerActions:!=:Performance->quickMenu</numIndex>
+                </AND>
+              </displayCond>
               <onChange>reload</onChange>
               <config>
                 <type>select</type>
@@ -403,7 +428,12 @@
           <settings.quickMenuType>
             <TCEforms>
               <label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.quick_menu.type</label>
-              <displayCond>FIELD:sDEF.switchableControllerActions:=:Event->quickMenu</displayCond>
+              <displayCond>
+                <AND>
+                  <numIndex index="0">FIELD:sDEF.switchableControllerActions:!=:Event->quickMenu</numIndex>
+                  <numIndex index="1">FIELD:sDEF.switchableControllerActions:!=:Performance->quickMenu</numIndex>
+                </AND>
+              </displayCond>
               <onChange>reload</onChange>
               <config>
                 <type>select</type>
