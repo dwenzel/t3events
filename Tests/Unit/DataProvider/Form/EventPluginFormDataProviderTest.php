@@ -15,6 +15,7 @@ namespace DWenzel\T3events\Tests\Unit\DataProvider\Form;
 use DWenzel\T3events\DataProvider\Form\EventPluginFormDataProvider;
 use DWenzel\T3events\Hooks\BackendUtility;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\CMS\Backend\Form\FormDataProviderInterface;
 
 /**
  * Class EventPluginFormDataProviderTest
@@ -36,6 +37,9 @@ class EventPluginFormDataProviderTest extends UnitTestCase
      */
     public function setUp()
     {
+        if(!interface_exists(FormDataProviderInterface::class)) {
+            $this->markTestSkipped();
+        }
         $this->subject = $this->getMockBuilder(EventPluginFormDataProvider::class)
             ->setMethods(['dummy'])->getMock();
         $this->backendUtility = $this->getMockBuilder(BackendUtility::class)
