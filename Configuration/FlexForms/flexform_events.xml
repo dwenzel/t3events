@@ -403,7 +403,12 @@
           <settings.periodStartDate>
             <TCEforms>
               <label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.start</label>
-              <displayCond>FIELD:settings.periodType:=:byDate</displayCond>
+              <displayCond>
+                <AND>
+                  <numIndex index="0">FIELD:sDEF.switchableControllerActions:!=:Performance->quickMenu</numIndex>
+                  <numIndex index="1">FIELD:settings.periodType:=:byDate</numIndex>
+                </AND>
+              </displayCond>
               <config>
                 <type>input</type>
                 <size>8</size>
