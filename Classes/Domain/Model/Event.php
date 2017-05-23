@@ -63,7 +63,7 @@ class Event extends AbstractEntity {
 	 */
 	protected $description;
 
-	/**
+    /**
 	 * keywords
 	 *
 	 * @var string
@@ -149,9 +149,18 @@ class Event extends AbstractEntity {
 	 */
 	protected $audience;
 
-	/**
-	 * __construct
+    /**
+     * @var \DateTime
+     */
+    protected $newUntil;
 
+    /**
+     * @var \DateTime
+     */
+    protected $archiveDate;
+
+    /**
+	 * Constructor
 	 */
 	public function __construct() {
 		//Do not remove the next line: It would break the functionality
@@ -379,7 +388,7 @@ class Event extends AbstractEntity {
     /**
      * Adds a related event
      *
-     * @param \DWenzel\T3events\Domain\Model\Event $related
+     * @param \DWenzel\T3events\Domain\Model\Event $event
      * @return void
      */
     public function addRelated(\DWenzel\T3events\Domain\Model\Event $event) {
@@ -645,5 +654,32 @@ class Event extends AbstractEntity {
 		$this->audience->detach($audienceToRemove);
 	}
 
+    /**
+     * @return \DateTime
+     */
+    public function getNewUntil() {
+        return $this->newUntil;
+    }
 
+    /**
+     * @param \DateTime $newUntil
+     */
+    public function setNewUntil($newUntil) {
+        $this->newUntil = $newUntil;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getArchiveDate() {
+        return $this->archiveDate;
+    }
+
+    /**
+     * @param \DateTime $archiveDate
+     */
+    public function setArchiveDate($archiveDate) {
+        $this->archiveDate = $archiveDate;
+    }
+    
 }

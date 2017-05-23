@@ -38,11 +38,11 @@ class EventTest extends UnitTestCase
     /**
      * @var \DWenzel\T3events\Domain\Model\Event
      */
-    protected $fixture;
+    protected $subject;
 
     public function setUp()
     {
-        $this->fixture = new \DWenzel\T3events\Domain\Model\Event();
+        $this->subject = new \DWenzel\T3events\Domain\Model\Event();
     }
 
     /**
@@ -51,7 +51,7 @@ class EventTest extends UnitTestCase
     public function getHeadlineReturnsInitialValueForString()
     {
         $this->assertNull(
-            $this->fixture->getHeadline()
+            $this->subject->getHeadline()
         );
     }
 
@@ -60,11 +60,11 @@ class EventTest extends UnitTestCase
      */
     public function setHeadlineForStringSetsHeadline()
     {
-        $this->fixture->setHeadline('Conceived at T3CON10');
+        $this->subject->setHeadline('Conceived at T3CON10');
 
         $this->assertSame(
             'Conceived at T3CON10',
-            $this->fixture->getHeadline()
+            $this->subject->getHeadline()
         );
     }
 
@@ -74,7 +74,7 @@ class EventTest extends UnitTestCase
     public function getSubtitleReturnsInitialValueForString()
     {
         $this->assertNull(
-            $this->fixture->getSubtitle()
+            $this->subject->getSubtitle()
         );
     }
 
@@ -83,11 +83,11 @@ class EventTest extends UnitTestCase
      */
     public function setSubtitleForStringSetsSubtitle()
     {
-        $this->fixture->setSubtitle('Conceived at T3CON10');
+        $this->subject->setSubtitle('Conceived at T3CON10');
 
         $this->assertSame(
             'Conceived at T3CON10',
-            $this->fixture->getSubtitle()
+            $this->subject->getSubtitle()
         );
     }
 
@@ -97,7 +97,7 @@ class EventTest extends UnitTestCase
     public function getTeaserForStringReturnsInitiallyNull()
     {
         $this->assertNull(
-            $this->fixture->getTeaser()
+            $this->subject->getTeaser()
         );
     }
 
@@ -106,11 +106,11 @@ class EventTest extends UnitTestCase
      */
     public function setTeaserForStringSetsTeaser()
     {
-        $this->fixture->setTeaser('foo');
+        $this->subject->setTeaser('foo');
 
         $this->assertSame(
             'foo',
-            $this->fixture->getTeaser()
+            $this->subject->getTeaser()
         );
     }
 
@@ -120,7 +120,7 @@ class EventTest extends UnitTestCase
     public function getDescriptionReturnsInitialValueForString()
     {
         $this->assertNull(
-            $this->fixture->getDescription()
+            $this->subject->getDescription()
         );
     }
 
@@ -129,11 +129,11 @@ class EventTest extends UnitTestCase
      */
     public function setDescriptionForStringSetsDescription()
     {
-        $this->fixture->setDescription('Conceived at T3CON10');
+        $this->subject->setDescription('Conceived at T3CON10');
 
         $this->assertSame(
             'Conceived at T3CON10',
-            $this->fixture->getDescription()
+            $this->subject->getDescription()
         );
     }
 
@@ -143,7 +143,7 @@ class EventTest extends UnitTestCase
     public function getKeywordsReturnsInitialValueForString()
     {
         $this->assertNull(
-            $this->fixture->getKeywords()
+            $this->subject->getKeywords()
         );
     }
 
@@ -152,11 +152,11 @@ class EventTest extends UnitTestCase
      */
     public function setKeywordsForStringSetsKeywords()
     {
-        $this->fixture->setKeywords('Conceived at T3CON10');
+        $this->subject->setKeywords('Conceived at T3CON10');
 
         $this->assertSame(
             'Conceived at T3CON10',
-            $this->fixture->getKeywords()
+            $this->subject->getKeywords()
         );
     }
 
@@ -166,7 +166,7 @@ class EventTest extends UnitTestCase
     public function getImageReturnsInitialValueForString()
     {
         $this->assertNull(
-            $this->fixture->getImage()
+            $this->subject->getImage()
         );
     }
 
@@ -175,11 +175,11 @@ class EventTest extends UnitTestCase
      */
     public function setImageForStringSetsImage()
     {
-        $this->fixture->setImage('Conceived at T3CON10');
+        $this->subject->setImage('Conceived at T3CON10');
 
         $this->assertSame(
             'Conceived at T3CON10',
-            $this->fixture->getImage()
+            $this->subject->getImage()
         );
     }
 
@@ -191,7 +191,7 @@ class EventTest extends UnitTestCase
         $newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $this->assertEquals(
             $newObjectStorage,
-            $this->fixture->getImages()
+            $this->subject->getImages()
         );
     }
 
@@ -203,11 +203,11 @@ class EventTest extends UnitTestCase
         $images = new \TYPO3\CMS\Extbase\Domain\Model\FileReference();
         $objectStorageHoldingExactlyOneImage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $objectStorageHoldingExactlyOneImage->attach($images);
-        $this->fixture->setImages($objectStorageHoldingExactlyOneImage);
+        $this->subject->setImages($objectStorageHoldingExactlyOneImage);
 
         $this->assertEquals(
             $objectStorageHoldingExactlyOneImage,
-            $this->fixture->getImages()
+            $this->subject->getImages()
         );
     }
 
@@ -219,11 +219,11 @@ class EventTest extends UnitTestCase
         $images = new \TYPO3\CMS\Extbase\Domain\Model\FileReference();
         $objectStorageHoldingExactlyOneImage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $objectStorageHoldingExactlyOneImage->attach($images);
-        $this->fixture->addImages($images);
+        $this->subject->addImages($images);
 
         $this->assertEquals(
             $objectStorageHoldingExactlyOneImage,
-            $this->fixture->getImages()
+            $this->subject->getImages()
         );
     }
 
@@ -236,12 +236,12 @@ class EventTest extends UnitTestCase
         $localObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $localObjectStorage->attach($images);
         $localObjectStorage->detach($images);
-        $this->fixture->addImages($images);
-        $this->fixture->removeImages($images);
+        $this->subject->addImages($images);
+        $this->subject->removeImages($images);
 
         $this->assertEquals(
             $localObjectStorage,
-            $this->fixture->getImages()
+            $this->subject->getImages()
         );
     }
 
@@ -253,7 +253,7 @@ class EventTest extends UnitTestCase
         $newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $this->assertEquals(
             $newObjectStorage,
-            $this->fixture->getFiles()
+            $this->subject->getFiles()
         );
     }
 
@@ -265,11 +265,11 @@ class EventTest extends UnitTestCase
         $files = new \TYPO3\CMS\Extbase\Domain\Model\FileReference();
         $objectStorageHoldingExactlyOneImage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $objectStorageHoldingExactlyOneImage->attach($files);
-        $this->fixture->setFiles($objectStorageHoldingExactlyOneImage);
+        $this->subject->setFiles($objectStorageHoldingExactlyOneImage);
 
         $this->assertEquals(
             $objectStorageHoldingExactlyOneImage,
-            $this->fixture->getFiles()
+            $this->subject->getFiles()
         );
     }
 
@@ -281,11 +281,11 @@ class EventTest extends UnitTestCase
         $files = new \TYPO3\CMS\Extbase\Domain\Model\FileReference();
         $objectStorageHoldingExactlyOneImage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $objectStorageHoldingExactlyOneImage->attach($files);
-        $this->fixture->addFiles($files);
+        $this->subject->addFiles($files);
 
         $this->assertEquals(
             $objectStorageHoldingExactlyOneImage,
-            $this->fixture->getFiles()
+            $this->subject->getFiles()
         );
     }
 
@@ -298,12 +298,12 @@ class EventTest extends UnitTestCase
         $localObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $localObjectStorage->attach($files);
         $localObjectStorage->detach($files);
-        $this->fixture->addFiles($files);
-        $this->fixture->removeFiles($files);
+        $this->subject->addFiles($files);
+        $this->subject->removeFiles($files);
 
         $this->assertEquals(
             $localObjectStorage,
-            $this->fixture->getFiles()
+            $this->subject->getFiles()
         );
     }
 
@@ -315,7 +315,7 @@ class EventTest extends UnitTestCase
         $newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $this->assertEquals(
             $newObjectStorage,
-            $this->fixture->getRelated()
+            $this->subject->getRelated()
         );
     }
 
@@ -327,11 +327,11 @@ class EventTest extends UnitTestCase
         $related = new \DWenzel\T3events\Domain\Model\Event();
         $objectStorageHoldingExactlyOneRelated = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $objectStorageHoldingExactlyOneRelated->attach($related);
-        $this->fixture->setRelated($objectStorageHoldingExactlyOneRelated);
+        $this->subject->setRelated($objectStorageHoldingExactlyOneRelated);
 
         $this->assertSame(
             $objectStorageHoldingExactlyOneRelated,
-            $this->fixture->getRelated()
+            $this->subject->getRelated()
         );
     }
 
@@ -343,11 +343,11 @@ class EventTest extends UnitTestCase
         $related = new \DWenzel\T3events\Domain\Model\Event();
         $objectStorageHoldingExactlyOneRelated = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $objectStorageHoldingExactlyOneRelated->attach($related);
-        $this->fixture->addRelated($related);
+        $this->subject->addRelated($related);
 
         $this->assertEquals(
             $objectStorageHoldingExactlyOneRelated,
-            $this->fixture->getRelated()
+            $this->subject->getRelated()
         );
     }
 
@@ -360,12 +360,12 @@ class EventTest extends UnitTestCase
         $localObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $localObjectStorage->attach($related);
         $localObjectStorage->detach($related);
-        $this->fixture->addRelated($related);
-        $this->fixture->removeRelated($related);
+        $this->subject->addRelated($related);
+        $this->subject->removeRelated($related);
 
         $this->assertEquals(
             $localObjectStorage,
-            $this->fixture->getRelated()
+            $this->subject->getRelated()
         );
     }
 
@@ -377,7 +377,7 @@ class EventTest extends UnitTestCase
         $newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $this->assertEquals(
             $newObjectStorage,
-            $this->fixture->getGenre()
+            $this->subject->getGenre()
         );
     }
 
@@ -389,11 +389,11 @@ class EventTest extends UnitTestCase
         $genre = new \DWenzel\T3events\Domain\Model\Genre();
         $objectStorageHoldingExactlyOneGenre = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $objectStorageHoldingExactlyOneGenre->attach($genre);
-        $this->fixture->setGenre($objectStorageHoldingExactlyOneGenre);
+        $this->subject->setGenre($objectStorageHoldingExactlyOneGenre);
 
         $this->assertSame(
             $objectStorageHoldingExactlyOneGenre,
-            $this->fixture->getGenre()
+            $this->subject->getGenre()
         );
     }
 
@@ -405,11 +405,11 @@ class EventTest extends UnitTestCase
         $genre = new \DWenzel\T3events\Domain\Model\Genre();
         $objectStorageHoldingExactlyOneGenre = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $objectStorageHoldingExactlyOneGenre->attach($genre);
-        $this->fixture->addGenre($genre);
+        $this->subject->addGenre($genre);
 
         $this->assertEquals(
             $objectStorageHoldingExactlyOneGenre,
-            $this->fixture->getGenre()
+            $this->subject->getGenre()
         );
     }
 
@@ -422,12 +422,12 @@ class EventTest extends UnitTestCase
         $localObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $localObjectStorage->attach($genre);
         $localObjectStorage->detach($genre);
-        $this->fixture->addGenre($genre);
-        $this->fixture->removeGenre($genre);
+        $this->subject->addGenre($genre);
+        $this->subject->removeGenre($genre);
 
         $this->assertEquals(
             $localObjectStorage,
-            $this->fixture->getGenre()
+            $this->subject->getGenre()
         );
     }
 
@@ -439,7 +439,7 @@ class EventTest extends UnitTestCase
         $newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $this->assertEquals(
             $newObjectStorage,
-            $this->fixture->getVenue()
+            $this->subject->getVenue()
         );
     }
 
@@ -451,11 +451,11 @@ class EventTest extends UnitTestCase
         $venue = new \DWenzel\T3events\Domain\Model\Venue();
         $objectStorageHoldingExactlyOneVenue = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $objectStorageHoldingExactlyOneVenue->attach($venue);
-        $this->fixture->setVenue($objectStorageHoldingExactlyOneVenue);
+        $this->subject->setVenue($objectStorageHoldingExactlyOneVenue);
 
         $this->assertSame(
             $objectStorageHoldingExactlyOneVenue,
-            $this->fixture->getVenue()
+            $this->subject->getVenue()
         );
     }
 
@@ -467,11 +467,11 @@ class EventTest extends UnitTestCase
         $venue = new \DWenzel\T3events\Domain\Model\Venue();
         $objectStorageHoldingExactlyOneVenue = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $objectStorageHoldingExactlyOneVenue->attach($venue);
-        $this->fixture->addVenue($venue);
+        $this->subject->addVenue($venue);
 
         $this->assertEquals(
             $objectStorageHoldingExactlyOneVenue,
-            $this->fixture->getVenue()
+            $this->subject->getVenue()
         );
     }
 
@@ -484,12 +484,12 @@ class EventTest extends UnitTestCase
         $localObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $localObjectStorage->attach($venue);
         $localObjectStorage->detach($venue);
-        $this->fixture->addVenue($venue);
-        $this->fixture->removeVenue($venue);
+        $this->subject->addVenue($venue);
+        $this->subject->removeVenue($venue);
 
         $this->assertEquals(
             $localObjectStorage,
-            $this->fixture->getVenue()
+            $this->subject->getVenue()
         );
     }
 
@@ -500,7 +500,7 @@ class EventTest extends UnitTestCase
     {
         $this->assertEquals(
             NULL,
-            $this->fixture->getEventType()
+            $this->subject->getEventType()
         );
     }
 
@@ -511,11 +511,11 @@ class EventTest extends UnitTestCase
     public function setEventTypeForEventTypeSetsEventType()
     {
         $dummyObject = new \DWenzel\T3events\Domain\Model\EventType();
-        $this->fixture->setEventType($dummyObject);
+        $this->subject->setEventType($dummyObject);
 
         $this->assertSame(
             $dummyObject,
-            $this->fixture->getEventType()
+            $this->subject->getEventType()
         );
     }
 
@@ -527,7 +527,7 @@ class EventTest extends UnitTestCase
         $newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $this->assertEquals(
             $newObjectStorage,
-            $this->fixture->getPerformances()
+            $this->subject->getPerformances()
         );
     }
 
@@ -539,11 +539,11 @@ class EventTest extends UnitTestCase
         $performance = new \DWenzel\T3events\Domain\Model\Performance();
         $objectStorageHoldingExactlyOnePerformances = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $objectStorageHoldingExactlyOnePerformances->attach($performance);
-        $this->fixture->setPerformances($objectStorageHoldingExactlyOnePerformances);
+        $this->subject->setPerformances($objectStorageHoldingExactlyOnePerformances);
 
         $this->assertSame(
             $objectStorageHoldingExactlyOnePerformances,
-            $this->fixture->getPerformances()
+            $this->subject->getPerformances()
         );
     }
 
@@ -555,11 +555,11 @@ class EventTest extends UnitTestCase
         $performance = new \DWenzel\T3events\Domain\Model\Performance();
         $objectStorageHoldingExactlyOnePerformance = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $objectStorageHoldingExactlyOnePerformance->attach($performance);
-        $this->fixture->addPerformance($performance);
+        $this->subject->addPerformance($performance);
 
         $this->assertEquals(
             $objectStorageHoldingExactlyOnePerformance,
-            $this->fixture->getPerformances()
+            $this->subject->getPerformances()
         );
     }
 
@@ -572,12 +572,12 @@ class EventTest extends UnitTestCase
         $localObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $localObjectStorage->attach($performance);
         $localObjectStorage->detach($performance);
-        $this->fixture->addPerformance($performance);
-        $this->fixture->removePerformance($performance);
+        $this->subject->addPerformance($performance);
+        $this->subject->removePerformance($performance);
 
         $this->assertEquals(
             $localObjectStorage,
-            $this->fixture->getPerformances()
+            $this->subject->getPerformances()
         );
     }
 
@@ -588,7 +588,7 @@ class EventTest extends UnitTestCase
     {
         $this->assertEquals(
             NULL,
-            $this->fixture->getOrganizer()
+            $this->subject->getOrganizer()
         );
     }
 
@@ -598,11 +598,11 @@ class EventTest extends UnitTestCase
     public function setOrganizerForOrganizerSetsOrganizer()
     {
         $dummyObject = new \DWenzel\T3events\Domain\Model\Organizer();
-        $this->fixture->setOrganizer($dummyObject);
+        $this->subject->setOrganizer($dummyObject);
 
         $this->assertSame(
             $dummyObject,
-            $this->fixture->getOrganizer()
+            $this->subject->getOrganizer()
         );
     }
 
@@ -612,7 +612,7 @@ class EventTest extends UnitTestCase
      */
     public function getEarliestDateReturnsInitiallyNull()
     {
-        $this->assertNull($this->fixture->getEarliestDate());
+        $this->assertNull($this->subject->getEarliestDate());
     }
 
     /**
@@ -651,7 +651,7 @@ class EventTest extends UnitTestCase
     public function getHiddenReturnsInitialyNull()
     {
         $this->assertNull(
-            $this->fixture->getHidden()
+            $this->subject->getHidden()
         );
     }
 
@@ -661,10 +661,10 @@ class EventTest extends UnitTestCase
      */
     public function setHiddenForIntegerSetsHidden()
     {
-        $this->fixture->setHidden(3);
+        $this->subject->setHidden(3);
         $this->assertSame(
             3,
-            $this->fixture->getHidden()
+            $this->subject->getHidden()
         );
     }
 
@@ -676,7 +676,7 @@ class EventTest extends UnitTestCase
         $newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $this->assertEquals(
             $newObjectStorage,
-            $this->fixture->getAudience()
+            $this->subject->getAudience()
         );
     }
 
@@ -688,11 +688,11 @@ class EventTest extends UnitTestCase
         $audience = new \DWenzel\T3events\Domain\Model\Audience();
         $objectStorageHoldingExactlyOneAudience = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $objectStorageHoldingExactlyOneAudience->attach($audience);
-        $this->fixture->setAudience($objectStorageHoldingExactlyOneAudience);
+        $this->subject->setAudience($objectStorageHoldingExactlyOneAudience);
 
         $this->assertSame(
             $objectStorageHoldingExactlyOneAudience,
-            $this->fixture->getAudience()
+            $this->subject->getAudience()
         );
     }
 
@@ -704,11 +704,11 @@ class EventTest extends UnitTestCase
         $audience = new \DWenzel\T3events\Domain\Model\Audience();
         $objectStorageHoldingExactlyOneAudience = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $objectStorageHoldingExactlyOneAudience->attach($audience);
-        $this->fixture->addAudience($audience);
+        $this->subject->addAudience($audience);
 
         $this->assertEquals(
             $objectStorageHoldingExactlyOneAudience,
-            $this->fixture->getAudience()
+            $this->subject->getAudience()
         );
     }
 
@@ -721,12 +721,60 @@ class EventTest extends UnitTestCase
         $localObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $localObjectStorage->attach($audience);
         $localObjectStorage->detach($audience);
-        $this->fixture->addAudience($audience);
-        $this->fixture->removeAudience($audience);
+        $this->subject->addAudience($audience);
+        $this->subject->removeAudience($audience);
 
         $this->assertEquals(
             $localObjectStorage,
-            $this->fixture->getAudience()
+            $this->subject->getAudience()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getNewUntilInitiallyReturnsNull()
+    {
+        $this->assertNull(
+            $this->subject->getNewUntil()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function newUntilCanBeSet()
+    {
+        $date = new \DateTime();
+
+        $this->subject->setNewUntil($date);
+        $this->assertSame(
+            $date,
+            $this->subject->getNewUntil()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getArchiveDateInitiallyReturnsNull()
+    {
+        $this->assertNull(
+            $this->subject->getArchiveDate()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function archiveDateCanBeSet()
+    {
+        $date = new \DateTime();
+
+        $this->subject->setArchiveDate($date);
+        $this->assertSame(
+            $date,
+            $this->subject->getArchiveDate()
         );
     }
 }
