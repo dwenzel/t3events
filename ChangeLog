@@ -1,3 +1,11 @@
+2017-05-24         [RELEASE] Release of t3events 0.33.1 (Dirk Wenzel)
+2017-05-23 cba93f6 [BUGFIX] missing fields newUntil and archiveDate added to Model/Event Closes #62 (Dirk Wenzel)
+2017-05-05 22c02ab [TASK] set version number in ext_emconf.php (Dirk Wenzel)
+2017-05-11 e08a848 [BUGFIX] prevent unit test from running if required interface does not exist. (Dirk Wenzel)
+2017-05-11 eba2566 [BUGFIX] fixed error which prevented plugin form from adapting according to selected action Fixes: #59 (Dirk Wenzel)
+2017-05-10 144b45a [BUGFIX] fixed error in flex form configuration which prevented field settings.quickMenuType from displaying (Dirk Wenzel)
+2017-05-10 818da0f [BUGFIX] Visibility of fields for quikMenu action in plugin fixed. #fixes 59 (Dirk Wenzel)
+
 2017-05-05         [RELEASE] Release of t3events 0.33.0 (Dirk Wenzel)
 2017-05-05 58d7410 [BUGFIX] composer.json: obsolete require-dev entry removed (Dirk Wenzel)
 2017-05-05 edc33f5 [TASK] require dwenzel/t3calendar:^0.4.0 (Dirk Wenzel)
