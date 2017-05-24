@@ -5,41 +5,48 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
 use DWenzel\T3events\Domain\Model\Event;
 use DWenzel\T3events\Domain\Model\Performance;
 
-/***************************************************************
- *  Copyright notice
- *  (c) 2015 Dirk Wenzel <dirk.wenzel@cps-it.de>
- *  All rights reserved
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 3 of the License, or
- *  (at your option) any later version.
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
-class DateRangeViewHelper extends AbstractTagBasedViewHelper {
+/**
+ * This file is part of the "Events" project.
+ *
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with this source code.
+ *
+ * The TYPO3 project - inspiring people to share!
+ */
 
+/**
+ * Class DateRangeViewHelper
+ */
+class DateRangeViewHelper extends AbstractTagBasedViewHelper {
+    const ARGUMENT_EVENT_DESCRIPTION = 'Event for which the date range should be rendered. If the string contains a % strftime() function will be used instead.';
+    const ARGUMENT_FORMAT_DESCRIPTION = 'A string describing the date format for start and end date. Default is \'d.m.Y\'. See PHP date() function for options. If the string contains a % strftime() function will be used instead.';
+    const ARGUMENT_STARTFORMAT_DESCRIPTION = 'A string describing the date format for start date. Default is \'d.m.Y\'. See PHP date() function for options. If the string contains a % strftime() function will be used instead.';
+    const ARGUMENT_ENDFORMAT_DESCRIPTION = 'A string describing the date format for end date. Default is \'d.m.Y\'. See PHP date() function for options. If the string contains a % strftime() function will be used instead.';
+    const ARGUMENT_GLUE_DESCRIPTION = 'Glue between start and end date if applicable. Default is \' - \' ';
+    const DEFAULT_DATE_FORMAT = 'd.m.Y';
+    const DEFAULT_GLUE = ' - ';
 	/**
 	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage
 	 */
 	protected $performances;
 
-
+    /**
+     * Registers arguments with type, description and defaults
+     */
 	public function initializeArguments() {
-		parent::registerArgument('event', 'DWenzel\\T3events\\Domain\\Model\\Event', 'Event whose performances should be rendered.', TRUE);
-		parent::registerArgument('format', 'string', 'A string describing the date format - see php date() for options', FALSE, 'd.m.Y');
-		parent::registerArgument('startFormat', 'string', 'A string describing the date format - see php date() for options', FALSE, 'd.m.Y');
-		parent::registerArgument('endFormat', 'string', 'A string describing the date format - see php date() for options', FALSE, 'd.m.Y');
-		parent::registerArgument('glue', 'string', 'Glue between start and end date if applicable', FALSE, ' - ');
+		$this->registerArgument('event', 'DWenzel\\T3events\\Domain\\Model\\Event', static::ARGUMENT_EVENT_DESCRIPTION, true);
+		$this->registerArgument('format', 'string', static::ARGUMENT_FORMAT_DESCRIPTION, false, static::DEFAULT_DATE_FORMAT);
+		$this->registerArgument('startFormat', 'string', static::ARGUMENT_STARTFORMAT_DESCRIPTION, false, static::DEFAULT_DATE_FORMAT);
+		$this->registerArgument('endFormat', 'string', static::ARGUMENT_ENDFORMAT_DESCRIPTION, false, static::DEFAULT_DATE_FORMAT);
+		$this->registerArgument('glue', 'string', static::ARGUMENT_GLUE_DESCRIPTION, false, static::DEFAULT_GLUE);
 	}
 
 	/**
-	 *
+	 * Renders the content
 	 */
 	public function render() {
 		/** @var Event $event */
@@ -62,8 +69,8 @@ class DateRangeViewHelper extends AbstractTagBasedViewHelper {
 		$startFormat = $this->arguments['startFormat'];
 		$glue = $this->arguments['glue'];
 
-		if ($format === '') {
-			$format = $GLOBALS['TYPO3_CONF_VARS']['SYS']['ddmmyy'] ?: 'Y-m-d';
+		if (empty($format)) {
+			$format = static::DEFAULT_DATE_FORMAT;
 		}
 		if (empty($startFormat)) {
 			$startFormat = $format;
@@ -71,25 +78,31 @@ class DateRangeViewHelper extends AbstractTagBasedViewHelper {
 		if (empty($endFormat)) {
 			$endFormat = $format;
 		}
+		if (empty($glue)) {
+		    $glue = static::DEFAULT_GLUE;
+        }
+        $functionName = 'date';
 
-		$timestamps = array();
+		$timestamps = [];
 		$dateRange = '';
 		/** @var Performance $performance */
 		foreach ($this->performances as $performance) {
 			$timestamps[] = $performance->getDate()->getTimestamp();
 		}
-		sort($timestamps);
-		if (strpos($startFormat, '%') !== FALSE
-			AND strpos($endFormat, '%' !== FALSE)
+
+		sort(array_unique($timestamps));
+		if (strpos($startFormat, '%') !== false
+			AND strpos($endFormat, '%' !== false)
 		) {
-			$dateRange = strftime($startFormat, $timestamps[0]);
-			$dateRange .= $glue . strftime($endFormat, end($timestamps));
-		} else {
-			$dateRange = date($startFormat, $timestamps[0]);
-			$dateRange .= $glue . date($endFormat, end($timestamps));
+		    $functionName = 'strftime';
 		}
 
-		return $dateRange;
-	}
+        $dateRange = call_user_func($functionName, $startFormat, $timestamps[0]);
 
+		if(count($timestamps) > 1) {
+            $dateRange .= $glue . call_user_func($functionName, $endFormat, end($timestamps));
+        }
+
+        return $dateRange;
+	}
 }
