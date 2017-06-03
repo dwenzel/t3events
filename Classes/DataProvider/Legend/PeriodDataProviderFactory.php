@@ -1,4 +1,5 @@
 <?php
+
 namespace DWenzel\T3events\DataProvider\Legend;
 
 
@@ -6,8 +7,6 @@ use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 
-
-use DWenzel\T3events\InvalidConfigurationException;
 
 /***************************************************************
  *  Copyright notice
@@ -33,10 +32,11 @@ class PeriodDataProviderFactory
      * @return \DWenzel\T3events\DataProvider\Legend\LayeredLegendDataProviderInterface
      * @throws \DWenzel\T3events\InvalidConfigurationException
      */
-    public function get(array $params) {
+    public function get(array $params)
+    {
         $class = PeriodUnknownDataProvider::class;
         $flexFormData = [];
-        if(isset($params['row']['pi_flexform'])) {
+        if (isset($params['row']['pi_flexform'])) {
             if (!(is_array($params['row']['pi_flexform']))) {
                 $pluginSettings = GeneralUtility::xml2array($params['row']['pi_flexform']);
             } else {
@@ -51,7 +51,10 @@ class PeriodDataProviderFactory
 
         $currentVersion = VersionNumberUtility::convertVersionNumberToInteger(VersionNumberUtility::getNumericTypo3Version());
         // incoming array differs depending on TYPO3 version!
-        if ($currentVersion >= 7006000 && $currentVersion < 7006015) {
+        if (
+            ($currentVersion >= 7006000 && $currentVersion < 7006015)
+            || $currentVersion >= 8007001
+        ) {
             $periodPath = 'constraints/lDEF/settings.period/vDEF/0';
         }
 
@@ -61,7 +64,7 @@ class PeriodDataProviderFactory
         }
         $respectEndDate = false;
         if (ArrayUtility::isValidPath($flexFormData, $respectEndDatePath)) {
-            $respectEndDate = (bool)ArrayUtility::getValueByPath($flexFormData,$respectEndDatePath);
+            $respectEndDate = (bool)ArrayUtility::getValueByPath($flexFormData, $respectEndDatePath);
         };
 
 
