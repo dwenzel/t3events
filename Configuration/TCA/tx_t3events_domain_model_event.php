@@ -65,8 +65,7 @@ return [
 				'items' => [
 					['LLL:EXT:lang/locallang_general.xml:LGL.allLanguages', -1],
 					['LLL:EXT:lang/locallang_general.xml:LGL.default_value', 0]
-				],
-				'showIconTable' => TRUE,
+				]
 			],
 		],
 		'l10n_parent' => [
@@ -81,7 +80,6 @@ return [
 				],
 				'foreign_table' => 'tx_t3events_domain_model_event',
 				'foreign_table_where' => 'AND tx_t3events_domain_model_event.pid=###CURRENT_PID### AND tx_t3events_domain_model_event.sys_language_uid IN (-1,0)',
-				'showIconTable' => TRUE,
 			],
 		],
 		'l10n_diffsource' => [
@@ -395,8 +393,7 @@ return [
                 'renderType' => 'selectSingle',
 				'foreign_table' => 'tx_t3events_domain_model_eventtype',
 				'minitems' => 0,
-				'maxitems' => 1,
-				'showIconTable' => TRUE,
+				'maxitems' => 1
 			],
 		],
 		'performances' => [
@@ -418,8 +415,7 @@ return [
 					'enabledControls' => [
 						'info' => FALSE,
 					],
-				],
-				'showIconTable' => TRUE,
+				]
 			],
 		],
 		'organizer' => [
