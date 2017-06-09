@@ -105,8 +105,8 @@ class TableConfigurationTest extends UnitTestCase
     {
         $pathStrings = [
             7 => [
-                ['foo', 'LLL:EXT:foo/Resources/Private/Language/'],
-                [null, 'LLL:EXT:lang/Resources/Private/Language/']
+                ['foo', 'LLL:EXT:foo/'],
+                [null, 'LLL:EXT:lang/']
             ],
             8 => [
                 [null, 'LLL:EXT:lang/Resources/Private/Language/'],
