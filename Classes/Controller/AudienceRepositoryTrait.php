@@ -19,6 +19,7 @@ namespace DWenzel\T3events\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 use DWenzel\T3events\Domain\Repository\AudienceRepository;
+
 /**
  * Class AudienceRepositoryTrait
  *

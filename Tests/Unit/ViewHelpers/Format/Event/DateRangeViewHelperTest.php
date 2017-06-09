@@ -144,5 +144,4 @@ class DateRangeViewHelperTest extends UnitTestCase
             $this->subject->render()
         );
     }
-
 }

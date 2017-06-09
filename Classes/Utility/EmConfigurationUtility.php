@@ -10,31 +10,34 @@ use DWenzel\T3events\Domain\Model\Dto\EmConfiguration;
  *
  * @package DWenzel\T3events\Utility
  */
-class EmConfigurationUtility {
+class EmConfigurationUtility
+{
 
-	/**
-	 * Gets the settings from extension manager
-	 *
-	 * @return EmConfiguration
-	 */
-	public static function getSettings() {
-		$configuration = self::parseSettings();
-		GeneralUtility::requireOnce(ExtensionManagementUtility::extPath('t3events') . 'Classes/Domain/Model/Dto/EmConfiguration.php');
-		$settings = new EmConfiguration($configuration);
-		return $settings;
-	}
+    /**
+     * Gets the settings from extension manager
+     *
+     * @return EmConfiguration
+     */
+    public static function getSettings()
+    {
+        $configuration = self::parseSettings();
+        GeneralUtility::requireOnce(ExtensionManagementUtility::extPath('t3events') . 'Classes/Domain/Model/Dto/EmConfiguration.php');
+        $settings = new EmConfiguration($configuration);
+        return $settings;
+    }
 
-	/**
-	 * Parse settings and return it as array
-	 *
-	 * @return array un-serialized settings from extension manager
-	 */
-	public static function parseSettings () {
-		$settings = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['t3events']);
-		if (!is_array($settings)) {
-			$settings = [];
-		}
+    /**
+     * Parse settings and return it as array
+     *
+     * @return array un-serialized settings from extension manager
+     */
+    public static function parseSettings()
+    {
+        $settings = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['t3events']);
+        if (!is_array($settings)) {
+            $settings = [];
+        }
 
-		return $settings;
-	}
+        return $settings;
+    }
 }

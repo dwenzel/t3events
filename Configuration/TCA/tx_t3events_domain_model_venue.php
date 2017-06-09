@@ -1,8 +1,9 @@
 <?php
 if (!defined('TYPO3_MODE')) {
-    die ('Access denied.');
+    die('Access denied.');
 }
 $ll = 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:';
+$cll = \DWenzel\T3events\Utility\TableConfiguration::getLanguageFilePath() . 'locallang_general.xlf:';
 $linkWizardIconPath = \DWenzel\T3events\Utility\TableConfiguration::getWizardIcon('link');
 
 return [
@@ -12,10 +13,10 @@ return [
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
         'cruser_id' => 'cruser_id',
-        'dividers2tabs' => TRUE,
+        'dividers2tabs' => true,
 
         'versioningWS' => 2,
-        'versioning_followPages' => TRUE,
+        'versioning_followPages' => true,
         'origUid' => 't3_origuid',
         'languageField' => 'sys_language_uid',
         'transOrigPointerField' => 'l10n_parent',
@@ -45,23 +46,23 @@ return [
     'columns' => [
         'sys_language_uid' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.language',
+            'label' => $cll . 'LGL.language',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'foreign_table' => 'sys_language',
                 'foreign_table_where' => 'ORDER BY sys_language.title',
                 'items' => [
-                    ['LLL:EXT:lang/locallang_general.xml:LGL.allLanguages', -1],
-                    ['LLL:EXT:lang/locallang_general.xml:LGL.default_value', 0]
+                    [$cll . 'LGL.allLanguages', -1],
+                    [$cll . 'LGL.default_value', 0]
                 ],
-                'showIconTable' => TRUE,
+                'showIconTable' => true,
             ],
         ],
         'l10n_parent' => [
             'displayCond' => 'FIELD:sys_language_uid:>:0',
             'exclude' => 1,
-            'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.l18n_parent',
+            'label' => $cll . 'LGL.l18n_parent',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
@@ -70,7 +71,7 @@ return [
                 ],
                 'foreign_table' => 'tx_t3events_domain_model_venue',
                 'foreign_table_where' => 'AND tx_t3events_domain_model_venue.pid=###CURRENT_PID### AND tx_t3events_domain_model_venue.sys_language_uid IN (-1,0)',
-                'showIconTable' => TRUE,
+                'showIconTable' => true,
             ],
         ],
         'l10n_diffsource' => [
@@ -79,7 +80,7 @@ return [
             ],
         ],
         't3ver_label' => [
-            'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.versionLabel',
+            'label' => $cll . 'LGL.versionLabel',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -88,7 +89,7 @@ return [
         ],
         'hidden' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.hidden',
+            'label' => $cll . 'LGL.hidden',
             'config' => [
                 'type' => 'check',
             ],
@@ -96,7 +97,7 @@ return [
         'starttime' => [
             'exclude' => 1,
             'l10n_mode' => 'mergeIfNotBlank',
-            'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.starttime',
+            'label' => $cll . 'LGL.starttime',
             'config' => [
                 'type' => 'input',
                 'size' => 13,
@@ -112,7 +113,7 @@ return [
         'endtime' => [
             'exclude' => 1,
             'l10n_mode' => 'mergeIfNotBlank',
-            'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.endtime',
+            'label' => $cll . 'LGL.endtime',
             'config' => [
                 'type' => 'input',
                 'size' => 13,

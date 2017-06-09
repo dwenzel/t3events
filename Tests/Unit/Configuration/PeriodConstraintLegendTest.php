@@ -6,6 +6,7 @@ use DWenzel\T3events\Configuration\PeriodConstraintLegend;
 use DWenzel\T3events\DataProvider\Legend\LayeredLegendDataProviderInterface;
 use DWenzel\T3events\DataProvider\Legend\PeriodDataProviderFactory;
 use TYPO3\CMS\Lang\LanguageService;
+
 /***************************************************************
  *  Copyright notice
  *  (c) 2016 Dirk Wenzel <dirk.wenzel@cps-it.de>
@@ -165,5 +166,4 @@ class PeriodConstraintLegendTest extends UnitTestCase
             );
         $this->subject->render($params);
     }
-
 }

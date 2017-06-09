@@ -34,153 +34,167 @@ use DWenzel\T3events\Domain\Model\Dto\EventDemand;
  * @author Michael Kasten <kasten@webfox01.de>
  * @coversDefaultClass \DWenzel\T3events\Domain\Model\Dto\EventDemand
  */
-class EventDemandTest extends UnitTestCase {
+class EventDemandTest extends UnitTestCase
+{
 
-	/**
-	 * @var \DWenzel\T3events\Domain\Model\Dto\EventDemand
-	 */
-	protected $fixture;
+    /**
+     * @var \DWenzel\T3events\Domain\Model\Dto\EventDemand
+     */
+    protected $fixture;
 
-	public function setUp() {
-		$this->fixture = new EventDemand();
-	}
+    public function setUp()
+    {
+        $this->fixture = new EventDemand();
+    }
 
-	public function tearDown() {
-		unset($this->fixture);
-	}
+    public function tearDown()
+    {
+        unset($this->fixture);
+    }
 
-	/**
-	 * @test
-	 * @covers ::getGenre
-	 */
-	public function getGenreReturnsInitialNull() {
-		$this->assertSame(NULL, $this->fixture->getGenre());
-	}
+    /**
+     * @test
+     * @covers ::getGenre
+     */
+    public function getGenreReturnsInitialNull()
+    {
+        $this->assertSame(null, $this->fixture->getGenre());
+    }
 
-	/**
-	 * @test
-	 * @covers ::setGenre
-	 */
-	public function setGenreForStringSetsGenre() {
-		$this->fixture->setGenre('1');
-		$this->assertSame('1', $this->fixture->getGenre());
-	}
+    /**
+     * @test
+     * @covers ::setGenre
+     */
+    public function setGenreForStringSetsGenre()
+    {
+        $this->fixture->setGenre('1');
+        $this->assertSame('1', $this->fixture->getGenre());
+    }
 
-	/**
-	 * @test
-	 * @covers ::getVenue
-	 */
-	public function getVenueReturnsInitialNull() {
-		$this->assertSame(NULL, $this->fixture->getVenue());
-	}
+    /**
+     * @test
+     * @covers ::getVenue
+     */
+    public function getVenueReturnsInitialNull()
+    {
+        $this->assertSame(null, $this->fixture->getVenue());
+    }
 
-	/**
-	 * @test
-	 * @covers ::setVenue
-	 */
-	public function setVenueForStringSetsVenue() {
-		$this->fixture->setVenue('1');
-		$this->assertSame('1', $this->fixture->getVenue());
-	}
+    /**
+     * @test
+     * @covers ::setVenue
+     */
+    public function setVenueForStringSetsVenue()
+    {
+        $this->fixture->setVenue('1');
+        $this->assertSame('1', $this->fixture->getVenue());
+    }
 
-	/**
-	 * @test
-	 * @covers ::getEventType
-	 */
-	public function getEventTypeReturnsInitialNull() {
-		$this->assertEquals(
-			NULL,
-			$this->fixture->getEventType()
-		);
-	}
+    /**
+     * @test
+     * @covers ::getEventType
+     */
+    public function getEventTypeReturnsInitialNull()
+    {
+        $this->assertEquals(
+            null,
+            $this->fixture->getEventType()
+        );
+    }
 
-	/**
-	 * @test
-	 * @covers ::setEventType
-	 */
-	public function setEventTypeForStringSetsEventType() {
-		$this->fixture->setEventType('1,2,3');
+    /**
+     * @test
+     * @covers ::setEventType
+     */
+    public function setEventTypeForStringSetsEventType()
+    {
+        $this->fixture->setEventType('1,2,3');
 
-		$this->assertSame(
-			'1,2,3',
-			$this->fixture->getEventType()
-		);
-	}
+        $this->assertSame(
+            '1,2,3',
+            $this->fixture->getEventType()
+        );
+    }
 
-	/**
-	 * @test
-	 * @covers ::getCategoryConjunction
-	 */
-	public function getCategoryConjunctionReturnsInitialNull() {
-		$this->assertEquals(
-			NULL,
-			$this->fixture->getCategoryConjunction()
-		);
-	}
+    /**
+     * @test
+     * @covers ::getCategoryConjunction
+     */
+    public function getCategoryConjunctionReturnsInitialNull()
+    {
+        $this->assertEquals(
+            null,
+            $this->fixture->getCategoryConjunction()
+        );
+    }
 
-	/**
-	 * @test
-	 * @covers ::setCategoryConjunction
-	 */
-	public function setCategoryConjunctionForStringSetsCategoryConjunction() {
-		$this->fixture->setCategoryConjunction('asc');
+    /**
+     * @test
+     * @covers ::setCategoryConjunction
+     */
+    public function setCategoryConjunctionForStringSetsCategoryConjunction()
+    {
+        $this->fixture->setCategoryConjunction('asc');
 
-		$this->assertSame(
-			'asc',
-			$this->fixture->getCategoryConjunction()
-		);
-	}
+        $this->assertSame(
+            'asc',
+            $this->fixture->getCategoryConjunction()
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function getStartDateFieldForStringReturnsStartDateFieldConstant() {
-		$this->assertSame(
-			EventDemand::START_DATE_FIELD,
-			$this->fixture->getStartDateField()
-		);
-	}
+    /**
+     * @test
+     */
+    public function getStartDateFieldForStringReturnsStartDateFieldConstant()
+    {
+        $this->assertSame(
+            EventDemand::START_DATE_FIELD,
+            $this->fixture->getStartDateField()
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function getEndDateFieldForStringReturnsEndDateFieldConstant() {
-		$this->assertSame(
-			EventDemand::END_DATE_FIELD,
-			$this->fixture->getEndDateField()
-		);
-	}
+    /**
+     * @test
+     */
+    public function getEndDateFieldForStringReturnsEndDateFieldConstant()
+    {
+        $this->assertSame(
+            EventDemand::END_DATE_FIELD,
+            $this->fixture->getEndDateField()
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function getCategoriesInitiallyReturnsNull() {
-		$this->assertNull(
-			$this->fixture->getCategories()
-		);
-	}
+    /**
+     * @test
+     */
+    public function getCategoriesInitiallyReturnsNull()
+    {
+        $this->assertNull(
+            $this->fixture->getCategories()
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function categoriesCanBeSet() {
-		$categories = '1,2,3';
-		$this->fixture->setCategories($categories);
-		$this->assertSame(
-			$categories,
-			$this->fixture->getCategories()
-		);
-	}
+    /**
+     * @test
+     */
+    public function categoriesCanBeSet()
+    {
+        $categories = '1,2,3';
+        $this->fixture->setCategories($categories);
+        $this->assertSame(
+            $categories,
+            $this->fixture->getCategories()
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function getAudienceFieldReturnsClassConstant()
-	{
-		$this->assertSame(
-			EventDemand::AUDIENCE_FIELD,
-			$this->fixture->getAudienceField()
-		);
-	}
+    /**
+     * @test
+     */
+    public function getAudienceFieldReturnsClassConstant()
+    {
+        $this->assertSame(
+            EventDemand::AUDIENCE_FIELD,
+            $this->fixture->getAudienceField()
+        );
+    }
 }
-

@@ -1,7 +1,7 @@
 <?php
 namespace DWenzel\T3events\Domain\Model\Dto;
 
- /***************************************************************
+/***************************************************************
  *
  *  Copyright notice
  *
@@ -25,24 +25,27 @@ namespace DWenzel\T3events\Domain\Model\Dto;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-trait AudienceAwareDemandTrait {
+trait AudienceAwareDemandTrait
+{
 
-	/**
-	 * @var string
-	 */
-	protected $audiences;
+    /**
+     * @var string
+     */
+    protected $audiences;
 
-	/**
-	 * @return string
-	 */
-	public function getAudiences() {
-		return $this->audiences;
-	}
+    /**
+     * @return string
+     */
+    public function getAudiences()
+    {
+        return $this->audiences;
+    }
 
-	/**
-	 * @param string $audiences
-	 */
-	public function setAudiences($audiences) {
-		$this->audiences = $audiences;
-	}
+    /**
+     * @param string $audiences
+     */
+    public function setAudiences($audiences)
+    {
+        $this->audiences = $audiences;
+    }
 }

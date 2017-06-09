@@ -1,7 +1,7 @@
 <?php
 namespace DWenzel\T3events\Domain\Model\Dto;
 
- /***************************************************************
+/***************************************************************
  *
  *  Copyright notice
  *
@@ -25,35 +25,39 @@ namespace DWenzel\T3events\Domain\Model\Dto;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-class EmConfiguration {
-	/**
-	 * @var bool
-	 */
-	protected $respectPerformanceStoragePage = false;
+class EmConfiguration
+{
+    /**
+     * @var bool
+     */
+    protected $respectPerformanceStoragePage = false;
 
-	/**
-	 * Constructor
-	 * @param array $configuration
-	 */
-	public function __construct(array $configuration) {
-		foreach ($configuration as $key => $value) {
-			if (property_exists(__CLASS__, $key)) {
-				$this->$key = $value;
-			}
-		}
-	}
+    /**
+     * Constructor
+     * @param array $configuration
+     */
+    public function __construct(array $configuration)
+    {
+        foreach ($configuration as $key => $value) {
+            if (property_exists(__CLASS__, $key)) {
+                $this->$key = $value;
+            }
+        }
+    }
 
-	/**
-	 * @return boolean
-	 */
-	public function isRespectPerformanceStoragePage() {
-		return $this->respectPerformanceStoragePage;
-	}
+    /**
+     * @return boolean
+     */
+    public function isRespectPerformanceStoragePage()
+    {
+        return $this->respectPerformanceStoragePage;
+    }
 
-	/**
-	 * @param boolean $respectPerformanceStoragePage
-	 */
-	public function setRespectPerformanceStoragePage($respectPerformanceStoragePage) {
-		$this->respectPerformanceStoragePage = $respectPerformanceStoragePage;
-	}
+    /**
+     * @param boolean $respectPerformanceStoragePage
+     */
+    public function setRespectPerformanceStoragePage($respectPerformanceStoragePage)
+    {
+        $this->respectPerformanceStoragePage = $respectPerformanceStoragePage;
+    }
 }

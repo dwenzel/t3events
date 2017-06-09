@@ -26,33 +26,36 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
  *
  * @package CPSIT\T3eventsReservation\Domain\Model
  */
-class Company extends AbstractEntity {
-	use AddressTrait;
+class Company extends AbstractEntity
+{
+    use AddressTrait;
 
-	/**
-	 * name
-	 *
-	 * @var string
-	 * @validate NotEmpty
-	 */
-	protected $name = '';
+    /**
+     * name
+     *
+     * @var string
+     * @validate NotEmpty
+     */
+    protected $name = '';
 
-	/**
-	 * Returns the name
-	 *
-	 * @return string $name
-	 */
-	public function getName() {
-		return $this->name;
-	}
+    /**
+     * Returns the name
+     *
+     * @return string $name
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
 
-	/**
-	 * Sets the name
-	 *
-	 * @param string $name
-	 * @return void
-	 */
-	public function setName($name) {
-		$this->name = $name;
-	}
+    /**
+     * Sets the name
+     *
+     * @param string $name
+     * @return void
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
 }

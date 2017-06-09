@@ -46,7 +46,6 @@ class EventPluginFormDataProvider implements FormDataProviderInterface
      */
     public function addData(array $result)
     {
-
         if (isset($result['tableName'])
             && $result['tableName'] === 'tt_content'
             && $result['databaseRow']['CType'] === 'list'
@@ -65,6 +64,4 @@ class EventPluginFormDataProvider implements FormDataProviderInterface
 
         return $result;
     }
-
-
 }

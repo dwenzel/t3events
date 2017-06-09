@@ -22,287 +22,313 @@ use TYPO3\CMS\Extbase\Domain\Model\FileReference;
  *  GNU General Public License for more details.
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-class Person extends AbstractEntity {
-	use AddressTrait;
-	const PERSON_TYPE_UNKNOWN = 'Tx_T3events_Default';
-	const PERSON_TYPE_CONTACT = 'Tx_T3events_Contact';
+class Person extends AbstractEntity
+{
+    use AddressTrait;
+    const PERSON_TYPE_UNKNOWN = 'Tx_T3events_Default';
+    const PERSON_TYPE_CONTACT = 'Tx_T3events_Contact';
 
-	/**
-	 * type
-	 *
-	 * @var string
-	 */
-	protected $type = self::PERSON_TYPE_UNKNOWN;
+    /**
+     * type
+     *
+     * @var string
+     */
+    protected $type = self::PERSON_TYPE_UNKNOWN;
 
-	/**
-	 * email
-	 *
-	 * @var string
-	 * @validate EmailAddress
-	 * @optional
-	 */
-	protected $email = '';
+    /**
+     * email
+     *
+     * @var string
+     * @validate EmailAddress
+     * @optional
+     */
+    protected $email = '';
 
-	/**
-	 * @var \DWenzel\T3events\Domain\Model\PersonType
-	 */
-	protected $personType;
+    /**
+     * @var \DWenzel\T3events\Domain\Model\PersonType
+     */
+    protected $personType;
 
-	/**
-	 * @var string
-	 */
-	protected $name;
+    /**
+     * @var string
+     */
+    protected $name;
 
-	/**
-	 * @var int
-	 */
-	protected $gender;
+    /**
+     * @var int
+     */
+    protected $gender;
 
-	/**
-	 * @var string
-	 */
-	protected $firstName;
+    /**
+     * @var string
+     */
+    protected $firstName;
 
-	/**
-	 * @var string
-	 */
-	protected $lastName;
+    /**
+     * @var string
+     */
+    protected $lastName;
 
-	/**
-	 * phone
-	 *
-	 * @var string
-	 */
-	protected $phone = '';
+    /**
+     * phone
+     *
+     * @var string
+     */
+    protected $phone = '';
 
-	/**
-	 * Title
-	 *
-	 * @var string
-	 */
-	protected $title;
+    /**
+     * Title
+     *
+     * @var string
+     */
+    protected $title;
 
-	/**
-	 * @var \DateTime
-	 */
-	protected $birthday;
+    /**
+     * @var \DateTime
+     */
+    protected $birthday;
 
-	/**
-	 * WWW
-	 *
-	 * @var string
-	 */
-	protected $www;
+    /**
+     * WWW
+     *
+     * @var string
+     */
+    protected $www;
 
-	/**
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
-	 * @lazy
-	 */
-	protected $images;
+    /**
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
+     * @lazy
+     */
+    protected $images;
 
-	/**
-	 *
-	 */
-	public function initializeObject() {
-		$this->images = new ObjectStorage();
-	}
+    /**
+     *
+     */
+    public function initializeObject()
+    {
+        $this->images = new ObjectStorage();
+    }
 
-	/**
-	 * Returns the type
-	 *
-	 * @return string $type
-	 */
-	public function getType() {
-		return $this->type;
-	}
+    /**
+     * Returns the type
+     *
+     * @return string $type
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
 
-	/**
-	 * Sets the type
-	 *
-	 * @param string $type
-	 * @return void
-	 */
-	public function setType($type) {
-		$this->type = $type;
-	}
+    /**
+     * Sets the type
+     *
+     * @param string $type
+     * @return void
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+    }
 
-	/**
-	 * Returns the email
-	 *
-	 * @return string $email
-	 */
-	public function getEmail() {
-		return $this->email;
-	}
+    /**
+     * Returns the email
+     *
+     * @return string $email
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
 
-	/**
-	 * @return \DWenzel\T3events\Domain\Model\PersonType
-	 */
-	public function getPersonType() {
-		return $this->personType;
-	}
+    /**
+     * @return \DWenzel\T3events\Domain\Model\PersonType
+     */
+    public function getPersonType()
+    {
+        return $this->personType;
+    }
 
-	/**
-	 * @param \DWenzel\T3events\Domain\Model\PersonType $personType
-	 */
-	public function setPersonType($personType) {
-		$this->personType = $personType;
-	}
+    /**
+     * @param \DWenzel\T3events\Domain\Model\PersonType $personType
+     */
+    public function setPersonType($personType)
+    {
+        $this->personType = $personType;
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getName() {
-		return $this->name;
-	}
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
 
-	/**
-	 * @param string $name
-	 */
-	public function setName($name) {
-		$this->name = $name;
-	}
+    /**
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
 
-	/**
-	 * @return int
-	 */
-	public function getGender() {
-		return $this->gender;
-	}
+    /**
+     * @return int
+     */
+    public function getGender()
+    {
+        return $this->gender;
+    }
 
-	/**
-	 * @param int $gender
-	 */
-	public function setGender($gender) {
-		$this->gender = $gender;
-	}
+    /**
+     * @param int $gender
+     */
+    public function setGender($gender)
+    {
+        $this->gender = $gender;
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getFirstName() {
-		return $this->firstName;
-	}
+    /**
+     * @return string
+     */
+    public function getFirstName()
+    {
+        return $this->firstName;
+    }
 
-	/**
-	 * @param string $firstName
-	 */
-	public function setFirstName($firstName) {
-		$this->firstName = $firstName;
-	}
+    /**
+     * @param string $firstName
+     */
+    public function setFirstName($firstName)
+    {
+        $this->firstName = $firstName;
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getLastName() {
-		return $this->lastName;
-	}
+    /**
+     * @return string
+     */
+    public function getLastName()
+    {
+        return $this->lastName;
+    }
 
-	/**
-	 * @param string $lastName
-	 */
-	public function setLastName($lastName) {
-		$this->lastName = $lastName;
-	}
+    /**
+     * @param string $lastName
+     */
+    public function setLastName($lastName)
+    {
+        $this->lastName = $lastName;
+    }
 
-	/**
-	 * Returns the phone
-	 *
-	 * @return string $phone
-	 */
-	public function getPhone() {
-		return $this->phone;
-	}
+    /**
+     * Returns the phone
+     *
+     * @return string $phone
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
 
-	/**
-	 * Sets the email
-	 *
-	 * @param string $email
-	 * @return void
-	 */
-	public function setEmail($email) {
-		$this->email = $email;
-	}
+    /**
+     * Sets the email
+     *
+     * @param string $email
+     * @return void
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    }
 
-	/**
-	 * Sets the phone
-	 *
-	 * @param string $phone
-	 * @return void
-	 */
-	public function setPhone($phone) {
-		$this->phone = $phone;
-	}
+    /**
+     * Sets the phone
+     *
+     * @param string $phone
+     * @return void
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getTitle() {
-		return $this->title;
-	}
+    /**
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
 
-	/**
-	 * @param string $title
-	 */
-	public function setTitle($title) {
-		$this->title = $title;
-	}
+    /**
+     * @param string $title
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+    }
 
-	/**
-	 * @return \DateTime
-	 */
-	public function getBirthday() {
-		return $this->birthday;
-	}
+    /**
+     * @return \DateTime
+     */
+    public function getBirthday()
+    {
+        return $this->birthday;
+    }
 
-	/**
-	 * @param \DateTime $birthday
-	 */
-	public function setBirthday($birthday) {
-		$this->birthday = $birthday;
-	}
+    /**
+     * @param \DateTime $birthday
+     */
+    public function setBirthday($birthday)
+    {
+        $this->birthday = $birthday;
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getWww() {
-		return $this->www;
-	}
+    /**
+     * @return string
+     */
+    public function getWww()
+    {
+        return $this->www;
+    }
 
-	/**
-	 * @param string $www
-	 */
-	public function setWww($www) {
-		$this->www = $www;
-	}
+    /**
+     * @param string $www
+     */
+    public function setWww($www)
+    {
+        $this->www = $www;
+    }
 
-	/**
-	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
-	 */
-	public function getImages()
-	{
-		return $this->images;
-	}
+    /**
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
+     */
+    public function getImages()
+    {
+        return $this->images;
+    }
 
-	/**
-	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $images
-	 */
-	public function setImages($images)
-	{
-		$this->images = $images;
-	}
+    /**
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $images
+     */
+    public function setImages($images)
+    {
+        $this->images = $images;
+    }
 
-	/**
-	 * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $fileReference
-	 */
-	public function addImage(FileReference $fileReference) {
-		$this->images->attach($fileReference);
-	}
+    /**
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $fileReference
+     */
+    public function addImage(FileReference $fileReference)
+    {
+        $this->images->attach($fileReference);
+    }
 
-	/**
-	 * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $fileReference
-	 */
-	public function removeImage(FileReference $fileReference) {
-		$this->images->detach($fileReference);
-	}
+    /**
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $fileReference
+     */
+    public function removeImage(FileReference $fileReference)
+    {
+        $this->images->detach($fileReference);
+    }
 }

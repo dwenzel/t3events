@@ -40,5 +40,4 @@ trait EventLocationRepositoryTrait
     {
         $this->eventLocationRepository = $eventLocationRepository;
     }
-
 }

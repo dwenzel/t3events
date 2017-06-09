@@ -1,14 +1,12 @@
 <?php
 namespace DWenzel\T3events\Controller;
 
-
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use TYPO3\CMS\Extbase\Mvc\Request;
 use TYPO3\CMS\Extbase\Mvc\RequestInterface;
 use TYPO3\CMS\Extbase\Mvc\ResponseInterface;
 use TYPO3\CMS\Extbase\Property\Exception as PropertyException;
-
 
 /**
  * Class EntityNotFoundHandlerTrait
@@ -19,7 +17,7 @@ trait EntityNotFoundHandlerTrait
 {
     use SignalTrait;
 
-    static protected $handleEntityNotFoundError = 'handleEntityNotFoundError';
+    protected static $handleEntityNotFoundError = 'handleEntityNotFoundError';
 
     /**
      * @var \TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder
@@ -55,7 +53,7 @@ trait EntityNotFoundHandlerTrait
      * @param array $arguments Arguments to pass to the target action
      * @return void
      */
-    abstract public function forward($actionName, $controllerName = NULL, $extensionName = NULL, array $arguments = NULL);
+    abstract public function forward($actionName, $controllerName = null, $extensionName = null, array $arguments = null);
 
     /**
      * Redirects the request to another action and / or controller.
@@ -71,7 +69,7 @@ trait EntityNotFoundHandlerTrait
      * @param integer $statusCode (optional) The HTTP status code for the redirect. Default is "303 See Other
      * @return void
      */
-    abstract protected function redirect($actionName, $controllerName = NULL, $extensionName = NULL, array $arguments = NULL, $pageUid = NULL, $delay = 0, $statusCode = 303);
+    abstract protected function redirect($actionName, $controllerName = null, $extensionName = null, array $arguments = null, $pageUid = null, $delay = 0, $statusCode = 303);
 
     /**
      * Redirects the web request to another uri.
@@ -103,7 +101,8 @@ trait EntityNotFoundHandlerTrait
      *
      * @param string $configuration Configuration for handling
      */
-    public function handleEntityNotFoundError($configuration) {
+    public function handleEntityNotFoundError($configuration)
+    {
         if (empty($configuration)) {
             return;
         }
@@ -119,7 +118,7 @@ trait EntityNotFoundHandlerTrait
                 }
                 $this->uriBuilder->reset();
                 $this->uriBuilder->setTargetPageUid($configuration[1]);
-                $this->uriBuilder->setCreateAbsoluteUri(TRUE);
+                $this->uriBuilder->setCreateAbsoluteUri(true);
                 if ($this->isSSLEnabled()) {
                     $this->uriBuilder->setAbsoluteUriScheme('https');
                 }

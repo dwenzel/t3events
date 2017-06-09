@@ -123,5 +123,4 @@ class UniqueViewHelperTest extends UnitTestCase
             count($this->subject->render())
         );
     }
-
 }

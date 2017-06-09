@@ -18,7 +18,8 @@ use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
  *
  * @package DWenzel\T3events\Tests\Controller
  */
-class DummyParent extends ActionController{
+class DummyParent extends ActionController
+{
     /**
      * @param \TYPO3\CMS\Extbase\Mvc\RequestInterface $request
      * @param \TYPO3\CMS\Extbase\Mvc\ResponseInterface $response
@@ -37,7 +38,8 @@ class DummyParent extends ActionController{
  *
  * @package DWenzel\T3events\Tests\Controller
  */
-class DummyEntityNotFoundHandlerController extends DummyParent {
+class DummyEntityNotFoundHandlerController extends DummyParent
+{
     use EntityNotFoundHandlerTrait;
 }
 

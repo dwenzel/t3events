@@ -28,53 +28,58 @@ use DWenzel\T3events\Domain\Model\Dto\EmConfiguration;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-class EmConfigurationTest extends UnitTestCase {
-	/**
-	 * @var EmConfiguration
-	 */
-	protected $subject;
+class EmConfigurationTest extends UnitTestCase
+{
+    /**
+     * @var EmConfiguration
+     */
+    protected $subject;
 
-	/**
-	 * set up
-	 */
-	public function setUp() {
-		$this->subject = $this->getAccessibleMock(
-			EmConfiguration::class, ['dummy'], [], '', false
-		);
-	}
+    /**
+     * set up
+     */
+    public function setUp()
+    {
+        $this->subject = $this->getAccessibleMock(
+            EmConfiguration::class, ['dummy'], [], '', false
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function constructorSetsExistingProperty() {
-		$configuration = [
-			'respectPerformanceStoragePage' => true
-		];
+    /**
+     * @test
+     */
+    public function constructorSetsExistingProperty()
+    {
+        $configuration = [
+            'respectPerformanceStoragePage' => true
+        ];
 
-		$this->subject = new EmConfiguration($configuration);
+        $this->subject = new EmConfiguration($configuration);
 
-		$this->assertTrue(
-			$this->subject->isRespectPerformanceStoragePage()
-		);
-	}
+        $this->assertTrue(
+            $this->subject->isRespectPerformanceStoragePage()
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function isRespectPerformanceStoragePageInitiallyReturnsFalse() {
-		$this->assertFalse(
-			$this->subject->isRespectPerformanceStoragePage()
-		);
-	}
+    /**
+     * @test
+     */
+    public function isRespectPerformanceStoragePageInitiallyReturnsFalse()
+    {
+        $this->assertFalse(
+            $this->subject->isRespectPerformanceStoragePage()
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function respectPerformanceStoragePageCanBeSet() {
-		$this->subject->setRespectPerformanceStoragePage(true);
+    /**
+     * @test
+     */
+    public function respectPerformanceStoragePageCanBeSet()
+    {
+        $this->subject->setRespectPerformanceStoragePage(true);
 
-		$this->assertTrue(
-			$this->subject->isRespectPerformanceStoragePage()
-		);
-	}
+        $this->assertTrue(
+            $this->subject->isRespectPerformanceStoragePage()
+        );
+    }
 }

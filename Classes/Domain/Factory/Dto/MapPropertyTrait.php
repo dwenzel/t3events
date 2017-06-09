@@ -12,19 +12,19 @@ trait MapPropertyTrait
     /**
      * @return array
      */
-    abstract function getMappedProperties();
+    abstract public function getMappedProperties();
 
     /**
      * Maps some old property names to more convenient ones
      *
      * @param $propertyName
      */
-    protected function mapPropertyName(&$propertyName) {
+    protected function mapPropertyName(&$propertyName)
+    {
         $mappedProperties = $this->getMappedProperties();
 
         if (isset($mappedProperties[$propertyName])) {
             $propertyName = $mappedProperties[$propertyName];
         }
     }
-
 }

@@ -26,12 +26,13 @@ use DWenzel\T3events\Domain\Repository\AbstractDemandedRepository;
  *
  * @package DWenzel\T3events\Tests\Unit\Domain\Repository\Fixtures
  */
-class FindDemandedHookFixture {
-	/**
-	 * @param array $params
-	 * @param AbstractDemandedRepository $repository
-	 */
-	public function updateQuerySlot(array $params, AbstractDemandedRepository $repository) {
-
-	}
+class FindDemandedHookFixture
+{
+    /**
+     * @param array $params
+     * @param AbstractDemandedRepository $repository
+     */
+    public function updateQuerySlot(array $params, AbstractDemandedRepository $repository)
+    {
+    }
 }

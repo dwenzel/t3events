@@ -26,9 +26,7 @@ use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 /**
  * Class EventController
  */
-class EventController
-    extends AbstractBackendController
-    implements FilterableControllerInterface
+class EventController extends AbstractBackendController implements FilterableControllerInterface
 {
     use EventRepositoryTrait, EventDemandFactoryTrait, FilterableControllerTrait;
 
@@ -60,8 +58,8 @@ class EventController
 
         $events = $this->eventRepository->findDemanded($demand);
 
-        if (($events instanceof QueryResultInterface AND !$events->count())
-            OR !count($events)
+        if (($events instanceof QueryResultInterface and !$events->count())
+            or !count($events)
         ) {
             $this->addFlashMessage(
                 $this->translate('message.noEventFound.text'),

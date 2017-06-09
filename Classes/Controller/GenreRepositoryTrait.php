@@ -44,5 +44,4 @@ trait GenreRepositoryTrait
     {
         $this->genreRepository = $genreRepository;
     }
-
 }

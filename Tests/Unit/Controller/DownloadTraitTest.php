@@ -6,6 +6,7 @@ use DWenzel\T3events\Controller\DownloadTrait;
 use TYPO3\CMS\Core\Resource\Driver\LocalDriver;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Mvc\Web\Response;
+
 /**
  * Class DownloadTraitTest
  *
@@ -41,7 +42,8 @@ class DownloadTraitTest extends UnitTestCase
     /**
      * @test
      */
-    public function localDriverCanBeInjected() {
+    public function localDriverCanBeInjected()
+    {
         $mockLocalDriver = $this->getMock(
             LocalDriver::class
         );
@@ -58,7 +60,8 @@ class DownloadTraitTest extends UnitTestCase
     /**
      * @test
      */
-    public function getDownloadFileNameReturnsSanitizedFileName() {
+    public function getDownloadFileNameReturnsSanitizedFileName()
+    {
         $fileName = 'foo';
         $sanitizedFileName = 'bar';
 
@@ -81,7 +84,8 @@ class DownloadTraitTest extends UnitTestCase
     /**
      * @test
      */
-    public function getDownloadFileNamePrependsDate() {
+    public function getDownloadFileNamePrependsDate()
+    {
         $date = date('Y-m-d_H-m');
         $fileName = 'foo';
         $expectedFileName = $date . '_' . $fileName;
@@ -101,7 +105,8 @@ class DownloadTraitTest extends UnitTestCase
     /**
      * @return array
      */
-    public function allowedFileTypesForDownloadHeadersDataProvider() {
+    public function allowedFileTypesForDownloadHeadersDataProvider()
+    {
         return [
             'csv' => ['csv', 'text/csv'],
             'txt' => ['txt', 'text/plain'],
@@ -129,7 +134,8 @@ class DownloadTraitTest extends UnitTestCase
      * @test
      * @dataProvider allowedFileTypesForDownloadHeadersDataProvider
      */
-    public function sendDownloadHeadersSendsHeaderForAllowedFileTypes($fileExtension, $contentType) {
+    public function sendDownloadHeadersSendsHeaderForAllowedFileTypes($fileExtension, $contentType)
+    {
         $fileName = 'foo';
         $headers = [
             'Pragma' => 'public',
@@ -154,7 +160,8 @@ class DownloadTraitTest extends UnitTestCase
     /**
      * return array
      */
-    public function forbiddenFileTypesForDownloadHeadersDataProvider() {
+    public function forbiddenFileTypesForDownloadHeadersDataProvider()
+    {
         return [
             'inc' => ['inc'],
             'conf' => ['conf'],
@@ -174,7 +181,8 @@ class DownloadTraitTest extends UnitTestCase
      * @expectedException \DWenzel\T3events\InvalidFileTypeException
      * @expectedExceptionCode 1456009720
      */
-    public function sendDownloadHeadersDoesNotSendHeadersForForbiddenFileTypes($fileExtension) {
+    public function sendDownloadHeadersDoesNotSendHeadersForForbiddenFileTypes($fileExtension)
+    {
         $fileName = 'foo';
 
         $mockResponse = $this->getMock(
@@ -185,13 +193,13 @@ class DownloadTraitTest extends UnitTestCase
             ->method('sendHeaders');
 
         $this->subject->sendDownloadHeaders($fileExtension, $fileName);
-
     }
 
     /**
      * @test
      */
-    public function sendDownloadHeadersSendsHeadersForDefaultType() {
+    public function sendDownloadHeadersSendsHeadersForDefaultType()
+    {
         $unknownValidExtension = 'foo';
         $fileName = 'bar';
         $mockResponse = $this->getMock(
@@ -207,7 +215,8 @@ class DownloadTraitTest extends UnitTestCase
     /**
      * @test
      */
-    public function sendDownloadHeadersSetsResponse() {
+    public function sendDownloadHeadersSetsResponse()
+    {
         $unknownValidExtension = 'foo';
         $fileName = 'bar';
         $mockResponse = $this->getMock(

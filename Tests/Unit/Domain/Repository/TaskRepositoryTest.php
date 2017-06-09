@@ -1,5 +1,6 @@
 <?php
 namespace DWenzel\T3events\Tests\Unit\Domain\Repository;
+
 use DWenzel\T3events\Domain\Repository\TaskRepository;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
@@ -68,5 +69,4 @@ class TaskRepositoryTest extends UnitTestCase
 
         $this->subject->initializeObject();
     }
-
 }

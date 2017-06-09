@@ -18,61 +18,68 @@ use DWenzel\T3events\Domain\Model\Dto\LocationAwareTrait;
  *
  * @author Dirk Wenzel <wenzel@webfox01.de>
  */
-class LocationAwareTraitTest extends UnitTestCase {
+class LocationAwareTraitTest extends UnitTestCase
+{
 
-	/**
-	 * @var \DWenzel\T3events\Domain\Model\Dto\LocationAwareTrait
-	 */
-	protected $fixture;
+    /**
+     * @var \DWenzel\T3events\Domain\Model\Dto\LocationAwareTrait
+     */
+    protected $fixture;
 
-	public function setUp() {
-		$this->fixture = $this->getMockForTrait(LocationAwareTrait::class);
-	}
+    public function setUp()
+    {
+        $this->fixture = $this->getMockForTrait(LocationAwareTrait::class);
+    }
 
-	/**
-	 * @test
-	 */
-	public function getLocationReturnsInitialValueForString() {
-		$this->assertNull($this->fixture->getLocation());
-	}
+    /**
+     * @test
+     */
+    public function getLocationReturnsInitialValueForString()
+    {
+        $this->assertNull($this->fixture->getLocation());
+    }
 
-	/**
-	 * @test
-	 */
-	public function setLocationForStringSetsLocation() {
-		$this->fixture->setLocation('ping');
-		$this->assertSame('ping', $this->fixture->getLocation());
-	}
+    /**
+     * @test
+     */
+    public function setLocationForStringSetsLocation()
+    {
+        $this->fixture->setLocation('ping');
+        $this->assertSame('ping', $this->fixture->getLocation());
+    }
 
-	/**
-	 * @test
-	 */
-	public function getRadiusReturnsInitialValueForInteger() {
-		$this->assertNull($this->fixture->getRadius());
-	}
+    /**
+     * @test
+     */
+    public function getRadiusReturnsInitialValueForInteger()
+    {
+        $this->assertNull($this->fixture->getRadius());
+    }
 
-	/**
-	 * @test
-	 */
-	public function setRadiusForIntegerSetsRadius() {
-		$this->fixture->setRadius(5000);
-		$this->assertSame(5000, $this->fixture->getRadius());
-	}
+    /**
+     * @test
+     */
+    public function setRadiusForIntegerSetsRadius()
+    {
+        $this->fixture->setRadius(5000);
+        $this->assertSame(5000, $this->fixture->getRadius());
+    }
 
-	/**
-	 * @test
-	 */
-	public function getBoundsReturnsInitialValueForArray() {
-		$this->assertNull($this->fixture->getBounds());
-	}
+    /**
+     * @test
+     */
+    public function getBoundsReturnsInitialValueForArray()
+    {
+        $this->assertNull($this->fixture->getBounds());
+    }
 
-	/**
-	 * @test
-	 */
-	public function setBoundsForArraySetsBounds() {
-		$bounds = array('test' => 'value');
-		$this->fixture->setBounds($bounds);
-		$this->assertSame($bounds, $this->fixture->getBounds());
-	}
-
+    /**
+     * @test
+     */
+    public function setBoundsForArraySetsBounds()
+    {
+        $bounds = array('test' => 'value');
+        $this->fixture->setBounds($bounds);
+        $this->assertSame($bounds, $this->fixture->getBounds());
+    }
 }

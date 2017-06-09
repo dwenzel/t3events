@@ -1,8 +1,6 @@
 <?php
 namespace DWenzel\T3events\DataProvider\Legend;
 
-
-
 /***************************************************************
  *  Copyright notice
  *  (c) 2016 Dirk Wenzel <dirk.wenzel@cps-it.de>
@@ -20,9 +18,7 @@ namespace DWenzel\T3events\DataProvider\Legend;
  *  GNU General Public License for more details.
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-class PeriodPastDataProvider
-extends AbstractPeriodDataProvider
-implements LayeredLegendDataProviderInterface
+class PeriodPastDataProvider extends AbstractPeriodDataProvider implements LayeredLegendDataProviderInterface
 {
     const VISIBLE_LAYERS = 'arrow-left,text-end,end-point,middle-on,right-off,right-re-off';
     const LAYERS_TO_HIDE = 'right-re-off';

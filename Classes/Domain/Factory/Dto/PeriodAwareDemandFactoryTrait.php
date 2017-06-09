@@ -20,7 +20,7 @@ trait PeriodAwareDemandFactoryTrait
         $timeZone = new \DateTimeZone(date_default_timezone_get());
 
         if ($settings['period'] === 'futureOnly'
-            OR $settings['period'] === 'pastOnly'
+            or $settings['period'] === 'pastOnly'
         ) {
             $startDate = new \DateTime('midnight', $timeZone);
             $demand->setStartDate($startDate);
@@ -30,7 +30,7 @@ trait PeriodAwareDemandFactoryTrait
         if ($settings['period'] === 'specific') {
             $demand->setPeriodType($settings['periodType']);
         }
-        if (isset($settings['periodType']) AND $settings['periodType'] !== 'byDate') {
+        if (isset($settings['periodType']) and $settings['periodType'] !== 'byDate') {
             $demand->setPeriodStart($settings['periodStart']);
             $demand->setPeriodDuration($settings['periodDuration']);
         }

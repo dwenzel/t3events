@@ -1,7 +1,7 @@
 <?php
 namespace DWenzel\T3events\Controller;
 
- /***************************************************************
+/***************************************************************
  *
  *  Copyright notice
  *
@@ -30,12 +30,13 @@ namespace DWenzel\T3events\Controller;
  *
  * @package DWenzel\T3events\Controller
  */
-interface FilterableControllerInterface {
-	/**
-	 * Gets filter options for view template
-	 *
-	 * @param array $settings
-	 * @return array
-	 */
-	public function getFilterOptions($settings);
+interface FilterableControllerInterface
+{
+    /**
+     * Gets filter options for view template
+     *
+     * @param array $settings
+     * @return array
+     */
+    public function getFilterOptions($settings);
 }

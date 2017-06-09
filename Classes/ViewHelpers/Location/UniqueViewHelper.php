@@ -51,7 +51,6 @@ class UniqueViewHelper extends AbstractViewHelper
             $performances = $this->arguments['event']->getPerformances();
             if (count($performances)) {
                 foreach ($performances as $performance) {
-
                     if ($eventLocation = $performance->getEventLocation()) {
                         $locations[] = $eventLocation;
                     }
@@ -64,4 +63,3 @@ class UniqueViewHelper extends AbstractViewHelper
         return ((bool)$locations) ? $locations : null;
     }
 }
-

@@ -103,7 +103,7 @@ class VectorImage extends \DOMDocument
      */
     public function getXPath()
     {
-        if(!$this->xPath instanceof \DOMXPath) {
+        if (!$this->xPath instanceof \DOMXPath) {
             $this->xPath = new \DOMXPath($this);
         }
 

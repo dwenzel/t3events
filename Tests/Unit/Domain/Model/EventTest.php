@@ -499,7 +499,7 @@ class EventTest extends UnitTestCase
     public function getEventTypeReturnsInitialValueForEventType()
     {
         $this->assertEquals(
-            NULL,
+            null,
             $this->subject->getEventType()
         );
     }
@@ -587,7 +587,7 @@ class EventTest extends UnitTestCase
     public function getOrganizerReturnsInitialValueForOrganizer()
     {
         $this->assertEquals(
-            NULL,
+            null,
             $this->subject->getOrganizer()
         );
     }
@@ -625,10 +625,10 @@ class EventTest extends UnitTestCase
         $laterDate = new \DateTime('@5');
         $mockPerformanceA = $this->getMock(
             '\DWenzel\T3events\Domain\Model\Performance',
-            array('getDate'), array(), '', FALSE);
+            array('getDate'), array(), '', false);
         $mockPerformanceB = $this->getMock(
             '\DWenzel\T3events\Domain\Model\Performance',
-            array('getDate'), array(), '', FALSE);
+            array('getDate'), array(), '', false);
         $fixture = $this->getAccessibleMock(
             '\DWenzel\T3events\Domain\Model\Event',
             array('dummy'), array(), '');
@@ -778,4 +778,3 @@ class EventTest extends UnitTestCase
         );
     }
 }
-

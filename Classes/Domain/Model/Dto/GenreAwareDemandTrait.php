@@ -1,7 +1,7 @@
 <?php
 namespace DWenzel\T3events\Domain\Model\Dto;
 
- /***************************************************************
+/***************************************************************
  *
  *  Copyright notice
  *
@@ -25,24 +25,27 @@ namespace DWenzel\T3events\Domain\Model\Dto;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-trait GenreAwareDemandTrait {
+trait GenreAwareDemandTrait
+{
 
-	/**
-	 * @var string
-	 */
-	protected $genres;
+    /**
+     * @var string
+     */
+    protected $genres;
 
-	/**
-	 * @return string
-	 */
-	public function getGenres() {
-		return $this->genres;
-	}
+    /**
+     * @return string
+     */
+    public function getGenres()
+    {
+        return $this->genres;
+    }
 
-	/**
-	 * @param string $genres
-	 */
-	public function setGenres($genres) {
-		$this->genres = $genres;
-	}
+    /**
+     * @param string $genres
+     */
+    public function setGenres($genres)
+    {
+        $this->genres = $genres;
+    }
 }

@@ -30,77 +30,83 @@ use DWenzel\T3events\Domain\Model\CategorizableTrait;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-class CategorizableTraitTest extends UnitTestCase {
+class CategorizableTraitTest extends UnitTestCase
+{
 
-	/**
-	 * @var \DWenzel\T3events\Domain\Model\CategorizableTrait
-	 */
-	protected $subject;
+    /**
+     * @var \DWenzel\T3events\Domain\Model\CategorizableTrait
+     */
+    protected $subject;
 
-	public function setUp() {
-		$this->subject = $this->getMockForTrait(
-			CategorizableTrait::class
-		);
-	}
+    public function setUp()
+    {
+        $this->subject = $this->getMockForTrait(
+            CategorizableTrait::class
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function getCategoriesReturnsInitialNull() {
-		$this->assertNull(
-			$this->subject->getCategories()
-		);
-	}
+    /**
+     * @test
+     */
+    public function getCategoriesReturnsInitialNull()
+    {
+        $this->assertNull(
+            $this->subject->getCategories()
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function setCategoryForObjectStorageContainingCategorySetsCategories() {
-		$category = new Category();
-		$objectStorageHoldingExactlyOneCategory = new ObjectStorage();
-		$objectStorageHoldingExactlyOneCategory->attach($category);
-		$this->subject->setCategories($objectStorageHoldingExactlyOneCategory);
+    /**
+     * @test
+     */
+    public function setCategoryForObjectStorageContainingCategorySetsCategories()
+    {
+        $category = new Category();
+        $objectStorageHoldingExactlyOneCategory = new ObjectStorage();
+        $objectStorageHoldingExactlyOneCategory->attach($category);
+        $this->subject->setCategories($objectStorageHoldingExactlyOneCategory);
 
-		$this->assertSame(
-			$objectStorageHoldingExactlyOneCategory,
-			$this->subject->getCategories()
-		);
-	}
+        $this->assertSame(
+            $objectStorageHoldingExactlyOneCategory,
+            $this->subject->getCategories()
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function addCategoryToObjectStorageHoldingCategory() {
-		$category = new Category();
-		$newObjectStorage = new ObjectStorage();
-		$this->subject->setCategories($newObjectStorage);
-		$objectStorageHoldingExactlyOneCategory = new ObjectStorage();
-		$objectStorageHoldingExactlyOneCategory->attach($category);
-		$this->subject->addCategory($category);
+    /**
+     * @test
+     */
+    public function addCategoryToObjectStorageHoldingCategory()
+    {
+        $category = new Category();
+        $newObjectStorage = new ObjectStorage();
+        $this->subject->setCategories($newObjectStorage);
+        $objectStorageHoldingExactlyOneCategory = new ObjectStorage();
+        $objectStorageHoldingExactlyOneCategory->attach($category);
+        $this->subject->addCategory($category);
 
-		$this->assertEquals(
-			$objectStorageHoldingExactlyOneCategory,
-			$this->subject->getCategories()
-		);
-	}
+        $this->assertEquals(
+            $objectStorageHoldingExactlyOneCategory,
+            $this->subject->getCategories()
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function removeCategoryFromObjectStorageHoldingCategory() {
-		$category = new Category();
-		$newObjectStorage = new ObjectStorage();
-		$this->subject->setCategories($newObjectStorage);
+    /**
+     * @test
+     */
+    public function removeCategoryFromObjectStorageHoldingCategory()
+    {
+        $category = new Category();
+        $newObjectStorage = new ObjectStorage();
+        $this->subject->setCategories($newObjectStorage);
 
-		$localObjectStorage = new ObjectStorage();
-		$localObjectStorage->attach($category);
-		$localObjectStorage->detach($category);
-		$this->subject->addCategory($category);
-		$this->subject->removeCategory($category);
+        $localObjectStorage = new ObjectStorage();
+        $localObjectStorage->attach($category);
+        $localObjectStorage->detach($category);
+        $this->subject->addCategory($category);
+        $this->subject->removeCategory($category);
 
-		$this->assertEquals(
-			$localObjectStorage,
-			$this->subject->getCategories()
-		);
-	}
+        $this->assertEquals(
+            $localObjectStorage,
+            $this->subject->getCategories()
+        );
+    }
 }

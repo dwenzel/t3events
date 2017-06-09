@@ -61,7 +61,6 @@ class ItemsProcFunc
         $templateLayouts = $this->templateLayoutUtility->getLayouts(static::EXTENSION_KEY, $pageId);
 
         foreach ($templateLayouts as $layout) {
-
             $additionalLayout = [
                 htmlspecialchars($this->getLanguageService()->sL($layout[0])),
                 $layout[1]

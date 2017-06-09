@@ -23,48 +23,55 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
  * @author Dirk Wenzel <wenzel@webfox01.de>
  * @author Michael Kasten <kasten@webfox01.de>
  */
-class SearchTest extends UnitTestCase {
+class SearchTest extends UnitTestCase
+{
 
-	/**
-	 * @var \DWenzel\T3events\Domain\Model\Dto\Search
-	 */
-	protected $fixture;
+    /**
+     * @var \DWenzel\T3events\Domain\Model\Dto\Search
+     */
+    protected $fixture;
 
-	public function setUp() {
-		$this->fixture = new \DWenzel\T3events\Domain\Model\Dto\Search();
-	}
+    public function setUp()
+    {
+        $this->fixture = new \DWenzel\T3events\Domain\Model\Dto\Search();
+    }
 
-	public function tearDown() {
-		unset($this->fixture);
-	}
+    public function tearDown()
+    {
+        unset($this->fixture);
+    }
 
-	/**
-	 * @test
-	 */
-	public function getSubjectReturnsInitialValueForString() {
-		$this->assertNull($this->fixture->getSubject());
-	}
+    /**
+     * @test
+     */
+    public function getSubjectReturnsInitialValueForString()
+    {
+        $this->assertNull($this->fixture->getSubject());
+    }
 
-	/**
-	 * @test
-	 */
-	public function setSubjectForStringSetsSubject() {
-		$this->fixture->setSubject('ping');
-		$this->assertSame('ping', $this->fixture->getSubject());
-	}
+    /**
+     * @test
+     */
+    public function setSubjectForStringSetsSubject()
+    {
+        $this->fixture->setSubject('ping');
+        $this->assertSame('ping', $this->fixture->getSubject());
+    }
 
-	/**
-	 * @test
-	 */
-	public function getFieldsReturnsInitialValueForString() {
-		$this->assertNull($this->fixture->getFields());
-	}
+    /**
+     * @test
+     */
+    public function getFieldsReturnsInitialValueForString()
+    {
+        $this->assertNull($this->fixture->getFields());
+    }
 
-	/**
-	 * @test
-	 */
-	public function setFieldsForStringSetsFields() {
-		$this->fixture->setFields('ping');
-		$this->assertSame('ping', $this->fixture->getFields());
-	}
+    /**
+     * @test
+     */
+    public function setFieldsForStringSetsFields()
+    {
+        $this->fixture->setFields('ping');
+        $this->assertSame('ping', $this->fixture->getFields());
+    }
 }

@@ -6,20 +6,21 @@ namespace DWenzel\T3events\Domain\Model\Dto;
  *
  * @package DWenzel\T3events\Domain\Model\Dto
  */
-interface EventLocationAwareDemandInterface {
-	/**
-	 * @return string
-	 */
-	public function getEventLocations();
+interface EventLocationAwareDemandInterface
+{
+    /**
+     * @return string
+     */
+    public function getEventLocations();
 
-	/**
-	 * @param string $eventLocations
-	 * @return void
-	 */
-	public function setEventLocations($eventLocations);
+    /**
+     * @param string $eventLocations
+     * @return void
+     */
+    public function setEventLocations($eventLocations);
 
-	/**
-	 * @return string
-	 */
-	public function getEventLocationField();
+    /**
+     * @return string
+     */
+    public function getEventLocationField();
 }

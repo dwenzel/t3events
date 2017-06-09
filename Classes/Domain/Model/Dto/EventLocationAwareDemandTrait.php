@@ -14,7 +14,8 @@ namespace DWenzel\T3events\Domain\Model\Dto;
  * The TYPO3 project - inspiring people to share!
  */
 
-trait EventLocationAwareDemandTrait {
+trait EventLocationAwareDemandTrait
+{
     /**
      * @var string
      */
@@ -40,5 +41,4 @@ trait EventLocationAwareDemandTrait {
     {
         $this->eventLocations = $eventLocations;
     }
-
 }

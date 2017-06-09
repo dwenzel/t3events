@@ -299,5 +299,4 @@ class DemandTraitTest extends UnitTestCase
 
         $this->subject->overwriteDemandObject($demand, $overwriteDemand);
     }
-
 }

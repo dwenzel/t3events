@@ -38,7 +38,7 @@ class NotificationServiceTest extends UnitTestCase
     public function setUp()
     {
         $this->subject = $this->getAccessibleMock(
-            NotificationService::class,['dummy']
+            NotificationService::class, ['dummy']
         );
     }
 
@@ -70,7 +70,6 @@ class NotificationServiceTest extends UnitTestCase
             [ 'foo@bar.baz', ['foo@bar.baz']],
             ['foo,bar', ['foo', 'bar']]
         ];
-
     }
     /**
      * @test
@@ -109,7 +108,7 @@ class NotificationServiceTest extends UnitTestCase
     public function notifySetsRecipients($recipient, $expectedRecipients)
     {
         $this->subject = $this->getAccessibleMock(
-            \DWenzel\T3events\Service\NotificationService::class,['dummy', 'buildTemplateView']
+            \DWenzel\T3events\Service\NotificationService::class, ['dummy', 'buildTemplateView']
         );
 
         $mockTemplateView = $this->getMock(

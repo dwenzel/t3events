@@ -7,28 +7,31 @@ namespace DWenzel\T3events\Domain\Model\Dto;
  *
  * @package DWenzel\T3events\Domain\Model\Dto
  */
-trait SearchAwareDemandTrait {
-	/**
-	 * @var \DWenzel\T3events\Domain\Model\Dto\Search
-	 */
-	protected $search;
+trait SearchAwareDemandTrait
+{
+    /**
+     * @var \DWenzel\T3events\Domain\Model\Dto\Search
+     */
+    protected $search;
 
-	/**
-	 * Get search
-	 *
-	 * @return \DWenzel\T3events\Domain\Model\Dto\Search
-	 */
-	public function getSearch() {
-		return $this->search;
-	}
+    /**
+     * Get search
+     *
+     * @return \DWenzel\T3events\Domain\Model\Dto\Search
+     */
+    public function getSearch()
+    {
+        return $this->search;
+    }
 
-	/**
-	 * Set search object
-	 *
-	 * @param \DWenzel\T3events\Domain\Model\Dto\Search $search A search object
-	 * @return void
-	 */
-	public function setSearch(Search $search) {
-		$this->search = $search;
-	}
+    /**
+     * Set search object
+     *
+     * @param \DWenzel\T3events\Domain\Model\Dto\Search $search A search object
+     * @return void
+     */
+    public function setSearch(Search $search)
+    {
+        $this->search = $search;
+    }
 }

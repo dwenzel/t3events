@@ -141,5 +141,4 @@ class MigrateTaskRecords extends AbstractUpdate
 
         return $tasks;
     }
-
 }

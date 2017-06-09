@@ -1,25 +1,25 @@
 <?php
 if (!defined('TYPO3_MODE')) {
-	die ('Access denied.');
+    die('Access denied.');
 }
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-	'DWenzel.' . $_EXTKEY,
-	'Events',
-	array(
-		'Event' => 'list, show, quickMenu',
-		'Performance' => 'list,show,calendar,quickMenu',
-	),
-	// non-cacheable actions
-	array(
-		'Event' => 'quickMenu',
-		'Performances' => 'quickMenu',
-	)
+    'DWenzel.' . $_EXTKEY,
+    'Events',
+    array(
+        'Event' => 'list, show, quickMenu',
+        'Performance' => 'list,show,calendar,quickMenu',
+    ),
+    // non-cacheable actions
+    array(
+        'Event' => 'quickMenu',
+        'Performances' => 'quickMenu',
+    )
 );
 
 // Modify flexform values
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_befunc.php']['getFlexFormDSClass']['t3events'] =
-	'DWenzel\\T3events\\Hooks\\BackendUtility';
+    'DWenzel\\T3events\\Hooks\\BackendUtility';
 
 // Modify flexform fields since core 8.5 via formEngine: Inject a data provider
 // between TcaFlexPrepare and TcaFlexProcess

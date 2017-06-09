@@ -32,7 +32,8 @@ trait SettingsUtilityTrait
      *
      * @param \DWenzel\T3events\Utility\SettingsUtility $settingsUtility
      */
-    public function injectSettingsUtility(SettingsUtility $settingsUtility) {
+    public function injectSettingsUtility(SettingsUtility $settingsUtility)
+    {
         $this->settingsUtility = $settingsUtility;
     }
 
@@ -62,6 +63,4 @@ trait SettingsUtilityTrait
         $typoScriptSettings = ArrayUtility::arrayMergeRecursiveOverrule($controllerSettings, $actionSettings, false, false);
         return ArrayUtility::arrayMergeRecursiveOverrule($this->settings, $typoScriptSettings, false, false);
     }
-
-
 }

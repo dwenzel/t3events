@@ -68,8 +68,7 @@ trait DemandTrait
                         break;
                     case 'venue':
                     case 'venues':
-                        if ($demand instanceof EventDemand)
-                        {
+                        if ($demand instanceof EventDemand) {
                             $demand->setVenue($propertyValue);
                         }
                         if ($demand instanceof VenueAwareDemandInterface) {
@@ -120,6 +119,4 @@ trait DemandTrait
             }
         }
     }
-
-
 }

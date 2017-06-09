@@ -21,8 +21,9 @@ trait SkipPropertyTrait
      * @param mixed $value
      * @return bool Returns true for empty and composite properties otherwise false
      */
-    protected function shouldSkipProperty($name, $value) {
-        if (empty ($value)) {
+    protected function shouldSkipProperty($name, $value)
+    {
+        if (empty($value)) {
             return true;
         }
         if (in_array($name, $this->getCompositeProperties())) {

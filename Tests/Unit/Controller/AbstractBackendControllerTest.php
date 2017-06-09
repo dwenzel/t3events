@@ -36,104 +36,111 @@ use DWenzel\T3events\Domain\Model\Dto\ModuleData;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-class AbstractBackendControllerTest extends UnitTestCase {
+class AbstractBackendControllerTest extends UnitTestCase
+{
 
-	/**
-	 * @var AbstractBackendController
-	 */
-	protected $subject;
+    /**
+     * @var AbstractBackendController
+     */
+    protected $subject;
 
-	/**
-	 * set up
-	 */
-	protected function setUp() {
-		$this->subject = $this->getAccessibleMock(
-			AbstractBackendController::class, ['dummy'], [], '', false
-		);
-	}
+    /**
+     * set up
+     */
+    protected function setUp()
+    {
+        $this->subject = $this->getAccessibleMock(
+            AbstractBackendController::class, ['dummy'], [], '', false
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function eventTypeRepositoryCanBeInjected() {
-		$mockRepository = $this->getMock(
-			EventTypeRepository::class, [], [], '', false
-		);
+    /**
+     * @test
+     */
+    public function eventTypeRepositoryCanBeInjected()
+    {
+        $mockRepository = $this->getMock(
+            EventTypeRepository::class, [], [], '', false
+        );
 
-		$this->subject->injectEventTypeRepository($mockRepository);
+        $this->subject->injectEventTypeRepository($mockRepository);
 
-		$this->assertAttributeSame(
-			$mockRepository,
-			'eventTypeRepository',
-			$this->subject
-		);
-	}
+        $this->assertAttributeSame(
+            $mockRepository,
+            'eventTypeRepository',
+            $this->subject
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function companyRepositoryCanBeInjected() {
-		$mockRepository = $this->getMock(
-			CompanyRepository::class, [], [], '', false
-		);
+    /**
+     * @test
+     */
+    public function companyRepositoryCanBeInjected()
+    {
+        $mockRepository = $this->getMock(
+            CompanyRepository::class, [], [], '', false
+        );
 
-		$this->subject->injectCompanyRepository($mockRepository);
+        $this->subject->injectCompanyRepository($mockRepository);
 
-		$this->assertAttributeSame(
-			$mockRepository,
-			'companyRepository',
-			$this->subject
-		);
-	}
+        $this->assertAttributeSame(
+            $mockRepository,
+            'companyRepository',
+            $this->subject
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function genreRepositoryCanBeInjected() {
-		$mockRepository = $this->getMock(
-			GenreRepository::class, [], [], '', false
-		);
+    /**
+     * @test
+     */
+    public function genreRepositoryCanBeInjected()
+    {
+        $mockRepository = $this->getMock(
+            GenreRepository::class, [], [], '', false
+        );
 
-		$this->subject->injectGenreRepository($mockRepository);
+        $this->subject->injectGenreRepository($mockRepository);
 
-		$this->assertAttributeSame(
-			$mockRepository,
-			'genreRepository',
-			$this->subject
-		);
-	}
+        $this->assertAttributeSame(
+            $mockRepository,
+            'genreRepository',
+            $this->subject
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function audienceRepositoryCanBeInjected() {
-		$mockRepository = $this->getMock(
-			AudienceRepository::class, [], [], '', false
-		);
+    /**
+     * @test
+     */
+    public function audienceRepositoryCanBeInjected()
+    {
+        $mockRepository = $this->getMock(
+            AudienceRepository::class, [], [], '', false
+        );
 
-		$this->subject->injectAudienceRepository($mockRepository);
+        $this->subject->injectAudienceRepository($mockRepository);
 
-		$this->assertAttributeSame(
-			$mockRepository,
-			'audienceRepository',
-			$this->subject
-		);
-	}
+        $this->assertAttributeSame(
+            $mockRepository,
+            'audienceRepository',
+            $this->subject
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function venueRepositoryCanBeInjected() {
-		$mockRepository = $this->getMock(
-			VenueRepository::class, [], [], '', false
-		);
+    /**
+     * @test
+     */
+    public function venueRepositoryCanBeInjected()
+    {
+        $mockRepository = $this->getMock(
+            VenueRepository::class, [], [], '', false
+        );
 
-		$this->subject->injectVenueRepository($mockRepository);
+        $this->subject->injectVenueRepository($mockRepository);
 
-		$this->assertAttributeSame(
-			$mockRepository,
-			'venueRepository',
-			$this->subject
-		);
-	}
+        $this->assertAttributeSame(
+            $mockRepository,
+            'venueRepository',
+            $this->subject
+        );
+    }
 }

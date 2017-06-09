@@ -37,7 +37,7 @@ class EventPluginFormDataProviderTest extends UnitTestCase
      */
     public function setUp()
     {
-        if(!interface_exists(FormDataProviderInterface::class)) {
+        if (!interface_exists(FormDataProviderInterface::class)) {
             $this->markTestSkipped();
         }
         $this->subject = $this->getMockBuilder(EventPluginFormDataProvider::class)

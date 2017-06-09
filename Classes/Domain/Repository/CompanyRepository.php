@@ -24,5 +24,6 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
 /**
  * The repository for Companies
  */
-class CompanyRepository extends Repository {
+class CompanyRepository extends Repository
+{
 }

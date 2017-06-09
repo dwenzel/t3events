@@ -78,7 +78,7 @@ class AbstractController extends ActionController
      */
     protected function setReferrerArguments()
     {
-        if ($this->request->hasArgument('referrerArguments') AND
+        if ($this->request->hasArgument('referrerArguments') and
             is_array($this->request->getArgument('referrerArguments'))
         ) {
             $this->referrerArguments = $this->request->getArgument('referrerArguments');
@@ -86,6 +86,4 @@ class AbstractController extends ActionController
             $this->referrerArguments = [];
         }
     }
-
-
 }

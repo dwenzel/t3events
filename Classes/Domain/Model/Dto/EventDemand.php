@@ -18,170 +18,186 @@ namespace DWenzel\T3events\Domain\Model\Dto;
  * EventDemand
  * Demand object for querying events
  */
-class EventDemand extends AbstractDemand
-	implements DemandInterface, PeriodAwareDemandInterface,
-	SearchAwareDemandInterface, AudienceAwareDemandInterface, OrderAwareDemandInterface {
+class EventDemand extends AbstractDemand implements
+    DemandInterface,
+    PeriodAwareDemandInterface,
+    SearchAwareDemandInterface,
+    AudienceAwareDemandInterface,
+    OrderAwareDemandInterface
+{
     // todo use demand traits
-	use PeriodAwareDemandTrait, SearchAwareDemandTrait,
-		AudienceAwareDemandTrait, OrderAwareDemandTrait;
+    use PeriodAwareDemandTrait, SearchAwareDemandTrait,
+        AudienceAwareDemandTrait, OrderAwareDemandTrait;
 
-	const START_DATE_FIELD = 'performances.date';
-	const END_DATE_FIELD = 'performances.endDate';
-	const AUDIENCE_FIELD = 'audience';
+    const START_DATE_FIELD = 'performances.date';
+    const END_DATE_FIELD = 'performances.endDate';
+    const AUDIENCE_FIELD = 'audience';
 
-	/**
-	 * Genre
-	 *
-	 * @var string Genre
-	 */
-	protected $genre;
+    /**
+     * Genre
+     *
+     * @var string Genre
+     */
+    protected $genre;
 
-	/**
-	 * Venue
-	 *
-	 * @var string Venue
-	 */
-	protected $venue;
+    /**
+     * Venue
+     *
+     * @var string Venue
+     */
+    protected $venue;
 
-	/**
-	 * Event Type
-	 *
-	 * @var string
-	 */
-	protected $eventType;
+    /**
+     * Event Type
+     *
+     * @var string
+     */
+    protected $eventType;
 
-	/**
-	 * Categories
-	 *
-	 * @var string
-	 */
-	protected $categories;
+    /**
+     * Categories
+     *
+     * @var string
+     */
+    protected $categories;
 
-	/**
-	 * Category Conjunction
-	 *
-	 * @var string
-	 */
-	protected $categoryConjunction;
+    /**
+     * Category Conjunction
+     *
+     * @var string
+     */
+    protected $categoryConjunction;
 
-	/**
-	 * Returns the genre
-	 *
-	 * @return string $genre
-	 */
-	public function getGenre() {
-		return $this->genre;
-	}
+    /**
+     * Returns the genre
+     *
+     * @return string $genre
+     */
+    public function getGenre()
+    {
+        return $this->genre;
+    }
 
-	/**
-	 * Sets the genre
-	 *
-	 * @param string $genre
-	 * @return void
-	 */
-	public function setGenre($genre) {
-		$this->genre = $genre;
-	}
+    /**
+     * Sets the genre
+     *
+     * @param string $genre
+     * @return void
+     */
+    public function setGenre($genre)
+    {
+        $this->genre = $genre;
+    }
 
-	/**
-	 * Returns the venue
-	 *
-	 * @return string $venue
-	 */
-	public function getVenue() {
-		return $this->venue;
-	}
+    /**
+     * Returns the venue
+     *
+     * @return string $venue
+     */
+    public function getVenue()
+    {
+        return $this->venue;
+    }
 
-	/**
-	 * Sets the venue
-	 *
-	 * @param string $venue
-	 * @return void
-	 */
-	public function setVenue($venue) {
-		$this->venue = $venue;
-	}
+    /**
+     * Sets the venue
+     *
+     * @param string $venue
+     * @return void
+     */
+    public function setVenue($venue)
+    {
+        $this->venue = $venue;
+    }
 
-	/**
-	 * Returns the Event Type
-	 *
-	 * @return string $eventType
-	 */
-	public function getEventType() {
-		return $this->eventType;
-	}
+    /**
+     * Returns the Event Type
+     *
+     * @return string $eventType
+     */
+    public function getEventType()
+    {
+        return $this->eventType;
+    }
 
-	/**
-	 * Set event type
-	 *
-	 * @param string $eventType
-	 * @return void
-	 */
-	public function setEventType($eventType) {
-		$this->eventType = $eventType;
-	}
+    /**
+     * Set event type
+     *
+     * @param string $eventType
+     * @return void
+     */
+    public function setEventType($eventType)
+    {
+        $this->eventType = $eventType;
+    }
 
-	/**
-	 * Returns the Category Conjunction
-	 *
-	 * @return string
-	 */
-	public function getCategoryConjunction() {
-		return $this->categoryConjunction;
-	}
+    /**
+     * Returns the Category Conjunction
+     *
+     * @return string
+     */
+    public function getCategoryConjunction()
+    {
+        return $this->categoryConjunction;
+    }
 
-	/**
-	 * Set Category Conjunction
-	 *
-	 * @param string $categoryConjunction
-	 * @return void
-	 */
-	public function setCategoryConjunction($categoryConjunction) {
-		$this->categoryConjunction = $categoryConjunction;
-	}
+    /**
+     * Set Category Conjunction
+     *
+     * @param string $categoryConjunction
+     * @return void
+     */
+    public function setCategoryConjunction($categoryConjunction)
+    {
+        $this->categoryConjunction = $categoryConjunction;
+    }
 
-	/**
-	 * Gets the start date field
-	 *
-	 * @return string
-	 */
-	public function getStartDateField() {
-		return static::START_DATE_FIELD;
-	}
+    /**
+     * Gets the start date field
+     *
+     * @return string
+     */
+    public function getStartDateField()
+    {
+        return static::START_DATE_FIELD;
+    }
 
-	/**
-	 * Gets the endDate field
-	 *
-	 * @return string
-	 */
-	public function getEndDateField() {
-		return static::END_DATE_FIELD;
-	}
+    /**
+     * Gets the endDate field
+     *
+     * @return string
+     */
+    public function getEndDateField()
+    {
+        return static::END_DATE_FIELD;
+    }
 
-	/**
-	 * Returns the categories
-	 *
-	 * @return string $categories
-	 */
-	public function getCategories() {
-		return $this->categories;
-	}
+    /**
+     * Returns the categories
+     *
+     * @return string $categories
+     */
+    public function getCategories()
+    {
+        return $this->categories;
+    }
 
-	/**
-	 * Sets the categories
-	 *
-	 * @param string $categories
-	 * @return void
-	 */
-	public function setCategories($categories) {
-		$this->categories = $categories;
-	}
+    /**
+     * Sets the categories
+     *
+     * @param string $categories
+     * @return void
+     */
+    public function setCategories($categories)
+    {
+        $this->categories = $categories;
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getAudienceField() {
-		return static::AUDIENCE_FIELD;
-	}
+    /**
+     * @return string
+     */
+    public function getAudienceField()
+    {
+        return static::AUDIENCE_FIELD;
+    }
 }
-

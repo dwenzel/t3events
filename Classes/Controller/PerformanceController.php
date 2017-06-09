@@ -36,9 +36,8 @@ use DWenzel\T3events\Domain\Repository\VenueRepository;
  *
  * @package DWenzel\T3events\Controller
  */
-class PerformanceController
-    extends ActionController
-    implements FilterableControllerInterface {
+class PerformanceController extends ActionController implements FilterableControllerInterface
+{
     use CategoryRepositoryTrait, CalendarConfigurationFactoryTrait,
         DemandTrait, EntityNotFoundHandlerTrait, FilterableControllerTrait,
         PerformanceDemandFactoryTrait, SearchTrait,SessionTrait,
@@ -297,18 +296,17 @@ class PerformanceController
         $timeZone = new \DateTimeZone(date_default_timezone_get());
         $startDate = new \DateTime('midnight', $timeZone);
         if ($settings['period'] === 'futureOnly'
-            OR $settings['period'] === 'pastOnly'
+            or $settings['period'] === 'pastOnly'
         ) {
             $demand->setDate($startDate);
         }
-        if (isset($settings['periodType']) AND $settings['periodType'] != 'byDate') {
+        if (isset($settings['periodType']) and $settings['periodType'] != 'byDate') {
             $demand->setPeriodStart($settings['periodStart']);
             $demand->setPeriodDuration($settings['periodDuration']);
         }
 
         if ($settings['periodType'] == 'byDate') {
             if ($settings['periodStartDate']) {
-
                 $startDate->setTimestamp((int)$settings['periodStartDate']);
                 $demand->setStartDate($startDate);
             }
@@ -322,4 +320,3 @@ class PerformanceController
         return $demand;
     }
 }
-

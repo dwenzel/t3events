@@ -1,5 +1,6 @@
 <?php
 namespace DWenzel\T3events\Tests\Unit\Controller\Backend;
+
 use DWenzel\T3events\Controller\Backend\ScheduleController;
 use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
 use DWenzel\T3events\Domain\Model\Dto\ModuleData;
@@ -20,7 +21,8 @@ use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
  * The TYPO3 project - inspiring people to share!
  */
 
-class ScheduleControllerTest extends UnitTestCase {
+class ScheduleControllerTest extends UnitTestCase
+{
 
     /**
      * @var ScheduleController|\PHPUnit_Framework_MockObject_MockObject|\TYPO3\CMS\Core\Tests\AccessibleObjectInterface
@@ -182,5 +184,4 @@ class ScheduleControllerTest extends UnitTestCase {
             ->method('assignMultiple');
         $this->subject->listAction();
     }
-
 }

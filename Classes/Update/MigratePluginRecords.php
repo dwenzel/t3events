@@ -55,8 +55,7 @@ class MigratePluginRecords extends AbstractUpdate
      */
     protected function getFlexFormTools()
     {
-        if(!$this->flexFormTools instanceof  FlexFormTools)
-        {
+        if (!$this->flexFormTools instanceof  FlexFormTools) {
             /** @var FlexFormTools flexFormTools */
             $this->flexFormTools = GeneralUtility::makeInstance(FlexFormTools::class);
         }
@@ -94,14 +93,13 @@ class MigratePluginRecords extends AbstractUpdate
                     $flexFormSettings['data']['sDEF']['lDEF']['switchableControllerActions']['vDEF'] = 'Performance->calendar';
                     $switchableControllerActionChanged = true;
                 }
-                if(isset($flexFormSettings['data']['sDEF']['lDEF']['settings.sortBy']['vDEF'])) {
+                if (isset($flexFormSettings['data']['sDEF']['lDEF']['settings.sortBy']['vDEF'])) {
                     $sortBySettings = $flexFormSettings['data']['sDEF']['lDEF']['settings.sortBy']['vDEF'];
                 }
-                if (isset($flexFormSettings['data']['sDEF']['lDEF']['settings.sortDirection']['vDEF']))
-                {
+                if (isset($flexFormSettings['data']['sDEF']['lDEF']['settings.sortDirection']['vDEF'])) {
                     $sortDirectionSettings = $flexFormSettings['data']['sDEF']['lDEF']['settings.sortDirection']['vDEF'];
                 }
-                if(!empty($sortBySettings || $switchableControllerActionChanged)) {
+                if (!empty($sortBySettings || $switchableControllerActionChanged)) {
                     $flexFormSettings['data']['sDEF']['lDEF']['settings.order']['vDEF'] = $sortBySettings . '|'. $sortDirectionSettings . ',performances.begin|asc';
                     unset($flexFormSettings['data']['sDEF']['lDEF']['settings.sortBy']);
                     unset($flexFormSettings['data']['sDEF']['lDEF']['settings.sortDirection']);

@@ -6,20 +6,21 @@ namespace DWenzel\T3events\Domain\Model\Dto;
  *
  * @package DWenzel\T3events\Domain\Model\Dto
  */
-interface CategoryAwareDemandInterface {
-	/**
-	 * @return string
-	 */
-	public function getCategories();
+interface CategoryAwareDemandInterface
+{
+    /**
+     * @return string
+     */
+    public function getCategories();
 
-	/**
-	 * @param string $categories
-	 * @return void
-	 */
-	public function setCategories($categories);
+    /**
+     * @param string $categories
+     * @return void
+     */
+    public function setCategories($categories);
 
-	/**
-	 * @return string
-	 */
-	public function getCategoryField();
+    /**
+     * @return string
+     */
+    public function getCategoryField();
 }

@@ -43,7 +43,8 @@ class SettingsUtilityTraitTest extends UnitTestCase
     /**
      * @test
      */
-    public function injectSettingsUtilitySetsObject() {
+    public function injectSettingsUtilitySetsObject()
+    {
         $object = $this->getMock(
             SettingsUtility::class
         );
@@ -144,6 +145,4 @@ class SettingsUtilityTraitTest extends UnitTestCase
             $this->fixture->mergeSettings()
         );
     }
-
 }
-
