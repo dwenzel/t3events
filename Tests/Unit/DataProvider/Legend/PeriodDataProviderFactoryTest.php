@@ -1,14 +1,15 @@
 <?php
+
 namespace DWenzel\T3events\Tests\Unit\DataProvider\Legend;
 
-use Nimut\TestingFramework\TestCase\UnitTestCase;
-use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use DWenzel\T3events\DataProvider\Legend\PeriodAllDataProvider;
 use DWenzel\T3events\DataProvider\Legend\PeriodDataProviderFactory;
 use DWenzel\T3events\DataProvider\Legend\PeriodFutureDataProvider;
 use DWenzel\T3events\DataProvider\Legend\PeriodPastDataProvider;
 use DWenzel\T3events\DataProvider\Legend\PeriodSpecificDataProvider;
 use DWenzel\T3events\DataProvider\Legend\PeriodUnknownDataProvider;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 
 /***************************************************************
  *  Copyright notice
@@ -54,23 +55,27 @@ class PeriodDataProviderFactoryTest extends UnitTestCase
             $this->subject->get([])
         );
     }
+
     /**
      * @return array
      */
     public function getValidParamsDataProvider()
     {
         $validClasses = [
-            'futureOnly' => \DWenzel\T3events\DataProvider\Legend\PeriodFutureDataProvider::class,
-            'pastOnly' => \DWenzel\T3events\DataProvider\Legend\PeriodPastDataProvider::class,
-            'specific' => \DWenzel\T3events\DataProvider\Legend\PeriodSpecificDataProvider::class,
-            'all' => \DWenzel\T3events\DataProvider\Legend\PeriodAllDataProvider::class,
+            'futureOnly' => PeriodFutureDataProvider::class,
+            'pastOnly' => PeriodPastDataProvider::class,
+            'specific' => PeriodSpecificDataProvider::class,
+            'all' => PeriodAllDataProvider::class,
         ];
         $data = [];
         $versionNumber = VersionNumberUtility::convertVersionNumberToInteger(VersionNumberUtility::getNumericTypo3Version());
-        foreach ($validClasses as $key=>$class) {
+        foreach ($validClasses as $key => $class) {
             $periodValue = $key;
             // incoming array differs depending on TYPO3 version!
-            if ( $versionNumber >= 7006000 && $versionNumber < 7006015) {
+            if (
+                ($versionNumber >= 7006000 && $versionNumber < 7006015)
+                || $versionNumber >= 8007001
+            ) {
                 $periodValue = [$key];
             }
             $data[] = [

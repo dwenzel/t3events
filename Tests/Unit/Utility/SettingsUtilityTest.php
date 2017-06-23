@@ -46,7 +46,6 @@ class DummyController
  */
 class SettingsUtilityTest extends UnitTestCase
 {
-
     const SKIP_MESSAGE_FILEREFERENCE = 'Skipped due to incompatible implementation in core.';
 
     /**

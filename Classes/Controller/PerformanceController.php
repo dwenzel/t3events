@@ -32,8 +32,7 @@ use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
  */
 class PerformanceController
     extends ActionController
-    implements FilterableControllerInterface
-{
+    implements FilterableControllerInterface {
     use CategoryRepositoryTrait, CalendarConfigurationFactoryTrait,
         DemandTrait, EntityNotFoundHandlerTrait, FilterableControllerTrait,
         PerformanceDemandFactoryTrait, SearchTrait, SessionTrait,
@@ -303,7 +302,6 @@ class PerformanceController
 
         if ($settings['periodType'] == 'byDate') {
             if ($settings['periodStartDate']) {
-
                 $startDate->setTimestamp((int)$settings['periodStartDate']);
                 $demand->setStartDate($startDate);
             }
@@ -317,4 +315,3 @@ class PerformanceController
         return $demand;
     }
 }
-

@@ -1615,4 +1615,3 @@ class PerformanceControllerTest extends UnitTestCase
         );
     }
 }
-

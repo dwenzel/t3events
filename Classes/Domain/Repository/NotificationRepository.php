@@ -23,5 +23,6 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
 /**
  * The repository for Notifications
  */
-class NotificationRepository extends Repository {
+class NotificationRepository extends Repository
+{
 }

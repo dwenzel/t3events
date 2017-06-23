@@ -1,5 +1,6 @@
 <?php
 namespace DWenzel\T3events\Controller;
+
 use TYPO3\CMS\Core\Resource\Driver\LocalDriver;
 use DWenzel\T3events\InvalidFileTypeException;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
@@ -20,7 +21,7 @@ trait DownloadTrait
      *
      * @var ViewInterface
      */
-    protected $view = NULL;
+    protected $view = null;
 
     /**
      * Contains the settings of the current extension

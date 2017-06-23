@@ -35,5 +35,4 @@ trait OrderAwareDemandTrait
     {
         $this->order = $order;
     }
-
 }

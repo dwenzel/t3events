@@ -78,7 +78,7 @@ class Route
      *
      * @var array
      */
-    static protected $validMethods = [
+    protected static $validMethods = [
         self::METHOD_REDIRECT,
         self::METHOD_FORWARD,
         self::METHOD_REDIRECT_TO_URI
@@ -195,5 +195,4 @@ class Route
     {
         return array_key_exists($name, $this->options);
     }
-
 }

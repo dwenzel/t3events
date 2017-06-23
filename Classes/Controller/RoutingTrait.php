@@ -101,8 +101,7 @@ trait RoutingTrait
      *
      * @return string
      */
-    protected
-    function getOrigin()
+    protected function getOrigin()
     {
         $actionName = $this->request->getControllerActionName();
         $controllerObjectName = $this->request->getControllerObjectName();

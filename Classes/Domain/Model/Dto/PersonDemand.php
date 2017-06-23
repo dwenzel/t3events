@@ -17,8 +17,7 @@ namespace DWenzel\T3events\Domain\Model\Dto;
 /**
  * Class PersonDemand
  */
-class PersonDemand
-    extends AbstractDemand
-	implements DemandInterface, OrderAwareDemandInterface , SearchAwareDemandInterface {
-	use SearchAwareDemandTrait, OrderAwareDemandTrait;
+class PersonDemand extends AbstractDemand implements DemandInterface, OrderAwareDemandInterface, SearchAwareDemandInterface
+{
+    use SearchAwareDemandTrait, OrderAwareDemandTrait;
 }

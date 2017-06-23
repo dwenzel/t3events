@@ -1,7 +1,7 @@
 <?php
 namespace DWenzel\T3events\Domain\Model;
 
- /***************************************************************
+/***************************************************************
  *
  *  Copyright notice
  *
@@ -25,6 +25,6 @@ namespace DWenzel\T3events\Domain\Model;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-class Category extends \TYPO3\CMS\Extbase\Domain\Model\Category {
-
+class Category extends \TYPO3\CMS\Extbase\Domain\Model\Category
+{
 }

@@ -45,5 +45,4 @@ trait PerformanceRepositoryTrait
     {
         $this->performanceRepository = $performanceRepository;
     }
-
 }

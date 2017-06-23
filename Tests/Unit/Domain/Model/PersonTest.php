@@ -40,7 +40,7 @@ class PersonTest extends UnitTestCase
     /**
      * @var \DWenzel\T3events\Domain\Model\Person
      */
-    protected $subject = NULL;
+    protected $subject = null;
 
     protected function setUp()
     {

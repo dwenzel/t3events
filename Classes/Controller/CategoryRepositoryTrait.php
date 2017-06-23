@@ -20,6 +20,7 @@ namespace DWenzel\T3events\Controller;
  ***************************************************************/
 
 use DWenzel\T3events\Domain\Repository\CategoryRepository;
+
 /**
  * Class CategoryRepositoryTrait
  *

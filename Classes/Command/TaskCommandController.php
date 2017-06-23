@@ -113,7 +113,6 @@ class TaskCommandController extends CommandController
      */
     public function runHidePerformanceTasks()
     {
-
         $hideTasks = $this->taskRepository->findByAction(Task::ACTION_HIDE_PERFORMANCE);
         $message = '';
 
@@ -150,7 +149,6 @@ class TaskCommandController extends CommandController
             }
 
             $message .= '----------------------------------------' . LF;
-
         }
 
         return $message;

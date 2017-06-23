@@ -27,80 +27,82 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * @package t3events
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-class EventRepository
-	extends AbstractDemandedRepository
-	implements PeriodConstraintRepositoryInterface, LocationConstraintRepositoryInterface,
-	AudienceConstraintRepositoryInterface {
-	use PeriodConstraintRepositoryTrait, LocationConstraintRepositoryTrait,
-		AudienceConstraintRepositoryTrait;
-	/**
-	 * Create category constraints from demand
-	 *
-	 * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
-	 * @param \DWenzel\T3events\Domain\Model\Dto\EventDemand $demand
-	 * @return array<\TYPO3\CMS\Extbase\Persistence\QOM\Constraint>
-	 */
-	protected function createCategoryConstraints(QueryInterface $query, $demand) {
-		// gather OR constraints (categories)
-		$categoryConstraints = [];
+class EventRepository extends AbstractDemandedRepository implements
+    PeriodConstraintRepositoryInterface,
+    LocationConstraintRepositoryInterface,
+    AudienceConstraintRepositoryInterface
+{
+    use PeriodConstraintRepositoryTrait, LocationConstraintRepositoryTrait,
+        AudienceConstraintRepositoryTrait;
+    /**
+     * Create category constraints from demand
+     *
+     * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
+     * @param \DWenzel\T3events\Domain\Model\Dto\EventDemand $demand
+     * @return array<\TYPO3\CMS\Extbase\Persistence\QOM\Constraint>
+     */
+    protected function createCategoryConstraints(QueryInterface $query, $demand)
+    {
+        // gather OR constraints (categories)
+        $categoryConstraints = [];
 
-		// genre
-		if ($demand->getGenre()) {
-			$genres = GeneralUtility::intExplode(',', $demand->getGenre());
-			foreach ($genres as $genre) {
-				$categoryConstraints[] = $query->contains('genre', $genre);
-			}
-		}
-		// venue
-		if ($demand->getVenue()) {
-			$venues = GeneralUtility::intExplode(',', $demand->getVenue());
-			foreach ($venues as $venue) {
-				$categoryConstraints[] = $query->contains('venue', $venue);
-			}
-		}
-		// event type
-		if ($demand->getEventType()) {
-			$eventTypes = GeneralUtility::intExplode(',', $demand->getEventType());
-			foreach ($eventTypes as $eventType) {
-				$categoryConstraints[] = $query->equals('eventType.uid', $eventType);
-			}
-		}
+        // genre
+        if ($demand->getGenre()) {
+            $genres = GeneralUtility::intExplode(',', $demand->getGenre());
+            foreach ($genres as $genre) {
+                $categoryConstraints[] = $query->contains('genre', $genre);
+            }
+        }
+        // venue
+        if ($demand->getVenue()) {
+            $venues = GeneralUtility::intExplode(',', $demand->getVenue());
+            foreach ($venues as $venue) {
+                $categoryConstraints[] = $query->contains('venue', $venue);
+            }
+        }
+        // event type
+        if ($demand->getEventType()) {
+            $eventTypes = GeneralUtility::intExplode(',', $demand->getEventType());
+            foreach ($eventTypes as $eventType) {
+                $categoryConstraints[] = $query->equals('eventType.uid', $eventType);
+            }
+        }
 
-		if ($demand->getCategories()) {
-			$categories = GeneralUtility::intExplode(',', $demand->getCategories());
-			foreach($categories as $category) {
-				$categoryConstraints[] = $query->contains('categories', $category);
-			}
-		}
-		return $categoryConstraints;
-	}
+        if ($demand->getCategories()) {
+            $categories = GeneralUtility::intExplode(',', $demand->getCategories());
+            foreach ($categories as $category) {
+                $categoryConstraints[] = $query->contains('categories', $category);
+            }
+        }
+        return $categoryConstraints;
+    }
 
-	/**
-	 * Returns an array of constraints created from a given demand object.
-	 *
-	 * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
-	 * @param \DWenzel\T3events\Domain\Model\Dto\DemandInterface $demand
-	 * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint>
-	 */
-	public function createConstraintsFromDemand(QueryInterface $query, DemandInterface $demand) {
-		$constraints = [];
-		if ((bool) $periodConstraints = $this->createPeriodConstraints($query, $demand)) {
-			$this->combineConstraints($query, $constraints, $periodConstraints, 'AND');
-		}
-		if ((bool) $categoryConstraints = $this->createCategoryConstraints($query, $demand)) {
-			$this->combineConstraints($query, $constraints, $categoryConstraints, $demand->getCategoryConjunction());
-		}
-		if ((bool) $searchConstraints = $this->createSearchConstraints($query, $demand)) {
-			$this->combineConstraints($query, $constraints, $searchConstraints, 'OR');
-		}
-		if ((bool) $locationConstraints = $this->createLocationConstraints($query, $demand)) {
-			$this->combineConstraints($query, $constraints, $locationConstraints, 'AND');
-		}
-		if ((bool) $audienceConstraints = $this->createAudienceConstraints($query, $demand)) {
-			$this->combineConstraints($query, $constraints, $audienceConstraints, 'AND');
-		}
+    /**
+     * Returns an array of constraints created from a given demand object.
+     *
+     * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
+     * @param \DWenzel\T3events\Domain\Model\Dto\DemandInterface $demand
+     * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint>
+     */
+    public function createConstraintsFromDemand(QueryInterface $query, DemandInterface $demand)
+    {
+        $constraints = [];
+        if ((bool) $periodConstraints = $this->createPeriodConstraints($query, $demand)) {
+            $this->combineConstraints($query, $constraints, $periodConstraints, 'AND');
+        }
+        if ((bool) $categoryConstraints = $this->createCategoryConstraints($query, $demand)) {
+            $this->combineConstraints($query, $constraints, $categoryConstraints, $demand->getCategoryConjunction());
+        }
+        if ((bool) $searchConstraints = $this->createSearchConstraints($query, $demand)) {
+            $this->combineConstraints($query, $constraints, $searchConstraints, 'OR');
+        }
+        if ((bool) $locationConstraints = $this->createLocationConstraints($query, $demand)) {
+            $this->combineConstraints($query, $constraints, $locationConstraints, 'AND');
+        }
+        if ((bool) $audienceConstraints = $this->createAudienceConstraints($query, $demand)) {
+            $this->combineConstraints($query, $constraints, $audienceConstraints, 'AND');
+        }
 
-		return $constraints;
-	}
-
+        return $constraints;
+    }
 }

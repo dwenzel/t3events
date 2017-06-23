@@ -30,22 +30,24 @@ use DWenzel\T3events\Domain\Repository\AudienceRepository;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-class DummyControllerWithAudienceRepository {
-	use \DWenzel\T3events\Controller\FilterableControllerTrait;
+class DummyControllerWithAudienceRepository
+{
+    use \DWenzel\T3events\Controller\FilterableControllerTrait;
 
-	protected $audienceRepository;
+    protected $audienceRepository;
 
-	/**
-	 * Mock translate function
-	 *
-	 * @param $key
-	 * @param string $extension
-	 * @param null $arguments
-	 * @return string
-	 */
-	public function translate($key, $extension = 't3events', $arguments = NULL) {
-		return 'foo';
-	}
+    /**
+     * Mock translate function
+     *
+     * @param $key
+     * @param string $extension
+     * @param null $arguments
+     * @return string
+     */
+    public function translate($key, $extension = 't3events', $arguments = null)
+    {
+        return 'foo';
+    }
 }
 
 /**
@@ -53,174 +55,183 @@ class DummyControllerWithAudienceRepository {
  *
  * @package DWenzel\T3events\Tests\Controller
  */
-class FilterableControllerTraitTest extends UnitTestCase {
+class FilterableControllerTraitTest extends UnitTestCase
+{
 
-	/**
-	 * @var \DWenzel\T3events\Controller\FilterableControllerTrait
-	 */
-	protected $subject;
+    /**
+     * @var \DWenzel\T3events\Controller\FilterableControllerTrait
+     */
+    protected $subject;
 
-	public function setUp() {
-		$this->subject = $this->getMockForTrait(
-			\DWenzel\T3events\Controller\FilterableControllerTrait::class
-		);
-	}
+    public function setUp()
+    {
+        $this->subject = $this->getMockForTrait(
+            \DWenzel\T3events\Controller\FilterableControllerTrait::class
+        );
+    }
 
-	/**
-	 * @return \ReflectionMethod
-	 */
-	private function getFilterOptionsReflection() {
-		$reflectionMethod = new \ReflectionMethod(
-			get_class($this->subject),
-			'getFilterOptions'
-		);
-		$reflectionMethod->setAccessible(true);
+    /**
+     * @return \ReflectionMethod
+     */
+    private function getFilterOptionsReflection()
+    {
+        $reflectionMethod = new \ReflectionMethod(
+            get_class($this->subject),
+            'getFilterOptions'
+        );
+        $reflectionMethod->setAccessible(true);
 
-		return $reflectionMethod;
-	}
+        return $reflectionMethod;
+    }
 
-	/**
-	 * @return array
-	 */
-	protected function getDefaultPeriodOptions() {
-		$periodOptions = [];
-		$periodEntries = ['futureOnly', 'pastOnly', 'all', 'specific'];
-		foreach ($periodEntries as $entry) {
-			$period = new \stdClass();
-			$period->key = $entry;
-			$period->value = 'label.period';
-			$periodOptions[] = $period;
-		}
+    /**
+     * @return array
+     */
+    protected function getDefaultPeriodOptions()
+    {
+        $periodOptions = [];
+        $periodEntries = ['futureOnly', 'pastOnly', 'all', 'specific'];
+        foreach ($periodEntries as $entry) {
+            $period = new \stdClass();
+            $period->key = $entry;
+            $period->value = 'label.period';
+            $periodOptions[] = $period;
+        }
 
-		return $periodOptions;
-	}
+        return $periodOptions;
+    }
 
-	/**
-	 * @test
-	 */
-	public function getFilterOptionsInitiallyReturnsEmptyArray() {
-		$settings = [];
-		$filterOptionsReflection = $this->getFilterOptionsReflection();
-		$this->assertSame(
-			[],
-			$filterOptionsReflection->invoke($this->subject, $settings)
-		);
-	}
+    /**
+     * @test
+     */
+    public function getFilterOptionsInitiallyReturnsEmptyArray()
+    {
+        $settings = [];
+        $filterOptionsReflection = $this->getFilterOptionsReflection();
+        $this->assertSame(
+            [],
+            $filterOptionsReflection->invoke($this->subject, $settings)
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function getFilterOptionsAddsAllOptionsForExistingRepositoryProperty() {
-		$this->subject = $this->getAccessibleMock(
-			DummyControllerWithAudienceRepository::class, ['translate']
-		);
+    /**
+     * @test
+     */
+    public function getFilterOptionsAddsAllOptionsForExistingRepositoryProperty()
+    {
+        $this->subject = $this->getAccessibleMock(
+            DummyControllerWithAudienceRepository::class, ['translate']
+        );
 
-		$settings = [
-			'audience' => ''
-		];
-		$audienceRepository = $this->getMock(
-			AudienceRepository::class, ['findAll'], [], '', false
-		);
-		$mockQueryResult = $this->getMock(
-			QueryResultInterface::class
-		);
-		$this->inject($this->subject, 'audienceRepository', $audienceRepository);
+        $settings = [
+            'audience' => ''
+        ];
+        $audienceRepository = $this->getMock(
+            AudienceRepository::class, ['findAll'], [], '', false
+        );
+        $mockQueryResult = $this->getMock(
+            QueryResultInterface::class
+        );
+        $this->inject($this->subject, 'audienceRepository', $audienceRepository);
 
-		$audienceRepository->expects($this->once())
-			->method('findAll')
-			->will($this->returnValue($mockQueryResult));
-		$expectedResult = [
-			'audiences' => $mockQueryResult
-		];
-		$filterOptionsReflection = $this->getFilterOptionsReflection();
-		$this->assertSame(
-			$expectedResult,
-			$filterOptionsReflection->invoke($this->subject, $settings)
-		);
-	}
+        $audienceRepository->expects($this->once())
+            ->method('findAll')
+            ->will($this->returnValue($mockQueryResult));
+        $expectedResult = [
+            'audiences' => $mockQueryResult
+        ];
+        $filterOptionsReflection = $this->getFilterOptionsReflection();
+        $this->assertSame(
+            $expectedResult,
+            $filterOptionsReflection->invoke($this->subject, $settings)
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function getFilterOptionsAddsSelectedOptionsForAbstractDemandedRepositoryProperty() {
-		$uidList = '1,3';
-		$settings = [
-			'audience' => $uidList
-		];
-		$audienceRepository = $this->getMock(
-			AudienceRepository::class, ['findMultipleByUid'], [], '', false
-		);
-		$mockQueryResult = $this->getMock(
-			QueryResultInterface::class
-		);
-		$this->subject = $this->getAccessibleMock(
-			DummyControllerWithAudienceRepository::class, ['dummy']
-		);
+    /**
+     * @test
+     */
+    public function getFilterOptionsAddsSelectedOptionsForAbstractDemandedRepositoryProperty()
+    {
+        $uidList = '1,3';
+        $settings = [
+            'audience' => $uidList
+        ];
+        $audienceRepository = $this->getMock(
+            AudienceRepository::class, ['findMultipleByUid'], [], '', false
+        );
+        $mockQueryResult = $this->getMock(
+            QueryResultInterface::class
+        );
+        $this->subject = $this->getAccessibleMock(
+            DummyControllerWithAudienceRepository::class, ['dummy']
+        );
 
-		$this->inject($this->subject, 'audienceRepository', $audienceRepository);
+        $this->inject($this->subject, 'audienceRepository', $audienceRepository);
 
-		$audienceRepository->expects($this->once())
-			->method('findMultipleByUid')
-			->with($uidList, 'title')
-			->will($this->returnValue($mockQueryResult));
-		$expectedResult = [
-			'audiences' => $mockQueryResult
-		];
-		$filterOptionsReflection = $this->getFilterOptionsReflection();
+        $audienceRepository->expects($this->once())
+            ->method('findMultipleByUid')
+            ->with($uidList, 'title')
+            ->will($this->returnValue($mockQueryResult));
+        $expectedResult = [
+            'audiences' => $mockQueryResult
+        ];
+        $filterOptionsReflection = $this->getFilterOptionsReflection();
 
-		$this->assertSame(
-			$expectedResult,
-			$filterOptionsReflection->invoke($this->subject, $settings)
-		);
-	}
+        $this->assertSame(
+            $expectedResult,
+            $filterOptionsReflection->invoke($this->subject, $settings)
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function getFilterOptionsAddsDefaultPeriodOptions() {
-		$this->subject = $this->getAccessibleMock(
-			DummyControllerWithAudienceRepository::class, ['translate']
-		);
+    /**
+     * @test
+     */
+    public function getFilterOptionsAddsDefaultPeriodOptions()
+    {
+        $this->subject = $this->getAccessibleMock(
+            DummyControllerWithAudienceRepository::class, ['translate']
+        );
 
-		$this->subject->expects($this->any())
-			->method('translate')
-			->will($this->returnValue('label.period'));
-		$settings = [
-			'periods' => ''
-		];
-		$expectedResult = [
-			'periods' => $this->getDefaultPeriodOptions()
-		];
-		$filterOptionsReflection = $this->getFilterOptionsReflection();
-		$this->assertEquals(
-			$expectedResult,
-			$filterOptionsReflection->invoke($this->subject, $settings)
-		);
-	}
+        $this->subject->expects($this->any())
+            ->method('translate')
+            ->will($this->returnValue('label.period'));
+        $settings = [
+            'periods' => ''
+        ];
+        $expectedResult = [
+            'periods' => $this->getDefaultPeriodOptions()
+        ];
+        $filterOptionsReflection = $this->getFilterOptionsReflection();
+        $this->assertEquals(
+            $expectedResult,
+            $filterOptionsReflection->invoke($this->subject, $settings)
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function getFilterOptionsAddsSelectedPeriodOptions() {
-		$this->subject = $this->getMockForTrait(
-			\DWenzel\T3events\Controller\FilterableControllerTrait::class
-		);
-		$this->subject->expects($this->any())
-			->method('translate')
-			->will($this->returnValue('label.period'));
-		$settings = [
-			'periods' => 'foo'
-		];
-		$option = new \stdClass();
-		$option->key = 'foo';
-		$option->value = 'label.period';
-		$expectedResult = [
-			'periods' => [$option]
-		];
-		$filterOptionsReflection = $this->getFilterOptionsReflection();
-		$this->assertEquals(
-			$expectedResult,
-			$filterOptionsReflection->invoke($this->subject, $settings)
-		);
-	}
+    /**
+     * @test
+     */
+    public function getFilterOptionsAddsSelectedPeriodOptions()
+    {
+        $this->subject = $this->getMockForTrait(
+            \DWenzel\T3events\Controller\FilterableControllerTrait::class
+        );
+        $this->subject->expects($this->any())
+            ->method('translate')
+            ->will($this->returnValue('label.period'));
+        $settings = [
+            'periods' => 'foo'
+        ];
+        $option = new \stdClass();
+        $option->key = 'foo';
+        $option->value = 'label.period';
+        $expectedResult = [
+            'periods' => [$option]
+        ];
+        $filterOptionsReflection = $this->getFilterOptionsReflection();
+        $this->assertEquals(
+            $expectedResult,
+            $filterOptionsReflection->invoke($this->subject, $settings)
+        );
+    }
 }

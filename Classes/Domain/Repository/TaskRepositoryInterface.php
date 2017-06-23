@@ -10,4 +10,6 @@ namespace DWenzel\T3events\Domain\Repository;
  * LICENSE.txt file that was distributed with this source code.
  * The TYPO3 project - inspiring people to share!
  */
-interface TaskRepositoryInterface{}
+interface TaskRepositoryInterface
+{
+}

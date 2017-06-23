@@ -239,7 +239,6 @@ class TaskCommandControllerTest extends UnitTestCase
             ->will($this->returnValue($mockDemand));
 
         $this->subject->updateStatusCommand();
-
     }
 
     /**
@@ -270,7 +269,6 @@ class TaskCommandControllerTest extends UnitTestCase
             ->will($this->returnValue($mockDemand));
 
         $this->subject->updateStatusCommand();
-
     }
 
     /**

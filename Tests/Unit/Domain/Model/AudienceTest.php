@@ -1,24 +1,24 @@
 <?php
 namespace DWenzel\T3events\Tests\Unit\Domain\Model;
 
-	/***************************************************************
-	 *  Copyright notice
-	 *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
-	 *            Michael Kasten <kasten@webfox01.de>, Agentur Webfox
-	 *  All rights reserved
-	 *  This script is part of the TYPO3 project. The TYPO3 project is
-	 *  free software; you can redistribute it and/or modify
-	 *  it under the terms of the GNU General Public License as published by
-	 *  the Free Software Foundation; either version 2 of the License, or
-	 *  (at your option) any later version.
-	 *  The GNU General Public License can be found at
-	 *  http://www.gnu.org/copyleft/gpl.html.
-	 *  This script is distributed in the hope that it will be useful,
-	 *  but WITHOUT ANY WARRANTY; without even the implied warranty of
-	 *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	 *  GNU General Public License for more details.
-	 *  This copyright notice MUST APPEAR in all copies of the script!
-	 ***************************************************************/
+/***************************************************************
+     *  Copyright notice
+     *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
+     *            Michael Kasten <kasten@webfox01.de>, Agentur Webfox
+     *  All rights reserved
+     *  This script is part of the TYPO3 project. The TYPO3 project is
+     *  free software; you can redistribute it and/or modify
+     *  it under the terms of the GNU General Public License as published by
+     *  the Free Software Foundation; either version 2 of the License, or
+     *  (at your option) any later version.
+     *  The GNU General Public License can be found at
+     *  http://www.gnu.org/copyleft/gpl.html.
+     *  This script is distributed in the hope that it will be useful,
+     *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+     *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     *  GNU General Public License for more details.
+     *  This copyright notice MUST APPEAR in all copies of the script!
+     ***************************************************************/
 use DWenzel\T3events\Domain\Model\Audience;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 
@@ -33,83 +33,88 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
  * @author Dirk Wenzel <wenzel@webfox01.de>
  * @author Michael Kasten <kasten@webfox01.de>
  */
-class AudienceTest extends UnitTestCase {
+class AudienceTest extends UnitTestCase
+{
 
-	/**
-	 * @var \DWenzel\T3events\Domain\Model\Audience
-	 */
-	protected $fixture;
+    /**
+     * @var \DWenzel\T3events\Domain\Model\Audience
+     */
+    protected $fixture;
 
-	public function setUp() {
-		$this->fixture = $this->getAccessibleMock(
-			Audience::class, ['dummy']
-		);
-	}
+    public function setUp()
+    {
+        $this->fixture = $this->getAccessibleMock(
+            Audience::class, ['dummy']
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function getTitleReturnsInitialValueForString() {
-		$this->assertNull(
-			$this->fixture->getTitle()
-		);
-	}
+    /**
+     * @test
+     */
+    public function getTitleReturnsInitialValueForString()
+    {
+        $this->assertNull(
+            $this->fixture->getTitle()
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function setTitleForStringSetsTitle() {
-		$this->fixture->setTitle('Conceived at T3CON10');
+    /**
+     * @test
+     */
+    public function setTitleForStringSetsTitle()
+    {
+        $this->fixture->setTitle('Conceived at T3CON10');
 
-		$this->assertSame(
-			'Conceived at T3CON10',
-			$this->fixture->getTitle()
-		);
-	}
+        $this->assertSame(
+            'Conceived at T3CON10',
+            $this->fixture->getTitle()
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function getDescriptionReturnsInitialValueForString() {
-		$this->assertNull(
-			$this->fixture->getDescription()
-		);
-	}
+    /**
+     * @test
+     */
+    public function getDescriptionReturnsInitialValueForString()
+    {
+        $this->assertNull(
+            $this->fixture->getDescription()
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function setDescriptionForStringSetsDescription() {
-		$this->fixture->setDescription('Conceived at T3CON10');
+    /**
+     * @test
+     */
+    public function setDescriptionForStringSetsDescription()
+    {
+        $this->fixture->setDescription('Conceived at T3CON10');
 
-		$this->assertSame(
-			'Conceived at T3CON10',
-			$this->fixture->getDescription()
-		);
-	}
+        $this->assertSame(
+            'Conceived at T3CON10',
+            $this->fixture->getDescription()
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function getLinkReturnsInitiallyNull()
-	{
-		$this->assertNull(
-			$this->fixture->getLink()
-		);
-	}
+    /**
+     * @test
+     */
+    public function getLinkReturnsInitiallyNull()
+    {
+        $this->assertNull(
+            $this->fixture->getLink()
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function setLinkForStringSetsLink()
-	{
-		$link = 'foo';
-		$this->fixture->setLink($link);
+    /**
+     * @test
+     */
+    public function setLinkForStringSetsLink()
+    {
+        $link = 'foo';
+        $this->fixture->setLink($link);
 
-		$this->assertSame(
-			$link,
-			$this->fixture->getLink()
-		);
-	}
+        $this->assertSame(
+            $link,
+            $this->fixture->getLink()
+        );
+    }
 }
-

@@ -7,34 +7,39 @@ use DWenzel\T3events\Domain\Model\Dto\StatusAwareDemandTrait;
 /**
  * Test case for class \DWenzel\T3events\Domain\Model\Dto\StatusAwareDemandTrait.
  */
-class StatusAwareDemandTraitTest extends UnitTestCase {
-
-	/**
-	 * @var \DWenzel\T3events\Domain\Model\Dto\StatusAwareDemandTrait
-	 */
-	protected $subject;
-
-	public function setUp() {
-		$this->subject = $this->getMockForTrait(
-			StatusAwareDemandTrait::class
-		);
-	}
-
-	public function tearDown() {
-		unset($this->subject);
-	}
+class StatusAwareDemandTraitTest extends UnitTestCase
+{
 
     /**
-     * @test
+     * @var \DWenzel\T3events\Domain\Model\Dto\StatusAwareDemandTrait
      */
-    public function getStatusReturnsInitialNull() {
-        $this->assertSame(NULL, $this->subject->getStatus());
+    protected $subject;
+
+    public function setUp()
+    {
+        $this->subject = $this->getMockForTrait(
+            StatusAwareDemandTrait::class
+        );
+    }
+
+    public function tearDown()
+    {
+        unset($this->subject);
     }
 
     /**
      * @test
      */
-    public function setStatusForPerformanceStatusSetsStatus() {
+    public function getStatusReturnsInitialNull()
+    {
+        $this->assertSame(null, $this->subject->getStatus());
+    }
+
+    /**
+     * @test
+     */
+    public function setStatusForPerformanceStatusSetsStatus()
+    {
         $status = new \DWenzel\T3events\Domain\Model\PerformanceStatus();
 
         $this->subject->setStatus($status);
@@ -45,14 +50,16 @@ class StatusAwareDemandTraitTest extends UnitTestCase {
     /**
      * @test
      */
-    public function getStatusesReturnsInitialValueForString() {
+    public function getStatusesReturnsInitialValueForString()
+    {
         $this->assertNull($this->subject->getStatuses());
     }
 
     /**
      * @test
      */
-    public function setStatusesForStringSetsStatuses() {
+    public function setStatusesForStringSetsStatuses()
+    {
         $this->subject->setStatuses('foo');
         $this->assertSame(
             'foo',
@@ -81,4 +88,3 @@ class StatusAwareDemandTraitTest extends UnitTestCase {
         );
     }
 }
-

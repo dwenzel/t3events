@@ -16,81 +16,88 @@ namespace DWenzel\T3events\Session;
  *
  * @package DWenzel\T3events\Session
  */
-class Typo3BackendSession implements SessionInterface {
+class Typo3BackendSession implements SessionInterface
+{
 
-	/**
-	 * @var string
-	 */
-	protected $namespace;
+    /**
+     * @var string
+     */
+    protected $namespace;
 
-	/**
-	 * @var array
-	 */
-	protected $data = [];
+    /**
+     * @var array
+     */
+    protected $data = [];
 
-	/**
-	 * Typo3Session constructor.
-	 *
-	 * @param string $namespace
-	 */
-	public function __construct($namespace = '') {
-		$this->namespace = $namespace;
-	}
+    /**
+     * Typo3Session constructor.
+     *
+     * @param string $namespace
+     */
+    public function __construct($namespace = '')
+    {
+        $this->namespace = $namespace;
+    }
 
-	/**
-	 * Tells if a given identifier exists in session
-	 *
-	 * @param string $identifier
-	 * @return bool
-	 */
-	public function has($identifier) {
-		if ($argument = $this->get($identifier)) {
-			return TRUE;
-		}
+    /**
+     * Tells if a given identifier exists in session
+     *
+     * @param string $identifier
+     * @return bool
+     */
+    public function has($identifier)
+    {
+        if ($argument = $this->get($identifier)) {
+            return true;
+        }
 
-		return FALSE;
-	}
+        return false;
+    }
 
-	/**
-	 * Sets a session key
-	 *
-	 * @param string $identifier
-	 * @param mixed $value
-	 * @return void
-	 */
-	public function set($identifier, $value) {
-		$this->data[$identifier] = $value;
-		//todo write to backend user session
-	}
+    /**
+     * Sets a session key
+     *
+     * @param string $identifier
+     * @param mixed $value
+     * @return void
+     */
+    public function set($identifier, $value)
+    {
+        $this->data[$identifier] = $value;
+        //todo write to backend user session
+    }
 
-	/**
-	 * Gets a value by key
-	 *
-	 * @param string $identifier
-	 * @return mixed
-	 */
-	public function get($identifier) {
-		if (empty($this->data)) {
-			//todo read from backend user session
-		}
-		if (isset($this->data[$identifier])) {
-			return $this->data[$identifier];
-		}
+    /**
+     * Gets a value by key
+     *
+     * @param string $identifier
+     * @return mixed
+     */
+    public function get($identifier)
+    {
+        if (empty($this->data)) {
+            //todo read from backend user session
+        }
+        if (isset($this->data[$identifier])) {
+            return $this->data[$identifier];
+        }
 
-		return NULL;
-	}
+        return null;
+    }
 
-	public function clean() {
-		//todo clear backend user data for module
-		$this->data = [];
-	}
+    public function clean()
+    {
+        //todo clear backend user data for module
+        $this->data = [];
+    }
 
     /**
      * Sets the namespace
      *
      * @param string $namespace
      */
-    public function setNamespace($namespace) {
+    public function setNamespace($namespace)
+    {
         $this->namespace = $namespace;
     }
 }

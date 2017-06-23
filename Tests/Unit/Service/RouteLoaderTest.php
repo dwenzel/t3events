@@ -170,8 +170,6 @@ class RouteLoaderTest extends UnitTestCase
             ->will($this->returnValue($config));
 
         $this->subject->loadFromProvider($mockDataProvider);
-
-
     }
 
     /**

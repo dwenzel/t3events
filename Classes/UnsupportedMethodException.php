@@ -20,5 +20,4 @@ namespace DWenzel\T3events;
  ***************************************************************/
 class UnsupportedMethodException extends \Exception
 {
-
 }

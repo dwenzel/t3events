@@ -26,7 +26,8 @@ use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 /**
  * Class EventControllerTest
  */
-class EventControllerTest extends UnitTestCase {
+class EventControllerTest extends UnitTestCase
+{
 
     /**
      * @var EventController|\PHPUnit_Framework_MockObject_MockObject|\TYPO3\CMS\Core\Tests\AccessibleObjectInterface
@@ -111,7 +112,6 @@ class EventControllerTest extends UnitTestCase {
      */
     public function listActionCreatesDemandFromSettings()
     {
-
         $settings = [
             'filter' => []
         ];
@@ -208,5 +208,4 @@ class EventControllerTest extends UnitTestCase {
             ->method('assignMultiple');
         $this->subject->listAction();
     }
-
 }

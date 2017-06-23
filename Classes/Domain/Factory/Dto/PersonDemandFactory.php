@@ -21,12 +21,10 @@ use DWenzel\T3events\Domain\Model\Dto\PersonDemand;
 /**
  * Class PersonDemandFactory
  * Creates PersonDemand objects
- * 
+ *
  * @package DWenzel\T3events\Domain\Factory\Dto
  */
-class PersonDemandFactory
-    extends AbstractDemandFactory
-    implements DemandFactoryInterface
+class PersonDemandFactory extends AbstractDemandFactory implements DemandFactoryInterface
 {
     /**
      * Class name of the object created by this factory.
@@ -39,7 +37,7 @@ class PersonDemandFactory
      *
      * @var array
      */
-    static protected $mappedProperties = [
+    protected static $mappedProperties = [
         'maxItems' => 'limit'
     ];
 
@@ -50,7 +48,7 @@ class PersonDemandFactory
      *
      * @var array
      */
-    static protected $compositeProperties = [
+    protected static $compositeProperties = [
         'search'
     ];
 

@@ -63,65 +63,67 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
  *
  * @api
  */
-class DateViewHelper extends AbstractViewHelper {
+class DateViewHelper extends AbstractViewHelper
+{
 
-	/**
-	 * @var boolean
-	 */
-	protected $escapingInterceptorEnabled = FALSE;
+    /**
+     * @var boolean
+     */
+    protected $escapingInterceptorEnabled = false;
 
-	/**
-	 * Render the supplied DateTime object as a formatted date.
-	 * If a time is given it will be added to the date (by adding the timestamps)
-	 *
-	 * @param mixed $date either a DateTime object or a string that is accepted by DateTime constructor
-	 * @param string $format Format String which is taken to format the Date/Time
-	 * @param int $time an integer representing a time value
-	 * @param mixed $base A base time (a DateTime object or a string) used if $date is a relative date specification. Defaults to current time.
-	 * @return string Formatted date
-	 * @throws \TYPO3\CMS\Fluid\Core\ViewHelper\Exception
-	 */
-	public function render($date = NULL, $format = '', $time = NULL, $base = NULL) {
-		if ($format === '') {
-			$format = $GLOBALS['TYPO3_CONF_VARS']['SYS']['ddmmyy'] ?: 'Y-m-d';
-		}
+    /**
+     * Render the supplied DateTime object as a formatted date.
+     * If a time is given it will be added to the date (by adding the timestamps)
+     *
+     * @param mixed $date either a DateTime object or a string that is accepted by DateTime constructor
+     * @param string $format Format String which is taken to format the Date/Time
+     * @param int $time an integer representing a time value
+     * @param mixed $base A base time (a DateTime object or a string) used if $date is a relative date specification. Defaults to current time.
+     * @return string Formatted date
+     * @throws \TYPO3\CMS\Fluid\Core\ViewHelper\Exception
+     */
+    public function render($date = null, $format = '', $time = null, $base = null)
+    {
+        if ($format === '') {
+            $format = $GLOBALS['TYPO3_CONF_VARS']['SYS']['ddmmyy'] ?: 'Y-m-d';
+        }
 
-		if (empty($base)) {
-			$base = time();
-		}
+        if (empty($base)) {
+            $base = time();
+        }
 
-		if ($date === NULL) {
-			$date = $this->renderChildren();
-			if ($date === NULL) {
-				return '';
-			}
-		}
+        if ($date === null) {
+            $date = $this->renderChildren();
+            if ($date === null) {
+                return '';
+            }
+        }
 
-		if ($date === '') {
-			$date = 'now';
-		}
+        if ($date === '') {
+            $date = 'now';
+        }
 
-		if (!$date instanceof \DateTime) {
-			try {
-				$base = $base instanceof \DateTime ? $base->format('U') : strtotime((MathUtility::canBeInterpretedAsInteger($base) ? '@' : '') . $base);
-				$dateTimestamp = strtotime((MathUtility::canBeInterpretedAsInteger($date) ? '@' : '') . $date, $base);
-				$modifiedDate = new \DateTime('@' . $dateTimestamp);
-				$modifiedDate->setTimezone(new \DateTimeZone(date_default_timezone_get()));
-			} catch (\Exception $exception) {
-				throw new \TYPO3\CMS\Fluid\Core\ViewHelper\Exception('"' . $date . '" could not be parsed by \DateTime constructor.', 1241722579);
-			}
-		} else {
-			$modifiedDate = clone($date);
-		}
+        if (!$date instanceof \DateTime) {
+            try {
+                $base = $base instanceof \DateTime ? $base->format('U') : strtotime((MathUtility::canBeInterpretedAsInteger($base) ? '@' : '') . $base);
+                $dateTimestamp = strtotime((MathUtility::canBeInterpretedAsInteger($date) ? '@' : '') . $date, $base);
+                $modifiedDate = new \DateTime('@' . $dateTimestamp);
+                $modifiedDate->setTimezone(new \DateTimeZone(date_default_timezone_get()));
+            } catch (\Exception $exception) {
+                throw new \TYPO3\CMS\Fluid\Core\ViewHelper\Exception('"' . $date . '" could not be parsed by \DateTime constructor.', 1241722579);
+            }
+        } else {
+            $modifiedDate = clone($date);
+        }
 
-		if ($time !== NULL) {
-			$modifiedDate->setTimestamp($modifiedDate->getTimestamp() + $time);
-		}
+        if ($time !== null) {
+            $modifiedDate->setTimestamp($modifiedDate->getTimestamp() + $time);
+        }
 
-		if (strpos($format, '%') !== FALSE) {
-			return strftime($format, $modifiedDate->format('U'));
-		} else {
-			return $modifiedDate->format($format);
-		}
-	}
+        if (strpos($format, '%') !== false) {
+            return strftime($format, $modifiedDate->format('U'));
+        } else {
+            return $modifiedDate->format($format);
+        }
+    }
 }

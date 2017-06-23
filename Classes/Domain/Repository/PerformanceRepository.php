@@ -30,12 +30,15 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
  *
  * @package DWenzel\T3events\Domain\Repository
  */
-class PerformanceRepository
-    extends Repository
-    implements DemandedRepositoryInterface, PeriodConstraintRepositoryInterface,
-    StatusConstraintRepositoryInterface, GenreConstraintRepositoryInterface,
-    EventTypeConstraintRepositoryInterface, VenueConstraintRepositoryInterface,
-    CategoryConstraintRepositoryInterface, AudienceConstraintRepositoryInterface
+class PerformanceRepository extends Repository implements
+    DemandedRepositoryInterface,
+    PeriodConstraintRepositoryInterface,
+    StatusConstraintRepositoryInterface,
+    GenreConstraintRepositoryInterface,
+    EventTypeConstraintRepositoryInterface,
+    VenueConstraintRepositoryInterface,
+    CategoryConstraintRepositoryInterface,
+    AudienceConstraintRepositoryInterface
 {
     use DemandedRepositoryTrait, PeriodConstraintRepositoryTrait, StatusConstraintRepositoryTrait,
         GenreConstraintRepositoryTrait, EventTypeConstraintRepositoryTrait,
@@ -115,7 +118,6 @@ class PerformanceRepository
             $conjunction = 'OR';
             if ($demand->isExcludeSelectedStatuses()) {
                 $conjunction = 'NOTOR';
-
             }
             $this->combineConstraints($query, $constraints, $statusConstraints, $conjunction);
         }
@@ -132,4 +134,3 @@ class PerformanceRepository
         return $constraints;
     }
 }
-

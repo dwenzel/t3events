@@ -1,5 +1,6 @@
 <?php
 namespace DWenzel\T3events\Controller;
+
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 /**
@@ -20,8 +21,7 @@ trait TranslateTrait
      */
     public function translate($key, $extension = 't3events', $arguments = null)
     {
-        if (defined(get_class($this) . '::EXTENSION_KEY'))
-        {
+        if (defined(get_class($this) . '::EXTENSION_KEY')) {
             $extension = static::EXTENSION_KEY;
         }
 

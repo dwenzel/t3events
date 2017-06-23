@@ -49,57 +49,60 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
  * @package DWenzel\T3events\Tests\Unit\Domain\Repository
  * @coversDefaultClass \DWenzel\T3events\Domain\Repository\PerformanceRepository
  */
-class PerformanceRepositoryTest extends UnitTestCase {
+class PerformanceRepositoryTest extends UnitTestCase
+{
 
-	/**
-	 * @var PerformanceRepository
-	 */
-	protected $subject;
+    /**
+     * @var PerformanceRepository
+     */
+    protected $subject;
 
-	/**
-	 *
-	 */
-	public function setUp() {
-		$this->subject = $this->getAccessibleMock(
-			PerformanceRepository::class,
-			['dummy'], [], '', false
-		);
-	}
+    /**
+     *
+     */
+    public function setUp()
+    {
+        $this->subject = $this->getAccessibleMock(
+            PerformanceRepository::class,
+            ['dummy'], [], '', false
+        );
+    }
 
-	/**
-	 * @return mixed
-	 */
-	protected function mockObjectManager() {
-		$mockObjectManager = $this->getMock(
-			ObjectManager::class, ['get']
-		);
-		$this->subject->_set('objectManager', $mockObjectManager);
+    /**
+     * @return mixed
+     */
+    protected function mockObjectManager()
+    {
+        $mockObjectManager = $this->getMock(
+            ObjectManager::class, ['get']
+        );
+        $this->subject->_set('objectManager', $mockObjectManager);
 
-		return $mockObjectManager;
-	}
+        return $mockObjectManager;
+    }
 
-	/**
-	 * @test
-	 * @covers ::createConstraintsFromDemand
-	 */
-	public function createConstraintsFromDemandReturnsDefaultConstraints() {
-		$demand = $this->getMockForAbstractClass(
-			DemandInterface::class, [], '', true, true, true,
-			['getEventLocations']
-		);
-		$this->subject = $this->getAccessibleMock(
-			PerformanceRepository::class,
-			[
-				'createStatusConstraints',
-				'createCategoryConstraints',
-				'createSearchConstraints'
-			]
-			, [], '', false
-		);
-		$query = $this->getMock(
-			Query::class,
-			['equals'], [], '', FALSE
-		);
+    /**
+     * @test
+     * @covers ::createConstraintsFromDemand
+     */
+    public function createConstraintsFromDemandReturnsDefaultConstraints()
+    {
+        $demand = $this->getMockForAbstractClass(
+            DemandInterface::class, [], '', true, true, true,
+            ['getEventLocations']
+        );
+        $this->subject = $this->getAccessibleMock(
+            PerformanceRepository::class,
+            [
+                'createStatusConstraints',
+                'createCategoryConstraints',
+                'createSearchConstraints'
+            ], [], '', false
+        );
+        $query = $this->getMock(
+            Query::class,
+            ['equals'], [], '', false
+        );
         $comparison = $this->getMock(
             ConstraintInterface::class
         );
@@ -108,199 +111,204 @@ class PerformanceRepositoryTest extends UnitTestCase {
             ->with('event.hidden', 0)
             ->will($this->returnValue($comparison));
 
-		$this->assertEquals(
-			[$comparison],
-			$this->subject->createConstraintsFromDemand($query, $demand)
-		);
-	}
+        $this->assertEquals(
+            [$comparison],
+            $this->subject->createConstraintsFromDemand($query, $demand)
+        );
+    }
 
-	/**
-	 * @test
-	 * @covers ::createConstraintsFromDemand
-	 */
-	public function createConstraintsFromDemandCallsCreateStatusConstraints() {
-		$this->subject = $this->getAccessibleMock(
-			PerformanceRepository::class,
-			[
-				'createStatusConstraints',
-				'createCategoryConstraints',
-				'createSearchConstraints'
-			], [], '', false);
-		$demand = $this->getMock(
-			PerformanceDemand::class, ['getEventLocations']
-		);
-		$query = $this->getMock(
-			QueryInterface::class,
-			[], [], '', false
-		);
-
-		$this->subject->expects($this->once())
-			->method('createStatusConstraints')
-			->with($query, $demand);
-		$this->subject->createConstraintsFromDemand($query, $demand);
-	}
-
-	/**
-	 * @test
-	 */
-	public function createConstraintsFromDemandBuildsEventLocationConstraints() {
-		$locationIds = '1,2,3';
+    /**
+     * @test
+     * @covers ::createConstraintsFromDemand
+     */
+    public function createConstraintsFromDemandCallsCreateStatusConstraints()
+    {
         $this->subject = $this->getAccessibleMock(
-			PerformanceRepository::class,
-			[
-				'createStatusConstraints',
-				'createSearchConstraints',
-				'createCategoryConstraints'
-			], [], '', false);
-		$demand = $this->getMock(
-			PerformanceDemand::class, ['getEventLocations']
-		);
-		$query = $this->getMock(
-			QueryInterface::class,
-			[], [], '', false
-		);
+            PerformanceRepository::class,
+            [
+                'createStatusConstraints',
+                'createCategoryConstraints',
+                'createSearchConstraints'
+            ], [], '', false);
+        $demand = $this->getMock(
+            PerformanceDemand::class, ['getEventLocations']
+        );
+        $query = $this->getMock(
+            QueryInterface::class,
+            [], [], '', false
+        );
 
-		$demand->expects($this->any())
-			->method('getEventLocations')
-			->with()
-			->will($this->returnValue($locationIds)
-			);
+        $this->subject->expects($this->once())
+            ->method('createStatusConstraints')
+            ->with($query, $demand);
+        $this->subject->createConstraintsFromDemand($query, $demand);
+    }
+
+    /**
+     * @test
+     */
+    public function createConstraintsFromDemandBuildsEventLocationConstraints()
+    {
+        $locationIds = '1,2,3';
+        $this->subject = $this->getAccessibleMock(
+            PerformanceRepository::class,
+            [
+                'createStatusConstraints',
+                'createSearchConstraints',
+                'createCategoryConstraints'
+            ], [], '', false);
+        $demand = $this->getMock(
+            PerformanceDemand::class, ['getEventLocations']
+        );
+        $query = $this->getMock(
+            QueryInterface::class,
+            [], [], '', false
+        );
+
+        $demand->expects($this->any())
+            ->method('getEventLocations')
+            ->with()
+            ->will($this->returnValue($locationIds)
+            );
         $expectedLocationParams = GeneralUtility::intExplode(',', $locationIds);
 
-		$query->expects($this->once())
-			->method('in')
-			->with('eventLocation', $expectedLocationParams);
+        $query->expects($this->once())
+            ->method('in')
+            ->with('eventLocation', $expectedLocationParams);
 
-		$this->subject->createConstraintsFromDemand($query, $demand);
-	}
+        $this->subject->createConstraintsFromDemand($query, $demand);
+    }
 
-	/**
-	 * @test
-	 */
-	public function createConstraintsFromDemandCombinesStatusConstraintsLogicalOr() {
-		$this->subject = $this->getAccessibleMock(
-			PerformanceRepository::class,
-			[
-				'createStatusConstraints',
-				'createSearchConstraints',
-				'createCategoryConstraints',
-				'combineConstraints'
-			], [], '', false);
-		$demand = $this->getMock(
-			PerformanceDemand::class, ['getEventLocations', 'isExcludeSelectedStatuses']
-		);
-		$query = $this->getMock(
-			QueryInterface::class,
-			[], [], '', false
-		);
+    /**
+     * @test
+     */
+    public function createConstraintsFromDemandCombinesStatusConstraintsLogicalOr()
+    {
+        $this->subject = $this->getAccessibleMock(
+            PerformanceRepository::class,
+            [
+                'createStatusConstraints',
+                'createSearchConstraints',
+                'createCategoryConstraints',
+                'combineConstraints'
+            ], [], '', false);
+        $demand = $this->getMock(
+            PerformanceDemand::class, ['getEventLocations', 'isExcludeSelectedStatuses']
+        );
+        $query = $this->getMock(
+            QueryInterface::class,
+            [], [], '', false
+        );
 
-		$constraints = [null];
-		$mockStatusConstraints = ['foo'];
+        $constraints = [null];
+        $mockStatusConstraints = ['foo'];
 
-		$this->subject->expects($this->once())
-			->method('createStatusConstraints')
-			->with($query, $demand)
-			->will($this->returnValue($mockStatusConstraints)
-			);
-		$this->subject->expects($this->once())
-			->method('combineConstraints')
-			->with($query, $constraints, $mockStatusConstraints, 'OR');
+        $this->subject->expects($this->once())
+            ->method('createStatusConstraints')
+            ->with($query, $demand)
+            ->will($this->returnValue($mockStatusConstraints)
+            );
+        $this->subject->expects($this->once())
+            ->method('combineConstraints')
+            ->with($query, $constraints, $mockStatusConstraints, 'OR');
 
-		$this->subject->createConstraintsFromDemand($query, $demand);
-	}
+        $this->subject->createConstraintsFromDemand($query, $demand);
+    }
 
-	/**
-	 * @test
-	 */
-	public function createConstraintsFromDemandCombinesStatusConstraintsLogicalNotOr() {
-		$this->subject = $this->getAccessibleMock(
-			PerformanceRepository::class,
-			[
-				'createStatusConstraints',
-				'createSearchConstraints',
-				'createCategoryConstraints',
-				'combineConstraints'
-			], [], '', false);
-		$demand = $this->getMock(
-			PerformanceDemand::class, ['getEventLocations', 'isExcludeSelectedStatuses']
-		);
-		$query = $this->getMock(
-			QueryInterface::class,
-			[], [], '', false
-		);
+    /**
+     * @test
+     */
+    public function createConstraintsFromDemandCombinesStatusConstraintsLogicalNotOr()
+    {
+        $this->subject = $this->getAccessibleMock(
+            PerformanceRepository::class,
+            [
+                'createStatusConstraints',
+                'createSearchConstraints',
+                'createCategoryConstraints',
+                'combineConstraints'
+            ], [], '', false);
+        $demand = $this->getMock(
+            PerformanceDemand::class, ['getEventLocations', 'isExcludeSelectedStatuses']
+        );
+        $query = $this->getMock(
+            QueryInterface::class,
+            [], [], '', false
+        );
 
-		$constraints = [null];
-		$mockStatusConstraints = ['foo'];
+        $constraints = [null];
+        $mockStatusConstraints = ['foo'];
 
-		$demand->expects($this->once())
-			->method('isExcludeSelectedStatuses')
-			->will($this->returnValue(true));
+        $demand->expects($this->once())
+            ->method('isExcludeSelectedStatuses')
+            ->will($this->returnValue(true));
 
-		$this->subject->expects($this->once())
-			->method('createStatusConstraints')
-			->with($query, $demand)
-			->will($this->returnValue($mockStatusConstraints)
-			);
-		$this->subject->expects($this->once())
-			->method('combineConstraints')
-			->with($query, $constraints, $mockStatusConstraints, 'NOTOR');
+        $this->subject->expects($this->once())
+            ->method('createStatusConstraints')
+            ->with($query, $demand)
+            ->will($this->returnValue($mockStatusConstraints)
+            );
+        $this->subject->expects($this->once())
+            ->method('combineConstraints')
+            ->with($query, $constraints, $mockStatusConstraints, 'NOTOR');
 
-		$this->subject->createConstraintsFromDemand($query, $demand);
-	}
+        $this->subject->createConstraintsFromDemand($query, $demand);
+    }
 
-	/**
-	 * @test
-	 */
-	public function initializeObjectInitiallySetsRespectStoragePageFalse() {
-		$mockQuerySettings = $this->getMock(
-			Typo3QuerySettings::class, ['setRespectStoragePage']
-		);
+    /**
+     * @test
+     */
+    public function initializeObjectInitiallySetsRespectStoragePageFalse()
+    {
+        $mockQuerySettings = $this->getMock(
+            Typo3QuerySettings::class, ['setRespectStoragePage']
+        );
 
-		$mockObjectManager = $this->mockObjectManager();
-		$mockObjectManager->expects($this->once())
-			->method('get')
-			->with(Typo3QuerySettings::class)
-			->will($this->returnValue($mockQuerySettings));
+        $mockObjectManager = $this->mockObjectManager();
+        $mockObjectManager->expects($this->once())
+            ->method('get')
+            ->with(Typo3QuerySettings::class)
+            ->will($this->returnValue($mockQuerySettings));
 
-		$mockQuerySettings->expects($this->once())
-			->method('setRespectStoragePage')
-			->with(false);
+        $mockQuerySettings->expects($this->once())
+            ->method('setRespectStoragePage')
+            ->with(false);
 
-		$this->subject->initializeObject();
-	}
+        $this->subject->initializeObject();
+    }
 
-	/**
-	 * @test
-	 */
-	public function initializeObjectSetsRespectStoragePageFromEmConfiguration() {
-		$emSettings = [
-			'respectPerformanceStoragePage' => false
-		];
-		$GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['t3events'] = serialize($emSettings);
-		$mockQuerySettings = $this->getMock(
-			Typo3QuerySettings::class, ['setRespectStoragePage']
-		);
+    /**
+     * @test
+     */
+    public function initializeObjectSetsRespectStoragePageFromEmConfiguration()
+    {
+        $emSettings = [
+            'respectPerformanceStoragePage' => false
+        ];
+        $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['t3events'] = serialize($emSettings);
+        $mockQuerySettings = $this->getMock(
+            Typo3QuerySettings::class, ['setRespectStoragePage']
+        );
 
-		$mockObjectManager = $this->mockObjectManager();
-		$mockObjectManager->expects($this->once())
-			->method('get')
-			->with(Typo3QuerySettings::class)
-			->will($this->returnValue($mockQuerySettings));
+        $mockObjectManager = $this->mockObjectManager();
+        $mockObjectManager->expects($this->once())
+            ->method('get')
+            ->with(Typo3QuerySettings::class)
+            ->will($this->returnValue($mockQuerySettings));
 
-		$mockQuerySettings->expects($this->once())
-			->method('setRespectStoragePage')
-			->with(false);
+        $mockQuerySettings->expects($this->once())
+            ->method('setRespectStoragePage')
+            ->with(false);
 
-		$this->subject->initializeObject();
-
-	}
+        $this->subject->initializeObject();
+    }
 
     /**
      * Data provider for empty demand values
      *
      * @return array
      */
-    public function emptyDemandValuesDataProvider ()
+    public function emptyDemandValuesDataProvider()
     {
         $mockSearchObjectWithNullSubject = $this->getMock(
             Search::class, ['getSubject']
@@ -334,7 +342,8 @@ class PerformanceRepositoryTest extends UnitTestCase {
      * @param string $getter
      * @param string|null $value
      */
-    public function createConstraintsFromDemandDoesNotCreateConstraintsForEmptyValues($getter, $value) {
+    public function createConstraintsFromDemandDoesNotCreateConstraintsForEmptyValues($getter, $value)
+    {
         $this->subject = $this->getAccessibleMock(
             PerformanceRepository::class,
             [
@@ -374,7 +383,7 @@ class PerformanceRepositoryTest extends UnitTestCase {
      *
      * @return array
      */
-    public function nonEmptyDemandValuesDataProvider ()
+    public function nonEmptyDemandValuesDataProvider()
     {
         $searchSubject = 'foo';
         $searchField = 'bar';
@@ -495,7 +504,8 @@ class PerformanceRepositoryTest extends UnitTestCase {
     /**
      * @test
      */
-    public function createConstraintsFromDemandCreatesPeriodConstraints() {
+    public function createConstraintsFromDemandCreatesPeriodConstraints()
+    {
         $this->subject = $this->getAccessibleMock(
             PerformanceRepository::class,
             [
@@ -525,7 +535,8 @@ class PerformanceRepositoryTest extends UnitTestCase {
     /**
      * @test
      */
-    public function createConstraintsFromDemandCombinesPeriodConstraintsLogicalAnd() {
+    public function createConstraintsFromDemandCombinesPeriodConstraintsLogicalAnd()
+    {
         $this->subject = $this->getAccessibleMock(
             PerformanceRepository::class,
             [

@@ -25,31 +25,34 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractValueObject;
  *
  * @package DWenzel\T3events\Domain\Model
  */
-class PersonType extends AbstractValueObject {
+class PersonType extends AbstractValueObject
+{
 
-	/**
-	 * title
-	 *
-	 * @var string
-	 */
-	protected $title;
+    /**
+     * title
+     *
+     * @var string
+     */
+    protected $title;
 
-	/**
-	 * Returns the title
-	 *
-	 * @return string $title
-	 */
-	public function getTitle() {
-		return $this->title;
-	}
+    /**
+     * Returns the title
+     *
+     * @return string $title
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
 
-	/**
-	 * Sets the title
-	 *
-	 * @param string $title
-	 * @return void
-	 */
-	public function setTitle($title) {
-		$this->title = $title;
-	}
+    /**
+     * Sets the title
+     *
+     * @param string $title
+     * @return void
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+    }
 }

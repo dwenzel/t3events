@@ -1,6 +1,6 @@
 <?php
 if (!defined('TYPO3_MODE')) {
-    die ('Access denied.');
+    die('Access denied.');
 }
 
 $emSettings = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][$_EXTKEY]);
@@ -81,7 +81,7 @@ if (TYPO3_MODE === 'BE' && (bool)$emSettings['showEventModule']) {
     }
 
     if ($versionNumber < 7000000) {
-       // \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addModule('Events');
+        // \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addModule('Events');
         /**
          * Register Backend Modules
          */
@@ -97,7 +97,6 @@ if (TYPO3_MODE === 'BE' && (bool)$emSettings['showEventModule']) {
                 'labels' => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_m1.xlf',
             ]
         );
-
     }
     if ($versionNumber > 7000000 && $versionNumber < 8000000) {
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addModule(
@@ -162,5 +161,4 @@ if (TYPO3_MODE === 'BE' && (bool)$emSettings['showEventModule']) {
             'labels' => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_m2.xlf',
         ]
     );
-
 }

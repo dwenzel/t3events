@@ -38,12 +38,13 @@ use DWenzel\T3events\Utility\SettingsUtility;
  *
  * @package DWenzel\T3events\Tests\Controller
  */
-class ModuleDataTraitTest extends UnitTestCase {
+class ModuleDataTraitTest extends UnitTestCase
+{
 
-	/**
-	 * @var \DWenzel\T3events\Controller\ModuleDataTrait
-	 */
-	protected $subject;
+    /**
+     * @var \DWenzel\T3events\Controller\ModuleDataTrait
+     */
+    protected $subject;
 
     /**
      * @var ObjectManager
@@ -53,17 +54,18 @@ class ModuleDataTraitTest extends UnitTestCase {
     /**
      * set up
      */
-	public function setUp() {
-		$this->subject = $this->getMockForTrait(
-			ModuleDataTrait::class
-		);
+    public function setUp()
+    {
+        $this->subject = $this->getMockForTrait(
+            ModuleDataTrait::class
+        );
 
         $this->objectManager = $this->getMock(
             ObjectManager::class, ['get']
         );
 
         $this->inject($this->subject, 'objectManager', $this->objectManager);
-	}
+    }
 
     /**
      * @test
