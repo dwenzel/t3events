@@ -11,6 +11,7 @@ A quite simple way to achieve this is to define a special page type which return
 The default TypoScript contains such a page type:
 
 ```
+# Page type for ICS download
 pagePerformanceICS = PAGE
 pagePerformanceICS {
     typeNum = 1481289579
@@ -20,10 +21,16 @@ pagePerformanceICS {
         xhtml_cleaning = 0
         admPanel = 0
         debug = 0
+        no_cache = 1
         additionalHeaders {
-            10.header = Content-Type:text/calendar;charset=utf-8
-            20.header = Content-Disposition:attachment;filename=events.ics
+            10.header = Content-Description:File Transfer
+            20.header = Content-Type:application/force-download
+            30.header = Content-Type: text/calendar;charset=UTF-8
+            40.header = Content-Disposition: attachment; filename="Event.ics"
+            50.header = Content-Transfer-Encoding:binary
         }
+    }
+
     10 = USER
     10 {
         userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
@@ -47,7 +54,7 @@ It can be used by adding a page link to your template:
     pageType="1481289579"
     additionalParams="{tx_t3events_events: {performance: performance, format: 'ical'}}">{f:translate(key: 'button.downloadICS', default: 'label.saveSchedulePage')}</f:link.page>
 ```
-When a user clicks this link it presents an ICS file named *events.ics* for download. 
+When a user clicks this link it presents an ICS file named *Event.ics* for download. 
 
 The template responsible for the generation of the file can be found here:
 ```
@@ -62,6 +69,5 @@ In order to use them you may use the pre-defined *pageEventICS* TypoScript page 
 Templates for list views are included too. We do not provide a default TypoScript setup though.
 
 **Note:** The iCalendar file format is very delicate regarding white-space and line breaks.
-The templates mentioned above do not contain any indentation and a viewhelper is used in order to remove excess whitespace.  
+The templates mentioned above do not contain any indentation and a custom view is used in order to remove excess whitespace and provide correct line endings.
 We recommend using a tool such as the [iCalendar Valdidator](https://icalendar.org/validator.html) when adapting the templates to your needs.
-(Even though this validator complains about *"Lines not delimited by CRLF sequence"*, this will most probably *not* prevent your ICS file from working with Apple iCal, Microsoft Outlook or Google Calendar)
