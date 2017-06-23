@@ -1,8 +1,8 @@
 {namespace ts=DWenzel\T3events\ViewHelpers}BEGIN:VEVENT
 UID:<f:format.date format="His">Now</f:format.date>-<f:format.date format="Ymd">{performance.date}</f:format.date>{performance.uid}@{settings.icalEmail}
 DTSTAMP:<f:format.date format="Ymd">Now</f:format.date>T<f:format.date format="His">Now</f:format.date>
-DTSTART;TZID=Europe/Berlin:<f:format.date format="Ymd">{performance.date}</f:format.date>T{ts:format.date(format: 'His',time: '{performance.begin}',date: '{performance.date}')}
-DTEND;TZID=Europe/Berlin:<f:format.date format="Ymd">{performance.date}</f:format.date>T{ts:format.date(format: 'His',time: '{performance.end}',date: '{performance.date}')}
+DTSTART;TZID=Europe/Berlin:<f:format.date format="Ymd">{performance.date}</f:format.date>T<ts:format.date date="{performance.date}" format="His" time="{performance.begin}"/>
+DTEND;TZID=Europe/Berlin:<f:format.date format="Ymd">{performance.date}</f:format.date>T<ts:format.date date="{performance.date}" format="His" time="{performance.begin}"/>
 SUMMARY:{event.headline}, {event.subtitle}
 DESCRIPTION:{event.description -> f:format.html()}
 CLASS:PUBLIC
