@@ -23,16 +23,8 @@ class AbstractBackendController extends AbstractController
 {
     use AudienceRepositoryTrait, CategoryRepositoryTrait, CompanyRepositoryTrait,
         DownloadTrait, EventTypeRepositoryTrait, GenreRepositoryTrait,
-        ModuleDataTrait, NotificationRepositoryTrait,
+        ModuleDataTrait, NotificationRepositoryTrait, NotificationServiceTrait,
         PersistenceManagerTrait, VenueRepositoryTrait;
-
-    /**
-     * Notification Service
-     *
-     * @var \DWenzel\T3events\Service\NotificationService
-     * @inject
-     */
-    protected $notificationService;
 
     /**
      * Page uid
