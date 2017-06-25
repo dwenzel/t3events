@@ -21,10 +21,10 @@ use DWenzel\T3events\Domain\Repository\VenueRepository;
  */
 class AbstractBackendController extends AbstractController
 {
-    use ModuleDataTrait, DownloadTrait, CompanyRepositoryTrait,
-        EventTypeRepositoryTrait, AudienceRepositoryTrait,
-        GenreRepositoryTrait, VenueRepositoryTrait,
-        NotificationRepositoryTrait, CategoryRepositoryTrait;
+    use AudienceRepositoryTrait, CategoryRepositoryTrait, CompanyRepositoryTrait,
+        DownloadTrait, EventTypeRepositoryTrait, GenreRepositoryTrait,
+        ModuleDataTrait, NotificationRepositoryTrait,
+        PersistenceManagerTrait, VenueRepositoryTrait;
 
     /**
      * Notification Service
@@ -40,31 +40,6 @@ class AbstractBackendController extends AbstractController
      * @var integer
      */
     protected $pageUid = 0;
-
-    /**
-     * Persistence Manager
-     *
-     * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
-     * @inject
-     */
-    protected $persistenceManager;
-
-    /**
-     * TsConfig configuration
-     *
-     * @var array
-     */
-    protected $tsConfiguration = [];
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        parent::__construct();
-        $extension = GeneralUtility::camelCaseToLowerCaseUnderscored($this->extensionName);
-        $this->setTsConfig($extension);
-    }
 
     /**
      * Load and persist module data
@@ -114,46 +89,6 @@ class AbstractBackendController extends AbstractController
             return $token;
         } else {
             return '&moduleToken=' . $token;
-        }
-    }
-
-    /**
-     * Redirects to alt_doc.php providing a return url
-     *
-     * @param string $action
-     * @param string $table
-     * @param int $uid
-     * @param string $module
-     */
-    protected function redirectToEditAction($action, $table, $uid, $module)
-    {
-        $pid = $this->pageUid;
-        if ($pid === 0) {
-            if (isset($this->tsConfiguration['defaultPid.'])
-                && is_array($this->tsConfiguration['defaultPid.'])
-                && isset($this->tsConfiguration['defaultPid.'][$table])
-            ) {
-                $pid = (int)$this->tsConfiguration['defaultPid.'][$table];
-            }
-        }
-        $returnUrl = 'mod.php?M=' . $module . '&id=' . $this->pageUid;
-        $returnUrl .= '&moduleToken=' . FormProtectionFactory::get()->generateToken('moduleCall', $module);
-        $url = 'alt_doc.php?edit[' . $table . '][' . $pid . ']=' . $action . '&returnUrl=' . urlencode($returnUrl);
-        HttpUtility::redirect($url);
-    }
-
-
-    /**
-     * Set the TsConfig configuration for the extension
-     *
-     * @param string $extensionName
-     * @return void
-     */
-    protected function setTsConfig($extensionName)
-    {
-        $tsConfig = BackendUtility::getPagesTSconfig($this->pageUid);
-        if (isset($tsConfig[$extensionName . '.']['module.']) && is_array($tsConfig[$extensionName . '.']['module.'])) {
-            $this->tsConfiguration = $tsConfig[$extensionName . '.']['module.'];
         }
     }
 }
