@@ -145,4 +145,51 @@ class SettingsUtilityTraitTest extends UnitTestCase
             $this->fixture->mergeSettings()
         );
     }
+
+    /**
+     * @test
+     */
+    public function configurationFromSettingsOverRulesTypoScriptSettings()
+    {
+        $controllerKey = 'foo';
+        $actionKey = 'baz';
+        $actionName = $actionKey . 'Action';
+        $settings = [
+            $controllerKey => [
+                'bar',
+                $actionKey => ['key' => 'actionValue']
+            ],
+            'key' => 'pluginValue'
+        ];
+
+        $this->inject(
+            $this->fixture,
+            'settings',
+            $settings
+        );
+        $this->inject(
+            $this->fixture,
+            'actionMethodName',
+            $actionName
+        );
+
+        $mockSettingsUtility = $this->mockSettingsUtility();
+        $mockSettingsUtility->expects($this->once())
+            ->method('getControllerKey')
+            ->will($this->returnValue($controllerKey));
+
+        $expectedSettings = [
+            $controllerKey => [
+                'bar',
+                $actionKey => ['key' => 'actionValue']
+            ],
+            'key' => 'pluginValue',
+            'bar'
+        ];
+
+        $this->assertEquals(
+            $expectedSettings,
+            $this->fixture->mergeSettings()
+        );
+    }
 }

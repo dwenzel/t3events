@@ -61,6 +61,6 @@ trait SettingsUtilityTrait
         }
 
         $typoScriptSettings = ArrayUtility::arrayMergeRecursiveOverrule($controllerSettings, $actionSettings, false, false);
-        return ArrayUtility::arrayMergeRecursiveOverrule($this->settings, $typoScriptSettings, false, false);
+        return ArrayUtility::arrayMergeRecursiveOverrule($typoScriptSettings, $this->settings, false, false);
     }
 }
