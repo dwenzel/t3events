@@ -44,7 +44,7 @@ class ScheduleController extends PerformanceController
      */
     public function listAction(array $overwriteDemand = null)
     {
-        $demand = $this->createDemandFromSettings($this->settings);
+        $demand = $this->performanceDemandFactory->createFromSettings($this->settings);
         $filterOptions = $this->getFilterOptions(
             $this->settings['filter']
         );

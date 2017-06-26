@@ -23,7 +23,6 @@ use DWenzel\T3events\Domain\Repository\GenreRepository;
 use DWenzel\T3events\Domain\Repository\PerformanceRepository;
 use DWenzel\T3events\Domain\Repository\VenueRepository;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
-use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 
 /**
  * Class PerformanceController
@@ -32,7 +31,8 @@ use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
  */
 class PerformanceController
     extends ActionController
-    implements FilterableControllerInterface {
+    implements FilterableControllerInterface
+{
     use CategoryRepositoryTrait, CalendarConfigurationFactoryTrait,
         DemandTrait, EntityNotFoundHandlerTrait, FilterableControllerTrait,
         PerformanceDemandFactoryTrait, SearchTrait, SessionTrait,
@@ -165,7 +165,7 @@ class PerformanceController
      */
     public function listAction(array $overwriteDemand = null)
     {
-        $demand = $this->createDemandFromSettings($this->settings);
+        $demand = $this->performanceDemandFactory->createFromSettings($this->settings);
         $this->overwriteDemandObject($demand, $overwriteDemand);
         $performances = $this->performanceRepository->findDemanded($demand);
 
@@ -254,64 +254,16 @@ class PerformanceController
 
     /**
      * Create Demand from Settings
+     * This method is kept for backwards compatibility only.
      *
      * @param array $settings
      * @return \DWenzel\T3events\Domain\Model\Dto\PerformanceDemand
+     * @deprecated Use demand factory instead
      */
     protected function createDemandFromSettings($settings)
     {
         /** @var PerformanceDemand $demand */
-        $demand = $this->objectManager->get('DWenzel\\T3events\\Domain\\Model\\Dto\\PerformanceDemand');
-
-        foreach ($settings as $name => $value) {
-            if (empty($value)) {
-                continue;
-            }
-            switch ($name) {
-                case 'maxItems':
-                    $demand->setLimit($value);
-                    break;
-                // all following fall through (see below)
-                case 'periodType':
-                case 'periodStart':
-                case 'periodEndDate':
-                case 'periodDuration':
-                case 'search':
-                    break;
-                default:
-                    if (ObjectAccess::isPropertySettable($demand, $name)) {
-                        ObjectAccess::setProperty($demand, $name, $value);
-                    }
-            }
-        }
-
-        if ($settings['period'] == 'specific') {
-            $demand->setPeriodType($settings['periodType']);
-        }
-        $timeZone = new \DateTimeZone(date_default_timezone_get());
-        $startDate = new \DateTime('midnight', $timeZone);
-        if ($settings['period'] === 'futureOnly'
-            OR $settings['period'] === 'pastOnly'
-        ) {
-            $demand->setDate($startDate);
-        }
-        if (isset($settings['periodType']) AND $settings['periodType'] != 'byDate') {
-            $demand->setPeriodStart($settings['periodStart']);
-            $demand->setPeriodDuration($settings['periodDuration']);
-        }
-
-        if ($settings['periodType'] == 'byDate') {
-            if ($settings['periodStartDate']) {
-                $startDate->setTimestamp((int)$settings['periodStartDate']);
-                $demand->setStartDate($startDate);
-            }
-            if ($settings['periodEndDate']) {
-                $endDate = new  \DateTime('midnight', $timeZone);
-                $endDate->setTimestamp((int)$settings['periodEndDate']);
-                $demand->setEndDate($endDate);
-            }
-        }
-
+        $demand = $this->performanceDemandFactory->createFromSettings($settings);
         return $demand;
     }
 }
