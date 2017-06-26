@@ -32,9 +32,8 @@ trait CallStaticTrait
      * Note that parent::class should be used instead of 'parent'
      * to refer to the actual parent class.
      *
-     * @param string $classAndMethod Name of the class
+     * @param string $className Name of the class
      * @param string $methodName Name of the method
-     * @param mixed $parameter,... Parameters to the method
      * @return mixed
      */
     protected function callStatic($className, $methodName)
