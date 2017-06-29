@@ -21,9 +21,7 @@ use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
  * Class ExtensionService
  * @package DWenzel\T3events\Service
  */
-class ExtensionService
-    extends \TYPO3\CMS\Extbase\Service\ExtensionService
-    implements SingletonInterface
+class ExtensionService extends \TYPO3\CMS\Extbase\Service\ExtensionService implements SingletonInterface
 {
 
     /**
@@ -57,10 +55,9 @@ class ExtensionService
             isset($frameworkConfiguration['settings']['cache']['makeNonCacheable']) &&
             $frameworkConfiguration['settings']['cache']['makeNonCacheable']
         ) {
-            return FALSE;
+            return false;
         }
 
-        return TRUE;
+        return true;
     }
 }
-

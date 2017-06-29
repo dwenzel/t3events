@@ -99,7 +99,8 @@ trait FlashMessageTrait
      * @deprecated since TYPO3 6.1, will be removed 2 versions later
      * @return boolean
      */
-    public function useLegacyFlashMessageHandling() {
+    public function useLegacyFlashMessageHandling()
+    {
         return (boolean) ObjectAccess::getPropertyPath(
             $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK),
             'legacy.enableLegacyFlashMessageHandling'

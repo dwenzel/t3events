@@ -98,5 +98,4 @@ class ArrayToCsvViewHelperTest extends UnitTestCase
             $this->subject->render()
         );
     }
-
 }

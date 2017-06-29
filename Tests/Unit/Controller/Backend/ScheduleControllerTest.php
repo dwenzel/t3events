@@ -1,9 +1,13 @@
 <?php
 namespace DWenzel\T3events\Tests\Unit\Controller\Backend;
+
 use DWenzel\T3events\Controller\Backend\ScheduleController;
 use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
 use DWenzel\T3events\Domain\Model\Dto\ModuleData;
 use DWenzel\T3events\Domain\Repository\PerformanceRepository;
+use DWenzel\T3events\Domain\Factory\Dto\PerformanceDemandFactory;
+use DWenzel\T3events\Domain\Model\Dto\PerformanceDemand;
+
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 
@@ -20,7 +24,8 @@ use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
  * The TYPO3 project - inspiring people to share!
  */
 
-class ScheduleControllerTest extends UnitTestCase {
+class ScheduleControllerTest extends UnitTestCase
+{
 
     /**
      * @var ScheduleController|\PHPUnit_Framework_MockObject_MockObject|\TYPO3\CMS\Core\Tests\AccessibleObjectInterface
@@ -36,6 +41,16 @@ class ScheduleControllerTest extends UnitTestCase {
      * @var ViewInterface | \PHPUnit_Framework_MockObject_MockObject
      */
     protected $view;
+
+    /**
+     * @var PerformanceDemandFactory|\PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $performanceDemandFactory;
+
+    /**
+     * @var array
+     */
+    protected $settings = [];
 
     /**
      * set up
@@ -65,6 +80,11 @@ class ScheduleControllerTest extends UnitTestCase {
             $this->moduleData
         );
         $this->subject->injectPerformanceRepository($mockPerformanceRepository);
+        $this->performanceDemandFactory = $this->getMock(PerformanceDemandFactory::class, ['createFromSettings']);
+        $mockDemand = $this->getMock(PerformanceDemand::class);
+        $this->performanceDemandFactory->method('createFromSettings')->will($this->returnValue($mockDemand));
+        $this->subject->injectPerformanceDemandFactory($this->performanceDemandFactory);
+        $this->inject($this->subject, 'settings', $this->settings);
     }
 
     /**
@@ -72,12 +92,10 @@ class ScheduleControllerTest extends UnitTestCase {
      */
     protected function mockCreateDemandFromSettings()
     {
-        $mockDemand = $this->getMockForAbstractClass(
-            DemandInterface::class
-        );
+        $mockDemand = $this->getMock(PerformanceDemand::class);
 
-        $this->subject->expects($this->once())
-            ->method('createDemandFromSettings')
+        $this->performanceDemandFactory->expects($this->once())
+            ->method('createFromSettings')
             ->will($this->returnValue($mockDemand));
 
         return $mockDemand;
@@ -91,9 +109,6 @@ class ScheduleControllerTest extends UnitTestCase {
         $settings = [
             'filter' => []
         ];
-        $mockDemand = $this->getMockForAbstractClass(
-            DemandInterface::class
-        );
 
         $this->inject(
             $this->subject,
@@ -101,10 +116,9 @@ class ScheduleControllerTest extends UnitTestCase {
             $settings
         );
 
-        $this->subject->expects($this->once())
-            ->method('createDemandFromSettings')
-            ->with($settings)
-            ->will($this->returnValue($mockDemand));
+        $this->performanceDemandFactory->expects($this->once())
+            ->method('createFromSettings')
+            ->with($settings);
 
         $this->subject->listAction();
     }
@@ -182,5 +196,4 @@ class ScheduleControllerTest extends UnitTestCase {
             ->method('assignMultiple');
         $this->subject->listAction();
     }
-
 }

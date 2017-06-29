@@ -29,62 +29,68 @@ use DWenzel\T3events\Domain\Model\Dto\ModuleData;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-class ModuleDataTest extends UnitTestCase {
+class ModuleDataTest extends UnitTestCase
+{
 
-	/**
-	 * @var ModuleData
-	 */
-	protected $subject;
+    /**
+     * @var ModuleData
+     */
+    protected $subject;
 
-	public function setUp() {
-		$this->subject = $this->getAccessibleMock(
-			ModuleData::class, ['dummy']
-		);
-	}
+    public function setUp()
+    {
+        $this->subject = $this->getAccessibleMock(
+            ModuleData::class, ['dummy']
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function getDemandInitiallyReturnsNull() {
-		$this->assertNull(
-			$this->subject->getDemand()
-		);
-	}
+    /**
+     * @test
+     */
+    public function getDemandInitiallyReturnsNull()
+    {
+        $this->assertNull(
+            $this->subject->getDemand()
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function demandCanBeSet() {
-		$demand = $this->getMock(
-			DemandInterface::class
-		);
-		$this->subject->setDemand($demand);
+    /**
+     * @test
+     */
+    public function demandCanBeSet()
+    {
+        $demand = $this->getMock(
+            DemandInterface::class
+        );
+        $this->subject->setDemand($demand);
 
-		$this->assertSame(
-			$demand,
-			$this->subject->getDemand()
-		);
-	}
+        $this->assertSame(
+            $demand,
+            $this->subject->getDemand()
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function getOverwriteDemandInitiallyReturnsNull() {
-		$this->assertNull(
-			$this->subject->getOverwriteDemand()
-		);
-	}
+    /**
+     * @test
+     */
+    public function getOverwriteDemandInitiallyReturnsNull()
+    {
+        $this->assertNull(
+            $this->subject->getOverwriteDemand()
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function overwriteDemandCanBeSet() {
-		$overwriteDemand = ['foo'];
-		$this->subject->setOverwriteDemand($overwriteDemand);
+    /**
+     * @test
+     */
+    public function overwriteDemandCanBeSet()
+    {
+        $overwriteDemand = ['foo'];
+        $this->subject->setOverwriteDemand($overwriteDemand);
 
-		$this->assertSame(
-			$overwriteDemand,
-			$this->subject->getOverwriteDemand()
-		);
-	}
+        $this->assertSame(
+            $overwriteDemand,
+            $this->subject->getOverwriteDemand()
+        );
+    }
 }

@@ -1,7 +1,7 @@
 <?php
 namespace DWenzel\T3events\Domain\Model\Dto;
 
- /***************************************************************
+/***************************************************************
  *
  *  Copyright notice
  *
@@ -25,24 +25,27 @@ namespace DWenzel\T3events\Domain\Model\Dto;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-trait VenueAwareDemandTrait {
+trait VenueAwareDemandTrait
+{
 
-	/**
-	 * @var string
-	 */
-	protected $venues;
+    /**
+     * @var string
+     */
+    protected $venues;
 
-	/**
-	 * @return string
-	 */
-	public function getVenues() {
-		return $this->venues;
-	}
+    /**
+     * @return string
+     */
+    public function getVenues()
+    {
+        return $this->venues;
+    }
 
-	/**
-	 * @param string $venues
-	 */
-	public function setVenues($venues) {
-		$this->venues = $venues;
-	}
+    /**
+     * @param string $venues
+     */
+    public function setVenues($venues)
+    {
+        $this->venues = $venues;
+    }
 }

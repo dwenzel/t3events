@@ -1,35 +1,28 @@
 <?php
+
 namespace DWenzel\T3events\Controller;
 
-/***************************************************************
- *  Copyright notice
- *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
- *  Michael Kasten <kasten@webfox01.de>, Agentur Webfox
- *  All rights reserved
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 3 of the License, or
- *  (at your option) any later version.
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
-
+/**
+ * This file is part of the "Events" project.
+ *
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with this source code.
+ *
+ * The TYPO3 project - inspiring people to share!
+ */
 
 use DWenzel\T3calendar\Domain\Model\Dto\CalendarConfigurationFactoryTrait;
-use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
-use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 use DWenzel\T3events\Domain\Model\Dto\PerformanceDemand;
 use DWenzel\T3events\Domain\Model\Performance;
 use DWenzel\T3events\Domain\Repository\EventTypeRepository;
 use DWenzel\T3events\Domain\Repository\GenreRepository;
 use DWenzel\T3events\Domain\Repository\PerformanceRepository;
 use DWenzel\T3events\Domain\Repository\VenueRepository;
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
 /**
  * Class PerformanceController
@@ -38,10 +31,11 @@ use DWenzel\T3events\Domain\Repository\VenueRepository;
  */
 class PerformanceController
     extends ActionController
-    implements FilterableControllerInterface {
+    implements FilterableControllerInterface
+{
     use CategoryRepositoryTrait, CalendarConfigurationFactoryTrait,
         DemandTrait, EntityNotFoundHandlerTrait, FilterableControllerTrait,
-        PerformanceDemandFactoryTrait, SearchTrait,SessionTrait,
+        PerformanceDemandFactoryTrait, SearchTrait, SessionTrait,
         SettingsUtilityTrait, TranslateTrait;
 
     const PERFORMANCE_LIST_ACTION = 'listAction';
@@ -171,7 +165,7 @@ class PerformanceController
      */
     public function listAction(array $overwriteDemand = null)
     {
-        $demand = $this->createDemandFromSettings($this->settings);
+        $demand = $this->performanceDemandFactory->createFromSettings($this->settings);
         $this->overwriteDemandObject($demand, $overwriteDemand);
         $performances = $this->performanceRepository->findDemanded($demand);
 
@@ -260,66 +254,16 @@ class PerformanceController
 
     /**
      * Create Demand from Settings
+     * This method is kept for backwards compatibility only.
      *
      * @param array $settings
      * @return \DWenzel\T3events\Domain\Model\Dto\PerformanceDemand
+     * @deprecated Use demand factory instead
      */
     protected function createDemandFromSettings($settings)
     {
         /** @var PerformanceDemand $demand */
-        $demand = $this->objectManager->get('DWenzel\\T3events\\Domain\\Model\\Dto\\PerformanceDemand');
-
-        foreach ($settings as $name => $value) {
-            if (empty($value)) {
-                continue;
-            }
-            switch ($name) {
-                case 'maxItems':
-                    $demand->setLimit($value);
-                    break;
-                // all following fall through (see below)
-                case 'periodType':
-                case 'periodStart':
-                case 'periodEndDate':
-                case 'periodDuration':
-                case 'search':
-                    break;
-                default:
-                    if (ObjectAccess::isPropertySettable($demand, $name)) {
-                        ObjectAccess::setProperty($demand, $name, $value);
-                    }
-            }
-        }
-
-        if ($settings['period'] == 'specific') {
-            $demand->setPeriodType($settings['periodType']);
-        }
-        $timeZone = new \DateTimeZone(date_default_timezone_get());
-        $startDate = new \DateTime('midnight', $timeZone);
-        if ($settings['period'] === 'futureOnly'
-            OR $settings['period'] === 'pastOnly'
-        ) {
-            $demand->setDate($startDate);
-        }
-        if (isset($settings['periodType']) AND $settings['periodType'] != 'byDate') {
-            $demand->setPeriodStart($settings['periodStart']);
-            $demand->setPeriodDuration($settings['periodDuration']);
-        }
-
-        if ($settings['periodType'] == 'byDate') {
-            if ($settings['periodStartDate']) {
-
-                $startDate->setTimestamp((int)$settings['periodStartDate']);
-                $demand->setStartDate($startDate);
-            }
-            if ($settings['periodEndDate']) {
-                $endDate = new  \DateTime('midnight', $timeZone);
-                $endDate->setTimestamp((int)$settings['periodEndDate']);
-                $demand->setEndDate($endDate);
-            }
-        }
-
+        $demand = $this->performanceDemandFactory->createFromSettings($settings);
         return $demand;
     }
 }
-

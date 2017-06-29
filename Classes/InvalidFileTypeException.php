@@ -1,7 +1,7 @@
 <?php
 namespace DWenzel\T3events;
 
- /***************************************************************
+/***************************************************************
  *
  *  Copyright notice
  *
@@ -25,6 +25,6 @@ namespace DWenzel\T3events;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-class InvalidFileTypeException extends \Exception {
-
+class InvalidFileTypeException extends \Exception
+{
 }

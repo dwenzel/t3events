@@ -33,7 +33,8 @@ class SearchFactory
      * @param \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
      * @return void
      */
-    public function injectObjectManager(ObjectManagerInterface $objectManager) {
+    public function injectObjectManager(ObjectManagerInterface $objectManager)
+    {
         $this->objectManager = $objectManager;
     }
 
@@ -49,11 +50,11 @@ class SearchFactory
         /** @var Search $searchObject */
         $searchObject = $this->objectManager->get(Search::class);
 
-        if (isset($searchRequest['subject']) AND isset($settings['fields'])) {
+        if (isset($searchRequest['subject']) and isset($settings['fields'])) {
             $searchObject->setFields($settings['fields']);
             $searchObject->setSubject($searchRequest['subject']);
         }
-        if (isset($searchRequest['location']) AND isset($searchRequest['radius'])) {
+        if (isset($searchRequest['location']) and isset($searchRequest['radius'])) {
             $searchObject->setLocation($searchRequest['location']);
             $searchObject->setRadius($searchRequest['radius']);
         }

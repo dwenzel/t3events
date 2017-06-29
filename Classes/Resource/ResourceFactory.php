@@ -1,7 +1,7 @@
 <?php
 namespace DWenzel\T3events\Resource;
 
- /***************************************************************
+/***************************************************************
  *
  *  Copyright notice
  *
@@ -37,60 +37,64 @@ use TYPO3\CMS\Extbase\Object\ObjectManager;
  *
  * @package DWenzel\T3events\Resource
  */
-class ResourceFactory extends CoreResourceFactory {
-	/**
-	 * @var \TYPO3\CMS\Extbase\Object\ObjectManager
-	 */
-	protected $objectManager;
+class ResourceFactory extends CoreResourceFactory
+{
+    /**
+     * @var \TYPO3\CMS\Extbase\Object\ObjectManager
+     */
+    protected $objectManager;
 
-	/**
-	 * injects the ObjectManager
-	 *
-	 * @param ObjectManager $objectManager
-	 */
-	public function injectObjectManager(ObjectManager $objectManager) {
-		$this->objectManager = $objectManager;
-	}
+    /**
+     * injects the ObjectManager
+     *
+     * @param ObjectManager $objectManager
+     */
+    public function injectObjectManager(ObjectManager $objectManager)
+    {
+        $this->objectManager = $objectManager;
+    }
 
-	/**
-	 * Gets a file by combined identifier using the
-	 * resource factory's method.
-	 * Returns null if no file or a folder was found!
-	 *
-	 * @param $identifier
-	 * @return null|\TYPO3\CMS\Core\Resource\FileInterface
-	 */
-	public function getFileObjectByCombinedIdentifier($identifier) {
-		$file = $this->retrieveFileOrFolderObject(
-			$identifier
-		);
-		if ($file instanceof FileInterface) {
-			return $file;
-		}
+    /**
+     * Gets a file by combined identifier using the
+     * resource factory's method.
+     * Returns null if no file or a folder was found!
+     *
+     * @param $identifier
+     * @return null|\TYPO3\CMS\Core\Resource\FileInterface
+     */
+    public function getFileObjectByCombinedIdentifier($identifier)
+    {
+        $file = $this->retrieveFileOrFolderObject(
+            $identifier
+        );
+        if ($file instanceof FileInterface) {
+            return $file;
+        }
 
-		return null;
-	}
+        return null;
+    }
 
-	/**
-	 * Creates a new (extbase) file reference from a given file object
-	 *
-	 * @param FileInterface|File $file
-	 * @return \TYPO3\CMS\Extbase\Domain\Model\FileReference
-	 */
-	public function createFileReferenceFromFileObject(File $file) {
-		$coreFileReference =  $this->createFileReferenceObject(
-			[
-				'uid_local' => $file->getUid(),
-				'uid_foreign' => uniqid('NEW_'),
-				'uid' => uniqid('NEW_'),
-			]
-		);
-		/** @var \TYPO3\CMS\Extbase\Domain\Model\FileReference $fileReference */
-		$fileReference = $this->objectManager->get(
-			FileReference::class
-		);
-		$fileReference->setOriginalResource($coreFileReference);
+    /**
+     * Creates a new (extbase) file reference from a given file object
+     *
+     * @param FileInterface|File $file
+     * @return \TYPO3\CMS\Extbase\Domain\Model\FileReference
+     */
+    public function createFileReferenceFromFileObject(File $file)
+    {
+        $coreFileReference =  $this->createFileReferenceObject(
+            [
+                'uid_local' => $file->getUid(),
+                'uid_foreign' => uniqid('NEW_'),
+                'uid' => uniqid('NEW_'),
+            ]
+        );
+        /** @var \TYPO3\CMS\Extbase\Domain\Model\FileReference $fileReference */
+        $fileReference = $this->objectManager->get(
+            FileReference::class
+        );
+        $fileReference->setOriginalResource($coreFileReference);
 
-		return $fileReference;
-	}
+        return $fileReference;
+    }
 }

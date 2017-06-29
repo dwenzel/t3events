@@ -17,60 +17,63 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
  *
  * @package placements
  */
-class Search extends AbstractEntity
-	implements LocationAwareInterface {
-	use LocationAwareTrait;
+class Search extends AbstractEntity implements LocationAwareInterface
+{
+    use LocationAwareTrait;
 
-	/**
-	 * Basic search word
-	 *
-	 * @var string
-	 */
-	protected $subject;
+    /**
+     * Basic search word
+     *
+     * @var string
+     */
+    protected $subject;
 
-	/**
-	 * Search fields
-	 *
-	 * @var string
-	 */
-	protected $fields;
+    /**
+     * Search fields
+     *
+     * @var string
+     */
+    protected $fields;
 
-	/**
-	 * Get the subject
-	 *
-	 * @return string
-	 */
-	public function getSubject() {
-		return $this->subject;
-	}
+    /**
+     * Get the subject
+     *
+     * @return string
+     */
+    public function getSubject()
+    {
+        return $this->subject;
+    }
 
-	/**
-	 * Set subject
-	 *
-	 * @param string $subject
-	 * @return void
-	 */
-	public function setSubject($subject) {
-		$this->subject = $subject;
-	}
+    /**
+     * Set subject
+     *
+     * @param string $subject
+     * @return void
+     */
+    public function setSubject($subject)
+    {
+        $this->subject = $subject;
+    }
 
-	/**
-	 * Get fields
-	 *
-	 * @return string A comma separated list of search fields
-	 */
-	public function getFields() {
-		return $this->fields;
-	}
+    /**
+     * Get fields
+     *
+     * @return string A comma separated list of search fields
+     */
+    public function getFields()
+    {
+        return $this->fields;
+    }
 
-	/**
-	 * Set fields
-	 *
-	 * @param string $fields A comma separated list of search fields
-	 * @return void
-	 */
-	public function setFields($fields) {
-		$this->fields = $fields;
-	}
-
+    /**
+     * Set fields
+     *
+     * @param string $fields A comma separated list of search fields
+     * @return void
+     */
+    public function setFields($fields)
+    {
+        $this->fields = $fields;
+    }
 }

@@ -96,6 +96,47 @@ class TableConfigurationTest extends UnitTestCase
             $expectedValue,
             TableConfiguration::getWizardIcon($wizardName)
         );
+    }
 
+    /**
+     * data provider for language file paths
+     */
+    public function languageFilePathDataProvider()
+    {
+        $pathStrings = [
+            7 => [
+                ['foo', 'LLL:EXT:foo/'],
+                [null, 'LLL:EXT:lang/']
+            ],
+            8 => [
+                [null, 'LLL:EXT:lang/Resources/Private/Language/'],
+                ['foo', 'LLL:EXT:foo/Resources/Private/Language/']
+            ]
+        ];
+        /* expected strings by version */
+        $version = 8;
+        $versionNumber = VersionNumberUtility::convertVersionNumberToInteger(
+            VersionNumberUtility::getNumericTypo3Version()
+        );
+        if ($versionNumber >= 7000000 && $versionNumber < 8000000) {
+            $version = 7;
+        }
+
+        return $pathStrings[$version];
+    }
+
+    /**
+     * @test
+     * @dataProvider languageFilePathDataProvider
+     */
+    public function getLanguageFilePathReturnsCorrectPaths($extensionName, $expectedPath)
+    {
+        if (is_null($extensionName))
+        {
+            $path = TableConfiguration::getLanguageFilePath();
+        } else {
+            $path = TableConfiguration::getLanguageFilePath($extensionName);
+        }
+        $this->assertSame($expectedPath, $path);
     }
 }

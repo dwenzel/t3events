@@ -20,14 +20,18 @@ namespace DWenzel\T3events\Domain\Model\Dto;
  *
  * @package DWenzel\T3events\Domain\Model\Dto
  */
-class PerformanceDemand
-    extends AbstractDemand
-    implements DemandInterface,
-    AudienceAwareDemandInterface, CategoryAwareDemandInterface,
-    EventLocationAwareDemandInterface, EventTypeAwareDemandInterface,
-    GenreAwareDemandInterface, OrderAwareDemandInterface,
-    PeriodAwareDemandInterface, SearchAwareDemandInterface,
-    StatusAwareDemandInterface, VenueAwareDemandInterface
+class PerformanceDemand extends AbstractDemand implements
+    DemandInterface,
+    AudienceAwareDemandInterface,
+    CategoryAwareDemandInterface,
+    EventLocationAwareDemandInterface,
+    EventTypeAwareDemandInterface,
+    GenreAwareDemandInterface,
+    OrderAwareDemandInterface,
+    PeriodAwareDemandInterface,
+    SearchAwareDemandInterface,
+    StatusAwareDemandInterface,
+    VenueAwareDemandInterface
 {
     use AudienceAwareDemandTrait, CategoryAwareDemandTrait,
         EventTypeAwareDemandTrait, EventLocationAwareDemandTrait,
@@ -122,4 +126,3 @@ class PerformanceDemand
         return static::AUDIENCE_FIELD;
     }
 }
-

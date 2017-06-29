@@ -30,32 +30,33 @@ use DWenzel\T3events\Domain\Repository\GenreRepository;
  * @author Dirk Wenzel <dirk.wenzel@cps-it.de>
  * @coversDefaultClass \DWenzel\T3events\Domain\Repository\GenreRepository
  */
-class GenreRepositoryTest extends UnitTestCase {
+class GenreRepositoryTest extends UnitTestCase
+{
 
-	/**
-	 * @var \DWenzel\T3events\Domain\Repository\GenreRepository
-	 */
-	protected $fixture;
+    /**
+     * @var \DWenzel\T3events\Domain\Repository\GenreRepository
+     */
+    protected $fixture;
 
-	public function setUp() {
-		$this->fixture = $this->getAccessibleMock(
-			GenreRepository::class,
-			['dummy'], [], '', FALSE);
-	}
+    public function setUp()
+    {
+        $this->fixture = $this->getAccessibleMock(
+            GenreRepository::class,
+            ['dummy'], [], '', false);
+    }
 
-	/**
-	 * @test
-	 * @covers ::createConstraintsFromDemand
-	 */
-	public function createConstraintsFromDemandInitiallyReturnsEmptyArray() {
-		$demand = $this->getMock(DemandInterface::class);
-		$query = $this->getMock(QueryInterface::class, [], [], '', FALSE);
+    /**
+     * @test
+     * @covers ::createConstraintsFromDemand
+     */
+    public function createConstraintsFromDemandInitiallyReturnsEmptyArray()
+    {
+        $demand = $this->getMock(DemandInterface::class);
+        $query = $this->getMock(QueryInterface::class, [], [], '', false);
 
-		$this->assertEquals(
-			[],
-			$this->fixture->createConstraintsFromDemand($query, $demand)
-		);
-	}
-
+        $this->assertEquals(
+            [],
+            $this->fixture->createConstraintsFromDemand($query, $demand)
+        );
+    }
 }
-

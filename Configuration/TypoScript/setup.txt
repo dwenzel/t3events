@@ -200,7 +200,13 @@ pagePerformanceICS {
         admPanel = 0
         debug = 0
         no_cache = 1
-        additionalHeaders =  Content-Type:text/calendar;charset=utf-8|Content-Disposition:attachment;filename=events.ics
+        additionalHeaders {
+            10.header = Content-Description:File Transfer
+            20.header = Content-Type:application/force-download
+            30.header = Content-Type: text/calendar;charset=UTF-8
+            40.header = Content-Disposition: attachment; filename="Event.ics"
+            50.header = Content-Transfer-Encoding:binary
+        }
     }
 
     10 = USER
@@ -218,14 +224,6 @@ pagePerformanceICS {
         }
     }
 }
-
-[compatVersion = 7.6.1]
-    pageEventICS.config.additionalHeaders >
-    pageEventICS.config.additionalHeaders {
-        10.header = Content-Type:text/calendar;charset=utf-8
-        20.header = Content-Disposition:attachment;filename=events.ics
-    }
-[global]
 
 pageEventICS < pagePerformanceICS
 pageEventICS {

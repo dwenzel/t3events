@@ -10,23 +10,25 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  *
  * @package DWenzel\T3events\Domain\Repository
  */
-trait EventTypeConstraintRepositoryTrait {
-	/**
-	 * Create EventType constraints from demand (time restriction)
-	 *
-	 * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
-	 * @param \DWenzel\T3events\Domain\Model\Dto\EventTypeAwareDemandInterface $demand
-	 * @return array<\TYPO3\CMS\Extbase\Persistence\QOM\Constraint>
-	 */
-	public function createEventTypeConstraints(QueryInterface $query, $demand) {
-		$eventTypeConstraints = [];
-		$eventTypeField = $demand->getEventTypeField();
-		$eventTypeList = $demand->getEventTypes();
-		if (!empty($eventTypeList)) {
-			$eventTypes = GeneralUtility::intExplode(',', $demand->getEventTypes(), true);
-			$eventTypeConstraints[] = $query->in($eventTypeField, $eventTypes);
-		}
+trait EventTypeConstraintRepositoryTrait
+{
+    /**
+     * Create EventType constraints from demand (time restriction)
+     *
+     * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
+     * @param \DWenzel\T3events\Domain\Model\Dto\EventTypeAwareDemandInterface $demand
+     * @return array<\TYPO3\CMS\Extbase\Persistence\QOM\Constraint>
+     */
+    public function createEventTypeConstraints(QueryInterface $query, $demand)
+    {
+        $eventTypeConstraints = [];
+        $eventTypeField = $demand->getEventTypeField();
+        $eventTypeList = $demand->getEventTypes();
+        if (!empty($eventTypeList)) {
+            $eventTypes = GeneralUtility::intExplode(',', $demand->getEventTypes(), true);
+            $eventTypeConstraints[] = $query->in($eventTypeField, $eventTypes);
+        }
 
-		return $eventTypeConstraints;
-	}
+        return $eventTypeConstraints;
+    }
 }

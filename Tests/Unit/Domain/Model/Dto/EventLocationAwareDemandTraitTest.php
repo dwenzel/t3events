@@ -7,36 +7,38 @@ use DWenzel\T3events\Domain\Model\Dto\EventLocationAwareDemandTrait;
 /**
  * Test case for class \DWenzel\T3events\Domain\Model\Dto\EventLocationAwareDemandTrait.
  */
-class EventLocationAwareDemandTraitTest extends UnitTestCase {
-
-	/**
-	 * @var \DWenzel\T3events\Domain\Model\Dto\EventLocationAwareDemandTrait
-	 */
-	protected $subject;
-
-	public function setUp() {
-		$this->subject = $this->getMockForTrait(
-			EventLocationAwareDemandTrait::class
-		);
-	}
+class EventLocationAwareDemandTraitTest extends UnitTestCase
+{
 
     /**
-     * @test
+     * @var \DWenzel\T3events\Domain\Model\Dto\EventLocationAwareDemandTrait
      */
-    public function getEventLocationsReturnsInitialNull() {
-        $this->assertSame(NULL, $this->subject->getEventLocations());
+    protected $subject;
+
+    public function setUp()
+    {
+        $this->subject = $this->getMockForTrait(
+            EventLocationAwareDemandTrait::class
+        );
     }
 
     /**
      * @test
      */
-    public function setEventLocationForStringSetsEventLocation() {
+    public function getEventLocationsReturnsInitialNull()
+    {
+        $this->assertSame(null, $this->subject->getEventLocations());
+    }
+
+    /**
+     * @test
+     */
+    public function setEventLocationForStringSetsEventLocation()
+    {
         $eventLocation = 'foo';
 
         $this->subject->setEventLocations($eventLocation);
 
         $this->assertEquals($eventLocation, $this->subject->getEventLocations());
     }
-
 }
-

@@ -16,7 +16,6 @@ use DWenzel\T3events\Controller\Routing\RouterInterface;
 use DWenzel\T3events\DataProvider\RouteLoader\RouteLoaderDataProviderInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-
 /**
  * Class RouteLoader
  *

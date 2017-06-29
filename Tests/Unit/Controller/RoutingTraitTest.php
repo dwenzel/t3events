@@ -19,8 +19,8 @@ use DWenzel\T3events\Controller\SignalTrait;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Extbase\Mvc\Web\Request;
 
-class MockSignalController
-implements SignalInterface {
+class MockSignalController implements SignalInterface
+{
     use RoutingTrait, SignalTrait;
 }
 /**
@@ -65,7 +65,6 @@ class RoutingTraitTest extends UnitTestCase
      */
     public function dispatchGetsIdentifierFromRequest()
     {
-
         $identifier = 'foo';
 
         $mockRequest = $this->getMock(

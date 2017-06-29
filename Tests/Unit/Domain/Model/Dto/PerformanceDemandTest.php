@@ -1,5 +1,6 @@
 <?php
 namespace DWenzel\T3events\Tests\Unit\Domain\Model\Dto;
+
 /***************************************************************
  *  Copyright notice
  *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
@@ -26,88 +27,97 @@ use DWenzel\T3events\Domain\Model\Dto\PerformanceDemand;
  * @author Dirk Wenzel <wenzel@webfox01.de>
  * @coversDefaultClass \DWenzel\T3events\Domain\Model\Dto\PerformanceDemand
  */
-class PerformanceDemandTest extends \Nimut\TestingFramework\TestCase\UnitTestCase {
+class PerformanceDemandTest extends \Nimut\TestingFramework\TestCase\UnitTestCase
+{
 
-	/**
-	 * @var \DWenzel\T3events\Domain\Model\Dto\PerformanceDemand
-	 */
-	protected $subject;
+    /**
+     * @var \DWenzel\T3events\Domain\Model\Dto\PerformanceDemand
+     */
+    protected $subject;
 
 
-	public function setUp() {
-		$this->subject = $this->getMock(
-		    PerformanceDemand::class, ['dummy']
+    public function setUp()
+    {
+        $this->subject = $this->getMock(
+            PerformanceDemand::class, ['dummy']
         );
-	}
+    }
 
-	/**
-	 * @test
-	 */
-	public function getDateReturnsInitialNull() {
-		$this->assertSame(NULL, $this->subject->getDate());
-	}
+    /**
+     * @test
+     */
+    public function getDateReturnsInitialNull()
+    {
+        $this->assertSame(null, $this->subject->getDate());
+    }
 
-	/**
-	 * @test
-	 */
-	public function setDateForDateTimeSetsDate() {
-		$now = date('Y-m-d H:i:s');
-		$this->subject->setDate($now);
+    /**
+     * @test
+     */
+    public function setDateForDateTimeSetsDate()
+    {
+        $now = date('Y-m-d H:i:s');
+        $this->subject->setDate($now);
 
-		$this->assertEquals($now, $this->subject->getDate());
-	}
+        $this->assertEquals($now, $this->subject->getDate());
+    }
 
-	/**
-	 * @test
-	 */
-	public function getStartDateFieldForStringReturnsStartDateFieldConstant() {
-		$this->assertSame(
-			PerformanceDemand::START_DATE_FIELD,
-			$this->subject->getStartDateField()
-		);
-	}
+    /**
+     * @test
+     */
+    public function getStartDateFieldForStringReturnsStartDateFieldConstant()
+    {
+        $this->assertSame(
+            PerformanceDemand::START_DATE_FIELD,
+            $this->subject->getStartDateField()
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function getEndDateFieldForStringReturnsEndDateFieldConstant() {
-		$this->assertSame(
-			PerformanceDemand::END_DATE_FIELD,
-			$this->subject->getEndDateField()
-		);
-	}
+    /**
+     * @test
+     */
+    public function getEndDateFieldForStringReturnsEndDateFieldConstant()
+    {
+        $this->assertSame(
+            PerformanceDemand::END_DATE_FIELD,
+            $this->subject->getEndDateField()
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function getStatusFieldForStringReturnsStatusFieldConstant() {
-		$this->assertSame(
-			PerformanceDemand::STATUS_FIELD,
-			$this->subject->getStatusField()
-		);
-	}
+    /**
+     * @test
+     */
+    public function getStatusFieldForStringReturnsStatusFieldConstant()
+    {
+        $this->assertSame(
+            PerformanceDemand::STATUS_FIELD,
+            $this->subject->getStatusField()
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function getCategoryFieldForStringReturnsCategoryFieldConstant() {
-		$this->assertSame(
-			PerformanceDemand::CATEGORY_FIELD,
-			$this->subject->getCategoryField()
-		);
-	}
+    /**
+     * @test
+     */
+    public function getCategoryFieldForStringReturnsCategoryFieldConstant()
+    {
+        $this->assertSame(
+            PerformanceDemand::CATEGORY_FIELD,
+            $this->subject->getCategoryField()
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function excludeSelectedStatusForBoolCanBeSet() {
-		$this->subject->setExcludeSelectedStatuses(true);
-		$this->assertTrue(
-			$this->subject->isExcludeSelectedStatuses()
-		);
-	}
+    /**
+     * @test
+     */
+    public function excludeSelectedStatusForBoolCanBeSet()
+    {
+        $this->subject->setExcludeSelectedStatuses(true);
+        $this->assertTrue(
+            $this->subject->isExcludeSelectedStatuses()
+        );
+    }
 
-	/**
+    /**
      * @test
      */
     public function getEventLocationFieldReturnsClassConstant()
@@ -162,4 +172,3 @@ class PerformanceDemandTest extends \Nimut\TestingFramework\TestCase\UnitTestCas
         );
     }
 }
-

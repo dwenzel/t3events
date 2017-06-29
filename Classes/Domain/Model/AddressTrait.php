@@ -18,104 +18,113 @@ namespace DWenzel\T3events\Domain\Model;
  *  GNU General Public License for more details.
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-trait AddressTrait {
+trait AddressTrait
+{
 
-	/**
-	 * address
-	 *
-	 * @var string
-	 */
-	protected $address = '';
+    /**
+     * address
+     *
+     * @var string
+     */
+    protected $address = '';
 
-	/**
-	 * city
-	 *
-	 * @var string
-	 */
-	protected $city = '';
+    /**
+     * city
+     *
+     * @var string
+     */
+    protected $city = '';
 
-	/**
-	 * zip
-	 *
-	 * @var string
-	 */
-	protected $zip = '';
+    /**
+     * zip
+     *
+     * @var string
+     */
+    protected $zip = '';
 
-	/**
-	 * country
-	 *
-	 * @var string
-	 */
-	protected $country = '';
+    /**
+     * country
+     *
+     * @var string
+     */
+    protected $country = '';
 
-	/**
-	 * Returns the address
-	 *
-	 * @return string $address
-	 */
-	public function getAddress() {
-		return $this->address;
-	}
+    /**
+     * Returns the address
+     *
+     * @return string $address
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
 
-	/**
-	 * Returns the city
-	 *
-	 * @return string $city
-	 */
-	public function getCity() {
-		return $this->city;
-	}
+    /**
+     * Returns the city
+     *
+     * @return string $city
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
 
-	/**
-	 * Returns the zip
-	 *
-	 * @return string $zip
-	 */
-	public function getZip() {
-		return $this->zip;
-	}
+    /**
+     * Returns the zip
+     *
+     * @return string $zip
+     */
+    public function getZip()
+    {
+        return $this->zip;
+    }
 
-	/**
-	 * Sets the address
-	 *
-	 * @param string $address
-	 * @return void
-	 */
-	public function setAddress($address) {
-		$this->address = $address;
-	}
+    /**
+     * Sets the address
+     *
+     * @param string $address
+     * @return void
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
+    }
 
-	/**
-	 * Sets the city
-	 *
-	 * @param string $city
-	 * @return void
-	 */
-	public function setCity($city) {
-		$this->city = $city;
-	}
+    /**
+     * Sets the city
+     *
+     * @param string $city
+     * @return void
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+    }
 
-	/**
-	 * Sets the zip
-	 *
-	 * @param string $zip
-	 * @return void
-	 */
-	public function setZip($zip) {
-		$this->zip = $zip;
-	}
+    /**
+     * Sets the zip
+     *
+     * @param string $zip
+     * @return void
+     */
+    public function setZip($zip)
+    {
+        $this->zip = $zip;
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getCountry() {
-		return $this->country;
-	}
+    /**
+     * @return string
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
 
-	/**
-	 * @param string $country
-	 */
-	public function setCountry($country) {
-		$this->country = $country;
-	}
+    /**
+     * @param string $country
+     */
+    public function setCountry($country)
+    {
+        $this->country = $country;
+    }
 }

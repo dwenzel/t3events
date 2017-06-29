@@ -41,207 +41,213 @@ use DWenzel\T3events\Resource\ResourceFactory;
  *
  * @package DWenzel\T3events\Utility
  */
-class SettingsUtility implements SingletonInterface {
+class SettingsUtility implements SingletonInterface
+{
 
-	/**
-	 * @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
-	 */
-	protected $contentObjectRenderer;
+    /**
+     * @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
+     */
+    protected $contentObjectRenderer;
 
-	/**
-	 * @var array
-	 */
-	protected $controllerKeys = [];
+    /**
+     * @var array
+     */
+    protected $controllerKeys = [];
 
-	/**
-	 * @var \TYPO3\CMS\Extbase\Object\ObjectManager
-	 */
-	protected $objectManager;
+    /**
+     * @var \TYPO3\CMS\Extbase\Object\ObjectManager
+     */
+    protected $objectManager;
 
-	/**
-	 * @var ResourceFactory
-	 */
-	protected $resourceFactory;
+    /**
+     * @var ResourceFactory
+     */
+    protected $resourceFactory;
 
-	/**
-	 * injects the ContentObjectRenderer
-	 *
-	 * @param ContentObjectRenderer $contentObjectRenderer
-	 */
-	public function injectContentObjectRenderer(ContentObjectRenderer $contentObjectRenderer) {
-		$this->contentObjectRenderer = $contentObjectRenderer;
-	}
+    /**
+     * injects the ContentObjectRenderer
+     *
+     * @param ContentObjectRenderer $contentObjectRenderer
+     */
+    public function injectContentObjectRenderer(ContentObjectRenderer $contentObjectRenderer)
+    {
+        $this->contentObjectRenderer = $contentObjectRenderer;
+    }
 
-	/**
-	 * injects the ObjectManager
-	 *
-	 * @param ObjectManager $objectManager
-	 */
-	public function injectObjectManager(ObjectManager $objectManager) {
-		$this->objectManager = $objectManager;
-	}
+    /**
+     * injects the ObjectManager
+     *
+     * @param ObjectManager $objectManager
+     */
+    public function injectObjectManager(ObjectManager $objectManager)
+    {
+        $this->objectManager = $objectManager;
+    }
 
-	/**
-	 * injects the ResourceFactory
-	 *
-	 * @param \DWenzel\T3events\Resource\ResourceFactory $resourceFactory
-	 */
-	public function injectResourceFactory(ResourceFactory $resourceFactory) {
-		$this->resourceFactory = $resourceFactory;
-	}
+    /**
+     * injects the ResourceFactory
+     *
+     * @param \DWenzel\T3events\Resource\ResourceFactory $resourceFactory
+     */
+    public function injectResourceFactory(ResourceFactory $resourceFactory)
+    {
+        $this->resourceFactory = $resourceFactory;
+    }
 
-	/**
-	 * Gets a value by key either from settings or from a given object
-	 *
-	 * If $config[$key]['field'] is set to string this string
-	 * is interpreted as property path of the object and we try to
-	 * get it from the object
-	 * If $config[$key]['default'] is set and no value can be fetched from
-	 * object we return the default value
-	 * If $config[$key] is a string we return this
-	 * If all above fails we return null.
-	 *
-	 * @param object|array $object
-	 * @param array $config
-	 * @param string $key
-	 * @return mixed
-	 * @deprecated Replace by $this->getValue()
-	 */
-	public function getValueByKey($object, $config, $key) {
-		$value = null;
-		if (isset($config[$key])) {
-			$value = $this->getValue($object, $config[$key]);
-		}
+    /**
+     * Gets a value by key either from settings or from a given object
+     *
+     * If $config[$key]['field'] is set to string this string
+     * is interpreted as property path of the object and we try to
+     * get it from the object
+     * If $config[$key]['default'] is set and no value can be fetched from
+     * object we return the default value
+     * If $config[$key] is a string we return this
+     * If all above fails we return null.
+     *
+     * @param object|array $object
+     * @param array $config
+     * @param string $key
+     * @return mixed
+     * @deprecated Replace by $this->getValue()
+     */
+    public function getValueByKey($object, $config, $key)
+    {
+        $value = null;
+        if (isset($config[$key])) {
+            $value = $this->getValue($object, $config[$key]);
+        }
 
-		return $value;
-	}
+        return $value;
+    }
 
-	/**
-	 * Gets a settings key for a controller
-	 *
-	 * @param object $controller
-	 * @return string
-	 */
-	public function getControllerKey($controller) {
-		$className = get_class($controller);
-		if (isset($this->controllerKeys[$className])) {
-			$controllerKey = $this->controllerKeys[$className];
-		} else {
-			$controllerKey = lcfirst(str_replace('Controller', '', end(explode('\\', $className))));
-			$this->controllerKeys[$className] = $controllerKey;
-		}
+    /**
+     * Gets a settings key for a controller
+     *
+     * @param object $controller
+     * @return string
+     */
+    public function getControllerKey($controller)
+    {
+        $className = get_class($controller);
+        if (isset($this->controllerKeys[$className])) {
+            $controllerKey = $this->controllerKeys[$className];
+        } else {
+            $controllerKey = lcfirst(str_replace('Controller', '', end(explode('\\', $className))));
+            $this->controllerKeys[$className] = $controllerKey;
+        }
 
-		return $controllerKey;
-	}
+        return $controllerKey;
+    }
 
-	/**
-	 * Gets an ObjectStorage with FileReference objects from TypoScript settings.
-	 * Configuration examples:
-	 * $config[
-	 *    'field' => 'property.path.of.object',
-	 *    'default' => '1,EXT:extension_name/path/to/file' // optional list of combined file identifiers
-	 *    'always' => 'file:1,path/to/file' // optional list of combined file identifiers
-	 * ]
-	 * 1. Object contains files:
-	 * IF object contains an ObjectStorage at the property path given in $config['field']
-	 * AND the ObjectStorage is not empty
-	 * AND the ObjectStorage contains FileReference objects
-	 * THEN these FileReferences are added to the resulting ObjectStorage
-	 * 2. Object does not contain files but default files are found:
-	 * IF object does NOT contain an ObjectStorage at the property path given in $config['field']
-	 * OR the property does NOT exist
-	 * OR the property contains an empty ObjectStorage
-	 * AND (at least one of) the files given in $config['default'] is found
-	 * THEN they are added to the resulting ObjectStorage
-	 * 3. Files which should always be added are found
-	 * IF (at least one of) the files given in $config['always'] is found
-	 * THEN they are added to the resulting ObjectStorage
-	 *
-	 * @param DomainObjectInterface $object
-	 * @param array $config TypoScript configuration array for look up
-	 * @return ObjectStorage
-	 */
-	public function getFileStorage(DomainObjectInterface $object, $config) {
-		$fileStorage = $this->objectManager->get(
-			ObjectStorage::class
-		);
-		$valueFromSettings = $this->getValue($object, $config);
-		// got ObjectStorage from field
-		if ($valueFromSettings instanceof ObjectStorage) {
-			$valueFromSettings->rewind();
-			if ($valueFromSettings->current() instanceof FileReference) {
-				$fileStorage = $valueFromSettings;
-			}
-		}
+    /**
+     * Gets an ObjectStorage with FileReference objects from TypoScript settings.
+     * Configuration examples:
+     * $config[
+     *    'field' => 'property.path.of.object',
+     *    'default' => '1,EXT:extension_name/path/to/file' // optional list of combined file identifiers
+     *    'always' => 'file:1,path/to/file' // optional list of combined file identifiers
+     * ]
+     * 1. Object contains files:
+     * IF object contains an ObjectStorage at the property path given in $config['field']
+     * AND the ObjectStorage is not empty
+     * AND the ObjectStorage contains FileReference objects
+     * THEN these FileReferences are added to the resulting ObjectStorage
+     * 2. Object does not contain files but default files are found:
+     * IF object does NOT contain an ObjectStorage at the property path given in $config['field']
+     * OR the property does NOT exist
+     * OR the property contains an empty ObjectStorage
+     * AND (at least one of) the files given in $config['default'] is found
+     * THEN they are added to the resulting ObjectStorage
+     * 3. Files which should always be added are found
+     * IF (at least one of) the files given in $config['always'] is found
+     * THEN they are added to the resulting ObjectStorage
+     *
+     * @param DomainObjectInterface $object
+     * @param array $config TypoScript configuration array for look up
+     * @return ObjectStorage
+     */
+    public function getFileStorage(DomainObjectInterface $object, $config)
+    {
+        $fileStorage = $this->objectManager->get(
+            ObjectStorage::class
+        );
+        $valueFromSettings = $this->getValue($object, $config);
+        // got ObjectStorage from field
+        if ($valueFromSettings instanceof ObjectStorage) {
+            $valueFromSettings->rewind();
+            if ($valueFromSettings->current() instanceof FileReference) {
+                $fileStorage = $valueFromSettings;
+            }
+        }
 
-		// got FileReference from field
-		if ($valueFromSettings instanceof FileReference) {
-			$fileStorage->attach($valueFromSettings);
-		}
-		// todo add File object from field
+        // got FileReference from field
+        if ($valueFromSettings instanceof FileReference) {
+            $fileStorage->attach($valueFromSettings);
+        }
+        // todo add File object from field
 
-		// omit default value
-		if ($fileStorage->count() > 0) {
-			$valueFromSettings = '';
-		}
+        // omit default value
+        if ($fileStorage->count() > 0) {
+            $valueFromSettings = '';
+        }
 
-		// add always
-		// todo should 'always' be added to this->getValue()?
-		if (isset($config['always']) && is_string($config['always'])) {
-			if (!is_string($valueFromSettings)) {
-				$valueFromSettings = '';
-			}
-			$valueFromSettings = $valueFromSettings . ',' . $config['always'];
+        // add always
+        // todo should 'always' be added to this->getValue()?
+        if (isset($config['always']) && is_string($config['always'])) {
+            if (!is_string($valueFromSettings)) {
+                $valueFromSettings = '';
+            }
+            $valueFromSettings = $valueFromSettings . ',' . $config['always'];
+        }
 
-		}
+        if (is_string($valueFromSettings) && $valueFromSettings !== '') {
+            $combinedIdentifiers = GeneralUtility::trimExplode(',', $valueFromSettings, true);
+            foreach ($combinedIdentifiers as $fileId) {
+                $file = $this->resourceFactory->getFileObjectByCombinedIdentifier($fileId);
+                if ($file === null) {
+                    continue;
+                }
+                $fileReference = $this->resourceFactory->createFileReferenceFromFileObject($file);
+                $fileStorage->attach($fileReference);
+            }
+        }
 
-		if (is_string($valueFromSettings) && $valueFromSettings !== '') {
-			$combinedIdentifiers = GeneralUtility::trimExplode(',', $valueFromSettings, true);
-			foreach ($combinedIdentifiers as $fileId) {
-				$file = $this->resourceFactory->getFileObjectByCombinedIdentifier($fileId);
-				if ($file === NULL) {
-					continue;
-				}
-				$fileReference = $this->resourceFactory->createFileReferenceFromFileObject($file);
-				$fileStorage->attach($fileReference);
-			}
-		}
+        return $fileStorage;
+    }
 
-		return $fileStorage;
-	}
+    /**
+     * Gets a value either from settings or from a given object
+     * If $config['field'] is set to string this string
+     * is interpreted as property path of the object and we try to
+     * get it from the object
+     * If $config['default'] is set and no value can be fetched from
+     * object we return the default value
+     * If $config is a string we return this
+     * If all above fails we return null.
+     *
+     * @param object|array $object
+     * @param array|string $config
+     * @return mixed|string
+     */
+    public function getValue($object, $config)
+    {
+        $value = null;
 
-	/**
-	 * Gets a value either from settings or from a given object
-	 * If $config['field'] is set to string this string
-	 * is interpreted as property path of the object and we try to
-	 * get it from the object
-	 * If $config['default'] is set and no value can be fetched from
-	 * object we return the default value
-	 * If $config is a string we return this
-	 * If all above fails we return null.
-	 *
-	 * @param object|array $object
-	 * @param array|string $config
-	 * @return mixed|string
-	 */
-	public function getValue($object, $config) {
-		$value = NULL;
+        if (isset($config['field']) && is_string($config['field'])) {
+            $value = ObjectAccess::getPropertyPath($object, $config['field']);
+            if (isset($config['noTrimWrap'])) {
+                $value = $this->contentObjectRenderer->noTrimWrap($value, $config['noTrimWrap']);
+            }
+        }
+        if ($value === null && isset($config['default'])) {
+            $value = $config['default'];
+        }
 
-		if (isset($config['field']) && is_string($config['field'])) {
-			$value = ObjectAccess::getPropertyPath($object, $config['field']);
-			if (isset($config['noTrimWrap'])) {
-				$value = $this->contentObjectRenderer->noTrimWrap($value, $config['noTrimWrap']);
-			}
-		}
-		if ($value === NULL && isset($config['default'])) {
-			$value = $config['default'];
-		}
+        if ($value === null && is_string($config)) {
+            $value = $config;
+        }
 
-		if ($value === NULL && is_string($config)) {
-			$value = $config;
-		}
-
-		return $value;
-	}
-
+        return $value;
+    }
 }

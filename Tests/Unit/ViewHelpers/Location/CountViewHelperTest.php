@@ -130,5 +130,4 @@ class CountViewHelperTest extends UnitTestCase
             $this->subject->render()
         );
     }
-
 }

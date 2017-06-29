@@ -19,8 +19,7 @@ use TYPO3\CMS\Core\SingletonInterface;
  *
  * @package DWenzel\T3events\Controller\Routing
  */
-class Router
-    implements SingletonInterface, RouterInterface
+class Router implements SingletonInterface, RouterInterface
 {
     /**
      * @var array

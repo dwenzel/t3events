@@ -40,7 +40,7 @@ abstract class AbstractDemandFactory
      *
      * @var array
      */
-    static protected $mappedProperties = [];
+    protected static $mappedProperties = [];
 
     /**
      * Composite properties which can not set directly
@@ -49,7 +49,7 @@ abstract class AbstractDemandFactory
      *
      * @var array
      */
-    static protected $compositeProperties = [];
+    protected static $compositeProperties = [];
 
     /**
      * @var ObjectManager

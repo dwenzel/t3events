@@ -100,7 +100,7 @@ class BackendUtility
         if (is_array($flexformSelection) && is_array($flexformSelection['data'])) {
             $selectedView = $flexformSelection['data']['sDEF']['lDEF']['switchableControllerActions']['vDEF'];
             if (!empty($selectedView)) {
-                $actionParts = GeneralUtility::trimExplode(';', $selectedView, TRUE);
+                $actionParts = GeneralUtility::trimExplode(';', $selectedView, true);
                 $selectedView = $actionParts[0];
             }
 
@@ -151,7 +151,7 @@ class BackendUtility
     protected function deleteFromStructure(array &$dataStructure, array $fieldsToBeRemoved)
     {
         foreach ($fieldsToBeRemoved as $sheetName => $sheetFields) {
-            $fieldsInSheet = GeneralUtility::trimExplode(',', $sheetFields, TRUE);
+            $fieldsInSheet = GeneralUtility::trimExplode(',', $sheetFields, true);
 
             foreach ($fieldsInSheet as $fieldName) {
                 unset($dataStructure['sheets'][$sheetName]['ROOT']['el'][$fieldName]);

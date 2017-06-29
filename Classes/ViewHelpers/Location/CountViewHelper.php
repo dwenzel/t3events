@@ -62,4 +62,3 @@ class CountViewHelper extends AbstractViewHelper
         return count($locationsArray);
     }
 }
-

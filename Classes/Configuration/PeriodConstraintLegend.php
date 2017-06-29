@@ -1,7 +1,6 @@
 <?php
 namespace DWenzel\T3events\Configuration;
 
-
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Lang\LanguageService;
 use DWenzel\T3events\DataProvider\Legend\LayeredLegendDataProviderInterface;

@@ -28,56 +28,58 @@ use DWenzel\T3events\Domain\Repository\DemandedRepositoryInterface;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-trait FilterableControllerTrait {
-	/**
-	 * Gets filter options for view template
-	 *
-	 * @param array $settings
-	 * @return array
-	 */
-	public function getFilterOptions($settings) {
-		$filterOptions = [];
-		foreach ($settings as $key => $value) {
-			$propertyName = lcfirst($key) . 'Repository';
-			if (property_exists(get_class($this), $propertyName)
-				&& $this->{$propertyName} instanceof DemandedRepositoryInterface
-			) {
-				/** @var DemandedRepositoryInterface $repository */
-				$repository = $this->{$propertyName};
-				if (!empty($value)) {
-					$result = $repository->findMultipleByUid($value, 'title');
-				} else {
-					$result = $repository->findAll();
-				}
-				$filterOptions[$key . 's'] = $result;
-			}
-			if ($key === 'periods') {
-				$periodOptions = [];
-				$periodEntries = ['futureOnly', 'pastOnly', 'all', 'specific'];
-				if (!empty($value)) {
-					$periodEntries = GeneralUtility::trimExplode(',', $value, TRUE);
-				}
-				foreach ($periodEntries as $entry) {
-					$period = new \stdClass();
-					$period->key = $entry;
-					$period->value = $this->translate('label.period.' . $entry, 't3events');
-					$periodOptions[] = $period;
-				}
-				$filterOptions['periods'] = $periodOptions;
-			}
-		}
+trait FilterableControllerTrait
+{
+    /**
+     * Gets filter options for view template
+     *
+     * @param array $settings
+     * @return array
+     */
+    public function getFilterOptions($settings)
+    {
+        $filterOptions = [];
+        foreach ($settings as $key => $value) {
+            $propertyName = lcfirst($key) . 'Repository';
+            if (property_exists(get_class($this), $propertyName)
+                && $this->{$propertyName} instanceof DemandedRepositoryInterface
+            ) {
+                /** @var DemandedRepositoryInterface $repository */
+                $repository = $this->{$propertyName};
+                if (!empty($value)) {
+                    $result = $repository->findMultipleByUid($value, 'title');
+                } else {
+                    $result = $repository->findAll();
+                }
+                $filterOptions[$key . 's'] = $result;
+            }
+            if ($key === 'periods') {
+                $periodOptions = [];
+                $periodEntries = ['futureOnly', 'pastOnly', 'all', 'specific'];
+                if (!empty($value)) {
+                    $periodEntries = GeneralUtility::trimExplode(',', $value, true);
+                }
+                foreach ($periodEntries as $entry) {
+                    $period = new \stdClass();
+                    $period->key = $entry;
+                    $period->value = $this->translate('label.period.' . $entry, 't3events');
+                    $periodOptions[] = $period;
+                }
+                $filterOptions['periods'] = $periodOptions;
+            }
+        }
 
 
-		return $filterOptions;
-	}
+        return $filterOptions;
+    }
 
-	/**
-	 * Translate a given key
-	 *
-	 * @param string $key
-	 * @param string $extension
-	 * @param array $arguments
-	 * @return string
-	 */
-	abstract public function translate($key, $extension = 't3events', $arguments = NULL);
+    /**
+     * Translate a given key
+     *
+     * @param string $key
+     * @param string $extension
+     * @param array $arguments
+     * @return string
+     */
+    abstract public function translate($key, $extension = 't3events', $arguments = null);
 }

@@ -60,16 +60,16 @@ class PerformancesViewHelper extends AbstractTagBasedViewHelper
      */
     public function initializeArguments()
     {
-        parent::registerArgument('event', Event::class, 'Event whose performances should be rendered.', TRUE);
-        parent::registerArgument('tagName', 'string', 'Tag name to use for enclosing container', FALSE, 'div');
-        parent::registerArgument('tagNameChildren', 'string', 'Tag name to use for child nodes', FALSE, 'span');
-        parent::registerArgument('type', 'string', 'Result type: available options are complete, list, dateRange, crucialStatus', TRUE);
-        parent::registerArgument('class', 'string', 'Class attribute for enclosing container', FALSE, 'list');
-        parent::registerArgument('classChildren', 'string', 'Class attribute for children', FALSE, 'single');
-        parent::registerArgument('classFirst', 'string', 'Class name for first child', FALSE, 'first');
-        parent::registerArgument('classLast', 'string', 'Class name for last child', FALSE, 'last');
-        parent::registerArgument('childSeparator', 'string', 'Character or string separating children entries', FALSE, ', ');
-        parent::registerArgument('dateFormat', 'string', 'A string describing the date format - see php date() for options', FALSE, 'd.m.Y');
+        parent::registerArgument('event', Event::class, 'Event whose performances should be rendered.', true);
+        parent::registerArgument('tagName', 'string', 'Tag name to use for enclosing container', false, 'div');
+        parent::registerArgument('tagNameChildren', 'string', 'Tag name to use for child nodes', false, 'span');
+        parent::registerArgument('type', 'string', 'Result type: available options are complete, list, dateRange, crucialStatus', true);
+        parent::registerArgument('class', 'string', 'Class attribute for enclosing container', false, 'list');
+        parent::registerArgument('classChildren', 'string', 'Class attribute for children', false, 'single');
+        parent::registerArgument('classFirst', 'string', 'Class name for first child', false, 'first');
+        parent::registerArgument('classLast', 'string', 'Class name for last child', false, 'last');
+        parent::registerArgument('childSeparator', 'string', 'Character or string separating children entries', false, ', ');
+        parent::registerArgument('dateFormat', 'string', 'A string describing the date format - see php date() for options', false, 'd.m.Y');
     }
 
     /**
@@ -96,7 +96,7 @@ class PerformancesViewHelper extends AbstractTagBasedViewHelper
                 if ($status = $this->getCrucialStatus()) {
                     $title = $status['title'];
                     $this->class .= ' ' . $status['cssClass'];
-                    if ($this->renderChildren() == NULL) {
+                    if ($this->renderChildren() == null) {
                         $content = $status['title'];
                     }
                 }
@@ -111,7 +111,7 @@ class PerformancesViewHelper extends AbstractTagBasedViewHelper
         $this->tag->setContent($content);
         $this->tag->addAttribute('class', $this->class);
         $this->tag->addAttribute('title', $title);
-        $this->tag->forceClosingTag(TRUE);
+        $this->tag->forceClosingTag(true);
         $this->renderChildren();
         $content = $this->tag->render();
         $content .= $this->renderChildren();
@@ -138,7 +138,7 @@ class PerformancesViewHelper extends AbstractTagBasedViewHelper
             $timestamps[] = $performance->getDate()->getTimestamp();
         }
         sort($timestamps);
-        if (strpos($format, '%') !== FALSE) {
+        if (strpos($format, '%') !== false) {
             $dateRange = strftime($format, $timestamps[0]);
             $dateRange .= ' - ' . strftime($format, end($timestamps));
         } else {
@@ -220,7 +220,7 @@ class PerformancesViewHelper extends AbstractTagBasedViewHelper
 
         // start override
         if (isset($tsSettings['settings']['overrideFlexformSettingsIfEmpty'])) {
-            $overrideIfEmpty = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $tsSettings['settings']['overrideFlexformSettingsIfEmpty'], TRUE);
+            $overrideIfEmpty = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $tsSettings['settings']['overrideFlexformSettingsIfEmpty'], true);
             foreach ($overrideIfEmpty as $key) {
                 // if flexform setting is empty and value is available in TS
                 if ((!isset($originalSettings[$key]) || empty($originalSettings[$key]))
@@ -234,4 +234,3 @@ class PerformancesViewHelper extends AbstractTagBasedViewHelper
         $this->settings = $originalSettings;
     }
 }
-

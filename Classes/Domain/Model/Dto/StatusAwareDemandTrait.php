@@ -1,5 +1,6 @@
 <?php
 namespace DWenzel\T3events\Domain\Model\Dto;
+
 use DWenzel\T3events\Domain\Model\PerformanceStatus;
 
 /**
@@ -15,7 +16,8 @@ use DWenzel\T3events\Domain\Model\PerformanceStatus;
  * The TYPO3 project - inspiring people to share!
  */
 
-trait StatusAwareDemandTrait {
+trait StatusAwareDemandTrait
+{
     /**
      * A single status
      * see $statuses for multiple
@@ -87,5 +89,4 @@ trait StatusAwareDemandTrait {
     {
         $this->excludeSelectedStatuses = $excludeSelectedStatuses;
     }
-
 }

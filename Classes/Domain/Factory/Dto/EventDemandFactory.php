@@ -1,9 +1,6 @@
 <?php
 namespace DWenzel\T3events\Domain\Factory\Dto;
 
-
-
-
 use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
 use DWenzel\T3events\Domain\Model\Dto\EventDemand;
 use DWenzel\T3events\Domain\Model\Dto\PeriodAwareDemandInterface;
@@ -32,8 +29,8 @@ use DWenzel\T3events\Domain\Model\Dto\PeriodAwareDemandInterface;
  *
  * @package DWenzel\T3events\Domain\Factory\Dto
  */
-class EventDemandFactory extends AbstractDemandFactory
-	implements DemandFactoryInterface {
+class EventDemandFactory extends AbstractDemandFactory implements DemandFactoryInterface
+{
     use PeriodAwareDemandFactoryTrait;
     /**
      * Class name of the object created by this factory.
@@ -46,12 +43,12 @@ class EventDemandFactory extends AbstractDemandFactory
      *
      * @var array
      */
-	static protected $mappedProperties = [
-		'genres' => 'genre',
-		'venues' => 'venue',
-		'eventTypes' => 'eventType',
-		'maxItems' => 'limit'
-	];
+    protected static $mappedProperties = [
+        'genres' => 'genre',
+        'venues' => 'venue',
+        'eventTypes' => 'eventType',
+        'maxItems' => 'limit'
+    ];
 
     /**
      * Composite properties which can not set directly
@@ -60,29 +57,30 @@ class EventDemandFactory extends AbstractDemandFactory
      *
      * @var array
      */
-	static protected $compositeProperties = [
-		'periodType',
-		'periodStart',
-		'periodEndDate',
-		'periodDuration',
-		'search'
-	];
+    protected static $compositeProperties = [
+        'periodType',
+        'periodStart',
+        'periodEndDate',
+        'periodDuration',
+        'search'
+    ];
 
     /**
-	 * Creates a demand object from settings
-	 *
-	 * @param array $settings
-	 * @return DemandInterface
-	 */
-	public function createFromSettings(array $settings) {
-		/** @var EventDemand $demand */
-		$demand = $this->objectManager->get(static::DEMAND_CLASS);
+     * Creates a demand object from settings
+     *
+     * @param array $settings
+     * @return DemandInterface
+     */
+    public function createFromSettings(array $settings)
+    {
+        /** @var EventDemand $demand */
+        $demand = $this->objectManager->get(static::DEMAND_CLASS);
 
-		if ($demand instanceof PeriodAwareDemandInterface) {
-			$this->setPeriodConstraints($demand, $settings);
-		}
+        if ($demand instanceof PeriodAwareDemandInterface) {
+            $this->setPeriodConstraints($demand, $settings);
+        }
         $this->applySettings($demand, $settings);
 
         return $demand;
-	}
+    }
 }

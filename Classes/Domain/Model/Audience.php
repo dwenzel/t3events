@@ -23,84 +23,89 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 /**
  * Audience
  */
-class Audience extends AbstractEntity {
+class Audience extends AbstractEntity
+{
 
-	/**
-	 * title
-	 *
-	 * @var string
-	 */
-	protected $title;
+    /**
+     * title
+     *
+     * @var string
+     */
+    protected $title;
 
-	/**
-	 * Link
-	 *
-	 * @var string
-	 */
-	protected $link;
+    /**
+     * Link
+     *
+     * @var string
+     */
+    protected $link;
 
-	/**
-	 * description
-	 *
-	 * @var string
-	 */
-	protected $description;
+    /**
+     * description
+     *
+     * @var string
+     */
+    protected $description;
 
-	/**
-	 * Returns the title
-	 *
-	 * @return string $title
-	 */
-	public function getTitle() {
-		return $this->title;
-	}
+    /**
+     * Returns the title
+     *
+     * @return string $title
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
 
-	/**
-	 * Sets the title
-	 *
-	 * @param string $title
-	 * @return void
-	 */
-	public function setTitle($title) {
-		$this->title = $title;
-	}
+    /**
+     * Sets the title
+     *
+     * @param string $title
+     * @return void
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+    }
 
-	/**
-	 * Returns the description
-	 *
-	 * @return string $description
-	 */
-	public function getDescription() {
-		return $this->description;
-	}
+    /**
+     * Returns the description
+     *
+     * @return string $description
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
 
-	/**
-	 * Sets the description
-	 *
-	 * @param string $description
-	 * @return void
-	 */
-	public function setDescription($description) {
-		$this->description = $description;
-	}
+    /**
+     * Sets the description
+     *
+     * @param string $description
+     * @return void
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
 
-	/**
+    /**
      * Gets the link
      *
-	 * @return string
-	 */
-	public function getLink()
-	{
-		return $this->link;
-	}
+     * @return string
+     */
+    public function getLink()
+    {
+        return $this->link;
+    }
 
-	/**
+    /**
      * Sets the link
      *
-	 * @param string $link
-	 */
-	public function setLink($link)
-	{
-		$this->link = $link;
-	}
+     * @param string $link
+     */
+    public function setLink($link)
+    {
+        $this->link = $link;
+    }
 }

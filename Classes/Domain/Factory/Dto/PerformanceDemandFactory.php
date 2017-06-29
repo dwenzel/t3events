@@ -24,9 +24,7 @@ use DWenzel\T3events\Domain\Model\Dto\PeriodAwareDemandInterface;
  *
  * @package DWenzel\T3events\Domain\Factory\Dto
  */
-class PerformanceDemandFactory
-    extends AbstractDemandFactory
-    implements DemandFactoryInterface
+class PerformanceDemandFactory extends AbstractDemandFactory implements DemandFactoryInterface
 {
     use PeriodAwareDemandFactoryTrait;
     /**
@@ -40,7 +38,7 @@ class PerformanceDemandFactory
      *
      * @var array
      */
-    static protected $mappedProperties = [
+    protected static $mappedProperties = [
         'maxItems' => 'limit'
     ];
 
@@ -51,7 +49,7 @@ class PerformanceDemandFactory
      *
      * @var array
      */
-    static protected $compositeProperties = [
+    protected static $compositeProperties = [
         'search'
     ];
 

@@ -29,32 +29,35 @@ use DWenzel\T3events\Domain\Model\Dto\EmConfiguration;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-class EmConfigurationUtilityTest extends UnitTestCase {
+class EmConfigurationUtilityTest extends UnitTestCase
+{
 
-	/**
-	 * @test
-	 */
-	public function parseSettingsInitiallyReturnsEmptyArray() {
-		$this->assertEquals(
-			[],
-			EmConfigurationUtility::parseSettings()
-		);
-	}
+    /**
+     * @test
+     */
+    public function parseSettingsInitiallyReturnsEmptyArray()
+    {
+        $this->assertEquals(
+            [],
+            EmConfigurationUtility::parseSettings()
+        );
+    }
 
-	/**
-	 * @test
-	 */
-	public function getSettingsReturnsEmConfigurationWithSettings() {
-		$emSettings = [
-			'respectPerformanceStoragePage' => true
-		];
-		$GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['t3events'] = serialize($emSettings);
+    /**
+     * @test
+     */
+    public function getSettingsReturnsEmConfigurationWithSettings()
+    {
+        $emSettings = [
+            'respectPerformanceStoragePage' => true
+        ];
+        $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['t3events'] = serialize($emSettings);
 
-		$expectedEmConfiguration = new EmConfiguration($emSettings);
+        $expectedEmConfiguration = new EmConfiguration($emSettings);
 
-		$this->assertEquals(
-			$expectedEmConfiguration,
-			EmConfigurationUtility::getSettings()
-		);
-	}
+        $this->assertEquals(
+            $expectedEmConfiguration,
+            EmConfigurationUtility::getSettings()
+        );
+    }
 }

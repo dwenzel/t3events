@@ -1,7 +1,7 @@
 <?php
 namespace DWenzel\T3events\Domain\Model\Dto;
 
- /***************************************************************
+/***************************************************************
  *
  *  Copyright notice
  *
@@ -25,24 +25,27 @@ namespace DWenzel\T3events\Domain\Model\Dto;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-trait EventTypeAwareDemandTrait {
+trait EventTypeAwareDemandTrait
+{
 
-	/**
-	 * @var string
-	 */
-	protected $eventTypes;
+    /**
+     * @var string
+     */
+    protected $eventTypes;
 
-	/**
-	 * @return string
-	 */
-	public function getEventTypes() {
-		return $this->eventTypes;
-	}
+    /**
+     * @return string
+     */
+    public function getEventTypes()
+    {
+        return $this->eventTypes;
+    }
 
-	/**
-	 * @param string $eventTypes
-	 */
-	public function setEventTypes($eventTypes) {
-		$this->eventTypes = $eventTypes;
-	}
+    /**
+     * @param string $eventTypes
+     */
+    public function setEventTypes($eventTypes)
+    {
+        $this->eventTypes = $eventTypes;
+    }
 }

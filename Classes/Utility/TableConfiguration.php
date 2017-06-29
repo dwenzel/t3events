@@ -97,4 +97,20 @@ class TableConfiguration
         return $version;
     }
 
+    /**
+     * Gets the path to local language files depending on current TYPO3 version
+     * @param string $extension Extension key containing the language files
+     * @return string
+     */
+    public static function getLanguageFilePath($extension = 'lang')
+    {
+        $path = $cll = 'LLL:EXT:' . $extension . '/';
+
+        if (static::getVersion() > 7)
+        {
+            $path = 'LLL:EXT:' . $extension . '/Resources/Private/Language/';
+        }
+
+        return $path;
+    }
 }

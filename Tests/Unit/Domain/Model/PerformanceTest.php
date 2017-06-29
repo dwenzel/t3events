@@ -382,7 +382,7 @@ class PerformanceTest extends \Nimut\TestingFramework\TestCase\UnitTestCase
     public function getNoHandlingFeeReturnsInitialValueForBoolean()
     {
         $this->assertSame(
-            FALSE,
+            false,
             $this->fixture->getNoHandlingFee()
         );
     }
@@ -394,7 +394,7 @@ class PerformanceTest extends \Nimut\TestingFramework\TestCase\UnitTestCase
     public function isNoHandlingFeeReturnsInitialValueForBoolean()
     {
         $this->assertSame(
-            FALSE,
+            false,
             $this->fixture->isNoHandlingFee()
         );
     }
@@ -405,10 +405,10 @@ class PerformanceTest extends \Nimut\TestingFramework\TestCase\UnitTestCase
      */
     public function isNoHandlingFeeForBooleanReturnsCorrectValueForBoolean()
     {
-        $this->fixture->setNoHandlingFee(TRUE);
+        $this->fixture->setNoHandlingFee(true);
 
         $this->assertSame(
-            TRUE,
+            true,
             $this->fixture->isNoHandlingFee()
         );
     }
@@ -419,10 +419,10 @@ class PerformanceTest extends \Nimut\TestingFramework\TestCase\UnitTestCase
      */
     public function setNoHandlingFeeForBooleanSetsNoHandlingFee()
     {
-        $this->fixture->setNoHandlingFee(TRUE);
+        $this->fixture->setNoHandlingFee(true);
 
         $this->assertSame(
-            TRUE,
+            true,
             $this->fixture->getNoHandlingFee()
         );
     }
@@ -457,7 +457,7 @@ class PerformanceTest extends \Nimut\TestingFramework\TestCase\UnitTestCase
     public function getEventLocationReturnsInitialValueForEventLocation()
     {
         $this->assertEquals(
-            NULL,
+            null,
             $this->fixture->getEventLocation()
         );
     }
@@ -550,7 +550,7 @@ class PerformanceTest extends \Nimut\TestingFramework\TestCase\UnitTestCase
     public function getStatusReturnsInitialValueForPerformanceStatus()
     {
         $this->assertEquals(
-            NULL,
+            null,
             $this->fixture->getStatus()
         );
     }
@@ -577,7 +577,7 @@ class PerformanceTest extends \Nimut\TestingFramework\TestCase\UnitTestCase
     public function getHiddenForIntegerReturnsInitialNull()
     {
         $this->assertSame(
-            NULL,
+            null,
             $this->fixture->getHidden()
         );
     }
@@ -617,4 +617,3 @@ class PerformanceTest extends \Nimut\TestingFramework\TestCase\UnitTestCase
         );
     }
 }
-

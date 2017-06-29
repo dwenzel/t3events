@@ -19,7 +19,8 @@ trait SearchTrait
     /**
      * @param \DWenzel\T3events\Domain\Model\Dto\SearchFactory $searchFactory
      */
-    public function injectSearchFactory(SearchFactory $searchFactory) {
+    public function injectSearchFactory(SearchFactory $searchFactory)
+    {
         $this->searchFactory = $searchFactory;
     }
 

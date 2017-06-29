@@ -125,4 +125,3 @@ class TemplateLayoutUtility implements SingletonInterface
         && is_array($GLOBALS['TYPO3_CONF_VARS']['EXT'][$extensionKey]['templateLayouts']);
     }
 }
-
