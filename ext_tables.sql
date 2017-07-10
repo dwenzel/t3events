@@ -23,6 +23,7 @@ CREATE TABLE tx_t3events_domain_model_event (
 	images int(11) unsigned DEFAULT '0' NOT NULL,
     files int(11) unsigned DEFAULT '0' NOT NULL,
     related varchar(1024) DEFAULT '' NOT NULL,
+    content_elements int(11) unsigned DEFAULT '0' NOT NULL,
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
 	crdate int(11) unsigned DEFAULT '0' NOT NULL,
@@ -754,4 +755,17 @@ CREATE TABLE tx_t3events_domain_model_company (
 	KEY parent (pid),
 	KEY t3ver_oid (t3ver_oid,t3ver_wsid),
 	KEY language (l10n_parent,sys_language_uid)
+);
+
+#
+# Table structure for table 'tx_t3events_content_elements_mm'
+#
+CREATE TABLE tx_t3events_content_elements_mm (
+	uid_local int(11) unsigned DEFAULT '0' NOT NULL,
+	uid_foreign int(11) unsigned DEFAULT '0' NOT NULL,
+	sorting int(11) unsigned DEFAULT '0' NOT NULL,
+	sorting_foreign int(11) unsigned DEFAULT '0' NOT NULL,
+
+	KEY uid_local (uid_local),
+	KEY uid_foreign (uid_foreign)
 );
