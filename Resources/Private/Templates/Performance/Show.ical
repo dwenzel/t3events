@@ -1,4 +1,4 @@
-{namespace ts=DWenzel\T3events\ViewHelpers}<ts:format.trim characters="\t">BEGIN:VCALENDAR
+BEGIN:VCALENDAR
 PRODID:-//EXAMPLE PROVIDER//iCal 2.0//EN
 VERSION:2.0
 CALSCALE:GREGORIAN
@@ -12,4 +12,4 @@ TZOFFSETFROM:+0000
 TZNAME:CET
 END:STANDARD
 END:VTIMEZONE
-<f:render partial="Event/ICalendarItem.html" arguments="{performance: performance, event: '{performance.event}', settings: settings}" />END:VCALENDAR</ts:format.trim>
+<f:render partial="Event/ICalendarItem.html" arguments="{performance: performance, event: '{performance.event}', settings: settings}" />END:VCALENDAR
