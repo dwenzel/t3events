@@ -2,7 +2,7 @@
 namespace DWenzel\T3events\Tests\Controller;
 
 use DWenzel\T3events\Controller\SettingsUtilityTrait;
-use TYPO3\CMS\Core\Tests\UnitTestCase;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 use DWenzel\T3events\Utility\SettingsUtility;
 
 /***************************************************************

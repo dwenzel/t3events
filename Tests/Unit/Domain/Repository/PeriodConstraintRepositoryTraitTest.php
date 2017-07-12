@@ -18,7 +18,7 @@ namespace DWenzel\T3events\Tests\Unit\Domain\Repository;
  *  GNU General Public License for more details.
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-use TYPO3\CMS\Core\Tests\UnitTestCase;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use DWenzel\T3events\Domain\Model\Dto\PeriodAwareDemandInterface;
 use DWenzel\T3events\Domain\Repository\PeriodConstraintRepositoryTrait;

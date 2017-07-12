@@ -15,7 +15,7 @@ use DWenzel\T3events\Controller\Routing\Route;
 use DWenzel\T3events\Controller\Routing\Router;
 use DWenzel\T3events\Controller\Routing\RouterInterface;
 use TYPO3\CMS\Core\SingletonInterface;
-use TYPO3\CMS\Core\Tests\UnitTestCase;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 
 /**
  * Class RouterTest

@@ -1,7 +1,7 @@
 <?php
 namespace DWenzel\T3events\Tests\Controller;
 
-use TYPO3\CMS\Core\Tests\UnitTestCase;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 use DWenzel\T3events\Controller\DownloadTrait;
 use TYPO3\CMS\Core\Resource\Driver\LocalDriver;
 use TYPO3\CMS\Extbase\Object\ObjectManager;

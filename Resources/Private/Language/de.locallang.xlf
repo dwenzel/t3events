@@ -543,6 +543,27 @@
 			<source>title</source>
 			<target>Titel</target>
 		</trans-unit>
+
+        <trans-unit id="message.noEventFound.title" xml:space="preserve">
+            <source>No event found</source>
+			<target>Keine Veranstaltungen</target>
+        </trans-unit>
+        <trans-unit id="message.noEventFound.text" xml:space="preserve">
+            <source>Could not find any event matching your criteria.</source>
+			<target>Es konnten keine Veranstaltungen gefunden werden.</target>
+        </trans-unit>
+        <trans-unit id="button.addEvent" xml:space="preserve">
+            <source>Add Event</source>
+			<target>Veranstaltung hinzufügen</target>
+        </trans-unit>
+        <trans-unit id="button.edit" xml:space="preserve">
+            <source>edit</source>
+			<target>bearbeiten</target>
+        </trans-unit>
+        <trans-unit id="header.events" xml:space="preserve">
+            <source>Events</source>
+			<target>Veranstaltungen</target>
+        </trans-unit>
 		</body>
 	</file>
 </xliff>

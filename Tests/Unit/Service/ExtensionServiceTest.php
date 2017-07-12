@@ -16,7 +16,7 @@ namespace DWenzel\T3events\Tests\Unit\Service;
  */
 
 use DWenzel\T3events\Service\ExtensionService;
-use TYPO3\CMS\Core\Tests\UnitTestCase;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 
 /**

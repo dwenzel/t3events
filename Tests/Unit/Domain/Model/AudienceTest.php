@@ -20,7 +20,7 @@ namespace DWenzel\T3events\Tests\Unit\Domain\Model;
 	 *  This copyright notice MUST APPEAR in all copies of the script!
 	 ***************************************************************/
 use DWenzel\T3events\Domain\Model\Audience;
-use TYPO3\CMS\Core\Tests\UnitTestCase;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 
 /**
  * Test case for class \DWenzel\T3events\Domain\Model\Audience.

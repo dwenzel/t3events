@@ -487,6 +487,22 @@
 		<trans-unit id="tx_t3events_domain_model_venue.title" xml:space="preserve">
 			<source>title</source>
 		</trans-unit>
+
+		<trans-unit id="message.noEventFound.title" xml:space="preserve">
+			<source>No event found</source>
+		</trans-unit>
+		<trans-unit id="message.noEventFound.text" xml:space="preserve">
+			<source>Could not find any event matching your criteria.</source>
+		</trans-unit>
+		<trans-unit id="button.addEvent" xml:space="preserve">
+			<source>Add Event</source>
+		</trans-unit>
+		<trans-unit id="button.edit" xml:space="preserve">
+			<source>edit</source>
+		</trans-unit>
+		<trans-unit id="header.events" xml:space="preserve">
+			<source>Events</source>
+		</trans-unit>
 		</body>
 	</file>
 </xliff>

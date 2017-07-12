@@ -10,7 +10,7 @@ namespace DWenzel\T3events\Tests;
  * LICENSE.txt file that was distributed with this source code.
  * The TYPO3 project - inspiring people to share!
  */
-use TYPO3\CMS\Core\Tests\UnitTestCase;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 
 /**
  * Test case for class \DWenzel\T3events\Domain\Model\Dto\Search.
