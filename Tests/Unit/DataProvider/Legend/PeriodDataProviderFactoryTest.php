@@ -1,7 +1,7 @@
 <?php
 namespace DWenzel\T3events\Tests\Unit\DataProvider\Legend;
 
-use TYPO3\CMS\Core\Tests\UnitTestCase;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use DWenzel\T3events\DataProvider\Legend\PeriodAllDataProvider;
 use DWenzel\T3events\DataProvider\Legend\PeriodDataProviderFactory;

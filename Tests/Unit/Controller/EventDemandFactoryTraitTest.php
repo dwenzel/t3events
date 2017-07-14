@@ -3,7 +3,7 @@ namespace DWenzel\T3events\Tests\Unit\Controller;
 
 use DWenzel\T3events\Controller\EventDemandFactoryTrait;
 use DWenzel\T3events\Domain\Factory\Dto\EventDemandFactory;
-use TYPO3\CMS\Core\Tests\UnitTestCase;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 
 /***************************************************************
  *  Copyright notice

@@ -26,7 +26,7 @@ use DWenzel\T3events\Controller\AbstractController;
  * @author Dirk Wenzel <wenzel@webfox01.de>
  * @coversDefaultClass \DWenzel\T3events\Controller\AbstractController
  */
-class AbstractControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
+class AbstractControllerTest extends \Nimut\TestingFramework\TestCase\UnitTestCase {
 
 	/**
 	 * @var \DWenzel\T3events\Controller\AbstractController

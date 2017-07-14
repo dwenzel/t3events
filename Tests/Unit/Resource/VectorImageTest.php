@@ -1,7 +1,7 @@
 <?php
 namespace DWenzel\T3events\Tests\Resource;
 
-use TYPO3\CMS\Core\Tests\UnitTestCase;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 use DWenzel\T3events\Resource\VectorImage;
 
 /***************************************************************

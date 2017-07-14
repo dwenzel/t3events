@@ -9,7 +9,7 @@ Manage events,show them in teasers, list and single views in TYPO3.
 This is an extension for the TYPO3 CMS. 
 
 **NOTE** This branch *6.2* receives changes for the discontinued TYPO3 6.2 compatible version of *Events*. It is based on
-version 0.32.0 and intended for bugfixes only. Some features *might* be backported on occasion. It will not be published to the 
+version 0.33.1 and intended for bugfixes only. Some features *might* be backported on occasion. It will not be published to the 
 TYPO3 extension repository though. Use it at your own risk!
 
 ## Table of Contents

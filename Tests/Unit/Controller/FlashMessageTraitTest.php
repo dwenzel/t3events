@@ -4,7 +4,7 @@ namespace DWenzel\T3events\Tests\Controller;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Core\Messaging\FlashMessageQueue;
 use TYPO3\CMS\Core\Messaging\FlashMessageService;
-use TYPO3\CMS\Core\Tests\UnitTestCase;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Mvc\Web\Request;
@@ -68,7 +68,11 @@ class FlashMessageTraitTest extends UnitTestCase
         protected function mockFlashMessageService()
         {
             $mockFlashMessageService = $this->getMock(
-                FlashMessageService::class, ['getMessageQueueByIdentifier']
+                FlashMessageService::class,
+                ['getMessageQueueByIdentifier'],
+                [],
+                '',
+                false
             );
             $this->inject(
                 $this->subject,
@@ -149,35 +153,7 @@ class FlashMessageTraitTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function getFlashMessageQueueInstantiatesLegacyQueue()
-    {
-        $versionNumber = \TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version);
-        if ($versionNumber > 7000000) {
-            $this->markTestSkipped('Test for legacy flash message queue is obsolete.');
-        }
 
-        $this->subject = $this->getMockForTrait(
-            FlashMessageTrait::class, [], '', true, true, true, ['useLegacyFlashMessageHandling']
-        );
-        $mockFlashMessageQueue = $this->getMock(
-            FlashMessageQueue::class, [], [], '', false
-        );
-        $this->subject->expects($this->once())
-            ->method('useLegacyFlashMessageHandling')
-            ->will($this->returnValue(true));
-        $mockFlashMessageService = $this->mockFlashMessageService();
-        $mockFlashMessageService->expects($this->once())
-            ->method('getMessageQueueByIdentifier')
-            ->will($this->returnValue($mockFlashMessageQueue));
-
-        $this->assertSame(
-            $mockFlashMessageQueue,
-            $this->subject->getFlashMessageQueue()
-        );
-    }
 
     /**
      * @test

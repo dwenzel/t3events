@@ -1,4 +1,5 @@
 {namespace ts=DWenzel\T3events\ViewHelpers}
+<!--suppress JSUnusedAssignment -->
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en"
       xmlns:f="https://xsd.helhum.io/ns/typo3/cms-fluid/master/ViewHelpers">
 <f:layout name="Default"/>
@@ -15,7 +16,7 @@
     <f:comment>Search form</f:comment>
     <f:render partial="Backend/Common/SearchForm"
               arguments="{demand: '{demand}', overwriteDemand: '{overwriteDemand}', filterOptions: '{filterOptions}', showSubjectField: '{settings.search.showSubjectField}'}"/>
-    <f:flashMessages />
+    <f:flashMessages/>
 
     <f:comment>Paginated list</f:comment>
     <f:if condition="{events}">
@@ -60,19 +61,19 @@
                                 <td nowrap="nowrap" class="col-control">
                                     <f:if condition="{f:cObject(typoscriptObjectPath: 'lib.compatVersion76')}">
                                         <f:then>
-                                            <div
-                                                    class="btn btn-default">
-                                                <f:be.buttons.icon
-                                                        icon="actions-open"
+                                            <div class="btn btn-default">
+                                                <!--suppress HtmlUnknownTarget -->
+                                                <a
+                                                        class="actions-open"
                                                         title="UID: {event.uid}"
-                                                        uri="{ts:be.editRecord(parameters:'edit[tx_t3events_domain_model_event][{event.uid}]=edit')}"
-                                                />
+                                                        href="{ts:be.editRecord(parameters:'edit[tx_t3events_domain_model_event][{event.uid}]=edit')}"
+                                                >{f:translate(key: 'button.edit', default: 'button.edit')}</a>
                                             </div>
                                         </f:then>
                                         <f:else>
-                                            <a href=""
+                                            <a href="#"
                                                onclick="window.location.href='alt_doc.php?returnUrl='+T3_THIS_LOCATION+'&edit[tx_t3events_domain_model_event][{event.uid}]=edit'; return false;">
-                                                <f:be.buttons.icon icon="actions-document-open"/>
+                                                {f:translate(key: 'button.edit', default: 'button.edit')}
                                             </a>
 
                                         </f:else>
@@ -100,8 +101,19 @@
 
 <f:comment>Header buttons</f:comment>
 <f:section name="headerButtons">
-    <f:be.buttons.icon uri="#"
-                       additionalAttributes="{onclick: 'window.location.href=\'alt_doc.php?returnUrl=\'+T3_THIS_LOCATION+\'&edit[tx_t3events_domain_model_event][{storagePid}]=new\'; return false;'}"
-                       icon="actions-document-new"
-                       title="{f:translate(key: 'button.addEvent', default: 'add event')}"/>
+    <f:if condition="{f:cObject(typoscriptObjectPath: 'lib.compatVersion76')}">
+        <f:then>
+            <!--suppress HtmlUnknownTarget -->
+            <a class="actions-add btn btn-default"
+               title="{f:translate(key: 'button.addEvent')}"
+               href="{ts:be.editRecord(parameters:'edit[tx_t3events_domain_model_event][{storagePid}]=new')}"
+            >{f:translate(key: 'button.addEvent')}</a>
+        </f:then>
+        <f:else>
+            <a href="#"
+               onclick="window.location.href='alt_doc.php?returnUrl='+T3_THIS_LOCATION+'&edit[tx_t3events_domain_model_event][{storagePid}]=new'; return false;"
+               class="actions-document-new action-add"
+               title="{f:translate(key: 'button.addEvent'}">{f:translate(key:'button.addEvent')}</a>
+        </f:else>
+    </f:if>
 </f:section>

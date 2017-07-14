@@ -1,7 +1,7 @@
 <?php
 namespace DWenzel\T3events\Tests\Unit\Configuration;
 
-use TYPO3\CMS\Core\Tests\UnitTestCase;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 use DWenzel\T3events\Configuration\PeriodConstraintLegend;
 use DWenzel\T3events\DataProvider\Legend\LayeredLegendDataProviderInterface;
 use DWenzel\T3events\DataProvider\Legend\PeriodDataProviderFactory;

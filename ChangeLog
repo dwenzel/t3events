@@ -1,3 +1,37 @@
+2017-07-12         [RELEASE] Release of t3events 0.33.2 (Dirk Wenzel)
+2017-06-23 4dcd45b [TASK] cherrypick 4e38561b Backport of iCal view feature: We now use custom views for display of events and performances in iCal format. CallStaticTrait, PatternReplacingTrait and IcalTrait implemented. (Dirk Wenzel)
+
+2017-05-24         [RELEASE] Release of t3events 0.33.1 (Dirk Wenzel)
+2017-05-23 cba93f6 [BUGFIX] missing fields newUntil and archiveDate added to Model/Event Closes #62 (Dirk Wenzel)
+2017-05-05 22c02ab [TASK] set version number in ext_emconf.php (Dirk Wenzel)
+2017-05-11 e08a848 [BUGFIX] prevent unit test from running if required interface does not exist. (Dirk Wenzel)
+2017-05-11 eba2566 [BUGFIX] fixed error which prevented plugin form from adapting according to selected action Fixes: #59 (Dirk Wenzel)
+2017-05-10 144b45a [BUGFIX] fixed error in flex form configuration which prevented field settings.quickMenuType from displaying (Dirk Wenzel)
+2017-05-10 818da0f [BUGFIX] Visibility of fields for quikMenu action in plugin fixed. #fixes 59 (Dirk Wenzel)
+
+2017-05-05         [RELEASE] Release of t3events 0.33.0 (Dirk Wenzel)
+2017-05-05 58d7410 [BUGFIX] composer.json: obsolete require-dev entry removed (Dirk Wenzel)
+2017-05-05 edc33f5 [TASK] require dwenzel/t3calendar:^0.4.0 (Dirk Wenzel)
+2017-05-05 2adf67f [TASK] template Performance/Calender adapted: pass  settings as argument ‘parameters’. (Dirk Wenzel)
+2017-04-26 1aef59a [TASK] Default page TS config added. List template of PerformanceController uses TemplateLayouts from plugin settings. (Dirk Wenzel)
+2017-04-25 03703a9 [BUGFIX] set phpunit default configuration:backupGlobals=true (Dirk Wenzel)
+2017-04-25 54046b2 [TASK] travis-ci: use custom UnitTests.xml instead of those from testing frame work (Dirk Wenzel)
+2017-04-25 6137f6e [TASK] PerformanceController now calls parent constructor too. (Dirk Wenzel)
+2017-04-23 6212889 [TASK] Event and schedule list template edited: View helper <f:be.icon /> replaced (Dirk Wenzel)
+2017-04-21 bfb39e8 [BUGFIX] fix error cause by misinterpreted SQL conditin in table configuration for tx_t3events_domain_model_performance. Closes #57 (Dirk Wenzel)
+2017-04-21 6679910 [TASK] fix error in unit test which prevented from generating correct TYPO3 version. (Dirk Wenzel)
+2017-04-21 622fe1a [BUGFIX] icon name for edit wizard corrected. (Dirk Wenzel)
+2017-04-21 bc756b7 [BUGFIX] icon name for link wizard corrected. Invalid type hints in test class removed. Obsolete configuration variant for table tx_t3events_domain_model_audience removed. (Dirk Wenzel)
+2017-04-21 86f7bc1 [BUGFIX] type hint for argument of TableConfiguration::getWizardIcon removed. Convert version number before comparing. (Dirk Wenzel)
+2017-04-21 65f1fbd [TASK] Table configuration for wizard icons now is provided by an utility. (Dirk Wenzel)
+2017-04-19 b27e5b3 [BUGFIX] missing use statement for VersionNummerUtility added (Dirk Wenzel)
+2017-04-19 dc3abe0 [TASK] deactivate obsolete tests in TYPO3 8 (Dirk Wenzel)
+2017-04-19 6bf2018 [TASK] require-dev nimut/testing-framework. (Dirk Wenzel)
+2017-04-19 91c7e0b [TASK] obsolete travis-ci configuration removed (Dirk Wenzel)
+2017-04-19 04d6d7f [TASK] use nimut/testing-framework, drop coveralls reports (Dirk Wenzel)
+2017-04-19 560bf57 [BUGFIX] fix error caused by invalid key in flexform display condition (Dirk Wenzel)
+2017-04-19 95fb427 [TASK] disable update scripts for TYPO3 version >=8 (because of old database API usage) (Dirk Wenzel)
+
 2017-03-27         [RELEASE] Release of t3events 0.32.0 (Dirk Wenzel)
 2017-03-25 a091059 [TASK] Documentation updated. (Dirk Wenzel)
 2017-03-25 830c567 [BUGFIX] Fixed error caused by wrong property path from plugin settings in PerformanceController. (Dirk Wenzel)
@@ -545,7 +579,7 @@
 			[Feature] #50070 MetaTag ViewHelper implemented
 			Trim ViewHelper implemented
 2013-07-11 	Dirk Wenzel <wenzel@webfox01.de>
-	0.13.0	- [FEATURE] #49899 Title Tag ViewHelper - display title tag and set title for indexed search 
+	0.13.0	- [FEATURE] #49899 Title Tag ViewHelper - display title tag and set title for indexed search
 2013-06-25	Dirk Wenzel <wenzel@webfox01.de>
 	0.12.1	- Fix for issue #49407 typo3-debug-console message: selectItemsTCA in class tx_staticinfotables_div, hotlist feature replaced by suggest wizard in
 			TCA for EventLocation
@@ -561,10 +595,10 @@
 2013-06-06	Dirk Wenzel <wenzel@webfox01.de>
 	0.10.1	- fixed broken itemProcFunc in plugin flexform caused by line break
 2013-06-06	Dirk Wenzel <wenzel@webfox01.de>
-	0.10.0	New features: 
+	0.10.0	New features:
 			- plugin namespace: plugin namespace can now be set thus allowing to use multiple plugin instances on one page
 			- plugin layout: new field in plugin allows setting a layout value which can be used in fluid template.
-			- listAction of EventController now returns an ordered array of events when called with parameter [overwriteDemand][uidList] (comma separated string or array) 
+			- listAction of EventController now returns an ordered array of events when called with parameter [overwriteDemand][uidList] (comma separated string or array)
 2013-05-30	Dirk Wenzel <wenzel@webfox01.de>
 	0.9.2	- Changed TCA of performance: sort select field for event location by name
 2013-05-25	Dirk Wenzel <wenzel@webfox01.de>
@@ -589,20 +623,20 @@
 2013-04-23	Dirk Wenzel <wenzel@webfox01.de>
 	0.7.1	- fix for bug 47503: List Plugin doesn't respect venue constraint
 2013-04-17	Dirk Wenzel <wenzel@webfox01.de>
-	0.7.0	New Feature: Teaser-Plugin now allows to select upcoming/past/all events. 
+	0.7.0	New Feature: Teaser-Plugin now allows to select upcoming/past/all events.
 2013-04-09	Dirk Wenzel <wenzel@webfox01.de>
 	0.6.7	- fixed error in ExtensionService with wrong method parameter
-			- code cleanup 
+			- code cleanup
 2013-04-08	Dirk Wenzel <wenzel@webfox01.de>
-	0.6.6	FE Plugin can now be configured as non-cached. 
+	0.6.6	FE Plugin can now be configured as non-cached.
 2013-04-05	Dirk Wenzel <wenzel@webfox01.de>
-	0.6.5	All image fields now allow to select existing images. 
-			TCA cleanup. 
-			FE Plugin now allows to select random teaser (Attention! this feature is still experimental. It works only with MySQL DB and without caching!) 
+	0.6.5	All image fields now allow to select existing images.
+			TCA cleanup.
+			FE Plugin now allows to select random teaser (Attention! this feature is still experimental. It works only with MySQL DB and without caching!)
 			TYPO3 version constraint changed: currently version 4.5.x is not supported because of missing comment view helper in fluid 1.
 			Code cleanup.
 2013-03-27	Dirk Wenzel <wenzel@webfox01.de>
-	0.6.1	Bug Fixes, changes to TCA, TypoScript and default CSS, and code cleanup: 
+	0.6.1	Bug Fixes, changes to TCA, TypoScript and default CSS, and code cleanup:
 			Issues [Bug #46493], [Bug #46495], [Bug #46499] fixed.
 			Please save the old CSS file before updating and adapt your TypoScript.
 2013-03-13 	Dirk Wenzel <wenzel@webfox01.de>
@@ -618,8 +652,8 @@
 2013-02-26 	Dirk Wenzel <wenzel@webfox01.de>
 	0.4.0	- New Features - Please update your database
 			- Events now contain new field venue
-			- Quick Menu allows filtering event list by venues (template file QuickMenu.html changed!). 
-			- some test cases added 
+			- Quick Menu allows filtering event list by venues (template file QuickMenu.html changed!).
+			- some test cases added
 2013-02-17	Dirk Wenzel <wenzel@webfox01.de>
 	0.3.11	- failing unit tests fixed
 			- fatal error of teaser plugin fixed
@@ -631,11 +665,11 @@
 			- documentation improved
 2013-02-15	Dirk Wenzel <wenzel@webfox01.de>
 	0.3.8	- fixed bug which prevented quick menu from working
-			- debug messages from teaser template removed  
+			- debug messages from teaser template removed
 2013-02-14	Dirk Wenzel <wenzel@webfox01.de>
 	0.3.6	- made TicketClass title and color exclude fields
 2013-02-12	Dirk Wenzel <wenzel@webfox01.de>
-	0.3.6	- PerformancesViewhelper:getLowestPrice() now allways returns float as expected. Partial Teaser/Item changed: displays price only when at least one performance with one ticketClass is available [Bug #45457] 
+	0.3.6	- PerformancesViewhelper:getLowestPrice() now allways returns float as expected. Partial Teaser/Item changed: displays price only when at least one performance with one ticketClass is available [Bug #45457]
 2013-02-12	Dirk Wenzel <wenzel@webfox01.de>
 	0.3.5	- Plugin is now configurable to show only past, only future or all events (list view)
 			- fancy icons for records added
@@ -656,7 +690,7 @@
 			- minor template changes
 			- localization for be added (plugin)
 2013-01-26 Dirk Wenzel	<wenzel@webfox01.de>
-	0.2.3	- set list action non-cachable to prevent error with sort menu 
+	0.2.3	- set list action non-cachable to prevent error with sort menu
 				caused by cached content
 			- use lazy loading for relations to improve performance
 			- code cleanup
@@ -667,7 +701,7 @@
 	 	    - add an id, label and fieldset html tags to the sorting form in the list template : Event/List.html
 	      	- change to the correct version number in emconf :)
 2013-01-25 Dirk Wenzel    <wenzel@webfox01.de>
-  	0.2.1   - set list action non-cachable to prevent error with sort menu 
+  	0.2.1   - set list action non-cachable to prevent error with sort menu
              caused by cached content
             - use lazy loading for relations to improve performance
             - code cleanup
@@ -687,7 +721,7 @@
             - CSS cleanup (custom code removed)
 2013-01-17 Dirk Wenzel    <wenzel@webfox01.de>
     0.1.2   - prepare for search changes in teaser and event repositories and controllers
-            - sorting for teasers and events implemented 
+            - sorting for teasers and events implemented
 2013-01-15 Dirk Wenzel    <wenzel@webfox01.de>
     0.1.1   - made debug statement in TicketClass/Item and Teaser/List templates conditional
 2013-01-15 Dirk Wenzel    <wenzel@webfox01.de>

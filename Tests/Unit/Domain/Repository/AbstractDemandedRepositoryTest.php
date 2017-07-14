@@ -34,7 +34,7 @@ use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
  * @author Dirk Wenzel <dirk.wenzel@cps-it.de>
  * @coversDefaultClass \DWenzel\T3events\Domain\Repository\AbstractDemandedRepository
  */
-class AbstractDemandedRepositoryTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
+class AbstractDemandedRepositoryTest extends \Nimut\TestingFramework\TestCase\UnitTestCase {
 
 	/**
 	 * @var \DWenzel\T3events\Domain\Repository\AbstractDemandedRepository

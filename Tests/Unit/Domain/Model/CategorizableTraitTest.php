@@ -1,7 +1,7 @@
 <?php
 namespace DWenzel\T3events\Tests\Unit\Domain\Model;
 
-use TYPO3\CMS\Core\Tests\UnitTestCase;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Extbase\Domain\Model\Category;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use DWenzel\T3events\Domain\Model\CategorizableTrait;

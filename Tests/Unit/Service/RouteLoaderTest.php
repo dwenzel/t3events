@@ -18,7 +18,7 @@ use DWenzel\T3events\Controller\Routing\Route;
 use DWenzel\T3events\Controller\Routing\RouterInterface;
 use DWenzel\T3events\DataProvider\RouteLoader\RouteLoaderDataProviderInterface;
 use DWenzel\T3events\Service\RouteLoader;
-use TYPO3\CMS\Core\Tests\UnitTestCase;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 
 /**
  * Class RouteLoaderTest

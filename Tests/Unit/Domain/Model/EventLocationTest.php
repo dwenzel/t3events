@@ -32,7 +32,7 @@ namespace DWenzel\T3events\Tests\Unit\Domain\Model;
  * @author Michael Kasten <kasten@webfox01.de>
  * @coversDefaultDefaultClass \DWenzel\T3events\Domain\Model\EventLocation
  */
-class EventLocationTest extends \TYPO3\CMS\Core\Tests\UnitTestCase {
+class EventLocationTest extends \Nimut\TestingFramework\TestCase\UnitTestCase {
 
 	/**
 	 * @var \DWenzel\T3events\Domain\Model\EventLocation

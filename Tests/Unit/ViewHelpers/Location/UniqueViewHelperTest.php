@@ -20,7 +20,7 @@ use DWenzel\T3events\Domain\Model\EventLocation;
 use DWenzel\T3events\Domain\Model\Performance;
 use DWenzel\T3events\ViewHelpers\Location\CountViewHelper;
 use DWenzel\T3events\ViewHelpers\Location\UniqueViewHelper;
-use TYPO3\CMS\Core\Tests\UnitTestCase;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /**
