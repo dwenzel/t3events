@@ -508,7 +508,7 @@ return [
             'config' => [
                 'type' => 'inline',
                 'foreign_table' => 'tt_content',
-                'MM' => 'tx_t3events_content_elements_mm',
+                'foreign_field' => 'tx_t3events_event',
                 'maxitems' => 99,
                 'appearance' => [
                     'collapseAll' => 1,

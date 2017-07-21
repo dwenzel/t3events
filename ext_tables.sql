@@ -760,12 +760,6 @@ CREATE TABLE tx_t3events_domain_model_company (
 #
 # Table structure for table 'tx_t3events_content_elements_mm'
 #
-CREATE TABLE tx_t3events_content_elements_mm (
-	uid_local int(11) unsigned DEFAULT '0' NOT NULL,
-	uid_foreign int(11) unsigned DEFAULT '0' NOT NULL,
-	sorting int(11) unsigned DEFAULT '0' NOT NULL,
-	sorting_foreign int(11) unsigned DEFAULT '0' NOT NULL,
-
-	KEY uid_local (uid_local),
-	KEY uid_foreign (uid_foreign)
+CREATE TABLE tt_content (
+	tx_t3events_event INT(11) DEFAULT '0' NOT NULL
 );
