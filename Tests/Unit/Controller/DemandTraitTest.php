@@ -1,10 +1,11 @@
 <?php
+
 namespace DWenzel\T3events\Tests\Controller;
 
-use DWenzel\T3events\Domain\Model\Dto\EventDemand;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use DWenzel\T3events\Controller\DemandTrait;
 use DWenzel\T3events\Domain\Model\Dto\AbstractDemand;
+use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
+use DWenzel\T3events\Domain\Model\Dto\EventDemand;
 use DWenzel\T3events\Domain\Model\Dto\EventLocationAwareDemandInterface;
 use DWenzel\T3events\Domain\Model\Dto\EventTypeAwareDemandInterface;
 use DWenzel\T3events\Domain\Model\Dto\GenreAwareDemandInterface;
@@ -13,7 +14,9 @@ use DWenzel\T3events\Domain\Model\Dto\PeriodAwareDemandInterface;
 use DWenzel\T3events\Domain\Model\Dto\Search;
 use DWenzel\T3events\Domain\Model\Dto\SearchAwareDemandInterface;
 use DWenzel\T3events\Domain\Model\Dto\VenueAwareDemandInterface;
+use DWenzel\T3events\Domain\Repository\PeriodConstraintRepositoryInterface;
 use DWenzel\T3events\Utility\SettingsUtility;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 
 /**
  * Class DemandTraitTest
@@ -296,6 +299,72 @@ class DemandTraitTest extends UnitTestCase
         $demand->expects($this->once())
             ->method('setEndDate')
             ->with($expectedDateTimeObject);
+
+        $this->subject->overwriteDemandObject($demand, $overwriteDemand);
+    }
+
+    /**
+     * @test
+     */
+    public function overWriteDemandSetsPeriodAllForInvalidStartDate()
+    {
+        $demand = $this->getMock(
+            PerformanceDemand::class
+        );
+        $dateString = '';
+        $overwriteDemand = [
+            'startDate' => $dateString,
+            'period' => PeriodConstraintRepositoryInterface::PERIOD_SPECIFIC,
+            'periodType' => 'byDate'
+        ];
+
+        $demand->expects($this->once())
+            ->method('setPeriod')
+            ->with(PeriodConstraintRepositoryInterface::PERIOD_ALL);
+        $demand->expects($this->never())
+            ->method('setStartDate');
+        $demand->expects($this->never())
+            ->method('setPeriodType');
+        $this->subject->overwriteDemandObject($demand, $overwriteDemand);
+    }
+
+    public function emptyOverwriteDemandKeysDataProvider()
+    {
+        return [
+            ['startDate'],
+            ['endDate'],
+            ['period'],
+            ['periodType'],
+            ['sortBy'],
+            ['sortDirection'],
+            ['search'],
+            ['venue'],
+            ['venues'],
+            ['genre'],
+            ['genres'],
+            ['eventType'],
+            ['eventTypes'],
+            ['eventLocation'],
+            ['foo']
+        ];
+    }
+
+    /**
+     * @test
+     * @dataProvider emptyOverwriteDemandKeysDataProvider
+     */
+    public function overWriteDemandNeverSetsEmptyValues($key)
+    {
+        $method = 'set' . ucfirst($key);
+        $demand = $this->getMockBuilder(
+            DemandInterface::class)
+        ->setMethods([$method])->getMockForAbstractClass();
+
+        $overwriteDemand = [
+            $key => ''
+        ];
+        $demand->expects($this->never())
+            ->method($method);
 
         $this->subject->overwriteDemandObject($demand, $overwriteDemand);
     }
