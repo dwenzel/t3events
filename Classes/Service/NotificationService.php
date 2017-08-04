@@ -1,8 +1,11 @@
 <?php
 namespace DWenzel\T3events\Service;
 
+use DWenzel\T3events\Domain\Model\Notification;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
+use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 
 /**
  * Class NotificationService
@@ -23,7 +26,7 @@ class NotificationService
     /**
      * Configuration Manager
      *
-     * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
+     * @var ConfigurationManagerInterface
      * @inject
      */
     protected $configurationManager;
@@ -33,7 +36,7 @@ class NotificationService
      *
      * @param string $recipient
      * @param string $sender
-     * @param $subject
+     * @param string $subject
      * @param string $templateName
      * @param null|string $format
      * @param $folderName
@@ -42,7 +45,7 @@ class NotificationService
      * @param array $attachments
      * @return bool
      */
-    public function notify($recipient, $sender, $subject, $templateName, $format = null, $folderName, $variables = array(), $attachments = null)
+    public function notify($recipient, $sender, $subject, $templateName, $format = null, $folderName, $variables = [], $attachments = null)
     {
         $templateView = $this->buildTemplateView($templateName, $format, $folderName);
         $templateView->assignMultiple($variables);
@@ -77,7 +80,7 @@ class NotificationService
      * @param array $variables
      * @return string
      */
-    public function render($templateName, $format = null, $folderName, $variables = array())
+    public function render($templateName, $format = null, $folderName, $variables = [])
     {
         $templateView = $this->buildTemplateView($templateName, $format, $folderName);
         $templateView->assignMultiple($variables);
@@ -92,7 +95,7 @@ class NotificationService
      * @param \DWenzel\T3events\Domain\Model\Notification $notification
      * @return bool
      */
-    public function send(&$notification)
+    public function send(Notification &$notification)
     {
         /** @var $message \TYPO3\CMS\Core\Mail\MailMessage */
         $message = $this->objectManager->get('TYPO3\\CMS\\Core\\Mail\\MailMessage');
@@ -148,7 +151,7 @@ class NotificationService
 
     /**
      * @var array $data An array containing data for attachement generation
-     * @return \Swift_Attachment
+     * @return \Swift_Mime_Attachment
      */
     protected function buildAttachmentFromTemplate($data)
     {
@@ -177,7 +180,7 @@ class NotificationService
      */
     protected function getTemplatePathAndFileName($templateName, $folderName = 'Email')
     {
-        $extbaseFrameworkConfiguration = $this->configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
+        $extbaseFrameworkConfiguration = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
         $templateRootPath = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($extbaseFrameworkConfiguration['view']['templateRootPath']);
         $templatePathAndFilename = $templateRootPath . $folderName . '/' . $templateName . '.html';
 
@@ -191,7 +194,7 @@ class NotificationService
      */
     protected function getPartialRootPath()
     {
-        $extbaseFrameworkConfiguration = $this->configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
+        $extbaseFrameworkConfiguration = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
 
         return \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($extbaseFrameworkConfiguration['view']['partialRootPath']);
     }
@@ -202,12 +205,13 @@ class NotificationService
      * @param \DWenzel\T3events\Domain\Model\Notification $oldNotification
      * @return \DWenzel\T3events\Domain\Model\Notification
      */
-    public function duplicate($oldNotification)
+    public function duplicate(Notification $oldNotification)
     {
+        /** @var Notification $notification */
         $notification = $this->objectManager->get('\\DWenzel\\T3events\\Domain\\Model\\Notification');
-        $accessibleProperties = \TYPO3\CMS\Extbase\Reflection\ObjectAccess::getSettablePropertyNames($notification);
+        $accessibleProperties = ObjectAccess::getSettablePropertyNames($notification);
         foreach ($accessibleProperties as $property) {
-            \TYPO3\CMS\Extbase\Reflection\ObjectAccess::setProperty(
+            ObjectAccess::setProperty(
                 $notification,
                 $property,
                 $oldNotification->_getProperty($property));

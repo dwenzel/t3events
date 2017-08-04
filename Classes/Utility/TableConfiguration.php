@@ -2,6 +2,7 @@
 
 namespace DWenzel\T3events\Utility;
 
+use DWenzel\T3events\CallStaticTrait;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 
 /***************************************************************
@@ -34,6 +35,8 @@ use TYPO3\CMS\Core\Utility\VersionNumberUtility;
  */
 class TableConfiguration
 {
+    use CallStaticTrait;
+
     /**
      * Icon paths by TYPO3 version
      * @var array
@@ -104,7 +107,7 @@ class TableConfiguration
      */
     public static function getLanguageFilePath($extension = 'lang')
     {
-        $path = $cll = 'LLL:EXT:' . $extension . '/';
+        $path = 'LLL:EXT:' . $extension . '/';
 
         if (static::getVersion() > 7)
         {

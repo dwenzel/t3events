@@ -1,6 +1,7 @@
 <?php
 namespace DWenzel\T3events\Domain\Repository;
 
+use DWenzel\T3events\Domain\Model\Dto\StatusAwareDemandInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 
 /**
@@ -17,5 +18,5 @@ interface StatusConstraintRepositoryInterface
      * @param \DWenzel\T3events\Domain\Model\Dto\StatusAwareDemandInterface $demand
      * @return array<\TYPO3\CMS\Extbase\Persistence\QOM\Constraint>
      */
-    public function createStatusConstraints(QueryInterface $query, $demand);
+    public function createStatusConstraints(QueryInterface $query, StatusAwareDemandInterface $demand);
 }

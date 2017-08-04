@@ -12,6 +12,7 @@ namespace DWenzel\T3events\Domain\Repository;
  */
 
 use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
+use DWenzel\T3events\Domain\Model\Dto\SearchAwareDemandInterface;
 use DWenzel\T3events\UnsupportedMethodException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
@@ -144,11 +145,11 @@ trait DemandedRepositoryTrait
         }
 
 
-        if ($demand->getLimit() != null) {
+        if ($demand->getLimit() !== null) {
             $query->setLimit((int)$demand->getLimit());
         }
 
-        if ($demand->getOffset() != null) {
+        if ($demand->getOffset() !== null) {
             $query->setOffset((int)$demand->getOffset());
         }
 
@@ -169,7 +170,7 @@ trait DemandedRepositoryTrait
      * @param array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint> $additionalConstraints
      * @param string $conjunction
      */
-    public function combineConstraints($query, &$constraints, $additionalConstraints, $conjunction = null)
+    public function combineConstraints(QueryInterface $query, &$constraints, $additionalConstraints, $conjunction = null)
     {
         if (count($additionalConstraints)) {
             switch (strtolower($conjunction)) {
@@ -199,7 +200,7 @@ trait DemandedRepositoryTrait
      * @param \DWenzel\T3events\Domain\Model\Dto\SearchAwareDemandInterface $demand
      * @return array<\TYPO3\CMS\Extbase\Persistence\QOM\Constraint>
      */
-    protected function createSearchConstraints(QueryInterface $query, $demand)
+    protected function createSearchConstraints(QueryInterface $query, SearchAwareDemandInterface $demand)
     {
         $searchConstraints = [];
         if ($search = $demand->getSearch()) {

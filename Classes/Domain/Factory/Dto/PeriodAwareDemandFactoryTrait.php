@@ -1,6 +1,8 @@
 <?php
 namespace DWenzel\T3events\Domain\Factory\Dto;
 
+use DWenzel\T3events\Domain\Model\Dto\PeriodAwareDemandInterface;
+
 /**
  * Class PeriodAwareDemandFactoryTrait
  * Provides methods for creating period aware demands
@@ -15,12 +17,12 @@ trait PeriodAwareDemandFactoryTrait
      * @param \DWenzel\T3events\Domain\Model\Dto\PeriodAwareDemandInterface $demand
      * @param array $settings
      */
-    public function setPeriodConstraints($demand, $settings)
+    public function setPeriodConstraints(PeriodAwareDemandInterface $demand, $settings)
     {
         $timeZone = new \DateTimeZone(date_default_timezone_get());
 
         if ($settings['period'] === 'futureOnly'
-            or $settings['period'] === 'pastOnly'
+            || $settings['period'] === 'pastOnly'
         ) {
             $startDate = new \DateTime('midnight', $timeZone);
             $demand->setStartDate($startDate);
@@ -30,7 +32,7 @@ trait PeriodAwareDemandFactoryTrait
         if ($settings['period'] === 'specific') {
             $demand->setPeriodType($settings['periodType']);
         }
-        if (isset($settings['periodType']) and $settings['periodType'] !== 'byDate') {
+        if (isset($settings['periodType']) && $settings['periodType'] !== 'byDate') {
             $demand->setPeriodStart($settings['periodStart']);
             $demand->setPeriodDuration($settings['periodDuration']);
         }

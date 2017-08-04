@@ -80,7 +80,7 @@ class DateRangeViewHelper extends AbstractTagBasedViewHelper
         }
 
         if (strpos($startFormat, '%') !== false
-            and strpos($endFormat, '%' !== false)
+            && strpos($endFormat, '%' !== false)
         ) {
             $dateRange = strftime($startFormat, $this->performance->getDate()->getTimestamp());
             $dateRange .= $glue . strftime($endFormat, $this->performance->getEndDate()->getTimestamp());

@@ -1,6 +1,7 @@
 <?php
 namespace DWenzel\T3events\Domain\Repository;
 
+use DWenzel\T3events\Domain\Model\Dto\VenueAwareDemandInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -19,7 +20,7 @@ trait VenueConstraintRepositoryTrait
      * @param \DWenzel\T3events\Domain\Model\Dto\VenueAwareDemandInterface $demand
      * @return array<\TYPO3\CMS\Extbase\Persistence\QOM\Constraint>
      */
-    public function createVenueConstraints(QueryInterface $query, $demand)
+    public function createVenueConstraints(QueryInterface $query, VenueAwareDemandInterface $demand)
     {
         $venueConstraints = [];
         $venueField = $demand->getVenueField();

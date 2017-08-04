@@ -87,10 +87,8 @@ class PerformanceRepositoryTest extends UnitTestCase
      */
     public function createConstraintsFromDemandReturnsDefaultConstraints()
     {
-        $demand = $this->getMockForAbstractClass(
-            DemandInterface::class, [], '', true, true, true,
-            ['getEventLocations']
-        );
+        $demand = $this->getMockBuilder(PerformanceDemand::class)
+        ->setMethods(['getEventLocations'])->getMock();
         $this->subject = $this->getAccessibleMock(
             PerformanceRepository::class,
             [
@@ -474,20 +472,18 @@ class PerformanceRepositoryTest extends UnitTestCase
             [
                 'combineConstraints'
             ], [], '', false);
-        $demand = $this->getMockForAbstractClass(
-            DemandInterface::class, [], '', true, true, true,
-            [
-                'getGenres',
-                'getVenues',
-                'getEventTypes',
-                'getCategories',
-                'getSearch',
-                'getStatusField',
-                'getStatuses',
-                'getEventLocations',
-                'getStoragePages'
-            ]
-        );
+        $demand = $this->getMockBuilder(PerformanceDemand::class)
+        ->setMethods([
+            'getGenres',
+            'getVenues',
+            'getEventTypes',
+            'getCategories',
+            'getSearch',
+            'getStatusField',
+            'getStatuses',
+            'getEventLocations',
+            'getStoragePages'
+        ])->getMock();
         $storagePageList = '3,4';
         $storagePages =  GeneralUtility::intExplode(',', $storagePageList);
         $demand->expects($this->any())

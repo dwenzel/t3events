@@ -47,7 +47,7 @@ class Typo3BackendSession implements SessionInterface
      */
     public function has($identifier)
     {
-        if ($argument = $this->get($identifier)) {
+        if ($this->get($identifier)) {
             return true;
         }
 

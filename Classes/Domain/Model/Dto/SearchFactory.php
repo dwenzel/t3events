@@ -50,11 +50,11 @@ class SearchFactory
         /** @var Search $searchObject */
         $searchObject = $this->objectManager->get(Search::class);
 
-        if (isset($searchRequest['subject']) and isset($settings['fields'])) {
+        if (isset($searchRequest['subject']) && isset($settings['fields'])) {
             $searchObject->setFields($settings['fields']);
             $searchObject->setSubject($searchRequest['subject']);
         }
-        if (isset($searchRequest['location']) and isset($searchRequest['radius'])) {
+        if (isset($searchRequest['location']) && isset($searchRequest['radius'])) {
             $searchObject->setLocation($searchRequest['location']);
             $searchObject->setRadius($searchRequest['radius']);
         }

@@ -91,8 +91,10 @@ class AbstractDemand extends AbstractEntity implements DemandInterface
      */
     public function setLimit($limit = 100)
     {
-        if ($validatedLimit = (int)$limit > 0) {
-            $this->limit = (int)$limit;
+        $validatedLimit = (int)$limit;
+
+        if ( $validatedLimit > 0) {
+            $this->limit = $validatedLimit;
         }
     }
 

@@ -96,7 +96,7 @@ class PerformancesViewHelper extends AbstractTagBasedViewHelper
                 if ($status = $this->getCrucialStatus()) {
                     $title = $status['title'];
                     $this->class .= ' ' . $status['cssClass'];
-                    if ($this->renderChildren() == null) {
+                    if ($this->renderChildren() === null) {
                         $content = $status['title'];
                     }
                 }
