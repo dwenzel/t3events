@@ -95,7 +95,6 @@ trait PeriodConstraintRepositoryTrait
         $periodDuration = $demand->getPeriodDuration();
 
         if ($period === 'specific' && $periodType) {
-            // @todo: throw exception for missing periodType
             // get delta value
             $deltaStart = ($periodStart < 0) ? $periodStart : '+' . $periodStart;
             $deltaEnd = ($periodDuration > 0) ? '+' . $periodDuration : '+' . 999;

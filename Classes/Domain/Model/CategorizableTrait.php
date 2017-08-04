@@ -2,7 +2,6 @@
 namespace DWenzel\T3events\Domain\Model;
 
 /**
- * TODO find out why typo3 cause the fatal error cannot use Category as Category because the name is already in use.
  * Add alias SysCategory for Category to prevent fatal error.
  */
 use TYPO3\CMS\Extbase\Domain\Model\Category as SysCategory;

@@ -36,7 +36,7 @@ class AudienceRepository extends AbstractDemandedRepository
      */
     public function createConstraintsFromDemand(QueryInterface $query, DemandInterface $demand)
     {
-        // TODO: Implement createConstraintsFromDemand() method.
+        // add constraints if required
         return [];
     }
 }

@@ -436,7 +436,7 @@ class SettingsUtilityTest extends UnitTestCase
 
         $this->subject->getFileStorage($mockObject, $config);
     }
-    // todo test default and always values
+    // should test default and always values too
 
     /**
      * @return \PHPUnit_Framework_MockObject_MockObject|\TYPO3\CMS\Core\Tests\AccessibleObjectInterface

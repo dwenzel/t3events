@@ -181,7 +181,7 @@ class EventControllerTest extends UnitTestCase
     {
         $this->mockCreateDemandFromSettings();
 
-        // todo can not match expectedTemplateVariables - always got an array containing all arguments as third argument.
+        // can not match expectedTemplateVariables - always got an array containing all arguments as third argument.
         $this->subject->expects($this->once())
             ->method('emitSignal');
 
@@ -203,7 +203,7 @@ class EventControllerTest extends UnitTestCase
             'filterOptions' => null
         ];
 
-        // todo can not match expectedTemplateVariables as soon as method 'emitSignal' is called.
+        // can not match expectedTemplateVariables as soon as method 'emitSignal' is called.
         $this->view->expects($this->once())
             ->method('assignMultiple');
         $this->subject->listAction();
