@@ -123,8 +123,7 @@ plugin.tx_t3events {
                 # legacy sorting
                 #sortBy = date
                 #sortDirection = asc
-                # todo read order
-                 order = date|asc,begin|asc
+                order = date|asc,begin|asc
             }
 
             quickMenu {

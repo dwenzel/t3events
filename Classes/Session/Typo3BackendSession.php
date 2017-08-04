@@ -47,7 +47,7 @@ class Typo3BackendSession implements SessionInterface
      */
     public function has($identifier)
     {
-        if ($argument = $this->get($identifier)) {
+        if ($this->get($identifier)) {
             return true;
         }
 
@@ -64,7 +64,7 @@ class Typo3BackendSession implements SessionInterface
     public function set($identifier, $value)
     {
         $this->data[$identifier] = $value;
-        //todo write to backend user session
+        //should write to backend user session
     }
 
     /**
@@ -76,7 +76,7 @@ class Typo3BackendSession implements SessionInterface
     public function get($identifier)
     {
         if (empty($this->data)) {
-            //todo read from backend user session
+            //should read from backend user session
         }
         if (isset($this->data[$identifier])) {
             return $this->data[$identifier];
@@ -87,7 +87,7 @@ class Typo3BackendSession implements SessionInterface
 
     public function clean()
     {
-        //todo clear backend user data for module
+        //should clear backend user data for module
         $this->data = [];
     }
 

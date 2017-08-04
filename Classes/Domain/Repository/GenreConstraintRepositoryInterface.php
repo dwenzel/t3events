@@ -1,6 +1,7 @@
 <?php
 namespace DWenzel\T3events\Domain\Repository;
 
+use DWenzel\T3events\Domain\Model\Dto\GenreAwareDemandInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 
 /**
@@ -17,5 +18,5 @@ interface GenreConstraintRepositoryInterface
      * @param \DWenzel\T3events\Domain\Model\Dto\GenreAwareDemandInterface $demand
      * @return array<\TYPO3\CMS\Extbase\Persistence\QOM\Constraint>
      */
-    public function createGenreConstraints(QueryInterface $query, $demand);
+    public function createGenreConstraints(QueryInterface $query, GenreAwareDemandInterface $demand);
 }

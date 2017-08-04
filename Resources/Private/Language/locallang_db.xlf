@@ -441,6 +441,9 @@
 		<trans-unit id="tab.access">
 			<source>Access</source>
 		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_event.content_elements">
+			<source>Content Elements</source>
+		</trans-unit>
 		</body>
 	</file>
 </xliff>

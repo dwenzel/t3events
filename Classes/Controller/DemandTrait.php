@@ -1,6 +1,7 @@
 <?php
 namespace DWenzel\T3events\Controller;
 
+use DWenzel\T3events\Domain\Repository\PeriodConstraintRepositoryInterface;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
 use DWenzel\T3events\Domain\Model\Dto\EventDemand;
@@ -48,6 +49,9 @@ trait DemandTrait
             $timeZone = new \DateTimeZone(date_default_timezone_get());
 
             foreach ($overwriteDemand as $propertyName => $propertyValue) {
+                if (empty($propertyValue)) {
+                    continue;
+                }
                 switch ($propertyName) {
                     case 'sortBy':
                         $orderings = $propertyValue;
@@ -99,6 +103,20 @@ trait DemandTrait
                         if ($demand instanceof EventLocationAwareDemandInterface) {
                             $demand->setEventLocations($propertyValue);
                         }
+                        break;
+                    case 'period':
+                        if ($propertyValue === PeriodConstraintRepositoryInterface::PERIOD_SPECIFIC
+                            && empty($overwriteDemand['startDate'])) {
+                            $demand->setPeriod(PeriodConstraintRepositoryInterface::PERIOD_ALL);
+                            break;
+                        }
+                        $demand->setPeriod($propertyValue);
+                        break;
+                    case 'periodType':
+                        if ($propertyValue === 'byDate' && empty($overwriteDemand['startDate'])) {
+                            break;
+                        }
+                        $demand->setPeriodType($propertyValue);
                         break;
                     case 'startDate':
                         $demand->setStartDate(new \DateTime($propertyValue, $timeZone));

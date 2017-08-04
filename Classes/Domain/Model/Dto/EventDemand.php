@@ -25,7 +25,6 @@ class EventDemand extends AbstractDemand implements
     AudienceAwareDemandInterface,
     OrderAwareDemandInterface
 {
-    // todo use demand traits
     use PeriodAwareDemandTrait, SearchAwareDemandTrait,
         AudienceAwareDemandTrait, OrderAwareDemandTrait;
 

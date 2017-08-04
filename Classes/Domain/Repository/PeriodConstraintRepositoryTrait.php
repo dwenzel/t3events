@@ -1,6 +1,7 @@
 <?php
 namespace DWenzel\T3events\Domain\Repository;
 
+use DWenzel\T3events\Domain\Model\Dto\PeriodAwareDemandInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 
 /**
@@ -20,7 +21,7 @@ trait PeriodConstraintRepositoryTrait
      * @param \DWenzel\T3events\Domain\Model\Dto\PeriodAwareDemandInterface $demand
      * @return array<\TYPO3\CMS\Extbase\Persistence\QOM\Constraint>
      */
-    public function createPeriodConstraints(QueryInterface $query, $demand)
+    public function createPeriodConstraints(QueryInterface $query, PeriodAwareDemandInterface $demand)
     {
         // set start date initial to now
         $timezone = new \DateTimeZone(date_default_timezone_get());
@@ -85,7 +86,7 @@ trait PeriodConstraintRepositoryTrait
      * @param \DateTime $startDate
      * @param \DateTime $endDate
      */
-    protected function determineDateRange($demand, &$startDate, &$endDate)
+    protected function determineDateRange(PeriodAwareDemandInterface $demand, &$startDate, &$endDate)
     {
         // period constraints
         $period = $demand->getPeriod();
@@ -94,7 +95,6 @@ trait PeriodConstraintRepositoryTrait
         $periodDuration = $demand->getPeriodDuration();
 
         if ($period === 'specific' && $periodType) {
-            // @todo: throw exception for missing periodType
             // get delta value
             $deltaStart = ($periodStart < 0) ? $periodStart : '+' . $periodStart;
             $deltaEnd = ($periodDuration > 0) ? '+' . $periodDuration : '+' . 999;

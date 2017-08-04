@@ -58,8 +58,8 @@ class EventController extends AbstractBackendController implements FilterableCon
 
         $events = $this->eventRepository->findDemanded($demand);
 
-        if (($events instanceof QueryResultInterface and !$events->count())
-            or !count($events)
+        if (($events instanceof QueryResultInterface && !$events->count())
+            || !count($events)
         ) {
             $this->addFlashMessage(
                 $this->translate('message.noEventFound.text'),

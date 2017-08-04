@@ -185,7 +185,7 @@ class SettingsUtility implements SingletonInterface
         if ($valueFromSettings instanceof FileReference) {
             $fileStorage->attach($valueFromSettings);
         }
-        // todo add File object from field
+        // should add File object from field?
 
         // omit default value
         if ($fileStorage->count() > 0) {
@@ -193,7 +193,7 @@ class SettingsUtility implements SingletonInterface
         }
 
         // add always
-        // todo should 'always' be added to this->getValue()?
+        // should 'always' be added to this->getValue()?
         if (isset($config['always']) && is_string($config['always'])) {
             if (!is_string($valueFromSettings)) {
                 $valueFromSettings = '';

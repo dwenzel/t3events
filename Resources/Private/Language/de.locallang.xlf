@@ -564,6 +564,10 @@
             <source>Events</source>
 			<target>Veranstaltungen</target>
         </trans-unit>
+		<trans-unit id="tx_t3events_domain_model_event.content_elements">
+			<source>Content Elements</source>
+			<target>Inhaltselemente</target>
+		</trans-unit>
 		</body>
 	</file>
 </xliff>

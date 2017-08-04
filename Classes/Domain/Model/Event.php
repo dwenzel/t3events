@@ -161,6 +161,12 @@ class Event extends AbstractEntity
     protected $archiveDate;
 
     /**
+     * @lazy
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Content>
+     */
+    protected $contentElements;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -188,6 +194,7 @@ class Event extends AbstractEntity
         $this->audience = new ObjectStorage();
         $this->performances = new ObjectStorage();
         $this->categories = new ObjectStorage();
+        $this->contentElements = new ObjectStorage();
     }
 
     /**
@@ -725,4 +732,40 @@ class Event extends AbstractEntity
     {
         $this->archiveDate = $archiveDate;
     }
+
+    /**
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Content> contentElements
+     */
+    public function getContentElements()
+    {
+        return $this->contentElements;
+    }
+
+    /**
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Content> contentElements
+     */
+    public function setContentElements($contentElements)
+    {
+        $this->contentElements = $contentElements;
+    }
+
+    /**
+     * @param \DWenzel\T3events\Domain\Model\Content $contentElements The Content Element to be removed
+     */
+    public function addContentElements(Content $contentElements){
+        $this->contentElements->attach($contentElements);
+    }
+
+    /**
+     * Removes a Content Element
+     *
+     * @param \DWenzel\T3events\Domain\Model\Content $contentElements The Content Element to be removed
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Content> contentElements
+     */
+    public function removeContentElements(Content $contentElements)
+    {
+        $this->contentElements->detach($contentElements);
+    }
+
+
 }

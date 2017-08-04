@@ -96,7 +96,7 @@ class DateRangeViewHelper extends AbstractTagBasedViewHelper
 
         sort(array_unique($timestamps));
         if (strpos($startFormat, '%') !== false
-            and strpos($endFormat, '%' !== false)
+            && strpos($endFormat, '%' !== false)
         ) {
             $functionName = 'strftime';
         }

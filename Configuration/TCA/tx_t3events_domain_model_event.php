@@ -39,7 +39,7 @@ return [
     'types' => [
         '1' => [
             'showitem' => '
-			    	 event_type,headline, subtitle,teaser,description,
+			    	 event_type,headline, subtitle,teaser,description,content_elements,
 			    	 --div--;' . $ll . 'tx_t3events_domain_model_event.tab.relations,
 			    	    images, image, files, related,
 			    	 --div--;LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_event.extended,
@@ -502,5 +502,22 @@ return [
                 'default' => '0'
             ]
         ],
+        'content_elements' => [
+            'exclude' => 0,
+            'label' => $ll . 'tx_t3events_domain_model_event.content_elements',
+            'config' => [
+                'type' => 'inline',
+                'foreign_table' => 'tt_content',
+                'foreign_field' => 'tx_t3events_event',
+                'maxitems' => 99,
+                'appearance' => [
+                    'collapseAll' => 1,
+                    'levelLinksPosition' => 'top',
+                    'showSynchronizationLink' => 1,
+                    'showPossibleLocalizationRecords' => 1,
+                    'showAllLocalizationLink' => 1
+                ],
+            ],
+        ]
     ],
 ];

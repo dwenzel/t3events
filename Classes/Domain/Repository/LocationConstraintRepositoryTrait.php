@@ -1,6 +1,8 @@
 <?php
+
 namespace DWenzel\T3events\Domain\Repository;
 
+use DWenzel\T3events\Domain\Model\Dto\SearchAwareDemandInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 
 /**
@@ -23,7 +25,7 @@ trait LocationConstraintRepositoryTrait
      * @param \DWenzel\T3events\Domain\Model\Dto\SearchAwareDemandInterface $demand
      * @return array<\TYPO3\CMS\Extbase\Persistence\QOM\Constraint>
      */
-    public function createLocationConstraints(QueryInterface $query, $demand)
+    public function createLocationConstraints(QueryInterface $query, SearchAwareDemandInterface $demand)
     {
         $locationConstraints = [];
 
@@ -37,16 +39,16 @@ trait LocationConstraintRepositoryTrait
             $radius = $search->getRadius();
 
             if (!empty($location)
-                and !empty($radius)
-                and empty($bounds)
+                && !empty($radius)
+                && empty($bounds)
             ) {
                 $geoLocation = $this->geoCoder->getLocation($location);
                 $bounds = $this->geoCoder->getBoundsByRadius($geoLocation['lat'], $geoLocation['lng'], $radius / 1000);
             }
-            if ($bounds and
-                !empty($bounds['N']) and
-                !empty($bounds['S']) and
-                !empty($bounds['W']) and
+            if ($bounds &&
+                !empty($bounds['N']) &&
+                !empty($bounds['S']) &&
+                !empty($bounds['W']) &&
                 !empty($bounds['E'])
             ) {
                 $locationConstraints[] = $query->greaterThan('latitude', $bounds['S']['lat']);

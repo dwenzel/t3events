@@ -1,6 +1,6 @@
 [![code coverage](https://codecov.io/gh/dwenzel/t3events/branch/master/graph/badge.svg)](https://codecov.io/gh/dwenzel/t3events)
-[![Build Status](https://travis-ci.org/dwenzel/t3events.svg?branch=master)](https://travis-ci.org/dwenzel/t3events)
-
+[![Build Status](https://travis-ci.org/dwenzel/t3events.svg?branch=master)](https://travis-ci.org/dwenzel/t3events)  
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/f4e261c4-eccf-4f0d-ae19-c3a0b5aec361/small.png)](https://insight.sensiolabs.com/projects/f4e261c4-eccf-4f0d-ae19-c3a0b5aec361)
 
 Events
 ======

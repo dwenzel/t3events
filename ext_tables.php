@@ -81,7 +81,6 @@ if (TYPO3_MODE === 'BE' && (bool)$emSettings['showEventModule']) {
     }
 
     if ($versionNumber < 7000000) {
-        // \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addModule('Events');
         /**
          * Register Backend Modules
          */

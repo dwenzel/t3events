@@ -14,6 +14,7 @@ namespace DWenzel\T3events\Domain\Repository;
  * The TYPO3 project - inspiring people to share!
  */
 
+use DWenzel\T3events\Domain\Model\Dto\PeriodAwareDemandInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 
 /**
@@ -35,5 +36,5 @@ interface PeriodConstraintRepositoryInterface
      * @param \DWenzel\T3events\Domain\Model\Dto\PeriodAwareDemandInterface $demand
      * @return array<\TYPO3\CMS\Extbase\Persistence\QOM\Constraint>
      */
-    public function createPeriodConstraints(QueryInterface $query, $demand);
+    public function createPeriodConstraints(QueryInterface $query, PeriodAwareDemandInterface $demand);
 }

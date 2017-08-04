@@ -1,6 +1,7 @@
 <?php
 namespace DWenzel\T3events\Domain\Repository;
 
+use DWenzel\T3events\Domain\Model\Dto\AudienceAwareDemandInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 
 /**
@@ -17,5 +18,5 @@ interface AudienceConstraintRepositoryInterface
      * @param \DWenzel\T3events\Domain\Model\Dto\AudienceAwareDemandInterface $demand
      * @return array<\TYPO3\CMS\Extbase\Persistence\QOM\Constraint>
      */
-    public function createAudienceConstraints(QueryInterface $query, $demand);
+    public function createAudienceConstraints(QueryInterface $query, AudienceAwareDemandInterface $demand);
 }

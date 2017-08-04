@@ -1,6 +1,7 @@
 <?php
 namespace DWenzel\T3events\Domain\Repository;
 
+use DWenzel\T3events\Domain\Model\Dto\EventTypeAwareDemandInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 
 /**
@@ -17,5 +18,5 @@ interface EventTypeConstraintRepositoryInterface
      * @param \DWenzel\T3events\Domain\Model\Dto\EventTypeAwareDemandInterface $demand
      * @return array<\TYPO3\CMS\Extbase\Persistence\QOM\Constraint>
      */
-    public function createEventTypeConstraints(QueryInterface $query, $demand);
+    public function createEventTypeConstraints(QueryInterface $query, EventTypeAwareDemandInterface $demand);
 }

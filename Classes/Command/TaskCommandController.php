@@ -18,6 +18,8 @@ use DWenzel\T3events\Controller\TaskRepositoryTrait;
 use DWenzel\T3events\Domain\Model\Dto\PerformanceDemand;
 use DWenzel\T3events\Domain\Model\Performance;
 use DWenzel\T3events\Domain\Model\Task;
+use TYPO3\CMS\Core\Exception;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\MVC\Controller\CommandController;
 
 /**
@@ -36,7 +38,7 @@ class TaskCommandController extends CommandController
      *
      * @param string $email E-Mail
      * @return bool
-     * @throws \TYPO3\CMS\Core\Exception
+     * @throws Exception
      */
     public function runCommand($email)
     {
@@ -49,7 +51,7 @@ class TaskCommandController extends CommandController
                 $site = '-';
             } else {
                 $calledBy = 'TYPO3 backend';
-                $site = \TYPO3\CMS\Core\Utility\GeneralUtility::getIndpEnv('TYPO3_SITE_URL');
+                $site = GeneralUtility::getIndpEnv('TYPO3_SITE_URL');
             }
             $mailBody =
                 '----------------------------------------' . LF
@@ -64,16 +66,15 @@ class TaskCommandController extends CommandController
             // Prepare mailer and send the mail
             try {
                 /** @var $mailer \TYPO3\CMS\Core\Mail\MailMessage */
-                $mailer = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('\\TYPO3\\CMS\\Core\\Mail\\MailMessage');
-                $mailer->setFrom(array($email => 'TYPO3 scheduler - t3events task'));
-                $mailer->setReplyTo(array($email => 'TYPO3 scheduler - t3events task'));
+                $mailer = GeneralUtility::makeInstance('\\TYPO3\\CMS\\Core\\Mail\\MailMessage');
+                $mailer->setFrom([$email => 'TYPO3 scheduler - t3events task']);
+                $mailer->setReplyTo([$email => 'TYPO3 scheduler - t3events task']);
                 $mailer->setSubject('TYPO3 scheduler - t3events task');
                 $mailer->setBody($mailBody);
                 $mailer->setTo($email);
-                $mailsSend = $mailer->send();
-                $success = ($mailsSend > 0);
+                $mailer->send();
             } catch (\Exception $e) {
-                throw new \TYPO3\CMS\Core\Exception($e->getMessage());
+                throw new Exception($e->getMessage());
             }
         }
 
@@ -82,10 +83,8 @@ class TaskCommandController extends CommandController
 
     /**
      * Runs update status tasks
-     *
-     * @param string $email Email address for notification (not implemented yet)
      */
-    public function updateStatusCommand($email = null)
+    public function updateStatusCommand()
     {
         $tasks = $this->taskRepository->findByAction(Task::ACTION_UPDATE_STATUS);
         if (count($tasks)) {
@@ -117,7 +116,9 @@ class TaskCommandController extends CommandController
         $message = '';
 
         //process all 'hide performance' tasks
+
         foreach ($hideTasks as $hideTask) {
+            /** @var Task $hideTask */
             $message .= '----------------------------------------' . LF
                 . 'Task: ' . $hideTask->getUid() . ' ,title: ' . $hideTask->getName() . LF
                 . '----------------------------------------' . LF
