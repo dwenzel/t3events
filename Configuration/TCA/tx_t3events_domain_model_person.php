@@ -133,7 +133,7 @@ return [
             ],
         ],
         'person_type' => [
-            'exclude' => 0,
+            'exclude' => 1,
             'label' => $ll . 'tx_t3events_domain_model_person.person_type',
             'config' => [
                 'type' => 'select',
@@ -145,12 +145,14 @@ return [
             ],
         ],
         'name' => [
+            'exclude' => 1,
             'label' => $ll . 'tx_t3events_domain_model_person.name',
             'config' => [
                 'type' => 'input',
             ],
         ],
         'title' => [
+            'exclude' => 1,
             'label' => $ll . 'tx_t3events_domain_model_person.title',
             'config' => [
                 'type' => 'input',
@@ -237,7 +239,7 @@ return [
             ],
         ],
         'www' => [
-            'exclude' => 0,
+            'exclude' => 1,
             'label' => $ll . 'tx_t3events_domain_model_person.www',
             'config' => [
                 'type' => 'input',
@@ -246,6 +248,7 @@ return [
             ],
         ],
         'images' => [
+            'exclude' => 1,
             'label' => $ll . 'tx_t3events_domain_model_person.images',
             'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
                 'images',

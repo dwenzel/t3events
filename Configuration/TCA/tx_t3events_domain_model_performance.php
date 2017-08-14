@@ -179,7 +179,7 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 7,
-                'eval' => 'date',
+                'eval' => 'date,required',
                 'checkbox' => 1,
                 'default' => strtotime('today')
             ],
@@ -196,7 +196,7 @@ return [
             ]
         ],
         'admission' => [
-            'exclude' => 0,
+            'exclude' => 1,
             'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_performance.admission',
             'config' => [
                 'type' => 'input',
@@ -206,7 +206,7 @@ return [
             ],
         ],
         'begin' => [
-            'exclude' => 0,
+            'exclude' => 1,
             'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_performance.begin',
             'config' => [
                 'type' => 'input',
@@ -216,7 +216,7 @@ return [
             ],
         ],
         'end' => [
-            'exclude' => 0,
+            'exclude' => 1,
             'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_performance.end',
             'config' => [
                 'type' => 'input',
@@ -226,7 +226,7 @@ return [
             ],
         ],
         'status_info' => [
-            'exclude' => 0,
+            'exclude' => 1,
             'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_performance.status_info',
             'config' => [
                 'type' => 'text',
@@ -236,7 +236,7 @@ return [
             ],
         ],
         'external_provider_link' => [
-            'exclude' => 0,
+            'exclude' => 1,
             'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_performance.external_provider_link',
             'config' => [
                 'type' => 'input',
@@ -282,7 +282,7 @@ return [
             ]
         ],
         'provider_type' => [
-            'exclude' => 0,
+            'exclude' => 1,
             'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_performance.provider_type',
             'config' => [
                 'type' => 'select',
@@ -297,7 +297,7 @@ return [
             ],
         ],
         'image' => [
-            'exclude' => 0,
+            'exclude' => 1,
             'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_performance.image',
             'config' => [
                 'type' => 'group',
@@ -312,6 +312,7 @@ return [
             ],
         ],
         'images' => [
+            'exclude' => 1,
             'label' => $ll . 'tx_t3events_domain_model_performance.images',
             'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig('images', [
                 'appearance' => [
@@ -354,7 +355,7 @@ return [
             ], $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'])
         ],
         'plan' => [
-            'exclude' => 0,
+            'exclude' => 1,
             'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_performance.plan',
             'config' => [
                 'type' => 'group',
@@ -369,7 +370,7 @@ return [
             ],
         ],
         'no_handling_fee' => [
-            'exclude' => 0,
+            'exclude' => 1,
             'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_performance.no_handling_fee',
             'config' => [
                 'type' => 'check',
@@ -377,7 +378,7 @@ return [
             ],
         ],
         'price_notice' => [
-            'exclude' => 0,
+            'exclude' => 1,
             'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_performance.price_notice',
             'config' => [
                 'type' => 'text',
@@ -387,7 +388,7 @@ return [
             ],
         ],
         'event_location' => [
-            'exclude' => 0,
+            'exclude' => 1,
             'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_performance.event_location',
             'config' => [
                 'type' => 'select',
@@ -404,7 +405,7 @@ return [
             ],
         ],
         'ticket_class' => [
-            'exclude' => 0,
+            'exclude' => 1,
             'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_performance.ticket_class',
             'config' => [
                 'type' => 'inline',
@@ -422,7 +423,7 @@ return [
             ],
         ],
         'status' => [
-            'exclude' => 0,
+            'exclude' => 1,
             'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_performance.status',
             'config' => [
                 'type' => 'select',
