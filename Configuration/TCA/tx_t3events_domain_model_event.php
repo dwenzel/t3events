@@ -166,7 +166,7 @@ return [
             ],
         ],
         'subtitle' => [
-            'exclude' => 0,
+            'exclude' => 1,
             'label' => $ll . 'tx_t3events_domain_model_event.subtitle',
             'config' => [
                 'type' => 'input',
@@ -185,7 +185,7 @@ return [
             ],
         ],
         'description' => [
-            'exclude' => 0,
+            'exclude' => 1,
             'label' => $ll . 'tx_t3events_domain_model_event.description',
             'config' => [
                 'type' => 'text',
@@ -196,7 +196,7 @@ return [
             'defaultExtras' => 'richtext[]:rte_transform[mode=ts_links]'
         ],
         'keywords' => [
-            'exclude' => 0,
+            'exclude' => 1,
             'label' => $ll . 'tx_t3events_domain_model_event.keywords',
             'config' => [
                 'type' => 'text',
@@ -220,6 +220,7 @@ return [
             ],
         ],
         'images' => [
+            'exclude' => 1,
             'label' => $ll . 'tx_t3events_domain_model_event.images',
             'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig('images', [
                 'appearance' => [
@@ -262,6 +263,7 @@ return [
             ], $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'])
         ],
         'files' => [
+            'exclude' => 1,
             'label' => $ll . 'tx_t3events_domain_model_event.files',
             'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig('files', [
                 'appearance' => [
@@ -304,6 +306,7 @@ return [
             ], $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'])
         ],
         'related'  => [
+            'exclude' => 1,
             'label' => $ll . 'tx_t3events_domain_model_event.related',
             'config' => [
                 'type' => 'select',
@@ -373,7 +376,7 @@ return [
             ],
         ],
         'venue' => [
-            'exclude' => 0,
+            'exclude' => 1,
             'label' => $ll . 'tx_t3events_domain_model_event.venue',
             'config' => [
                 'type' => 'select',
@@ -387,7 +390,7 @@ return [
             ],
         ],
         'event_type' => [
-            'exclude' => 0,
+            'exclude' => 1,
             'label' => $ll . 'tx_t3events_domain_model_event.event_type',
             'config' => [
                 'type' => 'select',
@@ -398,7 +401,7 @@ return [
             ],
         ],
         'performances' => [
-            'exclude' => 0,
+            'exclude' => 1,
             'label' => $ll . 'tx_t3events_domain_model_event.performances',
             'config' => [
                 'type' => 'inline',
@@ -420,7 +423,7 @@ return [
             ],
         ],
         'organizer' => [
-            'exclude' => 0,
+            'exclude' => 1,
             'label' => $ll . 'tx_t3events_domain_model_event.organizer',
             'l10n_mode' => 'mergeIfNotBlank',
             'config' => [
@@ -503,7 +506,7 @@ return [
             ]
         ],
         'content_elements' => [
-            'exclude' => 0,
+            'exclude' => 1,
             'label' => $ll . 'tx_t3events_domain_model_event.content_elements',
             'config' => [
                 'type' => 'inline',
