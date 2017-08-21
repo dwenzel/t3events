@@ -1,6 +1,7 @@
 <?php
 namespace DWenzel\T3events\Domain\Factory\Dto;
 
+use DWenzel\T3events\Object\ObjectManagerTrait;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
@@ -32,7 +33,7 @@ use DWenzel\T3events\Domain\Model\Dto\OrderAwareDemandInterface;
  */
 abstract class AbstractDemandFactory
 {
-    use SkipPropertyTrait, MapPropertyTrait;
+    use SkipPropertyTrait, MapPropertyTrait, ObjectManagerTrait;
 
     /**
      * Properties which should be mapped when settings
@@ -50,11 +51,6 @@ abstract class AbstractDemandFactory
      * @var array
      */
     protected static $compositeProperties = [];
-
-    /**
-     * @var ObjectManager
-     */
-    protected $objectManager;
 
     /**
      * Returns an array of property names
@@ -75,14 +71,6 @@ abstract class AbstractDemandFactory
     public function getMappedProperties()
     {
         return static::$mappedProperties;
-    }
-
-    /**
-     * @param ObjectManager $objectManager
-     */
-    public function injectObjectManager(ObjectManager $objectManager)
-    {
-        $this->objectManager = $objectManager;
     }
 
     /**

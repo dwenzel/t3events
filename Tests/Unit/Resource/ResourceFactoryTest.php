@@ -53,23 +53,6 @@ class ResourceFactoryTest extends UnitTestCase
     /**
      * @test
      */
-    public function objectManagerCanBeInjected()
-    {
-        $mockObjectManager = $this->getMock(
-            ObjectManager::class
-        );
-        $this->subject->injectObjectManager($mockObjectManager);
-
-        $this->assertAttributeSame(
-            $mockObjectManager,
-            'objectManager',
-            $this->subject
-        );
-    }
-
-    /**
-     * @test
-     */
     public function getFileObjectByCombinedIdentifierInitiallyReturnsNull()
     {
         $this->subject = $this->getAccessibleMock(

@@ -58,24 +58,6 @@ class SearchFactoryTest extends UnitTestCase
     /**
      * @test
      */
-    public function objectManagerCanBeInjected()
-    {
-        $mockObjectManager = $this->getMock(
-            ObjectManager::class
-        );
-
-        $this->subject->injectObjectManager($mockObjectManager);
-
-        $this->assertAttributeSame(
-            $mockObjectManager,
-            'objectManager',
-            $this->subject
-        );
-    }
-
-    /**
-     * @test
-     */
     public function getSetsSearchFields()
     {
         $subject = 'foo';

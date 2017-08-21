@@ -25,6 +25,7 @@ namespace DWenzel\T3events\Utility;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+use DWenzel\T3events\Object\ObjectManagerTrait;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
@@ -43,6 +44,7 @@ use DWenzel\T3events\Resource\ResourceFactory;
  */
 class SettingsUtility implements SingletonInterface
 {
+    use ObjectManagerTrait;
 
     /**
      * @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
@@ -54,12 +56,7 @@ class SettingsUtility implements SingletonInterface
      */
     protected $controllerKeys = [];
 
-    /**
-     * @var \TYPO3\CMS\Extbase\Object\ObjectManager
-     */
-    protected $objectManager;
-
-    /**
+     /**
      * @var ResourceFactory
      */
     protected $resourceFactory;
@@ -72,16 +69,6 @@ class SettingsUtility implements SingletonInterface
     public function injectContentObjectRenderer(ContentObjectRenderer $contentObjectRenderer)
     {
         $this->contentObjectRenderer = $contentObjectRenderer;
-    }
-
-    /**
-     * injects the ObjectManager
-     *
-     * @param ObjectManager $objectManager
-     */
-    public function injectObjectManager(ObjectManager $objectManager)
-    {
-        $this->objectManager = $objectManager;
     }
 
     /**

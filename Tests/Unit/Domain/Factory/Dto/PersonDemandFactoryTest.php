@@ -53,20 +53,6 @@ class PersonDemandFactoryTest extends UnitTestCase
     /**
      * @test
      */
-    public function objectManagerCanBeInjected()
-    {
-        $mockObjectManager = $this->mockObjectManager();
-
-        $this->assertAttributeSame(
-            $mockObjectManager,
-            'objectManager',
-            $this->subject
-        );
-    }
-
-    /**
-     * @test
-     */
     public function createFromSettingsReturnsPersonDemand()
     {
         $mockDemand = $this->getMock(
