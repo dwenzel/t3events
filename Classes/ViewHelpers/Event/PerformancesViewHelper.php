@@ -14,6 +14,7 @@ namespace DWenzel\T3events\ViewHelpers\Event;
  * The TYPO3 project - inspiring people to share!
  */
 
+use DWenzel\T3events\Configuration\ConfigurationManagerTrait;
 use DWenzel\T3events\Domain\Model\Event;
 use DWenzel\T3events\Domain\Model\Performance;
 use DWenzel\T3events\Domain\Repository\EventRepository;
@@ -26,16 +27,12 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
  */
 class PerformancesViewHelper extends AbstractTagBasedViewHelper
 {
+    use ConfigurationManagerTrait;
 
     /**
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Performance>
      */
     protected $performances;
-
-    /**
-     * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
-     */
-    protected $configurationManager;
 
     /**
      * eventRepository

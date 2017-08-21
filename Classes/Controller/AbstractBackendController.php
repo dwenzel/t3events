@@ -1,18 +1,12 @@
 <?php
+
 namespace DWenzel\T3events\Controller;
 
-use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\FormProtection\FormProtectionFactory;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Utility\HttpUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Mvc\Exception\StopActionException;
 use TYPO3\CMS\Extbase\Mvc\RequestInterface;
 use TYPO3\CMS\Extbase\Mvc\ResponseInterface;
-use DWenzel\T3events\Domain\Repository\AudienceRepository;
-use DWenzel\T3events\Domain\Repository\EventTypeRepository;
-use DWenzel\T3events\Domain\Repository\GenreRepository;
-use DWenzel\T3events\Domain\Repository\VenueRepository;
 
 /**
  * Class AbstractBackendController

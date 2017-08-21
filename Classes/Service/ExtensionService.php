@@ -14,6 +14,7 @@ namespace DWenzel\T3events\Service;
  * The TYPO3 project - inspiring people to share!
  */
 
+use DWenzel\T3events\Configuration\ConfigurationManagerTrait;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 
@@ -23,19 +24,7 @@ use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
  */
 class ExtensionService extends \TYPO3\CMS\Extbase\Service\ExtensionService implements SingletonInterface
 {
-
-    /**
-     * @var ConfigurationManagerInterface
-     */
-    protected $configurationManager;
-
-    /**
-     * @param ConfigurationManagerInterface $configurationManager
-     */
-    public function injectConfigurationManager(ConfigurationManagerInterface $configurationManager)
-    {
-        $this->configurationManager = $configurationManager;
-    }
+    use ConfigurationManagerTrait;
 
     /**
      * Checks if the given action is cacheable or not.
