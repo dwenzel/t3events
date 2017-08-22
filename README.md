@@ -30,7 +30,7 @@ This is an extension for the TYPO3 CMS.
 
 ## Credits 
 Thanks for contribution and feedback
-* Michel Kasten
+* Michael Kasten
 * [Sebastian Kreideweiss](https://github.com/kreidewe)
 * [Christian Matthes](https://github.com/chrimath)
 * [Vladimir Falcón Piva](https://github.com/vladimirfalconpiva)
