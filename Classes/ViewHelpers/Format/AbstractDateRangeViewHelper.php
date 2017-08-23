@@ -20,12 +20,13 @@ namespace DWenzel\T3events\ViewHelpers\Format;
  ***************************************************************/
 
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 
 /**
  * Class AbstractDateRangeViewHelper
  */
-class AbstractDateRangeViewHelper extends AbstractTagBasedViewHelper
+class AbstractDateRangeViewHelper extends AbstractViewHelper
 {
     use DateRangeTrait;
     const ARGUMENT_FORMAT_DESCRIPTION = 'A string describing the date format for start and end date. Default is \'d.m.Y\'. See PHP date() function for options. If the string contains a % strftime() function will be used instead.';

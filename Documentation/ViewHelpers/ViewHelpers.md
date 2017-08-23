@@ -11,6 +11,8 @@ Add the namespace to your template:
 
 ## Format
 * [ArrayToCsv](./Format/ArrayToCsv.md)
+* Event/[DateRange](./Format/Event/DateRangeViewHelper.md)
+* Performance/[DateRange](./Format/Performance/DateRangeViewHelper.md)
 
 ## Location
 * [Count](./Location/CountViewHelper.md)
