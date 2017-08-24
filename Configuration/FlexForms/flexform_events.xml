@@ -105,7 +105,7 @@
                 </AND>
               </displayCond>
               <config>
-                <type>select</type>
+                <type>radio</type>
                 <items type="array">
                   <numIndex index="0" type="array">
                     <numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.date</numIndex>
@@ -115,10 +115,8 @@
                     <numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.title</numIndex>
                     <numIndex index="1">event.headline|asc</numIndex>
                   </numIndex>
-                  <numIndex index="2" type="array">
-                    <numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.empty</numIndex>
-                    <numIndex index="1"></numIndex>
-                  </numIndex>
+
+                  
                 </items>
               </config>
             </TCEforms>
