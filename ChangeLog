@@ -1,3 +1,13 @@
+2017-08-28         [RELEASE] Release of t3events 0.36.0 (Dirk Wenzel)
+2017-08-23 4038dc4 [TASK] AbstractDateRangeViewHelper refactored. Documentation for DateRangeViewHelper added. (Dirk Wenzel)
+2017-08-22 6fd46cf [TASK] invalid coverage annotation removed (Dirk Wenzel)
+2017-08-22 73ffd62 [TASK] DateRangeTrait and AbstractDateRangeViewHelper implemented. DateRangeViewHelper for Performance and Event refactored. (Dirk Wenzel)
+2017-08-21 1aadd16 [TASK] Credits updated (Dirk Wenzel)
+2017-08-21 0ad01da [TASK] ConfigurationManagerTrait implemented, AbstractBackendController, FlashMessageTrait, ExtensionService, NotificationService and PerformanceViewHelper refactored using it. Closes #60 (Dirk Wenzel)
+2017-08-21 5549497 [TASK] ObjectManagerTrait implemented, AbstractDemandFactory, SearchFactory, ResourceFactory, ModuleDataStorageFactory, NotificationService, SettingsUtility refactored using it. (Dirk Wenzel)
+2017-08-14 ee386f0 [TASK] Add either "exclude => 1 on a TCA property or set the "eval => required" option. (Tobias Kummer)
+2017-08-11 82c1f3d [TASK] annotation in EditRecordViewHelper corrected. (Dirk Wenzel)
+
 2017-08-05         [RELEASE] Release of t3events 0.35.0 (Dirk Wenzel)
 2017-08-05 000aa8e [TASK] SensioLabs configuration adapted: ignore file syntax (Dirk Wenzel)
 2017-08-04 68f1f81 [TASK] unused variable removed in Typo3Session (Dirk Wenzel)
