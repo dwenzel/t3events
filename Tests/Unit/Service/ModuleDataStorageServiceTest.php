@@ -56,22 +56,6 @@ class ModuleDataStorageServiceTest extends UnitTestCase
     /**
      * @test
      */
-    public function injectObjectManagerSetsDispatcher()
-    {
-        $mockObjectManager = $this->getMock(
-            ObjectManager::class
-        );
-
-        $this->subject->injectObjectManager($mockObjectManager);
-        $this->assertSame(
-            $mockObjectManager,
-            $this->subject->_get('objectManager')
-        );
-    }
-
-    /**
-     * @test
-     */
     public function getBackendUserAuthenticationReturnsAuthenticationFromGlobals()
     {
         $GLOBALS['BE_USER'] = $this->getMock(

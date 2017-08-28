@@ -148,7 +148,7 @@ return [
             ],
         ],
         'action' => [
-            'exclude' => 0,
+            'exclude' => 1,
             'label' => $ll . 'tx_t3events_domain_model_task.action',
             'config' => [
                 'type' => 'select',
@@ -165,7 +165,7 @@ return [
             ],
         ],
         'period' => [
-            'exclude' => 0,
+            'exclude' => 1,
             'label' => $ll . 'label.period',
             'config' => [
                 'type' => 'select',
@@ -182,7 +182,7 @@ return [
             ],
         ],
         'period_duration' => [
-            'exclude' => 0,
+            'exclude' => 1,
             'label' => $ll . 'label.period_duration',
             'config' => [
                 'type' => 'input',
@@ -192,7 +192,7 @@ return [
             'displayCond' => 'FIELD:period:=:' . \DWenzel\T3events\Domain\Repository\PeriodConstraintRepositoryInterface::PERIOD_SPECIFIC,
         ],
         'old_status' => [
-            'exclude' => 0,
+            'exclude' => 1,
             'label' => $ll . 'tx_t3events_domain_model_task.old_status',
             'config' => [
                 'type' => 'select',
@@ -206,7 +206,7 @@ return [
             'displayCond' => 'FIELD:action:=:1',
         ],
         'new_status' => [
-            'exclude' => 0,
+            'exclude' => 1,
             'label' => $ll . 'tx_t3events_domain_model_task.new_status',
             'config' => [
                 'type' => 'select',
@@ -220,7 +220,7 @@ return [
             'displayCond' => 'FIELD:action:=:1',
         ],
         'folder' => [
-            'exclude' => 0,
+            'exclude' => 1,
             'label' => $ll . 'tx_t3events_domain_model_task.folder',
             'config' => [
                 'type' => 'group',

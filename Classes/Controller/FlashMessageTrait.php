@@ -1,6 +1,7 @@
 <?php
 namespace DWenzel\T3events\Controller;
 
+use DWenzel\T3events\Configuration\ConfigurationManagerTrait;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Core\Messaging\FlashMessageQueue;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -19,6 +20,8 @@ use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
  */
 trait FlashMessageTrait
 {
+    use ConfigurationManagerTrait;
+
     /**
      * The current request.
      *
@@ -42,12 +45,6 @@ trait FlashMessageTrait
      * @inject
      */
     protected $extensionService;
-
-    /**
-     * @var ConfigurationManagerInterface
-     * @inject
-     */
-    protected $configurationManager;
 
     /**
      * Creates a Message object and adds it to the FlashMessageQueue.

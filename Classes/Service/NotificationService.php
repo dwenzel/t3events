@@ -1,7 +1,9 @@
 <?php
 namespace DWenzel\T3events\Service;
 
+use DWenzel\T3events\Configuration\ConfigurationManagerTrait;
 use DWenzel\T3events\Domain\Model\Notification;
+use DWenzel\T3events\Object\ObjectManagerTrait;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
@@ -14,22 +16,7 @@ use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
  */
 class NotificationService
 {
-
-    /**
-     * Object Manager
-     *
-     * @var \TYPO3\CMS\Extbase\Object\ObjectManager
-     * @inject
-     */
-    protected $objectManager;
-
-    /**
-     * Configuration Manager
-     *
-     * @var ConfigurationManagerInterface
-     * @inject
-     */
-    protected $configurationManager;
+    use ConfigurationManagerTrait, ObjectManagerTrait;
 
     /**
      * Notify using the given data

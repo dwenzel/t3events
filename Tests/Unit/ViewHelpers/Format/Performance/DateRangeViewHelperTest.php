@@ -1,6 +1,6 @@
 <?php
 
-namespace DWenzel\T3events\Tests\ViewHelpers\Location;
+namespace DWenzel\T3events\Tests\ViewHelpers\Format\Performance;
 
 /**
  * This file is part of the "Events" project.
@@ -15,9 +15,8 @@ namespace DWenzel\T3events\Tests\ViewHelpers\Location;
  * The TYPO3 project - inspiring people to share!
  */
 
-use DWenzel\T3events\Domain\Model\Event;
 use DWenzel\T3events\Domain\Model\Performance;
-use DWenzel\T3events\ViewHelpers\Format\Event\DateRangeViewHelper;
+use DWenzel\T3events\ViewHelpers\Format\Performance\DateRangeViewHelper;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 
 /**
@@ -49,61 +48,61 @@ class DateRangeViewHelperTest extends UnitTestCase
         $todaysDate = new \DateTime('today');
         $tomorrowsDate = new \DateTime('tomorrow');
 
-        $performanceYesterday = new Performance();
-        $performanceToday = new Performance();
-        $performanceTomorrow = new Performance();
-        $performanceYesterday->setDate($yesterdaysDate);
-        $performanceToday->setDate($todaysDate);
-        $performanceTomorrow->setDate($tomorrowsDate);
+        $performanceWithStartDateOnly = new Performance();
+        $performanceWithStartDateOnly->setDate($yesterdaysDate);
 
-        $eventWithOnePerformance = new Event();
-        $eventWithOnePerformance->addPerformance($performanceYesterday);
+        $performanceWithDifferentStartAndEndDate = new Performance();
+        $performanceWithDifferentStartAndEndDate->setDate($yesterdaysDate);
+        $performanceWithDifferentStartAndEndDate->setEndDate($todaysDate);
 
-        $eventWithTwoPerformances = new Event();
-        $eventWithTwoPerformances->addPerformance($performanceYesterday);
-        $eventWithTwoPerformances->addPerformance($performanceToday);
+        $performanceWithSameStartAndEndDate = new Performance();
+        $performanceWithSameStartAndEndDate->setDate($todaysDate);
+        $performanceWithSameStartAndEndDate->setEndDate($todaysDate);
 
-        $eventWithThreePerformances = new Event();
-        $eventWithThreePerformances->addPerformance($performanceYesterday);
-        $eventWithThreePerformances->addPerformance($performanceToday);
 
         $customGlue = ' till ';
         $customFormatRequiringStrftime = '%A %e %B %Y';
         return [
-            // single performance, default date format and glue
+            // performance with start date only, default date format and glue
             [
                 // arguments
                 [
-                    'event' => $eventWithOnePerformance
+                    'performance' => $performanceWithStartDateOnly
                 ],
                 // expected
                 $yesterdaysDate->format(DateRangeViewHelper::DEFAULT_DATE_FORMAT)
-            ],
-            // two performances, default date format and custom glue
+            ],// performance with different start and end date only, default date format and glue
             [
                 // arguments
                 [
-                    'event' => $eventWithTwoPerformances,
-                    'glue' => $customGlue,
+                    'performance' => $performanceWithDifferentStartAndEndDate
                 ],
                 // expected
                 $yesterdaysDate->format(DateRangeViewHelper::DEFAULT_DATE_FORMAT)
-                . $customGlue
+                . DateRangeViewHelper::DEFAULT_GLUE
                 . $todaysDate->format(DateRangeViewHelper::DEFAULT_DATE_FORMAT)
-            ],
-            // three performances, custom date format and custom glue
+            ],// performance with different start and end date only, custom start format and glue
             [
                 // arguments
                 [
-                    'event' => $eventWithThreePerformances,
-                    'format' => $customFormatRequiringStrftime,
-                    'glue' => $customGlue,
+                    'performance' => $performanceWithDifferentStartAndEndDate,
+                    'startFormat' => $customFormatRequiringStrftime,
+                    'endFormat' => $customFormatRequiringStrftime,
+                    'glue' => $customGlue
                 ],
                 // expected
                 strftime($customFormatRequiringStrftime, $yesterdaysDate->getTimestamp())
                 . $customGlue
                 . strftime($customFormatRequiringStrftime, $todaysDate->getTimestamp())
-            ]
+            ],// performance with same start and end date, default date format and glue
+            [
+                // arguments
+                [
+                    'performance' => $performanceWithSameStartAndEndDate
+                ],
+                // expected
+                $todaysDate->format(DateRangeViewHelper::DEFAULT_DATE_FORMAT)
+            ],
         ];
     }
 
@@ -119,7 +118,7 @@ class DateRangeViewHelperTest extends UnitTestCase
         $this->subject->expects($this->exactly(5))
             ->method('registerArgument')
             ->withConsecutive(
-                ['event', Event::class, DateRangeViewHelper::ARGUMENT_EVENT_DESCRIPTION, true, null],
+                ['performance', Performance::class, DateRangeViewHelper::ARGUMENT_PERFORMANCE_DESCRIPTION, true, null],
                 ['format', 'string', DateRangeViewHelper::ARGUMENT_FORMAT_DESCRIPTION, false, 'd.m.Y'],
                 ['startFormat', 'string', DateRangeViewHelper::ARGUMENT_STARTFORMAT_DESCRIPTION, false, 'd.m.Y'],
                 ['endFormat', 'string', DateRangeViewHelper::ARGUMENT_ENDFORMAT_DESCRIPTION, false, 'd.m.Y'],

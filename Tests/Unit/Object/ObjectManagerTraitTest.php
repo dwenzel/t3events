@@ -1,8 +1,9 @@
 <?php
-namespace DWenzel\T3events\Domain\Model\Dto;
+namespace DWenzel\T3events\Tests\Unit\Object;
 
 use DWenzel\T3events\Object\ObjectManagerTrait;
-use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 /***************************************************************
  *  Copyright notice
@@ -21,31 +22,37 @@ use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
  *  GNU General Public License for more details.
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-class SearchFactory
+class ObjectManagerTraitTest extends UnitTestCase
 {
-    use ObjectManagerTrait;
+    /**
+     * @var \DWenzel\T3events\Object\ObjectManagerTrait
+     */
+    protected $subject;
 
     /**
-     * Creates a search object from given settings
-     *
-     * @param array $searchRequest An array with the search request
-     * @param array $settings Settings for search
-     * @return \DWenzel\T3events\Domain\Model\Dto\Search $search
+     * set up
      */
-    public function get($searchRequest, $settings)
+    public function setUp()
     {
-        /** @var Search $searchObject */
-        $searchObject = $this->objectManager->get(Search::class);
+        $this->subject = $this->getMockForTrait(
+            ObjectManagerTrait::class
+        );
+    }
 
-        if (isset($searchRequest['subject']) && isset($settings['fields'])) {
-            $searchObject->setFields($settings['fields']);
-            $searchObject->setSubject($searchRequest['subject']);
-        }
-        if (isset($searchRequest['location']) && isset($searchRequest['radius'])) {
-            $searchObject->setLocation($searchRequest['location']);
-            $searchObject->setRadius($searchRequest['radius']);
-        }
+    /**
+     * @test
+     */
+    public function objectManagerCanBeInjected()
+    {
+        /** @var ObjectManager|\PHPUnit_Framework_MockObject_MockObject $objectManager */
+        $objectManager = $this->getMockBuilder(ObjectManager::class)->getMock();
 
-        return $searchObject;
+        $this->subject->injectObjectManager($objectManager);
+
+        $this->assertAttributeSame(
+            $objectManager,
+            'objectManager',
+            $this->subject
+        );
     }
 }

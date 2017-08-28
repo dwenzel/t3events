@@ -133,12 +133,12 @@ return [
             ],
         ],
         'title' => [
-            'exclude' => 1,
+            'exclude' => 0,
             'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_ticketclass.title',
             'config' => [
                 'type' => 'input',
                 'size' => 10,
-                'eval' => 'trim'
+                'eval' => 'trim,required'
             ],
         ],
         'color' => [
@@ -163,7 +163,7 @@ return [
             ],
         ],
         'price' => [
-            'exclude' => 0,
+            'exclude' => 1,
             'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_ticketclass.price',
             'config' => [
                 'type' => 'input',
@@ -172,7 +172,7 @@ return [
             ],
         ],
         'type' => [
-            'exclude' => 0,
+            'exclude' => 1,
             'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_ticketclass.type',
             'config' => [
                 'type' => 'radio',

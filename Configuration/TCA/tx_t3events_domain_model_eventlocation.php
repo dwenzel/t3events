@@ -134,7 +134,7 @@ return [
             ],
         ],
         'address' => [
-            'exclude' => 0,
+            'exclude' => 1,
             'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_eventlocation.address',
             'config' => [
                 'type' => 'text',
@@ -144,7 +144,7 @@ return [
             ],
         ],
         'image' => [
-            'exclude' => 0,
+            'exclude' => 1,
             'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_eventlocation.image',
             'config' => [
                 'type' => 'group',
@@ -158,7 +158,7 @@ return [
             ],
         ],
         'zip' => [
-            'exclude' => 0,
+            'exclude' => 1,
             'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_eventlocation.zip',
             'config' => [
                 'type' => 'input',
@@ -167,7 +167,7 @@ return [
             ],
         ],
         'place' => [
-            'exclude' => 0,
+            'exclude' => 1,
             'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_eventlocation.place',
             'config' => [
                 'type' => 'input',
@@ -176,7 +176,7 @@ return [
             ],
         ],
         'details' => [
-            'exclude' => 0,
+            'exclude' => 1,
             'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_eventlocation.details',
             'config' => [
                 'type' => 'text',
@@ -186,7 +186,7 @@ return [
             ],
         ],
         'www' => [
-            'exclude' => 0,
+            'exclude' => 1,
             'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_eventlocation.www',
             'config' => [
                 'type' => 'input',
@@ -195,7 +195,7 @@ return [
             ],
         ],
         'country' => [
-            'exclude' => 0,
+            'exclude' => 1,
             'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_eventlocation.country',
             'config' => [
                 'type' => 'input',

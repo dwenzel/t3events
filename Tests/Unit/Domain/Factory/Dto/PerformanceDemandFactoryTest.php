@@ -53,20 +53,6 @@ class PerformanceDemandFactoryTest extends UnitTestCase
     /**
      * @test
      */
-    public function objectManagerCanBeInjected()
-    {
-        $mockObjectManager = $this->mockObjectManager();
-
-        $this->assertAttributeSame(
-            $mockObjectManager,
-            'objectManager',
-            $this->subject
-        );
-    }
-
-    /**
-     * @test
-     */
     public function createFromSettingsReturnsPerformanceDemand()
     {
         $mockDemand = $this->getMock(

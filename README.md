@@ -30,12 +30,13 @@ This is an extension for the TYPO3 CMS.
 
 ## Credits 
 Thanks for contribution and feedback
-* Michel Kasten
+* Michael Kasten
 * [Sebastian Kreideweiss](https://github.com/kreidewe)
 * [Christian Matthes](https://github.com/chrimath)
 * [Vladimir Falcón Piva](https://github.com/vladimirfalconpiva)
 * [Erik Rauchstein](https://github.com/erauchstein)
 * [Jasmina Liessman](https://github.com/frau-liessmann)
+* [Tobias Kummer](https://github.com/tobikummer)
 
 This extension has been developed at [Agentur Webfox GmbH](https://www.agentur-webfox.de/) and [CPS IT GmbH](https://cps-it.de).
 

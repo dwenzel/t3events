@@ -65,20 +65,6 @@ class EventDemandFactoryTest extends UnitTestCase
     /**
      * @test
      */
-    public function objectManagerCanBeInjected()
-    {
-        $mockObjectManager = $this->mockObjectManager();
-
-        $this->assertAttributeSame(
-            $mockObjectManager,
-            'objectManager',
-            $this->subject
-        );
-    }
-
-    /**
-     * @test
-     */
     public function createFromSettingsReturnsEventDemand()
     {
         $mockDemand = $this->getMock(

@@ -26,11 +26,11 @@ namespace DWenzel\T3events\Resource;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use DWenzel\T3events\Object\ObjectManagerTrait;
 use TYPO3\CMS\Core\Resource\FileInterface;
 use TYPO3\CMS\Core\Resource\ResourceFactory as CoreResourceFactory;
 use TYPO3\CMS\Core\Resource\File;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 /**
  * Class ResourceFactory
@@ -39,20 +39,7 @@ use TYPO3\CMS\Extbase\Object\ObjectManager;
  */
 class ResourceFactory extends CoreResourceFactory
 {
-    /**
-     * @var \TYPO3\CMS\Extbase\Object\ObjectManager
-     */
-    protected $objectManager;
-
-    /**
-     * injects the ObjectManager
-     *
-     * @param ObjectManager $objectManager
-     */
-    public function injectObjectManager(ObjectManager $objectManager)
-    {
-        $this->objectManager = $objectManager;
-    }
+    use ObjectManagerTrait;
 
     /**
      * Gets a file by combined identifier using the

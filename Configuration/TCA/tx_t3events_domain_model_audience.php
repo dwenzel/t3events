@@ -98,12 +98,12 @@ return [
         ],
 
         'title' => [
-            'exclude' => 1,
+            'exclude' => 0,
             'label' => $ll . 'tx_t3events_domain_model_audience.title',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'trim'
+                'eval' => 'trim,required'
             ],
         ],
         'description' => [

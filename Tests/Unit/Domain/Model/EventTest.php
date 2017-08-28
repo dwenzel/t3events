@@ -608,7 +608,6 @@ class EventTest extends UnitTestCase
 
     /**
      * @test
-     * @covers ::getEarliestDate
      */
     public function getEarliestDateReturnsInitiallyNull()
     {
@@ -617,7 +616,6 @@ class EventTest extends UnitTestCase
 
     /**
      * @test
-     * @covers ::getEarliestDate
      */
     public function getEarliestDateReturnsEarliestDate()
     {
@@ -646,7 +644,6 @@ class EventTest extends UnitTestCase
 
     /**
      * @test
-     * @covers ::getHidden
      */
     public function getHiddenReturnsInitialyNull()
     {
@@ -657,7 +654,6 @@ class EventTest extends UnitTestCase
 
     /**
      * @test
-     * @covers ::setHidden
      */
     public function setHiddenForIntegerSetsHidden()
     {
