@@ -512,6 +512,7 @@ return [
                 'type' => 'inline',
                 'foreign_table' => 'tt_content',
                 'foreign_field' => 'tx_t3events_event',
+                'foreign_sortby' => 'sorting',
                 'maxitems' => 99,
                 'appearance' => [
                     'collapseAll' => 1,
