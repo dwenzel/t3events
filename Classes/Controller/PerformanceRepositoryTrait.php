@@ -38,7 +38,6 @@ trait PerformanceRepositoryTrait
     /**
      * Injects the performance repository
      *
-     * @inject
      * @param \DWenzel\T3events\Domain\Repository\PerformanceRepository $performanceRepository
      */
     public function injectPerformanceRepository(PerformanceRepository $performanceRepository)
