@@ -112,6 +112,10 @@
                     <numIndex index="1">performances.date|asc,performances.begin|asc</numIndex>
                   </numIndex>
                   <numIndex index="1" type="array">
+                    <numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.dateDesc</numIndex>
+                    <numIndex index="1">performances.date|desc,performances.begin|desc</numIndex>
+                  </numIndex>
+                  <numIndex index="2" type="array">
                     <numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.title</numIndex>
                     <numIndex index="1">event.headline|asc</numIndex>
                   </numIndex>

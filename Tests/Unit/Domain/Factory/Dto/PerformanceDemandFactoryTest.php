@@ -348,14 +348,30 @@ class PerformanceDemandFactoryTest extends UnitTestCase
     }
 
     /**
-     * @test
+     * @return array
      */
-    public function createFromSettingsMapsOrderFromEventSettings()
+    public function allowedValuesForCreateFormSettingsMapsOrderFormEventSettingsDataProvider()
+    {
+        return [
+            'performance.date asc' => [
+                'date|asc,begin|asc','performances.date|asc,performances.begin|asc'
+            ],
+            'performance.date desc' => [
+                'date|desc,begin|desc','performances.date|desc,performances.begin|desc'
+            ]
+        ];
+    }
+
+    /**
+     * @test
+     * @dataProvider allowedValuesForCreateFormSettingsMapsOrderFormEventSettingsDataProvider
+     */
+    public function createFromSettingsMapsOrderFromEventSettings($expected, $order)
     {
         $settings = [
-            'order' => 'performances.date|asc,performances.begin|asc',
+            'order' => $order,
         ];
-        $expectedOrder = 'date|asc,begin|asc';
+        $expectedOrder = $expected;
 
         /** @var PerformanceDemand $mockDemand */
         $mockDemand = $this->getMock(
