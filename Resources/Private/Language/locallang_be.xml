@@ -17,6 +17,7 @@
       <label index="flexforms_general.constraintBy">constraint by</label>
       <label index="flexforms_general.constraints">Constraints</label>
       <label index="flexforms_general.date">Date</label>
+      <label index="flexforms_general.dateDesc">Date descending</label>
       <label index="flexforms_general.descending">descending</label>
       <label index="flexforms_general.detailPage">Detail Page</label>
       <label index="flexforms_general.displayPeriod">Display Period</label>
@@ -95,6 +96,7 @@
       <label index="flexforms_general.constraintBy">eingeschränkt nach</label>
       <label index="flexforms_general.constraints">Auswahl</label>
       <label index="flexforms_general.date">Datum</label>
+      <label index="flexforms_general.dateDesc">Datum absteigend</label>
       <label index="flexforms_general.descending">absteigend</label>
       <label index="flexforms_general.detailPage">Detailseite</label>
       <label index="flexforms_general.displayPeriod">Zeitraum</label>
