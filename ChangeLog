@@ -1,3 +1,8 @@
+2017-09-25         [RELEASE] Release of t3events 0.37.0 (Dirk Wenzel)
+2017-09-21 769ac63 [TASK] Add flex form plug-in setting sort by date desc. (Erik Rauchstein)
+2017-09-19 75d840c [TASK] invalid annotiation removed from PerformanceRepositoryTrait (Dirk Wenzel)
+2017-09-05 74e653a [BUGFIX] Add missing sorting configuration for content_elements field in domain model events. So that the backend sorting of the content element is also maintained in the frontend. (Erik Rauchstein)
+
 2017-08-28         [RELEASE] Release of t3events 0.36.0 (Dirk Wenzel)
 2017-08-23 4038dc4 [TASK] AbstractDateRangeViewHelper refactored. Documentation for DateRangeViewHelper added. (Dirk Wenzel)
 2017-08-22 6fd46cf [TASK] invalid coverage annotation removed (Dirk Wenzel)
