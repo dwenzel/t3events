@@ -50,7 +50,7 @@ class BackendUtility
     );
 
     public $removedFieldsInPerformanceCalendarView = array(
-        'sDEF' => 'settings.sortDirection,settings.order,settings.sortBy,settings.cache.makeNonCacheable',
+        'sDEF' => 'settings.sortDirection,settings.order,settings.sortBy',
         'template' => 'settings.hideIfEmptyResult'
     );
 
