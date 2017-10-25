@@ -1,3 +1,6 @@
+2017-10-25         [RELEASE] Release of t3events 0.37.2 (Dirk Wenzel)
+2017-10-25 7d32b4e [BUGFIX] fixed error in Be/EditRecordViewHelper which prevented from setting return URL for module correctly (TYPO3 Version 8). Templates adapted. Please make sure to adapt your custom templates for backend list views. (Dirk Wenzel)
+
 2017-10-05         [RELEASE] Release of t3events 0.37.1 (Dirk Wenzel)
 2017-09-29 204f32a [BUGFIX] fixed error in plugin configuration which prevented from unselecting caching of calendar widget (Dirk Wenzel)
 2017-09-27 ccb1f27 [TASK] Add ContentRepository. (Erik Rauchstein)
