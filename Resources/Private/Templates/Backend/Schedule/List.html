@@ -6,8 +6,8 @@
 <f:comment>Content</f:comment>
 <f:section name="main">
     <f:comment>
-        <f:debug inline="true">{filterOptions}</f:debug>
-        <f:debug inline="true">{performances}</f:debug>
+        <f:debug>{filterOptions}</f:debug>
+        <f:debug>{performances}</f:debug>
     </f:comment>
     <h1>{f:translate(key: 'header.schedules')}</h1>
 
@@ -44,46 +44,25 @@
                                     <f:format.date format="d.m.Y">{schedule.date}</f:format.date>
                                 </td>
                                 <td nowrap="nowrap">
-                                    <f:if condition="{f:cObject(typoscriptObjectPath: 'lib.compatVersion76')}">
-                                        <f:then>
-                                            <a href="#" class="t3-js-clickmenutrigger"
-                                               data-table="tx_t3events_domain_model_performance"
-                                               data-uid="{schedule.uid}"
-                                               data-listframe="0">
-                                                {schedule.event.headline}
-                                            </a>
-                                        </f:then>
-                                        <f:else>
-                                            <a href="" title="edit"
-                                               onclick="window.location.href='alt_doc.php?returnUrl='+T3_THIS_LOCATION+'&edit[tx_t3events_domain_model_performance][{schedule.uid}]=edit'; return false;">
-                                                {schedule.event.headline}
-                                            </a>
-                                        </f:else>
-                                    </f:if>
+                                    <a href="#" class="t3-js-clickmenutrigger"
+                                       data-table="tx_t3events_domain_model_performance"
+                                       data-uid="{schedule.uid}"
+                                       data-listframe="0">
+                                        {schedule.event.headline}
+                                    </a>
                                 </td>
                                 <td nowrap="nowrap">{schedule.eventLocation.name}</td>
                                 <td nowrap="nowrap">{schedule.event.eventType.title}</td>
                                 <td nowrap="nowrap">{schedule.status.title}</td>
                                 <td nowrap="nowrap">
-                                    <f:if condition="{f:cObject(typoscriptObjectPath: 'lib.compatVersion76')}">
-                                        <f:then>
-                                            <div class="btn btn-default">
-                                                <!--suppress HtmlUnknownTarget -->
-                                                <a
-                                                        class="actions-open"
-                                                        title="UID: {schedule.uid}"
-                                                        href="{ts:be.editRecord(parameters:'edit[tx_t3events_domain_model_performance][{schedule.uid}]=edit')}"
-                                                >{f:translate(key: 'button.edit', default: 'button.edit)}</a>
-                                            </div>
-                                        </f:then>
-                                        <f:else>
-                                            <a href=""
-                                               onclick="window.location.href='alt_doc.php?returnUrl='+T3_THIS_LOCATION+'&edit[tx_t3events_domain_model_performance][{schedule.uid}]=edit'; return false;">
-                                                {f:translate(key: 'button.edit', default: 'button.edit)}
-                                            </a>
-
-                                        </f:else>
-                                    </f:if>
+                                    <div class="btn btn-default">
+                                        <!--suppress HtmlUnknownTarget -->
+                                        <a
+                                            class="actions-open"
+                                            title="UID: {schedule.uid}"
+                                            href="{ts:be.editRecord(parameters:'edit[tx_t3events_domain_model_performance][{schedule.uid}]=edit&moduleName=Events_T3eventsM2')}"
+                                        >{f:translate(key: 'button.edit', default: 'button.edit)}</a>
+                                    </div>
                                 </td>
                             </tr>
                         </f:for>

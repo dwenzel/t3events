@@ -73,9 +73,10 @@ class EditRecordViewHelper extends AbstractViewHelper implements ViewHelperInter
     ) {
         $parameters = GeneralUtility::explodeUrl2Array($arguments['parameters']);
 
-        $parameters['returnUrl'] = 'index.php?M='. $arguments['moduleName'] . '&id=' . (int)GeneralUtility::_GET('id')
-            . '&moduleToken=' . FormProtectionFactory::get()->generateToken('moduleCall', $arguments['moduleName']);
+        $parameters['returnUrl'] = 'index.php?M='. $parameters['moduleName'] . '&id=' . (int)GeneralUtility::_GET('id')
+            . '&moduleToken=' . FormProtectionFactory::get()->generateToken('moduleCall', $parameters['moduleName']);
 
+        unset($parameters['moduleName']);
         return BackendUtility::getModuleUrl('record_edit', $parameters);
     }
 }
