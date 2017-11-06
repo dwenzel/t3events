@@ -356,14 +356,11 @@ class PeriodConstraintRepositoryTraitTest extends UnitTestCase
      */
     public function createPeriodConstraintsAddsConstraintForSpecificRespectingEndDate()
     {
-        $period = 'pastOnly';
-        $timezone = new \DateTimeZone(date_default_timezone_get());
         $startDate = new \DateTime('@' . 7000);
         $endDate = new \DateTime('@' . 8000);
 
         $period = 'specific';
         $periodType = 'byDate';
-        $periodStart = 0;
 
         $this->demand->expects($this->any())
             ->method('getPeriod')
@@ -389,11 +386,12 @@ class PeriodConstraintRepositoryTraitTest extends UnitTestCase
         $this->query->expects($this->exactly(2))
             ->method('greaterThanOrEqual')
             ->withConsecutive(
-                [self::END_DATE_FIELD, $endDate->getTimestamp()],
+                [self::END_DATE_FIELD, $startDate->getTimestamp()],
                 [self::START_DATE_FIELD, $startDate->getTimestamp()]);
-        $this->query->expects($this->exactly(2))
+        $this->query->expects($this->exactly(3))
             ->method('lessThanOrEqual')
             ->withConsecutive(
+                [self::END_DATE_FIELD, $endDate->getTimestamp()],
                 [self::START_DATE_FIELD, $startDate->getTimestamp()],
                 [self::END_DATE_FIELD, $endDate->getTimestamp()]);
         $this->query->expects($this->exactly(2))
