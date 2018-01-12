@@ -3,3 +3,6 @@ respectPerformanceStoragePage = false
 
 # cat=basic/enable; type=boolean; label=Event Module: show backend module for events
 showEventModule = true
+
+# cat=basic/enable; type=boolean; label=Module in Web: show backend modules in 'Web' module (This enables a page tree too)
+showEventModuleInMainModuleWeb = 0

@@ -72,6 +72,10 @@ $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignat
 // enable event module
 
 if (TYPO3_MODE === 'BE' && (bool)$emSettings['showEventModule']) {
+    $mainModuleName = 'Events';
+    if (!empty($emSettings['showEventModuleInMainModuleWeb']) && (bool)$emSettings['showEventModuleInMainModuleWeb']) {
+        $mainModuleName = 'web';
+    }
     $versionNumber = \TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version);
     $pathEventIcon = 'EXT:' . $_EXTKEY . '/Resources/Public/Icons/calendar.svg';
     $pathScheduleIcon = 'EXT:' . $_EXTKEY . '/Resources/Public/Icons/calendar-blue.svg';
@@ -94,14 +98,14 @@ if (TYPO3_MODE === 'BE' && (bool)$emSettings['showEventModule']) {
             [
                 'access' => 'user,group',
                 'icon' => $pathEventIcon,
-                'labels' => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_m1.xlf',
+                'labels' => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_m1.xlf'
             ]
         );
 
     }
     if ($versionNumber > 7000000 && $versionNumber < 8000000) {
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addModule(
-            'Events', null, null, null,
+            $mainModuleName, null, null, null,
             [
                 null,
                 'access' => 'group,user',
@@ -117,7 +121,7 @@ if (TYPO3_MODE === 'BE' && (bool)$emSettings['showEventModule']) {
     }
     if ($versionNumber >= 8000000) {
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addModule(
-            'Events',
+            $mainModuleName,
             '',
             '',
             [
@@ -135,7 +139,7 @@ if (TYPO3_MODE === 'BE' && (bool)$emSettings['showEventModule']) {
      */
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
         'DWenzel.' . $_EXTKEY,
-        'Events',
+        $mainModuleName,
         'm1',
         '',
         [
@@ -150,7 +154,7 @@ if (TYPO3_MODE === 'BE' && (bool)$emSettings['showEventModule']) {
 
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
         'DWenzel.' . $_EXTKEY,
-        'Events',
+        $mainModuleName,
         'm2',
         '',
         [

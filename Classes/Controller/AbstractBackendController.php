@@ -3,12 +3,14 @@ namespace DWenzel\T3events\Controller;
 
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\FormProtection\FormProtectionFactory;
+use TYPO3\CMS\Backend\Utility\BackendUtility as BackendUtilityCore;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\HttpUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Mvc\Exception\StopActionException;
 use TYPO3\CMS\Extbase\Mvc\RequestInterface;
 use TYPO3\CMS\Extbase\Mvc\ResponseInterface;
+use TYPO3\CMS\Backend\View\BackendTemplateView;
 use DWenzel\T3events\Domain\Repository\AudienceRepository;
 use DWenzel\T3events\Domain\Repository\EventTypeRepository;
 use DWenzel\T3events\Domain\Repository\GenreRepository;
@@ -26,6 +28,10 @@ class AbstractBackendController extends AbstractController
         GenreRepositoryTrait, VenueRepositoryTrait,
         NotificationRepositoryTrait, CategoryRepositoryTrait;
 
+    /**
+     * @const EXTENSION_KEY
+     */
+    const EXTENSION_KEY = 't3events';
     /**
      * Notification Service
      *
@@ -57,6 +63,13 @@ class AbstractBackendController extends AbstractController
     protected $tsConfiguration = [];
 
     /**
+     * BackendTemplateContainer
+     *
+     * @var BackendTemplateView
+     */
+    protected $view;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -64,6 +77,15 @@ class AbstractBackendController extends AbstractController
         parent::__construct();
         $extension = GeneralUtility::camelCaseToLowerCaseUnderscored($this->extensionName);
         $this->setTsConfig($extension);
+    }
+
+    public function initializeAction()
+    {
+        $this->pageUid = (int)GeneralUtility::_GET('id');
+        $this->settings = $this->mergeSettings();
+        $this->pageInformation = BackendUtilityCore::readPageAccess($this->pageUid, '');
+        $this->setTsConfig(self::EXTENSION_KEY);
+        parent::initializeAction();
     }
 
     /**

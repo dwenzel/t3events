@@ -19,6 +19,7 @@ use DWenzel\T3events\Controller\EventDemandFactoryTrait;
 use DWenzel\T3events\Controller\EventRepositoryTrait;
 use DWenzel\T3events\Controller\FilterableControllerInterface;
 use DWenzel\T3events\Controller\FilterableControllerTrait;
+use DWenzel\T3events\Controller\SettingsUtilityTrait;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
@@ -30,14 +31,9 @@ class EventController
     extends AbstractBackendController
     implements FilterableControllerInterface
 {
-    use EventRepositoryTrait, EventDemandFactoryTrait, FilterableControllerTrait;
+    use EventRepositoryTrait, EventDemandFactoryTrait, FilterableControllerTrait, SettingsUtilityTrait;
 
     const LIST_ACTION = 'listAction';
-
-    /**
-     * @const EXTENSION_KEY
-     */
-    const EXTENSION_KEY = 't3events';
 
     /**
      * action list
