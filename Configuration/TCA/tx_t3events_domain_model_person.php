@@ -180,8 +180,8 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
 				'items' => [
-					[$ll . 'tx_t3events_domain_model_person.gender.I.0', 0],
-					[$ll . 'tx_t3events_domain_model_person.gender.I.1', 1],
+					[$ll . 'tx_t3events_domain_model_person.gender.I.0', \DWenzel\T3events\Domain\Model\Person::GENDER_MALE],
+					[$ll . 'tx_t3events_domain_model_person.gender.I.1', \DWenzel\T3events\Domain\Model\Person::GENDER_FEMALE],
                 ],
 				'minitems' => 0,
 				'maxitems' => 1,
