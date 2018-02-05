@@ -12,6 +12,7 @@
       <label index="flexforms_general.backPage">Back Page</label>
       <label index="flexforms_general.cache.makeNonCacheable">Don't cache plugin contents</label>
       <label index="flexforms_general.conjunction">Conjunction</label>
+      <label index="flexforms_general.categories">Categories</label>
       <label index="flexforms_general.conjunction.and">And</label>
       <label index="flexforms_general.conjunction.or">Or</label>
       <label index="flexforms_general.constraintBy">constraint by</label>
@@ -94,6 +95,7 @@
       <label index="flexforms_general.backPage">Zurück-Seite</label>
       <label index="flexforms_general.cache.makeNonCacheable">Inhalte des Plugins nicht zwischenspeichern</label>
       <label index="flexforms_general.constraintBy">eingeschränkt nach</label>
+      <label index="flexforms_general.categories">Kategorien</label>
       <label index="flexforms_general.constraints">Auswahl</label>
       <label index="flexforms_general.date">Datum</label>
       <label index="flexforms_general.dateDesc">Datum absteigend</label>

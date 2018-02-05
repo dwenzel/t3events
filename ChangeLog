@@ -1,3 +1,7 @@
+2018-02-05         [RELEASE] Release of t3events 0.37.3 (Dirk Wenzel)
+2018-01-30 2596c02 [BUGFIX] missing label for plugin form added. (Dirk Wenzel)
+2017-11-06 cfad7d5 [BUGFIX] fixed error in PeriodConstraintRepositoryTrait where events with past start date and future end date where not selected correctly (when using specific constraint) (Dirk Wenzel)
+
 2017-10-25         [RELEASE] Release of t3events 0.37.2 (Dirk Wenzel)
 2017-10-25 7d32b4e [BUGFIX] fixed error in Be/EditRecordViewHelper which prevented from setting return URL for module correctly (TYPO3 Version 8). Templates adapted. Please make sure to adapt your custom templates for backend list views. (Dirk Wenzel)
 

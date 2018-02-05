@@ -543,7 +543,7 @@
           </settings.eventTypes>
           <settings.categories>
             <TCEforms>
-              <label>Cat</label>
+              <label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.categories</label>
               <exclude>1</exclude>
               <config>
                 <type>select</type>
