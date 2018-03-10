@@ -19,6 +19,9 @@ matrix:
 addons:
   sonarcloud:
     organisation: dwenzel-github
+    branches:
+      - master
+      - (develop|feature\/|release\/)[-]?.*
 
 env:
   global:
