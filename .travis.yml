@@ -51,7 +51,9 @@ script:
   if [[ "$COVERAGE" == "1" ]]; then
     echo;
     echo "Running unit tests";
-    .Build/bin/phpunit --colors -c Tests/Build/UnitTests.xml Tests/Unit/ --coverage-clover .Build/log/coverage/clover.xml
+    .Build/bin/phpunit --colors -c Tests/Build/UnitTests.xml Tests/Unit/ \
+    --coverage-clover .Build/log/coverage/clover.xml \
+    --log-junit .Build/log/junit.xml
     sonar-scanner -Dproject.settings=.sonar-project.properties
   fi
 
