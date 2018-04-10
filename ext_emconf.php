@@ -22,17 +22,17 @@ $EM_CONF[$_EXTKEY] = array (
   'author' => 'Dirk Wenzel, Michael Kasten',
   'author_email' => 't3events@gmx.de, kasten@webfox01.de',
   'author_company' => 'Agentur Webfox GmbH, Consulting Piezunka Schamoni - Information Technologies GmbH',
-  'constraints' => 
+  'constraints' =>
   array (
-    'depends' => 
+    'depends' =>
     array (
-      'typo3' => '7.6.0-8.99.99',
+      'typo3' => '8.7.0-8.99.99',
       't3calendar' => '0.4.0-0.0.0',
     ),
-    'conflicts' => 
+    'conflicts' =>
     array (
     ),
-    'suggests' => 
+    'suggests' =>
     array (
     ),
   ),
