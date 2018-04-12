@@ -34,14 +34,16 @@ class EventRepository extends AbstractDemandedRepository implements
 {
     use PeriodConstraintRepositoryTrait, LocationConstraintRepositoryTrait,
         AudienceConstraintRepositoryTrait;
+
     /**
      * Create category constraints from demand
      *
      * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
      * @param \DWenzel\T3events\Domain\Model\Dto\EventDemand $demand
      * @return array<\TYPO3\CMS\Extbase\Persistence\QOM\Constraint>
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
      */
-    protected function createCategoryConstraints(QueryInterface $query, $demand)
+    public function createCategoryConstraints(QueryInterface $query, $demand)
     {
         // gather OR constraints (categories)
         $categoryConstraints = [];

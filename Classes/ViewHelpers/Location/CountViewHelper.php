@@ -59,6 +59,6 @@ class CountViewHelper extends AbstractViewHelper
             $locationsArray = array_values(array_unique($locationsArray));
         }
 
-        return count($locationsArray);
+        return \count($locationsArray);
     }
 }

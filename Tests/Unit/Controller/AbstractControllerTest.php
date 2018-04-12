@@ -1,19 +1,19 @@
 <?php
+
 namespace DWenzel\T3events\Tests;
 
 /**
-     * This file is part of the TYPO3 CMS project.
-     * It is free software; you can redistribute it and/or modify it under
-     * the terms of the GNU General Public License, either version 2
-     * of the License, or any later version.
-     * For the full copyright and license information, please read the
-     * LICENSE.txt file that was distributed with this source code.
-     * The TYPO3 project - inspiring people to share!
-     */
-use TYPO3\CMS\Extbase\Mvc\Request;
-use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
+ * This file is part of the TYPO3 CMS project.
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with this source code.
+ * The TYPO3 project - inspiring people to share!
+ */
 use DWenzel\T3events\Controller\AbstractController;
+use TYPO3\CMS\Extbase\Mvc\Request;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 /**
  * Test case for class DWenzel\T3events\Controller\AbstractController.
@@ -41,7 +41,7 @@ class AbstractControllerTest extends \Nimut\TestingFramework\TestCase\UnitTestCa
 
     public function setUp()
     {
-        $objectManager = $this->getMock('\\TYPO3\\CMS\\Extbase\\Object\\ObjectManager', array(), array(), '', false);
+        $objectManager = $this->getMockBuilder(ObjectManager::class)->getMock();
         $this->fixture = $this->getAccessibleMock(
             '\DWenzel\T3events\Controller\AbstractController', array('dummy'), array(), '', false);
         $this->fixture->_set('objectManager', $objectManager);
@@ -53,8 +53,9 @@ class AbstractControllerTest extends \Nimut\TestingFramework\TestCase\UnitTestCa
      */
     public function initializeActionSetsRequestAndReferrerArguments()
     {
-        $fixture = $this->getMock('\DWenzel\T3events\Controller\AbstractController',
-            array('setRequestArguments', 'setReferrerArguments'), array(), '', false);
+        $fixture = $this->getMockBuilder(AbstractController::class)
+            ->setMethods(['setRequestArguments', 'setReferrerArguments'])
+            ->disableOriginalConstructor()->getMock();
         $fixture->expects($this->once())
             ->method('setRequestArguments');
         $fixture->expects($this->once())
@@ -83,15 +84,15 @@ class AbstractControllerTest extends \Nimut\TestingFramework\TestCase\UnitTestCa
                 'foo' => 'bar'
             )
         );
-        $mockRequest = $this->getMock(
-            'TYPO3\CMS\Extbase\Mvc\Web\Request',
-            array(
-                'getArguments',
-                'getPluginName',
-                'getControllerName',
-                'getControllerExtensionName',
-                'hasArgument',
-                'getArgument'));
+        $mockRequest = $this->getMockBuilder(Request::class)
+            ->setMethods(
+                ['getArguments',
+                    'getPluginName',
+                    'getControllerName',
+                    'getControllerExtensionName',
+                    'hasArgument',
+                    'getArgument'])
+            ->getMock();
         $this->fixture->_set('request', $mockRequest);
         $mockRequest->expects($this->once())
             ->method('getArguments')
@@ -120,14 +121,16 @@ class AbstractControllerTest extends \Nimut\TestingFramework\TestCase\UnitTestCa
             'action' => 'foo',
             'controller' => 'bar'
         );
-        $mockRequest = $this->getMock(
-            'TYPO3\CMS\Extbase\Mvc\Web\Request',
-            array(
-                'getArguments',
-                'getPluginName',
-                'getControllerName',
-                'getControllerExtensionName',
-                'hasArgument'));
+        $mockRequest = $this->getMockBuilder(Request::class)
+            ->setMethods(
+                [
+                    'getArguments',
+                    'getPluginName',
+                    'getControllerName',
+                    'getControllerExtensionName',
+                    'hasArgument'
+                ]
+            )->getMock();
         $this->fixture->_set('request', $mockRequest);
         $mockRequest->expects($this->once())
             ->method('hasArgument')
@@ -158,15 +161,17 @@ class AbstractControllerTest extends \Nimut\TestingFramework\TestCase\UnitTestCa
         $result = array(
             'foo' => 'bar'
         );
-        $mockRequest = $this->getMock(
-            'TYPO3\CMS\Extbase\Mvc\Web\Request',
-            array(
-                'getArguments',
-                'getPluginName',
-                'getControllerName',
-                'getControllerExtensionName',
-                'hasArgument',
-                'getArgument'));
+        $mockRequest = $this->getMockBuilder(Request::class)
+            ->setMethods(
+                [
+                    'getArguments',
+                    'getPluginName',
+                    'getControllerName',
+                    'getControllerExtensionName',
+                    'hasArgument',
+                    'getArgument'
+                ])
+            ->getMock();
         $this->fixture->_set('request', $mockRequest);
         $mockRequest->expects($this->once())
             ->method('hasArgument')

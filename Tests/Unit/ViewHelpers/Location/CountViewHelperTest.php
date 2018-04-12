@@ -19,7 +19,10 @@ use DWenzel\T3events\Domain\Model\Event;
 use DWenzel\T3events\Domain\Model\EventLocation;
 use DWenzel\T3events\Domain\Model\Performance;
 use DWenzel\T3events\ViewHelpers\Location\CountViewHelper;
+use Nimut\TestingFramework\MockObject\AccessibleMockObjectInterface;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub\ConsecutiveCalls;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /**
@@ -29,7 +32,7 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 class CountViewHelperTest extends UnitTestCase
 {
     /**
-     * @var CountViewHelper|\PHPUnit_Framework_MockObject_MockObject|\TYPO3\CMS\Core\Tests\AccessibleObjectInterface
+     * @var CountViewHelper|MockObject|AccessibleMockObjectInterface
      */
     protected $subject;
 
@@ -72,15 +75,20 @@ class CountViewHelperTest extends UnitTestCase
             ]
         ];
         foreach ($cases as $case) {
-            $locationCount = count($case['uids']);
-            $eventLocation = $this->getMock(EventLocation::class, ['getUid']);
+            $locationCount = \count($case['uids']);
+            /** @var EventLocation|MockObject $eventLocation */
+            $eventLocation = $this->getMockBuilder(EventLocation::class)
+                ->setMethods(['getUid'])->getMock();
             $eventLocation->expects($this->exactly($locationCount))
                 ->method('getUid')
-                ->will(new \PHPUnit_Framework_MockObject_Stub_ConsecutiveCalls($case['uids']));
-            $event = $this->getMock(Event::class, ['getPerformances']);
+                ->will(new ConsecutiveCalls($case['uids']));
+            $event = $this->getMockBuilder(Event::class)
+                ->setMethods(['getPerformances'])->getMock();
             $objectStorage = new ObjectStorage();
             foreach ($case['uids'] as $uid) {
-                $performance = $this->getMock(Performance::class, ['getEventLocation']);
+                /** @var Performance|MockObject $performance */
+                $performance = $this->getMockBuilder(Performance::class)
+                    ->setMethods(['getEventLocation'])->getMock();
                 $performance->expects($this->once())
                     ->method('getEventLocation')
                     ->will($this->returnValue($eventLocation));

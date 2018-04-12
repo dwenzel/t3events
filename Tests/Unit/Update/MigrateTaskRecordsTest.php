@@ -16,9 +16,10 @@ namespace DWenzel\T3events\Tests\Update;
  */
 
 use DWenzel\T3events\Update\MigrateTaskRecords;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
+use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Core\Database\DatabaseConnection;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 
 /**
@@ -41,22 +42,20 @@ class MigrateTaskRecordsTest extends UnitTestCase
      */
     public function setUp()
     {
-        $this->subject = $this->getMock(
-            MigrateTaskRecords::class, ['dummy', 'getDatabaseConnection']
-        );
-        $this->database = $this->getMock(
-            DatabaseConnection::class,
-            [
+        $this->subject = $this->getMockMigrateTaskRecords(['dummy', 'getDatabaseConnection']);
+        $this->database = $this->getMockBuilder(DatabaseConnection::class)
+            ->disableOriginalConstructor()
+            ->setMethods([
                 'exec_SELECTquery',
                 'sql_fetch_assoc',
                 'sql_error',
                 'debug_lastBuiltQuery',
                 'admin_get_fields',
                 'exec_UPDATEquery'
-            ], [], '', false
-        );
+            ])
+            ->getMock();
         $this->subject->expects($this->any())
-            ->method(('getDatabaseConnection'))
+            ->method('getDatabaseConnection')
             ->will($this->returnValue($this->database));
     }
 
@@ -102,9 +101,7 @@ class MigrateTaskRecordsTest extends UnitTestCase
 
         $description = '';
         $tasks = ['foo'];
-        $this->subject = $this->getMock(
-            MigrateTaskRecords::class, ['getTasksWithDeprecatedProperties']
-        );
+        $this->subject = $this->getMockMigrateTaskRecords(['getTasksWithDeprecatedProperties']);
         $this->subject->expects($this->once())
             ->method('getTasksWithDeprecatedProperties')
             ->will($this->returnValue($tasks));
@@ -138,12 +135,10 @@ class MigrateTaskRecordsTest extends UnitTestCase
             [
                 FlashMessage::INFO,
                 MigrateTaskRecords::TITLE_UPDATE_REQUIRED,
-                sprintf(MigrateTaskRecords::MESSAGE_UPDATE_REQUIRED, count($tasks))
+                sprintf(MigrateTaskRecords::MESSAGE_UPDATE_REQUIRED, \count($tasks))
             ]
         ];
-        $this->subject = $this->getMock(
-            MigrateTaskRecords::class, ['getTasksWithDeprecatedProperties']
-        );
+        $this->subject = $this->getMockMigrateTaskRecords(['getTasksWithDeprecatedProperties']);
         $this->subject->expects($this->once())
             ->method('getTasksWithDeprecatedProperties')
             ->will($this->returnValue($tasks));
@@ -176,17 +171,15 @@ class MigrateTaskRecordsTest extends UnitTestCase
             [
                 FlashMessage::INFO,
                 MigrateTaskRecords::TITLE_UPDATE_REQUIRED,
-                sprintf(MigrateTaskRecords::MESSAGE_UPDATE_REQUIRED, count($tasks))
+                sprintf(MigrateTaskRecords::MESSAGE_UPDATE_REQUIRED, \count($tasks))
             ],
             [
                 FlashMessage::INFO,
                 MigrateTaskRecords::TITLE_UPDATED,
-                sprintf(MigrateTaskRecords::MESSAGE_UPDATED, count($tasks))
+                sprintf(MigrateTaskRecords::MESSAGE_UPDATED, \count($tasks))
             ]
         ];
-        $this->subject = $this->getMock(
-            MigrateTaskRecords::class, ['getTasksWithDeprecatedProperties', 'getDatabaseConnection']
-        );
+        $this->subject = $this->getMockMigrateTaskRecords(['getTasksWithDeprecatedProperties', 'getDatabaseConnection']);
         $this->subject->expects($this->once())
             ->method('getTasksWithDeprecatedProperties')
             ->will($this->returnValue($tasks));
@@ -207,5 +200,17 @@ class MigrateTaskRecordsTest extends UnitTestCase
             $customMessages,
             $expectedMessages
         );
+    }
+
+
+    /**
+     * @param array $methods
+     * @return MigrateTaskRecords|MockObject
+     */
+    protected function getMockMigrateTaskRecords(array $methods = [])
+    {
+        return $this->getMockBuilder(MigrateTaskRecords::class)
+            ->setMethods($methods)
+            ->getMock();
     }
 }

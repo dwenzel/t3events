@@ -1,9 +1,10 @@
 <?php
 namespace DWenzel\T3events\Tests\Unit\Service;
 
+use DWenzel\T3events\Tests\Unit\Object\MockObjectManagerTrait;
+use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Core\Mail\MailMessage;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 use DWenzel\T3events\Domain\Model\Notification;
 use DWenzel\T3events\Service\NotificationService;
@@ -27,6 +28,8 @@ use DWenzel\T3events\Service\NotificationService;
  ***************************************************************/
 class NotificationServiceTest extends UnitTestCase
 {
+    use MockObjectManagerTrait;
+
     /**
      * @var NotificationService
      */
@@ -40,23 +43,8 @@ class NotificationServiceTest extends UnitTestCase
         $this->subject = $this->getAccessibleMock(
             NotificationService::class, ['dummy']
         );
-    }
-
-    /**
-     * @return \PHPUnit_Framework_MockObject_MockObject | ObjectManager
-     */
-    protected function mockObjectManager()
-    {
-        $mockObjectManager = $this->getMock(
-            ObjectManager::class, ['get']
-        );
-        $this->inject(
-            $this->subject,
-            'objectManager',
-            $mockObjectManager
-        );
-
-        return $mockObjectManager;
+        $this->objectManager = $this->getMockObjectManager();
+        $this->subject->injectObjectManager($this->objectManager);
     }
 
     /**
@@ -82,11 +70,8 @@ class NotificationServiceTest extends UnitTestCase
         $notification = new Notification();
         $notification->setRecipient($recipientArgument);
 
-        $mockMessage = $this->getMock(
-            MailMessage::class, ['setTo', 'send']
-        );
-        $mockObjectManager = $this->mockObjectManager();
-        $mockObjectManager->expects($this->once())
+        $mockMessage = $this->getMockMailMessage();
+        $this->objectManager->expects($this->once())
             ->method('get')
             ->with(MailMessage::class)
             ->will($this->returnValue($mockMessage));
@@ -108,22 +93,20 @@ class NotificationServiceTest extends UnitTestCase
     public function notifySetsRecipients($recipient, $expectedRecipients)
     {
         $this->subject = $this->getAccessibleMock(
-            \DWenzel\T3events\Service\NotificationService::class, ['dummy', 'buildTemplateView']
+            NotificationService::class, ['dummy', 'buildTemplateView']
         );
+        $this->subject->injectObjectManager($this->objectManager);
 
-        $mockTemplateView = $this->getMock(
-            StandaloneView::class, [], [], '', false
-        );
+        $mockTemplateView = $this->getMockBuilder(StandaloneView::class)
+            ->disableOriginalConstructor()
+            ->getMock();
 
         $this->subject->expects($this->once())
             ->method('buildTemplateView')
             ->will($this->returnValue($mockTemplateView));
 
-        $mockMessage = $this->getMock(
-            MailMessage::class, ['setTo', 'send']
-        );
-        $mockObjectManager = $this->mockObjectManager();
-        $mockObjectManager->expects($this->once())
+        $mockMessage = $this->getMockMailMessage();
+        $this->objectManager->expects($this->once())
             ->method('get')
             ->with(MailMessage::class)
             ->will($this->returnValue($mockMessage));
@@ -141,5 +124,14 @@ class NotificationServiceTest extends UnitTestCase
             null,
             'baz'
         );
+    }
+
+    /**
+     * @return MailMessage|MockObject
+     */
+    protected function getMockMailMessage()
+    {
+        return $this->getMockBuilder(MailMessage::class)
+            ->setMethods(['setTo', 'send'])->getMock();
     }
 }

@@ -1,9 +1,10 @@
 <?php
+
 namespace DWenzel\T3events\Tests\Controller;
 
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use DWenzel\T3events\Controller\NotificationRepositoryTrait;
 use DWenzel\T3events\Domain\Repository\NotificationRepository;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 
 /***************************************************************
  *  Copyright notice
@@ -35,7 +36,7 @@ class NotificationRepositoryTraitTest extends UnitTestCase
     public function setUp()
     {
         $this->subject = $this->getMockForTrait(
-            \DWenzel\T3events\Controller\NotificationRepositoryTrait::class
+            NotificationRepositoryTrait::class
         );
     }
 
@@ -44,9 +45,9 @@ class NotificationRepositoryTraitTest extends UnitTestCase
      */
     public function notificationRepositoryCanBeInjected()
     {
-        $notificationRepository = $this->getMock(
-            NotificationRepository::class, [], [], '', false
-        );
+        /** @var NotificationRepository|\PHPUnit_Framework_MockObject_MockObject $notificationRepository */
+        $notificationRepository = $this->getMockBuilder(NotificationRepository::class)
+            ->disableOriginalConstructor()->getMock();
 
         $this->subject->injectNotificationRepository($notificationRepository);
 

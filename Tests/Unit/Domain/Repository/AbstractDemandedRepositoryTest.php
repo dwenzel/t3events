@@ -1,4 +1,5 @@
 <?php
+
 namespace DWenzel\T3events\Tests\Unit\Domain\Repository;
 
 /***************************************************************
@@ -19,8 +20,12 @@ namespace DWenzel\T3events\Tests\Unit\Domain\Repository;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Persistence\Generic\Query;
+use DWenzel\T3events\Domain\Model\Dto\AbstractDemand;
+use DWenzel\T3events\Domain\Repository\AbstractDemandedRepository;
+use DWenzel\T3events\Tests\Unit\Domain\Model\Dto\MockDemandTrait;
+use Nimut\TestingFramework\MockObject\AccessibleMockObjectInterface;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
+use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
@@ -32,20 +37,21 @@ use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
  * @package TYPO3
  * @subpackage Events
  * @author Dirk Wenzel <dirk.wenzel@cps-it.de>
- * @coversDefaultClass \DWenzel\T3events\Domain\Repository\AbstractDemandedRepository
+ * @coversDefaultClass AbstractDemandedRepository
  */
-class AbstractDemandedRepositoryTest extends \Nimut\TestingFramework\TestCase\UnitTestCase
+class AbstractDemandedRepositoryTest extends UnitTestCase
 {
+    use MockConstraintsTrait, MockDemandTrait, MockQueryTrait, MockQuerySettingsTrait;
 
     /**
-     * @var \DWenzel\T3events\Domain\Repository\AbstractDemandedRepository
+     * @var AbstractDemandedRepository|AccessibleMockObjectInterface|MockObject
      */
     protected $fixture;
 
     public function setUp()
     {
         $this->fixture = $this->getAccessibleMock(
-            'DWenzel\\T3events\\Domain\\Repository\\AbstractDemandedRepository',
+            AbstractDemandedRepository::class,
             array('createConstraintsFromDemand', 'createQuery'), array(), '', false);
     }
 
@@ -56,12 +62,10 @@ class AbstractDemandedRepositoryTest extends \Nimut\TestingFramework\TestCase\Un
     public function createOrderingsFromDemandReturnsInitiallyEmptyArray()
     {
         $expectedResult = array();
-        $demand = $this->getMockForAbstractClass(
-            'DWenzel\\T3events\\Domain\\Model\\Dto\\AbstractDemand'
-        );
+        $demand = $this->getMockDemand();
         $this->assertEquals(
             $expectedResult,
-            $this->fixture->_call('createOrderingsFromDemand', $demand)
+            $this->fixture->createOrderingsFromDemand($demand)
         );
     }
 
@@ -72,10 +76,7 @@ class AbstractDemandedRepositoryTest extends \Nimut\TestingFramework\TestCase\Un
     public function createOrderingsFromDemandReturnsEmptyArrayForEmptyOrderList()
     {
         $expectedResult = array();
-        $mockDemand = $this->getMock(
-            'DWenzel\\T3events\\Domain\\Model\\Dto\\AbstractDemand',
-            array('getOrder'), array(), '', false
-        );
+        $mockDemand = $this->getMockDemand(['getOrder']);
         $emptyOrderList = '';
         $mockDemand->expects($this->once())
             ->method('getOrder')
@@ -83,7 +84,7 @@ class AbstractDemandedRepositoryTest extends \Nimut\TestingFramework\TestCase\Un
 
         $this->assertEquals(
             $expectedResult,
-            $this->fixture->_call('createOrderingsFromDemand', $mockDemand)
+            $this->fixture->createOrderingsFromDemand($mockDemand)
         );
     }
 
@@ -97,10 +98,7 @@ class AbstractDemandedRepositoryTest extends \Nimut\TestingFramework\TestCase\Un
         $expectedResult = array(
             $fieldName => QueryInterface::ORDER_ASCENDING
         );
-        $mockDemand = $this->getMock(
-            'DWenzel\\T3events\\Domain\\Model\\Dto\\AbstractDemand',
-            array('getOrder'), array(), '', false
-        );
+        $mockDemand = $this->getMockDemand(['getOrder']);
 
         $mockDemand->expects($this->any())
             ->method('getOrder')
@@ -108,7 +106,7 @@ class AbstractDemandedRepositoryTest extends \Nimut\TestingFramework\TestCase\Un
 
         $this->assertEquals(
             $expectedResult,
-            $this->fixture->_call('createOrderingsFromDemand', $mockDemand)
+            $this->fixture->createOrderingsFromDemand($mockDemand)
         );
     }
 
@@ -122,10 +120,7 @@ class AbstractDemandedRepositoryTest extends \Nimut\TestingFramework\TestCase\Un
         $expectedResult = array(
             'foo' => QueryInterface::ORDER_DESCENDING
         );
-        $mockDemand = $this->getMock(
-            'DWenzel\\T3events\\Domain\\Model\\Dto\\AbstractDemand',
-            array('getOrder'), array(), '', false
-        );
+        $mockDemand = $this->getMockDemand(['getOrder']);
 
         $mockDemand->expects($this->any())
             ->method('getOrder')
@@ -133,7 +128,7 @@ class AbstractDemandedRepositoryTest extends \Nimut\TestingFramework\TestCase\Un
 
         $this->assertEquals(
             $expectedResult,
-            $this->fixture->_call('createOrderingsFromDemand', $mockDemand)
+            $this->fixture->createOrderingsFromDemand($mockDemand)
         );
     }
 
@@ -148,10 +143,7 @@ class AbstractDemandedRepositoryTest extends \Nimut\TestingFramework\TestCase\Un
             'foo' => QueryInterface::ORDER_DESCENDING,
             'bar' => QueryInterface::ORDER_ASCENDING
         );
-        $mockDemand = $this->getMock(
-            'DWenzel\\T3events\\Domain\\Model\\Dto\\AbstractDemand',
-            array('getOrder'), array(), '', false
-        );
+        $mockDemand = $this->getMockDemand(['getOrder']);
 
         $mockDemand->expects($this->any())
             ->method('getOrder')
@@ -159,7 +151,7 @@ class AbstractDemandedRepositoryTest extends \Nimut\TestingFramework\TestCase\Un
 
         $this->assertEquals(
             $expectedResult,
-            $this->fixture->_call('createOrderingsFromDemand', $mockDemand)
+            $this->fixture->createOrderingsFromDemand($mockDemand)
         );
     }
 
@@ -169,17 +161,13 @@ class AbstractDemandedRepositoryTest extends \Nimut\TestingFramework\TestCase\Un
      */
     public function findDemandedGeneratesAndExecutesQuery()
     {
-        $fixture = $this->getAccessibleMock(
-            'DWenzel\\T3events\\Domain\\Repository\\AbstractDemandedRepository',
-            array('createConstraintsFromDemand', 'generateQuery'), array(), '', false);
-        $mockDemand = $this->getMock(
-            'DWenzel\\T3events\\Domain\\Model\\Dto\\AbstractDemand',
-            array(), array(), '', false
-        );
-        $mockQuery = $this->getMock(
-            'TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Query',
-            array('execute'), array(), '', false
-        );
+        /** @var AbstractDemandedRepository|MockObject $fixture */
+        $fixture = $this->getMockBuilder(AbstractDemandedRepository::class)
+            ->setMethods(['createConstraintsFromDemand', 'generateQuery'])
+            ->disableOriginalConstructor()
+            ->getMockForAbstractClass();
+        $mockDemand = $this->getMockDemand();
+        $mockQuery = $this->getMockQuery(['execute']);
         $expectedResult = 'foo';
         $respectEnableFields = false;
 
@@ -203,13 +191,11 @@ class AbstractDemandedRepositoryTest extends \Nimut\TestingFramework\TestCase\Un
      */
     public function generateQueryCreatesQueryAndConstraints()
     {
+        /** @var AbstractDemandedRepository|MockObject $fixture */
         $fixture = $this->getAccessibleMock(
-            'DWenzel\\T3events\\Domain\\Repository\\AbstractDemandedRepository',
+            AbstractDemandedRepository::class,
             array('createConstraintsFromDemand', 'createQuery'), array(), '', false);
-        $mockDemand = $this->getMock(
-            'DWenzel\\T3events\\Domain\\Model\\Dto\\AbstractDemand',
-            array(), array(), '', false
-        );
+        $mockDemand = $this->getMockDemand();
         $mockQuery = $this->getMockForAbstractClass(
             'TYPO3\\CMS\\Extbase\\Persistence\\QueryInterface'
         );
@@ -225,7 +211,7 @@ class AbstractDemandedRepositoryTest extends \Nimut\TestingFramework\TestCase\Un
 
         $this->assertSame(
             $mockQuery,
-            $fixture->_call('generateQuery', $mockDemand)
+            $fixture->generateQuery($mockDemand)
         );
     }
 
@@ -235,17 +221,12 @@ class AbstractDemandedRepositoryTest extends \Nimut\TestingFramework\TestCase\Un
      */
     public function generateQueryReturnsQueryMatchingConstraints()
     {
+        /** @var AbstractDemandedRepository|MockObject $fixture */
         $fixture = $this->getAccessibleMock(
-            'DWenzel\\T3events\\Domain\\Repository\\AbstractDemandedRepository',
+            AbstractDemandedRepository::class,
             array('createConstraintsFromDemand', 'createQuery'), array(), '', false);
-        $mockDemand = $this->getMock(
-            'DWenzel\\T3events\\Domain\\Model\\Dto\\AbstractDemand',
-            array(), array(), '', false
-        );
-        $mockQuery = $this->getMock(
-            'TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Query',
-            array('matching', 'logicalAnd'), array(), '', false
-        );
+        $mockDemand = $this->getMockDemand();
+        $mockQuery = $this->getMockQuery(['matching', 'logicalAnd']);
         $mockConstraints = array('foo');
 
         $fixture->expects($this->once())
@@ -264,7 +245,7 @@ class AbstractDemandedRepositoryTest extends \Nimut\TestingFramework\TestCase\Un
             ->with($mockConstraints)
             ->will($this->returnValue($mockQuery));
 
-        $fixture->_call('generateQuery', $mockDemand);
+        $fixture->generateQuery($mockDemand);
     }
 
     /**
@@ -273,17 +254,12 @@ class AbstractDemandedRepositoryTest extends \Nimut\TestingFramework\TestCase\Un
      */
     public function generateQuerySetsOrderings()
     {
+        /** @var AbstractDemandedRepository|MockObject|AccessibleMockObjectInterface $fixture */
         $fixture = $this->getAccessibleMock(
-            'DWenzel\\T3events\\Domain\\Repository\\AbstractDemandedRepository',
+            AbstractDemandedRepository::class,
             array('createQuery', 'createConstraintsFromDemand', 'createOrderingsFromDemand'), array(), '', false);
-        $mockDemand = $this->getMock(
-            'DWenzel\\T3events\\Domain\\Model\\Dto\\AbstractDemand',
-            array(), array(), '', false
-        );
-        $mockQuery = $this->getMock(
-            'TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Query',
-            array('setOrderings'), array(), '', false
-        );
+        $mockDemand = $this->getMockDemand();
+        $mockQuery = $this->getMockQuery(['setOrderings']);
         $mockOrderings = array('foo' => 'bar');
 
         $fixture->expects($this->once())
@@ -297,7 +273,7 @@ class AbstractDemandedRepositoryTest extends \Nimut\TestingFramework\TestCase\Un
         $mockQuery->expects($this->once())
             ->method('setOrderings')
             ->with($mockOrderings);
-        $fixture->_call('generateQuery', $mockDemand);
+        $fixture->generateQuery($mockDemand);
     }
 
     /**
@@ -306,19 +282,13 @@ class AbstractDemandedRepositoryTest extends \Nimut\TestingFramework\TestCase\Un
      */
     public function generateQuerySetsIgnoreEnableFields()
     {
+        /** @var AbstractDemandedRepository|AccessibleMockObjectInterface|MockObject $fixture */
         $fixture = $this->getAccessibleMock(
-            'DWenzel\\T3events\\Domain\\Repository\\AbstractDemandedRepository',
+            AbstractDemandedRepository::class,
             array('createQuery', 'createConstraintsFromDemand', 'createOrderingsFromDemand'), array(), '', false);
-        $mockDemand = $this->getMock(
-            'DWenzel\\T3events\\Domain\\Model\\Dto\\AbstractDemand',
-            array(), array(), '', false
-        );
-        $mockQuerySettings = $this->getMock(
-            'TYPO3\\CMS\\Extbase\\Persistence\\Generic\\QuerySettingsInterface');
-        $mockQuery = $this->getMock(
-            'TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Query',
-            array('setOrderings', 'getQuerySettings'), array(), '', false
-        );
+        $mockDemand = $this->getMockDemand();
+        $mockQuerySettings = $this->getMockQuerySettings();
+        $mockQuery = $this->getMockQuery(['setOrderings', 'getQuerySettings']);
 
         $fixture->expects($this->once())
             ->method('createQuery')
@@ -334,36 +304,9 @@ class AbstractDemandedRepositoryTest extends \Nimut\TestingFramework\TestCase\Un
             ->method('setIgnoreEnableFields')
             ->with(true);
 
-        $fixture->_call('generateQuery', $mockDemand, false);
+        $fixture->generateQuery($mockDemand, false);
     }
 
-    /**
-     * @test
-     * @covers ::generateQuery
-     */
-    public function generateQuerySetsLimitFromDemand()
-    {
-        $fixture = $this->getAccessibleMock(
-            'DWenzel\\T3events\\Domain\\Repository\\AbstractDemandedRepository',
-            array('createQuery', 'createConstraintsFromDemand'), array(), '', false);
-        $mockDemand = $this->getAccessibleMockForAbstractClass('DWenzel\\T3events\\Domain\\Model\\Dto\\AbstractDemand');
-        $limit = 3;
-        $mockDemand->setLimit($limit);
-        $mockQuery = $this->getMock(
-            'TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Query',
-            array('setLimit'), array(), '', false
-        );
-        $fixture->expects($this->once())
-            ->method('createQuery')
-            ->will($this->returnValue($mockQuery));
-        $fixture->expects($this->once())
-            ->method('createConstraintsFromDemand');
-
-        $mockQuery->expects($this->once())
-            ->method('setLimit')
-            ->with($limit);
-        $fixture->_call('generateQuery', $mockDemand);
-    }
 
     /**
      * @test
@@ -371,16 +314,15 @@ class AbstractDemandedRepositoryTest extends \Nimut\TestingFramework\TestCase\Un
      */
     public function generateQuerySetsOffsetFromDemand()
     {
+        /** @var AbstractDemandedRepository|AccessibleMockObjectInterface|MockObject $fixture */
         $fixture = $this->getAccessibleMock(
-            'DWenzel\\T3events\\Domain\\Repository\\AbstractDemandedRepository',
+            AbstractDemandedRepository::class,
             array('createQuery', 'createConstraintsFromDemand'), array(), '', false);
+        /** @var AbstractDemand|MockObject|AccessibleMockObjectInterface $mockDemand */
         $mockDemand = $this->getAccessibleMockForAbstractClass('DWenzel\\T3events\\Domain\\Model\\Dto\\AbstractDemand');
         $offset = 3;
         $mockDemand->setOffset($offset);
-        $mockQuery = $this->getMock(
-            'TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Query',
-            array('setOffset'), array(), '', false
-        );
+        $mockQuery = $this->getMockQuery(['setOffset']);
         $fixture->expects($this->once())
             ->method('createQuery')
             ->will($this->returnValue($mockQuery));
@@ -390,39 +332,9 @@ class AbstractDemandedRepositoryTest extends \Nimut\TestingFramework\TestCase\Un
         $mockQuery->expects($this->once())
             ->method('setOffset')
             ->with($offset);
-        $fixture->_call('generateQuery', $mockDemand);
+        $fixture->generateQuery($mockDemand);
     }
 
-
-    /**
-     * @test
-     * @covers ::generateQuery
-     */
-    public function generateQuerySetsStoragePageIdsFromDemand()
-    {
-        $fixture = $this->getAccessibleMock(
-            'DWenzel\\T3events\\Domain\\Repository\\AbstractDemandedRepository',
-            array('createQuery', 'createConstraintsFromDemand'), array(), '', false);
-        $mockDemand = $this->getAccessibleMockForAbstractClass('DWenzel\\T3events\\Domain\\Model\\Dto\\AbstractDemand');
-        $storagePageIds = '3,5';
-        $mockDemand->setStoragePages($storagePageIds);
-        $mockDemand->setOffset($storagePageIds);
-        $mockQuery = $this->getAccessibleMockForAbstractClass(
-            'TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Query',
-            array(), '', false);
-        $mockQuerySettings = $this->getMock('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\QuerySettingsInterface');
-        $mockQuery->_set('querySettings', $mockQuerySettings);
-        $fixture->expects($this->once())
-            ->method('createQuery')
-            ->will($this->returnValue($mockQuery));
-
-        $expectedStoragePageIds = GeneralUtility::intExplode(',', $storagePageIds);
-
-        $mockQuerySettings->expects($this->once())
-            ->method('setStoragePageIds')
-            ->with($expectedStoragePageIds);
-        $fixture->_call('generateQuery', $mockDemand);
-    }
 
     /**
      * @test
@@ -431,18 +343,11 @@ class AbstractDemandedRepositoryTest extends \Nimut\TestingFramework\TestCase\Un
     public function combineConstraintsInitiallyCombinesLogicalAnd()
     {
         $fixture = $this->getAccessibleMock(
-            'DWenzel\\T3events\\Domain\\Repository\\AbstractDemandedRepository',
+            AbstractDemandedRepository::class,
             array('dummy', 'createConstraintsFromDemand'), array(), '', false);
         $constraints = array();
-        /** @var QueryInterface $mockQuery */
-        $mockQuery = $this->getMock(
-            'TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Query',
-            array('logicalAnd'), array(), '', false);
-        $additionalConstraint = array(
-            $this->getMock(
-                'TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Qom\\ConstraintInterface'
-            )
-        );
+        $mockQuery = $this->getMockQuery(['logicalAnd']);
+        $additionalConstraint = $this->getMockConstraint();
 
         $mockQuery->expects($this->once())
             ->method('logicalAnd')
@@ -462,19 +367,12 @@ class AbstractDemandedRepositoryTest extends \Nimut\TestingFramework\TestCase\Un
     public function combineConstraintsCombinesLogicalOr()
     {
         $fixture = $this->getAccessibleMock(
-            'DWenzel\\T3events\\Domain\\Repository\\AbstractDemandedRepository',
+            AbstractDemandedRepository::class,
             array('dummy', 'createConstraintsFromDemand'), array(), '', false);
         $constraints = array();
         $conjunction = 'or';
-        /** @var QueryInterface $mockQuery */
-        $mockQuery = $this->getMock(
-            'TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Query',
-            array('logicalOr'), array(), '', false);
-        $additionalConstraint = array(
-            $this->getMock(
-                'TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Qom\\ConstraintInterface'
-            )
-        );
+        $mockQuery = $this->getMockQuery(['logicalOr']);
+        $additionalConstraint = $this->getMockConstraint();
 
         $mockQuery->expects($this->once())
             ->method('logicalOr')
@@ -495,20 +393,13 @@ class AbstractDemandedRepositoryTest extends \Nimut\TestingFramework\TestCase\Un
     public function combineConstraintsCombinesLogicalNotAnd()
     {
         $fixture = $this->getAccessibleMock(
-            'DWenzel\\T3events\\Domain\\Repository\\AbstractDemandedRepository',
+            AbstractDemandedRepository::class,
             array('dummy', 'createConstraintsFromDemand'), array(), '', false);
         $constraints = array();
         $conjunction = 'NotAnd';
-        /** @var QueryInterface $mockQuery */
-        $mockQuery = $this->getMock(
-            'TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Query',
-            array('logicalNot', 'logicalAnd'), array(), '', false);
-        $mockConstraint = $this->getMock(
-            'TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Qom\\ConstraintInterface'
-        );
-        $additionalConstraint = array(
-            $mockConstraint
-        );
+        $mockQuery = $this->getMockQuery(['logicalNot', 'logicalAnd']);
+        $mockConstraint = $this->getMockConstraint();
+        $additionalConstraint = [$mockConstraint];
 
         $mockQuery->expects($this->once())
             ->method('logicalAnd')
@@ -533,20 +424,13 @@ class AbstractDemandedRepositoryTest extends \Nimut\TestingFramework\TestCase\Un
     public function combineConstraintsCombinesLogicalNotOr()
     {
         $fixture = $this->getAccessibleMock(
-            'DWenzel\\T3events\\Domain\\Repository\\AbstractDemandedRepository',
+            AbstractDemandedRepository::class,
             array('dummy', 'createConstraintsFromDemand'), array(), '', false);
         $constraints = array();
         $conjunction = 'NotOr';
-        /** @var QueryInterface $mockQuery */
-        $mockQuery = $this->getMock(
-            'TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Query',
-            array('logicalNot', 'logicalOr'), array(), '', false);
-        $mockConstraint = $this->getMock(
-            'TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Qom\\ConstraintInterface'
-        );
-        $additionalConstraint = array(
-            $mockConstraint
-        );
+        $mockQuery = $this->getMockQuery(['logicalNot', 'logicalOr']);
+        $mockConstraint = $this->getMockConstraint();
+        $additionalConstraint = [$mockConstraint];
 
         $mockQuery->expects($this->once())
             ->method('logicalOr')
@@ -569,9 +453,9 @@ class AbstractDemandedRepositoryTest extends \Nimut\TestingFramework\TestCase\Un
      */
     public function findMultipleByUidReturnsQuery()
     {
-        /** @var QueryInterface $mockQuery */
-        $mockQuery = $this->getMock(Query::class, [], [], '', false);
-        $mockResult = $this->getMock(QueryResultInterface::class);
+        $mockQuery = $this->getMockQuery();
+
+        $mockResult = $this->getMockBuilder(QueryResultInterface::class)->getMockForAbstractClass();
         $mockQuery->expects($this->once())
             ->method('execute')
             ->will($this->returnValue($mockResult));
@@ -595,13 +479,13 @@ class AbstractDemandedRepositoryTest extends \Nimut\TestingFramework\TestCase\Un
     {
         $uidList = '1,2';
         /** @var QueryInterface $mockQuery */
-        $mockQuery = $this->getMock(Query::class, [], [], '', false);
+        $mockQuery = $this->getMockQuery(['matching', 'in']);
         $mockQuery->expects($this->once())
             ->method('matching')
             ->will($this->returnValue($mockQuery));
         $mockQuery->expects($this->once())
             ->method('in')
-            ->with('uid', [1,2])
+            ->with('uid', [1, 2])
             ->will($this->returnValue($mockQuery));
 
         $this->fixture->expects($this->once())
@@ -618,7 +502,7 @@ class AbstractDemandedRepositoryTest extends \Nimut\TestingFramework\TestCase\Un
     {
         $uidList = '';
         /** @var QueryInterface $mockQuery */
-        $mockQuery = $this->getMock(Query::class, [], [], '', false);
+        $mockQuery = $this->getMockQuery();
 
         $this->fixture->expects($this->once())
             ->method('createQuery')
@@ -639,8 +523,7 @@ class AbstractDemandedRepositoryTest extends \Nimut\TestingFramework\TestCase\Un
         $order = QueryInterface::ORDER_DESCENDING;
 
         $uidList = '';
-        /** @var QueryInterface $mockQuery */
-        $mockQuery = $this->getMock(Query::class, [], [], '', false);
+        $mockQuery = $this->getMockQuery();
 
         $this->fixture->expects($this->once())
             ->method('createQuery')

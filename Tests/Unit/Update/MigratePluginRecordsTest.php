@@ -16,6 +16,7 @@ namespace DWenzel\T3events\Tests\Update;
  */
 
 use DWenzel\T3events\Update\MigratePluginRecords;
+use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Core\Database\DatabaseConnection;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
@@ -41,12 +42,10 @@ class MigratePluginRecordsTest extends UnitTestCase
      */
     public function setUp()
     {
-        $this->subject = $this->getMock(
-            MigratePluginRecords::class, ['dummy', 'getDatabaseConnection']
-        );
-        $this->database = $this->getMock(
-            DatabaseConnection::class,
-            [
+        $this->subject = $this->getMockMigratePluginRecords(['dummy', 'getDatabaseConnection']);
+        $this->database = $this->getMockBuilder(DatabaseConnection::class)
+            ->disableOriginalConstructor()
+            ->setMethods([
                 'exec_SELECTcountRows',
                 'exec_SELECTgetRows',
                 'sql_fetch_assoc',
@@ -54,8 +53,8 @@ class MigratePluginRecordsTest extends UnitTestCase
                 'debug_lastBuiltQuery',
                 'admin_get_fields',
                 'exec_UPDATEquery'
-            ], [], '', false
-        );
+            ])
+            ->getMock();
         $this->subject->expects($this->any())
             ->method('getDatabaseConnection')
             ->will($this->returnValue($this->database));
@@ -168,9 +167,7 @@ XML;
         }
         $description = '';
         $plugins = 5;
-        $this->subject = $this->getMock(
-            MigratePluginRecords::class, ['countPluginRecordsWithDeprecatedSettings']
-        );
+        $this->subject = $this->getMockMigratePluginRecords(['countPluginRecordsWithDeprecatedSettings']);
         $this->subject->expects($this->once())
             ->method('countPluginRecordsWithDeprecatedSettings')
             ->will($this->returnValue($plugins));
@@ -226,9 +223,7 @@ XML;
                 sprintf(MigratePluginRecords::MESSAGE_UPDATE_REQUIRED, count($plugins))
             ]
         ];
-        $this->subject = $this->getMock(
-            MigratePluginRecords::class, ['getPluginRecordsWithDeprecatedSettings']
-        );
+        $this->subject = $this->getMockMigratePluginRecords(['getPluginRecordsWithDeprecatedSettings']);
         $this->subject->expects($this->once())
             ->method('getPluginRecordsWithDeprecatedSettings')
             ->will($this->returnValue($plugins));
@@ -261,8 +256,7 @@ XML;
             MigratePluginRecords::FLEX_FORM_FIELD => $expectedXml
         ];
 
-        $this->subject = $this->getMock(
-            MigratePluginRecords::class,
+        $this->subject = $this->getMockMigratePluginRecords(
             [
                 'getPluginRecordsWithDeprecatedSettings',
                 'getDatabaseConnection',
@@ -320,8 +314,7 @@ XML;
                 sprintf(MigratePluginRecords::MESSAGE_UPDATED, count($pluginRecords))
             ]
         ];
-        $this->subject = $this->getMock(
-            MigratePluginRecords::class,
+        $this->subject = $this->getMockMigratePluginRecords(
             [
                 'getPluginRecordsWithDeprecatedSettings',
                 'getDatabaseConnection',
@@ -351,5 +344,15 @@ XML;
             $customMessages,
             $expectedMessages
         );
+    }
+
+    /**
+     * @param array $methods
+     * @return MigratePluginRecords|MockObject
+     */
+    protected function getMockMigratePluginRecords(array $methods = []) {
+        return $this->getMockBuilder(MigratePluginRecords::class)
+            ->setMethods($methods)
+            ->getMock();
     }
 }

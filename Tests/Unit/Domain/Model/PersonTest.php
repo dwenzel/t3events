@@ -28,19 +28,13 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /**
  * Test case for class \DWenzel\T3events\Domain\Model\Person.
- *
- * @copyright Copyright belongs to the respective authors
- * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- * @author Dirk Wenzel <wenzel@cps-it.de>
- * @author Boerge Franck <franck@cps-it.de>
- * @coversDefaultClass \DWenzel\T3events\Domain\Model\Person
  */
 class PersonTest extends UnitTestCase
 {
     /**
      * @var \DWenzel\T3events\Domain\Model\Person
      */
-    protected $subject = null;
+    protected $subject;
 
     protected function setUp()
     {
@@ -422,9 +416,7 @@ class PersonTest extends UnitTestCase
     public function imageCanBeAdded()
     {
         $this->subject->initializeObject();
-        $mockFileReference = $this->getMock(
-            FileReference::class, [], [], '', false
-        );
+        $mockFileReference = $this->getMockFileReference();
         $this->subject->addImage($mockFileReference);
 
         $this->assertTrue(
@@ -438,14 +430,23 @@ class PersonTest extends UnitTestCase
     public function imageCanBeRemoved()
     {
         $this->subject->initializeObject();
-        $mockFileReference = $this->getMock(
-            FileReference::class, [], [], '', false
-        );
+        $mockFileReference = $this->getMockFileReference();
         $this->subject->addImage($mockFileReference);
         $this->subject->removeImage($mockFileReference);
 
         $this->assertFalse(
             $this->subject->getImages()->contains($mockFileReference)
         );
+    }
+
+    /**
+     * @return mixed
+     */
+    protected function getMockFileReference()
+    {
+        $mockFileReference = $this->getMockBuilder(FileReference::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        return $mockFileReference;
     }
 }

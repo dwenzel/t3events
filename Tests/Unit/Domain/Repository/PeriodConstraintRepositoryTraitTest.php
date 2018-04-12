@@ -1,4 +1,5 @@
 <?php
+
 namespace DWenzel\T3events\Tests\Unit\Domain\Repository;
 
 /***************************************************************
@@ -18,19 +19,23 @@ namespace DWenzel\T3events\Tests\Unit\Domain\Repository;
  *  GNU General Public License for more details.
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-use Nimut\TestingFramework\TestCase\UnitTestCase;
-use TYPO3\CMS\Extbase\Persistence\QueryInterface;
+use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
 use DWenzel\T3events\Domain\Model\Dto\PeriodAwareDemandInterface;
 use DWenzel\T3events\Domain\Repository\PeriodConstraintRepositoryTrait;
+use DWenzel\T3events\Tests\Unit\Domain\Model\Dto\MockDemandTrait;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
+use PHPUnit\Framework\MockObject\MockObject;
+use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 
 /**
  * Test case for class \DWenzel\T3events\Domain\Repository\PeriodConstraintRepositoryTrait.
  *
  * @author Dirk Wenzel <t3events@gmx.de>
- * @coversDefaultClass \DWenzel\T3events\Domain\Repository\PeriodConstraintRepositoryTrait
+ * @coversDefaultClass PeriodConstraintRepositoryTrait
  */
 class PeriodConstraintRepositoryTraitTest extends UnitTestCase
 {
+    use MockDemandTrait, MockQueryTrait;
     /**
      * mock start date field
      */
@@ -41,17 +46,17 @@ class PeriodConstraintRepositoryTraitTest extends UnitTestCase
     const END_DATE_FIELD = 'bar';
 
     /**
-     * @var \DWenzel\T3events\Domain\Repository\PeriodConstraintRepositoryTrait
+     * @var PeriodConstraintRepositoryTrait|MockObject
      */
     protected $subject;
 
     /**
-     * @var \TYPO3\CMS\Extbase\Persistence\QueryInterface
+     * @var QueryInterface|MockObject
      */
     protected $query;
 
     /**
-     * @var PeriodAwareDemandInterface
+     * @var PeriodAwareDemandInterface|MockObject
      */
     protected $demand;
 
@@ -63,11 +68,8 @@ class PeriodConstraintRepositoryTraitTest extends UnitTestCase
         $this->subject = $this->getMockForTrait(
             PeriodConstraintRepositoryTrait::class
         );
-        $this->query = $this->getMock(
-            QueryInterface::class, []
-        );
-        $this->demand = $this->getMock(
-            PeriodAwareDemandInterface::class,
+        $this->query = $this->getMockQuery();
+        $this->demand = $this->getMockPeriodAwareDemand(
             [
                 'getPeriod',
                 'setPeriod',
@@ -97,9 +99,7 @@ class PeriodConstraintRepositoryTraitTest extends UnitTestCase
      */
     public function createPeriodConstraintsInitiallyReturnsEmptyArray()
     {
-        $demand = $this->getMock(
-            PeriodAwareDemandInterface::class, []
-        );
+        $demand = $this->getMockPeriodAwareDemand();
         $this->assertSame(
             [],
             $this->subject->createPeriodConstraints(
@@ -163,7 +163,7 @@ class PeriodConstraintRepositoryTraitTest extends UnitTestCase
             'NOW',
             $timeZone
         );
-        $defaultStartDate->setTime(0, 0, 0);
+        $defaultStartDate->setTime(0, 0);
         $year = $defaultStartDate->format('Y');
 
         return [
@@ -205,8 +205,6 @@ class PeriodConstraintRepositoryTraitTest extends UnitTestCase
 
     /**
      * @test
-     * @param string $periodType
-     * @param \DateTime $expectedStartDate
      */
     public function createPeriodConstraintsSetsStartDateForSpecificPeriodFromDemand()
     {
@@ -239,8 +237,6 @@ class PeriodConstraintRepositoryTraitTest extends UnitTestCase
 
     /**
      * @test
-     * @param string $periodType
-     * @param \DateTime $expectedStartDate
      */
     public function createPeriodConstraintsSetsEndDateForSpecificPeriodFromDemand()
     {
@@ -290,7 +286,7 @@ class PeriodConstraintRepositoryTraitTest extends UnitTestCase
         $period = 'futureOnly';
         $timezone = new \DateTimeZone(date_default_timezone_get());
         $startDate = new \DateTime('today', $timezone);
-        $endDate = clone($startDate);
+        $endDate = clone $startDate;
 
         $this->demand->expects($this->any())
             ->method('getPeriod')
@@ -307,8 +303,8 @@ class PeriodConstraintRepositoryTraitTest extends UnitTestCase
         $this->query->expects($this->exactly(2))
             ->method('greaterThanOrEqual')
             ->withConsecutive(
-                    [self::START_DATE_FIELD, $endDate->getTimestamp()],
-                    [self::END_DATE_FIELD, $startDate->getTimestamp()]
+                [self::START_DATE_FIELD, $endDate->getTimestamp()],
+                [self::END_DATE_FIELD, $startDate->getTimestamp()]
             );
         $this->query->expects($this->once())
             ->method('logicalOr')
@@ -325,7 +321,7 @@ class PeriodConstraintRepositoryTraitTest extends UnitTestCase
         $period = 'pastOnly';
         $timezone = new \DateTimeZone(date_default_timezone_get());
         $startDate = new \DateTime('today', $timezone);
-        $endDate = clone($startDate);
+        $endDate = clone $startDate;
 
         $this->demand->expects($this->any())
             ->method('getPeriod')
@@ -399,5 +395,16 @@ class PeriodConstraintRepositoryTraitTest extends UnitTestCase
             ->with();
 
         $this->subject->createPeriodConstraints($this->query, $this->demand);
+    }
+
+    /**
+     * @param array $methods Methods to mock
+     * @return PeriodAwareDemandInterface|MockObject
+     */
+    protected function getMockPeriodAwareDemand(array $methods = [])
+    {
+        return $this->getMockBuilder(PeriodAwareDemandInterface::class)
+            ->setMethods($methods)
+            ->getMockForAbstractClass();
     }
 }

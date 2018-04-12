@@ -111,9 +111,8 @@ class DateRangeViewHelperTest extends UnitTestCase
      */
     public function initializeArgumentsRegistersArguments()
     {
-        $this->subject = $this->getMock(
-            DateRangeViewHelper::class, ['registerArgument']
-        );
+        $this->subject = $this->getMockBuilder(DateRangeViewHelper::class)
+            ->setMethods(['registerArgument'])->getMock();
 
         $this->subject->expects($this->exactly(5))
             ->method('registerArgument')

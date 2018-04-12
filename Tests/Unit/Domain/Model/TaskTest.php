@@ -1,4 +1,5 @@
 <?php
+
 namespace DWenzel\T3events\Tests\Unit\Domain\Model;
 
 /**
@@ -13,6 +14,7 @@ namespace DWenzel\T3events\Tests\Unit\Domain\Model;
  *
  * The TYPO3 project - inspiring people to share!
  */
+use DWenzel\T3events\Domain\Model\PerformanceStatus;
 use DWenzel\T3events\Domain\Model\Task;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 
@@ -30,9 +32,8 @@ class TaskTest extends UnitTestCase
 
     public function setUp()
     {
-        $this->subject = $this->getMock(
-            Task::class, ['dummy']
-        );
+        $this->subject = $this->getMockBuilder(Task::class)
+            ->setMethods(['dummy'])->getMock();
     }
 
     /**
@@ -40,8 +41,7 @@ class TaskTest extends UnitTestCase
      */
     public function getNameReturnsInitialValueForString()
     {
-        $this->assertSame(
-            null,
+        $this->assertNull(
             $this->subject->getName()
         );
     }
@@ -64,8 +64,7 @@ class TaskTest extends UnitTestCase
      */
     public function getActionReturnsInitialNull()
     {
-        $this->assertSame(
-            null,
+        $this->assertNull(
             $this->subject->getAction()
         );
     }
@@ -88,8 +87,7 @@ class TaskTest extends UnitTestCase
      */
     public function getPeriodReturnsInitialNull()
     {
-        $this->assertSame(
-            null,
+        $this->assertNull(
             $this->subject->getPeriod()
         );
     }
@@ -112,8 +110,7 @@ class TaskTest extends UnitTestCase
      */
     public function getPeriodDurationReturnsInitialNull()
     {
-        $this->assertSame(
-            null,
+        $this->assertNull(
             $this->subject->getPeriodDuration()
         );
     }
@@ -136,8 +133,7 @@ class TaskTest extends UnitTestCase
      */
     public function getOldStatusReturnsInitialNull()
     {
-        $this->assertSame(
-            null,
+        $this->assertNull(
             $this->subject->getOldStatus()
         );
     }
@@ -147,7 +143,7 @@ class TaskTest extends UnitTestCase
      */
     public function setOldStatusForPerformanceStatusSetsOldStatus()
     {
-        $status = new \DWenzel\T3events\Domain\Model\PerformanceStatus();
+        $status = new PerformanceStatus();
         $this->subject->setOldStatus($status);
 
         $this->assertSame(
@@ -161,8 +157,7 @@ class TaskTest extends UnitTestCase
      */
     public function getNewStatusReturnsInitialNull()
     {
-        $this->assertSame(
-            null,
+        $this->assertNull(
             $this->subject->getNewStatus()
         );
     }
@@ -172,7 +167,7 @@ class TaskTest extends UnitTestCase
      */
     public function setNewStatusForPerformanceStatusSetsNewStatus()
     {
-        $status = new \DWenzel\T3events\Domain\Model\PerformanceStatus();
+        $status = new PerformanceStatus();
         $this->subject->setNewStatus($status);
 
         $this->assertSame(
@@ -186,8 +181,7 @@ class TaskTest extends UnitTestCase
      */
     public function getFolderReturnsInitialNull()
     {
-        $this->assertSame(
-            null,
+        $this->assertNull(
             $this->subject->getFolder()
         );
     }

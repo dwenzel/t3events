@@ -1,13 +1,15 @@
 <?php
+
 namespace DWenzel\T3events\Tests\Resource;
 
 use DWenzel\T3events\Resource\ResourceFactory;
+use DWenzel\T3events\Tests\Unit\Object\MockObjectManagerTrait;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
+use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Core\Resource\File;
 use TYPO3\CMS\Core\Resource\FileInterface;
 use TYPO3\CMS\Core\Resource\FileReference;
 use TYPO3\CMS\Core\Resource\Folder;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 /***************************************************************
  *
@@ -35,8 +37,10 @@ use TYPO3\CMS\Extbase\Object\ObjectManager;
  ***************************************************************/
 class ResourceFactoryTest extends UnitTestCase
 {
+    use MockObjectManagerTrait;
+
     /**
-     * @var \DWenzel\T3events\Resource\ResourceFactory
+     * @var ResourceFactory
      */
     protected $subject;
 
@@ -46,8 +50,10 @@ class ResourceFactoryTest extends UnitTestCase
     public function setUp()
     {
         $this->subject = $this->getAccessibleMock(
-            \DWenzel\T3events\Resource\ResourceFactory::class, ['dummy']
+            ResourceFactory::class, ['dummy']
         );
+        $this->objectManager = $this->getMockObjectManager();
+        $this->subject->injectObjectManager($this->objectManager);
     }
 
     /**
@@ -71,9 +77,9 @@ class ResourceFactoryTest extends UnitTestCase
         $this->subject = $this->getAccessibleMock(
             ResourceFactory::class, ['retrieveFileOrFolderObject']
         );
-        $mockFolder = $this->getMock(
-            Folder::class, [], [], '', false
-        );
+        $mockFolder = $this->getMockBuilder(Folder::class)
+            ->disableOriginalConstructor()
+            ->getMock();
         $this->subject->expects($this->once())
             ->method('retrieveFileOrFolderObject')
             ->will($this->returnValue($mockFolder));
@@ -90,9 +96,8 @@ class ResourceFactoryTest extends UnitTestCase
         $this->subject = $this->getAccessibleMock(
             ResourceFactory::class, ['retrieveFileOrFolderObject']
         );
-        $mockFile = $this->getMock(
-            FileInterface::class, [], [], '', false
-        );
+        $mockFile = $this->getMockBuilder(FileInterface::class)
+            ->getMock();
         $this->subject->expects($this->once())
             ->method('retrieveFileOrFolderObject')
             ->will($this->returnValue($mockFile));
@@ -108,23 +113,25 @@ class ResourceFactoryTest extends UnitTestCase
     public function createFileReferenceFromFileObjectCreatesObject()
     {
         $this->subject = $this->getAccessibleMock(
-            \DWenzel\T3events\Resource\ResourceFactory::class, ['createFileReferenceObject']
+            ResourceFactory::class, ['createFileReferenceObject']
         );
-        $mockCoreFileReference = $this->getMock(
-            FileReference::class, [], [], '', false
-        );
-        $mockExtbaseFileReference = $this->getMock(
-            \TYPO3\CMS\Extbase\Domain\Model\FileReference::class,
-            ['setOriginalResource'], [], '', false
-        );
-        $mockFileObject = $this->getMock(
-            File::class, [], [], '', false
-        );
+        $this->subject->injectObjectManager($this->objectManager);
+        /** @var FileReference|MockObject $mockCoreFileReference */
+        $mockCoreFileReference = $this->getMockBuilder(FileReference::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $mockExtbaseFileReference = $this->getMockBuilder(
+            \TYPO3\CMS\Extbase\Domain\Model\FileReference::class)
+            ->setMethods(['setOriginalResource'])
+            ->getMock();
+        /** @var File|MockObject $mockFileObject */
+        $mockFileObject = $this->getMockBuilder(File::class)
+            ->disableOriginalConstructor()
+            ->getMock();
         $this->subject->expects($this->once())
             ->method('createFileReferenceObject')
             ->will($this->returnValue($mockCoreFileReference));
-        $mockObjectManager = $this->mockObjectManager();
-        $mockObjectManager->expects($this->once())
+        $this->objectManager->expects($this->once())
             ->method('get')
             ->with(\TYPO3\CMS\Extbase\Domain\Model\FileReference::class)
             ->will($this->returnValue($mockExtbaseFileReference));
@@ -133,18 +140,5 @@ class ResourceFactoryTest extends UnitTestCase
             $mockExtbaseFileReference,
             $this->subject->createFileReferenceFromFileObject($mockFileObject)
         );
-    }
-
-    /**
-     * @return mixed
-     */
-    protected function mockObjectManager()
-    {
-        $mockObjectManager = $this->getMock(
-            ObjectManager::class
-        );
-        $this->subject->injectObjectManager($mockObjectManager);
-
-        return $mockObjectManager;
     }
 }

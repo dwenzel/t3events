@@ -20,17 +20,18 @@ use DWenzel\T3events\Domain\Model\EventLocation;
 use DWenzel\T3events\Domain\Model\Performance;
 use DWenzel\T3events\ViewHelpers\Location\CountViewHelper;
 use DWenzel\T3events\ViewHelpers\Location\UniqueViewHelper;
+use Nimut\TestingFramework\MockObject\AccessibleMockObjectInterface;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /**
  * Class CountTest
- * @package DWenzel\T3events\Tests\ViewHelpers\Location
  */
 class UniqueViewHelperTest extends UnitTestCase
 {
     /**
-     * @var CountViewHelper|\PHPUnit_Framework_MockObject_MockObject|\TYPO3\CMS\Core\Tests\AccessibleObjectInterface
+     * @var CountViewHelper|MockObject|AccessibleMockObjectInterface
      */
     protected $subject;
 
@@ -69,8 +70,9 @@ class UniqueViewHelperTest extends UnitTestCase
         ];
         foreach ($cases as $case) {
             $uniqueIds = array_unique($case);
-            $uniqueCount = count($uniqueIds);
-            $event = $this->getMock(Event::class, ['getPerformances']);
+            $uniqueCount = \count($uniqueIds);
+            $event = $this->getMockBuilder(Event::class)
+                ->setMethods(['getPerformances'])->getMock();
             $performanceStorage = new ObjectStorage();
 
             foreach ($case as $location) {

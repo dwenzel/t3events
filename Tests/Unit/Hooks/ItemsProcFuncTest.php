@@ -1,4 +1,5 @@
 <?php
+
 namespace DWenzel\T3events\Tests\Unit\Hooks;
 
 /**
@@ -45,9 +46,8 @@ class ItemsProcFuncTest extends UnitTestCase
             ItemsProcFunc::class, ['dummy', 'getLanguageService'], [], '', false
         );
 
-        $this->templateLayoutUtility = $this->getMock(
-            TemplateLayoutUtility::class, ['getLayouts']
-        );
+        $this->templateLayoutUtility = $this->getMockBuilder(TemplateLayoutUtility::class)
+            ->setMethods(['getLayouts'])->getMock();
         $this->inject(
             $this->subject,
             'templateLayoutUtility',
@@ -61,6 +61,7 @@ class ItemsProcFuncTest extends UnitTestCase
     public function constructorSetsTemplateLayoutUtility()
     {
         unset($this->templateLayoutUtility);
+        /** @noinspection ImplicitMagicMethodCallInspection */
         $this->subject->__construct();
 
         $this->assertAttributeInstanceOf(
@@ -88,7 +89,7 @@ class ItemsProcFuncTest extends UnitTestCase
     /**
      * @test
      */
-    public function user_templatLayoutGetsPidFromConfigRow()
+    public function user_templateLayoutGetsPidFromConfigRow()
     {
         $extensionKey = ItemsProcFunc::EXTENSION_KEY;
         $pageId = 1;
@@ -108,7 +109,7 @@ class ItemsProcFuncTest extends UnitTestCase
     /**
      * @test
      */
-    public function user_templatLayoutGetsPidFromConfigFlexParentDatabaseRow()
+    public function user_templateLayoutGetsPidFromConfigFlexParentDatabaseRow()
     {
         $extensionKey = ItemsProcFunc::EXTENSION_KEY;
         $pageId = 1;
@@ -130,9 +131,9 @@ class ItemsProcFuncTest extends UnitTestCase
      */
     public function user_templateLayoutAddsItemsToConfig()
     {
-        $mockLanguageService = $this->getMock(
-            LanguageService::class, ['sL'], [], '', false
-        );
+        $mockLanguageService = $this->getMockBuilder(LanguageService::class)
+            ->disableOriginalConstructor()
+            ->setMethods(['sL'])->getMock();
         $extensionKey = ItemsProcFunc::EXTENSION_KEY;
         $title = 'foo';
         $templateName = 'bar';

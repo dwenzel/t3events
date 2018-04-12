@@ -54,6 +54,7 @@ class OrganizerTest extends \Nimut\TestingFramework\TestCase\UnitTestCase
      */
     public function getNameReturnsInitialValueForString()
     {
+        $this->assertNull($this->fixture->getName());
     }
 
     /**
@@ -74,6 +75,7 @@ class OrganizerTest extends \Nimut\TestingFramework\TestCase\UnitTestCase
      */
     public function getLinkReturnsInitialValueForString()
     {
+        $this->assertNull($this->fixture->getLink());
     }
 
     /**

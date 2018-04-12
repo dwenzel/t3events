@@ -1,9 +1,11 @@
 <?php
+
 namespace DWenzel\T3events\Tests\Unit\DataProvider\Legend;
 
-use Nimut\TestingFramework\TestCase\UnitTestCase;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use DWenzel\T3events\DataProvider\Legend\AbstractPeriodDataProvider;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
+use PHPUnit\Framework\MockObject\MockObject;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /***************************************************************
  *  Copyright notice
@@ -25,7 +27,7 @@ use DWenzel\T3events\DataProvider\Legend\AbstractPeriodDataProvider;
 class AbstractPeriodDataProviderTest extends UnitTestCase
 {
     /**
-     * @var \DWenzel\T3events\DataProvider\Legend\AbstractPeriodDataProvider
+     * @var AbstractPeriodDataProvider
      */
     protected $subject;
 
@@ -34,9 +36,7 @@ class AbstractPeriodDataProviderTest extends UnitTestCase
      */
     public function setUp()
     {
-        $this->subject = $this->getAccessibleMockForAbstractClass(
-            \DWenzel\T3events\DataProvider\Legend\AbstractPeriodDataProvider::class
-        );
+        $this->subject = $this->getAccessibleMockForAbstractClass(AbstractPeriodDataProvider::class);
     }
 
     /**
@@ -56,6 +56,7 @@ class AbstractPeriodDataProviderTest extends UnitTestCase
      */
     public function constructorSetsRespectEndDate()
     {
+        /** @noinspection ImplicitMagicMethodCallInspection */
         $this->subject->__construct(true);
         $this->assertAttributeSame(
             true,
@@ -81,7 +82,7 @@ class AbstractPeriodDataProviderTest extends UnitTestCase
      */
     public function getVisibleLayerIdsReturnsInitialValue()
     {
-        $expectedLayerIds = GeneralUtility::trimExplode(',', \DWenzel\T3events\DataProvider\Legend\AbstractPeriodDataProvider::VISIBLE_LAYERS, true);
+        $expectedLayerIds = GeneralUtility::trimExplode(',', AbstractPeriodDataProvider::VISIBLE_LAYERS, true);
         $this->assertSame(
             $expectedLayerIds,
             $this->subject->getVisibleLayerIds()
@@ -95,13 +96,14 @@ class AbstractPeriodDataProviderTest extends UnitTestCase
     {
         $allLayers = ['foo', 'bar'];
         $layersToHide = ['foo'];
-        $layersToShow = [ 'baz'];
+        $layersToShow = ['baz'];
         $expectedLayers = ['bar', 'baz'];
 
-        $this->subject = $this->getMock(
-            AbstractPeriodDataProvider::class, ['getLayerIds']
-        );
+        /** @var AbstractPeriodDataProvider|MockObject subject */
+        $this->subject = $this->getMockBuilder(AbstractPeriodDataProvider::class)
+            ->setMethods(['getLayerIds'])->getMockForAbstractClass();
 
+        /** @noinspection ImplicitMagicMethodCallInspection */
         $this->subject->__construct(true);
         $this->subject->expects($this->exactly(3))
             ->method('getLayerIds')

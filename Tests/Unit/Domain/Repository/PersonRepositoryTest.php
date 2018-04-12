@@ -1,4 +1,5 @@
 <?php
+
 namespace DWenzel\T3events\Tests\Unit\Domain\Repository;
 
 /***************************************************************
@@ -19,22 +20,23 @@ namespace DWenzel\T3events\Tests\Unit\Domain\Repository;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use TYPO3\CMS\Extbase\Persistence\QueryInterface;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
-use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
 use DWenzel\T3events\Domain\Repository\PersonRepository;
+use DWenzel\T3events\Tests\Unit\Domain\Model\Dto\MockDemandTrait;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
+use PHPUnit\Framework\MockObject\MockObject;
 
 /**
  * Test case for class \DWenzel\T3events\Domain\Repository\PersonRepository.
  *
  * @author Dirk Wenzel <dirk.wenzel@cps-it.de>
- * @coversDefaultClass \DWenzel\T3events\Domain\Repository\PersonRepository
+ * @coversDefaultClass PersonRepository
  */
 class PersonRepositoryTest extends UnitTestCase
 {
+    use MockQueryTrait, MockDemandTrait;
 
     /**
-     * @var \DWenzel\T3events\Domain\Repository\PersonRepository
+     * @var PersonRepository|MockObject
      */
     protected $fixture;
 
@@ -51,8 +53,8 @@ class PersonRepositoryTest extends UnitTestCase
      */
     public function createConstraintsFromDemandInitiallyReturnsEmptyArray()
     {
-        $demand = $this->getMock(DemandInterface::class);
-        $query = $this->getMock(QueryInterface::class, [], [], '', false);
+        $demand = $this->getMockDemand();
+        $query = $this->getMockQuery();
 
         $this->assertEquals(
             [],
