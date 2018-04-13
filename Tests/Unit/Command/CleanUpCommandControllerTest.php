@@ -31,6 +31,7 @@ use DWenzel\T3events\Domain\Repository\EventRepository;
 use DWenzel\T3events\Domain\Repository\PerformanceRepository;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
 /**
@@ -126,6 +127,9 @@ class CleanUpCommandControllerTest extends UnitTestCase
             'limit' => 1000
         ];
 
+        $mockQueryResult = $this->getMockBuilder(QueryResultInterface::class)
+            ->getMock();
+
         /** @var EventDemand|\PHPUnit_Framework_MockObject_MockObject $mockEventDemand */
         $mockEventDemand = $this->getMockBuilder(EventDemand::class)->getMock();
         $mockPerformanceDemand = $this->getMockBuilder(PerformanceDemand::class)->getMock();
@@ -134,11 +138,12 @@ class CleanUpCommandControllerTest extends UnitTestCase
             ->method('createFromSettings')
             ->will($this->returnValue($mockPerformanceDemand));
 
-        $this->mockEventRepository();
+        $mockEventRepository = $this->mockEventRepository();
+        $mockEventRepository->method('findDemanded')
+            ->willReturn($mockQueryResult);
+
         $mockPerformanceRepository = $this->mockPerformanceRepository();
         /** @var QueryResultInterface|MockObject $mockQueryResult */
-        $mockQueryResult = $this->getMockBuilder(QueryResultInterface::class)
-            ->getMock();
         $mockPerformanceRepository->method('findDemanded')
             ->willReturn($mockQueryResult);
 
@@ -168,7 +173,9 @@ class CleanUpCommandControllerTest extends UnitTestCase
             ->getMock();
         $mockPerformanceRepository->method('findDemanded')
             ->willReturn($mockQueryResult);
-        $this->mockEventRepository();
+        $mockEventRepository = $this->mockEventRepository();
+        $mockEventRepository->method('findDemanded')
+            ->willReturn($mockQueryResult);
 
         $period = 'specific';
         $date = 'now';
@@ -199,7 +206,12 @@ class CleanUpCommandControllerTest extends UnitTestCase
     {
         $mockEventDemand = $this->getMockBuilder(EventDemand::class)->getMock();
         $this->mockPerformanceDemandFactory();
-        $this->mockPerformanceRepository();
+        $mockPerformanceRepository = $this->mockPerformanceRepository();
+        /** @var QueryResultInterface|MockObject $mockQueryResult */
+        $mockQueryResult = $this->getMockBuilder(QueryResultInterface::class)
+            ->getMock();
+        $mockPerformanceRepository->method('findDemanded')
+            ->willReturn($mockQueryResult);
 
         $eventDemandFactory = $this->mockEventDemandFactory();
         $eventDemandFactory->expects($this->once())
@@ -248,8 +260,11 @@ class CleanUpCommandControllerTest extends UnitTestCase
             ->method('createFromSettings')
             ->will($this->returnValue($mockPerformanceDemand));
 
+        $mockObjectStorage = $this->getMockBuilder(ObjectStorage::class)
+            ->getMock();
         $mockEvent = $this->getMockBuilder(Event::class)
             ->setMethods(['getPerformances'])->getMock();
+        $mockEvent->method('getPerformances')->willReturn($mockObjectStorage);
         $mockEventRepository = $this->mockEventRepository();
         $mockEventRepository->expects($this->once())
             ->method('findDemanded')
@@ -370,7 +385,12 @@ class CleanUpCommandControllerTest extends UnitTestCase
             ->will($this->returnValue($mockPerformanceDemand));
 
         $this->mockEventRepository();
-        $this->mockPerformanceRepository();
+        $mockPerformanceRepository = $this->mockPerformanceRepository();
+        /** @var QueryResultInterface|MockObject $mockQueryResult */
+        $mockQueryResult = $this->getMockBuilder(QueryResultInterface::class)
+            ->getMock();
+        $mockPerformanceRepository->method('findDemanded')
+            ->willReturn($mockQueryResult);
 
         $this->subject->deletePerformancesCommand();
     }
@@ -400,7 +420,12 @@ class CleanUpCommandControllerTest extends UnitTestCase
             ->method('createFromSettings')
             ->with($settings)
             ->will($this->returnValue($mockPerformanceDemand));
-        $this->mockPerformanceRepository();
+        $mockPerformanceRepository = $this->mockPerformanceRepository();
+        /** @var QueryResultInterface|MockObject $mockQueryResult */
+        $mockQueryResult = $this->getMockBuilder(QueryResultInterface::class)
+            ->getMock();
+        $mockPerformanceRepository->method('findDemanded')
+            ->willReturn($mockQueryResult);
 
         $this->subject->deletePerformancesCommand(true, $period, $date, $storagePages, $limit);
     }
@@ -418,10 +443,14 @@ class CleanUpCommandControllerTest extends UnitTestCase
             ->will($this->returnValue($mockPerformanceDemand));
 
         $mockPerformanceRepository = $this->mockPerformanceRepository();
+        /** @var QueryResultInterface|MockObject $mockQueryResult */
+        $mockQueryResult = $this->getMockBuilder(QueryResultInterface::class)
+            ->getMock();
 
         $mockPerformanceRepository->expects($this->once())
             ->method('findDemanded')
-            ->with($mockPerformanceDemand);
+            ->with($mockPerformanceDemand)
+            ->willReturn($mockQueryResult);
 
         $this->subject->deletePerformancesCommand();
     }

@@ -23,8 +23,10 @@ use DWenzel\T3events\Domain\Model\Dto\ModuleData;
 use DWenzel\T3events\Domain\Repository\EventRepository;
 use Nimut\TestingFramework\MockObject\AccessibleMockObjectInterface;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
 /**
  * Class EventControllerTest
@@ -56,6 +58,11 @@ class EventControllerTest extends UnitTestCase
     protected $eventDemand;
 
     /**
+     * @var QueryResultInterface|MockObject
+     */
+    protected $queryResult;
+
+    /**
      * set up
      */
     public function setUp()
@@ -67,10 +74,12 @@ class EventControllerTest extends UnitTestCase
         $this->view = $this->getMockForAbstractClass(
             ViewInterface::class
         );
+        $this->queryResult = $this->getMockBuilder(QueryResultInterface::class)->getMockForAbstractClass();
         $this->moduleData = $this->getMockBuilder(ModuleData::class)->getMock();
         /** @var EventRepository|\PHPUnit_Framework_MockObject_MockObject $mockEventRepository */
         $mockEventRepository = $this->getMockBuilder(EventRepository::class)
             ->disableOriginalConstructor()->getMock();
+        $mockEventRepository->method('findDemanded')->willReturn($this->queryResult);
         /** @var ConfigurationManagerInterface|\PHPUnit_Framework_MockObject_MockObject $mockConfigurationManager */
         $mockConfigurationManager = $this->getMockForAbstractClass(ConfigurationManagerInterface::class);
         /** @var EventDemandFactory|\PHPUnit_Framework_MockObject_MockObject $mockDemandFactory */

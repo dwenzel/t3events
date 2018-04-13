@@ -201,6 +201,10 @@ XML;
      */
     public function performUpdateInitiallyReturnsFalse()
     {
+        $versionNumber = VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version);
+        if ($versionNumber >= 8000000) {
+            $this->markTestSkipped();
+        }
         $dbQueries = [];
         $customMessages = '';
         $this->assertFalse(

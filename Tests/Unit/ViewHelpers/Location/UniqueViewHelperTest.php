@@ -68,6 +68,7 @@ class UniqueViewHelperTest extends UnitTestCase
             // three locations
             [$locationA, $locationB, $locationC],
         ];
+
         foreach ($cases as $case) {
             $uniqueIds = array_unique($case);
             $uniqueCount = \count($uniqueIds);
@@ -120,9 +121,15 @@ class UniqueViewHelperTest extends UnitTestCase
     public function renderReturnsCorrectLocationCount($event, $expectedResult)
     {
         $this->subject->setArguments(['event' => $event]);
-        $this->assertEquals(
-            $expectedResult,
-            count($this->subject->render())
-        );
+        if ($expectedResult > 0) {
+            $this->assertCount(
+                $expectedResult,
+                $this->subject->render()
+            );
+        } else {
+            $this->assertNull(
+                $this->subject->render()
+            );
+        }
     }
 }

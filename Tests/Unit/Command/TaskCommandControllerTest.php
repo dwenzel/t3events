@@ -21,7 +21,9 @@ use DWenzel\T3events\Domain\Model\Task;
 use DWenzel\T3events\Domain\Repository\PerformanceRepository;
 use DWenzel\T3events\Domain\Repository\TaskRepository;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
 /**
  * Class TaskCommandControllerTest
@@ -56,6 +58,11 @@ class TaskCommandControllerTest extends UnitTestCase
     protected $persistenceManager;
 
     /**
+     * @var QueryResultInterface|MockObject
+     */
+    protected $queryResult;
+
+    /**
      * set up the subject
      */
     public function setUp()
@@ -63,6 +70,8 @@ class TaskCommandControllerTest extends UnitTestCase
         $this->subject = $this->getAccessibleMock(
             TaskCommandController::class, ['dummy']
         );
+        $this->queryResult = $this->getMockBuilder(QueryResultInterface::class)
+            ->getMockForAbstractClass();
         $this->mockTaskRepository();
         $this->mockPerformanceDemandFactory();
         $this->mockPerformanceRepository();
@@ -111,12 +120,12 @@ class TaskCommandControllerTest extends UnitTestCase
     protected function mockTaskRepository(array $methods = ['findDemanded', 'findByAction'])
     {
         /** @var TaskRepository|\PHPUnit_Framework_MockObject_MockObject $mockTaskRepository */
-        $mockTaskRepository = $this->getMockBuilder(TaskRepository::class)
+        $this->taskRepository = $this->getMockBuilder(TaskRepository::class)
             ->disableOriginalConstructor()
             ->setMethods($methods)
             ->getMock();
-        $this->subject->injectTaskRepository($mockTaskRepository);
-        $this->taskRepository = $mockTaskRepository;
+         $this->subject->injectTaskRepository($this->taskRepository);
+
 
         return $mockTaskRepository;
     }
@@ -128,7 +137,8 @@ class TaskCommandControllerTest extends UnitTestCase
     {
         $this->taskRepository->expects($this->once())
             ->method('findByAction')
-            ->with(Task::ACTION_UPDATE_STATUS);
+            ->with(Task::ACTION_UPDATE_STATUS)
+            ->willReturn($this->queryResult);
         $this->subject->updateStatusCommand();
     }
 
@@ -145,6 +155,7 @@ class TaskCommandControllerTest extends UnitTestCase
         $this->taskRepository->expects($this->once())
             ->method('findByAction')
             ->will($this->returnValue($mockResult));
+        $this->performanceRepository->method('findDemanded')->willReturn($this->queryResult);
 
         $this->performanceDemandFactory->expects($this->once())
             ->method('createFromSettings')
@@ -166,6 +177,7 @@ class TaskCommandControllerTest extends UnitTestCase
         $mockTask = $this->getMockTask(['getOldStatus']);
         $mockResult = [$mockTask];
         $mockDemand = $this->getMockPerformanceDemand();
+        $this->performanceRepository->method('findDemanded')->willReturn($this->queryResult);
 
         $this->taskRepository->expects($this->once())
             ->method('findByAction')
@@ -197,6 +209,7 @@ class TaskCommandControllerTest extends UnitTestCase
         $mockTask = $this->getMockTask(['getFolder']);
         $mockResult = [$mockTask];
         $mockDemand = $this->getMockPerformanceDemand();
+        $this->performanceRepository->method('findDemanded')->willReturn($this->queryResult);
 
         $this->taskRepository->expects($this->once())
             ->method('findByAction')
@@ -225,6 +238,7 @@ class TaskCommandControllerTest extends UnitTestCase
         $mockTask = $this->getMockTask(['getPeriod']);
         $mockResult = [$mockTask];
         $mockDemand = $this->getMockPerformanceDemand();
+        $this->performanceRepository->method('findDemanded')->willReturn($this->queryResult);
 
         $this->taskRepository->expects($this->once())
             ->method('findByAction')
@@ -253,6 +267,7 @@ class TaskCommandControllerTest extends UnitTestCase
         $mockTask = $this->getMockTask(['getPeriodDuration']);
         $mockResult = [$mockTask];
         $mockDemand = $this->getMockPerformanceDemand();
+        $this->performanceRepository->method('findDemanded')->willReturn($this->queryResult);
 
         $this->taskRepository->expects($this->once())
             ->method('findByAction')
@@ -278,6 +293,7 @@ class TaskCommandControllerTest extends UnitTestCase
         $mockTask = $this->getMockTask();
         $mockResult = [$mockTask];
         $mockDemand = $this->getMockPerformanceDemand();
+        $this->performanceRepository->method('findDemanded')->willReturn($this->queryResult);
         $this->taskRepository->expects($this->once())
             ->method('findByAction')
             ->will($this->returnValue($mockResult));
@@ -336,6 +352,7 @@ class TaskCommandControllerTest extends UnitTestCase
         $mockTask = $this->getMockTask();
         $mockResult = [$mockTask];
         $mockDemand = $this->getMockPerformanceDemand();
+        $this->performanceRepository->method('findDemanded')->willReturn($this->queryResult);
         $this->taskRepository->expects($this->once())
             ->method('findByAction')
             ->will($this->returnValue($mockResult));

@@ -335,7 +335,7 @@ class AbstractDemandedRepositoryTest extends UnitTestCase
             array('dummy', 'createConstraintsFromDemand'), array(), '', false);
         $constraints = array();
         $mockQuery = $this->getMockQuery(['logicalAnd']);
-        $additionalConstraint = $this->getMockConstraint();
+        $additionalConstraint = [$this->getMockConstraint()];
 
         $mockQuery->expects($this->once())
             ->method('logicalAnd')
@@ -359,7 +359,7 @@ class AbstractDemandedRepositoryTest extends UnitTestCase
         $constraints = array();
         $conjunction = 'or';
         $mockQuery = $this->getMockQuery(['logicalOr']);
-        $additionalConstraint = $this->getMockConstraint();
+        $additionalConstraint = [$this->getMockConstraint()];
 
         $mockQuery->expects($this->once())
             ->method('logicalOr')
