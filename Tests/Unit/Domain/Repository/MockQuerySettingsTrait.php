@@ -35,11 +35,14 @@ trait MockQuerySettingsTrait
     abstract public function getMockBuilder($className);
 
     /**
+     * @param array $methods Methods to mock
      * @return QuerySettingsInterface|MockObject
      */
-    protected function getMockQuerySettings()
+    protected function getMockQuerySettings(array $methods = [])
     {
-        return $this->getMockBuilder(QuerySettingsInterface::class)->getMockForAbstractClass();
+        return $this->getMockBuilder(QuerySettingsInterface::class)
+            ->setMethods($methods)
+            ->getMockForAbstractClass();
     }
 
 }
