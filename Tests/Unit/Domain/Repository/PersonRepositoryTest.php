@@ -29,7 +29,6 @@ use PHPUnit\Framework\MockObject\MockObject;
  * Test case for class \DWenzel\T3events\Domain\Repository\PersonRepository.
  *
  * @author Dirk Wenzel <dirk.wenzel@cps-it.de>
- * @coversDefaultClass PersonRepository
  */
 class PersonRepositoryTest extends UnitTestCase
 {
@@ -49,7 +48,6 @@ class PersonRepositoryTest extends UnitTestCase
 
     /**
      * @test
-     * @covers ::createConstraintsFromDemand
      */
     public function createConstraintsFromDemandInitiallyReturnsEmptyArray()
     {

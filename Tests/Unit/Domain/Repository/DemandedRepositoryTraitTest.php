@@ -13,25 +13,19 @@ namespace DWenzel\T3events\Tests\Unit\Domain\Repository;
  */
 
 use DWenzel\T3events\Domain\Model\Dto\AbstractDemand;
-use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
 use DWenzel\T3events\Domain\Repository\AbstractDemandedRepository;
 use DWenzel\T3events\Domain\Repository\DemandedRepositoryTrait;
 use DWenzel\T3events\Tests\Unit\Domain\Model\Dto\MockDemandTrait;
-use DWenzel\T3events\UnsupportedMethodException;
 use Nimut\TestingFramework\MockObject\AccessibleMockObjectInterface;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Persistence\Generic\Qom\ConstraintInterface;
 use TYPO3\CMS\Extbase\Persistence\Generic\Query;
-use TYPO3\CMS\Extbase\Persistence\Generic\QuerySettingsInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
 /**
  * Class DemandedRepositoryTraitTest
- *
- * @package DWenzel\T3events\Tests\Unit\Domain\Repository
  */
 class DemandedRepositoryTraitTest extends UnitTestCase
 {
@@ -91,7 +85,6 @@ class DemandedRepositoryTraitTest extends UnitTestCase
 
     /**
      * @test
-     * @covers ::generateQuery
      */
     public function generateQuerySetsLimitFromDemand()
     {
@@ -121,7 +114,6 @@ class DemandedRepositoryTraitTest extends UnitTestCase
 
     /**
      * @test
-     * @covers ::generateQuery
      */
     public function generateQuerySetsStoragePageIdsFromDemand()
     {

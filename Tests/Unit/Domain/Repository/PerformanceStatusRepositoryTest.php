@@ -20,18 +20,13 @@ namespace DWenzel\T3events\Tests\Unit\Domain\Repository;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
 use DWenzel\T3events\Domain\Repository\PerformanceStatusRepository;
 use DWenzel\T3events\Tests\Unit\Domain\Model\Dto\MockDemandTrait;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
-use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 
 /**
  * Test case for class \DWenzel\T3events\Domain\Repository\PerformanceStatusRepository.
- *
- * @author Erik Rauchstein <erik.rauchstein@cps-it.de>
- * @coversDefaultClass PerformanceStatusRepository
  */
 class PerformanceStatusRepositoryTest extends UnitTestCase
 {
@@ -52,7 +47,6 @@ class PerformanceStatusRepositoryTest extends UnitTestCase
 
     /**
      * @test
-     * @covers ::createConstraintsFromDemand
      */
     public function createConstraintsFromDemandInitiallyReturnsEmptyArray()
     {

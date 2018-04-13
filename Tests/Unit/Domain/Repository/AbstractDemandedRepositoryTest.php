@@ -57,7 +57,6 @@ class AbstractDemandedRepositoryTest extends UnitTestCase
 
     /**
      * @test
-     * @covers ::createOrderingsFromDemand
      */
     public function createOrderingsFromDemandReturnsInitiallyEmptyArray()
     {
@@ -71,7 +70,6 @@ class AbstractDemandedRepositoryTest extends UnitTestCase
 
     /**
      * @test
-     * @covers ::createOrderingsFromDemand
      */
     public function createOrderingsFromDemandReturnsEmptyArrayForEmptyOrderList()
     {
@@ -90,7 +88,6 @@ class AbstractDemandedRepositoryTest extends UnitTestCase
 
     /**
      * @test
-     * @covers ::createOrderingsFromDemand
      */
     public function createOrderingsFromDemandReturnsOrderingsForFieldWithoutOrder()
     {
@@ -112,7 +109,6 @@ class AbstractDemandedRepositoryTest extends UnitTestCase
 
     /**
      * @test
-     * @covers ::createOrderingsFromDemand
      */
     public function createOrderingsFromDemandReturnsOrderingsForFieldWithDescendingOrder()
     {
@@ -134,7 +130,6 @@ class AbstractDemandedRepositoryTest extends UnitTestCase
 
     /**
      * @test
-     * @covers ::createOrderingsFromDemand
      */
     public function createOrderingsFromDemandReturnsOrderingsForMultipleFieldsWithDifferentOrder()
     {
@@ -157,7 +152,6 @@ class AbstractDemandedRepositoryTest extends UnitTestCase
 
     /**
      * @test
-     * @covers ::findDemanded
      */
     public function findDemandedGeneratesAndExecutesQuery()
     {
@@ -187,7 +181,6 @@ class AbstractDemandedRepositoryTest extends UnitTestCase
 
     /**
      * @test
-     * @covers ::generateQuery
      */
     public function generateQueryCreatesQueryAndConstraints()
     {
@@ -217,7 +210,6 @@ class AbstractDemandedRepositoryTest extends UnitTestCase
 
     /**
      * @test
-     * @covers ::generateQuery
      */
     public function generateQueryReturnsQueryMatchingConstraints()
     {
@@ -250,7 +242,6 @@ class AbstractDemandedRepositoryTest extends UnitTestCase
 
     /**
      * @test
-     * @covers ::generateQuery
      */
     public function generateQuerySetsOrderings()
     {
@@ -278,7 +269,6 @@ class AbstractDemandedRepositoryTest extends UnitTestCase
 
     /**
      * @test
-     * @covers ::generateQuery
      */
     public function generateQuerySetsIgnoreEnableFields()
     {
@@ -310,7 +300,6 @@ class AbstractDemandedRepositoryTest extends UnitTestCase
 
     /**
      * @test
-     * @covers ::generateQuery
      */
     public function generateQuerySetsOffsetFromDemand()
     {
@@ -338,7 +327,6 @@ class AbstractDemandedRepositoryTest extends UnitTestCase
 
     /**
      * @test
-     * @covers ::combineConstraints
      */
     public function combineConstraintsInitiallyCombinesLogicalAnd()
     {
@@ -362,7 +350,6 @@ class AbstractDemandedRepositoryTest extends UnitTestCase
 
     /**
      * @test
-     * @covers ::combineConstraints
      */
     public function combineConstraintsCombinesLogicalOr()
     {
@@ -388,7 +375,6 @@ class AbstractDemandedRepositoryTest extends UnitTestCase
 
     /**
      * @test
-     * @covers ::combineConstraints
      */
     public function combineConstraintsCombinesLogicalNotAnd()
     {
@@ -419,7 +405,6 @@ class AbstractDemandedRepositoryTest extends UnitTestCase
 
     /**
      * @test
-     * @covers ::combineConstraints
      */
     public function combineConstraintsCombinesLogicalNotOr()
     {

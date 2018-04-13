@@ -19,7 +19,6 @@ namespace DWenzel\T3events\Tests\Unit\Domain\Repository;
  *  GNU General Public License for more details.
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
 use DWenzel\T3events\Domain\Model\Dto\PeriodAwareDemandInterface;
 use DWenzel\T3events\Domain\Repository\PeriodConstraintRepositoryTrait;
 use DWenzel\T3events\Tests\Unit\Domain\Model\Dto\MockDemandTrait;
@@ -29,9 +28,6 @@ use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 
 /**
  * Test case for class \DWenzel\T3events\Domain\Repository\PeriodConstraintRepositoryTrait.
- *
- * @author Dirk Wenzel <t3events@gmx.de>
- * @coversDefaultClass PeriodConstraintRepositoryTrait
  */
 class PeriodConstraintRepositoryTraitTest extends UnitTestCase
 {
@@ -95,7 +91,6 @@ class PeriodConstraintRepositoryTraitTest extends UnitTestCase
 
     /**
      * @test
-     * @covers ::createPeriodConstraints
      */
     public function createPeriodConstraintsInitiallyReturnsEmptyArray()
     {
