@@ -36,7 +36,7 @@ trait BackendViewTrait
      *
      * @var array
      */
-    protected $settings = [];
+    protected $settings;
 
     /**
      * @var BackendTemplateView

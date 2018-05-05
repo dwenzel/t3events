@@ -28,7 +28,7 @@ use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
  */
 class EventController extends AbstractBackendController implements FilterableControllerInterface
 {
-    use EventRepositoryTrait, EventDemandFactoryTrait, FilterableControllerTrait;
+    use BackendViewTrait,EventRepositoryTrait, EventDemandFactoryTrait, FilterableControllerTrait;
 
     const LIST_ACTION = 'listAction';
 
@@ -42,6 +42,8 @@ class EventController extends AbstractBackendController implements FilterableCon
      *
      * @param array $overwriteDemand
      * @return void
+     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException
+     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
      */
     public function listAction($overwriteDemand = null)
     {

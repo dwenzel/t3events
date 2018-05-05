@@ -7,7 +7,6 @@ use DWenzel\T3events\Controller\DownloadTrait;
 use TYPO3\CMS\Core\Resource\Driver\LocalDriver;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Mvc\Web\Response;
-
 /**
  * Class DownloadTraitTest
  *
@@ -15,7 +14,7 @@ use TYPO3\CMS\Extbase\Mvc\Web\Response;
  */
 class DownloadTraitTest extends UnitTestCase
 {
-    use \DWenzel\T3events\Tests\Unit\Object\MockObjectManagerTrait;
+    use MockObjectManagerTrait;
 
     /**
      * @var DownloadTrait
