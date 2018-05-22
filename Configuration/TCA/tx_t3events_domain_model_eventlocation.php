@@ -3,7 +3,7 @@ if (!defined('TYPO3_MODE')) {
     die('Access denied.');
 }
 
-$ll = 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:';
+$ll = 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf';
 $cll = \DWenzel\T3events\Utility\TableConfiguration::getLanguageFilePath() . 'locallang_general.xlf:';
 
 return [
@@ -14,9 +14,7 @@ return [
         'crdate' => 'crdate',
         'cruser_id' => 'cruser_id',
         'dividers2tabs' => true,
-
-        'versioningWS' => 2,
-        'versioning_followPages' => true,
+        'versioningWS' => true,
         'origUid' => 't3_origuid',
         'languageField' => 'sys_language_uid',
         'transOrigPointerField' => 'l10n_parent',
@@ -54,7 +52,11 @@ return [
                     [$cll . 'LGL.allLanguages', -1],
                     [$cll . 'LGL.default_value', 0]
                 ],
-                'showIconTable' => true,
+                'fieldWizard' => [
+                    'selectIcons' => [
+                        'disabled' => false
+                    ]
+                ]
             ],
         ],
         'l10n_parent' => [
@@ -69,7 +71,11 @@ return [
                 ],
                 'foreign_table' => 'tx_t3events_domain_model_eventlocation',
                 'foreign_table_where' => 'AND tx_t3events_domain_model_eventlocation.pid=###CURRENT_PID### AND tx_t3events_domain_model_eventlocation.sys_language_uid IN (-1,0)',
-                'showIconTable' => true,
+                'fieldWizard' => [
+                    'selectIcons' => [
+                        'disabled' => false
+                    ]
+                ]
             ],
         ],
         'l10n_diffsource' => [
@@ -94,34 +100,38 @@ return [
         ],
         'starttime' => [
             'exclude' => 1,
-            'l10n_mode' => 'mergeIfNotBlank',
             'label' => $cll . 'LGL.starttime',
             'config' => [
                 'type' => 'input',
+                'renderType' => 'inputDateTime',
                 'size' => 13,
-                'max' => 20,
                 'eval' => 'datetime',
                 'checkbox' => 0,
                 'default' => 0,
                 'range' => [
                     'lower' => mktime(0, 0, 0, date('m'), date('d'), date('Y'))
                 ],
+                'behaviour' => [
+                    'allowLanguageSynchronization' => true
+                ]
             ],
         ],
         'endtime' => [
             'exclude' => 1,
-            'l10n_mode' => 'mergeIfNotBlank',
             'label' => $cll . 'LGL.endtime',
             'config' => [
                 'type' => 'input',
+                'renderType' => 'inputDateTime',
                 'size' => 13,
-                'max' => 20,
                 'eval' => 'datetime',
                 'checkbox' => 0,
                 'default' => 0,
                 'range' => [
                     'lower' => mktime(0, 0, 0, date('m'), date('d'), date('Y'))
                 ],
+                'behaviour' => [
+                    'allowLanguageSynchronization' => true
+                ]
             ],
         ],
         'name' => [
@@ -153,7 +163,6 @@ return [
                 'size' => 1,
                 'allowed' => $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'],
                 'maxitems' => 1,
-                'show_thumbs' => 'true',
                 'disable_controls' => 'list',
             ],
         ],
@@ -205,20 +214,20 @@ return [
         ],
         'latitude' => [
             'exclude' => 1,
-            'label' => $ll . 'tx_t3events_domain_model_eventlocation.latitude',
+            'label' => $ll . ':tx_t3events_domain_model_eventlocation.latitude',
             'config' => [
                 'type' => 'input',
-                'size' => '20',
+                'size' => 20,
                 'eval' => 'trim',
                 'default' => '0.00000000000000'
             ],
         ],
         'longitude' => [
             'exclude' => 1,
-            'label' => $ll . 'tx_t3events_domain_model_eventlocation.longitude',
+            'label' => $ll . ':tx_t3events_domain_model_eventlocation.longitude',
             'config' => [
                 'type' => 'input',
-                'size' => '20',
+                'size' => 20,
                 'eval' => 'trim',
                 'default' => '0.00000000000000'
             ],
