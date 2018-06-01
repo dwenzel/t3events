@@ -8,12 +8,19 @@ matrix:
     - php: 7.0
       env: TYPO3_VERSION=^8 COVERAGE=1
     - php: 7.2
-      env: TYPO3_VERSION=^9
+      env: TYPO3_VERSION=^8
 env:
   global:
     secure: S8QheEMVpSRsPPIhYQZ4tUCTbxpM7csZ0GydJaPY8p/FAEnZLiH6xcsiTGKOljva5HDelCdBvunaWtUO/+CdKIgsdbQGbqc1aWmG6gr+ShQk4X3KzeAA91AFmkJOR6Jv69lUTm6Uo9AKs1JtuVZsOa1aoOmfApohqFuXsRBNXlg=
 jdk:
   - oraclejdk8
+
+addons:
+  sonarcloud:
+    organisation: dwenzel-github
+    branches:
+      - master
+      - (develop|feature\/|release\/)[-]?.*
 
 cache:
   directories:
