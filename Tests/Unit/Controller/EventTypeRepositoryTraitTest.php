@@ -44,9 +44,9 @@ class EventTypeRepositoryTraitTest extends UnitTestCase
      */
     public function eventTypeRepositoryCanBeInjected()
     {
-        $eventTypeRepository = $this->getMock(
-            EventTypeRepository::class, [], [], '', false
-        );
+        /** @var EventTypeRepository|\PHPUnit_Framework_MockObject_MockObject $eventTypeRepository */
+        $eventTypeRepository = $this->getMockBuilder(EventTypeRepository::class)
+            ->disableOriginalConstructor()->getMock();
 
         $this->subject->injectEventTypeRepository($eventTypeRepository);
 

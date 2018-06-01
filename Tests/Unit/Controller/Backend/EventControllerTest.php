@@ -1,4 +1,5 @@
 <?php
+
 namespace DWenzel\T3events\Tests\Unit\Controller\Backend;
 
 /**
@@ -17,11 +18,15 @@ namespace DWenzel\T3events\Tests\Unit\Controller\Backend;
 use DWenzel\T3events\Controller\Backend\EventController;
 use DWenzel\T3events\Domain\Factory\Dto\EventDemandFactory;
 use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
+use DWenzel\T3events\Domain\Model\Dto\EventDemand;
 use DWenzel\T3events\Domain\Model\Dto\ModuleData;
 use DWenzel\T3events\Domain\Repository\EventRepository;
+use Nimut\TestingFramework\MockObject\AccessibleMockObjectInterface;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
 /**
  * Class EventControllerTest
@@ -30,7 +35,7 @@ class EventControllerTest extends UnitTestCase
 {
 
     /**
-     * @var EventController|\PHPUnit_Framework_MockObject_MockObject|\TYPO3\CMS\Core\Tests\AccessibleObjectInterface
+     * @var EventController|\PHPUnit_Framework_MockObject_MockObject|AccessibleMockObjectInterface
      */
     protected $subject;
 
@@ -45,31 +50,42 @@ class EventControllerTest extends UnitTestCase
     protected $view;
 
     /**
+     * @var EventDemandFactory|\PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $eventDemandFactory;
+
+    /** @var EventDemand|\PHPUnit_Framework_MockObject_MockObject */
+    protected $eventDemand;
+
+    /**
+     * @var QueryResultInterface|MockObject
+     */
+    protected $queryResult;
+
+    /**
      * set up
      */
     public function setUp()
     {
         $this->subject = $this->getAccessibleMock(
             EventController::class,
-            ['emitSignal', 'getFilterOptions', 'overwriteDemandObject', 'addFlashMessage', 'translate'],
-            [], '', false
-        );
+                ['emitSignal', 'getFilterOptions', 'overwriteDemandObject', 'addFlashMessage', 'translate']
+            );
         $this->view = $this->getMockForAbstractClass(
             ViewInterface::class
         );
-        $this->moduleData = $this->getMock(
-            ModuleData::class
-        );
-        $mockEventRepository = $this->getMock(
-            EventRepository::class, [], [], '', false
-        );
-        $mockConfigurationManager = $this->getMockForAbstractClass(
-            ConfigurationManagerInterface::class
-        );
-        $mockDemandFactory = $this->getMock(
-           EventDemandFactory::class, ['createFromSettings']
-        );
-        $this->subject->injectEventDemandFactory($mockDemandFactory);
+        $this->queryResult = $this->getMockBuilder(QueryResultInterface::class)->getMockForAbstractClass();
+        $this->moduleData = $this->getMockBuilder(ModuleData::class)->getMock();
+        /** @var EventRepository|\PHPUnit_Framework_MockObject_MockObject $mockEventRepository */
+        $mockEventRepository = $this->getMockBuilder(EventRepository::class)
+            ->disableOriginalConstructor()->getMock();
+        $mockEventRepository->method('findDemanded')->willReturn($this->queryResult);
+        /** @var ConfigurationManagerInterface|\PHPUnit_Framework_MockObject_MockObject $mockConfigurationManager */
+        $mockConfigurationManager = $this->getMockForAbstractClass(ConfigurationManagerInterface::class);
+        /** @var EventDemandFactory|\PHPUnit_Framework_MockObject_MockObject $mockDemandFactory */
+        $this->eventDemandFactory = $this->getMockBuilder(EventDemandFactory::class)
+            ->setMethods(['createFromSettings'])->getMock();
+        $this->subject->injectEventDemandFactory($this->eventDemandFactory);
         $this->subject->injectConfigurationManager($mockConfigurationManager);
         $this->inject(
             $this->subject,
@@ -87,6 +103,8 @@ class EventControllerTest extends UnitTestCase
             []
         );
         $this->subject->injectEventRepository($mockEventRepository);
+        $this->eventDemand = $this->getMockBuilder(EventDemand::class)
+            ->getMock();
     }
 
     /**
@@ -191,18 +209,11 @@ class EventControllerTest extends UnitTestCase
     /**
      * @test
      */
-    public function listActionAssignsTemplateVariablesToView()
+    public function listActionAssignsVariablesToView()
     {
-        $demandObject = $this->mockCreateDemandFromSettings();
-
-        $expectedTemplateVariables = [
-            'events' => null,
-            'overwriteDemand' => null,
-            'demand' => $demandObject,
-            'settings' => null,
-            'filterOptions' => null
-        ];
-
+        $this->eventDemandFactory->expects($this->once())
+            ->method('createFromSettings')
+            ->will($this->returnValue($this->eventDemand));
         // can not match expectedTemplateVariables as soon as method 'emitSignal' is called.
         $this->view->expects($this->once())
             ->method('assignMultiple');

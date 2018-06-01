@@ -1,7 +1,8 @@
 <?php
 namespace DWenzel\T3events\Controller;
 
-use TYPO3\CMS\Extbase\Utility\ArrayUtility;
+//use TYPO3\CMS\Extbase\Utility\ArrayUtility;
+use TYPO3\CMS\Core\Utility\ArrayUtility;
 use DWenzel\T3events\Utility\SettingsUtility;
 
 /**
@@ -60,7 +61,8 @@ trait SettingsUtilityTrait
             $actionSettings = $this->settings[$controllerKey][$actionName];
         }
 
-        $typoScriptSettings = ArrayUtility::arrayMergeRecursiveOverrule($controllerSettings, $actionSettings, false, false);
-        return ArrayUtility::arrayMergeRecursiveOverrule($typoScriptSettings, $this->settings, false, false);
+        ArrayUtility::mergeRecursiveWithOverrule($controllerSettings, $actionSettings);
+        ArrayUtility::mergeRecursiveWithOverrule($controllerSettings, $this->settings);
+        return $controllerSettings;
     }
 }

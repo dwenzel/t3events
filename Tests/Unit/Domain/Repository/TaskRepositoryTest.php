@@ -1,8 +1,10 @@
 <?php
+
 namespace DWenzel\T3events\Tests\Unit\Domain\Repository;
 
 use DWenzel\T3events\Domain\Repository\TaskRepository;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 
@@ -18,29 +20,29 @@ use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
  *
  * The TYPO3 project - inspiring people to share!
  */
-
 class TaskRepositoryTest extends UnitTestCase
 {
     /**
-     * @var TaskRepository | \PHPUnit_Framework_MockObject_MockObject
+     * @var TaskRepository|MockObject
      */
     protected $subject;
 
     /**
-     * @var ObjectManagerInterface | \PHPUnit_Framework_MockObject_MockObject
+     * @var ObjectManagerInterface |MockObject
      */
     protected $objectManager;
+
     /**
      * set up subject
      */
     public function setUp()
     {
-        $this->subject = $this->getMock(
-            TaskRepository::class, ['dummy', 'setDefaultQuerySettings'], [], '', false
-        );
-        $this->objectManager = $this->getMockForAbstractClass(
-            ObjectManagerInterface::class
-        );
+        $this->subject = $this->getMockBuilder(TaskRepository::class)
+            ->disableOriginalConstructor()
+            ->setMethods(['dummy', 'setDefaultQuerySettings'])
+            ->getMock();
+        $this->objectManager = $this->getMockBuilder(ObjectManagerInterface::class)
+            ->getMockForAbstractClass();
         $this->inject(
             $this->subject,
             'objectManager',
@@ -53,9 +55,8 @@ class TaskRepositoryTest extends UnitTestCase
      */
     public function initializeObjectsSetsDefaultQuerySettings()
     {
-        $mockQuerySettings = $this->getMock(
-            Typo3QuerySettings::class, ['setRespectStoragePage']
-        );
+        $mockQuerySettings = $this->getMockBuilder(Typo3QuerySettings::class)
+            ->setMethods(['setRespectStoragePage'])->getMock();
         $this->objectManager->expects($this->once())
             ->method('get')
             ->with(Typo3QuerySettings::class)

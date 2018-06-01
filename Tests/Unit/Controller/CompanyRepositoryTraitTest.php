@@ -1,9 +1,9 @@
 <?php
+
 namespace DWenzel\T3events\Tests\Controller;
 
-use Nimut\TestingFramework\TestCase\UnitTestCase;
-use DWenzel\T3events\Controller\CompanyRepositoryTrait;
 use DWenzel\T3events\Domain\Repository\CompanyRepository;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 
 /***************************************************************
  *  Copyright notice
@@ -44,9 +44,10 @@ class CompanyRepositoryTraitTest extends UnitTestCase
      */
     public function companyRepositoryCanBeInjected()
     {
-        $companyRepository = $this->getMock(
-            CompanyRepository::class, [], [], '', false
-        );
+        /** @var CompanyRepository|\PHPUnit_Framework_MockObject_MockObject $companyRepository */
+        $companyRepository = $this->getMockBuilder(CompanyRepository::class)
+            ->disableOriginalConstructor()
+            ->getMock();
 
         $this->subject->injectCompanyRepository($companyRepository);
 

@@ -1,9 +1,10 @@
 <?php
+
 namespace DWenzel\T3events\Tests\Controller;
 
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use DWenzel\T3events\Controller\EventRepositoryTrait;
 use DWenzel\T3events\Domain\Repository\EventRepository;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 
 /***************************************************************
  *  Copyright notice
@@ -44,9 +45,9 @@ class EventRepositoryTraitTest extends UnitTestCase
      */
     public function eventRepositoryCanBeInjected()
     {
-        $eventRepository = $this->getMock(
-            EventRepository::class, [], [], '', false
-        );
+        /** @var EventRepository|\PHPUnit_Framework_MockObject_MockObject $eventRepository */
+        $eventRepository = $this->getMockBuilder(EventRepository::class)
+            ->disableOriginalConstructor()->getMock();
 
         $this->subject->injectEventRepository($eventRepository);
 

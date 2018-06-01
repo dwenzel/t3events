@@ -62,9 +62,10 @@ class VectorImageTest extends UnitTestCase
         );
 
         /** @var \DOMElement $mockElement */
-        $mockElement = $this->getMock(
-            \DOMElement::class, ['setAttribute'], ['fooTagName']
-        );
+        $mockElement = $this->getMockBuilder(\DOMElement::class)
+            ->setMethods(['setAttribute'])
+            ->setConstructorArgs(['fooTagName'])
+            ->getMock();
         $validId = 'foo';
         $existingElementIds = [$validId];
 
@@ -105,9 +106,10 @@ class VectorImageTest extends UnitTestCase
         );
 
         /** @var \DOMElement $mockElement */
-        $mockElement = $this->getMock(
-            \DOMElement::class, ['setAttribute'], ['fooTagName']
-        );
+        $mockElement = $this->getMockBuilder(\DOMElement::class)
+            ->setMethods(['setAttribute'])
+            ->setConstructorArgs(['fooTagName'])
+            ->getMock();
         $validId = 'foo';
         $existingElementIds = [$validId];
 

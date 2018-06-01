@@ -1,9 +1,11 @@
 <?php
+
 namespace DWenzel\T3events\Tests\Controller;
 
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use DWenzel\T3events\Controller\VenueRepositoryTrait;
 use DWenzel\T3events\Domain\Repository\VenueRepository;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
+use PHPUnit\Framework\MockObject\MockObject;
 
 /***************************************************************
  *  Copyright notice
@@ -44,9 +46,9 @@ class VenueRepositoryTraitTest extends UnitTestCase
      */
     public function venueRepositoryCanBeInjected()
     {
-        $venueRepository = $this->getMock(
-            VenueRepository::class, [], [], '', false
-        );
+        /** @var VenueRepository|MockObject $venueRepository */
+        $venueRepository = $this->getMockBuilder(VenueRepository::class)
+            ->disableOriginalConstructor()->getMock();
 
         $this->subject->injectVenueRepository($venueRepository);
 

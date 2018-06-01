@@ -2,22 +2,20 @@
 if (!defined('TYPO3_MODE')) {
     die('Access denied.');
 }
-$ll = 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:';
+$ll = 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf';
 $cll = \DWenzel\T3events\Utility\TableConfiguration::getLanguageFilePath() . 'locallang_general.xlf:';
 $linkWizardIconPath = \DWenzel\T3events\Utility\TableConfiguration::getWizardIcon('link');
 
 return [
     'ctrl' => [
-        'title' => $ll . 'tx_t3events_domain_model_audience',
+        'title' => $ll . ':tx_t3events_domain_model_audience',
         'label' => 'title',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
         'cruser_id' => 'cruser_id',
         'dividers2tabs' => true,
         'sortby' => 'sorting',
-        'versioningWS' => 2,
-        'versioning_followPages' => true,
-
+        'versioningWS' => true,
         'languageField' => 'sys_language_uid',
         'transOrigPointerField' => 'l10n_parent',
         'transOrigDiffSourceField' => 'l10n_diffsource',
@@ -36,7 +34,9 @@ return [
             'showitem' => 'sys_language_uid,l10n_parent,l10n_diffsource,hidden,--palette--;;1,title,description,link',
             'columnsOverrides' => [
                 'description' => [
-                    'defaultExtras' => 'richtext:rte_transform[mode=ts_links]'
+                    'config' => [
+                        'enableRichtext' => true
+                    ]
                 ]
             ]
         ]
@@ -99,7 +99,7 @@ return [
 
         'title' => [
             'exclude' => 0,
-            'label' => $ll . 'tx_t3events_domain_model_audience.title',
+            'label' => $ll . ':tx_t3events_domain_model_audience.title',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -108,47 +108,27 @@ return [
         ],
         'description' => [
             'exclude' => 1,
-            'label' => $ll . 'tx_t3events_domain_model_audience.description',
+            'label' => $ll . ':tx_t3events_domain_model_audience.description',
             'config' => [
                 'type' => 'text',
+                'enableRichtext' => true,
+                'fieldControl' => [
+                    'fullScreenRichtext' => [
+                        'disabled' => false,
+                    ],
+                ],
                 'cols' => 40,
                 'rows' => 15,
-                'eval' => 'trim',
-                'wizards' => [
-                    'RTE' => [
-                        'type' => 'script',
-                        'icon' => \DWenzel\T3events\Utility\TableConfiguration::getWizardIcon('rte'),
-                        'notNewRecords' => 1,
-                        'RTEonly' => 1,
-                        'title' => 'LLL:EXT:cms/locallang_ttc.xlf:bodytext.W.RTE',
-                        'module' => [
-                            'name' => 'wizard_rte'
-                        ]
-                    ]
-                ]
+                'eval' => 'trim'
             ],
         ],
         'link' => [
             'exclude' => 1,
-            'label' => $ll . 'label.link',
+            'label' => $ll . ':label.link',
             'config' => [
                 'type' => 'input',
-                'softref' => 'typolink',
-                'wizards' => [
-                    '_PADDING' => 2,
-                    'link' => [
-                        'type' => 'popup',
-                        'title' => $ll . 'button.openLinkWizard',
-                        'icon' => $linkWizardIconPath,
-                        'module' => [
-                            'name' => 'wizard_link',
-                            'urlParameters' => [
-                                'mode' => 'wizard'
-                            ],
-                        ],
-                        'JSopenParams' => 'height=600,width=500,status=0,menubar=0,scrollbars=1'
-                    ]
-                ]
+                'renderType' => 'inputLink',
+                'softref' => 'typolink'
             ]
         ]
     ],

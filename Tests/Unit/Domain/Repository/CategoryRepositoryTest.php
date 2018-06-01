@@ -1,4 +1,5 @@
 <?php
+
 namespace DWenzel\T3events\Tests\Unit\Domain\Repository;
 
 /***************************************************************
@@ -19,10 +20,11 @@ namespace DWenzel\T3events\Tests\Unit\Domain\Repository;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use TYPO3\CMS\Extbase\Persistence\QueryInterface;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
 use DWenzel\T3events\Domain\Repository\CategoryRepository;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
+use PHPUnit\Framework\MockObject\MockObject;
+use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 
 /**
  * Test case for class \DWenzel\T3events\Domain\Repository\CategoryRepository.
@@ -51,8 +53,12 @@ class CategoryRepositoryTest extends UnitTestCase
      */
     public function createConstraintsFromDemandInitiallyReturnsEmptyArray()
     {
-        $demand = $this->getMock(DemandInterface::class);
-        $query = $this->getMock(QueryInterface::class, [], [], '', false);
+        /** @var DemandInterface|MockObject $demand */
+        $demand = $this->getMockBuilder(DemandInterface::class)->getMockForAbstractClass();
+        /** @var QueryInterface|MockObject $query */
+        $query = $this->getMockBuilder(QueryInterface::class)
+            ->disableOriginalConstructor()
+            ->getMockForAbstractClass();
 
         $this->assertEquals(
             [],

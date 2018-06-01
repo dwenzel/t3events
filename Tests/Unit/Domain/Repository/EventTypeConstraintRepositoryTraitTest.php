@@ -1,34 +1,37 @@
 <?php
+
 namespace DWenzel\T3events\Tests\Unit\Domain\Model\Dto;
 
-use Nimut\TestingFramework\TestCase\UnitTestCase;
-use TYPO3\CMS\Extbase\Persistence\Generic\Query;
-use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use DWenzel\T3events\Domain\Model\Dto\EventTypeAwareDemandInterface;
 use DWenzel\T3events\Domain\Repository\EventTypeConstraintRepositoryTrait;
+use DWenzel\T3events\Tests\Unit\Domain\Repository\MockQueryTrait;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
+use PHPUnit\Framework\MockObject\MockObject;
+use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 
 /**
  * Test case for class \DWenzel\T3events\Domain\Repository\EventTypeConstraintRepositoryTrait.
  */
 class EventTypeConstraintRepositoryTraitTest extends UnitTestCase
 {
+    use MockQueryTrait;
     /**
      * mock eventType field
      */
     const EVENT_TYPE_FIELD = 'foo';
 
     /**
-     * @var \DWenzel\T3events\Domain\Repository\EventTypeConstraintRepositoryTrait
+     * @var EventTypeConstraintRepositoryTrait|MockObject
      */
     protected $subject;
 
     /**
-     * @var \TYPO3\CMS\Extbase\Persistence\QueryInterface
+     * @var QueryInterface|MockObject
      */
     protected $query;
 
     /**
-     * @var EventTypeAwareDemandInterface
+     * @var EventTypeAwareDemandInterface|MockObject
      */
     protected $demand;
 
@@ -40,11 +43,8 @@ class EventTypeConstraintRepositoryTraitTest extends UnitTestCase
         $this->subject = $this->getMockForTrait(
             EventTypeConstraintRepositoryTrait::class
         );
-        $this->query = $this->getMock(
-            QueryInterface::class, []
-        );
-        $this->demand = $this->getMock(
-            EventTypeAwareDemandInterface::class,
+        $this->query = $this->getMockQuery();
+        $this->demand = $this->getMockEventTypeAwareDemand(
             [
                 'getEventTypes', 'setEventTypes', 'getEventTypeField'
             ]
@@ -56,9 +56,7 @@ class EventTypeConstraintRepositoryTraitTest extends UnitTestCase
      */
     public function createEventTypeConstraintsInitiallyReturnsEmptyArray()
     {
-        $demand = $this->getMock(
-            EventTypeAwareDemandInterface::class, []
-        );
+        $demand = $this->getMockEventTypeAwareDemand();
         $this->assertSame(
             [],
             $this->subject->createEventTypeConstraints(
@@ -75,7 +73,7 @@ class EventTypeConstraintRepositoryTraitTest extends UnitTestCase
     public function createEventTypeConstraintsCreatesEventTypeConstraints()
     {
         $eventTypeList = '1,2';
-        $query = $this->getMock(Query::class, ['in'], [], '', false);
+        $query = $this->getMockQuery(['in']);
         $mockConstraint = 'fooConstraint';
 
         $this->demand->expects($this->any())
@@ -92,5 +90,16 @@ class EventTypeConstraintRepositoryTraitTest extends UnitTestCase
             [$mockConstraint],
             $this->subject->createEventTypeConstraints($query, $this->demand)
         );
+    }
+
+    /**
+     * @param array $methods
+     * @return EventTypeAwareDemandInterface|MockObject
+     */
+    protected function getMockEventTypeAwareDemand(array $methods = [])
+    {
+        return $this->getMockBuilder(EventTypeAwareDemandInterface::class)
+            ->setMethods($methods)
+            ->getMockForAbstractClass();
     }
 }

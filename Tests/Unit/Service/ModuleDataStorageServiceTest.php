@@ -1,10 +1,12 @@
 <?php
+
 namespace DWenzel\T3events\Tests\Unit\Service;
 
 use DWenzel\T3events\Domain\Model\Dto\ModuleData;
 use DWenzel\T3events\Service\ModuleDataStorageService;
-use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use PHPUnit\Framework\MockObject\MockObject;
+use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 /***************************************************************
@@ -35,14 +37,14 @@ class ModuleDataStorageServiceTest extends UnitTestCase
 {
 
     /**
-     * @var \DWenzel\T3events\Service\ModuleDataStorageService
+     * @var ModuleDataStorageService|MockObject
      */
     protected $subject;
 
     public function setUp()
     {
         $this->subject = $this->getAccessibleMock(
-            \DWenzel\T3events\Service\ModuleDataStorageService::class, ['dummy']
+            ModuleDataStorageService::class, ['dummy']
         );
     }
 
@@ -58,9 +60,8 @@ class ModuleDataStorageServiceTest extends UnitTestCase
      */
     public function getBackendUserAuthenticationReturnsAuthenticationFromGlobals()
     {
-        $GLOBALS['BE_USER'] = $this->getMock(
-            BackendUserAuthentication::class
-        );
+        $GLOBALS['BE_USER'] = $this->getMockBuilder(BackendUserAuthentication::class)
+            ->getMock();
 
         $this->assertSame(
             $GLOBALS['BE_USER'],
@@ -74,7 +75,7 @@ class ModuleDataStorageServiceTest extends UnitTestCase
     public function persistModuleDataCanBePersisted()
     {
         $this->subject = $this->getAccessibleMock(
-            \DWenzel\T3events\Service\ModuleDataStorageService::class, ['getBackendUserAuthentication']
+            ModuleDataStorageService::class, ['getBackendUserAuthentication']
         );
         $key = 'foo';
         $moduleData = new ModuleData();
@@ -96,13 +97,12 @@ class ModuleDataStorageServiceTest extends UnitTestCase
     public function loadModuleDataInitiallyReturnsNewModuleDataObject()
     {
         $key = 'foo';
-        $mockObjectManager = $this->getMock(
-            ObjectManager::class, ['get']
-        );
+        /** @var ObjectManager|MockObject $mockObjectManager */
+        $mockObjectManager = $this->getMockBuilder(ObjectManager::class)
+            ->setMethods(['get'])
+            ->getMock();
         $this->subject->injectObjectManager($mockObjectManager);
-        $mockModuleData = $this->getMock(
-            ModuleData::class
-        );
+        $mockModuleData = $this->getMockModuleData();
         $mockObjectManager->expects($this->once())
             ->method('get')
             ->with(ModuleData::class)
@@ -120,7 +120,7 @@ class ModuleDataStorageServiceTest extends UnitTestCase
     public function loadModuleDataReturnsModuleDataFromBackendUserAuthentication()
     {
         $this->subject = $this->getAccessibleMock(
-            \DWenzel\T3events\Service\ModuleDataStorageService::class, ['getBackendUserAuthentication']
+            ModuleDataStorageService::class, ['getBackendUserAuthentication']
         );
         $key = 'foo';
         $mockBackendUserAuthentication = $this->mockBackendUserAuthentication();
@@ -128,9 +128,7 @@ class ModuleDataStorageServiceTest extends UnitTestCase
             ->method('getBackendUserAuthentication')
             ->will($this->returnValue($mockBackendUserAuthentication));
 
-        $mockModuleData = $this->getMock(
-            ModuleData::class
-        );
+        $mockModuleData = $this->getMockModuleData();
         $mockBackendUserAuthentication->expects($this->once())
             ->method('getModuleData')
             ->will($this->returnValue(serialize($mockModuleData)));
@@ -139,5 +137,15 @@ class ModuleDataStorageServiceTest extends UnitTestCase
             $mockModuleData,
             $this->subject->loadModuleData($key)
         );
+    }
+
+    /**
+     * @return MockObject
+     */
+    protected function getMockModuleData(): MockObject
+    {
+        $mockModuleData = $this->getMockBuilder(ModuleData::class)
+            ->getMock();
+        return $mockModuleData;
     }
 }

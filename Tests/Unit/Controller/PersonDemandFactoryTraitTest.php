@@ -1,4 +1,5 @@
 <?php
+
 namespace DWenzel\T3events\Tests\Unit\Controller;
 
 /**
@@ -40,9 +41,9 @@ class PersonDemandFactoryTraitTest extends UnitTestCase
      */
     public function personDemandFactoryCanBeInjected()
     {
-        $personDemandFactory = $this->getMock(
-            PersonDemandFactory::class, [], [], '', false
-        );
+        /** @var PersonDemandFactory|\PHPUnit_Framework_MockObject_MockObject $personDemandFactory */
+        $personDemandFactory = $this->getMockBuilder(PersonDemandFactory::class)
+            ->getMock();
 
         $this->subject->injectPersonDemandFactory($personDemandFactory);
 

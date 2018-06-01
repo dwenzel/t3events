@@ -1,9 +1,10 @@
 <?php
+
 namespace DWenzel\T3events\Tests\Controller;
 
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use DWenzel\T3events\Controller\GenreRepositoryTrait;
 use DWenzel\T3events\Domain\Repository\GenreRepository;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 
 /***************************************************************
  *  Copyright notice
@@ -44,9 +45,9 @@ class GenreRepositoryTraitTest extends UnitTestCase
      */
     public function genreRepositoryCanBeInjected()
     {
-        $genreRepository = $this->getMock(
-            GenreRepository::class, [], [], '', false
-        );
+        /** @var GenreRepository|\PHPUnit_Framework_MockObject_MockObject $genreRepository */
+        $genreRepository = $this->getMockBuilder(GenreRepository::class)
+            ->disableOriginalConstructor()->getMock();
 
         $this->subject->injectGenreRepository($genreRepository);
 

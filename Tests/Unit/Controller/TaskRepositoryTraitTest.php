@@ -1,4 +1,5 @@
 <?php
+
 namespace DWenzel\T3events\Tests\Controller;
 
 /**
@@ -14,6 +15,7 @@ namespace DWenzel\T3events\Tests\Controller;
 use DWenzel\T3events\Controller\TaskRepositoryTrait;
 use DWenzel\T3events\Domain\Repository\TaskRepository;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use PHPUnit\Framework\MockObject\MockObject;
 
 /**
  * Class TaskRepositoryTraitTest
@@ -40,9 +42,9 @@ class TaskRepositoryTraitTest extends UnitTestCase
      */
     public function taskRepositoryCanBeInjected()
     {
-        $taskRepository = $this->getMock(
-            TaskRepository::class, [], [], '', false
-        );
+        /** @var TaskRepository|MockObject $taskRepository */
+        $taskRepository = $this->getMockBuilder(TaskRepository::class)
+            ->disableOriginalConstructor()->getMock();
 
         $this->subject->injectTaskRepository($taskRepository);
 
