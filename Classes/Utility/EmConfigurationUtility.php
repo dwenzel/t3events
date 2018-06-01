@@ -17,13 +17,13 @@ class EmConfigurationUtility
      * Gets the settings from extension manager
      *
      * @return EmConfiguration
+     * @throws \BadFunctionCallException
      */
-    public static function getSettings()
+    public static function getSettings(): EmConfiguration
     {
         $configuration = self::parseSettings();
-        GeneralUtility::requireOnce(ExtensionManagementUtility::extPath('t3events') . 'Classes/Domain/Model/Dto/EmConfiguration.php');
-        $settings = new EmConfiguration($configuration);
-        return $settings;
+        require_once ExtensionManagementUtility::extPath('t3events') . 'Classes/Domain/Model/Dto/EmConfiguration.php';
+        return new EmConfiguration($configuration);
     }
 
     /**

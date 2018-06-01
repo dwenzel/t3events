@@ -1,4 +1,5 @@
 <?php
+
 namespace DWenzel\T3events\Tests\Unit\Domain\Repository;
 
 /***************************************************************
@@ -20,21 +21,20 @@ namespace DWenzel\T3events\Tests\Unit\Domain\Repository;
  ***************************************************************/
 
 use DWenzel\T3events\Domain\Repository\PerformanceStatusRepository;
-use TYPO3\CMS\Extbase\Persistence\QueryInterface;
+use DWenzel\T3events\Tests\Unit\Domain\Model\Dto\MockDemandTrait;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
-use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 
 /**
  * Test case for class \DWenzel\T3events\Domain\Repository\PerformanceStatusRepository.
- *
- * @author Erik Rauchstein <erik.rauchstein@cps-it.de>
- * @coversDefaultClass \DWenzel\T3events\Domain\Repository\PerformanceStatusRepository
  */
 class PerformanceStatusRepositoryTest extends UnitTestCase
 {
 
+    use MockDemandTrait, MockQueryTrait;
+
     /**
-     * @var \DWenzel\T3events\Domain\Repository\PerformanceStatusRepository
+     * @var PerformanceStatusRepository|MockObject
      */
     protected $fixture;
 
@@ -47,12 +47,11 @@ class PerformanceStatusRepositoryTest extends UnitTestCase
 
     /**
      * @test
-     * @covers ::createConstraintsFromDemand
      */
     public function createConstraintsFromDemandInitiallyReturnsEmptyArray()
     {
-        $demand = $this->getMock(DemandInterface::class);
-        $query = $this->getMock(QueryInterface::class, [], [], '', false);
+        $demand = $this->getMockDemand();
+        $query = $this->getMockQuery();
 
         $this->assertEquals(
             [],

@@ -1,14 +1,13 @@
 <?php
 namespace DWenzel\T3events\Controller;
 
-use TYPO3\CMS\Extbase\Utility\ArrayUtility;
 use DWenzel\T3events\Utility\SettingsUtility;
+use TYPO3\CMS\Core\Utility\ArrayUtility;
 
 /**
  * Class SettingsUtilityTrait
-
  *
-*@package Controller
+ * @package Controller
  */
 trait SettingsUtilityTrait
 {
@@ -51,7 +50,7 @@ trait SettingsUtilityTrait
             $controllerSettings = $this->settings[$controllerKey];
         }
         $allowedControllerSettingKeys = ['search', 'notify'];
-        foreach ($controllerSettings as $key=>$value) {
+        foreach ($controllerSettings as $key => $value) {
             if (!in_array($key, $allowedControllerSettingKeys)) {
                 unset($controllerSettings[$key]);
             }
@@ -60,7 +59,8 @@ trait SettingsUtilityTrait
             $actionSettings = $this->settings[$controllerKey][$actionName];
         }
 
-        $typoScriptSettings = ArrayUtility::arrayMergeRecursiveOverrule($controllerSettings, $actionSettings, false, false);
-        return ArrayUtility::arrayMergeRecursiveOverrule($typoScriptSettings, $this->settings, false, false);
+        ArrayUtility::mergeRecursiveWithOverrule($controllerSettings, $actionSettings);
+        ArrayUtility::mergeRecursiveWithOverrule($controllerSettings, $this->settings);
+        return $controllerSettings;
     }
 }

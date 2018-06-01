@@ -1,9 +1,10 @@
 <?php
+
 namespace DWenzel\T3events\Tests\Controller;
 
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use DWenzel\T3events\Controller\PerformanceRepositoryTrait;
 use DWenzel\T3events\Domain\Repository\PerformanceRepository;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 
 /***************************************************************
  *  Copyright notice
@@ -44,9 +45,9 @@ class PerformanceRepositoryTraitTest extends UnitTestCase
      */
     public function performanceRepositoryCanBeInjected()
     {
-        $performanceRepository = $this->getMock(
-            PerformanceRepository::class, [], [], '', false
-        );
+        /** @var PerformanceRepository|\PHPUnit_Framework_MockObject_MockObject $performanceRepository */
+        $performanceRepository = $this->getMockBuilder(PerformanceRepository::class)
+            ->disableOriginalConstructor()->getMock();
 
         $this->subject->injectPerformanceRepository($performanceRepository);
 

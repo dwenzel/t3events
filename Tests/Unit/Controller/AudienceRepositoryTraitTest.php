@@ -1,9 +1,10 @@
 <?php
+
 namespace DWenzel\T3events\Tests\Controller;
 
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use DWenzel\T3events\Controller\AudienceRepositoryTrait;
 use DWenzel\T3events\Domain\Repository\AudienceRepository;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 
 /***************************************************************
  *  Copyright notice
@@ -44,9 +45,9 @@ class AudienceRepositoryTraitTest extends UnitTestCase
      */
     public function audienceRepositoryCanBeInjected()
     {
-        $audienceRepository = $this->getMock(
-            AudienceRepository::class, [], [], '', false
-        );
+        /** @var AudienceRepository|\PHPUnit_Framework_MockObject_MockObject $audienceRepository */
+        $audienceRepository = $this->getMockBuilder(AudienceRepository::class)
+            ->disableOriginalConstructor()->getMock();
 
         $this->subject->injectAudienceRepository($audienceRepository);
 

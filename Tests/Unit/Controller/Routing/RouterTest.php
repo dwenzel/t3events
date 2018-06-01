@@ -1,4 +1,5 @@
 <?php
+
 namespace DWenzel\T3events\Tests\Controller\Routing;
 
 /**
@@ -14,8 +15,9 @@ namespace DWenzel\T3events\Tests\Controller\Routing;
 use DWenzel\T3events\Controller\Routing\Route;
 use DWenzel\T3events\Controller\Routing\Router;
 use DWenzel\T3events\Controller\Routing\RouterInterface;
-use TYPO3\CMS\Core\SingletonInterface;
+use Nimut\TestingFramework\MockObject\AccessibleMockObjectInterface;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\CMS\Core\SingletonInterface;
 
 /**
  * Class RouterTest
@@ -25,7 +27,7 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 class RouterTest extends UnitTestCase
 {
     /**
-     * @var RouterInterface|\PHPUnit_Framework_MockObject_MockObject|\TYPO3\CMS\Core\Tests\AccessibleObjectInterface
+     * @var RouterInterface|\PHPUnit_Framework_MockObject_MockObject|AccessibleMockObjectInterface
      */
     protected $subject;
 
@@ -44,8 +46,9 @@ class RouterTest extends UnitTestCase
      */
     public function classImplementsSingletonInterface()
     {
-        $this->assertTrue(
-            $this->subject instanceof SingletonInterface
+        $this->assertInstanceOf(
+            SingletonInterface::class,
+            $this->subject
         );
     }
 
@@ -80,9 +83,7 @@ class RouterTest extends UnitTestCase
     public function addRouteAddsRouteByOrigin()
     {
         $origin = 'fooOriginOfRoute';
-        $mockRoute = $this->getAccessibleMock(
-            Route::class, ['getOrigin'], [$origin]
-        );
+        $mockRoute = $this->getMockRoute(['getOrigin'], [$origin]);
 
         $mockRoute->expects($this->once())
             ->method('getOrigin')
@@ -104,9 +105,7 @@ class RouterTest extends UnitTestCase
         $origin = 'fooOriginOfRoute';
 
         $identifier = '12345';
-        $mockRoute = $this->getMock(
-            Route::class, ['getOrigin'], [$origin]
-        );
+        $mockRoute = $this->getMockRoute(['getOrigin'], [$origin]);
         $mockRoute->expects($this->never())
             ->method('getOrigin');
         $this->subject->addRoute($mockRoute, $identifier);
@@ -125,5 +124,18 @@ class RouterTest extends UnitTestCase
     public function getRouteThrowsExceptionForMissingRoute()
     {
         $this->subject->getRoute('invalidRouteIdentifier');
+    }
+
+    /**
+     * @param array $methods Methods to mock
+     * @param array $constructorArguments
+     * @return mixed
+     */
+    protected function getMockRoute(array $methods = [], array $constructorArguments = [])
+    {
+        return $this->getMockBuilder(Route::class)
+            ->setConstructorArgs($constructorArguments)
+            ->setMethods($methods)
+            ->getMock();
     }
 }

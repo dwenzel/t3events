@@ -1,16 +1,14 @@
 <?php
+
 namespace DWenzel\T3events\Tests\Controller;
 
+use DWenzel\T3events\Controller\AbstractBackendController;
 use DWenzel\T3events\Domain\Repository\AudienceRepository;
 use DWenzel\T3events\Domain\Repository\CompanyRepository;
 use DWenzel\T3events\Domain\Repository\EventTypeRepository;
 use DWenzel\T3events\Domain\Repository\GenreRepository;
 use DWenzel\T3events\Domain\Repository\VenueRepository;
-use DWenzel\T3events\Service\ModuleDataStorageService;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
-use DWenzel\T3events\Controller\AbstractBackendController;
-use DWenzel\T3events\Domain\Model\Dto\ModuleData;
 
 /***************************************************************
  *
@@ -59,9 +57,9 @@ class AbstractBackendControllerTest extends UnitTestCase
      */
     public function eventTypeRepositoryCanBeInjected()
     {
-        $mockRepository = $this->getMock(
-            EventTypeRepository::class, [], [], '', false
-        );
+        $mockRepository = $this->getMockBuilder(EventTypeRepository::class)
+            ->disableOriginalConstructor()
+            ->getMock();
 
         $this->subject->injectEventTypeRepository($mockRepository);
 
@@ -77,9 +75,9 @@ class AbstractBackendControllerTest extends UnitTestCase
      */
     public function companyRepositoryCanBeInjected()
     {
-        $mockRepository = $this->getMock(
-            CompanyRepository::class, [], [], '', false
-        );
+        /** @var CompanyRepository|\PHPUnit_Framework_MockObject_MockObject $mockRepository */
+        $mockRepository = $this->getMockBuilder(CompanyRepository::class)
+            ->disableOriginalConstructor()->getMock();
 
         $this->subject->injectCompanyRepository($mockRepository);
 
@@ -95,9 +93,9 @@ class AbstractBackendControllerTest extends UnitTestCase
      */
     public function genreRepositoryCanBeInjected()
     {
-        $mockRepository = $this->getMock(
-            GenreRepository::class, [], [], '', false
-        );
+        /** @var GenreRepository|\PHPUnit_Framework_MockObject_MockObject $mockRepository */
+        $mockRepository = $this->getMockBuilder(GenreRepository::class)
+            ->disableOriginalConstructor()->getMock();
 
         $this->subject->injectGenreRepository($mockRepository);
 
@@ -113,9 +111,9 @@ class AbstractBackendControllerTest extends UnitTestCase
      */
     public function audienceRepositoryCanBeInjected()
     {
-        $mockRepository = $this->getMock(
-            AudienceRepository::class, [], [], '', false
-        );
+        /** @var AudienceRepository|\PHPUnit_Framework_MockObject_MockObject $mockRepository */
+        $mockRepository = $this->getMockBuilder(AudienceRepository::class)
+            ->disableOriginalConstructor()->getMock();
 
         $this->subject->injectAudienceRepository($mockRepository);
 
@@ -131,9 +129,9 @@ class AbstractBackendControllerTest extends UnitTestCase
      */
     public function venueRepositoryCanBeInjected()
     {
-        $mockRepository = $this->getMock(
-            VenueRepository::class, [], [], '', false
-        );
+        /** @var VenueRepository|\PHPUnit_Framework_MockObject_MockObject $mockRepository */
+        $mockRepository = $this->getMockBuilder(VenueRepository::class)
+            ->disableOriginalConstructor()->getMock();
 
         $this->subject->injectVenueRepository($mockRepository);
 

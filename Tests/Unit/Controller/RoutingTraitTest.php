@@ -1,4 +1,5 @@
 <?php
+
 namespace DWenzel\T3events\Tests\Controller;
 
 /**
@@ -23,6 +24,7 @@ class MockSignalController implements SignalInterface
 {
     use RoutingTrait, SignalTrait;
 }
+
 /**
  * Class RouteTraitTest
  *
@@ -50,9 +52,7 @@ class RoutingTraitTest extends UnitTestCase
      */
     public function routerCanBeInjected()
     {
-        $router = $this->getMockForAbstractClass(
-            RouterInterface::class
-        );
+        $router = $this->getMockRouter();
         $this->subject->injectRouter($router);
 
         $this->assertAttributeEquals(
@@ -67,19 +67,16 @@ class RoutingTraitTest extends UnitTestCase
     {
         $identifier = 'foo';
 
-        $mockRequest = $this->getMock(
-            Request::class, ['getControllerActionName', 'getControllerObjectName']
-        );
+        $mockRequest = $this->getMockBuilder(Request::class)
+            ->setMethods(['getControllerActionName', 'getControllerObjectName'])->getMock();
         $this->inject($this->subject, 'request', $mockRequest);
         $mockRequest->expects($this->once())
             ->method('getControllerActionName');
         $mockRequest->expects($this->once())
             ->method('getControllerObjectName');
-        $mockRoute = $this->getMock(Route::class, ['getMethod'], [$identifier]);
+        $mockRoute = $this->getMockRoute(['getMethod'], [$identifier]);
 
-        $mockRouter = $this->getMockForAbstractClass(
-            RouterInterface::class, ['getRoute']
-        );
+        $mockRouter = $this->getMockRouter();
         $this->subject->injectRouter($mockRouter);
         $mockRouter->expects($this->once())
             ->method('getRoute')
@@ -94,11 +91,9 @@ class RoutingTraitTest extends UnitTestCase
     public function dispatchGetsRouteForIdentifier()
     {
         $identifier = 'foo';
-        $mockRoute = $this->getMock(Route::class, null, [$identifier]);
+        $mockRoute = $this->getMockRoute([], [$identifier]);
 
-        $mockRouter = $this->getMockForAbstractClass(
-            RouterInterface::class, ['getRoute']
-        );
+        $mockRouter = $this->getMockRouter();
 
         $this->subject->injectRouter($mockRouter);
         $mockRouter->expects($this->once())
@@ -116,14 +111,12 @@ class RoutingTraitTest extends UnitTestCase
     {
         $identifier = 'foo';
         $method = 'bam';
-        $mockRoute = $this->getMock(Route::class, ['getMethod'], [$identifier]);
+        $mockRoute = $this->getMockRoute(['getMethod'], [$identifier]);
 
         $this->subject = $this->getMockForTrait(
             RoutingTrait::class, [], '', true, true, true, [$method]
         );
-        $mockRouter = $this->getMockForAbstractClass(
-            RouterInterface::class, ['getRoute']
-        );
+        $mockRouter = $this->getMockRouter();
 
         $this->subject->injectRouter($mockRouter);
         $mockRouter->expects($this->once())
@@ -165,15 +158,13 @@ class RoutingTraitTest extends UnitTestCase
         ];
         $identifier = 'foo';
         $method = 'bam';
-        $mockRoute = $this->getMock(Route::class, ['getOptions', 'getMethod'], [$identifier]);
+        $mockRoute = $this->getMockRoute(['getOptions', 'getMethod'], [$identifier]);
 
         $this->subject = $this->getMockForTrait(
             RoutingTrait::class, [], '', true, true, true, [$method]
         );
 
-        $mockRouter = $this->getMockForAbstractClass(
-            RouterInterface::class, ['getRoute']
-        );
+        $mockRouter = $this->getMockRouter();
 
         $this->subject->injectRouter($mockRouter);
         $mockRouter->expects($this->once())
@@ -207,7 +198,7 @@ class RoutingTraitTest extends UnitTestCase
      */
     public function dispatchUsesDefaultArguments()
     {
-        $defaultArguments =[
+        $defaultArguments = [
             'baz' => 'boom',
             'foo' => null
         ];
@@ -233,14 +224,13 @@ class RoutingTraitTest extends UnitTestCase
         ];
         $identifier = 'foo';
         $method = 'bam';
-        $mockRoute = $this->getMock(Route::class, ['getOptions', 'getOption', 'getMethod'], [$identifier]);
+        $mockRoute = $this->getMockRoute(['getOptions', 'getOption', 'getMethod'], [$identifier]);
         $this->subject = $this->getMockForTrait(
             RoutingTrait::class, [], '', true, true, true, [$method]
         );
 
-        $mockRouter = $this->getMockForAbstractClass(
-            RouterInterface::class, ['getRoute']
-        );
+        /** @var RouterInterface|\PHPUnit_Framework_MockObject_MockObject $mockRouter */
+        $mockRouter = $this->getMockRouter();
 
         $this->subject->injectRouter($mockRouter);
         $mockRouter->expects($this->once())
@@ -278,15 +268,12 @@ class RoutingTraitTest extends UnitTestCase
      */
     public function dispatchEmitsSignalDispatchBegin()
     {
-        $this->subject = $this->getMock(
-            MockSignalController::class, ['emitSignal']
-        );
+        $this->subject = $this->getMockBuilder(MockSignalController::class)
+            ->setMethods(['emitSignal'])->getMock();
         $arguments = ['foo'];
         $identifier = 'bar';
-        $mockRoute = $this->getMock(Route::class, [], [$identifier]);
-        $mockRouter = $this->getMockForAbstractClass(
-            RouterInterface::class, ['getRoute']
-        );
+        $mockRoute = $this->getMockRoute([], [$identifier]);
+        $mockRouter = $this->getMockRouter();
         $mockRouter->expects($this->once())
             ->method('getRoute')
             ->will($this->returnValue($mockRoute));
@@ -300,5 +287,28 @@ class RoutingTraitTest extends UnitTestCase
                 $this->equalTo('dispatchBegin')
             );
         $this->subject->dispatch($arguments, $identifier);
+    }
+
+    /**
+     * @param array $methods Methods to mock
+     * @param array $constructorArguments
+     * @return mixed
+     */
+    protected function getMockRoute(array $methods = [], array $constructorArguments = [])
+    {
+        return $this->getMockBuilder(Route::class)
+            ->setConstructorArgs($constructorArguments)
+            ->setMethods($methods)
+            ->getMock();
+    }
+
+    /**
+     * @param array $methods Methods to mock
+     * @return RouterInterface|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected function getMockRouter(array $methods = ['getRoute'])
+    {
+        return $this->getMockBuilder(RouterInterface::class)
+            ->setMethods($methods)->getMockForAbstractClass();
     }
 }

@@ -40,9 +40,8 @@ class DemandTraitTest extends UnitTestCase
         $this->subject = $this->getMockForTrait(
             DemandTrait::class
         );
-        $mockSettingsUtility = $this->getMock(
-            SettingsUtility::class, ['getControllerKey']
-        );
+        $mockSettingsUtility = $this->getMockBuilder(SettingsUtility::class)
+            ->setMethods(['getControllerKey'])->getMock();
         $this->inject(
             $this->subject,
             'settingsUtility',
@@ -110,7 +109,8 @@ class DemandTraitTest extends UnitTestCase
      */
     public function overwriteDemandObjectSetsEventType()
     {
-        $demand = $this->getMock(EventTypeAwareDemandInterface::class);
+        /** @var EventTypeAwareDemandInterface|\PHPUnit_Framework_MockObject_MockObject $demand */
+        $demand = $this->getMockBuilder(EventTypeAwareDemandInterface::class)->getMock();
         $overwriteDemand = ['eventType' => '1,2,3'];
 
         $demand->expects($this->once())->method('setEventTypes')
@@ -124,7 +124,8 @@ class DemandTraitTest extends UnitTestCase
      */
     public function overwriteDemandObjectSetsEventLocations()
     {
-        $demand = $this->getMock(EventLocationAwareDemandInterface::class);
+        /** @var EventLocationAwareDemandInterface|\PHPUnit_Framework_MockObject_MockObject $demand */
+        $demand = $this->getMockBuilder(EventLocationAwareDemandInterface::class)->getMock();
         $overwriteDemand = ['eventLocation' => '1,2,3'];
 
         $demand->expects($this->once())->method('setEventLocations')
@@ -169,8 +170,8 @@ class DemandTraitTest extends UnitTestCase
             $settings
         );
 
-        $demand = $this->getMock(SearchAwareDemandInterface::class);
-        $mockSearchObject = $this->getMock(Search::class);
+        $demand = $this->getMockBuilder(SearchAwareDemandInterface::class)->getMockForAbstractClass();
+        $mockSearchObject = $this->getMockBuilder(Search::class)->getMock();
         $overwriteDemand = [
             'search' => [
                 'subject' => $search
@@ -266,9 +267,8 @@ class DemandTraitTest extends UnitTestCase
      */
     public function overwriteDemandObjectSetsStartDate()
     {
-        $demand = $this->getMock(
-            PeriodAwareDemandInterface::class
-        );
+        /** @var PeriodAwareDemandInterface|\PHPUnit_Framework_MockObject_MockObject $demand */
+        $demand = $this->getMockBuilder(PeriodAwareDemandInterface::class)->getMock();
         $dateString = '2012-10-15';
         $overwriteDemand = [
             'startDate' => $dateString
@@ -287,9 +287,8 @@ class DemandTraitTest extends UnitTestCase
      */
     public function overwriteDemandObjectSetsEndDate()
     {
-        $demand = $this->getMock(
-            PerformanceDemand::class
-        );
+        /** @var PerformanceDemand|\PHPUnit_Framework_MockObject_MockObject $demand */
+        $demand = $this->getMockBuilder(PerformanceDemand::class)->getMock();
         $dateString = '2012-10-15';
         $overwriteDemand = [
             'endDate' => $dateString
@@ -308,9 +307,8 @@ class DemandTraitTest extends UnitTestCase
      */
     public function overWriteDemandSetsPeriodAllForInvalidStartDate()
     {
-        $demand = $this->getMock(
-            PerformanceDemand::class
-        );
+        /** @var PerformanceDemand|\PHPUnit_Framework_MockObject_MockObject $demand */
+        $demand = $this->getMockBuilder(PerformanceDemand::class)->getMock();
         $dateString = '';
         $overwriteDemand = [
             'startDate' => $dateString,
@@ -358,7 +356,7 @@ class DemandTraitTest extends UnitTestCase
         $method = 'set' . ucfirst($key);
         $demand = $this->getMockBuilder(
             DemandInterface::class)
-        ->setMethods([$method])->getMockForAbstractClass();
+            ->setMethods([$method])->getMockForAbstractClass();
 
         $overwriteDemand = [
             $key => ''

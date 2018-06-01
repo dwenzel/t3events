@@ -1,11 +1,13 @@
 <?php
+
 namespace DWenzel\T3events\Tests\Unit\Domain\Model\Dto;
 
-use Nimut\TestingFramework\TestCase\UnitTestCase;
-use TYPO3\CMS\Extbase\Persistence\Generic\Query;
-use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use DWenzel\T3events\Domain\Model\Dto\AudienceAwareDemandInterface;
 use DWenzel\T3events\Domain\Repository\AudienceConstraintRepositoryTrait;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
+use PHPUnit\Framework\MockObject\MockObject;
+use TYPO3\CMS\Extbase\Persistence\Generic\Query;
+use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 
 /**
  * Test case for class \DWenzel\T3events\Domain\Repository\AudienceConstraintRepositoryTrait.
@@ -23,12 +25,12 @@ class AudienceConstraintRepositoryTraitTest extends UnitTestCase
     protected $subject;
 
     /**
-     * @var \TYPO3\CMS\Extbase\Persistence\QueryInterface
+     * @var \TYPO3\CMS\Extbase\Persistence\QueryInterface|MockObject
      */
     protected $query;
 
     /**
-     * @var AudienceAwareDemandInterface
+     * @var AudienceAwareDemandInterface|MockObject
      */
     protected $demand;
 
@@ -40,15 +42,14 @@ class AudienceConstraintRepositoryTraitTest extends UnitTestCase
         $this->subject = $this->getMockForTrait(
             AudienceConstraintRepositoryTrait::class
         );
-        $this->query = $this->getMock(
-            QueryInterface::class, []
-        );
-        $this->demand = $this->getMock(
-            AudienceAwareDemandInterface::class,
-            [
-                'getAudiences', 'setAudiences', 'getAudienceField'
-            ]
-        );
+        $this->query = $this->getMockBuilder(QueryInterface::class)
+            ->getMock();
+        $this->demand = $this->getMockBuilder(AudienceAwareDemandInterface::class)
+            ->setMethods(
+                [
+                    'getAudiences', 'setAudiences', 'getAudienceField'
+                ]
+            )->getMockForAbstractClass();
     }
 
     /**
@@ -56,9 +57,9 @@ class AudienceConstraintRepositoryTraitTest extends UnitTestCase
      */
     public function createAudienceConstraintsInitiallyReturnsEmptyArray()
     {
-        $demand = $this->getMock(
-            AudienceAwareDemandInterface::class, []
-        );
+        /** @var AudienceAwareDemandInterface|MockObject $demand */
+        $demand = $this->getMockBuilder(AudienceAwareDemandInterface::class)
+            ->getMockForAbstractClass();
         $this->assertSame(
             [],
             $this->subject->createAudienceConstraints(
@@ -75,7 +76,11 @@ class AudienceConstraintRepositoryTraitTest extends UnitTestCase
     public function createAudienceConstraintsCreatesAudienceConstraints()
     {
         $audienceList = '1,2';
-        $query = $this->getMock(Query::class, ['contains'], [], '', false);
+        /** @var QueryInterface|MockObject $query */
+        $query = $this->getMockBuilder(Query::class)
+            ->disableOriginalConstructor()
+            ->setMethods(['contains'])
+            ->getMock();
         $mockConstraint = 'fooConstraint';
 
         $this->demand->expects($this->any())

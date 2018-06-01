@@ -5,27 +5,30 @@ sudo: false
 matrix:
   fast_finish: true
   include:
-    - php: 5.5
-      env: TYPO3_VERSION=^6.2
-    - php: 5.6
-      env: TYPO3_VERSION=^7.6
     - php: 7.0
-      env: TYPO3_VERSION=^7.6 COVERAGE=1
-    - php: 7.0
+      env: TYPO3_VERSION=^8 COVERAGE=1
+    - php: 7.2
       env: TYPO3_VERSION=^8
-  allow_failures:
-    - env: TYPO3_VERSION=^6.2
-
 env:
   global:
     secure: S8QheEMVpSRsPPIhYQZ4tUCTbxpM7csZ0GydJaPY8p/FAEnZLiH6xcsiTGKOljva5HDelCdBvunaWtUO/+CdKIgsdbQGbqc1aWmG6gr+ShQk4X3KzeAA91AFmkJOR6Jv69lUTm6Uo9AKs1JtuVZsOa1aoOmfApohqFuXsRBNXlg=
+jdk:
+  - oraclejdk8
+
+addons:
+  sonarcloud:
+    organisation: dwenzel-github
+    branches:
+      - master
+      - (develop|feature\/|release\/)[-]?.*
 
 cache:
   directories:
     - $HOME/.composer/cache
+    - $HOME/.sonar/cache
 
 before_script:
-  - composer require typo3/cms=$TYPO3_VERSION
+  - composer require typo3/minimal=$TYPO3_VERSION
   - git checkout composer.json
   - export TYPO3_PATH_WEB=$PWD/.Build/Web
 
@@ -41,7 +44,11 @@ script:
   if [[ "$COVERAGE" == "1" ]]; then
     echo;
     echo "Running unit tests";
-    .Build/bin/phpunit --colors -c Tests/Build/UnitTests.xml Tests/Unit/ --coverage-clover .Build/log/coverage/clover.xml
+    .Build/bin/phpunit --colors -c Tests/Build/UnitTests.xml Tests/Unit/ \
+    --coverage-clover .Build/log/coverage/clover.xml \
+    --log-junit .Build/log/junit.xml
+    rm -rf .Build/vendor/ .Build/Web/ .Build/bin/
+    sonar-scanner -Dproject.settings=.sonar-project.properties
   fi
 
 after_success:

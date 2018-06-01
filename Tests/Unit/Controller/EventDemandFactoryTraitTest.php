@@ -44,9 +44,9 @@ class EventDemandFactoryTraitTest extends UnitTestCase
      */
     public function eventDemandFactoryCanBeInjected()
     {
-        $eventDemandFactory = $this->getMock(
-            EventDemandFactory::class, [], [], '', false
-        );
+        /** @var EventDemandFactory|\PHPUnit_Framework_MockObject_MockObject $eventDemandFactory */
+        $eventDemandFactory = $this->getMockBuilder(EventDemandFactory::class)
+            ->getMock();
 
         $this->subject->injectEventDemandFactory($eventDemandFactory);
 

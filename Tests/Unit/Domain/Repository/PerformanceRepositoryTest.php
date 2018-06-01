@@ -1,22 +1,20 @@
 <?php
+
 namespace DWenzel\T3events\Tests\Unit\Domain\Repository;
 
-use DWenzel\T3events\Domain\Model\Dto\GenreAwareDemandTrait;
+use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
 use DWenzel\T3events\Domain\Model\Dto\PerformanceDemand;
-use DWenzel\T3events\Domain\Model\Dto\PeriodAwareDemandInterface;
 use DWenzel\T3events\Domain\Model\Dto\Search;
+use DWenzel\T3events\Domain\Repository\PerformanceRepository;
+use DWenzel\T3events\Tests\Unit\Object\MockObjectManagerTrait;
+use Nimut\TestingFramework\MockObject\AccessibleMockObjectInterface;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Persistence\Generic\Qom\ComparisonInterface;
 use TYPO3\CMS\Extbase\Persistence\Generic\Qom\ConstraintInterface;
 use TYPO3\CMS\Extbase\Persistence\Generic\Query;
-use TYPO3\CMS\Extbase\Persistence\Generic\QuerySettingsInterface;
 use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
-use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
-use DWenzel\T3events\Domain\Repository\PerformanceRepository;
-use TYPO3\CMS\Extbase\Persistence\Repository;
 
 /***************************************************************
  *
@@ -51,9 +49,10 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
  */
 class PerformanceRepositoryTest extends UnitTestCase
 {
+    use MockQueryTrait, MockObjectManagerTrait, MockQuerySettingsTrait;
 
     /**
-     * @var PerformanceRepository
+     * @var PerformanceRepository|AccessibleMockObjectInterface|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $subject;
 
@@ -66,19 +65,12 @@ class PerformanceRepositoryTest extends UnitTestCase
             PerformanceRepository::class,
             ['dummy'], [], '', false
         );
-    }
-
-    /**
-     * @return mixed
-     */
-    protected function mockObjectManager()
-    {
-        $mockObjectManager = $this->getMock(
-            ObjectManager::class, ['get']
+        $this->objectManager = $this->getMockObjectManager();
+        $this->inject(
+            $this->subject,
+            'objectManager',
+            $this->objectManager
         );
-        $this->subject->_set('objectManager', $mockObjectManager);
-
-        return $mockObjectManager;
     }
 
     /**
@@ -87,8 +79,7 @@ class PerformanceRepositoryTest extends UnitTestCase
      */
     public function createConstraintsFromDemandReturnsDefaultConstraints()
     {
-        $demand = $this->getMockBuilder(PerformanceDemand::class)
-        ->setMethods(['getEventLocations'])->getMock();
+        $demand = $this->getMockPerformanceDemand(['getEventLocations']);
         $this->subject = $this->getAccessibleMock(
             PerformanceRepository::class,
             [
@@ -97,13 +88,12 @@ class PerformanceRepositoryTest extends UnitTestCase
                 'createSearchConstraints'
             ], [], '', false
         );
-        $query = $this->getMock(
-            Query::class,
-            ['equals'], [], '', false
-        );
-        $comparison = $this->getMock(
-            ConstraintInterface::class
-        );
+        /** @var QueryInterface|\PHPUnit_Framework_MockObject_MockObject $query */
+        $query = $this->getMockBuilder(Query::class)
+            ->setMethods(['equals'])
+            ->disableOriginalConstructor()
+            ->getMock();
+        $comparison = $this->getMockBuilder(ConstraintInterface::class)->getMock();
         $query->expects($this->once())
             ->method('equals')
             ->with('event.hidden', 0)
@@ -128,13 +118,8 @@ class PerformanceRepositoryTest extends UnitTestCase
                 'createCategoryConstraints',
                 'createSearchConstraints'
             ], [], '', false);
-        $demand = $this->getMock(
-            PerformanceDemand::class, ['getEventLocations']
-        );
-        $query = $this->getMock(
-            QueryInterface::class,
-            [], [], '', false
-        );
+        $demand = $this->getMockPerformanceDemand(['getEventLocations']);
+        $query = $this->getMockQuery();
 
         $this->subject->expects($this->once())
             ->method('createStatusConstraints')
@@ -155,13 +140,8 @@ class PerformanceRepositoryTest extends UnitTestCase
                 'createSearchConstraints',
                 'createCategoryConstraints'
             ], [], '', false);
-        $demand = $this->getMock(
-            PerformanceDemand::class, ['getEventLocations']
-        );
-        $query = $this->getMock(
-            QueryInterface::class,
-            [], [], '', false
-        );
+        $demand = $this->getMockPerformanceDemand(['getEventLocations']);
+        $query = $this->getMockQuery();
 
         $demand->expects($this->any())
             ->method('getEventLocations')
@@ -190,13 +170,8 @@ class PerformanceRepositoryTest extends UnitTestCase
                 'createCategoryConstraints',
                 'combineConstraints'
             ], [], '', false);
-        $demand = $this->getMock(
-            PerformanceDemand::class, ['getEventLocations', 'isExcludeSelectedStatuses']
-        );
-        $query = $this->getMock(
-            QueryInterface::class,
-            [], [], '', false
-        );
+        $demand = $this->getMockPerformanceDemand(['getEventLocations', 'isExcludeSelectedStatuses']);
+        $query = $this->getMockQuery();
 
         $constraints = [null];
         $mockStatusConstraints = ['foo'];
@@ -226,13 +201,8 @@ class PerformanceRepositoryTest extends UnitTestCase
                 'createCategoryConstraints',
                 'combineConstraints'
             ], [], '', false);
-        $demand = $this->getMock(
-            PerformanceDemand::class, ['getEventLocations', 'isExcludeSelectedStatuses']
-        );
-        $query = $this->getMock(
-            QueryInterface::class,
-            [], [], '', false
-        );
+        $demand = $this->getMockPerformanceDemand(['getEventLocations', 'isExcludeSelectedStatuses']);
+        $query = $this->getMockQuery();
 
         $constraints = [null];
         $mockStatusConstraints = ['foo'];
@@ -258,12 +228,9 @@ class PerformanceRepositoryTest extends UnitTestCase
      */
     public function initializeObjectInitiallySetsRespectStoragePageFalse()
     {
-        $mockQuerySettings = $this->getMock(
-            Typo3QuerySettings::class, ['setRespectStoragePage']
-        );
+        $mockQuerySettings = $this->getMockQuerySettings(['setRespectStoragePage']);
 
-        $mockObjectManager = $this->mockObjectManager();
-        $mockObjectManager->expects($this->once())
+        $this->objectManager->expects($this->once())
             ->method('get')
             ->with(Typo3QuerySettings::class)
             ->will($this->returnValue($mockQuerySettings));
@@ -284,12 +251,8 @@ class PerformanceRepositoryTest extends UnitTestCase
             'respectPerformanceStoragePage' => false
         ];
         $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['t3events'] = serialize($emSettings);
-        $mockQuerySettings = $this->getMock(
-            Typo3QuerySettings::class, ['setRespectStoragePage']
-        );
-
-        $mockObjectManager = $this->mockObjectManager();
-        $mockObjectManager->expects($this->once())
+        $mockQuerySettings = $this->getMockQuerySettings(['setRespectStoragePage']);
+        $this->objectManager->expects($this->once())
             ->method('get')
             ->with(Typo3QuerySettings::class)
             ->will($this->returnValue($mockQuerySettings));
@@ -308,15 +271,11 @@ class PerformanceRepositoryTest extends UnitTestCase
      */
     public function emptyDemandValuesDataProvider()
     {
-        $mockSearchObjectWithNullSubject = $this->getMock(
-            Search::class, ['getSubject']
-        );
+        $mockSearchObjectWithNullSubject = $this->getMockSearch(['getSubject']);
         $mockSearchObjectWithNullSubject->expects($this->any())
             ->method('getSubject')
             ->will($this->returnValue(null));
-        $mockSearchObjectWithEmptySubject = $this->getMock(
-            Search::class, ['getSubject']
-        );
+        $mockSearchObjectWithEmptySubject = $this->getMockSearch(['getSubject']);
         $mockSearchObjectWithEmptySubject->expects($this->any())
             ->method('getSubject')
             ->will($this->returnValue(''));
@@ -347,8 +306,7 @@ class PerformanceRepositoryTest extends UnitTestCase
             [
                 'combineConstraints'
             ], [], '', false);
-        $demand = $this->getMockForAbstractClass(
-            PerformanceDemand::class, [], '', true, true, true,
+        $demand = $this->getMockPerformanceDemand(
             [
                 'getGenres',
                 'getVenues',
@@ -360,6 +318,7 @@ class PerformanceRepositoryTest extends UnitTestCase
                 'getEventLocations'
             ]
         );
+        /** @var QueryInterface|\PHPUnit_Framework_MockObject_MockObject $query */
         $query = $this->getMockForAbstractClass(QueryInterface::class);
         $query->expects($this->never())
             ->method('in');
@@ -385,9 +344,7 @@ class PerformanceRepositoryTest extends UnitTestCase
     {
         $searchSubject = 'foo';
         $searchField = 'bar';
-        $mockSearchObjectWithEmptySubject = $this->getMock(
-            Search::class, ['getSubject', 'getFields']
-        );
+        $mockSearchObjectWithEmptySubject = $this->getMockSearch(['getSubject', 'getFields']);
         $mockSearchObjectWithEmptySubject->expects($this->any())
             ->method('getSubject')
             ->will($this->returnValue($searchSubject));
@@ -398,7 +355,7 @@ class PerformanceRepositoryTest extends UnitTestCase
         return [
             ['getGenres', '1', 'contains', PerformanceDemand::GENRE_FIELD, 1],
             ['getVenues', '3', 'contains', PerformanceDemand::VENUE_FIELD, 3],
-            ['getEventTypes', '5,6', 'in', PerformanceDemand::EVENT_TYPE_FIELD, [5,6]],
+            ['getEventTypes', '5,6', 'in', PerformanceDemand::EVENT_TYPE_FIELD, [5, 6]],
             ['getCategories', '7', 'contains', PerformanceDemand::CATEGORY_FIELD, 7],
             ['getSearch', $mockSearchObjectWithEmptySubject, 'like', $searchField, '%' . $searchSubject . '%']
         ];
@@ -419,14 +376,14 @@ class PerformanceRepositoryTest extends UnitTestCase
         $comparisonMethod,
         $propertyName,
         $operand
-    ) {
+    )
+    {
         $this->subject = $this->getAccessibleMock(
             PerformanceRepository::class,
             [
                 'combineConstraints'
             ], [], '', false);
-        $demand = $this->getMockForAbstractClass(
-            PerformanceDemand::class, [], '', true, true, true,
+        $demand = $this->getMockPerformanceDemand(
             [
                 'getGenres',
                 'getVenues',
@@ -439,10 +396,9 @@ class PerformanceRepositoryTest extends UnitTestCase
                 'getCategoryConjunction'
             ]
         );
-        $mockComparison = $this->getMock(
-            ComparisonInterface::class
-        );
-        $query = $this->getMockForAbstractClass(QueryInterface::class);
+        $mockComparison = $this->getMockBuilder(ComparisonInterface::class)->getMock();
+
+        $query = $this->getMockQuery();
         $query->expects($this->once())
             ->method($comparisonMethod)
             ->with($propertyName, $operand)
@@ -472,8 +428,7 @@ class PerformanceRepositoryTest extends UnitTestCase
             [
                 'combineConstraints'
             ], [], '', false);
-        $demand = $this->getMockBuilder(PerformanceDemand::class)
-        ->setMethods([
+        $demand = $this->getMockPerformanceDemand([
             'getGenres',
             'getVenues',
             'getEventTypes',
@@ -483,13 +438,13 @@ class PerformanceRepositoryTest extends UnitTestCase
             'getStatuses',
             'getEventLocations',
             'getStoragePages'
-        ])->getMock();
+        ]);
         $storagePageList = '3,4';
-        $storagePages =  GeneralUtility::intExplode(',', $storagePageList);
+        $storagePages = GeneralUtility::intExplode(',', $storagePageList);
         $demand->expects($this->any())
             ->method('getStoragePages')
             ->will($this->returnValue($storagePageList));
-        $query = $this->getMockForAbstractClass(QueryInterface::class);
+        $query = $this->getMockQuery();
         $query->expects($this->once())
             ->method('in')
             ->with('pid', $storagePages);
@@ -512,14 +467,8 @@ class PerformanceRepositoryTest extends UnitTestCase
                 'combineConstraints'
             ], [], '', false);
         /** @var DemandInterface $demand */
-        $demand = $this->getMockForAbstractClass(
-            PerformanceDemand::class, [], '', true, true, true,
-            []
-        );
-        $query = $this->getMock(
-            QueryInterface::class,
-            [], [], '', false
-        );
+        $demand = $this->getMockPerformanceDemand();
+        $query = $this->getMockQuery();
 
         $this->subject->expects($this->once())
             ->method('createPeriodConstraints')
@@ -543,14 +492,8 @@ class PerformanceRepositoryTest extends UnitTestCase
                 'combineConstraints'
             ], [], '', false);
         /** @var DemandInterface $demand */
-        $demand = $this->getMockForAbstractClass(
-            PerformanceDemand::class, [], '', true, true, true,
-            []
-        );
-        $query = $this->getMock(
-            QueryInterface::class,
-            [], [], '', false
-        );
+        $demand = $this->getMockPerformanceDemand();
+        $query = $this->getMockQuery();
 
         $constraints = [null];
         $mockPeriodConstraints = ['foo'];
@@ -564,5 +507,23 @@ class PerformanceRepositoryTest extends UnitTestCase
             ->with($query, $constraints, $mockPeriodConstraints, 'AND');
 
         $this->subject->createConstraintsFromDemand($query, $demand);
+    }
+
+    /**
+     * @return PerformanceDemand|\PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function getMockPerformanceDemand(array $methods = [])
+    {
+        return $this->getMockBuilder(PerformanceDemand::class)
+            ->setMethods($methods)
+            ->getMock();
+    }
+
+    /**
+     * @return mixed
+     */
+    protected function getMockSearch(array $methods = [])
+    {
+        return $this->getMockBuilder(Search::class)->setMethods($methods)->getMock();
     }
 }

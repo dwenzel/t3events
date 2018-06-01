@@ -1,9 +1,11 @@
 <?php
+
 namespace DWenzel\T3events\Tests\Unit\Domain\Factory\Dto;
 
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use DWenzel\T3events\Domain\Factory\Dto\PeriodAwareDemandFactoryTrait;
 use DWenzel\T3events\Domain\Model\Dto\PeriodAwareDemandInterface;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
+use PHPUnit\Framework\MockObject\MockObject;
 
 /***************************************************************
  *  Copyright notice
@@ -25,7 +27,7 @@ use DWenzel\T3events\Domain\Model\Dto\PeriodAwareDemandInterface;
 class PeriodAwareDemandFactoryTraitTest extends UnitTestCase
 {
     /**
-     * @var \DWenzel\T3events\Domain\Factory\Dto\PeriodAwareDemandFactoryTrait
+     * @var PeriodAwareDemandFactoryTrait
      */
     protected $subject;
 
@@ -35,7 +37,7 @@ class PeriodAwareDemandFactoryTraitTest extends UnitTestCase
     public function setUp()
     {
         $this->subject = $this->getMockForTrait(
-            \DWenzel\T3events\Domain\Factory\Dto\PeriodAwareDemandFactoryTrait::class
+            PeriodAwareDemandFactoryTrait::class
         );
     }
 
@@ -44,7 +46,7 @@ class PeriodAwareDemandFactoryTraitTest extends UnitTestCase
      *
      * @return array
      */
-    public function startDateDataProvider()
+    public function startDateDataProvider(): array
     {
         $timeZone = new \DateTimeZone(date_default_timezone_get());
         $startDate = new \DateTime('midnight', $timeZone);
@@ -69,9 +71,7 @@ class PeriodAwareDemandFactoryTraitTest extends UnitTestCase
      */
     public function setPeriodConstraintsSetsStartDate($settings, $startDate)
     {
-        $mockDemand = $this->getMock(
-            PeriodAwareDemandInterface::class
-        );
+        $mockDemand = $this->getMockPeriodAwareDemand();
 
         $mockDemand->expects($this->once())
             ->method('setStartDate')
@@ -88,14 +88,22 @@ class PeriodAwareDemandFactoryTraitTest extends UnitTestCase
      */
     public function setPeriodConstraintsSetsDate($settings, $startDate)
     {
-        $mockDemand = $this->getMock(
-            PeriodAwareDemandInterface::class
-        );
+        $mockDemand = $this->getMockPeriodAwareDemand();
 
         $mockDemand->expects($this->once())
             ->method('setDate')
             ->with($startDate);
 
         $this->subject->setPeriodConstraints($mockDemand, $settings);
+    }
+
+    /**
+     * @return PeriodAwareDemandInterface|MockObject
+     */
+    protected function getMockPeriodAwareDemand()
+    {
+        /** @var PeriodAwareDemandInterface|MockObject $mockDemand */
+        $mockDemand = $this->getMockBuilder(PeriodAwareDemandInterface::class)->getMock();
+        return $mockDemand;
     }
 }
