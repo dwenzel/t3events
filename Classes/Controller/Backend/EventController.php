@@ -19,6 +19,7 @@ use DWenzel\T3events\Controller\EventDemandFactoryTrait;
 use DWenzel\T3events\Controller\EventRepositoryTrait;
 use DWenzel\T3events\Controller\FilterableControllerInterface;
 use DWenzel\T3events\Controller\FilterableControllerTrait;
+use DWenzel\T3events\Controller\SignalTrait;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
@@ -28,7 +29,7 @@ use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
  */
 class EventController extends AbstractBackendController implements FilterableControllerInterface
 {
-    use EventRepositoryTrait, EventDemandFactoryTrait, FilterableControllerTrait;
+    use EventRepositoryTrait, EventDemandFactoryTrait, FilterableControllerTrait, SignalTrait;
 
     const LIST_ACTION = 'listAction';
 
@@ -42,6 +43,8 @@ class EventController extends AbstractBackendController implements FilterableCon
      *
      * @param array $overwriteDemand
      * @return void
+     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException
+     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
      */
     public function listAction($overwriteDemand = null)
     {

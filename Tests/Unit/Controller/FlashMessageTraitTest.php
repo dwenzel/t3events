@@ -115,45 +115,6 @@ class FlashMessageTraitTest extends UnitTestCase
     /**
      * @test
      */
-    public function useLegacyFlashMessageHandlingInitiallyReturnsFalse()
-    {
-        $frameWorkConfiguration = [];
-        $mockConfigurationManager = $this->mockConfigurationManager();
-        $mockConfigurationManager->expects($this->once())
-            ->method('getConfiguration')
-            ->with(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK)
-            ->will($this->returnValue($frameWorkConfiguration));
-        /** @noinspection PhpDeprecationInspection */
-        $this->assertFalse(
-            $this->subject->useLegacyFlashMessageHandling()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function useLegacyFlashMessageHandlingReturnsTrueIfSet()
-    {
-        $frameWorkConfiguration = [
-            'legacy' => [
-                'enableLegacyFlashMessageHandling' => '1'
-            ]
-        ];
-        $mockConfigurationManager = $this->mockConfigurationManager();
-        $mockConfigurationManager->expects($this->once())
-            ->method('getConfiguration')
-            ->with(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK)
-            ->will($this->returnValue($frameWorkConfiguration));
-        /** @noinspection PhpDeprecationInspection */
-        $this->assertTrue(
-            $this->subject->useLegacyFlashMessageHandling()
-        );
-    }
-
-
-    /**
-     * @test
-     */
     public function getFlashMessageQueueInstantiatesQueue()
     {
         $namespace = 'fooNamespace';
@@ -178,9 +139,6 @@ class FlashMessageTraitTest extends UnitTestCase
             ->will($this->returnValue($pluginName));
 
         $mockFlashMessageQueue = $this->getMockFlashMessageQueue();
-        $this->subject->expects($this->once())
-            ->method('useLegacyFlashMessageHandling')
-            ->will($this->returnValue(false));
         $mockFlashMessageService = $this->mockFlashMessageService();
         $mockFlashMessageService->expects($this->once())
             ->method('getMessageQueueByIdentifier')
