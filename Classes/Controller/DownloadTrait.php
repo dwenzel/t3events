@@ -17,13 +17,6 @@ trait DownloadTrait
     protected $localDriver;
 
     /**
-     * The current view, as resolved by resolveView()
-     *
-     * @var ViewInterface
-     */
-    protected $view = null;
-
-    /**
      * Contains the settings of the current extension
      *
      * @var array
