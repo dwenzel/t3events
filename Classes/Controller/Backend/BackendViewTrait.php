@@ -21,6 +21,7 @@ namespace DWenzel\T3events\Controller\Backend;
 
 use DWenzel\T3events\View\ConfigurableViewInterface;
 use TYPO3\CMS\Backend\View\BackendTemplateView;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 
 /**
@@ -30,6 +31,10 @@ use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
  */
 trait BackendViewTrait
 {
+    /**
+     * @var ConfigurationManagerInterface
+     */
+    protected $configurationManager;
 
     /**
      * Settings (from TypoScript for module)
@@ -39,17 +44,44 @@ trait BackendViewTrait
     protected $settings = [];
 
     /**
-     * @var BackendTemplateView
+     *
+     * @param ViewInterface $view
      */
-    protected $view;
+    public function initializeView(ViewInterface $view)
+    {
 
-    public function initializeView(ViewInterface $view) {
         if (
             $view instanceof ConfigurableViewInterface &&
             !empty($this->settings[ConfigurableViewInterface::SETTINGS_KEY])
         ) {
             $view->apply($this->settings[ConfigurableViewInterface::SETTINGS_KEY]);
         }
-    }
 
+        if ($view instanceof BackendTemplateView) {
+            // Template Path Override
+            $extbaseFrameworkConfiguration = $this->configurationManager->getConfiguration(
+                ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
+            );
+            $pageRenderer = $view->getModuleTemplate()->getPageRenderer();
+            $rendererConfiguration = $this->getViewProperty($extbaseFrameworkConfiguration, 'pageRenderer');
+            if (!empty($rendererConfiguration['requireJs'])) {
+                if (is_array($rendererConfiguration['requireJs'])) {
+                    $configuration['paths'] = [];
+                    $modulesToLoad = [];
+                    foreach ($rendererConfiguration['requireJs'] as $identifier => $config) {
+                        $configuration['paths'][$identifier] = $config['path'];
+                        if (is_array($config['modules'])) {
+                            foreach ($config['modules'] as $item => $module) {
+                                $modulesToLoad[] = $identifier . '/' . $module;
+                            }
+                        }
+                    }
+                    $pageRenderer->addRequireJsConfiguration($configuration);
+                    foreach ($modulesToLoad as $moduleToLoad) {
+                        $pageRenderer->loadRequireJsModule($moduleToLoad);
+                    }
+                }
+            }
+        }
+    }
 }
