@@ -2,7 +2,9 @@
 
 namespace DWenzel\T3events\Controller;
 
+use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\FormProtection\FormProtectionFactory;
+use TYPO3\CMS\Core\Utility\HttpUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Mvc\Exception\StopActionException;
 use TYPO3\CMS\Extbase\Mvc\RequestInterface;
@@ -73,8 +75,23 @@ class AbstractBackendController extends AbstractController
         $token = FormProtectionFactory::get()->generateToken('moduleCall', $this->getModuleKey());
         if ($tokenOnly) {
             return $token;
-        } else {
-            return '&moduleToken=' . $token;
         }
+
+        return '&moduleToken=' . $token;
+    }
+
+    /**
+     * Redirect to tceform creating a new record
+     *
+     * @param string $table table name
+     */
+    protected function redirectToCreateNewRecord($table)
+    {
+        $returnUrl = 'index.php?M=' . $this->getModuleKey() . '&id=' . $this->pageUid . $this->getToken();
+        $url = BackendUtility::getModuleUrl('record_edit', [
+            'edit[' . $table . '][' . $this->pageUid . ']' => 'new',
+            'returnUrl' => $returnUrl
+        ]);
+        HttpUtility::redirect($url);
     }
 }

@@ -137,7 +137,7 @@ if (TYPO3_MODE === 'BE' && (bool)$emSettings['showEventModule']) {
         'm1',
         '',
         [
-            'Backend\Event' => 'list, show,reset',
+            'Backend\Event' => 'list, show,reset,new',
         ],
         [
             'access' => 'user,group',

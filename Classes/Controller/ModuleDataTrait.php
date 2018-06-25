@@ -73,7 +73,7 @@ trait ModuleDataTrait
      */
     protected function getModuleKey()
     {
-        return $GLOBALS['moduleName'];
+        return $_GET['M'];
     }
 
     /**
