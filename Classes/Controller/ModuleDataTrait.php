@@ -88,8 +88,6 @@ trait ModuleDataTrait
     /**
      * Reset action
      * Resets all module data and forwards the request to the list action
-     *
-     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\StopActionException
      */
     public function resetAction()
     {

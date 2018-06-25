@@ -23,7 +23,6 @@ use DWenzel\T3events\Domain\Model\Dto\ButtonDemandCollection;
 use TYPO3\CMS\Backend\Template\Components\ButtonBar;
 use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Imaging\IconFactory;
-use TYPO3\CMS\Extbase\Mvc\Web\Request;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 
@@ -31,10 +30,9 @@ use TYPO3\CMS\Extbase\Object\ObjectManager;
 trait ModuleButtonTrait
 {
     /**
-     * @param $request
      * @return ButtonBar
      */
-    abstract function getButtonBar();
+    abstract protected function getButtonBar();
 
     /**
      * @return UriBuilder
@@ -52,7 +50,6 @@ trait ModuleButtonTrait
      * @param string $key
      * @param string $extension
      * @param array $arguments
-     * @codeCoverageIgnore
      * @return string
      */
     abstract public function translate($key, $extension = 't3events', $arguments = null);
