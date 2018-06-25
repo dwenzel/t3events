@@ -46,7 +46,7 @@ class EventController extends AbstractBackendController implements FilterableCon
             ButtonDemand::TABLE_KEY => 'tx_t3events_domain_model_event',
             ButtonDemand::LABEL_KEY => 'button.newAction',
             ButtonDemand::ACTION_KEY => 'new',
-            ButtonDemand::ICON_KEY => 'ext-t3events-type-default'
+            ButtonDemand::ICON_KEY => 'ext-t3events-event'
         ]
     ];
 

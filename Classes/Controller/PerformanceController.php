@@ -85,7 +85,7 @@ class PerformanceController
             ButtonDemand::TABLE_KEY => 'tx_t3events_domain_model_performance',
             ButtonDemand::LABEL_KEY => 'button.listAction',
             ButtonDemand::ACTION_KEY => 'list',
-            ButtonDemand::ICON_KEY => 'ext-t3events-type-default'
+            ButtonDemand::ICON_KEY => 'ext-t3events-performance'
         ]
     ];
 

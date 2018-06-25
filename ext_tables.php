@@ -126,6 +126,7 @@ if (TYPO3_MODE === 'BE' && (bool)$emSettings['showEventModule']) {
                 'labels' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_mod_main.xlf',
             ]
         );
+
     }
 
     /**
