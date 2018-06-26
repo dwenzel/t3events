@@ -27,6 +27,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\FormProtection\FormProtectionFactory;
 use TYPO3\CMS\Core\Utility\HttpUtility;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
@@ -275,5 +276,36 @@ class EventControllerTest extends UnitTestCase
             );
 
         $this->subject->newAction();
+    }
+
+    /**
+     * @test
+     */
+    public function initializeNewActionSetsPageUidFromFrameworkConfiguration()
+    {
+        /** @var ConfigurationManager|MockObject $mockConfigurationManager */
+        $mockConfigurationManager = $this->getMockBuilder(ConfigurationManager::class)
+            ->disableOriginalConstructor()
+            ->setMethods(['getConfiguration'])
+            ->getMock();
+        $this->subject->injectConfigurationManager($mockConfigurationManager);
+        $pageIdFromFrameWorkConfiguration = 678;
+
+        $configuration = [
+            'persistence' => [
+                'storagePid' => $pageIdFromFrameWorkConfiguration
+            ]
+        ];
+
+        $mockConfigurationManager->expects($this->once())
+            ->method('getConfiguration')
+            ->with(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK)
+            ->will($this->returnValue($configuration));
+        $this->subject->initializeNewAction();
+        $this->assertAttributeEquals(
+            $pageIdFromFrameWorkConfiguration,
+            'pageUid',
+            $this->subject
+        );
     }
 }
