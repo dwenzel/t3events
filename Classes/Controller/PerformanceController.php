@@ -16,6 +16,7 @@ namespace DWenzel\T3events\Controller;
  */
 
 use DWenzel\T3calendar\Domain\Model\Dto\CalendarConfigurationFactoryTrait;
+use DWenzel\T3events\Domain\Model\Dto\ButtonDemand;
 use DWenzel\T3events\Domain\Model\Dto\PerformanceDemand;
 use DWenzel\T3events\Domain\Model\Performance;
 use DWenzel\T3events\Domain\Repository\EventTypeRepository;
@@ -79,6 +80,8 @@ class PerformanceController
      */
     protected $contentObject;
 
+    protected $buttonConfiguration = [];
+
     /**
      * Constructor
      */
@@ -86,6 +89,25 @@ class PerformanceController
     {
         parent::__construct();
         $this->namespace = get_class($this);
+    }
+
+    /**
+     * Returns a configuration array for buttons
+     * in the form
+     * [
+     *   [
+     *      ButtonDemand::TABLE_KEY => 'tx_t3events_domain_model_event',
+     *      ButtonDemand::LABEL_KEY => 'button.listAction',
+     *      ButtonDemand::ACTION_KEY => 'list',
+     *      ButtonDemand::ICON_KEY => 'ext-t3events-type-default'
+     *   ]
+     * ]
+     * Each entry in the array describes one button
+     * @return array
+     */
+    public function getButtonConfiguration()
+    {
+        return $this->buttonConfiguration;
     }
 
     /**

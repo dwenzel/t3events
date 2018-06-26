@@ -10,6 +10,9 @@
 		<trans-unit id="button.applyFilter" xml:space="preserve">
 			<source>apply filter</source>
 		</trans-unit>
+		<trans-unit id="button.newAction.event" xml:space="preserve">
+			<source>New Event</source>
+		</trans-unit>
 		<trans-unit id="button.back" xml:space="preserve">
 			<source>back</source>
 		</trans-unit>
