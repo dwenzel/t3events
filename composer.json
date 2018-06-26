@@ -31,9 +31,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "DWenzel\\T3events\\Tests\\": "Tests",
-      "TYPO3\\CMS\\Core\\Tests\\": ".Build/vendor/typo3/cms/typo3/sysext/core/Tests/",
-      "TYPO3\\CMS\\Fluid\\Tests\\": ".Build/vendor/typo3/cms/typo3/sysext/fluid/Tests/"
+      "DWenzel\\T3events\\Tests\\": "Tests"
     }
   },
   "replace": {
