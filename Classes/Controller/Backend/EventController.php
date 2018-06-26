@@ -57,6 +57,7 @@ class EventController extends AbstractBackendController implements FilterableCon
      */
     public function initializeNewAction()
     {
+
         $configuration = $this->configurationManager->getConfiguration(
             ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
         );
