@@ -98,7 +98,9 @@ class ButtonDemandCollectionTest extends UnitTestCase
             ButtonDemand::TABLE_KEY => 'foo',
             ButtonDemand::ACTION_KEY => 'bar',
             ButtonDemand::ICON_KEY => 'baz',
-            ButtonDemand::LABEL_KEY => 'boom'
+            ButtonDemand::ICON_SIZE_KEY => 'nope',
+            ButtonDemand::LABEL_KEY => 'boom',
+            ButtonDemand::OVERLAY_KEY => 'zap'
         ];
         $settings = [$singleButtonConfig];
 
@@ -126,8 +128,16 @@ class ButtonDemandCollectionTest extends UnitTestCase
             $firstDemand->getIconKey()
         );
         $this->assertSame(
+            $singleButtonConfig[ButtonDemand::ICON_SIZE_KEY],
+            $firstDemand->getIconSize()
+        );
+        $this->assertSame(
             $singleButtonConfig[ButtonDemand::ACTION_KEY],
             $firstDemand->getAction()
+        );
+        $this->assertSame(
+            $singleButtonConfig[ButtonDemand::OVERLAY_KEY],
+            $firstDemand->getOverlay()
         );
     }
 }

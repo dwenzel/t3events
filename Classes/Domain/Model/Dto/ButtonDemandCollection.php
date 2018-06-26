@@ -50,6 +50,12 @@ class ButtonDemandCollection
                 }
                 if (!empty($buttonConfig[ButtonDemand::ICON_KEY])) {
                     $demand->setIconKey($buttonConfig[ButtonDemand::ICON_KEY]);
+                 }
+                if (!empty($buttonConfig[ButtonDemand::ICON_SIZE_KEY])) {
+                    $demand->setIconSize($buttonConfig[ButtonDemand::ICON_SIZE_KEY]);
+                }
+                if (!empty($buttonConfig[ButtonDemand::OVERLAY_KEY])) {
+                    $demand->setOverlay($buttonConfig[ButtonDemand::OVERLAY_KEY]);
                 }
 
                 $this->addDemand($demand);

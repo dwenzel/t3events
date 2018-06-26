@@ -1,6 +1,7 @@
 <?php
 
 namespace DWenzel\T3events\Domain\Model\Dto;
+use TYPO3\CMS\Core\Imaging\Icon;
 
 /***************************************************************
  *  Copyright notice
@@ -24,7 +25,9 @@ class ButtonDemand
     public const LABEL_KEY = 'label';
     public const ACTION_KEY = 'action';
     public const ICON_KEY = 'icon';
+    public const ICON_SIZE_KEY = 'icon-size';
     public const TABLE_KEY = 'table';
+    public const OVERLAY_KEY = 'overlay';
 
     /**
      * @var string
@@ -47,7 +50,17 @@ class ButtonDemand
     protected $iconKey;
 
     /**
-     * @return static
+     * @var string
+     */
+    protected $iconSize = Icon::SIZE_DEFAULT;
+
+    /**
+     * @var string
+     */
+    protected $overlay;
+
+    /**
+     * @return string
      */
     public function getTable()
     {
@@ -108,5 +121,37 @@ class ButtonDemand
     public function setIconKey($iconKey)
     {
         $this->iconKey = $iconKey;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIconSize()
+    {
+        return $this->iconSize;
+    }
+
+    /**
+     * @param string $iconSize
+     */
+    public function setIconSize($iconSize)
+    {
+        $this->iconSize = $iconSize;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOverlay()
+    {
+        return $this->overlay;
+    }
+
+    /**
+     * @param string $overlay
+     */
+    public function setOverlay($overlay)
+    {
+        $this->overlay = $overlay;
     }
 }

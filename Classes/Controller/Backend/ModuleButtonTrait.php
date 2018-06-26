@@ -21,7 +21,6 @@ namespace DWenzel\T3events\Controller\Backend;
 use DWenzel\T3events\Domain\Model\Dto\ButtonDemand;
 use DWenzel\T3events\Domain\Model\Dto\ButtonDemandCollection;
 use TYPO3\CMS\Backend\Template\Components\ButtonBar;
-use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Imaging\IconFactory;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
@@ -60,6 +59,25 @@ trait ModuleButtonTrait
     protected $objectManager;
 
     /**
+     * Returns a configuration array for buttons
+     * in the form
+     * [
+     *   [
+     *      ButtonDemand::TABLE_KEY => 'tx_t3events_domain_model_event',
+     *      ButtonDemand::LABEL_KEY => 'button.listAction',
+     *      ButtonDemand::ACTION_KEY => 'list',
+     *      ButtonDemand::ICON_KEY => 'ext-t3events-type-default'
+     *   ]
+     * ]
+     * Each entry in the array describes one button
+     * @return array
+     */
+    public function getButtonConfiguration()
+    {
+        return $this->buttonConfiguration;
+    }
+
+    /**
      * @param ButtonDemandCollection $configuration button configuration
      */
     protected function createButtons(ButtonDemandCollection $configuration) {
@@ -78,7 +96,11 @@ trait ModuleButtonTrait
                     [],
                     $request->getControllerName()
                 );
-
+            $icon = $iconFactory->getIcon(
+                $demand->getIconKey(),
+                $demand->getIconSize(),
+                $demand->getOverlay()
+            );
             $viewButton = $buttonBar->makeLinkButton()
                 ->setHref($uri)
                 ->setDataAttributes(
@@ -89,7 +111,7 @@ trait ModuleButtonTrait
                     ]
                 )
                 ->setTitle($title)
-                ->setIcon($iconFactory->getIcon($demand->getIconKey(), Icon::SIZE_SMALL, 'overlay-new'));
+                ->setIcon($icon);
             $buttonBar->addButton($viewButton, ButtonBar::BUTTON_POSITION_LEFT, 2);
         }
     }

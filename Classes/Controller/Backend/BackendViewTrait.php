@@ -62,11 +62,6 @@ trait BackendViewTrait
     protected $uriBuilder;
 
     /**
-     * @return array
-     */
-    abstract public function getButtonConfiguration();
-
-    /**
      * @param ViewInterface $view
      */
     public function initializeView(ViewInterface $view)

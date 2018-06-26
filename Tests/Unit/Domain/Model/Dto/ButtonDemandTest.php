@@ -3,6 +3,7 @@
 namespace DWenzel\T3events\Tests;
 use DWenzel\T3events\Domain\Model\Dto\ButtonDemand;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\CMS\Core\Imaging\Icon;
 
 /***************************************************************
  *  Copyright notice
@@ -81,6 +82,27 @@ class ButtonDemandTest extends  UnitTestCase
     /**
      * @test
      */
+    public function getOverlayInitiallyReturnsNull() {
+        $this->assertNull(
+            $this->subject->getOverlay()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function setOverlayForStringSetsOverlay() {
+        $overlay = 'foo';
+        $this->subject->setOverlay($overlay);
+        $this->assertSame(
+            $overlay,
+            $this->subject->getOverlay()
+        );
+    }
+
+    /**
+     * @test
+     */
     public function getLabelKeyInitiallyReturnsNull()
     {
         $this->assertNull(
@@ -124,4 +146,27 @@ class ButtonDemandTest extends  UnitTestCase
         );
     }
 
+     /**
+     * @test
+     */
+    public function getIconSizeInitiallyDefaultValue()
+    {
+        $this->assertSame(
+            Icon::SIZE_DEFAULT,
+            $this->subject->getIconSize()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function setIconSizeForStringSetsIconSize()
+    {
+        $iconSize = 'foo';
+        $this->subject->setIconSize($iconSize);
+        $this->assertSame(
+            $iconSize,
+            $this->subject->getIconSize()
+        );
+    }
 }
