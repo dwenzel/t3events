@@ -1,4 +1,5 @@
 <?php
+
 namespace DWenzel\T3events\Controller\Backend;
 
 /**
@@ -58,11 +59,12 @@ class EventController extends AbstractBackendController implements FilterableCon
     /**
      * @return void
      */
-    public function initializeNewAction(){
+    public function initializeNewAction()
+    {
         $configuration = $this->configurationManager->getConfiguration(
             ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
         );
-        if(!empty($configuration['persistence']['storagePid'])){
+        if (!empty($configuration['persistence']['storagePid'])) {
             $this->pageUid = $configuration['persistence']['storagePid'];
         }
     }
@@ -118,7 +120,8 @@ class EventController extends AbstractBackendController implements FilterableCon
     /**
      * Redirect to new record form
      */
-    public function newAction() {
+    public function newAction()
+    {
         $this->redirectToCreateNewRecord('tx_t3events_domain_model_event');
     }
 }

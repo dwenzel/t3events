@@ -16,7 +16,6 @@ namespace DWenzel\T3events\Tests\Unit\Controller\Backend;
  */
 
 use DWenzel\T3events\Controller\Backend\EventController;
-use TYPO3\CMS\Backend\Utility\BackendUtility;
 use DWenzel\T3events\Domain\Factory\Dto\EventDemandFactory;
 use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
 use DWenzel\T3events\Domain\Model\Dto\EventDemand;
@@ -25,11 +24,12 @@ use DWenzel\T3events\Domain\Repository\EventRepository;
 use Nimut\TestingFramework\MockObject\AccessibleMockObjectInterface;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
+use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\FormProtection\FormProtectionFactory;
+use TYPO3\CMS\Core\Utility\HttpUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
-use TYPO3\CMS\Core\Utility\HttpUtility;
 
 
 /**
@@ -78,8 +78,8 @@ class EventControllerTest extends UnitTestCase
     {
         $this->subject = $this->getAccessibleMock(
             EventController::class,
-                ['emitSignal', 'getFilterOptions', 'overwriteDemandObject', 'addFlashMessage', 'translate', 'callStatic']
-            );
+            ['emitSignal', 'getFilterOptions', 'overwriteDemandObject', 'addFlashMessage', 'translate', 'callStatic']
+        );
         $this->view = $this->getMockForAbstractClass(
             ViewInterface::class
         );
@@ -122,24 +122,6 @@ class EventControllerTest extends UnitTestCase
     }
 
     /**
-     * @return DemandInterface |\PHPUnit_Framework_MockObject_MockObject
-     */
-    protected function mockCreateDemandFromSettings()
-    {
-        $mockDemand = $this->getMockForAbstractClass(
-            DemandInterface::class
-        );
-
-        /** @var EventDemandFactory| \PHPUnit_Framework_MockObject_MockObject $demandFactory */
-        $demandFactory = $this->subject->_get('eventDemandFactory');
-        $demandFactory->expects($this->once())
-            ->method('createFromSettings')
-            ->will($this->returnValue($mockDemand));
-
-        return $mockDemand;
-    }
-
-    /**
      * @test
      */
     public function listActionCreatesDemandFromSettings()
@@ -176,6 +158,24 @@ class EventControllerTest extends UnitTestCase
         $this->moduleData->expects($this->once())
             ->method('getOverwriteDemand');
         $this->subject->listAction();
+    }
+
+    /**
+     * @return DemandInterface |\PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function mockCreateDemandFromSettings()
+    {
+        $mockDemand = $this->getMockForAbstractClass(
+            DemandInterface::class
+        );
+
+        /** @var EventDemandFactory| \PHPUnit_Framework_MockObject_MockObject $demandFactory */
+        $demandFactory = $this->subject->_get('eventDemandFactory');
+        $demandFactory->expects($this->once())
+            ->method('createFromSettings')
+            ->will($this->returnValue($mockDemand));
+
+        return $mockDemand;
     }
 
     /**
@@ -261,7 +261,7 @@ class EventControllerTest extends UnitTestCase
             ->method('callStatic')
             ->withConsecutive(
                 [FormProtectionFactory::class, 'get'],
-                [BackendUtility::class, 'getModuleUrl','record_edit',
+                [BackendUtility::class, 'getModuleUrl', 'record_edit',
                     [
                         'edit[' . $tableName . '][' . $pageId . ']' => 'new',
                         'returnUrl' => $returnUrl

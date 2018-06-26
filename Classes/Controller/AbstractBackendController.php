@@ -67,6 +67,24 @@ class AbstractBackendController extends AbstractController
     }
 
     /**
+     * Redirect to tceform creating a new record
+     *
+     * @param string $table table name
+     */
+    protected function redirectToCreateNewRecord($table)
+    {
+        $returnUrl = 'index.php?M=' . $this->getModuleKey() . '&id=' . $this->pageUid . $this->getToken();
+        $url = $this->callStatic(
+            BackendUtility::class, 'getModuleUrl',
+            'record_edit',
+            [
+                'edit[' . $table . '][' . $this->pageUid . ']' => 'new',
+                'returnUrl' => $returnUrl
+            ]);
+        $this->callStatic(HttpUtility::class, 'redirect', $url);
+    }
+
+    /**
      * Get a CSRF token
      *
      * @param bool $tokenOnly Set it to TRUE to get only the token, otherwise including the &moduleToken= as prefix
@@ -82,23 +100,5 @@ class AbstractBackendController extends AbstractController
         }
 
         return '&moduleToken=' . $token;
-    }
-
-    /**
-     * Redirect to tceform creating a new record
-     *
-     * @param string $table table name
-     */
-    protected function redirectToCreateNewRecord($table)
-    {
-        $returnUrl = 'index.php?M=' . $this->getModuleKey() . '&id=' . $this->pageUid . $this->getToken();
-        $url = $this->callStatic(
-            BackendUtility::class, 'getModuleUrl',
-            'record_edit',
-            [
-            'edit[' . $table . '][' . $this->pageUid . ']' => 'new',
-            'returnUrl' => $returnUrl
-            ]);
-        $this->callStatic(HttpUtility::class, 'redirect', $url);
     }
 }

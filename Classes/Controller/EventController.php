@@ -1,4 +1,5 @@
 <?php
+
 namespace DWenzel\T3events\Controller;
 
 /**
@@ -20,6 +21,7 @@ use DWenzel\T3calendar\Domain\Model\Dto\CalendarConfigurationFactoryTrait;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
+use DWenzel\T3events\Domain\Model\Event;
 
 /**
  * Class EventController
@@ -43,6 +45,7 @@ class EventController extends ActionController
 
     /**
      * initializes all actions
+     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException
      */
     public function initializeAction()
     {
@@ -70,6 +73,8 @@ class EventController extends ActionController
      *
      * @param array $overwriteDemand
      * @return void
+     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException
+     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
      */
     public function listAction($overwriteDemand = null)
     {
@@ -106,8 +111,10 @@ class EventController extends ActionController
      *
      * @param \DWenzel\T3events\Domain\Model\Event $event
      * @return void
+     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException
+     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
      */
-    public function showAction(\DWenzel\T3events\Domain\Model\Event $event)
+    public function showAction(Event $event)
     {
         $templateVariables = [
             'settings' => $this->settings,
@@ -121,6 +128,8 @@ class EventController extends ActionController
      * action quickMenu
      *
      * @return void
+     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException
+     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
      */
     public function quickMenuAction()
     {
