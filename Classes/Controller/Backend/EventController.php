@@ -56,6 +56,18 @@ class EventController extends AbstractBackendController implements FilterableCon
     protected $defaultViewObjectName = BackendTemplateView::class;
 
     /**
+     * @return void
+     */
+    public function initializeNewAction(){
+        $configuration = $this->configurationManager->getConfiguration(
+            ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
+        );
+        if(!empty($configuration['persistence']['storagePid'])){
+            $this->pageUid = $configuration['persistence']['storagePid'];
+        }
+    }
+
+    /**
      * action list
      *
      * @param array $overwriteDemand
