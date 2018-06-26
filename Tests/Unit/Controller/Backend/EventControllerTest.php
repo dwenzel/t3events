@@ -16,6 +16,7 @@ namespace DWenzel\T3events\Tests\Unit\Controller\Backend;
  */
 
 use DWenzel\T3events\Controller\Backend\EventController;
+use TYPO3\CMS\Backend\Utility\BackendUtility;
 use DWenzel\T3events\Domain\Factory\Dto\EventDemandFactory;
 use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
 use DWenzel\T3events\Domain\Model\Dto\EventDemand;
@@ -24,9 +25,12 @@ use DWenzel\T3events\Domain\Repository\EventRepository;
 use Nimut\TestingFramework\MockObject\AccessibleMockObjectInterface;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
+use TYPO3\CMS\Core\FormProtection\FormProtectionFactory;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
+use TYPO3\CMS\Core\Utility\HttpUtility;
+
 
 /**
  * Class EventControllerTest
@@ -63,13 +67,18 @@ class EventControllerTest extends UnitTestCase
     protected $queryResult;
 
     /**
+     * @var FormProtectionFactory|MockObject
+     */
+    protected $formProtectionFactory;
+
+    /**
      * set up
      */
     public function setUp()
     {
         $this->subject = $this->getAccessibleMock(
             EventController::class,
-                ['emitSignal', 'getFilterOptions', 'overwriteDemandObject', 'addFlashMessage', 'translate']
+                ['emitSignal', 'getFilterOptions', 'overwriteDemandObject', 'addFlashMessage', 'translate', 'callStatic']
             );
         $this->view = $this->getMockForAbstractClass(
             ViewInterface::class
@@ -104,6 +113,11 @@ class EventControllerTest extends UnitTestCase
         );
         $this->subject->injectEventRepository($mockEventRepository);
         $this->eventDemand = $this->getMockBuilder(EventDemand::class)
+            ->getMock();
+
+        $this->formProtectionFactory = $this->getMockBuilder(FormProtectionFactory::class)
+            ->setMethods(['generateToken'])
+            ->disableOriginalConstructor()
             ->getMock();
     }
 
@@ -218,5 +232,48 @@ class EventControllerTest extends UnitTestCase
         $this->view->expects($this->once())
             ->method('assignMultiple');
         $this->subject->listAction();
+    }
+
+    /**
+     * @test
+     */
+    public function newActionRedirectsToModuleEditRecord()
+    {
+        $tableName = 'tx_t3events_domain_model_event';
+        $token = 'fooToken';
+        $moduleKey = 'baz';
+        $pageId = '14';
+        $returnUrl = 'index.php?M=' . $moduleKey . '&id=' . $pageId . '&moduleToken=' . $token;
+        $this->inject(
+            $this->subject,
+            'pageUid',
+            $pageId
+        );
+
+        $_GET['M'] = $moduleKey;
+        $mockModuleUrl = 'fakeUrl';
+
+        $this->formProtectionFactory->expects($this->atLeast(1))
+            ->method('generateToken')
+            ->will($this->returnValue($token));
+
+        $this->subject->expects($this->exactly(3))
+            ->method('callStatic')
+            ->withConsecutive(
+                [FormProtectionFactory::class, 'get'],
+                [BackendUtility::class, 'getModuleUrl','record_edit',
+                    [
+                        'edit[' . $tableName . '][' . $pageId . ']' => 'new',
+                        'returnUrl' => $returnUrl
+                    ]
+                ],
+                [HttpUtility::class, 'redirect']
+            )->willReturnOnConsecutiveCalls(
+                $this->formProtectionFactory,
+                $mockModuleUrl,
+                $mockModuleUrl
+            );
+
+        $this->subject->newAction();
     }
 }
