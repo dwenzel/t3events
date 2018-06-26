@@ -37,10 +37,6 @@ class EventController extends AbstractBackendController implements FilterableCon
         EventRepositoryTrait, EventDemandFactoryTrait, FilterableControllerTrait, SignalTrait;
 
     const LIST_ACTION = 'listAction';
-
-    /**
-     * @const EXTENSION_KEY
-     */
     const EXTENSION_KEY = 't3events';
 
     protected $buttonConfiguration = [
