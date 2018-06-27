@@ -72,6 +72,7 @@ class EventControllerTest extends UnitTestCase
      */
     protected $eventRepository;
 
+
     public function setUp()
     {
         $this->subject = $this->getAccessibleMock(
@@ -121,36 +122,14 @@ class EventControllerTest extends UnitTestCase
     }
 
     /**
-     * mocks getting an EventDemandObject from ObjectManager
-     * @return \PHPUnit_Framework_MockObject_MockObject|EventDemand
+     * @return EventDemand|\PHPUnit_Framework_MockObject_MockObject
      */
-    public function mockGetEventDemandFromFactory()
+    protected function getMockEventDemand(array $methods = [])
     {
-        $this->eventDemandFactory = $this->getMockBuilder(EventDemandFactory::class)
-            ->disableOriginalConstructor()
-            ->setMethods(['createFromSettings'])->getMock();
-        $mockEventDemand = $this->getMockEventDemand();
-        $this->eventDemandFactory->expects($this->once())
-            ->method('createFromSettings')
-            ->will($this->returnValue($mockEventDemand));
-        $this->subject->injectEventDemandFactory($this->eventDemandFactory);
-        return $mockEventDemand;
+        return $this->getMockBuilder(EventDemand::class)
+            ->setMethods($methods)
+            ->getMock();
     }
-
-    /**
-     * mocks the SettingsUtility
-     */
-    protected function mockSettingsUtility()
-    {
-        /** @var SettingsUtility|\PHPUnit_Framework_MockObject_MockObject $mockSettingsUtility */
-        $mockSettingsUtility = $this->getMockBuilder(SettingsUtility::class)
-            ->setMethods(['getControllerKey'])->getMock();
-        $this->subject->injectSettingsUtility($mockSettingsUtility);
-        $mockSettingsUtility->expects($this->any())
-            ->method('getControllerKey')
-            ->will($this->returnValue('performance'));
-    }
-
 
     /**
      * @test
@@ -165,6 +144,23 @@ class EventControllerTest extends UnitTestCase
             $mockDemand,
             $this->subject->createDemandFromSettings($settings)
         );
+    }
+
+    /**
+     * mocks getting an EventDemandObject from ObjectManager
+     * @return \PHPUnit_Framework_MockObject_MockObject|EventDemand
+     */
+    public function mockGetEventDemandFromFactory()
+    {
+        $this->eventDemandFactory = $this->getMockBuilder(EventDemandFactory::class)
+            ->disableOriginalConstructor()
+            ->setMethods(['createFromSettings'])->getMock();
+        $mockEventDemand = $this->getMockEventDemand();
+        $this->eventDemandFactory->expects($this->once())
+            ->method('createFromSettings')
+            ->will($this->returnValue($mockEventDemand));
+        $this->subject->injectEventDemandFactory($this->eventDemandFactory);
+        return $mockEventDemand;
     }
 
     /**
@@ -192,6 +188,20 @@ class EventControllerTest extends UnitTestCase
     }
 
     /**
+     * mocks the SettingsUtility
+     */
+    protected function mockSettingsUtility()
+    {
+        /** @var SettingsUtility|\PHPUnit_Framework_MockObject_MockObject $mockSettingsUtility */
+        $mockSettingsUtility = $this->getMockBuilder(SettingsUtility::class)
+            ->setMethods(['getControllerKey'])->getMock();
+        $this->subject->injectSettingsUtility($mockSettingsUtility);
+        $mockSettingsUtility->expects($this->any())
+            ->method('getControllerKey')
+            ->will($this->returnValue('performance'));
+    }
+
+    /**
      * @test
      */
     public function initializeQuickMenuActionResetsOverwriteDemandInSession()
@@ -216,6 +226,14 @@ class EventControllerTest extends UnitTestCase
         $this->view->expects($this->once())
             ->method('assignMultiple');
         $this->subject->showAction($mockEvent);
+    }
+
+    /**
+     * @return mixed
+     */
+    protected function getMockEvent()
+    {
+        return $this->getMockBuilder(Event::class)->getMock();
     }
 
     /**
@@ -316,23 +334,5 @@ class EventControllerTest extends UnitTestCase
             ->method('assignMultiple');
 
         $this->subject->listAction();
-    }
-
-    /**
-     * @return EventDemand|\PHPUnit_Framework_MockObject_MockObject
-     */
-    protected function getMockEventDemand(array $methods = [])
-    {
-        return $this->getMockBuilder(EventDemand::class)
-            ->setMethods($methods)
-            ->getMock();
-    }
-
-    /**
-     * @return mixed
-     */
-    protected function getMockEvent()
-    {
-        return $this->getMockBuilder(Event::class)->getMock();
     }
 }

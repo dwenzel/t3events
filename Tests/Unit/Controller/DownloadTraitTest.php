@@ -15,7 +15,7 @@ use TYPO3\CMS\Extbase\Mvc\Web\Response;
  */
 class DownloadTraitTest extends UnitTestCase
 {
-    use \DWenzel\T3events\Tests\Unit\Object\MockObjectManagerTrait;
+    use MockObjectManagerTrait;
 
     /**
      * @var DownloadTrait

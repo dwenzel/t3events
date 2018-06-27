@@ -16,6 +16,7 @@ namespace DWenzel\T3events\Tests\Unit\Service;
  */
 
 use DWenzel\T3events\Controller\Routing\Route;
+use DWenzel\T3events\Controller\Routing\Router;
 use DWenzel\T3events\Controller\Routing\RouterInterface;
 use DWenzel\T3events\DataProvider\RouteLoader\RouteLoaderDataProviderInterface;
 use DWenzel\T3events\Service\RouteLoader;
@@ -34,26 +35,23 @@ class RouteLoaderTest extends UnitTestCase
     protected $subject;
 
     /**
+     * @var Router|\PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $mockRouter;
+
+    /**
      * set up
      */
     public function setUp()
     {
-        $this->subject = $this->getAccessibleMock(
-            RouteLoader::class, ['createRoute']
-        );
-    }
-
-    /**
-     * @return RouterInterface|\PHPUnit_Framework_MockObject_MockObject
-     */
-    protected function mockRouter()
-    {
-        /** @var RouterInterface|MockObject $mockRouter */
-        $mockRouter = $this->getMockForAbstractClass(
+        $this->mockRouter = $this->getMockForAbstractClass(
             RouterInterface::class
         );
-        $this->subject->injectRouter($mockRouter);
-        return $mockRouter;
+        $this->subject = $this->getAccessibleMock(
+            RouteLoader::class,
+            ['createRoute'],
+            [$this->mockRouter]
+        );
     }
 
     /**
@@ -76,36 +74,12 @@ class RouteLoaderTest extends UnitTestCase
     /**
      * @test
      */
-    public function getRouterReturnsRouterInstance()
-    {
-        $this->assertInstanceOf(
-            RouterInterface::class,
-            $this->subject->getRouter()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function routerCanBeInjected()
-    {
-        $mockRouter = $this->mockRouter();
-        $this->assertSame(
-            $mockRouter,
-            $this->subject->getRouter()
-        );
-    }
-
-    /**
-     * @test
-     */
     public function registerAddsRouteToRouter()
     {
         $origin = 'foo|bar';
         $mockRoute = $this->getMockRoute();
 
-        $mockRouter = $this->mockRouter();
-        $mockRouter->expects($this->once())
+        $this->mockRouter->expects($this->once())
             ->method('addRoute')
             ->with($mockRoute);
 
@@ -121,8 +95,6 @@ class RouteLoaderTest extends UnitTestCase
     {
         $origin = 'foo|bar';
         $method = 'boom';
-
-        $this->mockRouter();
 
         $mockRoute = $this->getMockRoute(['setMethod']);
 
@@ -143,8 +115,6 @@ class RouteLoaderTest extends UnitTestCase
     {
         $origin = 'foo|bar';
         $options = ['boom'];
-
-        $this->mockRouter();
 
         $mockRoute = $this->getMockRoute(['setOptions']);
 
@@ -206,8 +176,7 @@ class RouteLoaderTest extends UnitTestCase
         $mockRoute->expects($this->once())
             ->method('setOptions')
             ->with($options);
-        $mockRouter = $this->mockRouter();
-        $mockRouter->expects($this->once())
+        $this->mockRouter->expects($this->once())
             ->method('addRoute')
             ->with($mockRoute);
 

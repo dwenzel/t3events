@@ -8,6 +8,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
+use TYPO3\CMS\Fluid\View\StandaloneView;
 
 /**
  * Class NotificationService
@@ -122,14 +123,14 @@ class NotificationService
     protected function buildTemplateView($templateName, $format = null, $folderName = null)
     {
         /** @var \TYPO3\CMS\Fluid\View\StandaloneView $emailView */
-        $emailView = $this->objectManager->get('TYPO3\\CMS\\Fluid\\View\\StandaloneView');
+        $emailView = $this->objectManager->get(StandaloneView::class);
         $emailView->setTemplatePathAndFilename(
             $this->getTemplatePathAndFileName($templateName, $folderName)
         );
-        $emailView->setPartialRootPath(
-            $this->getPartialRootPath()
-        );
-        if ($format == 'plain') {
+        $emailView->setTemplateRootPaths($this->getTemplateRootPaths());
+        $emailView->setPartialRootPaths($this->getPartialRootPaths());
+        $emailView->setLayoutRootPaths($this->getLayoutRootPaths());
+        if ($format === 'plain') {
             $emailView->setFormat('txt');
         }
 
@@ -175,15 +176,36 @@ class NotificationService
     }
 
     /**
-     * Get the partial root path from framework configuration
+     * Get the layout root paths from framework configuration
      *
-     * @return string
+     * @return array
      */
-    protected function getPartialRootPath()
+    protected function getLayoutRootPaths()
     {
         $extbaseFrameworkConfiguration = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
+        return is_array($extbaseFrameworkConfiguration['view']['layoutRootPaths']) ? $extbaseFrameworkConfiguration['view']['layoutRootPaths'] : [];
+    }
 
-        return \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($extbaseFrameworkConfiguration['view']['partialRootPath']);
+    /**
+     * Get the template root paths from framework configuration
+     *
+     * @return array
+     */
+    protected function getTemplateRootPaths()
+    {
+        $extbaseFrameworkConfiguration = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
+        return is_array($extbaseFrameworkConfiguration['view']['templateRootPaths']) ? $extbaseFrameworkConfiguration['view']['templateRootPaths'] : [];
+    }
+
+    /**
+     * Get the partial root paths from framework configuration
+     *
+     * @return array
+     */
+    protected function getPartialRootPaths()
+    {
+        $extbaseFrameworkConfiguration = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
+        return is_array($extbaseFrameworkConfiguration['view']['partialRootPaths'])? $extbaseFrameworkConfiguration['view']['partialRootPaths'] : [];
     }
 
     /**

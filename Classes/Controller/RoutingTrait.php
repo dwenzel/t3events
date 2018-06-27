@@ -69,7 +69,7 @@ trait RoutingTrait
             ];
             $this->emitSignal(__CLASS__, 'dispatchBegin', $signalArguments);
         }
-        $targetArguments = null;
+        $targetArguments = [];
         if (!is_null($arguments)) {
             $targetArguments = $arguments;
         }

@@ -82,12 +82,11 @@ class ModuleDataTraitTest extends UnitTestCase
 
     /**
      * @test
-     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\StopActionException
      */
     public function resetActionResetsAndPersistsModuleData()
     {
         $moduleKey = 'foo';
-        $GLOBALS['moduleName'] = $moduleKey;
+        $_GET['M'] = $moduleKey;
 
         /** @var ModuleData|\PHPUnit_Framework_MockObject_MockObject $mockModuleData */
         $mockModuleData = $this->getMockBuilder(ModuleData::class)->getMock();

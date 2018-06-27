@@ -1,4 +1,5 @@
 <?php
+
 namespace DWenzel\T3events\Controller\Backend;
 
 /**
@@ -19,6 +20,10 @@ use DWenzel\T3events\Controller\EventDemandFactoryTrait;
 use DWenzel\T3events\Controller\EventRepositoryTrait;
 use DWenzel\T3events\Controller\FilterableControllerInterface;
 use DWenzel\T3events\Controller\FilterableControllerTrait;
+use DWenzel\T3events\Controller\SignalTrait;
+use DWenzel\T3events\Domain\Model\Dto\ButtonDemand;
+use TYPO3\CMS\Backend\View\BackendTemplateView;
+use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
@@ -28,20 +33,46 @@ use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
  */
 class EventController extends AbstractBackendController implements FilterableControllerInterface
 {
-    use EventRepositoryTrait, EventDemandFactoryTrait, FilterableControllerTrait;
+    use BackendViewTrait,
+        EventRepositoryTrait, EventDemandFactoryTrait, FilterableControllerTrait, SignalTrait;
 
     const LIST_ACTION = 'listAction';
+    const EXTENSION_KEY = 't3events';
+
+    protected $buttonConfiguration = [
+        [
+            ButtonDemand::TABLE_KEY => 'tx_t3events_domain_model_event',
+            ButtonDemand::LABEL_KEY => 'button.newAction.event',
+            ButtonDemand::ACTION_KEY => 'new',
+            ButtonDemand::ICON_KEY => 'ext-t3events-event',
+            ButtonDemand::OVERLAY_KEY => 'overlay-new',
+            ButtonDemand::ICON_SIZE_KEY => Icon::SIZE_SMALL
+        ]
+    ];
+
+    protected $defaultViewObjectName = BackendTemplateView::class;
 
     /**
-     * @const EXTENSION_KEY
+     * @return void
      */
-    const EXTENSION_KEY = 't3events';
+    public function initializeNewAction()
+    {
+
+        $configuration = $this->configurationManager->getConfiguration(
+            ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
+        );
+        if (!empty($configuration['persistence']['storagePid'])) {
+            $this->pageUid = $configuration['persistence']['storagePid'];
+        }
+    }
 
     /**
      * action list
      *
      * @param array $overwriteDemand
      * @return void
+     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException
+     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
      */
     public function listAction($overwriteDemand = null)
     {
@@ -81,5 +112,13 @@ class EventController extends AbstractBackendController implements FilterableCon
 
         $this->emitSignal(__CLASS__, self::LIST_ACTION, $templateVariables);
         $this->view->assignMultiple($templateVariables);
+    }
+
+    /**
+     * Redirect to new record form
+     */
+    public function newAction()
+    {
+        $this->redirectToCreateNewRecord('tx_t3events_domain_model_event');
     }
 }

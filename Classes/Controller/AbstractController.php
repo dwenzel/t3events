@@ -20,7 +20,7 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
  */
 class AbstractController extends ActionController
 {
-    use SettingsUtilityTrait, EntityNotFoundHandlerTrait, TranslateTrait,
+    use SettingsUtilityTrait, TranslateTrait,
         SearchTrait, DemandTrait;
 
     /**
