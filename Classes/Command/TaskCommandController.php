@@ -19,6 +19,7 @@ use DWenzel\T3events\Domain\Model\Dto\PerformanceDemand;
 use DWenzel\T3events\Domain\Model\Performance;
 use DWenzel\T3events\Domain\Model\Task;
 use TYPO3\CMS\Core\Exception;
+use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\MVC\Controller\CommandController;
 
@@ -31,6 +32,8 @@ class TaskCommandController extends CommandController
 {
     use PerformanceRepositoryTrait, PerformanceDemandFactoryTrait,
         PersistenceManagerTrait, TaskRepositoryTrait;
+    const LINE_SEPARATOR = '----------------------------------------' . LF;
+    const SENDER_NAME = 'TYPO3 scheduler - t3events task';
 
     /**
      * Run update tasks
@@ -43,7 +46,7 @@ class TaskCommandController extends CommandController
     public function runCommand($email)
     {
         $message = $this->runHidePerformanceTasks();
-        $this->updateStatusCommand($email);
+        $this->updateStatusCommand();
         if (!empty($email)) {
             // Get call method
             if (basename(PATH_thisScript) == 'cli_dispatch.phpsh') {
@@ -53,10 +56,9 @@ class TaskCommandController extends CommandController
                 $calledBy = 'TYPO3 backend';
                 $site = GeneralUtility::getIndpEnv('TYPO3_SITE_URL');
             }
-            $mailBody =
-                '----------------------------------------' . LF
+            $mailBody = static::LINE_SEPARATOR
                 . 't3events scheduler task' . LF
-                . '----------------------------------------' . LF
+                . static::LINE_SEPARATOR
                 . 'Sitename: ' . $GLOBALS['TYPO3_CONF_VARS']['SYS']['sitename'] . LF
                 . 'Site: ' . $site . LF
                 . 'Called by: ' . $calledBy . LF
@@ -65,11 +67,11 @@ class TaskCommandController extends CommandController
 
             // Prepare mailer and send the mail
             try {
-                /** @var $mailer \TYPO3\CMS\Core\Mail\MailMessage */
-                $mailer = GeneralUtility::makeInstance('\\TYPO3\\CMS\\Core\\Mail\\MailMessage');
-                $mailer->setFrom([$email => 'TYPO3 scheduler - t3events task']);
-                $mailer->setReplyTo([$email => 'TYPO3 scheduler - t3events task']);
-                $mailer->setSubject('TYPO3 scheduler - t3events task');
+                /** @var $mailer MailMessage */
+                $mailer = GeneralUtility::makeInstance(MailMessage::class);
+                $mailer->setFrom([$email => static::SENDER_NAME]);
+                $mailer->setReplyTo([$email => static::SENDER_NAME]);
+                $mailer->setSubject(static::SENDER_NAME);
                 $mailer->setBody($mailBody);
                 $mailer->setTo($email);
                 $mailer->send();
@@ -86,6 +88,7 @@ class TaskCommandController extends CommandController
      */
     public function updateStatusCommand()
     {
+        /** @noinspection PhpUndefinedMethodInspection */
         $tasks = $this->taskRepository->findByAction(Task::ACTION_UPDATE_STATUS);
         if (count($tasks)) {
             /** @var Task $task */
@@ -109,6 +112,8 @@ class TaskCommandController extends CommandController
      * Hides all performances which meet the given constraints. Returns a message string for reporting.
      *
      * @return string
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
      */
     public function runHidePerformanceTasks()
     {
@@ -119,9 +124,9 @@ class TaskCommandController extends CommandController
 
         foreach ($hideTasks as $hideTask) {
             /** @var Task $hideTask */
-            $message .= '----------------------------------------' . LF
+            $message .= static::LINE_SEPARATOR
                 . 'Task: ' . $hideTask->getUid() . ' ,title: ' . $hideTask->getName() . LF
-                . '----------------------------------------' . LF
+                . static::LINE_SEPARATOR
                 . 'Action: hide performance' . LF;
 
             // prepare demand for query
@@ -149,7 +154,7 @@ class TaskCommandController extends CommandController
                 $message .= LF;
             }
 
-            $message .= '----------------------------------------' . LF;
+            $message .= static::LINE_SEPARATOR;
         }
 
         return $message;
@@ -196,8 +201,6 @@ class TaskCommandController extends CommandController
         $settings = $this->getSettingsForDemand($task);
         /** @var PerformanceDemand $performanceDemand */
         $performanceDemand = $this->performanceDemandFactory->createFromSettings($settings);
-        $performances = $this->performanceRepository->findDemanded($performanceDemand);
-
-        return $performances;
+        return $this->performanceRepository->findDemanded($performanceDemand);
     }
 }
