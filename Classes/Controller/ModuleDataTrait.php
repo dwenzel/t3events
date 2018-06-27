@@ -95,4 +95,20 @@ trait ModuleDataTrait
         $this->moduleDataStorageService->persistModuleData($this->moduleData, $this->getModuleKey());
         $this->forward('list');
     }
+
+    /**
+     * @return ModuleData
+     */
+    public function getModuleData(): ModuleData
+    {
+        return $this->moduleData;
+    }
+
+    /**
+     * @param ModuleData $moduleData
+     */
+    public function setModuleData(ModuleData $moduleData): void
+    {
+        $this->moduleData = $moduleData;
+    }
 }

@@ -104,14 +104,10 @@ class EventControllerTest extends UnitTestCase
         );
         $this->inject(
             $this->subject,
-            'moduleData',
-            $this->moduleData
-        );
-        $this->inject(
-            $this->subject,
             'settings',
             []
         );
+        $this->subject->setModuleData($this->moduleData);
         $this->subject->injectEventRepository($mockEventRepository);
         $this->eventDemand = $this->getMockBuilder(EventDemand::class)
             ->getMock();

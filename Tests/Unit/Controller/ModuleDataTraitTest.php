@@ -142,4 +142,26 @@ class ModuleDataTraitTest extends UnitTestCase
             ->setMethods($methods)
             ->getMock();
     }
+
+    /**
+     * @test
+     */
+    public function getModuleDataInitiallyReturnsNull() {
+        $this->assertNull(
+            $this->subject->getModuleData()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function moduleDataCanBeSet() {
+        $moduleData = $this->getMockBuilder(ModuleData::class)->getMock();
+        $this->subject->setModuleData($moduleData);
+
+        $this->assertSame(
+            $moduleData,
+            $this->subject->getModuleData()
+        );
+    }
 }
