@@ -16,11 +16,26 @@ namespace DWenzel\T3events\Controller\Backend;
  */
 
 use DWenzel\T3events\Controller\AbstractBackendController;
+use DWenzel\T3events\CallStaticTrait;
+use DWenzel\T3events\Controller\AudienceRepositoryTrait;
+use DWenzel\T3events\Controller\CategoryRepositoryTrait;
+use DWenzel\T3events\Controller\CompanyRepositoryTrait;
+use DWenzel\T3events\Controller\DemandTrait;
 use DWenzel\T3events\Controller\EventDemandFactoryTrait;
 use DWenzel\T3events\Controller\EventRepositoryTrait;
+use DWenzel\T3events\Controller\EventTypeRepositoryTrait;
 use DWenzel\T3events\Controller\FilterableControllerInterface;
 use DWenzel\T3events\Controller\FilterableControllerTrait;
+use DWenzel\T3events\Controller\GenreRepositoryTrait;
+use DWenzel\T3events\Controller\ModuleDataTrait;
+use DWenzel\T3events\Controller\NotificationRepositoryTrait;
+use DWenzel\T3events\Controller\NotificationServiceTrait;
+use DWenzel\T3events\Controller\PersistenceManagerTrait;
+use DWenzel\T3events\Controller\SearchTrait;
+use DWenzel\T3events\Controller\SettingsUtilityTrait;
 use DWenzel\T3events\Controller\SignalTrait;
+use DWenzel\T3events\Controller\TranslateTrait;
+use DWenzel\T3events\Controller\VenueRepositoryTrait;
 use DWenzel\T3events\Domain\Model\Dto\ButtonDemand;
 use TYPO3\CMS\Backend\View\BackendTemplateView;
 use TYPO3\CMS\Core\Imaging\Icon;
@@ -33,8 +48,14 @@ use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
  */
 class EventController extends AbstractBackendController implements FilterableControllerInterface
 {
-    use BackendViewTrait,
-        EventRepositoryTrait, EventDemandFactoryTrait, FilterableControllerTrait, SignalTrait;
+    use
+        AudienceRepositoryTrait, BackendViewTrait, CallStaticTrait,
+        CategoryRepositoryTrait, CompanyRepositoryTrait, DemandTrait,
+        EventDemandFactoryTrait, EventRepositoryTrait, EventTypeRepositoryTrait,
+        FilterableControllerTrait, FormTrait, GenreRepositoryTrait,
+        ModuleDataTrait, NotificationRepositoryTrait, NotificationServiceTrait,
+        PersistenceManagerTrait, SearchTrait, SettingsUtilityTrait, SignalTrait,
+        TranslateTrait, VenueRepositoryTrait;
 
     const LIST_ACTION = 'listAction';
     const EXTENSION_KEY = 't3events';
