@@ -24,10 +24,14 @@ namespace DWenzel\T3events\Utility;
  */
 interface SettingsInterface
 {
+    const __IDENTITY = '__identity';
+    const CONFIG = 'config';
+    const FORWARD = 'forward';
     const MODULES = 'modules';
     const PAGE_RENDERER = 'pageRenderer';
     const PATH = 'path';
     const PATHS = 'paths';
     const PATH_SEPARATOR = '/';
+    const REDIRECT = 'redirect';
     const REQUIRE_JS = 'requireJs';
 }
