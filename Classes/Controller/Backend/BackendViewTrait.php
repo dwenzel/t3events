@@ -20,6 +20,7 @@ namespace DWenzel\T3events\Controller\Backend;
  ***************************************************************/
 
 use DWenzel\T3events\Domain\Model\Dto\ButtonDemandCollection;
+use DWenzel\T3events\Utility\SettingsInterface;
 use DWenzel\T3events\View\ConfigurableViewInterface;
 use TYPO3\CMS\Backend\Template\Components\ButtonBar;
 use TYPO3\CMS\Backend\View\BackendTemplateView;
@@ -74,30 +75,8 @@ trait BackendViewTrait
         }
 
         if ($view instanceof BackendTemplateView) {
-            // Template Path Override
-            $extbaseFrameworkConfiguration = $this->configurationManager->getConfiguration(
-                ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
-            );
-            $pageRenderer = $view->getModuleTemplate()->getPageRenderer();
-            $rendererConfiguration = $this->getViewProperty($extbaseFrameworkConfiguration, 'pageRenderer');
-            if (!empty($rendererConfiguration['requireJs'])) {
-                if (is_array($rendererConfiguration['requireJs'])) {
-                    $configuration['paths'] = [];
-                    $modulesToLoad = [];
-                    foreach ($rendererConfiguration['requireJs'] as $identifier => $config) {
-                        $configuration['paths'][$identifier] = $config['path'];
-                        if (is_array($config['modules'])) {
-                            foreach ($config['modules'] as $item => $module) {
-                                $modulesToLoad[] = $identifier . '/' . $module;
-                            }
-                        }
-                    }
-                    $pageRenderer->addRequireJsConfiguration($configuration);
-                    foreach ($modulesToLoad as $moduleToLoad) {
-                        $pageRenderer->loadRequireJsModule($moduleToLoad);
-                    }
-                }
-            }
+            $this->configurePageRenderer($view);
+
             $demandCollection = new ButtonDemandCollection($this->getButtonConfiguration());
             $this->createButtons($demandCollection);
         }
@@ -132,5 +111,35 @@ trait BackendViewTrait
         }
 
         return $this->objectManager->get(ButtonBar::class);
+    }
+
+    /**
+     * @param BackendTemplateView $view
+     */
+    protected function configurePageRenderer(BackendTemplateView $view)
+    {
+        $extbaseFrameworkConfiguration = $this->configurationManager->getConfiguration(
+            ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
+        );
+        $rendererConfiguration = $this->getViewProperty($extbaseFrameworkConfiguration, SettingsInterface::PAGE_RENDERER);
+        $pageRenderer = $view->getModuleTemplate()->getPageRenderer();
+        if (!empty($rendererConfiguration[SettingsInterface::REQUIRE_JS])) {
+            if (\is_array($rendererConfiguration[SettingsInterface::REQUIRE_JS])) {
+                $configuration[SettingsInterface::PATH] = [];
+                $modulesToLoad = [];
+                foreach ($rendererConfiguration[SettingsInterface::REQUIRE_JS] as $identifier => $config) {
+                    $configuration[SettingsInterface::PATHS][$identifier] = $config[SettingsInterface::PATH];
+                    if (\is_array($config[SettingsInterface::MODULES])) {
+                        foreach ($config[SettingsInterface::MODULES] as $item => $module) {
+                            $modulesToLoad[] = $identifier . SettingsInterface::PATH_SEPARATOR . $module;
+                        }
+                    }
+                }
+                $pageRenderer->addRequireJsConfiguration($configuration);
+                foreach ($modulesToLoad as $moduleToLoad) {
+                    $pageRenderer->loadRequireJsModule($moduleToLoad);
+                }
+            }
+        }
     }
 }
