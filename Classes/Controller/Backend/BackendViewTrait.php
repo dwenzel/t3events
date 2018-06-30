@@ -19,6 +19,7 @@ namespace DWenzel\T3events\Controller\Backend;
  * This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use DWenzel\T3events\Configuration\ConfigurationManagerTrait;
 use DWenzel\T3events\Domain\Model\Dto\ButtonDemandCollection;
 use DWenzel\T3events\Utility\SettingsInterface;
 use DWenzel\T3events\View\ConfigurableViewInterface;
@@ -38,12 +39,7 @@ use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
  */
 trait BackendViewTrait
 {
-    use ModuleButtonTrait;
-
-    /**
-     * @var ConfigurationManagerInterface
-     */
-    protected $configurationManager;
+    use ConfigurationManagerTrait, ModuleButtonTrait;
 
     /**
      * Settings (from TypoScript for module)
