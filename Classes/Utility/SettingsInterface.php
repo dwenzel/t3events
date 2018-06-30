@@ -37,13 +37,16 @@ interface SettingsInterface
     const FILES = 'files';
     const FILTER = 'filter';
     const MODULES = 'modules';
+    const NOTIFICATIONS = 'notifications';
     const OVERWRITE_DEMAND = 'overwriteDemand';
+    const OBJECTS = 'objects';
     const PAGE_RENDERER = 'pageRenderer';
     const PATH = 'path';
     const PATHS = 'paths';
     const PATH_SEPARATOR = '/';
     const PERSISTENCE = 'persistence';
     const REDIRECT = 'redirect';
+    const REPOSITORY = 'repository';
     const REQUIRE_JS = 'requireJs';
     const SENDER_NAME = 'senderName';
     const SETTINGS = 'settings';

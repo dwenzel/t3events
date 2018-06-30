@@ -28,6 +28,13 @@ interface PeriodConstraintRepositoryInterface
     const PERIOD_FUTURE = 'futureOnly';
     const PERIOD_PAST = 'pastOnly';
     const PERIOD_SPECIFIC = 'specific';
+    const PERIOD_TYPE = 'periodType';
+    const PERIOD_TYPE_DAY = 'byDay';
+    const PERIOD_TYPE_MONTH = 'byMonth';
+    const PERIOD_TYPE_YEAR = 'byYear';
+    const PERIOD_TYPE_DATE = 'byDate';
+    const PERIOD_END_DATE = 'periodEndDate';
+    const PERIOD_START_DATE = 'periodStartDate';
 
     /**
      * Create period constraints from demand (time restriction)
