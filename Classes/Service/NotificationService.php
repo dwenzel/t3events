@@ -29,7 +29,6 @@ class NotificationService
      * @param null|string $format
      * @param $folderName
      * @param array $variables
-     * @param array|null $attachments Variables which are passed to the template for rendering
      * @param array $attachments
      * @return bool
      */

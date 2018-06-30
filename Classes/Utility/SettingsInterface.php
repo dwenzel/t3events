@@ -25,8 +25,14 @@ namespace DWenzel\T3events\Utility;
 interface SettingsInterface
 {
     const __IDENTITY = '__identity';
+    const ATTACHMENT = 'attachment';
+    const ATTACHMENTS = 'attachments';
     const CONFIG = 'config';
+    const FORMAT = 'format';
     const FORWARD = 'forward';
+    const FROM_EMAIL = 'fromEmail';
+    const FOLDER_NAME = 'folderName';
+    const FILES = 'files';
     const MODULES = 'modules';
     const PAGE_RENDERER = 'pageRenderer';
     const PATH = 'path';
@@ -34,4 +40,9 @@ interface SettingsInterface
     const PATH_SEPARATOR = '/';
     const REDIRECT = 'redirect';
     const REQUIRE_JS = 'requireJs';
+    const SENDER_NAME = 'senderName';
+    const SETTINGS = 'settings';
+    const SUBJECT = 'subject';
+    const TEMPLATE = 'template';
+    const TO_EMAIL = 'toEmail';
 }
