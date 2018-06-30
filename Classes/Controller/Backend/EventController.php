@@ -37,6 +37,7 @@ use DWenzel\T3events\Controller\SignalTrait;
 use DWenzel\T3events\Controller\TranslateTrait;
 use DWenzel\T3events\Controller\VenueRepositoryTrait;
 use DWenzel\T3events\Domain\Model\Dto\ButtonDemand;
+use DWenzel\T3events\Utility\SettingsInterface as S;
 use TYPO3\CMS\Backend\View\BackendTemplateView;
 use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
@@ -62,7 +63,7 @@ class EventController extends AbstractBackendController implements FilterableCon
 
     protected $buttonConfiguration = [
         [
-            ButtonDemand::TABLE_KEY => 'tx_t3events_domain_model_event',
+            ButtonDemand::TABLE_KEY => S::TABLE_EVENTS,
             ButtonDemand::LABEL_KEY => 'button.newAction.event',
             ButtonDemand::ACTION_KEY => 'new',
             ButtonDemand::ICON_KEY => 'ext-t3events-event',
@@ -82,8 +83,8 @@ class EventController extends AbstractBackendController implements FilterableCon
         $configuration = $this->configurationManager->getConfiguration(
             ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
         );
-        if (!empty($configuration['persistence']['storagePid'])) {
-            $this->pageUid = $configuration['persistence']['storagePid'];
+        if (!empty($configuration[S::PERSISTENCE][S::STORAGE_PID])) {
+            $this->pageUid = $configuration[S::PERSISTENCE][S::STORAGE_PID];
         }
     }
 
@@ -123,12 +124,12 @@ class EventController extends AbstractBackendController implements FilterableCon
             ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
         );
         $templateVariables = [
-            'events' => $events,
-            'demand' => $demand,
-            'overwriteDemand' => $overwriteDemand,
-            'filterOptions' => $this->getFilterOptions($this->settings['filter']),
-            'storagePid' => $configuration['persistence']['storagePid'],
-            'settings' => $this->settings
+            S::EVENTS => $events,
+            S::DEMAND => $demand,
+            S::OVERWRITE_DEMAND => $overwriteDemand,
+            'filterOptions' => $this->getFilterOptions($this->settings[S::FILTER]),
+            S::STORAGE_PID => $configuration[S::PERSISTENCE][S::STORAGE_PID],
+            S::SETTINGS => $this->settings
         ];
 
         $this->emitSignal(__CLASS__, self::LIST_ACTION, $templateVariables);
@@ -140,6 +141,6 @@ class EventController extends AbstractBackendController implements FilterableCon
      */
     public function newAction()
     {
-        $this->redirectToCreateNewRecord('tx_t3events_domain_model_event');
+        $this->redirectToCreateNewRecord(S::TABLE_EVENTS);
     }
 }
