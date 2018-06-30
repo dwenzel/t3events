@@ -79,9 +79,43 @@ trait BackendViewTrait
     }
 
     /**
+     * @param BackendTemplateView $view
+     */
+    protected function configurePageRenderer(BackendTemplateView $view)
+    {
+        $extbaseFrameworkConfiguration = $this->configurationManager->getConfiguration(
+            ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
+        );
+        $rendererConfiguration = $this->getViewProperty($extbaseFrameworkConfiguration, SettingsInterface::PAGE_RENDERER);
+
+        if (empty($rendererConfiguration[SettingsInterface::REQUIRE_JS]) ||
+            !\is_array($rendererConfiguration[SettingsInterface::REQUIRE_JS])) {
+            return;
+        }
+        $pageRenderer = $view->getModuleTemplate()->getPageRenderer();
+
+        $configuration[SettingsInterface::PATH] = [];
+        $modulesToLoad = [];
+        foreach ($rendererConfiguration[SettingsInterface::REQUIRE_JS] as $identifier => $config) {
+            $configuration[SettingsInterface::PATHS][$identifier] = $config[SettingsInterface::PATH];
+            if (\is_array($config[SettingsInterface::MODULES])) {
+                foreach ($config[SettingsInterface::MODULES] as $module) {
+                    $modulesToLoad[] = $identifier . SettingsInterface::PATH_SEPARATOR . $module;
+                }
+            }
+        }
+        $pageRenderer->addRequireJsConfiguration($configuration);
+        foreach ($modulesToLoad as $moduleToLoad) {
+            $pageRenderer->loadRequireJsModule($moduleToLoad);
+        }
+
+    }
+
+    /**
      * Get an UriBuilder for the current request
      */
-    protected function getUriBuilder() {
+    protected function getUriBuilder()
+    {
         if (!$this->uriBuilder instanceof UriBuilder) {
             $this->uriBuilder = $this->objectManager->get(UriBuilder::class);
             $this->uriBuilder->setRequest($this->request);
@@ -89,13 +123,15 @@ trait BackendViewTrait
         return $this->uriBuilder;
     }
 
-    protected function getIconFactory() {
+    protected function getIconFactory()
+    {
         if ($this->view instanceof BackendTemplateView) {
             return $this->view->getModuleTemplate()->getIconFactory();
         }
 
         return GeneralUtility::makeInstance(IconFactory::class);
     }
+
     /**
      * Returns a button bar either from module template or freshly instantiated
      * @return ButtonBar
@@ -107,35 +143,5 @@ trait BackendViewTrait
         }
 
         return $this->objectManager->get(ButtonBar::class);
-    }
-
-    /**
-     * @param BackendTemplateView $view
-     */
-    protected function configurePageRenderer(BackendTemplateView $view)
-    {
-        $extbaseFrameworkConfiguration = $this->configurationManager->getConfiguration(
-            ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
-        );
-        $rendererConfiguration = $this->getViewProperty($extbaseFrameworkConfiguration, SettingsInterface::PAGE_RENDERER);
-        $pageRenderer = $view->getModuleTemplate()->getPageRenderer();
-        if (!empty($rendererConfiguration[SettingsInterface::REQUIRE_JS])) {
-            if (\is_array($rendererConfiguration[SettingsInterface::REQUIRE_JS])) {
-                $configuration[SettingsInterface::PATH] = [];
-                $modulesToLoad = [];
-                foreach ($rendererConfiguration[SettingsInterface::REQUIRE_JS] as $identifier => $config) {
-                    $configuration[SettingsInterface::PATHS][$identifier] = $config[SettingsInterface::PATH];
-                    if (\is_array($config[SettingsInterface::MODULES])) {
-                        foreach ($config[SettingsInterface::MODULES] as $item => $module) {
-                            $modulesToLoad[] = $identifier . SettingsInterface::PATH_SEPARATOR . $module;
-                        }
-                    }
-                }
-                $pageRenderer->addRequireJsConfiguration($configuration);
-                foreach ($modulesToLoad as $moduleToLoad) {
-                    $pageRenderer->loadRequireJsModule($moduleToLoad);
-                }
-            }
-        }
     }
 }
