@@ -37,7 +37,7 @@ use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 class BackendViewTraitTest extends UnitTestCase
 {
     /**
-     * @var BackendViewTrait|\PHPUnit_Framework_MockObject_MockObject
+     * @var BackendViewTrait|MockObject
      */
     protected $subject;
 
@@ -67,13 +67,14 @@ class BackendViewTraitTest extends UnitTestCase
     public function setUp()
     {
         $this->subject = $this->getMockBuilder(BackendViewTrait::class)
-            ->setMethods(['getViewProperty'])
+            ->setMethods(['getViewProperty', 'getConfigurationManager'])
             ->getMockForTrait();
 
         $this->configurationManager = $this->getMockBuilder(ConfigurationManager::class)
             ->setMethods(['getConfiguration'])
             ->getMock();
-        $this->subject->injectConfigurationManager($this->configurationManager);
+        $this->subject->method('getConfigurationManager')
+            ->willReturn($this->configurationManager);
         $this->pageRenderer = $this->getMockBuilder(PageRenderer::class)
             ->disableOriginalConstructor()
             ->setMethods(['addRequireJsConfiguration', 'loadRequireJsModule'])

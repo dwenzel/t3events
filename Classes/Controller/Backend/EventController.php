@@ -143,4 +143,12 @@ class EventController extends AbstractBackendController implements FilterableCon
     {
         $this->redirectToCreateNewRecord(S::TABLE_EVENTS);
     }
+
+    /**
+     * @return ConfigurationManagerInterface
+     */
+    public function getConfigurationManager()
+    {
+        return $this->configurationManager;
+    }
 }

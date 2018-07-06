@@ -39,7 +39,7 @@ use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
  */
 trait BackendViewTrait
 {
-    use ConfigurationManagerTrait, ModuleButtonTrait;
+    use ModuleButtonTrait;
 
     /**
      * Settings (from TypoScript for module)
@@ -57,6 +57,11 @@ trait BackendViewTrait
      * @var UriBuilder
      */
     protected $uriBuilder;
+
+    /**
+     * @return ConfigurationManagerInterface
+     */
+    abstract public function getConfigurationManager();
 
     /**
      * @param ViewInterface $view
@@ -83,10 +88,7 @@ trait BackendViewTrait
      */
     protected function configurePageRenderer(BackendTemplateView $view)
     {
-        $extbaseFrameworkConfiguration = $this->configurationManager->getConfiguration(
-            ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
-        );
-        $rendererConfiguration = $this->getViewProperty($extbaseFrameworkConfiguration, SettingsInterface::PAGE_RENDERER);
+        $rendererConfiguration = $this->getPageRendererConfiguration();
 
         if (empty($rendererConfiguration[SettingsInterface::REQUIRE_JS]) ||
             !\is_array($rendererConfiguration[SettingsInterface::REQUIRE_JS])) {
@@ -143,5 +145,17 @@ trait BackendViewTrait
         }
 
         return $this->objectManager->get(ButtonBar::class);
+    }
+
+    /**
+     * @return mixed
+     */
+    protected function getPageRendererConfiguration()
+    {
+        $extbaseFrameworkConfiguration = $this->getConfigurationManager()->getConfiguration(
+            ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
+        );
+        $rendererConfiguration = $this->getViewProperty($extbaseFrameworkConfiguration, SettingsInterface::PAGE_RENDERER);
+        return $rendererConfiguration;
     }
 }
