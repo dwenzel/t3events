@@ -81,6 +81,9 @@ trait ModuleButtonTrait
      * @param ButtonDemandCollection $configuration button configuration
      */
     protected function createButtons(ButtonDemandCollection $configuration) {
+        if (!$configuration->getDemands()->count()) {
+            return;
+        }
         $buttonBar = $this->getButtonBar();
         $uriBuilder = $this->getUriBuilder();
         $request = $uriBuilder->getRequest();

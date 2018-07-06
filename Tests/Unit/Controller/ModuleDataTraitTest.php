@@ -56,9 +56,9 @@ class ModuleDataTraitTest extends UnitTestCase
      */
     public function setUp()
     {
-        $this->subject = $this->getMockForTrait(
-            ModuleDataTrait::class
-        );
+        $this->subject = $this->getMockBuilder(ModuleDataTrait::class)
+            ->setMethods(['getModuleKey'])
+            ->getMockForTrait();
 
         $this->objectManager = $this->getMockBuilder(ObjectManager::class)
             ->setMethods(['get'])->getMock();
@@ -86,7 +86,6 @@ class ModuleDataTraitTest extends UnitTestCase
     public function resetActionResetsAndPersistsModuleData()
     {
         $moduleKey = 'foo';
-        $_GET['M'] = $moduleKey;
 
         /** @var ModuleData|\PHPUnit_Framework_MockObject_MockObject $mockModuleData */
         $mockModuleData = $this->getMockBuilder(ModuleData::class)->getMock();
@@ -105,6 +104,9 @@ class ModuleDataTraitTest extends UnitTestCase
         $this->subject->expects($this->once())
             ->method('forward')
             ->with('list');
+        $this->subject->expects($this->once())
+            ->method('getModuleKey')
+            ->will($this->returnValue($moduleKey));
 
         $this->subject->resetAction();
     }
@@ -141,5 +143,27 @@ class ModuleDataTraitTest extends UnitTestCase
         return $this->getMockBuilder(ModuleDataStorageService::class)
             ->setMethods($methods)
             ->getMock();
+    }
+
+    /**
+     * @test
+     */
+    public function getModuleDataInitiallyReturnsNull() {
+        $this->assertNull(
+            $this->subject->getModuleData()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function moduleDataCanBeSet() {
+        $moduleData = $this->getMockBuilder(ModuleData::class)->getMock();
+        $this->subject->setModuleData($moduleData);
+
+        $this->assertSame(
+            $moduleData,
+            $this->subject->getModuleData()
+        );
     }
 }

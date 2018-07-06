@@ -14,6 +14,7 @@ This is an extension for the TYPO3 CMS.
 * Configuration
     * [Overview](./Documentation/Configuration/Overview/Index.rst)
     * [Templates](./Documentation/Configuration/Templates.md)
+    * [Backend](./Documentation/Configuration/Backend.md)
 * [ViewHelpers](./Documentation/ViewHelpers/ViewHelpers.md)
     * Format
         * [ArrayToCsv](./Documentation/ViewHelpers/Format/ArrayToCsv.md)

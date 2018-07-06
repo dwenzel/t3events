@@ -16,12 +16,28 @@ namespace DWenzel\T3events\Controller\Backend;
  */
 
 use DWenzel\T3events\Controller\AbstractBackendController;
+use DWenzel\T3events\CallStaticTrait;
+use DWenzel\T3events\Controller\AudienceRepositoryTrait;
+use DWenzel\T3events\Controller\CategoryRepositoryTrait;
+use DWenzel\T3events\Controller\CompanyRepositoryTrait;
+use DWenzel\T3events\Controller\DemandTrait;
 use DWenzel\T3events\Controller\EventDemandFactoryTrait;
 use DWenzel\T3events\Controller\EventRepositoryTrait;
+use DWenzel\T3events\Controller\EventTypeRepositoryTrait;
 use DWenzel\T3events\Controller\FilterableControllerInterface;
 use DWenzel\T3events\Controller\FilterableControllerTrait;
+use DWenzel\T3events\Controller\GenreRepositoryTrait;
+use DWenzel\T3events\Controller\ModuleDataTrait;
+use DWenzel\T3events\Controller\NotificationRepositoryTrait;
+use DWenzel\T3events\Controller\NotificationServiceTrait;
+use DWenzel\T3events\Controller\PersistenceManagerTrait;
+use DWenzel\T3events\Controller\SearchTrait;
+use DWenzel\T3events\Controller\SettingsUtilityTrait;
 use DWenzel\T3events\Controller\SignalTrait;
+use DWenzel\T3events\Controller\TranslateTrait;
+use DWenzel\T3events\Controller\VenueRepositoryTrait;
 use DWenzel\T3events\Domain\Model\Dto\ButtonDemand;
+use DWenzel\T3events\Utility\SettingsInterface as S;
 use TYPO3\CMS\Backend\View\BackendTemplateView;
 use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
@@ -33,15 +49,21 @@ use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
  */
 class EventController extends AbstractBackendController implements FilterableControllerInterface
 {
-    use BackendViewTrait,
-        EventRepositoryTrait, EventDemandFactoryTrait, FilterableControllerTrait, SignalTrait;
+    use
+        AudienceRepositoryTrait, BackendViewTrait, CallStaticTrait,
+        CategoryRepositoryTrait, CompanyRepositoryTrait, DemandTrait,
+        EventDemandFactoryTrait, EventRepositoryTrait, EventTypeRepositoryTrait,
+        FilterableControllerTrait, FormTrait, GenreRepositoryTrait,
+        ModuleDataTrait, NotificationRepositoryTrait, NotificationServiceTrait,
+        PersistenceManagerTrait, SearchTrait, SettingsUtilityTrait, SignalTrait,
+        TranslateTrait, VenueRepositoryTrait;
 
     const LIST_ACTION = 'listAction';
     const EXTENSION_KEY = 't3events';
 
     protected $buttonConfiguration = [
         [
-            ButtonDemand::TABLE_KEY => 'tx_t3events_domain_model_event',
+            ButtonDemand::TABLE_KEY => S::TABLE_EVENTS,
             ButtonDemand::LABEL_KEY => 'button.newAction.event',
             ButtonDemand::ACTION_KEY => 'new',
             ButtonDemand::ICON_KEY => 'ext-t3events-event',
@@ -61,8 +83,8 @@ class EventController extends AbstractBackendController implements FilterableCon
         $configuration = $this->configurationManager->getConfiguration(
             ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
         );
-        if (!empty($configuration['persistence']['storagePid'])) {
-            $this->pageUid = $configuration['persistence']['storagePid'];
+        if (!empty($configuration[S::PERSISTENCE][S::STORAGE_PID])) {
+            $this->pageUid = $configuration[S::PERSISTENCE][S::STORAGE_PID];
         }
     }
 
@@ -102,12 +124,12 @@ class EventController extends AbstractBackendController implements FilterableCon
             ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
         );
         $templateVariables = [
-            'events' => $events,
-            'demand' => $demand,
-            'overwriteDemand' => $overwriteDemand,
-            'filterOptions' => $this->getFilterOptions($this->settings['filter']),
-            'storagePid' => $configuration['persistence']['storagePid'],
-            'settings' => $this->settings
+            S::EVENTS => $events,
+            S::DEMAND => $demand,
+            S::OVERWRITE_DEMAND => $overwriteDemand,
+            'filterOptions' => $this->getFilterOptions($this->settings[S::FILTER]),
+            S::STORAGE_PID => $configuration[S::PERSISTENCE][S::STORAGE_PID],
+            S::SETTINGS => $this->settings
         ];
 
         $this->emitSignal(__CLASS__, self::LIST_ACTION, $templateVariables);
@@ -119,6 +141,14 @@ class EventController extends AbstractBackendController implements FilterableCon
      */
     public function newAction()
     {
-        $this->redirectToCreateNewRecord('tx_t3events_domain_model_event');
+        $this->redirectToCreateNewRecord(S::TABLE_EVENTS);
+    }
+
+    /**
+     * @return ConfigurationManagerInterface
+     */
+    public function getConfigurationManager()
+    {
+        return $this->configurationManager;
     }
 }

@@ -19,7 +19,9 @@ namespace DWenzel\T3events\Controller\Backend;
  * This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use DWenzel\T3events\Configuration\ConfigurationManagerTrait;
 use DWenzel\T3events\Domain\Model\Dto\ButtonDemandCollection;
+use DWenzel\T3events\Utility\SettingsInterface;
 use DWenzel\T3events\View\ConfigurableViewInterface;
 use TYPO3\CMS\Backend\Template\Components\ButtonBar;
 use TYPO3\CMS\Backend\View\BackendTemplateView;
@@ -40,11 +42,6 @@ trait BackendViewTrait
     use ModuleButtonTrait;
 
     /**
-     * @var ConfigurationManagerInterface
-     */
-    protected $configurationManager;
-
-    /**
      * Settings (from TypoScript for module)
      *
      * @var array
@@ -62,6 +59,11 @@ trait BackendViewTrait
     protected $uriBuilder;
 
     /**
+     * @return ConfigurationManagerInterface
+     */
+    abstract public function getConfigurationManager();
+
+    /**
      * @param ViewInterface $view
      */
     public function initializeView(ViewInterface $view)
@@ -74,39 +76,48 @@ trait BackendViewTrait
         }
 
         if ($view instanceof BackendTemplateView) {
-            // Template Path Override
-            $extbaseFrameworkConfiguration = $this->configurationManager->getConfiguration(
-                ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
-            );
-            $pageRenderer = $view->getModuleTemplate()->getPageRenderer();
-            $rendererConfiguration = $this->getViewProperty($extbaseFrameworkConfiguration, 'pageRenderer');
-            if (!empty($rendererConfiguration['requireJs'])) {
-                if (is_array($rendererConfiguration['requireJs'])) {
-                    $configuration['paths'] = [];
-                    $modulesToLoad = [];
-                    foreach ($rendererConfiguration['requireJs'] as $identifier => $config) {
-                        $configuration['paths'][$identifier] = $config['path'];
-                        if (is_array($config['modules'])) {
-                            foreach ($config['modules'] as $item => $module) {
-                                $modulesToLoad[] = $identifier . '/' . $module;
-                            }
-                        }
-                    }
-                    $pageRenderer->addRequireJsConfiguration($configuration);
-                    foreach ($modulesToLoad as $moduleToLoad) {
-                        $pageRenderer->loadRequireJsModule($moduleToLoad);
-                    }
-                }
-            }
+            $this->configurePageRenderer($view);
+
             $demandCollection = new ButtonDemandCollection($this->getButtonConfiguration());
             $this->createButtons($demandCollection);
         }
     }
 
     /**
+     * @param BackendTemplateView $view
+     */
+    protected function configurePageRenderer(BackendTemplateView $view)
+    {
+        $rendererConfiguration = $this->getPageRendererConfiguration();
+
+        if (empty($rendererConfiguration[SettingsInterface::REQUIRE_JS]) ||
+            !\is_array($rendererConfiguration[SettingsInterface::REQUIRE_JS])) {
+            return;
+        }
+        $pageRenderer = $view->getModuleTemplate()->getPageRenderer();
+
+        $configuration[SettingsInterface::PATH] = [];
+        $modulesToLoad = [];
+        foreach ($rendererConfiguration[SettingsInterface::REQUIRE_JS] as $identifier => $config) {
+            $configuration[SettingsInterface::PATHS][$identifier] = $config[SettingsInterface::PATH];
+            if (\is_array($config[SettingsInterface::MODULES])) {
+                foreach ($config[SettingsInterface::MODULES] as $module) {
+                    $modulesToLoad[] = $identifier . SettingsInterface::PATH_SEPARATOR . $module;
+                }
+            }
+        }
+        $pageRenderer->addRequireJsConfiguration($configuration);
+        foreach ($modulesToLoad as $moduleToLoad) {
+            $pageRenderer->loadRequireJsModule($moduleToLoad);
+        }
+
+    }
+
+    /**
      * Get an UriBuilder for the current request
      */
-    protected function getUriBuilder() {
+    protected function getUriBuilder()
+    {
         if (!$this->uriBuilder instanceof UriBuilder) {
             $this->uriBuilder = $this->objectManager->get(UriBuilder::class);
             $this->uriBuilder->setRequest($this->request);
@@ -114,13 +125,15 @@ trait BackendViewTrait
         return $this->uriBuilder;
     }
 
-    protected function getIconFactory() {
+    protected function getIconFactory()
+    {
         if ($this->view instanceof BackendTemplateView) {
             return $this->view->getModuleTemplate()->getIconFactory();
         }
 
         return GeneralUtility::makeInstance(IconFactory::class);
     }
+
     /**
      * Returns a button bar either from module template or freshly instantiated
      * @return ButtonBar
@@ -132,5 +145,17 @@ trait BackendViewTrait
         }
 
         return $this->objectManager->get(ButtonBar::class);
+    }
+
+    /**
+     * @return mixed
+     */
+    protected function getPageRendererConfiguration()
+    {
+        $extbaseFrameworkConfiguration = $this->getConfigurationManager()->getConfiguration(
+            ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
+        );
+        $rendererConfiguration = $this->getViewProperty($extbaseFrameworkConfiguration, SettingsInterface::PAGE_RENDERER);
+        return $rendererConfiguration;
     }
 }

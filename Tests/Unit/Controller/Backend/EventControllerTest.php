@@ -73,6 +73,11 @@ class EventControllerTest extends UnitTestCase
     protected $formProtectionFactory;
 
     /**
+     * @var ConfigurationManagerInterface|MockObject
+     */
+    protected $configurationManager;
+
+    /**
      * set up
      */
     public function setUp()
@@ -91,12 +96,12 @@ class EventControllerTest extends UnitTestCase
             ->disableOriginalConstructor()->getMock();
         $mockEventRepository->method('findDemanded')->willReturn($this->queryResult);
         /** @var ConfigurationManagerInterface|\PHPUnit_Framework_MockObject_MockObject $mockConfigurationManager */
-        $mockConfigurationManager = $this->getMockForAbstractClass(ConfigurationManagerInterface::class);
+        $this->configurationManager = $this->getMockForAbstractClass(ConfigurationManagerInterface::class);
         /** @var EventDemandFactory|\PHPUnit_Framework_MockObject_MockObject $mockDemandFactory */
         $this->eventDemandFactory = $this->getMockBuilder(EventDemandFactory::class)
             ->setMethods(['createFromSettings'])->getMock();
         $this->subject->injectEventDemandFactory($this->eventDemandFactory);
-        $this->subject->injectConfigurationManager($mockConfigurationManager);
+        $this->subject->injectConfigurationManager($this->configurationManager);
         $this->inject(
             $this->subject,
             'view',
@@ -104,14 +109,10 @@ class EventControllerTest extends UnitTestCase
         );
         $this->inject(
             $this->subject,
-            'moduleData',
-            $this->moduleData
-        );
-        $this->inject(
-            $this->subject,
             'settings',
             []
         );
+        $this->subject->setModuleData($this->moduleData);
         $this->subject->injectEventRepository($mockEventRepository);
         $this->eventDemand = $this->getMockBuilder(EventDemand::class)
             ->getMock();
@@ -283,12 +284,6 @@ class EventControllerTest extends UnitTestCase
      */
     public function initializeNewActionSetsPageUidFromFrameworkConfiguration()
     {
-        /** @var ConfigurationManager|MockObject $mockConfigurationManager */
-        $mockConfigurationManager = $this->getMockBuilder(ConfigurationManager::class)
-            ->disableOriginalConstructor()
-            ->setMethods(['getConfiguration'])
-            ->getMock();
-        $this->subject->injectConfigurationManager($mockConfigurationManager);
         $pageIdFromFrameWorkConfiguration = 678;
 
         $configuration = [
@@ -297,7 +292,7 @@ class EventControllerTest extends UnitTestCase
             ]
         ];
 
-        $mockConfigurationManager->expects($this->once())
+        $this->configurationManager->expects($this->once())
             ->method('getConfiguration')
             ->with(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK)
             ->will($this->returnValue($configuration));
@@ -306,6 +301,16 @@ class EventControllerTest extends UnitTestCase
             $pageIdFromFrameWorkConfiguration,
             'pageUid',
             $this->subject
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getConfigurationManagerReturnsConfigurationManager() {
+        $this->assertEquals(
+            $this->configurationManager,
+            $this->subject->getConfigurationManager()
         );
     }
 }
