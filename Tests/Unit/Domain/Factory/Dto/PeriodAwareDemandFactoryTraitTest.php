@@ -49,6 +49,32 @@ class PeriodAwareDemandFactoryTraitTest extends UnitTestCase
     public function startDateDataProvider(): array
     {
         $timeZone = new \DateTimeZone(date_default_timezone_get());
+        $defaultDate = new \DateTime('midnight', $timeZone);
+
+        $specificDateString = '1536656550';
+        $specificDate = clone $defaultDate;
+        $specificDate->setTimestamp((int)$specificDateString);
+
+        return [
+            [
+                ['period' => 'futureOnly'],
+                $defaultDate
+            ],
+            [
+                ['period' => 'pastOnly'],
+                $defaultDate
+            ]
+        ];
+    }
+
+    /**
+     * Returns parameters for date test
+     *
+     * @return array
+     */
+    public function dateDataProvider(): array
+    {
+        $timeZone = new \DateTimeZone(date_default_timezone_get());
         $startDate = new \DateTime('midnight', $timeZone);
 
         return [
@@ -82,7 +108,7 @@ class PeriodAwareDemandFactoryTraitTest extends UnitTestCase
 
     /**
      * @test
-     * @dataProvider startDateDataProvider
+     * @dataProvider dateDataProvider
      * @param array $settings
      * @param \DateTime $startDate
      */
@@ -103,7 +129,55 @@ class PeriodAwareDemandFactoryTraitTest extends UnitTestCase
     protected function getMockPeriodAwareDemand()
     {
         /** @var PeriodAwareDemandInterface|MockObject $mockDemand */
-        $mockDemand = $this->getMockBuilder(PeriodAwareDemandInterface::class)->getMock();
+        $mockDemand = $this->getMockBuilder(PeriodAwareDemandInterface::class)
+            ->getMock();
         return $mockDemand;
+    }
+
+    /**
+     * @test
+     */
+    public function setPeriodConstraintsSetsStartDateForPeriodTypeByDate()
+    {
+        $specificDateString = '1536656550';
+        $timeZone = new \DateTimeZone(date_default_timezone_get());
+        $specificDate = new \DateTime('midnight', $timeZone);
+
+        $specificDate->setTimestamp((int)$specificDateString);
+        $settings = [
+            'period' => 'specific',
+            'periodType' => 'byDate',
+            'periodStartDate' => $specificDateString
+        ];
+
+        $mockDemand = $this->getMockPeriodAwareDemand();
+        $mockDemand->expects($this->once())
+            ->method('setStartDate')
+            ->with($specificDate);
+        $this->subject->setPeriodConstraints($mockDemand, $settings);
+
+    }
+
+    /**
+     * @test
+     */
+    public function setPeriodConstraintsSetsEndDateForPeriodTypeByDate()
+    {
+        $specificDateString = '1536656550';
+        $timeZone = new \DateTimeZone(date_default_timezone_get());
+        $specificDate = new \DateTime('midnight', $timeZone);
+
+        $specificDate->setTimestamp((int)$specificDateString);
+        $settings = [
+            'period' => 'specific',
+            'periodType' => 'byDate',
+            'periodEndDate' => $specificDateString
+        ];
+
+        $mockDemand = $this->getMockPeriodAwareDemand();
+        $mockDemand->expects($this->once())
+            ->method('setEndDate')
+            ->with($specificDate);
+        $this->subject->setPeriodConstraints($mockDemand, $settings);
     }
 }
