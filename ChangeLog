@@ -1,3 +1,6 @@
+2018-09-11         [RELEASE] Release of t3events 0.40.1 (Dirk Wenzel)
+2018-09-11 6be021a [BUGFIX] fixed error in PeriodAwareDemandFactoryTrait caused by invalid argument for DateTime constructor (Dirk Wenzel)
+
 2018-07-06         [RELEASE] Release of t3events 0.40.0 (Dirk Wenzel)
 2018-07-06 7841ba3 [BUGFIX] fixed error caused by missing settings in backend controllers. Parent class ActionController now implements method injectConfigurationManager and fetches the settings there. Therefore we can not use our own implementation anymore. BackendControllers now provide the configuration manager via getter method. (Dirk Wenzel)
 2018-07-01 c4ba04d [TASK] constants added to PeriodConstraintRepositoryInterface and SettingsInterfacea (Dirk Wenzel)

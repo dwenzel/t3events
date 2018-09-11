@@ -24,9 +24,9 @@ trait PeriodAwareDemandFactoryTrait
         if ($settings['period'] === 'futureOnly'
             || $settings['period'] === 'pastOnly'
         ) {
-            $startDate = new \DateTime('midnight', $timeZone);
-            $demand->setStartDate($startDate);
-            $demand->setDate($startDate);
+            $periodStartDate = new \DateTime('midnight', $timeZone);
+            $demand->setStartDate($periodStartDate);
+            $demand->setDate($periodStartDate);
         }
 
         if ($settings['period'] === 'specific') {
@@ -40,16 +40,35 @@ trait PeriodAwareDemandFactoryTrait
             isset($settings['periodType']) &&
             $settings['periodType'] === 'byDate'
         ) {
-            if ($settings['periodStartDate']) {
+
+            if (!empty($settings['periodStartDate'])) {
                 $demand->setStartDate(
-                    new \DateTime($settings['periodStartDate'], $timeZone)
+                    $this->createDate($settings['periodStartDate'])
                 );
             }
-            if ($settings['periodEndDate']) {
+            if (!empty($settings['periodEndDate'])) {
                 $demand->setEndDate(
-                    new \DateTime($settings['periodEndDate'], $timeZone)
+                    $this->createDate($settings['periodEndDate'])
                 );
             }
         }
+    }
+
+    /**
+     * Helper method. Creates a date object from
+     * integers and strings.
+     * @param $value
+     * @return \DateTime
+     */
+    protected function createDate($value) {
+        $timeZone = new \DateTimeZone(date_default_timezone_get());
+        if (is_numeric($value)) {
+            $dateTime = new \DateTime('midnight', $timeZone);
+            $dateTime->setTimestamp((int)$value);
+        } else {
+            $dateTime = new \DateTime($value, $timeZone);
+        }
+
+        return $dateTime;
     }
 }
