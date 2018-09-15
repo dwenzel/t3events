@@ -16,6 +16,7 @@ namespace DWenzel\T3events\Domain\Repository;
 
 use DWenzel\T3events\Domain\Model\Dto\PeriodAwareDemandInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
+use DWenzel\T3events\Utility\SettingsInterface as SI;
 
 /**
  * Interface PeriodConstraintRepositoryInterface
@@ -24,10 +25,10 @@ use TYPO3\CMS\Extbase\Persistence\QueryInterface;
  */
 interface PeriodConstraintRepositoryInterface
 {
-    const PERIOD_ALL = 'all';
-    const PERIOD_FUTURE = 'futureOnly';
-    const PERIOD_PAST = 'pastOnly';
-    const PERIOD_SPECIFIC = 'specific';
+    const PERIOD_ALL = SI::ALL;
+    const PERIOD_FUTURE = SI::FUTURE_ONLY;
+    const PERIOD_PAST = SI::PAST_ONLY;
+    const PERIOD_SPECIFIC = SI::SPECIFIC;
     const PERIOD_TYPE = 'periodType';
     const PERIOD_TYPE_DAY = 'byDay';
     const PERIOD_TYPE_MONTH = 'byMonth';

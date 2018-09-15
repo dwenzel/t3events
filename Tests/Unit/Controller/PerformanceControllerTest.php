@@ -333,7 +333,7 @@ class PerformanceControllerTest extends UnitTestCase
         $demand = $this->getMockBuilder(PerformanceDemand::class)
             ->getMock();
         $overwriteDemand = array(
-            'genre' => '1,2,3'
+            SI::LEGACY_KEY_GENRE => '1,2,3'
         );
 
         $demand->expects($this->once())->method('setGenres')
@@ -468,7 +468,7 @@ class PerformanceControllerTest extends UnitTestCase
         $demand = $this->getMockBuilder(PerformanceDemand::class)->getMock();
         $overwriteDemand = array(
             'sortBy' => 'foo',
-            'sortDirection' => 'bar'
+            SI::SORT_DIRECTION => 'bar'
         );
 
         $demand->expects($this->once())->method('setOrder')
@@ -486,7 +486,7 @@ class PerformanceControllerTest extends UnitTestCase
         /** @var PerformanceDemand|\PHPUnit_Framework_MockObject_MockObject $demand */
         $demand = $this->getMockBuilder(PerformanceDemand::class)->getMock();
         $overwriteDemand = array(
-            'sortDirection' => 'foo'
+            SI::SORT_DIRECTION => 'foo'
         );
 
         $demand->expects($this->once())->method('setSortDirection')
@@ -504,7 +504,7 @@ class PerformanceControllerTest extends UnitTestCase
         /** @var PerformanceDemand|\PHPUnit_Framework_MockObject_MockObject $demand */
         $demand = $this->getMockBuilder(PerformanceDemand::class)->getMock();
         $overwriteDemand = array(
-            'sortDirection' => 'desc'
+            SI::SORT_DIRECTION => 'desc'
         );
 
         $demand->expects($this->once())->method('setSortDirection')
@@ -522,7 +522,7 @@ class PerformanceControllerTest extends UnitTestCase
         $demand = $this->getMockBuilder(PerformanceDemand::class)->getMock();
         $dateString = '2012-10-15';
         $overwriteDemand = [
-            'startDate' => $dateString
+            SI::START_DATE => $dateString
         ];
         $defaultTimeZone = new \DateTimeZone(date_default_timezone_get());
         $expectedDateTimeObject = new \DateTime($dateString, $defaultTimeZone);
@@ -542,7 +542,7 @@ class PerformanceControllerTest extends UnitTestCase
         $demand = $this->getMockBuilder(PerformanceDemand::class)->getMock();
         $dateString = '2012-10-15';
         $overwriteDemand = [
-            'endDate' => $dateString
+            SI::END_DATE => $dateString
         ];
         $defaultTimeZone = new \DateTimeZone(date_default_timezone_get());
         $expectedDateTimeObject = new \DateTime($dateString, $defaultTimeZone);
@@ -710,7 +710,7 @@ class PerformanceControllerTest extends UnitTestCase
      */
     public function quickMenuActionGetsGenresFromSettings()
     {
-        $settings = ['genres' => '1,2,3'];
+        $settings = [SI::GENRES => '1,2,3'];
         $this->subject->_set(SI::SETTINGS, $settings);
 
         $this->injectMockRepositories(['findMultipleByUid', 'findAll']);
@@ -730,7 +730,7 @@ class PerformanceControllerTest extends UnitTestCase
      */
     public function quickMenuActionGetsVenuesFromSettings()
     {
-        $settings = ['venues' => '1,2,3'];
+        $settings = [SI::VENUES => '1,2,3'];
         $this->subject->_set(SI::SETTINGS, $settings);
 
         $this->injectMockRepositories(['findMultipleByUid', 'findAll']);
@@ -750,7 +750,7 @@ class PerformanceControllerTest extends UnitTestCase
      */
     public function quickMenuActionGetsEventTypesFromSettings()
     {
-        $settings = ['eventTypes' => '1,2,3'];
+        $settings = [SI::EVENT_TYPES => '1,2,3'];
         $this->subject->_set(SI::SETTINGS, $settings);
 
         $this->injectMockRepositories(['findMultipleByUid', 'findAll']);
@@ -883,7 +883,7 @@ class PerformanceControllerTest extends UnitTestCase
         $subject->__construct();
         $this->assertAttributeSame(
             't3events',
-            'extensionName',
+            SI::KEY_EXTENSION_NAME,
             $subject
         );
     }

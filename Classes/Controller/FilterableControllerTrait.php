@@ -3,6 +3,7 @@ namespace DWenzel\T3events\Controller;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use DWenzel\T3events\Domain\Repository\DemandedRepositoryInterface;
+use DWenzel\T3events\Utility\SettingsInterface as SI;
 
 /***************************************************************
  *
@@ -55,7 +56,7 @@ trait FilterableControllerTrait
             }
             if ($key === 'periods') {
                 $periodOptions = [];
-                $periodEntries = ['futureOnly', 'pastOnly', 'all', 'specific'];
+                $periodEntries = [SI::FUTURE_ONLY, SI::PAST_ONLY, SI::ALL, SI::SPECIFIC];
                 if (!empty($value)) {
                     $periodEntries = GeneralUtility::trimExplode(',', $value, true);
                 }

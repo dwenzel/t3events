@@ -1,5 +1,5 @@
 <?php
-namespace CPSIT\T3events\Tests\Unit;
+namespace DWenzel\T3events\Tests\Unit;
 
 /**
  * This file is part of the "Events" project.

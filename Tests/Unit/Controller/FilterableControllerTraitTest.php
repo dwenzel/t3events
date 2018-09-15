@@ -6,7 +6,7 @@ use DWenzel\T3events\Controller\FilterableControllerTrait;
 use DWenzel\T3events\Domain\Repository\AudienceRepository;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
-
+use DWenzel\T3events\Utility\SettingsInterface as SI;
 /***************************************************************
  *
  *  Copyright notice
@@ -100,7 +100,7 @@ class FilterableControllerTraitTest extends UnitTestCase
     protected function getDefaultPeriodOptions(): array
     {
         $periodOptions = [];
-        $periodEntries = ['futureOnly', 'pastOnly', 'all', 'specific'];
+        $periodEntries = [SI::FUTURE_ONLY, SI::PAST_ONLY, SI::ALL, SI::SPECIFIC];
         foreach ($periodEntries as $entry) {
             $period = new \stdClass();
             $period->key = $entry;

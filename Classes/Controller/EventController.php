@@ -138,14 +138,14 @@ class EventController extends ActionController
         $overwriteDemand = unserialize($this->session->get('tx_t3events_overwriteDemand'));
 
         // get filter options from plugin
-        $genres = $this->genreRepository->findMultipleByUid($this->settings['genres'], 'title');
-        $venues = $this->venueRepository->findMultipleByUid($this->settings['venues'], 'title');
-        $eventTypes = $this->eventTypeRepository->findMultipleByUid($this->settings['eventTypes'], 'title');
+        $genres = $this->genreRepository->findMultipleByUid($this->settings[SI::GENRES], 'title');
+        $venues = $this->venueRepository->findMultipleByUid($this->settings[SI::VENUES], 'title');
+        $eventTypes = $this->eventTypeRepository->findMultipleByUid($this->settings[SI::EVENT_TYPES], 'title');
 
         $templateVariables = [
-            'genres' => $genres,
-            'venues' => $venues,
-            'eventTypes' => $eventTypes,
+            SI::GENRES => $genres,
+            SI::VENUES => $venues,
+            SI::EVENT_TYPES => $eventTypes,
             SI::SETTINGS => $this->settings,
             SI::OVERWRITE_DEMAND => $overwriteDemand
         ];

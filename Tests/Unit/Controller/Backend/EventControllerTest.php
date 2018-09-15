@@ -269,7 +269,7 @@ class EventControllerTest extends UnitTestCase
                         'returnUrl' => $returnUrl
                     ]
                 ],
-                [HttpUtility::class, 'redirect']
+                [HttpUtility::class, SI::REDIRECT]
             )->willReturnOnConsecutiveCalls(
                 $this->formProtectionFactory,
                 $mockModuleUrl,

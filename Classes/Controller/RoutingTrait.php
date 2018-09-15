@@ -13,6 +13,7 @@ namespace DWenzel\T3events\Controller;
 use DWenzel\T3events\Controller\Routing\Route;
 use DWenzel\T3events\Controller\Routing\RouterInterface;
 use TYPO3\CMS\Extbase\Mvc\Web\Request;
+use DWenzel\T3events\Utility\SettingsInterface as SI;
 
 /**
  * Class RoutingTrait
@@ -63,7 +64,7 @@ trait RoutingTrait
 
         if ($this instanceof SignalInterface) {
             $signalArguments = [
-                'arguments' => $arguments,
+                SI::ARGUMENTS => $arguments,
                 'identifier' => $identifier,
                 'route' => $route
             ];
@@ -74,13 +75,13 @@ trait RoutingTrait
             $targetArguments = $arguments;
         }
 
-        if ($route->hasOption('arguments')) {
-            $defaultArguments = $route->getOption('arguments');
+        if ($route->hasOption(SI::ARGUMENTS)) {
+            $defaultArguments = $route->getOption(SI::ARGUMENTS);
             if (is_array($defaultArguments)) {
                 $targetArguments = array_merge($defaultArguments, $targetArguments);
             }
         }
-        $options['arguments'] = $targetArguments;
+        $options[SI::ARGUMENTS] = $targetArguments;
 
         $options = array_values($options);
 
@@ -100,6 +101,7 @@ trait RoutingTrait
      * separated by Route::ORIGIN_SEPARATOR
      *
      * @return string
+     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\NoSuchControllerException
      */
     protected function getOrigin()
     {

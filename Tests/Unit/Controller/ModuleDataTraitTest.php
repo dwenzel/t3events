@@ -103,7 +103,7 @@ class ModuleDataTraitTest extends UnitTestCase
             ->with($mockModuleData, $moduleKey);
 
         $this->subject->expects($this->once())
-            ->method('forward')
+            ->method(SI::FORWARD)
             ->with('list');
         $this->subject->expects($this->once())
             ->method('getModuleKey')

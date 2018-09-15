@@ -18,9 +18,9 @@ namespace DWenzel\T3events\Tests\Unit\Domain\Factory\Dto;
 use DWenzel\T3events\Domain\Factory\Dto\PersonDemandFactory;
 use DWenzel\T3events\Domain\Model\Dto\PersonDemand;
 use DWenzel\T3events\Tests\Unit\Object\MockObjectManagerTrait;
+use DWenzel\T3events\Utility\SettingsInterface as SI;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 class PersonDemandFactoryTest extends UnitTestCase
 {
@@ -58,6 +58,17 @@ class PersonDemandFactoryTest extends UnitTestCase
             $mockDemand,
             $this->subject->createFromSettings([])
         );
+    }
+
+    /**
+     * @param array $methods Methods to mock
+     * @return PersonDemand|MockObject
+     */
+    protected function getMockPersonDemand(array $methods = [])
+    {
+        return $this->getMockBuilder(PersonDemand::class)
+            ->setMethods($methods)
+            ->getMock();
     }
 
     /**
@@ -172,7 +183,6 @@ class PersonDemandFactoryTest extends UnitTestCase
         );
     }
 
-
     /**
      * @test
      */
@@ -180,7 +190,7 @@ class PersonDemandFactoryTest extends UnitTestCase
     {
         $settings = [
             'sortBy' => 'foo',
-            'sortDirection' => 'bar'
+            SI::SORT_DIRECTION => 'bar'
         ];
         $expectedOrder = 'foo|bar';
 
@@ -194,16 +204,5 @@ class PersonDemandFactoryTest extends UnitTestCase
             $expectedOrder,
             $createdDemand->getOrder()
         );
-    }
-
-    /**
-     * @param array $methods Methods to mock
-     * @return PersonDemand|MockObject
-     */
-    protected function getMockPersonDemand(array $methods = [])
-    {
-        return $this->getMockBuilder(PersonDemand::class)
-            ->setMethods($methods)
-            ->getMock();
     }
 }

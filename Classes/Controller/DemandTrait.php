@@ -3,6 +3,7 @@ namespace DWenzel\T3events\Controller;
 
 use DWenzel\T3events\Domain\Repository\PeriodConstraintRepositoryInterface;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
+use DWenzel\T3events\Utility\SettingsInterface as SI;
 use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
 use DWenzel\T3events\Domain\Model\Dto\EventDemand;
 use DWenzel\T3events\Domain\Model\Dto\EventLocationAwareDemandInterface;
@@ -55,8 +56,8 @@ trait DemandTrait
                 switch ($propertyName) {
                     case 'sortBy':
                         $orderings = $propertyValue;
-                        if (isset($overwriteDemand['sortDirection'])) {
-                            $orderings .= '|' . $overwriteDemand['sortDirection'];
+                        if (isset($overwriteDemand[SI::SORT_DIRECTION])) {
+                            $orderings .= '|' . $overwriteDemand[SI::SORT_DIRECTION];
                         }
                         $demand->setOrder($orderings);
                         $demand->setSortBy($overwriteDemand['sortBy']);
@@ -71,7 +72,7 @@ trait DemandTrait
                         }
                         break;
                     case 'venue':
-                    case 'venues':
+                    case SI::VENUES:
                         if ($demand instanceof EventDemand) {
                             $demand->setVenue($propertyValue);
                         }
@@ -79,9 +80,9 @@ trait DemandTrait
                             $demand->setVenues($propertyValue);
                         }
                         break;
-                    case 'genre':
+                    case SI::LEGACY_KEY_GENRE:
                         //fall through to 'genres'
-                    case 'genres':
+                    case SI::GENRES:
                         if ($demand instanceof EventDemand) {
                             $demand->setGenre($propertyValue);
                         }
@@ -91,7 +92,7 @@ trait DemandTrait
                         break;
                     case 'eventType':
                         // fall through to 'eventTypes
-                    case 'eventTypes':
+                    case SI::EVENT_TYPES:
                         if ($demand instanceof EventDemand) {
                             $demand->setEventType($propertyValue);
                         }
@@ -106,25 +107,25 @@ trait DemandTrait
                         break;
                     case 'period':
                         if ($propertyValue === PeriodConstraintRepositoryInterface::PERIOD_SPECIFIC
-                            && empty($overwriteDemand['startDate'])) {
+                            && empty($overwriteDemand[SI::START_DATE])) {
                             $demand->setPeriod(PeriodConstraintRepositoryInterface::PERIOD_ALL);
                             break;
                         }
                         $demand->setPeriod($propertyValue);
                         break;
                     case 'periodType':
-                        if ($propertyValue === 'byDate' && empty($overwriteDemand['startDate'])) {
+                        if ($propertyValue === 'byDate' && empty($overwriteDemand[SI::START_DATE])) {
                             break;
                         }
                         $demand->setPeriodType($propertyValue);
                         break;
-                    case 'startDate':
+                    case SI::START_DATE:
                         $demand->setStartDate(new \DateTime($propertyValue, $timeZone));
                         break;
-                    case 'endDate':
+                    case SI::END_DATE:
                         $demand->setEndDate(new \DateTime($propertyValue, $timeZone));
                         break;
-                    case 'sortDirection':
+                    case SI::SORT_DIRECTION:
                         if ($propertyValue !== 'desc') {
                             $propertyValue = 'asc';
                         }

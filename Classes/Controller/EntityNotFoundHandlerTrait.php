@@ -1,13 +1,14 @@
 <?php
+
 namespace DWenzel\T3events\Controller;
 
 use DWenzel\T3events\Utility\SettingsInterface as SI;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use TYPO3\CMS\Extbase\Mvc\Request;
 use TYPO3\CMS\Extbase\Mvc\RequestInterface;
 use TYPO3\CMS\Extbase\Mvc\ResponseInterface;
 use TYPO3\CMS\Extbase\Property\Exception as PropertyException;
+use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
  * Class EntityNotFoundHandlerTrait
@@ -57,39 +58,6 @@ trait EntityNotFoundHandlerTrait
     abstract public function forward($actionName, $controllerName = null, $extensionName = null, array $arguments = null);
 
     /**
-     * Redirects the request to another action and / or controller.
-     *
-     * Redirect will be sent to the client which then performs another request to the new URI.
-     *
-     * @param string $actionName Name of the action to forward to
-     * @param string $controllerName Unqualified object name of the controller to forward to. If not specified, the current controller is used.
-     * @param string $extensionName Name of the extension containing the controller to forward to. If not specified, the current extension is assumed.
-     * @param array $arguments Arguments to pass to the target action
-     * @param integer $pageUid Target page uid. If NULL, the current page uid is used
-     * @param integer $delay (optional) The delay in seconds. Default is no delay.
-     * @param integer $statusCode (optional) The HTTP status code for the redirect. Default is "303 See Other
-     * @return void
-     */
-    abstract protected function redirect($actionName, $controllerName = null, $extensionName = null, array $arguments = null, $pageUid = null, $delay = 0, $statusCode = 303);
-
-    /**
-     * Redirects the web request to another uri.
-     *
-     * @param mixed $uri A string representation of a URI
-     * @param integer $delay (optional) The delay in seconds. Default is no delay.
-     * @param integer $statusCode (optional) The HTTP status code for the redirect. Default is "303 See Other
-     */
-    abstract protected function redirectToUri($uri, $delay = 0, $statusCode = 303);
-
-    /**
-     * @return TypoScriptFrontendController
-     */
-    protected function getFrontendController()
-    {
-        return $GLOBALS['TSFE'];
-    }
-
-    /**
      * @return string
      */
     public function getEntityNotFoundMessage()
@@ -98,9 +66,40 @@ trait EntityNotFoundHandlerTrait
     }
 
     /**
+     * @param \TYPO3\CMS\Extbase\Mvc\RequestInterface $request
+     * @param \TYPO3\CMS\Extbase\Mvc\ResponseInterface $response
+     * @return void
+     * @throws \Exception
+     * @override \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+     */
+    public function processRequest(RequestInterface $request, ResponseInterface $response)
+    {
+        try {
+            parent::processRequest($request, $response);
+        } catch (\Exception $exception) {
+            if (
+                (($exception instanceof PropertyException\TargetNotFoundException)
+                    || ($exception instanceof PropertyException\InvalidSourceException))
+                && $request instanceof Request
+            ) {
+                $controllerName = lcfirst($request->getControllerName());
+                $actionName = $request->getControllerActionName();
+                if (isset($this->settings[$controllerName][$actionName][SI::ERROR_HANDLING])) {
+                    $configuration = $this->settings[$controllerName][$actionName][SI::ERROR_HANDLING];
+                    $this->handleEntityNotFoundError($configuration);
+                }
+
+            }
+            throw $exception;
+        }
+    }
+
+    /**
      * Error handling if requested entity is not found
      *
      * @param string $configuration Configuration for handling
+     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException
+     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
      */
     public function handleEntityNotFoundError($configuration)
     {
@@ -125,7 +124,7 @@ trait EntityNotFoundHandlerTrait
                 }
                 $url = $this->uriBuilder->build();
                 if (isset($configuration[2])) {
-                    $this->redirectToUri($url, 0, (int) $configuration[2]);
+                    $this->redirectToUri($url, 0, (int)$configuration[2]);
                 } else {
                     $this->redirectToUri($url);
                 }
@@ -135,66 +134,37 @@ trait EntityNotFoundHandlerTrait
                 break;
             default:
                 $params = [
-                    'config' => $configuration,
+                    SI::ARGUMENTS => $configuration,
                     'requestArguments' => $this->request->getArguments(),
-                    'actionName' => $this->request->getControllerActionName()
+                    SI::ACTION_NAME => $this->request->getControllerActionName()
                 ];
                 $this->emitSignal(
                     get_class($this),
                     self::$handleEntityNotFoundError,
                     $params
                 );
-                if (isset($params['redirectUri'])) {
-                    $this->redirectToUri($params['redirectUri']);
+                if (isset($params[SI::REDIRECT_URI])) {
+                    $this->redirectToUri($params[SI::REDIRECT_URI]);
                 }
-                if (isset($params['redirect'])) {
+                if (isset($params[SI::REDIRECT])) {
                     $this->redirect(
-                        $params['redirect']['actionName'],
-                        $params['redirect']['controllerName'],
-                        $params['redirect']['extensionName'],
-                        $params['redirect']['arguments'],
-                        $params['redirect']['pageUid'],
-                        $params['redirect']['delay'],
-                        $params['redirect']['statusCode']
+                        $params[SI::REDIRECT][SI::ACTION_NAME],
+                        $params[SI::REDIRECT][SI::CONTROLLER_NAME],
+                        $params[SI::REDIRECT][SI::KEY_EXTENSION_NAME],
+                        $params[SI::REDIRECT][SI::ARGUMENTS],
+                        $params[SI::REDIRECT]['pageUid'],
+                        $params[SI::REDIRECT]['delay'],
+                        $params[SI::REDIRECT]['statusCode']
                     );
                 }
-                if (isset($params['forward'])) {
+                if (isset($params[SI::FORWARD])) {
                     $this->forward(
-                        $params['forward']['actionName'],
-                        $params['forward']['controllerName'],
-                        $params['forward']['extensionName'],
-                        $params['forward']['arguments']
+                        $params[SI::FORWARD][SI::ACTION_NAME],
+                        $params[SI::FORWARD][SI::CONTROLLER_NAME],
+                        $params[SI::FORWARD][SI::KEY_EXTENSION_NAME],
+                        $params[SI::FORWARD][SI::ARGUMENTS]
                     );
                 }
-        }
-    }
-
-    /**
-     * @param \TYPO3\CMS\Extbase\Mvc\RequestInterface $request
-     * @param \TYPO3\CMS\Extbase\Mvc\ResponseInterface $response
-     * @return void
-     * @throws \Exception
-     * @override \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
-     */
-    public function processRequest(RequestInterface $request, ResponseInterface $response)
-    {
-        try {
-            parent::processRequest($request, $response);
-        } catch (\Exception $exception) {
-            if (
-                ($exception instanceof PropertyException\TargetNotFoundException)
-                || ($exception instanceof PropertyException\InvalidSourceException)
-            ) {
-                if ($request instanceof Request) {
-                    $controllerName = lcfirst($request->getControllerName());
-                    $actionName = $request->getControllerActionName();
-                    if (isset($this->settings[$controllerName][$actionName]['errorHandling'])) {
-                        $configuration = $this->settings[$controllerName][$actionName]['errorHandling'];
-                        $this->handleEntityNotFoundError($configuration);
-                    }
-                }
-            }
-            throw $exception;
         }
     }
 
@@ -209,4 +179,37 @@ trait EntityNotFoundHandlerTrait
     {
         return GeneralUtility::getIndpEnv('TYPO3_SSL');
     }
+
+    /**
+     * @return TypoScriptFrontendController
+     */
+    protected function getFrontendController()
+    {
+        return $GLOBALS['TSFE'];
+    }
+
+    /**
+     * Redirects the request to another action and / or controller.
+     *
+     * Redirect will be sent to the client which then performs another request to the new URI.
+     *
+     * @param string $actionName Name of the action to forward to
+     * @param string $controllerName Unqualified object name of the controller to forward to. If not specified, the current controller is used.
+     * @param string $extensionName Name of the extension containing the controller to forward to. If not specified, the current extension is assumed.
+     * @param array $arguments Arguments to pass to the target action
+     * @param integer $pageUid Target page uid. If NULL, the current page uid is used
+     * @param integer $delay (optional) The delay in seconds. Default is no delay.
+     * @param integer $statusCode (optional) The HTTP status code for the redirect. Default is "303 See Other
+     * @return void
+     */
+    abstract protected function redirect($actionName, $controllerName = null, $extensionName = null, array $arguments = null, $pageUid = null, $delay = 0, $statusCode = 303);
+
+    /**
+     * Redirects the web request to another uri.
+     *
+     * @param mixed $uri A string representation of a URI
+     * @param integer $delay (optional) The delay in seconds. Default is no delay.
+     * @param integer $statusCode (optional) The HTTP status code for the redirect. Default is "303 See Other
+     */
+    abstract protected function redirectToUri($uri, $delay = 0, $statusCode = 303);
 }

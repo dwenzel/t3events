@@ -5,6 +5,7 @@ namespace DWenzel\T3events\DataProvider\Legend;
 use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
+use DWenzel\T3events\Utility\SettingsInterface as SI;
 
 /***************************************************************
  *  Copyright notice
@@ -28,7 +29,6 @@ class PeriodDataProviderFactory
     /**
      * @param array $params
      * @return \DWenzel\T3events\DataProvider\Legend\LayeredLegendDataProviderInterface
-     * @throws \DWenzel\T3events\InvalidConfigurationException
      */
     public function get(array $params)
     {
@@ -63,22 +63,21 @@ class PeriodDataProviderFactory
         $respectEndDate = false;
         if (ArrayUtility::isValidPath($flexFormData, $respectEndDatePath)) {
             $respectEndDate = (bool)ArrayUtility::getValueByPath($flexFormData, $respectEndDatePath);
-        };
+        }
 
-
-        if ($period === 'futureOnly') {
+        if ($period === SI::FUTURE_ONLY) {
             $class = PeriodFutureDataProvider::class;
         }
 
-        if ($period === 'pastOnly') {
+        if ($period === SI::PAST_ONLY) {
             $class = PeriodPastDataProvider::class;
         }
 
-        if ($period === 'specific') {
+        if ($period === SI::SPECIFIC) {
             $class = PeriodSpecificDataProvider::class;
         }
 
-        if ($period === 'all') {
+        if ($period === SI::ALL) {
             $class = PeriodAllDataProvider::class;
         }
 

@@ -231,18 +231,18 @@ class PerformanceController
 
         // get filter options from plugin
         $filterConfiguration = [
-            'genre' => $this->settings['genres'],
-            'venue' => $this->settings['venues'],
-            'eventType' => $this->settings['eventTypes'],
+            SI::LEGACY_KEY_GENRE => $this->settings[SI::GENRES],
+            'venue' => $this->settings[SI::VENUES],
+            'eventType' => $this->settings[SI::EVENT_TYPES],
             'category' => $this->settings['categories']
         ];
         $filterOptions = $this->getFilterOptions($filterConfiguration);
 
         $templateVariables = [
             'filterOptions' => $filterOptions,
-            'genres' => $filterOptions['genres'],
-            'venues' => $filterOptions['venues'],
-            'eventTypes' => $filterOptions['eventTypes'],
+            SI::GENRES => $filterOptions[SI::GENRES],
+            SI::VENUES => $filterOptions[SI::VENUES],
+            SI::EVENT_TYPES => $filterOptions[SI::EVENT_TYPES],
             SI::SETTINGS => $this->settings,
             SI::OVERWRITE_DEMAND => $overwriteDemand
         ];

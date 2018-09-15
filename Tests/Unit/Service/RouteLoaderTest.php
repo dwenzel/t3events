@@ -22,6 +22,7 @@ use DWenzel\T3events\DataProvider\RouteLoader\RouteLoaderDataProviderInterface;
 use DWenzel\T3events\Service\RouteLoader;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
+use DWenzel\T3events\Utility\SettingsInterface as SI;
 
 /**
  * Class RouteLoaderTest
@@ -152,7 +153,7 @@ class RouteLoaderTest extends UnitTestCase
     public function loadFromProviderRegistersRoutes()
     {
         $origin = 'origin';
-        $method = 'forward';
+        $method = SI::FORWARD;
         $options = [
             'foo' => 'bar'
         ];
