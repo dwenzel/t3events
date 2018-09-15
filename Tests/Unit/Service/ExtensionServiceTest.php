@@ -16,7 +16,7 @@ namespace DWenzel\T3events\Tests\Unit\Service;
  */
 
 use DWenzel\T3events\Service\ExtensionService;
-use CPSIT\T3eventsReservation\Utility\SettingsInterface as SI;
+use DWenzel\T3events\Utility\SettingsInterface as SI;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 

@@ -15,7 +15,7 @@ namespace DWenzel\T3events\Service;
  */
 
 use DWenzel\T3events\Configuration\ConfigurationManagerTrait;
-use CPSIT\T3eventsReservation\Utility\SettingsInterface as SI;
+use DWenzel\T3events\Utility\SettingsInterface as SI;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 
