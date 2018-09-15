@@ -36,31 +36,14 @@ class ButtonDemandCollection
     {
         //Do not remove the next line: It would break the functionality
         $this->initStorageObjects();
-        if (null !== $settings) {
-            foreach ($settings as $buttonConfig) {
-                $demand = new ButtonDemand();
-                if (!empty($buttonConfig[ButtonDemand::TABLE_KEY])) {
-                    $demand->setTable($buttonConfig[ButtonDemand::TABLE_KEY]);
-                }
-                if (!empty($buttonConfig[ButtonDemand::LABEL_KEY])) {
-                    $demand->setLabelKey($buttonConfig[ButtonDemand::LABEL_KEY]);
-                }
-                if (!empty($buttonConfig[ButtonDemand::ACTION_KEY])) {
-                    $demand->setAction($buttonConfig[ButtonDemand::ACTION_KEY]);
-                }
-                if (!empty($buttonConfig[ButtonDemand::ICON_KEY])) {
-                    $demand->setIconKey($buttonConfig[ButtonDemand::ICON_KEY]);
-                 }
-                if (!empty($buttonConfig[ButtonDemand::ICON_SIZE_KEY])) {
-                    $demand->setIconSize($buttonConfig[ButtonDemand::ICON_SIZE_KEY]);
-                }
-                if (!empty($buttonConfig[ButtonDemand::OVERLAY_KEY])) {
-                    $demand->setOverlay($buttonConfig[ButtonDemand::OVERLAY_KEY]);
-                }
-
-                $this->addDemand($demand);
-            }
+        if (empty($settings)) {
+            return;
         }
+
+        foreach ($settings as $buttonConfig) {
+            $this->createSingleDemand($buttonConfig);
+        }
+
     }
 
     /**
@@ -109,6 +92,36 @@ class ButtonDemandCollection
     public function removeDemand(ButtonDemand $demandToRemove)
     {
         $this->demands->detach($demandToRemove);
+    }
+
+    /**
+     * Creates a single button demand from settings and adds it to this collection
+     *
+     * @param $buttonConfig
+     */
+    protected function createSingleDemand($buttonConfig): void
+    {
+        $demand = new ButtonDemand();
+        if (!empty($buttonConfig[ButtonDemand::TABLE_KEY])) {
+            $demand->setTable($buttonConfig[ButtonDemand::TABLE_KEY]);
+        }
+        if (!empty($buttonConfig[ButtonDemand::LABEL_KEY])) {
+            $demand->setLabelKey($buttonConfig[ButtonDemand::LABEL_KEY]);
+        }
+        if (!empty($buttonConfig[ButtonDemand::ACTION_KEY])) {
+            $demand->setAction($buttonConfig[ButtonDemand::ACTION_KEY]);
+        }
+        if (!empty($buttonConfig[ButtonDemand::ICON_KEY])) {
+            $demand->setIconKey($buttonConfig[ButtonDemand::ICON_KEY]);
+        }
+        if (!empty($buttonConfig[ButtonDemand::ICON_SIZE_KEY])) {
+            $demand->setIconSize($buttonConfig[ButtonDemand::ICON_SIZE_KEY]);
+        }
+        if (!empty($buttonConfig[ButtonDemand::OVERLAY_KEY])) {
+            $demand->setOverlay($buttonConfig[ButtonDemand::OVERLAY_KEY]);
+        }
+
+        $this->addDemand($demand);
     }
 
 }
