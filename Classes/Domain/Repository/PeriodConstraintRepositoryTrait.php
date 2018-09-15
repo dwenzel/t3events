@@ -3,6 +3,7 @@ namespace DWenzel\T3events\Domain\Repository;
 
 use DWenzel\T3events\Domain\Model\Dto\PeriodAwareDemandInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
+use DWenzel\T3events\Utility\SettingsInterface as SI;
 
 /**
  * Class PeriodConstraintRepositoryTrait
@@ -20,6 +21,7 @@ trait PeriodConstraintRepositoryTrait
      * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
      * @param \DWenzel\T3events\Domain\Model\Dto\PeriodAwareDemandInterface $demand
      * @return array<\TYPO3\CMS\Extbase\Persistence\QOM\Constraint>
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
      */
     public function createPeriodConstraints(QueryInterface $query, PeriodAwareDemandInterface $demand)
     {
