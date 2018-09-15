@@ -4,6 +4,7 @@ namespace DWenzel\T3events\Tests\Controller;
 
 use DWenzel\T3events\Controller\SettingsUtilityTrait;
 use DWenzel\T3events\Utility\SettingsUtility;
+use DWenzel\T3events\Utility\SettingsInterface as SI;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 
@@ -84,7 +85,7 @@ class SettingsUtilityTraitTest extends UnitTestCase
 
         $this->inject(
             $this->fixture,
-            'settings',
+            SI::SETTINGS,
             $typoScriptSettings
         );
 
@@ -121,7 +122,7 @@ class SettingsUtilityTraitTest extends UnitTestCase
 
         $this->inject(
             $this->fixture,
-            'settings',
+            SI::SETTINGS,
             $typoScriptSettings
         );
         $this->inject(
@@ -167,7 +168,7 @@ class SettingsUtilityTraitTest extends UnitTestCase
 
         $this->inject(
             $this->fixture,
-            'settings',
+            SI::SETTINGS,
             $settings
         );
         $this->inject(

@@ -3,6 +3,7 @@
 namespace DWenzel\T3events\Tests\Controller;
 
 use DWenzel\T3events\Controller\EntityNotFoundHandlerTrait;
+use DWenzel\T3events\Utility\SettingsInterface as SI;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
@@ -322,7 +323,7 @@ class EntityNotFoundHandlerTraitTest extends UnitTestCase
         $subject = $this->getAccessibleMock(
             DummyEntityNotFoundHandlerController::class, ['handleEntityNotFoundError']
         );
-        $subject->_set('settings', $settings);
+        $subject->_set(SI::SETTINGS, $settings);
         $mockResponse = $this->getMockBuilder(ResponseInterface::class)->getMock();
         /** @var Request|\PHPUnit_Framework_MockObject_MockObject $mockRequest */
         $mockRequest = $this->getMockBuilder(Request::class)

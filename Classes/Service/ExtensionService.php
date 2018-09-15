@@ -15,6 +15,7 @@ namespace DWenzel\T3events\Service;
  */
 
 use DWenzel\T3events\Configuration\ConfigurationManagerTrait;
+use CPSIT\T3eventsReservation\Utility\SettingsInterface as SI;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 
@@ -41,8 +42,8 @@ class ExtensionService extends \TYPO3\CMS\Extbase\Service\ExtensionService imple
     {
         $frameworkConfiguration = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK, $extensionName, $pluginName);
         if (!parent::isActionCacheable($extensionName, $pluginName, $controllerName, $actionName) ||
-            isset($frameworkConfiguration['settings']['cache']['makeNonCacheable']) &&
-            $frameworkConfiguration['settings']['cache']['makeNonCacheable']
+            isset($frameworkConfiguration[SI::SETTINGS]['cache']['makeNonCacheable']) &&
+            $frameworkConfiguration[SI::SETTINGS]['cache']['makeNonCacheable']
         ) {
             return false;
         }

@@ -23,6 +23,7 @@ use DWenzel\T3events\Domain\Model\Dto\EventDemand;
 use DWenzel\T3events\Domain\Model\Event;
 use DWenzel\T3events\Domain\Repository\EventRepository;
 use DWenzel\T3events\Session\SessionInterface;
+use CPSIT\T3eventsReservation\Utility\SettingsInterface as SI;
 use DWenzel\T3events\Utility\SettingsUtility;
 use Nimut\TestingFramework\MockObject\AccessibleMockObjectInterface;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
@@ -111,7 +112,7 @@ class EventControllerTest extends UnitTestCase
             ->getMockForAbstractClass();
         $mockConfigurationManager->method('getContentObject')->will($this->returnValue($mockContentObjectRenderer));
         $this->subject->injectConfigurationManager($mockConfigurationManager);
-        $this->subject->_set('settings', $this->settings);
+        $this->subject->_set(SI::SETTINGS, $this->settings);
         $this->calendarConfigurationFactory = $this->getMockBuilder(CalendarConfigurationFactory::class)
             ->setMethods(['create'])->getMock();
         $mockCalendarConfiguration = $this->getMockForAbstractClass(CalendarConfigurationFactoryInterface::class);
@@ -129,21 +130,6 @@ class EventControllerTest extends UnitTestCase
         return $this->getMockBuilder(EventDemand::class)
             ->setMethods($methods)
             ->getMock();
-    }
-
-    /**
-     * @test
-     * @covers ::createDemandFromSettings
-     */
-    public function createDemandFromSettingsReturnsDemandObject()
-    {
-        $settings = [];
-        $mockDemand = $this->mockGetEventDemandFromFactory();
-
-        $this->assertSame(
-            $mockDemand,
-            $this->subject->createDemandFromSettings($settings)
-        );
     }
 
     /**
@@ -168,7 +154,7 @@ class EventControllerTest extends UnitTestCase
      */
     public function initializeActionSetsOverwriteDemandInSession()
     {
-        $this->subject->_set('settings', []);
+        $this->subject->_set(SI::SETTINGS, []);
         $this->mockSettingsUtility();
         $overwriteDemand = ['foo'];
         $mockSession = $this->subject->_get('session');

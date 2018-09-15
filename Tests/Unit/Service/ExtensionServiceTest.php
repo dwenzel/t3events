@@ -16,6 +16,7 @@ namespace DWenzel\T3events\Tests\Unit\Service;
  */
 
 use DWenzel\T3events\Service\ExtensionService;
+use CPSIT\T3eventsReservation\Utility\SettingsInterface as SI;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 
@@ -72,7 +73,7 @@ class ExtensionServiceTest extends UnitTestCase
     public function isActionCacheableReturnsIfIsSetForAction()
     {
         $configuration = [
-            'settings' => [
+            SI::SETTINGS => [
                 'cache' => [
                     'makeNonCacheable' => '1'
                 ]

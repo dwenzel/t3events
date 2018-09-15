@@ -34,6 +34,7 @@ use DWenzel\T3events\Domain\Repository\PerformanceRepository;
 use DWenzel\T3events\Domain\Repository\VenueRepository;
 use DWenzel\T3events\Session\SessionInterface;
 use DWenzel\T3events\Utility\SettingsUtility;
+use DWenzel\T3events\Utility\SettingsInterface as SI;
 use Nimut\TestingFramework\MockObject\AccessibleMockObjectInterface;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
@@ -134,7 +135,7 @@ class PerformanceControllerTest extends UnitTestCase
         $this->subject->_set('request', $mockRequest);
         $this->subject->_set('configurationManager', $mockConfigurationManager);
         $this->subject->_set('objectManager', $mockObjectManager);
-        $this->subject->_set('settings', $this->settings);
+        $this->subject->_set(SI::SETTINGS, $this->settings);
 
         $this->calendarConfigurationFactory = $this->getMockBuilder(CalendarConfigurationFactory::class)
             ->setMethods(['create'])->getMock();
@@ -241,7 +242,7 @@ class PerformanceControllerTest extends UnitTestCase
      */
     public function initializeActionsSetsContentObject()
     {
-        $this->subject->_set('settings', []);
+        $this->subject->_set(SI::SETTINGS, []);
         $this->mockSettingsUtility();
         $configurationManager = $this->getMockBuilder(ConfigurationManagerInterface::class)
             ->setMethods(
@@ -276,7 +277,7 @@ class PerformanceControllerTest extends UnitTestCase
      */
     public function initializeActionSetsOverwriteDemandInSession()
     {
-        $this->subject->_set('settings', []);
+        $this->subject->_set(SI::SETTINGS, []);
         $this->mockSettingsUtility();
         $overwriteDemand = ['foo'];
         $mockSession = $this->subject->_get('session');
@@ -417,7 +418,7 @@ class PerformanceControllerTest extends UnitTestCase
                 'fields' => $fieldNames
             ]
         ];
-        $this->subject->_set('settings', $settings);
+        $this->subject->_set(SI::SETTINGS, $settings);
 
         /** @var PerformanceDemand|\PHPUnit_Framework_MockObject_MockObject $demand */
         $demand = $this->getMockBuilder(PerformanceDemand::class)->getMock();
@@ -574,7 +575,7 @@ class PerformanceControllerTest extends UnitTestCase
             ->getMock();
         $this->subject->_set('view', $view);
         $settings = array('foo');
-        $this->subject->_set('settings', $settings);
+        $this->subject->_set(SI::SETTINGS, $settings);
         $this->inject($this->subject, 'performanceDemandFactory', $this->performanceDemandFactory);
         /** @var PerformanceDemand|\PHPUnit_Framework_MockObject_MockObject $demand */
         $mockDemand = $this->getMockBuilder(PerformanceDemand::class)->getMock();
@@ -611,10 +612,10 @@ class PerformanceControllerTest extends UnitTestCase
             ->getMock();
         $this->subject->_set('view', $view);
         $settings = array('foo');
-        $this->subject->_set('settings', $settings);
+        $this->subject->_set(SI::SETTINGS, $settings);
         /** @var PerformanceDemand|\PHPUnit_Framework_MockObject_MockObject $demand */
         $mockDemand = $this->getMockBuilder(PerformanceDemand::class)->getMock();
-        $this->subject->_set('settings', $settings);
+        $this->subject->_set(SI::SETTINGS, $settings);
         $this->inject($this->subject, 'performanceDemandFactory', $this->performanceDemandFactory);
 
         $this->performanceDemandFactory->expects($this->once())
@@ -646,7 +647,7 @@ class PerformanceControllerTest extends UnitTestCase
         $settings = ['foo'];
         $performance = new Performance();
         $templateVariables = [
-            'settings' => $settings,
+            SI::SETTINGS => $settings,
             'performance' => $performance
         ];
 
@@ -664,7 +665,7 @@ class PerformanceControllerTest extends UnitTestCase
             ->with();
 
         $fixture->_set('view', $view);
-        $fixture->_set('settings', $settings);
+        $fixture->_set(SI::SETTINGS, $settings);
 
         $fixture->showAction($performance);
     }
@@ -710,7 +711,7 @@ class PerformanceControllerTest extends UnitTestCase
     public function quickMenuActionGetsGenresFromSettings()
     {
         $settings = ['genres' => '1,2,3'];
-        $this->subject->_set('settings', $settings);
+        $this->subject->_set(SI::SETTINGS, $settings);
 
         $this->injectMockRepositories(['findMultipleByUid', 'findAll']);
         $mockGenreRepository = $this->subject->_get('genreRepository');
@@ -730,7 +731,7 @@ class PerformanceControllerTest extends UnitTestCase
     public function quickMenuActionGetsVenuesFromSettings()
     {
         $settings = ['venues' => '1,2,3'];
-        $this->subject->_set('settings', $settings);
+        $this->subject->_set(SI::SETTINGS, $settings);
 
         $this->injectMockRepositories(['findMultipleByUid', 'findAll']);
         $mockVenueRepository = $this->subject->_get('venueRepository');
@@ -750,7 +751,7 @@ class PerformanceControllerTest extends UnitTestCase
     public function quickMenuActionGetsEventTypesFromSettings()
     {
         $settings = ['eventTypes' => '1,2,3'];
-        $this->subject->_set('settings', $settings);
+        $this->subject->_set(SI::SETTINGS, $settings);
 
         $this->injectMockRepositories(['findMultipleByUid', 'findAll']);
         $mockEventTypeRepository = $this->subject->_get('eventTypeRepository');
@@ -797,7 +798,7 @@ class PerformanceControllerTest extends UnitTestCase
     public function calendarActionGetsConfigurationFromFactory()
     {
         $settings = [];
-        $this->subject->_set('settings', $settings);
+        $this->subject->_set(SI::SETTINGS, $settings);
         $this->mockGetPerformanceDemandFromFactory();
         $this->calendarConfigurationFactory->expects($this->once())
             ->method('create')
@@ -831,7 +832,7 @@ class PerformanceControllerTest extends UnitTestCase
         $this->subject = $this->getAccessibleMock(PerformanceController::class,
             ['overwriteDemandObject', 'emitSignal'], [], '', false);
         $this->subject->injectPerformanceDemandFactory($this->performanceDemandFactory);
-        $this->subject->_set('settings', $this->settings);
+        $this->subject->_set(SI::SETTINGS, $this->settings);
         $this->subject->injectCalendarConfigurationFactory($this->calendarConfigurationFactory);
         $this->subject->injectPerformanceRepository($this->performanceRepository);
         $this->subject->_set('view', $this->view);

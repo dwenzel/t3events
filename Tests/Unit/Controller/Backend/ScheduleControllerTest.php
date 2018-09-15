@@ -8,6 +8,7 @@ use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
 use DWenzel\T3events\Domain\Model\Dto\ModuleData;
 use DWenzel\T3events\Domain\Model\Dto\PerformanceDemand;
 use DWenzel\T3events\Domain\Repository\PerformanceRepository;
+use DWenzel\T3events\Utility\SettingsInterface as SI;
 use Nimut\TestingFramework\MockObject\AccessibleMockObjectInterface;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
@@ -85,21 +86,7 @@ class ScheduleControllerTest extends UnitTestCase
         $mockDemand = $this->getMockBuilder(PerformanceDemand::class)->getMock();
         $this->performanceDemandFactory->method('createFromSettings')->will($this->returnValue($mockDemand));
         $this->subject->injectPerformanceDemandFactory($this->performanceDemandFactory);
-        $this->inject($this->subject, 'settings', $this->settings);
-    }
-
-    /**
-     * @return DemandInterface |\PHPUnit_Framework_MockObject_MockObject
-     */
-    protected function mockCreateDemandFromSettings()
-    {
-        $mockDemand = $this->getMockBuilder(PerformanceDemand::class)->getMock();
-
-        $this->performanceDemandFactory->expects($this->once())
-            ->method('createFromSettings')
-            ->will($this->returnValue($mockDemand));
-
-        return $mockDemand;
+        $this->inject($this->subject, SI::SETTINGS, $this->settings);
     }
 
     /**
@@ -113,7 +100,7 @@ class ScheduleControllerTest extends UnitTestCase
 
         $this->inject(
             $this->subject,
-            'settings',
+            SI::SETTINGS,
             $settings
         );
 
@@ -133,6 +120,20 @@ class ScheduleControllerTest extends UnitTestCase
         $this->moduleData->expects($this->once())
             ->method('getOverwriteDemand');
         $this->subject->listAction();
+    }
+
+    /**
+     * @return DemandInterface |\PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function mockCreateDemandFromSettings()
+    {
+        $mockDemand = $this->getMockBuilder(PerformanceDemand::class)->getMock();
+
+        $this->performanceDemandFactory->expects($this->once())
+            ->method('createFromSettings')
+            ->will($this->returnValue($mockDemand));
+
+        return $mockDemand;
     }
 
     /**

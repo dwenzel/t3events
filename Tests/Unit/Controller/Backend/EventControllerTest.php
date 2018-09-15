@@ -21,13 +21,13 @@ use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
 use DWenzel\T3events\Domain\Model\Dto\EventDemand;
 use DWenzel\T3events\Domain\Model\Dto\ModuleData;
 use DWenzel\T3events\Domain\Repository\EventRepository;
+use DWenzel\T3events\Utility\SettingsInterface as SI;
 use Nimut\TestingFramework\MockObject\AccessibleMockObjectInterface;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\FormProtection\FormProtectionFactory;
 use TYPO3\CMS\Core\Utility\HttpUtility;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
@@ -109,7 +109,7 @@ class EventControllerTest extends UnitTestCase
         );
         $this->inject(
             $this->subject,
-            'settings',
+            SI::SETTINGS,
             []
         );
         $this->subject->setModuleData($this->moduleData);
@@ -137,7 +137,7 @@ class EventControllerTest extends UnitTestCase
 
         $this->inject(
             $this->subject,
-            'settings',
+            SI::SETTINGS,
             $settings
         );
 
@@ -307,7 +307,8 @@ class EventControllerTest extends UnitTestCase
     /**
      * @test
      */
-    public function getConfigurationManagerReturnsConfigurationManager() {
+    public function getConfigurationManagerReturnsConfigurationManager()
+    {
         $this->assertEquals(
             $this->configurationManager,
             $this->subject->getConfigurationManager()

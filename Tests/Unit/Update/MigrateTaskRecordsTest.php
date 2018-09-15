@@ -73,47 +73,6 @@ class MigrateTaskRecordsTest extends UnitTestCase
     /**
      * @test
      */
-    public function checkForUpdateGetsTasksWithDeprecatedFieldsFromDatabase()
-    {
-        $versionNumber = VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version);
-        if ($versionNumber >= 8000000) {
-            $this->markTestSkipped();
-        }
-
-        $description = '';
-        $expectedFields = 'uid, period';
-        $expectedWhere = 'period!=0';
-        $this->database->expects($this->once())
-            ->method('exec_SELECTquery')
-            ->with($expectedFields, MigrateTaskRecords::TASK_TABLE, $expectedWhere);
-        $this->subject->checkForUpdate($description);
-    }
-
-    /**
-     * @test
-     */
-    public function checkForUpdateReturnsTrueIfTasksWithDeprecatedFieldsExist()
-    {
-        $versionNumber = VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version);
-        if ($versionNumber >= 8000000) {
-            $this->markTestSkipped();
-        }
-
-        $description = '';
-        $tasks = ['foo'];
-        $this->subject = $this->getMockMigrateTaskRecords(['getTasksWithDeprecatedProperties']);
-        $this->subject->expects($this->once())
-            ->method('getTasksWithDeprecatedProperties')
-            ->will($this->returnValue($tasks));
-
-        $this->assertTrue(
-            $this->subject->checkForUpdate($description)
-        );
-    }
-
-    /**
-     * @test
-     */
     public function performUpdateInitiallyReturnsFalse()
     {
         $dbQueries = [];
