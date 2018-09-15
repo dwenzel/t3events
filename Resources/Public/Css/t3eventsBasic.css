@@ -26,12 +26,12 @@
 	display: inline-block;
 }
 
-html[xmlns] .clearfix {
-	display: block;
-}
-
 * html .clearfix {
 	height: 1%;
+}
+
+html[xmlns] .clearfix {
+	display: block;
 }
 
 .align-center {
@@ -66,9 +66,6 @@ html[xmlns] .clearfix {
 	clear: both;
 }
 
-.rightPanelContent div.csc-textpic-scalable .csc-textpic-imagewrap img {
-	max-width: 234px;
-}
 
 /* Ticket */
 /**
@@ -171,11 +168,17 @@ i.fa {
 }
 
 .tx-t3events .buttonTicket {
+	float: right;
+	height: 1.625em;
+	line-height: 1.725em;
+	padding: 0.1em 0.625em;
+	text-align: center;
 	color: #FFFFFF;
 }
 
 .tx-t3events a.buttonTicket:hover {
 	color: #FFFFFF;
+	text-decoration: none;
 }
 
 /* loader */
@@ -226,27 +229,14 @@ i.fa {
 }
 
 /*Event List*/
-.tx-t3events .eventList .eventImg {
-	padding: 0.3em;
-	height: 7.500em;
-	width: 7.500em;
+.tx-t3events .eventDescription,
+.tx-t3events .eventPerformances {
+	padding: 0.625em;
 }
 
 .tx-t3events .eventList .eventDescription,
 .tx-t3events .eventList .eventPerformances {
 	margin-left: 8.125em;
-}
-
-.tx-t3events .buttonTicket {
-	float: right;
-	height: 1.625em;
-	line-height: 1.725em;
-	padding: 0.1em 0.625em;
-	text-align: center;
-}
-
-.tx-t3events a.buttonTicket:hover {
-	text-decoration: none;
 }
 
 /*Event Single*/
@@ -258,14 +248,27 @@ i.fa {
 	padding-right: 2em;
 }
 
-.tx-t3events .eventDescription,
-.tx-t3events .eventPerformances {
-	padding: 0.625em;
-}
 
 .tx-t3events .eventImg {
 	float: left;
 	overflow: hidden;
+}
+
+.tx-t3events .eventList .eventImg {
+	padding: 0.3em;
+	height: 7.500em;
+	width: 7.500em;
+}
+
+.tx-t3events .ticketWrap,
+.tx-t3events .eventWrap {
+	position: relative;
+	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+	clear: both;
+}
+
+.tx-t3events .ticketWrap {
+	margin-bottom: 15px;
 }
 
 .tx-t3events .eventWrap {
@@ -305,6 +308,7 @@ i.fa {
 }
 
 .tx-t3events .performance.short {
+	width: 100%;
 	cursor: pointer;
 }
 
@@ -329,14 +333,6 @@ i.fa {
 
 .tx-t3events .f3-widget-paginator li:last-child {
 	border-right: 0 none;
-}
-
-/* */
-.tx-t3events .ticketWrap, .eventWrap {
-	margin-bottom: 15px;
-	position: relative;
-	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
-	clear: both;
 }
 
 .tx-t3events .ticketWrap .ticketImg {
@@ -372,10 +368,6 @@ i.fa {
 	float: left;
 }
 
-.tx-t3events .ticketsteps .csc-textpic-intext-right-nowrap .csc-textpic-imagewrap {
-	margin-left: 0;
-}
-
 .tx-t3events .ticketsteps p {
 	font-weight: bold;
 	font-size: 0.9em;
@@ -384,14 +376,6 @@ i.fa {
 	line-height: 1em;
 }
 
-.tx-t3events .ticketsteps .csc-textpic-text {
-	margin-right: 0;
-	display: none;
-}
-
-.tx-t3events .ticketsteps .csc-textpic-imagecolumn {
-	margin-right: 6px;
-}
 
 /* buttons */
 
@@ -430,9 +414,6 @@ a.button-lightblue {
 
 #tx_t3eventsSortBy {
 	display: none;
-}
-
-#tx_t3eventsSortBy {
 	padding: 0 0 1em 0;
 }
 
@@ -473,10 +454,6 @@ a.button-lightblue {
 	height: 0;
 }
 
-.tx-t3events p {
-	margin-bottom: 0;
-}
-
 .tx-t3events .small {
 	color: #666666;
 	font-size: 0.9em;
@@ -495,34 +472,17 @@ a.button-lightblue {
 	width: 70%;
 }
 
-.tx-t3events .eventDescription {
-	line-height: 1.4em;
-}
-
 .tx-t3events .eventDescription a {
 	text-decoration: none;
 }
 
-.tx-t3events .eventLeft img {
-	max-width: 100%;
-	width: auto;
-	height: auto;
-}
-
-.eventSingle .eventImg {
-	padding-right: 0;
-}
 
 .tx-t3events .button-blue {
 	float: right;
 	text-decoration: none;
 }
 
-.tx-t3events .socialbuttons img {
-	margin-right: 0.5em;
-}
-
-/*---------  Eingeklappte Events ---------*/
+/*---------  folded entries ---------*/
 
 .tx-t3events .performanceItem .performanceHeader {
 	background: #EEEEEE;
@@ -539,12 +499,7 @@ a.button-lightblue {
 	color: #FFFFFF;
 }
 
-.tx-t3events .performance.short {
-	width: 100%;
-	cursor: pointer;
-}
-
-/*---------  Ausgeklappte Events ---------*/
+/*---------  expanded entries ---------*/
 .tx-t3events .performance.long {
 	display: none;
 	margin-bottom: 25px;
@@ -554,41 +509,29 @@ a.button-lightblue {
 	display: block;
 }
 
-/*---------  Tabelarische Anordnung ---------*/
+/*---------  table ---------*/
 .tx-t3events .legends {
 	width: 100%;
 }
 
-.tx-t3events .performance.short div.infos .inside,
-.tx-t3events .legends div.infos .inside,
-.tx-t3events .performance.long .inside {
-	padding: 5px;
-}
-
-.tx-t3events .performance.short div.infos,
-.tx-t3events .legends div.infos {
-	float: left;
-	font-size: 0.9em;
-}
-
-/*---------  Zellen Breiten ---------*/
-.tx-t3events .performance.short .city,
-.tx-t3events .legends .city {
+/*---------  cells ---------*/
+.tx-t3events .legends .city,
+.tx-t3events .performance.short .city {
 	width: 17%;
 }
 
-.tx-t3events .performance.short .location,
-.tx-t3events .legends .location {
+.tx-t3events .legends .location,
+.tx-t3events .performance.short .location {
 	width: 32%;
 }
 
-.tx-t3events .performance.short .date,
-.tx-t3events .legends .date {
+.tx-t3events .legends .date ,
+.tx-t3events .performance.short .date {
 	width: 28%;
 }
 
-.tx-t3events .performance.short .ticketSignal,
-.tx-t3events .legends .ticketSignal {
+.tx-t3events .legends .ticketSignal,
+.tx-t3events .performance.short .ticketSignal {
 	width: 21%;
 	padding-right: 0;
 }
@@ -661,7 +604,7 @@ a.button-lightblue {
 	margin: 0 4px;
 }
 
-/*--------- Preisklasse ---------*/
+/*--------- price class ---------*/
 .tx-t3events .performance span.ticketClassSign {
 	display: inline-block;
 	height: 1em;
@@ -669,7 +612,7 @@ a.button-lightblue {
 	width: 1em;
 }
 
-/*--------- Bestell Formular ---------*/
+/*--------- order form ---------*/
 .tx-t3events .performance .ticketClassList {
 	margin-bottom: 20px;
 	border: 1px solid #DDDDDD;
@@ -719,7 +662,6 @@ a.button-lightblue {
 	width: 25px;
 }
 
-/*--------- Beschreibungstexte und Bilder ---------*/
 .tx-t3events .eventLocation img {
 	max-width: 100%;
 	height: auto;
@@ -859,7 +801,6 @@ screen width 1400px or above
 }
 
 /* --------- Extension tx-t3events Start --------- */
-/* --------- Allgemeine Styles --------- */
 /*--------- Media Querys ---------*/
 @media screen and (max-width: 320px) and (max-width: 766px) {
 
