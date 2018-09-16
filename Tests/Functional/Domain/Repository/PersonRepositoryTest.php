@@ -4,6 +4,7 @@ namespace Functional\Domain\Repository;
 use DWenzel\T3events\Domain\Model\Person;
 use DWenzel\T3events\Domain\Repository\PersonRepository;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 
@@ -27,10 +28,17 @@ class PersonRepositoryTest extends FunctionalTestCase
      */
     protected $subject;
 
+    /**
+     * @var ObjectManager
+     */
+    protected $objectManager;
+
     protected $testExtensionsToLoad = ['typo3conf/ext/t3events'];
+
 
     /**
      * set up
+     * @throws \Nimut\TestingFramework\Exception\Exception
      */
     public function setUp()
     {
