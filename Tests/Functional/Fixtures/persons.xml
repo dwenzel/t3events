@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dataset>
+    <tx_t3events_domain_model_person>
+        <uid>1</uid>
+        <pid>1</pid>
+        <name>validBirthdayISO8601-2018-09-16-GMT+2h</name>
+        <birthday>2018-09-16T00:00:00+0200</birthday>
+    </tx_t3events_domain_model_person>
+</dataset>

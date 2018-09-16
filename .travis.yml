@@ -18,6 +18,9 @@ jdk:
 addons:
   sonarcloud:
     organisation: dwenzel-github
+  apt:
+    packages:
+      - parallel
 
 cache:
   directories:
@@ -47,9 +50,16 @@ script:
     rm -rf .Build/vendor/ .Build/Web/ .Build/bin/
     sonar-scanner -Dproject.settings=.sonar-project.properties
   fi
+  echo;
+  export typo3DatabaseName="typo3";
+  export typo3DatabaseHost="localhost";
+  export typo3DatabaseUsername="root";
+  export typo3DatabasePassword="";
+  find 'Tests/Functional' -wholename '*Test.php' | parallel --gnu 'echo; echo "Running functional test suite {}"; .Build/bin/phpunit --coverage-clover=.Build/log/coverage/{}functionaltest.clover --colors  -c .Build/vendor/nimut/testing-framework/res/Configuration/FunctionalTests.xml {}'
 
 after_success:
 - >
   if [[ "$COVERAGE" == "1" ]]; then
+    bash <(curl -s https://codecov.io/bash) -s ./.Build/log/coverage/Tests/Functional/ -f "*.clover" -F functional
     bash <(curl -s https://codecov.io/bash) -B $TRAVIS_BRANCH
   fi
