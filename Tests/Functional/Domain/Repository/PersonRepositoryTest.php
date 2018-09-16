@@ -57,7 +57,7 @@ class PersonRepositoryTest extends FunctionalTestCase
         $person = $this->subject->findByName('validBirthdayISO8601-2018-09-16-GMT+2h');
         $birthday = $person->getBirthday();
         $this->assertSame(
-            $birthday->format(\DateTime::ISO8601),
+            $birthday->format(\DateTime::ATOM),
             $expectedDateString
         );
     }
