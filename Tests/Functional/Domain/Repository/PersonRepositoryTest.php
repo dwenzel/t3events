@@ -4,6 +4,7 @@ namespace Functional\Domain\Repository;
 use DWenzel\T3events\Domain\Model\Person;
 use DWenzel\T3events\Domain\Repository\PersonRepository;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 
 /**
@@ -35,6 +36,8 @@ class PersonRepositoryTest extends FunctionalTestCase
     {
         parent::setUp();
         $this->importDataSet(__DIR__ . '/../../Fixtures/persons.xml');
+        $this->objectManager = GeneralUtility::makeInstance(ObjectManager::class);
+        $this->subject = $this->objectManager->get(PersonRepository::class);
     }
 
     /**
