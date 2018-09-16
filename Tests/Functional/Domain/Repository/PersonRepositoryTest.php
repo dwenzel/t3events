@@ -6,6 +6,7 @@ use DWenzel\T3events\Domain\Repository\PersonRepository;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
+use TYPO3\CMS\Extbase\Persistence\Generic\QueryResult;
 
 
 /**
@@ -53,9 +54,9 @@ class PersonRepositoryTest extends FunctionalTestCase
      */
     public function birthdayIsCorrectlyRestoredFromDatabase() {
         $expectedDateString = '2018-09-16T00:00:00+0200';
-        /** @var Person $person */
-        $person = $this->subject->findByName('validBirthdayISO8601-2018-09-16-GMT+2h');
-        $birthday = $person->getBirthday();
+        /** @var QueryResult $persons */
+        $persons = $this->subject->findByName('validBirthdayISO8601-2018-09-16-GMT+2h');
+        $birthday = $persons->getFirst()->getBirthday();
         $this->assertSame(
             $birthday->format(\DateTime::ATOM),
             $expectedDateString
