@@ -50,6 +50,7 @@ script:
     rm -rf .Build/vendor/ .Build/Web/ .Build/bin/
     sonar-scanner -Dproject.settings=.sonar-project.properties
   fi
+- >
   echo;
   export typo3DatabaseName="typo3";
   export typo3DatabaseHost="localhost";
