@@ -39,9 +39,9 @@ class DateImmutableTest extends UnitTestCase
     /**
      * @test
      */
-    public function toStringReturnsISO8601Representation() {
+    public function toStringReturnsAtomRepresentation() {
         $this->assertSame(
-            $this->subject->format(\DateTime::ISO8601),
+            $this->subject->format(\DateTime::ATOM),
             $this->subject->__toString()
         );
     }

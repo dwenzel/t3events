@@ -578,7 +578,7 @@ CREATE TABLE tx_t3events_domain_model_person (
 	email varchar(255) DEFAULT '' NOT NULL,
 	www varchar(255) DEFAULT '' NOT NULL,
 	title varchar(255) DEFAULT '' NOT NULL,
-	birthday date DEFAULT '1000-01-01',
+	birthday varchar (32) DEFAULT '' NOT NULL,
 	tx_extbase_type varchar(255) DEFAULT '' NOT NULL,
 
 	t3ver_oid int(11) DEFAULT '0' NOT NULL,

@@ -34,6 +34,6 @@ class DateImmutable extends \DateTimeImmutable implements TypeInterface
      */
     public function __toString()
     {
-        return $this->format(\DateTime::ISO8601);
+        return $this->format(\DateTime::ATOM);
     }
 }
