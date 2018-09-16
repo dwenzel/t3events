@@ -155,7 +155,6 @@ trait BackendViewTrait
         $extbaseFrameworkConfiguration = $this->getConfigurationManager()->getConfiguration(
             ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
         );
-        $rendererConfiguration = $this->getViewProperty($extbaseFrameworkConfiguration, SettingsInterface::PAGE_RENDERER);
-        return $rendererConfiguration;
+        return $this->getViewProperty($extbaseFrameworkConfiguration, SettingsInterface::PAGE_RENDERER);
     }
 }
