@@ -50,23 +50,21 @@ class PersonRepositoryTest extends FunctionalTestCase
         $this->subject = $this->objectManager->get(PersonRepository::class);
     }
 
+    public function tearDown()
+    {
+        parent::tearDown();
+        unset($this->subject);
+        unset($this->objectManager);
+    }
+
     /**
      * @test
      */
     public function birthdayIsCorrectlyRestoredFromDatabase() {
-        $expectedDateString = '2018-09-16T00:00:00+0200';
-        $date = new DateImmutable($expectedDateString);
-
-            /** @var QueryResult $persons */
-        //$persons = $this->subject->findOneByName('validBirthdayISO8601-2018-09-16-GMT+2h');
+        $expectedDateString = '2018-09-16T00:00:00+02:00';
         /** @var Person $person */
         $person = $this->subject->findByUid(1);
-        $person->setBirthday($date);
-        var_dump(get_class($person));
-
         $birthday = $person->getBirthday();
-        var_dump($birthday);
-        die();
         $this->assertSame(
             $birthday->format(\DateTime::ATOM),
             $expectedDateString
