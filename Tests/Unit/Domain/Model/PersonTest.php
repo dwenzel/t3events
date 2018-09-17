@@ -22,6 +22,7 @@ namespace DWenzel\T3events\Tests\Unit\Domain\Model;
  ***************************************************************/
 use DWenzel\T3events\Domain\Model\Person;
 use DWenzel\T3events\Domain\Model\PersonType;
+use DWenzel\T3events\Object\DateImmutable;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
@@ -301,7 +302,7 @@ class PersonTest extends UnitTestCase
      */
     public function birthdayCanBeSet()
     {
-        $date = new \DateTime();
+        $date = new DateImmutable();
         $this->subject->setBirthday($date);
         $this->assertSame(
             $date,

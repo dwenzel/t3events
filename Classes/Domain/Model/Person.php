@@ -1,6 +1,7 @@
 <?php
 namespace DWenzel\T3events\Domain\Model;
 
+use DWenzel\T3events\Object\DateImmutable;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
@@ -84,7 +85,7 @@ class Person extends AbstractEntity
     protected $title;
 
     /**
-     * @var \DateTime
+     * @var \DWenzel\T3events\Object\DateImmutable
      */
     protected $birthday;
 
@@ -269,7 +270,7 @@ class Person extends AbstractEntity
     }
 
     /**
-     * @return \DateTime
+     * @return \DWenzel\T3events\Object\DateImmutable
      */
     public function getBirthday()
     {
@@ -277,7 +278,7 @@ class Person extends AbstractEntity
     }
 
     /**
-     * @param \DateTime $birthday
+     * @param \DWenzel\T3events\Object\DateImmutable $birthday
      */
     public function setBirthday($birthday)
     {

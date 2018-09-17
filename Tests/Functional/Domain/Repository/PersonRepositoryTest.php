@@ -3,6 +3,7 @@
 namespace Functional\Domain\Repository;
 use DWenzel\T3events\Domain\Model\Person;
 use DWenzel\T3events\Domain\Repository\PersonRepository;
+use DWenzel\T3events\Object\DateImmutable;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
@@ -54,9 +55,18 @@ class PersonRepositoryTest extends FunctionalTestCase
      */
     public function birthdayIsCorrectlyRestoredFromDatabase() {
         $expectedDateString = '2018-09-16T00:00:00+0200';
-        /** @var QueryResult $persons */
-        $persons = $this->subject->findByName('validBirthdayISO8601-2018-09-16-GMT+2h');
-        $birthday = $persons->getFirst()->getBirthday();
+        $date = new DateImmutable($expectedDateString);
+
+            /** @var QueryResult $persons */
+        //$persons = $this->subject->findOneByName('validBirthdayISO8601-2018-09-16-GMT+2h');
+        /** @var Person $person */
+        $person = $this->subject->findByUid(1);
+        $person->setBirthday($date);
+        var_dump(get_class($person));
+
+        $birthday = $person->getBirthday();
+        var_dump($birthday);
+        die();
         $this->assertSame(
             $birthday->format(\DateTime::ATOM),
             $expectedDateString

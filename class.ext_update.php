@@ -20,12 +20,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class ext_update
 {
-
-    /**
-     * @var \DWenzel\T3events\Update\MigrateTaskRecords
-     */
-    protected $taskUpdater;
-
     /**
      * @var \DWenzel\T3events\Update\MigratePluginRecords
      */
@@ -45,7 +39,6 @@ class ext_update
 
     public function __construct()
     {
-        $this->taskUpdater = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\DWenzel\T3events\Update\MigrateTaskRecords::class);
         $this->pluginUpdater = GeneralUtility::makeInstance(\DWenzel\T3events\Update\MigratePluginRecords::class);
         $this->dataBaseSchemaUpdate = GeneralUtility::makeInstance(\TYPO3\CMS\Install\Updates\InitialDatabaseSchemaUpdate::class);
     }
@@ -70,7 +63,7 @@ class ext_update
     public function access()
     {
         $description = '';
-        $showMenu = ($this->taskUpdater->checkForUpdate($description) || $this->pluginUpdater->checkForUpdate($description));
+        $showMenu = $this->pluginUpdater->checkForUpdate($description);
         return $showMenu;
     }
 
@@ -84,7 +77,6 @@ class ext_update
         $messages = [];
         $dbQueries = [];
         if ($this->canPerformUpdate($messages)) {
-            $this->taskUpdater->performUpdate($dbQueries, $messages);
             $this->pluginUpdater->performUpdate($dbQueries, $messages);
         }
 
