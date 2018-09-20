@@ -47,6 +47,7 @@ script:
     --log-junit .Build/log/junit.xml
     rm -rf .Build/vendor/ .Build/Web/ .Build/bin/
     sonar-scanner -Dproject.settings=.sonar-project.properties
+    .Build/bin/test-reporter --stdout > codeclimate.json
   fi
 
 after_success:
@@ -54,6 +55,5 @@ after_success:
   if [[ "$COVERAGE" == "1" ]]; then
     bash <(curl -s https://codecov.io/bash) -B $TRAVIS_BRANCH
 
-    bin/test-reporter --stdout > codeclimate.json
     curl -X POST -d @codeclimate.json -H 'Content-Type: application/json' -H 'User-Agent: Code Climate (PHP Test Reporter v0.1.1)' https://codeclimate.com/test_reports
   fi
