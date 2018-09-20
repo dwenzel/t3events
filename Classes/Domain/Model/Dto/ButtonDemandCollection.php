@@ -57,49 +57,11 @@ class ButtonDemandCollection
     }
 
     /**
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<DWenzel\T3events\Domain\Model\Dto\ButtonDemand>
-     */
-    public function getDemands()
-    {
-        return $this->demands;
-    }
-
-    /**
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<DWenzel\T3events\Domain\Model\Dto\ButtonDemand>
-     */
-    public function setDemands(ObjectStorage $demands)
-    {
-        $this->demands = $demands;
-    }
-
-    /**
-     * Adds a Demand
-     *
-     * @param \DWenzel\T3events\Domain\Model\Dto\ButtonDemand $demand
-     * @return void
-     */
-    public function addDemand(ButtonDemand $demand)
-    {
-        $this->demands->attach($demand);
-    }
-
-    /**
-     * Removes a Demand
-     *
-     * @param \DWenzel\T3events\Domain\Model\Dto\ButtonDemand $demandToRemove The Demand to be removed
-     * @return void
-     */
-    public function removeDemand(ButtonDemand $demandToRemove)
-    {
-        $this->demands->detach($demandToRemove);
-    }
-
-    /**
      * Creates a single button demand from settings and adds it to this collection
      *
      * @param $buttonConfig
      */
-    protected function createSingleDemand($buttonConfig): void
+    protected function createSingleDemand($buttonConfig)
     {
         $demand = new ButtonDemand();
         if (!empty($buttonConfig[ButtonDemand::TABLE_KEY])) {
@@ -122,6 +84,44 @@ class ButtonDemandCollection
         }
 
         $this->addDemand($demand);
+    }
+
+    /**
+     * Adds a Demand
+     *
+     * @param \DWenzel\T3events\Domain\Model\Dto\ButtonDemand $demand
+     * @return void
+     */
+    public function addDemand(ButtonDemand $demand)
+    {
+        $this->demands->attach($demand);
+    }
+
+    /**
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<DWenzel\T3events\Domain\Model\Dto\ButtonDemand>
+     */
+    public function getDemands()
+    {
+        return $this->demands;
+    }
+
+    /**
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<DWenzel\T3events\Domain\Model\Dto\ButtonDemand>
+     */
+    public function setDemands(ObjectStorage $demands)
+    {
+        $this->demands = $demands;
+    }
+
+    /**
+     * Removes a Demand
+     *
+     * @param \DWenzel\T3events\Domain\Model\Dto\ButtonDemand $demandToRemove The Demand to be removed
+     * @return void
+     */
+    public function removeDemand(ButtonDemand $demandToRemove)
+    {
+        $this->demands->detach($demandToRemove);
     }
 
 }
