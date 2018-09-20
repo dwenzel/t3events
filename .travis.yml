@@ -11,6 +11,7 @@ matrix:
       env: TYPO3_VERSION=^8
 env:
   global:
+    CC_TEST_REPORTER_ID: d3719b289927b05bd9152291beb62d8e25d9e66f347011cbe9d7922885f29b60
     secure: S8QheEMVpSRsPPIhYQZ4tUCTbxpM7csZ0GydJaPY8p/FAEnZLiH6xcsiTGKOljva5HDelCdBvunaWtUO/+CdKIgsdbQGbqc1aWmG6gr+ShQk4X3KzeAA91AFmkJOR6Jv69lUTm6Uo9AKs1JtuVZsOa1aoOmfApohqFuXsRBNXlg=
 jdk:
   - oraclejdk8
@@ -52,4 +53,7 @@ after_success:
 - >
   if [[ "$COVERAGE" == "1" ]]; then
     bash <(curl -s https://codecov.io/bash) -B $TRAVIS_BRANCH
+
+    bin/test-reporter --stdout > codeclimate.json
+    curl -X POST -d @codeclimate.json -H 'Content-Type: application/json' -H 'User-Agent: Code Climate (PHP Test Reporter v0.1.1)' https://codeclimate.com/test_reports
   fi
