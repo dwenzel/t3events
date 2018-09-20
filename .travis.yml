@@ -47,7 +47,7 @@ script:
     --log-junit .Build/log/junit.xml
     rm -rf .Build/vendor/ .Build/Web/ .Build/bin/
     sonar-scanner -Dproject.settings=.sonar-project.properties
-    .Build/bin/test-reporter --stdout > codeclimate.json
+    .Build/bin/test-reporter --coverage-report=.Build/log/coverage/clover.xml --stdout > codeclimate.json
   fi
 
 after_success:
