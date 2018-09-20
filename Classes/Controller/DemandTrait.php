@@ -68,7 +68,7 @@ trait DemandTrait
      * @param $propertyValue
      * @param $timeZone
      */
-    protected function overwriteProperty(&$demand, $overwriteDemand, $propertyName, $propertyValue, $timeZone): void
+    protected function overwriteProperty(&$demand, $overwriteDemand, $propertyName, $propertyValue, $timeZone)
     {
         switch ($propertyName) {
             case 'sortBy':
