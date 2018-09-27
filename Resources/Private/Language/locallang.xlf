@@ -506,6 +506,9 @@
 		<trans-unit id="header.events" xml:space="preserve">
 			<source>Events</source>
 		</trans-unit>
+		<trans-unit id="header.schedules" xml:space="preserve">
+			<source>Schedules</source>
+		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_event.content_elements">
 			<source>Content Elements</source>
 		</trans-unit>
