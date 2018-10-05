@@ -38,11 +38,11 @@
 				<f:if condition="{performance.freePlaces} > 0">
 					<f:then>
 						<f:comment>deadline not exceed, places available </f:comment>
-						<f:render section="buttonGroupReservation" arguments="{performance: performance, settings: settings}" />
+						<f:render section="buttonGroupReservation" optional="true" arguments="{performance: performance, settings: settings}" />
 					</f:then>
 					<f:else>
 						<f:comment>deadline not exceed, no more places available</f:comment>
-						<f:render section="showButton" arguments="{performance: performance, settings: settings}" />
+						<f:render section="showButton" optional="true" arguments="{performance: performance, settings: settings}" />
 					</f:else>
 				</f:if>
 			</f:then>

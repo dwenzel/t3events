@@ -2,12 +2,12 @@
 if (!defined('TYPO3_MODE')) {
     die('Access denied.');
 }
-$ll = 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:';
+$ll = 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf';
 $cll = \DWenzel\T3events\Utility\TableConfiguration::getLanguageFilePath() . 'locallang_general.xlf:';
 
 return [
     'ctrl' => [
-        'title' => $ll . 'tx_t3events_domain_model_notification',
+        'title' => $ll . ':tx_t3events_domain_model_notification',
         'label' => 'sent_at',
         'label_alt' => 'subject, recipient',
         'label_alt_force' => '1',
@@ -16,8 +16,7 @@ return [
         'cruser_id' => 'cruser_id',
         'dividers2tabs' => true,
         'sortby' => 'sent_at',
-        'versioningWS' => 2,
-        'versioning_followPages' => true,
+        'versioningWS' => true,
         'delete' => 'deleted',
         'enablecolumns' => [
             'disabled' => 'hidden',
@@ -49,7 +48,7 @@ return [
         ],
         'recipient' => [
             'exclude' => 1,
-            'label' => $ll . 'tx_t3events_domain_model_notification.recipient',
+            'label' => $ll . ':tx_t3events_domain_model_notification.recipient',
             'config' => [
                 'readOnly' => '1',
                 'type' => 'input',
@@ -59,7 +58,7 @@ return [
         ],
         'sender' => [
             'exclude' => 1,
-            'label' => $ll . 'tx_t3events_domain_model_notification.sender',
+            'label' => $ll . ':tx_t3events_domain_model_notification.sender',
             'config' => [
                 'readOnly' => '1',
                 'type' => 'input',
@@ -69,7 +68,7 @@ return [
         ],
         'sender_name' => [
             'exclude' => 1,
-            'label' => $ll . 'tx_t3events_domain_model_notification.sender_name',
+            'label' => $ll . ':tx_t3events_domain_model_notification.sender_name',
             'config' => [
                 'readOnly' => '1',
                 'type' => 'input',
@@ -79,7 +78,7 @@ return [
         ],
         'sender_email' => [
             'exclude' => 1,
-            'label' => $ll . 'tx_t3events_domain_model_notification.sender_email',
+            'label' => $ll . ':tx_t3events_domain_model_notification.sender_email',
             'config' => [
                 'readOnly' => '1',
                 'type' => 'input',
@@ -89,7 +88,7 @@ return [
         ],
         'subject' => [
             'exclude' => 1,
-            'label' => $ll . 'tx_t3events_domain_model_notification.subject',
+            'label' => $ll . ':tx_t3events_domain_model_notification.subject',
             'config' => [
                 'type' => 'input',
                 'readOnly' => '1',
@@ -99,7 +98,7 @@ return [
         ],
         'bodytext' => [
             'exclude' => 1,
-            'label' => $ll . 'tx_t3events_domain_model_notification.bodytext',
+            'label' => $ll . ':tx_t3events_domain_model_notification.bodytext',
             'config' => [
                 'type' => 'text',
                 'readOnly' => '1',
@@ -109,7 +108,7 @@ return [
         ],
         'format' => [
             'exclude' => 1,
-            'label' => $ll . 'tx_t3events_domain_model_notification.format',
+            'label' => $ll . ':tx_t3events_domain_model_notification.format',
             'config' => [
                 'type' => 'input',
                 'readOnly' => '1',
@@ -119,9 +118,10 @@ return [
         ],
         'sent_at' => [
             'exclude' => 1,
-            'label' => $ll . 'tx_t3events_domain_model_notification.send_at',
+            'label' => $ll . ':tx_t3events_domain_model_notification.send_at',
             'config' => [
                 'type' => 'input',
+                'renderType' => 'inputDateTime',
                 'readOnly' => '1',
                 'size' => 7,
                 'default' => '0',
