@@ -88,7 +88,7 @@ class EventPluginFormDataProviderTest extends UnitTestCase
             'processedTca' => [
                 'columns' => [
                     'pi_flexform' => [
-                        SI::ARGUMENTS => [
+                        SI::CONFIG => [
                             'ds' => ['foo']
                         ]
                     ]
