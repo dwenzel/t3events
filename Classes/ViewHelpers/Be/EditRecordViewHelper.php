@@ -1,4 +1,5 @@
 <?php
+
 namespace DWenzel\T3events\ViewHelpers\Be;
 
 /***************************************************************
@@ -29,31 +30,35 @@ namespace DWenzel\T3events\ViewHelpers\Be;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\FormProtection\FormProtectionFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\ViewHelperInterface;
 
 /**
  * Class EditRecordViewHelper
- *
- * @package DWenzel\T3events\Tests\ViewHelpers\Be
  */
 class EditRecordViewHelper extends AbstractViewHelper implements ViewHelperInterface
 {
+
+    /**
+     * Initialize Arguments
+     */
+    public function initializeArguments()
+    {
+        parent::initializeArguments();
+        $this->registerArgument('parameters', 'string', 'Is a set of GET params to send to FormEngine', true);
+    }
+
     /**
      * Returns a URL to link to FormEngine
-     *
-     * @param string $parameters Is a set of GET params to send to FormEngine
      * @return string URL to FormEngine module + parameters
      * @see \TYPO3\CMS\Backend\Utility\BackendUtility::getModuleUrl()
      */
-    public function render($parameters)
+    public function render()
     {
-        $moduleName = $this->controllerContext->getRequest()->getPluginName();
         return static::renderStatic(
             [
-                'parameters' => $parameters,
-                'moduleName' => $moduleName
+                'parameters' => $this->arguments['parameters']
             ],
             $this->buildRenderChildrenClosure(),
             $this->renderingContext
@@ -70,10 +75,11 @@ class EditRecordViewHelper extends AbstractViewHelper implements ViewHelperInter
         array $arguments,
         \Closure $renderChildrenClosure,
         RenderingContextInterface $renderingContext
-    ) {
+    )
+    {
         $parameters = GeneralUtility::explodeUrl2Array($arguments['parameters']);
 
-        $parameters['returnUrl'] = 'index.php?M='. $parameters['moduleName'] . '&id=' . (int)GeneralUtility::_GET('id')
+        $parameters['returnUrl'] = 'index.php?M=' . $parameters['moduleName'] . '&id=' . (int)GeneralUtility::_GET('id')
             . '&moduleToken=' . FormProtectionFactory::get()->generateToken('moduleCall', $parameters['moduleName']);
 
         unset($parameters['moduleName']);
