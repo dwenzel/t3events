@@ -12,6 +12,7 @@
  *
  * The TYPO3 project - inspiring people to share!
  */
+
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -38,16 +39,10 @@ class ext_update
      */
     protected $messageArray = [];
 
-    /**
-     * @var \TYPO3\CMS\Install\Updates\InitialDatabaseSchemaUpdate
-     */
-    protected $dataBaseSchemaUpdate;
-
     public function __construct()
     {
         $this->taskUpdater = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\DWenzel\T3events\Update\MigrateTaskRecords::class);
         $this->pluginUpdater = GeneralUtility::makeInstance(\DWenzel\T3events\Update\MigratePluginRecords::class);
-        $this->dataBaseSchemaUpdate = GeneralUtility::makeInstance(\TYPO3\CMS\Install\Updates\InitialDatabaseSchemaUpdate::class);
     }
 
     /**
@@ -62,19 +57,6 @@ class ext_update
     }
 
     /**
-     * Called by the extension manager to determine if the update menu entry
-     * should by showed.
-     *
-     * @return bool
-     */
-    public function access()
-    {
-        $description = '';
-        $showMenu = ($this->taskUpdater->checkForUpdate($description) || $this->pluginUpdater->checkForUpdate($description));
-        return $showMenu;
-    }
-
-    /**
      * The actual update function.
      *
      * @return void
@@ -83,35 +65,10 @@ class ext_update
     {
         $messages = [];
         $dbQueries = [];
-        if ($this->canPerformUpdate($messages)) {
-            $this->taskUpdater->performUpdate($dbQueries, $messages);
-            $this->pluginUpdater->performUpdate($dbQueries, $messages);
-        }
+        $this->taskUpdater->performUpdate($dbQueries, $messages);
+        $this->pluginUpdater->performUpdate($dbQueries, $messages);
 
         $this->messageArray = $messages;
-    }
-
-    /**
-     * Tells if the update can be performed.
-     *
-     * @param array $messages
-     * @return bool Returns false if database fields are missing (in any table!) otherwise true
-     */
-    protected function canPerformUpdate(array &$messages)
-    {
-        $schemaDescription = '';
-        $schemaNeedsUpdate = $this->dataBaseSchemaUpdate->checkForUpdate($schemaDescription);
-        if ($schemaNeedsUpdate) {
-            $message = 'Database schema must be up-to-date before running this script. Please update your database using the Install Tool.';
-            $title = 'Update Database';
-            $severity = FlashMessage::ERROR;
-            $messages[] = [
-                $severity,
-                $title,
-                $message
-            ];
-        }
-        return !$schemaNeedsUpdate;
     }
 
     /**
@@ -132,6 +89,19 @@ class ext_update
             $output .= $flashMessage->render();
         }
         return $output;
+    }
+
+    /**
+     * Called by the extension manager to determine if the update menu entry
+     * should by showed.
+     *
+     * @return bool
+     */
+    public function access()
+    {
+        $description = '';
+        $showMenu = ($this->taskUpdater->checkForUpdate($description) || $this->pluginUpdater->checkForUpdate($description));
+        return $showMenu;
     }
 
     /**
