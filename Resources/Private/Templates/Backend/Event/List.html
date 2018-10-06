@@ -81,19 +81,4 @@
 
 <f:comment>Header buttons</f:comment>
 <f:section name="headerButtons">
-    <f:if condition="{f:cObject(typoscriptObjectPath: 'lib.compatVersion76')}">
-        <f:then>
-            <!--suppress HtmlUnknownTarget -->
-            <a class="actions-add btn btn-default"
-               title="{f:translate(key: 'button.addEvent')}"
-               href="{ts:be.editRecord(parameters:'edit[tx_t3events_domain_model_event][{storagePid}]=new')}"
-            >{f:translate(key: 'button.addEvent')}</a>
-        </f:then>
-        <f:else>
-            <a href="#"
-               onclick="window.location.href='alt_doc.php?returnUrl='+T3_THIS_LOCATION+'&edit[tx_t3events_domain_model_event][{storagePid}]=new'; return false;"
-               class="actions-document-new action-add"
-               title="{f:translate(key: 'button.addEvent'}">{f:translate(key:'button.addEvent')}</a>
-        </f:else>
-    </f:if>
 </f:section>
