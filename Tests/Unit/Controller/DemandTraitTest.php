@@ -16,6 +16,7 @@ use DWenzel\T3events\Domain\Model\Dto\SearchAwareDemandInterface;
 use DWenzel\T3events\Domain\Model\Dto\VenueAwareDemandInterface;
 use DWenzel\T3events\Domain\Repository\PeriodConstraintRepositoryInterface;
 use DWenzel\T3events\Utility\SettingsUtility;
+use DWenzel\T3events\Utility\SettingsInterface as SI;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 
 /**
@@ -61,7 +62,7 @@ class DemandTraitTest extends UnitTestCase
             GenreAwareDemandInterface::class,
             [], '', true, true, true, ['setGenres']
         );
-        $overwriteDemand = ['genre' => '1,2,3'];
+        $overwriteDemand = [SI::LEGACY_KEY_GENRE => '1,2,3'];
 
         $demand->expects($this->once())->method('setGenres')
             ->with('1,2,3');
@@ -79,7 +80,7 @@ class DemandTraitTest extends UnitTestCase
             EventDemand::class,
             [], '', true, true, true, ['setGenre']
         );
-        $overwriteDemand = ['genre' => '1,2,3'];
+        $overwriteDemand = [SI::LEGACY_KEY_GENRE => '1,2,3'];
 
         $demand->expects($this->once())->method('setGenre')
             ->with('1,2,3');
@@ -166,7 +167,7 @@ class DemandTraitTest extends UnitTestCase
         ];
         $this->inject(
             $this->subject,
-            'settings',
+            SI::SETTINGS,
             $settings
         );
 
@@ -217,7 +218,7 @@ class DemandTraitTest extends UnitTestCase
         );
         $overwriteDemand = array(
             'sortBy' => 'foo',
-            'sortDirection' => 'bar'
+            SI::SORT_DIRECTION => 'bar'
         );
 
         $demand->expects($this->once())->method('setOrder')
@@ -235,7 +236,7 @@ class DemandTraitTest extends UnitTestCase
             AbstractDemand::class, [], '', true, true, true, ['setSortDirection']
         );
         $overwriteDemand = array(
-            'sortDirection' => 'foo'
+            SI::SORT_DIRECTION => 'foo'
         );
 
         $demand->expects($this->once())->method('setSortDirection')
@@ -253,7 +254,7 @@ class DemandTraitTest extends UnitTestCase
             AbstractDemand::class, [], '', true, true, true, ['setSortDirection']
         );
         $overwriteDemand = array(
-            'sortDirection' => 'desc'
+            SI::SORT_DIRECTION => 'desc'
         );
 
         $demand->expects($this->once())->method('setSortDirection')
@@ -271,7 +272,7 @@ class DemandTraitTest extends UnitTestCase
         $demand = $this->getMockBuilder(PeriodAwareDemandInterface::class)->getMock();
         $dateString = '2012-10-15';
         $overwriteDemand = [
-            'startDate' => $dateString
+            SI::START_DATE => $dateString
         ];
         $defaultTimeZone = new \DateTimeZone(date_default_timezone_get());
         $expectedDateTimeObject = new \DateTime($dateString, $defaultTimeZone);
@@ -291,7 +292,7 @@ class DemandTraitTest extends UnitTestCase
         $demand = $this->getMockBuilder(PerformanceDemand::class)->getMock();
         $dateString = '2012-10-15';
         $overwriteDemand = [
-            'endDate' => $dateString
+            SI::END_DATE => $dateString
         ];
         $defaultTimeZone = new \DateTimeZone(date_default_timezone_get());
         $expectedDateTimeObject = new \DateTime($dateString, $defaultTimeZone);
@@ -311,7 +312,7 @@ class DemandTraitTest extends UnitTestCase
         $demand = $this->getMockBuilder(PerformanceDemand::class)->getMock();
         $dateString = '';
         $overwriteDemand = [
-            'startDate' => $dateString,
+            SI::START_DATE => $dateString,
             'period' => PeriodConstraintRepositoryInterface::PERIOD_SPECIFIC,
             'periodType' => 'byDate'
         ];
@@ -329,19 +330,19 @@ class DemandTraitTest extends UnitTestCase
     public function emptyOverwriteDemandKeysDataProvider()
     {
         return [
-            ['startDate'],
-            ['endDate'],
+            [SI::START_DATE],
+            [SI::END_DATE],
             ['period'],
             ['periodType'],
             ['sortBy'],
-            ['sortDirection'],
+            [SI::SORT_DIRECTION],
             ['search'],
             ['venue'],
-            ['venues'],
-            ['genre'],
-            ['genres'],
+            [SI::VENUES],
+            [SI::LEGACY_KEY_GENRE],
+            [SI::GENRES],
             ['eventType'],
-            ['eventTypes'],
+            [SI::EVENT_TYPES],
             ['eventLocation'],
             ['foo']
         ];

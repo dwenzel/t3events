@@ -1,38 +1,36 @@
 <?php
+
 namespace DWenzel\T3events\Controller\Backend;
 
-use TYPO3\CMS\Extbase\Mvc\Exception\StopActionException;
-use TYPO3\CMS\Extbase\Mvc\RequestInterface;
-use TYPO3\CMS\Extbase\Mvc\ResponseInterface;
 use DWenzel\T3events\Controller\ModuleDataTrait;
 use DWenzel\T3events\Controller\PerformanceController;
 use DWenzel\T3events\Controller\SettingsUtilityTrait;
+use DWenzel\T3events\Utility\SettingsInterface as SI;
+use TYPO3\CMS\Extbase\Mvc\RequestInterface;
+use TYPO3\CMS\Extbase\Mvc\ResponseInterface;
+use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
+use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 
 /**
  * Class ScheduleController
  */
 class ScheduleController extends PerformanceController
 {
-    use ModuleDataTrait, SettingsUtilityTrait;
+    use ModuleDataTrait, FormTrait, SettingsUtilityTrait;
 
     /**
      * Load and persist module data
      *
-     * @param \TYPO3\CMS\Extbase\Mvc\RequestInterface $request
-     * @param \TYPO3\CMS\Extbase\Mvc\ResponseInterface $response
+     * @param RequestInterface $request
+     * @param ResponseInterface $response
      * @return void
-     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\StopActionException
+     * @throws \Exception
      */
     public function processRequest(RequestInterface $request, ResponseInterface $response)
     {
         $this->moduleData = $this->moduleDataStorageService->loadModuleData($this->getModuleKey());
 
-        try {
-            parent::processRequest($request, $response);
-        } catch (StopActionException $e) {
-            throw $e;
-        }
-
+        parent::processRequest($request, $response);
         $this->moduleDataStorageService->persistModuleData($this->moduleData, $this->getModuleKey());
     }
 
@@ -41,6 +39,8 @@ class ScheduleController extends PerformanceController
      *
      * @param array $overwriteDemand
      * @return void
+     * @throws InvalidSlotException
+     * @throws InvalidSlotReturnException
      */
     public function listAction(array $overwriteDemand = null)
     {
@@ -59,9 +59,9 @@ class ScheduleController extends PerformanceController
 
         $templateVariables = [
             'performances' => $this->performanceRepository->findDemanded($demand),
-            'overwriteDemand' => $overwriteDemand,
+            SI::OVERWRITE_DEMAND => $overwriteDemand,
             'demand' => $demand,
-            'settings' => $this->settings,
+            SI::SETTINGS => $this->settings,
             'filterOptions' => $filterOptions
         ];
 

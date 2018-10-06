@@ -44,10 +44,6 @@
 				<f:comment>locations</f:comment>
 				<p class="locations">
 					{ts:location.count(event: event)} <f:translate key="label.differentLocations" />
-					<ts:event.performances
-							event="{event}"
-							type="uniqueLocationsList"
-							tagName="span" />
 				</p>
 
 				<f:comment>dates</f:comment>
@@ -57,8 +53,6 @@
 			</f:then>
 			<f:else>
 				<f:for each="{event.performances}" as="performance">
-					<ts:event.performances event="{event}" type="uniqueLocationsList"
-						class="locations single" tagName="p" />
 					<p class="date single">
 						<f:format.date format="d.m.Y">{performance.date}</f:format.date>
 					</p>

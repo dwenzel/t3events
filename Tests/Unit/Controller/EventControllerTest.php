@@ -23,6 +23,7 @@ use DWenzel\T3events\Domain\Model\Dto\EventDemand;
 use DWenzel\T3events\Domain\Model\Event;
 use DWenzel\T3events\Domain\Repository\EventRepository;
 use DWenzel\T3events\Session\SessionInterface;
+use DWenzel\T3events\Utility\SettingsInterface as SI;
 use DWenzel\T3events\Utility\SettingsUtility;
 use Nimut\TestingFramework\MockObject\AccessibleMockObjectInterface;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
@@ -72,6 +73,7 @@ class EventControllerTest extends UnitTestCase
      */
     protected $eventRepository;
 
+
     public function setUp()
     {
         $this->subject = $this->getAccessibleMock(
@@ -110,7 +112,7 @@ class EventControllerTest extends UnitTestCase
             ->getMockForAbstractClass();
         $mockConfigurationManager->method('getContentObject')->will($this->returnValue($mockContentObjectRenderer));
         $this->subject->injectConfigurationManager($mockConfigurationManager);
-        $this->subject->_set('settings', $this->settings);
+        $this->subject->_set(SI::SETTINGS, $this->settings);
         $this->calendarConfigurationFactory = $this->getMockBuilder(CalendarConfigurationFactory::class)
             ->setMethods(['create'])->getMock();
         $mockCalendarConfiguration = $this->getMockForAbstractClass(CalendarConfigurationFactoryInterface::class);
@@ -118,6 +120,16 @@ class EventControllerTest extends UnitTestCase
             ->method('create')
             ->will($this->returnValue($mockCalendarConfiguration));
         $this->subject->injectCalendarConfigurationFactory($this->calendarConfigurationFactory);
+    }
+
+    /**
+     * @return EventDemand|\PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function getMockEventDemand(array $methods = [])
+    {
+        return $this->getMockBuilder(EventDemand::class)
+            ->setMethods($methods)
+            ->getMock();
     }
 
     /**
@@ -138,41 +150,11 @@ class EventControllerTest extends UnitTestCase
     }
 
     /**
-     * mocks the SettingsUtility
-     */
-    protected function mockSettingsUtility()
-    {
-        /** @var SettingsUtility|\PHPUnit_Framework_MockObject_MockObject $mockSettingsUtility */
-        $mockSettingsUtility = $this->getMockBuilder(SettingsUtility::class)
-            ->setMethods(['getControllerKey'])->getMock();
-        $this->subject->injectSettingsUtility($mockSettingsUtility);
-        $mockSettingsUtility->expects($this->any())
-            ->method('getControllerKey')
-            ->will($this->returnValue('performance'));
-    }
-
-
-    /**
-     * @test
-     * @covers ::createDemandFromSettings
-     */
-    public function createDemandFromSettingsReturnsDemandObject()
-    {
-        $settings = [];
-        $mockDemand = $this->mockGetEventDemandFromFactory();
-
-        $this->assertSame(
-            $mockDemand,
-            $this->subject->createDemandFromSettings($settings)
-        );
-    }
-
-    /**
      * @test
      */
     public function initializeActionSetsOverwriteDemandInSession()
     {
-        $this->subject->_set('settings', []);
+        $this->subject->_set(SI::SETTINGS, []);
         $this->mockSettingsUtility();
         $overwriteDemand = ['foo'];
         $mockSession = $this->subject->_get('session');
@@ -189,6 +171,20 @@ class EventControllerTest extends UnitTestCase
             ->with('tx_t3events_overwriteDemand', serialize($overwriteDemand));
 
         $this->subject->initializeAction();
+    }
+
+    /**
+     * mocks the SettingsUtility
+     */
+    protected function mockSettingsUtility()
+    {
+        /** @var SettingsUtility|\PHPUnit_Framework_MockObject_MockObject $mockSettingsUtility */
+        $mockSettingsUtility = $this->getMockBuilder(SettingsUtility::class)
+            ->setMethods(['getControllerKey'])->getMock();
+        $this->subject->injectSettingsUtility($mockSettingsUtility);
+        $mockSettingsUtility->expects($this->any())
+            ->method('getControllerKey')
+            ->will($this->returnValue('performance'));
     }
 
     /**
@@ -216,6 +212,14 @@ class EventControllerTest extends UnitTestCase
         $this->view->expects($this->once())
             ->method('assignMultiple');
         $this->subject->showAction($mockEvent);
+    }
+
+    /**
+     * @return mixed
+     */
+    protected function getMockEvent()
+    {
+        return $this->getMockBuilder(Event::class)->getMock();
     }
 
     /**
@@ -316,23 +320,5 @@ class EventControllerTest extends UnitTestCase
             ->method('assignMultiple');
 
         $this->subject->listAction();
-    }
-
-    /**
-     * @return EventDemand|\PHPUnit_Framework_MockObject_MockObject
-     */
-    protected function getMockEventDemand(array $methods = [])
-    {
-        return $this->getMockBuilder(EventDemand::class)
-            ->setMethods($methods)
-            ->getMock();
-    }
-
-    /**
-     * @return mixed
-     */
-    protected function getMockEvent()
-    {
-        return $this->getMockBuilder(Event::class)->getMock();
     }
 }

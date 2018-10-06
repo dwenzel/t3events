@@ -5,6 +5,7 @@ namespace DWenzel\T3events\Tests\Controller;
 use DWenzel\T3events\Controller\ModuleDataTrait;
 use DWenzel\T3events\Domain\Model\Dto\ModuleData;
 use DWenzel\T3events\Service\ModuleDataStorageService;
+use DWenzel\T3events\Utility\SettingsInterface as SI;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 
@@ -56,9 +57,9 @@ class ModuleDataTraitTest extends UnitTestCase
      */
     public function setUp()
     {
-        $this->subject = $this->getMockForTrait(
-            ModuleDataTrait::class
-        );
+        $this->subject = $this->getMockBuilder(ModuleDataTrait::class)
+            ->setMethods(['getModuleKey'])
+            ->getMockForTrait();
 
         $this->objectManager = $this->getMockBuilder(ObjectManager::class)
             ->setMethods(['get'])->getMock();
@@ -82,12 +83,10 @@ class ModuleDataTraitTest extends UnitTestCase
 
     /**
      * @test
-     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\StopActionException
      */
     public function resetActionResetsAndPersistsModuleData()
     {
         $moduleKey = 'foo';
-        $GLOBALS['moduleName'] = $moduleKey;
 
         /** @var ModuleData|\PHPUnit_Framework_MockObject_MockObject $mockModuleData */
         $mockModuleData = $this->getMockBuilder(ModuleData::class)->getMock();
@@ -104,8 +103,11 @@ class ModuleDataTraitTest extends UnitTestCase
             ->with($mockModuleData, $moduleKey);
 
         $this->subject->expects($this->once())
-            ->method('forward')
+            ->method(SI::FORWARD)
             ->with('list');
+        $this->subject->expects($this->once())
+            ->method('getModuleKey')
+            ->will($this->returnValue($moduleKey));
 
         $this->subject->resetAction();
     }
@@ -128,7 +130,7 @@ class ModuleDataTraitTest extends UnitTestCase
         $this->subject->initializeAction();
         $this->assertAttributeSame(
             $expectedSettings,
-            'settings',
+            SI::SETTINGS,
             $this->subject
         );
     }
@@ -142,5 +144,27 @@ class ModuleDataTraitTest extends UnitTestCase
         return $this->getMockBuilder(ModuleDataStorageService::class)
             ->setMethods($methods)
             ->getMock();
+    }
+
+    /**
+     * @test
+     */
+    public function getModuleDataInitiallyReturnsNull() {
+        $this->assertNull(
+            $this->subject->getModuleData()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function moduleDataCanBeSet() {
+        $moduleData = $this->getMockBuilder(ModuleData::class)->getMock();
+        $this->subject->setModuleData($moduleData);
+
+        $this->assertSame(
+            $moduleData,
+            $this->subject->getModuleData()
+        );
     }
 }

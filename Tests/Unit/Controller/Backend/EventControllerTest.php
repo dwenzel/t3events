@@ -21,12 +21,17 @@ use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
 use DWenzel\T3events\Domain\Model\Dto\EventDemand;
 use DWenzel\T3events\Domain\Model\Dto\ModuleData;
 use DWenzel\T3events\Domain\Repository\EventRepository;
+use DWenzel\T3events\Utility\SettingsInterface as SI;
 use Nimut\TestingFramework\MockObject\AccessibleMockObjectInterface;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
+use TYPO3\CMS\Backend\Utility\BackendUtility;
+use TYPO3\CMS\Core\FormProtection\FormProtectionFactory;
+use TYPO3\CMS\Core\Utility\HttpUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
+
 
 /**
  * Class EventControllerTest
@@ -63,14 +68,24 @@ class EventControllerTest extends UnitTestCase
     protected $queryResult;
 
     /**
+     * @var FormProtectionFactory|MockObject
+     */
+    protected $formProtectionFactory;
+
+    /**
+     * @var ConfigurationManagerInterface|MockObject
+     */
+    protected $configurationManager;
+
+    /**
      * set up
      */
     public function setUp()
     {
         $this->subject = $this->getAccessibleMock(
             EventController::class,
-                ['emitSignal', 'getFilterOptions', 'overwriteDemandObject', 'addFlashMessage', 'translate']
-            );
+            ['emitSignal', 'getFilterOptions', 'overwriteDemandObject', 'addFlashMessage', 'translate', 'callStatic']
+        );
         $this->view = $this->getMockForAbstractClass(
             ViewInterface::class
         );
@@ -81,12 +96,12 @@ class EventControllerTest extends UnitTestCase
             ->disableOriginalConstructor()->getMock();
         $mockEventRepository->method('findDemanded')->willReturn($this->queryResult);
         /** @var ConfigurationManagerInterface|\PHPUnit_Framework_MockObject_MockObject $mockConfigurationManager */
-        $mockConfigurationManager = $this->getMockForAbstractClass(ConfigurationManagerInterface::class);
+        $this->configurationManager = $this->getMockForAbstractClass(ConfigurationManagerInterface::class);
         /** @var EventDemandFactory|\PHPUnit_Framework_MockObject_MockObject $mockDemandFactory */
         $this->eventDemandFactory = $this->getMockBuilder(EventDemandFactory::class)
             ->setMethods(['createFromSettings'])->getMock();
         $this->subject->injectEventDemandFactory($this->eventDemandFactory);
-        $this->subject->injectConfigurationManager($mockConfigurationManager);
+        $this->subject->injectConfigurationManager($this->configurationManager);
         $this->inject(
             $this->subject,
             'view',
@@ -94,35 +109,18 @@ class EventControllerTest extends UnitTestCase
         );
         $this->inject(
             $this->subject,
-            'moduleData',
-            $this->moduleData
-        );
-        $this->inject(
-            $this->subject,
-            'settings',
+            SI::SETTINGS,
             []
         );
+        $this->subject->setModuleData($this->moduleData);
         $this->subject->injectEventRepository($mockEventRepository);
         $this->eventDemand = $this->getMockBuilder(EventDemand::class)
             ->getMock();
-    }
 
-    /**
-     * @return DemandInterface |\PHPUnit_Framework_MockObject_MockObject
-     */
-    protected function mockCreateDemandFromSettings()
-    {
-        $mockDemand = $this->getMockForAbstractClass(
-            DemandInterface::class
-        );
-
-        /** @var EventDemandFactory| \PHPUnit_Framework_MockObject_MockObject $demandFactory */
-        $demandFactory = $this->subject->_get('eventDemandFactory');
-        $demandFactory->expects($this->once())
-            ->method('createFromSettings')
-            ->will($this->returnValue($mockDemand));
-
-        return $mockDemand;
+        $this->formProtectionFactory = $this->getMockBuilder(FormProtectionFactory::class)
+            ->setMethods(['generateToken'])
+            ->disableOriginalConstructor()
+            ->getMock();
     }
 
     /**
@@ -139,7 +137,7 @@ class EventControllerTest extends UnitTestCase
 
         $this->inject(
             $this->subject,
-            'settings',
+            SI::SETTINGS,
             $settings
         );
 
@@ -162,6 +160,24 @@ class EventControllerTest extends UnitTestCase
         $this->moduleData->expects($this->once())
             ->method('getOverwriteDemand');
         $this->subject->listAction();
+    }
+
+    /**
+     * @return DemandInterface |\PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function mockCreateDemandFromSettings()
+    {
+        $mockDemand = $this->getMockForAbstractClass(
+            DemandInterface::class
+        );
+
+        /** @var EventDemandFactory| \PHPUnit_Framework_MockObject_MockObject $demandFactory */
+        $demandFactory = $this->subject->_get('eventDemandFactory');
+        $demandFactory->expects($this->once())
+            ->method('createFromSettings')
+            ->will($this->returnValue($mockDemand));
+
+        return $mockDemand;
     }
 
     /**
@@ -218,5 +234,84 @@ class EventControllerTest extends UnitTestCase
         $this->view->expects($this->once())
             ->method('assignMultiple');
         $this->subject->listAction();
+    }
+
+    /**
+     * @test
+     */
+    public function newActionRedirectsToModuleEditRecord()
+    {
+        $tableName = 'tx_t3events_domain_model_event';
+        $token = 'fooToken';
+        $moduleKey = 'baz';
+        $pageId = '14';
+        $returnUrl = 'index.php?M=' . $moduleKey . '&id=' . $pageId . '&moduleToken=' . $token;
+        $this->inject(
+            $this->subject,
+            'pageUid',
+            $pageId
+        );
+
+        $_GET['M'] = $moduleKey;
+        $mockModuleUrl = 'fakeUrl';
+
+        $this->formProtectionFactory->expects($this->atLeast(1))
+            ->method('generateToken')
+            ->will($this->returnValue($token));
+
+        $this->subject->expects($this->exactly(3))
+            ->method('callStatic')
+            ->withConsecutive(
+                [FormProtectionFactory::class, 'get'],
+                [BackendUtility::class, 'getModuleUrl', 'record_edit',
+                    [
+                        'edit[' . $tableName . '][' . $pageId . ']' => 'new',
+                        'returnUrl' => $returnUrl
+                    ]
+                ],
+                [HttpUtility::class, SI::REDIRECT]
+            )->willReturnOnConsecutiveCalls(
+                $this->formProtectionFactory,
+                $mockModuleUrl,
+                $mockModuleUrl
+            );
+
+        $this->subject->newAction();
+    }
+
+    /**
+     * @test
+     */
+    public function initializeNewActionSetsPageUidFromFrameworkConfiguration()
+    {
+        $pageIdFromFrameWorkConfiguration = 678;
+
+        $configuration = [
+            'persistence' => [
+                'storagePid' => $pageIdFromFrameWorkConfiguration
+            ]
+        ];
+
+        $this->configurationManager->expects($this->once())
+            ->method('getConfiguration')
+            ->with(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK)
+            ->will($this->returnValue($configuration));
+        $this->subject->initializeNewAction();
+        $this->assertAttributeEquals(
+            $pageIdFromFrameWorkConfiguration,
+            'pageUid',
+            $this->subject
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getConfigurationManagerReturnsConfigurationManager()
+    {
+        $this->assertEquals(
+            $this->configurationManager,
+            $this->subject->getConfigurationManager()
+        );
     }
 }

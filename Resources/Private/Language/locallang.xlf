@@ -10,6 +10,9 @@
 		<trans-unit id="button.applyFilter" xml:space="preserve">
 			<source>apply filter</source>
 		</trans-unit>
+		<trans-unit id="button.newAction.event" xml:space="preserve">
+			<source>New Event</source>
+		</trans-unit>
 		<trans-unit id="button.back" xml:space="preserve">
 			<source>back</source>
 		</trans-unit>
@@ -502,6 +505,9 @@
 		</trans-unit>
 		<trans-unit id="header.events" xml:space="preserve">
 			<source>Events</source>
+		</trans-unit>
+		<trans-unit id="header.schedules" xml:space="preserve">
+			<source>Schedules</source>
 		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_event.content_elements">
 			<source>Content Elements</source>

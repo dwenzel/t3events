@@ -159,27 +159,6 @@ XML;
     /**
      * @test
      */
-    public function checkForUpdateReturnsTrueIfPluginsWithDeprecatedSettingsFound()
-    {
-        $versionNumber = VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version);
-        if ($versionNumber >= 8000000) {
-            $this->markTestSkipped();
-        }
-        $description = '';
-        $plugins = 5;
-        $this->subject = $this->getMockMigratePluginRecords(['countPluginRecordsWithDeprecatedSettings']);
-        $this->subject->expects($this->once())
-            ->method('countPluginRecordsWithDeprecatedSettings')
-            ->will($this->returnValue($plugins));
-
-        $this->assertTrue(
-            $this->subject->checkForUpdate($description)
-        );
-    }
-
-    /**
-     * @test
-     */
     public function getPluginRecordsWithDeprecatedSettingsGetsNumberOfRecordsFromDatabase()
     {
         $expectedFields = 'uid,' . MigratePluginRecords::FLEX_FORM_FIELD;
@@ -194,22 +173,6 @@ XML;
             );
 
         $this->subject->getPluginRecordsWithDeprecatedSettings();
-    }
-
-    /**
-     * @test
-     */
-    public function performUpdateInitiallyReturnsFalse()
-    {
-        $versionNumber = VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version);
-        if ($versionNumber >= 8000000) {
-            $this->markTestSkipped();
-        }
-        $dbQueries = [];
-        $customMessages = '';
-        $this->assertFalse(
-            $this->subject->performUpdate($dbQueries, $customMessages)
-        );
     }
 
     /**

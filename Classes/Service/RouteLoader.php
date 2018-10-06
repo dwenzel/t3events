@@ -24,27 +24,13 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class RouteLoader
 {
     /**
-     * @var Router
+     * @var RouterInterface
      */
     protected $router;
 
-    public function getRouter()
+    public function __construct(RouterInterface $router = null)
     {
-        if (!$this->router instanceof RouterInterface) {
-            $this->router = GeneralUtility::makeInstance(Router::class);
-        }
-
-        return $this->router;
-    }
-
-    /**
-     * Injects the router
-     *
-     * @param RouterInterface $router
-     */
-    public function injectRouter(RouterInterface $router)
-    {
-        $this->router = $router;
+        $this->router = $router ?: GeneralUtility::makeInstance(Router::class);
     }
 
     /**
@@ -67,8 +53,7 @@ class RouteLoader
         if (!is_null($options)) {
             $route->setOptions($options);
         }
-        $this->getRouter()
-            ->addRoute($route);
+        $this->router->addRoute($route);
     }
 
     /**

@@ -10,6 +10,7 @@ use DWenzel\T3events\DataProvider\Legend\PeriodSpecificDataProvider;
 use DWenzel\T3events\DataProvider\Legend\PeriodUnknownDataProvider;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
+use DWenzel\T3events\Utility\SettingsInterface as SI;
 
 /***************************************************************
  *  Copyright notice
@@ -62,10 +63,10 @@ class PeriodDataProviderFactoryTest extends UnitTestCase
     public function getValidParamsDataProvider()
     {
         $validClasses = [
-            'futureOnly' => PeriodFutureDataProvider::class,
-            'pastOnly' => PeriodPastDataProvider::class,
-            'specific' => PeriodSpecificDataProvider::class,
-            'all' => PeriodAllDataProvider::class,
+            SI::FUTURE_ONLY => PeriodFutureDataProvider::class,
+            SI::PAST_ONLY => PeriodPastDataProvider::class,
+            SI::SPECIFIC => PeriodSpecificDataProvider::class,
+            SI::ALL => PeriodAllDataProvider::class,
         ];
         $data = [];
         $versionNumber = VersionNumberUtility::convertVersionNumberToInteger(VersionNumberUtility::getNumericTypo3Version());

@@ -4,6 +4,7 @@ namespace DWenzel\T3events\Tests\Unit\Domain\Factory\Dto;
 
 use DWenzel\T3events\Domain\Factory\Dto\EventDemandFactory;
 use DWenzel\T3events\Domain\Model\Dto\EventDemand;
+use DWenzel\T3events\Utility\SettingsInterface as SI;
 use DWenzel\T3events\Tests\Unit\Object\MockObjectManagerTrait;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 
@@ -78,7 +79,7 @@ class EventDemandFactoryTest extends UnitTestCase
     {
         /** propertyName, $settingsValue, $expectedValue */
         return [
-            ['genre', '1,2', '1,2'],
+            [SI::LEGACY_KEY_GENRE, '1,2', '1,2'],
             ['venue', '3,4', '3,4'],
             ['eventType', '5,6', '5,6'],
             ['categories', '7,8', '7,8'],
@@ -124,8 +125,8 @@ class EventDemandFactoryTest extends UnitTestCase
     {
         /** settingsKey, propertyName, $settingsValue, $expectedValue */
         return [
-            ['genres', 'genre', '1,2', '1,2'],
-            ['venues', 'venue', '3,4', '3,4'],
+            [SI::GENRES, SI::LEGACY_KEY_GENRE, '1,2', '1,2'],
+            [SI::VENUES, 'venue', '3,4', '3,4'],
             ['eventType', 'eventType', '5,6', '5,6'],
             ['maxItems', 'limit', '50', 50],
         ];
@@ -204,7 +205,7 @@ class EventDemandFactoryTest extends UnitTestCase
     {
         $periodType = 'foo';
         $settings = [
-            'period' => 'specific',
+            'period' => SI::SPECIFIC,
             'periodType' => $periodType
         ];
         $mockDemand = $this->getMockEventDemand();
@@ -275,7 +276,7 @@ class EventDemandFactoryTest extends UnitTestCase
 
         $this->assertAttributeEquals(
             $expectedStartDate,
-            'startDate',
+            SI::START_DATE,
             $createdDemand
         );
     }
@@ -303,7 +304,7 @@ class EventDemandFactoryTest extends UnitTestCase
 
         $this->assertAttributeEquals(
             $expectedStartDate,
-            'endDate',
+            SI::END_DATE,
             $createdDemand
         );
     }

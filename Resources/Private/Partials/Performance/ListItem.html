@@ -17,7 +17,7 @@
 		<div class="section column float-left {f:if(condition: '{performance.freePlaces}', then: 'width-50')}">
 			<f:if condition="{performance.event.audience->f:count()}">
 				<div class="audience">
-					<b>{f:translate(key: 'tx_t3events_domain_model_performance.audience')}:</b>&nbsp;
+					<strong>{f:translate(key: 'tx_t3events_domain_model_performance.audience')}:</strong>&nbsp;
 					<f:for each="{performance.event.audience}" as="audience" iteration="iteration">
 						{audience.title}{f:if(condition: '{iteration.isLast}', else: ',')}
 					</f:for>
@@ -25,7 +25,7 @@
 			</f:if>
 			<f:if condition="{performance.eventLocation}">
 				<div class="eventLocation">
-					<b>{f:translate(key: 'tx_t3events_domain_model_performance.eventLocation')}:</b>&nbsp;
+					<strong>{f:translate(key: 'tx_t3events_domain_model_performance.eventLocation')}:</strong>&nbsp;
 					<f:if condition="{performance.eventLocation.place}">
 						<span class="place">{performance.eventLocation.place}</span><br />
 					</f:if>

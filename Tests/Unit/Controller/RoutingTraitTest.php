@@ -19,6 +19,7 @@ use DWenzel\T3events\Controller\SignalInterface;
 use DWenzel\T3events\Controller\SignalTrait;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Extbase\Mvc\Web\Request;
+use DWenzel\T3events\Utility\SettingsInterface as SI;
 
 class MockSignalController implements SignalInterface
 {
@@ -138,10 +139,10 @@ class RoutingTraitTest extends UnitTestCase
     {
         $arguments = ['foo' => 'bar'];
         $optionsFromRoute = [
-            'actionName' => null,
-            'controllerName' => null,
-            'extensionName' => null,
-            'arguments' => null,
+            SI::ACTION_NAME => null,
+            SI::CONTROLLER_NAME => null,
+            SI::KEY_EXTENSION_NAME => null,
+            SI::ARGUMENTS => null,
             'pageUid' => null,
             'delay' => 0,
             'statusCode' => 303,
@@ -204,10 +205,10 @@ class RoutingTraitTest extends UnitTestCase
         ];
         $argumentsFromOrigin = ['foo' => 'bar'];
         $optionsFromRoute = [
-            'actionName' => null,
-            'controllerName' => null,
-            'extensionName' => null,
-            'arguments' => $defaultArguments,
+            SI::ACTION_NAME => null,
+            SI::CONTROLLER_NAME => null,
+            SI::KEY_EXTENSION_NAME => null,
+            SI::ARGUMENTS => $defaultArguments,
             'pageUid' => null,
             'delay' => 0,
             'statusCode' => 303,
@@ -245,7 +246,7 @@ class RoutingTraitTest extends UnitTestCase
             ->will($this->returnValue($optionsFromRoute));
         $mockRoute->expects($this->atLeastOnce())
             ->method('getOption')
-            ->with('arguments')
+            ->with(SI::ARGUMENTS)
             ->will($this->returnValue($defaultArguments));
 
         $this->subject->expects($this->once())

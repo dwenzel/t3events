@@ -33,6 +33,7 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
+use DWenzel\T3events\Utility\SettingsInterface as SI;
 
 /**
  * Class CleanUpCommandControllerTest
@@ -122,7 +123,7 @@ class CleanUpCommandControllerTest extends UnitTestCase
     public function deleteEventsCommandGetsEventDemandFromFactory()
     {
         $settings = [
-            'period' => 'pastOnly',
+            'period' => SI::PAST_ONLY,
             'storagePages' => '',
             'limit' => 1000
         ];
@@ -177,7 +178,7 @@ class CleanUpCommandControllerTest extends UnitTestCase
         $mockEventRepository->method('findDemanded')
             ->willReturn($mockQueryResult);
 
-        $period = 'specific';
+        $period = SI::SPECIFIC;
         $date = 'now';
         $storagePages = 'foo';
         $limit = 3;
@@ -372,7 +373,7 @@ class CleanUpCommandControllerTest extends UnitTestCase
     public function deletePerformancesCommandGetsDemandFromFactory()
     {
         $settings = [
-            'period' => 'pastOnly',
+            'period' => SI::PAST_ONLY,
             'storagePages' => '',
             'limit' => 1000
         ];
@@ -400,7 +401,7 @@ class CleanUpCommandControllerTest extends UnitTestCase
      */
     public function deletePerformanceCommandPassesArgumentsToDemandFactory()
     {
-        $period = 'specific';
+        $period = SI::SPECIFIC;
         $date = 'now';
         $storagePages = 'foo';
         $limit = 3;

@@ -23,7 +23,7 @@ namespace DWenzel\T3events\DataProvider\Legend;
 
 /**
  * Class PeriodUnknownDataProvider
- * Provides data for the default layered legend of period 'all'
+ * Provides data for unknown period
  *
  * @package DWenzel\T3events\DataProvider\Legend
  */

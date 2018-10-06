@@ -65,14 +65,12 @@ trait DemandedRepositoryTrait
      *
      * @param \DWenzel\T3events\Domain\Model\Dto\DemandInterface $demand
      * @param boolean $respectEnableFields
-     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array
      */
     public function findDemanded(DemandInterface $demand, $respectEnableFields = true)
     {
         $query = $this->generateQuery($demand, $respectEnableFields);
-        $objects = $query->execute();
-
-        return $objects;
+        return $query->execute();
     }
 
     /**

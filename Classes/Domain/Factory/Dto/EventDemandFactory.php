@@ -23,6 +23,7 @@ use DWenzel\T3events\Domain\Model\Dto\PeriodAwareDemandInterface;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use DWenzel\T3events\Utility\SettingsInterface as SI;
 /**
  * Class EventDemandFactory
  * Creates EventDemand objects
@@ -44,9 +45,9 @@ class EventDemandFactory extends AbstractDemandFactory implements DemandFactoryI
      * @var array
      */
     protected static $mappedProperties = [
-        'genres' => 'genre',
-        'venues' => 'venue',
-        'eventTypes' => 'eventType',
+        SI::GENRES => SI::LEGACY_KEY_GENRE,
+        SI::VENUES => 'venue',
+        SI::EVENT_TYPES => 'eventType',
         'maxItems' => 'limit'
     ];
 

@@ -26,7 +26,8 @@ use DWenzel\T3events\Domain\Repository\EventRepository;
 use Nimut\TestingFramework\MockObject\AccessibleMockObjectInterface;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
-use TYPO3\CMS\Extbase\Persistence\QueryInterface;
+use DWenzel\T3events\Utility\SettingsInterface as SI;
+
 
 /**
  * Test case for class \DWenzel\T3events\Domain\Repository\EventRepository.
@@ -431,8 +432,8 @@ class EventRepositoryTest extends UnitTestCase
         $query->expects($this->exactly(2))
             ->method('contains')
             ->withConsecutive(
-                ['genre', 1],
-                ['genre', 2]
+                [SI::LEGACY_KEY_GENRE, 1],
+                [SI::LEGACY_KEY_GENRE, 2]
             )
             ->will($this->returnValue($mockConstraint));
         $this->assertSame(

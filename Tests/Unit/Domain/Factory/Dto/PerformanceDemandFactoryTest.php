@@ -7,7 +7,7 @@ use DWenzel\T3events\Domain\Model\Dto\PerformanceDemand;
 use DWenzel\T3events\Tests\Unit\Object\MockObjectManagerTrait;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
+use DWenzel\T3events\Utility\SettingsInterface as SI;
 
 /**
  * This file is part of the TYPO3 CMS project.
@@ -66,10 +66,10 @@ class PerformanceDemandFactoryTest extends UnitTestCase
     {
         /** propertyName, $settingsValue, $expectedValue */
         return [
-            ['genres', '1,2', '1,2'],
+            [SI::GENRES, '1,2', '1,2'],
             ['statuses', '1,2', '1,2'],
-            ['venues', '3,4', '3,4'],
-            ['eventTypes', '5,6', '5,6'],
+            [SI::VENUES, '3,4', '3,4'],
+            [SI::EVENT_TYPES, '5,6', '5,6'],
             ['eventLocations', '5,6', '5,6'],
             ['categories', '7,8', '7,8'],
             ['categoryConjunction', 'and', 'and'],
@@ -188,7 +188,7 @@ class PerformanceDemandFactoryTest extends UnitTestCase
     {
         $periodType = 'foo';
         $settings = [
-            'period' => 'specific',
+            'period' => SI::SPECIFIC,
             'periodType' => $periodType
         ];
         $mockDemand = $this->getMockPerformanceDemand(['dummy']);
@@ -259,7 +259,7 @@ class PerformanceDemandFactoryTest extends UnitTestCase
 
         $this->assertAttributeEquals(
             $expectedStartDate,
-            'startDate',
+            SI::START_DATE,
             $createdDemand
         );
     }
@@ -287,7 +287,7 @@ class PerformanceDemandFactoryTest extends UnitTestCase
 
         $this->assertAttributeEquals(
             $expectedStartDate,
-            'endDate',
+            SI::END_DATE,
             $createdDemand
         );
     }
@@ -299,7 +299,7 @@ class PerformanceDemandFactoryTest extends UnitTestCase
     {
         $settings = [
             'sortBy' => 'foo',
-            'sortDirection' => 'bar'
+            SI::SORT_DIRECTION => 'bar'
         ];
         $expectedOrder = 'foo|bar';
 

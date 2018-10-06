@@ -3,27 +3,27 @@
 		<div class="performanceHeader clearfix">
 			<div class="infos city">
 				<div class="inside">
-					<div class="mobile"><b>
+					<div class="mobile"><strong>
 						<f:translate key="tx_t3events_domain_model_eventlocation.place" />
-					</b></div>
+					</strong></div>
 					{performance.eventLocation.place}
 				</div>
 			</div>
 			<div class="infos location">
 				<div class="inside">
-					<div class="mobile"><b>
+					<div class="mobile"><strong>
 						<f:translate key="tx_t3events_domain_model_eventlocation" />
-					</b></div>
+					</strong></div>
 					{performance.eventLocation.name}
 				</div>
 			</div>
 			<div class="infos date">
 				<div class="inside">
-					<div class="mobile"><b>
+					<div class="mobile"><strong>
 						<f:translate key="tx_t3events.date" />
 						,
 						<f:translate key="tx_t3events.time" />
-						:</b></div>
+						:</strong></div>
 					<f:cObject typoscriptObjectPath="lib.dateMe">
 						<f:format.date format="U">{performance.date}</f:format.date>
 					</f:cObject>
@@ -32,9 +32,9 @@
 			</div>
 			<div title="{performance.status.title}" class="infos ticketSignal">
 				<div class="inside">
-					<div class="mobile"><b>
+					<div class="mobile"><strong>
 						<f:translate key="tx_t3events.tickets" />
-						:</b></div>
+						:</strong></div>
 					<span class="{performance.status.cssClass}"></span>
 					<f:translate key="tx_t3events.tickets" />
 				</div>
