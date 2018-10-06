@@ -37,8 +37,7 @@ trait GenreRepositoryTrait
 
     /**
      * Injects the genre repository
-     *
-     * @inject
+     * @param GenreRepository $genreRepository
      */
     public function injectGenreRepository(GenreRepository $genreRepository)
     {

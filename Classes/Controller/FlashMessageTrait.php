@@ -36,13 +36,13 @@ trait FlashMessageTrait
 
     /**
      * @var \TYPO3\CMS\Core\Messaging\FlashMessageService
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $flashMessageService;
 
     /**
      * @var \TYPO3\CMS\Extbase\Service\ExtensionService
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $extensionService;
 
