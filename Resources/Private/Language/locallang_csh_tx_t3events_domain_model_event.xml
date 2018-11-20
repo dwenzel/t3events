@@ -17,6 +17,7 @@
 			<label index="event_type.description">Event type</label>
 			<label index="performances.description">Add performances</label>
 			<label index="organizer.description">Organizer</label>
+			<label index="related_schedules.description">Choose related schedules.</label>
 		</languageKey>
 		<languageKey index="de" type="array">
 
@@ -29,6 +30,7 @@
 			<label index="event_type.description">Veranstaltungstyp</label>
 			<label index="performances.description">Fügen Sie Veranstaltungen hinzu.</label>
 			<label index="organizer.description">Veranstalter</label>
+			<label index="related_schedules.description">Wählen Sie zugehörige Termine aus.</label>
 		</languageKey>
 	</data>
 </T3locallang>

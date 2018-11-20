@@ -165,6 +165,10 @@
             <source>Related events</source>
             <target>Verwandte Events</target>
         </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_event.related_schedules" approved="yes">
+            <source>Related schedules</source>
+            <target>Zugehörige Termine</target>
+        </trans-unit>
 		<trans-unit id="tx_t3events_domain_model_eventlocation" approved="yes">
 			<source>Event Location</source>
 			<target>Veranstaltungsort</target>
