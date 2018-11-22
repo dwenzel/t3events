@@ -25,6 +25,7 @@ use DWenzel\T3events\Tests\Unit\Domain\Model\Dto\MockDemandTrait;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
+use DWenzel\T3events\Utility\SettingsInterface as SI;
 
 /**
  * Test case for class \DWenzel\T3events\Domain\Repository\PeriodConstraintRepositoryTrait.
@@ -109,7 +110,7 @@ class PeriodConstraintRepositoryTraitTest extends UnitTestCase
      */
     public function createPeriodConstraintsAddsConstraintForFuture()
     {
-        $period = 'futureOnly';
+        $period = SI::FUTURE_ONLY;
         $timezone = new \DateTimeZone(date_default_timezone_get());
         $startDate = new \DateTime('today', $timezone);
 
@@ -131,7 +132,7 @@ class PeriodConstraintRepositoryTraitTest extends UnitTestCase
      */
     public function createPeriodConstraintsAddsConstraintForPast()
     {
-        $period = 'pastOnly';
+        $period = SI::PAST_ONLY;
         $timezone = new \DateTimeZone(date_default_timezone_get());
         $startDate = new \DateTime('today', $timezone);
 
@@ -176,7 +177,7 @@ class PeriodConstraintRepositoryTraitTest extends UnitTestCase
      */
     public function createPeriodConstraintsSetsStartDateForSpecificPeriod($periodType, $expectedStartDate)
     {
-        $period = 'specific';
+        $period = SI::SPECIFIC;
         $periodStart = 0;
 
         $this->demand->expects($this->any())
@@ -203,7 +204,7 @@ class PeriodConstraintRepositoryTraitTest extends UnitTestCase
      */
     public function createPeriodConstraintsSetsStartDateForSpecificPeriodFromDemand()
     {
-        $period = 'specific';
+        $period = SI::SPECIFIC;
         $periodType = 'byDate';
         $expectedStartDate = new \DateTime('@' . 78910);
         $periodStart = 0;
@@ -235,7 +236,7 @@ class PeriodConstraintRepositoryTraitTest extends UnitTestCase
      */
     public function createPeriodConstraintsSetsEndDateForSpecificPeriodFromDemand()
     {
-        $period = 'specific';
+        $period = SI::SPECIFIC;
         $periodType = 'byDate';
         $expectedEndDate = new \DateTime('@' . 78910);
         $periodStart = 0;
@@ -278,7 +279,7 @@ class PeriodConstraintRepositoryTraitTest extends UnitTestCase
      */
     public function createPeriodConstraintsAddsConstraintForFutureRespectingEndDate()
     {
-        $period = 'futureOnly';
+        $period = SI::FUTURE_ONLY;
         $timezone = new \DateTimeZone(date_default_timezone_get());
         $startDate = new \DateTime('today', $timezone);
         $endDate = clone $startDate;
@@ -313,7 +314,7 @@ class PeriodConstraintRepositoryTraitTest extends UnitTestCase
      */
     public function createPeriodConstraintsAddsConstraintForPastRespectingEndDate()
     {
-        $period = 'pastOnly';
+        $period = SI::PAST_ONLY;
         $timezone = new \DateTimeZone(date_default_timezone_get());
         $startDate = new \DateTime('today', $timezone);
         $endDate = clone $startDate;
@@ -350,7 +351,7 @@ class PeriodConstraintRepositoryTraitTest extends UnitTestCase
         $startDate = new \DateTime('@' . 7000);
         $endDate = new \DateTime('@' . 8000);
 
-        $period = 'specific';
+        $period = SI::SPECIFIC;
         $periodType = 'byDate';
 
         $this->demand->expects($this->any())

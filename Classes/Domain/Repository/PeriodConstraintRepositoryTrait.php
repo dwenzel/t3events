@@ -3,6 +3,7 @@ namespace DWenzel\T3events\Domain\Repository;
 
 use DWenzel\T3events\Domain\Model\Dto\PeriodAwareDemandInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
+use DWenzel\T3events\Utility\SettingsInterface as SI;
 
 /**
  * Class PeriodConstraintRepositoryTrait
@@ -20,6 +21,7 @@ trait PeriodConstraintRepositoryTrait
      * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
      * @param \DWenzel\T3events\Domain\Model\Dto\PeriodAwareDemandInterface $demand
      * @return array<\TYPO3\CMS\Extbase\Persistence\QOM\Constraint>
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
      */
     public function createPeriodConstraints(QueryInterface $query, PeriodAwareDemandInterface $demand)
     {
@@ -101,7 +103,7 @@ trait PeriodConstraintRepositoryTrait
         $periodType = $demand->getPeriodType();
         $periodDuration = $demand->getPeriodDuration();
 
-        if ($period === 'specific' && $periodType) {
+        if ($period === SI::SPECIFIC && $periodType) {
             // get delta value
             $deltaStart = ($periodStart < 0) ? $periodStart : '+' . $periodStart;
             $deltaEnd = ($periodDuration > 0) ? '+' . $periodDuration : '+' . 999;

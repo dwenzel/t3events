@@ -2,7 +2,7 @@
 namespace DWenzel\T3events\Domain\Factory\Dto;
 
 use DWenzel\T3events\Object\ObjectManagerTrait;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
+use DWenzel\T3events\Utility\SettingsInterface as SI;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 use DWenzel\T3events\Domain\Model\Dto\OrderAwareDemandInterface;
@@ -91,7 +91,7 @@ abstract class AbstractDemandFactory
             isset($settings['sortBy']) &&
             $demand instanceof OrderAwareDemandInterface
         ) {
-            $sortDirection = empty($settings['sortDirection']) ? QueryInterface::ORDER_ASCENDING : $settings['sortDirection'];
+            $sortDirection = empty($settings[SI::SORT_DIRECTION]) ? QueryInterface::ORDER_ASCENDING : $settings[SI::SORT_DIRECTION];
 
             $demand->setOrder($settings['sortBy'] . '|' . $sortDirection);
         }

@@ -14,6 +14,8 @@ namespace DWenzel\T3events\Domain\Model\Dto;
  * The TYPO3 project - inspiring people to share!
  */
 
+use DWenzel\T3events\Utility\SettingsInterface as SI;
+
 /**
  * Class PerformanceDemand
  * Demand object for querying performances
@@ -39,7 +41,7 @@ class PerformanceDemand extends AbstractDemand implements
         PeriodAwareDemandTrait, SearchAwareDemandTrait,
         StatusAwareDemandTrait, VenueAwareDemandTrait;
     const START_DATE_FIELD = 'date';
-    const END_DATE_FIELD = 'endDate';
+    const END_DATE_FIELD = SI::END_DATE;
     const STATUS_FIELD = 'status';
     const CATEGORY_FIELD = 'event.categories';
     const EVENT_LOCATION_FIELD = 'eventLocation';

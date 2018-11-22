@@ -5,6 +5,7 @@ namespace DWenzel\T3events\Controller\Backend;
 use DWenzel\T3events\Controller\ModuleDataTrait;
 use DWenzel\T3events\Controller\PerformanceController;
 use DWenzel\T3events\Controller\SettingsUtilityTrait;
+use DWenzel\T3events\Utility\SettingsInterface as SI;
 use TYPO3\CMS\Extbase\Mvc\RequestInterface;
 use TYPO3\CMS\Extbase\Mvc\ResponseInterface;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
@@ -58,9 +59,9 @@ class ScheduleController extends PerformanceController
 
         $templateVariables = [
             'performances' => $this->performanceRepository->findDemanded($demand),
-            'overwriteDemand' => $overwriteDemand,
+            SI::OVERWRITE_DEMAND => $overwriteDemand,
             'demand' => $demand,
-            'settings' => $this->settings,
+            SI::SETTINGS => $this->settings,
             'filterOptions' => $filterOptions
         ];
 

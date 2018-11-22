@@ -22,6 +22,7 @@ namespace DWenzel\T3events\Domain\Repository;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use DWenzel\T3events\Utility\SettingsInterface as SI;
 
 /**
  * @package t3events
@@ -52,7 +53,7 @@ class EventRepository extends AbstractDemandedRepository implements
         if ($demand->getGenre()) {
             $genres = GeneralUtility::intExplode(',', $demand->getGenre());
             foreach ($genres as $genre) {
-                $categoryConstraints[] = $query->contains('genre', $genre);
+                $categoryConstraints[] = $query->contains(SI::LEGACY_KEY_GENRE, $genre);
             }
         }
         // venue

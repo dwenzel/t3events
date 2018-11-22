@@ -28,7 +28,7 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
  */
 class Event extends AbstractEntity
 {
-    use CategorizableTrait;
+    use CategorizableTrait, RelatedSchedulesTrait;
 
     /**
      * Hidden
@@ -195,6 +195,7 @@ class Event extends AbstractEntity
         $this->performances = new ObjectStorage();
         $this->categories = new ObjectStorage();
         $this->contentElements = new ObjectStorage();
+        $this->relatedSchedules = new ObjectStorage();
     }
 
     /**

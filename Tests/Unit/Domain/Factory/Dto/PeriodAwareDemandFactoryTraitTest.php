@@ -6,6 +6,7 @@ use DWenzel\T3events\Domain\Factory\Dto\PeriodAwareDemandFactoryTrait;
 use DWenzel\T3events\Domain\Model\Dto\PeriodAwareDemandInterface;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
+use DWenzel\T3events\Utility\SettingsInterface as SI;
 
 /***************************************************************
  *  Copyright notice
@@ -57,11 +58,11 @@ class PeriodAwareDemandFactoryTraitTest extends UnitTestCase
 
         return [
             [
-                ['period' => 'futureOnly'],
+                ['period' => SI::FUTURE_ONLY],
                 $defaultDate
             ],
             [
-                ['period' => 'pastOnly'],
+                ['period' => SI::PAST_ONLY],
                 $defaultDate
             ]
         ];
@@ -79,11 +80,11 @@ class PeriodAwareDemandFactoryTraitTest extends UnitTestCase
 
         return [
             [
-                ['period' => 'futureOnly'],
+                ['period' => SI::FUTURE_ONLY],
                 $startDate
             ],
             [
-                ['period' => 'pastOnly'],
+                ['period' => SI::PAST_ONLY],
                 $startDate
             ]
         ];
@@ -145,7 +146,7 @@ class PeriodAwareDemandFactoryTraitTest extends UnitTestCase
 
         $specificDate->setTimestamp((int)$specificDateString);
         $settings = [
-            'period' => 'specific',
+            'period' => SI::SPECIFIC,
             'periodType' => 'byDate',
             'periodStartDate' => $specificDateString
         ];
@@ -169,7 +170,7 @@ class PeriodAwareDemandFactoryTraitTest extends UnitTestCase
 
         $specificDate->setTimestamp((int)$specificDateString);
         $settings = [
-            'period' => 'specific',
+            'period' => SI::SPECIFIC,
             'periodType' => 'byDate',
             'periodEndDate' => $specificDateString
         ];

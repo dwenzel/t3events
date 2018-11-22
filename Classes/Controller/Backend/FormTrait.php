@@ -18,6 +18,7 @@ namespace DWenzel\T3events\Controller\Backend;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\FormProtection\FormProtectionFactory;
 use TYPO3\CMS\Core\Utility\HttpUtility;
+use DWenzel\T3events\Utility\SettingsInterface as SI;
 
 /**
  * Trait FormTrait
@@ -56,7 +57,7 @@ trait FormTrait
                 'edit[' . $table . '][' . $this->pageUid . ']' => 'new',
                 'returnUrl' => $returnUrl
             ]);
-        $this->callStatic(HttpUtility::class, 'redirect', $url);
+        $this->callStatic(HttpUtility::class, SI::REDIRECT, $url);
     }
 
     /**

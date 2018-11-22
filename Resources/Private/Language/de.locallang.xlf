@@ -357,6 +357,10 @@
             <source>Related events</source>
             <target>Verwandte Events</target>
         </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_event.relatedSchedules" approved="yes" xml:space="preserve">
+            <source>Related schedules</source>
+            <target>Zugehörige Termine</target>
+        </trans-unit>
         <trans-unit id="tx_t3events_domain_model_eventlocation" approved="yes" xml:space="preserve">
             <source>Event Location</source>
             <target>Veranstaltungsort</target>
@@ -569,6 +573,10 @@
         <trans-unit id="header.events" xml:space="preserve">
             <source>Events</source>
             <target>Veranstaltungen</target>
+        </trans-unit>
+        <trans-unit id="header.schedules" xml:space="preserve">
+            <source>Schedules</source>
+            <target>Termine</target>
         </trans-unit>
             <trans-unit id="tx_t3events_domain_model_event.content_elements">
                 <source>Content Elements</source>

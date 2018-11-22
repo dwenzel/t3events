@@ -7,6 +7,7 @@ use DWenzel\T3events\Controller\EventRepositoryTrait;
 use DWenzel\T3events\Controller\PerformanceDemandFactoryTrait;
 use DWenzel\T3events\Controller\PerformanceRepositoryTrait;
 use DWenzel\T3events\Domain\Model\Event;
+use DWenzel\T3events\Utility\SettingsInterface as SI;
 
 /***************************************************************
  *  Copyright notice
@@ -48,7 +49,7 @@ class CleanUpCommandController extends CommandController
      */
     public function deleteEventsCommand(
         $dryRun = true,
-        $period = 'pastOnly',
+        $period = SI::PAST_ONLY,
         $date = '',
         $storagePageIds = '',
         $limit = 1000
@@ -102,7 +103,7 @@ class CleanUpCommandController extends CommandController
      */
     public function deletePerformancesCommand(
         $dryRun = true,
-        $period = 'pastOnly',
+        $period = SI::PAST_ONLY,
         $date = '',
         $storagePageIds = '',
         $limit = 1000
@@ -144,7 +145,7 @@ class CleanUpCommandController extends CommandController
             'limit' => $limit
         ];
 
-        if (!empty($date) && $period === 'specific') {
+        if (!empty($date) && $period === SI::SPECIFIC) {
             $settings['periodType'] = 'byDate';
             $settings['periodEndDate'] = $date;
             $settings['periodStartDate'] = '01-01-1970';

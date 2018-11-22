@@ -65,6 +65,7 @@ class PerformanceRepository extends Repository implements
      * @param QueryInterface $query
      * @param DemandInterface $demand
      * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint>
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
      */
     public function createConstraintsFromDemand(
         QueryInterface $query,

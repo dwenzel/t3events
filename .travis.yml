@@ -11,7 +11,9 @@ matrix:
       env: TYPO3_VERSION=^8
 env:
   global:
-    secure: S8QheEMVpSRsPPIhYQZ4tUCTbxpM7csZ0GydJaPY8p/FAEnZLiH6xcsiTGKOljva5HDelCdBvunaWtUO/+CdKIgsdbQGbqc1aWmG6gr+ShQk4X3KzeAA91AFmkJOR6Jv69lUTm6Uo9AKs1JtuVZsOa1aoOmfApohqFuXsRBNXlg=
+    - CC_TEST_REPORTER_ID: d3719b289927b05bd9152291beb62d8e25d9e66f347011cbe9d7922885f29b60
+    - CODECLIMATE_REPO_TOKEN: d3719b289927b05bd9152291beb62d8e25d9e66f347011cbe9d7922885f29b60
+    - secure: S8QheEMVpSRsPPIhYQZ4tUCTbxpM7csZ0GydJaPY8p/FAEnZLiH6xcsiTGKOljva5HDelCdBvunaWtUO/+CdKIgsdbQGbqc1aWmG6gr+ShQk4X3KzeAA91AFmkJOR6Jv69lUTm6Uo9AKs1JtuVZsOa1aoOmfApohqFuXsRBNXlg=
 jdk:
   - oraclejdk8
 
@@ -44,6 +46,7 @@ script:
     .Build/bin/phpunit --colors -c Tests/Build/UnitTests.xml Tests/Unit/ \
     --coverage-clover .Build/log/coverage/clover.xml \
     --log-junit .Build/log/junit.xml
+    .Build/bin/test-reporter --coverage-report=.Build/log/coverage/clover.xml --stdout > codeclimate.json
     rm -rf .Build/vendor/ .Build/Web/ .Build/bin/
     sonar-scanner -Dproject.settings=.sonar-project.properties
   fi
@@ -52,4 +55,6 @@ after_success:
 - >
   if [[ "$COVERAGE" == "1" ]]; then
     bash <(curl -s https://codecov.io/bash) -B $TRAVIS_BRANCH
+
+    curl -X POST -d @codeclimate.json -H 'Content-Type: application/json' -H 'User-Agent: Code Climate (PHP Test Reporter v0.1.1)' https://codeclimate.com/test_reports
   fi

@@ -5,6 +5,7 @@ namespace DWenzel\T3events\Tests\Controller;
 use DWenzel\T3events\Controller\ModuleDataTrait;
 use DWenzel\T3events\Domain\Model\Dto\ModuleData;
 use DWenzel\T3events\Service\ModuleDataStorageService;
+use DWenzel\T3events\Utility\SettingsInterface as SI;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 
@@ -102,7 +103,7 @@ class ModuleDataTraitTest extends UnitTestCase
             ->with($mockModuleData, $moduleKey);
 
         $this->subject->expects($this->once())
-            ->method('forward')
+            ->method(SI::FORWARD)
             ->with('list');
         $this->subject->expects($this->once())
             ->method('getModuleKey')
@@ -129,7 +130,7 @@ class ModuleDataTraitTest extends UnitTestCase
         $this->subject->initializeAction();
         $this->assertAttributeSame(
             $expectedSettings,
-            'settings',
+            SI::SETTINGS,
             $this->subject
         );
     }

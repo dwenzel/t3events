@@ -22,7 +22,8 @@
   },
   "require-dev": {
     "nimut/testing-framework": "^3.0",
-    "phpunit/phpunit": "^5.6 || ^6.0"
+    "phpunit/phpunit": "^5.6 || ^6.0",
+    "codeclimate/php-test-reporter": "dev-master"
   },
   "autoload": {
     "psr-4": {
