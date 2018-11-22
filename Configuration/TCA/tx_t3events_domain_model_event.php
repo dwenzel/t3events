@@ -31,14 +31,14 @@ return [
     ],
     'interface' => [
         'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, headline,
-			subtitle,teaser,description, keywords, image, images, files, related, genre, venue, event_type, performances, organizer,audience,new_until,archive_date,fe_group',
+			subtitle,teaser,description, keywords, image, images, files, related, related_schedules, genre, venue, event_type, performances, organizer,audience,new_until,archive_date,fe_group',
     ],
     'types' => [
         '1' => [
             'showitem' => '
 			    	 event_type,headline, subtitle,teaser,description,content_elements,
 			    	 --div--;' . $ll . ':tx_t3events_domain_model_event.tab.relations,
-			    	    images, image, files, related,
+			    	    images, image, files, related, related_schedules,
 			    	 --div--;LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_event.extended,
 			    	 sys_language_uid,audience,organizer, genre, venue, keywords,
 			    	 --div--;LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_event.performances,
@@ -322,6 +322,24 @@ return [
                 'MM_insertfields' => array('foreign_field' => 'related'),
                 'size' => 30,
                 'maxitems' => 100,
+                'multiple' => 0,
+                'enableMultiSelectFilterTextfield' => true
+            ],
+        ],
+        'related_schedules' => [
+            'exclude' => 1,
+            'label' => $ll . ':tx_t3events_domain_model_event.related_schedules',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectMultipleSideBySide',
+                'foreign_table' => 'tx_t3events_domain_model_performance',
+                'foreign_table_where' => 'AND tx_t3events_domain_model_performance.deleted != 1 
+                          AND tx_t3events_domain_model_performance.sys_language_uid=###REC_FIELD_sys_language_uid### ',
+                'MM' => 'tx_t3events_event_performance_mm',
+                'MM_match_fields' => array('foreign_field' => 'related_schedules'),
+                'MM_insertfields' => array('foreign_field' => 'related_schedules'),
+                'size' => 30,
+                'maxitems' => 10,
                 'multiple' => 0,
                 'enableMultiSelectFilterTextfield' => true
             ],

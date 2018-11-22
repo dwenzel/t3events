@@ -126,6 +126,9 @@
         <trans-unit id="tx_t3events_domain_model_event.related">
             <source>Related events</source>
         </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_event.related_schedules">
+            <source>Related schedules</source>
+        </trans-unit>
 		<trans-unit id="tx_t3events_domain_model_eventlocation">
 			<source>Event Location</source>
 		</trans-unit>
@@ -443,6 +446,9 @@
 		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_event.content_elements">
 			<source>Content Elements</source>
+		</trans-unit>
+		<trans-unit id="dateFormatShort">
+			<source>Y-m-d</source>
 		</trans-unit>
 		</body>
 	</file>
