@@ -22,11 +22,6 @@ class ext_update
 {
 
     /**
-     * @var \DWenzel\T3events\Update\MigrateTaskRecords
-     */
-    protected $taskUpdater;
-
-    /**
      * @var \DWenzel\T3events\Update\MigratePluginRecords
      */
     protected $pluginUpdater;
@@ -45,7 +40,6 @@ class ext_update
 
     public function __construct()
     {
-        $this->taskUpdater = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\DWenzel\T3events\Update\MigrateTaskRecords::class);
         $this->pluginUpdater = GeneralUtility::makeInstance(\DWenzel\T3events\Update\MigratePluginRecords::class);
         $this->dataBaseSchemaUpdate = GeneralUtility::makeInstance(\TYPO3\CMS\Install\Updates\InitialDatabaseSchemaUpdate::class);
     }
@@ -54,6 +48,12 @@ class ext_update
      * Main update function called by the extension manager.
      *
      * @return string
+     * @throws \Doctrine\DBAL\DBALException
+     * @throws \Doctrine\DBAL\Schema\SchemaException
+     * @throws \TYPO3\CMS\Core\Database\Schema\Exception\StatementException
+     * @throws \TYPO3\CMS\Core\Database\Schema\Exception\UnexpectedSignalReturnValueTypeException
+     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException
+     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
      */
     public function main()
     {
@@ -70,21 +70,25 @@ class ext_update
     public function access()
     {
         $description = '';
-        $showMenu = ($this->taskUpdater->checkForUpdate($description) || $this->pluginUpdater->checkForUpdate($description));
-        return $showMenu;
+        return $this->pluginUpdater->checkForUpdate($description);
     }
 
     /**
      * The actual update function.
      *
      * @return void
+     * @throws \Doctrine\DBAL\DBALException
+     * @throws \Doctrine\DBAL\Schema\SchemaException
+     * @throws \TYPO3\CMS\Core\Database\Schema\Exception\StatementException
+     * @throws \TYPO3\CMS\Core\Database\Schema\Exception\UnexpectedSignalReturnValueTypeException
+     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException
+     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
      */
     protected function processUpdates()
     {
         $messages = [];
         $dbQueries = [];
         if ($this->canPerformUpdate($messages)) {
-            $this->taskUpdater->performUpdate($dbQueries, $messages);
             $this->pluginUpdater->performUpdate($dbQueries, $messages);
         }
 
@@ -96,6 +100,12 @@ class ext_update
      *
      * @param array $messages
      * @return bool Returns false if database fields are missing (in any table!) otherwise true
+     * @throws \Doctrine\DBAL\DBALException
+     * @throws \Doctrine\DBAL\Schema\SchemaException
+     * @throws \TYPO3\CMS\Core\Database\Schema\Exception\StatementException
+     * @throws \TYPO3\CMS\Core\Database\Schema\Exception\UnexpectedSignalReturnValueTypeException
+     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException
+     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
      */
     protected function canPerformUpdate(array &$messages)
     {
@@ -129,7 +139,7 @@ class ext_update
                 $messageItem[2],
                 $messageItem[1],
                 $messageItem[0]);
-            $output .= $flashMessage->render();
+            $output .= $this->renderFlashMessage($messageItem);
         }
         return $output;
     }
