@@ -1,3 +1,8 @@
+2018-11-23         [RELEASE] Release of t3events 0.41.1 (Dirk Wenzel)
+2018-11-23 e27b03e [BUGFIX] missing TypoScript for showAction added closes #73 (Dirk Wenzel)
+2018-11-23 d916564 [BUGFIX] prevent slow loading in backend caused by core bug: see https://forge.typo3.org/issues/82730, closes #76 (Dirk Wenzel)
+2018-11-23 1108c6a [BUGFIX] fixed error caused by missing class in extension update script closes #77 (Dirk Wenzel)
+
 2018-11-22         [RELEASE] Release of t3events 0.41.0 (Dirk Wenzel)
 2018-11-21 c781c64 [TASK] Performances are now displayed in Backend with a label build from their localized date and the event title. (Dirk Wenzel)
 2018-11-20 d8e4701 [TASK] domain model Event extended by field relatedSchedules (Dirk Wenzel)
