@@ -12,6 +12,7 @@ return [
         'label' => 'date',
         'label_alt' => 'event_location',
         'label_alt_force' => 1,
+        'label_userFunc' => \DWenzel\T3events\Service\TCA\ScheduleConfigurationService::class . '->getLabel',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
         'cruser_id' => 'cruser_id',

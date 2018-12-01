@@ -38,6 +38,8 @@ Thanks for contribution and feedback
 * [Erik Rauchstein](https://github.com/erauchstein)
 * [Jasmina Liessman](https://github.com/frau-liessmann)
 * [Tobias Kummer](https://github.com/tobikummer)
+* [Steffen Mevius](https://github.com/smeviuscps)
+* [kaywalker](https://github.com/kaywalker)
 
 This extension has been developed at [Agentur Webfox GmbH](https://www.agentur-webfox.de/) and [CPS IT GmbH](https://cps-it.de).
 

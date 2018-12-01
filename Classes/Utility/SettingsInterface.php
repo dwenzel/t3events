@@ -32,6 +32,7 @@ interface SettingsInterface
     const ARGUMENTS = 'arguments';
     const CONFIG = 'config';
     const CONTROLLER_NAME = 'controllerName';
+    const DATE_FORMAT_SHORT = 'dateFormatShort';
     const END_DATE = 'endDate';
     const EVENTS = 'events';
     const EVENT_TYPES = 'eventTypes';
@@ -71,5 +72,10 @@ interface SettingsInterface
     const TEMPLATE = 'template';
     const TO_EMAIL = 'toEmail';
     const TABLE_EVENTS = 'tx_t3events_domain_model_event';
+    const TABLE_SCHEDULES = 'tx_t3events_domain_model_performance';
+    const TRANSLATION_FILE_PATH = '';
+    const TRANSLATION_FILE_FRONTEND = 'LLL:EXT:t3events/Resources/Private/Language/locallang.xlf';
+    const TRANSLATION_FILE_BACKEND = 'LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml';
+    const TRANSLATION_FILE_DB = 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf';
     const VENUES = 'venues';
 }

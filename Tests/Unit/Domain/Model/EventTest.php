@@ -854,4 +854,19 @@ class EventTest extends UnitTestCase
         );
     }
 
+    /**
+     * @test
+     */
+    public function getRelatedSchedulesInitiallyReturnsEmptyObjectStorage()
+    {
+        $emptyObjectStorage = new ObjectStorage();
+
+        $this->assertEquals(
+            $emptyObjectStorage,
+            $this->subject->getRelatedSchedules()
+        );
+        $this->assertEmpty(
+            $this->subject->getRelatedSchedules()
+        );
+    }
 }
