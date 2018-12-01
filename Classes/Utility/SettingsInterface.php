@@ -37,6 +37,7 @@ interface SettingsInterface
     const EVENTS = 'events';
     const EVENT_TYPES = 'eventTypes';
     const ERROR_HANDLING = 'errorHandling';
+    const EXTENSION_KEY = 't3events';
     const DEMAND = 'demand';
     const FORMAT = 'format';
     const FORWARD = 'forward';

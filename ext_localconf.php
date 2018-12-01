@@ -4,7 +4,7 @@ if (!defined('TYPO3_MODE')) {
 }
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    'DWenzel.' . $_EXTKEY,
+    'DWenzel.' . \DWenzel\T3events\Utility\SettingsInterface::EXTENSION_KEY,
     'Events',
     array(
         'Event' => 'list, show, quickMenu',
