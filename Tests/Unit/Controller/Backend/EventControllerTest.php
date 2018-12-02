@@ -28,6 +28,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\FormProtection\FormProtectionFactory;
 use TYPO3\CMS\Core\Utility\HttpUtility;
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
@@ -241,18 +242,26 @@ class EventControllerTest extends UnitTestCase
      */
     public function newActionRedirectsToModuleEditRecord()
     {
+        $getParameterKeyForModule = 'M';
+        $parameterForToken = SI::MODULE_TOKEN_KEY;
+        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 9000000)
+        {
+            $getParameterKeyForModule = 'route';
+            $parameterForToken = SI::TOKEN_KEY;
+        }
         $tableName = 'tx_t3events_domain_model_event';
         $token = 'fooToken';
         $moduleKey = 'baz';
         $pageId = '14';
-        $returnUrl = 'index.php?M=' . $moduleKey . '&id=' . $pageId . '&moduleToken=' . $token;
+        $returnUrl = 'index.php?' . $getParameterKeyForModule. '='
+            . $moduleKey . '&id=' . $pageId . '&'. $parameterForToken .'=' . $token;
         $this->inject(
             $this->subject,
             'pageUid',
             $pageId
         );
 
-        $_GET['M'] = $moduleKey;
+        $_GET[$getParameterKeyForModule] = $moduleKey;
         $mockModuleUrl = 'fakeUrl';
 
         $this->formProtectionFactory->expects($this->atLeast(1))

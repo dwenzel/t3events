@@ -16,9 +16,12 @@ namespace DWenzel\T3events\Controller\Backend;
  */
 
 use TYPO3\CMS\Backend\Utility\BackendUtility;
+use TYPO3\CMS\Core\FormProtection\AbstractFormProtection;
 use TYPO3\CMS\Core\FormProtection\FormProtectionFactory;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\HttpUtility;
 use DWenzel\T3events\Utility\SettingsInterface as SI;
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 
 /**
  * Trait FormTrait
@@ -37,9 +40,9 @@ trait FormTrait
      *
      * @return string
      */
-    protected function getModuleKey()
+    public function getModuleKey()
     {
-        return $_GET['M'];
+        return $_GET[$this->getParameterNameForModule()];
     }
 
     /**
@@ -49,7 +52,7 @@ trait FormTrait
      */
     protected function redirectToCreateNewRecord($table)
     {
-        $returnUrl = 'index.php?M=' . $this->getModuleKey() . '&id=' . $this->pageUid . $this->getToken();
+        $returnUrl = $this->getReturnUrl();
         $url = $this->callStatic(
             BackendUtility::class, 'getModuleUrl',
             'record_edit',
@@ -63,18 +66,84 @@ trait FormTrait
     /**
      * Get a CSRF token
      *
-     * @param bool $tokenOnly Set it to TRUE to get only the token, otherwise including the &moduleToken= as prefix
+     * @param bool $tokenOnly Set it to TRUE to get only the token, otherwise the complete URL parameter
      * @return string
      */
     protected function getToken($tokenOnly = false)
     {
-        $factory = $this->callStatic(FormProtectionFactory::class, 'get');
+        $formName = 'moduleCall';
+        $factoryArguments = null;
+        if ($this->isTypo3VersionGreaterThan8()) {
+            $formName = 'route';
+            $factoryArguments = 'backend';
+        }
+        /** @var AbstractFormProtection $factory */
+        $factory = $this->callStatic(
+            FormProtectionFactory::class,
+            'get',
+            $factoryArguments
+        );
 
-        $token = $factory->generateToken('moduleCall', $this->getModuleKey());
+        $token = $factory->generateToken($formName, $this->getModuleKey());
         if ($tokenOnly) {
             return $token;
         }
 
-        return '&moduleToken=' . $token;
+        return '&' . $this->getParameterNameForToken() . '=' . $token;
+    }
+
+    /**
+     * @return string
+     */
+    protected function getParameterNameForModule(): string
+    {
+        $key = 'M';
+        if ($this->isTypo3VersionGreaterThan8()) {
+            $key = 'route';
+
+        }
+        return $key;
+    }
+
+    /**
+     * @return string
+     */
+    protected function getReturnUrl(): string
+    {
+        $tokenParameterKey = $this->getParameterNameForToken();
+        $moduleKeyParameter = $this->getParameterNameForModule();
+
+        $returnUrlParameters = [
+             $moduleKeyParameter => $this->getModuleKey(),
+            'id' => $this->pageUid,
+            $tokenParameterKey => $this->getToken(true)
+        ];
+
+        $parameterParts = GeneralUtility::implodeArrayForUrl(
+            '',
+            $returnUrlParameters
+        );
+
+        return 'index.php?' . ltrim(urldecode($parameterParts), '&');
+    }
+
+    /**
+     * @return bool
+     */
+    protected function isTypo3VersionGreaterThan8(): bool
+    {
+        return VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 9000000;
+    }
+
+    /**
+     * @return string
+     */
+    protected function getParameterNameForToken(): string
+    {
+        $tokenParameterKey = SI::MODULE_TOKEN_KEY;
+        if ($this->isTypo3VersionGreaterThan8()) {
+            $tokenParameterKey = SI::TOKEN_KEY;
+        }
+        return $tokenParameterKey;
     }
 }

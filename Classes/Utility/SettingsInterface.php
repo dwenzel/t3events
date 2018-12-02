@@ -50,6 +50,7 @@ interface SettingsInterface
     const GENRES = 'genres';
     const KEY_EXTENSION_NAME = 'extensionName';
     const MODULES = 'modules';
+    const MODULE_TOKEN_KEY = 'moduleToken';
     const NOTIFICATIONS = 'notifications';
     const OVERWRITE_DEMAND = 'overwriteDemand';
     const OBJECTS = 'objects';
@@ -72,6 +73,7 @@ interface SettingsInterface
     const SUBJECT = 'subject';
     const TEMPLATE = 'template';
     const TO_EMAIL = 'toEmail';
+    const TOKEN_KEY = 'token';
     const TABLE_EVENTS = 'tx_t3events_domain_model_event';
     const TABLE_SCHEDULES = 'tx_t3events_domain_model_performance';
     const TRANSLATION_FILE_PATH = '';
