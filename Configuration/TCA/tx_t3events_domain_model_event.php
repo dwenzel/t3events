@@ -2,22 +2,19 @@
 if (!defined('TYPO3_MODE')) {
     die('Access denied.');
 }
-$ll = 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:';
-$editWizardIconPath = \DWenzel\T3events\Utility\TableConfiguration::getWizardIcon('edit');
-$addWizardIconPath = \DWenzel\T3events\Utility\TableConfiguration::getWizardIcon('add');
+$ll = 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf';
 $cll = \DWenzel\T3events\Utility\TableConfiguration::getLanguageFilePath() . 'locallang_general.xlf:';
 
 return [
     'ctrl' => [
-        'title' => $ll . 'tx_t3events_domain_model_event',
+        'title' => $ll . ':tx_t3events_domain_model_event',
         'label' => 'headline',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
         'cruser_id' => 'cruser_id',
         'dividers2tabs' => true,
         'sortby' => 'sorting',
-        'versioningWS' => 2,
-        'versioning_followPages' => true,
+        'versioningWS' => true,
         'origUid' => 't3_origuid',
         'languageField' => 'sys_language_uid',
         'transOrigPointerField' => 'l10n_parent',
@@ -34,14 +31,14 @@ return [
     ],
     'interface' => [
         'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, headline,
-			subtitle,teaser,description, keywords, image, images, files, related, genre, venue, event_type, performances, organizer,audience,new_until,archive_date,fe_group',
+			subtitle,teaser,description, keywords, image, images, files, related, related_schedules, genre, venue, event_type, performances, organizer,audience,new_until,archive_date,fe_group',
     ],
     'types' => [
         '1' => [
             'showitem' => '
 			    	 event_type,headline, subtitle,teaser,description,content_elements,
-			    	 --div--;' . $ll . 'tx_t3events_domain_model_event.tab.relations,
-			    	    images, image, files, related,
+			    	 --div--;' . $ll . ':tx_t3events_domain_model_event.tab.relations,
+			    	    images, image, files, related, related_schedules,
 			    	 --div--;LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_event.extended,
 			    	 sys_language_uid,audience,organizer, genre, venue, keywords,
 			    	 --div--;LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_event.performances,
@@ -105,28 +102,32 @@ return [
         ],
         'starttime' => [
             'exclude' => 1,
-            'l10n_mode' => 'mergeIfNotBlank',
             'label' => $cll . 'LGL.starttime',
             'config' => [
                 'type' => 'input',
+                'renderType' => 'inputDateTime',
                 'size' => 10,
-                'max' => 20,
                 'eval' => 'datetime',
                 'checkbox' => 0,
                 'default' => 0,
+                'behaviour' => [
+                    'allowLanguageSynchronization' => true
+                ]
             ],
         ],
         'endtime' => [
             'exclude' => 1,
-            'l10n_mode' => 'mergeIfNotBlank',
             'label' => $cll . 'LGL.endtime',
             'config' => [
                 'type' => 'input',
+                'renderType' => 'inputDateTime',
                 'size' => 10,
-                'max' => 20,
                 'eval' => 'datetime',
                 'checkbox' => 0,
                 'default' => 0,
+                'behaviour' => [
+                    'allowLanguageSynchronization' => true
+                ]
             ],
         ],
         'fe_group' => [
@@ -158,7 +159,7 @@ return [
         ],
         'headline' => [
             'exclude' => 0,
-            'label' => $ll . 'tx_t3events_domain_model_event.headline',
+            'label' => $ll . ':tx_t3events_domain_model_event.headline',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -167,7 +168,7 @@ return [
         ],
         'subtitle' => [
             'exclude' => 1,
-            'label' => $ll . 'tx_t3events_domain_model_event.subtitle',
+            'label' => $ll . ':tx_t3events_domain_model_event.subtitle',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -176,7 +177,7 @@ return [
         ],
         'teaser' => [
             'exclude' => 1,
-            'label' => $ll . 'tx_t3events_domain_model_event.teaser',
+            'label' => $ll . ':tx_t3events_domain_model_event.teaser',
             'config' => [
                 'type' => 'text',
                 'cols' => 40,
@@ -186,18 +187,18 @@ return [
         ],
         'description' => [
             'exclude' => 1,
-            'label' => $ll . 'tx_t3events_domain_model_event.description',
+            'label' => $ll . ':tx_t3events_domain_model_event.description',
             'config' => [
                 'type' => 'text',
+                'enableRichtext' => true,
                 'cols' => 32,
                 'rows' => 10,
                 'eval' => 'trim'
-            ],
-            'defaultExtras' => 'richtext[]:rte_transform[mode=ts_links]'
+            ]
         ],
         'keywords' => [
             'exclude' => 1,
-            'label' => $ll . 'tx_t3events_domain_model_event.keywords',
+            'label' => $ll . ':tx_t3events_domain_model_event.keywords',
             'config' => [
                 'type' => 'text',
                 'cols' => 32,
@@ -207,12 +208,11 @@ return [
         ],
         'image' => [
             'exclude' => 1,
-            'label' => $ll . 'tx_t3events_domain_model_event.image',
+            'label' => $ll . ':tx_t3events_domain_model_event.image',
             'config' => [
                 'type' => 'group',
                 'internal_type' => 'file',
                 'uploadfolder' => 'uploads/tx_t3events',
-                'show_thumbs' => 1,
                 'size' => 1,
                 'maxitems' => 1,
                 'allowed' => $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'],
@@ -221,177 +221,173 @@ return [
         ],
         'images' => [
             'exclude' => 1,
-            'label' => $ll . 'tx_t3events_domain_model_event.images',
+            'label' => $ll . ':tx_t3events_domain_model_event.images',
             'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig('images', [
                 'appearance' => [
                     'createNewRelationLinkTitle' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:images.addFileReference'
                 ],
                 // custom configuration for displaying fields in the overlay/reference table
                 // to use the imageoverlayPalette instead of the basicoverlayPalette
-                'foreign_types' => [
-                    '0' => [
-                        'showitem' => '
+                'overrideChildTca' => [
+                    'types' => [
+                        '0' => [
+                            'showitem' => '
                             --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                             --palette--;;filePalette'
-                    ],
-                    \TYPO3\CMS\Core\Resource\File::FILETYPE_TEXT => [
-                        'showitem' => '
+                        ],
+                        \TYPO3\CMS\Core\Resource\File::FILETYPE_TEXT => [
+                            'showitem' => '
                             --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                             --palette--;;filePalette'
-                    ],
-                    \TYPO3\CMS\Core\Resource\File::FILETYPE_IMAGE => [
-                        'showitem' => '
+                        ],
+                        \TYPO3\CMS\Core\Resource\File::FILETYPE_IMAGE => [
+                            'showitem' => '
                             --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                             --palette--;;filePalette'
-                    ],
-                    \TYPO3\CMS\Core\Resource\File::FILETYPE_AUDIO => [
-                        'showitem' => '
+                        ],
+                        \TYPO3\CMS\Core\Resource\File::FILETYPE_AUDIO => [
+                            'showitem' => '
                             --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.audioOverlayPalette;audioOverlayPalette,
                             --palette--;;filePalette'
-                    ],
-                    \TYPO3\CMS\Core\Resource\File::FILETYPE_VIDEO => [
-                        'showitem' => '
+                        ],
+                        \TYPO3\CMS\Core\Resource\File::FILETYPE_VIDEO => [
+                            'showitem' => '
                             --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.videoOverlayPalette;videoOverlayPalette,
                             --palette--;;filePalette'
-                    ],
-                    \TYPO3\CMS\Core\Resource\File::FILETYPE_APPLICATION => [
-                        'showitem' => '
+                        ],
+                        \TYPO3\CMS\Core\Resource\File::FILETYPE_APPLICATION => [
+                            'showitem' => '
                             --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                             --palette--;;filePalette'
+                        ]
                     ]
-                ]
+                ],
             ], $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'])
         ],
         'files' => [
             'exclude' => 1,
-            'label' => $ll . 'tx_t3events_domain_model_event.files',
+            'label' => $ll . ':tx_t3events_domain_model_event.files',
             'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig('files', [
                 'appearance' => [
                     'createNewRelationLinkTitle' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:images.addFileReference'
                 ],
                 // custom configuration for displaying fields in the overlay/reference table
                 // to use the imageoverlayPalette instead of the basicoverlayPalette
-                'foreign_types' => [
-                    '0' => [
-                        'showitem' => '
+                'overrideChildTca' => [
+                    'types' => [
+                        '0' => [
+                            'showitem' => '
                             --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                             --palette--;;filePalette'
-                    ],
-                    \TYPO3\CMS\Core\Resource\File::FILETYPE_TEXT => [
-                        'showitem' => '
+                        ],
+                        \TYPO3\CMS\Core\Resource\File::FILETYPE_TEXT => [
+                            'showitem' => '
                             --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                             --palette--;;filePalette'
-                    ],
-                    \TYPO3\CMS\Core\Resource\File::FILETYPE_IMAGE => [
-                        'showitem' => '
+                        ],
+                        \TYPO3\CMS\Core\Resource\File::FILETYPE_IMAGE => [
+                            'showitem' => '
                             --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                             --palette--;;filePalette'
-                    ],
-                    \TYPO3\CMS\Core\Resource\File::FILETYPE_AUDIO => [
-                        'showitem' => '
+                        ],
+                        \TYPO3\CMS\Core\Resource\File::FILETYPE_AUDIO => [
+                            'showitem' => '
                             --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.audioOverlayPalette;audioOverlayPalette,
                             --palette--;;filePalette'
-                    ],
-                    \TYPO3\CMS\Core\Resource\File::FILETYPE_VIDEO => [
-                        'showitem' => '
+                        ],
+                        \TYPO3\CMS\Core\Resource\File::FILETYPE_VIDEO => [
+                            'showitem' => '
                             --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.videoOverlayPalette;videoOverlayPalette,
                             --palette--;;filePalette'
-                    ],
-                    \TYPO3\CMS\Core\Resource\File::FILETYPE_APPLICATION => [
-                        'showitem' => '
+                        ],
+                        \TYPO3\CMS\Core\Resource\File::FILETYPE_APPLICATION => [
+                            'showitem' => '
                             --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                             --palette--;;filePalette'
+                        ]
                     ]
-                ]
+                ],
             ], $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'])
         ],
-        'related'  => [
+        'related' => [
             'exclude' => 1,
-            'label' => $ll . 'tx_t3events_domain_model_event.related',
+            'label' => $ll . ':tx_t3events_domain_model_event.related',
             'config' => [
                 'type' => 'select',
-                'noIconsBelowSelect' => '1',
                 'renderType' => 'selectMultipleSideBySide',
                 'foreign_table' => 'tx_t3events_domain_model_event',
                 'foreign_table_where' => 'AND tx_t3events_domain_model_event.deleted != 1 AND tx_t3events_domain_model_event.sys_language_uid=###REC_FIELD_sys_language_uid### AND tx_t3events_domain_model_event.uid != ###THIS_UID###',
                 'MM' => 'tx_t3events_event_event_mm',
                 'MM_match_fields' => array('foreign_field' => 'related'),
                 'MM_insertfields' => array('foreign_field' => 'related'),
-                'size' => 10,
-                'autoSizeMax' => 30,
+                'size' => 30,
                 'maxitems' => 100,
                 'multiple' => 0,
-                'enableMultiSelectFilterTextfield' => true,
-                'wizards' => [
-                    '_POSITION' => 'top',
-                    '_VERTICAL' => 0,
-                    'suggest' => [
-                        'type' => 'suggest',
-                        'default' => [
-                            'additionalSearchFields' => 'headline',
-                        ],
-                    ],
-                ],
+                'enableMultiSelectFilterTextfield' => true
+            ],
+        ],
+        'related_schedules' => [
+            'exclude' => 1,
+            'label' => $ll . ':tx_t3events_domain_model_event.related_schedules',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectMultipleSideBySide',
+                'foreign_table' => 'tx_t3events_domain_model_performance',
+                'foreign_table_where' => 'AND tx_t3events_domain_model_performance.deleted != 1 
+                          AND tx_t3events_domain_model_performance.sys_language_uid=###REC_FIELD_sys_language_uid### ',
+                'MM' => 'tx_t3events_event_performance_mm',
+                'MM_match_fields' => array('foreign_field' => 'related_schedules'),
+                'MM_insertfields' => array('foreign_field' => 'related_schedules'),
+                'size' => 30,
+                'maxitems' => 10,
+                'multiple' => 0,
+                'enableMultiSelectFilterTextfield' => true
             ],
         ],
         'genre' => [
             'exclude' => 1,
-            'label' => $ll . 'tx_t3events_domain_model_event.genre',
+            'label' => $ll . ':tx_t3events_domain_model_event.genre',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectMultipleSideBySide',
                 'foreign_table' => 'tx_t3events_domain_model_genre',
                 'MM' => 'tx_t3events_event_genre_mm',
-                'size' => 10,
-                'autoSizeMax' => 30,
+                'size' => 30,
                 'maxitems' => 9999,
                 'multiple' => 0,
-                'wizards' => [
-                    '_PADDING' => 1,
-                    '_VERTICAL' => 1,
-                    'edit' => [
-                        'type' => 'popup',
-                        'title' => 'Edit',
-                        'module' => [
-                            'name' => 'wizard_edit',
-                        ],
-                        'icon' => $editWizardIconPath,
-                        'popup_onlyOpenIfSelected' => 1,
-                        'JSopenParams' => 'height=350,width=580,status=0,menubar=0,scrollbars=1',
+                'fieldControl' => [
+                    'editPopup' => [
+                        'options' => [
+                            'title' => 'Edit',
+                        ]
                     ],
-                    'add' => [
-                        'type' => 'script',
-                        'title' => 'Create new',
-                        'icon' => $addWizardIconPath,
-                        'params' => [
+                    'addRecord' => [
+                        'options' => [
+                            'title' => 'Create new',
                             'table' => 'tx_t3events_domain_model_genre',
                             'pid' => '###CURRENT_PID###',
                             'setValue' => 'prepend'
-                        ],
-                        'module' => [
-                            'name' => 'wizard_add',
-                        ],
+                        ]
                     ],
                 ],
             ],
         ],
         'venue' => [
             'exclude' => 1,
-            'label' => $ll . 'tx_t3events_domain_model_event.venue',
+            'label' => $ll . ':tx_t3events_domain_model_event.venue',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectMultipleSideBySide',
                 'foreign_table' => 'tx_t3events_domain_model_venue',
                 'MM' => 'tx_t3events_event_venue_mm',
-                'size' => 5,
-                'autoSizeMax' => 30,
+                'size' => 30,
                 'maxitems' => 9999,
                 'multiple' => 0,
             ],
         ],
         'event_type' => [
             'exclude' => 1,
-            'label' => $ll . 'tx_t3events_domain_model_event.event_type',
+            'label' => $ll . ':tx_t3events_domain_model_event.event_type',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
@@ -402,7 +398,7 @@ return [
         ],
         'performances' => [
             'exclude' => 1,
-            'label' => $ll . 'tx_t3events_domain_model_event.performances',
+            'label' => $ll . ':tx_t3events_domain_model_event.performances',
             'config' => [
                 'type' => 'inline',
                 'foreign_table' => 'tx_t3events_domain_model_performance',
@@ -424,8 +420,7 @@ return [
         ],
         'organizer' => [
             'exclude' => 1,
-            'label' => $ll . 'tx_t3events_domain_model_event.organizer',
-            'l10n_mode' => 'mergeIfNotBlank',
+            'label' => $ll . ':tx_t3events_domain_model_event.organizer',
             'config' => [
                 'type' => 'group',
                 'internal_type' => 'db',
@@ -434,50 +429,34 @@ return [
                 'size' => 1,
                 'minitems' => 0,
                 'maxitems' => 1,
-                'show_thumbs' => 1,
-                'wizards' => [
-                    'suggest' => [
-                        'type' => 'suggest',
-                    ],
-                ],
+                'behaviour' => [
+                    'allowLanguageSynchronization' => true
+                ]
             ],
         ],
         'audience' => [
             'exclude' => 1,
-            'label' => $ll . 'tx_t3events_domain_model_audience',
+            'label' => $ll . ':tx_t3events_domain_model_audience',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectMultipleSideBySide',
                 'foreign_table' => 'tx_t3events_domain_model_audience',
                 'MM' => 'tx_t3events_event_audience_mm',
-                'size' => 10,
-                'autoSizeMax' => 30,
+                'size' => 30,
                 'maxitems' => 9999,
                 'multiple' => 0,
-                'wizards' => [
-                    '_PADDING' => 1,
-                    '_VERTICAL' => 1,
-                    'edit' => [
-                        'type' => 'popup',
-                        'title' => 'Edit',
-                        'module' => [
-                            'name' => 'wizard_edit'
-                        ],
-                        'icon' => $editWizardIconPath,
-                        'popup_onlyOpenIfSelected' => 1,
-                        'JSopenParams' => 'height=350,width=580,status=0,menubar=0,scrollbars=1',
+                'fieldControl' => [
+                    'editPopup' => [
+                        'options' => [
+                            'title' => 'Edit',
+                        ]
                     ],
-                    'add' => [
-                        'type' => 'script',
-                        'title' => 'Create new',
-                        'icon' => $addWizardIconPath,
-                        'params' => [
+                    'addRecord' => [
+                        'options' => [
+                            'title' => 'Create new',
                             'table' => 'tx_t3events_domain_model_audience',
                             'pid' => '###CURRENT_PID###',
                             'setValue' => 'prepend'
-                        ],
-                        'module' => [
-                            'name' => 'wizard_add'
                         ]
                     ],
                 ],
@@ -485,29 +464,29 @@ return [
         ],
         'new_until' => [
             'exclude' => 1,
-            'label' => $ll . 'tx_t3events_domain_model_event.new_until',
+            'label' => $ll . ':tx_t3events_domain_model_event.new_until',
             'config' => [
                 'type' => 'input',
-                'size' => '10',
-                'max' => '20',
+                'renderType' => 'inputDateTime',
+                'size' => 10,
                 'eval' => 'datetime',
                 'default' => '0'
             ]
         ],
         'archive_date' => [
             'exclude' => 1,
-            'label' => $ll . 'tx_t3events_domain_model_event.archive_date',
+            'label' => $ll . ':tx_t3events_domain_model_event.archive_date',
             'config' => [
                 'type' => 'input',
-                'size' => '10',
-                'max' => '20',
+                'renderType' => 'inputDateTime',
+                'size' => 10,
                 'eval' => 'date',
                 'default' => '0'
             ]
         ],
         'content_elements' => [
             'exclude' => 1,
-            'label' => $ll . 'tx_t3events_domain_model_event.content_elements',
+            'label' => $ll . ':tx_t3events_domain_model_event.content_elements',
             'config' => [
                 'type' => 'inline',
                 'foreign_table' => 'tt_content',

@@ -1,4 +1,5 @@
 <?php
+
 namespace DWenzel\T3events\Tests\Unit\Controller;
 
 /**
@@ -14,6 +15,7 @@ namespace DWenzel\T3events\Tests\Unit\Controller;
 use DWenzel\T3events\Controller\SessionTrait;
 use DWenzel\T3events\Session\SessionInterface;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use PHPUnit\Framework\MockObject\MockObject;
 
 class DummyClassWithNamespace
 {
@@ -47,10 +49,8 @@ class SessionTraitTest extends UnitTestCase
      */
     public function sessionCanBeInjected()
     {
-        $mockSession = $this->getMockForAbstractClass(
-            SessionInterface::class
-        );
 
+        $mockSession = $this->getMockSession();
         $this->subject->injectSession($mockSession);
 
         $this->assertAttributeSame(
@@ -73,14 +73,22 @@ class SessionTraitTest extends UnitTestCase
             'namespace',
             $namespace
         );
-        $mockSession = $this->getMock(
-            SessionInterface::class,
-            ['has', 'get', 'clean', 'set', 'setNamespace']
-        );
+        $mockSession = $this->getMockSession();
 
         $mockSession->expects($this->once())
             ->method('setNamespace')
             ->with($namespace);
         $this->subject->injectSession($mockSession);
+    }
+
+    /**
+     * @return SessionInterface|MockObject
+     */
+    protected function getMockSession()
+    {
+        return $this->getMockBuilder(SessionInterface::class)
+            ->setMethods(
+                ['has', 'get', 'clean', 'set', 'setNamespace']
+            )->getMockForAbstractClass();
     }
 }

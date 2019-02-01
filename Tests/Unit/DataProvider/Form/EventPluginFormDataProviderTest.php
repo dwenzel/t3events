@@ -16,7 +16,7 @@ use DWenzel\T3events\DataProvider\Form\EventPluginFormDataProvider;
 use DWenzel\T3events\Hooks\BackendUtility;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Backend\Form\FormDataProviderInterface;
-
+use DWenzel\T3events\Utility\SettingsInterface as SI;
 /**
  * Class EventPluginFormDataProviderTest
  */
@@ -88,7 +88,7 @@ class EventPluginFormDataProviderTest extends UnitTestCase
             'processedTca' => [
                 'columns' => [
                     'pi_flexform' => [
-                        'config' => [
+                        SI::CONFIG => [
                             'ds' => ['foo']
                         ]
                     ]
@@ -106,13 +106,11 @@ class EventPluginFormDataProviderTest extends UnitTestCase
      */
     public function addDataReturnsProcessesResult($result)
     {
-        $dataStructure = $result['processedTca']['columns']['pi_flexform']['config']['ds'];
+        $dataStructure = $result['processedTca']['columns']['pi_flexform'][SI::CONFIG]['ds'];
         $conf = [];
         $row = $result['databaseRow'];
         $table = 'tt_content';
         $fieldName = '';
-
-        $resultFromUtility = ['bar'];
 
         $this->backendUtility->expects($this->once())
             ->method('getFlexFormDS_postProcessDS')

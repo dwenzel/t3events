@@ -1,11 +1,12 @@
 <?php
+
 namespace DWenzel\T3events\Tests\Unit\Domain\Factory\Dto;
 
-use Nimut\TestingFramework\TestCase\UnitTestCase;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 use DWenzel\T3events\Domain\Factory\Dto\EventDemandFactory;
 use DWenzel\T3events\Domain\Model\Dto\EventDemand;
-use DWenzel\T3events\Domain\Model\Dto\PeriodAwareDemandInterface;
+use DWenzel\T3events\Utility\SettingsInterface as SI;
+use DWenzel\T3events\Tests\Unit\Object\MockObjectManagerTrait;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 
 /***************************************************************
  *
@@ -33,6 +34,7 @@ use DWenzel\T3events\Domain\Model\Dto\PeriodAwareDemandInterface;
  ***************************************************************/
 class EventDemandFactoryTest extends UnitTestCase
 {
+    use MockObjectManagerTrait;
 
     /**
      * @var EventDemandFactory
@@ -45,21 +47,11 @@ class EventDemandFactoryTest extends UnitTestCase
     public function setUp()
     {
         $this->subject = $this->getAccessibleMock(
-            \DWenzel\T3events\Domain\Factory\Dto\EventDemandFactory::class, ['dummy'], [], '', false
+            EventDemandFactory::class, ['dummy'], [], '', false
         );
-    }
+        $this->objectManager = $this->getMockObjectManager();
+        $this->subject->injectObjectManager($this->objectManager);
 
-    /**
-     * @return \PHPUnit_Framework_MockObject_MockObject
-     */
-    protected function mockObjectManager()
-    {
-        $mockObjectManager = $this->getMock(
-            ObjectManager::class, ['get']
-        );
-        $this->subject->injectObjectManager($mockObjectManager);
-
-        return $mockObjectManager;
     }
 
     /**
@@ -67,11 +59,9 @@ class EventDemandFactoryTest extends UnitTestCase
      */
     public function createFromSettingsReturnsEventDemand()
     {
-        $mockDemand = $this->getMock(
-            EventDemand::class
-        );
-        $mockObjectManager = $this->mockObjectManager();
-        $mockObjectManager->expects($this->once())
+        $mockDemand = $this->getMockEventDemand();
+
+        $this->objectManager->expects($this->once())
             ->method('get')
             ->with(EventDemand::class)
             ->will($this->returnValue($mockDemand));
@@ -89,7 +79,7 @@ class EventDemandFactoryTest extends UnitTestCase
     {
         /** propertyName, $settingsValue, $expectedValue */
         return [
-            ['genre', '1,2', '1,2'],
+            [SI::LEGACY_KEY_GENRE, '1,2', '1,2'],
             ['venue', '3,4', '3,4'],
             ['eventType', '5,6', '5,6'],
             ['categories', '7,8', '7,8'],
@@ -114,11 +104,10 @@ class EventDemandFactoryTest extends UnitTestCase
         $settings = [
             $propertyName => $settingsValue
         ];
-        $mockDemand = $this->getMock(
-            EventDemand::class, ['dummy']
-        );
-        $mockObjectManager = $this->mockObjectManager();
-        $mockObjectManager->expects($this->once())
+        /** @var EventDemand|\PHPUnit_Framework_MockObject_MockObject $mockDemand */
+        $mockDemand = $this->getMockEventDemand();
+
+        $this->objectManager->expects($this->once())
             ->method('get')
             ->will($this->returnValue($mockDemand));
         $createdDemand = $this->subject->createFromSettings($settings);
@@ -136,8 +125,8 @@ class EventDemandFactoryTest extends UnitTestCase
     {
         /** settingsKey, propertyName, $settingsValue, $expectedValue */
         return [
-            ['genres', 'genre', '1,2', '1,2'],
-            ['venues', 'venue', '3,4', '3,4'],
+            [SI::GENRES, SI::LEGACY_KEY_GENRE, '1,2', '1,2'],
+            [SI::VENUES, 'venue', '3,4', '3,4'],
             ['eventType', 'eventType', '5,6', '5,6'],
             ['maxItems', 'limit', '50', 50],
         ];
@@ -156,11 +145,10 @@ class EventDemandFactoryTest extends UnitTestCase
         $settings = [
             $settingsKey => $settingsValue
         ];
-        $mockDemand = $this->getMock(
-            EventDemand::class, ['dummy']
-        );
-        $mockObjectManager = $this->mockObjectManager();
-        $mockObjectManager->expects($this->once())
+        /** @var EventDemand|\PHPUnit_Framework_MockObject_MockObject $mockDemand */
+        $mockDemand = $this->getMockEventDemand();
+
+        $this->objectManager->expects($this->once())
             ->method('get')
             ->will($this->returnValue($mockDemand));
         $createdDemand = $this->subject->createFromSettings($settings);
@@ -184,20 +172,22 @@ class EventDemandFactoryTest extends UnitTestCase
             ['search', 'bar']
         ];
     }
+
     /**
      * @test
      * @dataProvider skippedPropertiesDataProvider
+     * @param $propertyName
+     * @param $propertyValue
      */
     public function createFromSettingsDoesNotSetSkippedValues($propertyName, $propertyValue)
     {
         $settings = [
             $propertyName => $propertyValue
         ];
-        $mockDemand = $this->getMock(
-            EventDemand::class, ['dummy']
-        );
-        $mockObjectManager = $this->mockObjectManager();
-        $mockObjectManager->expects($this->once())
+        /** @var EventDemand|\PHPUnit_Framework_MockObject_MockObject $mockDemand */
+        $mockDemand = $this->getMockEventDemand();
+
+        $this->objectManager->expects($this->once())
             ->method('get')
             ->will($this->returnValue($mockDemand));
         $createdDemand = $this->subject->createFromSettings($settings);
@@ -215,14 +205,11 @@ class EventDemandFactoryTest extends UnitTestCase
     {
         $periodType = 'foo';
         $settings = [
-            'period' => 'specific',
+            'period' => SI::SPECIFIC,
             'periodType' => $periodType
         ];
-        $mockDemand = $this->getMock(
-            EventDemand::class, ['dummy']
-        );
-        $mockObjectManager = $this->mockObjectManager();
-        $mockObjectManager->expects($this->once())
+        $mockDemand = $this->getMockEventDemand();
+        $this->objectManager->expects($this->once())
             ->method('get')
             ->will($this->returnValue($mockDemand));
         $createdDemand = $this->subject->createFromSettings($settings);
@@ -247,11 +234,8 @@ class EventDemandFactoryTest extends UnitTestCase
             'periodStart' => $periodStart,
             'periodDuration' => $periodDuration
         ];
-        $mockDemand = $this->getMock(
-            EventDemand::class, ['dummy']
-        );
-        $mockObjectManager = $this->mockObjectManager();
-        $mockObjectManager->expects($this->once())
+        $mockDemand = $this->getMockEventDemand();
+        $this->objectManager->expects($this->once())
             ->method('get')
             ->will($this->returnValue($mockDemand));
         $createdDemand = $this->subject->createFromSettings($settings);
@@ -281,11 +265,8 @@ class EventDemandFactoryTest extends UnitTestCase
             'periodStartDate' => $startDate
         ];
 
-        $mockDemand = $this->getMock(
-            EventDemand::class, ['dummy']
-        );
-        $mockObjectManager = $this->mockObjectManager();
-        $mockObjectManager->expects($this->once())
+        $mockDemand = $this->getMockEventDemand();
+        $this->objectManager->expects($this->once())
             ->method('get')
             ->will($this->returnValue($mockDemand));
         $createdDemand = $this->subject->createFromSettings($settings);
@@ -295,7 +276,7 @@ class EventDemandFactoryTest extends UnitTestCase
 
         $this->assertAttributeEquals(
             $expectedStartDate,
-            'startDate',
+            SI::START_DATE,
             $createdDemand
         );
     }
@@ -312,11 +293,8 @@ class EventDemandFactoryTest extends UnitTestCase
             'periodEndDate' => $endDate
         ];
 
-        $mockDemand = $this->getMock(
-            EventDemand::class, ['dummy']
-        );
-        $mockObjectManager = $this->mockObjectManager();
-        $mockObjectManager->expects($this->once())
+        $mockDemand = $this->getMockEventDemand();
+        $this->objectManager->expects($this->once())
             ->method('get')
             ->will($this->returnValue($mockDemand));
         $createdDemand = $this->subject->createFromSettings($settings);
@@ -326,8 +304,19 @@ class EventDemandFactoryTest extends UnitTestCase
 
         $this->assertAttributeEquals(
             $expectedStartDate,
-            'endDate',
+            SI::END_DATE,
             $createdDemand
         );
+    }
+
+    /**
+     * @return EventDemand|\PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function getMockEventDemand()
+    {
+        /** @var EventDemand|\PHPUnit_Framework_MockObject_MockObject $mockDemand */
+        $mockDemand = $this->getMockBuilder(EventDemand::class)
+            ->setMethods(['dummy'])->getMock();
+        return $mockDemand;
     }
 }

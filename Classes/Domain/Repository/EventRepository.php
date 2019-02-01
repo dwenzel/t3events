@@ -22,6 +22,7 @@ namespace DWenzel\T3events\Domain\Repository;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use DWenzel\T3events\Utility\SettingsInterface as SI;
 
 /**
  * @package t3events
@@ -34,14 +35,16 @@ class EventRepository extends AbstractDemandedRepository implements
 {
     use PeriodConstraintRepositoryTrait, LocationConstraintRepositoryTrait,
         AudienceConstraintRepositoryTrait;
+
     /**
      * Create category constraints from demand
      *
      * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
      * @param \DWenzel\T3events\Domain\Model\Dto\EventDemand $demand
      * @return array<\TYPO3\CMS\Extbase\Persistence\QOM\Constraint>
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
      */
-    protected function createCategoryConstraints(QueryInterface $query, $demand)
+    public function createCategoryConstraints(QueryInterface $query, $demand)
     {
         // gather OR constraints (categories)
         $categoryConstraints = [];
@@ -50,7 +53,7 @@ class EventRepository extends AbstractDemandedRepository implements
         if ($demand->getGenre()) {
             $genres = GeneralUtility::intExplode(',', $demand->getGenre());
             foreach ($genres as $genre) {
-                $categoryConstraints[] = $query->contains('genre', $genre);
+                $categoryConstraints[] = $query->contains(SI::LEGACY_KEY_GENRE, $genre);
             }
         }
         // venue

@@ -1,14 +1,16 @@
 <?php
+
 namespace DWenzel\T3events\Tests\Controller;
 
+use DWenzel\T3events\Controller\FlashMessageTrait;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
+use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Messaging\FlashMessageQueue;
 use TYPO3\CMS\Core\Messaging\FlashMessageService;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Mvc\Web\Request;
-use DWenzel\T3events\Controller\FlashMessageTrait;
 use TYPO3\CMS\Extbase\Service\ExtensionService;
 
 /***************************************************************
@@ -46,7 +48,7 @@ class FlashMessageTraitTest extends UnitTestCase
     }
 
     /**
-     * @return \PHPUnit_Framework_MockObject_MockObject
+     * @return ConfigurationManagerInterface|\PHPUnit_Framework_MockObject_MockObject
      */
     protected function mockConfigurationManager()
     {
@@ -62,35 +64,29 @@ class FlashMessageTraitTest extends UnitTestCase
         return $mockConfigurationManager;
     }
 
-        /**
-         * @return \PHPUnit_Framework_MockObject_MockObject
-         */
-        protected function mockFlashMessageService()
-        {
-            $mockFlashMessageService = $this->getMock(
-                FlashMessageService::class,
-                ['getMessageQueueByIdentifier'],
-                [],
-                '',
-                false
-            );
-            $this->inject(
-                $this->subject,
-                'flashMessageService',
-                $mockFlashMessageService
-            );
+    /**
+     * @return FlashMessageService|\PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function mockFlashMessageService()
+    {
+        $mockFlashMessageService = $this->getMockBuilder(FlashMessageService::class)
+            ->setMethods(['getMessageQueueByIdentifier'])->getMock();
+        $this->inject(
+            $this->subject,
+            'flashMessageService',
+            $mockFlashMessageService
+        );
 
-            return $mockFlashMessageService;
-        }
+        return $mockFlashMessageService;
+    }
 
     /**
-     * @return \PHPUnit_Framework_MockObject_MockObject
+     * @return Request|\PHPUnit_Framework_MockObject_MockObject
      */
     protected function mockRequest()
     {
-        $mockRequest = $this->getMock(
-            Request::class, ['getControllerExtensionName', 'getPluginName']
-        );
+        $mockRequest = $this->getMockBuilder(Request::class)
+            ->setMethods(['getControllerExtensionName', 'getPluginName'])->getMock();
         $this->inject(
             $this->subject,
             'request',
@@ -101,13 +97,12 @@ class FlashMessageTraitTest extends UnitTestCase
     }
 
     /**
-     * @return \PHPUnit_Framework_MockObject_MockObject
+     * @return ExtensionService|\PHPUnit_Framework_MockObject_MockObject
      */
     protected function mockExtensionService()
     {
-        $mockExtensionService = $this->getMock(
-            ExtensionService::class, ['getPluginNamespace']
-        );
+        $mockExtensionService = $this->getMockBuilder(ExtensionService::class)
+            ->setMethods(['getPluginNamespace'])->getMock();
         $this->inject(
             $this->subject,
             'extensionService',
@@ -120,52 +115,14 @@ class FlashMessageTraitTest extends UnitTestCase
     /**
      * @test
      */
-    public function useLegacyFlashMessageHandlingInitiallyReturnsFalse()
-    {
-        $frameWorkConfiguration = [];
-        $mockConfigurationManager = $this->mockConfigurationManager();
-        $mockConfigurationManager->expects($this->once())
-            ->method('getConfiguration')
-            ->with(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK)
-            ->will($this->returnValue($frameWorkConfiguration));
-        $this->assertFalse(
-            $this->subject->useLegacyFlashMessageHandling()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function useLegacyFlashMessageHandlingReturnsTrueIfSet()
-    {
-        $frameWorkConfiguration = [
-            'legacy' => [
-                'enableLegacyFlashMessageHandling' => '1'
-            ]
-        ];
-        $mockConfigurationManager = $this->mockConfigurationManager();
-        $mockConfigurationManager->expects($this->once())
-            ->method('getConfiguration')
-            ->with(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK)
-            ->will($this->returnValue($frameWorkConfiguration));
-        $this->assertTrue(
-            $this->subject->useLegacyFlashMessageHandling()
-        );
-    }
-
-
-
-    /**
-     * @test
-     */
     public function getFlashMessageQueueInstantiatesQueue()
     {
         $namespace = 'fooNamespace';
         $extensionName = 'barExtension';
         $pluginName = 'bazPlugin';
-        $this->subject = $this->getMockForTrait(
-            \DWenzel\T3events\Controller\FlashMessageTrait::class, [], '', true, true, true, ['useLegacyFlashMessageHandling']
-        );
+        $this->subject = $this->getMockBuilder(FlashMessageTrait::class)
+            ->disableOriginalConstructor()
+            ->setMethods(['useLegacyFlashMessageHandling'])->getMockForTrait();
 
         $mockExtensionService = $this->mockExtensionService();
         $mockRequest = $this->mockRequest();
@@ -181,12 +138,7 @@ class FlashMessageTraitTest extends UnitTestCase
             ->method('getPluginName')
             ->will($this->returnValue($pluginName));
 
-        $mockFlashMessageQueue = $this->getMock(
-            FlashMessageQueue::class, [], [], '', false
-        );
-        $this->subject->expects($this->once())
-            ->method('useLegacyFlashMessageHandling')
-            ->will($this->returnValue(false));
+        $mockFlashMessageQueue = $this->getMockFlashMessageQueue();
         $mockFlashMessageService = $this->mockFlashMessageService();
         $mockFlashMessageService->expects($this->once())
             ->method('getMessageQueueByIdentifier')
@@ -219,12 +171,10 @@ class FlashMessageTraitTest extends UnitTestCase
         $severity = AbstractMessage::ERROR;
         $storeInSession = false;
         $expectedMessage = GeneralUtility::makeInstance(
-            'TYPO3\\CMS\\Core\\Messaging\\FlashMessage', $messageBody, $messageTitle, $severity, $storeInSession
+            FlashMessage::class, $messageBody, $messageTitle, $severity, $storeInSession
         );
 
-        $mockMessageQueue = $this->getMock(
-            FlashMessageQueue::class, ['enqueue'], [], '', false
-        );
+        $mockMessageQueue = $this->getMockFlashMessageQueue(['enqueue']);
         $this->inject(
             $this->subject,
             'flashMessageQueue',
@@ -237,5 +187,17 @@ class FlashMessageTraitTest extends UnitTestCase
         $this->subject->addFlashMessage(
             $messageBody, $messageTitle, $severity, $storeInSession
         );
+    }
+
+    /**
+     * @param array $methods Methods to mock
+     * @return FlashMessageQueue|\PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function getMockFlashMessageQueue(array $methods = [])
+    {
+        return $this->getMockBuilder(FlashMessageQueue::class)
+            ->disableOriginalConstructor()
+            ->setMethods($methods)
+            ->getMock();
     }
 }

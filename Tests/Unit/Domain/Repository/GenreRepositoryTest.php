@@ -1,4 +1,5 @@
 <?php
+
 namespace DWenzel\T3events\Tests\Unit\Domain\Repository;
 
 /***************************************************************
@@ -19,10 +20,12 @@ namespace DWenzel\T3events\Tests\Unit\Domain\Repository;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use TYPO3\CMS\Extbase\Persistence\QueryInterface;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
 use DWenzel\T3events\Domain\Repository\GenreRepository;
+use DWenzel\T3events\Tests\Unit\Domain\Model\Dto\MockDemandTrait;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
+use PHPUnit\Framework\MockObject\MockObject;
+use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 
 /**
  * Test case for class \DWenzel\T3events\Domain\Repository\GenreRepository.
@@ -32,6 +35,7 @@ use DWenzel\T3events\Domain\Repository\GenreRepository;
  */
 class GenreRepositoryTest extends UnitTestCase
 {
+    use MockDemandTrait, MockQueryTrait;
 
     /**
      * @var \DWenzel\T3events\Domain\Repository\GenreRepository
@@ -51,8 +55,8 @@ class GenreRepositoryTest extends UnitTestCase
      */
     public function createConstraintsFromDemandInitiallyReturnsEmptyArray()
     {
-        $demand = $this->getMock(DemandInterface::class);
-        $query = $this->getMock(QueryInterface::class, [], [], '', false);
+        $demand = $this->getMockDemand();
+        $query = $this->getMockQuery();
 
         $this->assertEquals(
             [],

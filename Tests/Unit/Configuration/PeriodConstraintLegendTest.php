@@ -1,10 +1,11 @@
 <?php
+
 namespace DWenzel\T3events\Tests\Unit\Configuration;
 
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use DWenzel\T3events\Configuration\PeriodConstraintLegend;
 use DWenzel\T3events\DataProvider\Legend\LayeredLegendDataProviderInterface;
 use DWenzel\T3events\DataProvider\Legend\PeriodDataProviderFactory;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Lang\LanguageService;
 
 /***************************************************************
@@ -42,7 +43,7 @@ class PeriodConstraintLegendTest extends UnitTestCase
     public function setUp()
     {
         $this->subject = $this->getMockBuilder(PeriodConstraintLegend::class)
-        ->setMethods(['dummy'])->getMock();
+            ->setMethods(['dummy'])->getMock();
 
         $this->periodDataProviderFactory = $this->getMockBuilder(PeriodDataProviderFactory::class)
             ->setMethods(['get'])->getMock();
@@ -63,21 +64,17 @@ class PeriodConstraintLegendTest extends UnitTestCase
 
     /**
      * @test
+     * @throws \DWenzel\T3events\MissingFileException
      */
     public function initializeSetsDataProvider()
     {
-        $this->subject = $this->getMock(
-            PeriodConstraintLegend::class,
-            ['getDataProviderFactory', 'load'], [], '', false
-        );
+        $this->subject = $this->getMockBuilder(PeriodConstraintLegend::class)
+            ->setMethods(['getDataProviderFactory', 'load'])->getMock();
         $params = ['foo'];
 
-        $mockDataProvider = $this->getMock(
-            LayeredLegendDataProviderInterface::class
-        );
-        $this->periodDataProviderFactory = $this->getMock(
-            PeriodDataProviderFactory::class, ['get']
-        );
+        $mockDataProvider = $this->getMockLayeredLegendDataProvider();
+        $this->periodDataProviderFactory = $this->getMockBuilder(PeriodDataProviderFactory::class)
+            ->setMethods(['get'])->getMock();
         $this->periodDataProviderFactory->expects($this->once())
             ->method('get')
             ->will($this->returnValue($mockDataProvider));
@@ -108,23 +105,16 @@ class PeriodConstraintLegendTest extends UnitTestCase
      */
     public function renderUpdatesLayers()
     {
-        $this->subject = $this->getMock(
-            PeriodConstraintLegend::class,
-            ['initialize', 'hideElements', 'showElements', 'setLabels', 'saveXML'], [], '', false
-        );
+        $this->subject = $this->getMockBuilder(PeriodConstraintLegend::class)
+            ->setMethods(
+                ['initialize', 'hideElements', 'showElements', 'setLabels', 'saveXML']
+            )
+            ->getMock();
         $params = ['foo'];
         $allLayers = ['foo'];
         $visibleLayers = ['bar'];
 
-        $mockDataProvider = $this->getMockForAbstractClass(
-            LayeredLegendDataProviderInterface::class,
-            [],
-            '',
-            false,
-            false,
-            true,
-            ['getAllLayerIds', 'getVisibleLayerIds']
-        );
+        $mockDataProvider = $this->getMockLayeredLegendDataProvider(['getAllLayerIds', 'getVisibleLayerIds']);
         $this->inject($this->subject, 'dataProvider', $mockDataProvider);
         $mockDataProvider->expects($this->once())
             ->method('getAllLayerIds')
@@ -148,13 +138,15 @@ class PeriodConstraintLegendTest extends UnitTestCase
      */
     public function renderSetsLabels()
     {
-        $this->subject = $this->getMock(
-            PeriodConstraintLegend::class,
-            ['initialize', 'updateLayers', 'saveXML', 'getLanguageService', 'replaceNodeText'], [], '', false
-        );
+        $this->subject = $this->getMockBuilder(PeriodConstraintLegend::class)
+            ->setMethods(
+                ['initialize', 'updateLayers', 'saveXML', 'getLanguageService', 'replaceNodeText']
+            )
+            ->getMock();
         $params = ['foo'];
 
-        $mockLanguageService = $this->getMock(LanguageService::class, ['sL'], [], '', false);
+        $mockLanguageService = $this->getMockBuilder(LanguageService::class)
+            ->setMethods(['sL'])->getMock();
         $this->subject->expects($this->any())
             ->method('getLanguageService')
             ->will($this->returnValue($mockLanguageService));
@@ -173,5 +165,16 @@ class PeriodConstraintLegendTest extends UnitTestCase
                 [PeriodConstraintLegend::END_TEXT_LAYER_ID, 'foo']
             );
         $this->subject->render($params);
+    }
+
+    /**
+     * @param array $methods Methods to mock
+     * @return LayeredLegendDataProviderInterface|\PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function getMockLayeredLegendDataProvider(array $methods = [])
+    {
+        return $this->getMockBuilder(LayeredLegendDataProviderInterface::class)
+            ->setMethods($methods)
+            ->getMockForAbstractClass();
     }
 }

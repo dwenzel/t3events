@@ -14,6 +14,7 @@ This is an extension for the TYPO3 CMS.
 * Configuration
     * [Overview](./Documentation/Configuration/Overview/Index.rst)
     * [Templates](./Documentation/Configuration/Templates.md)
+    * [Backend](./Documentation/Configuration/Backend.md)
 * [ViewHelpers](./Documentation/ViewHelpers/ViewHelpers.md)
     * Format
         * [ArrayToCsv](./Documentation/ViewHelpers/Format/ArrayToCsv.md)
@@ -24,8 +25,6 @@ This is an extension for the TYPO3 CMS.
     * [Auxiliary Records](./Documentation/UsersManual/AuxiliaryRecords/Index.rst)
     * [Events](./Documentation/UsersManual/Events/Index.rst)
     * [Plugins](./Documentation/UsersManual/InsertPlugins/Index.rst)
-* Administrators Manual
-    * [Updating from previous versions](./Documentation/AdministratorsManual/UpdateScripts.md)
 * [How To](./Documentation/HowTo/HowTo.md)
 
 ## Credits 
@@ -37,6 +36,8 @@ Thanks for contribution and feedback
 * [Erik Rauchstein](https://github.com/erauchstein)
 * [Jasmina Liessman](https://github.com/frau-liessmann)
 * [Tobias Kummer](https://github.com/tobikummer)
+* [Steffen Mevius](https://github.com/smeviuscps)
+* [kaywalker](https://github.com/kaywalker)
 
 This extension has been developed at [Agentur Webfox GmbH](https://www.agentur-webfox.de/) and [CPS IT GmbH](https://cps-it.de).
 

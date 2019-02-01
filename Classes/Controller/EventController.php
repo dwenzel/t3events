@@ -1,4 +1,5 @@
 <?php
+
 namespace DWenzel\T3events\Controller;
 
 /**
@@ -17,6 +18,8 @@ namespace DWenzel\T3events\Controller;
 
 use DWenzel\T3calendar\Domain\Factory\CalendarFactoryTrait;
 use DWenzel\T3calendar\Domain\Model\Dto\CalendarConfigurationFactoryTrait;
+use DWenzel\T3events\Domain\Model\Event;
+use DWenzel\T3events\Utility\SettingsInterface as SI;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
@@ -43,14 +46,15 @@ class EventController extends ActionController
 
     /**
      * initializes all actions
+     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException
      */
     public function initializeAction()
     {
         $this->settings = $this->mergeSettings();
-        if ($this->request->hasArgument('overwriteDemand')) {
+        if ($this->request->hasArgument(SI::OVERWRITE_DEMAND)) {
             $this->session->set(
                 'tx_t3events_overwriteDemand',
-                serialize($this->request->getArgument('overwriteDemand'))
+                serialize($this->request->getArgument(SI::OVERWRITE_DEMAND))
             );
         }
     }
@@ -60,7 +64,7 @@ class EventController extends ActionController
      */
     public function initializeQuickMenuAction()
     {
-        if (!$this->request->hasArgument('overwriteDemand')) {
+        if (!$this->request->hasArgument(SI::OVERWRITE_DEMAND)) {
             $this->session->clean();
         }
     }
@@ -70,6 +74,8 @@ class EventController extends ActionController
      *
      * @param array $overwriteDemand
      * @return void
+     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException
+     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
      */
     public function listAction($overwriteDemand = null)
     {
@@ -92,8 +98,8 @@ class EventController extends ActionController
         $templateVariables = [
             'events' => $events,
             'demand' => $demand,
-            'settings' => $this->settings,
-            'overwriteDemand' => $overwriteDemand,
+            SI::SETTINGS => $this->settings,
+            SI::OVERWRITE_DEMAND => $overwriteDemand,
             'data' => $this->configurationManager->getContentObject()->data
         ];
 
@@ -106,11 +112,13 @@ class EventController extends ActionController
      *
      * @param \DWenzel\T3events\Domain\Model\Event $event
      * @return void
+     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException
+     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
      */
-    public function showAction(\DWenzel\T3events\Domain\Model\Event $event)
+    public function showAction(Event $event)
     {
         $templateVariables = [
-            'settings' => $this->settings,
+            SI::SETTINGS => $this->settings,
             'event' => $event
         ];
         $this->emitSignal(__CLASS__, self::EVENT_SHOW_ACTION, $templateVariables);
@@ -121,6 +129,8 @@ class EventController extends ActionController
      * action quickMenu
      *
      * @return void
+     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException
+     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
      */
     public function quickMenuAction()
     {
@@ -128,33 +138,21 @@ class EventController extends ActionController
         $overwriteDemand = unserialize($this->session->get('tx_t3events_overwriteDemand'));
 
         // get filter options from plugin
-        $genres = $this->genreRepository->findMultipleByUid($this->settings['genres'], 'title');
-        $venues = $this->venueRepository->findMultipleByUid($this->settings['venues'], 'title');
-        $eventTypes = $this->eventTypeRepository->findMultipleByUid($this->settings['eventTypes'], 'title');
+        $genres = $this->genreRepository->findMultipleByUid($this->settings[SI::GENRES], 'title');
+        $venues = $this->venueRepository->findMultipleByUid($this->settings[SI::VENUES], 'title');
+        $eventTypes = $this->eventTypeRepository->findMultipleByUid($this->settings[SI::EVENT_TYPES], 'title');
 
         $templateVariables = [
-            'genres' => $genres,
-            'venues' => $venues,
-            'eventTypes' => $eventTypes,
-            'settings' => $this->settings,
-            'overwriteDemand' => $overwriteDemand
+            SI::GENRES => $genres,
+            SI::VENUES => $venues,
+            SI::EVENT_TYPES => $eventTypes,
+            SI::SETTINGS => $this->settings,
+            SI::OVERWRITE_DEMAND => $overwriteDemand
         ];
 
         $this->emitSignal(__CLASS__, self::EVENT_QUICK_MENU_ACTION, $templateVariables);
         $this->view->assignMultiple(
             $templateVariables
         );
-    }
-
-    /**
-     * Create demand from settings
-     *
-     * @param array $settings
-     * @return \DWenzel\T3events\Domain\Model\Dto\EventDemand
-     * @deprecated Use EventDemandFactory->createFromSettings instead
-     */
-    public function createDemandFromSettings($settings)
-    {
-        return $this->eventDemandFactory->createFromSettings($settings);
     }
 }

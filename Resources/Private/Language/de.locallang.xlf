@@ -1,573 +1,587 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2016-12-13T12:38:35Z">
-		<header>
-			<type>module</type>
-			<description>Language labels for the Events extension in the FRONTEND</description>
-			<generator>LFEditor</generator>
-		</header>
-		<body>
-		<trans-unit id="button.applyFilter" approved="yes" xml:space="preserve">
-			<source>apply filter</source>
-			<target>Filter anwenden</target>
-		</trans-unit>
-		<trans-unit id="button.back" approved="yes" xml:space="preserve">
-			<source>back</source>
-			<target>zurück</target>
-		</trans-unit>
-		<trans-unit id="button.cancel" approved="yes" xml:space="preserve">
-			<source>Cancel</source>
-			<target>Abbrechen</target>
-		</trans-unit>
-		<trans-unit id="button.downloadICS" approved="yes" xml:space="preserve">
-			<source>ICS file</source>
-			<target>ICS-Datei</target>
-		</trans-unit>
-		<trans-unit id="button.proceed" approved="yes" xml:space="preserve">
-			<source></source>
-			<target>weiter</target>
-		</trans-unit>
-		<trans-unit id="button.reset" approved="yes" xml:space="preserve">
-			<source>reset</source>
-			<target>zurücksetzen</target>
-		</trans-unit>
-		<trans-unit id="button.save" approved="yes" xml:space="preserve">
-			<source>Save</source>
-			<target>Speichern</target>
-		</trans-unit>
-		<trans-unit id="button.search" approved="yes" xml:space="preserve">
-			<source>search</source>
-			<target>suchen</target>
-		</trans-unit>
-		<trans-unit id="button.send" approved="yes" xml:space="preserve">
-			<source>Send</source>
-			<target>Abschicken</target>
-		</trans-unit>
-		<trans-unit id="button.show" approved="yes" xml:space="preserve">
-			<source></source>
-			<target>Detail</target>
-		</trans-unit>
-		<trans-unit id="label.allAudiences" approved="yes" xml:space="preserve">
-			<source>all audiences</source>
-			<target>alle Zielgruppen</target>
-		</trans-unit>
-		<trans-unit id="label.allCategories" approved="yes" xml:space="preserve">
-			<source>all categories</source>
-			<target>alle Kategorien</target>
-		</trans-unit>
-		<trans-unit id="label.allEventLocations" approved="yes" xml:space="preserve">
-			<source>all event locations</source>
-			<target>alle Veranstaltungsorte</target>
-		</trans-unit>
-		<trans-unit id="label.allEventTypes" approved="yes" xml:space="preserve">
-			<source>all event types</source>
-			<target>alle Veranstaltungstypen</target>
-		</trans-unit>
-		<trans-unit id="label.allGenres" approved="yes" xml:space="preserve">
-			<source>all Products</source>
-			<target>alle Produkte</target>
-		</trans-unit>
-		<trans-unit id="label.audience" approved="yes" xml:space="preserve">
-			<source>Audience</source>
-			<target>Zielgruppe</target>
-		</trans-unit>
-		<trans-unit id="label.availablePlaces" approved="yes" xml:space="preserve">
-			<source>available places</source>
-			<target>verfügbare Plätze</target>
-		</trans-unit>
-		<trans-unit id="label.category" approved="yes" xml:space="preserve">
-			<source>Category</source>
-			<target>Kategorie</target>
-		</trans-unit>
-		<trans-unit id="label.differentLocations" approved="yes" xml:space="preserve">
-			<source>different locations</source>
-			<target>verschiedene Veranstaltungsorte</target>
-		</trans-unit>
-		<trans-unit id="label.eventType" approved="yes" xml:space="preserve">
-			<source>Event Type</source>
-			<target>Veranstaltungstyp</target>
-		</trans-unit>
-		<trans-unit id="label.period" approved="yes" xml:space="preserve">
-			<source>Period</source>
-			<target>Zeitraum</target>
-		</trans-unit>
-		<trans-unit id="label.period.all" approved="yes" xml:space="preserve">
-			<source>all</source>
-			<target>alle</target>
-		</trans-unit>
-		<trans-unit id="label.period.futureOnly" approved="yes" xml:space="preserve">
-			<source>upcoming</source>
-			<target>zukünftige</target>
-		</trans-unit>
-		<trans-unit id="label.period.pastOnly" approved="yes" xml:space="preserve">
-			<source>past</source>
-			<target>vergangene</target>
-		</trans-unit>
-		<trans-unit id="label.period.specific" approved="yes" xml:space="preserve">
-			<source>specific</source>
-			<target>spezifisch</target>
-		</trans-unit>
-		<trans-unit id="label.schedules" approved="yes" xml:space="preserve">
-			<source></source>
-			<target>Termine</target>
-		</trans-unit>
-		<trans-unit id="label.search.field.subject" approved="yes" xml:space="preserve">
-			<source>Subject</source>
-			<target>Suchbegriff</target>
-		</trans-unit>
-		<trans-unit id="placeholder.location" approved="yes" xml:space="preserve">
-			<source>Location</source>
-			<target>Ort</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events.allEventTypes" approved="yes" xml:space="preserve">
-			<source>All Event Types</source>
-			<target>Alle Veranstaltungsarten</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events.allGenres" approved="yes" xml:space="preserve">
-			<source>All Genres</source>
-			<target>Alle Genre</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events.allVenues" approved="yes" xml:space="preserve">
-			<source>All Venues</source>
-			<target>Alle Einrichtungen</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events.backToList" approved="yes" xml:space="preserve">
-			<source>back to list</source>
-			<target>zurück zur Liste</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events.button.label.search" approved="yes" xml:space="preserve">
-			<source>Search</source>
-			<target>Suchen</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events.button.label.update" approved="yes" xml:space="preserve">
-			<source>Update</source>
-			<target>Aktualisieren</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events.calendar.month1" approved="yes" xml:space="preserve">
-			<source>January</source>
-			<target>Januar</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events.calendar.month10" approved="yes" xml:space="preserve">
-			<source>October</source>
-			<target>Oktober</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events.calendar.month11" approved="yes" xml:space="preserve">
-			<source>November</source>
-			<target>November</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events.calendar.month12" approved="yes" xml:space="preserve">
-			<source>December</source>
-			<target>Dezember</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events.calendar.month2" approved="yes" xml:space="preserve">
-			<source>February</source>
-			<target>Februar</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events.calendar.month3" approved="yes" xml:space="preserve">
-			<source>March</source>
-			<target>März</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events.calendar.month4" approved="yes" xml:space="preserve">
-			<source>April</source>
-			<target>April</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events.calendar.month5" approved="yes" xml:space="preserve">
-			<source>May</source>
-			<target>Mai</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events.calendar.month6" approved="yes" xml:space="preserve">
-			<source>June</source>
-			<target>Juni</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events.calendar.month7" approved="yes" xml:space="preserve">
-			<source>July</source>
-			<target>Juli</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events.calendar.month8" approved="yes" xml:space="preserve">
-			<source>August</source>
-			<target>August</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events.calendar.month9" approved="yes" xml:space="preserve">
-			<source>September</source>
-			<target>September</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events.calendar.weekday1" approved="yes" xml:space="preserve">
-			<source>Mon</source>
-			<target>Mo</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events.calendar.weekday2" approved="yes" xml:space="preserve">
-			<source>Tue</source>
-			<target>Di</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events.calendar.weekday3" approved="yes" xml:space="preserve">
-			<source>Wed</source>
-			<target>Mi</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events.calendar.weekday4" approved="yes" xml:space="preserve">
-			<source>Thu</source>
-			<target>Do</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events.calendar.weekday5" approved="yes" xml:space="preserve">
-			<source>Fri</source>
-			<target>Fr</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events.calendar.weekday6" approved="yes" xml:space="preserve">
-			<source>Sat</source>
-			<target>Sa</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events.calendar.weekday7" approved="yes" xml:space="preserve">
-			<source>Sun</source>
-			<target>So</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events.count" approved="yes" xml:space="preserve">
-			<source>Count</source>
-			<target>Anzahl</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events.date" approved="yes" xml:space="preserve">
-			<source>Date</source>
-			<target>Datum</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events.externalLinkLabel" approved="yes" xml:space="preserve">
-			<source>external Link</source>
-			<target>externer Link</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events.hint.advanceBookingFee" approved="yes" xml:space="preserve">
-			<source></source>
-			<target>*Die Preise verstehen sich inklusive Vorverkaufsgebühr.</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events.hint.noAdvanceBookingFee" approved="yes" xml:space="preserve">
-			<source>*Prices without advance booking fee.</source>
-			<target>*Die Preise enthalten keine Vorverkaufsgebühr.</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events.hint.searchAllEventsByGenre" approved="yes" xml:space="preserve">
-			<source>Search all events by genre:</source>
-			<target>Suchen Sie alle Veranstaltungen aus einem Genre:</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events.hint.sortBy" approved="yes" xml:space="preserve">
-			<source>Sort by:</source>
-			<target>Sortiere nach:</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events.label.calendarEntry" approved="yes" xml:space="preserve">
-			<source>Calendar Entry</source>
-			<target>Kalendereintrag</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events.label.differentLocations" approved="yes" xml:space="preserve">
-			<source>different locations</source>
-			<target>verschiedene Spielstätten</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events.label.print" approved="yes" xml:space="preserve">
-			<source>Print</source>
-			<target>Drucken</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events.label.ticketsFrom" approved="yes" xml:space="preserve">
-			<source>Tickets from:</source>
-			<target>Tickets ab:</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events.next" approved="yes" xml:space="preserve">
-			<source>next</source>
-			<target>vor</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events.noEventsForSelectionMessage" approved="yes" xml:space="preserve">
-			<source>Sorry, there are no events matching your selection</source>
-			<target>Zu Ihrer Auswahl konnten leider keine Veranstaltungen gefunden werden.</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events.noEventsForSelectionTitle" approved="yes" xml:space="preserve">
-			<source>No events found</source>
-			<target>Keine Veranstaltungen</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events.order" approved="yes" xml:space="preserve">
-			<source>Order</source>
-			<target>Bestellen</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events.previous" approved="yes" xml:space="preserve">
-			<source>previous</source>
-			<target>zurück</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events.price" approved="yes" xml:space="preserve">
-			<source>Price</source>
-			<target>Preis</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events.quickSearch.title" approved="yes" xml:space="preserve">
-			<source></source>
-			<target>Schnellsuche</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events.sortDirection" approved="yes" xml:space="preserve">
-			<source>Direction</source>
-			<target>Reihenfolge</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events.sortDirection.asc" approved="yes" xml:space="preserve">
-			<source>ascending</source>
-			<target>aufsteigend</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events.sortDirection.desc" approved="yes" xml:space="preserve">
-			<source>descending</source>
-			<target>absteigend</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events.ticket" approved="yes" xml:space="preserve">
-			<source>Ticket</source>
-			<target>Ticket</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events.tickets" approved="yes" xml:space="preserve">
-			<source>Tickets</source>
-			<target>Tickets</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events.time" approved="yes" xml:space="preserve">
-			<source>time</source>
-			<target>Zeit</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_country" approved="yes" xml:space="preserve">
-			<source>Country</source>
-			<target>Land</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_event" approved="yes" xml:space="preserve">
-			<source>Event</source>
-			<target>Veranstaltung</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_event.event_type" approved="yes" xml:space="preserve">
-			<source>eventType</source>
-			<target>Veranstaltungstyp</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_event.files" approved="yes" xml:space="preserve">
-			<source>Files</source>
-			<target>Dateien</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_event.genre" approved="yes" xml:space="preserve">
-			<source>genre</source>
-			<target>Genre</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_event.organizer" approved="yes" xml:space="preserve">
-			<source>organizer</source>
-			<target>organizer</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_event.performance" approved="yes" xml:space="preserve">
-			<source>performance</source>
-			<target>Vorstellung</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_event.performances" approved="yes" xml:space="preserve">
-			<source>performances</source>
-			<target>Vorstellungen</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_event.related" approved="yes" xml:space="preserve">
-			<source>Related events</source>
-			<target>Verwandte Events</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_eventlocation" approved="yes" xml:space="preserve">
-			<source>Event Location</source>
-			<target>Veranstaltungsort</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_eventlocation.address" approved="yes" xml:space="preserve">
-			<source>address</source>
-			<target>Adresse</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_eventlocation.country" approved="yes" xml:space="preserve">
-			<source>country</source>
-			<target>Land</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_eventlocation.details" approved="yes" xml:space="preserve">
-			<source>details</source>
-			<target>Details</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_eventlocation.image" approved="yes" xml:space="preserve">
-			<source>image</source>
-			<target>image</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_eventlocation.name" approved="yes" xml:space="preserve">
-			<source>name</source>
-			<target>Name</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_eventlocation.place" approved="yes" xml:space="preserve">
-			<source>place</source>
-			<target>Ort</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_eventlocation.www" approved="yes" xml:space="preserve">
-			<source>www</source>
-			<target>WWW</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_eventlocation.zip" approved="yes" xml:space="preserve">
-			<source>zip</source>
-			<target>PLZ</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_eventtype" approved="yes" xml:space="preserve">
-			<source>EventType</source>
-			<target>EventType</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_eventtype.title" approved="yes" xml:space="preserve">
-			<source>title</source>
-			<target>title</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_genre" approved="yes" xml:space="preserve">
-			<source>Genre</source>
-			<target>Genre</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_genre.title" approved="yes" xml:space="preserve">
-			<source>title</source>
-			<target>Titel</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_organizer" approved="yes" xml:space="preserve">
-			<source>Organizer</source>
-			<target>Veranstalter</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_organizer.link" approved="yes" xml:space="preserve">
-			<source>link</source>
-			<target>link</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_organizer.name" approved="yes" xml:space="preserve">
-			<source>name</source>
-			<target>name</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performance" approved="yes" xml:space="preserve">
-			<source>Performance</source>
-			<target>Vorstellung</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performance.additional_link" approved="yes" xml:space="preserve">
-			<source>additionalLink</source>
-			<target>additionalLink</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performance.admission" approved="yes" xml:space="preserve">
-			<source>Admission</source>
-			<target>Einlass</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performance.begin" approved="yes" xml:space="preserve">
-			<source>begin</source>
-			<target>Beginn</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performance.date" approved="yes" xml:space="preserve">
-			<source>date</source>
-			<target>Datum</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performance.end" approved="yes" xml:space="preserve">
-			<source>end</source>
-			<target>Ende</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performance.event" approved="yes" xml:space="preserve">
-			<source>event</source>
-			<target>Veranstaltung</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performance.event_location" approved="yes" xml:space="preserve">
-			<source>eventLocation</source>
-			<target>Veranstaltungsort</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performance.external_provider_link" approved="yes" xml:space="preserve">
-			<source>externalProviderLink</source>
-			<target>externalProviderLink</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performance.hint.external_provider_link" approved="yes" xml:space="preserve">
-			<source>Simply print your tickets now!</source>
-			<target>Drucken Sie Tickets einfach sofort aus!</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performance.image" approved="yes" xml:space="preserve">
-			<source>image</source>
-			<target>Bild</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performance.images" approved="yes" xml:space="preserve">
-			<source>Images</source>
-			<target>Bilder</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performance.no_handling_fee" approved="yes" xml:space="preserve">
-			<source>no handling fee</source>
-			<target>Keine Bearbeitungsgebühr</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performance.plan" approved="yes" xml:space="preserve">
-			<source>plan of places and price classes</source>
-			<target>Übersicht der Plätze und Preisklassen</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performance.price_notice" approved="yes" xml:space="preserve">
-			<source>price notice</source>
-			<target>Preishinweis</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performance.provider_type" approved="yes" xml:space="preserve">
-			<source>providerType</source>
-			<target>providerType</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performance.status" approved="yes" xml:space="preserve">
-			<source>status</source>
-			<target>Status</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performance.status_info" approved="yes" xml:space="preserve">
-			<source>statusInfo</source>
-			<target>statusInfo</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performance.ticket_class" approved="yes" xml:space="preserve">
-			<source>ticketClass</source>
-			<target>Preisklasse</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performancestatus" approved="yes" xml:space="preserve">
-			<source>PerformanceStatus</source>
-			<target>PerformanceStatus</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performancestatus.priority" approved="yes" xml:space="preserve">
-			<source>priority</source>
-			<target>priority</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performancestatus.title" approved="yes" xml:space="preserve">
-			<source>title</source>
-			<target>title</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_ticketclass" approved="yes" xml:space="preserve">
-			<source>TicketClass</source>
-			<target>Preisklasse</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_ticketclass.normal" approved="yes" xml:space="preserve">
-			<source>regular</source>
-			<target>normal</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_ticketclass.reduced" approved="yes" xml:space="preserve">
-			<source>reduced</source>
-			<target>ermäßigt</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_ticketclass.special" approved="yes" xml:space="preserve">
-			<source>special</source>
-			<target>spezial</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_ticketclass.title" approved="yes" xml:space="preserve">
-			<source>title</source>
-			<target>Titel</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_ticketclass.type.0" approved="yes" xml:space="preserve">
-			<source>regular</source>
-			<target>normal</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_ticketclass.type.1" approved="yes" xml:space="preserve">
-			<source>reduced</source>
-			<target>ermäßigt</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_ticketclass.type.2" approved="yes" xml:space="preserve">
-			<source>special</source>
-			<target>spezial</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_venue" approved="yes" xml:space="preserve">
-			<source>Venue</source>
-			<target>Einrichtung</target>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_venue.title" approved="yes" xml:space="preserve">
-			<source>title</source>
-			<target>Titel</target>
-		</trans-unit>
+    <file source-language="en" target-language="de" datatype="plaintext" original="messages"
+          date="2016-12-13T12:38:35Z">
+        <header>
+            <type>module</type>
+            <description>Language labels for the Events extension in the FRONTEND</description>
+            <generator>LFEditor</generator>
+        </header>
+        <body>
+            <trans-unit id="button.applyFilter" approved="yes" xml:space="preserve">
+            <source>apply filter</source>
+            <target>Filter anwenden</target>
+        </trans-unit>
+        <trans-unit id="button.back" approved="yes" xml:space="preserve">
+            <source>back</source>
+            <target>zurück</target>
+        </trans-unit>
+        <trans-unit id="button.newAction.event" xml:space="preserve">
+            <source>New Event</source>
+            <target>Neue Veranstaltung</target>
+        </trans-unit>
+
+        <trans-unit id="button.cancel" approved="yes" xml:space="preserve">
+            <source>Cancel</source>
+            <target>Abbrechen</target>
+        </trans-unit>
+        <trans-unit id="button.downloadICS" approved="yes" xml:space="preserve">
+            <source>ICS file</source>
+            <target>ICS-Datei</target>
+        </trans-unit>
+        <trans-unit id="button.proceed" approved="yes" xml:space="preserve">
+            <source></source>
+            <target>weiter</target>
+        </trans-unit>
+        <trans-unit id="button.reset" approved="yes" xml:space="preserve">
+            <source>reset</source>
+            <target>zurücksetzen</target>
+        </trans-unit>
+        <trans-unit id="button.save" approved="yes" xml:space="preserve">
+            <source>Save</source>
+            <target>Speichern</target>
+        </trans-unit>
+        <trans-unit id="button.search" approved="yes" xml:space="preserve">
+            <source>search</source>
+            <target>suchen</target>
+        </trans-unit>
+        <trans-unit id="button.send" approved="yes" xml:space="preserve">
+            <source>Send</source>
+            <target>Abschicken</target>
+        </trans-unit>
+        <trans-unit id="button.show" approved="yes" xml:space="preserve">
+            <source></source>
+            <target>Detail</target>
+        </trans-unit>
+        <trans-unit id="label.allAudiences" approved="yes" xml:space="preserve">
+            <source>all audiences</source>
+            <target>alle Zielgruppen</target>
+        </trans-unit>
+        <trans-unit id="label.allCategories" approved="yes" xml:space="preserve">
+            <source>all categories</source>
+            <target>alle Kategorien</target>
+        </trans-unit>
+        <trans-unit id="label.allEventLocations" approved="yes" xml:space="preserve">
+            <source>all event locations</source>
+            <target>alle Veranstaltungsorte</target>
+        </trans-unit>
+        <trans-unit id="label.allEventTypes" approved="yes" xml:space="preserve">
+            <source>all event types</source>
+            <target>alle Veranstaltungstypen</target>
+        </trans-unit>
+        <trans-unit id="label.allGenres" approved="yes" xml:space="preserve">
+            <source>all Products</source>
+            <target>alle Produkte</target>
+        </trans-unit>
+        <trans-unit id="label.audience" approved="yes" xml:space="preserve">
+            <source>Audience</source>
+            <target>Zielgruppe</target>
+        </trans-unit>
+        <trans-unit id="label.availablePlaces" approved="yes" xml:space="preserve">
+            <source>available places</source>
+            <target>verfügbare Plätze</target>
+        </trans-unit>
+        <trans-unit id="label.category" approved="yes" xml:space="preserve">
+            <source>Category</source>
+            <target>Kategorie</target>
+        </trans-unit>
+        <trans-unit id="label.differentLocations" approved="yes" xml:space="preserve">
+            <source>different locations</source>
+            <target>verschiedene Veranstaltungsorte</target>
+        </trans-unit>
+        <trans-unit id="label.eventType" approved="yes" xml:space="preserve">
+            <source>Event Type</source>
+            <target>Veranstaltungstyp</target>
+        </trans-unit>
+        <trans-unit id="label.period" approved="yes" xml:space="preserve">
+            <source>Period</source>
+            <target>Zeitraum</target>
+        </trans-unit>
+        <trans-unit id="label.period.all" approved="yes" xml:space="preserve">
+            <source>all</source>
+            <target>alle</target>
+        </trans-unit>
+        <trans-unit id="label.period.futureOnly" approved="yes" xml:space="preserve">
+            <source>upcoming</source>
+            <target>zukünftige</target>
+        </trans-unit>
+        <trans-unit id="label.period.pastOnly" approved="yes" xml:space="preserve">
+            <source>past</source>
+            <target>vergangene</target>
+        </trans-unit>
+        <trans-unit id="label.period.specific" approved="yes" xml:space="preserve">
+            <source>specific</source>
+            <target>spezifisch</target>
+        </trans-unit>
+        <trans-unit id="label.schedules" approved="yes" xml:space="preserve">
+            <source></source>
+            <target>Termine</target>
+        </trans-unit>
+        <trans-unit id="label.search.field.subject" approved="yes" xml:space="preserve">
+            <source>Subject</source>
+            <target>Suchbegriff</target>
+        </trans-unit>
+        <trans-unit id="placeholder.location" approved="yes" xml:space="preserve">
+            <source>Location</source>
+            <target>Ort</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events.allEventTypes" approved="yes" xml:space="preserve">
+            <source>All Event Types</source>
+            <target>Alle Veranstaltungsarten</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events.allGenres" approved="yes" xml:space="preserve">
+            <source>All Genres</source>
+            <target>Alle Genre</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events.allVenues" approved="yes" xml:space="preserve">
+            <source>All Venues</source>
+            <target>Alle Einrichtungen</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events.backToList" approved="yes" xml:space="preserve">
+            <source>back to list</source>
+            <target>zurück zur Liste</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events.button.label.search" approved="yes" xml:space="preserve">
+            <source>Search</source>
+            <target>Suchen</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events.button.label.update" approved="yes" xml:space="preserve">
+            <source>Update</source>
+            <target>Aktualisieren</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events.calendar.month1" approved="yes" xml:space="preserve">
+            <source>January</source>
+            <target>Januar</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events.calendar.month10" approved="yes" xml:space="preserve">
+            <source>October</source>
+            <target>Oktober</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events.calendar.month11" approved="yes" xml:space="preserve">
+            <source>November</source>
+            <target>November</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events.calendar.month12" approved="yes" xml:space="preserve">
+            <source>December</source>
+            <target>Dezember</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events.calendar.month2" approved="yes" xml:space="preserve">
+            <source>February</source>
+            <target>Februar</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events.calendar.month3" approved="yes" xml:space="preserve">
+            <source>March</source>
+            <target>März</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events.calendar.month4" approved="yes" xml:space="preserve">
+            <source>April</source>
+            <target>April</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events.calendar.month5" approved="yes" xml:space="preserve">
+            <source>May</source>
+            <target>Mai</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events.calendar.month6" approved="yes" xml:space="preserve">
+            <source>June</source>
+            <target>Juni</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events.calendar.month7" approved="yes" xml:space="preserve">
+            <source>July</source>
+            <target>Juli</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events.calendar.month8" approved="yes" xml:space="preserve">
+            <source>August</source>
+            <target>August</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events.calendar.month9" approved="yes" xml:space="preserve">
+            <source>September</source>
+            <target>September</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events.calendar.weekday1" approved="yes" xml:space="preserve">
+            <source>Mon</source>
+            <target>Mo</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events.calendar.weekday2" approved="yes" xml:space="preserve">
+            <source>Tue</source>
+            <target>Di</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events.calendar.weekday3" approved="yes" xml:space="preserve">
+            <source>Wed</source>
+            <target>Mi</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events.calendar.weekday4" approved="yes" xml:space="preserve">
+            <source>Thu</source>
+            <target>Do</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events.calendar.weekday5" approved="yes" xml:space="preserve">
+            <source>Fri</source>
+            <target>Fr</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events.calendar.weekday6" approved="yes" xml:space="preserve">
+            <source>Sat</source>
+            <target>Sa</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events.calendar.weekday7" approved="yes" xml:space="preserve">
+            <source>Sun</source>
+            <target>So</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events.count" approved="yes" xml:space="preserve">
+            <source>Count</source>
+            <target>Anzahl</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events.date" approved="yes" xml:space="preserve">
+            <source>Date</source>
+            <target>Datum</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events.externalLinkLabel" approved="yes" xml:space="preserve">
+            <source>external Link</source>
+            <target>externer Link</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events.hint.advanceBookingFee" approved="yes" xml:space="preserve">
+            <source></source>
+            <target>*Die Preise verstehen sich inklusive Vorverkaufsgebühr.</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events.hint.noAdvanceBookingFee" approved="yes" xml:space="preserve">
+            <source>*Prices without advance booking fee.</source>
+            <target>*Die Preise enthalten keine Vorverkaufsgebühr.</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events.hint.searchAllEventsByGenre" approved="yes" xml:space="preserve">
+            <source>Search all events by genre:</source>
+            <target>Suchen Sie alle Veranstaltungen aus einem Genre:</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events.hint.sortBy" approved="yes" xml:space="preserve">
+            <source>Sort by:</source>
+            <target>Sortiere nach:</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events.label.calendarEntry" approved="yes" xml:space="preserve">
+            <source>Calendar Entry</source>
+            <target>Kalendereintrag</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events.label.differentLocations" approved="yes" xml:space="preserve">
+            <source>different locations</source>
+            <target>verschiedene Spielstätten</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events.label.print" approved="yes" xml:space="preserve">
+            <source>Print</source>
+            <target>Drucken</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events.label.ticketsFrom" approved="yes" xml:space="preserve">
+            <source>Tickets from:</source>
+            <target>Tickets ab:</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events.next" approved="yes" xml:space="preserve">
+            <source>next</source>
+            <target>vor</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events.noEventsForSelectionMessage" approved="yes" xml:space="preserve">
+            <source>Sorry, there are no events matching your selection</source>
+            <target>Zu Ihrer Auswahl konnten leider keine Veranstaltungen gefunden werden.</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events.noEventsForSelectionTitle" approved="yes" xml:space="preserve">
+            <source>No events found</source>
+            <target>Keine Veranstaltungen</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events.order" approved="yes" xml:space="preserve">
+            <source>Order</source>
+            <target>Bestellen</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events.previous" approved="yes" xml:space="preserve">
+            <source>previous</source>
+            <target>zurück</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events.price" approved="yes" xml:space="preserve">
+            <source>Price</source>
+            <target>Preis</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events.quickSearch.title" approved="yes" xml:space="preserve">
+            <source></source>
+            <target>Schnellsuche</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events.sortDirection" approved="yes" xml:space="preserve">
+            <source>Direction</source>
+            <target>Reihenfolge</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events.sortDirection.asc" approved="yes" xml:space="preserve">
+            <source>ascending</source>
+            <target>aufsteigend</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events.sortDirection.desc" approved="yes" xml:space="preserve">
+            <source>descending</source>
+            <target>absteigend</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events.ticket" approved="yes" xml:space="preserve">
+            <source>Ticket</source>
+            <target>Ticket</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events.tickets" approved="yes" xml:space="preserve">
+            <source>Tickets</source>
+            <target>Tickets</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events.time" approved="yes" xml:space="preserve">
+            <source>time</source>
+            <target>Zeit</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_country" approved="yes" xml:space="preserve">
+            <source>Country</source>
+            <target>Land</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_event" approved="yes" xml:space="preserve">
+            <source>Event</source>
+            <target>Veranstaltung</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_event.event_type" approved="yes" xml:space="preserve">
+            <source>eventType</source>
+            <target>Veranstaltungstyp</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_event.files" approved="yes" xml:space="preserve">
+            <source>Files</source>
+            <target>Dateien</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_event.genre" approved="yes" xml:space="preserve">
+            <source>genre</source>
+            <target>Genre</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_event.organizer" approved="yes" xml:space="preserve">
+            <source>organizer</source>
+            <target>organizer</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_event.performance" approved="yes" xml:space="preserve">
+            <source>performance</source>
+            <target>Vorstellung</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_event.performances" approved="yes" xml:space="preserve">
+            <source>performances</source>
+            <target>Vorstellungen</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_event.related" approved="yes" xml:space="preserve">
+            <source>Related events</source>
+            <target>Verwandte Events</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_event.relatedSchedules" approved="yes" xml:space="preserve">
+            <source>Related schedules</source>
+            <target>Zugehörige Termine</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_eventlocation" approved="yes" xml:space="preserve">
+            <source>Event Location</source>
+            <target>Veranstaltungsort</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_eventlocation.address" approved="yes" xml:space="preserve">
+            <source>address</source>
+            <target>Adresse</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_eventlocation.country" approved="yes" xml:space="preserve">
+            <source>country</source>
+            <target>Land</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_eventlocation.details" approved="yes" xml:space="preserve">
+            <source>details</source>
+            <target>Details</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_eventlocation.image" approved="yes" xml:space="preserve">
+            <source>image</source>
+            <target>image</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_eventlocation.name" approved="yes" xml:space="preserve">
+            <source>name</source>
+            <target>Name</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_eventlocation.place" approved="yes" xml:space="preserve">
+            <source>place</source>
+            <target>Ort</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_eventlocation.www" approved="yes" xml:space="preserve">
+            <source>www</source>
+            <target>WWW</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_eventlocation.zip" approved="yes" xml:space="preserve">
+            <source>zip</source>
+            <target>PLZ</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_eventtype" approved="yes" xml:space="preserve">
+            <source>EventType</source>
+            <target>EventType</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_eventtype.title" approved="yes" xml:space="preserve">
+            <source>title</source>
+            <target>title</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_genre" approved="yes" xml:space="preserve">
+            <source>Genre</source>
+            <target>Genre</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_genre.title" approved="yes" xml:space="preserve">
+            <source>title</source>
+            <target>Titel</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_organizer" approved="yes" xml:space="preserve">
+            <source>Organizer</source>
+            <target>Veranstalter</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_organizer.link" approved="yes" xml:space="preserve">
+            <source>link</source>
+            <target>link</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_organizer.name" approved="yes" xml:space="preserve">
+            <source>name</source>
+            <target>name</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_performance" approved="yes" xml:space="preserve">
+            <source>Performance</source>
+            <target>Vorstellung</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_performance.additional_link" approved="yes" xml:space="preserve">
+            <source>additionalLink</source>
+            <target>additionalLink</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_performance.admission" approved="yes" xml:space="preserve">
+            <source>Admission</source>
+            <target>Einlass</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_performance.begin" approved="yes" xml:space="preserve">
+            <source>begin</source>
+            <target>Beginn</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_performance.date" approved="yes" xml:space="preserve">
+            <source>date</source>
+            <target>Datum</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_performance.end" approved="yes" xml:space="preserve">
+            <source>end</source>
+            <target>Ende</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_performance.event" approved="yes" xml:space="preserve">
+            <source>event</source>
+            <target>Veranstaltung</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_performance.event_location" approved="yes" xml:space="preserve">
+            <source>eventLocation</source>
+            <target>Veranstaltungsort</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_performance.external_provider_link" approved="yes" xml:space="preserve">
+            <source>externalProviderLink</source>
+            <target>externalProviderLink</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_performance.hint.external_provider_link" approved="yes" xml:space="preserve">
+            <source>Simply print your tickets now!</source>
+            <target>Drucken Sie Tickets einfach sofort aus!</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_performance.image" approved="yes" xml:space="preserve">
+            <source>image</source>
+            <target>Bild</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_performance.images" approved="yes" xml:space="preserve">
+            <source>Images</source>
+            <target>Bilder</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_performance.no_handling_fee" approved="yes" xml:space="preserve">
+            <source>no handling fee</source>
+            <target>Keine Bearbeitungsgebühr</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_performance.plan" approved="yes" xml:space="preserve">
+            <source>plan of places and price classes</source>
+            <target>Übersicht der Plätze und Preisklassen</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_performance.price_notice" approved="yes" xml:space="preserve">
+            <source>price notice</source>
+            <target>Preishinweis</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_performance.provider_type" approved="yes" xml:space="preserve">
+            <source>providerType</source>
+            <target>providerType</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_performance.status" approved="yes" xml:space="preserve">
+            <source>status</source>
+            <target>Status</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_performance.status_info" approved="yes" xml:space="preserve">
+            <source>statusInfo</source>
+            <target>statusInfo</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_performance.ticket_class" approved="yes" xml:space="preserve">
+            <source>ticketClass</source>
+            <target>Preisklasse</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_performancestatus" approved="yes" xml:space="preserve">
+            <source>PerformanceStatus</source>
+            <target>PerformanceStatus</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_performancestatus.priority" approved="yes" xml:space="preserve">
+            <source>priority</source>
+            <target>priority</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_performancestatus.title" approved="yes" xml:space="preserve">
+            <source>title</source>
+            <target>title</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_ticketclass" approved="yes" xml:space="preserve">
+            <source>TicketClass</source>
+            <target>Preisklasse</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_ticketclass.normal" approved="yes" xml:space="preserve">
+            <source>regular</source>
+            <target>normal</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_ticketclass.reduced" approved="yes" xml:space="preserve">
+            <source>reduced</source>
+            <target>ermäßigt</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_ticketclass.special" approved="yes" xml:space="preserve">
+            <source>special</source>
+            <target>spezial</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_ticketclass.title" approved="yes" xml:space="preserve">
+            <source>title</source>
+            <target>Titel</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_ticketclass.type.0" approved="yes" xml:space="preserve">
+            <source>regular</source>
+            <target>normal</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_ticketclass.type.1" approved="yes" xml:space="preserve">
+            <source>reduced</source>
+            <target>ermäßigt</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_ticketclass.type.2" approved="yes" xml:space="preserve">
+            <source>special</source>
+            <target>spezial</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_venue" approved="yes" xml:space="preserve">
+            <source>Venue</source>
+            <target>Einrichtung</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_venue.title" approved="yes" xml:space="preserve">
+            <source>title</source>
+            <target>Titel</target>
+        </trans-unit>
 
         <trans-unit id="message.noEventFound.title" xml:space="preserve">
             <source>No event found</source>
-			<target>Keine Veranstaltungen</target>
+            <target>Keine Veranstaltungen</target>
         </trans-unit>
         <trans-unit id="message.noEventFound.text" xml:space="preserve">
             <source>Could not find any event matching your criteria.</source>
-			<target>Es konnten keine Veranstaltungen gefunden werden.</target>
+            <target>Es konnten keine Veranstaltungen gefunden werden.</target>
         </trans-unit>
         <trans-unit id="button.addEvent" xml:space="preserve">
             <source>Add Event</source>
-			<target>Veranstaltung hinzufügen</target>
+            <target>Veranstaltung hinzufügen</target>
         </trans-unit>
         <trans-unit id="button.edit" xml:space="preserve">
             <source>edit</source>
-			<target>bearbeiten</target>
+            <target>bearbeiten</target>
         </trans-unit>
         <trans-unit id="header.events" xml:space="preserve">
             <source>Events</source>
-			<target>Veranstaltungen</target>
+            <target>Veranstaltungen</target>
         </trans-unit>
-		<trans-unit id="tx_t3events_domain_model_event.content_elements">
-			<source>Content Elements</source>
-			<target>Inhaltselemente</target>
-		</trans-unit>
-		</body>
-	</file>
+        <trans-unit id="header.schedules" xml:space="preserve">
+            <source>Schedules</source>
+            <target>Termine</target>
+        </trans-unit>
+            <trans-unit id="tx_t3events_domain_model_event.content_elements">
+                <source>Content Elements</source>
+                <target>Inhaltselemente</target>
+            </trans-unit>
+        </body>
+    </file>
 </xliff>

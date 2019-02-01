@@ -1,4 +1,5 @@
 <?php
+
 namespace DWenzel\T3events\Tests\Unit\Controller;
 
 use DWenzel\T3events\Controller\PerformanceDemandFactoryTrait;
@@ -25,7 +26,7 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 class PerformanceDemandFactoryTraitTest extends UnitTestCase
 {
     /**
-     * @var PerformanceDemandFactoryTrait
+     * @var PerformanceDemandFactoryTrait|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $subject;
 
@@ -35,7 +36,7 @@ class PerformanceDemandFactoryTraitTest extends UnitTestCase
     public function setUp()
     {
         $this->subject = $this->getMockForTrait(
-            \DWenzel\T3events\Controller\PerformanceDemandFactoryTrait::class
+            PerformanceDemandFactoryTrait::class
         );
     }
 
@@ -44,9 +45,9 @@ class PerformanceDemandFactoryTraitTest extends UnitTestCase
      */
     public function performanceDemandFactoryCanBeInjected()
     {
-        $performanceDemandFactory = $this->getMock(
-            PerformanceDemandFactory::class, [], [], '', false
-        );
+        /** @var PerformanceDemandFactory|\PHPUnit_Framework_MockObject_MockObject $performanceDemandFactory */
+        $performanceDemandFactory = $this->getMockBuilder(PerformanceDemandFactory::class)
+            ->getMock();
 
         $this->subject->injectPerformanceDemandFactory($performanceDemandFactory);
 

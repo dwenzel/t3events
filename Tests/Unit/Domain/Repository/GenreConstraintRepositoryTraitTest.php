@@ -1,34 +1,38 @@
 <?php
+
 namespace DWenzel\T3events\Tests\Unit\Domain\Model\Dto;
 
-use Nimut\TestingFramework\TestCase\UnitTestCase;
-use TYPO3\CMS\Extbase\Persistence\Generic\Query;
-use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use DWenzel\T3events\Domain\Model\Dto\GenreAwareDemandInterface;
 use DWenzel\T3events\Domain\Repository\GenreConstraintRepositoryTrait;
+use DWenzel\T3events\Tests\Unit\Domain\Repository\MockQueryTrait;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
+use PHPUnit\Framework\MockObject\MockObject;
+use TYPO3\CMS\Extbase\Persistence\Generic\Query;
+use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 
 /**
  * Test case for class \DWenzel\T3events\Domain\Repository\GenreConstraintRepositoryTrait.
  */
 class GenreConstraintRepositoryTraitTest extends UnitTestCase
 {
+    use MockQueryTrait;
     /**
      * mock genre field
      */
     const GENRE_FIELD = 'foo';
 
     /**
-     * @var \DWenzel\T3events\Domain\Repository\GenreConstraintRepositoryTrait
+     * @var GenreConstraintRepositoryTrait|MockObject
      */
     protected $subject;
 
     /**
-     * @var \TYPO3\CMS\Extbase\Persistence\QueryInterface
+     * @var QueryInterface|MockObject
      */
     protected $query;
 
     /**
-     * @var GenreAwareDemandInterface
+     * @var GenreAwareDemandInterface|MockObject
      */
     protected $demand;
 
@@ -40,11 +44,8 @@ class GenreConstraintRepositoryTraitTest extends UnitTestCase
         $this->subject = $this->getMockForTrait(
             GenreConstraintRepositoryTrait::class
         );
-        $this->query = $this->getMock(
-            QueryInterface::class, []
-        );
-        $this->demand = $this->getMock(
-            GenreAwareDemandInterface::class,
+        $this->query = $this->getMockQuery();
+        $this->demand = $this->getMockGenreAwareDemand(
             [
                 'getGenres', 'setGenres', 'getGenreField'
             ]
@@ -56,9 +57,8 @@ class GenreConstraintRepositoryTraitTest extends UnitTestCase
      */
     public function createGenreConstraintsInitiallyReturnsEmptyArray()
     {
-        $demand = $this->getMock(
-            GenreAwareDemandInterface::class, []
-        );
+        $mockGenreAwareDemand = $this->getMockGenreAwareDemand();
+        $demand = $mockGenreAwareDemand;
         $this->assertSame(
             [],
             $this->subject->createGenreConstraints(
@@ -75,7 +75,7 @@ class GenreConstraintRepositoryTraitTest extends UnitTestCase
     public function createGenreConstraintsCreatesGenreConstraints()
     {
         $genreList = '1,2';
-        $query = $this->getMock(Query::class, ['contains'], [], '', false);
+        $query = $this->getMockQuery(['contains']);
         $mockConstraint = 'fooConstraint';
 
         $this->demand->expects($this->any())
@@ -96,4 +96,16 @@ class GenreConstraintRepositoryTraitTest extends UnitTestCase
             $this->subject->createGenreConstraints($query, $this->demand)
         );
     }
+
+    /**
+     * @param array $methods
+     * @return GenreAwareDemandInterface|MockObject
+     */
+    protected function getMockGenreAwareDemand(array $methods = [])
+    {
+        return $this->getMockBuilder(GenreAwareDemandInterface::class)
+            ->setMethods($methods)
+            ->getMockForAbstractClass();
+    }
+
 }

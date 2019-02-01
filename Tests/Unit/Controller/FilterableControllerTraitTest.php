@@ -1,11 +1,12 @@
 <?php
+
 namespace DWenzel\T3events\Tests\Controller;
 
-use Nimut\TestingFramework\TestCase\UnitTestCase;
-use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use DWenzel\T3events\Controller\FilterableControllerTrait;
 use DWenzel\T3events\Domain\Repository\AudienceRepository;
-
+use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
+use DWenzel\T3events\Utility\SettingsInterface as SI;
 /***************************************************************
  *
  *  Copyright notice
@@ -32,7 +33,7 @@ use DWenzel\T3events\Domain\Repository\AudienceRepository;
  ***************************************************************/
 class DummyControllerWithAudienceRepository
 {
-    use \DWenzel\T3events\Controller\FilterableControllerTrait;
+    use FilterableControllerTrait;
 
     protected $audienceRepository;
 
@@ -40,11 +41,19 @@ class DummyControllerWithAudienceRepository
      * Mock translate function
      *
      * @param $key
+     *
      * @param string $extension
      * @param null $arguments
      * @return string
      */
-    public function translate($key, $extension = 't3events', $arguments = null)
+    public function translate(
+        /** @noinspection PhpUnusedParameterInspection */
+        $key,
+        /** @noinspection PhpUnusedParameterInspection */
+        $extension = 't3events',
+        /** @noinspection PhpUnusedParameterInspection */
+        $arguments = null
+    ): string
     {
         return 'foo';
     }
@@ -59,24 +68,25 @@ class FilterableControllerTraitTest extends UnitTestCase
 {
 
     /**
-     * @var \DWenzel\T3events\Controller\FilterableControllerTrait
+     * @var FilterableControllerTrait
      */
     protected $subject;
 
     public function setUp()
     {
         $this->subject = $this->getMockForTrait(
-            \DWenzel\T3events\Controller\FilterableControllerTrait::class
+            FilterableControllerTrait::class
         );
     }
 
     /**
      * @return \ReflectionMethod
+     * @throws \ReflectionException
      */
-    private function getFilterOptionsReflection()
+    private function getFilterOptionsReflection(): \ReflectionMethod
     {
         $reflectionMethod = new \ReflectionMethod(
-            get_class($this->subject),
+            \get_class($this->subject),
             'getFilterOptions'
         );
         $reflectionMethod->setAccessible(true);
@@ -87,10 +97,10 @@ class FilterableControllerTraitTest extends UnitTestCase
     /**
      * @return array
      */
-    protected function getDefaultPeriodOptions()
+    protected function getDefaultPeriodOptions(): array
     {
         $periodOptions = [];
-        $periodEntries = ['futureOnly', 'pastOnly', 'all', 'specific'];
+        $periodEntries = [SI::FUTURE_ONLY, SI::PAST_ONLY, SI::ALL, SI::SPECIFIC];
         foreach ($periodEntries as $entry) {
             $period = new \stdClass();
             $period->key = $entry;
@@ -103,6 +113,7 @@ class FilterableControllerTraitTest extends UnitTestCase
 
     /**
      * @test
+     * @throws \ReflectionException
      */
     public function getFilterOptionsInitiallyReturnsEmptyArray()
     {
@@ -116,22 +127,18 @@ class FilterableControllerTraitTest extends UnitTestCase
 
     /**
      * @test
+     * @throws \ReflectionException
      */
     public function getFilterOptionsAddsAllOptionsForExistingRepositoryProperty()
     {
-        $this->subject = $this->getAccessibleMock(
-            DummyControllerWithAudienceRepository::class, ['translate']
-        );
+        $this->subject = $this->getMockBuilder(DummyControllerWithAudienceRepository::class)
+            ->setMethods(['translate'])->getMock();
 
         $settings = [
             'audience' => ''
         ];
-        $audienceRepository = $this->getMock(
-            AudienceRepository::class, ['findAll'], [], '', false
-        );
-        $mockQueryResult = $this->getMock(
-            QueryResultInterface::class
-        );
+        $audienceRepository = $this->getMockAudienceRepository(['findAll']);
+        $mockQueryResult = $this->getMockQueryResult();
         $this->inject($this->subject, 'audienceRepository', $audienceRepository);
 
         $audienceRepository->expects($this->once())
@@ -149,6 +156,7 @@ class FilterableControllerTraitTest extends UnitTestCase
 
     /**
      * @test
+     * @throws \ReflectionException
      */
     public function getFilterOptionsAddsSelectedOptionsForAbstractDemandedRepositoryProperty()
     {
@@ -156,12 +164,8 @@ class FilterableControllerTraitTest extends UnitTestCase
         $settings = [
             'audience' => $uidList
         ];
-        $audienceRepository = $this->getMock(
-            AudienceRepository::class, ['findMultipleByUid'], [], '', false
-        );
-        $mockQueryResult = $this->getMock(
-            QueryResultInterface::class
-        );
+        $audienceRepository = $this->getMockAudienceRepository(['findMultipleByUid']);
+        $mockQueryResult = $this->getMockQueryResult();
         $this->subject = $this->getAccessibleMock(
             DummyControllerWithAudienceRepository::class, ['dummy']
         );
@@ -185,6 +189,7 @@ class FilterableControllerTraitTest extends UnitTestCase
 
     /**
      * @test
+     * @throws \ReflectionException
      */
     public function getFilterOptionsAddsDefaultPeriodOptions()
     {
@@ -210,11 +215,12 @@ class FilterableControllerTraitTest extends UnitTestCase
 
     /**
      * @test
+     * @throws \ReflectionException
      */
     public function getFilterOptionsAddsSelectedPeriodOptions()
     {
         $this->subject = $this->getMockForTrait(
-            \DWenzel\T3events\Controller\FilterableControllerTrait::class
+            FilterableControllerTrait::class
         );
         $this->subject->expects($this->any())
             ->method('translate')
@@ -233,5 +239,27 @@ class FilterableControllerTraitTest extends UnitTestCase
             $expectedResult,
             $filterOptionsReflection->invoke($this->subject, $settings)
         );
+    }
+
+    /**
+     * @param array $methods Methods to mock
+     * @return AudienceRepository|\PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function getMockAudienceRepository(array $methods = [])
+    {
+        $audienceRepository = $this->getMockBuilder(AudienceRepository::class)
+            ->setMethods($methods)
+            ->disableOriginalConstructor()
+            ->getMock();
+        return $audienceRepository;
+    }
+
+    /**
+     * @return QueryResultInterface|\PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function getMockQueryResult()
+    {
+        return $this->getMockBuilder(QueryResultInterface::class)
+            ->getMockForAbstractClass();
     }
 }

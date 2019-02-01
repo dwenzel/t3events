@@ -10,17 +10,23 @@ namespace DWenzel\T3events\Controller\Routing;
  * LICENSE.txt file that was distributed with this source code.
  * The TYPO3 project - inspiring people to share!
  */
+
+use DWenzel\T3events\Utility\SettingsInterface as SI;
+
+/**
+ * Class Route
+ */
 class Route
 {
     /**
      * @const METHOD_REDIRECT
      */
-    const METHOD_REDIRECT = 'redirect';
+    const METHOD_REDIRECT = SI::REDIRECT;
 
     /**
      * @const METHOD_FORWARD
      */
-    const METHOD_FORWARD = 'forward';
+    const METHOD_FORWARD = SI::FORWARD;
 
     /**
      * @const METHOD_REDIRECT_TO_URI
@@ -43,10 +49,10 @@ class Route
      * Options for routing method
      * default is
      * [
-     *  'actionName' => null,
-     *  'controllerName' => null,
-     *  'extensionName' => null,
-     *  'arguments' => null,
+     *  SI::ACTION_NAME => null,
+     *  SI::CONTROLLER_NAME => null,
+     *  SI::KEY_EXTENSION_NAME => null,
+     *  SI::ARGUMENTS => null,
      *  'pageUid' => null,
      *  'delay' => 0,
      *  'statusCode' => 303,
@@ -56,10 +62,10 @@ class Route
      * @var array
      */
     protected $options = [
-        'actionName' => null,
-        'controllerName' => null,
-        'extensionName' => null,
-        'arguments' => null,
+        SI::ACTION_NAME => null,
+        SI::CONTROLLER_NAME => null,
+        SI::KEY_EXTENSION_NAME => null,
+        SI::ARGUMENTS => null,
         'pageUid' => null,
         'delay' => 0,
         'statusCode' => 303,

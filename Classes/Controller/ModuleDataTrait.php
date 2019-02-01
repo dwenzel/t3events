@@ -4,6 +4,10 @@ namespace DWenzel\T3events\Controller;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use DWenzel\T3events\Domain\Model\Dto\ModuleData;
 use DWenzel\T3events\Service\ModuleDataStorageService;
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+use TYPO3\CMS\Extbase\Mvc\Exception\StopActionException;
+use TYPO3\CMS\Extbase\Mvc\RequestInterface;
+use TYPO3\CMS\Extbase\Mvc\ResponseInterface;
 
 /**
  * Class ModuleDataTrait
@@ -39,6 +43,11 @@ trait ModuleDataTrait
     abstract public function mergeSettings();
 
     /**
+     * @return string
+     */
+    abstract public function getModuleKey();
+
+    /**
      * Forwards the request to another action and / or controller.
      * Request is directly transfered to the other action / controller
      * without the need for a new request.
@@ -67,16 +76,6 @@ trait ModuleDataTrait
     }
 
     /**
-     * Gets the module key
-     *
-     * @return string
-     */
-    protected function getModuleKey()
-    {
-        return $GLOBALS['moduleName'];
-    }
-
-    /**
      * initializes all action methods
      */
     public function initializeAction()
@@ -88,8 +87,6 @@ trait ModuleDataTrait
     /**
      * Reset action
      * Resets all module data and forwards the request to the list action
-     *
-     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\StopActionException
      */
     public function resetAction()
     {
@@ -97,4 +94,21 @@ trait ModuleDataTrait
         $this->moduleDataStorageService->persistModuleData($this->moduleData, $this->getModuleKey());
         $this->forward('list');
     }
+
+    /**
+     * @return ModuleData
+     */
+    public function getModuleData()
+    {
+        return $this->moduleData;
+    }
+
+    /**
+     * @param ModuleData $moduleData
+     */
+    public function setModuleData(ModuleData $moduleData)
+    {
+        $this->moduleData = $moduleData;
+    }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace DWenzel\T3events\Tests\Unit\Domain\Model;
 
 /***************************************************************
@@ -28,6 +29,7 @@ use DWenzel\T3events\Domain\Model\Organizer;
 use DWenzel\T3events\Domain\Model\Performance;
 use DWenzel\T3events\Domain\Model\Venue;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
@@ -615,21 +617,37 @@ class EventTest extends UnitTestCase
     }
 
     /**
+     * @param array $methods Methods to mock
+     * @return Performance|MockObject
+     */
+    protected function getMockPerformance(array $methods = [])
+    {
+        return $this->getMockBuilder(Performance::class)
+            ->setMethods($methods)
+            ->getMock();
+    }
+
+    /**
+     * @param array $methods Methods to mock
+     * @return Event|MockObject
+     */
+    protected function getMockEvent(array $methods = [])
+    {
+        return $this->getMockBuilder(Event::class)
+            ->setMethods($methods)
+            ->getMock();
+    }
+
+    /**
      * @test
      */
     public function getEarliestDateReturnsEarliestDate()
     {
         $earliestDate = new \DateTime('@1');
         $laterDate = new \DateTime('@5');
-        $mockPerformanceA = $this->getMock(
-            '\DWenzel\T3events\Domain\Model\Performance',
-            ['getDate'], [], '', false);
-        $mockPerformanceB = $this->getMock(
-            '\DWenzel\T3events\Domain\Model\Performance',
-            ['getDate'], [], '', false);
-        $fixture = $this->getAccessibleMock(
-            '\DWenzel\T3events\Domain\Model\Event',
-            ['dummy'], [], '');
+        $mockPerformanceA = $this->getMockPerformance(['getDate']);
+        $mockPerformanceB = $this->getMockPerformance(['getDate']);
+        $fixture = $this->getMockEvent(['dummy']);
         $fixture->addPerformance($mockPerformanceA);
         $fixture->addPerformance($mockPerformanceB);
         $mockPerformanceA->expects($this->once())->method('getDate')
@@ -836,4 +854,19 @@ class EventTest extends UnitTestCase
         );
     }
 
+    /**
+     * @test
+     */
+    public function getRelatedSchedulesInitiallyReturnsEmptyObjectStorage()
+    {
+        $emptyObjectStorage = new ObjectStorage();
+
+        $this->assertEquals(
+            $emptyObjectStorage,
+            $this->subject->getRelatedSchedules()
+        );
+        $this->assertEmpty(
+            $this->subject->getRelatedSchedules()
+        );
+    }
 }

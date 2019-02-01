@@ -4,6 +4,7 @@ namespace DWenzel\T3events\Tests\Unit\Domain\Model\Dto;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
 use DWenzel\T3events\Domain\Model\Dto\ModuleData;
+use PHPUnit\Framework\MockObject\MockObject;
 
 /***************************************************************
  *
@@ -59,9 +60,8 @@ class ModuleDataTest extends UnitTestCase
      */
     public function demandCanBeSet()
     {
-        $demand = $this->getMock(
-            DemandInterface::class
-        );
+        /** @var DemandInterface|MockObject $demand */
+        $demand = $this->getMockBuilder(DemandInterface::class)->getMock();
         $this->subject->setDemand($demand);
 
         $this->assertSame(

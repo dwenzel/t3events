@@ -20,6 +20,8 @@ namespace DWenzel\T3events\Tests\Unit\Domain\Model;
      *  This copyright notice MUST APPEAR in all copies of the script!
      ***************************************************************/
 
+use Nimut\TestingFramework\TestCase\UnitTestCase;
+
 /**
  * Test case for class \DWenzel\T3events\Domain\Model\PerformanceStatus.
  *
@@ -31,7 +33,7 @@ namespace DWenzel\T3events\Tests\Unit\Domain\Model;
  * @author Dirk Wenzel <wenzel@webfox01.de>
  * @author Michael Kasten <kasten@webfox01.de>
  */
-class PerformanceStatusTest extends \Nimut\TestingFramework\TestCase\UnitTestCase
+class PerformanceStatusTest extends UnitTestCase
 {
 
     /**
@@ -54,6 +56,7 @@ class PerformanceStatusTest extends \Nimut\TestingFramework\TestCase\UnitTestCas
      */
     public function getTitleReturnsInitialValueForString()
     {
+        $this->assertNull($this->fixture->getTitle());
     }
 
     /**
@@ -74,6 +77,7 @@ class PerformanceStatusTest extends \Nimut\TestingFramework\TestCase\UnitTestCas
      */
     public function getCssClassReturnsInitialValueForString()
     {
+        $this->assertNull($this->fixture->getCssClass());
     }
 
     /**

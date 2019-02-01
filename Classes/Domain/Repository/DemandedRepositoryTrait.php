@@ -65,14 +65,12 @@ trait DemandedRepositoryTrait
      *
      * @param \DWenzel\T3events\Domain\Model\Dto\DemandInterface $demand
      * @param boolean $respectEnableFields
-     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array
      */
     public function findDemanded(DemandInterface $demand, $respectEnableFields = true)
     {
         $query = $this->generateQuery($demand, $respectEnableFields);
-        $objects = $query->execute();
-
-        return $objects;
+        return $query->execute();
     }
 
     /**
@@ -113,7 +111,7 @@ trait DemandedRepositoryTrait
      * @param bool $respectEnableFields
      * @return QueryInterface
      */
-    protected function generateQuery(DemandInterface $demand, $respectEnableFields = true)
+    public function generateQuery(DemandInterface $demand, $respectEnableFields = true)
     {
         $query = $this->createQuery();
         $constraints = $this->createConstraintsFromDemand($query, $demand);
@@ -143,7 +141,6 @@ trait DemandedRepositoryTrait
         if ($orderings = $this->createOrderingsFromDemand($demand)) {
             $query->setOrderings($orderings);
         }
-
 
         if ($demand->getLimit() !== null) {
             $query->setLimit((int)$demand->getLimit());
@@ -199,8 +196,9 @@ trait DemandedRepositoryTrait
      * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
      * @param \DWenzel\T3events\Domain\Model\Dto\SearchAwareDemandInterface $demand
      * @return array<\TYPO3\CMS\Extbase\Persistence\QOM\Constraint>
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
      */
-    protected function createSearchConstraints(QueryInterface $query, SearchAwareDemandInterface $demand)
+    public function createSearchConstraints(QueryInterface $query, SearchAwareDemandInterface $demand)
     {
         $searchConstraints = [];
         if ($search = $demand->getSearch()) {

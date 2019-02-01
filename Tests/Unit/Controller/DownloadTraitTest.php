@@ -1,12 +1,12 @@
 <?php
 namespace DWenzel\T3events\Tests\Controller;
 
+use DWenzel\T3events\Tests\Unit\Object\MockObjectManagerTrait;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use DWenzel\T3events\Controller\DownloadTrait;
 use TYPO3\CMS\Core\Resource\Driver\LocalDriver;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Mvc\Web\Response;
-
 /**
  * Class DownloadTraitTest
  *
@@ -14,13 +14,15 @@ use TYPO3\CMS\Extbase\Mvc\Web\Response;
  */
 class DownloadTraitTest extends UnitTestCase
 {
+    use MockObjectManagerTrait;
+
     /**
      * @var DownloadTrait
      */
     protected $subject;
 
     /**
-     * @var ObjectManager
+     * @var ObjectManager|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $objectManager;
 
@@ -32,9 +34,7 @@ class DownloadTraitTest extends UnitTestCase
         $this->subject = $this->getMockForTrait(
             DownloadTrait::class
         );
-        $this->objectManager = $this->getMock(
-            ObjectManager::class, ['get']
-        );
+        $this->objectManager = $this->getMockObjectManager();
 
         $this->inject($this->subject, 'objectManager', $this->objectManager);
     }
@@ -44,9 +44,7 @@ class DownloadTraitTest extends UnitTestCase
      */
     public function localDriverCanBeInjected()
     {
-        $mockLocalDriver = $this->getMock(
-            LocalDriver::class
-        );
+        $mockLocalDriver = $this->getMockLocalDriver();
 
         $this->subject->injectLocalDriver($mockLocalDriver);
 
@@ -59,15 +57,14 @@ class DownloadTraitTest extends UnitTestCase
 
     /**
      * @test
+     * @throws \TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException
      */
     public function getDownloadFileNameReturnsSanitizedFileName()
     {
         $fileName = 'foo';
         $sanitizedFileName = 'bar';
 
-        $mockLocalDriver = $this->getMock(
-            LocalDriver::class, ['sanitizeFileName']
-        );
+        $mockLocalDriver = $this->getMockLocalDriver(['sanitizeFileName']);
         $this->subject->injectLocalDriver($mockLocalDriver);
 
         $mockLocalDriver->expects($this->once())
@@ -83,6 +80,7 @@ class DownloadTraitTest extends UnitTestCase
 
     /**
      * @test
+     * @throws \TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException
      */
     public function getDownloadFileNamePrependsDate()
     {
@@ -90,9 +88,7 @@ class DownloadTraitTest extends UnitTestCase
         $fileName = 'foo';
         $expectedFileName = $date . '_' . $fileName;
 
-        $mockLocalDriver = $this->getMock(
-            LocalDriver::class, ['sanitizeFileName']
-        );
+        $mockLocalDriver = $this->getMockLocalDriver(['sanitizeFileName']);
         $this->subject->injectLocalDriver($mockLocalDriver);
 
         $mockLocalDriver->expects($this->once())
@@ -133,23 +129,13 @@ class DownloadTraitTest extends UnitTestCase
     /**
      * @test
      * @dataProvider allowedFileTypesForDownloadHeadersDataProvider
+     * @param $fileExtension
+     * @throws \DWenzel\T3events\InvalidFileTypeException
      */
-    public function sendDownloadHeadersSendsHeaderForAllowedFileTypes($fileExtension, $contentType)
+    public function sendDownloadHeadersSendsHeaderForAllowedFileTypes($fileExtension)
     {
         $fileName = 'foo';
-        $headers = [
-            'Pragma' => 'public',
-            'Expires' => 0,
-            'Cache-Control' => 'public',
-            'Content-Description' => 'File Transfer',
-            'Content-Type' => $contentType,
-            'Content-Disposition' => 'attachment; filename="' . $fileName . '.' . $fileExtension . '"',
-            'Content-Transfer-Encoding' => 'binary',
-        ];
-
-        $mockResponse = $this->getMock(
-            Response::class, ['sendHeaders', 'setHeader']
-        );
+        $mockResponse = $this->getMockResponse();
         $this->inject($this->subject, 'response', $mockResponse);
         $mockResponse->expects($this->once())
             ->method('sendHeaders');
@@ -185,9 +171,7 @@ class DownloadTraitTest extends UnitTestCase
     {
         $fileName = 'foo';
 
-        $mockResponse = $this->getMock(
-            Response::class, ['sendHeaders', 'setHeader']
-        );
+        $mockResponse = $this->getMockResponse();
         $this->inject($this->subject, 'response', $mockResponse);
         $mockResponse->expects($this->never())
             ->method('sendHeaders');
@@ -197,14 +181,13 @@ class DownloadTraitTest extends UnitTestCase
 
     /**
      * @test
+     * @throws \DWenzel\T3events\InvalidFileTypeException
      */
     public function sendDownloadHeadersSendsHeadersForDefaultType()
     {
         $unknownValidExtension = 'foo';
         $fileName = 'bar';
-        $mockResponse = $this->getMock(
-            Response::class, ['sendHeaders', 'setHeader']
-        );
+        $mockResponse = $this->getMockResponse();
         $this->inject($this->subject, 'response', $mockResponse);
         $mockResponse->expects($this->once())
             ->method('sendHeaders');
@@ -214,14 +197,13 @@ class DownloadTraitTest extends UnitTestCase
 
     /**
      * @test
+     * @throws \DWenzel\T3events\InvalidFileTypeException
      */
     public function sendDownloadHeadersSetsResponse()
     {
         $unknownValidExtension = 'foo';
         $fileName = 'bar';
-        $mockResponse = $this->getMock(
-            Response::class, ['sendHeaders', 'setHeader']
-        );
+        $mockResponse = $this->getMockResponse();
 
         $this->objectManager->expects($this->once())
             ->method('get')
@@ -229,5 +211,28 @@ class DownloadTraitTest extends UnitTestCase
             ->will($this->returnValue($mockResponse));
 
         $this->subject->sendDownloadHeaders($unknownValidExtension, $fileName);
+    }
+
+    /**
+     * @param array $methods Methods to mock
+     * @return LocalDriver|\PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function getMockLocalDriver(array $methods = [])
+    {
+        $mockBuilder = $this->getMockBuilder(LocalDriver::class);
+        if (!empty($methods)) {
+            $mockBuilder->setMethods($methods);
+        }
+        return $mockBuilder->getMock();
+    }
+
+    /**
+     * @param array $methods Methods to mock
+     * @return Response|\PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function getMockResponse(array $methods = ['sendHeaders', 'setHeader'])
+    {
+        return $this->getMockBuilder(Response::class)
+            ->setMethods($methods)->getMock();
     }
 }

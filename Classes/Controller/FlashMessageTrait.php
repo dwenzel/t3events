@@ -20,8 +20,6 @@ use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
  */
 trait FlashMessageTrait
 {
-    use ConfigurationManagerTrait;
-
     /**
      * The current request.
      *
@@ -36,13 +34,13 @@ trait FlashMessageTrait
 
     /**
      * @var \TYPO3\CMS\Core\Messaging\FlashMessageService
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $flashMessageService;
 
     /**
      * @var \TYPO3\CMS\Extbase\Service\ExtensionService
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $extensionService;
 
@@ -80,13 +78,9 @@ trait FlashMessageTrait
     public function getFlashMessageQueue()
     {
         if (!$this->flashMessageQueue instanceof FlashMessageQueue) {
-            if ($this->useLegacyFlashMessageHandling()) {
-                $this->flashMessageQueue = $this->flashMessageService->getMessageQueueByIdentifier();
-            } else {
                 $this->flashMessageQueue = $this->flashMessageService->getMessageQueueByIdentifier(
                     'extbase.flashmessages.' . $this->extensionService->getPluginNamespace($this->request->getControllerExtensionName(), $this->request->getPluginName())
                 );
-            }
         }
 
         return $this->flashMessageQueue;

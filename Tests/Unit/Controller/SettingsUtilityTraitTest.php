@@ -1,9 +1,12 @@
 <?php
+
 namespace DWenzel\T3events\Tests\Controller;
 
 use DWenzel\T3events\Controller\SettingsUtilityTrait;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use DWenzel\T3events\Utility\SettingsUtility;
+use DWenzel\T3events\Utility\SettingsInterface as SI;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
+use PHPUnit\Framework\MockObject\MockObject;
 
 /***************************************************************
  *  Copyright notice
@@ -26,7 +29,7 @@ class SettingsUtilityTraitTest extends UnitTestCase
 {
 
     /**
-     * @var \DWenzel\T3events\Controller\SettingsUtilityTrait
+     * @var SettingsUtilityTrait
      */
     protected $fixture;
 
@@ -35,9 +38,8 @@ class SettingsUtilityTraitTest extends UnitTestCase
      */
     public function setUp()
     {
-        $this->fixture = $this->getMockForTrait(
-            \DWenzel\T3events\Controller\SettingsUtilityTrait::class
-        );
+        $this->fixture = $this->getMockBuilder(SettingsUtilityTrait::class)
+            ->getMockForTrait();
     }
 
     /**
@@ -45,9 +47,7 @@ class SettingsUtilityTraitTest extends UnitTestCase
      */
     public function injectSettingsUtilitySetsObject()
     {
-        $object = $this->getMock(
-            SettingsUtility::class
-        );
+        $object = $this->mockSettingsUtility();
         $this->fixture->injectSettingsUtility($object);
 
         $this->assertAttributeEquals(
@@ -57,11 +57,15 @@ class SettingsUtilityTraitTest extends UnitTestCase
         );
     }
 
-    protected function mockSettingsUtility()
+    /**
+     * @param array $methods Methods to mock
+     * @return SettingsUtility|MockObject
+     */
+    protected function mockSettingsUtility(array $methods = [])
     {
-        $object = $this->getMock(
-            SettingsUtility::class, ['getControllerKey']
-        );
+        /** @var SettingsUtility|MockObject $object */
+        $object = $this->getMockBuilder(SettingsUtility::class)
+            ->setMethods($methods)->getMock();
         $this->fixture->injectSettingsUtility($object);
 
         return $object;
@@ -81,11 +85,11 @@ class SettingsUtilityTraitTest extends UnitTestCase
 
         $this->inject(
             $this->fixture,
-            'settings',
+            SI::SETTINGS,
             $typoScriptSettings
         );
 
-        $mockSettingsUtility = $this->mockSettingsUtility();
+        $mockSettingsUtility = $this->mockSettingsUtility(['getControllerKey']);
         $mockSettingsUtility->expects($this->once())
             ->method('getControllerKey')
             ->will($this->returnValue($controllerKey));
@@ -108,7 +112,7 @@ class SettingsUtilityTraitTest extends UnitTestCase
     {
         $controllerKey = 'foo';
         $actionKey = 'baz';
-        $actionName =  $actionKey . 'Action';
+        $actionName = $actionKey . 'Action';
         $typoScriptSettings = [
             $controllerKey => [
                 'bar',
@@ -118,7 +122,7 @@ class SettingsUtilityTraitTest extends UnitTestCase
 
         $this->inject(
             $this->fixture,
-            'settings',
+            SI::SETTINGS,
             $typoScriptSettings
         );
         $this->inject(
@@ -127,7 +131,7 @@ class SettingsUtilityTraitTest extends UnitTestCase
             $actionName
         );
 
-        $mockSettingsUtility = $this->mockSettingsUtility();
+        $mockSettingsUtility = $this->mockSettingsUtility(['getControllerKey']);
         $mockSettingsUtility->expects($this->once())
             ->method('getControllerKey')
             ->will($this->returnValue($controllerKey));
@@ -164,7 +168,7 @@ class SettingsUtilityTraitTest extends UnitTestCase
 
         $this->inject(
             $this->fixture,
-            'settings',
+            SI::SETTINGS,
             $settings
         );
         $this->inject(
@@ -173,7 +177,7 @@ class SettingsUtilityTraitTest extends UnitTestCase
             $actionName
         );
 
-        $mockSettingsUtility = $this->mockSettingsUtility();
+        $mockSettingsUtility = $this->mockSettingsUtility(['getControllerKey']);
         $mockSettingsUtility->expects($this->once())
             ->method('getControllerKey')
             ->will($this->returnValue($controllerKey));

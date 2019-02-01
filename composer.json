@@ -17,12 +17,14 @@
     }
   ],
   "require": {
-    "typo3/cms": ">=7.6.0,<=9.99.99",
-    "dwenzel/t3calendar": "^0.4.0"
+    "php": "^7.2",
+    "typo3/cms-core": ">=8.7.0 || >=9.5.0",
+    "dwenzel/t3calendar": "~0.6"
   },
   "require-dev": {
-    "nimut/testing-framework": "^1.1",
-    "phpunit/phpunit": "^4.8 || ^5.6"
+    "nimut/testing-framework": "^3.0",
+    "phpunit/phpunit": "^5.6 || ^6.0",
+    "codeclimate/php-test-reporter": "dev-master"
   },
   "autoload": {
     "psr-4": {
@@ -31,9 +33,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "DWenzel\\T3events\\Tests\\": "Tests",
-      "TYPO3\\CMS\\Core\\Tests\\": ".Build/vendor/typo3/cms/typo3/sysext/core/Tests/",
-      "TYPO3\\CMS\\Fluid\\Tests\\": ".Build/vendor/typo3/cms/typo3/sysext/fluid/Tests/"
+      "DWenzel\\T3events\\Tests\\": "Tests"
     }
   },
   "replace": {
@@ -57,10 +57,6 @@
     ]
   },
   "extra": {
-    "branch-alias": {
-      "dev-master": "0.32.x-dev",
-      "dev-develop": "0.32.x-dev"
-    },
     "typo3/cms": {
       "cms-package-dir": "{$vendor-dir}/typo3/cms",
       "web-dir": ".Build/Web"

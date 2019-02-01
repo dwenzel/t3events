@@ -2,6 +2,7 @@
 namespace DWenzel\T3events\Tests\Controller\Routing;
 
 use DWenzel\T3events\Controller\Routing\Route;
+use DWenzel\T3events\Utility\SettingsInterface as SI;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 
 /**
@@ -108,10 +109,10 @@ class RouteTest extends UnitTestCase
     public function getOptionReturnsDefaultOptions()
     {
         $expectedOptions = [
-            'actionName' => null,
-            'controllerName' => null,
-            'extensionName' => null,
-            'arguments' => null,
+            SI::ACTION_NAME => null,
+            SI::CONTROLLER_NAME => null,
+            SI::KEY_EXTENSION_NAME => null,
+            SI::ARGUMENTS => null,
             'pageUid' => null,
             'delay' => 0,
             'statusCode' => 303,

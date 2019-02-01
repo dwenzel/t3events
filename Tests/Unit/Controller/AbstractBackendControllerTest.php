@@ -1,16 +1,14 @@
 <?php
+
 namespace DWenzel\T3events\Tests\Controller;
 
+use DWenzel\T3events\Controller\AbstractBackendController;
 use DWenzel\T3events\Domain\Repository\AudienceRepository;
 use DWenzel\T3events\Domain\Repository\CompanyRepository;
 use DWenzel\T3events\Domain\Repository\EventTypeRepository;
 use DWenzel\T3events\Domain\Repository\GenreRepository;
 use DWenzel\T3events\Domain\Repository\VenueRepository;
-use DWenzel\T3events\Service\ModuleDataStorageService;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
-use DWenzel\T3events\Controller\AbstractBackendController;
-use DWenzel\T3events\Domain\Model\Dto\ModuleData;
 
 /***************************************************************
  *
@@ -57,90 +55,7 @@ class AbstractBackendControllerTest extends UnitTestCase
     /**
      * @test
      */
-    public function eventTypeRepositoryCanBeInjected()
-    {
-        $mockRepository = $this->getMock(
-            EventTypeRepository::class, [], [], '', false
-        );
-
-        $this->subject->injectEventTypeRepository($mockRepository);
-
-        $this->assertAttributeSame(
-            $mockRepository,
-            'eventTypeRepository',
-            $this->subject
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function companyRepositoryCanBeInjected()
-    {
-        $mockRepository = $this->getMock(
-            CompanyRepository::class, [], [], '', false
-        );
-
-        $this->subject->injectCompanyRepository($mockRepository);
-
-        $this->assertAttributeSame(
-            $mockRepository,
-            'companyRepository',
-            $this->subject
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function genreRepositoryCanBeInjected()
-    {
-        $mockRepository = $this->getMock(
-            GenreRepository::class, [], [], '', false
-        );
-
-        $this->subject->injectGenreRepository($mockRepository);
-
-        $this->assertAttributeSame(
-            $mockRepository,
-            'genreRepository',
-            $this->subject
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function audienceRepositoryCanBeInjected()
-    {
-        $mockRepository = $this->getMock(
-            AudienceRepository::class, [], [], '', false
-        );
-
-        $this->subject->injectAudienceRepository($mockRepository);
-
-        $this->assertAttributeSame(
-            $mockRepository,
-            'audienceRepository',
-            $this->subject
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function venueRepositoryCanBeInjected()
-    {
-        $mockRepository = $this->getMock(
-            VenueRepository::class, [], [], '', false
-        );
-
-        $this->subject->injectVenueRepository($mockRepository);
-
-        $this->assertAttributeSame(
-            $mockRepository,
-            'venueRepository',
-            $this->subject
-        );
+    public function dummy() {
+        $this->markTestIncomplete();
     }
 }

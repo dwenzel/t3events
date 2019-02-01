@@ -1,11 +1,12 @@
 <?php
+
 namespace DWenzel\T3events\Tests\Controller;
 
-use Nimut\TestingFramework\TestCase\UnitTestCase;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 use DWenzel\T3events\Controller\SearchTrait;
 use DWenzel\T3events\Domain\Model\Dto\Search;
 use DWenzel\T3events\Domain\Model\Dto\SearchFactory;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
+use PHPUnit\Framework\MockObject\MockObject;
 
 /***************************************************************
  *  Copyright notice
@@ -46,9 +47,8 @@ class SearchTraitTest extends UnitTestCase
      */
     public function searchFactoryCanBeInjected()
     {
-        $mockFactory = $this->getMock(
-            SearchFactory::class
-        );
+        /** @var SearchFactory|MockObject $mockFactory */
+        $mockFactory = $this->getMockBuilder(SearchFactory::class)->getMock();
 
         $this->subject->injectSearchFactory($mockFactory);
 
@@ -67,13 +67,12 @@ class SearchTraitTest extends UnitTestCase
         $searchRequest = ['foo'];
         $settings = ['bar'];
 
-        $mockFactory = $this->getMock(
-            SearchFactory::class, ['get']
-        );
+        /** @var SearchFactory|MockObject $mockFactory */
+        $mockFactory = $this->getMockBuilder(SearchFactory::class)
+            ->setMethods(['get'])->getMock();
 
-        $mockSearch = $this->getMock(
-            Search::class
-        );
+        /** @var Search|MockObject $mockSearch */
+        $mockSearch = $this->getMockBuilder(Search::class)->getMock();
         $this->subject->injectSearchFactory($mockFactory);
 
         $mockFactory->expects($this->once())

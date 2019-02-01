@@ -136,4 +136,16 @@
 			{performance.priceNotice}
 		</td>
 	</tr>
+	<tr>
+        <td>
+            <f:translate key="tx_t3events_domain_model_performance.relatedSchedules"/>
+        </td>
+        <td>
+            <f:if condition="{performance.relatedSchedules}">
+                <f:for each="{performance.relatedSchedules}" as="schedule">
+                    {schedule.date -> f:format.date()} - {schedule.event.headline}<br>
+                </f:for>
+            </f:if>
+        </td>
+    </tr>
 </table>

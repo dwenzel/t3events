@@ -13,6 +13,7 @@ namespace DWenzel\T3events\DataProvider\Form;
  */
 
 use DWenzel\T3events\Hooks\BackendUtility;
+use DWenzel\T3events\Utility\SettingsInterface as SI;
 use TYPO3\CMS\Backend\Form\FormDataProviderInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -28,6 +29,7 @@ class EventPluginFormDataProvider implements FormDataProviderInterface
 
     /**
      * injects the backend utility
+     * @param BackendUtility|null $backendUtility
      */
     public function __construct($backendUtility = null)
     {
@@ -50,16 +52,16 @@ class EventPluginFormDataProvider implements FormDataProviderInterface
             && $result['tableName'] === 'tt_content'
             && $result['databaseRow']['CType'] === 'list'
             && $result['databaseRow']['list_type'] === 't3events_events'
-            && is_array($result['processedTca']['columns']['pi_flexform']['config']['ds'])
+            && is_array($result['processedTca']['columns']['pi_flexform'][SI::CONFIG]['ds'])
         ) {
-            $dataStructure = $result['processedTca']['columns']['pi_flexform']['config']['ds'];
+            $dataStructure = $result['processedTca']['columns']['pi_flexform'][SI::CONFIG]['ds'];
             $conf = [];
             $row = $result['databaseRow'];
             $table = 'tt_content';
             $fieldName = '';
 
             $this->backendUtility->getFlexFormDS_postProcessDS($dataStructure, $conf, $row, $table, $fieldName);
-            $result['processedTca']['columns']['pi_flexform']['config']['ds'] = $dataStructure;
+            $result['processedTca']['columns']['pi_flexform'][SI::CONFIG]['ds'] = $dataStructure;
         }
 
         return $result;

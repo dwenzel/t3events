@@ -19,6 +19,7 @@ trait CategoryConstraintRepositoryTrait
      * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
      * @param \DWenzel\T3events\Domain\Model\Dto\CategoryAwareDemandInterface $demand
      * @return array<\TYPO3\CMS\Extbase\Persistence\QOM\Constraint>
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
      */
     public function createCategoryConstraints(QueryInterface $query, CategoryAwareDemandInterface $demand)
     {

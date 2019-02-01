@@ -23,6 +23,8 @@ use DWenzel\T3events\Domain\Repository\GenreRepository;
 use DWenzel\T3events\Domain\Repository\PerformanceRepository;
 use DWenzel\T3events\Domain\Repository\VenueRepository;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+use DWenzel\T3events\Utility\SettingsInterface as SI;
+
 
 /**
  * Class PerformanceController
@@ -79,6 +81,8 @@ class PerformanceController
      */
     protected $contentObject;
 
+    protected $buttonConfiguration = [];
+
     /**
      * Constructor
      */
@@ -86,6 +90,25 @@ class PerformanceController
     {
         parent::__construct();
         $this->namespace = get_class($this);
+    }
+
+    /**
+     * Returns a configuration array for buttons
+     * in the form
+     * [
+     *   [
+     *      ButtonDemand::TABLE_KEY => 'tx_t3events_domain_model_event',
+     *      ButtonDemand::LABEL_KEY => 'button.listAction',
+     *      ButtonDemand::ACTION_KEY => 'list',
+     *      ButtonDemand::ICON_KEY => 'ext-t3events-type-default'
+     *   ]
+     * ]
+     * Each entry in the array describes one button
+     * @return array
+     */
+    public function getButtonConfiguration()
+    {
+        return $this->buttonConfiguration;
     }
 
     /**
@@ -140,10 +163,10 @@ class PerformanceController
     {
         $this->settings = $this->mergeSettings();
         $this->contentObject = $this->configurationManager->getContentObject();
-        if ($this->request->hasArgument('overwriteDemand')) {
+        if ($this->request->hasArgument(SI::OVERWRITE_DEMAND)) {
             $this->session->set(
                 'tx_t3events_overwriteDemand',
-                serialize($this->request->getArgument('overwriteDemand'))
+                serialize($this->request->getArgument(SI::OVERWRITE_DEMAND))
             );
         }
     }
@@ -153,7 +176,7 @@ class PerformanceController
      */
     public function initializeQuickMenuAction()
     {
-        if (!$this->request->hasArgument('overwriteDemand')) {
+        if (!$this->request->hasArgument(SI::OVERWRITE_DEMAND)) {
             $this->session->clean();
         }
     }
@@ -174,8 +197,8 @@ class PerformanceController
 
         $templateVariables = [
             'performances' => $performances,
-            'settings' => $this->settings,
-            'overwriteDemand' => $overwriteDemand,
+            SI::SETTINGS => $this->settings,
+            SI::OVERWRITE_DEMAND => $overwriteDemand,
             'data' => $this->contentObject->data
         ];
 
@@ -194,7 +217,7 @@ class PerformanceController
     public function showAction(Performance $performance)
     {
         $templateVariables = [
-            'settings' => $this->settings,
+            SI::SETTINGS => $this->settings,
             'performance' => $performance
         ];
 
@@ -215,20 +238,20 @@ class PerformanceController
 
         // get filter options from plugin
         $filterConfiguration = [
-            'genre' => $this->settings['genres'],
-            'venue' => $this->settings['venues'],
-            'eventType' => $this->settings['eventTypes'],
+            SI::LEGACY_KEY_GENRE => $this->settings[SI::GENRES],
+            'venue' => $this->settings[SI::VENUES],
+            'eventType' => $this->settings[SI::EVENT_TYPES],
             'category' => $this->settings['categories']
         ];
         $filterOptions = $this->getFilterOptions($filterConfiguration);
 
         $templateVariables = [
             'filterOptions' => $filterOptions,
-            'genres' => $filterOptions['genres'],
-            'venues' => $filterOptions['venues'],
-            'eventTypes' => $filterOptions['eventTypes'],
-            'settings' => $this->settings,
-            'overwriteDemand' => $overwriteDemand
+            SI::GENRES => $filterOptions[SI::GENRES],
+            SI::VENUES => $filterOptions[SI::VENUES],
+            SI::EVENT_TYPES => $filterOptions[SI::EVENT_TYPES],
+            SI::SETTINGS => $this->settings,
+            SI::OVERWRITE_DEMAND => $overwriteDemand
         ];
         $this->emitSignal(__CLASS__, self::PERFORMANCE_QUICK_MENU_ACTION, $templateVariables);
         $this->view->assignMultiple(
@@ -254,7 +277,7 @@ class PerformanceController
             'performances' => $performances,
             'demand' => $demand,
             'calendarConfiguration' => $calendarConfiguration,
-            'overwriteDemand' => $overwriteDemand
+            SI::OVERWRITE_DEMAND => $overwriteDemand
         ];
 
         $this->emitSignal(__CLASS__, self::PERFORMANCE_CALENDAR_ACTION, $templateVariables);

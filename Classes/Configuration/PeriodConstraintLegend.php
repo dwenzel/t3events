@@ -56,6 +56,8 @@ class PeriodConstraintLegend extends VectorImage
      * @param array $params
      * @param \TYPO3\CMS\Backend\Form\Element\UserElement $parentObject
      * @return string
+     * @throws MissingFileException
+     * @throws \DWenzel\T3events\InvalidConfigurationException
      */
     public function render($params, $parentObject = null)
     {
@@ -69,17 +71,18 @@ class PeriodConstraintLegend extends VectorImage
     /**
      * @param $params
      * @throws \DWenzel\T3events\MissingFileException
+     * @throws \DWenzel\T3events\InvalidConfigurationException
      */
     public function initialize($params)
     {
-        $xmlFilePath = GeneralUtility::getFileAbsFileName($this->xmlFilePath);
-        if (!file_exists($xmlFilePath)) {
+        $absoluteFilePath = GeneralUtility::getFileAbsFileName($this->xmlFilePath);
+        if (!file_exists($absoluteFilePath)) {
             throw new MissingFileException(
                 'Missing XML file.', 1462887081
             );
         }
 
-        $this->load($xmlFilePath);
+        $this->load($absoluteFilePath);
         $this->dataProvider = $this->getDataProviderFactory()->get($params);
     }
 

@@ -1,34 +1,38 @@
 <?php
+
 namespace DWenzel\T3events\Tests\Unit\Domain\Model\Dto;
 
-use Nimut\TestingFramework\TestCase\UnitTestCase;
-use TYPO3\CMS\Extbase\Persistence\Generic\Query;
-use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use DWenzel\T3events\Domain\Model\Dto\VenueAwareDemandInterface;
 use DWenzel\T3events\Domain\Repository\VenueConstraintRepositoryTrait;
+use DWenzel\T3events\Tests\Unit\Domain\Repository\MockQueryTrait;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
+use PHPUnit\Framework\MockObject\MockObject;
+use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 
 /**
  * Test case for class \DWenzel\T3events\Domain\Repository\VenueConstraintRepositoryTrait.
  */
 class VenueConstraintRepositoryTraitTest extends UnitTestCase
 {
+    use MockQueryTrait;
+
     /**
      * mock venue field
      */
     const VENUE_FIELD = 'foo';
 
     /**
-     * @var \DWenzel\T3events\Domain\Repository\VenueConstraintRepositoryTrait
+     * @var VenueConstraintRepositoryTrait|MockObject
      */
     protected $subject;
 
     /**
-     * @var \TYPO3\CMS\Extbase\Persistence\QueryInterface
+     * @var QueryInterface|MockObject
      */
     protected $query;
 
     /**
-     * @var VenueAwareDemandInterface
+     * @var VenueAwareDemandInterface|MockObject
      */
     protected $demand;
 
@@ -40,11 +44,8 @@ class VenueConstraintRepositoryTraitTest extends UnitTestCase
         $this->subject = $this->getMockForTrait(
             VenueConstraintRepositoryTrait::class
         );
-        $this->query = $this->getMock(
-            QueryInterface::class, []
-        );
-        $this->demand = $this->getMock(
-            VenueAwareDemandInterface::class,
+        $this->query = $this->getMockQuery();
+        $this->demand = $this->getMockVenueAwareDemand(
             [
                 'getVenues', 'setVenues', 'getVenueField'
             ]
@@ -56,9 +57,7 @@ class VenueConstraintRepositoryTraitTest extends UnitTestCase
      */
     public function createVenueConstraintsInitiallyReturnsEmptyArray()
     {
-        $demand = $this->getMock(
-            VenueAwareDemandInterface::class, []
-        );
+        $demand = $this->getMockVenueAwareDemand();
         $this->assertSame(
             [],
             $this->subject->createVenueConstraints(
@@ -75,7 +74,7 @@ class VenueConstraintRepositoryTraitTest extends UnitTestCase
     public function createVenueConstraintsCreatesVenueConstraints()
     {
         $venueList = '1,2';
-        $query = $this->getMock(Query::class, ['contains'], [], '', false);
+        $query = $this->getMockQuery(['contains']);
         $mockConstraint = 'fooConstraint';
 
         $this->demand->expects($this->any())
@@ -95,5 +94,15 @@ class VenueConstraintRepositoryTraitTest extends UnitTestCase
             [$mockConstraint, $mockConstraint],
             $this->subject->createVenueConstraints($query, $this->demand)
         );
+    }
+
+    /**
+     * @param array $methods Methods to mock
+     * @return VenueAwareDemandInterface|MockObject
+     */
+    protected function getMockVenueAwareDemand(array $methods = [])
+    {
+        return $this->getMockBuilder(VenueAwareDemandInterface::class)
+            ->setMethods($methods)->getMockForAbstractClass();
     }
 }

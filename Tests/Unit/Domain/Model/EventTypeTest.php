@@ -54,6 +54,7 @@ class EventTypeTest extends \Nimut\TestingFramework\TestCase\UnitTestCase
      */
     public function getTitleReturnsInitialValueForString()
     {
+        $this->assertNull($this->fixture->getTitle());
     }
 
     /**

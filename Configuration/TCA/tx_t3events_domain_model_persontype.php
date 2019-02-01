@@ -2,20 +2,20 @@
 if (!defined('TYPO3_MODE')) {
     die('Access denied.');
 }
-$ll = 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:';
+$ll = 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf';
 $cll = \DWenzel\T3events\Utility\TableConfiguration::getLanguageFilePath() . 'locallang_general.xlf:';
 
 return [
     'ctrl' => [
-        'title' => $ll . 'tx_t3events_domain_model_persontype',
+        'title' => $ll . ':tx_t3events_domain_model_persontype',
         'label' => 'title',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
         'cruser_id' => 'cruser_id',
         'dividers2tabs' => true,
         'default_sortby' => ' ORDER BY title',
-        'versioningWS' => 2,
-        'versioning_followPages' => true,
+        'versioningWS' => true,
+
         'origUid' => 't3_origuid',
         'languageField' => 'sys_language_uid',
         'transOrigPointerField' => 'l10n_parent',
@@ -55,7 +55,11 @@ return [
                     [$cll . 'LGL.allLanguages', -1],
                     [$cll . 'LGL.default_value', 0]
                 ],
-                'showIconTable' => true,
+                'fieldWizard' => [
+                    'selectIcons' => [
+                        'disabled' => false
+                    ]
+                ]
             ],
         ],
         'l10n_parent' => [
@@ -70,7 +74,11 @@ return [
                 ],
                 'foreign_table' => 'tx_t3events_domain_model_persontype',
                 'foreign_table_where' => 'AND tx_t3events_domain_model_persontype.pid=###CURRENT_PID### AND tx_t3events_domain_model_persontype.sys_language_uid IN (-1,0)',
-                'showIconTable' => true,
+                'fieldWizard' => [
+                    'selectIcons' => [
+                        'disabled' => false
+                    ]
+                ]
             ],
         ],
         'l10n_diffsource' => [
@@ -95,39 +103,43 @@ return [
         ],
         'starttime' => [
             'exclude' => 1,
-            'l10n_mode' => 'mergeIfNotBlank',
             'label' => $cll . 'LGL.starttime',
             'config' => [
                 'type' => 'input',
+                'renderType' => 'inputDateTime',
                 'size' => 13,
-                'max' => 20,
                 'eval' => 'datetime',
                 'checkbox' => 0,
                 'default' => 0,
                 'range' => [
                     'lower' => mktime(0, 0, 0, date('m'), date('d'), date('Y'))
                 ],
+                'behaviour' => [
+                    'allowLanguageSynchronization' => true
+                ]
             ],
         ],
         'endtime' => [
             'exclude' => 1,
-            'l10n_mode' => 'mergeIfNotBlank',
             'label' => $cll . 'LGL.endtime',
             'config' => [
                 'type' => 'input',
+                'renderType' => 'inputDateTime',
                 'size' => 13,
-                'max' => 20,
                 'eval' => 'datetime',
                 'checkbox' => 0,
                 'default' => 0,
                 'range' => [
                     'lower' => mktime(0, 0, 0, date('m'), date('d'), date('Y'))
                 ],
+                'behaviour' => [
+                    'allowLanguageSynchronization' => true
+                ]
             ],
         ],
         'title' => [
             'exclude' => 0,
-            'label' => $ll . 'tx_t3events_domain_model_persontype.title',
+            'label' => $ll . ':tx_t3events_domain_model_persontype.title',
             'config' => [
                 'type' => 'input',
                 'size' => 30,

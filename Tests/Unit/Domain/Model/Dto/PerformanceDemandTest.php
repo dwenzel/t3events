@@ -1,4 +1,5 @@
 <?php
+
 namespace DWenzel\T3events\Tests\Unit\Domain\Model\Dto;
 
 /***************************************************************
@@ -20,6 +21,7 @@ namespace DWenzel\T3events\Tests\Unit\Domain\Model\Dto;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 use DWenzel\T3events\Domain\Model\Dto\PerformanceDemand;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 
 /**
  * Test case for class \DWenzel\T3events\Domain\Model\Dto\PerformanceDemand.
@@ -27,7 +29,7 @@ use DWenzel\T3events\Domain\Model\Dto\PerformanceDemand;
  * @author Dirk Wenzel <wenzel@webfox01.de>
  * @coversDefaultClass \DWenzel\T3events\Domain\Model\Dto\PerformanceDemand
  */
-class PerformanceDemandTest extends \Nimut\TestingFramework\TestCase\UnitTestCase
+class PerformanceDemandTest extends UnitTestCase
 {
 
     /**
@@ -38,9 +40,8 @@ class PerformanceDemandTest extends \Nimut\TestingFramework\TestCase\UnitTestCas
 
     public function setUp()
     {
-        $this->subject = $this->getMock(
-            PerformanceDemand::class, ['dummy']
-        );
+        $this->subject = $this->getMockBuilder(PerformanceDemand::class)
+            ->setMethods(['dummy'])->getMock();
     }
 
     /**
@@ -48,7 +49,7 @@ class PerformanceDemandTest extends \Nimut\TestingFramework\TestCase\UnitTestCas
      */
     public function getDateReturnsInitialNull()
     {
-        $this->assertSame(null, $this->subject->getDate());
+        $this->assertNull($this->subject->getDate());
     }
 
     /**
@@ -56,7 +57,7 @@ class PerformanceDemandTest extends \Nimut\TestingFramework\TestCase\UnitTestCas
      */
     public function setDateForDateTimeSetsDate()
     {
-        $now = date('Y-m-d H:i:s');
+        $now = new \DateTime();
         $this->subject->setDate($now);
 
         $this->assertEquals($now, $this->subject->getDate());

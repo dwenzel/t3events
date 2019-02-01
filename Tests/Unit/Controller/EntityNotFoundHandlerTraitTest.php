@@ -1,22 +1,22 @@
 <?php
+
 namespace DWenzel\T3events\Tests\Controller;
 
+use DWenzel\T3events\Controller\EntityNotFoundHandlerTrait;
+use DWenzel\T3events\Utility\SettingsInterface as SI;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\Request;
-use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
-use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
-use DWenzel\T3events\Controller\EntityNotFoundHandlerTrait;
-use TYPO3\CMS\Extbase\Property\Exception\TargetNotFoundException;
 use TYPO3\CMS\Extbase\Mvc\RequestInterface;
 use TYPO3\CMS\Extbase\Mvc\ResponseInterface;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
+use TYPO3\CMS\Extbase\Property\Exception\TargetNotFoundException;
+use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
+use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
  * Class DummyParent
- *
- * @package DWenzel\T3events\Tests\Controller
  */
 class DummyParent extends ActionController
 {
@@ -35,8 +35,6 @@ class DummyParent extends ActionController
 
 /**
  * Class DummyEntityNotFoundHandlerController
- *
- * @package DWenzel\T3events\Tests\Controller
  */
 class DummyEntityNotFoundHandlerController extends DummyParent
 {
@@ -64,7 +62,7 @@ class EntityNotFoundHandlerTraitTest extends UnitTestCase
 {
 
     /**
-     * @var EntityNotFoundHandlerTrait
+     * @var EntityNotFoundHandlerTrait|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $subject;
 
@@ -85,9 +83,9 @@ class EntityNotFoundHandlerTraitTest extends UnitTestCase
     public function emptyHandleEntityNotFoundErrorConfigurationReturns()
     {
         $this->subject->expects($this->never())
-            ->method('redirect');
+            ->method(SI::REDIRECT);
         $this->subject->expects($this->never())
-            ->method('forward');
+            ->method(SI::FORWARD);
 
         $this->subject->handleEntityNotFoundError('');
     }
@@ -98,7 +96,7 @@ class EntityNotFoundHandlerTraitTest extends UnitTestCase
     public function handleEntityNotFoundErrorConfigurationRedirectsToListView()
     {
         $this->subject->expects($this->once())
-            ->method('redirect')
+            ->method(SI::REDIRECT)
             ->with('list');
         $this->subject->handleEntityNotFoundError('redirectToListView');
     }
@@ -199,11 +197,11 @@ class EntityNotFoundHandlerTraitTest extends UnitTestCase
         $mockUriBuilder->expects($this->once())
             ->method('setAbsoluteUriScheme')
             ->with('https');
-/*        $mockUriBuilder->expects($this->once())
-            ->method('build');
-        $this->subject->expects($this->once())
-            ->method('redirectToUri')
-            ->with(null, 0, '301');*/
+        /*        $mockUriBuilder->expects($this->once())
+                    ->method('build');
+                $this->subject->expects($this->once())
+                    ->method('redirectToUri')
+                    ->with(null, 0, '301');*/
         $this->subject->handleEntityNotFoundError('redirectToPage, 1, 301');
     }
 
@@ -212,9 +210,8 @@ class EntityNotFoundHandlerTraitTest extends UnitTestCase
      */
     public function handleEntityNotFoundErrorRedirectsToUriIfSignalSetsRedirectUri()
     {
-        $mockRequest = $this->getMock(
-            Request::class
-        );
+        /** @var Request|\PHPUnit_Framework_MockObject_MockObject $mockRequest */
+        $mockRequest = $this->getMockBuilder(Request::class)->getMock();
         $this->inject(
             $this->subject,
             'request',
@@ -226,12 +223,12 @@ class EntityNotFoundHandlerTraitTest extends UnitTestCase
         );
         $config = 'foo';
         $expectedParams = [
-            'config' => GeneralUtility::trimExplode(',', $config),
+            SI::CONFIG => GeneralUtility::trimExplode(',', $config),
             'requestArguments' => null,
-            'actionName' => null
+            SI::ACTION_NAME => null
         ];
         $slotResult = [
-            ['redirectUri' => 'foo']
+            [SI::REDIRECT_URI => 'foo']
         ];
         $this->inject(
             $this->subject,
@@ -241,7 +238,7 @@ class EntityNotFoundHandlerTraitTest extends UnitTestCase
         $mockDispatcher->expects($this->once())
             ->method('dispatch')
             ->with(
-                get_class($this->subject),
+                \get_class($this->subject),
                 'handleEntityNotFoundError',
                 [$expectedParams]
             )
@@ -257,25 +254,23 @@ class EntityNotFoundHandlerTraitTest extends UnitTestCase
      */
     public function handleEntityNotFoundErrorRedirectsIfSignalSetsRedirect()
     {
-        $mockRequest = $this->getMock(
-            Request::class
-        );
+        $mockRequest = $this->getMockBuilder(Request::class)->getMock();
         $mockDispatcher = $this->getAccessibleMock(
             Dispatcher::class, ['dispatch']
         );
         $config = 'foo';
         $expectedParams = [
-            'config' => GeneralUtility::trimExplode(',', $config),
+            SI::CONFIG => GeneralUtility::trimExplode(',', $config),
             'requestArguments' => null,
-            'actionName' => null
+            SI::ACTION_NAME => null
         ];
         $slotResult = [
             [
-                'redirect' => [
-                    'actionName' => 'foo',
-                    'controllerName' => 'Bar',
-                    'extensionName' => 'baz',
-                    'arguments' => ['foo'],
+                SI::REDIRECT => [
+                    SI::ACTION_NAME => 'foo',
+                    SI::CONTROLLER_NAME => 'Bar',
+                    SI::KEY_EXTENSION_NAME => 'baz',
+                    SI::ARGUMENTS => ['foo'],
                     'pageUid' => 5,
                     'delay' => 1,
                     'statusCode' => 300
@@ -285,7 +280,7 @@ class EntityNotFoundHandlerTraitTest extends UnitTestCase
         $mockDispatcher->expects($this->once())
             ->method('dispatch')
             ->with(
-                get_class($this->subject),
+                \get_class($this->subject),
                 'handleEntityNotFoundError',
                 [$expectedParams]
             )
@@ -293,15 +288,15 @@ class EntityNotFoundHandlerTraitTest extends UnitTestCase
         $this->inject($this->subject, 'signalSlotDispatcher', $mockDispatcher);
         $this->inject($this->subject, 'request', $mockRequest);
         $this->subject->expects($this->once())
-            ->method('redirect')
+            ->method(SI::REDIRECT)
             ->with(
-                $slotResult[0]['redirect']['actionName'],
-                $slotResult[0]['redirect']['controllerName'],
-                $slotResult[0]['redirect']['extensionName'],
-                $slotResult[0]['redirect']['arguments'],
-                $slotResult[0]['redirect']['pageUid'],
-                $slotResult[0]['redirect']['delay'],
-                $slotResult[0]['redirect']['statusCode']
+                $slotResult[0][SI::REDIRECT][SI::ACTION_NAME],
+                $slotResult[0][SI::REDIRECT][SI::CONTROLLER_NAME],
+                $slotResult[0][SI::REDIRECT][SI::KEY_EXTENSION_NAME],
+                $slotResult[0][SI::REDIRECT][SI::ARGUMENTS],
+                $slotResult[0][SI::REDIRECT]['pageUid'],
+                $slotResult[0][SI::REDIRECT]['delay'],
+                $slotResult[0][SI::REDIRECT]['statusCode']
             );
         $this->subject->handleEntityNotFoundError($config);
     }
@@ -319,22 +314,20 @@ class EntityNotFoundHandlerTraitTest extends UnitTestCase
         $settings = [
             $controllerName => [
                 $actionName => [
-                    'errorHandling' => $errorHandlingConfig
+                    SI::ERROR_HANDLING => $errorHandlingConfig
                 ]
             ]
         ];
 
-        /** @var DummyEntityNotFoundHandlerController $subject */
+        /** @var DummyEntityNotFoundHandlerController|\PHPUnit_Framework_MockObject_MockObject $subject */
         $subject = $this->getAccessibleMock(
             DummyEntityNotFoundHandlerController::class, ['handleEntityNotFoundError']
         );
-        $subject->_set('settings', $settings);
-        $mockResponse = $this->getMock(
-            ResponseInterface::class
-        );
-        $mockRequest = $this->getMock(
-            Request::class, ['getControllerName', 'getControllerActionName']
-        );
+        $subject->_set(SI::SETTINGS, $settings);
+        $mockResponse = $this->getMockBuilder(ResponseInterface::class)->getMock();
+        /** @var Request|\PHPUnit_Framework_MockObject_MockObject $mockRequest */
+        $mockRequest = $this->getMockBuilder(Request::class)
+            ->setMethods(['getControllerName', 'getControllerActionName'])->getMock();
         $mockRequest->expects($this->once())
             ->method('getControllerName')
             ->will($this->returnValue($controllerName));
@@ -354,25 +347,24 @@ class EntityNotFoundHandlerTraitTest extends UnitTestCase
      */
     public function handleEntityNotFoundErrorForwardsIfSignalSetsForward()
     {
-        $mockRequest = $this->getMock(
-            Request::class
-        );
+        /** @var Request|\PHPUnit_Framework_MockObject_MockObject $mockRequest */
+        $mockRequest = $this->getMockBuilder(Request::class)->getMock();
         $mockDispatcher = $this->getAccessibleMock(
             Dispatcher::class, ['dispatch']
         );
         $config = 'foo';
         $expectedParams = [
-            'config' => GeneralUtility::trimExplode(',', $config),
+            SI::CONFIG => GeneralUtility::trimExplode(',', $config),
             'requestArguments' => null,
-            'actionName' => null
+            SI::ACTION_NAME => null
         ];
         $slotResult = [
             [
-                'forward' => [
-                    'actionName' => 'foo',
-                    'controllerName' => 'Bar',
-                    'extensionName' => 'baz',
-                    'arguments' => ['foo']                ]
+                SI::FORWARD => [
+                    SI::ACTION_NAME => 'foo',
+                    SI::CONTROLLER_NAME => 'Bar',
+                    SI::KEY_EXTENSION_NAME => 'baz',
+                    SI::ARGUMENTS => ['foo']]
             ]
         ];
         $mockDispatcher->expects($this->once())
@@ -386,12 +378,12 @@ class EntityNotFoundHandlerTraitTest extends UnitTestCase
         $this->inject($this->subject, 'signalSlotDispatcher', $mockDispatcher);
         $this->inject($this->subject, 'request', $mockRequest);
         $this->subject->expects($this->once())
-            ->method('forward')
+            ->method(SI::FORWARD)
             ->with(
-                $slotResult[0]['forward']['actionName'],
-                $slotResult[0]['forward']['controllerName'],
-                $slotResult[0]['forward']['extensionName'],
-                $slotResult[0]['forward']['arguments']
+                $slotResult[0][SI::FORWARD][SI::ACTION_NAME],
+                $slotResult[0][SI::FORWARD][SI::CONTROLLER_NAME],
+                $slotResult[0][SI::FORWARD][SI::KEY_EXTENSION_NAME],
+                $slotResult[0][SI::FORWARD][SI::ARGUMENTS]
             );
         $this->subject->handleEntityNotFoundError($config);
     }

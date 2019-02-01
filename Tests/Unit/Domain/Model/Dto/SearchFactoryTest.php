@@ -1,9 +1,13 @@
 <?php
+
 namespace DWenzel\T3events\Tests\Unit\Domain\Model\Dto;
 
 use DWenzel\T3events\Domain\Model\Dto\Search;
 use DWenzel\T3events\Domain\Model\Dto\SearchFactory;
+use DWenzel\T3events\Tests\Unit\Object\MockObjectManagerTrait;
+use Nimut\TestingFramework\MockObject\AccessibleMockObjectInterface;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 /***************************************************************
@@ -25,8 +29,10 @@ use TYPO3\CMS\Extbase\Object\ObjectManager;
  ***************************************************************/
 class SearchFactoryTest extends UnitTestCase
 {
+    use MockObjectManagerTrait;
+
     /**
-     * @var SearchFactory
+     * @var SearchFactory|MockObject|AccessibleMockObjectInterface
      */
     protected $subject;
 
@@ -38,21 +44,8 @@ class SearchFactoryTest extends UnitTestCase
         $this->subject = $this->getAccessibleMock(
             SearchFactory::class, ['dummy']
         );
-    }
-
-    /**
-     * @return ObjectManager
-     */
-    protected function mockObjectManager()
-    {
-        /** @var ObjectManager $mockObjectManager */
-        $mockObjectManager = $this->getMock(
-            ObjectManager::class, ['get']
-        );
-
-        $this->subject->injectObjectManager($mockObjectManager);
-
-        return $mockObjectManager;
+        $this->objectManager = $this->getMockObjectManager();
+        $this->subject->injectObjectManager($this->objectManager);
     }
 
     /**
@@ -69,11 +62,8 @@ class SearchFactoryTest extends UnitTestCase
         $settings = [
             'fields' => $searchFields
         ];
-        $mockSearch = $this->getMock(
-            Search::class, ['setFields']
-        );
-        $mockObjectManager = $this->mockObjectManager();
-        $mockObjectManager->expects($this->once())
+        $mockSearch = $this->getMockSearch(['setFields']);
+        $this->objectManager->expects($this->once())
             ->method('get')
             ->with(Search::class)
             ->will($this->returnValue($mockSearch));
@@ -99,11 +89,8 @@ class SearchFactoryTest extends UnitTestCase
         $settings = [
             'fields' => $searchFields
         ];
-        $mockSearch = $this->getMock(
-            Search::class, ['setSubject']
-        );
-        $mockObjectManager = $this->mockObjectManager();
-        $mockObjectManager->expects($this->once())
+        $mockSearch = $this->getMockSearch(['setSubject']);
+        $this->objectManager->expects($this->once())
             ->method('get')
             ->with(Search::class)
             ->will($this->returnValue($mockSearch));
@@ -131,11 +118,8 @@ class SearchFactoryTest extends UnitTestCase
         $settings = [
             'fields' => $searchFields
         ];
-        $mockSearch = $this->getMock(
-            Search::class, ['setLocation', 'setRadius']
-        );
-        $mockObjectManager = $this->mockObjectManager();
-        $mockObjectManager->expects($this->once())
+        $mockSearch = $this->getMockSearch(['setLocation', 'setRadius']);
+        $this->objectManager->expects($this->once())
             ->method('get')
             ->with(Search::class)
             ->will($this->returnValue($mockSearch));
@@ -148,5 +132,16 @@ class SearchFactoryTest extends UnitTestCase
             ->with($radius);
 
         $this->subject->get($searchRequest, $settings);
+    }
+
+    /**
+     * @param array $methods Methods to mock
+     * @return Search|MockObject
+     */
+    protected function getMockSearch(array $methods = [])
+    {
+        return $this->getMockBuilder(Search::class)
+            ->setMethods($methods)
+            ->getMock();
     }
 }

@@ -3,20 +3,20 @@ if (!defined('TYPO3_MODE')) {
     die('Access denied.');
 }
 
-$ll = 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:';
+$ll = 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf';
 $cll = \DWenzel\T3events\Utility\TableConfiguration::getLanguageFilePath() . 'locallang_general.xlf:';
 
 return [
     'ctrl' => [
-        'title' => $ll . 'tx_t3events_domain_model_person',
+        'title' => $ll . ':tx_t3events_domain_model_person',
         'label' => 'name',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
         'cruser_id' => 'cruser_id',
         'dividers2tabs' => true,
         'default_sortby' => 'ORDER BY last_name, first_name',
-        'versioningWS' => 2,
-        'versioning_followPages' => true,
+        'versioningWS' => true,
+
         'origUid' => 't3_origuid',
         'languageField' => 'sys_language_uid',
         'transOrigPointerField' => 'l10n_parent',
@@ -55,7 +55,11 @@ return [
                     [$cll . 'LGL.allLanguages', -1],
                     [$cll . 'LGL.default_value', 0]
                 ],
-                'showIconTable' => true,
+                'fieldWizard' => [
+                    'selectIcons' => [
+                        'disabled' => false
+                    ]
+                ]
             ],
         ],
         'l10n_parent' => [
@@ -69,8 +73,12 @@ return [
                     ['', 0],
                 ],
                 'foreign_table' => 'tx_t3events_domain_model_person',
-                'foreign_table_where' => 'AND tx_t3events_domain_model_person.pid=###CURRENT_PID### AND tx_t3events_domain_model_person.sys_language_uid IN (-1,0)',
-                'showIconTable' => true,
+                'foreign_table_where' => 'AND tx_t3events_domain_model_person . pid = -1 AND tx_t3events_domain_model_person . sys_language_uid IN(-1, 0)',
+                'fieldWizard' => [
+                    'selectIcons' => [
+                        'disabled' => false
+                    ]
+                ]
             ],
         ],
         'l10n_diffsource' => [
@@ -87,45 +95,49 @@ return [
         ],
         'starttime' => [
             'exclude' => 1,
-            'l10n_mode' => 'mergeIfNotBlank',
             'label' => $cll . 'LGL.starttime',
             'config' => [
                 'type' => 'input',
+                'renderType' => 'inputDateTime',
                 'size' => 13,
-                'max' => 20,
                 'eval' => 'datetime',
                 'checkbox' => 0,
                 'default' => 0,
                 'range' => [
                     'lower' => mktime(0, 0, 0, date('m'), date('d'), date('Y'))
                 ],
+                'behaviour' => [
+                    'allowLanguageSynchronization' => true
+                ]
             ],
         ],
         'endtime' => [
             'exclude' => 1,
-            'l10n_mode' => 'mergeIfNotBlank',
             'label' => $cll . 'LGL.endtime',
             'config' => [
                 'type' => 'input',
+                'renderType' => 'inputDateTime',
                 'size' => 13,
-                'max' => 20,
                 'eval' => 'datetime',
                 'checkbox' => 0,
                 'default' => 0,
                 'range' => [
                     'lower' => mktime(0, 0, 0, date('m'), date('d'), date('Y'))
                 ],
+                'behaviour' => [
+                    'allowLanguageSynchronization' => true
+                ]
             ],
         ],
         'tx_extbase_type' => [
             'exclude' => 1,
-            'label' => $ll . 'tx_t3events_domain_model_person.tx_extbase_type',
+            'label' => $ll . ':tx_t3events_domain_model_person.tx_extbase_type',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
-                    [$ll . 'tx_t3events_domain_model_person.type.default', 'Tx_T3events_Default'],
-                    [$ll . 'tx_t3events_domain_model_person.type.contact', 'Tx_T3events_Contact'],
+                    [$ll . ':tx_t3events_domain_model_person.type.default', 'Tx_T3events_Default'],
+                    [$ll . ':tx_t3events_domain_model_person.type.contact', 'Tx_T3events_Contact'],
                 ],
                 'size' => 1,
                 'maxitems' => 1,
@@ -134,33 +146,37 @@ return [
         ],
         'person_type' => [
             'exclude' => 1,
-            'label' => $ll . 'tx_t3events_domain_model_person.person_type',
+            'label' => $ll . ':tx_t3events_domain_model_person.person_type',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'foreign_table' => 'tx_t3events_domain_model_persontype',
                 'minitems' => 0,
                 'maxitems' => 1,
-                'showIconTable' => true,
+                'fieldWizard' => [
+                    'selectIcons' => [
+                        'disabled' => false
+                    ]
+                ]
             ],
         ],
         'name' => [
             'exclude' => 1,
-            'label' => $ll . 'tx_t3events_domain_model_person.name',
+            'label' => $ll . ':tx_t3events_domain_model_person.name',
             'config' => [
                 'type' => 'input',
             ],
         ],
         'title' => [
             'exclude' => 1,
-            'label' => $ll . 'tx_t3events_domain_model_person.title',
+            'label' => $ll . ':tx_t3events_domain_model_person.title',
             'config' => [
                 'type' => 'input',
             ],
         ],
         'first_name' => [
             'exclude' => 0,
-            'label' => $ll . 'tx_t3events_domain_model_person.first_name',
+            'label' => $ll . ':tx_t3events_domain_model_person.first_name',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -169,7 +185,7 @@ return [
         ],
         'last_name' => [
             'exclude' => 0,
-            'label' => $ll . 'tx_t3events_domain_model_person.last_name',
+            'label' => $ll . ':tx_t3events_domain_model_person.last_name',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -178,23 +194,27 @@ return [
         ],
         'gender' => [
             'exclude' => 0,
-            'label' => $ll . 'tx_t3events_domain_model_person.gender',
+            'label' => $ll . ':tx_t3events_domain_model_person.gender',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
-                    [$ll . 'tx_t3events_domain_model_person.gender.I.0', 0],
-                    [$ll . 'tx_t3events_domain_model_person.gender.I.1', 1],
+                    [$ll . ':tx_t3events_domain_model_person.gender.I.0', 0],
+                    [$ll . ':tx_t3events_domain_model_person.gender.I.1', 1],
                 ],
                 'minitems' => 0,
                 'maxitems' => 1,
                 'eval' => 'required',
-                'showIconTable' => true,
+                'fieldWizard' => [
+                    'selectIcons' => [
+                        'disabled' => false
+                    ]
+                ]
             ],
         ],
         'address' => [
             'exclude' => 1,
-            'label' => $ll . 'tx_t3events_domain_model_person.address',
+            'label' => $ll . ':tx_t3events_domain_model_person.address',
             'config' => [
                 'type' => 'text',
                 'cols' => 40,
@@ -204,7 +224,7 @@ return [
         ],
         'zip' => [
             'exclude' => 1,
-            'label' => $ll . 'tx_t3events_domain_model_person.zip',
+            'label' => $ll . ':tx_t3events_domain_model_person.zip',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -213,7 +233,7 @@ return [
         ],
         'city' => [
             'exclude' => 1,
-            'label' => $ll . 'tx_t3events_domain_model_person.city',
+            'label' => $ll . ':tx_t3events_domain_model_person.city',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -222,7 +242,7 @@ return [
         ],
         'phone' => [
             'exclude' => 1,
-            'label' => $ll . 'tx_t3events_domain_model_person.phone',
+            'label' => $ll . ':tx_t3events_domain_model_person.phone',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -231,7 +251,7 @@ return [
         ],
         'email' => [
             'exclude' => 1,
-            'label' => $ll . 'tx_t3events_domain_model_person.email',
+            'label' => $ll . ':tx_t3events_domain_model_person.email',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -240,7 +260,7 @@ return [
         ],
         'www' => [
             'exclude' => 1,
-            'label' => $ll . 'tx_t3events_domain_model_person.www',
+            'label' => $ll . ':tx_t3events_domain_model_person.www',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -249,7 +269,7 @@ return [
         ],
         'images' => [
             'exclude' => 1,
-            'label' => $ll . 'tx_t3events_domain_model_person.images',
+            'label' => $ll . ':tx_t3events_domain_model_person.images',
             'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
                 'images',
                 [
@@ -259,20 +279,22 @@ return [
                             'width' => '100',
                             'height' => '100',
                         ],
-                        'createNewRelationLinkTitle' => $ll. 'label.add-images'
+                        'createNewRelationLinkTitle' => $ll . ':label.add-images'
                     ],
                     // custom configuration for displaying fields in the overlay/reference table
                     // to use the imageoverlayPalette instead of the basicoverlayPalette
-                    'foreign_types' => [
-                        '0' => [
-                            'showitem' => '
-						--palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-						--palette--;;filePalette'
-                        ],
-                        \TYPO3\CMS\Core\Resource\File::FILETYPE_IMAGE => [
-                            'showitem' => '
-						--palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-						--palette--;;filePalette'
+                    'overrideChildTca' => [
+                        'types' => [
+                            '0' => [
+                                'showitem' => '
+                        --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
+                        --palette--;;filePalette'
+                            ],
+                            \TYPO3\CMS\Core\Resource\File::FILETYPE_IMAGE => [
+                                'showitem' => '
+                        --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
+                        --palette--;;filePalette'
+                            ],
                         ],
                     ],
                 ],

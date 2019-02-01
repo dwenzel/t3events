@@ -60,7 +60,7 @@ class PerformancesViewHelper extends AbstractTagBasedViewHelper
         parent::registerArgument('event', Event::class, 'Event whose performances should be rendered.', true);
         parent::registerArgument('tagName', 'string', 'Tag name to use for enclosing container', false, 'div');
         parent::registerArgument('tagNameChildren', 'string', 'Tag name to use for child nodes', false, 'span');
-        parent::registerArgument('type', 'string', 'Result type: available options are complete, list, dateRange, crucialStatus', true);
+        parent::registerArgument('type', 'string', 'Result type: available options are: dateRange, crucialStatus', true);
         parent::registerArgument('class', 'string', 'Class attribute for enclosing container', false, 'list');
         parent::registerArgument('classChildren', 'string', 'Class attribute for children', false, 'single');
         parent::registerArgument('classFirst', 'string', 'Class name for first child', false, 'first');
@@ -97,10 +97,6 @@ class PerformancesViewHelper extends AbstractTagBasedViewHelper
                         $content = $status['title'];
                     }
                 }
-                break;
-            case 'lowestPrice':
-                //return raw number to allow using <f:format.currency />
-                return $this->getLowestPrice();
                 break;
             default:
                 break;
@@ -216,14 +212,14 @@ class PerformancesViewHelper extends AbstractTagBasedViewHelper
         );
 
         // start override
-        if (isset($tsSettings['settings']['overrideFlexformSettingsIfEmpty'])) {
-            $overrideIfEmpty = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $tsSettings['settings']['overrideFlexformSettingsIfEmpty'], true);
+        if (isset($tsSettings[SI::SETTINGS]['overrideFlexformSettingsIfEmpty'])) {
+            $overrideIfEmpty = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $tsSettings[SI::SETTINGS]['overrideFlexformSettingsIfEmpty'], true);
             foreach ($overrideIfEmpty as $key) {
                 // if flexform setting is empty and value is available in TS
                 if ((!isset($originalSettings[$key]) || empty($originalSettings[$key]))
-                    && isset($tsSettings['settings'][$key])
+                    && isset($tsSettings[SI::SETTINGS][$key])
                 ) {
-                    $originalSettings[$key] = $tsSettings['settings'][$key];
+                    $originalSettings[$key] = $tsSettings[SI::SETTINGS][$key];
                 }
             }
         }

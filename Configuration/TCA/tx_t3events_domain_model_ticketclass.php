@@ -13,8 +13,8 @@ return [
         'cruser_id' => 'cruser_id',
         'dividers2tabs' => true,
         'sortby' => 'sorting',
-        'versioningWS' => 2,
-        'versioning_followPages' => true,
+        'versioningWS' => true,
+
         'origUid' => 't3_origuid',
         'languageField' => 'sys_language_uid',
         'transOrigPointerField' => 'l10n_parent',
@@ -102,34 +102,37 @@ return [
         ],
         'starttime' => [
             'exclude' => 1,
-            'l10n_mode' => 'mergeIfNotBlank',
             'label' => $cll . 'LGL.starttime',
             'config' => [
                 'type' => 'input',
+                'renderType' => 'inputDateTime',
                 'size' => 13,
-                'max' => 20,
                 'eval' => 'datetime',
                 'checkbox' => 0,
                 'default' => 0,
                 'range' => [
                     'lower' => mktime(0, 0, 0, date('m'), date('d'), date('Y'))
                 ],
+                'behaviour' => [
+                    'allowLanguageSynchronization' => true
+                ]
             ],
         ],
         'endtime' => [
             'exclude' => 1,
-            'l10n_mode' => 'mergeIfNotBlank',
             'label' => $cll . 'LGL.endtime',
             'config' => [
                 'type' => 'input',
+                'renderType' => 'inputDateTime',
                 'size' => 13,
-                'max' => 20,
-                'eval' => 'datetime',
                 'checkbox' => 0,
                 'default' => 0,
                 'range' => [
                     'lower' => mktime(0, 0, 0, date('m'), date('d'), date('Y'))
                 ],
+                'behaviour' => [
+                    'allowLanguageSynchronization' => true
+                ]
             ],
         ],
         'title' => [
@@ -146,21 +149,8 @@ return [
             'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_ticketclass.color',
             'config' => [
                 'type' => 'input',
-                'size' => 4,
-                'eval' => 'trim',
-                'wizards' => [
-                    'colorpick' => [
-                        'type' => 'colorbox',
-                        'title' => 'Color picker',
-                        'module' => [
-                            'name' => 'wizard_colorpicker',
-                        ],
-                        'dim' => '20x20',
-                        'tableStyle' => 'border: solid 1px #EEEEE; margin-left:20px',
-                        'JSopenParams' => 'height=550,width=365,status=0,menubar=0,scrollbars=1',
-                    ]
-                ],
-            ],
+                'renderType' => 'colorpicker'
+            ]
         ],
         'price' => [
             'exclude' => 1,

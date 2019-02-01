@@ -28,7 +28,7 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
  */
 class Event extends AbstractEntity
 {
-    use CategorizableTrait;
+    use CategorizableTrait, RelatedSchedulesTrait;
 
     /**
      * Hidden
@@ -82,7 +82,7 @@ class Event extends AbstractEntity
      * images
      *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
-     * @lazy
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      */
     protected $images;
 
@@ -90,7 +90,7 @@ class Event extends AbstractEntity
      * files
      *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
-     * @lazy
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      */
     protected $files;
 
@@ -98,14 +98,14 @@ class Event extends AbstractEntity
      * related
      *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Event>
-     * @lazy
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      */
     protected $related;
 
     /**
      * genre
      *
-     * @lazy
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Genre>
      */
     protected $genre;
@@ -113,7 +113,7 @@ class Event extends AbstractEntity
     /**
      * venue
      *
-     * @lazy
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Venue>
      */
     protected $venue;
@@ -121,7 +121,7 @@ class Event extends AbstractEntity
     /**
      * eventType
      *
-     * @lazy
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      * @var \DWenzel\T3events\Domain\Model\EventType
      */
     protected $eventType;
@@ -129,7 +129,7 @@ class Event extends AbstractEntity
     /**
      * performances
      *
-     * @lazy
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Performance>
      */
     protected $performances;
@@ -137,7 +137,7 @@ class Event extends AbstractEntity
     /**
      * organizer
      *
-     * @lazy
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      * @var \DWenzel\T3events\Domain\Model\Organizer
      */
     protected $organizer;
@@ -145,7 +145,7 @@ class Event extends AbstractEntity
     /**
      * Audience
      *
-     * @lazy
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Audience>
      */
     protected $audience;
@@ -161,7 +161,7 @@ class Event extends AbstractEntity
     protected $archiveDate;
 
     /**
-     * @lazy
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Content>
      */
     protected $contentElements;
@@ -195,6 +195,7 @@ class Event extends AbstractEntity
         $this->performances = new ObjectStorage();
         $this->categories = new ObjectStorage();
         $this->contentElements = new ObjectStorage();
+        $this->relatedSchedules = new ObjectStorage();
     }
 
     /**

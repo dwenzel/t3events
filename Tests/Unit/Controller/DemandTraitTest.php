@@ -16,6 +16,7 @@ use DWenzel\T3events\Domain\Model\Dto\SearchAwareDemandInterface;
 use DWenzel\T3events\Domain\Model\Dto\VenueAwareDemandInterface;
 use DWenzel\T3events\Domain\Repository\PeriodConstraintRepositoryInterface;
 use DWenzel\T3events\Utility\SettingsUtility;
+use DWenzel\T3events\Utility\SettingsInterface as SI;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 
 /**
@@ -40,9 +41,8 @@ class DemandTraitTest extends UnitTestCase
         $this->subject = $this->getMockForTrait(
             DemandTrait::class
         );
-        $mockSettingsUtility = $this->getMock(
-            SettingsUtility::class, ['getControllerKey']
-        );
+        $mockSettingsUtility = $this->getMockBuilder(SettingsUtility::class)
+            ->setMethods(['getControllerKey'])->getMock();
         $this->inject(
             $this->subject,
             'settingsUtility',
@@ -62,7 +62,7 @@ class DemandTraitTest extends UnitTestCase
             GenreAwareDemandInterface::class,
             [], '', true, true, true, ['setGenres']
         );
-        $overwriteDemand = ['genre' => '1,2,3'];
+        $overwriteDemand = [SI::LEGACY_KEY_GENRE => '1,2,3'];
 
         $demand->expects($this->once())->method('setGenres')
             ->with('1,2,3');
@@ -80,7 +80,7 @@ class DemandTraitTest extends UnitTestCase
             EventDemand::class,
             [], '', true, true, true, ['setGenre']
         );
-        $overwriteDemand = ['genre' => '1,2,3'];
+        $overwriteDemand = [SI::LEGACY_KEY_GENRE => '1,2,3'];
 
         $demand->expects($this->once())->method('setGenre')
             ->with('1,2,3');
@@ -110,7 +110,8 @@ class DemandTraitTest extends UnitTestCase
      */
     public function overwriteDemandObjectSetsEventType()
     {
-        $demand = $this->getMock(EventTypeAwareDemandInterface::class);
+        /** @var EventTypeAwareDemandInterface|\PHPUnit_Framework_MockObject_MockObject $demand */
+        $demand = $this->getMockBuilder(EventTypeAwareDemandInterface::class)->getMock();
         $overwriteDemand = ['eventType' => '1,2,3'];
 
         $demand->expects($this->once())->method('setEventTypes')
@@ -124,7 +125,8 @@ class DemandTraitTest extends UnitTestCase
      */
     public function overwriteDemandObjectSetsEventLocations()
     {
-        $demand = $this->getMock(EventLocationAwareDemandInterface::class);
+        /** @var EventLocationAwareDemandInterface|\PHPUnit_Framework_MockObject_MockObject $demand */
+        $demand = $this->getMockBuilder(EventLocationAwareDemandInterface::class)->getMock();
         $overwriteDemand = ['eventLocation' => '1,2,3'];
 
         $demand->expects($this->once())->method('setEventLocations')
@@ -165,12 +167,12 @@ class DemandTraitTest extends UnitTestCase
         ];
         $this->inject(
             $this->subject,
-            'settings',
+            SI::SETTINGS,
             $settings
         );
 
-        $demand = $this->getMock(SearchAwareDemandInterface::class);
-        $mockSearchObject = $this->getMock(Search::class);
+        $demand = $this->getMockBuilder(SearchAwareDemandInterface::class)->getMockForAbstractClass();
+        $mockSearchObject = $this->getMockBuilder(Search::class)->getMock();
         $overwriteDemand = [
             'search' => [
                 'subject' => $search
@@ -216,7 +218,7 @@ class DemandTraitTest extends UnitTestCase
         );
         $overwriteDemand = array(
             'sortBy' => 'foo',
-            'sortDirection' => 'bar'
+            SI::SORT_DIRECTION => 'bar'
         );
 
         $demand->expects($this->once())->method('setOrder')
@@ -234,7 +236,7 @@ class DemandTraitTest extends UnitTestCase
             AbstractDemand::class, [], '', true, true, true, ['setSortDirection']
         );
         $overwriteDemand = array(
-            'sortDirection' => 'foo'
+            SI::SORT_DIRECTION => 'foo'
         );
 
         $demand->expects($this->once())->method('setSortDirection')
@@ -252,7 +254,7 @@ class DemandTraitTest extends UnitTestCase
             AbstractDemand::class, [], '', true, true, true, ['setSortDirection']
         );
         $overwriteDemand = array(
-            'sortDirection' => 'desc'
+            SI::SORT_DIRECTION => 'desc'
         );
 
         $demand->expects($this->once())->method('setSortDirection')
@@ -266,12 +268,11 @@ class DemandTraitTest extends UnitTestCase
      */
     public function overwriteDemandObjectSetsStartDate()
     {
-        $demand = $this->getMock(
-            PeriodAwareDemandInterface::class
-        );
+        /** @var PeriodAwareDemandInterface|\PHPUnit_Framework_MockObject_MockObject $demand */
+        $demand = $this->getMockBuilder(PeriodAwareDemandInterface::class)->getMock();
         $dateString = '2012-10-15';
         $overwriteDemand = [
-            'startDate' => $dateString
+            SI::START_DATE => $dateString
         ];
         $defaultTimeZone = new \DateTimeZone(date_default_timezone_get());
         $expectedDateTimeObject = new \DateTime($dateString, $defaultTimeZone);
@@ -287,12 +288,11 @@ class DemandTraitTest extends UnitTestCase
      */
     public function overwriteDemandObjectSetsEndDate()
     {
-        $demand = $this->getMock(
-            PerformanceDemand::class
-        );
+        /** @var PerformanceDemand|\PHPUnit_Framework_MockObject_MockObject $demand */
+        $demand = $this->getMockBuilder(PerformanceDemand::class)->getMock();
         $dateString = '2012-10-15';
         $overwriteDemand = [
-            'endDate' => $dateString
+            SI::END_DATE => $dateString
         ];
         $defaultTimeZone = new \DateTimeZone(date_default_timezone_get());
         $expectedDateTimeObject = new \DateTime($dateString, $defaultTimeZone);
@@ -308,12 +308,11 @@ class DemandTraitTest extends UnitTestCase
      */
     public function overWriteDemandSetsPeriodAllForInvalidStartDate()
     {
-        $demand = $this->getMock(
-            PerformanceDemand::class
-        );
+        /** @var PerformanceDemand|\PHPUnit_Framework_MockObject_MockObject $demand */
+        $demand = $this->getMockBuilder(PerformanceDemand::class)->getMock();
         $dateString = '';
         $overwriteDemand = [
-            'startDate' => $dateString,
+            SI::START_DATE => $dateString,
             'period' => PeriodConstraintRepositoryInterface::PERIOD_SPECIFIC,
             'periodType' => 'byDate'
         ];
@@ -331,19 +330,19 @@ class DemandTraitTest extends UnitTestCase
     public function emptyOverwriteDemandKeysDataProvider()
     {
         return [
-            ['startDate'],
-            ['endDate'],
+            [SI::START_DATE],
+            [SI::END_DATE],
             ['period'],
             ['periodType'],
             ['sortBy'],
-            ['sortDirection'],
+            [SI::SORT_DIRECTION],
             ['search'],
             ['venue'],
-            ['venues'],
-            ['genre'],
-            ['genres'],
+            [SI::VENUES],
+            [SI::LEGACY_KEY_GENRE],
+            [SI::GENRES],
             ['eventType'],
-            ['eventTypes'],
+            [SI::EVENT_TYPES],
             ['eventLocation'],
             ['foo']
         ];
@@ -358,7 +357,7 @@ class DemandTraitTest extends UnitTestCase
         $method = 'set' . ucfirst($key);
         $demand = $this->getMockBuilder(
             DemandInterface::class)
-        ->setMethods([$method])->getMockForAbstractClass();
+            ->setMethods([$method])->getMockForAbstractClass();
 
         $overwriteDemand = [
             $key => ''

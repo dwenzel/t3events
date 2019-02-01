@@ -1,4 +1,5 @@
 <?php
+
 namespace DWenzel\T3events\Tests\Unit\Domain\Factory\Dto;
 
 /**
@@ -15,12 +16,15 @@ namespace DWenzel\T3events\Tests\Unit\Domain\Factory\Dto;
  */
 
 use DWenzel\T3events\Domain\Factory\Dto\PersonDemandFactory;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 use DWenzel\T3events\Domain\Model\Dto\PersonDemand;
+use DWenzel\T3events\Tests\Unit\Object\MockObjectManagerTrait;
+use DWenzel\T3events\Utility\SettingsInterface as SI;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
+use PHPUnit\Framework\MockObject\MockObject;
 
 class PersonDemandFactoryTest extends UnitTestCase
 {
+    use MockObjectManagerTrait;
 
     /**
      * @var PersonDemandFactory
@@ -35,19 +39,8 @@ class PersonDemandFactoryTest extends UnitTestCase
         $this->subject = $this->getAccessibleMock(
             PersonDemandFactory::class, ['dummy'], [], '', false
         );
-    }
-
-    /**
-     * @return \PHPUnit_Framework_MockObject_MockObject
-     */
-    protected function mockObjectManager()
-    {
-        $mockObjectManager = $this->getMock(
-            ObjectManager::class, ['get']
-        );
-        $this->subject->injectObjectManager($mockObjectManager);
-
-        return $mockObjectManager;
+        $this->objectManager = $this->getMockObjectManager();
+        $this->subject->injectObjectManager($this->objectManager);
     }
 
     /**
@@ -55,11 +48,8 @@ class PersonDemandFactoryTest extends UnitTestCase
      */
     public function createFromSettingsReturnsPersonDemand()
     {
-        $mockDemand = $this->getMock(
-            PersonDemand::class
-        );
-        $mockObjectManager = $this->mockObjectManager();
-        $mockObjectManager->expects($this->once())
+        $mockDemand = $this->getMockPersonDemand();
+        $this->objectManager->expects($this->once())
             ->method('get')
             ->with(PersonDemand::class)
             ->will($this->returnValue($mockDemand));
@@ -71,9 +61,20 @@ class PersonDemandFactoryTest extends UnitTestCase
     }
 
     /**
+     * @param array $methods Methods to mock
+     * @return PersonDemand|MockObject
+     */
+    protected function getMockPersonDemand(array $methods = [])
+    {
+        return $this->getMockBuilder(PersonDemand::class)
+            ->setMethods($methods)
+            ->getMock();
+    }
+
+    /**
      * @return array
      */
-    public function settablePropertiesDataProvider()
+    public function settablePropertiesDataProvider(): array
     {
         /** propertyName, $settingsValue, $expectedValue */
         return [
@@ -100,11 +101,8 @@ class PersonDemandFactoryTest extends UnitTestCase
         $settings = [
             $propertyName => $settingsValue
         ];
-        $mockDemand = $this->getMock(
-            PersonDemand::class, ['dummy']
-        );
-        $mockObjectManager = $this->mockObjectManager();
-        $mockObjectManager->expects($this->once())
+        $mockDemand = $this->getMockPersonDemand(['dummy']);
+        $this->objectManager->expects($this->once())
             ->method('get')
             ->will($this->returnValue($mockDemand));
         $createdDemand = $this->subject->createFromSettings($settings);
@@ -118,7 +116,7 @@ class PersonDemandFactoryTest extends UnitTestCase
     /**
      * @return array
      */
-    public function mappedPropertiesDataProvider()
+    public function mappedPropertiesDataProvider(): array
     {
         /** settingsKey, propertyName, $settingsValue, $expectedValue */
         return [
@@ -139,11 +137,8 @@ class PersonDemandFactoryTest extends UnitTestCase
         $settings = [
             $settingsKey => $settingsValue
         ];
-        $mockDemand = $this->getMock(
-            PersonDemand::class, ['dummy']
-        );
-        $mockObjectManager = $this->mockObjectManager();
-        $mockObjectManager->expects($this->once())
+        $mockDemand = $this->getMockPersonDemand(['dummy']);
+        $this->objectManager->expects($this->once())
             ->method('get')
             ->will($this->returnValue($mockDemand));
         $createdDemand = $this->subject->createFromSettings($settings);
@@ -157,27 +152,27 @@ class PersonDemandFactoryTest extends UnitTestCase
     /**
      * @return array
      */
-    public function skippedPropertiesDataProvider()
+    public function skippedPropertiesDataProvider(): array
     {
         return [
             ['foo', ''],
             ['search', 'bar']
         ];
     }
+
     /**
      * @test
      * @dataProvider skippedPropertiesDataProvider
+     * @param $propertyName
+     * @param $propertyValue
      */
     public function createFromSettingsDoesNotSetSkippedValues($propertyName, $propertyValue)
     {
         $settings = [
             $propertyName => $propertyValue
         ];
-        $mockDemand = $this->getMock(
-            PersonDemand::class, ['dummy']
-        );
-        $mockObjectManager = $this->mockObjectManager();
-        $mockObjectManager->expects($this->once())
+        $mockDemand = $this->getMockPersonDemand(['dummy']);
+        $this->objectManager->expects($this->once())
             ->method('get')
             ->will($this->returnValue($mockDemand));
         $createdDemand = $this->subject->createFromSettings($settings);
@@ -188,7 +183,6 @@ class PersonDemandFactoryTest extends UnitTestCase
         );
     }
 
-
     /**
      * @test
      */
@@ -196,16 +190,12 @@ class PersonDemandFactoryTest extends UnitTestCase
     {
         $settings = [
             'sortBy' => 'foo',
-            'sortDirection' => 'bar'
+            SI::SORT_DIRECTION => 'bar'
         ];
         $expectedOrder = 'foo|bar';
 
-        /** @var PersonDemand $mockDemand */
-        $mockDemand = $this->getMock(
-            PersonDemand::class, ['dummy']
-        );
-        $mockObjectManager = $this->mockObjectManager();
-        $mockObjectManager->expects($this->once())
+        $mockDemand = $this->getMockPersonDemand(['dummy']);
+        $this->objectManager->expects($this->once())
             ->method('get')
             ->will($this->returnValue($mockDemand));
         $createdDemand = $this->subject->createFromSettings($settings);
