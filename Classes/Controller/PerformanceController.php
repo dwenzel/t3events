@@ -134,6 +134,7 @@ class PerformanceController
 
     /**
      * initializes all actions
+     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException
      */
     public function initializeAction()
     {
@@ -162,6 +163,8 @@ class PerformanceController
      *
      * @param array $overwriteDemand
      * @return void
+     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException
+     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
      */
     public function listAction(array $overwriteDemand = null)
     {
@@ -185,6 +188,8 @@ class PerformanceController
      *
      * @param \DWenzel\T3events\Domain\Model\Performance $performance
      * @return void
+     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
+     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException
      */
     public function showAction(Performance $performance)
     {
@@ -201,6 +206,8 @@ class PerformanceController
      * action quickMenu
      *
      * @return void
+     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
+     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException
      */
     public function quickMenuAction()
     {
@@ -232,6 +239,8 @@ class PerformanceController
     /**
      * Calendar action
      * @param array $overwriteDemand
+     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
+     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException
      */
     public function calendarAction(array $overwriteDemand = null)
     {
@@ -257,13 +266,12 @@ class PerformanceController
      * This method is kept for backwards compatibility only.
      *
      * @param array $settings
-     * @return \DWenzel\T3events\Domain\Model\Dto\PerformanceDemand
+     * @return \DWenzel\T3events\Domain\Model\Dto\DemandInterface
      * @deprecated Use demand factory instead
      */
     protected function createDemandFromSettings($settings)
     {
         /** @var PerformanceDemand $demand */
-        $demand = $this->performanceDemandFactory->createFromSettings($settings);
-        return $demand;
+        return $this->performanceDemandFactory->createFromSettings($settings);
     }
 }
