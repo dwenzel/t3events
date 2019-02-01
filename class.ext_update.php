@@ -133,12 +133,6 @@ class ext_update
     {
         $output = '';
         foreach ($this->messageArray as $messageItem) {
-            /** @var \TYPO3\CMS\Core\Messaging\FlashMessage $flashMessage */
-            $flashMessage = GeneralUtility::makeInstance(
-                FlashMessage::class,
-                $messageItem[2],
-                $messageItem[1],
-                $messageItem[0]);
             $output .= $this->renderFlashMessage($messageItem);
         }
         return $output;
