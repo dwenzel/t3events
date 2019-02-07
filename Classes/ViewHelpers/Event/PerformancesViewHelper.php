@@ -19,6 +19,7 @@ use DWenzel\T3events\Domain\Model\Event;
 use DWenzel\T3events\Domain\Model\Performance;
 use DWenzel\T3events\Domain\Repository\EventRepository;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
+use DWenzel\T3events\Utility\SettingsInterface as SI;
 
 /**
  * Render a list of performances of a given event
