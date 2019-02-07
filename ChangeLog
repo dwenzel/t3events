@@ -1,3 +1,6 @@
+2019-02-07         [RELEASE] Release of t3events 0.41.2 (Dirk Wenzel)
+2019-02-07 71e8929 [BUGFIX] missing import for SettingsInterface added to Event/PerformanceViewHelper (Dirk Wenzel)
+
 2018-11-23         [RELEASE] Release of t3events 0.41.1 (Dirk Wenzel)
 2018-11-23 e27b03e [BUGFIX] missing TypoScript for showAction added closes #73 (Dirk Wenzel)
 2018-11-23 d916564 [BUGFIX] prevent slow loading in backend caused by core bug: see https://forge.typo3.org/issues/82730, closes #76 (Dirk Wenzel)
