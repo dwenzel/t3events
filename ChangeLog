@@ -1,3 +1,9 @@
+2019-02-15         [RELEASE] Release of t3events 0.42.0 (Dirk Wenzel)
+2019-02-15 3fff93a [TASK] use new method equals for object comparison - due to error caused by different handling of ObjectStorage on reconstitution of objects (Dirk Wenzel)
+2019-02-09 3a42117 [TASK] Update credits (Jasmina Ließmann)
+2019-02-01 56eb44a [TASK] coding style: declare variables explicitly (Dirk Wenzel)
+2019-02-01 cd68831 [TASK] coding style: obsolete call removed from extension updater (Dirk Wenzel)
+
 2019-02-07         [RELEASE] Release of t3events 0.41.2 (Dirk Wenzel)
 2019-02-07 71e8929 [BUGFIX] missing import for SettingsInterface added to Event/PerformanceViewHelper (Dirk Wenzel)
 

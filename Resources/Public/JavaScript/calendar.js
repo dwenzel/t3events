@@ -19,8 +19,8 @@ t3events.ajax = function (url, parentObject) {
 jQuery('.tx-t3events ').on('click', '.navigation a', function (e) {
 	e.preventDefault();
 	element = jQuery(this);
-	calendarId = element.data('calendarid');
-	parentObject = jQuery('#' + calendarId);
+	var calendarId = element.data('calendarid');
+	var parentObject = jQuery('#' + calendarId);
 	t3events.ajax(element.attr('href'), parentObject);
 });
 

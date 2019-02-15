@@ -26,6 +26,7 @@ namespace DWenzel\T3events\Domain\Model;
  */
 class Organizer extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
+    use EqualsTrait;
 
     /**
      * name
