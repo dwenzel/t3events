@@ -26,6 +26,7 @@ namespace DWenzel\T3events\Domain\Model;
  */
 class Venue extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
+    use EqualsTrait;
 
     /**
      * title

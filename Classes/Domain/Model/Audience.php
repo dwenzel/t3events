@@ -25,6 +25,7 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
  */
 class Audience extends AbstractEntity
 {
+    use EqualsTrait;
 
     /**
      * title

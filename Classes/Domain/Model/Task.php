@@ -23,6 +23,8 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
  */
 class Task extends AbstractEntity
 {
+    use EqualsTrait;
+
     const ACTION_NONE = 0;
     const ACTION_UPDATE_STATUS = 1;
     const ACTION_DELETE = 2;

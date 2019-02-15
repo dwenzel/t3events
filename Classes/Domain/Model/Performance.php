@@ -23,6 +23,7 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
  */
 class Performance extends AbstractEntity implements CalendarItemInterface
 {
+    use EqualsTrait;
 
     /**
      * date
