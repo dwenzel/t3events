@@ -46,7 +46,7 @@ trait RelatedSchedulesTrait
     /**
      * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Performance> $relatedSchedules
      */
-    public function setRelatedSchedules(ObjectStorage $relatedSchedules): void
+    public function setRelatedSchedules(ObjectStorage $relatedSchedules)
     {
         $this->relatedSchedules = $relatedSchedules;
     }

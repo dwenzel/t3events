@@ -51,16 +51,16 @@ class EventPluginFormDataProvider implements FormDataProviderInterface
             && $result['tableName'] === 'tt_content'
             && $result['databaseRow']['CType'] === 'list'
             && $result['databaseRow']['list_type'] === 't3events_events'
-            && is_array($result['processedTca']['columns']['pi_flexform'][SI::ARGUMENTS]['ds'])
+            && is_array($result['processedTca']['columns']['pi_flexform'][SI::CONFIG]['ds'])
         ) {
-            $dataStructure = $result['processedTca']['columns']['pi_flexform'][SI::ARGUMENTS]['ds'];
+            $dataStructure = $result['processedTca']['columns']['pi_flexform'][SI::CONFIG]['ds'];
             $conf = [];
             $row = $result['databaseRow'];
             $table = 'tt_content';
             $fieldName = '';
 
             $this->backendUtility->getFlexFormDS_postProcessDS($dataStructure, $conf, $row, $table, $fieldName);
-            $result['processedTca']['columns']['pi_flexform'][SI::ARGUMENTS]['ds'] = $dataStructure;
+            $result['processedTca']['columns']['pi_flexform'][SI::CONFIG]['ds'] = $dataStructure;
         }
 
         return $result;
