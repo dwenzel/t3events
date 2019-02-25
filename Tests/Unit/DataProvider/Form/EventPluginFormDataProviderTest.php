@@ -88,7 +88,7 @@ class EventPluginFormDataProviderTest extends UnitTestCase
             'processedTca' => [
                 'columns' => [
                     'pi_flexform' => [
-                        SI::ARGUMENTS => [
+                        SI::CONFIG => [
                             'ds' => ['foo']
                         ]
                     ]
@@ -106,7 +106,7 @@ class EventPluginFormDataProviderTest extends UnitTestCase
      */
     public function addDataReturnsProcessesResult($result)
     {
-        $dataStructure = $result['processedTca']['columns']['pi_flexform'][SI::ARGUMENTS]['ds'];
+        $dataStructure = $result['processedTca']['columns']['pi_flexform'][SI::CONFIG]['ds'];
         $conf = [];
         $row = $result['databaseRow'];
         $table = 'tt_content';

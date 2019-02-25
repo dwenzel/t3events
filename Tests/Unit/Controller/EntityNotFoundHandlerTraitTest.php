@@ -223,7 +223,7 @@ class EntityNotFoundHandlerTraitTest extends UnitTestCase
         );
         $config = 'foo';
         $expectedParams = [
-            SI::ARGUMENTS => GeneralUtility::trimExplode(',', $config),
+            SI::CONFIG => GeneralUtility::trimExplode(',', $config),
             'requestArguments' => null,
             SI::ACTION_NAME => null
         ];
@@ -260,7 +260,7 @@ class EntityNotFoundHandlerTraitTest extends UnitTestCase
         );
         $config = 'foo';
         $expectedParams = [
-            SI::ARGUMENTS => GeneralUtility::trimExplode(',', $config),
+            SI::CONFIG => GeneralUtility::trimExplode(',', $config),
             'requestArguments' => null,
             SI::ACTION_NAME => null
         ];
@@ -354,7 +354,7 @@ class EntityNotFoundHandlerTraitTest extends UnitTestCase
         );
         $config = 'foo';
         $expectedParams = [
-            SI::ARGUMENTS => GeneralUtility::trimExplode(',', $config),
+            SI::CONFIG => GeneralUtility::trimExplode(',', $config),
             'requestArguments' => null,
             SI::ACTION_NAME => null
         ];

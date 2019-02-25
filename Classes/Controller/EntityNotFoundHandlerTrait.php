@@ -134,7 +134,7 @@ trait EntityNotFoundHandlerTrait
                 break;
             default:
                 $params = [
-                    SI::ARGUMENTS => $configuration,
+                    SI::CONFIG => $configuration,
                     'requestArguments' => $this->request->getArguments(),
                     SI::ACTION_NAME => $this->request->getControllerActionName()
                 ];
