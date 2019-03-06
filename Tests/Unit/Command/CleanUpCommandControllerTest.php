@@ -31,6 +31,7 @@ use DWenzel\T3events\Domain\Repository\EventRepository;
 use DWenzel\T3events\Domain\Repository\PerformanceRepository;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
+use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use DWenzel\T3events\Utility\SettingsInterface as SI;
@@ -48,6 +49,12 @@ class CleanUpCommandControllerTest extends UnitTestCase
     protected $subject;
 
     /**
+     * @var PersistenceManager|MockObject
+     */
+    protected $persistenceManager;
+
+
+    /**
      * set up the subject
      */
     public function setUp()
@@ -55,6 +62,12 @@ class CleanUpCommandControllerTest extends UnitTestCase
         $this->subject = $this->getAccessibleMock(
             \DWenzel\T3events\Command\CleanUpCommandController::class, ['dummy', 'outputLine']
         );
+        $this->persistenceManager = $this->getMockBuilder(PersistenceManager::class)
+            ->disableOriginalConstructor()
+            ->setMethods(['persistAll'])
+            ->getMock();
+        $this->subject->injectPersistenceManager($this->persistenceManager);
+
     }
 
     /**
