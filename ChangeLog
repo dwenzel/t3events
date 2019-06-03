@@ -1,3 +1,6 @@
+2019-06-03         [RELEASE] Release of t3events 0.42.3 (Dirk Wenzel)
+2019-06-03 9d2e672 [BUGFIX] fixed error where Performance->quickMenuAction was not registered correctly as non-cacheable (Dirk Wenzel)
+
 2019-03-06         [RELEASE] Release of t3events 0.42.2 (Dirk Wenzel)
 2019-03-06 7310b86 [BUGFIX] fixed error in unit tests for CleanUpCommandController caused by insufficient mocking (Dirk Wenzel)
 2019-03-06 c21e5d7 [BUGFIX] fixed error in command controller where deletion of records was not persisted (Dirk Wenzel)
