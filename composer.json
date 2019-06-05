@@ -36,10 +36,6 @@
       "DWenzel\\T3events\\Tests\\": "Tests"
     }
   },
-  "replace": {
-    "t3events": "self.version",
-    "typo3-ter/t3events": "self.version"
-  },
   "config": {
     "vendor-dir": ".Build/vendor",
     "bin-dir": ".Build/bin",
