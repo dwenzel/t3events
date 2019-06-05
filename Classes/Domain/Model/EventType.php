@@ -27,6 +27,8 @@ namespace DWenzel\T3events\Domain\Model;
 class EventType extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject
 {
 
+    use EqualsTrait;
+
     /**
      * title
      *

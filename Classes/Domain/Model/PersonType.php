@@ -27,6 +27,7 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractValueObject;
  */
 class PersonType extends AbstractValueObject
 {
+    use EqualsTrait;
 
     /**
      * title

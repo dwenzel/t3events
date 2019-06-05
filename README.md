@@ -34,7 +34,7 @@ Thanks for contribution and feedback
 * [Christian Matthes](https://github.com/chrimath)
 * [Vladimir Falcón Piva](https://github.com/vladimirfalconpiva)
 * [Erik Rauchstein](https://github.com/erauchstein)
-* [Jasmina Liessman](https://github.com/frau-liessmann)
+* [Jasmina Ließmann](https://github.com/frauliessmann)
 * [Tobias Kummer](https://github.com/tobikummer)
 * [Steffen Mevius](https://github.com/smeviuscps)
 * [kaywalker](https://github.com/kaywalker)

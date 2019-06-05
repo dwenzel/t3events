@@ -24,7 +24,7 @@ use TYPO3\CMS\Extbase\Domain\Model\FileReference;
  ***************************************************************/
 class Person extends AbstractEntity
 {
-    use AddressTrait;
+    use AddressTrait, EqualsTrait;
     const PERSON_TYPE_UNKNOWN = 'Tx_T3events_Default';
     const PERSON_TYPE_CONTACT = 'Tx_T3events_Contact';
 

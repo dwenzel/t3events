@@ -1,3 +1,23 @@
+2019-06-03         [RELEASE] Release of t3events 0.42.3 (Dirk Wenzel)
+2019-06-03 9d2e672 [BUGFIX] fixed error where Performance->quickMenuAction was not registered correctly as non-cacheable (Dirk Wenzel)
+
+2019-03-06         [RELEASE] Release of t3events 0.42.2 (Dirk Wenzel)
+2019-03-06 7310b86 [BUGFIX] fixed error in unit tests for CleanUpCommandController caused by insufficient mocking (Dirk Wenzel)
+2019-03-06 c21e5d7 [BUGFIX] fixed error in command controller where deletion of records was not persisted (Dirk Wenzel)
+
+2019-02-25         [RELEASE] Release of t3events 0.42.1 (Dirk Wenzel)
+2019-02-25 ef05d77 [BUGFIX] invalid annotation removed (Dirk Wenzel)
+2019-02-25 cb0f297 [BUGFIX] fixed error caused by invalid key from SettingsInterface for "config" (Dirk Wenzel)
+
+2019-02-15         [RELEASE] Release of t3events 0.42.0 (Dirk Wenzel)
+2019-02-15 3fff93a [TASK] use new method equals for object comparison - due to error caused by different handling of ObjectStorage on reconstitution of objects (Dirk Wenzel)
+2019-02-09 3a42117 [TASK] Update credits (Jasmina Ließmann)
+2019-02-01 56eb44a [TASK] coding style: declare variables explicitly (Dirk Wenzel)
+2019-02-01 cd68831 [TASK] coding style: obsolete call removed from extension updater (Dirk Wenzel)
+
+2019-02-07         [RELEASE] Release of t3events 0.41.2 (Dirk Wenzel)
+2019-02-07 71e8929 [BUGFIX] missing import for SettingsInterface added to Event/PerformanceViewHelper (Dirk Wenzel)
+
 2018-11-23         [RELEASE] Release of t3events 0.41.1 (Dirk Wenzel)
 2018-11-23 e27b03e [BUGFIX] missing TypoScript for showAction added closes #73 (Dirk Wenzel)
 2018-11-23 d916564 [BUGFIX] prevent slow loading in backend caused by core bug: see https://forge.typo3.org/issues/82730, closes #76 (Dirk Wenzel)
