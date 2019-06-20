@@ -422,11 +422,13 @@ return [
             'exclude' => 1,
             'label' => $ll . ':tx_t3events_domain_model_event.organizer',
             'config' => [
-                'type' => 'group',
-                'internal_type' => 'db',
-                'allowed' => 'tx_t3events_domain_model_organizer',
-                'l10nmode' => 'mergeIfNotBlank',
-                'size' => 1,
+                'type' => 'select',
+                'items' => [
+                    [$ll . ':label.none' => 0]
+                ],
+                'renderType' => 'selectSingle',
+                'foreign_table' => 'tx_t3events_domain_model_organizer',
+                'default' => 0,
                 'minitems' => 0,
                 'maxitems' => 1,
                 'behaviour' => [
