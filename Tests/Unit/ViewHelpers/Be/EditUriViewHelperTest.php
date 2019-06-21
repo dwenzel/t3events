@@ -59,7 +59,7 @@ class EditUriViewHelperTest extends UnitTestCase
             ->withConsecutive(
                 [SI::TABLE, 'string', EditUriViewHelper::DESCRIPTION_ARGUMENT_TABLE, true],
                 [SI::RECORD, 'integer', EditUriViewHelper::DESCRIPTION_ARGUMENT_RECORD, true],
-                [SI::MODULE, 'string', EditUriViewHelper::DESCRIPTION_ARGUMENT_MODULE, true],
+                [SI::MODULE, 'string', EditUriViewHelper::DESCRIPTION_ARGUMENT_MODULE, true]
             );
 
         $this->subject->initializeArguments();
