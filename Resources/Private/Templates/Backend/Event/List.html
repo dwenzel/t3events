@@ -51,10 +51,13 @@
                                 <td nowrap="nowrap" class="col-control">
                                     <div class="btn btn-default">
                                         <!--suppress HtmlUnknownTarget -->
-                                        <a
-                                                class="actions-open"
-                                                title="UID: {event.uid}"
-                                                href="{ts:be.editRecord(parameters:'edit[tx_t3events_domain_model_event][{event.uid}]=edit&moduleName=Events_T3eventsM1')}"
+                                        <a class="actions-open"
+                                           title="Edit event {event.uid}"
+                                           href="{ts:be.editUri(
+                                                table: 'tx_t3events_domain_model_event',
+                                                record: event.uid,
+                                                module: module
+                                           )}"
                                         >{f:translate(key: 'button.edit', default: 'button.edit')}</a>
                                     </div>
 

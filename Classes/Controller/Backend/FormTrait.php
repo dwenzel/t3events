@@ -15,12 +15,11 @@ namespace DWenzel\T3events\Controller\Backend;
  * The TYPO3 project - inspiring people to share!
  */
 
-use TYPO3\CMS\Backend\Utility\BackendUtility;
-use TYPO3\CMS\Core\FormProtection\AbstractFormProtection;
-use TYPO3\CMS\Core\FormProtection\FormProtectionFactory;
+use DWenzel\T3events\Utility\SettingsInterface as SI;
+use TYPO3\CMS\Backend\Routing\Exception\RouteNotFoundException;
+use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\HttpUtility;
-use DWenzel\T3events\Utility\SettingsInterface as SI;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 
 /**
@@ -46,53 +45,6 @@ trait FormTrait
     }
 
     /**
-     * Redirect to tceform creating a new record
-     *
-     * @param string $table table name
-     */
-    protected function redirectToCreateNewRecord($table)
-    {
-        $returnUrl = $this->getReturnUrl();
-        $url = $this->callStatic(
-            BackendUtility::class, 'getModuleUrl',
-            'record_edit',
-            [
-                'edit[' . $table . '][' . $this->pageUid . ']' => 'new',
-                'returnUrl' => $returnUrl
-            ]);
-        $this->callStatic(HttpUtility::class, SI::REDIRECT, $url);
-    }
-
-    /**
-     * Get a CSRF token
-     *
-     * @param bool $tokenOnly Set it to TRUE to get only the token, otherwise the complete URL parameter
-     * @return string
-     */
-    protected function getToken($tokenOnly = false)
-    {
-        $formName = 'moduleCall';
-        $factoryArguments = null;
-        if ($this->isTypo3VersionGreaterThan8()) {
-            $formName = 'route';
-            $factoryArguments = 'backend';
-        }
-        /** @var AbstractFormProtection $factory */
-        $factory = $this->callStatic(
-            FormProtectionFactory::class,
-            'get',
-            $factoryArguments
-        );
-
-        $token = $factory->generateToken($formName, $this->getModuleKey());
-        if ($tokenOnly) {
-            return $token;
-        }
-
-        return '&' . $this->getParameterNameForToken() . '=' . $token;
-    }
-
-    /**
      * @return string
      */
     protected function getParameterNameForModule(): string
@@ -106,33 +58,40 @@ trait FormTrait
     }
 
     /**
-     * @return string
-     */
-    protected function getReturnUrl(): string
-    {
-        $tokenParameterKey = $this->getParameterNameForToken();
-        $moduleKeyParameter = $this->getParameterNameForModule();
-
-        $returnUrlParameters = [
-             $moduleKeyParameter => $this->getModuleKey(),
-            'id' => $this->pageUid,
-            $tokenParameterKey => $this->getToken(true)
-        ];
-
-        $parameterParts = GeneralUtility::implodeArrayForUrl(
-            '',
-            $returnUrlParameters
-        );
-
-        return 'index.php?' . ltrim(urldecode($parameterParts), '&');
-    }
-
-    /**
      * @return bool
      */
     protected function isTypo3VersionGreaterThan8(): bool
     {
         return VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 9000000;
+    }
+
+    /**
+     * Redirect to EditDocumentController for creating a new record
+     *
+     * @param string $table table name
+     * @throws RouteNotFoundException
+     */
+    protected function redirectToCreateNewRecord($table)
+    {
+        /** @var UriBuilder $uriBuilder */
+        $uriBuilder = $this->callStatic(
+            GeneralUtility::class,
+            'makeInstance',
+            UriBuilder::class
+        );
+        $returnUrl = (string)$uriBuilder->buildUriFromRoute(SI::ROUTE_EVENT_MODULE);
+        $url = (string)$uriBuilder->buildUriFromRoute(
+            SI::ROUTE_EDIT_RECORD_MODULE,
+            [
+                SI::EDIT => [
+                    $table => [
+                        $this->pageUid => 'new'
+                    ]
+                ],
+                SI::RETURN_URL => $returnUrl
+            ]
+        );
+        $this->callStatic(HttpUtility::class, SI::REDIRECT, $url);
     }
 
     /**

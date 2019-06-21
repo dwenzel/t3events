@@ -25,10 +25,10 @@ use DWenzel\T3events\Utility\SettingsInterface as SI;
 use Nimut\TestingFramework\MockObject\AccessibleMockObjectInterface;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
-use TYPO3\CMS\Backend\Utility\BackendUtility;
+use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Core\FormProtection\FormProtectionFactory;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\HttpUtility;
-use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
@@ -79,6 +79,11 @@ class EventControllerTest extends UnitTestCase
     protected $configurationManager;
 
     /**
+     * @var UriBuilder|MockObject
+     */
+    protected $uriBuilder;
+
+    /**
      * set up
      */
     public function setUp()
@@ -122,6 +127,8 @@ class EventControllerTest extends UnitTestCase
             ->setMethods(['generateToken'])
             ->disableOriginalConstructor()
             ->getMock();
+        $this->uriBuilder = $this->getMockBuilder(UriBuilder::class)
+            ->setMethods(['buildUriFromRoute'])->getMock();
     }
 
     /**
@@ -242,47 +249,47 @@ class EventControllerTest extends UnitTestCase
      */
     public function newActionRedirectsToModuleEditRecord()
     {
-        $getParameterKeyForModule = 'M';
-        $parameterForToken = SI::MODULE_TOKEN_KEY;
-        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 9000000)
-        {
-            $getParameterKeyForModule = 'route';
-            $parameterForToken = SI::TOKEN_KEY;
-        }
         $tableName = 'tx_t3events_domain_model_event';
-        $token = 'fooToken';
-        $moduleKey = 'baz';
         $pageId = '14';
-        $returnUrl = 'index.php?' . $getParameterKeyForModule. '='
-            . $moduleKey . '&id=' . $pageId . '&'. $parameterForToken .'=' . $token;
+        $returnUrl = 'bazBar.html';
         $this->inject(
             $this->subject,
             'pageUid',
             $pageId
         );
 
-        $_GET[$getParameterKeyForModule] = $moduleKey;
-        $mockModuleUrl = 'fakeUrl';
-
-        $this->formProtectionFactory->expects($this->atLeast(1))
-            ->method('generateToken')
-            ->will($this->returnValue($token));
-
-        $this->subject->expects($this->exactly(3))
-            ->method('callStatic')
-            ->withConsecutive(
-                [FormProtectionFactory::class, 'get'],
-                [BackendUtility::class, 'getModuleUrl', 'record_edit',
-                    [
-                        'edit[' . $tableName . '][' . $pageId . ']' => 'new',
-                        'returnUrl' => $returnUrl
+        $expectedUriBuilderParameters = [
+            SI::ROUTE_EDIT_RECORD_MODULE,
+            [
+                SI::EDIT => [
+                    $tableName => [
+                        $pageId => 'new'
                     ]
                 ],
+                SI::RETURN_URL => $returnUrl
+            ]
+        ];
+        $redirectUrl = 'fakeUrl';
+
+        $this->subject->expects($this->exactly(2))
+            ->method('callStatic')
+            ->withConsecutive(
+                [GeneralUtility::class, 'makeInstance', UriBuilder::class],
                 [HttpUtility::class, SI::REDIRECT]
             )->willReturnOnConsecutiveCalls(
-                $this->formProtectionFactory,
-                $mockModuleUrl,
-                $mockModuleUrl
+                $this->uriBuilder,
+                null
+            );
+
+        $this->uriBuilder->expects($this->exactly(2))
+            ->method('buildUriFromRoute')
+            ->withConsecutive(
+                [SI::ROUTE_EVENT_MODULE],
+                $expectedUriBuilderParameters
+            )
+            ->willReturnOnConsecutiveCalls(
+                $returnUrl,
+                $redirectUrl
             );
 
         $this->subject->newAction();

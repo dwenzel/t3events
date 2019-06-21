@@ -62,7 +62,8 @@ class ScheduleController extends PerformanceController
             SI::OVERWRITE_DEMAND => $overwriteDemand,
             'demand' => $demand,
             SI::SETTINGS => $this->settings,
-            'filterOptions' => $filterOptions
+            'filterOptions' => $filterOptions,
+            SI::MODULE => SI::ROUTE_SCHEDULE_MODULE
         ];
 
         $this->emitSignal(__CLASS__, self::PERFORMANCE_LIST_ACTION, $templateVariables);

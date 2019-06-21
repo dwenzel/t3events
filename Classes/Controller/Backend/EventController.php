@@ -15,8 +15,8 @@ namespace DWenzel\T3events\Controller\Backend;
  * The TYPO3 project - inspiring people to share!
  */
 
-use DWenzel\T3events\Controller\AbstractBackendController;
 use DWenzel\T3events\CallStaticTrait;
+use DWenzel\T3events\Controller\AbstractBackendController;
 use DWenzel\T3events\Controller\AudienceRepositoryTrait;
 use DWenzel\T3events\Controller\CategoryRepositoryTrait;
 use DWenzel\T3events\Controller\CompanyRepositoryTrait;
@@ -132,7 +132,8 @@ class EventController extends AbstractBackendController implements FilterableCon
             SI::OVERWRITE_DEMAND => $overwriteDemand,
             'filterOptions' => $this->getFilterOptions($this->settings[SI::FILTER]),
             SI::STORAGE_PID => $configuration[SI::PERSISTENCE][SI::STORAGE_PID],
-            SI::SETTINGS => $this->settings
+            SI::SETTINGS => $this->settings,
+            SI::MODULE => SI::ROUTE_EVENT_MODULE
         ];
 
         $this->emitSignal(__CLASS__, self::LIST_ACTION, $templateVariables);
