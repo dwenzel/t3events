@@ -3,7 +3,7 @@ if (!defined('TYPO3_MODE')) {
     die('Access denied.');
 }
 
-$emSettings = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][\DWenzel\T3events\Utility\SettingsInterface::EXTENSION_KEY]);
+$emSettings = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][\DWenzel\T3events\Utility\SettingsInterface::EXTENSION_KEY], ['allowed_classes' => false]);
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
     'DWenzel.' . \DWenzel\T3events\Utility\SettingsInterface::EXTENSION_KEY,

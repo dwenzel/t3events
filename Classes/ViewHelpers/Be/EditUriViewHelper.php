@@ -27,12 +27,13 @@ namespace DWenzel\T3events\ViewHelpers\Be;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use DWenzel\T3events\Utility\SettingsInterface as SI;
+use TYPO3\CMS\Backend\Routing\Exception\RouteNotFoundException;
 use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\ViewHelperInterface;
-use DWenzel\T3events\Utility\SettingsInterface as SI;
 
 /**
  * Class EditRecordViewHelper
@@ -57,8 +58,8 @@ class EditUriViewHelper extends AbstractViewHelper implements ViewHelperInterfac
     /**
      * Returns a URL to link to FormEngine
      * @return string URL to FormEngine module + parameters
-     * @throws \TYPO3\CMS\Backend\Routing\Exception\RouteNotFoundException
-     * @see \TYPO3\CMS\Backend\Utility\BackendUtility::getModuleUrl()
+     * @throws RouteNotFoundException
+     * @codeCoverageIgnore
      */
     public function render()
     {
@@ -74,7 +75,7 @@ class EditUriViewHelper extends AbstractViewHelper implements ViewHelperInterfac
      * @param \Closure $renderChildrenClosure
      * @param RenderingContextInterface $renderingContext
      * @return string
-     * @throws \TYPO3\CMS\Backend\Routing\Exception\RouteNotFoundException
+     * @throws RouteNotFoundException
      * @codeCoverageIgnore
      */
     public static function renderStatic(
@@ -86,7 +87,7 @@ class EditUriViewHelper extends AbstractViewHelper implements ViewHelperInterfac
         /** @var UriBuilder $uriBuilder */
         $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
         $returnUrl = (string)$uriBuilder->buildUriFromRoute($arguments[SI::MODULE]);
-        $uri = (string)$uriBuilder->buildUriFromRoute(
+        return (string)$uriBuilder->buildUriFromRoute(
             SI::ROUTE_EDIT_RECORD_MODULE,
             [
                 SI::RETURN_URL => $returnUrl,
@@ -97,7 +98,5 @@ class EditUriViewHelper extends AbstractViewHelper implements ViewHelperInterfac
                 ]
             ]
         );
-
-        return $uri;
     }
 }
