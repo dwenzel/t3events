@@ -316,6 +316,38 @@ class EventControllerTest extends UnitTestCase
     /**
      * @test
      */
+    public function initializeNewActionSetPageUidFromModuleSettings()
+    {
+        $pageIdFromFrameWorkConfiguration = 678;
+        $pageIdFromModuleSettings = 888;
+        $configuration = [
+            // framework setting
+            SI::PERSISTENCE => [
+                SI::STORAGE_PID => $pageIdFromFrameWorkConfiguration
+            ],
+            // module settings
+            SI::SETTINGS => [
+                SI::PERSISTENCE => [
+                    SI::STORAGE_PID => $pageIdFromModuleSettings
+                ]
+            ]
+        ];
+
+        $this->configurationManager->expects($this->once())
+            ->method('getConfiguration')
+            ->with(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK)
+            ->will($this->returnValue($configuration));
+        $this->subject->initializeNewAction();
+        $this->assertAttributeEquals(
+            $pageIdFromModuleSettings,
+            'pageUid',
+            $this->subject
+        );
+    }
+
+    /**
+     * @test
+     */
     public function getConfigurationManagerReturnsConfigurationManager()
     {
         $this->assertEquals(

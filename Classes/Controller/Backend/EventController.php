@@ -86,6 +86,9 @@ class EventController extends AbstractBackendController implements FilterableCon
         if (!empty($configuration[SI::PERSISTENCE][SI::STORAGE_PID])) {
             $this->pageUid = $configuration[SI::PERSISTENCE][SI::STORAGE_PID];
         }
+        if (!empty($configuration[SI::SETTINGS][SI::PERSISTENCE][SI::STORAGE_PID])) {
+            $this->pageUid = $configuration[SI::SETTINGS][SI::PERSISTENCE][SI::STORAGE_PID];
+        }
     }
 
     /**
