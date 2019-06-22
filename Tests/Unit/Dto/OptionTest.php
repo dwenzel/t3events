@@ -75,9 +75,19 @@ class OptionTest extends UnitTestCase
 
     public function testSetValueReturnsInstance()
     {
+        $value = 'boom';
         $this->assertSame(
             $this->subject,
-            $this->subject->setValue()
+            $this->subject->setValue($value)
+        );
+    }
+
+    public function testSetLabelReturnsInstance()
+    {
+        $label = 'boom';
+        $this->assertSame(
+            $this->subject,
+            $this->subject->setLabel($label)
         );
     }
 }
