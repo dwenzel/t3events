@@ -30,6 +30,7 @@ interface SettingsInterface
     const ATTACHMENT = 'attachment';
     const ATTACHMENTS = 'attachments';
     const ARGUMENTS = 'arguments';
+    const AUDIENCES = 'audiences';
     const CONFIG = 'config';
     const CONTROLLER_NAME = 'controllerName';
     const DATE_FORMAT_SHORT = 'dateFormatShort';

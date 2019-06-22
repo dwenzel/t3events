@@ -80,10 +80,10 @@ module.tx_t3events {
             list {
                 maxItems = {$module.tx_t3events.settings.event.list.maxItems}
                 filter {
-                    genre =
-                    audience =
-                    venue =
-                    eventType =
+                    genre = all
+                    audience = all
+                    venue = all
+                    eventType = all
                     periods = futureOnly,pastOnly,all
                 }
 
@@ -105,10 +105,10 @@ module.tx_t3events {
                 maxItems = {$module.tx_t3events.settings.schedule.list.maxItems}
                 period = all
                 filter {
-                    genre =
-                    audience =
-                    venue =
-                    eventType =
+                    genre = all
+                    audience = all
+                    venue = all
+                    eventType = all
                     periods = futureOnly,pastOnly,all
                 }
 
