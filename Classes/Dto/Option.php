@@ -19,41 +19,57 @@ namespace DWenzel\T3events\Dto;
  * This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use DWenzel\T3events\Utility\SettingsInterface as SI;
-
 /**
- * Class FilterResolver
+ * Class Option
  */
-class FilterResolver implements FilterResolverInterface
+class Option
 {
+    /**
+     * @var string
+     */
+    protected $value = '';
 
     /**
-     * @var array Map of keys to Filter Classes
-     *
-     * Override in order to add implementation
+     * @var string
      */
-    static $map = [
-        SI::AUDIENCES => AudienceFilter::class,
-        SI::EVENT_TYPES => EventTypeFilter::class,
-        SI::GENRES => GenreFilter::class,
-        SI::VENUES => VenueFilter::class,
-        SI::PERIODS => PeriodFilter::class
-    ];
+    protected $label = '';
 
     /**
-     * Resolves a filter class by key
-     *
-     * If no filter exists for the key of NullFilter::class is returned
-     *
-     * @param string $key
-     * @return string class name
+     * @return string
      */
-    public function resolve(string $key): string
+    public function getValue(): string
     {
-        if (!array_key_exists($key, static::$map)) {
-            return NullFilter::class;
-        }
+        return $this->value;
+    }
 
-        return static::$map[$key];
+    /**
+     * @param string $value
+     * @return Option Returns instance
+     */
+    public function setValue(string $value): self
+    {
+        $this->value = $value;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLabel(): string
+    {
+        return $this->label;
+    }
+
+    /**
+     * Set the label
+     *
+     * @param string $label
+     * @return Option Returns instance
+     */
+    public function setLabel(string $label): self
+    {
+        $this->label = $label;
+        return $this;
     }
 }

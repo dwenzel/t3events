@@ -63,6 +63,7 @@ interface SettingsInterface
     const PATH = 'path';
     const PATHS = 'paths';
     const PATH_SEPARATOR = '/';
+    const PERIODS = 'periods';
     const PERSISTENCE = 'persistence';
     const RECORD = 'record';
     const REDIRECT = 'redirect';
