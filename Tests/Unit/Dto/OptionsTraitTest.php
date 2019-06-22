@@ -65,8 +65,8 @@ class OptionsTraitTest extends UnitTestCase
 
     public function testGetOptionsInitiallyReturnsIterable()
     {
-        $this->assertIsIterable(
-            $this->subject->getOptions()
+        $this->assertTrue(
+            is_iterable($this->subject->getOptions())
         );
     }
 
