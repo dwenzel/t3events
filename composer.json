@@ -19,9 +19,11 @@
   "require": {
     "php": "^7.2",
     "typo3/cms-core": ">=8.7.0 || >=9.5.0",
-    "dwenzel/t3calendar": "~0.6"
+    "dwenzel/t3calendar": "~0.6",
+    "typo3/minimal": "^9.5"
   },
   "require-dev": {
+    "dwenzel/t3calendar": "dev-feature/version9Compatible as 0.6",
     "nimut/testing-framework": "^4.0",
     "phpunit/phpunit": " ^7.0",
     "codeclimate/php-test-reporter": "dev-master"
