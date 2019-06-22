@@ -65,8 +65,7 @@ class FilterCollectionFactoryTest extends UnitTestCase
             ->getMock();
         $this->subject->injectFilterFactory($this->filterFactory);
 
-        $this->filterCollection = $this->getMockBuilder(FilterCollection::class)
-            ->getMock();
+        $this->filterCollection = new FilterCollection();
         $this->objectManager->method('get')
             ->willReturn($this->filterCollection);
     }
