@@ -9,7 +9,6 @@ use DWenzel\T3events\Dto\FilterInterface;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
-use DWenzel\T3events\Utility\SettingsInterface as SI;
 
 /***************************************************************
  *  Copyright notice
@@ -70,17 +69,17 @@ class FilterCollectionFactoryTest extends UnitTestCase
             ->willReturn($this->filterCollection);
     }
 
-    public function testGetReturnsFilterCollection()
+    public function testCreateReturnsFilterCollection()
     {
         $configuration = [];
 
         $this->assertInstanceOf(
             FilterCollection::class,
-            $this->subject->get($configuration)
+            $this->subject->create($configuration)
         );
     }
 
-    public function testGetAddsFilterFromFactory()
+    public function testCreateAddsFilterFromFactory()
     {
         $filterKey = 'fooKey';
         $filterConfiguration = 'barValue';
@@ -96,7 +95,7 @@ class FilterCollectionFactoryTest extends UnitTestCase
             ->with($filterKey, [$filterConfiguration])
             ->willReturn($mockFilter);
 
-        $collection = $this->subject->get($configuration);
+        $collection = $this->subject->create($configuration);
         $this->assertTrue(
             $collection->contains($mockFilter)
         );

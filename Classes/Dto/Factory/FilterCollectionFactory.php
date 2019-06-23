@@ -36,7 +36,7 @@ class FilterCollectionFactory
      * @param array $configuration
      * @return FilterCollection
      */
-    public function get(array $configuration): FilterCollection
+    public function create(array $configuration): FilterCollection
     {
         /** @var FilterCollection $collection */
         $collection = $this->objectManager->get(FilterCollection::class);
