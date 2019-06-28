@@ -13,6 +13,7 @@ use TYPO3\CMS\Install\Updates\AbstractUpdate;
 /**
  * Class MigratePluginRecords
  * Updates flex form settings in events plugins
+ * @codeCoverageIgnore
  */
 class MigratePluginRecords extends AbstractUpdate
 {
@@ -134,6 +135,7 @@ class MigratePluginRecords extends AbstractUpdate
      * Counts plugin records with deprecated settings
      *
      * @return mixed
+     * @codeCoverageIgnore
      */
     public function countPluginRecordsWithDeprecatedSettings()
     {
@@ -160,6 +162,7 @@ class MigratePluginRecords extends AbstractUpdate
      * Gets plugin records with deprecated settings
      *
      * @return array
+     * @codeCoverageIgnore
      */
     public function getPluginRecordsWithDeprecatedSettings()
     {
@@ -197,7 +200,7 @@ class MigratePluginRecords extends AbstractUpdate
         return $settings;
     }
 
-    protected function getQueryBuilder(): QueryBuilder
+    public function getQueryBuilder(): QueryBuilder
     {
         return GeneralUtility::makeInstance(ConnectionPool::class)
             ->getQueryBuilderForTable(self::CONTENT_TABLE);
