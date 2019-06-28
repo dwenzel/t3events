@@ -28,7 +28,7 @@ $EM_CONF[$_EXTKEY] = array(
                 array(
                     'typo3' => '8.7.0-8.7.99',
                     't3calendar' => '0.4.0-0.0.0',
-                    't3extension-tools' => '1.0.0-1.99.99'
+                    't3extension_tools' => '1.0.0-1.99.99'
                 ),
             'conflicts' =>
                 array(),
