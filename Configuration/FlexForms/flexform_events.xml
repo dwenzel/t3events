@@ -229,14 +229,14 @@
           </view.pluginNamespace>
 
           <!-- caching -->
-          <settings.cache.makeNonCacheable>
+          <settings.cache.notCacheable>
             <TCEforms>
               <label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.cache.makeNonCacheable</label>
               <config>
                 <type>check</type>
               </config>
             </TCEforms>
-          </settings.cache.makeNonCacheable>
+          </settings.cache.notCacheable>
         </el>
       </ROOT>
     </sDEF>

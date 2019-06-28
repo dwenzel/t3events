@@ -160,13 +160,6 @@ plugin.tx_t3events {
 # this setting is part of a workaround for the limits of <f:widget.paginate /> view helper - specially the missing option to localize its output
 #config.tx_extbase.view.widget.Tx_Fluid_ViewHelpers_Widget_PaginateViewHelper.templateRootPath = {$plugin.tx_t3events.view.templateRootPath}
 
-config.tx_extbase.objects {
-    # overwrite class to allow USER_INT from flexform
-    TYPO3\CMS\Extbase\Service\ExtensionService {
-        className = DWenzel\T3events\Service\ExtensionService
-    }
-}
-
 ####################
 # include default CSS
 

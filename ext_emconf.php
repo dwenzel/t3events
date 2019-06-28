@@ -14,7 +14,7 @@ $EM_CONF[$_EXTKEY] = array(
     'title' => 'Events',
     'description' => 'Manage events, show teasers, list and single views.',
     'category' => 'plugin',
-    'version' => '0.42.3',
+    'version' => '0.43.1',
     'state' => 'beta',
     'uploadfolder' => 1,
     'createDirs' => '',
@@ -28,11 +28,12 @@ $EM_CONF[$_EXTKEY] = array(
                 array(
                     'typo3' => '8.7.0-9.5.99',
                     't3calendar' => '0.4.0-0.0.0',
+                    't3extension_tools' => '1.0.0-1.99.99'
                 ),
             'conflicts' =>
                 array(),
             'suggests' =>
                 array(),
-        ),
+        )
 );
 
