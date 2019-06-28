@@ -1,3 +1,6 @@
+2019-06-28         [RELEASE] Release of t3events 0.43.1 (Dirk Wenzel)
+2019-06-28 abf62a6 [BUGFIX] dependency in ext_emconf.php corrected (Dirk Wenzel)
+
 2019-06-28         [RELEASE] Release of t3events 0.43.0 (Dirk Wenzel)
 2019-06-28 3102df5 [TASK] documentation updated, obsolete update skript removed (Dirk Wenzel)
 2019-06-28 b8e9986 [TASK] unit tests for Update/MigratePluginRecords removed - unit tests make no longer sense due to switch to symfony query builder (Dirk Wenzel)
