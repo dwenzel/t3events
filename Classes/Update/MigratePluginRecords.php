@@ -3,26 +3,37 @@
 
 namespace DWenzel\T3events\Update;
 
+use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\CMS\Core\Configuration\FlexForm\FlexFormTools;
+use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Utility\VersionNumberUtility;
-use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 use TYPO3\CMS\Install\Updates\AbstractUpdate;
 
 /**
  * Class MigratePluginRecords
  * Updates flex form settings in events plugins
+ * @codeCoverageIgnore
  */
 class MigratePluginRecords extends AbstractUpdate
 {
     const CONTENT_TABLE = 'tt_content';
     const FLEX_FORM_FIELD = 'pi_flexform';
-    const DEPRECATED_PLUGIN_WHERE_CLAUSE = "list_type='t3events_events' AND pi_flexform REGEXP 'settings.sortBy|Event-&gt;calendar'";
-    const MESSAGE_UPDATE_REQUIRED = 'Found %s Plugin records which need to be updated';
-    const TITLE_UPDATE_REQUIRED = 'Update required';
+    const LIST_TYPE_FIELD = 'list_type';
+    const PLUGIN_TYPE_EVENTS = 't3events_events';
+    const ID_FIELD = 'uid';
+    const DEPRECATED_FLEX_KEY = 'settings.cache.makeNonCacheable';
+    const REPLACEMENT_FLEX_KEY = 'settings.cache.notCacheable';
+    const MESSAGE_UPDATE_REQUIRED = 'Found %s plugin records which need to be updated (t3events)';
+    const WIZARD_TITLE = 'Migrate Event Plugin Records';
+    const TITLE_UPDATE_REQUIRED = 'Migrate Event Plugin Records';
+    const IDENTIFIER = 'T3eventsMigratePluginRecords';
     const MESSAGE_UPDATED = '%s Plugin records updated.';
     const TITLE_UPDATED = 'Update success';
+
+    protected $identifier = '';
+    protected $title = self::WIZARD_TITLE;
+
 
     /**
      * @var \TYPO3\CMS\Core\Configuration\FlexForm\FlexFormTools
@@ -36,17 +47,14 @@ class MigratePluginRecords extends AbstractUpdate
      */
     public function checkForUpdate(&$description)
     {
-        $versionNumber = VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version);
-        if ($versionNumber >= 8000000) {
-            return false;
+        $count = $this->countPluginRecordsWithDeprecatedSettings();
+
+        if ($count) {
+            $description = sprintf(self::MESSAGE_UPDATE_REQUIRED, $count);
+            return true;
         }
 
-        $updateRequired = false;
-        if ($this->countPluginRecordsWithDeprecatedSettings()) {
-            $updateRequired = true;
-        }
-
-        return $updateRequired;
+        return false;
     }
 
     /**
@@ -55,7 +63,7 @@ class MigratePluginRecords extends AbstractUpdate
      */
     protected function getFlexFormTools()
     {
-        if (!$this->flexFormTools instanceof  FlexFormTools) {
+        if (!$this->flexFormTools instanceof FlexFormTools) {
             /** @var FlexFormTools flexFormTools */
             $this->flexFormTools = GeneralUtility::makeInstance(FlexFormTools::class);
         }
@@ -72,52 +80,47 @@ class MigratePluginRecords extends AbstractUpdate
      */
     public function performUpdate(array &$dbQueries, &$customMessages)
     {
-        $success = false;
         $pluginRecords = $this->getPluginRecordsWithDeprecatedSettings();
         $pluginCount = count($pluginRecords);
 
         if ($pluginCount) {
+            if (!is_array($customMessages)) {
+                $customMessages = [$customMessages];
+            }
             $customMessages[] = [
                 FlashMessage::INFO,
                 self::TITLE_UPDATE_REQUIRED,
                 sprintf(self::MESSAGE_UPDATE_REQUIRED, $pluginCount)
             ];
             $updatedCount = 0;
+            $builder = $this->getQueryBuilder();
 
             foreach ($pluginRecords as $record) {
-                $sortDirectionSettings = 'asc';
-                $flexFormSettings = $this->getFlexFormSettings($record);
-                $switchableControllerActionChanged = false;
+                $changed = 0;
 
-                if ($flexFormSettings['data']['sDEF']['lDEF']['switchableControllerActions']['vDEF'] == 'Event->calendar') {
-                    $flexFormSettings['data']['sDEF']['lDEF']['switchableControllerActions']['vDEF'] = 'Performance->calendar';
-                    $switchableControllerActionChanged = true;
-                }
-                if (isset($flexFormSettings['data']['sDEF']['lDEF']['settings.sortBy']['vDEF'])) {
-                    $sortBySettings = $flexFormSettings['data']['sDEF']['lDEF']['settings.sortBy']['vDEF'];
-                }
-                if (isset($flexFormSettings['data']['sDEF']['lDEF']['settings.sortDirection']['vDEF'])) {
-                    $sortDirectionSettings = $flexFormSettings['data']['sDEF']['lDEF']['settings.sortDirection']['vDEF'];
-                }
-                if (!empty($sortBySettings || $switchableControllerActionChanged)) {
-                    $flexFormSettings['data']['sDEF']['lDEF']['settings.order']['vDEF'] = $sortBySettings . '|'. $sortDirectionSettings . ',performances.begin|asc';
-                    unset($flexFormSettings['data']['sDEF']['lDEF']['settings.sortBy']);
-                    unset($flexFormSettings['data']['sDEF']['lDEF']['settings.sortDirection']);
+                $updatedFlexXml = str_replace(
+                    self::DEPRECATED_FLEX_KEY,
+                    self::REPLACEMENT_FLEX_KEY,
+                    $record[self::FLEX_FORM_FIELD],
+                    $changed
+                );
 
+                if ($changed) {
+                    $builder->update(self::CONTENT_TABLE)
+                        ->where(
+                            $builder->expr()->eq(
+                                self::ID_FIELD,
+                                $builder->createNamedParameter(
+                                    $record[self::ID_FIELD], \PDO::PARAM_INT)
+                            )
+                        )
+                        ->set(self::FLEX_FORM_FIELD, $updatedFlexXml)
+                        ->execute();
                     $updatedCount++;
-                    $updatedXml = $this->getFlexFormTools()->flexArray2Xml($flexFormSettings, true);
-
-                    $this->getDatabaseConnection()->exec_UPDATEquery(
-                        self::CONTENT_TABLE,
-                        'uid=' . $record['uid'],
-                        [
-                            self::FLEX_FORM_FIELD => $updatedXml,
-                        ]
-                    );
                 }
             }
 
-            if ($updatedCount > 0) {
+            if (0 !== $updatedCount) {
                 $customMessages[] = [
                     FlashMessage::INFO,
                     self::TITLE_UPDATED,
@@ -125,37 +128,61 @@ class MigratePluginRecords extends AbstractUpdate
                 ];
             }
         }
-        return $success;
+        return true;
     }
 
     /**
      * Counts plugin records with deprecated settings
      *
      * @return mixed
+     * @codeCoverageIgnore
      */
     public function countPluginRecordsWithDeprecatedSettings()
     {
-        return $this->getDatabaseConnection()
-            ->exec_SELECTcountRows(
-                '*',
-                self::CONTENT_TABLE,
-                self::DEPRECATED_PLUGIN_WHERE_CLAUSE
-            );
+        $builder = $this->getQueryBuilder();
+
+
+        return $builder
+            ->count(self::ID_FIELD)
+            ->from(self::CONTENT_TABLE)
+            ->where(
+                $builder->expr()->eq(
+                    self::LIST_TYPE_FIELD,
+                    $builder->createNamedParameter(self::PLUGIN_TYPE_EVENTS)
+                ))
+            ->andWhere(
+                $builder->expr()->like(
+                    self::FLEX_FORM_FIELD,
+                    $builder->createNamedParameter('%' . self::DEPRECATED_FLEX_KEY . '%'))
+            )
+            ->execute()->fetchColumn(0);
     }
 
     /**
      * Gets plugin records with deprecated settings
      *
-     * @return array | null
+     * @return array
+     * @codeCoverageIgnore
      */
     public function getPluginRecordsWithDeprecatedSettings()
     {
-        return $this->getDatabaseConnection()
-            ->exec_SELECTgetRows(
-                'uid,' . self::FLEX_FORM_FIELD,
-                self::CONTENT_TABLE,
-                self::DEPRECATED_PLUGIN_WHERE_CLAUSE
-            );
+        $builder = $this->getQueryBuilder();
+
+
+        return $builder
+            ->select(self::ID_FIELD, self::FLEX_FORM_FIELD)
+            ->from(self::CONTENT_TABLE)
+            ->where(
+                $builder->expr()->eq(
+                    self::LIST_TYPE_FIELD,
+                    $builder->createNamedParameter(self::PLUGIN_TYPE_EVENTS)
+                ))
+            ->andWhere(
+                $builder->expr()->like(
+                    self::FLEX_FORM_FIELD,
+                    $builder->createNamedParameter('%' . self::DEPRECATED_FLEX_KEY . '%'))
+            )
+            ->execute()->fetchAll();
     }
 
     /**
@@ -171,5 +198,11 @@ class MigratePluginRecords extends AbstractUpdate
         }
 
         return $settings;
+    }
+
+    public function getQueryBuilder(): QueryBuilder
+    {
+        return GeneralUtility::makeInstance(ConnectionPool::class)
+            ->getQueryBuilderForTable(self::CONTENT_TABLE);
     }
 }

@@ -1,3 +1,14 @@
+2019-06-28         [RELEASE] Release of t3events 0.43.0 (Dirk Wenzel)
+2019-06-28 3102df5 [TASK] documentation updated, obsolete update skript removed (Dirk Wenzel)
+2019-06-28 b8e9986 [TASK] unit tests for Update/MigratePluginRecords removed - unit tests make no longer sense due to switch to symfony query builder (Dirk Wenzel)
+2019-06-28 7e880d7 [BUGFIX] requirement for dwenzel/t3extension-tools loosened (Dirk Wenzel)
+2019-06-25 b57e6ff [TASK] use dwenzel/extension-tools - allows to toggle caching of plugin (Dirk Wenzel)
+2019-06-03 e6fcaba [RELEASE] Release of t3events 0.42.3 (Dirk Wenzel) (Dirk Wenzel)
+2019-06-03 9d2e672 [BUGFIX] fixed error where Performance->quickMenuAction was not registered correctly as non-cacheable (Dirk Wenzel)
+2019-03-06 45654f6 [RELEASE] Release of t3events 0.42.2 (Dirk Wenzel) (Dirk Wenzel)
+2019-03-06 7310b86 [BUGFIX] fixed error in unit tests for CleanUpCommandController caused by insufficient mocking (Dirk Wenzel)
+2019-03-06 c21e5d7 [BUGFIX] fixed error in command controller where deletion of records was not persisted (Dirk Wenzel)
+
 2019-06-03         [RELEASE] Release of t3events 0.42.3 (Dirk Wenzel)
 2019-06-03 9d2e672 [BUGFIX] fixed error where Performance->quickMenuAction was not registered correctly as non-cacheable (Dirk Wenzel)
 

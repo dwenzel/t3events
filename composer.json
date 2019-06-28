@@ -18,7 +18,8 @@
   ],
   "require": {
     "typo3/cms-core": ">=8.7.0,<=8.7.99",
-    "dwenzel/t3calendar": "~0.6"
+    "dwenzel/t3calendar": "~0.6",
+    "dwenzel/t3extension-tools": "~1.0"
   },
   "require-dev": {
     "nimut/testing-framework": "^3.0",
