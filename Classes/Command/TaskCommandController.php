@@ -21,7 +21,7 @@ use DWenzel\T3events\Domain\Model\Task;
 use TYPO3\CMS\Core\Exception;
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\MVC\Controller\CommandController;
+use TYPO3\CMS\Extbase\Mvc\Controller\CommandController;
 
 /**
  * Class TaskCommandController
