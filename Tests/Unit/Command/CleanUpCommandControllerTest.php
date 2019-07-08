@@ -30,6 +30,7 @@ use DWenzel\T3events\Domain\Model\Performance;
 use DWenzel\T3events\Domain\Repository\EventRepository;
 use DWenzel\T3events\Domain\Repository\PerformanceRepository;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use PHPUnit\Framework\Error\Deprecated;
 use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
@@ -38,8 +39,6 @@ use DWenzel\T3events\Utility\SettingsInterface as SI;
 
 /**
  * Class CleanUpCommandControllerTest
- *
- * @package CPSIT\T3eventsReservation\Tests\Unit\Command
  */
 class CleanUpCommandControllerTest extends UnitTestCase
 {
@@ -59,6 +58,7 @@ class CleanUpCommandControllerTest extends UnitTestCase
      */
     public function setUp()
     {
+        Deprecated::$enabled = false;
         $this->subject = $this->getAccessibleMock(
             \DWenzel\T3events\Command\CleanUpCommandController::class, ['dummy', 'outputLine']
         );

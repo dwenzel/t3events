@@ -51,10 +51,13 @@
                                 <td nowrap="nowrap" class="col-control">
                                     <div class="btn btn-default">
                                         <!--suppress HtmlUnknownTarget -->
-                                        <a
-                                                class="actions-open"
-                                                title="UID: {event.uid}"
-                                                href="{ts:be.editRecord(parameters:'edit[tx_t3events_domain_model_event][{event.uid}]=edit&moduleName=Events_T3eventsM1')}"
+                                        <a class="actions-open"
+                                           title="Edit event {event.uid}"
+                                           href="{ts:be.editUri(
+                                                table: 'tx_t3events_domain_model_event',
+                                                record: event.uid,
+                                                module: module
+                                           )}"
                                         >{f:translate(key: 'button.edit', default: 'button.edit')}</a>
                                     </div>
 
@@ -81,19 +84,4 @@
 
 <f:comment>Header buttons</f:comment>
 <f:section name="headerButtons">
-    <f:if condition="{f:cObject(typoscriptObjectPath: 'lib.compatVersion76')}">
-        <f:then>
-            <!--suppress HtmlUnknownTarget -->
-            <a class="actions-add btn btn-default"
-               title="{f:translate(key: 'button.addEvent')}"
-               href="{ts:be.editRecord(parameters:'edit[tx_t3events_domain_model_event][{storagePid}]=new&moduleName=Events_T3eventsM1')}"
-            >{f:translate(key: 'button.addEvent')}</a>
-        </f:then>
-        <f:else>
-            <a href="#"
-               onclick="window.location.href='alt_doc.php?returnUrl='+T3_THIS_LOCATION+'&edit[tx_t3events_domain_model_event][{storagePid}]=new'; return false;"
-               class="actions-document-new action-add"
-               title="{f:translate(key: 'button.addEvent'}">{f:translate(key:'button.addEvent')}</a>
-        </f:else>
-    </f:if>
 </f:section>

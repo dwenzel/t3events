@@ -135,7 +135,7 @@ class EventController extends ActionController
     public function quickMenuAction()
     {
         // get session data
-        $overwriteDemand = unserialize($this->session->get('tx_t3events_overwriteDemand'));
+        $overwriteDemand = unserialize($this->session->get('tx_t3events_overwriteDemand'), ['allowed_classes' => false]);
 
         // get filter options from plugin
         $genres = $this->genreRepository->findMultipleByUid($this->settings[SI::GENRES], 'title');

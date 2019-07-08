@@ -3,22 +3,22 @@ if (!defined('TYPO3_MODE')) {
     die('Access denied.');
 }
 
-$emSettings = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][$_EXTKEY]);
+$emSettings = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][\DWenzel\T3events\Utility\SettingsInterface::EXTENSION_KEY], ['allowed_classes' => false]);
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-    'DWenzel.' . $_EXTKEY,
+    'DWenzel.' . \DWenzel\T3events\Utility\SettingsInterface::EXTENSION_KEY,
     'Events',
     'Events'
 );
 
-\TYPO3\CMS\Core\Utility\GeneralUtility::requireOnce(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'Classes/Hooks/ItemsProcFunc.php');
+require_once \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath(\DWenzel\T3events\Utility\SettingsInterface::EXTENSION_KEY) . 'Classes/Hooks/ItemsProcFunc.php';
 
-$pluginSignature = str_replace('_', '', $_EXTKEY) . '_events';
+$pluginSignature = str_replace('_', '', \DWenzel\T3events\Utility\SettingsInterface::EXTENSION_KEY) . '_events';
 $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'select_key';
 $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue($pluginSignature, 'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/flexform_events.xml');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue($pluginSignature, 'FILE:EXT:' . \DWenzel\T3events\Utility\SettingsInterface::EXTENSION_KEY . '/Configuration/FlexForms/flexform_events.xml');
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile($_EXTKEY, 'Configuration/TypoScript', 'Events');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(\DWenzel\T3events\Utility\SettingsInterface::EXTENSION_KEY, 'Configuration/TypoScript', 'Events');
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr(
     'tt_content.pi_flexform.t3events_events.list',
@@ -72,69 +72,32 @@ $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignat
 // enable event module
 
 if (TYPO3_MODE === 'BE' && (bool)$emSettings['showEventModule']) {
-    $versionNumber = \TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version);
-    $pathEventIcon = 'EXT:' . $_EXTKEY . '/Resources/Public/Icons/calendar.svg';
-    $pathScheduleIcon = 'EXT:' . $_EXTKEY . '/Resources/Public/Icons/calendar-blue.svg';
-    if ($versionNumber < 7000000) {
-        $pathEventIcon = 'EXT:' . $_EXTKEY . '/Resources/Public/Icons/tx_t3events_domain_model_event.gif';
-        $pathScheduleIcon = 'EXT:' . $_EXTKEY . '/Resources/Public/Icons/module_icon_schedule.png';
-    }
+    $pathEventIcon = 'EXT:' . \DWenzel\T3events\Utility\SettingsInterface::EXTENSION_KEY . '/Resources/Public/Icons/calendar.svg';
+    $pathScheduleIcon = 'EXT:' . \DWenzel\T3events\Utility\SettingsInterface::EXTENSION_KEY . '/Resources/Public/Icons/calendar-blue.svg';
 
-    if ($versionNumber < 7000000) {
-        /**
-         * Register Backend Modules
-         */
-        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
-            'DWenzel.' . $_EXTKEY,
-            'Events',
-            '',
-            '',
-            [],
-            [
-                'access' => 'user,group',
-                'icon' => $pathEventIcon,
-                'labels' => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_m1.xlf',
-            ]
-        );
-    }
-    if ($versionNumber > 7000000 && $versionNumber < 8000000) {
-        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addModule(
-            'Events', null, null, null,
-            [
-                null,
-                'access' => 'group,user',
-                'name' => null,
-                'labels' => [
-                    'tabs_images' => [
-                        'tab' => 'EXT:t3events/Resources/Public/Icons/event-calendar.svg',
-                    ],
-                    'll_ref' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_mod_main.xlf',
-                ],
-            ]
-        );
-    }
-    if ($versionNumber >= 8000000) {
-        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addModule(
-            'Events',
-            '',
-            '',
-            [
-                'routeTarget' => '',
-                'access' => 'group,user',
-                'name' => 'events',
-                'icon' => 'EXT:t3events/Resources/Public/Icons/event-calendar.svg',
-                'labels' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_mod_main.xlf',
-            ]
-        );
+    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
+        'DWenzel.T3events',
+        'events',
+        '',
+        '',
+        [],
+        [
+            'icon' => 'EXT:t3events/Resources/Public/Icons/event-calendar.svg',
+            'labels' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_mod_main.xlf',
+        ]
+    );
 
-    }
 
     /**
      * Register Backend Modules
+     * module identifieres are generated from extension name, main module name and sub module name
+     * Use constants for uri builder
+     * M1: \DWenzel\T3events\Utility\SettingsInterface::ROUTE_EVENT_MODULE
+     * M2: \DWenzel\T3events\Utility\SettingsInterface::ROUTE_SCHEDULE_MODULE
      */
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
-        'DWenzel.' . $_EXTKEY,
-        'Events',
+        'DWenzel.' . \DWenzel\T3events\Utility\SettingsInterface::EXTENSION_KEY,
+        'events',
         'm1',
         '',
         [
@@ -143,13 +106,13 @@ if (TYPO3_MODE === 'BE' && (bool)$emSettings['showEventModule']) {
         [
             'access' => 'user,group',
             'icon' => $pathEventIcon,
-            'labels' => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_m1.xlf',
+            'labels' => 'LLL:EXT:' . \DWenzel\T3events\Utility\SettingsInterface::EXTENSION_KEY . '/Resources/Private/Language/locallang_m1.xlf',
         ]
     );
 
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
-        'DWenzel.' . $_EXTKEY,
-        'Events',
+        'DWenzel.' . \DWenzel\T3events\Utility\SettingsInterface::EXTENSION_KEY,
+        'events',
         'm2',
         '',
         [
@@ -158,7 +121,7 @@ if (TYPO3_MODE === 'BE' && (bool)$emSettings['showEventModule']) {
         [
             'access' => 'user,group',
             'icon' => $pathScheduleIcon,
-            'labels' => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_m2.xlf',
+            'labels' => 'LLL:EXT:' . \DWenzel\T3events\Utility\SettingsInterface::EXTENSION_KEY . '/Resources/Private/Language/locallang_m2.xlf',
         ]
     );
 }

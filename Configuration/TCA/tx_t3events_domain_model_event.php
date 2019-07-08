@@ -427,6 +427,7 @@ return [
                 'allowed' => 'tx_t3events_domain_model_organizer',
                 'l10nmode' => 'mergeIfNotBlank',
                 'size' => 1,
+                'default' => 0,
                 'minitems' => 0,
                 'maxitems' => 1,
                 'behaviour' => [

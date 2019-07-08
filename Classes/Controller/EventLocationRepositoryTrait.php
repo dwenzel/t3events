@@ -33,8 +33,7 @@ trait EventLocationRepositoryTrait
 
     /**
      * Injects the eventLocation repository
-     *
-     * @inject
+     * @param EventLocationRepository $eventLocationRepository
      */
     public function injectEventLocationRepository(EventLocationRepository $eventLocationRepository)
     {

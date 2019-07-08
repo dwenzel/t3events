@@ -23,22 +23,19 @@ use DWenzel\T3events\Domain\Repository\GenreRepository;
 /**
  * Class GenreRepositoryTrait
  * Provides a GenreRepository
- *
- * @package DWenzel\T3events\Controller
  */
 trait GenreRepositoryTrait
 {
     /**
      * Genre repository
      *
-     * @var \DWenzel\T3events\Domain\Repository\GenreRepository
+     * @var GenreRepository
      */
     protected $genreRepository;
 
     /**
      * Injects the genre repository
-     *
-     * @inject
+     * @param GenreRepository $genreRepository
      */
     public function injectGenreRepository(GenreRepository $genreRepository)
     {

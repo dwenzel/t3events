@@ -1,4 +1,5 @@
 <?php
+
 namespace DWenzel\T3events\ViewHelpers\Be;
 
 /***************************************************************
@@ -26,35 +27,44 @@ namespace DWenzel\T3events\ViewHelpers\Be;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use TYPO3\CMS\Backend\Utility\BackendUtility;
-use TYPO3\CMS\Core\FormProtection\FormProtectionFactory;
+use DWenzel\T3events\Utility\SettingsInterface as SI;
+use TYPO3\CMS\Backend\Routing\Exception\RouteNotFoundException;
+use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\ViewHelperInterface;
 
 /**
  * Class EditRecordViewHelper
- *
- * @package DWenzel\T3events\Tests\ViewHelpers\Be
  */
-class EditRecordViewHelper extends AbstractViewHelper implements ViewHelperInterface
+class EditUriViewHelper extends AbstractViewHelper implements ViewHelperInterface
 {
+    const DESCRIPTION_ARGUMENT_TABLE = 'table of record to edit';
+    const DESCRIPTION_ARGUMENT_RECORD = 'id of record';
+    const DESCRIPTION_ARGUMENT_MODULE = 'module to return to';
+
+    /**
+     * Initialize Arguments
+     */
+    public function initializeArguments()
+    {
+        parent::initializeArguments();
+        $this->registerArgument(SI::TABLE, 'string', self::DESCRIPTION_ARGUMENT_TABLE, true);
+        $this->registerArgument(SI::RECORD, 'integer', self::DESCRIPTION_ARGUMENT_RECORD, true);
+        $this->registerArgument(SI::MODULE, 'string', self::DESCRIPTION_ARGUMENT_MODULE, true);
+    }
+
     /**
      * Returns a URL to link to FormEngine
-     *
-     * @param string $parameters Is a set of GET params to send to FormEngine
      * @return string URL to FormEngine module + parameters
-     * @see \TYPO3\CMS\Backend\Utility\BackendUtility::getModuleUrl()
+     * @throws RouteNotFoundException
+     * @codeCoverageIgnore
      */
-    public function render($parameters)
+    public function render()
     {
-        $moduleName = $this->controllerContext->getRequest()->getPluginName();
         return static::renderStatic(
-            [
-                'parameters' => $parameters,
-                'moduleName' => $moduleName
-            ],
+            $this->arguments,
             $this->buildRenderChildrenClosure(),
             $this->renderingContext
         );
@@ -65,18 +75,28 @@ class EditRecordViewHelper extends AbstractViewHelper implements ViewHelperInter
      * @param \Closure $renderChildrenClosure
      * @param RenderingContextInterface $renderingContext
      * @return string
+     * @throws RouteNotFoundException
+     * @codeCoverageIgnore
      */
     public static function renderStatic(
         array $arguments,
         \Closure $renderChildrenClosure,
         RenderingContextInterface $renderingContext
-    ) {
-        $parameters = GeneralUtility::explodeUrl2Array($arguments['parameters']);
-
-        $parameters['returnUrl'] = 'index.php?M='. $parameters['moduleName'] . '&id=' . (int)GeneralUtility::_GET('id')
-            . '&moduleToken=' . FormProtectionFactory::get()->generateToken('moduleCall', $parameters['moduleName']);
-
-        unset($parameters['moduleName']);
-        return BackendUtility::getModuleUrl('record_edit', $parameters);
+    )
+    {
+        /** @var UriBuilder $uriBuilder */
+        $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
+        $returnUrl = (string)$uriBuilder->buildUriFromRoute($arguments[SI::MODULE]);
+        return (string)$uriBuilder->buildUriFromRoute(
+            SI::ROUTE_EDIT_RECORD_MODULE,
+            [
+                SI::RETURN_URL => $returnUrl,
+                SI::EDIT => [
+                    $arguments[SI::TABLE] => [
+                        $arguments[SI::RECORD] => SI::EDIT
+                    ]
+                ]
+            ]
+        );
     }
 }

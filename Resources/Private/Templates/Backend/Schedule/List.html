@@ -43,14 +43,7 @@
                                 <td nowrap="nowrap">
                                     <f:format.date format="d.m.Y">{schedule.date}</f:format.date>
                                 </td>
-                                <td nowrap="nowrap">
-                                    <a href="#" class="t3-js-clickmenutrigger"
-                                       data-table="tx_t3events_domain_model_performance"
-                                       data-uid="{schedule.uid}"
-                                       data-listframe="0">
-                                        {schedule.event.headline}
-                                    </a>
-                                </td>
+                                <td nowrap="nowrap">{schedule.event.headline}</td>
                                 <td nowrap="nowrap">{schedule.eventLocation.name}</td>
                                 <td nowrap="nowrap">{schedule.event.eventType.title}</td>
                                 <td nowrap="nowrap">{schedule.status.title}</td>
@@ -60,7 +53,11 @@
                                         <a
                                             class="actions-open"
                                             title="UID: {schedule.uid}"
-                                            href="{ts:be.editRecord(parameters:'edit[tx_t3events_domain_model_performance][{schedule.uid}]=edit&moduleName=Events_T3eventsM2')}"
+                                            href="{ts:be.editUri(
+                                              table:'tx_t3events_domain_model_performance',
+                                              record: schedule.uid,
+                                              module: module
+                                            )}"
                                         >{f:translate(key: 'button.edit', default: 'button.edit')}</a>
                                     </div>
                                 </td>
