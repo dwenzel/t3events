@@ -13,9 +13,9 @@ namespace DWenzel\T3events\DataProvider\Form;
  */
 
 use DWenzel\T3events\Hooks\BackendUtility;
+use DWenzel\T3events\Utility\SettingsInterface as SI;
 use TYPO3\CMS\Backend\Form\FormDataProviderInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use DWenzel\T3events\Utility\SettingsInterface as SI;
 
 /**
  * Class EventPluginFormDataProvider
@@ -29,6 +29,7 @@ class EventPluginFormDataProvider implements FormDataProviderInterface
 
     /**
      * injects the backend utility
+     * @param BackendUtility|null $backendUtility
      */
     public function __construct($backendUtility = null)
     {

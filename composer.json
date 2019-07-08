@@ -17,13 +17,15 @@
     }
   ],
   "require": {
-    "typo3/cms-core": ">=8.7.0,<=8.7.99",
+    "php": "^7.2",
+    "typo3/cms-core": ">=8.7.0 || >=9.5.0",
     "dwenzel/t3calendar": "~0.6",
     "dwenzel/t3extension-tools": "~1.0"
   },
   "require-dev": {
-    "nimut/testing-framework": "^3.0",
-    "phpunit/phpunit": "^5.6 || ^6.0",
+    "dwenzel/t3calendar": "dev-feature/version9Compatible as 0.6",
+    "nimut/testing-framework": "^4.0",
+    "phpunit/phpunit": " ^7.0",
     "codeclimate/php-test-reporter": "dev-master"
   },
   "autoload": {
@@ -35,10 +37,6 @@
     "psr-4": {
       "DWenzel\\T3events\\Tests\\": "Tests"
     }
-  },
-  "replace": {
-    "t3events": "self.version",
-    "typo3-ter/t3events": "self.version"
   },
   "config": {
     "vendor-dir": ".Build/vendor",

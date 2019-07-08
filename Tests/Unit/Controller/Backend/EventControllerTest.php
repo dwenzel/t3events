@@ -25,8 +25,9 @@ use DWenzel\T3events\Utility\SettingsInterface as SI;
 use Nimut\TestingFramework\MockObject\AccessibleMockObjectInterface;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
-use TYPO3\CMS\Backend\Utility\BackendUtility;
+use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Core\FormProtection\FormProtectionFactory;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\HttpUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
@@ -78,6 +79,11 @@ class EventControllerTest extends UnitTestCase
     protected $configurationManager;
 
     /**
+     * @var UriBuilder|MockObject
+     */
+    protected $uriBuilder;
+
+    /**
      * set up
      */
     public function setUp()
@@ -121,6 +127,8 @@ class EventControllerTest extends UnitTestCase
             ->setMethods(['generateToken'])
             ->disableOriginalConstructor()
             ->getMock();
+        $this->uriBuilder = $this->getMockBuilder(UriBuilder::class)
+            ->setMethods(['buildUriFromRoute'])->getMock();
     }
 
     /**
@@ -242,38 +250,46 @@ class EventControllerTest extends UnitTestCase
     public function newActionRedirectsToModuleEditRecord()
     {
         $tableName = 'tx_t3events_domain_model_event';
-        $token = 'fooToken';
-        $moduleKey = 'baz';
         $pageId = '14';
-        $returnUrl = 'index.php?M=' . $moduleKey . '&id=' . $pageId . '&moduleToken=' . $token;
+        $returnUrl = 'bazBar.html';
         $this->inject(
             $this->subject,
             'pageUid',
             $pageId
         );
 
-        $_GET['M'] = $moduleKey;
-        $mockModuleUrl = 'fakeUrl';
-
-        $this->formProtectionFactory->expects($this->atLeast(1))
-            ->method('generateToken')
-            ->will($this->returnValue($token));
-
-        $this->subject->expects($this->exactly(3))
-            ->method('callStatic')
-            ->withConsecutive(
-                [FormProtectionFactory::class, 'get'],
-                [BackendUtility::class, 'getModuleUrl', 'record_edit',
-                    [
-                        'edit[' . $tableName . '][' . $pageId . ']' => 'new',
-                        'returnUrl' => $returnUrl
+        $expectedUriBuilderParameters = [
+            SI::ROUTE_EDIT_RECORD_MODULE,
+            [
+                SI::EDIT => [
+                    $tableName => [
+                        $pageId => 'new'
                     ]
                 ],
+                SI::RETURN_URL => $returnUrl
+            ]
+        ];
+        $redirectUrl = 'fakeUrl';
+
+        $this->subject->expects($this->exactly(2))
+            ->method('callStatic')
+            ->withConsecutive(
+                [GeneralUtility::class, 'makeInstance', UriBuilder::class],
                 [HttpUtility::class, SI::REDIRECT]
             )->willReturnOnConsecutiveCalls(
-                $this->formProtectionFactory,
-                $mockModuleUrl,
-                $mockModuleUrl
+                $this->uriBuilder,
+                null
+            );
+
+        $this->uriBuilder->expects($this->exactly(2))
+            ->method('buildUriFromRoute')
+            ->withConsecutive(
+                [SI::ROUTE_EVENT_MODULE],
+                $expectedUriBuilderParameters
+            )
+            ->willReturnOnConsecutiveCalls(
+                $returnUrl,
+                $redirectUrl
             );
 
         $this->subject->newAction();
@@ -299,6 +315,38 @@ class EventControllerTest extends UnitTestCase
         $this->subject->initializeNewAction();
         $this->assertAttributeEquals(
             $pageIdFromFrameWorkConfiguration,
+            'pageUid',
+            $this->subject
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function initializeNewActionSetPageUidFromModuleSettings()
+    {
+        $pageIdFromFrameWorkConfiguration = 678;
+        $pageIdFromModuleSettings = 888;
+        $configuration = [
+            // framework setting
+            SI::PERSISTENCE => [
+                SI::STORAGE_PID => $pageIdFromFrameWorkConfiguration
+            ],
+            // module settings
+            SI::SETTINGS => [
+                SI::PERSISTENCE => [
+                    SI::STORAGE_PID => $pageIdFromModuleSettings
+                ]
+            ]
+        ];
+
+        $this->configurationManager->expects($this->once())
+            ->method('getConfiguration')
+            ->with(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK)
+            ->will($this->returnValue($configuration));
+        $this->subject->initializeNewAction();
+        $this->assertAttributeEquals(
+            $pageIdFromModuleSettings,
             'pageUid',
             $this->subject
         );

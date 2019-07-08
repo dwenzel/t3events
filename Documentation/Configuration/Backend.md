@@ -8,6 +8,31 @@ The settings can be inspected using the TypoScript Object Browser in the Backend
 The display in TypoScript Object Browse might differ from the settings actually presented to the module. (I.e. changes in 
 a template record might be ineffective)
 
+### Storage Pages
+The _Events_ and _Schedules_ modules do not show a page tree. The storage pages must be set via TypoScript.
+
+**Constants**
+```typo3_typoscript
+module {
+  tx_t3events {
+    persistence {
+      storagePid = 1
+    }
+  }
+}
+```
+
+**Setup**
+```typo3_typoscript
+module {
+  tx_t3events {
+    persistence {
+      storagePid = {$module.tx_t3events.persistence.storagePid}
+    }
+  }
+}
+```
+
 ### Template Paths
 Templates, partials and layouts can be extended by configuring additional paths
 ```typo3_typoscript

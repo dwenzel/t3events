@@ -14,7 +14,7 @@ trait LocationConstraintRepositoryTrait
 {
     /**
      * @var \DWenzel\T3events\Utility\GeoCoder
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $geoCoder;
 

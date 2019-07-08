@@ -869,22 +869,4 @@ class PerformanceControllerTest extends UnitTestCase
 
         $this->subject->calendarAction();
     }
-
-    /**
-     * @test
-     */
-    public function constructorSetsExtensionName()
-    {
-        /** @var PerformanceController|\PHPUnit_Framework_MockObject_MockObject $subject */
-        $subject = $this->getMockBuilder(PerformanceController::class)
-            ->setMockClassName('tx_t3events_mock_class')
-            ->disableOriginalConstructor()
-            ->getMock();
-        $subject->__construct();
-        $this->assertAttributeSame(
-            't3events',
-            SI::KEY_EXTENSION_NAME,
-            $subject
-        );
-    }
 }

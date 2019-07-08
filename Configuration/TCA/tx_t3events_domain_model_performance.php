@@ -206,7 +206,7 @@ return [
                 'type' => 'input',
                 'renderType' => 'inputDateTime',
                 'size' => 4,
-                'eval' => 'time',
+                'eval' => 'time,int',
                 'checkbox' => 1,
             ],
         ],
@@ -217,7 +217,7 @@ return [
                 'type' => 'input',
                 'renderType' => 'inputDateTime',
                 'size' => 4,
-                'eval' => 'time',
+                'eval' => 'time,int',
                 'checkbox' => 1,
             ],
         ],
@@ -228,7 +228,7 @@ return [
                 'type' => 'input',
                 'renderType' => 'inputDateTime',
                 'size' => 4,
-                'eval' => 'time',
+                'eval' => 'time,int',
                 'checkbox' => 1,
             ],
         ],
@@ -375,6 +375,7 @@ return [
                 'items' => [
                     ['', 0],
                 ],
+                'default' => 0,
                 'foreign_table' => 'tx_t3events_domain_model_eventlocation',
                 'foreign_table_where' => ' AND tx_t3events_domain_model_eventlocation.sys_language_uid IN (-1,0)
                                             ORDER BY tx_t3events_domain_model_eventlocation.name',
@@ -410,6 +411,7 @@ return [
                 'items' => [
                     ['', 0],
                 ],
+                'default' => 0,
                 'foreign_table' => 'tx_t3events_domain_model_performancestatus',
                 /** keep the following line intact (otherwise TYPO3 8.7.1 fails in EditDocumentController */
                 'foreign_table_where' => ' AND (tx_t3events_domain_model_performancestatus.sys_language_uid IN (0,-1)) AND (tx_t3events_domain_model_performancestatus.hidden = 0) ORDER BY tx_t3events_domain_model_performancestatus.priority'

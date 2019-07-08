@@ -5,10 +5,10 @@ sudo: false
 matrix:
   fast_finish: true
   include:
-    - php: 7.0
+    - php: 7.2
       env: TYPO3_VERSION=^8 COVERAGE=1
     - php: 7.2
-      env: TYPO3_VERSION=^8
+      env: TYPO3_VERSION=^9
 env:
   global:
     - CC_TEST_REPORTER_ID: d3719b289927b05bd9152291beb62d8e25d9e66f347011cbe9d7922885f29b60

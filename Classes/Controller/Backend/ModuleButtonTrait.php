@@ -1,4 +1,5 @@
 <?php
+
 namespace DWenzel\T3events\Controller\Backend;
 
 /***************************************************************
@@ -29,31 +30,6 @@ use TYPO3\CMS\Extbase\Object\ObjectManager;
 trait ModuleButtonTrait
 {
     /**
-     * @return ButtonBar
-     */
-    abstract protected function getButtonBar();
-
-    /**
-     * @return UriBuilder
-     */
-    abstract protected function getUriBuilder();
-
-    /**
-     * @return IconFactory
-     */
-    abstract protected function getIconFactory();
-
-    /**
-     * Translate a given key
-     *
-     * @param string $key
-     * @param string $extension
-     * @param array $arguments
-     * @return string
-     */
-    abstract public function translate($key, $extension = 't3events', $arguments = null);
-
-    /**
      * @var ObjectManager
      */
     protected $objectManager;
@@ -80,7 +56,8 @@ trait ModuleButtonTrait
     /**
      * @param ButtonDemandCollection $configuration button configuration
      */
-    protected function createButtons(ButtonDemandCollection $configuration) {
+    protected function createButtons(ButtonDemandCollection $configuration)
+    {
         if (!$configuration->getDemands()->count()) {
             return;
         }
@@ -99,6 +76,7 @@ trait ModuleButtonTrait
                     [],
                     $request->getControllerName()
                 );
+
             $icon = $iconFactory->getIcon(
                 $demand->getIconKey(),
                 $demand->getIconSize(),
@@ -108,9 +86,9 @@ trait ModuleButtonTrait
                 ->setHref($uri)
                 ->setDataAttributes(
                     [
-                    'toggle' => 'tooltip',
-                    'placement' => 'bottom',
-                    'title' => $title
+                        'toggle' => 'tooltip',
+                        'placement' => 'bottom',
+                        'title' => $title
                     ]
                 )
                 ->setTitle($title)
@@ -118,5 +96,30 @@ trait ModuleButtonTrait
             $buttonBar->addButton($viewButton, ButtonBar::BUTTON_POSITION_LEFT, 2);
         }
     }
+
+    /**
+     * @return ButtonBar
+     */
+    abstract protected function getButtonBar();
+
+    /**
+     * @return UriBuilder
+     */
+    abstract protected function getUriBuilder();
+
+    /**
+     * @return IconFactory
+     */
+    abstract protected function getIconFactory();
+
+    /**
+     * Translate a given key
+     *
+     * @param string $key
+     * @param string $extension
+     * @param array $arguments
+     * @return string
+     */
+    abstract public function translate($key, $extension = 't3events', $arguments = null);
 
 }

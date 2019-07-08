@@ -43,7 +43,7 @@ class ModuleDataStorageService implements SingletonInterface
         if (empty($moduleData) || !$moduleData) {
             $moduleData = $this->objectManager->get(ModuleData::class);
         } else {
-            $moduleData = unserialize($moduleData);
+            $moduleData = unserialize($moduleData, ['allowed_classes' => true]);
         }
         return $moduleData;
     }
