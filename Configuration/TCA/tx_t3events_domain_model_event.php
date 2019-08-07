@@ -425,6 +425,7 @@ return [
                 'type' => 'group',
                 'internal_type' => 'db',
                 'allowed' => 'tx_t3events_domain_model_organizer',
+                'foreign_table' => 'tx_t3events_domain_model_organizer',
                 'l10nmode' => 'mergeIfNotBlank',
                 'size' => 1,
                 'default' => 0,
