@@ -1,3 +1,6 @@
+2019-08-07         [RELEASE] Release of t3events 1.0.2 (Dirk Wenzel)
+2019-08-07 8b39f5f [BUGFIX] stability tag corrected (Dirk Wenzel)
+
 2019-08-07         [RELEASE] Release of t3events 1.0.1 (Dirk Wenzel)
 2019-08-06 f30199d [BUGFIX] Fix relation between event and organizer in TCA of event table (Elias Häußler)
 
