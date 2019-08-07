@@ -1,3 +1,6 @@
+2019-08-07         [RELEASE] Release of t3events 1.0.1 (Dirk Wenzel)
+2019-08-06 f30199d [BUGFIX] Fix relation between event and organizer in TCA of event table (Elias Häußler)
+
 2019-07-08         [RELEASE] Release of t3events 1.0.0 (Dirk Wenzel)
 2019-07-08 5ab3a51 [CI] fix exclusions for static code analysis (Dirk Wenzel)
 2019-07-01 8bbf469 [BUGFIX] fixed error caused by invalid namespace (Dirk Wenzel)
