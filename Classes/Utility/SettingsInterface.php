@@ -73,6 +73,11 @@ interface SettingsInterface
     const RETURN_URL = 'returnUrl';
 
     /**
+     * Modules Registration
+     */
+    const MAIN_MODULE_EVENTS = 'T3eventsEvents';
+
+    /**
      * routes identifiers are generated during registration
      * @see ext_tables.php
      */
@@ -102,4 +107,11 @@ interface SettingsInterface
     const TRANSLATION_FILE_BACKEND = 'LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml';
     const TRANSLATION_FILE_DB = 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf';
     const VENUES = 'venues';
+    public const FILTER_OPTIONS = 'filterOptions';
+    public const EVENT_FORMATS = 'eventFormats';
+    public const QUICK_MENU = 'quickMenu';
+    public const PERFORMANCE = 'performance';
+    public const SECTORS = 'sectors';
+    public const DEPARTMENTS = 'departments';
+    public const PERFORMANCES = 'performances';
 }
