@@ -97,7 +97,7 @@ if (TYPO3_MODE === 'BE' && (bool)$emSettings['showEventModule']) {
      */
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
         'DWenzel.' . \DWenzel\T3events\Utility\SettingsInterface::EXTENSION_KEY,
-        'events',
+        'T3eventsEvents',
         'm1',
         '',
         [
