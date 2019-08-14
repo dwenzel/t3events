@@ -1,3 +1,9 @@
+2019-08-14         [RELEASE] Release of t3events 1.1.0 (Dirk Wenzel)
+2019-08-14 036e6aa [BUGFIX] invalid dev requirement removed (Dirk Wenzel)
+2019-08-14 31a5a14 [TASK] Extension configuration refactored (Dirk Wenzel)
+2019-08-13 5e2c245 [BUGFIX] module registration corrected - require dwenzel/t3extension-tools:~1.1 (Dirk Wenzel)
+2019-08-12 51a6824 [TASK] constants added to SettingsInterface (Dirk Wenzel)
+
 2019-08-07         [RELEASE] Release of t3events 1.0.2 (Dirk Wenzel)
 2019-08-07 8b39f5f [BUGFIX] stability tag corrected (Dirk Wenzel)
 
