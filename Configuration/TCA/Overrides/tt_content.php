@@ -1,5 +1,7 @@
 <?php
 
+\DWenzel\T3events\Configuration\ExtensionConfiguration::registerPlugins();
+
 $temporaryColumns = [
     'tx_t3events_event' => [
         'config' => [
@@ -8,6 +10,7 @@ $temporaryColumns = [
         ],
     ],
 ];
+
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns(
     'tt_content',
     $temporaryColumns

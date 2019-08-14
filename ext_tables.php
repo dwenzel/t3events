@@ -3,125 +3,14 @@ if (!defined('TYPO3_MODE')) {
     die('Access denied.');
 }
 
-$emSettings = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][\DWenzel\T3events\Utility\SettingsInterface::EXTENSION_KEY], ['allowed_classes' => false]);
-
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-    'DWenzel.' . \DWenzel\T3events\Utility\SettingsInterface::EXTENSION_KEY,
-    'Events',
-    'Events'
-);
 
 require_once \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath(\DWenzel\T3events\Utility\SettingsInterface::EXTENSION_KEY) . 'Classes/Hooks/ItemsProcFunc.php';
-
-$pluginSignature = str_replace('_', '', \DWenzel\T3events\Utility\SettingsInterface::EXTENSION_KEY) . '_events';
-$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'][$pluginSignature] = 'select_key';
-$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue($pluginSignature, 'FILE:EXT:' . \DWenzel\T3events\Utility\SettingsInterface::EXTENSION_KEY . '/Configuration/FlexForms/flexform_events.xml');
-
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(\DWenzel\T3events\Utility\SettingsInterface::EXTENSION_KEY, 'Configuration/TypoScript', 'Events');
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr(
-    'tt_content.pi_flexform.t3events_events.list',
-    'EXT:t3events/Resources/Private/Language/locallang_csh_flexform.xml'
-);
+\DWenzel\T3events\Configuration\ExtensionConfiguration::configureTables();
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_t3events_domain_model_event', 'EXT:t3events/Resources/Private/Language/locallang_csh_tx_t3events_domain_model_event.xml');
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_t3events_domain_model_event');
-
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_t3events_domain_model_genre', 'EXT:t3events/Resources/Private/Language/locallang_csh_tx_t3events_domain_model_genre.xml');
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_t3events_domain_model_genre');
-
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_t3events_domain_model_eventtype', 'EXT:t3events/Resources/Private/Language/locallang_csh_tx_t3events_domain_model_eventtype.xml');
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_t3events_domain_model_eventtype');
-
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_t3events_domain_model_performance', 'EXT:t3events/Resources/Private/Language/locallang_csh_tx_t3events_domain_model_performance.xml');
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_t3events_domain_model_performance');
-
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_t3events_domain_model_venue', 'EXT:t3events/Resources/Private/Language/locallang_csh_tx_t3events_domain_model_venue.xml');
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_t3events_domain_model_venue');
-
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_t3events_domain_model_eventlocation', 'EXT:t3events/Resources/Private/Language/locallang_csh_tx_t3events_domain_model_eventlocation.xml');
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_t3events_domain_model_eventlocation');
-
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_t3events_domain_model_ticketclass', 'EXT:t3events/Resources/Private/Language/locallang_csh_tx_t3events_domain_model_ticketclass.xml');
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_t3events_domain_model_ticketclass');
-
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_t3events_domain_model_organizer', 'EXT:t3events/Resources/Private/Language/locallang_csh_tx_t3events_domain_model_organizer.xml');
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_t3events_domain_model_organizer');
-
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_t3events_domain_model_performancestatus', 'EXT:t3events/Resources/Private/Language/locallang_csh_tx_t3events_domain_model_performancestatus.xml');
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_t3events_domain_model_performancestatus');
-
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_t3events_domain_model_task', 'EXT:t3events/Resources/Private/Language/locallang_csh_tx_t3events_domain_model_task.xml');
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_t3events_domain_model_task');
-
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_t3events_domain_model_audience', 'EXT:t3events/Resources/Private/Language/locallang_csh_tx_t3events_domain_model_audience.xlf');
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_t3events_domain_model_audience');
-
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr(
-    'tx_t3events_domain_model_notification',
-    'EXT:t3events/Resources/Private/Language/locallang_csh_tx_t3events_domain_model_notification.xlf');
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_t3events_domain_model_notification');
-
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr(
-    'tx_t3events_domain_model_company',
-    'EXT:t3events/Resources/Private/Language/locallang_csh_tx_t3events_domain_model_company.xml'
-);
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_t3events_domain_model_company');
-
+$emSettings = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][\DWenzel\T3events\Utility\SettingsInterface::EXTENSION_KEY], ['allowed_classes' => false]);
 // enable event module
-
 if (TYPO3_MODE === 'BE' && (bool)$emSettings['showEventModule']) {
-    $pathEventIcon = 'EXT:' . \DWenzel\T3events\Utility\SettingsInterface::EXTENSION_KEY . '/Resources/Public/Icons/calendar.svg';
-    $pathScheduleIcon = 'EXT:' . \DWenzel\T3events\Utility\SettingsInterface::EXTENSION_KEY . '/Resources/Public/Icons/calendar-blue.svg';
-
-    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
-        'DWenzel.T3events',
-        'events',
-        '',
-        '',
-        [],
-        [
-            'icon' => 'EXT:t3events/Resources/Public/Icons/event-calendar.svg',
-            'labels' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_mod_main.xlf',
-        ]
-    );
-
-
-    /**
-     * Register Backend Modules
-     * module identifieres are generated from extension name, main module name and sub module name
-     * Use constants for uri builder
-     * M1: \DWenzel\T3events\Utility\SettingsInterface::ROUTE_EVENT_MODULE
-     * M2: \DWenzel\T3events\Utility\SettingsInterface::ROUTE_SCHEDULE_MODULE
-     */
-    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
-        'DWenzel.' . \DWenzel\T3events\Utility\SettingsInterface::EXTENSION_KEY,
-        'T3eventsEvents',
-        'm1',
-        '',
-        [
-            'Backend\Event' => 'list, show,reset,new',
-        ],
-        [
-            'access' => 'user,group',
-            'icon' => $pathEventIcon,
-            'labels' => 'LLL:EXT:' . \DWenzel\T3events\Utility\SettingsInterface::EXTENSION_KEY . '/Resources/Private/Language/locallang_m1.xlf',
-        ]
-    );
-
-    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
-        'DWenzel.' . \DWenzel\T3events\Utility\SettingsInterface::EXTENSION_KEY,
-        'events',
-        'm2',
-        '',
-        [
-            'Backend\Schedule' => 'list, show, edit, delete,reset',
-        ],
-        [
-            'access' => 'user,group',
-            'icon' => $pathScheduleIcon,
-            'labels' => 'LLL:EXT:' . \DWenzel\T3events\Utility\SettingsInterface::EXTENSION_KEY . '/Resources/Private/Language/locallang_m2.xlf',
-        ]
-    );
+    \DWenzel\T3events\Configuration\ExtensionConfiguration::registerAndConfigureModules();
 }

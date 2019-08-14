@@ -80,6 +80,7 @@
       <label index="label.end">End</label>
       <label index="label.now">Now</label>
       <label index="label.start">Start</label>
+      <label index="plugin.combined.title">Events</label>
     </languageKey>
     <languageKey index="af"/>
     <languageKey index="ar"/>
@@ -160,6 +161,7 @@
       <label index="label.end">Ende</label>
       <label index="label.now">Jetzt</label>
       <label index="label.start">Beginn</label>
+      <label index="plugin.combined.title">Veranstaltungei</label>
     </languageKey>
     <languageKey index="el"/>
     <languageKey index="eo"/>

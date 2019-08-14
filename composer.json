@@ -20,7 +20,7 @@
     "php": "^7.2",
     "typo3/cms-core": ">=8.7.0 || >=9.5.0",
     "dwenzel/t3calendar": "~0.6",
-    "dwenzel/t3extension-tools": "~1.1"
+    "dwenzel/t3extension-tools": "~1.3"
   },
   "require-dev": {
     "dwenzel/t3calendar": "dev-feature/version9Compatible as 0.6",
