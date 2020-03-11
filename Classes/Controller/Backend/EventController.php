@@ -2,21 +2,7 @@
 
 namespace DWenzel\T3events\Controller\Backend;
 
-/**
- * This file is part of the TYPO3 CMS project.
- *
- * It is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License, either version 2
- * of the License, or any later version.
- *
- * For the full copyright and license information, please read the
- * LICENSE.txt file that was distributed with this source code.
- *
- * The TYPO3 project - inspiring people to share!
- */
-
 use DWenzel\T3events\CallStaticTrait;
-use DWenzel\T3events\Controller\AbstractBackendController;
 use DWenzel\T3events\Controller\AudienceRepositoryTrait;
 use DWenzel\T3events\Controller\CategoryRepositoryTrait;
 use DWenzel\T3events\Controller\CompanyRepositoryTrait;
@@ -38,19 +24,21 @@ use DWenzel\T3events\Controller\TranslateTrait;
 use DWenzel\T3events\Controller\VenueRepositoryTrait;
 use DWenzel\T3events\Domain\Model\Dto\ButtonDemand;
 use DWenzel\T3events\Utility\SettingsInterface as SI;
-use TYPO3\CMS\Backend\View\BackendTemplateView;
 use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+use TYPO3\CMS\Extbase\Mvc\RequestInterface;
+use TYPO3\CMS\Extbase\Mvc\ResponseInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
 /**
  * Class EventController
  */
-class EventController extends AbstractBackendController implements FilterableControllerInterface
+class EventController extends ActionController implements FilterableControllerInterface
 {
     use
-        AudienceRepositoryTrait, BackendViewTrait, CallStaticTrait,
+        AudienceRepositoryTrait, CallStaticTrait,
         CategoryRepositoryTrait, CompanyRepositoryTrait, DemandTrait,
         EventDemandFactoryTrait, EventRepositoryTrait, EventTypeRepositoryTrait,
         FilterableControllerTrait, FormTrait, GenreRepositoryTrait,
@@ -72,7 +60,22 @@ class EventController extends AbstractBackendController implements FilterableCon
         ]
     ];
 
-    protected $defaultViewObjectName = BackendTemplateView::class;
+
+    /**
+     * Load and persist module data
+     *
+     * @param RequestInterface $request
+     * @param ResponseInterface $response
+     * @return void
+     * @throws \Exception
+     */
+    public function processRequest(RequestInterface $request, ResponseInterface $response)
+    {
+        $this->moduleData = $this->moduleDataStorageService->loadModuleData($this->getModuleKey());
+
+        parent::processRequest($request, $response);
+        $this->moduleDataStorageService->persistModuleData($this->moduleData, $this->getModuleKey());
+    }
 
     /**
      * @return void

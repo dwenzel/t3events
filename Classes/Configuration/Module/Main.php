@@ -29,7 +29,7 @@ class Main extends DefaultRegistration implements ModuleRegistrationInterface
     static protected $mainModuleName = 'events';
     static protected $controllerActions = [];
     static protected $moduleConfiguration = [
-        'icon' => 'EXT:t3events/Resources/Public/Icons/event-calendar.svg',
+        'icon' => 'EXT:t3events/Resources/Public/Icons/module_administration.svg',
         'labels' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_mod_main.xlf',
     ];
 

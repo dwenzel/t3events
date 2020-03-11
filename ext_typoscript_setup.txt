@@ -76,6 +76,9 @@ module.tx_t3events {
     settings {
         persistence.storagePid = {$module.tx_t3events.persistence.storagePid}
         storagePages = {$module.tx_t3events.persistence.storagePid}
+
+        common.searchForm.debug =
+
         event {
             list {
                 maxItems = {$module.tx_t3events.settings.event.list.maxItems}

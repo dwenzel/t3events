@@ -1,31 +1,14 @@
-<f:be.container
-        includeCssFiles="{0: '{f:uri.resource(path:\'Css/forms.css\', extensionName: \'t3events\')}', 1: '{f:uri.resource(path: \'Css/styles.css\', extensionName: \'t3events\')}', 2: '{f:uri.resource(path: \'Css/backend.css\', extensionName: \'t3events\')}'}">
-    <div class="typo3-fullDoc module layout--default" data-module-id="" data-module-name="">
-        <div class="module-loading-indicator"></div>
-        <div id="typo3-docheader" class="module-docheader t3js-module-docheader">
-            <div class="typo3-docheader-functions module-docheader-bar module-docheader-bar-navigation t3js-module-docheader-bar t3js-module-docheader-bar-navigation row">
-                <div class="module-docheader-bar-column-left col-xs-12 col-sm-3"></div>
-                <div class="module-docheader-bar-column-right col-xs-12 col-sm-9 text-right"></div>
-            </div>
-            <div class="module-docheader-bar module-docheader-bar-buttons t3js-module-docheader-bar t3js-module-docheader-bar-buttons">
-                <div class="left module-docheader-bar-column-left">
-                    <div class="btn-toolbar" role="toolbar" aria-label="">
-                        <f:render section="headerButtons"/>
-                    </div>
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+    data-namespace-typo3-fluid="true">
 
-                </div>
-                <div class="module-docheader-bar-column-right">
-                    <div class="btn-toolbar" role="toolbar" aria-label=""></div>
+<be:moduleLayout>
 
-                </div>
-            </div>
-        </div>
-        <div id="typo3-docbody"
-             class="module-body t3js-module-body">
-            <div id="typo3-inner-docbody" class="tx-t3events">
-                <f:render section="main"/>
-            </div>
-        </div>
-    </div>
-</f:be.container>
+    <f:render section="Buttons" />
 
+    <f:render section="Content" />
+
+</be:moduleLayout>
+
+</html>
