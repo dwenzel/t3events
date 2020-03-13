@@ -1,6 +1,19 @@
-[![code coverage](https://codecov.io/gh/dwenzel/t3events/branch/master/graph/badge.svg)](https://codecov.io/gh/dwenzel/t3events)
-[![Build Status](https://travis-ci.org/dwenzel/t3events.svg?branch=master)](https://travis-ci.org/dwenzel/t3events)  
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/f4e261c4-eccf-4f0d-ae19-c3a0b5aec361/small.png)](https://insight.sensiolabs.com/projects/f4e261c4-eccf-4f0d-ae19-c3a0b5aec361)
+# t3events fork
+
+This fork is **not** meant to replace the original extension.
+
+If you want to use t3events as a base for your own project, this version might be for you. If you want to use the extension as published and want to get updates: use the original. Also look for newer versions of the original.
+
+This version includes:
+
+- update and cleanup module code
+- replace icons
+- remove t3extension-tools dependency
+- remove unused code
+- reorganize events record layout (TCA)
+- fix and add some localizations
+
+Warning: this version might have bugs, the original doesn't have.
 
 Events
 ======
@@ -41,6 +54,5 @@ Thanks for contribution and feedback
 
 This extension has been developed at [Agentur Webfox GmbH](https://www.agentur-webfox.de/) and [CPS IT GmbH](https://cps-it.de).
 
-* Icon set: http://www.famfamfam.com/lab/icons/silk/
-* Performance Icon: http://www.softicons.com/free-icons/object-icons/the-passed-day-icons-by-jj-maxer/stage-icon
-* Ticket Icon: http://findicons.com/icon/178211/ticket
+* Icon set: https://icomoon.io/
+* or by Colorcube
