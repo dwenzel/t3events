@@ -3,8 +3,7 @@ if (!defined('TYPO3_MODE')) {
     die('Access denied.');
 }
 $ll = 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf';
-$linkWizardIconPath = \DWenzel\T3events\Utility\TableConfiguration::getWizardIcon('link');
-$cll = \DWenzel\T3events\Utility\TableConfiguration::getLanguageFilePath() . 'locallang_general.xlf:';
+$cll = 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:';
 
 return [
     'ctrl' => [
@@ -31,7 +30,7 @@ return [
             'fe_group' => 'fe_group'
         ],
         'searchFields' => 'date,admission,begin,end,status_info,external_provider_link,additional_link,provider_type,image,plan,no_handling_fee,price_notice,event_location,ticket_class,status,',
-        'iconfile' => 'EXT:t3events/Resources/Public/Icons/tx_t3events_domain_model_performance.gif'
+        'iconfile' => 'EXT:t3events/Resources/Public/Icons/tx_t3events_domain_model_performance.svg'
     ],
     'interface' => [
         'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource,

@@ -4,6 +4,7 @@ namespace DWenzel\T3events\Controller;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use DWenzel\T3events\Domain\Repository\DemandedRepositoryInterface;
 use DWenzel\T3events\Utility\SettingsInterface as SI;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /***************************************************************
  *
@@ -47,6 +48,12 @@ trait FilterableControllerTrait
             ) {
                 /** @var DemandedRepositoryInterface $repository */
                 $repository = $this->{$propertyName};
+
+                $querySettings = $repository->createQuery()->getQuerySettings();
+//                $querySettings->setStoragePageIds(array($GLOBALS["TSFE"]->id));
+                $querySettings->setRespectStoragePage(FALSE);
+                $repository->setDefaultQuerySettings($querySettings);
+
                 if (!empty($value)) {
                     $result = $repository->findMultipleByUid($value, 'title');
                 } else {
@@ -69,7 +76,6 @@ trait FilterableControllerTrait
                 $filterOptions['periods'] = $periodOptions;
             }
         }
-
 
         return $filterOptions;
     }

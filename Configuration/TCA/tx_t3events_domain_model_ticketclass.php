@@ -2,7 +2,7 @@
 if (!defined('TYPO3_MODE')) {
     die('Access denied.');
 }
-$cll = \DWenzel\T3events\Utility\TableConfiguration::getLanguageFilePath() . 'locallang_general.xlf:';
+$cll = 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:';
 
 return [
     'ctrl' => [
@@ -26,7 +26,7 @@ return [
             'endtime' => 'endtime',
         ],
         'searchFields' => 'title,color,price,type,',
-        'iconfile' => 'EXT:t3events/Resources/Public/Icons/tx_t3events_domain_model_ticketclass.gif'
+        'iconfile' => 'EXT:t3events/Resources/Public/Icons/tx_t3events_domain_model_ticketclass.svg'
     ],
     'interface' => [
         'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, color, price, type',

@@ -2,7 +2,6 @@
 
 namespace DWenzel\T3events\Controller\Backend;
 
-use DWenzel\T3events\Controller\ModuleDataTrait;
 use DWenzel\T3events\Controller\PerformanceController;
 use DWenzel\T3events\Controller\SettingsUtilityTrait;
 use DWenzel\T3events\Utility\SettingsInterface as SI;
@@ -58,12 +57,12 @@ class ScheduleController extends PerformanceController
         $this->overwriteDemandObject($demand, $overwriteDemand);
 
         $templateVariables = [
+            'debug' => $this->settings['debug'],
             'performances' => $this->performanceRepository->findDemanded($demand),
             SI::OVERWRITE_DEMAND => $overwriteDemand,
             'demand' => $demand,
             SI::SETTINGS => $this->settings,
             'filterOptions' => $filterOptions,
-            SI::MODULE => SI::ROUTE_SCHEDULE_MODULE
         ];
 
         $this->emitSignal(__CLASS__, self::PERFORMANCE_LIST_ACTION, $templateVariables);

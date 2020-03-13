@@ -29,7 +29,7 @@ use DWenzel\T3events\Utility\SettingsInterface as SI;
  * Class ExtensionConfiguration
  * Configuration for extension t3events_course
  */
-class ExtensionConfiguration extends \DWenzel\T3extensionTools\Configuration\ExtensionConfiguration
+class ExtensionConfiguration extends \DWenzel\T3events\Configuration\Base\ExtensionConfiguration
 {
     public const EXTENSION_KEY = 't3events';
     public const VENDOR = 'DWenzel';

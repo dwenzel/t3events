@@ -2,7 +2,7 @@
 if (!defined('TYPO3_MODE')) {
     die('Access denied.');
 }
-$cll = \DWenzel\T3events\Utility\TableConfiguration::getLanguageFilePath() . 'locallang_general.xlf:';
+$cll = 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:';
 
 return [
     'ctrl' => [
@@ -25,7 +25,7 @@ return [
             'endtime' => 'endtime',
         ],
         'searchFields' => 'name,link,',
-        'iconfile' => 'EXT:t3events/Resources/Public/Icons/tx_t3events_domain_model_organizer.gif'
+        'iconfile' => 'EXT:t3events/Resources/Public/Icons/tx_t3events_domain_model_organizer.svg'
     ],
     'interface' => [
         'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, name, link',

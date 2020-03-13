@@ -2,8 +2,8 @@
 
 namespace DWenzel\T3events\Configuration\Plugin;
 
-use DWenzel\T3extensionTools\Configuration\PluginConfigurationInterface;
-use DWenzel\T3extensionTools\Configuration\PluginConfigurationTrait;
+use DWenzel\T3events\Configuration\Base\PluginConfigurationInterface;
+use DWenzel\T3events\Configuration\Base\PluginConfigurationTrait;
 
 /***************************************************************
  *  Copyright notice

@@ -4,7 +4,7 @@ if (!defined('TYPO3_MODE')) {
 }
 
 $ll = 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf';
-$cll = \DWenzel\T3events\Utility\TableConfiguration::getLanguageFilePath() . 'locallang_general.xlf:';
+$cll = 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:';
 
 return [
     'ctrl' => [
@@ -29,7 +29,7 @@ return [
             'endtime' => 'endtime',
         ],
         'searchFields' => 'name, last_name, first_name',
-        'iconfile' => 'EXT:t3events/Resources/Public/Icons/tx_t3events_domain_model_person.png'
+        'iconfile' => 'EXT:t3events/Resources/Public/Icons/tx_t3events_domain_model_person.svg'
     ],
     'interface' => [
         'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, person_type,title, name, first_name, last_name, gender,address, zip, city, phone, email,www',

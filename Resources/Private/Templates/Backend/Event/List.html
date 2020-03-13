@@ -9,6 +9,7 @@
 
 <f:section name="Content">
 
+
     <h1>{f:translate(key: 'header.events')}</h1>
 
     <f:comment>Search form</f:comment>
@@ -30,6 +31,7 @@
                         <th class="col-icon">ID</th>
                         <th class="col-title">{f:translate(key: 'label.title', default: 'Title')}</th>
                         <th class="col-control"></th>
+                        <th>{f:translate(key: 'label.venue', default: 'Venue')}</th>
                         <th>{f:translate(key: 'label.eventType', default: 'Event Type')}</th>
                         <th>{f:translate(key: 'label.genres', default: 'Genres')}</th>
                         <th>{f:translate(key: 'label.audience', default: 'Audience')}</th>
@@ -37,27 +39,27 @@
                     </thead>
                     <f:for each="{paginatedEvents}" as="event">
                         <tr class="db_list_normal">
-                            <td nowrap="nowrap">{event.uid}</td>
-                            <td nowrap="nowrap">
+                            <td class="col-icon" nowrap="nowrap">{event.uid}</td>
+                            <td class="col-title" nowrap="nowrap">
                                 <a href="#" class="t3-js-clickmenutrigger"
                                    data-table="tx_t3events_domain_model_event" data-uid="{event.uid}"
                                    data-listframe="0">
                                     {event.headline}
                                 </a>
                             </td>
-                            <td nowrap="nowrap" class="col-control">
-                                <div class="btn btn-default">
-                                    <!--suppress HtmlUnknownTarget -->
-                                    <a class="actions-open"
-                                       title="Edit event {event.uid}"
-                                       href="{ts:be.editUri(
-                                                table: 'tx_t3events_domain_model_event',
-                                                record: event.uid,
-                                                module: module
-                                           )}"
-                                    >{f:translate(key: 'button.edit', default: 'button.edit')}</a>
+                            <td class="col-control" nowrap="nowrap">
+                                <div class="btn-group">
+                                    <be:link.editRecord class="btn btn-default pull-right"
+                                                        table="tx_t3events_domain_model_event" uid="{event.uid}"
+                                                        title="{f:translate(key: 'button.edit')}">
+                                        <core:icon identifier="actions-open"/>
+                                    </be:link.editRecord>
                                 </div>
-
+                            </td>
+                            <td nowrap="nowrap">
+                                <f:for each="{event.venue}" as="venue" iteration="venueIteration">
+                                    {venue.title}{f:if(condition: '{venueIteration.isLast}', else: ', ')}
+                                </f:for>
                             </td>
                             <td nowrap="nowrap">{event.eventType.title}</td>
                             <td nowrap="nowrap">
@@ -77,7 +79,7 @@
         </f:then>
     </f:if>
 
-    <f:if condition="{settings.common.searchForm.debug}">
+    <f:if condition="{debug}">
         <f:debug title="demand" inline="true">{demand}</f:debug>
         <f:debug title="overwriteDemand" inline="true">{overwriteDemand}</f:debug>
         <f:debug title="settings" inline="true">{settings}</f:debug>
@@ -87,11 +89,14 @@
 </f:section>
 
 <f:section name="Buttons">
-
     <be:moduleLayout.button.linkButton
         icon="actions-add"
-        title="{f:translate(id: 'LLL:EXT:backend/Resources/Private/Language/locallang_layout.xlf:newRecordGeneral')}"
+        showLabel="true"
+        title="{f:translate(key: 'button.addEvent')}"
         link="{be:uri.newRecord(table: 'tx_t3events_domain_model_event', pid: settings.persistence.storagePid)}"
     />
-
 </f:section>
+
+
+<f:section name="Right">TODO right [{storagePid}]</f:section>
+</html>

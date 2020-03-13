@@ -6,27 +6,7 @@
 </f:if>
 
 <div class="eventSingle clearfix">
-	<f:if condition="{event.image}">
-		<f:then>
-			<div class="eventImg eventLeft fl">
-				<f:image src="uploads/tx_t3events/{event.image}"
-					width="{settings.event.single.image.width}"
-					height="{settings.event.single.image.height}"
-					alt="{event.headline}"
-					title="{event.headline} {event.subtitle}"
-					/>
-			</div>
-		</f:then>
-		<f:else>
-			<div class="eventImg eventLeft fl">
-				<f:image src="{settings.event.single.dummyImage}"
-					width="{settings.event.single.image.width}"
-					height="{settings.event.single.image.height}"
-					alt="{event.headline}"
-					title="{event.headline} {event.subtitle}" />
-			</div>
-		</f:else>
-	</f:if>
+
 
     <f:if condition="{event.images}">
         <f:for each="{event.images}" as="image">

@@ -1,62 +1,42 @@
 {
-  "name": "dwenzel/t3events",
-  "type": "typo3-cms-extension",
-  "description": "Versatile events extension for the TYPO3 CMS",
-  "keywords": [
-    "TYPO3",
-    "extension",
-    "events"
-  ],
-  "license": [
-    "GPL-2.0+"
-  ],
-  "authors": [
-    {
-      "name": "Dirk Wenzel",
-      "role": "Developer"
+    "name": "dwenzel/t3events",
+    "type": "typo3-cms-extension",
+    "description": "Versatile events extension for the TYPO3 CMS",
+    "license": "GPL-2.0-or-later",
+    "keywords": [
+        "TYPO3",
+        "extension",
+        "events"
+    ],
+    "authors": [
+        {
+            "name": "Dirk Wenzel",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.2",
+        "typo3/cms-core": "^9.5",
+        "dwenzel/t3calendar": "~0.6"
+    },
+    "require-dev": {
+        "nimut/testing-framework": "^4.0",
+        "phpunit/phpunit": " ^7.0",
+        "codeclimate/php-test-reporter": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "DWenzel\\T3events\\": "Classes"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "DWenzel\\T3events\\Tests\\": "Tests"
+        }
+    },
+    "extra": {
+        "typo3/cms": {
+            "extension-key": "t3events"
+        }
     }
-  ],
-  "require": {
-    "php": "^7.2",
-    "typo3/cms-core": ">=8.7.0 || >=9.5.0",
-    "dwenzel/t3calendar": "~0.6",
-    "dwenzel/t3extension-tools": "~1.3"
-  },
-  "require-dev": {
-    "nimut/testing-framework": "^4.0",
-    "phpunit/phpunit": " ^7.0",
-    "codeclimate/php-test-reporter": "dev-master"
-  },
-  "autoload": {
-    "psr-4": {
-      "DWenzel\\T3events\\": "Classes"
-    }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "DWenzel\\T3events\\Tests\\": "Tests"
-    }
-  },
-  "config": {
-    "vendor-dir": ".Build/vendor",
-    "bin-dir": ".Build/bin",
-    "preferred-install": {
-      "typo3/cms": "source",
-      "typo3/cms-core": "source",
-      "*": "dist"
-    }
-  },
-  "scripts": {
-    "post-autoload-dump": [
-      "mkdir -p .Build/Web/typo3conf/ext/",
-      "mkdir -p .Build/log/coverage/",
-      "[ -L .Build/Web/typo3conf/ext/t3events ] || ln -snvf ../../../../. .Build/Web/typo3conf/ext/t3events"
-    ]
-  },
-  "extra": {
-    "typo3/cms": {
-      "cms-package-dir": "{$vendor-dir}/typo3/cms",
-      "web-dir": ".Build/Web"
-    }
-  }
 }

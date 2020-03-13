@@ -21,14 +21,17 @@ namespace DWenzel\T3events\Domain\Repository;
      ***************************************************************/
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
+use TYPO3\CMS\Extbase\Persistence\Repository;
 
 /**
  * @package t3events
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
 
-class GenreRepository extends AbstractDemandedRepository
+class GenreRepository extends Repository implements DemandedRepositoryInterface
 {
+    use DemandedRepositoryTrait;
+
     /**
      * Returns an array of constraints created from a given demand object.
      *

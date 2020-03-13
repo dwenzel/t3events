@@ -4,7 +4,7 @@ if (!defined('TYPO3_MODE')) {
 }
 
 $ll = 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf';
-$cll = \DWenzel\T3events\Utility\TableConfiguration::getLanguageFilePath() . 'locallang_general.xlf:';
+$cll = 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:';
 
 return [
     'ctrl' => [
@@ -26,7 +26,7 @@ return [
             'endtime' => 'endtime',
         ],
         'searchFields' => 'name,address,image,zip,place,details,www,country,',
-        'iconfile' => 'EXT:t3events/Resources/Public/Icons/tx_t3events_domain_model_eventlocation.gif'
+        'iconfile' => 'EXT:t3events/Resources/Public/Icons/tx_t3events_domain_model_eventlocation.svg'
     ],
     'interface' => [
         'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, name, address, image, zip, place, details, www, country, latitude, longitude',

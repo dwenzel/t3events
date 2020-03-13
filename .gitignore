@@ -1,5 +1,0 @@
-*.iml
-Documentation/_build/
-.scannerwork
-.Build/
-composer.lock

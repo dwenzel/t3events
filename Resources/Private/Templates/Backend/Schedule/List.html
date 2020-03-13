@@ -1,6 +1,8 @@
 <html
     xmlns:f="http://xsd.helmut-hummel.de/ns/TYPO3/CMS/Fluid/ViewHelpers"
     xmlns:ts="http://typo3.org/ns/DWenzel/T3events/ViewHelpers"
+    xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+    xmlns:core="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
     data-namespace-typo3-fluid="true">
 
 <f:layout name="Default"/>
@@ -44,17 +46,14 @@
                             <td nowrap="nowrap">{schedule.eventLocation.name}</td>
                             <td nowrap="nowrap">{schedule.event.eventType.title}</td>
                             <td nowrap="nowrap">{schedule.status.title}</td>
-                            <td nowrap="nowrap">
-                                <div class="btn btn-default">
-                                    <!--suppress HtmlUnknownTarget -->
-                                    <a class="actions-open"
-                                       title="UID: {schedule.uid}"
-                                       href="{ts:be.editUri(
-                                              table:'tx_t3events_domain_model_performance',
-                                              record: schedule.uid,
-                                              module: module
-                                            )}"
-                                    >{f:translate(key: 'button.edit', default: 'button.edit')}</a>
+                            <td nowrap="nowrap" class="col-control">
+
+                                <div class="btn-group">
+                                    <be:link.editRecord class="btn btn-default pull-right"
+                                                        table="tx_t3events_domain_model_performance" uid="{schedule.uid}"
+                                                        title="{f:translate(key: 'button.edit')}">
+                                        <core:icon identifier="actions-open"/>
+                                    </be:link.editRecord>
                                 </div>
                             </td>
                         </tr>
@@ -63,7 +62,8 @@
             </f:be.widget.paginate>
         </f:then>
     </f:if>
-    <f:if condition="{settings.common.searchForm.debug}">
+
+    <f:if condition="{debug}">
         <f:debug title="demand" inline="true">{demand}</f:debug>
         <f:debug title="overwriteDemand" inline="true">{overwriteDemand}</f:debug>
         <f:debug title="settings" inline="true">{settings}</f:debug>

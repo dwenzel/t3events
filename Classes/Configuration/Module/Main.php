@@ -2,8 +2,8 @@
 
 namespace DWenzel\T3events\Configuration\Module;
 
-use DWenzel\T3extensionTools\Configuration\ModuleRegistrationInterface;
-use DWenzel\T3extensionTools\Configuration\ModuleRegistrationTrait;
+use DWenzel\T3events\Configuration\Base\ModuleRegistrationInterface;
+use DWenzel\T3events\Configuration\Base\ModuleRegistrationTrait;
 
 /***************************************************************
  *  Copyright notice
@@ -29,7 +29,7 @@ class Main extends DefaultRegistration implements ModuleRegistrationInterface
     static protected $mainModuleName = 'events';
     static protected $controllerActions = [];
     static protected $moduleConfiguration = [
-        'icon' => 'EXT:t3events/Resources/Public/Icons/module_administration.svg',
+        'icon' => 'EXT:t3events/Resources/Public/Icons/module-administration.svg',
         'labels' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_mod_main.xlf',
     ];
 

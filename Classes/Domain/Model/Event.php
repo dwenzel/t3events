@@ -121,7 +121,6 @@ class Event extends AbstractEntity
     /**
      * eventType
      *
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      * @var \DWenzel\T3events\Domain\Model\EventType
      */
     protected $eventType;

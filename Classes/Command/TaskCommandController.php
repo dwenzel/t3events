@@ -12,9 +12,9 @@ namespace DWenzel\T3events\Command;
  */
 
 use DWenzel\T3events\Controller\PerformanceDemandFactoryTrait;
-use DWenzel\T3events\Controller\PerformanceRepositoryTrait;
+use DWenzel\T3events\Controller\Repository\PerformanceRepositoryTrait;
 use DWenzel\T3events\Controller\PersistenceManagerTrait;
-use DWenzel\T3events\Controller\TaskRepositoryTrait;
+use DWenzel\T3events\Controller\Repository\TaskRepositoryTrait;
 use DWenzel\T3events\Domain\Model\Dto\PerformanceDemand;
 use DWenzel\T3events\Domain\Model\Performance;
 use DWenzel\T3events\Domain\Model\Task;

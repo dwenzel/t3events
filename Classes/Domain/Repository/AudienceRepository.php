@@ -21,12 +21,15 @@ namespace DWenzel\T3events\Domain\Repository;
  ***************************************************************/
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
+use TYPO3\CMS\Extbase\Persistence\Repository;
 
 /**
  * The repository for Audiences
  */
-class AudienceRepository extends AbstractDemandedRepository
+class AudienceRepository extends Repository implements DemandedRepositoryInterface
 {
+    use DemandedRepositoryTrait;
+
     /**
      * Returns an array of constraints created from a given demand object.
      *

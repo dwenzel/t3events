@@ -21,14 +21,17 @@ namespace DWenzel\T3events\Domain\Repository;
      ***************************************************************/
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
+use TYPO3\CMS\Extbase\Persistence\Repository;
 
 /**
  * @package t3events
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
 
-class VenueRepository extends AbstractDemandedRepository
+class VenueRepository extends Repository implements DemandedRepositoryInterface
 {
+    use DemandedRepositoryTrait;
+
     /**
      * Returns an array of constraints created from a given demand object.
      *
@@ -41,4 +44,21 @@ class VenueRepository extends AbstractDemandedRepository
         // add constraints if required
         return [];
     }
+
+//    /**
+//     * Returns a query for objects of this repository
+//     *
+//     * @return \TYPO3\CMS\Extbase\Persistence\QueryInterface
+//     */
+//    public function createQuery()
+//    {
+//        $query = parent::createQuery();
+//
+//
+//        $queryParser = $this->objectManager->get(\TYPO3\CMS\Extbase\Persistence\Generic\Storage\Typo3DbQueryParser::class);
+//        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($queryParser->convertQueryToDoctrineQueryBuilder($query)->getSQL());
+//        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($queryParser->convertQueryToDoctrineQueryBuilder($query)->getParameters());
+//
+//        return $query;
+//    }
 }

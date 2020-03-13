@@ -23,18 +23,20 @@ use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use DWenzel\T3events\Utility\SettingsInterface as SI;
+use TYPO3\CMS\Extbase\Persistence\Repository;
 
 /**
  * @package t3events
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-class EventRepository extends AbstractDemandedRepository implements
+class EventRepository extends Repository implements
+    DemandedRepositoryInterface,
     PeriodConstraintRepositoryInterface,
     LocationConstraintRepositoryInterface,
     AudienceConstraintRepositoryInterface
 {
     use PeriodConstraintRepositoryTrait, LocationConstraintRepositoryTrait,
-        AudienceConstraintRepositoryTrait;
+        AudienceConstraintRepositoryTrait, DemandedRepositoryTrait;
 
     /**
      * Create category constraints from demand

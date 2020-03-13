@@ -19,8 +19,8 @@ namespace DWenzel\T3events\Configuration\Module;
  * This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use DWenzel\T3extensionTools\Configuration\ModuleRegistrationInterface;
-use DWenzel\T3extensionTools\Configuration\ModuleRegistrationTrait;
+use DWenzel\T3events\Configuration\Base\ModuleRegistrationInterface;
+use DWenzel\T3events\Configuration\Base\ModuleRegistrationTrait;
 
 /**
  * Class Schedule
@@ -35,7 +35,7 @@ abstract class Schedule extends DefaultRegistration implements ModuleRegistratio
     ];
     static protected $moduleConfiguration = [
         'access' => 'user,group',
-        'icon' => 'EXT:t3events/Resources/Public/Icons/calendar-blue.svg',
+        'icon' => 'EXT:t3events/Resources/Public/Icons/module-schedule.svg',
         'labels' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_m2.xlf',
     ];
 

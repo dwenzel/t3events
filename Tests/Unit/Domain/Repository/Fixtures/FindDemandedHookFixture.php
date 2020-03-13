@@ -1,7 +1,7 @@
 <?php
 namespace DWenzel\T3events\Tests\Unit\Domain\Repository\Fixtures;
 
-use DWenzel\T3events\Domain\Repository\AbstractDemandedRepository;
+use DWenzel\T3events\Domain\Repository\DemandedRepositoryInterface;
 
 /***************************************************************
  *  Copyright notice
@@ -30,9 +30,9 @@ class FindDemandedHookFixture
 {
     /**
      * @param array $params
-     * @param AbstractDemandedRepository $repository
+     * @param DemandedRepositoryInterface $repository
      */
-    public function updateQuerySlot(array $params, AbstractDemandedRepository $repository)
+    public function updateQuerySlot(array $params, DemandedRepositoryInterface $repository)
     {
     }
 }

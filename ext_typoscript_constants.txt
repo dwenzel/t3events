@@ -11,7 +11,7 @@ module.tx_t3events {
 
 	persistence {
 		# cat=module.tx_t3events//a; type=string; label=Default storage PID
-		storagePid = 0
+		storagePid =
 	}
 
     settings {

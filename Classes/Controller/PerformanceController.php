@@ -16,6 +16,7 @@ namespace DWenzel\T3events\Controller;
  */
 
 use DWenzel\T3calendar\Domain\Model\Dto\CalendarConfigurationFactoryTrait;
+use DWenzel\T3events\Controller\Repository\CategoryRepositoryTrait;
 use DWenzel\T3events\Domain\Model\Dto\PerformanceDemand;
 use DWenzel\T3events\Domain\Model\Performance;
 use DWenzel\T3events\Domain\Repository\EventTypeRepository;
