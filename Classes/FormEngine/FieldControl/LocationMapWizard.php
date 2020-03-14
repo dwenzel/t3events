@@ -39,15 +39,16 @@ class LocationMapWizard extends AbstractNode
         if ($row['latitude'] || $row['longitude'] == '') {
             // remove all after first slash in address (top, floor ...)
             $address = preg_replace('/^([^\/]*).*$/', '$1', $row['address']);
-            $address .= ', '. $row['zip'] . ' ' . $row['place'];
+            $city = $row['zip'] . ' ' . $row['city']; // zip is currently ignored by osm
+            $address .= ', '. $city;
             // if we have at least some address part (saves geocoding calls)
             if ($address) {
                 // base url
-                $geoCodeUrlBase = 'https://nominatim.openstreetmap.org/search.php?q=';
+                $geoCodeUrlBase = 'https://nominatim.openstreetmap.org/search/';
                 $geoCodeUrlAddress = trim((string)$address, ' ,');
-                $geoCodeUrlCityOnly = trim((string)$row['place'], ' ,');
+                $geoCodeUrlCityOnly = trim((string)$city, ' ,');
                 // urlparams for nominatim which are fixed.
-                $geoCodeUrlQuery = '&format=json&addressdetails=1&limit=1';
+                $geoCodeUrlQuery = '?format=json&addressdetails=1&limit=1';
                 // replace newlines with spaces; remove multiple spaces
                 $geoCodeUrl = trim(preg_replace('/\s\s+/', ' ', $geoCodeUrlBase . urlencode($geoCodeUrlAddress) . $geoCodeUrlQuery));
                 $geoCodeUrlShort = trim(preg_replace('/\s\s+/', ' ', $geoCodeUrlBase . urlencode($geoCodeUrlCityOnly) . $geoCodeUrlQuery));
@@ -61,8 +62,8 @@ class LocationMapWizard extends AbstractNode
         $resultArray['linkAttributes']['data-label-title'] = $this->getLanguageService()->sL('LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events.locationMapWizard');
         $resultArray['linkAttributes']['data-label-close'] = $this->getLanguageService()->sL('LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events.locationMapWizard.close');
         $resultArray['linkAttributes']['data-label-import'] = $this->getLanguageService()->sL('LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events.locationMapWizard.import');
-        $resultArray['linkAttributes']['data-lat'] = $lat ?? null;
-        $resultArray['linkAttributes']['data-lon'] = $lon ?? null;
+        $resultArray['linkAttributes']['data-lat'] = $lat;
+        $resultArray['linkAttributes']['data-lon'] = $lon;
         $resultArray['linkAttributes']['data-glat'] = $gLat;
         $resultArray['linkAttributes']['data-glon'] = $gLon;
         $resultArray['linkAttributes']['data-geocodeurl'] = $geoCodeUrl;

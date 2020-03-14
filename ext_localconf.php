@@ -8,7 +8,7 @@ defined('TYPO3_MODE') or die();
     if (TYPO3_MODE === 'BE') {
         $icons = [
             'apps-pagetree-folder-contains-events' => 'apps-pagetree-folder-contains-events.svg',
-            'location-map-wizard' => 'location-map-wizard.svg',
+            'location-map-wizard' => 'actions-geo.svg',
         ];
         $iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconRegistry::class);
         foreach ($icons as $identifier => $path) {

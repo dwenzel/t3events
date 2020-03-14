@@ -57,6 +57,7 @@ define(['jquery', 'TYPO3/CMS/Backend/Icons', 'TYPO3/CMS/T3events/leaflet-core-1.
                 '</div>'
             );
         });
+
         LeafBE.$element.on('click', function () {
             // generate map on first click and bind events
             if (LeafBE.$map == null) {
@@ -66,7 +67,6 @@ define(['jquery', 'TYPO3/CMS/Backend/Icons', 'TYPO3/CMS/T3events/leaflet-core-1.
                 if (((!LeafBE.$latitude || !LeafBE.$longitude) || (LeafBE.$latitude == 0 && LeafBE.$longitude == 0)) && LeafBE.$geoCodeUrl != null) {
                     function geocode(callback) {
                         var temp = $.getJSON(LeafBE.$geoCodeUrl, function (data) {
-                            console.log(data);
                             if (data.length == 0) {
                                 // Fallback to city-only (less error-prone)
                                 var temp2 = $.getJSON(LeafBE.$geoCodeUrlShort, function (data) {
