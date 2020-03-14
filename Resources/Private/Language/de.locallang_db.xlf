@@ -206,6 +206,18 @@
                 <source>Longitude</source>
                 <target>Geographische Länge</target>
             </trans-unit>
+            <trans-unit id="tx_t3events.locationMapWizard" approved="yes">
+            <source>Map wizard for visual selection of coordinates</source>
+            <target state="translated">Kartenassistent für Auswahl der Koordinaten</target>
+        </trans-unit>
+            <trans-unit id="tx_t3events.locationMapWizard.close" approved="yes">
+                <source>Close Map Wizard</source>
+                <target state="translated">Kartenassistent schließen</target>
+            </trans-unit>
+            <trans-unit id="tx_t3events.locationMapWizard.import" approved="yes">
+                <source>Import marker-coordinates</source>
+                <target state="translated">Marker-Koordinaten importieren</target>
+            </trans-unit>
             <trans-unit id="tx_t3events_domain_model_eventlocation.name" approved="yes">
                 <source>Name</source>
                 <target>Name</target>
@@ -602,9 +614,21 @@
                 <source>Dates</source>
                 <target>Datum</target>
             </trans-unit>
+            <trans-unit id="tab.description">
+                <source>Description</source>
+                <target>Beschreibung</target>
+            </trans-unit>
             <trans-unit id="palette.dates">
                 <source>Dates</source>
                 <target>Neu und Archiv</target>
+            </trans-unit>
+            <trans-unit id="palette.address">
+                <source>Address</source>
+                <target>Adresse</target>
+            </trans-unit>
+            <trans-unit id="palette.geo">
+                <source>Geo coordinates</source>
+                <target>Geo-Koordinaten</target>
             </trans-unit>
             <trans-unit id="tab.access" approved="yes">
                 <source>Access</source>

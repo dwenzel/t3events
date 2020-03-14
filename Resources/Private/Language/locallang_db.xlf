@@ -156,6 +156,15 @@
             <trans-unit id="tx_t3events_domain_model_eventlocation.longitude">
                 <source>Longitude</source>
             </trans-unit>
+            <trans-unit id="tx_t3events.locationMapWizard">
+                <source>Map wizard for visual selection of coordinates</source>
+            </trans-unit>
+            <trans-unit id="tx_t3events.locationMapWizard.close">
+                <source>Close Map Wizard</source>
+            </trans-unit>
+            <trans-unit id="tx_t3events.locationMapWizard.import">
+                <source>Import marker-coordinates</source>
+            </trans-unit>
             <trans-unit id="tx_t3events_domain_model_eventlocation.name">
                 <source>Name</source>
             </trans-unit>
@@ -453,8 +462,17 @@
             <trans-unit id="tab.dates">
                 <source>Dates</source>
             </trans-unit>
+            <trans-unit id="tab.description">
+                <source>Description</source>
+            </trans-unit>
             <trans-unit id="palette.dates">
                 <source>Dates</source>
+            </trans-unit>
+            <trans-unit id="palette.address">
+                <source>Address</source>
+            </trans-unit>
+            <trans-unit id="palette.geo">
+                <source>Geo coordinates</source>
             </trans-unit>
             <trans-unit id="tab.access">
                 <source>Access</source>

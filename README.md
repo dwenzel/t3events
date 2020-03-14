@@ -12,6 +12,7 @@ This version includes:
 - remove unused code
 - reorganize events record layout (TCA)
 - fix and add some localizations
+- geo coordinates map picker for location
 
 Warning: this version might have bugs, the original doesn't have.
 
