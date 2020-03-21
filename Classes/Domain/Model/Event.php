@@ -571,7 +571,7 @@ class Event extends AbstractEntity
      * Sets the headline
      *
      * @param string $headline
-     * @return string headline
+     * @return void
      */
     public function setHeadline($headline)
     {

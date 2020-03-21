@@ -18,12 +18,7 @@ namespace DWenzel\T3events\Domain\Model\Dto;
  * EventDemand
  * Demand object for querying events
  */
-class EventDemand extends AbstractDemand implements
-    DemandInterface,
-    PeriodAwareDemandInterface,
-    SearchAwareDemandInterface,
-    AudienceAwareDemandInterface,
-    OrderAwareDemandInterface
+class EventDemand extends AbstractDemand implements EventDemandInterface
 {
     use PeriodAwareDemandTrait, SearchAwareDemandTrait,
         AudienceAwareDemandTrait, OrderAwareDemandTrait;

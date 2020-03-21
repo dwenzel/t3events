@@ -8,8 +8,8 @@ use TYPO3\CMS\Core\Imaging\IconProviderInterface;
 use TYPO3\CMS\Core\Imaging\IconRegistry;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
+use DWenzel\T3events\Configuration\InvalidConfigurationException;
 
 /***************************************************************
  *  Copyright notice

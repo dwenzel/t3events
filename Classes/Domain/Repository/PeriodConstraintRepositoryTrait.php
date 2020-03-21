@@ -108,8 +108,8 @@ trait PeriodConstraintRepositoryTrait
             $deltaStart = ($periodStart < 0) ? $periodStart : '+' . $periodStart;
             $deltaEnd = ($periodDuration > 0) ? '+' . $periodDuration : '+' . 999;
 
-            $year = $startDate->format('Y');
-            $month = $startDate->format('m');
+            $year = (int)$startDate->format('Y');
+            $month = (int)$startDate->format('m');
 
             // get specific delta
             switch ($periodType) {

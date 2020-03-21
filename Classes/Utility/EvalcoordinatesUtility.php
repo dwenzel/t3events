@@ -19,7 +19,7 @@ class EvalcoordinatesUtility
 
     /**
      * @param $coordinate
-     * @return float evaluated and well-formed coordinate
+     * @return string evaluated and well-formed coordinate as string in float format
      */
     public static function formatLongitude(string $coordinate)
     {
@@ -28,7 +28,7 @@ class EvalcoordinatesUtility
 
     /**
      * @param $coordinate
-     * @return float evaluated and well-formed coordinate
+     * @return string evaluated and well-formed coordinate as string in float format
      */
     public static function formatLatitude(string $coordinate)
     {

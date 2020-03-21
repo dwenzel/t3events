@@ -1,5 +1,5 @@
 <?php
-$EM_CONF[$_EXTKEY] = array(
+$EM_CONF['t3events'] = array(
     'title' => 'Events',
     'description' => 'Manage events, show teasers, list and single views.',
     'category' => 'plugin',

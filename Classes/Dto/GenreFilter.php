@@ -2,9 +2,8 @@
 
 namespace DWenzel\T3events\Dto;
 
-use DWenzel\T3events\Controller\GenreRepositoryTrait;
+use DWenzel\T3events\Controller\Repository\GenreRepositoryTrait;
 use DWenzel\T3events\Domain\Repository\DemandedRepositoryInterface;
-use DWenzel\T3events\Utility\SettingsInterface as SI;
 
 /***************************************************************
  *  Copyright notice

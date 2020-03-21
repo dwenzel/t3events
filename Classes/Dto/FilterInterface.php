@@ -28,7 +28,7 @@ interface FilterInterface
 
     /**
      * Returns the filter options
-     * @return iterable
+     * @return \Traversable
      */
     public function getOptions(): iterable;
 

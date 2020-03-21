@@ -39,7 +39,7 @@ class LocationMapWizard extends AbstractNode
         if ($row['latitude'] || $row['longitude'] == '') {
             // remove all after first slash in address (top, floor ...)
             $address = preg_replace('/^([^\/]*).*$/', '$1', $row['address']);
-            $city = $row['zip'] . ' ' . $row['city']; // zip is currently ignored by osm
+            $city = $row['zip'] . ' ' . $row['place']; // zip is currently ignored by osm
             $address .= ', '. $city;
             // if we have at least some address part (saves geocoding calls)
             if ($address) {

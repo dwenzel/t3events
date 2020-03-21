@@ -213,7 +213,7 @@ class Performance extends AbstractEntity implements CalendarItemInterface
      * Sets the eventLocation
      *
      * @param \DWenzel\T3events\Domain\Model\EventLocation $eventLocation
-     * @return \DWenzel\T3events\Domain\Model\EventLocation eventLocation
+     * @return void
      */
     public function setEventLocation(\DWenzel\T3events\Domain\Model\EventLocation $eventLocation)
     {
@@ -565,7 +565,7 @@ class Performance extends AbstractEntity implements CalendarItemInterface
      * Sets the additionalLink
      *
      * @param string $additionalLink
-     * @return string additionalLink
+     * @return void
      */
     public function setAdditionalLink($additionalLink)
     {
@@ -586,7 +586,7 @@ class Performance extends AbstractEntity implements CalendarItemInterface
      * Sets the externalProviderLink
      *
      * @param string $externalProviderLink
-     * @return string externalProviderLink
+     * @return void
      */
     public function setExternalProviderLink($externalProviderLink)
     {
