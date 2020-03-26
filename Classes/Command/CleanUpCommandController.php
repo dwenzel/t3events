@@ -4,9 +4,9 @@ namespace DWenzel\T3events\Command;
 use DWenzel\T3events\Controller\PersistenceManagerTrait;
 use TYPO3\CMS\Extbase\Mvc\Controller\CommandController;
 use DWenzel\T3events\Controller\EventDemandFactoryTrait;
-use DWenzel\T3events\Controller\EventRepositoryTrait;
+use DWenzel\T3events\Controller\Repository\EventRepositoryTrait;
 use DWenzel\T3events\Controller\PerformanceDemandFactoryTrait;
-use DWenzel\T3events\Controller\PerformanceRepositoryTrait;
+use DWenzel\T3events\Controller\Repository\PerformanceRepositoryTrait;
 use DWenzel\T3events\Domain\Model\Event;
 use DWenzel\T3events\Utility\SettingsInterface as SI;
 

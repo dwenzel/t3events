@@ -23,7 +23,7 @@ trait LocationConstraintRepositoryTrait
      *
      * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
      * @param \DWenzel\T3events\Domain\Model\Dto\SearchAwareDemandInterface $demand
-     * @return array<\TYPO3\CMS\Extbase\Persistence\QOM\Constraint>
+     * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\ConstraintInterface>
      */
     public function createLocationConstraints(QueryInterface $query, SearchAwareDemandInterface $demand)
     {

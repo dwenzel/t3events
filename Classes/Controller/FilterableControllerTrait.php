@@ -47,6 +47,12 @@ trait FilterableControllerTrait
             ) {
                 /** @var DemandedRepositoryInterface $repository */
                 $repository = $this->{$propertyName};
+
+                $querySettings = $repository->createQuery()->getQuerySettings();
+//                $querySettings->setStoragePageIds(array($GLOBALS["TSFE"]->id));
+                $querySettings->setRespectStoragePage(FALSE);
+                $repository->setDefaultQuerySettings($querySettings);
+
                 if (!empty($value)) {
                     $result = $repository->findMultipleByUid($value, 'title');
                 } else {
@@ -69,7 +75,6 @@ trait FilterableControllerTrait
                 $filterOptions['periods'] = $periodOptions;
             }
         }
-
 
         return $filterOptions;
     }

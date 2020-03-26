@@ -12,13 +12,16 @@ namespace DWenzel\T3events\Domain\Repository;
  */
 use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
+use TYPO3\CMS\Extbase\Persistence\Repository;
 
 /**
  * @package t3events
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-class PersonRepository extends AbstractDemandedRepository
+class PersonRepository extends Repository implements DemandedRepositoryInterface
 {
+    use DemandedRepositoryTrait;
+
     /**
      * Returns an array of constraints created from a given demand object.
      *

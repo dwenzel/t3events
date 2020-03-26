@@ -20,7 +20,7 @@ trait PeriodConstraintRepositoryTrait
      *
      * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
      * @param \DWenzel\T3events\Domain\Model\Dto\PeriodAwareDemandInterface $demand
-     * @return array<\TYPO3\CMS\Extbase\Persistence\QOM\Constraint>
+     * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\ConstraintInterface>
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
      */
     public function createPeriodConstraints(QueryInterface $query, PeriodAwareDemandInterface $demand)
@@ -108,8 +108,8 @@ trait PeriodConstraintRepositoryTrait
             $deltaStart = ($periodStart < 0) ? $periodStart : '+' . $periodStart;
             $deltaEnd = ($periodDuration > 0) ? '+' . $periodDuration : '+' . 999;
 
-            $year = $startDate->format('Y');
-            $month = $startDate->format('m');
+            $year = (int)$startDate->format('Y');
+            $month = (int)$startDate->format('m');
 
             // get specific delta
             switch ($periodType) {

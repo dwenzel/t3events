@@ -16,7 +16,7 @@ interface GenreConstraintRepositoryInterface
      *
      * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
      * @param \DWenzel\T3events\Domain\Model\Dto\GenreAwareDemandInterface $demand
-     * @return array<\TYPO3\CMS\Extbase\Persistence\QOM\Constraint>
+     * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\ConstraintInterface>
      */
     public function createGenreConstraints(QueryInterface $query, GenreAwareDemandInterface $demand);
 }

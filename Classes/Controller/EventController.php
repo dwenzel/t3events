@@ -18,6 +18,10 @@ namespace DWenzel\T3events\Controller;
 
 use DWenzel\T3calendar\Domain\Factory\CalendarFactoryTrait;
 use DWenzel\T3calendar\Domain\Model\Dto\CalendarConfigurationFactoryTrait;
+use DWenzel\T3events\Controller\Repository\EventRepositoryTrait;
+use DWenzel\T3events\Controller\Repository\EventTypeRepositoryTrait;
+use DWenzel\T3events\Controller\Repository\GenreRepositoryTrait;
+use DWenzel\T3events\Controller\Repository\VenueRepositoryTrait;
 use DWenzel\T3events\Domain\Model\Event;
 use DWenzel\T3events\Utility\SettingsInterface as SI;
 use TYPO3\CMS\Core\Messaging\FlashMessage;

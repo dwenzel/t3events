@@ -57,7 +57,7 @@ class PeriodConstraintLegend extends VectorImage
      * @param \TYPO3\CMS\Backend\Form\Element\UserElement $parentObject
      * @return string
      * @throws MissingFileException
-     * @throws \DWenzel\T3events\InvalidConfigurationException
+     * @throws \DWenzel\T3events\Configuration\InvalidConfigurationException
      */
     public function render($params, $parentObject = null)
     {
@@ -71,7 +71,7 @@ class PeriodConstraintLegend extends VectorImage
     /**
      * @param $params
      * @throws \DWenzel\T3events\MissingFileException
-     * @throws \DWenzel\T3events\InvalidConfigurationException
+     * @throws \DWenzel\T3events\Configuration\InvalidConfigurationException
      */
     public function initialize($params)
     {

@@ -1,3 +1,8 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:ts="http://typo3.org/ns/DWenzel/T3events/ViewHelpers"
+    data-namespace-typo3-fluid="true">
+    
 <f:if condition="{settings.debug.event}">
 	<f:debug title="event">{event}</f:debug>
 </f:if>
@@ -6,27 +11,7 @@
 </f:if>
 
 <div class="eventSingle clearfix">
-	<f:if condition="{event.image}">
-		<f:then>
-			<div class="eventImg eventLeft fl">
-				<f:image src="uploads/tx_t3events/{event.image}"
-					width="{settings.event.single.image.width}"
-					height="{settings.event.single.image.height}"
-					alt="{event.headline}"
-					title="{event.headline} {event.subtitle}"
-					/>
-			</div>
-		</f:then>
-		<f:else>
-			<div class="eventImg eventLeft fl">
-				<f:image src="{settings.event.single.dummyImage}"
-					width="{settings.event.single.image.width}"
-					height="{settings.event.single.image.height}"
-					alt="{event.headline}"
-					title="{event.headline} {event.subtitle}" />
-			</div>
-		</f:else>
-	</f:if>
+
 
     <f:if condition="{event.images}">
         <f:for each="{event.images}" as="image">
@@ -146,3 +131,4 @@
         </f:if>
     </div>
 </div>
+</html>

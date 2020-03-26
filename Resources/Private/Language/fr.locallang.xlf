@@ -215,10 +215,6 @@
 			<source>Titel</source>
 			<target>titre</target>
 		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_event.image" approved="yes" xml:space="preserve">
-			<source>image</source>
-			<target>image</target>
-		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_event.keywords" approved="yes" xml:space="preserve">
 			<source>keywords</source>
 			<target>mots clés</target>

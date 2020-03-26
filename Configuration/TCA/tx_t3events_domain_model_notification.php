@@ -3,7 +3,7 @@ if (!defined('TYPO3_MODE')) {
     die('Access denied.');
 }
 $ll = 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf';
-$cll = \DWenzel\T3events\Utility\TableConfiguration::getLanguageFilePath() . 'locallang_general.xlf:';
+$cll = 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:';
 
 return [
     'ctrl' => [
@@ -22,7 +22,7 @@ return [
             'disabled' => 'hidden',
         ],
         'searchFields' => 'title,description,',
-        'iconfile' => 'EXT:t3events/Resources/Public/Icons/tx_t3events_domain_model_notification.gif'
+        'iconfile' => 'EXT:t3events/Resources/Public/Icons/tx_t3events_domain_model_notification.svg'
     ],
     'interface' => [
         'showRecordFieldList' => 'hidden, recipient, sender,sender_email,sender_name, subject, bodytext, format, sent_at',

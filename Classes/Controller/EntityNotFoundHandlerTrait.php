@@ -177,7 +177,7 @@ trait EntityNotFoundHandlerTrait
      */
     protected function isSSLEnabled()
     {
-        return GeneralUtility::getIndpEnv('TYPO3_SSL');
+        return (bool)GeneralUtility::getIndpEnv('TYPO3_SSL');
     }
 
     /**

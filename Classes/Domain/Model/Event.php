@@ -121,7 +121,6 @@ class Event extends AbstractEntity
     /**
      * eventType
      *
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      * @var \DWenzel\T3events\Domain\Model\EventType
      */
     protected $eventType;
@@ -572,7 +571,7 @@ class Event extends AbstractEntity
      * Sets the headline
      *
      * @param string $headline
-     * @return string headline
+     * @return void
      */
     public function setHeadline($headline)
     {

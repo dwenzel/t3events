@@ -112,7 +112,7 @@ class TicketClass extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets the price
      *
      * @param float $price
-     * @return float price
+     * @return void
      */
     public function setPrice($price)
     {

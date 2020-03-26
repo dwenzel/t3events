@@ -1,8 +1,13 @@
-{namespace t3c=DWenzel\T3calendar\ViewHelpers}
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:ts="http://typo3.org/ns/DWenzel/T3events/ViewHelpers"
+    xmlns:t3c="http://typo3.org/ns/DWenzel/T3calendar/ViewHelpers"
+    data-namespace-typo3-fluid="true">
 
 <f:layout name="Default" />
 
-This Template is responsible for creating a calendar view of event performances.
+<f:comment>This Template is responsible for creating a calendar view of event performances.</f:comment>
+
 <f:section name="main">
 	<div class="tx-t3calendar-widget" id="tx-t3calendar-calendar-widget">
 		<t3c:widget.calendar
@@ -13,3 +18,4 @@ This Template is responsible for creating a calendar view of event performances.
 		/>
 	</div>
 </f:section>
+</html>

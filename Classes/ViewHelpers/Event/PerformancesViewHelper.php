@@ -116,7 +116,7 @@ class PerformancesViewHelper extends AbstractTagBasedViewHelper
     /**
      * Get date range of performances
      *
-     * @return array
+     * @return string
      */
     public function getDateRange()
     {

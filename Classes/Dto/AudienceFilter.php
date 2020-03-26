@@ -2,7 +2,7 @@
 
 namespace DWenzel\T3events\Dto;
 
-use DWenzel\T3events\Controller\AudienceRepositoryTrait;
+use DWenzel\T3events\Controller\Repository\AudienceRepositoryTrait;
 use DWenzel\T3events\Domain\Repository\DemandedRepositoryInterface;
 
 /***************************************************************

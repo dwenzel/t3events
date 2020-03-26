@@ -2,8 +2,7 @@
  * calendar.js
  * custom scripts for calendar widget (Ajax)
  */
-
-var t3events = {};
+const t3events = {};
 
 t3events.ajax = function (url, parentObject) {
 	jQuery('#loader').addClass('loading');
@@ -18,9 +17,9 @@ t3events.ajax = function (url, parentObject) {
 };
 jQuery('.tx-t3events ').on('click', '.navigation a', function (e) {
 	e.preventDefault();
-	element = jQuery(this);
-	var calendarId = element.data('calendarid');
-	var parentObject = jQuery('#' + calendarId);
-	t3events.ajax(element.attr('href'), parentObject);
+	let element = jQuery(this);
+    const calendarId = element.data('calendarid');
+    const parentObject = jQuery('#' + calendarId);
+    t3events.ajax(element.attr('href'), parentObject);
 });
 

@@ -108,7 +108,7 @@ class PerformanceStatus extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets the cssClass
      *
      * @param string $cssClass
-     * @return string cssClass
+     * @return void
      */
     public function setCssClass($cssClass)
     {

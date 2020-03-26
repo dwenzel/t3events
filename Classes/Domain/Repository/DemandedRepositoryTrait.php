@@ -154,6 +154,10 @@ trait DemandedRepositoryTrait
             $pageIds = GeneralUtility::intExplode(',', $demand->getStoragePages());
             $query->getQuerySettings()->setStoragePageIds($pageIds);
         }
+//
+//        $queryParser = $this->objectManager->get(\TYPO3\CMS\Extbase\Persistence\Generic\Storage\Typo3DbQueryParser::class);
+//        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($queryParser->convertQueryToDoctrineQueryBuilder($query)->getSQL());
+//        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($queryParser->convertQueryToDoctrineQueryBuilder($query)->getParameters());
 
         return $query;
     }
@@ -195,7 +199,7 @@ trait DemandedRepositoryTrait
      *
      * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
      * @param \DWenzel\T3events\Domain\Model\Dto\SearchAwareDemandInterface $demand
-     * @return array<\TYPO3\CMS\Extbase\Persistence\QOM\Constraint>
+     * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\ConstraintInterface>
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
      */
     public function createSearchConstraints(QueryInterface $query, SearchAwareDemandInterface $demand)
