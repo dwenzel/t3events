@@ -2,7 +2,6 @@
 namespace DWenzel\T3events\Utility;
 
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use DWenzel\T3events\Domain\Model\Dto\EmConfiguration;
 
 /**

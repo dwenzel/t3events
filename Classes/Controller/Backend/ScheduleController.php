@@ -9,6 +9,7 @@ use TYPO3\CMS\Extbase\Mvc\RequestInterface;
 use TYPO3\CMS\Extbase\Mvc\ResponseInterface;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
 use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
+use TYPO3\CMS\Extbase\Mvc\Exception\StopActionException;
 
 /**
  * Class ScheduleController
@@ -17,6 +18,25 @@ class ScheduleController extends PerformanceController
 {
     use ModuleDataTrait, FormTrait, SettingsUtilityTrait;
 
+    /**
+     * Forwards the request to another action and / or controller.
+     *
+     * Request is directly transferred to the other action / controller
+     * without the need for a new request.
+     *
+     * @param string $actionName Name of the action to forward to
+     * @param string|null $controllerName Unqualified object name of the controller to forward to. If not specified, the current controller is used.
+     * @param string|null $extensionName Name of the extension containing the controller to forward to. If not specified, the current extension is assumed.
+     * @param array|null $arguments Arguments to pass to the target action
+     * @throws StopActionException
+     * @see redirect()
+     */
+     public function forward($actionName, $controllerName = null, $extensionName = null, array $arguments = null)
+     {
+         return parent::forward($actionName, $controllerName, $extensionName, $arguments);
+     }
+
+     
     /**
      * Load and persist module data
      *
