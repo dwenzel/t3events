@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff version="1.0">
+  <file source-language="en" datatype="plaintext" original="messages" date="2014-09-08T13:46:07Z" product-name="dakosy_seminars" target-language="de">
+    <header/>
+    <body>
+      <trans-unit id="title.description">
+        <source>title</source>
+        <target state="needs-translation">title</target>
+      </trans-unit>
+      <trans-unit id="description.description">
+        <source>description</source>
+        <target state="needs-translation">description</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
