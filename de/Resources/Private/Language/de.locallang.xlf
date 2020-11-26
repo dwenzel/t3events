@@ -9,154 +9,154 @@
     <body>
       <trans-unit id="button.applyFilter" xml:space="preserve">
 			<source>apply filter</source>
-		<target state="needs-translation">apply filter</target></trans-unit>
+		<target state="translated">Filter anwenden</target></trans-unit>
       <trans-unit id="button.newAction.event" xml:space="preserve">
 			<source>New Event</source>
-		<target state="needs-translation">New Event</target></trans-unit>
+		<target state="translated">Neues Ereignis</target></trans-unit>
       <trans-unit id="button.back" xml:space="preserve">
 			<source>back</source>
-		<target state="needs-translation">back</target></trans-unit>
+		<target state="translated">zurück</target></trans-unit>
       <trans-unit id="button.cancel" xml:space="preserve">
 			<source>Cancel</source>
-		<target state="needs-translation">Cancel</target></trans-unit>
+		<target state="translated">Abbrechen</target></trans-unit>
       <trans-unit id="button.downloadICS" xml:space="preserve">
 			<source>ICS file</source>
-		<target state="needs-translation">ICS file</target></trans-unit>
+		<target state="translated">ICS-Datei</target></trans-unit>
       <trans-unit id="button.reset" xml:space="preserve">
 			<source>reset</source>
-		<target state="needs-translation">reset</target></trans-unit>
+		<target state="translated">zurücksetzen</target></trans-unit>
       <trans-unit id="button.save" xml:space="preserve">
 			<source>Save</source>
-		<target state="needs-translation">Save</target></trans-unit>
+		<target state="translated">Speichern</target></trans-unit>
       <trans-unit id="button.search" xml:space="preserve">
 			<source>search</source>
-		<target state="needs-translation">search</target></trans-unit>
+		<target state="translated">suchen</target></trans-unit>
       <trans-unit id="button.send" xml:space="preserve">
 			<source>Send</source>
-		<target state="needs-translation">Send</target></trans-unit>
+		<target state="translated">Senden</target></trans-unit>
       <trans-unit id="label.allAudiences" xml:space="preserve">
 			<source>all audiences</source>
-		<target state="needs-translation">all audiences</target></trans-unit>
+		<target state="translated">alle Zielgruppen</target></trans-unit>
       <trans-unit id="label.allCategories" xml:space="preserve">
 			<source>all categories</source>
-		<target state="needs-translation">all categories</target></trans-unit>
+		<target state="translated">alle Kategorien</target></trans-unit>
       <trans-unit id="label.allEventLocations" xml:space="preserve">
 			<source>all event locations</source>
-		<target state="needs-translation">all event locations</target></trans-unit>
+		<target state="translated">alle Veranstaltungsorte</target></trans-unit>
       <trans-unit id="label.allEventTypes" xml:space="preserve">
 			<source>all event types</source>
-		<target state="needs-translation">all event types</target></trans-unit>
+		<target state="translated">alle Veranstaltungsarten</target></trans-unit>
       <trans-unit id="label.allGenres" xml:space="preserve">
 			<source>all Products</source>
-		<target state="needs-translation">all Products</target></trans-unit>
+		<target state="translated">alle Produkte</target></trans-unit>
       <trans-unit id="label.allVenues" xml:space="preserve">
 			<source>all venues</source>
-		<target state="needs-translation">all venues</target></trans-unit>
+		<target state="translated">alle Einrichtungen</target></trans-unit>
       <trans-unit id="label.audience" xml:space="preserve">
 			<source>Audience</source>
-		<target state="needs-translation">Audience</target></trans-unit>
+		<target state="translated">Zielgruppe</target></trans-unit>
       <trans-unit id="label.availablePlaces" xml:space="preserve">
 			<source>available places</source>
-		<target state="needs-translation">available places</target></trans-unit>
+		<target state="translated">verfügbare Plätze</target></trans-unit>
       <trans-unit id="label.category" xml:space="preserve">
 			<source>Category</source>
-		<target state="needs-translation">Category</target></trans-unit>
+		<target state="translated">Kategorie</target></trans-unit>
       <trans-unit id="label.differentLocations" xml:space="preserve">
 			<source>different locations</source>
-		<target state="needs-translation">different locations</target></trans-unit>
+		<target state="translated">verschiedene Orte</target></trans-unit>
       <trans-unit id="label.eventType" xml:space="preserve">
 			<source>Event Type</source>
-		<target state="needs-translation">Event Type</target></trans-unit>
+		<target state="translated">Veranstaltungsart</target></trans-unit>
       <trans-unit id="label.genre" xml:space="preserve">
 			<source>Genre</source>
-		<target state="needs-translation">Genre</target></trans-unit>
+		<target state="translated">Genre</target></trans-unit>
       <trans-unit id="label.period" xml:space="preserve">
 			<source>Period</source>
-		<target state="needs-translation">Period</target></trans-unit>
+		<target state="translated">Zeitraum</target></trans-unit>
       <trans-unit id="label.period.all" xml:space="preserve">
 			<source>all</source>
-		<target state="needs-translation">all</target></trans-unit>
+		<target state="translated">alle</target></trans-unit>
       <trans-unit id="label.period.futureOnly" xml:space="preserve">
 			<source>upcoming</source>
-		<target state="needs-translation">upcoming</target></trans-unit>
+		<target state="translated">bevorstehende</target></trans-unit>
       <trans-unit id="label.period.pastOnly" xml:space="preserve">
 			<source>past</source>
-		<target state="needs-translation">past</target></trans-unit>
+		<target state="translated">vergangene</target></trans-unit>
       <trans-unit id="label.period.specific" xml:space="preserve">
 			<source>specific</source>
-		<target state="needs-translation">specific</target></trans-unit>
+		<target state="translated">spezifisch</target></trans-unit>
       <trans-unit id="label.search.field.subject" xml:space="preserve">
 			<source>Subject</source>
-		<target state="needs-translation">Subject</target></trans-unit>
+		<target state="translated">Suchbegriff</target></trans-unit>
       <trans-unit id="label.venue" xml:space="preserve">
 			<source>Venue</source>
-		<target state="needs-translation">Venue</target></trans-unit>
+		<target state="translated">Einrichtung</target></trans-unit>
       <trans-unit id="placeholder.location" xml:space="preserve">
 			<source>Location</source>
-		<target state="needs-translation">Location</target></trans-unit>
+		<target state="translated">Ort</target></trans-unit>
       <trans-unit id="tx_t3events.allEventTypes" xml:space="preserve">
 			<source>All Event Types</source>
-		<target state="needs-translation">All Event Types</target></trans-unit>
+		<target state="translated">Alle Veranstaltungsarten</target></trans-unit>
       <trans-unit id="tx_t3events.allGenres" xml:space="preserve">
 			<source>All Genres</source>
-		<target state="needs-translation">All Genres</target></trans-unit>
+		<target state="translated">Alle Genre</target></trans-unit>
       <trans-unit id="tx_t3events.allVenues" xml:space="preserve">
 			<source>All Venues</source>
-		<target state="needs-translation">All Venues</target></trans-unit>
+		<target state="translated">Alle Einrichtungen</target></trans-unit>
       <trans-unit id="tx_t3events.backToList" xml:space="preserve">
 			<source>back to list</source>
-		<target state="needs-translation">back to list</target></trans-unit>
+		<target state="translated">zurück zur Liste</target></trans-unit>
       <trans-unit id="tx_t3events.button.label.search" xml:space="preserve">
 			<source>Search</source>
-		<target state="needs-translation">Search</target></trans-unit>
+		<target state="translated">Suchen</target></trans-unit>
       <trans-unit id="tx_t3events.button.label.update" xml:space="preserve">
 			<source>Update</source>
-		<target state="needs-translation">Update</target></trans-unit>
+		<target state="translated">Aktualisieren</target></trans-unit>
       <trans-unit id="tx_t3events.calendar.month1" xml:space="preserve">
 			<source>January</source>
-		<target state="needs-translation">January</target></trans-unit>
+		<target state="translated">Januar</target></trans-unit>
       <trans-unit id="tx_t3events.calendar.month10" xml:space="preserve">
 			<source>October</source>
-		<target state="needs-translation">October</target></trans-unit>
+		<target state="translated">Oktober</target></trans-unit>
       <trans-unit id="tx_t3events.calendar.month11" xml:space="preserve">
 			<source>November</source>
-		<target state="needs-translation">November</target></trans-unit>
+		<target state="translated">November</target></trans-unit>
       <trans-unit id="tx_t3events.calendar.month12" xml:space="preserve">
 			<source>December</source>
-		<target state="needs-translation">December</target></trans-unit>
+		<target state="translated">Dezember</target></trans-unit>
       <trans-unit id="tx_t3events.calendar.month2" xml:space="preserve">
 			<source>February</source>
-		<target state="needs-translation">February</target></trans-unit>
+		<target state="translated">Februar</target></trans-unit>
       <trans-unit id="tx_t3events.calendar.month3" xml:space="preserve">
 			<source>March</source>
-		<target state="needs-translation">March</target></trans-unit>
+		<target state="translated">Marsch</target></trans-unit>
       <trans-unit id="tx_t3events.calendar.month4" xml:space="preserve">
 			<source>April</source>
-		<target state="needs-translation">April</target></trans-unit>
+		<target state="translated">April</target></trans-unit>
       <trans-unit id="tx_t3events.calendar.month5" xml:space="preserve">
 			<source>May</source>
-		<target state="needs-translation">May</target></trans-unit>
+		<target state="translated">Mai</target></trans-unit>
       <trans-unit id="tx_t3events.calendar.month6" xml:space="preserve">
 			<source>June</source>
-		<target state="needs-translation">June</target></trans-unit>
+		<target state="translated">Juni</target></trans-unit>
       <trans-unit id="tx_t3events.calendar.month7" xml:space="preserve">
 			<source>July</source>
-		<target state="needs-translation">July</target></trans-unit>
+		<target state="translated">Juli</target></trans-unit>
       <trans-unit id="tx_t3events.calendar.month8" xml:space="preserve">
 			<source>August</source>
-		<target state="needs-translation">August</target></trans-unit>
+		<target state="translated">August</target></trans-unit>
       <trans-unit id="tx_t3events.calendar.month9" xml:space="preserve">
 			<source>September</source>
-		<target state="needs-translation">September</target></trans-unit>
+		<target state="translated">September</target></trans-unit>
       <trans-unit id="tx_t3events.calendar.weekday1" xml:space="preserve">
 			<source>Mon</source>
-		<target state="needs-translation">Mon</target></trans-unit>
+		<target state="translated">Mo</target></trans-unit>
       <trans-unit id="tx_t3events.calendar.weekday2" xml:space="preserve">
 			<source>Tue</source>
-		<target state="needs-translation">Tue</target></trans-unit>
+		<target state="translated">Di</target></trans-unit>
       <trans-unit id="tx_t3events.calendar.weekday3" xml:space="preserve">
 			<source>Wed</source>
-		<target state="needs-translation">Wed</target></trans-unit>
+		<target state="translated">Mi</target></trans-unit>
       <trans-unit id="tx_t3events.calendar.weekday4" xml:space="preserve">
 			<source>Thu</source>
 		<target state="needs-translation">Thu</target></trans-unit>
@@ -309,28 +309,28 @@
 		<target state="needs-translation">www</target></trans-unit>
       <trans-unit id="tx_t3events_domain_model_eventlocation.zip" xml:space="preserve">
 			<source>zip</source>
-		<target state="needs-translation">zip</target></trans-unit>
+		<target state="translated">PLZ</target></trans-unit>
       <trans-unit id="tx_t3events_domain_model_eventtype" xml:space="preserve">
 			<source>EventType</source>
-		<target state="needs-translation">EventType</target></trans-unit>
+		<target state="translated">Veranstaltungsart</target></trans-unit>
       <trans-unit id="tx_t3events_domain_model_eventtype.title" xml:space="preserve">
 			<source>title</source>
-		<target state="needs-translation">title</target></trans-unit>
+		<target state="translated">Titel</target></trans-unit>
       <trans-unit id="tx_t3events_domain_model_genre" xml:space="preserve">
 			<source>Genre</source>
-		<target state="needs-translation">Genre</target></trans-unit>
+		<target state="translated">Genre</target></trans-unit>
       <trans-unit id="tx_t3events_domain_model_genre.title" xml:space="preserve">
 			<source>title</source>
-		<target state="needs-translation">title</target></trans-unit>
+		<target state="translated">Titel</target></trans-unit>
       <trans-unit id="tx_t3events_domain_model_organizer" xml:space="preserve">
 			<source>Organizer</source>
-		<target state="needs-translation">Organizer</target></trans-unit>
+		<target state="translated">Organisator</target></trans-unit>
       <trans-unit id="tx_t3events_domain_model_organizer.link" xml:space="preserve">
 			<source>link</source>
-		<target state="needs-translation">link</target></trans-unit>
+		<target state="translated">Link</target></trans-unit>
       <trans-unit id="tx_t3events_domain_model_organizer.name" xml:space="preserve">
 			<source>name</source>
-		<target state="needs-translation">name</target></trans-unit>
+		<target state="translated">Name</target></trans-unit>
       <trans-unit id="tx_t3events_domain_model_performance" xml:space="preserve">
 			<source>Performance</source>
 		<target state="needs-translation">Performance</target></trans-unit>
