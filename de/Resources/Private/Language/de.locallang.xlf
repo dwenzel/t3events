@@ -180,37 +180,37 @@
 		<target state="translated">externer Link</target></trans-unit>
       <trans-unit id="tx_t3events.hint.AdvanceBookingFee" xml:space="preserve">
 			<source>*Prices including advance booking fee.</source>
-		<target state="needs-translation">*Prices including advance booking fee.</target></trans-unit>
+		<target state="translated">*Preise inklusive Vorverkaufsgebühr.</target></trans-unit>
       <trans-unit id="tx_t3events.hint.noAdvanceBookingFee" xml:space="preserve">
 			<source>*Prices without advance booking fee.</source>
-		<target state="needs-translation">*Prices without advance booking fee.</target></trans-unit>
+		<target state="translated">Preise ohne Ververkaufsgebühr.</target></trans-unit>
       <trans-unit id="tx_t3events.hint.searchAllEventsByGenre" xml:space="preserve">
 			<source>Search all events by genre:</source>
-		<target state="needs-translation">Search all events by genre:</target></trans-unit>
+		<target state="translated">Alle Veranstaltungen nach Genre suchen:</target></trans-unit>
       <trans-unit id="tx_t3events.hint.sortBy" xml:space="preserve">
 			<source>Sort by:</source>
-		<target state="needs-translation">Sort by:</target></trans-unit>
+		<target state="translated">Sortiere nach:</target></trans-unit>
       <trans-unit id="tx_t3events.label.calendarEntry" xml:space="preserve">
 			<source>Calendar Entry</source>
-		<target state="needs-translation">Calendar Entry</target></trans-unit>
+		<target state="translated">Kalendereintrag</target></trans-unit>
       <trans-unit id="tx_t3events.label.differentLocations" xml:space="preserve">
 			<source>different locations</source>
-		<target state="needs-translation">different locations</target></trans-unit>
+		<target state="translated">verschiedene Orte</target></trans-unit>
       <trans-unit id="tx_t3events.label.print" xml:space="preserve">
 			<source>Print</source>
-		<target state="needs-translation">Print</target></trans-unit>
+		<target state="translated">Drucken</target></trans-unit>
       <trans-unit id="tx_t3events.label.ticketsFrom" xml:space="preserve">
 			<source>Tickets from:</source>
-		<target state="needs-translation">Tickets from:</target></trans-unit>
+		<target state="translated">Tickets ab:</target></trans-unit>
       <trans-unit id="tx_t3events.next" xml:space="preserve">
 			<source>next</source>
-		<target state="needs-translation">next</target></trans-unit>
+		<target state="translated">weiter</target></trans-unit>
       <trans-unit id="tx_t3events.noEventsForSelectionMessage" xml:space="preserve">
 			<source>Sorry, there are no events matching your selection</source>
-		<target state="needs-translation">Sorry, there are no events matching your selection</target></trans-unit>
+		<target state="translated">Leider gibt es keine Veranstaltungen, die Ihrer Auswahl entsprechen</target></trans-unit>
       <trans-unit id="tx_t3events.noEventsForSelectionTitle" xml:space="preserve">
 			<source>No events found</source>
-		<target state="needs-translation">No events found</target></trans-unit>
+		<target state="translated">Keine Veranstaltungen gefunden</target></trans-unit>
       <trans-unit id="tx_t3events.order" xml:space="preserve">
 			<source>Order</source>
 		<target state="needs-translation">Order</target></trans-unit>
