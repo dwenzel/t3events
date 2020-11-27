@@ -159,25 +159,25 @@
 		<target state="translated">Mi</target></trans-unit>
       <trans-unit id="tx_t3events.calendar.weekday4" xml:space="preserve">
 			<source>Thu</source>
-		<target state="needs-translation">Thu</target></trans-unit>
+		<target state="translated">Do</target></trans-unit>
       <trans-unit id="tx_t3events.calendar.weekday5" xml:space="preserve">
 			<source>Fri</source>
-		<target state="needs-translation">Fri</target></trans-unit>
+		<target state="translated">Fr</target></trans-unit>
       <trans-unit id="tx_t3events.calendar.weekday6" xml:space="preserve">
 			<source>Sat</source>
-		<target state="needs-translation">Sat</target></trans-unit>
+		<target state="translated">Sa</target></trans-unit>
       <trans-unit id="tx_t3events.calendar.weekday7" xml:space="preserve">
 			<source>Sun</source>
-		<target state="needs-translation">Sun</target></trans-unit>
+		<target state="translated">So</target></trans-unit>
       <trans-unit id="tx_t3events.count" xml:space="preserve">
 			<source>Count</source>
-		<target state="needs-translation">Count</target></trans-unit>
+		<target state="translated">Anzahl</target></trans-unit>
       <trans-unit id="tx_t3events.date" xml:space="preserve">
 			<source>Date</source>
-		<target state="needs-translation">Date</target></trans-unit>
+		<target state="translated">Datum</target></trans-unit>
       <trans-unit id="tx_t3events.externalLinkLabel" xml:space="preserve">
 			<source>external Link</source>
-		<target state="needs-translation">external Link</target></trans-unit>
+		<target state="translated">externer Link</target></trans-unit>
       <trans-unit id="tx_t3events.hint.AdvanceBookingFee" xml:space="preserve">
 			<source>*Prices including advance booking fee.</source>
 		<target state="needs-translation">*Prices including advance booking fee.</target></trans-unit>
