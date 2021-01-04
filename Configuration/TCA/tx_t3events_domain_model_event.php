@@ -206,19 +206,6 @@ return [
                 'eval' => 'trim'
             ],
         ],
-        'image' => [
-            'exclude' => 1,
-            'label' => $ll . ':tx_t3events_domain_model_event.image',
-            'config' => [
-                'type' => 'group',
-                'internal_type' => 'file',
-                'uploadfolder' => 'uploads/tx_t3events',
-                'size' => 1,
-                'maxitems' => 1,
-                'allowed' => $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'],
-                'disallowed' => '',
-            ],
-        ],
         'images' => [
             'exclude' => 1,
             'label' => $ll . ':tx_t3events_domain_model_event.images',
