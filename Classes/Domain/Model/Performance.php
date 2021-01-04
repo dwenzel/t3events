@@ -16,6 +16,8 @@ namespace DWenzel\T3events\Domain\Model;
 use DWenzel\T3calendar\Domain\Model\CalendarItemInterface;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
+
 
 /**
  * Class Performance
@@ -92,7 +94,7 @@ class Performance extends AbstractEntity implements CalendarItemInterface
      * images
      *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
+     * @Lazy
      */
     protected $images;
 
@@ -119,14 +121,14 @@ class Performance extends AbstractEntity implements CalendarItemInterface
 
     /**
      * @var \DWenzel\T3events\Domain\Model\Event
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
+     * @Lazy
      */
     protected $event;
 
     /**
      * eventLocation
      *
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
+     * @Lazy
      * @var \DWenzel\T3events\Domain\Model\EventLocation
      */
     protected $eventLocation;
@@ -134,7 +136,7 @@ class Performance extends AbstractEntity implements CalendarItemInterface
     /**
      * ticketClass
      *
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
+     * @Lazy
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\TicketClass>
      */
     protected $ticketClass;
@@ -142,7 +144,7 @@ class Performance extends AbstractEntity implements CalendarItemInterface
     /**
      * status
      *
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
+     * @Lazy
      * @var \DWenzel\T3events\Domain\Model\PerformanceStatus
      */
     protected $status;
