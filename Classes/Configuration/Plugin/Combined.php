@@ -39,7 +39,7 @@ abstract class Combined implements PluginConfigurationInterface
     static protected $flexForm = 'FILE:EXT:t3events/Configuration/FlexForms/flexform_events.xml';
     static protected $controllerActions = [
         'Event' => 'list, show, quickMenu',
-        'Performance' => 'list,show,calendar,quickMenu',
+        'Performance' => 'list,show,quickMenu',
     ];
 
     static protected $nonCacheableControllerActions = [

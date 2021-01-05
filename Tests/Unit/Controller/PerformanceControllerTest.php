@@ -851,17 +851,6 @@ class PerformanceControllerTest extends UnitTestCase
     /**
      * @test
      */
-    public function calendarActionEmitsSignal()
-    {
-        $this->subject->expects($this->once())
-            ->method('emitSignal')
-            ->with(PerformanceController::class, PerformanceController::PERFORMANCE_CALENDAR_ACTION);
-        $this->subject->calendarAction();
-    }
-
-    /**
-     * @test
-     */
     public function calendarActionAssignsVariablesToView()
     {
         $this->view->expects($this->once())

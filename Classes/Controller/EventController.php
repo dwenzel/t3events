@@ -15,9 +15,6 @@ namespace DWenzel\T3events\Controller;
  * The TYPO3 project - inspiring people to share!
  */
 
-
-use DWenzel\T3calendar\Domain\Factory\CalendarFactoryTrait;
-use DWenzel\T3calendar\Domain\Model\Dto\CalendarConfigurationFactoryTrait;
 use DWenzel\T3events\Domain\Model\Event;
 use DWenzel\T3events\Utility\SettingsInterface as SI;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
@@ -31,8 +28,7 @@ use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
  */
 class EventController extends ActionController
 {
-    use CalendarFactoryTrait, CalendarConfigurationFactoryTrait,
-        DemandTrait, EventDemandFactoryTrait,
+    use DemandTrait, EventDemandFactoryTrait,
         EventRepositoryTrait, EntityNotFoundHandlerTrait,
         EventTypeRepositoryTrait, FilterableControllerTrait,
         GenreRepositoryTrait, SearchTrait, SessionTrait,
