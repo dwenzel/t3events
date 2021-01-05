@@ -20,8 +20,6 @@ namespace DWenzel\T3events\Tests\Unit\Controller;
  *  GNU General Public License for more details.
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-use DWenzel\T3calendar\Domain\Model\Dto\CalendarConfigurationFactory;
-use DWenzel\T3calendar\Domain\Model\Dto\CalendarConfigurationFactoryInterface;
 use DWenzel\T3events\Controller\PerformanceController;
 use DWenzel\T3events\Domain\Factory\Dto\PerformanceDemandFactory;
 use DWenzel\T3events\Domain\Model\Dto\PerformanceDemand;
@@ -64,11 +62,6 @@ class PerformanceControllerTest extends UnitTestCase
      * @var PerformanceController|\PHPUnit_Framework_MockObject_MockObject|AccessibleMockObjectInterface
      */
     protected $subject;
-
-    /**
-     * @var CalendarConfigurationFactory|\PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $calendarConfigurationFactory;
 
     /**
      * @var array
@@ -136,13 +129,6 @@ class PerformanceControllerTest extends UnitTestCase
         $this->subject->_set('configurationManager', $mockConfigurationManager);
         $this->subject->_set('objectManager', $mockObjectManager);
         $this->subject->_set(SI::SETTINGS, $this->settings);
-
-        $this->calendarConfigurationFactory = $this->getMockBuilder(CalendarConfigurationFactory::class)
-            ->setMethods(['create'])->getMock();
-        $mockCalendarConfiguration = $this->getMockForAbstractClass(CalendarConfigurationFactoryInterface::class);
-        $this->calendarConfigurationFactory->method('create')
-            ->will($this->returnValue($mockCalendarConfiguration));
-        $this->subject->injectCalendarConfigurationFactory($this->calendarConfigurationFactory);
     }
 
     /**
@@ -779,34 +765,6 @@ class PerformanceControllerTest extends UnitTestCase
     }
 
     /**
-     * @test
-     */
-    public function calendarActionGetsPerformanceDemandFromFactory()
-    {
-        $mockDemand = $this->getMockBuilder(PerformanceDemand::class)->getMock();
-        $this->performanceDemandFactory->expects($this->once())
-            ->method('createFromSettings')
-            ->with($this->settings)
-            ->will($this->returnValue($mockDemand));
-
-        $this->subject->calendarAction();
-    }
-
-    /**
-     * @test
-     */
-    public function calendarActionGetsConfigurationFromFactory()
-    {
-        $settings = [];
-        $this->subject->_set(SI::SETTINGS, $settings);
-        $this->mockGetPerformanceDemandFromFactory();
-        $this->calendarConfigurationFactory->expects($this->once())
-            ->method('create')
-            ->with($settings);
-        $this->subject->calendarAction();
-    }
-
-    /**
      * mocks getting an PerformanceDemandObject from ObjectManager
      * @return \PHPUnit_Framework_MockObject_MockObject|PerformanceDemand
      */
@@ -824,38 +782,4 @@ class PerformanceControllerTest extends UnitTestCase
         return $mockPerformanceDemand;
     }
 
-    /**
-     * @test
-     */
-    public function calendarActionOverwritesDemandObject()
-    {
-        $this->subject = $this->getAccessibleMock(PerformanceController::class,
-            ['overwriteDemandObject', 'emitSignal'], [], '', false);
-        $this->subject->injectPerformanceDemandFactory($this->performanceDemandFactory);
-        $this->subject->_set(SI::SETTINGS, $this->settings);
-        $this->subject->injectCalendarConfigurationFactory($this->calendarConfigurationFactory);
-        $this->subject->injectPerformanceRepository($this->performanceRepository);
-        $this->subject->_set('view', $this->view);
-
-        /** @var PerformanceDemand|\PHPUnit_Framework_MockObject_MockObject $demand */
-        $mockDemand = $this->getMockBuilder(PerformanceDemand::class)->getMock();
-        $this->performanceDemandFactory->method('createFromSettings')
-            ->will($this->returnValue($mockDemand));
-        $this->subject->expects($this->once())
-            ->method('overwriteDemandObject')
-            ->with($mockDemand);
-
-        $this->subject->calendarAction();
-    }
-
-    /**
-     * @test
-     */
-    public function calendarActionAssignsVariablesToView()
-    {
-        $this->view->expects($this->once())
-            ->method('assignMultiple');
-
-        $this->subject->calendarAction();
-    }
 }

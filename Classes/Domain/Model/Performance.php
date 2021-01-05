@@ -13,7 +13,6 @@ namespace DWenzel\T3events\Domain\Model;
  *
  * The TYPO3 project - inspiring people to share!
  */
-use DWenzel\T3calendar\Domain\Model\CalendarItemInterface;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
@@ -23,7 +22,7 @@ use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
  * Class Performance
  * @package DWenzel\T3events\Domain\Model
  */
-class Performance extends AbstractEntity implements CalendarItemInterface
+class Performance extends AbstractEntity
 {
     use EqualsTrait;
 

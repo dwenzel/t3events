@@ -15,8 +15,6 @@ namespace DWenzel\T3events\Tests\Controller;
  * The TYPO3 project - inspiring people to share!
  */
 
-use DWenzel\T3calendar\Domain\Model\Dto\CalendarConfigurationFactory;
-use DWenzel\T3calendar\Domain\Model\Dto\CalendarConfigurationFactoryInterface;
 use DWenzel\T3events\Controller\EventController;
 use DWenzel\T3events\Domain\Factory\Dto\EventDemandFactory;
 use DWenzel\T3events\Domain\Model\Dto\EventDemand;
@@ -47,11 +45,6 @@ class EventControllerTest extends UnitTestCase
      * @var \DWenzel\T3events\Controller\EventController|\PHPUnit_Framework_MockObject_MockObject|AccessibleMockObjectInterface
      */
     protected $subject;
-
-    /**
-     * @var CalendarConfigurationFactory|\PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $calendarConfigurationFactory;
 
     /**
      * @var array
@@ -113,13 +106,6 @@ class EventControllerTest extends UnitTestCase
         $mockConfigurationManager->method('getContentObject')->will($this->returnValue($mockContentObjectRenderer));
         $this->subject->injectConfigurationManager($mockConfigurationManager);
         $this->subject->_set(SI::SETTINGS, $this->settings);
-        $this->calendarConfigurationFactory = $this->getMockBuilder(CalendarConfigurationFactory::class)
-            ->setMethods(['create'])->getMock();
-        $mockCalendarConfiguration = $this->getMockForAbstractClass(CalendarConfigurationFactoryInterface::class);
-        $this->calendarConfigurationFactory->expects($this->any())
-            ->method('create')
-            ->will($this->returnValue($mockCalendarConfiguration));
-        $this->subject->injectCalendarConfigurationFactory($this->calendarConfigurationFactory);
     }
 
     /**

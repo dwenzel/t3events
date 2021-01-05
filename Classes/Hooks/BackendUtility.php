@@ -49,11 +49,6 @@ class BackendUtility
         'template' => 'settings.hideIfEmptyResult'
     );
 
-    public $removedFieldsInPerformanceCalendarView = array(
-        'sDEF' => 'settings.sortDirection,settings.order,settings.sortBy',
-        'template' => 'settings.hideIfEmptyResult'
-    );
-
     public $removedFieldsInEventDetailView = array(
         'sDEF' => 'settings.sortBy,settings.sortDirection,settings.order,settings.maxItems',
         'constraints' => 'settings.statuses,settings.excludeSelectedStatuses,settings.respectEndDate,legend,settings.period,settings.periodType,settings.periodStart,settings.periodDuration,
@@ -118,9 +113,6 @@ class BackendUtility
                     break;
                 case 'Performance->quickMenu':
                     $this->deleteFromStructure($dataStructure, $this->removedFieldsInPerformanceQuickMenuView);
-                    break;
-                case 'Performance->calendar':
-                    $this->deleteFromStructure($dataStructure, $this->removedFieldsInPerformanceCalendarView);
                     break;
                 case 'Event->show':
                     $this->deleteFromStructure($dataStructure, $this->removedFieldsInEventDetailView);

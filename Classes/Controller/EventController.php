@@ -38,7 +38,6 @@ class EventController extends ActionController
     const EVENT_QUICK_MENU_ACTION = 'quickMenuAction';
     const EVENT_LIST_ACTION = 'listAction';
     const EVENT_SHOW_ACTION = 'showAction';
-    const EVENT_CALENDAR_ACTION = 'calendarAction';
 
     /**
      * initializes all actions
