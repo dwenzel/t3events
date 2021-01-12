@@ -77,8 +77,7 @@ class NotificationServiceTest extends UnitTestCase
 
         $mockMessage->expects(self::once())
             ->method('setTo')
-            ->with($expectedRecipients)
-            ->willReturn($mockMessage);
+            ->with($expectedRecipients);
 
         $this->subject->send($notification);
     }
@@ -108,13 +107,11 @@ class NotificationServiceTest extends UnitTestCase
         $this->objectManager->expects(self::once())
             ->method('get')
             ->with(MailMessage::class)
-            ->will(self::returnValue($mockMessage));
+            ->willReturn($mockMessage);
 
         $mockMessage->expects(self::once())
             ->method('setTo')
-            ->with($expectedRecipients)
-            ->will(self::returnValue($mockMessage));
-
+            ->with($expectedRecipients);
         $this->subject->notify(
             $recipient,
             'bar@baz.foo',
@@ -130,7 +127,7 @@ class NotificationServiceTest extends UnitTestCase
      */
     protected function getMockMailMessage()
     {
-        return $this->getMockBuilder(MailMessage::class)
+        $message = $this->getMockBuilder(MailMessage::class)
             ->disableOriginalConstructor()
             ->setMethods(
                 [
@@ -140,5 +137,11 @@ class NotificationServiceTest extends UnitTestCase
                     'setSubject'
                 ]
             )->getMock();
+        $message->method('setTo')->willReturn($message);
+        $message->method('send')->willReturn(true);
+        $message->method('setFrom')->willReturn($message);
+        $message->method('setSubject')->willReturn($message);
+
+        return $message;
     }
 }

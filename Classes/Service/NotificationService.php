@@ -40,8 +40,8 @@ class NotificationService
         $body = $templateView->render();
         $recipient = GeneralUtility::trimExplode(',', $recipient, true);
 
-        /** @var $message \TYPO3\CMS\Core\Mail\MailMessage */
-        $message = $this->objectManager->get('TYPO3\\CMS\\Core\\Mail\\MailMessage');
+        /** @var $message MailMessage */
+        $message = $this->objectManager->get(MailMessage::class);
         $message->setTo($recipient)
             ->setFrom($sender)
             ->setSubject($subject);
@@ -85,7 +85,7 @@ class NotificationService
      */
     public function send(Notification $notification)
     {
-        /** @var $message \TYPO3\CMS\Core\Mail\MailMessage */
+        /** @var $message MailMessage */
         $message = $this->objectManager->get(MailMessage::class);
         $recipients = GeneralUtility::trimExplode(',', $notification->getRecipient(), true);
 
@@ -217,7 +217,7 @@ class NotificationService
     public function duplicate(Notification $oldNotification)
     {
         /** @var Notification $notification */
-        $notification = $this->objectManager->get('\\DWenzel\\T3events\\Domain\\Model\\Notification');
+        $notification = $this->objectManager->get(Notification::class);
         $accessibleProperties = ObjectAccess::getSettablePropertyNames($notification);
         foreach ($accessibleProperties as $property) {
             ObjectAccess::setProperty(
