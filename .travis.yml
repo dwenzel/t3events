@@ -37,6 +37,7 @@ cache:
     - $HOME/.sonar/cache
 
 before_script:
+  - echo "$TYPO3_VERSION"
   - composer require typo3/minimal=$TYPO3_VERSION
   - git checkout composer.json
   - export TYPO3_PATH_WEB=$PWD/.Build/Web
