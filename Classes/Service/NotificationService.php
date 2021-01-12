@@ -4,6 +4,7 @@ namespace DWenzel\T3events\Service;
 use DWenzel\T3events\Configuration\ConfigurationManagerTrait;
 use DWenzel\T3events\Domain\Model\Notification;
 use DWenzel\T3events\Object\ObjectManagerTrait;
+use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
@@ -82,16 +83,16 @@ class NotificationService
      * @param \DWenzel\T3events\Domain\Model\Notification $notification
      * @return bool
      */
-    public function send(Notification &$notification)
+    public function send(Notification $notification)
     {
         /** @var $message \TYPO3\CMS\Core\Mail\MailMessage */
-        $message = $this->objectManager->get('TYPO3\\CMS\\Core\\Mail\\MailMessage');
+        $message = $this->objectManager->get(MailMessage::class);
         $recipients = GeneralUtility::trimExplode(',', $notification->getRecipient(), true);
 
         $message->setTo($recipients)
             ->setFrom($notification->getSenderEmail(), $notification->getSenderName())
             ->setSubject($notification->getSubject());
-        $mailFormat = ($notification->getFormat() == 'plain') ? 'text/plain' : 'text/html';
+        $mailFormat = ($notification->getFormat() === 'plain') ? 'text/plain' : 'text/html';
 
         $message->setBody($notification->getBodytext(), $mailFormat);
         if ($files = $notification->getAttachments()) {
