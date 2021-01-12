@@ -132,6 +132,7 @@ class NotificationServiceTest extends UnitTestCase
             ->setMethods(
                 [
                     'setTo',
+                    'setBody',
                     'send',
                     'setFrom',
                     'setSubject'
