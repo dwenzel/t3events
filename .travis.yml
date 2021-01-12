@@ -8,11 +8,11 @@ jobs:
     - php: 7.2
       env: TYPO3_VERSION=^9 COVERAGE=1
     - php: 7.3
-      env: TYPO3_Version=^9
+      env: TYPO3_VERSION=^9
     - php: 7.3
-      env: TYPO3_Version=^10
+      env: TYPO3_VERSION=^10
     - php: 7.4
-      env: TYPO3_Version=^10
+      env: TYPO3_VERSION=^10
 env:
   global:
     - CC_TEST_REPORTER_ID: d3719b289927b05bd9152291beb62d8e25d9e66f347011cbe9d7922885f29b60
@@ -37,7 +37,6 @@ cache:
     - $HOME/.sonar/cache
 
 before_script:
-  - env
   - composer require typo3/minimal=$TYPO3_VERSION
   - git checkout composer.json
   - export TYPO3_PATH_WEB=$PWD/.Build/Web
