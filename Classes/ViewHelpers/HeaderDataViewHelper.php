@@ -1,6 +1,8 @@
 <?php
 namespace DWenzel\T3events\ViewHelpers;
 
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+
 /***************************************************************
      *  Copyright notice
      *  written by
@@ -34,7 +36,7 @@ namespace DWenzel\T3events\ViewHelpers;
  * @package TYPO3
  * @subpackage tx_t3events
  */
-class HeaderDataViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
+class HeaderDataViewHelper extends AbstractViewHelper
 {
 
     /**

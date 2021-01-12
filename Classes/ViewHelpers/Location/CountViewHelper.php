@@ -16,7 +16,7 @@ namespace DWenzel\T3events\ViewHelpers\Location;
 
 use DWenzel\T3events\Domain\Model\Event;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
  * Class CountViewHelper

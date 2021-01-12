@@ -1,6 +1,8 @@
 <?php
 namespace DWenzel\T3events\ViewHelpers;
 
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+
 /***************************************************************
      *  Copyright notice
      *  (c) 2013 Dirk Wenzel <wenzel@webfox01.de>
@@ -29,7 +31,7 @@ namespace DWenzel\T3events\ViewHelpers;
  * @package TYPO3
  * @subpackage tx_t3events
  */
-class TitleTagViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
+class TitleTagViewHelper extends AbstractViewHelper
 {
 
     /**
