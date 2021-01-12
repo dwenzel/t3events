@@ -58,9 +58,16 @@ class ScheduleControllerTest extends UnitTestCase
      */
     public function setUp()
     {
-        $this->subject = $this->getAccessibleMock(
-            ScheduleController::class, ['createDemandFromSettings', 'emitSignal', 'getFilterOptions', 'overwriteDemandObject']
-        );
+        $this->subject = $this->getMockBuilder(ScheduleController::class)
+            ->setMethods(
+                [
+                    'createDemandFromSettings',
+                    'emitSignal',
+                    'getFilterOptions',
+                    'overwriteDemandObject'
+                ])
+            ->disableOriginalConstructor()
+            ->getMock();
         $this->view = $this->getMockForAbstractClass(
             ViewInterface::class
         );

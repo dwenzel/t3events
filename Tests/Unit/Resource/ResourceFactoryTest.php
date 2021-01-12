@@ -10,6 +10,7 @@ use TYPO3\CMS\Core\Resource\File;
 use TYPO3\CMS\Core\Resource\FileInterface;
 use TYPO3\CMS\Core\Resource\FileReference;
 use TYPO3\CMS\Core\Resource\Folder;
+use TYPO3\CMS\Extbase\Domain\Model\FileReference as ExtbaseFileReference;
 
 /***************************************************************
  *
@@ -40,7 +41,7 @@ class ResourceFactoryTest extends UnitTestCase
     use MockObjectManagerTrait;
 
     /**
-     * @var ResourceFactory
+     * @var ResourceFactory|MockObject
      */
     protected $subject;
 
@@ -49,9 +50,10 @@ class ResourceFactoryTest extends UnitTestCase
      */
     public function setUp()
     {
-        $this->subject = $this->getAccessibleMock(
-            ResourceFactory::class, ['dummy']
-        );
+        $this->subject = $this->getMockBuilder(ResourceFactory::class)
+            ->disableOriginalConstructor()
+            ->setMethods(['retrieveFileOrFolderObject'])
+            ->getMock();
         $this->objectManager = $this->getMockObjectManager();
         $this->subject->injectObjectManager($this->objectManager);
     }
@@ -61,10 +63,7 @@ class ResourceFactoryTest extends UnitTestCase
      */
     public function getFileObjectByCombinedIdentifierInitiallyReturnsNull()
     {
-        $this->subject = $this->getAccessibleMock(
-            ResourceFactory::class, ['retrieveFileOrFolderObject']
-        );
-        $this->assertNull(
+        self::assertNull(
             $this->subject->getFileObjectByCombinedIdentifier('foo')
         );
     }
@@ -74,16 +73,14 @@ class ResourceFactoryTest extends UnitTestCase
      */
     public function getFileObjectByCombinedIdentifierReturnsNullForFolder()
     {
-        $this->subject = $this->getAccessibleMock(
-            ResourceFactory::class, ['retrieveFileOrFolderObject']
-        );
         $mockFolder = $this->getMockBuilder(Folder::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->subject->expects($this->once())
+        $this->subject->expects(self::once())
             ->method('retrieveFileOrFolderObject')
-            ->will($this->returnValue($mockFolder));
-        $this->assertNull(
+            ->willReturn($mockFolder);
+
+        self::assertNull(
             $this->subject->getFileObjectByCombinedIdentifier('foo')
         );
     }
@@ -93,15 +90,12 @@ class ResourceFactoryTest extends UnitTestCase
      */
     public function getFileObjectByCombinedIdentifierReturnsFile()
     {
-        $this->subject = $this->getAccessibleMock(
-            ResourceFactory::class, ['retrieveFileOrFolderObject']
-        );
         $mockFile = $this->getMockBuilder(FileInterface::class)
             ->getMock();
-        $this->subject->expects($this->once())
+        $this->subject->expects(self::once())
             ->method('retrieveFileOrFolderObject')
-            ->will($this->returnValue($mockFile));
-        $this->assertSame(
+            ->willReturn($mockFile);
+        self::assertSame(
             $mockFile,
             $this->subject->getFileObjectByCombinedIdentifier('foo')
         );
@@ -112,31 +106,33 @@ class ResourceFactoryTest extends UnitTestCase
      */
     public function createFileReferenceFromFileObjectCreatesObject()
     {
-        $this->subject = $this->getAccessibleMock(
-            ResourceFactory::class, ['createFileReferenceObject']
-        );
+        $this->subject = $this->getMockBuilder(ResourceFactory::class)
+            ->disableOriginalConstructor()
+            ->setMethods(['createFileReferenceObject'])
+            ->getMock();
         $this->subject->injectObjectManager($this->objectManager);
         /** @var FileReference|MockObject $mockCoreFileReference */
         $mockCoreFileReference = $this->getMockBuilder(FileReference::class)
             ->disableOriginalConstructor()
             ->getMock();
         $mockExtbaseFileReference = $this->getMockBuilder(
-            \TYPO3\CMS\Extbase\Domain\Model\FileReference::class)
+            ExtbaseFileReference::class)
             ->setMethods(['setOriginalResource'])
             ->getMock();
         /** @var File|MockObject $mockFileObject */
         $mockFileObject = $this->getMockBuilder(File::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->subject->expects($this->once())
+        $this->subject->expects(self::once())
             ->method('createFileReferenceObject')
-            ->will($this->returnValue($mockCoreFileReference));
-        $this->objectManager->expects($this->once())
+            ->willReturn($mockCoreFileReference);
+        /** @noinspection PhpParamsInspection */
+        $this->objectManager->expects(self::once())
             ->method('get')
-            ->with(\TYPO3\CMS\Extbase\Domain\Model\FileReference::class)
-            ->will($this->returnValue($mockExtbaseFileReference));
+            ->with(ExtbaseFileReference::class)
+            ->willReturn($mockExtbaseFileReference);
 
-        $this->assertSame(
+        self::assertSame(
             $mockExtbaseFileReference,
             $this->subject->createFileReferenceFromFileObject($mockFileObject)
         );

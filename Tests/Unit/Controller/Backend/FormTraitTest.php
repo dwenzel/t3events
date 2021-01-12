@@ -5,6 +5,8 @@ namespace DWenzel\T3events\Tests\Controller\Backend;
 use DWenzel\T3events\Controller\Backend\FormTrait;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
+use TYPO3\CMS\Core\Information\Typo3Version;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 
 class FormTraitTest extends UnitTestCase
@@ -21,6 +23,7 @@ class FormTraitTest extends UnitTestCase
     protected function setUp()
     {
         $this->subject = $this->getMockForTrait(FormTrait::class);
+        $this->setBackupGlobals(true);
     }
 
     /**
@@ -29,9 +32,11 @@ class FormTraitTest extends UnitTestCase
      */
     public function getModuleKeyReturnsGetParameterDataProvider()
     {
+        /** @var Typo3Version $version */
+        $version = GeneralUtility::makeInstance(Typo3Version::class);
         $key = 'M';
         $value = 'Events_T3eventsM1';
-        if (VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 9000000)
+        if (VersionNumberUtility::convertVersionNumberToInteger($version->getVersion()) >= 9000000)
         {
             $key = 'route';
             $value = '/Events/T3eventsM1/';
@@ -49,7 +54,10 @@ class FormTraitTest extends UnitTestCase
      * @param string $expectedValue
      */
     public function getModuleKeyReturnsGetParameter(string $expectedValue) {
-        $this->assertSame(
+        if(!defined('TYPO3_version')) {
+            self::markTestSkipped('required constant `TYPO3_version` is not defined');
+        }
+        self::assertSame(
             $expectedValue,
             $this->subject->getModuleKey()
         );

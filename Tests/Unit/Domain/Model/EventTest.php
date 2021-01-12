@@ -166,29 +166,6 @@ class EventTest extends UnitTestCase
     /**
      * @test
      */
-    public function getImageReturnsInitialValueForString()
-    {
-        $this->assertNull(
-            $this->subject->getImage()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function setImageForStringSetsImage()
-    {
-        $this->subject->setImage('Conceived at T3CON10');
-
-        $this->assertSame(
-            'Conceived at T3CON10',
-            $this->subject->getImage()
-        );
-    }
-
-    /**
-     * @test
-     */
     public function getImagesReturnsInitialValueForObjectStorageContainingImages()
     {
         $newObjectStorage = new ObjectStorage();

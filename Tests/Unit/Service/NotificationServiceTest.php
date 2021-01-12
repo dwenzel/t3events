@@ -71,15 +71,14 @@ class NotificationServiceTest extends UnitTestCase
         $notification->setRecipient($recipientArgument);
 
         $mockMessage = $this->getMockMailMessage();
-        $this->objectManager->expects($this->once())
+        $this->objectManager->expects(self::once())
             ->method('get')
-            ->with(MailMessage::class)
-            ->will($this->returnValue($mockMessage));
+            ->willReturn($mockMessage);
 
-        $mockMessage->expects($this->once())
+        $mockMessage->expects(self::once())
             ->method('setTo')
             ->with($expectedRecipients)
-            ->will($this->returnValue($mockMessage));
+            ->willReturn($mockMessage);
 
         $this->subject->send($notification);
     }
@@ -101,20 +100,20 @@ class NotificationServiceTest extends UnitTestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->subject->expects($this->once())
+        $this->subject->expects(self::once())
             ->method('buildTemplateView')
-            ->will($this->returnValue($mockTemplateView));
+            ->will(self::returnValue($mockTemplateView));
 
         $mockMessage = $this->getMockMailMessage();
-        $this->objectManager->expects($this->once())
+        $this->objectManager->expects(self::once())
             ->method('get')
             ->with(MailMessage::class)
-            ->will($this->returnValue($mockMessage));
+            ->will(self::returnValue($mockMessage));
 
-        $mockMessage->expects($this->once())
+        $mockMessage->expects(self::once())
             ->method('setTo')
             ->with($expectedRecipients)
-            ->will($this->returnValue($mockMessage));
+            ->will(self::returnValue($mockMessage));
 
         $this->subject->notify(
             $recipient,
@@ -132,6 +131,14 @@ class NotificationServiceTest extends UnitTestCase
     protected function getMockMailMessage()
     {
         return $this->getMockBuilder(MailMessage::class)
-            ->setMethods(['setTo', 'send'])->getMock();
+            ->disableOriginalConstructor()
+            ->setMethods(
+                [
+                    'setTo',
+                    'send',
+                    'setFrom',
+                    'setSubject'
+                ]
+            )->getMock();
     }
 }

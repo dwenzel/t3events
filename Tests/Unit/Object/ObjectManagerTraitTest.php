@@ -24,6 +24,7 @@ use TYPO3\CMS\Extbase\Object\ObjectManager;
  ***************************************************************/
 class ObjectManagerTraitTest extends UnitTestCase
 {
+    use MockObjectManagerTrait;
     /**
      * @var \DWenzel\T3events\Object\ObjectManagerTrait
      */
@@ -45,12 +46,11 @@ class ObjectManagerTraitTest extends UnitTestCase
     public function objectManagerCanBeInjected()
     {
         /** @var ObjectManager|\PHPUnit_Framework_MockObject_MockObject $objectManager */
-        $objectManager = $this->getMockBuilder(ObjectManager::class)->getMock();
+        $objectManager = $this->getMockObjectManager();
 
         $this->subject->injectObjectManager($objectManager);
 
-        $this->assertAttributeSame(
-            $objectManager,
+        self::assertObjectHasAttribute(
             'objectManager',
             $this->subject
         );

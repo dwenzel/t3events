@@ -48,10 +48,9 @@ class DownloadTraitTest extends UnitTestCase
 
         $this->subject->injectLocalDriver($mockLocalDriver);
 
-        $this->assertAttributeSame(
+        self::assertSame(
             $mockLocalDriver,
-            'localDriver',
-            $this->subject
+            $this->subject->getLocalDriver()
         );
     }
 

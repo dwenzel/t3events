@@ -72,6 +72,7 @@ class BackendViewTraitTest extends UnitTestCase
             ->getMockForTrait();
 
         $this->configurationManager = $this->getMockBuilder(ConfigurationManager::class)
+            ->disableOriginalConstructor()
             ->setMethods(['getConfiguration'])
             ->getMock();
         $this->subject->method('getConfigurationManager')
