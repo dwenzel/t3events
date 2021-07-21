@@ -20,7 +20,7 @@
     "php": "^7.2",
     "typo3/cms-core": ">=9.5.0 || ^10.4",
     "typo3/cms-fluid": "^9.5 || ^10.4",
-    "dwenzel/t3extension-tools": "~1.3"
+    "dwenzel/t3extension-tools": "dev-feature/version10compatible"
   },
   "require-dev": {
     "nimut/testing-framework": "^4.0 || ^5.1",
