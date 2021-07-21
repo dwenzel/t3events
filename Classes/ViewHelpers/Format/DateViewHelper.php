@@ -80,7 +80,7 @@ class DateViewHelper extends AbstractViewHelper
      * @param int $time an integer representing a time value
      * @param mixed $base A base time (a DateTime object or a string) used if $date is a relative date specification. Defaults to current time.
      * @return string Formatted date
-     * @throws \TYPO3\CMS\Fluid\Core\ViewHelper\Exception
+     * @throws \TYPO3Fluid\Fluid\Core\ViewHelper\Exception
      */
     public function render($date = null, $format = '', $time = null, $base = null)
     {
@@ -110,7 +110,7 @@ class DateViewHelper extends AbstractViewHelper
                 $modifiedDate = new \DateTime('@' . $dateTimestamp);
                 $modifiedDate->setTimezone(new \DateTimeZone(date_default_timezone_get()));
             } catch (\Exception $exception) {
-                throw new \TYPO3\CMS\Fluid\Core\ViewHelper\Exception('"' . $date . '" could not be parsed by \DateTime constructor.', 1241722579);
+                throw new \TYPO3Fluid\Fluid\Core\ViewHelper\Exception('"' . $date . '" could not be parsed by \DateTime constructor.', 1241722579);
             }
         } else {
             $modifiedDate = clone($date);
