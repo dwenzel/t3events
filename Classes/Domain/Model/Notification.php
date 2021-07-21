@@ -51,7 +51,7 @@ class Notification extends AbstractEntity
 
     /**
      * @var string $subject
-     * @validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $subject;
 
@@ -59,7 +59,7 @@ class Notification extends AbstractEntity
      * Body text
      *
      * @var string $bodytext
-     * @validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $bodytext;
 
