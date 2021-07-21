@@ -51,7 +51,7 @@ class EmConfigurationUtilityTest extends UnitTestCase
         $emSettings = [
             'respectPerformanceStoragePage' => true
         ];
-        $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['t3events'] = serialize($emSettings);
+        $GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['t3events'] = $emSettings;
 
         $expectedEmConfiguration = new EmConfiguration($emSettings);
 

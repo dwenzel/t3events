@@ -33,11 +33,6 @@ class EmConfigurationUtility
      */
     public static function parseSettings()
     {
-        $settings = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['t3events'], ['allowed_classes' => false]);
-        if (!is_array($settings)) {
-            $settings = [];
-        }
-
-        return $settings;
+        return $GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['t3events'] ?? [];
     }
 }

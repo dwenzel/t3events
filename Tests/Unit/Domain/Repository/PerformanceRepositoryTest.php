@@ -250,7 +250,7 @@ class PerformanceRepositoryTest extends UnitTestCase
         $emSettings = [
             'respectPerformanceStoragePage' => false
         ];
-        $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['t3events'] = serialize($emSettings);
+        $GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['t3events'] = $emSettings;
         $mockQuerySettings = $this->getMockQuerySettings(['setRespectStoragePage']);
         $this->objectManager->expects($this->once())
             ->method('get')
