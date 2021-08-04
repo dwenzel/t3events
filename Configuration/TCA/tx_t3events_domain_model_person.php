@@ -31,12 +31,9 @@ return [
         'searchFields' => 'name, last_name, first_name',
         'iconfile' => 'EXT:t3events/Resources/Public/Icons/tx_t3events_domain_model_person.png'
     ],
-    'interface' => [
-        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, person_type,title, name, first_name, last_name, gender,address, zip, city, phone, email,www',
-    ],
     'types' => [
         '1' => [
-            'showitem' => '--palette--;;1, person_type, gender, title,name, first_name, last_name, address, zip, city, phone, email,www, images,  --div--;LLL:EXT:cms/locallang_ttc.xlf:tab.access,tx_extbase_type, starttime, endtime'
+            'showitem' => '--palette--;;1, person_type, gender, title,name, first_name, last_name, address, zip, city, phone, email,www, images,  --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access,tx_extbase_type, starttime, endtime'
         ],
     ],
     'palettes' => [
@@ -64,7 +61,6 @@ return [
         ],
         'l10n_parent' => [
             'displayCond' => 'FIELD:sys_language_uid:>:0',
-            'exclude' => 1,
             'label' => $cll . 'LGL.l18n_parent',
             'config' => [
                 'type' => 'select',
@@ -287,12 +283,12 @@ return [
                         'types' => [
                             '0' => [
                                 'showitem' => '
-                        --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
+                        --palette--;LLL:EXT:core/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                         --palette--;;filePalette'
                             ],
                             \TYPO3\CMS\Core\Resource\File::FILETYPE_IMAGE => [
                                 'showitem' => '
-                        --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
+                        --palette--;LLL:EXT:core/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                         --palette--;;filePalette'
                             ],
                         ],

@@ -30,14 +30,8 @@ return [
             'endtime' => 'endtime',
             'fe_group' => 'fe_group'
         ],
-        'searchFields' => 'date,admission,begin,end,status_info,external_provider_link,additional_link,provider_type,image,plan,no_handling_fee,price_notice,event_location,ticket_class,status,',
+        'searchFields' => 'date,admission,begin,end,status_info,external_provider_link,additional_link,provider_type,plan,no_handling_fee,price_notice,event_location,ticket_class,status,',
         'iconfile' => 'EXT:t3events/Resources/Public/Icons/tx_t3events_domain_model_performance.gif'
-    ],
-    'interface' => [
-        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource,
-            hidden, date,end_date,admission, begin, end, status_info, external_provider_link,
-            additional_link, provider_type, image, images, plan, no_handling_fee, price_notice,
-            event_location, ticket_class, status,fe_group',
     ],
     'types' => [
         '0' => ['showitem' => '
@@ -86,7 +80,6 @@ return [
         ],
         'l10n_parent' => [
             'displayCond' => 'FIELD:sys_language_uid:>:0',
-            'exclude' => 1,
             'label' => $cll . 'LGL.l18n_parent',
             'config' => [
                 'type' => 'select',
@@ -103,14 +96,7 @@ return [
                 'type' => 'passthrough',
             ],
         ],
-        't3ver_label' => [
-            'label' => $cll . 'LGL.versionLabel',
-            'config' => [
-                'type' => 'input',
-                'size' => 30,
-                'max' => 255,
-            ]
-        ],
+
         'hidden' => [
             'exclude' => 1,
             'label' => $cll . 'LGL.hidden',
@@ -302,32 +288,32 @@ return [
                     'types' => [
                         '0' => [
                             'showitem' => '
-                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
+                            --palette--;;imageoverlayPalette,
                             --palette--;;filePalette'
                         ],
                         \TYPO3\CMS\Core\Resource\File::FILETYPE_TEXT => [
                             'showitem' => '
-                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
+                            --palette--;;imageoverlayPalette,
                             --palette--;;filePalette'
                         ],
                         \TYPO3\CMS\Core\Resource\File::FILETYPE_IMAGE => [
                             'showitem' => '
-                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
+                            --palette--;;imageoverlayPalette,
                             --palette--;;filePalette'
                         ],
                         \TYPO3\CMS\Core\Resource\File::FILETYPE_AUDIO => [
                             'showitem' => '
-                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.audioOverlayPalette;audioOverlayPalette,
+                            --palette--;;audioOverlayPalette,
                             --palette--;;filePalette'
                         ],
                         \TYPO3\CMS\Core\Resource\File::FILETYPE_VIDEO => [
                             'showitem' => '
-                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.videoOverlayPalette;videoOverlayPalette,
+                            --palette--;;videoOverlayPalette,
                             --palette--;;filePalette'
                         ],
                         \TYPO3\CMS\Core\Resource\File::FILETYPE_APPLICATION => [
                             'showitem' => '
-                            --palette--;LLL:EXT:lang/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
+                            --palette--;;imageoverlayPalette,
                             --palette--;;filePalette'
                         ]
                     ]
