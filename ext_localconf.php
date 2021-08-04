@@ -33,3 +33,9 @@ if (\TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger(
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig('<INCLUDE_TYPOSCRIPT: source="FILE:EXT:t3events/Configuration/TSconfig/PageTSconfig.ts">');
 
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update'][\DWenzel\T3events\Update\LegacyFileFieldsUpdateWizard::IDENTIFIER] = \DWenzel\T3events\Update\LegacyFileFieldsUpdateWizard::class;
+
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['formEngine']['nodeRegistry']['t3eventsLegendPeriodConstraints'] = [
+    'nodeName' => 't3eventsLegendPeriodConstraints',
+    'priority' => 40,
+    'class' => \DWenzel\T3events\Configuration\PeriodConstraintLegendFormElement::class,
+];
