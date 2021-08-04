@@ -40,7 +40,7 @@ return [
         --palette--;;paletteTime,
         status, status_info,
         --div--;' . $ll . ':tx_t3events_domain_model_event.tab.relations,
-            images, image,
+            images, 
         --div--;Links,provider_type, external_provider_link,additional_link,
         --div--;Tickets,
             --palette--;;paletteTicketsHead,
@@ -259,20 +259,6 @@ return [
                 'size' => 1,
                 'maxitems' => 1,
                 'eval' => ''
-            ],
-        ],
-        'image' => [
-            'exclude' => 1,
-            'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_performance.image',
-            'config' => [
-                'type' => 'group',
-                'internal_type' => 'file',
-                'uploadfolder' => 'uploads/tx_t3events',
-                'size' => 1,
-                'maxitems' => 1,
-                'allowed' => $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'],
-                'disallowed' => '',
-                'disable_controls' => '',
             ],
         ],
         'images' => [
