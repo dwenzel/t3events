@@ -39,3 +39,12 @@ $GLOBALS['TYPO3_CONF_VARS']['SYS']['formEngine']['nodeRegistry']['t3eventsLegend
     'priority' => 40,
     'class' => \DWenzel\T3events\Configuration\PeriodConstraintLegendFormElement::class,
 ];
+
+if (isset($GLOBALS['TSFE'])) {
+    \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Object\Container\Container::class)
+        ->registerImplementation(\DWenzel\T3events\Session\SessionInterface::class, \DWenzel\T3events\Session\Typo3Session::class);
+} else {
+    \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Object\Container\Container::class)
+        ->registerImplementation(\DWenzel\T3events\Session\SessionInterface::class, \DWenzel\T3events\Session\Typo3BackendSession::class);
+}
+
