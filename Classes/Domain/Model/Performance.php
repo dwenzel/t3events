@@ -14,6 +14,7 @@ namespace DWenzel\T3events\Domain\Model;
  * The TYPO3 project - inspiring people to share!
  */
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
 
@@ -187,6 +188,10 @@ class Performance extends AbstractEntity
      */
     public function getEvent()
     {
+        if ($this->event instanceof LazyLoadingProxy) {
+            $this->event->_loadRealInstance();
+        }
+
         return $this->event;
     }
 
@@ -207,6 +212,9 @@ class Performance extends AbstractEntity
      */
     public function getEventLocation()
     {
+        if ($this->eventLocation instanceof LazyLoadingProxy) {
+            $this->eventLocation->_loadRealInstance();
+        }
         return $this->eventLocation;
     }
 
@@ -474,6 +482,9 @@ class Performance extends AbstractEntity
      */
     public function getStatus()
     {
+        if ($this->status instanceof LazyLoadingProxy) {
+            $this->status->_loadRealInstance();
+        }
         return $this->status;
     }
 
