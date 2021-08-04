@@ -41,7 +41,6 @@ class Person extends AbstractEntity
      *
      * @var string
      * @TYPO3\CMS\Extbase\Annotation\Validate("EmailAddress")
-     * @optional
      */
     protected $email = '';
 
