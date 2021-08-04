@@ -52,13 +52,13 @@
                                         <!--suppress HtmlUnknownTarget -->
                                         <a
                                             class="actions-open"
-                                            title="UID: {schedule.uid}"
+                                            title="{f:translate(key: 'button.edit', default: 'button.edit')} UID: {schedule.uid}"
                                             href="{ts:be.editUri(
                                               table:'tx_t3events_domain_model_performance',
                                               record: schedule.uid,
                                               module: module
                                             )}"
-                                        >{f:translate(key: 'button.edit', default: 'button.edit')}</a>
+                                        ><core:icon identifier="actions-open" /></a>
                                     </div>
                                 </td>
                             </tr>
