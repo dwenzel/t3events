@@ -3,12 +3,14 @@
 <div class="eventWrap">
 	<div class="eventImg">
 		<f:link.action action="show" arguments="{event: event}" pageUid="{settings.detailPid}">
-			<f:if condition="{event.image}">
+			<f:if condition="{event.images}">
 				<f:then>
-					<f:image src="uploads/tx_t3events/{event.image}"
-						width="{settings.event.list.image.width}"
-						height="{settings.event.list.image.height}"
-						alt="{event.headline}" />
+					<f:for each="{event.images}" as="image">
+						<f:image image="{image}"
+							width="{settings.event.list.image.width}"
+							height="{settings.event.list.image.height}"
+							alt="{event.headline}" />
+					</f:for>
 				</f:then>
 				<f:else>
 					<f:image src="{settings.event.list.dummyImage}"

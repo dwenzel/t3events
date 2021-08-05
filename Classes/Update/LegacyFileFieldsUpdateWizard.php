@@ -20,6 +20,7 @@ namespace DWenzel\T3events\Update;
  * This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use Doctrine\DBAL\Exception;
 use DWenzel\T3events\Utility\SettingsInterface as SI;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
@@ -27,6 +28,8 @@ use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\Expression\ExpressionBuilder;
+use TYPO3\CMS\Core\Resource\File;
+use TYPO3\CMS\Core\Resource\StorageRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Install\Updates\ChattyInterface;
 use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
@@ -51,8 +54,13 @@ class LegacyFileFieldsUpdateWizard implements UpgradeWizardInterface, ChattyInte
     public const PREREQUISITES = [];
 
     public const TABLES_TO_UPDATE = [
-        SI::TABLE_EVENT_LOCATION => ['image']
+        SI::TABLE_EVENT_LOCATION => ['image'],
+        SI::TABLE_SCHEDULES => ['plan'],
     ];
+
+    private const SOURCE_PATH = 'uploads/tx_t3events/';
+
+    private const TARGET_PATH = '_migrated/tx_t3events/';
 
     /**
      * @var OutputInterface
@@ -84,15 +92,25 @@ class LegacyFileFieldsUpdateWizard implements UpgradeWizardInterface, ChattyInte
         $result = true;
 
         try {
-            // TODO: Implement executeUpdate() method.
+            $storages = GeneralUtility::makeInstance(StorageRepository::class)->findAll();
+            $this->storage = $storages[0];
+
+            foreach (self::TABLES_TO_UPDATE as $table => $fieldsToMigrate) {
+                foreach ($fieldsToMigrate as $fieldToMigrate) {
+                    $records = $this->getRecordsFromTable($table, $fieldToMigrate);
+                    foreach ($records as $record) {
+                        $this->migrateField($record, $table, $fieldToMigrate);
+                    }
+                }
+            }
         } catch (\Exception $exception) {
             $this->logger->error(
                 'An error occurred while performing update: ' . $exception->getMessage()
             );
             $result = false;
         }
-        return $result;
 
+        return $result;
     }
 
     public function updateNecessary(): bool
@@ -176,6 +194,179 @@ class LegacyFileFieldsUpdateWizard implements UpgradeWizardInterface, ChattyInte
 
             return 0;
         }
+    }
+
+    /**
+     * Get records from table where the field to migrate is not empty (NOT NULL and != '')
+     * and also not numeric (which means that it is migrated)
+     *
+     * @param string $table
+     * @param string $fieldToMigrate
+     *
+     * @return array
+     */
+    protected function getRecordsFromTable(string $table, string $fieldToMigrate): array
+    {
+        $connectionPool = GeneralUtility::makeInstance(ConnectionPool::class);
+        $queryBuilder = $connectionPool->getQueryBuilderForTable($table);
+        $queryBuilder->getRestrictions()->removeAll();
+
+        try {
+            $result = $queryBuilder
+                ->select('uid', 'pid', $fieldToMigrate)
+                ->from($table)
+                ->where(
+                    $queryBuilder->expr()->isNotNull($fieldToMigrate),
+                    $queryBuilder->expr()->neq(
+                        $fieldToMigrate,
+                        $queryBuilder->createNamedParameter('', \PDO::PARAM_STR)
+                    ),
+                    $queryBuilder->expr()->comparison(
+                        'CAST(CAST(' . $queryBuilder->quoteIdentifier($fieldToMigrate) . ' AS DECIMAL) AS CHAR)',
+                        ExpressionBuilder::NEQ,
+                        'CAST(' . $queryBuilder->quoteIdentifier($fieldToMigrate) . ' AS CHAR)'
+                    )
+                )
+                ->orderBy('uid')
+                ->execute();
+
+            return $result->fetchAll();
+        } catch (Exception $e) {
+            throw new \RuntimeException(
+                'Database query failed. Error was: ' . $e->getPrevious()->getMessage(),
+                1511950673
+            );
+        }
+    }
+
+    /**
+     * Migrates a single field.
+     *
+     * @param array $row
+     * @param string $table
+     * @param string $fieldToMigrate
+     *
+     */
+    protected function migrateField(array $row, string $table, string $fieldToMigrate)
+    {
+        $this->output->writeln(sprintf(
+            'START migration for %s:%s:%s and UID %d',
+            $table,
+            $fieldToMigrate,
+            $row[$fieldToMigrate],
+            $row['uid']
+        ));
+
+        $fieldItems = GeneralUtility::trimExplode(',', $row[$fieldToMigrate], true);
+        if (empty($fieldItems) || is_numeric($row[$fieldToMigrate])) {
+            return;
+        }
+        $fileadminDirectory = rtrim($GLOBALS['TYPO3_CONF_VARS']['BE']['fileadminDir'], '/') . '/';
+        $i = 0;
+
+        $storageUid = (int)$this->storage->getUid();
+        $connectionPool = GeneralUtility::makeInstance(ConnectionPool::class);
+
+        foreach ($fieldItems as $item) {
+            $fileUid = null;
+
+            $sourcePath = GeneralUtility::getFileAbsFileName(self::SOURCE_PATH . $item);
+            $targetDirectory = GeneralUtility::getFileAbsFileName($fileadminDirectory . self::TARGET_PATH);
+            $targetPath = $targetDirectory . basename($item);
+
+            // maybe the file was already moved, so check if the original file still exists
+            if (file_exists($sourcePath)) {
+                if (!is_dir($targetDirectory)) {
+                    GeneralUtility::mkdir_deep($targetDirectory);
+                }
+
+                // see if the file already exists in the storage
+                $fileSha1 = sha1_file($sourcePath);
+
+                $queryBuilder = $connectionPool->getQueryBuilderForTable('sys_file');
+                $queryBuilder->getRestrictions()->removeAll();
+                $existingFileRecord = $queryBuilder->select('uid')->from('sys_file')->where(
+                    $queryBuilder->expr()->eq(
+                        'sha1',
+                        $queryBuilder->createNamedParameter($fileSha1, \PDO::PARAM_STR)
+                    ),
+                    $queryBuilder->expr()->eq(
+                        'storage',
+                        $queryBuilder->createNamedParameter($storageUid, \PDO::PARAM_INT)
+                    )
+                )->execute()->fetch();
+
+                // the file exists, the file does not have to be moved again
+                if (is_array($existingFileRecord)) {
+                    $fileUid = $existingFileRecord['uid'];
+                } else {
+                    // just move the file (no duplicate)
+                    rename($sourcePath, $targetPath);
+                }
+            }
+
+            if ($fileUid === null) {
+                // get the File object if it hasn't been fetched before
+                try {
+                    // if the source file does not exist, we should just continue, but leave a message in the docs;
+                    // ideally, the user would be informed after the update as well.
+                    /** @var File $file */
+                    $file = $this->storage->getFile(self::TARGET_PATH . $item);
+                    $fileUid = $file->getUid();
+                } catch (\InvalidArgumentException $e) {
+
+                    // no file found, no reference can be set
+                    $this->output->warning(sprintf(
+                        'File ' . $sourcePath . ' does not exist. Reference was not migrated from %s:%s:%s and UID %d',
+                        $table,
+                        $fieldToMigrate,
+                        $row[$fieldToMigrate],
+                        $row['uid']
+                    ));
+
+                    continue;
+                }
+            }
+
+            if ($fileUid > 0) {
+                $fields = [
+                    'fieldname' => $fieldToMigrate,
+                    'table_local' => 'sys_file',
+                    'pid' => ($table === 'pages' ? $row['uid'] : $row['pid']),
+                    'uid_foreign' => $row['uid'],
+                    'uid_local' => $fileUid,
+                    'tablenames' => $table,
+                    'crdate' => time(),
+                    'tstamp' => time(),
+                    'sorting' => ($i + 256),
+                    'sorting_foreign' => $i,
+                ];
+
+                $queryBuilder = $connectionPool->getQueryBuilderForTable('sys_file_reference');
+                $queryBuilder->insert('sys_file_reference')->values($fields)->execute();
+                ++$i;
+            }
+        }
+
+        // Update referencing table's original field to now contain the count of references,
+        // but only if all new references could be set
+        if ($i === count($fieldItems)) {
+            $queryBuilder = $connectionPool->getQueryBuilderForTable($table);
+            $queryBuilder->update($table)->where(
+                $queryBuilder->expr()->eq(
+                    'uid',
+                    $queryBuilder->createNamedParameter($row['uid'], \PDO::PARAM_INT)
+                )
+            )->set($fieldToMigrate, $i)->execute();
+        }
+
+        $this->output->writeln(sprintf(
+            'END migration for %s:%s:%s and UID %d',
+            $table,
+            $fieldToMigrate,
+            $row[$fieldToMigrate],
+            $row['uid']
+        ));
     }
 
 }

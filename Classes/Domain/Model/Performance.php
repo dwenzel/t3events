@@ -101,7 +101,8 @@ class Performance extends AbstractEntity
     /**
      * plan
      *
-     * @var string
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
+     * @Lazy
      */
     protected $plan;
 
@@ -179,6 +180,7 @@ class Performance extends AbstractEntity
          */
         $this->images = new ObjectStorage();
         $this->ticketClass = new ObjectStorage();
+        $this->plan = new ObjectStorage();
     }
 
     /**
@@ -424,9 +426,31 @@ class Performance extends AbstractEntity
     }
 
     /**
+     * Adds a plan
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $plan Plan
+     * @return void
+     */
+    public function addPlan(\TYPO3\CMS\Extbase\Domain\Model\FileReference $plan)
+    {
+        $this->plan->attach($plan);
+    }
+
+    /**
+     * Removes a plan
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $planToRemove $planToRemove
+     * @return void
+     */
+    public function removePlan(\TYPO3\CMS\Extbase\Domain\Model\FileReference $planToRemove)
+    {
+        $this->plan->detach($planToRemove);
+    }
+
+    /**
      * Returns the plan
      *
-     * @return string $plan
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage $plan
      */
     public function getPlan()
     {
@@ -436,10 +460,10 @@ class Performance extends AbstractEntity
     /**
      * Sets the plan
      *
-     * @param string $plan
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $plan Plan
      * @return void
      */
-    public function setPlan($plan)
+    public function setPlan(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $plan)
     {
         $this->plan = $plan;
     }

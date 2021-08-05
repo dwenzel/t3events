@@ -1,6 +1,9 @@
 <?php
 namespace DWenzel\T3events\Domain\Model;
 
+use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+
 /***************************************************************
      *  Copyright notice
      *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
@@ -48,7 +51,8 @@ class EventLocation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity imple
     /**
      * image
      *
-     * @var string
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
+     * @Lazy
      */
     protected $image;
 
@@ -102,6 +106,25 @@ class EventLocation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity imple
     protected $longitude;
 
     /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        //Do not remove the next line: It would break the functionality
+        $this->initStorageObjects();
+    }
+
+    /**
+     * Initializes all \TYPO3\CMS\Extbase\Persistence\ObjectStorage properties.
+     *
+     * @return void
+     */
+    protected function initStorageObjects()
+    {
+        $this->image = new ObjectStorage();
+    }
+
+    /**
      * Returns the name
      *
      * @return string $name
@@ -144,9 +167,31 @@ class EventLocation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity imple
     }
 
     /**
-     * Returns the image
+     * Adds an image
      *
-     * @return string $image
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $image Image
+     * @return void
+     */
+    public function addImage(\TYPO3\CMS\Extbase\Domain\Model\FileReference $image)
+    {
+        $this->image->attach($image);
+    }
+
+    /**
+     * Removes an image
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $imageToRemove Image
+     * @return void
+     */
+    public function removeImage(\TYPO3\CMS\Extbase\Domain\Model\FileReference $imageToRemove)
+    {
+        $this->image->detach($imageToRemove);
+    }
+
+    /**
+     * Returns the images
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage $images
      */
     public function getImage()
     {
@@ -154,12 +199,12 @@ class EventLocation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity imple
     }
 
     /**
-     * Sets the image
+     * Sets the images
      *
-     * @param string $image
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $images Images
      * @return void
      */
-    public function setImage($image)
+    public function setImage(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $image)
     {
         $this->image = $image;
     }

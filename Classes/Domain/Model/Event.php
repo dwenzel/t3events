@@ -74,13 +74,6 @@ class Event extends AbstractEntity
     protected $keywords;
 
     /**
-     * image
-     *
-     * @var string
-     */
-    protected $image;
-
-    /**
      * images
      *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
