@@ -15,6 +15,7 @@ namespace DWenzel\T3events\Hooks;
  */
 
 use DWenzel\T3events\Utility\TemplateLayoutUtility;
+use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -72,7 +73,7 @@ class ItemsProcFunc
     /**
      * Returns Language Service
      *
-     * @return \TYPO3\CMS\Lang\LanguageService
+     * @return LanguageService
      * @codeCoverageIgnore
      */
     protected function getLanguageService()
