@@ -110,6 +110,16 @@ class Person extends AbstractEntity
     }
 
     /**
+     * Setter for the pid.
+     *
+     * @param int|null $pid
+     */
+    public function setPid(?int $pid): void
+    {
+        $this->pid = $pid;
+    }
+
+    /**
      * Returns the type
      *
      * @return string $type
