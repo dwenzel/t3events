@@ -45,9 +45,13 @@ class NotificationService
         $message->setTo($recipient)
             ->setFrom($sender)
             ->setSubject($subject);
-        $mailFormat = ($format == 'plain') ? 'text/plain' : 'text/html';
 
-        $message->setBody($body, $mailFormat);
+        if ($format === 'plain') {
+            $message->text($body);
+        } else {
+            $message->html($body);
+        }
+
         if ($attachments) {
             foreach ($attachments as $attachment) {
                 $fileToAttach = $this->buildAttachmentFromTemplate($attachment);
@@ -92,13 +96,17 @@ class NotificationService
         $message->setTo($recipients)
             ->setFrom($notification->getSenderEmail(), $notification->getSenderName())
             ->setSubject($notification->getSubject());
-        $mailFormat = ($notification->getFormat() === 'plain') ? 'text/plain' : 'text/html';
 
-        $message->setBody($notification->getBodytext(), $mailFormat);
+        if ($notification->getFormat() === 'plain') {
+            $message->text($notification->getBodytext());
+        } else {
+            $message->html($notification->getBodytext());
+        }
+
         if ($files = $notification->getAttachments()) {
             /** @var FileReference $file */
             foreach ($files as $file) {
-                $message->attach(\Swift_Attachment::fromPath($file->getOriginalResource()->getPublicUrl(true)));
+                $message->attachFromPath($file->getOriginalResource()->getPublicUrl(true));
             }
         }
         $message->send();
