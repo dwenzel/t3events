@@ -54,8 +54,7 @@ class NotificationService
 
         if ($attachments) {
             foreach ($attachments as $attachment) {
-                $fileToAttach = $this->buildAttachmentFromTemplate($attachment);
-                $message->attach($fileToAttach);
+                $this->buildAttachmentFromTemplate($attachment, $message);
             }
         }
         $message->send();
@@ -147,9 +146,9 @@ class NotificationService
 
     /**
      * @var array $data An array containing data for attachement generation
-     * @return \Swift_Mime_Attachment
+     * @var MailMessage $message
      */
-    protected function buildAttachmentFromTemplate($data)
+    protected function buildAttachmentFromTemplate($data, MailMessage $message): void
     {
         $attachmentView = $this->buildTemplateView(
             $data['templateName'],
@@ -158,13 +157,11 @@ class NotificationService
         );
         $attachmentView->assignMultiple($data['variables']);
         $content = $attachmentView->render();
-        $attachment = \Swift_Attachment::newInstance(
+        $message->attach(
             $content,
             $data['fileName'],
             $data['mimeType']
         );
-
-        return $attachment;
     }
 
     /**
