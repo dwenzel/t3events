@@ -71,6 +71,6 @@ module.tx_t3events {
 
 lib.compatVersion76 = TEXT
 lib.compatVersion76.value = false
-[compatVersion = 7.6.0] || [compatVersion = 8.7.0]
+[compatVersion("7.6.0")] || [compatVersion("8.7.0")]
     lib.compatVersion76.value = true
 [global]
