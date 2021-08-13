@@ -29,5 +29,17 @@ return [
 
     DWenzel\T3events\Domain\Model\Category::class => [
         'tableName' => 'sys_category'
+    ],
+    \DWenzel\T3events\Domain\Model\Event::class => [
+        'tableName' => 'tx_t3events_domain_model_event',
+        'properties' => [
+            'crdate' => [
+                'fieldName' => 'crdate',
+            ],
+            'tstamp' => [
+                'fieldName' => 'tstamp',
+            ],
+        ]
+
     ]
 ];

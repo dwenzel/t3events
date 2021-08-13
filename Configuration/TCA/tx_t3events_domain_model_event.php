@@ -48,6 +48,16 @@ return [
         ],
     ],
     'columns' => [
+        'crdate' => [
+            'config' => [
+                'type' => 'passthrough',
+            ],
+        ],
+        'tstamp' => [
+            'config' => [
+                'type' => 'passthrough',
+            ],
+        ],
         'sys_language_uid' => [
             'exclude' => 1,
             'label' => $cll . 'LGL.language',
