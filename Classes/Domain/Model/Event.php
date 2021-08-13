@@ -23,6 +23,7 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use Doctrine\Common\Annotations\Annotation\Required;
 use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
+use DateTime;
 
 /**
  * @package t3events
@@ -38,6 +39,17 @@ class Event extends AbstractEntity
      * @var int
      */
     protected $hidden;
+
+    /**
+     * @var DateTime
+     */
+    protected $crdate;
+
+    /**
+     * @var DateTime
+     */
+    protected $tstamp;
+
 
     /**
      * Enter a title.
@@ -742,5 +754,35 @@ class Event extends AbstractEntity
         $this->contentElements->detach($contentElements);
     }
 
+    /**
+     * @return DateTime
+     */
+    public function getCrdate(): DateTime
+    {
+        return $this->crdate;
+    }
 
+    /**
+     * @param DateTime $crdate
+     */
+    public function setCrdate(DateTime $crdate): void
+    {
+        $this->crdate = $crdate;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getTstamp(): DateTime
+    {
+        return $this->tstamp;
+    }
+
+    /**
+     * @param DateTime $tstamp
+     */
+    public function setTstamp(DateTime $tstamp): void
+    {
+        $this->tstamp = $tstamp;
+    }
 }
