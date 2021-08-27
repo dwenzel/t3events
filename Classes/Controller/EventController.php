@@ -52,14 +52,8 @@ class EventController extends ActionController
                 serialize($this->request->getArgument(SI::OVERWRITE_DEMAND))
             );
         }
-    }
 
-    /**
-     * initializes quick menu action
-     */
-    public function initializeQuickMenuAction()
-    {
-        if (!$this->request->hasArgument(SI::OVERWRITE_DEMAND)) {
+        if ($this->request->hasArgument(SI::RESET_DEMAND)) {
             $this->session->clean();
         }
     }
@@ -74,6 +68,10 @@ class EventController extends ActionController
      */
     public function listAction($overwriteDemand = null)
     {
+        if (!$overwriteDemand){
+            $overwriteDemand = unserialize($this->session->get('tx_t3events_overwriteDemand'), ['allowed_classes' => false]);
+        }
+
         $demand = $this->eventDemandFactory->createFromSettings($this->settings);
         $this->overwriteDemandObject($demand, $overwriteDemand);
         $events = $this->eventRepository->findDemanded($demand);
