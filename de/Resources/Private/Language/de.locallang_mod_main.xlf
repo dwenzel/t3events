@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff version="1.0">
+  <file source-language="en" datatype="plaintext" original="messages" date="2014-09-19T14:32:42Z" target-language="de">
+    <header>
+      <type>module</type>
+      <description>Language labels for backend module Events</description>
+      <generator>LFEditor</generator>
+      <authorName>Dirk Wenzel</authorName>
+      <authorEmail>dirk.wenzel@cps-it.de</authorEmail>
+    </header>
+    <body>
+      <trans-unit id="mlang_labels_tabdescr">
+        <source>List of all event modules.</source>
+        <target state="needs-translation">List of all event modules.</target>
+      </trans-unit>
+      <trans-unit id="mlang_labels_tablabel">
+        <source>Events</source>
+        <target state="needs-translation">Events</target>
+      </trans-unit>
+      <trans-unit id="mlang_tabs_tab">
+        <source>Events</source>
+        <target state="needs-translation">Events</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
