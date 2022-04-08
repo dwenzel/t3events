@@ -159,7 +159,7 @@
       <label index="label.end">Ende</label>
       <label index="label.now">Jetzt</label>
       <label index="label.start">Beginn</label>
-      <label index="plugin.combined.title">Veranstaltungei</label>
+      <label index="plugin.combined.title">Veranstaltung</label>
     </languageKey>
     <languageKey index="el"/>
     <languageKey index="eo"/>
