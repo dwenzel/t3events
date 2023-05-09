@@ -48,3 +48,10 @@ if (isset($GLOBALS['TSFE'])) {
         ->registerImplementation(\DWenzel\T3events\Session\SessionInterface::class, \DWenzel\T3events\Session\Typo3BackendSession::class);
 }
 
+
+// Register a node in ext_localconf.php
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['formEngine']['nodeRegistry'][1610471915] = [
+    'nodeName' => 'periodConstraintLegend',
+    'priority' => 40,
+    'class' => \DWenzel\T3events\Form\Element\PeriodConstraintLegendNode::class,
+];

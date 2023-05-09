@@ -210,7 +210,6 @@
               <onChange>reload</onChange>
               <config>
                 <type>select</type>
-                <renderType>selectSingle</renderType>
                 <items type="array">
                   <numIndex index="0" type="array">
                     <numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.period.all</numIndex>
@@ -237,7 +236,7 @@
               <label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.legendPeriodConstraints</label>
               <config>
                 <type>user</type>
-                <renderType>t3eventsLegendPeriodConstraints</renderType>
+                <userFunc>DWenzel\T3events\Configuration\PeriodConstraintLegend->render</userFunc>
               </config>
             </TCEforms>
           </legend>
@@ -363,7 +362,6 @@
               <onChange>reload</onChange>
               <config>
                 <type>select</type>
-                <renderType>selectSingle</renderType>
                 <items>
                   <numIndex index="0">
                     <numIndex index="0"></numIndex>
@@ -390,7 +388,6 @@
               <label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.conjunction</label>
               <config>
                 <type>select</type>
-                <renderType>selectSingle</renderType>
                 <items>
                   <numIndex index="0">
                     <numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.conjunction.or</numIndex>
@@ -470,7 +467,6 @@
               <exclude>1</exclude>
               <config>
                 <type>select</type>
-                <renderType>selectTree</renderType>
                 <autoSizeMax>50</autoSizeMax>
                 <foreign_table>sys_category</foreign_table>
                 <foreign_table_where> AND sys_category.sys_language_uid IN (-1, 0) ORDER BY sys_category.sorting ASC</foreign_table_where>
@@ -505,7 +501,6 @@
               <label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.templateLayout</label>
               <config>
                 <type>select</type>
-                <renderType>selectSingle</renderType>
                 <itemsProcFunc>DWenzel\T3events\Hooks\ItemsProcFunc->user_templateLayout</itemsProcFunc>
                 <items>
                   <numIndex index="0" type="array">
