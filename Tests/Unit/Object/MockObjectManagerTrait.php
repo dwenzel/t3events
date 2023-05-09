@@ -51,6 +51,7 @@ trait MockObjectManagerTrait
     protected function getMockObjectManager()
     {
         return $this->getMockBuilder(ObjectManager::class)
+            ->disableOriginalConstructor()
             ->setMethods(['get'])->getMock();
     }
 }

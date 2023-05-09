@@ -31,7 +31,7 @@ trait RelatedSchedulesTrait
      * related schedules
      *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Performance>
-     * @lazy
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      */
     protected $relatedSchedules;
 

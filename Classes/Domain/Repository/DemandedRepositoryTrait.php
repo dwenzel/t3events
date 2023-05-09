@@ -111,7 +111,7 @@ trait DemandedRepositoryTrait
      * @param bool $respectEnableFields
      * @return QueryInterface
      */
-    public function generateQuery(DemandInterface $demand, $respectEnableFields = true)
+    public function generateQuery(?DemandInterface $demand = null, $respectEnableFields = true)
     {
         $query = $this->createQuery();
         $constraints = $this->createConstraintsFromDemand($query, $demand);

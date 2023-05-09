@@ -4,6 +4,7 @@ namespace DWenzel\T3events\Service;
 use DWenzel\T3events\Configuration\ConfigurationManagerTrait;
 use DWenzel\T3events\Domain\Model\Notification;
 use DWenzel\T3events\Object\ObjectManagerTrait;
+use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
@@ -39,18 +40,21 @@ class NotificationService
         $body = $templateView->render();
         $recipient = GeneralUtility::trimExplode(',', $recipient, true);
 
-        /** @var $message \TYPO3\CMS\Core\Mail\MailMessage */
-        $message = $this->objectManager->get('TYPO3\\CMS\\Core\\Mail\\MailMessage');
+        /** @var $message MailMessage */
+        $message = $this->objectManager->get(MailMessage::class);
         $message->setTo($recipient)
             ->setFrom($sender)
             ->setSubject($subject);
-        $mailFormat = ($format == 'plain') ? 'text/plain' : 'text/html';
 
-        $message->setBody($body, $mailFormat);
+        if ($format === 'plain') {
+            $message->text($body);
+        } else {
+            $message->html($body);
+        }
+
         if ($attachments) {
             foreach ($attachments as $attachment) {
-                $fileToAttach = $this->buildAttachmentFromTemplate($attachment);
-                $message->attach($fileToAttach);
+                $this->buildAttachmentFromTemplate($attachment, $message);
             }
         }
         $message->send();
@@ -82,22 +86,26 @@ class NotificationService
      * @param \DWenzel\T3events\Domain\Model\Notification $notification
      * @return bool
      */
-    public function send(Notification &$notification)
+    public function send(Notification $notification)
     {
-        /** @var $message \TYPO3\CMS\Core\Mail\MailMessage */
-        $message = $this->objectManager->get('TYPO3\\CMS\\Core\\Mail\\MailMessage');
+        /** @var $message MailMessage */
+        $message = $this->objectManager->get(MailMessage::class);
         $recipients = GeneralUtility::trimExplode(',', $notification->getRecipient(), true);
 
         $message->setTo($recipients)
             ->setFrom($notification->getSenderEmail(), $notification->getSenderName())
             ->setSubject($notification->getSubject());
-        $mailFormat = ($notification->getFormat() == 'plain') ? 'text/plain' : 'text/html';
 
-        $message->setBody($notification->getBodytext(), $mailFormat);
+        if ($notification->getFormat() === 'plain') {
+            $message->text($notification->getBodytext());
+        } else {
+            $message->html($notification->getBodytext());
+        }
+
         if ($files = $notification->getAttachments()) {
             /** @var FileReference $file */
             foreach ($files as $file) {
-                $message->attach(\Swift_Attachment::fromPath($file->getOriginalResource()->getPublicUrl(true)));
+                $message->attachFromPath($file->getOriginalResource()->getPublicUrl(true));
             }
         }
         $message->send();
@@ -138,9 +146,9 @@ class NotificationService
 
     /**
      * @var array $data An array containing data for attachement generation
-     * @return \Swift_Mime_Attachment
+     * @var MailMessage $message
      */
-    protected function buildAttachmentFromTemplate($data)
+    protected function buildAttachmentFromTemplate($data, MailMessage $message): void
     {
         $attachmentView = $this->buildTemplateView(
             $data['templateName'],
@@ -149,13 +157,11 @@ class NotificationService
         );
         $attachmentView->assignMultiple($data['variables']);
         $content = $attachmentView->render();
-        $attachment = \Swift_Attachment::newInstance(
+        $message->attach(
             $content,
             $data['fileName'],
             $data['mimeType']
         );
-
-        return $attachment;
     }
 
     /**
@@ -216,7 +222,7 @@ class NotificationService
     public function duplicate(Notification $oldNotification)
     {
         /** @var Notification $notification */
-        $notification = $this->objectManager->get('\\DWenzel\\T3events\\Domain\\Model\\Notification');
+        $notification = $this->objectManager->get(Notification::class);
         $accessibleProperties = ObjectAccess::getSettablePropertyNames($notification);
         foreach ($accessibleProperties as $property) {
             ObjectAccess::setProperty(

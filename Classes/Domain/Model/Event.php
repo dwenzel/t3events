@@ -21,6 +21,9 @@ namespace DWenzel\T3events\Domain\Model;
      ***************************************************************/
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+use Doctrine\Common\Annotations\Annotation\Required;
+use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
+use DateTime;
 
 /**
  * @package t3events
@@ -38,10 +41,21 @@ class Event extends AbstractEntity
     protected $hidden;
 
     /**
+     * @var DateTime
+     */
+    protected $crdate;
+
+    /**
+     * @var DateTime
+     */
+    protected $tstamp;
+
+
+    /**
      * Enter a title.
      *
      * @var string
-     * @validate NotEmpty
+     * @Required
      */
     protected $headline;
 
@@ -72,17 +86,10 @@ class Event extends AbstractEntity
     protected $keywords;
 
     /**
-     * image
-     *
-     * @var string
-     */
-    protected $image;
-
-    /**
      * images
      *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
+     * @Lazy
      */
     protected $images;
 
@@ -90,7 +97,7 @@ class Event extends AbstractEntity
      * files
      *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
+     * @Lazy
      */
     protected $files;
 
@@ -98,14 +105,14 @@ class Event extends AbstractEntity
      * related
      *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Event>
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
+     * @Lazy
      */
     protected $related;
 
     /**
      * genre
      *
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
+     * @Lazy
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Genre>
      */
     protected $genre;
@@ -113,7 +120,7 @@ class Event extends AbstractEntity
     /**
      * venue
      *
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
+     * @Lazy
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Venue>
      */
     protected $venue;
@@ -121,7 +128,7 @@ class Event extends AbstractEntity
     /**
      * eventType
      *
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
+     * @Lazy
      * @var \DWenzel\T3events\Domain\Model\EventType
      */
     protected $eventType;
@@ -129,7 +136,7 @@ class Event extends AbstractEntity
     /**
      * performances
      *
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
+     * @Lazy
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Performance>
      */
     protected $performances;
@@ -137,7 +144,7 @@ class Event extends AbstractEntity
     /**
      * organizer
      *
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
+     * @Lazy
      * @var \DWenzel\T3events\Domain\Model\Organizer
      */
     protected $organizer;
@@ -145,7 +152,7 @@ class Event extends AbstractEntity
     /**
      * Audience
      *
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
+     * @Lazy
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Audience>
      */
     protected $audience;
@@ -161,7 +168,7 @@ class Event extends AbstractEntity
     protected $archiveDate;
 
     /**
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
+     * @Lazy
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Content>
      */
     protected $contentElements;
@@ -299,27 +306,6 @@ class Event extends AbstractEntity
     public function setKeywords($keywords)
     {
         $this->keywords = $keywords;
-    }
-
-    /**
-     * Returns the image
-     *
-     * @return string $image
-     */
-    public function getImage()
-    {
-        return $this->image;
-    }
-
-    /**
-     * Sets the image
-     *
-     * @param string $image
-     * @return void
-     */
-    public function setImage($image)
-    {
-        $this->image = $image;
     }
 
     /**
@@ -768,5 +754,35 @@ class Event extends AbstractEntity
         $this->contentElements->detach($contentElements);
     }
 
+    /**
+     * @return DateTime
+     */
+    public function getCrdate(): DateTime
+    {
+        return $this->crdate;
+    }
 
+    /**
+     * @param DateTime $crdate
+     */
+    public function setCrdate(DateTime $crdate): void
+    {
+        $this->crdate = $crdate;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getTstamp(): DateTime
+    {
+        return $this->tstamp;
+    }
+
+    /**
+     * @param DateTime $tstamp
+     */
+    public function setTstamp(DateTime $tstamp): void
+    {
+        $this->tstamp = $tstamp;
+    }
 }

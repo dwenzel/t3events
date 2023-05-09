@@ -8,6 +8,7 @@ use DWenzel\T3events\Service\ModuleDataStorageService;
 use DWenzel\T3events\Utility\SettingsInterface as SI;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
+use DWenzel\T3events\Tests\Unit\Object\MockObjectManagerTrait;
 
 /***************************************************************
  *
@@ -41,16 +42,12 @@ use TYPO3\CMS\Extbase\Object\ObjectManager;
  */
 class ModuleDataTraitTest extends UnitTestCase
 {
+    use MockObjectManagerTrait;
 
     /**
      * @var ModuleDataTrait|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $subject;
-
-    /**
-     * @var ObjectManager|\PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $objectManager;
 
     /**
      * set up
@@ -61,9 +58,7 @@ class ModuleDataTraitTest extends UnitTestCase
             ->setMethods(['getModuleKey'])
             ->getMockForTrait();
 
-        $this->objectManager = $this->getMockBuilder(ObjectManager::class)
-            ->setMethods(['get'])->getMock();
-
+        $this->objectManager = $this->getMockObjectManager();
         $this->inject($this->subject, 'objectManager', $this->objectManager);
     }
 

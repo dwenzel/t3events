@@ -42,9 +42,14 @@
                             <tr class="db_list_normal">
                                 <td nowrap="nowrap">{event.uid}</td>
                                 <td nowrap="nowrap">
-                                    <a href="#" class="t3-js-clickmenutrigger"
-                                       data-table="tx_t3events_domain_model_event" data-uid="{event.uid}"
-                                       data-listframe="0">
+                                    <a class="actions-open"
+                                       title="Edit event {event.uid}"
+                                       href="{ts:be.editUri(
+                                                table: 'tx_t3events_domain_model_event',
+                                                record: event.uid,
+                                                module: module
+                                           )}"
+                                    >
                                         {event.headline}
                                     </a>
                                 </td>
@@ -58,7 +63,9 @@
                                                 record: event.uid,
                                                 module: module
                                            )}"
-                                        >{f:translate(key: 'button.edit', default: 'button.edit')}</a>
+                                        >
+                                            <core:icon identifier="actions-open" />
+                                        </a>
                                     </div>
 
                                 </td>

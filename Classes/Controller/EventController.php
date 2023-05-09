@@ -15,9 +15,6 @@ namespace DWenzel\T3events\Controller;
  * The TYPO3 project - inspiring people to share!
  */
 
-
-use DWenzel\T3calendar\Domain\Factory\CalendarFactoryTrait;
-use DWenzel\T3calendar\Domain\Model\Dto\CalendarConfigurationFactoryTrait;
 use DWenzel\T3events\Domain\Model\Event;
 use DWenzel\T3events\Utility\SettingsInterface as SI;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
@@ -31,8 +28,7 @@ use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
  */
 class EventController extends ActionController
 {
-    use CalendarFactoryTrait, CalendarConfigurationFactoryTrait,
-        DemandTrait, EventDemandFactoryTrait,
+    use DemandTrait, EventDemandFactoryTrait,
         EventRepositoryTrait, EntityNotFoundHandlerTrait,
         EventTypeRepositoryTrait, FilterableControllerTrait,
         GenreRepositoryTrait, SearchTrait, SessionTrait,
@@ -42,7 +38,6 @@ class EventController extends ActionController
     const EVENT_QUICK_MENU_ACTION = 'quickMenuAction';
     const EVENT_LIST_ACTION = 'listAction';
     const EVENT_SHOW_ACTION = 'showAction';
-    const EVENT_CALENDAR_ACTION = 'calendarAction';
 
     /**
      * initializes all actions
@@ -57,14 +52,8 @@ class EventController extends ActionController
                 serialize($this->request->getArgument(SI::OVERWRITE_DEMAND))
             );
         }
-    }
 
-    /**
-     * initializes quick menu action
-     */
-    public function initializeQuickMenuAction()
-    {
-        if (!$this->request->hasArgument(SI::OVERWRITE_DEMAND)) {
+        if ($this->request->hasArgument(SI::RESET_DEMAND)) {
             $this->session->clean();
         }
     }
@@ -79,6 +68,10 @@ class EventController extends ActionController
      */
     public function listAction($overwriteDemand = null)
     {
+        if (!$overwriteDemand){
+            $overwriteDemand = unserialize($this->session->get('tx_t3events_overwriteDemand'), ['allowed_classes' => false]);
+        }
+
         $demand = $this->eventDemandFactory->createFromSettings($this->settings);
         $this->overwriteDemandObject($demand, $overwriteDemand);
         $events = $this->eventRepository->findDemanded($demand);

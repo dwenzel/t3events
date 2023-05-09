@@ -105,7 +105,7 @@ class TableConfiguration
      * @param string $extension Extension key containing the language files
      * @return string
      */
-    public static function getLanguageFilePath($extension = 'lang')
+    public static function getLanguageFilePath($extension = 'core')
     {
         $path = 'LLL:EXT:' . $extension . '/';
 

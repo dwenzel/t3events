@@ -40,7 +40,6 @@
       <label index="flexforms_general.maxHighlighted">Highlights count</label>
       <label index="flexforms_general.maxItems">Items count (max)</label>
       <label index="flexforms_general.mode">What to display</label>
-      <label index="flexforms_general.mode.event_calendar">Calendar</label>
       <label index="flexforms_general.mode.event_list">List/Detail</label>
       <label index="flexforms_general.mode.event_show">Detail</label>
       <label index="flexforms_general.mode.performance_list_show">List/Detail</label>
@@ -62,7 +61,6 @@
       <label index="flexforms_general.quick_menu.type.venues">Venues</label>
       <label index="flexforms_general.random">random</label>
       <label index="flexforms_general.respectEndDate">respect end date</label>
-      <label index="flexforms_general.showCalendarNavigation">Show Calendar Navigation</label>
       <label index="flexforms_general.showRadiusSearch">Show Radius Search</label>
       <label index="flexforms_general.showSearchField">Show Search Field</label>
       <label index="flexforms_general.sortBy">sort by</label>
@@ -161,7 +159,7 @@
       <label index="label.end">Ende</label>
       <label index="label.now">Jetzt</label>
       <label index="label.start">Beginn</label>
-      <label index="plugin.combined.title">Veranstaltungei</label>
+      <label index="plugin.combined.title">Veranstaltung</label>
     </languageKey>
     <languageKey index="el"/>
     <languageKey index="eo"/>

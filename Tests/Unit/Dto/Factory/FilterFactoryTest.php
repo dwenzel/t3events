@@ -5,9 +5,9 @@ namespace DWenzel\T3events\Tests\Unit\Dto\Factory;
 use DWenzel\T3events\Dto\Factory\FilterFactory;
 use DWenzel\T3events\Dto\FilterResolverInterface;
 use DWenzel\T3events\Dto\NullFilter;
+use DWenzel\T3events\Tests\Unit\Object\MockObjectManagerTrait;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 
 /***************************************************************
@@ -32,6 +32,8 @@ use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
  */
 class FilterFactoryTest extends UnitTestCase
 {
+    use MockObjectManagerTrait;
+
     /**
      * @var FilterFactory|MockObject
      */
@@ -43,22 +45,21 @@ class FilterFactoryTest extends UnitTestCase
     protected $objectManager;
 
 
+    /** @noinspection ReturnTypeCanBeDeclaredInspection */
     public function setUp()
     {
         $this->subject = new FilterFactory();
-        $this->objectManager = $this->getMockBuilder(ObjectManager::class)
-            ->setMethods(['get'])
-            ->getMock();
+        $this->objectManager = $this->getMockObjectManager();
         $this->subject->injectObjectManager($this->objectManager);
     }
 
-    public function testGetReturnsNullFilterForInvalidKey()
+    public function testGetReturnsNullFilterForInvalidKey(): void
     {
         $expectedFilter = new NullFilter();
 
         $invalidKey = 'fo0Bar4BAz';
 
-        $this->objectManager->expects($this->once())
+        $this->objectManager->expects(self::once())
             ->method('get')
             ->with(NullFilter::class)
             ->willReturn($expectedFilter);
@@ -69,7 +70,7 @@ class FilterFactoryTest extends UnitTestCase
         );
     }
 
-    public function testFilterResolverCanBeInjected()
+    public function testFilterResolverCanBeInjected(): void
     {
         $resolver = $this->getMockBuilder(FilterResolverInterface::class)
             ->getMockForAbstractClass();
@@ -81,7 +82,7 @@ class FilterFactoryTest extends UnitTestCase
         );
     }
 
-    public function testGetFilterResolverReturnsInstanceOfFilterResolverInterface()
+    public function testGetFilterResolverReturnsInstanceOfFilterResolverInterface(): void
     {
         $this->assertInstanceOf(
             FilterResolverInterface::class,

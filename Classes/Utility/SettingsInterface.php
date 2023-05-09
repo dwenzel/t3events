@@ -57,6 +57,7 @@ interface SettingsInterface
     public const MODULE_TOKEN_KEY = 'moduleToken';
     public const NOTIFICATIONS = 'notifications';
     public const OVERWRITE_DEMAND = 'overwriteDemand';
+    public const RESET_DEMAND = 'resetDemand';
     public const OBJECTS = 'objects';
     public const PAGE_RENDERER = 'pageRenderer';
     public const PAST_ONLY = 'pastOnly';

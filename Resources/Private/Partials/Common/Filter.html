@@ -95,6 +95,14 @@
                     name="submit"
                     value="{f:translate(key: 'tx_t3events.button.label.search', default: 'Suchen')}"
             />
+
+            <f:link.action
+                    noCacheHash="true"
+                    action="list"
+                    arguments="{resetDemand: 1}"
+            >
+                {f:translate(key: 'button.reset', extensionName: 't3events')}
+            </f:link.action>
         </f:form>
     </div>
 </div>

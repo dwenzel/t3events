@@ -21,6 +21,7 @@ namespace DWenzel\T3events\Domain\Model;
      ***************************************************************/
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
 
 /**
  * Notification
@@ -50,7 +51,7 @@ class Notification extends AbstractEntity
 
     /**
      * @var string $subject
-     * @validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $subject;
 
@@ -58,7 +59,7 @@ class Notification extends AbstractEntity
      * Body text
      *
      * @var string $bodytext
-     * @validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $bodytext;
 
@@ -76,7 +77,7 @@ class Notification extends AbstractEntity
 
     /**
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
+     * @Lazy
      */
     protected $attachments;
 

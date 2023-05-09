@@ -30,9 +30,6 @@ return [
         'searchFields' => 'title,',
         'iconfile' => 'EXT:t3events/Resources/Public/Icons/tx_t3events_domain_model_venue.gif'
     ],
-    'interface' => [
-        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title,link',
-    ],
     'types' => [
         '1' => [
             'showitem' => '--palette--;;paletteSys, title,link,--div--;LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tab.access,starttime, endtime'
@@ -65,7 +62,6 @@ return [
         ],
         'l10n_parent' => [
             'displayCond' => 'FIELD:sys_language_uid:>:0',
-            'exclude' => 1,
             'label' => $cll . 'LGL.l18n_parent',
             'config' => [
                 'type' => 'select',
@@ -87,14 +83,7 @@ return [
                 'type' => 'passthrough',
             ],
         ],
-        't3ver_label' => [
-            'label' => $cll . 'LGL.versionLabel',
-            'config' => [
-                'type' => 'input',
-                'size' => 30,
-                'max' => 255,
-            ]
-        ],
+
         'hidden' => [
             'exclude' => 1,
             'label' => $cll . 'LGL.hidden',

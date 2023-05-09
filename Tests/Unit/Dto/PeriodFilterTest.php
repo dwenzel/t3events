@@ -4,9 +4,10 @@ namespace DWenzel\T3events\Tests\Unit\Dto;
 
 use DWenzel\T3events\Dto\FilterInterface;
 use DWenzel\T3events\Dto\PeriodFilter;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 use DWenzel\T3events\Utility\SettingsInterface as SI;
+use PHPUnit\Framework\TestCase;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -27,13 +28,14 @@ use DWenzel\T3events\Utility\SettingsInterface as SI;
 /**
  * Class PeriodFilterTest
  */
-class PeriodFilterTest extends UnitTestCase
+class PeriodFilterTest extends TestCase
 {
     /**
      * @var PeriodFilter|MockObject
      */
     protected $subject;
 
+    /** @noinspection ReturnTypeCanBeDeclaredInspection */
     public function setUp()
     {
         $this->subject = $this->getMockBuilder(PeriodFilter::class)
@@ -41,30 +43,28 @@ class PeriodFilterTest extends UnitTestCase
             ->getMock();
     }
 
-    public function testClassImplementsFilterInterface()
+    public function testClassImplementsFilterInterface(): void
     {
-        $this->assertInstanceOf(
+        self::assertInstanceOf(
             FilterInterface::class,
             $this->subject
         );
     }
 
-    public function testGetOptionsReturnsIterable()
+    public function testGetOptionsReturnsIterable(): void
     {
-        $this->assertTrue(
-            is_iterable($this->subject->getOptions())
-        );
+        self::assertIsIterable($this->subject->getOptions());
     }
 
-    public function testCountInitiallyReturnsZero()
+    public function testCountInitiallyReturnsZero(): void
     {
-        $this->assertSame(
+        self::assertSame(
             0,
             $this->subject->count()
         );
     }
 
-    public function testConfigureSetsDefaultOptionsForEmptyConfiguration()
+    public function testConfigureSetsDefaultOptionsForEmptyConfiguration(): void
     {
         $configuration = [];
 
@@ -72,30 +72,21 @@ class PeriodFilterTest extends UnitTestCase
         $expectedKeys = PeriodFilter::DEFAULT_OPTION_KEYS;
         $expectedCount = count($expectedKeys);
 
-        $expectedArguments = [];
-        foreach ($expectedKeys as $key) {
-            $expectedArguments[] = [
-                PeriodFilter::PREFIX_OPTION_LABEL_KEY . $key, SI::EXTENSION_KEY
-            ];
-        }
-        $this->subject->expects($this->exactly($expectedCount))
+        $this->subject->expects(self::exactly($expectedCount))
             ->method('translate')
-            ->withConsecutive(
-                $this->returnValueMap($expectedArguments)
-            )
             ->willReturn($translatedLabel);
 
         $this->subject->configure($configuration);
 
         $generatedOptions = $this->subject->getOptions();
 
-        $this->assertCount(
+        self::assertCount(
             $expectedCount,
             $generatedOptions
         );
     }
 
-    public function testConfigureSetsOptionsFromConfiguration()
+    public function testConfigureSetsOptionsFromConfiguration(): void
     {
         $configuration = ['foo,bar'];
 
@@ -108,18 +99,15 @@ class PeriodFilterTest extends UnitTestCase
                 PeriodFilter::PREFIX_OPTION_LABEL_KEY . $key, SI::EXTENSION_KEY
             ];
         }
-        $this->subject->expects($this->exactly($expectedCount))
+        $this->subject->expects(self::exactly($expectedCount))
             ->method('translate')
-            ->withConsecutive(
-                $this->returnValueMap($expectedArguments)
-            )
             ->willReturn($translatedLabel);
 
         $this->subject->configure($configuration);
 
         $generatedOptions = $this->subject->getOptions();
 
-        $this->assertCount(
+        self::assertCount(
             $expectedCount,
             $generatedOptions
         );

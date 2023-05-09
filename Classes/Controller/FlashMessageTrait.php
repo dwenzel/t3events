@@ -2,8 +2,10 @@
 namespace DWenzel\T3events\Controller;
 
 use DWenzel\T3events\Configuration\ConfigurationManagerTrait;
+use DWenzel\T3extensionTools\Service\ExtensionService;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Core\Messaging\FlashMessageQueue;
+use TYPO3\CMS\Core\Messaging\FlashMessageService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
@@ -34,7 +36,6 @@ trait FlashMessageTrait
 
     /**
      * @var \TYPO3\CMS\Core\Messaging\FlashMessageService
-     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $flashMessageService;
 
@@ -43,6 +44,16 @@ trait FlashMessageTrait
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $extensionService;
+
+    public function injectFlashMessageService(FlashMessageService $flashMessageService)
+    {
+        $this->flashMessageService = $flashMessageService;
+    }
+
+    public function injectExtensionService(ExtensionService $extensionService)
+    {
+        $this->extensionService = $extensionService;
+    }
 
     /**
      * Creates a Message object and adds it to the FlashMessageQueue.
@@ -84,17 +95,5 @@ trait FlashMessageTrait
         }
 
         return $this->flashMessageQueue;
-    }
-
-    /**
-     * @deprecated since TYPO3 6.1, will be removed 2 versions later
-     * @return boolean
-     */
-    public function useLegacyFlashMessageHandling()
-    {
-        return (boolean) ObjectAccess::getPropertyPath(
-            $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK),
-            'legacy.enableLegacyFlashMessageHandling'
-        );
     }
 }

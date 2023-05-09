@@ -4,6 +4,7 @@ namespace DWenzel\T3events\Domain\Model;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
+use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
 
 /***************************************************************
  *  Copyright notice
@@ -39,8 +40,7 @@ class Person extends AbstractEntity
      * email
      *
      * @var string
-     * @validate EmailAddress
-     * @optional
+     * @TYPO3\CMS\Extbase\Annotation\Validate("EmailAddress")
      */
     protected $email = '';
 
@@ -97,7 +97,7 @@ class Person extends AbstractEntity
 
     /**
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
+     * @Lazy
      */
     protected $images;
 
@@ -107,6 +107,16 @@ class Person extends AbstractEntity
     public function initializeObject()
     {
         $this->images = new ObjectStorage();
+    }
+
+    /**
+     * Setter for the pid.
+     *
+     * @param int|null $pid
+     */
+    public function setPid(?int $pid): void
+    {
+        $this->pid = $pid;
     }
 
     /**

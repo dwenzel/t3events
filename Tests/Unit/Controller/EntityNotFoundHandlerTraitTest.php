@@ -95,7 +95,7 @@ class EntityNotFoundHandlerTraitTest extends UnitTestCase
      */
     public function handleEntityNotFoundErrorConfigurationRedirectsToListView()
     {
-        $this->subject->expects($this->once())
+        $this->subject->expects(self::once())
             ->method(SI::REDIRECT)
             ->with('list');
         $this->subject->handleEntityNotFoundError('redirectToListView');
@@ -110,7 +110,7 @@ class EntityNotFoundHandlerTraitTest extends UnitTestCase
             TypoScriptFrontendController::class,
             ['pageNotFoundAndExit'], [], '', false);
         $GLOBALS['TSFE'] = $mockFrontendController;
-        $mockFrontendController->expects($this->once())
+        $mockFrontendController->expects(self::once())
             ->method('pageNotFoundAndExit')
             ->with($this->subject->getEntityNotFoundMessage());
         $this->subject->handleEntityNotFoundError('pageNotFoundHandler');
@@ -147,7 +147,7 @@ class EntityNotFoundHandlerTraitTest extends UnitTestCase
             'uriBuilder',
             $mockUriBuilder
         );
-        $mockUriBuilder->expects($this->once())
+        $mockUriBuilder->expects(self::once())
             ->method('setTargetPageUid')
             ->with('55');
         $this->subject->handleEntityNotFoundError('redirectToPage, 55');
@@ -165,10 +165,10 @@ class EntityNotFoundHandlerTraitTest extends UnitTestCase
             'uriBuilder',
             $mockUriBuilder
         );
-        $mockUriBuilder->expects($this->once())
+        $mockUriBuilder->expects(self::once())
             ->method('setTargetPageUid')
             ->with('1');
-        $this->subject->expects($this->once())
+        $this->subject->expects(self::once())
             ->method('redirectToUri')
             ->with(null, 0, '301');
         $this->subject->handleEntityNotFoundError('redirectToPage, 1, 301');
@@ -191,15 +191,15 @@ class EntityNotFoundHandlerTraitTest extends UnitTestCase
             'uriBuilder',
             $mockUriBuilder
         );
-        $this->subject->expects($this->once())
+        $this->subject->expects(self::once())
             ->method('isSSLEnabled')
-            ->will($this->returnValue(true));
-        $mockUriBuilder->expects($this->once())
+            ->will(self::returnValue(true));
+        $mockUriBuilder->expects(self::once())
             ->method('setAbsoluteUriScheme')
             ->with('https');
-        /*        $mockUriBuilder->expects($this->once())
+        /*        $mockUriBuilder->expects(self::once())
                     ->method('build');
-                $this->subject->expects($this->once())
+                $this->subject->expects(self::once())
                     ->method('redirectToUri')
                     ->with(null, 0, '301');*/
         $this->subject->handleEntityNotFoundError('redirectToPage, 1, 301');
@@ -218,9 +218,7 @@ class EntityNotFoundHandlerTraitTest extends UnitTestCase
             $mockRequest
         );
 
-        $mockDispatcher = $this->getAccessibleMock(
-            Dispatcher::class, ['dispatch']
-        );
+        $mockDispatcher = $this->getMockDispatcher();
         $config = 'foo';
         $expectedParams = [
             SI::CONFIG => GeneralUtility::trimExplode(',', $config),
@@ -235,15 +233,15 @@ class EntityNotFoundHandlerTraitTest extends UnitTestCase
             'signalSlotDispatcher',
             $mockDispatcher
         );
-        $mockDispatcher->expects($this->once())
+        $mockDispatcher->expects(self::once())
             ->method('dispatch')
             ->with(
                 \get_class($this->subject),
                 'handleEntityNotFoundError',
                 [$expectedParams]
             )
-            ->will($this->returnValue($slotResult));
-        $this->subject->expects($this->once())
+            ->will(self::returnValue($slotResult));
+        $this->subject->expects(self::once())
             ->method('redirectToUri')
             ->with('foo');
         $this->subject->handleEntityNotFoundError($config);
@@ -255,9 +253,7 @@ class EntityNotFoundHandlerTraitTest extends UnitTestCase
     public function handleEntityNotFoundErrorRedirectsIfSignalSetsRedirect()
     {
         $mockRequest = $this->getMockBuilder(Request::class)->getMock();
-        $mockDispatcher = $this->getAccessibleMock(
-            Dispatcher::class, ['dispatch']
-        );
+        $mockDispatcher = $this->getMockDispatcher();
         $config = 'foo';
         $expectedParams = [
             SI::CONFIG => GeneralUtility::trimExplode(',', $config),
@@ -277,17 +273,17 @@ class EntityNotFoundHandlerTraitTest extends UnitTestCase
                 ]
             ]
         ];
-        $mockDispatcher->expects($this->once())
+        $mockDispatcher->expects(self::once())
             ->method('dispatch')
             ->with(
                 \get_class($this->subject),
                 'handleEntityNotFoundError',
                 [$expectedParams]
             )
-            ->will($this->returnValue($slotResult));
+            ->will(self::returnValue($slotResult));
         $this->inject($this->subject, 'signalSlotDispatcher', $mockDispatcher);
         $this->inject($this->subject, 'request', $mockRequest);
-        $this->subject->expects($this->once())
+        $this->subject->expects(self::once())
             ->method(SI::REDIRECT)
             ->with(
                 $slotResult[0][SI::REDIRECT][SI::ACTION_NAME],
@@ -328,14 +324,14 @@ class EntityNotFoundHandlerTraitTest extends UnitTestCase
         /** @var Request|\PHPUnit_Framework_MockObject_MockObject $mockRequest */
         $mockRequest = $this->getMockBuilder(Request::class)
             ->setMethods(['getControllerName', 'getControllerActionName'])->getMock();
-        $mockRequest->expects($this->once())
+        $mockRequest->expects(self::once())
             ->method('getControllerName')
-            ->will($this->returnValue($controllerName));
-        $mockRequest->expects($this->once())
+            ->will(self::returnValue($controllerName));
+        $mockRequest->expects(self::once())
             ->method('getControllerActionName')
-            ->will($this->returnValue($actionName));
+            ->will(self::returnValue($actionName));
 
-        $subject->expects($this->once())
+        $subject->expects(self::once())
             ->method('handleEntityNotFoundError')
             ->with($errorHandlingConfig);
 
@@ -349,9 +345,7 @@ class EntityNotFoundHandlerTraitTest extends UnitTestCase
     {
         /** @var Request|\PHPUnit_Framework_MockObject_MockObject $mockRequest */
         $mockRequest = $this->getMockBuilder(Request::class)->getMock();
-        $mockDispatcher = $this->getAccessibleMock(
-            Dispatcher::class, ['dispatch']
-        );
+        $mockDispatcher = $this->getMockDispatcher();
         $config = 'foo';
         $expectedParams = [
             SI::CONFIG => GeneralUtility::trimExplode(',', $config),
@@ -367,17 +361,17 @@ class EntityNotFoundHandlerTraitTest extends UnitTestCase
                     SI::ARGUMENTS => ['foo']]
             ]
         ];
-        $mockDispatcher->expects($this->once())
+        $mockDispatcher->expects(self::once())
             ->method('dispatch')
             ->with(
                 get_class($this->subject),
                 'handleEntityNotFoundError',
                 [$expectedParams]
             )
-            ->will($this->returnValue($slotResult));
+            ->will(self::returnValue($slotResult));
         $this->inject($this->subject, 'signalSlotDispatcher', $mockDispatcher);
         $this->inject($this->subject, 'request', $mockRequest);
-        $this->subject->expects($this->once())
+        $this->subject->expects(self::once())
             ->method(SI::FORWARD)
             ->with(
                 $slotResult[0][SI::FORWARD][SI::ACTION_NAME],
@@ -386,5 +380,17 @@ class EntityNotFoundHandlerTraitTest extends UnitTestCase
                 $slotResult[0][SI::FORWARD][SI::ARGUMENTS]
             );
         $this->subject->handleEntityNotFoundError($config);
+    }
+
+    /**
+     * @return \PHPUnit\Framework\MockObject\MockObject
+     */
+    protected function getMockDispatcher(): \PHPUnit\Framework\MockObject\MockObject
+    {
+        $mockDispatcher = $this->getMockBuilder(Dispatcher::class)
+            ->disableOriginalConstructor()
+            ->setMethods(['dispatch'])
+            ->getMock();
+        return $mockDispatcher;
     }
 }

@@ -15,7 +15,6 @@ namespace DWenzel\T3events\Controller;
  * The TYPO3 project - inspiring people to share!
  */
 
-use DWenzel\T3calendar\Domain\Model\Dto\CalendarConfigurationFactoryTrait;
 use DWenzel\T3events\Domain\Model\Dto\PerformanceDemand;
 use DWenzel\T3events\Domain\Model\Performance;
 use DWenzel\T3events\Domain\Repository\EventTypeRepository;
@@ -35,7 +34,7 @@ class PerformanceController
     extends ActionController
     implements FilterableControllerInterface
 {
-    use CategoryRepositoryTrait, CalendarConfigurationFactoryTrait,
+    use CategoryRepositoryTrait,
         DemandTrait, EntityNotFoundHandlerTrait, FilterableControllerTrait,
         PerformanceDemandFactoryTrait, SearchTrait, SessionTrait,
         SettingsUtilityTrait, TranslateTrait;
@@ -43,7 +42,6 @@ class PerformanceController
     const PERFORMANCE_LIST_ACTION = 'listAction';
     const PERFORMANCE_QUICK_MENU_ACTION = 'quickMenuAction';
     const PERFORMANCE_SHOW_ACTION = 'showAction';
-    const PERFORMANCE_CALENDAR_ACTION = 'calendarAction';
     const SESSION_NAME_SPACE = 'performanceController';
 
     /**
@@ -88,7 +86,6 @@ class PerformanceController
      */
     public function __construct()
     {
-        parent::__construct();
         $this->namespace = get_class($this);
     }
 
@@ -169,14 +166,8 @@ class PerformanceController
                 serialize($this->request->getArgument(SI::OVERWRITE_DEMAND))
             );
         }
-    }
 
-    /**
-     * initializes quick menu action
-     */
-    public function initializeQuickMenuAction()
-    {
-        if (!$this->request->hasArgument(SI::OVERWRITE_DEMAND)) {
+        if ($this->request->hasArgument(SI::RESET_DEMAND)) {
             $this->session->clean();
         }
     }
@@ -191,6 +182,10 @@ class PerformanceController
      */
     public function listAction(array $overwriteDemand = null)
     {
+        if (!$overwriteDemand){
+            $overwriteDemand = unserialize($this->session->get('tx_t3events_overwriteDemand'), ['allowed_classes' => false]);
+        }
+
         $demand = $this->performanceDemandFactory->createFromSettings($this->settings);
         $this->overwriteDemandObject($demand, $overwriteDemand);
         $performances = $this->performanceRepository->findDemanded($demand);
@@ -257,31 +252,6 @@ class PerformanceController
         $this->view->assignMultiple(
             $templateVariables
         );
-    }
-
-    /**
-     * Calendar action
-     * @param array $overwriteDemand
-     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
-     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException
-     */
-    public function calendarAction(array $overwriteDemand = null)
-    {
-        $demand = $this->performanceDemandFactory->createFromSettings($this->settings);
-        $this->overwriteDemandObject($demand, $overwriteDemand);
-        $performances = $this->performanceRepository->findDemanded($demand);
-
-        $calendarConfiguration = $this->calendarConfigurationFactory->create($this->settings);
-
-        $templateVariables = [
-            'performances' => $performances,
-            'demand' => $demand,
-            'calendarConfiguration' => $calendarConfiguration,
-            SI::OVERWRITE_DEMAND => $overwriteDemand
-        ];
-
-        $this->emitSignal(__CLASS__, self::PERFORMANCE_CALENDAR_ACTION, $templateVariables);
-        $this->view->assignMultiple($templateVariables);
     }
 
     /**

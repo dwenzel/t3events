@@ -7,7 +7,6 @@ use DWenzel\T3events\ViewHelpers\Be\EditUriViewHelper;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Backend\Routing\UriBuilder;
-use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 
 /***************************************************************
  *  Copyright notice

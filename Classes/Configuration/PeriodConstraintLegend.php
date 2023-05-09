@@ -1,6 +1,7 @@
 <?php
 namespace DWenzel\T3events\Configuration;
 
+use TYPO3\CMS\Backend\Form\NodeInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Lang\LanguageService;
 use DWenzel\T3events\DataProvider\Legend\LayeredLegendDataProviderInterface;
@@ -41,6 +42,13 @@ class PeriodConstraintLegend extends VectorImage
     const END_POINT_KEY = 'label.end';
     const START_TEXT_LAYER_ID = 'text-start-text';
     const END_TEXT_LAYER_ID = 'text-end-text';
+    const DOM_VERSION_DEFAULT = '';
+    const DOM_ENCODING_DEFAULT = '';
+
+    public function __construct()
+    {
+        parent::__construct(self::DOM_VERSION_DEFAULT, self::DOM_ENCODING_DEFAULT);
+    }
 
     /**
      * @var LayeredLegendDataProviderInterface
@@ -54,12 +62,11 @@ class PeriodConstraintLegend extends VectorImage
 
     /**
      * @param array $params
-     * @param \TYPO3\CMS\Backend\Form\Element\UserElement $parentObject
      * @return string
      * @throws MissingFileException
      * @throws \DWenzel\T3events\InvalidConfigurationException
      */
-    public function render($params, $parentObject = null)
+    public function render(array $params, NodeInterface $parentObject = null)
     {
         $this->initialize($params);
         $this->updateLayers();
