@@ -17,15 +17,8 @@ use TYPO3\CMS\Extbase\Mvc\ResponseInterface;
  */
 trait ModuleDataTrait
 {
-    /**
-     * @var \DWenzel\T3events\Domain\Model\Dto\ModuleData
-     */
-    protected $moduleData;
-
-    /**
-     * @var \DWenzel\T3events\Service\ModuleDataStorageService
-     */
-    protected $moduleDataStorageService;
+    protected ModuleData $moduleData;
+    protected ModuleDataStorageService $moduleDataStorageService;
 
     /**
      * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface

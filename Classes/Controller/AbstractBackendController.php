@@ -15,10 +15,9 @@ use Psr\Http\Message\ResponseInterface;
  *
  * @package DWenzel\T3events\Controller
  */
-class AbstractBackendController extends ActionController
+abstract class AbstractBackendController extends ActionController
 {
-    protected ModuleDataStorageService $moduleDataStorageService;
-    protected ModuleData $moduleData;
+    use ModuleDataTrait;
 
     public function __construct(ModuleDataStorageService $moduleDataStorageService) {
         $this->moduleDataStorageService = $moduleDataStorageService;

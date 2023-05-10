@@ -30,14 +30,13 @@ abstract class Event extends DefaultRegistration implements ModuleRegistrationIn
 {
     use ModuleRegistrationTrait;
 
-    static protected $subModuleName = 'm1';
-    static protected $controllerActions = [
+    static protected string $subModuleName = 'm1';
+    static protected array $controllerActions = [
         EventController::class => 'list, show, reset, new',
     ];
-    static protected $moduleConfiguration = [
+    static protected array $moduleConfiguration = [
         'access' => 'user,group',
         'icon' => 'EXT:t3events/Resources/Public/Icons/calendar.svg',
         'labels' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_mod_main.xlf',
     ];
-
 }

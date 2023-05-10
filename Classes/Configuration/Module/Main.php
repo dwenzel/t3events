@@ -26,7 +26,7 @@ class Main extends DefaultRegistration implements ModuleRegistrationInterface
     use ModuleRegistrationTrait;
 
     static protected $subModuleName = '';
-    static protected $mainModuleName = 'events';
+    static protected string $mainModuleName = 'events';
     static protected $controllerActions = [];
     static protected $moduleConfiguration = [
         'access' => 'user,group',
