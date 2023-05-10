@@ -2,10 +2,13 @@
 
 namespace DWenzel\T3events\Controller;
 
+use DWenzel\T3events\Domain\Model\Dto\ModuleData;
+use DWenzel\T3events\Service\ModuleDataStorageService;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\Exception\StopActionException;
+use TYPO3\CMS\Extbase\Mvc\Exception\UnsupportedRequestTypeException;
 use TYPO3\CMS\Extbase\Mvc\RequestInterface;
-use TYPO3\CMS\Extbase\Mvc\ResponseInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Class AbstractBackendController
@@ -14,25 +17,27 @@ use TYPO3\CMS\Extbase\Mvc\ResponseInterface;
  */
 class AbstractBackendController extends ActionController
 {
+    protected ModuleDataStorageService $moduleDataStorageService;
+    protected ModuleData $moduleData;
+
+    public function __construct(ModuleDataStorageService $moduleDataStorageService) {
+        $this->moduleDataStorageService = $moduleDataStorageService;
+    }
     /**
      * Load and persist module data
-     *
-     * @param \TYPO3\CMS\Extbase\Mvc\RequestInterface $request
-     * @param \TYPO3\CMS\Extbase\Mvc\ResponseInterface $response
-     * @return void
-     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\StopActionException
-     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\UnsupportedRequestTypeException
      */
-    public function processRequest(RequestInterface $request, ResponseInterface $response)
+    public function processRequest(RequestInterface $request): ResponseInterface
     {
         $this->moduleData = $this->moduleDataStorageService->loadModuleData($this->getModuleKey());
 
         try {
-            parent::processRequest($request, $response);
+            $response = parent::processRequest($request);
             $this->moduleDataStorageService->persistModuleData($this->moduleData, $this->getModuleKey());
         } catch (StopActionException $e) {
             $this->moduleDataStorageService->persistModuleData($this->moduleData, $this->getModuleKey());
             throw $e;
         }
+
+        return $response;
     }
 }
