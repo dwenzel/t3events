@@ -14,6 +14,7 @@ namespace DWenzel\T3events\Domain\Repository;
 use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
 use DWenzel\T3events\Domain\Model\Dto\SearchAwareDemandInterface;
 use DWenzel\T3events\UnsupportedMethodException;
+use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 
@@ -120,7 +121,8 @@ trait DemandedRepositoryTrait
             $query->getQuerySettings()->setIgnoreEnableFields(true);
         }
         // Call hook functions for additional constraints
-        if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXT']['t3events']['Domain/Repository/AbstractDemandedRepository.php']['findDemanded'])) {
+        if (ArrayUtility::isValidPath($GLOBALS['TYPO3_CONF_VARS']['EXT'],'t3events:Domain/Repository/AbstractDemandedRepository.php:findDemanded', ':')
+            && is_array($GLOBALS['TYPO3_CONF_VARS']['EXT']['t3events']['Domain/Repository/AbstractDemandedRepository.php']['findDemanded'])) {
             $params = [
                 'demand' => &$demand,
                 'respectEnableFields' => &$respectEnableFields,

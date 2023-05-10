@@ -52,10 +52,10 @@ class ItemsProcFunc
     public function user_templateLayout(array &$config)
     {
         $pageId = null;
-        if (is_numeric($config['row']['pid'])) {
+        if (!empty($config['row']['pid']) && is_numeric($config['row']['pid'])) {
             $pageId = $config['row']['pid'];
         }
-        if (is_numeric($config['flexParentDatabaseRow']['pid'])) {
+        if (!empty($config['flexParentDatabaseRow']['pid']) && is_numeric($config['flexParentDatabaseRow']['pid'])) {
             $pageId = $config['flexParentDatabaseRow']['pid'];
         }
 

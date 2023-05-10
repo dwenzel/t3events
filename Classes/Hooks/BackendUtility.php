@@ -11,6 +11,8 @@ namespace DWenzel\T3events\Hooks;
  * LICENSE.txt file that was distributed with this source code.
  * The TYPO3 project - inspiring people to share!
  */
+
+use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -93,7 +95,7 @@ class BackendUtility
             $flexformSelection = $row['pi_flexform'];
         }
         if (is_array($flexformSelection) && is_array($flexformSelection['data'])) {
-            $selectedView = $flexformSelection['data']['sDEF']['lDEF']['switchableControllerActions']['vDEF'];
+            $selectedView = $flexformSelection['data']['sDEF']['lDEF']['switchableControllerActions']['vDEF'] ?? '';
             if (!empty($selectedView)) {
                 $actionParts = GeneralUtility::trimExplode(';', $selectedView, true);
                 $selectedView = $actionParts[0];
@@ -121,7 +123,9 @@ class BackendUtility
 
             }
 
-            if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXT']['t3events']['Hooks/BackendUtility.php']['updateFlexforms'])) {
+
+            if (ArrayUtility::isValidPath($GLOBALS['TYPO3_CONF_VARS']['EXT'], 't3events/Hooks/BackendUtility.php/updateFlexforms')
+                && is_array($GLOBALS['TYPO3_CONF_VARS']['EXT']['t3events']['Hooks/BackendUtility.php']['updateFlexforms'])) {
                 $params = array(
                     'selectedView' => $selectedView,
                     'dataStructure' => &$dataStructure,

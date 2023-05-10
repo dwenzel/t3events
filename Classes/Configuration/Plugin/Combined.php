@@ -49,5 +49,6 @@ abstract class Combined implements PluginConfigurationInterface
         PerformanceController::class => 'quickMenu',
     ];
 
+    static protected string $extensionName = ExtensionConfiguration::EXTENSION_KEY;
     static protected string $vendorExtensionName = ExtensionConfiguration::VENDOR . '.' . ExtensionConfiguration::EXTENSION_KEY;
 }
