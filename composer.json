@@ -18,12 +18,13 @@
   ],
   "require": {
     "php": "^7.2",
-    "typo3/cms-core": ">=9.5.0 || ^10.4",
-    "typo3/cms-fluid": "^9.5 || ^10.4",
+    "typo3/cms-core": "^11.5",
+    "typo3/cms-fluid": "^11.5",
     "dwenzel/t3extension-tools": "dev-feature/version10compatible"
   },
   "require-dev": {
-    "nimut/testing-framework": "^4.0 || ^5.1",
+    "roave/security-advisories": "dev-latest",
+    "nimut/testing-framework": "^6.0",
     "phpunit/phpunit": " ^7.0",
     "codeclimate/php-test-reporter": "dev-master"
   },
