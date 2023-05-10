@@ -1,80 +1,77 @@
 {namespace ts=DWenzel\T3events\ViewHelpers}
 
-<f:layout name="Default" />
+<f:layout name="Default"/>
 
 This Template is responsible for creating a list of events.
 
 <f:section name="main">
-	<f:if condition="{settings.debug.settings}">
-		<f:debug title="settings">{settings}</f:debug>
-	</f:if>
-	<f:if condition="{settings.debug.list.events}">
-		<f:debug title="events">{events}</f:debug>
-	</f:if>
-	<f:if condition="{settings.debug.list.demand}">
-		<f:debug title="demand">{demand}</f:debug>
-	</f:if>
-	<f:flashMessages  />
-	<div class="eventList">
-		<f:if condition="{settings.event.list.showSortBy}">
-			<f:if condition="{events}">
-				<span class="hint"><f:translate key="tx_t3events.hint.sortBy" /></span>
-				<f:form
-					noCacheHash="TRUE"
-					noCache="TRUE"
-					id="tx_t3eventsSortBy"
-					name="overwriteDemand"
-					action="list"
-					>
-					<fieldset>
-						<legend>Sorting</legend>
-						<f:if condition="{demand.genre}">
-							<f:form.hidden name="overwriteDemand[genre]" value="{demand.genre}" />
-						</f:if>
-						<f:form.radio name="overwriteDemand[sortBy]" value="performances.date" checked="{0: demand.sortBy}=={0: 'performances.date'}" />
-						<label>
-							<f:translate key="tx_t3events.date" />
-						</label>
-						<f:form.radio name="overwriteDemand[sortBy]" value="headline" checked="{0: demand.sortBy}=={0: 'headline'}" />
-						<label>
-							<f:translate key="tx_t3events_domain_model_event.headline" />
-						</label>
+    <f:if condition="{settings.debug.settings}">
+        <f:debug title="settings">{settings}</f:debug>
+    </f:if>
+    <f:if condition="{settings.debug.list.events}">
+        <f:debug title="events">{events}</f:debug>
+    </f:if>
+    <f:if condition="{settings.debug.list.demand}">
+        <f:debug title="demand">{demand}</f:debug>
+    </f:if>
+    <f:flashMessages/>
+    <div class="eventList">
+        <f:if condition="{settings.event.list.showSortBy}">
+            <f:if condition="{events}">
+                <span class="hint"><f:translate key="tx_t3events.hint.sortBy"/></span>
+                <f:form
+                        noCache="TRUE"
+                        id="tx_t3eventsSortBy"
+                        name="overwriteDemand"
+                        action="list"
+                >
+                    <fieldset>
+                        <legend>Sorting</legend>
+                        <f:if condition="{demand.genre}">
+                            <f:form.hidden name="overwriteDemand[genre]" value="{demand.genre}"/>
+                        </f:if>
+                        <f:form.radio name="overwriteDemand[sortBy]" value="performances.date"
+                                      checked="{0: demand.sortBy}=={0: 'performances.date'}"/>
+                        <label>
+                            <f:translate key="tx_t3events.date"/>
+                        </label>
+                        <f:form.radio name="overwriteDemand[sortBy]" value="headline"
+                                      checked="{0: demand.sortBy}=={0: 'headline'}"/>
+                        <label>
+                            <f:translate key="tx_t3events_domain_model_event.headline"/>
+                        </label>
 
-						<f:form.radio name="overwriteDemand[sortDirection]" value="asc" checked="{0: demand.sortDirection}=={0: 'asc'}" />
-						<label>
-							<f:translate key="tx_t3events.sortDirection.asc" />
-						</label>
-						<f:form.radio name="overwriteDemand[sortDirection]" value="desc" checked="{0: demand.sortDirection}=={0: 'desc'}" />
-						<label>
-							<f:translate key="tx_t3events.sortDirection.desc" />
-						</label>
+                        <f:form.radio name="overwriteDemand[sortDirection]" value="asc"
+                                      checked="{0: demand.sortDirection}=={0: 'asc'}"/>
+                        <label>
+                            <f:translate key="tx_t3events.sortDirection.asc"/>
+                        </label>
+                        <f:form.radio name="overwriteDemand[sortDirection]" value="desc"
+                                      checked="{0: demand.sortDirection}=={0: 'desc'}"/>
+                        <label>
+                            <f:translate key="tx_t3events.sortDirection.desc"/>
+                        </label>
 
-						<f:form.submit
-							class="submit"
-							name="submit"
-							value="{f:translate(key: 'tx_t3events.button.label.update', default: 'Aktualisieren')}"
-							/>
-					</fieldset>
-				</f:form>
-			</f:if>
-		</f:if>
-		<f:if condition="{settings.event.list.paginate}">
-			<f:then>
-				<f:widget.paginate
-					objects="{events}"
-					as="paginatedEvents"
-					configuration="{itemsPerPage: 5, insertAbove: 0, insertBelow: 1}"
-					>
-					<f:for each="{paginatedEvents}" as="event">
-						<f:render partial="Event/ListItem" arguments="{event: event}" />
-					</f:for>
-				</f:widget.paginate>
-			</f:then>
-			<f:else>
-				<f:for each="{events}" as="event">
-					<f:render partial="Event/ListItem" arguments="{event: event}" />
-				</f:for>
-			</f:else>
-		</f:if>
-	</div>
+                        <f:form.submit
+                                class="submit"
+                                name="submit"
+                                value="{f:translate(key: 'tx_t3events.button.label.update', default: 'Aktualisieren')}"
+                        />
+                    </fieldset>
+                </f:form>
+            </f:if>
+        </f:if>
+        <f:if condition="{settings.event.list.paginate}">
+            <f:then>
+                <f:for each="{paginatedEvents}" as="event">
+                    <f:render partial="Event/ListItem" arguments="{event: event}"/>
+                </f:for>
+            </f:then>
+            <f:else>
+                <f:for each="{events}" as="event">
+                    <f:render partial="Event/ListItem" arguments="{event: event}"/>
+                </f:for>
+            </f:else>
+        </f:if>
+    </div>
 </f:section>
