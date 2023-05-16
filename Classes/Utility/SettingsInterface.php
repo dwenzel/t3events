@@ -116,7 +116,7 @@ interface SettingsInterface
     public const TABLE_TICKET_CLASS = 'tx_t3events_domain_model_ticketclass';
     public const TRANSLATION_FILE_PATH = 'EXT:t3events/Resources/Private/Language/';
     public const TRANSLATION_FILE_FRONTEND = 'LLL:EXT:t3events/Resources/Private/Language/locallang.xlf';
-    public const TRANSLATION_FILE_BACKEND = 'LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml';
+    public const TRANSLATION_FILE_BACKEND = 'LLL:EXT:t3events/Resources/Private/Language/locallang_be.xlf';
     public const TRANSLATION_FILE_DB = 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf';
     public const VENUES = 'venues';
     public const FILTER_OPTIONS = 'filterOptions';

@@ -62,9 +62,9 @@ class ExtensionConfiguration extends \DWenzel\T3extensionTools\Configuration\Ext
     ];
 
     protected const DESCRIPTION_FILE_PREFIX = SI::TRANSLATION_FILE_PATH . 'locallang_csh_tx_t3events_domain_model_';
-    protected const DESCRIPTION_FILE_SUFFIX = '.xml';
+    protected const DESCRIPTION_FILE_SUFFIX = '.xlf';
     public const LOCALIZED_TABLE_DESCRIPTION = [
-        'tt_content.pi_flexform.t3events_events.list' => 'EXT:t3events/Resources/Private/Language/locallang_csh_flexform.xml',
+        'tt_content.pi_flexform.t3events_events.list' => 'EXT:t3events/Resources/Private/Language/locallang_csh_flexform.xlf',
         SI::TABLE_AUDIENCE => self::DESCRIPTION_FILE_PREFIX . 'audience' . self::DESCRIPTION_FILE_SUFFIX,
         SI::TABLE_COMPANY => self::DESCRIPTION_FILE_PREFIX . 'company' . self::DESCRIPTION_FILE_SUFFIX,
         SI::TABLE_EVENTS => self::DESCRIPTION_FILE_PREFIX . 'event' . self::DESCRIPTION_FILE_SUFFIX,

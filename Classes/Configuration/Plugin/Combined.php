@@ -37,7 +37,7 @@ abstract class Combined implements PluginConfigurationInterface
 
     static protected string $pluginName = 'Events';
     static protected string $pluginSignature = 't3events_events';
-    static protected string $pluginTitle = 'LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:plugin.combined.title';
+    static protected string $pluginTitle = 'LLL:EXT:t3events/Resources/Private/Language/locallang_be.xlf:plugin.combined.title';
     static protected string $flexForm = 'FILE:EXT:t3events/Configuration/FlexForms/flexform_events.xml';
     static protected array $controllerActions = [
         EventController::class => 'list, show, quickMenu',
