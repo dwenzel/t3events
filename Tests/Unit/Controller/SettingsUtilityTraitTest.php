@@ -1,6 +1,6 @@
 <?php
 
-namespace DWenzel\T3events\Tests\Controller;
+namespace DWenzel\T3events\Tests\Unit\Controller;
 
 use DWenzel\T3events\Controller\SettingsUtilityTrait;
 use DWenzel\T3events\Utility\SettingsUtility;
@@ -36,7 +36,7 @@ class SettingsUtilityTraitTest extends UnitTestCase
     /**
      * set up
      */
-    public function setUp()
+    protected function setUp(): void
     {
         $this->fixture = $this->getMockBuilder(SettingsUtilityTrait::class)
             ->getMockForTrait();

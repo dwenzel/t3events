@@ -1,6 +1,6 @@
 <?php
 
-namespace DWenzel\T3events\Tests\Controller\Backend;
+namespace DWenzel\T3events\Tests\Unit\Controller\Backend;
 
 use DWenzel\T3events\Controller\Backend\FormTrait;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
@@ -20,7 +20,7 @@ class FormTraitTest extends UnitTestCase
     /**
      * set up
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->subject = $this->getMockForTrait(FormTrait::class);
         $this->setBackupGlobals(true);

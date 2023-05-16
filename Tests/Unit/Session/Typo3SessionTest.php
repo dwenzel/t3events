@@ -46,7 +46,7 @@ class Typo3SessionTest extends UnitTestCase
     /**
      *
      */
-    public function setUp()
+    protected function setUp(): void
     {
         $this->subject = $this->getAccessibleMock(
             Typo3Session::class, ['dummy'], [], '', false);

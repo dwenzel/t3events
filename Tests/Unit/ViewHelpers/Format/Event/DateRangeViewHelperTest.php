@@ -1,6 +1,6 @@
 <?php
 
-namespace DWenzel\T3events\Tests\ViewHelpers\Location;
+namespace DWenzel\T3events\Tests\Unit\ViewHelpers\Location;
 
 /**
  * This file is part of the "Events" project.
@@ -33,7 +33,7 @@ class DateRangeViewHelperTest extends UnitTestCase
     /**
      * set up
      */
-    public function setUp()
+    protected function setUp(): void
     {
         $this->subject = $this->getAccessibleMock(
             DateRangeViewHelper::class, ['initialize']

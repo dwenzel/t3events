@@ -38,7 +38,7 @@ class TableConfigurationTest extends UnitTestCase
      */
     protected $subject;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->subject = new TableConfiguration();
     }

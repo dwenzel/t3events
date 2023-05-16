@@ -1,18 +1,13 @@
 <?php
-namespace DWenzel\T3events\Tests\Controller;
+namespace DWenzel\T3events\Tests\Unit\Controller;
 
 use DWenzel\T3events\Tests\Unit\Object\MockObjectManagerTrait;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use DWenzel\T3events\Controller\DownloadTrait;
+use PHPUnit\Framework\TestCase;
 use TYPO3\CMS\Core\Resource\Driver\LocalDriver;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Mvc\Web\Response;
-/**
- * Class DownloadTraitTest
- *
- * @package DWenzel\T3events\Tests\Controller
- */
-class DownloadTraitTest extends UnitTestCase
+class DownloadTraitTest extends TestCase
 {
     use MockObjectManagerTrait;
 
@@ -29,7 +24,7 @@ class DownloadTraitTest extends UnitTestCase
     /**
      * set up
      */
-    public function setUp()
+    protected function setUp(): void
     {
         $this->subject = $this->getMockForTrait(
             DownloadTrait::class

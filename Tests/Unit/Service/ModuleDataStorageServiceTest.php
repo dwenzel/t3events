@@ -43,7 +43,7 @@ class ModuleDataStorageServiceTest extends UnitTestCase
      */
     protected $subject;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $GLOBALS['BE_USER'] = $this->mockBackendUserAuthentication();
         $this->subject = $this->getAccessibleMock(

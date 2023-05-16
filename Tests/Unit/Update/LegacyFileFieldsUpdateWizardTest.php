@@ -36,7 +36,7 @@ class LegacyFileFieldsUpdateWizardTest extends TestCase
      */
     protected $output;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->subject = new LegacyFileFieldsUpdateWizard();
         $this->output = $this->getMockForAbstractClass(OutputInterface::class);

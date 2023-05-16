@@ -1,14 +1,8 @@
 <?php
 
-namespace DWenzel\T3events\Tests\Controller;
+namespace DWenzel\T3events\Tests\Unit\Controller;
 
-use DWenzel\T3events\Controller\AbstractBackendController;
-use DWenzel\T3events\Domain\Repository\AudienceRepository;
-use DWenzel\T3events\Domain\Repository\CompanyRepository;
-use DWenzel\T3events\Domain\Repository\EventTypeRepository;
-use DWenzel\T3events\Domain\Repository\GenreRepository;
-use DWenzel\T3events\Domain\Repository\VenueRepository;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use PHPUnit\Framework\TestCase;
 
 /***************************************************************
  *
@@ -34,28 +28,11 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-class AbstractBackendControllerTest extends UnitTestCase
+class AbstractBackendControllerTest extends TestCase
 {
 
-    /**
-     * @var AbstractBackendController
-     */
-    protected $subject;
-
-    /**
-     * set up
-     */
-    protected function setUp()
+    public function testDummy(): void
     {
-        $this->subject = $this->getAccessibleMock(
-            AbstractBackendController::class, ['dummy'], [], '', false
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function dummy() {
         $this->markTestIncomplete();
     }
 }

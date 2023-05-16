@@ -59,7 +59,7 @@ class PerformanceRepositoryTest extends UnitTestCase
     /**
      *
      */
-    public function setUp()
+    protected function setUp(): void
     {
         $this->subject = $this->getAccessibleMock(
             PerformanceRepository::class,

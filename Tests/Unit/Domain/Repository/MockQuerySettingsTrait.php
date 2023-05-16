@@ -4,7 +4,6 @@ namespace DWenzel\T3events\Tests\Unit\Domain\Repository;
 use PHPUnit\Framework\MockObject\MockBuilder;
 use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Extbase\Persistence\Generic\QuerySettingsInterface;
-use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 
 /***************************************************************
  *  Copyright notice
@@ -32,7 +31,7 @@ trait MockQuerySettingsTrait
      *
      * @return MockBuilder
      */
-    abstract public function getMockBuilder($className);
+    abstract public function getMockBuilder(string $className): MockBuilder;
 
     /**
      * @param array $methods Methods to mock

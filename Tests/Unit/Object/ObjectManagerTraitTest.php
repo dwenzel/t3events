@@ -1,7 +1,6 @@
 <?php
 namespace DWenzel\T3events\Tests\Unit\Object;
 
-use DWenzel\T3events\Object\ObjectManagerTrait;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 
@@ -33,7 +32,7 @@ class ObjectManagerTraitTest extends UnitTestCase
     /**
      * set up
      */
-    public function setUp()
+    protected function setUp(): void
     {
         $this->subject = $this->getMockForTrait(
             ObjectManagerTrait::class

@@ -36,7 +36,7 @@ class PeriodFilterTest extends TestCase
     protected $subject;
 
     /** @noinspection ReturnTypeCanBeDeclaredInspection */
-    public function setUp()
+    protected function setUp(): void
     {
         $this->subject = $this->getMockBuilder(PeriodFilter::class)
             ->setMethods(['translate'])

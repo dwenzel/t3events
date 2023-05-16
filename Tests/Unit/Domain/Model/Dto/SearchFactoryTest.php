@@ -39,7 +39,7 @@ class SearchFactoryTest extends UnitTestCase
     /**
      * set up
      */
-    public function setUp()
+    protected function setUp(): void
     {
         $this->subject = $this->getAccessibleMock(
             SearchFactory::class, ['dummy']

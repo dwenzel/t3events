@@ -1,6 +1,6 @@
 <?php
 
-namespace DWenzel\T3events\Tests\Controller;
+namespace DWenzel\T3events\Tests\Unit\Controller;
 
 use DWenzel\T3events\Controller\GenreRepositoryTrait;
 use DWenzel\T3events\Domain\Repository\GenreRepository;
@@ -33,7 +33,7 @@ class GenreRepositoryTraitTest extends UnitTestCase
     /**
      * set up subject
      */
-    public function setUp()
+    protected function setUp(): void
     {
         $this->subject = $this->getMockForTrait(
             GenreRepositoryTrait::class

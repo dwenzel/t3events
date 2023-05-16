@@ -40,12 +40,12 @@ class AbstractDemandTest extends \Nimut\TestingFramework\TestCase\UnitTestCase
      */
     protected $fixture;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->fixture = new \DWenzel\T3events\Domain\Model\Dto\AbstractDemand();
     }
 
-    public function tearDown()
+    protected function tearDown(): void
     {
         unset($this->fixture);
     }

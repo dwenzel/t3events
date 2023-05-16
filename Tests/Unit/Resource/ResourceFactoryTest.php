@@ -1,6 +1,6 @@
 <?php
 
-namespace DWenzel\T3events\Tests\Resource;
+namespace DWenzel\T3events\Tests\Unit\Resource;
 
 use DWenzel\T3events\Resource\ResourceFactory;
 use DWenzel\T3events\Tests\Unit\Object\MockObjectManagerTrait;
@@ -48,7 +48,7 @@ class ResourceFactoryTest extends UnitTestCase
     /**
      * set up
      */
-    public function setUp()
+    protected function setUp(): void
     {
         $this->subject = $this->getMockBuilder(ResourceFactory::class)
             ->disableOriginalConstructor()

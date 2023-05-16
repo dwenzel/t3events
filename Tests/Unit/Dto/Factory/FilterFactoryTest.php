@@ -46,7 +46,7 @@ class FilterFactoryTest extends UnitTestCase
 
 
     /** @noinspection ReturnTypeCanBeDeclaredInspection */
-    public function setUp()
+    protected function setUp(): void
     {
         $this->subject = new FilterFactory();
         $this->objectManager = $this->getMockObjectManager();

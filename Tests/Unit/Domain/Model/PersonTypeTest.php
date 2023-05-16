@@ -40,7 +40,7 @@ class PersonTypeTest extends UnitTestCase
      */
     protected $subject = null;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->subject = new PersonType();
     }

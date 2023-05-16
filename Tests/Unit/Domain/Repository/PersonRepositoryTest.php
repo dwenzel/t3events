@@ -39,7 +39,7 @@ class PersonRepositoryTest extends UnitTestCase
      */
     protected $fixture;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->fixture = $this->getAccessibleMock(
             PersonRepository::class,

@@ -34,7 +34,7 @@ class AbstractPeriodDataProviderTest extends UnitTestCase
     /**
      * set up
      */
-    public function setUp()
+    protected function setUp(): void
     {
         $this->subject = $this->getAccessibleMockForAbstractClass(AbstractPeriodDataProvider::class);
     }

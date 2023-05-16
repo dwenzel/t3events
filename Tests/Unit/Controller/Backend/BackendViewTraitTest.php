@@ -20,6 +20,7 @@ namespace DWenzel\T3events\Tests\Unit\Controller\Backend;
  ***************************************************************/
 
 use DWenzel\T3events\Controller\Backend\BackendViewTrait;
+use DWenzel\T3events\InvalidRequestException;
 use DWenzel\T3events\Utility\SettingsInterface;
 use DWenzel\T3events\View\ConfigurableViewInterface;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
@@ -65,34 +66,34 @@ class BackendViewTraitTest extends UnitTestCase
     /**
      * set up subject
      */
-    public function setUp()
+    protected function setUp(): void
     {
         $this->subject = $this->getMockBuilder(BackendViewTrait::class)
-            ->setMethods(['getViewProperty', 'getConfigurationManager'])
+            ->addMethods(['getViewProperty'])
             ->getMockForTrait();
 
         $this->configurationManager = $this->getMockBuilder(ConfigurationManager::class)
             ->disableOriginalConstructor()
-            ->setMethods(['getConfiguration'])
+            ->onlyMethods(['getConfiguration'])
             ->getMock();
         $this->subject->method('getConfigurationManager')
             ->willReturn($this->configurationManager);
         $this->pageRenderer = $this->getMockBuilder(PageRenderer::class)
             ->disableOriginalConstructor()
-            ->setMethods(['addRequireJsConfiguration', 'loadRequireJsModule'])
+            ->onlyMethods(['addRequireJsConfiguration', 'loadRequireJsModule'])
             ->getMock();
         $this->moduleTemplate = $this->getMockBuilder(ModuleTemplate::class)
             ->disableOriginalConstructor()
-            ->setMethods(['getPageRenderer'])
+            ->onlyMethods(['getPageRenderer'])
             ->getMock();
-        $this->moduleTemplate->expects($this->any())
+        $this->moduleTemplate
             ->method('getPageRenderer')
             ->willReturn($this->pageRenderer);
 
         $this->view = $this->getMockBuilder(BackendTemplateView::class)
-            ->setMethods(['getModuleTemplate'])
+            ->onlyMethods(['getModuleTemplate'])
             ->getMock();
-        $this->view->expects($this->any())
+        $this->view
             ->method('getModuleTemplate')
             ->willReturn($this->moduleTemplate);
     }
@@ -100,7 +101,7 @@ class BackendViewTraitTest extends UnitTestCase
     /**
      * @test
      */
-    public function initializeViewAppliesSettingsToInstancesOfConfigurableViewInterface()
+    public function initializeViewAppliesSettingsToInstancesOfConfigurableViewInterface(): void
     {
         $settings = [
             ConfigurableViewInterface::SETTINGS_KEY => ['foo']
@@ -113,7 +114,7 @@ class BackendViewTraitTest extends UnitTestCase
         );
         /** @var ConfigurableViewInterface|ViewInterface|\PHPUnit_Framework_MockObject_MockObject $mockView */
         $mockView = $this->getMockBuilder(ConfigurableViewInterface::class)
-            ->setMethods(['apply'])
+            ->onlyMethods(['apply'])
             ->getMockForAbstractClass();
         $mockView->expects($this->once())->method('apply')
             ->with($settings[ConfigurableViewInterface::SETTINGS_KEY]);
@@ -125,7 +126,7 @@ class BackendViewTraitTest extends UnitTestCase
      * Data provider for invalid RequireJs settings
      * @return array
      */
-    public function initializeViewIgnoresInvalidSettingsForRequireJsDataProvider()
+    public function initializeViewIgnoresInvalidSettingsForRequireJsDataProvider(): array
     {
         return [
             'empty configuration' => [[]]
@@ -147,8 +148,11 @@ class BackendViewTraitTest extends UnitTestCase
      * @param array $configuration
      * @dataProvider initializeViewIgnoresInvalidSettingsForRequireJsDataProvider
      */
-    public function initializeViewIgnoresInvalidSettingsForRequireJs(array $configuration)
+    public function initializeViewIgnoresInvalidSettingsForRequireJs(array $configuration): void
     {
+        $this->markAsRisky();
+        //$this->expectException(InvalidRequestException::class);
+        //$this->expectExceptionCode(1684167963);
         $frameWorkConfiguration = ['bar'];
         $this->configurationManager->expects($this->once())
             ->method('getConfiguration')
@@ -167,7 +171,7 @@ class BackendViewTraitTest extends UnitTestCase
     /**
      * Data provider for valid RequireJs settings
      */
-    public function initializeViewAddsRequireJsConfigurationFromSettingsDataProvider()
+    public function initializeViewAddsRequireJsConfigurationFromSettingsDataProvider(): array
     {
         return [
             'register 1 namespace and 0 modules' => [
@@ -220,8 +224,12 @@ class BackendViewTraitTest extends UnitTestCase
      * @param integer $moduleCount Expected number of modules
      * @dataProvider initializeViewAddsRequireJsConfigurationFromSettingsDataProvider
      */
-    public function initializeViewAddsRequireJsConfigurationFromSettings(array $configuration, $configurationCount, $moduleCount)
+    public function initializeViewAddsRequireJsConfigurationFromSettings(array $configuration, $configurationCount, $moduleCount): void
     {
+        $this->markAsRisky();
+        //$this->expectException(InvalidRequestException::class);
+        //$this->expectExceptionCode(1684167963);
+
         $frameWorkConfiguration = ['bar'];
         $this->configurationManager->expects($this->once())
             ->method('getConfiguration')

@@ -38,7 +38,7 @@ class PerformanceStatusRepositoryTest extends UnitTestCase
      */
     protected $fixture;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->fixture = $this->getAccessibleMock(
             PerformanceStatusRepository::class,

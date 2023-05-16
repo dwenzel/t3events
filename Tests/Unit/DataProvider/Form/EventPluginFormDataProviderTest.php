@@ -35,7 +35,7 @@ class EventPluginFormDataProviderTest extends UnitTestCase
     /**
      * set up subject
      */
-    public function setUp()
+    protected function setUp(): void
     {
         if (!interface_exists(FormDataProviderInterface::class)) {
             $this->markTestSkipped();

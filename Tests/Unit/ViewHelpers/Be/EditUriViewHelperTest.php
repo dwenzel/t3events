@@ -40,7 +40,7 @@ class EditUriViewHelperTest extends UnitTestCase
      */
     protected $uriBuilder;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->subject = $this->getMockBuilder(EditUriViewHelper::class)
             ->setMethods(['registerArgument', 'getUriBuilder'])

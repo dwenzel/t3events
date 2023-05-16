@@ -35,8 +35,6 @@ use DWenzel\T3events\Session\SessionInterface;
 use DWenzel\T3events\Tests\Unit\Object\MockObjectManagerTrait;
 use DWenzel\T3events\Utility\SettingsInterface as SI;
 use DWenzel\T3events\Utility\SettingsUtility;
-use Nimut\TestingFramework\MockObject\AccessibleMockObjectInterface;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Mvc\Request;
@@ -45,6 +43,7 @@ use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 use TYPO3\CMS\Fluid\View\TemplateView;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Test case for class \DWenzel\T3events\Controller\PerformanceController.
@@ -57,7 +56,7 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
  * @author Michael Kasten <kasten@webfox01.de>
  * @coversDefaultClass \DWenzel\T3events\Controller\PerformanceController
  */
-class PerformanceControllerTest extends UnitTestCase
+class PerformanceControllerTest extends TestCase
 {
     use MockObjectManagerTrait;
 
@@ -96,7 +95,7 @@ class PerformanceControllerTest extends UnitTestCase
      */
     protected $session;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->subject = $this->getAccessibleMock(PerformanceController::class,
             ['dummy', 'emitSignal', 'createSearchObject'], [], '', false);

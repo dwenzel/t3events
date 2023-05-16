@@ -1,5 +1,5 @@
 <?php
-namespace DWenzel\T3events\Tests\Resource;
+namespace DWenzel\T3events\Tests\Unit\Resource;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use DWenzel\T3events\Resource\VectorImage;
@@ -28,7 +28,7 @@ class VectorImageTest extends UnitTestCase
      */
     protected $subject;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->subject = $this->getAccessibleMock(
             \DWenzel\T3events\Resource\VectorImage::class, ['dummy'], [], '', true

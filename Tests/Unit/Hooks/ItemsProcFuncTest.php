@@ -40,7 +40,7 @@ class ItemsProcFuncTest extends UnitTestCase
     /**
      *  set up
      */
-    public function setUp()
+    protected function setUp(): void
     {
         $this->subject = $this->getAccessibleMock(
             ItemsProcFunc::class, ['dummy', 'getLanguageService'], [], '', false

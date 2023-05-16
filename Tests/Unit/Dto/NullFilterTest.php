@@ -33,7 +33,7 @@ class NullFilterTest extends UnitTestCase
      */
     protected $subject;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->subject = new NullFilter();
     }

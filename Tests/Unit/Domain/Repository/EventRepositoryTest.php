@@ -48,7 +48,7 @@ class EventRepositoryTest extends UnitTestCase
      */
     protected $fixture;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->fixture = $this->getAccessibleMock(EventRepository::class,
             array('dummy'), array(), '', false);

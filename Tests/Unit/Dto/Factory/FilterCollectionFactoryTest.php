@@ -55,7 +55,7 @@ class FilterCollectionFactoryTest extends UnitTestCase
      */
     protected $filterCollection;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->subject = new FilterCollectionFactory();
         $this->objectManager = $this->getMockObjectManager();

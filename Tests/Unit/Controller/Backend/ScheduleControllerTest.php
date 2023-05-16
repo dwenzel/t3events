@@ -56,7 +56,7 @@ class ScheduleControllerTest extends UnitTestCase
     /**
      * set up
      */
-    public function setUp()
+    protected function setUp(): void
     {
         $this->subject = $this->getMockBuilder(ScheduleController::class)
             ->setMethods(

@@ -31,7 +31,7 @@ trait MockQueryTrait
      *
      * @return MockBuilder
      */
-    abstract public function getMockBuilder($className);
+    abstract public function getMockBuilder(string $className): MockBuilder;
 
     /**
      * @return QueryInterface|MockObject

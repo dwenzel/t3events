@@ -35,7 +35,7 @@ class ButtonDemandCollectionTest extends UnitTestCase
     /**
      * set up
      */
-    public function setUp()
+    protected function setUp(): void
     {
         $this->subject = new ButtonDemandCollection();
     }
