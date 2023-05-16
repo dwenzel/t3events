@@ -63,7 +63,8 @@ This Template is responsible for creating a list of events.
         </f:if>
         <f:if condition="{settings.event.list.paginate}">
             <f:then>
-                <f:for each="{paginatedEvents}" as="event">
+                <f:comment><!--Todo: replace pagination widget with partial--></f:comment>
+                <f:for each="{event}" as="event">
                     <f:render partial="Event/ListItem" arguments="{event: event}"/>
                 </f:for>
             </f:then>
