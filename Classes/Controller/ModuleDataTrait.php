@@ -21,11 +21,6 @@ trait ModuleDataTrait
     protected ModuleDataStorageService $moduleDataStorageService;
 
     /**
-     * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
-     */
-    protected $objectManager;
-
-    /**
      * @var array
      */
     protected $settings;
@@ -83,7 +78,7 @@ trait ModuleDataTrait
      */
     public function resetAction()
     {
-        $this->moduleData = $this->objectManager->get(ModuleData::class);
+        $this->moduleData = GeneralUtility::makeInstance(ModuleData::class);
         $this->moduleDataStorageService->persistModuleData($this->moduleData, $this->getModuleKey());
         $this->forward('list');
     }
