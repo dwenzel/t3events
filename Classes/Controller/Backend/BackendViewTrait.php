@@ -21,13 +21,16 @@ namespace DWenzel\T3events\Controller\Backend;
 
 use DWenzel\T3events\Configuration\ConfigurationManagerTrait;
 use DWenzel\T3events\Domain\Model\Dto\ButtonDemandCollection;
+use DWenzel\T3events\InvalidRequestException;
 use DWenzel\T3events\Utility\SettingsInterface;
 use DWenzel\T3events\View\ConfigurableViewInterface;
 use TYPO3\CMS\Backend\Template\Components\ButtonBar;
 use TYPO3\CMS\Backend\View\BackendTemplateView;
+use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Imaging\IconFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Extbase\Mvc\Request;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
@@ -57,6 +60,18 @@ trait BackendViewTrait
      * @var UriBuilder
      */
     protected $uriBuilder;
+
+    /**
+     * @var Request
+     */
+    protected $request;
+
+    /**
+     * The current view, as resolved by resolveView()
+     *
+     * @var ViewInterface
+     */
+    protected $view;
 
     /**
      * @return ConfigurationManagerInterface
@@ -100,7 +115,8 @@ trait BackendViewTrait
         $modulesToLoad = [];
         foreach ($rendererConfiguration[SettingsInterface::REQUIRE_JS] as $identifier => $config) {
             $configuration[SettingsInterface::PATHS][$identifier] = $config[SettingsInterface::PATH];
-            if (\is_array($config[SettingsInterface::MODULES])) {
+            if (isset($config[SettingsInterface::MODULES])
+            && \is_array($config[SettingsInterface::MODULES])) {
                 foreach ($config[SettingsInterface::MODULES] as $module) {
                     $modulesToLoad[] = $identifier . SettingsInterface::PATH_SEPARATOR . $module;
                 }
@@ -115,11 +131,18 @@ trait BackendViewTrait
 
     /**
      * Get an UriBuilder for the current request
+     * @throws InvalidRequestException
      */
     protected function getUriBuilder()
     {
+        if(!$this->request instanceof Request) {
+            throw new InvalidRequestException(
+                'Object requires a properly initialized member variable $request',
+                1684167963
+            );
+        }
         if (!$this->uriBuilder instanceof UriBuilder) {
-            $this->uriBuilder = $this->objectManager->get(UriBuilder::class);
+            $this->uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
             $this->uriBuilder->setRequest($this->request);
         }
         return $this->uriBuilder;
@@ -144,7 +167,7 @@ trait BackendViewTrait
             return $this->view->getModuleTemplate()->getDocHeaderComponent()->getButtonBar();
         }
 
-        return $this->objectManager->get(ButtonBar::class);
+        return GeneralUtility::makeInstance(ButtonBar::class);
     }
 
     /**
