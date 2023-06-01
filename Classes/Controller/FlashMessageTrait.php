@@ -2,7 +2,7 @@
 namespace DWenzel\T3events\Controller;
 
 use DWenzel\T3events\Configuration\ConfigurationManagerTrait;
-use DWenzel\T3extensionTools\Service\ExtensionService;
+use TYPO3\CMS\Extbase\Service\ExtensionService;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Core\Messaging\FlashMessageQueue;
 use TYPO3\CMS\Core\Messaging\FlashMessageService;
@@ -84,16 +84,22 @@ trait FlashMessageTrait
     }
 
     /**
-     * @return FlashMessageQueue
+     * todo: As soon as the incoming request contains the compiled plugin namespace, extbase will offer a trait to
+     *       create a flash message identifier from the current request. Users then should inject the flash message
+     *       service themselves if needed.
+     *
+     * @internal only to be used within Extbase, not part of TYPO3 Core API.
      */
-    public function getFlashMessageQueue()
+    public function getFlashMessageQueue(string $identifier = null): FlashMessageQueue
     {
-        if (!$this->flashMessageQueue instanceof FlashMessageQueue) {
-                $this->flashMessageQueue = $this->flashMessageService->getMessageQueueByIdentifier(
-                    'extbase.flashmessages.' . $this->extensionService->getPluginNamespace($this->request->getControllerExtensionName(), $this->request->getPluginName())
-                );
+        if ($identifier === null) {
+            $pluginNamespace = $this->internalExtensionService->getPluginNamespace(
+                $this->request->getControllerExtensionName(),
+                $this->request->getPluginName()
+            );
+            $identifier = 'extbase.flashmessages.' . $pluginNamespace;
         }
 
-        return $this->flashMessageQueue;
+        return $this->internalFlashMessageService->getMessageQueueByIdentifier($identifier);
     }
 }
