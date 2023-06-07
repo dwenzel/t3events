@@ -4,12 +4,17 @@ namespace DWenzel\T3events\Service;
 use DWenzel\T3events\Configuration\ConfigurationManagerTrait;
 use DWenzel\T3events\Domain\Model\Notification;
 use DWenzel\T3events\Object\ObjectManagerTrait;
+use TYPO3\CMS\Core\Core\Environment;
+use TYPO3\CMS\Core\Mail\FluidEmail;
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
+use TYPO3\CMS\Fluid\Core\Rendering\RenderingContextFactory;
 use TYPO3\CMS\Fluid\View\StandaloneView;
+use TYPO3\CMS\Fluid\View\TemplatePaths;
 
 /**
  * Class NotificationService
@@ -66,13 +71,14 @@ class NotificationService
      * Renders the body of a notification using a given template
      *
      * @param string $templateName
-     * @param string $folderName
      * @param string|null $format
+     * @param string $folderName
      * @param array $variables
      * @return string
      */
-    public function render($templateName, $folderName, $format = null, $variables = [])
+    public function render($templateName, $format = null, $folderName, $variables = [])
     {
+        
         $templateView = $this->buildTemplateView($templateName, $format, $folderName);
         $templateView->assignMultiple($variables);
 
@@ -105,7 +111,7 @@ class NotificationService
         if ($files = $notification->getAttachments()) {
             /** @var FileReference $file */
             foreach ($files as $file) {
-                $message->attachFromPath($file->getOriginalResource()->getPublicUrl(true));
+                $message->attachFromPath(Environment::getPublicPath() . $file->getOriginalResource()->getPublicUrl(true));
             }
         }
         $message->send();
@@ -129,6 +135,14 @@ class NotificationService
      */
     protected function buildTemplateView($templateName, $format = null, $folderName = null)
     {
+        /*$templatePaths = $this->getMailTemplatePaths();
+        $emailView = GeneralUtility::makeInstance(StandaloneView::class);
+        $emailView->getRenderingContext()->setTemplatePaths($templatePaths);
+        $emailView->setTemplate( $format . '/' . $templateName);
+        if ($format === 'plain') {
+            $emailView->setFormat('txt');
+        }*/
+
         /** @var \TYPO3\CMS\Fluid\View\StandaloneView $emailView */
         $emailView = $this->objectManager->get(StandaloneView::class);
         $emailView->setTemplatePathAndFilename(
@@ -142,6 +156,28 @@ class NotificationService
         }
 
         return $emailView;
+    }
+
+    /**
+     * Returns an instance of TemplatePaths with paths configured in felogin TypoScript and
+     * paths configured in $GLOBALS['TYPO3_CONF_VARS']['MAIL'].
+     */
+    public function getMailTemplatePaths(): TemplatePaths
+    {
+        $pathArray = array_replace_recursive(
+            [
+                'layoutRootPaths'   => $GLOBALS['TYPO3_CONF_VARS']['MAIL']['layoutRootPaths'],
+                'templateRootPaths' => $GLOBALS['TYPO3_CONF_VARS']['MAIL']['templateRootPaths'],
+                'partialRootPaths'  => $GLOBALS['TYPO3_CONF_VARS']['MAIL']['partialRootPaths'],
+            ],
+            [
+                'layoutRootPaths'   => $this->getLayoutRootPaths(),
+                'templateRootPaths' => $this->getTemplateRootPaths(),
+                'partialRootPaths'  => $this->getPartialRootPaths(),
+            ]
+        );
+
+        return new TemplatePaths($pathArray);
     }
 
     /**

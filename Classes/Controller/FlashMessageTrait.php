@@ -83,23 +83,5 @@ trait FlashMessageTrait
         $this->getFlashMessageQueue()->enqueue($flashMessage);
     }
 
-    /**
-     * todo: As soon as the incoming request contains the compiled plugin namespace, extbase will offer a trait to
-     *       create a flash message identifier from the current request. Users then should inject the flash message
-     *       service themselves if needed.
-     *
-     * @internal only to be used within Extbase, not part of TYPO3 Core API.
-     */
-    public function getFlashMessageQueue(string $identifier = null): FlashMessageQueue
-    {
-        if ($identifier === null) {
-            $pluginNamespace = $this->internalExtensionService->getPluginNamespace(
-                $this->request->getControllerExtensionName(),
-                $this->request->getPluginName()
-            );
-            $identifier = 'extbase.flashmessages.' . $pluginNamespace;
-        }
-
-        return $this->internalFlashMessageService->getMessageQueueByIdentifier($identifier);
-    }
+    
 }
