@@ -76,9 +76,8 @@ class NotificationService
      * @param array $variables
      * @return string
      */
-    public function render($templateName, $format = null, $folderName, $variables = [])
+    public function render($templateName, string $format = null, $folderName, $variables = [])
     {
-        
         $templateView = $this->buildTemplateView($templateName, $format, $folderName);
         $templateView->assignMultiple($variables);
 
