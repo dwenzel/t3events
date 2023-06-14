@@ -51,7 +51,9 @@ class FilterCollection implements Iterator, Countable
 
     /**
      * Moves to the next storage entry.
+     * @todo: Set return type to void in v12 as breaking patch and drop #[\ReturnTypeWillChange]
      */
+    #[\ReturnTypeWillChange]
     public function next()
     {
         next($this->storage);
@@ -63,7 +65,9 @@ class FilterCollection implements Iterator, Countable
      * The key is an object hash
      *
      * @return int
+     * @todo: Set return type to mixed in v12 as breaking patch and drop #[\ReturnTypeWillChange]
      */
+    #[\ReturnTypeWillChange]
     public function key()
     {
         return key($this->storage);
@@ -72,7 +76,9 @@ class FilterCollection implements Iterator, Countable
     /**
      * Checks if the pointer of the storage points to a valid position
      * @return bool
+     * @todo: Set return type to bool in v12 as breaking patch and drop #[\ReturnTypeWillChange]
      */
+    #[\ReturnTypeWillChange]
     public function valid()
     {
         return current($this->storage) !== false;
@@ -80,7 +86,9 @@ class FilterCollection implements Iterator, Countable
 
     /**
      * Rewinds to the first storage element
+     * @todo: Set return type to void in v12 as breaking patch and drop #[\ReturnTypeWillChange]
      */
+    #[\ReturnTypeWillChange]
     public function rewind()
     {
         reset($this->storage);
