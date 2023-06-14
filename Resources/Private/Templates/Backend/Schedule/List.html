@@ -17,8 +17,12 @@
     <f:flashMessages/>
 
     <f:comment>Paginated list</f:comment>
+    
     <f:if condition="{performances}">
         <f:then>
+            <f:if condition="{settings.event.list.paginate.insertAbove}">
+                <f:render partial="Backend/Pagination" arguments="{pagination: pagination, paginator: pagination.paginator}" />
+            </f:if>
             <div class="panel panel-space panel-default recordlist">
                 <table class="table table-striped table-hover typo3-dblist ">
                     <thead>
@@ -32,7 +36,7 @@
                         <th class="col-control"></th>
                     </tr>
                     </thead>
-                    <f:for each="{paginatedPerformances}" as="schedule">
+                    <f:for each="{paginator.paginatedItems}" as="schedule">
                         <tr class="db_list_normal">
                             <td nowrap="nowrap">{schedule.uid}</td>
                             <td nowrap="nowrap">
@@ -62,6 +66,9 @@
                     </f:for>
                 </table>
             </div>
+            <f:if condition="{settings.event.list.paginate.insertBelow}">
+                <f:render partial="Backend/Pagination" arguments="{pagination: pagination, paginator: pagination.paginator}" />
+            </f:if>
         </f:then>
     </f:if>
 </f:section>

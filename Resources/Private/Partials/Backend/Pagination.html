@@ -1,0 +1,80 @@
+<f:if condition="{paginator.numberOfPages} > 1">
+    <div class="b-pagination">
+        <nav class="c-pagination" aria-label="{f:translate(key: 'pagination')}">
+            <ol class="pagination">
+                <f:if condition="{pagination.previousPageNumber} && {pagination.previousPageNumber} >= {pagination.firstPageNumber}">
+                    <li class="previous">
+                        <a class=""
+                           href="{f:uri.action(action: actionName, arguments: {currentPage: pagination.previousPageNumber}, addQueryString: 1)}"
+                        >
+                        <f:translate key="tx_t3events.previous" extensionName="t3events"/>
+                        </a>
+                    </li>
+                </f:if>
+                <f:if condition="{pagination.displayRangeStart} > 1">
+                    <li class="first">
+                        <a class=""
+                           href="{f:uri.page()}"
+                        >
+                            1
+                        </a>
+                    </li>
+                </f:if>
+                <f:if condition="{pagination.hasLessPages}">
+                    <li><span>...</span></li>
+                </f:if>
+                <f:for each="{pagination.allPageNumbers}" as="page">
+                    <f:if condition="{page} == {paginator.currentPageNumber}">
+                        <f:then>
+                            <li class="current">
+                                    {page}
+                                </a>
+                            </li>
+                        </f:then>
+                        <f:else>
+                            <li class="">
+                                <f:if condition="{page} > 1">
+                                    <f:then>
+                                        <a class=""
+                                           href="{f:uri.action(action: actionName, arguments: {currentPage: page}, addQueryString: 1)}"
+                                        >
+                                            {page}
+                                        </a>
+                                    </f:then>
+                                    <f:else>
+                                        <a class=""
+                                           href="{f:uri.page()}"
+                                        >
+                                            {page}
+                                        </a>
+                                    </f:else>
+                                </f:if>
+                            </li>
+                        </f:else>
+                    </f:if>
+                </f:for>
+                <f:if condition="{pagination.hasMorePages}">
+                    <li><span>...</span></li>
+                </f:if>
+                <f:if condition="{pagination.displayRangeEnd} < {pagination.lastPageNumber}">
+                    <li class="last">
+                        <a class=""
+                           href="{f:uri.action(action: actionName, arguments: {currentPage: pagination.lastPageNumber}, addQueryString: 1)}"
+                        >
+                            {paginator.numberOfPages}
+                        </a>
+                    </li>
+                </f:if>
+                <f:if condition="{pagination.nextPageNumber} && {pagination.nextPageNumber} <= {pagination.lastPageNumber}">
+                    <li class="next">
+                        <a class=""
+                           href="{f:uri.action(action: actionName, arguments:{currentPage: pagination.nextPageNumber}, addQueryString: 1)}"
+                        >
+                        <f:translate key="tx_t3events.next" extensionName="t3events"/>
+                        </a>
+                    </li>
+                </f:if>
+            </ol>
+        </nav>
+    </div>
+</f:if>
