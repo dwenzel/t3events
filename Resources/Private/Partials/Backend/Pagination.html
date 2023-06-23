@@ -1,80 +1,91 @@
 <f:if condition="{paginator.numberOfPages} > 1">
-    <div class="b-pagination">
-        <nav class="c-pagination" aria-label="{f:translate(key: 'pagination')}">
-            <ol class="pagination">
-                <f:if condition="{pagination.previousPageNumber} && {pagination.previousPageNumber} >= {pagination.firstPageNumber}">
-                    <li class="previous">
-                        <a class=""
-                           href="{f:uri.action(action: actionName, arguments: {currentPage: pagination.previousPageNumber}, addQueryString: 1)}"
-                        >
-                        <f:translate key="tx_t3events.previous" extensionName="t3events"/>
+    <nav class="pagination-wrap">
+        <ul class="pagination">
+            <f:if condition="{pagination.previousPageNumber} && {pagination.previousPageNumber} >= {pagination.firstPageNumber}">
+                <f:then>
+                    <li class="page-item">
+                        <a href="{f:uri.action(arguments:{currentPage: 1})}" title="{f:translate(key:'pagination.first')}" class="page-link">
+                            <core:icon identifier="actions-view-paging-first" />
                         </a>
                     </li>
-                </f:if>
-                <f:if condition="{pagination.displayRangeStart} > 1">
-                    <li class="first">
-                        <a class=""
-                           href="{f:uri.page()}"
-                        >
-                            1
+                    <li class="page-item">
+                        <a href="{f:uri.action(arguments:{currentPage: pagination.previousPageNumber})}" title="{f:translate(key:'pagination.previous')}" class="page-link">
+                            <core:icon identifier="actions-view-paging-previous" />
                         </a>
                     </li>
-                </f:if>
-                <f:if condition="{pagination.hasLessPages}">
-                    <li><span>...</span></li>
-                </f:if>
-                <f:for each="{pagination.allPageNumbers}" as="page">
-                    <f:if condition="{page} == {paginator.currentPageNumber}">
-                        <f:then>
-                            <li class="current">
-                                    {page}
-                                </a>
-                            </li>
-                        </f:then>
-                        <f:else>
-                            <li class="">
-                                <f:if condition="{page} > 1">
-                                    <f:then>
-                                        <a class=""
-                                           href="{f:uri.action(action: actionName, arguments: {currentPage: page}, addQueryString: 1)}"
-                                        >
-                                            {page}
-                                        </a>
-                                    </f:then>
-                                    <f:else>
-                                        <a class=""
-                                           href="{f:uri.page()}"
-                                        >
-                                            {page}
-                                        </a>
-                                    </f:else>
-                                </f:if>
-                            </li>
-                        </f:else>
-                    </f:if>
-                </f:for>
-                <f:if condition="{pagination.hasMorePages}">
-                    <li><span>...</span></li>
-                </f:if>
-                <f:if condition="{pagination.displayRangeEnd} < {pagination.lastPageNumber}">
-                    <li class="last">
-                        <a class=""
-                           href="{f:uri.action(action: actionName, arguments: {currentPage: pagination.lastPageNumber}, addQueryString: 1)}"
-                        >
-                            {paginator.numberOfPages}
+                </f:then>
+                <f:else>
+                    <li class="page-item disabled">
+                        <span class="page-link">
+                            <core:icon identifier="empty-empty"/>
+                        </span>
+                    </li>
+                    <li class="page-item disabled">
+                        <span class="page-link">
+                            <core:icon identifier="empty-empty"/>
+                        </span>
+                    </li>
+                </f:else>
+            </f:if>
+            <li class="page-item">
+                <span class="page-link">
+                    <f:translate key="pagination.records" /> {pagination.startRecordNumber} - {pagination.endRecordNumber}
+                </span>
+            </li>
+            <li class="page-item">
+                <span class="page-link">
+                    <f:translate key="pagination.page" />
+                    <form style="display:inline;"
+                        data-global-event="submit"
+                        data-action-navigate="$form=~s/$value/"
+                        data-navigate-value="{f:uri.action(arguments:'{currentPage: \'$[value]\'}')}"
+                        data-value-selector="input[name='paginator-target-page']">
+                        <input
+                            min="{pagination.firstPageNumber}"
+                            max="{pagination.lastPageNumber}"
+                            data-number-of-pages="{paginator.numberOfPages}"
+                            name="paginator-target-page"
+                            class="form-control form-control-sm paginator-input"
+                            size="5"
+                            value="{paginator.currentPageNumber}"
+                            type="number"
+                        />
+                    </form>
+                    / {pagination.lastPageNumber}
+                </span>
+            </li>
+
+            <f:if condition="{pagination.nextPageNumber} && {pagination.nextPageNumber} <= {pagination.lastPageNumber}">
+                <f:then>
+                    <li class="page-item">
+                        <a href="{f:uri.action(arguments:{currentPage: pagination.nextPageNumber})}" title="{f:translate(key:'pagination.next')}" class="page-link">
+                            <core:icon identifier="actions-view-paging-next" />
                         </a>
                     </li>
-                </f:if>
-                <f:if condition="{pagination.nextPageNumber} && {pagination.nextPageNumber} <= {pagination.lastPageNumber}">
-                    <li class="next">
-                        <a class=""
-                           href="{f:uri.action(action: actionName, arguments:{currentPage: pagination.nextPageNumber}, addQueryString: 1)}"
-                        >
-                        <f:translate key="tx_t3events.next" extensionName="t3events"/>
+                    <li class="page-item">
+                        <a href="{f:uri.action(arguments:{currentPage: pagination.lastPageNumber})}" title="{f:translate(key:'pagination.last')}" class="page-link">
+                            <core:icon identifier="actions-view-paging-last" />
                         </a>
                     </li>
-                </f:if>
-            </ol>
-        </nav>
-    </div>
+                </f:then>
+                <f:else>
+                    <li class="page-item disabled">
+                        <span class="page-link">
+                            <core:icon identifier="empty-empty"/>
+                        </span>
+                    </li>
+                    <li class="page-item disabled">
+                        <span class="page-link">
+                            <core:icon identifier="empty-empty"/>
+                        </span>
+                    </li>
+                </f:else>
+            </f:if>
+            <li class="page-item">
+                <a href="{f:uri.action(arguments:{currentPage: paginator.currentPageNumber})}" title="{f:translate(key:'pagination.refresh')}" class="page-link">
+                    <core:icon identifier="actions-refresh" />
+                </a>
+            </li>
+        </ul>
+    </nav>
 </f:if>
