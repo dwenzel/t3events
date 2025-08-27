@@ -2,6 +2,7 @@
 namespace DWenzel\T3events\Controller;
 
 use DWenzel\T3events\Configuration\ConfigurationManagerTrait;
+use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Extbase\Service\ExtensionService;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Core\Messaging\FlashMessageQueue;
@@ -63,25 +64,30 @@ trait FlashMessageTrait
      * @param integer $severity Optional severity, must be one of \TYPO3\CMS\Core\Messaging\FlashMessage constants
      * @param boolean $storeInSession Optional, defines whether the message should be stored in the session (default) or not
      * @return void
-     * @throws \InvalidArgumentException if the message body is no string
+     * @throws \InvalidArgumentException|\TYPO3\CMS\Core\Exception if the message body is no string
      */
     public function addFlashMessage(
         $messageBody,
         $messageTitle = '',
         $severity = AbstractMessage::OK,
         $storeInSession = true
-    ) {
+    ): void
+    {
         if (!is_string($messageBody)) {
             throw new \InvalidArgumentException('The message body must be of type string, "' . gettype($messageBody) . '" given.',
                 1243258395);
         }
         /* @var \TYPO3\CMS\Core\Messaging\FlashMessage $flashMessage */
         $flashMessage = GeneralUtility::makeInstance(
-            'TYPO3\\CMS\\Core\\Messaging\\FlashMessage', $messageBody, $messageTitle, $severity, $storeInSession
+            FlashMessage::class,
+            $messageBody,
+            $messageTitle,
+            $severity,
+            $storeInSession
         );
 
         $this->getFlashMessageQueue()->enqueue($flashMessage);
     }
 
-    
+
 }
