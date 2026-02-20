@@ -1,4 +1,5 @@
 <?php
+
 namespace DWenzel\T3events\Domain\Factory\Dto;
 
 use DWenzel\T3events\Domain\Model\Dto\PeriodAwareDemandInterface;
@@ -22,15 +23,17 @@ trait PeriodAwareDemandFactoryTrait
     {
         $timeZone = new \DateTimeZone(date_default_timezone_get());
 
-        if ($settings['period'] === SI::FUTURE_ONLY
-            || $settings['period'] === SI::PAST_ONLY
+        if (isset($settings['period']) &&
+            ($settings['period'] === SI::FUTURE_ONLY
+                || $settings['period'] === SI::PAST_ONLY)
         ) {
             $periodStartDate = new \DateTime('midnight', $timeZone);
             $demand->setStartDate($periodStartDate);
             $demand->setDate($periodStartDate);
         }
 
-        if ($settings['period'] === SI::SPECIFIC) {
+        if (isset($settings['period']) &&
+            $settings['period'] === SI::SPECIFIC) {
             $demand->setPeriodType($settings['periodType']);
         }
         if (isset($settings['periodType']) && $settings['periodType'] !== 'byDate') {
@@ -61,7 +64,8 @@ trait PeriodAwareDemandFactoryTrait
      * @param $value
      * @return \DateTime
      */
-    protected function createDate($value) {
+    protected function createDate($value)
+    {
         $timeZone = new \DateTimeZone(date_default_timezone_get());
         if (is_numeric($value)) {
             $dateTime = new \DateTime('midnight', $timeZone);

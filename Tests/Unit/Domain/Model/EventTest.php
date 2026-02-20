@@ -43,7 +43,7 @@ class EventTest extends UnitTestCase
      */
     protected $subject;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->subject = new Event();
     }
@@ -160,29 +160,6 @@ class EventTest extends UnitTestCase
         $this->assertSame(
             'Conceived at T3CON10',
             $this->subject->getKeywords()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function getImageReturnsInitialValueForString()
-    {
-        $this->assertNull(
-            $this->subject->getImage()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function setImageForStringSetsImage()
-    {
-        $this->subject->setImage('Conceived at T3CON10');
-
-        $this->assertSame(
-            'Conceived at T3CON10',
-            $this->subject->getImage()
         );
     }
 

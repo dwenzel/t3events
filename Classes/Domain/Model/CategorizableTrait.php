@@ -6,6 +6,7 @@ namespace DWenzel\T3events\Domain\Model;
  */
 use TYPO3\CMS\Extbase\Domain\Model\Category as SysCategory;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
 
 /***************************************************************
  *
@@ -36,7 +37,7 @@ trait CategorizableTrait
 
     /**
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category>
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
+     * @Lazy
      */
     protected $categories;
 

@@ -50,7 +50,10 @@ trait ModuleButtonTrait
      */
     public function getButtonConfiguration()
     {
-        return $this->buttonConfiguration;
+        if(property_exists($this, 'buttonConfiguration')) {
+            return $this->buttonConfiguration;
+        }
+        return [];
     }
 
     /**

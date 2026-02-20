@@ -31,12 +31,12 @@ class SearchTest extends UnitTestCase
      */
     protected $fixture;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->fixture = new \DWenzel\T3events\Domain\Model\Dto\Search();
     }
 
-    public function tearDown()
+    protected function tearDown(): void
     {
         unset($this->fixture);
     }

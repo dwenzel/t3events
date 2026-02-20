@@ -31,7 +31,7 @@ trait MockDemandTrait
      *
      * @return MockBuilder
      */
-    abstract public function getMockBuilder($className);
+    abstract public function getMockBuilder(string $className): MockBuilder;
 
     /**
      * @param array $methods Methods to mock

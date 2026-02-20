@@ -262,9 +262,6 @@
 		<trans-unit id="tx_t3events_domain_model_event.headline" xml:space="preserve">
 			<source>Titel</source>
 		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_event.image" xml:space="preserve">
-			<source>image</source>
-		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_event.keywords" xml:space="preserve">
 			<source>keywords</source>
 		</trans-unit>
@@ -360,9 +357,6 @@
 		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_performance.hint.external_provider_link" xml:space="preserve">
 			<source>Simply print your tickets now!</source>
-		</trans-unit>
-		<trans-unit id="tx_t3events_domain_model_performance.image" xml:space="preserve">
-			<source>image</source>
 		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_performance.images" xml:space="preserve">
 			<source>Images</source>

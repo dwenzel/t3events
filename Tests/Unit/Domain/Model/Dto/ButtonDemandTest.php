@@ -32,7 +32,7 @@ class ButtonDemandTest extends  UnitTestCase
     /**
      * set up
      */
-    public function setUp()
+    protected function setUp(): void
     {
         $this->subject = new ButtonDemand();
     }

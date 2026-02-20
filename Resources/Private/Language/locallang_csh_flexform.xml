@@ -3,7 +3,7 @@
 	<meta type="array">
 		<description>Context Sensitive Help (CSH) for backend</description>
 		<type>CSH</type>
-		<fileId>EXT:t3events/Resources/Private/Language/locallang_csh_flexform.xml</fileId>
+		<fileId>EXT:t3events/Resources/Private/Language/locallang_csh_flexform.xlf</fileId>
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">

@@ -7,7 +7,6 @@ use DWenzel\T3events\ViewHelpers\Be\EditUriViewHelper;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Backend\Routing\UriBuilder;
-use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 
 /***************************************************************
  *  Copyright notice
@@ -41,7 +40,7 @@ class EditUriViewHelperTest extends UnitTestCase
      */
     protected $uriBuilder;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->subject = $this->getMockBuilder(EditUriViewHelper::class)
             ->setMethods(['registerArgument', 'getUriBuilder'])

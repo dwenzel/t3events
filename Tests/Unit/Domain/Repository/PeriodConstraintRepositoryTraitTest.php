@@ -60,7 +60,7 @@ class PeriodConstraintRepositoryTraitTest extends UnitTestCase
     /**
      * set up
      */
-    public function setUp()
+    protected function setUp(): void
     {
         $this->subject = $this->getMockForTrait(
             PeriodConstraintRepositoryTrait::class

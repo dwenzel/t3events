@@ -16,8 +16,7 @@ namespace DWenzel\T3events\ViewHelpers\Location;
 
 use DWenzel\T3events\Domain\Model\Event;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
-
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 /**
  * Class UniqueViewHelper
  * Returns an array with the event locations for a given event or null if none is found

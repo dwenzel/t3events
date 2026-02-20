@@ -1,6 +1,6 @@
 <?php
 
-namespace DWenzel\T3events\Tests\Controller;
+namespace DWenzel\T3events\Tests\Unit\Controller;
 
 use DWenzel\T3events\Controller\FlashMessageTrait;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
@@ -40,7 +40,7 @@ class FlashMessageTraitTest extends UnitTestCase
     /**
      * set up
      */
-    public function setUp()
+    protected function setUp(): void
     {
         $this->subject = $this->getMockForTrait(
             FlashMessageTrait::class

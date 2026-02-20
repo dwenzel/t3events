@@ -1,6 +1,6 @@
 <?php
 
-namespace DWenzel\T3events\Tests\Controller;
+namespace DWenzel\T3events\Tests\Unit\Controller;
 
 use DWenzel\T3events\Controller\PerformanceRepositoryTrait;
 use DWenzel\T3events\Domain\Repository\PerformanceRepository;
@@ -33,7 +33,7 @@ class PerformanceRepositoryTraitTest extends UnitTestCase
     /**
      * set up
      */
-    public function setUp()
+    protected function setUp(): void
     {
         $this->subject = $this->getMockForTrait(
             PerformanceRepositoryTrait::class

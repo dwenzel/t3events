@@ -15,6 +15,7 @@ namespace DWenzel\T3events\Hooks;
  */
 
 use DWenzel\T3events\Utility\TemplateLayoutUtility;
+use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -51,10 +52,10 @@ class ItemsProcFunc
     public function user_templateLayout(array &$config)
     {
         $pageId = null;
-        if (is_numeric($config['row']['pid'])) {
+        if (!empty($config['row']['pid']) && is_numeric($config['row']['pid'])) {
             $pageId = $config['row']['pid'];
         }
-        if (is_numeric($config['flexParentDatabaseRow']['pid'])) {
+        if (!empty($config['flexParentDatabaseRow']['pid']) && is_numeric($config['flexParentDatabaseRow']['pid'])) {
             $pageId = $config['flexParentDatabaseRow']['pid'];
         }
 
@@ -72,7 +73,7 @@ class ItemsProcFunc
     /**
      * Returns Language Service
      *
-     * @return \TYPO3\CMS\Lang\LanguageService
+     * @return LanguageService
      * @codeCoverageIgnore
      */
     protected function getLanguageService()

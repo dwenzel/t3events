@@ -4,11 +4,17 @@ namespace DWenzel\T3events\Service;
 use DWenzel\T3events\Configuration\ConfigurationManagerTrait;
 use DWenzel\T3events\Domain\Model\Notification;
 use DWenzel\T3events\Object\ObjectManagerTrait;
+use TYPO3\CMS\Core\Core\Environment;
+use TYPO3\CMS\Core\Mail\FluidEmail;
+use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
+use TYPO3\CMS\Fluid\Core\Rendering\RenderingContextFactory;
 use TYPO3\CMS\Fluid\View\StandaloneView;
+use TYPO3\CMS\Fluid\View\TemplatePaths;
 
 /**
  * Class NotificationService
@@ -26,31 +32,34 @@ class NotificationService
      * @param string $sender
      * @param string $subject
      * @param string $templateName
-     * @param null|string $format
      * @param $folderName
      * @param array $variables
      * @param array $attachments
+     * @param null|string $format
      * @return bool
      */
-    public function notify($recipient, $sender, $subject, $templateName, $format = null, $folderName, $variables = [], $attachments = null)
+    public function notify($recipient, $sender, $subject, $templateName, $folderName, $variables = [], $attachments = null, $format = null)
     {
         $templateView = $this->buildTemplateView($templateName, $format, $folderName);
         $templateView->assignMultiple($variables);
         $body = $templateView->render();
         $recipient = GeneralUtility::trimExplode(',', $recipient, true);
 
-        /** @var $message \TYPO3\CMS\Core\Mail\MailMessage */
-        $message = $this->objectManager->get('TYPO3\\CMS\\Core\\Mail\\MailMessage');
+        /** @var $message MailMessage */
+        $message = $this->objectManager->get(MailMessage::class);
         $message->setTo($recipient)
             ->setFrom($sender)
             ->setSubject($subject);
-        $mailFormat = ($format == 'plain') ? 'text/plain' : 'text/html';
 
-        $message->setBody($body, $mailFormat);
+        if ($format === 'plain') {
+            $message->text($body);
+        } else {
+            $message->html($body);
+        }
+
         if ($attachments) {
             foreach ($attachments as $attachment) {
-                $fileToAttach = $this->buildAttachmentFromTemplate($attachment);
-                $message->attach($fileToAttach);
+                $this->buildAttachmentFromTemplate($attachment, $message);
             }
         }
         $message->send();
@@ -67,7 +76,7 @@ class NotificationService
      * @param array $variables
      * @return string
      */
-    public function render($templateName, $format = null, $folderName, $variables = [])
+    public function render($templateName, string $format = null, $folderName, $variables = [])
     {
         $templateView = $this->buildTemplateView($templateName, $format, $folderName);
         $templateView->assignMultiple($variables);
@@ -82,22 +91,26 @@ class NotificationService
      * @param \DWenzel\T3events\Domain\Model\Notification $notification
      * @return bool
      */
-    public function send(Notification &$notification)
+    public function send(Notification $notification)
     {
-        /** @var $message \TYPO3\CMS\Core\Mail\MailMessage */
-        $message = $this->objectManager->get('TYPO3\\CMS\\Core\\Mail\\MailMessage');
+        /** @var $message MailMessage */
+        $message = $this->objectManager->get(MailMessage::class);
         $recipients = GeneralUtility::trimExplode(',', $notification->getRecipient(), true);
 
         $message->setTo($recipients)
             ->setFrom($notification->getSenderEmail(), $notification->getSenderName())
             ->setSubject($notification->getSubject());
-        $mailFormat = ($notification->getFormat() == 'plain') ? 'text/plain' : 'text/html';
 
-        $message->setBody($notification->getBodytext(), $mailFormat);
+        if ($notification->getFormat() === 'plain') {
+            $message->text($notification->getBodytext());
+        } else {
+            $message->html($notification->getBodytext());
+        }
+
         if ($files = $notification->getAttachments()) {
             /** @var FileReference $file */
             foreach ($files as $file) {
-                $message->attach(\Swift_Attachment::fromPath($file->getOriginalResource()->getPublicUrl(true)));
+                $message->attachFromPath(Environment::getPublicPath() . $file->getOriginalResource()->getPublicUrl(true));
             }
         }
         $message->send();
@@ -121,6 +134,14 @@ class NotificationService
      */
     protected function buildTemplateView($templateName, $format = null, $folderName = null)
     {
+        /*$templatePaths = $this->getMailTemplatePaths();
+        $emailView = GeneralUtility::makeInstance(StandaloneView::class);
+        $emailView->getRenderingContext()->setTemplatePaths($templatePaths);
+        $emailView->setTemplate( $format . '/' . $templateName);
+        if ($format === 'plain') {
+            $emailView->setFormat('txt');
+        }*/
+
         /** @var \TYPO3\CMS\Fluid\View\StandaloneView $emailView */
         $emailView = $this->objectManager->get(StandaloneView::class);
         $emailView->setTemplatePathAndFilename(
@@ -137,10 +158,32 @@ class NotificationService
     }
 
     /**
-     * @var array $data An array containing data for attachement generation
-     * @return \Swift_Mime_Attachment
+     * Returns an instance of TemplatePaths with paths configured in felogin TypoScript and
+     * paths configured in $GLOBALS['TYPO3_CONF_VARS']['MAIL'].
      */
-    protected function buildAttachmentFromTemplate($data)
+    public function getMailTemplatePaths(): TemplatePaths
+    {
+        $pathArray = array_replace_recursive(
+            [
+                'layoutRootPaths'   => $GLOBALS['TYPO3_CONF_VARS']['MAIL']['layoutRootPaths'],
+                'templateRootPaths' => $GLOBALS['TYPO3_CONF_VARS']['MAIL']['templateRootPaths'],
+                'partialRootPaths'  => $GLOBALS['TYPO3_CONF_VARS']['MAIL']['partialRootPaths'],
+            ],
+            [
+                'layoutRootPaths'   => $this->getLayoutRootPaths(),
+                'templateRootPaths' => $this->getTemplateRootPaths(),
+                'partialRootPaths'  => $this->getPartialRootPaths(),
+            ]
+        );
+
+        return new TemplatePaths($pathArray);
+    }
+
+    /**
+     * @var array $data An array containing data for attachement generation
+     * @var MailMessage $message
+     */
+    protected function buildAttachmentFromTemplate($data, MailMessage $message): void
     {
         $attachmentView = $this->buildTemplateView(
             $data['templateName'],
@@ -149,13 +192,11 @@ class NotificationService
         );
         $attachmentView->assignMultiple($data['variables']);
         $content = $attachmentView->render();
-        $attachment = \Swift_Attachment::newInstance(
+        $message->attach(
             $content,
             $data['fileName'],
             $data['mimeType']
         );
-
-        return $attachment;
     }
 
     /**
@@ -216,7 +257,7 @@ class NotificationService
     public function duplicate(Notification $oldNotification)
     {
         /** @var Notification $notification */
-        $notification = $this->objectManager->get('\\DWenzel\\T3events\\Domain\\Model\\Notification');
+        $notification = $this->objectManager->get(Notification::class);
         $accessibleProperties = ObjectAccess::getSettablePropertyNames($notification);
         foreach ($accessibleProperties as $property) {
             ObjectAccess::setProperty(

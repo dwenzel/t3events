@@ -65,7 +65,7 @@ class ModuleDataStorageService implements SingletonInterface
      *
      * @return \TYPO3\CMS\Core\Authentication\BackendUserAuthentication
      */
-    public function getBackendUserAuthentication()
+    public function getBackendUserAuthentication(): BackendUserAuthentication
     {
         return $GLOBALS['BE_USER'];
     }

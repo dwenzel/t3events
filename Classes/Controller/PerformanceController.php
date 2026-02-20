@@ -15,7 +15,6 @@ namespace DWenzel\T3events\Controller;
  * The TYPO3 project - inspiring people to share!
  */
 
-use DWenzel\T3calendar\Domain\Model\Dto\CalendarConfigurationFactoryTrait;
 use DWenzel\T3events\Domain\Model\Dto\PerformanceDemand;
 use DWenzel\T3events\Domain\Model\Performance;
 use DWenzel\T3events\Domain\Repository\EventTypeRepository;
@@ -24,7 +23,12 @@ use DWenzel\T3events\Domain\Repository\PerformanceRepository;
 use DWenzel\T3events\Domain\Repository\VenueRepository;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use DWenzel\T3events\Utility\SettingsInterface as SI;
-
+use TYPO3\CMS\Core\Pagination\ArrayPaginator;
+use TYPO3\CMS\Core\Pagination\SimplePagination;
+use TYPO3\CMS\Extbase\Pagination\QueryResultPaginator;
+use DWenzel\T3events\Pagination\NumberedPagination;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /**
  * Class PerformanceController
@@ -35,7 +39,7 @@ class PerformanceController
     extends ActionController
     implements FilterableControllerInterface
 {
-    use CategoryRepositoryTrait, CalendarConfigurationFactoryTrait,
+    use CategoryRepositoryTrait,
         DemandTrait, EntityNotFoundHandlerTrait, FilterableControllerTrait,
         PerformanceDemandFactoryTrait, SearchTrait, SessionTrait,
         SettingsUtilityTrait, TranslateTrait;
@@ -43,7 +47,6 @@ class PerformanceController
     const PERFORMANCE_LIST_ACTION = 'listAction';
     const PERFORMANCE_QUICK_MENU_ACTION = 'quickMenuAction';
     const PERFORMANCE_SHOW_ACTION = 'showAction';
-    const PERFORMANCE_CALENDAR_ACTION = 'calendarAction';
     const SESSION_NAME_SPACE = 'performanceController';
 
     /**
@@ -88,7 +91,6 @@ class PerformanceController
      */
     public function __construct()
     {
-        parent::__construct();
         $this->namespace = get_class($this);
     }
 
@@ -169,14 +171,8 @@ class PerformanceController
                 serialize($this->request->getArgument(SI::OVERWRITE_DEMAND))
             );
         }
-    }
 
-    /**
-     * initializes quick menu action
-     */
-    public function initializeQuickMenuAction()
-    {
-        if (!$this->request->hasArgument(SI::OVERWRITE_DEMAND)) {
+        if ($this->request->hasArgument(SI::RESET_DEMAND)) {
             $this->session->clean();
         }
     }
@@ -191,11 +187,30 @@ class PerformanceController
      */
     public function listAction(array $overwriteDemand = null)
     {
+        if (!$overwriteDemand){
+            $overwriteDemand = unserialize($this->session->get('tx_t3events_overwriteDemand'), ['allowed_classes' => false]);
+        }
+
         $demand = $this->performanceDemandFactory->createFromSettings($this->settings);
         $this->overwriteDemandObject($demand, $overwriteDemand);
         $performances = $this->performanceRepository->findDemanded($demand);
 
+        // pagination
+        $paginationConfiguration = $this->settings['event']['list']['paginate'] ?? [];
+        $itemsPerPage = (int)(($paginationConfiguration['itemsPerPage'] ?? '') ?: 10);
+        $maximumNumberOfLinks = (int)($paginationConfiguration['maximumNumberOfLinks'] ?? 0);
+        
+        $currentPage = max(1, $this->request->hasArgument('currentPage') ? (int)$this->request->getArgument('currentPage') : 1);
+        #$paginator = new ArrayPaginator($contacts->toArray(), $currentPage, $itemsPerPage);
+        $paginator = GeneralUtility::makeInstance(QueryResultPaginator::class, $performances, $currentPage, $itemsPerPage, (int)($this->settings['limit'] ?? 0), (int)($this->settings['offset'] ?? 0));
+        $paginationClass = $paginationConfiguration['class'] ?? SimplePagination::class;
+        #$pagination = new SimplePagination($paginator);
+        $pagination = $this->getPagination($paginationClass, $maximumNumberOfLinks, $paginator);
+
+
         $templateVariables = [
+            'paginator' => $paginator,
+            'pagination' => $pagination,
             'performances' => $performances,
             SI::SETTINGS => $this->settings,
             SI::OVERWRITE_DEMAND => $overwriteDemand,
@@ -260,31 +275,6 @@ class PerformanceController
     }
 
     /**
-     * Calendar action
-     * @param array $overwriteDemand
-     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
-     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException
-     */
-    public function calendarAction(array $overwriteDemand = null)
-    {
-        $demand = $this->performanceDemandFactory->createFromSettings($this->settings);
-        $this->overwriteDemandObject($demand, $overwriteDemand);
-        $performances = $this->performanceRepository->findDemanded($demand);
-
-        $calendarConfiguration = $this->calendarConfigurationFactory->create($this->settings);
-
-        $templateVariables = [
-            'performances' => $performances,
-            'demand' => $demand,
-            'calendarConfiguration' => $calendarConfiguration,
-            SI::OVERWRITE_DEMAND => $overwriteDemand
-        ];
-
-        $this->emitSignal(__CLASS__, self::PERFORMANCE_CALENDAR_ACTION, $templateVariables);
-        $this->view->assignMultiple($templateVariables);
-    }
-
-    /**
      * Create Demand from Settings
      * This method is kept for backwards compatibility only.
      *
@@ -297,4 +287,23 @@ class PerformanceController
         /** @var PerformanceDemand $demand */
         return $this->performanceDemandFactory->createFromSettings($settings);
     }
+
+    /**
+     * @param $paginationClass
+     * @param int $maximumNumberOfLinks
+     * @param $paginator
+     * @return \#o#Э#A#M#C\GeorgRinger\News\Controller\NewsController.getPagination.0|NumberedPagination|mixed|\Psr\Log\LoggerAwareInterface|string|SimplePagination|\TYPO3\CMS\Core\SingletonInterface
+     */
+    protected function getPagination($paginationClass, int $maximumNumberOfLinks, $paginator)
+    {
+        if (class_exists(NumberedPagination::class) && $paginationClass === NumberedPagination::class && $maximumNumberOfLinks) {
+            $pagination = GeneralUtility::makeInstance(NumberedPagination::class, $paginator, $maximumNumberOfLinks);
+        } elseif (class_exists($paginationClass)) {
+            $pagination = GeneralUtility::makeInstance($paginationClass, $paginator);
+        } else {
+            $pagination = GeneralUtility::makeInstance(SimplePagination::class, $paginator);
+        }
+        return $pagination;
+    }
+
 }

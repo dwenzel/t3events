@@ -27,7 +27,7 @@ namespace DWenzel\T3events\ViewHelpers;
  * @package TYPO3
  * @subpackage tx_t3events
  */
-class MetaTagViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper
+class MetaTagViewHelper extends \TYPO3Fluid\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper
 {
 
     /**

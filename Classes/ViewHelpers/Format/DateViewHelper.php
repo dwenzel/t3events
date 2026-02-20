@@ -11,7 +11,7 @@ namespace DWenzel\T3events\ViewHelpers\Format;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 use TYPO3\CMS\Core\Utility\MathUtility;
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
  * Formats a \DateTime object. This is an extended version which allows to
@@ -72,18 +72,29 @@ class DateViewHelper extends AbstractViewHelper
     protected $escapingInterceptorEnabled = false;
 
     /**
+     * Initialize arguments
+     */
+    public function initializeArguments()
+    {
+        $this->registerArgument('date', 'mixed', 'either a DateTime object or a string that is accepted by DateTime constructor', false);
+        $this->registerArgument('format', 'string', 'Format String which is taken to format the Date/Time', false, '');
+        $this->registerArgument('time', 'integer', 'an integer representing a time value', false);
+        $this->registerArgument('base', 'mixed', 'A base time (a DateTime object or a string) used if $date is a relative date specification. Defaults to current time.', false);
+    }
+
+    /**
      * Render the supplied DateTime object as a formatted date.
      * If a time is given it will be added to the date (by adding the timestamps)
      *
-     * @param mixed $date either a DateTime object or a string that is accepted by DateTime constructor
-     * @param string $format Format String which is taken to format the Date/Time
-     * @param int $time an integer representing a time value
-     * @param mixed $base A base time (a DateTime object or a string) used if $date is a relative date specification. Defaults to current time.
-     * @return string Formatted date
-     * @throws \TYPO3\CMS\Fluid\Core\ViewHelper\Exception
+     * @throws \TYPO3Fluid\Fluid\Core\ViewHelper\Exception
      */
-    public function render($date = null, $format = '', $time = null, $base = null)
+    public function render()
     {
+        $date = $this->arguments['date'];
+        $format = $this->arguments['format'];
+        $time = $this->arguments['time'];
+        $base = $this->arguments['base'];
+
         if ($format === '') {
             $format = $GLOBALS['TYPO3_CONF_VARS']['SYS']['ddmmyy'] ?: 'Y-m-d';
         }
@@ -110,7 +121,7 @@ class DateViewHelper extends AbstractViewHelper
                 $modifiedDate = new \DateTime('@' . $dateTimestamp);
                 $modifiedDate->setTimezone(new \DateTimeZone(date_default_timezone_get()));
             } catch (\Exception $exception) {
-                throw new \TYPO3\CMS\Fluid\Core\ViewHelper\Exception('"' . $date . '" could not be parsed by \DateTime constructor.', 1241722579);
+                throw new \TYPO3Fluid\Fluid\Core\ViewHelper\Exception('"' . $date . '" could not be parsed by \DateTime constructor.', 1241722579);
             }
         } else {
             $modifiedDate = clone($date);

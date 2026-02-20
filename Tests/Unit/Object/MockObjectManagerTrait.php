@@ -1,7 +1,6 @@
 <?php
 namespace DWenzel\T3events\Tests\Unit\Object;
 
-use Nimut\TestingFramework\MockObject\AccessibleMockObjectInterface;
 use PHPUnit\Framework\MockObject\MockBuilder;
 use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
@@ -27,8 +26,7 @@ trait MockObjectManagerTrait
 {
 
     /**
-     * @var MockObject|AccessibleMockObjectInterface
-     */
+     * @var MockObject*/
     protected $subject;
 
     /**
@@ -43,7 +41,7 @@ trait MockObjectManagerTrait
      *
      * @return MockBuilder
      */
-    abstract public function getMockBuilder($className);
+    abstract public function getMockBuilder(string $className): MockBuilder;
 
     /**
      * @return ObjectManager|MockObject
@@ -51,6 +49,7 @@ trait MockObjectManagerTrait
     protected function getMockObjectManager()
     {
         return $this->getMockBuilder(ObjectManager::class)
+            ->disableOriginalConstructor()
             ->setMethods(['get'])->getMock();
     }
 }

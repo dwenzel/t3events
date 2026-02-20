@@ -32,7 +32,7 @@ class PerformanceStatus extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * title
      *
      * @var string
-     * @validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $title;
 
@@ -40,7 +40,7 @@ class PerformanceStatus extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * cssClass
      *
      * @var string
-     * @validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $cssClass;
 
@@ -48,7 +48,7 @@ class PerformanceStatus extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * priority max allowed 2147483647
      *
      * @var integer
-     * @validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $priority = 2147483647;
 

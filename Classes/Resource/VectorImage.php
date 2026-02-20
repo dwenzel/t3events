@@ -91,8 +91,10 @@ class VectorImage extends \DOMDocument
      * which is quite slow
      *
      * @param string $elementId
-     * @return \DOMNode | null
+     * @return \DOMNode|null
+     * @todo: Set return type to ?DOMElement in v12 as breaking patch and drop #[\ReturnTypeWillChange]
      */
+    #[\ReturnTypeWillChange]
     public function getElementById($elementId)
     {
         return $this->getXPath()->query("//*[@id='" . $elementId . "']")->item(0);

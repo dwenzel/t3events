@@ -40,7 +40,7 @@ class AudienceRepositoryTest extends UnitTestCase
      */
     protected $fixture;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->fixture = $this->getAccessibleMock(
             AudienceRepository::class,
