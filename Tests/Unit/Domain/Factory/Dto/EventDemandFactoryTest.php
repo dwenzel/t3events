@@ -1,5 +1,4 @@
 <?php
-
 namespace DWenzel\T3events\Tests\Unit\Domain\Factory\Dto;
 
 use DWenzel\T3events\Domain\Factory\Dto\EventDemandFactory;
@@ -44,7 +43,7 @@ class EventDemandFactoryTest extends UnitTestCase
     /**
      * set up
      */
-    public function setUp()
+    protected function setUp(): void
     {
         $this->subject = $this->getAccessibleMock(
             EventDemandFactory::class, ['dummy'], [], '', false

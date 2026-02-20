@@ -1,6 +1,6 @@
 <?php
 
-namespace DWenzel\T3events\Tests\Controller;
+namespace DWenzel\T3events\Tests\Unit\Controller;
 
 /**
  * This file is part of the TYPO3 CMS project.
@@ -29,7 +29,7 @@ class MockSignalController implements SignalInterface
 /**
  * Class RouteTraitTest
  *
- * @package DWenzel\T3events\Tests\Controller
+ * @package DWenzel\T3events\Tests\Unit\Controller
  */
 class RoutingTraitTest extends UnitTestCase
 {
@@ -41,7 +41,7 @@ class RoutingTraitTest extends UnitTestCase
     /**
      * set up subject
      */
-    public function setUp()
+    protected function setUp(): void
     {
         $this->subject = $this->getMockForTrait(
             RoutingTrait::class

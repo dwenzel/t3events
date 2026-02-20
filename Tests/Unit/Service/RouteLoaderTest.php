@@ -43,7 +43,7 @@ class RouteLoaderTest extends UnitTestCase
     /**
      * set up
      */
-    public function setUp()
+    protected function setUp(): void
     {
         $this->mockRouter = $this->getMockForAbstractClass(
             RouterInterface::class

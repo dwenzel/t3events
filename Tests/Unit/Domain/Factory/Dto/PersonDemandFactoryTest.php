@@ -34,7 +34,7 @@ class PersonDemandFactoryTest extends UnitTestCase
     /**
      * set up
      */
-    public function setUp()
+    protected function setUp(): void
     {
         $this->subject = $this->getAccessibleMock(
             PersonDemandFactory::class, ['dummy'], [], '', false

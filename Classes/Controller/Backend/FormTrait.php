@@ -18,6 +18,7 @@ namespace DWenzel\T3events\Controller\Backend;
 use DWenzel\T3events\Utility\SettingsInterface as SI;
 use TYPO3\CMS\Backend\Routing\Exception\RouteNotFoundException;
 use TYPO3\CMS\Backend\Routing\UriBuilder;
+use TYPO3\CMS\Core\Information\Typo3Version;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\HttpUtility;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
@@ -62,7 +63,9 @@ trait FormTrait
      */
     protected function isTypo3VersionGreaterThan8(): bool
     {
-        return VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 9000000;
+        /** @var Typo3Version $version */
+        $version = GeneralUtility::makeInstance(Typo3Version::class);
+        return VersionNumberUtility::convertVersionNumberToInteger($version->getVersion()) >= 9000000;
     }
 
     /**

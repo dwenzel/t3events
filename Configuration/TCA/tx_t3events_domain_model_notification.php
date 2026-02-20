@@ -24,21 +24,11 @@ return [
         'searchFields' => 'title,description,',
         'iconfile' => 'EXT:t3events/Resources/Public/Icons/tx_t3events_domain_model_notification.gif'
     ],
-    'interface' => [
-        'showRecordFieldList' => 'hidden, recipient, sender,sender_email,sender_name, subject, bodytext, format, sent_at',
-    ],
     'types' => [
         '1' => ['showitem' => 'hidden, recipient, sender,sender_email,sender_name,  subject, bodytext, format, sent_at'],
     ],
     'columns' => [
-        't3ver_label' => [
-            'label' => $cll . 'LGL.versionLabel',
-            'config' => [
-                'type' => 'input',
-                'size' => 30,
-                'max' => 255,
-            ]
-        ],
+
         'hidden' => [
             'exclude' => 1,
             'label' => $cll . 'LGL.hidden',

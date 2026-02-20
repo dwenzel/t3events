@@ -37,7 +37,7 @@ class SessionTraitTest extends UnitTestCase
     /**
      * set up
      */
-    public function setUp()
+    protected function setUp(): void
     {
         $this->subject = $this->getMockForTrait(
             SessionTrait::class

@@ -28,8 +28,8 @@ trait TranslateTrait
         $translatedString = LocalizationUtility::translate($key, $extension, $arguments);
         if (is_null($translatedString)) {
             return $key;
-        } else {
-            return $translatedString;
         }
+
+        return $translatedString;
     }
 }

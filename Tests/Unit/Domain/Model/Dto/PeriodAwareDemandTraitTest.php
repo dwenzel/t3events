@@ -42,14 +42,14 @@ class PeriodAwareDemandTraitTest extends UnitTestCase
      */
     protected $fixture;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->fixture = $this->getMockForTrait(
             PeriodAwareDemandTrait::class
         );
     }
 
-    public function tearDown()
+    protected function tearDown(): void
     {
         unset($this->fixture);
     }

@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2023-05-12T11:03:28Z">
+		<header>
+			<description>Language labels for backend of events (tx_t3events)</description>
+			<type>database</type>
+			<generator>LFEditor</generator>
+		</header>
+		<body>
+			<trans-unit id="flexforms_general.ajaxEnabled" approved="yes">
+				<source><![CDATA[use Ajax]]></source>
+				<target><![CDATA[Ajax verwenden]]></target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.ascending" approved="yes">
+				<source><![CDATA[ascending]]></source>
+				<target><![CDATA[aufsteigend]]></target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.backPage" approved="yes">
+				<source><![CDATA[Back Page]]></source>
+				<target><![CDATA[Zurück-Seite]]></target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.cache.makeNonCacheable" approved="yes">
+				<source><![CDATA[Don't cache plugin contents]]></source>
+				<target><![CDATA[Inhalte des Plugins nicht zwischenspeichern]]></target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.categories" approved="yes">
+				<source><![CDATA[Categories]]></source>
+				<target><![CDATA[Kategorien]]></target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.constraintBy" approved="yes">
+				<source><![CDATA[constraint by]]></source>
+				<target><![CDATA[eingeschränkt nach]]></target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.constraints" approved="yes">
+				<source><![CDATA[Constraints]]></source>
+				<target><![CDATA[Auswahl]]></target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.date" approved="yes">
+				<source><![CDATA[Date]]></source>
+				<target><![CDATA[Datum]]></target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.dateDesc" approved="yes">
+				<source><![CDATA[Date descending]]></source>
+				<target><![CDATA[Datum absteigend]]></target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.descending" approved="yes">
+				<source><![CDATA[descending]]></source>
+				<target><![CDATA[absteigend]]></target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.detailPage" approved="yes">
+				<source><![CDATA[Detail Page]]></source>
+				<target><![CDATA[Detailseite]]></target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.displayPeriod" approved="yes">
+				<source><![CDATA[Display Period]]></source>
+				<target><![CDATA[Zeitraum]]></target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.displayPeriodDay" approved="yes">
+				<source><![CDATA[Day]]></source>
+				<target><![CDATA[Tag]]></target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.displayPeriodMonth" approved="yes">
+				<source><![CDATA[Month]]></source>
+				<target><![CDATA[Monat]]></target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.displayPeriodQuarter" approved="yes">
+				<source><![CDATA[Quarter]]></source>
+				<target><![CDATA[Quartal]]></target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.displayPeriodSemester" approved="yes">
+				<source><![CDATA[Semester]]></source>
+				<target><![CDATA[Semester]]></target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.displayPeriodTrimester" approved="yes">
+				<source><![CDATA[Trimester]]></source>
+				<target><![CDATA[Trimester]]></target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.displayPeriodWeek" approved="yes">
+				<source><![CDATA[Week]]></source>
+				<target><![CDATA[Woche]]></target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.displayPeriodYear" approved="yes">
+				<source><![CDATA[Year]]></source>
+				<target><![CDATA[Year]]></target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.duration" approved="yes">
+				<source><![CDATA[Duration]]></source>
+				<target><![CDATA[Dauer]]></target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.end" approved="yes">
+				<source><![CDATA[End]]></source>
+				<target><![CDATA[Ende]]></target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.excludeSelectedStatuses" approved="yes">
+				<source><![CDATA[exclude selected statuses]]></source>
+				<target><![CDATA[gewählte Status ausschließen]]></target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.hideIfEmptyResult" approved="yes">
+				<source><![CDATA[Hide plugin content if empty result]]></source>
+				<target><![CDATA[Pluginausgabe verbergen, wenn leeres Ergebnis]]></target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.highlightsToTop" approved="yes">
+				<source><![CDATA[highlights to top]]></source>
+				<target><![CDATA[hervorgehobene zuerst]]></target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.label.events" approved="yes">
+				<source><![CDATA[Events]]></source>
+				<target><![CDATA[Veranstaltungen]]></target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.label.performances" approved="yes">
+				<source><![CDATA[Performances]]></source>
+				<target><![CDATA[Vorstellungen]]></target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.listPage" approved="yes">
+				<source><![CDATA[List Page]]></source>
+				<target><![CDATA[Listenseite]]></target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.maxHighlighted" approved="yes">
+				<source><![CDATA[Highlights count]]></source>
+				<target><![CDATA[Anzahl hervorgehobene]]></target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.maxItems" approved="yes">
+				<source><![CDATA[Items count (max)]]></source>
+				<target><![CDATA[Anzahl gesamt (maximal)]]></target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.mode" approved="yes">
+				<source><![CDATA[What to display]]></source>
+				<target><![CDATA[Anzeige]]></target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.mode.event_list" approved="yes">
+				<source><![CDATA[List/Detail]]></source>
+				<target><![CDATA[Liste/Detail]]></target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.mode.event_show" approved="yes">
+				<source><![CDATA[Detail]]></source>
+				<target><![CDATA[Detail]]></target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.mode.performance_list_show" approved="yes">
+				<source><![CDATA[List/Detail]]></source>
+				<target><![CDATA[Liste/Detail]]></target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.mode.performance_show" approved="yes">
+				<source><![CDATA[Detail]]></source>
+				<target><![CDATA[Detail]]></target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.mode.quick_menu" approved="yes">
+				<source><![CDATA[Quick Menu]]></source>
+				<target><![CDATA[Schnellmenü]]></target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.pages" approved="yes">
+				<source><![CDATA[Pages]]></source>
+				<target><![CDATA[Seiten]]></target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.period" approved="yes">
+				<source><![CDATA[Period]]></source>
+				<target><![CDATA[Zeitabschnitt]]></target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.period.all" approved="yes">
+				<source><![CDATA[all]]></source>
+				<target><![CDATA[alle]]></target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.period.futureOnly" approved="yes">
+				<source><![CDATA[future only]]></source>
+				<target><![CDATA[nur zukünftige]]></target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.period.pastOnly" approved="yes">
+				<source><![CDATA[past only]]></source>
+				<target><![CDATA[nur vergangene]]></target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.period.specific" approved="yes">
+				<source><![CDATA[specific]]></source>
+				<target><![CDATA[eingeschränkt]]></target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.period.specific.byDate" approved="yes">
+				<source><![CDATA[Date]]></source>
+				<target><![CDATA[Datum]]></target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.period.specific.byDay" approved="yes">
+				<source><![CDATA[Days]]></source>
+				<target><![CDATA[Tage]]></target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.period.specific.byMonth" approved="yes">
+				<source><![CDATA[Months]]></source>
+				<target><![CDATA[Monate]]></target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.period.specific.byYear" approved="yes">
+				<source><![CDATA[Years]]></source>
+				<target><![CDATA[Jahre]]></target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.quick_menu.type" approved="yes">
+				<source><![CDATA[Quick Menu: Type]]></source>
+				<target><![CDATA[Schnellmenü: Typ]]></target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.quick_menu.type.eventTypes" approved="yes">
+				<source><![CDATA[Event Types]]></source>
+				<target><![CDATA[Veranstaltungstypen]]></target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.quick_menu.type.genres" approved="yes">
+				<source><![CDATA[Genres]]></source>
+				<target><![CDATA[Genres]]></target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.quick_menu.type.venues" approved="yes">
+				<source><![CDATA[Venues]]></source>
+				<target><![CDATA[Einrichtungen]]></target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.random" approved="yes">
+				<source><![CDATA[random]]></source>
+				<target><![CDATA[zufällig]]></target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.respectEndDate" approved="yes">
+				<source><![CDATA[respect end date]]></source>
+				<target><![CDATA[berücksichtige Enddatum]]></target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.showRadiusSearch" approved="yes">
+				<source><![CDATA[Show Radius Search]]></source>
+				<target><![CDATA[Zeige Umkreisssuche]]></target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.showSearchField" approved="yes">
+				<source><![CDATA[Show Search Field]]></source>
+				<target><![CDATA[Zeige Suchfeld]]></target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.sortBy" approved="yes">
+				<source><![CDATA[sort by]]></source>
+				<target><![CDATA[sortiere nach]]></target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.sortDirection" approved="yes">
+				<source><![CDATA[Sort Direction]]></source>
+				<target><![CDATA[Sortierreihenfolge]]></target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.start" approved="yes">
+				<source><![CDATA[Start]]></source>
+				<target><![CDATA[Start]]></target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.statuses" approved="yes">
+				<source><![CDATA[Status]]></source>
+				<target><![CDATA[Status]]></target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.template" approved="yes">
+				<source><![CDATA[Template]]></source>
+				<target><![CDATA[Vorlage]]></target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.templateLayout" approved="yes">
+				<source><![CDATA[Template Layout]]></source>
+				<target><![CDATA[Vorlagenlayout]]></target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.title" approved="yes">
+				<source><![CDATA[Title]]></source>
+				<target><![CDATA[Titel]]></target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.venues" approved="yes">
+				<source><![CDATA[Venues]]></source>
+				<target><![CDATA[Einrichtungen]]></target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.viewMode" approved="yes">
+				<source><![CDATA[View Mode]]></source>
+				<target><![CDATA[Ansicht]]></target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.viewModeComboPane" approved="yes">
+				<source><![CDATA[Combo View]]></source>
+				<target><![CDATA[kombiniert]]></target>
+			</trans-unit>
+			<trans-unit id="flexforms_general.viewModeMiniMonth" approved="yes">
+				<source><![CDATA[Single Month (small)]]></source>
+				<target><![CDATA[Monat (klein)]]></target>
+			</trans-unit>
+			<trans-unit id="flexforms_tab.settings" approved="yes">
+				<source><![CDATA[Settings]]></source>
+				<target><![CDATA[Einstellungen]]></target>
+			</trans-unit>
+			<trans-unit id="label.end" approved="yes">
+				<source><![CDATA[End]]></source>
+				<target><![CDATA[Ende]]></target>
+			</trans-unit>
+			<trans-unit id="label.now" approved="yes">
+				<source><![CDATA[Now]]></source>
+				<target><![CDATA[Jetzt]]></target>
+			</trans-unit>
+			<trans-unit id="label.start" approved="yes">
+				<source><![CDATA[Start]]></source>
+				<target><![CDATA[Beginn]]></target>
+			</trans-unit>
+			<trans-unit id="plugin.combined.title" approved="yes">
+				<source><![CDATA[Events]]></source>
+				<target><![CDATA[Veranstaltung]]></target>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

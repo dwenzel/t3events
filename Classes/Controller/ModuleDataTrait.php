@@ -17,20 +17,8 @@ use TYPO3\CMS\Extbase\Mvc\ResponseInterface;
  */
 trait ModuleDataTrait
 {
-    /**
-     * @var \DWenzel\T3events\Domain\Model\Dto\ModuleData
-     */
-    protected $moduleData;
-
-    /**
-     * @var \DWenzel\T3events\Service\ModuleDataStorageService
-     */
-    protected $moduleDataStorageService;
-
-    /**
-     * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
-     */
-    protected $objectManager;
+    protected ModuleData $moduleData;
+    protected ModuleDataStorageService $moduleDataStorageService;
 
     /**
      * @var array
@@ -90,7 +78,7 @@ trait ModuleDataTrait
      */
     public function resetAction()
     {
-        $this->moduleData = $this->objectManager->get(ModuleData::class);
+        $this->moduleData = GeneralUtility::makeInstance(ModuleData::class);
         $this->moduleDataStorageService->persistModuleData($this->moduleData, $this->getModuleKey());
         $this->forward('list');
     }

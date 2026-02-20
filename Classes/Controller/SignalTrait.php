@@ -4,7 +4,7 @@ namespace DWenzel\T3events\Controller;
 /**
  * Class SignalTrait
  *
- * @package DWenzel\T3events\Tests\Controller
+ * @package DWenzel\T3events\Tests\Unit\Controller
  */
 trait SignalTrait
 {

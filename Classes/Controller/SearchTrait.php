@@ -7,7 +7,7 @@ use DWenzel\T3events\Domain\Model\Dto\SearchFactory;
  * Class SearchTrait
 
  *
-*@package DWenzel\T3events\Tests\Controller
+*@package DWenzel\T3events\Tests\Unit\Controller
  */
 trait SearchTrait
 {

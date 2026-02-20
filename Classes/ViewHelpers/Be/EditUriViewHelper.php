@@ -31,14 +31,13 @@ use DWenzel\T3events\Utility\SettingsInterface as SI;
 use TYPO3\CMS\Backend\Routing\Exception\RouteNotFoundException;
 use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
-use TYPO3Fluid\Fluid\Core\ViewHelper\ViewHelperInterface;
 
 /**
  * Class EditRecordViewHelper
  */
-class EditUriViewHelper extends AbstractViewHelper implements ViewHelperInterface
+class EditUriViewHelper extends AbstractViewHelper
 {
     const DESCRIPTION_ARGUMENT_TABLE = 'table of record to edit';
     const DESCRIPTION_ARGUMENT_RECORD = 'id of record';

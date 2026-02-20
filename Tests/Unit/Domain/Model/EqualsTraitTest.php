@@ -30,7 +30,7 @@ class EqualsTraitTest extends UnitTestCase
      */
     protected $subject;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->subject = $this->getMockBuilder(EqualsTrait::class)
             ->setMethods(['__toString'])

@@ -29,7 +29,7 @@ class IcalTraitTest extends UnitTestCase
     /**
      * set up the subject
      */
-    public function setUp()
+    protected function setUp(): void
     {
         $this->subject = $this->getMockBuilder(IcalTrait::class)
             ->setMethods(['callStatic'])

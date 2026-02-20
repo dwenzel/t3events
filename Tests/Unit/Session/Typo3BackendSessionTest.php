@@ -31,7 +31,7 @@ class Typo3BackendSessionTest extends UnitTestCase
     /**
      *
      */
-    public function setUp()
+    protected function setUp(): void
     {
         $this->subject = $this->getAccessibleMock(
             Typo3BackendSession::class, ['dummy'], [], '', false);

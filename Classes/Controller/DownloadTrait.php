@@ -52,6 +52,15 @@ trait DownloadTrait
     }
 
     /**
+     * @return LocalDriver
+     */
+    public function getLocalDriver(): LocalDriver
+    {
+        return $this->localDriver;
+    }
+
+
+    /**
      * Gets a sanitized filename for download
      *
      * @param string $fileName

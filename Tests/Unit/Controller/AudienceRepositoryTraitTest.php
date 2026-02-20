@@ -1,10 +1,11 @@
 <?php
 
-namespace DWenzel\T3events\Tests\Controller;
+namespace DWenzel\T3events\Tests\Unit\Controller;
 
 use DWenzel\T3events\Controller\AudienceRepositoryTrait;
 use DWenzel\T3events\Domain\Repository\AudienceRepository;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use PHPUnit\Framework\MockObject\MockObject;
 
 /***************************************************************
  *  Copyright notice
@@ -23,6 +24,14 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
  *  GNU General Public License for more details.
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+class DummyWithAudienceRepository {
+    use AudienceRepositoryTrait;
+
+    public function getAudienceRepository(): AudienceRepository
+    {
+        return $this->audienceRepository;
+    }
+}
 class AudienceRepositoryTraitTest extends UnitTestCase
 {
     /**
@@ -33,11 +42,9 @@ class AudienceRepositoryTraitTest extends UnitTestCase
     /**
      * set up
      */
-    public function setUp()
+    protected function setUp(): void
     {
-        $this->subject = $this->getMockForTrait(
-            AudienceRepositoryTrait::class
-        );
+        $this->subject = new DummyWithAudienceRepository();
     }
 
     /**
@@ -45,16 +52,15 @@ class AudienceRepositoryTraitTest extends UnitTestCase
      */
     public function audienceRepositoryCanBeInjected()
     {
-        /** @var AudienceRepository|\PHPUnit_Framework_MockObject_MockObject $audienceRepository */
+        /** @var AudienceRepository|MockObject $audienceRepository */
         $audienceRepository = $this->getMockBuilder(AudienceRepository::class)
             ->disableOriginalConstructor()->getMock();
 
         $this->subject->injectAudienceRepository($audienceRepository);
 
-        $this->assertAttributeSame(
+        $this->assertSame(
             $audienceRepository,
-            'audienceRepository',
-            $this->subject
+            $this->subject->getAudienceRepository()
         );
     }
 }

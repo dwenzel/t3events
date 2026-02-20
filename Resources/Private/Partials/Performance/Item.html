@@ -57,7 +57,7 @@
 		<f:comment>Seating plan</f:comment>
 		<f:if condition="{performance.plan}">
 			<f:image
-				src="uploads/tx_t3events/{performance.plan}"
+				image="{performance.plan.0}"
 				width="{settings.event.single.plan.image.width}"
 				height="{settings.event.single.plan.image.height}"
 				alt="{f:translate(key: 'tx_t3events_domain_model_performance.plan')}"

@@ -13,15 +13,17 @@ namespace DWenzel\T3events\Domain\Model;
  *
  * The TYPO3 project - inspiring people to share!
  */
-use DWenzel\T3calendar\Domain\Model\CalendarItemInterface;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
+
 
 /**
  * Class Performance
  * @package DWenzel\T3events\Domain\Model
  */
-class Performance extends AbstractEntity implements CalendarItemInterface
+class Performance extends AbstractEntity
 {
     use EqualsTrait;
 
@@ -92,14 +94,15 @@ class Performance extends AbstractEntity implements CalendarItemInterface
      * images
      *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
+     * @Lazy
      */
     protected $images;
 
     /**
      * plan
      *
-     * @var string
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
+     * @Lazy
      */
     protected $plan;
 
@@ -119,14 +122,14 @@ class Performance extends AbstractEntity implements CalendarItemInterface
 
     /**
      * @var \DWenzel\T3events\Domain\Model\Event
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
+     * @Lazy
      */
     protected $event;
 
     /**
      * eventLocation
      *
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
+     * @Lazy
      * @var \DWenzel\T3events\Domain\Model\EventLocation
      */
     protected $eventLocation;
@@ -134,7 +137,7 @@ class Performance extends AbstractEntity implements CalendarItemInterface
     /**
      * ticketClass
      *
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
+     * @Lazy
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\TicketClass>
      */
     protected $ticketClass;
@@ -142,7 +145,7 @@ class Performance extends AbstractEntity implements CalendarItemInterface
     /**
      * status
      *
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
+     * @Lazy
      * @var \DWenzel\T3events\Domain\Model\PerformanceStatus
      */
     protected $status;
@@ -177,6 +180,7 @@ class Performance extends AbstractEntity implements CalendarItemInterface
          */
         $this->images = new ObjectStorage();
         $this->ticketClass = new ObjectStorage();
+        $this->plan = new ObjectStorage();
     }
 
     /**
@@ -186,6 +190,10 @@ class Performance extends AbstractEntity implements CalendarItemInterface
      */
     public function getEvent()
     {
+        if ($this->event instanceof LazyLoadingProxy) {
+            $this->event->_loadRealInstance();
+        }
+
         return $this->event;
     }
 
@@ -206,6 +214,9 @@ class Performance extends AbstractEntity implements CalendarItemInterface
      */
     public function getEventLocation()
     {
+        if ($this->eventLocation instanceof LazyLoadingProxy) {
+            $this->eventLocation->_loadRealInstance();
+        }
         return $this->eventLocation;
     }
 
@@ -415,9 +426,31 @@ class Performance extends AbstractEntity implements CalendarItemInterface
     }
 
     /**
+     * Adds a plan
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $plan Plan
+     * @return void
+     */
+    public function addPlan(\TYPO3\CMS\Extbase\Domain\Model\FileReference $plan)
+    {
+        $this->plan->attach($plan);
+    }
+
+    /**
+     * Removes a plan
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $planToRemove $planToRemove
+     * @return void
+     */
+    public function removePlan(\TYPO3\CMS\Extbase\Domain\Model\FileReference $planToRemove)
+    {
+        $this->plan->detach($planToRemove);
+    }
+
+    /**
      * Returns the plan
      *
-     * @return string $plan
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage $plan
      */
     public function getPlan()
     {
@@ -427,10 +460,10 @@ class Performance extends AbstractEntity implements CalendarItemInterface
     /**
      * Sets the plan
      *
-     * @param string $plan
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $plan Plan
      * @return void
      */
-    public function setPlan($plan)
+    public function setPlan(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $plan)
     {
         $this->plan = $plan;
     }
@@ -473,6 +506,9 @@ class Performance extends AbstractEntity implements CalendarItemInterface
      */
     public function getStatus()
     {
+        if ($this->status instanceof LazyLoadingProxy) {
+            $this->status->_loadRealInstance();
+        }
         return $this->status;
     }
 

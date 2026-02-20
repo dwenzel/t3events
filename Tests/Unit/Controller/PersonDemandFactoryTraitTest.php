@@ -29,7 +29,7 @@ class PersonDemandFactoryTraitTest extends UnitTestCase
     /**
      * set up the subject
      */
-    public function setUp()
+    protected function setUp(): void
     {
         $this->subject = $this->getMockForTrait(
             PersonDemandFactoryTrait::class

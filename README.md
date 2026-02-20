@@ -26,7 +26,7 @@ This is an extension for the TYPO3 CMS.
     * [Events](./Documentation/UsersManual/Events/Index.rst)
     * [Plugins](./Documentation/UsersManual/InsertPlugins/Index.rst)
 * [How To](./Documentation/HowTo/HowTo.md)
-
+* [Releases](./Documentation/Releases/Notes.md)
 ## Credits 
 Thanks for contribution and feedback
 * Michael Kasten

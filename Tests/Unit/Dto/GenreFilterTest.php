@@ -39,7 +39,7 @@ class GenreFilterTest extends UnitTestCase
      */
     protected $genreRepository;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->subject = new GenreFilter();
         $this->genreRepository = $this->getMockBuilder(GenreRepository::class)
