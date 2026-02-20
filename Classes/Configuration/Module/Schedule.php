@@ -19,6 +19,7 @@ namespace DWenzel\T3events\Configuration\Module;
  * This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use DWenzel\T3events\Controller\Backend\ScheduleController;
 use DWenzel\T3extensionTools\Configuration\ModuleRegistrationInterface;
 use DWenzel\T3extensionTools\Configuration\ModuleRegistrationTrait;
 
@@ -29,11 +30,11 @@ abstract class Schedule extends DefaultRegistration implements ModuleRegistratio
 {
     use ModuleRegistrationTrait;
 
-    static protected $subModuleName = 'm2';
-    static protected $controllerActions = [
-        'Backend\Schedule' => 'list,show,edit,delete,reset',
+    static protected string $subModuleName = 'm2';
+    static protected array $controllerActions = [
+        ScheduleController::class => 'list, show, edit, delete, reset',
     ];
-    static protected $moduleConfiguration = [
+    static protected array $moduleConfiguration = [
         'access' => 'user,group',
         'icon' => 'EXT:t3events/Resources/Public/Icons/calendar-blue.svg',
         'labels' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_m2.xlf',

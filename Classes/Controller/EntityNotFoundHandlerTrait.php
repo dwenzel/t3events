@@ -6,7 +6,7 @@ use DWenzel\T3events\Utility\SettingsInterface as SI;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Request;
 use TYPO3\CMS\Extbase\Mvc\RequestInterface;
-use TYPO3\CMS\Extbase\Mvc\ResponseInterface;
+use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Extbase\Property\Exception as PropertyException;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
@@ -72,10 +72,10 @@ trait EntityNotFoundHandlerTrait
      * @throws \Exception
      * @override \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
-    public function processRequest(RequestInterface $request, ResponseInterface $response)
+    public function processRequest(RequestInterface $request): ResponseInterface
     {
         try {
-            parent::processRequest($request, $response);
+           $response =  parent::processRequest($request);
         } catch (\Exception $exception) {
             if (
                 (($exception instanceof PropertyException\TargetNotFoundException)
@@ -92,6 +92,8 @@ trait EntityNotFoundHandlerTrait
             }
             throw $exception;
         }
+
+        return $response;
     }
 
     /**
@@ -101,30 +103,30 @@ trait EntityNotFoundHandlerTrait
      * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException
      * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
      */
-    public function handleEntityNotFoundError($configuration)
+    public function handleEntityNotFoundError(string $configuration): void
     {
         if (empty($configuration)) {
             return;
         }
-        $configuration = GeneralUtility::trimExplode(',', $configuration);
-        switch ($configuration[0]) {
+        $conf = GeneralUtility::trimExplode(',', $configuration);
+        switch ($conf[0]) {
             case 'redirectToListView':
                 $this->redirect('list');
                 break;
             case 'redirectToPage':
-                if (count($configuration) === 1 || count($configuration) > 3) {
+                if (count($conf) === 1 || count($conf) > 3) {
                     $msg = sprintf('If error handling "%s" is used, either 2 or 3 arguments, splitted by "," must be used', $configuration[0]);
                     throw new \InvalidArgumentException($msg);
                 }
                 $this->uriBuilder->reset();
-                $this->uriBuilder->setTargetPageUid($configuration[1]);
+                $this->uriBuilder->setTargetPageUid($conf[1]);
                 $this->uriBuilder->setCreateAbsoluteUri(true);
                 if ($this->isSSLEnabled()) {
                     $this->uriBuilder->setAbsoluteUriScheme('https');
                 }
                 $url = $this->uriBuilder->build();
-                if (isset($configuration[2])) {
-                    $this->redirectToUri($url, 0, (int)$configuration[2]);
+                if (isset($conf[2])) {
+                    $this->redirectToUri($url, 0, (int)$conf[2]);
                 } else {
                     $this->redirectToUri($url);
                 }
@@ -134,7 +136,7 @@ trait EntityNotFoundHandlerTrait
                 break;
             default:
                 $params = [
-                    SI::CONFIG => $configuration,
+                    SI::CONFIG => $conf,
                     'requestArguments' => $this->request->getArguments(),
                     SI::ACTION_NAME => $this->request->getControllerActionName()
                 ];

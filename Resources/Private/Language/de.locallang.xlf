@@ -465,10 +465,6 @@
             <source>Simply print your tickets now!</source>
             <target>Drucken Sie Tickets einfach sofort aus!</target>
         </trans-unit>
-        <trans-unit id="tx_t3events_domain_model_performance.image" approved="yes" xml:space="preserve">
-            <source>image</source>
-            <target>Bild</target>
-        </trans-unit>
         <trans-unit id="tx_t3events_domain_model_performance.images" approved="yes" xml:space="preserve">
             <source>Images</source>
             <target>Bilder</target>

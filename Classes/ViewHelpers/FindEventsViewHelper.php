@@ -17,6 +17,8 @@ namespace DWenzel\T3events\ViewHelpers;
      *  GNU General Public License for more details.
      *  This copyright notice MUST APPEAR in all copies of the script!
      ***************************************************************/
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+
 /**
  * Checks for performances at specified date
  *
@@ -24,8 +26,7 @@ namespace DWenzel\T3events\ViewHelpers;
  * @package T3events
  * @subpackage ViewHelpers/Event
  */
-
-class FindEventsViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
+class FindEventsViewHelper extends AbstractViewHelper
 {
 
     /**

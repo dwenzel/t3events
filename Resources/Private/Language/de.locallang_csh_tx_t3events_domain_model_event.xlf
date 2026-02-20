@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2023-05-12T11:12:09Z">
+		<header>
+			<description>Context Sensitive Help (CSH) for table tx_t3events_domain_model_event</description>
+			<type>CSH</type>
+			<csh_table>tx_t3events_domain_model_event</csh_table>
+			<generator>LFEditor</generator>
+		</header>
+		<body>
+			<trans-unit id="description.description" approved="yes">
+				<source><![CDATA[Description]]></source>
+				<target><![CDATA[Beschreibung]]></target>
+			</trans-unit>
+			<trans-unit id="event_type.description" approved="yes">
+				<source><![CDATA[Event type]]></source>
+				<target><![CDATA[Veranstaltungstyp]]></target>
+			</trans-unit>
+			<trans-unit id="genre.description" approved="yes">
+				<source><![CDATA[Choose Genres]]></source>
+				<target><![CDATA[Wählen Sie Genres aus.]]></target>
+			</trans-unit>
+			<trans-unit id="headline.description" approved="yes">
+				<source><![CDATA[Enter a title.]]></source>
+				<target><![CDATA[Titel]]></target>
+			</trans-unit>
+			<trans-unit id="image.description" approved="yes">
+				<source><![CDATA[Image]]></source>
+				<target><![CDATA[Bild]]></target>
+			</trans-unit>
+			<trans-unit id="keywords.description" approved="yes">
+				<source><![CDATA[Keywords]]></source>
+				<target><![CDATA[Schlagworte]]></target>
+			</trans-unit>
+			<trans-unit id="organizer.description" approved="yes">
+				<source><![CDATA[Organizer]]></source>
+				<target><![CDATA[Veranstalter]]></target>
+			</trans-unit>
+			<trans-unit id="performances.description" approved="yes">
+				<source><![CDATA[Add performances]]></source>
+				<target><![CDATA[Fügen Sie Veranstaltungen hinzu.]]></target>
+			</trans-unit>
+			<trans-unit id="related_schedules.description" approved="yes">
+				<source><![CDATA[Choose related schedules.]]></source>
+				<target><![CDATA[Wählen Sie zugehörige Termine aus.]]></target>
+			</trans-unit>
+			<trans-unit id="subtitle.description" approved="yes">
+				<source><![CDATA[Subtitle]]></source>
+				<target><![CDATA[Untertitel]]></target>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

@@ -48,7 +48,7 @@ class OptionsTraitTest extends UnitTestCase
      */
     protected $queryResult;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->subject = $this->getMockBuilder(OptionsTrait::class)
             ->setMethods(['getOptionRepository'])

@@ -1,6 +1,6 @@
 <?php
 
-namespace DWenzel\T3events\Tests\Controller;
+namespace DWenzel\T3events\Tests\Unit\Controller;
 
 use DWenzel\T3events\Controller\DemandTrait;
 use DWenzel\T3events\Domain\Model\Dto\AbstractDemand;
@@ -22,7 +22,7 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 /**
  * Class DemandTraitTest
  *
- * @package DWenzel\T3events\Tests\Controller
+ * @package DWenzel\T3events\Tests\Unit\Controller
  */
 class DemandTraitTest extends UnitTestCase
 {
@@ -36,7 +36,7 @@ class DemandTraitTest extends UnitTestCase
     /**
      * set up
      */
-    public function setUp()
+    protected function setUp(): void
     {
         $this->subject = $this->getMockForTrait(
             DemandTrait::class

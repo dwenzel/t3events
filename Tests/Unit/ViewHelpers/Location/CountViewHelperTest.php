@@ -1,6 +1,6 @@
 <?php
 
-namespace DWenzel\T3events\Tests\ViewHelpers\Location;
+namespace DWenzel\T3events\Tests\Unit\ViewHelpers\Location;
 
 /**
  * This file is part of the TYPO3 CMS project.
@@ -27,7 +27,7 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /**
  * Class CountTest
- * @package DWenzel\T3events\Tests\ViewHelpers\Location
+ * @package DWenzel\T3events\Tests\Unit\ViewHelpers\Location
  */
 class CountViewHelperTest extends UnitTestCase
 {
@@ -39,7 +39,7 @@ class CountViewHelperTest extends UnitTestCase
     /**
      * set up
      */
-    public function setUp()
+    protected function setUp(): void
     {
         $this->subject = $this->getAccessibleMock(
             CountViewHelper::class, ['dummy', 'registerArgument']

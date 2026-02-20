@@ -1,5 +1,5 @@
 <?php
-namespace DWenzel\T3events\Tests\Controller\Routing;
+namespace DWenzel\T3events\Tests\Unit\Controller\Routing;
 
 use DWenzel\T3events\Controller\Routing\Route;
 use DWenzel\T3events\Utility\SettingsInterface as SI;
@@ -35,7 +35,7 @@ class RouteTest extends UnitTestCase
     /**
      * set up
      */
-    public function setUp()
+    protected function setUp(): void
     {
         $this->subject = $this->getAccessibleMock(
             Route::class, ['dummy'], [self::DUMMY_ORIGIN]

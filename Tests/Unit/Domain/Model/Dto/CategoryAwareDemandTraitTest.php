@@ -15,14 +15,14 @@ class CategoryAwareDemandTraitTest extends UnitTestCase
      */
     protected $subject;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->subject = $this->getMockForTrait(
             CategoryAwareDemandTrait::class
         );
     }
 
-    public function tearDown()
+    protected function tearDown(): void
     {
         unset($this->subject);
     }

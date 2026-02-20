@@ -1,6 +1,6 @@
 <?php
 
-namespace DWenzel\T3events\Tests\Controller;
+namespace DWenzel\T3events\Tests\Unit\Controller;
 
 use DWenzel\T3events\Controller\SearchTrait;
 use DWenzel\T3events\Domain\Model\Dto\Search;
@@ -35,7 +35,7 @@ class SearchTraitTest extends UnitTestCase
     /**
      * set up
      */
-    public function setUp()
+    protected function setUp(): void
     {
         $this->subject = $this->getMockForTrait(
             SearchTrait::class

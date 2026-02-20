@@ -19,6 +19,7 @@ namespace DWenzel\T3events\Configuration\Module;
  * This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use DWenzel\T3events\Controller\Backend\EventController;
 use DWenzel\T3extensionTools\Configuration\ModuleRegistrationInterface;
 use DWenzel\T3extensionTools\Configuration\ModuleRegistrationTrait;
 
@@ -29,14 +30,13 @@ abstract class Event extends DefaultRegistration implements ModuleRegistrationIn
 {
     use ModuleRegistrationTrait;
 
-    static protected $subModuleName = 'm1';
-    static protected $controllerActions = [
-        'Backend\Event' => 'list, show,reset,new',
+    static protected string $subModuleName = 'm1';
+    static protected array $controllerActions = [
+        EventController::class => 'list, show, reset, new',
     ];
-    static protected $moduleConfiguration = [
+    static protected array $moduleConfiguration = [
         'access' => 'user,group',
         'icon' => 'EXT:t3events/Resources/Public/Icons/calendar.svg',
         'labels' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_mod_main.xlf',
     ];
-
 }

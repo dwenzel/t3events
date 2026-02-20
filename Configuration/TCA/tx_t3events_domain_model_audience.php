@@ -26,8 +26,6 @@ return [
         ],
         'searchFields' => 'title,description,',
         'iconfile' => 'EXT:t3events/Resources/Public/Icons/tx_t3events_domain_model_audience.gif'
-    ], 'interface' => [
-        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, description,link',
     ],
     'types' => [
         '1' => [
@@ -62,7 +60,6 @@ return [
         ],
         'l10n_parent' => [
             'displayCond' => 'FIELD:sys_language_uid:>:0',
-            'exclude' => 1,
             'label' => $cll . 'LGL.l18n_parent',
             'config' => [
                 'type' => 'select',
@@ -78,15 +75,6 @@ return [
             'config' => [
                 'type' => 'passthrough',
             ],
-        ],
-
-        't3ver_label' => [
-            'label' => $cll . 'LGL.versionLabel',
-            'config' => [
-                'type' => 'input',
-                'size' => 30,
-                'max' => 255,
-            ]
         ],
 
         'hidden' => [

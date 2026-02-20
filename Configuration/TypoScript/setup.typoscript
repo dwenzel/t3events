@@ -63,6 +63,15 @@ plugin.tx_t3events {
 
                 paginate = 1
                 showSortBy = 1
+
+                paginate {
+                    class = DWenzel\T3events\Pagination\NumberedPagination
+                    enabled = 1
+                    itemsPerPage = 9
+                    insertAbove = 0
+                    insertBelow = 1
+                    maximumNumberOfLinks = 5
+                }
             }
 
             detail {
@@ -120,6 +129,17 @@ plugin.tx_t3events {
                         }
                     }
                 }
+
+                # Paginate configuration.
+                paginate {
+                    class = DWenzel\T3events\Pagination\NumberedPagination
+                    enabled = 1
+                    itemsPerPage = 6
+                    insertAbove = 1
+                    insertBelow = 1
+                    maximumNumberOfLinks = 5
+                }
+
 
                 # legacy sorting
                 #sortBy = date

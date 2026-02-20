@@ -1,6 +1,6 @@
 <?php
 
-namespace DWenzel\T3events\Tests\Controller;
+namespace DWenzel\T3events\Tests\Unit\Controller;
 
 use DWenzel\T3events\Controller\FilterableControllerTrait;
 use DWenzel\T3events\Domain\Repository\AudienceRepository;
@@ -62,7 +62,7 @@ class DummyControllerWithAudienceRepository
 /**
  * Class FilterableControllerTraitTest
  *
- * @package DWenzel\T3events\Tests\Controller
+ * @package DWenzel\T3events\Tests\Unit\Controller
  */
 class FilterableControllerTraitTest extends UnitTestCase
 {
@@ -72,7 +72,7 @@ class FilterableControllerTraitTest extends UnitTestCase
      */
     protected $subject;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->subject = $this->getMockForTrait(
             FilterableControllerTrait::class

@@ -1,5 +1,5 @@
 <?php
-namespace DWenzel\T3events\Tests\Controller;
+namespace DWenzel\T3events\Tests\Unit\Controller;
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use DWenzel\T3events\Controller\EventTypeRepositoryTrait;
@@ -32,7 +32,7 @@ class EventTypeRepositoryTraitTest extends UnitTestCase
     /**
      * set up
      */
-    public function setUp()
+    protected function setUp(): void
     {
         $this->subject = $this->getMockForTrait(
             EventTypeRepositoryTrait::class

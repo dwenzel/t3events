@@ -43,12 +43,12 @@ class VenueTest extends UnitTestCase
      */
     protected $fixture;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->fixture = new Venue();
     }
 
-    public function tearDown()
+    protected function tearDown(): void
     {
         unset($this->fixture);
     }

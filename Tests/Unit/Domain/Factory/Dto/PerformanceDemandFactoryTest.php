@@ -33,7 +33,7 @@ class PerformanceDemandFactoryTest extends UnitTestCase
     /**
      * set up
      */
-    public function setUp()
+    protected function setUp(): void
     {
         $this->subject = $this->getAccessibleMock(
             PerformanceDemandFactory::class, ['dummy'], [], '', false

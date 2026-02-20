@@ -321,10 +321,6 @@
             <source>External Provider Link</source>
             <target>Link zu externem Anbieter</target>
         </trans-unit>
-        <trans-unit id="tx_t3events_domain_model_performance.image" approved="yes">
-            <source>Image</source>
-            <target>Bild</target>
-        </trans-unit>
         <trans-unit id="tx_t3events_domain_model_performance.internal" approved="yes">
             <source>internal</source>
             <target>intern</target>

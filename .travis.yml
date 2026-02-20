@@ -2,13 +2,17 @@ language: php
 
 sudo: false
 
-matrix:
+jobs:
   fast_finish: true
   include:
     - php: 7.2
-      env: TYPO3_VERSION=^8 COVERAGE=1
-    - php: 7.2
+      env: TYPO3_VERSION=^9 COVERAGE=1
+    - php: 7.3
       env: TYPO3_VERSION=^9
+    - php: 7.3
+      env: TYPO3_VERSION=^10
+    - php: 7.4
+      env: TYPO3_VERSION=^10
 env:
   global:
     - CC_TEST_REPORTER_ID: d3719b289927b05bd9152291beb62d8e25d9e66f347011cbe9d7922885f29b60
@@ -17,7 +21,13 @@ env:
 jdk:
   - oraclejdk8
 
+services:
+  - mysql
+  -
 addons:
+  apt:
+    packages:
+      - parallel
   sonarcloud:
     organisation: dwenzel-github
 
@@ -30,7 +40,10 @@ before_script:
   - composer require typo3/minimal=$TYPO3_VERSION
   - git checkout composer.json
   - export TYPO3_PATH_WEB=$PWD/.Build/Web
-
+  - export typo3DatabaseName=typo3
+  - export typo3DatabaseHost=localhost
+  - export typo3DatabaseUsername=root
+  - export typo3DatabasePassword=
 script:
 - >
   if [[ "$COVERAGE" != "1" ]]; then
@@ -50,6 +63,15 @@ script:
     rm -rf .Build/vendor/ .Build/Web/ .Build/bin/
     sonar-scanner -Dproject.settings=.sonar-project.properties
   fi
+- >
+  if [ -d "Tests/Functional" ]; then
+      echo;
+      echo "Running functional tests";
+      echo;
+      echo;
+      find 'Tests/Functional' -wholename '*Test.php' | parallel --gnu 'echo; echo "Running functional test suite {}"; .Build/bin/phpunit --bootstrap .Build/vendor/nimut/testing-framework/res/Configuration/FunctionalTestsBootstrap.php {}';
+  fi
+
 
 after_success:
 - >
