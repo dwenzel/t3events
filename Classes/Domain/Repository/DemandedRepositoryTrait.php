@@ -223,7 +223,7 @@ trait DemandedRepositoryTrait
      * @return mixed
      * @throws UnsupportedMethodException
      */
-    public function __call(string $methodName, $arguments)
+    public function __call($methodName, $arguments)
     {
         $substring = substr($methodName, 0, 15);
         if ($substring === 'countContaining' && strlen($methodName) > 16) {

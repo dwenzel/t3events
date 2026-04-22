@@ -46,13 +46,7 @@ class PerformancesViewHelper extends AbstractTagBasedViewHelper
     /**
      * Constructor
      */
-    public function __construct(
-        /**
-         * eventRepository
-         */
-        protected EventRepository $eventRepository,
-        private readonly ConfigurationManagerInterface $configurationManager
-    )
+    public function __construct(protected EventRepository $eventRepository)
     {
         parent::__construct();
     }

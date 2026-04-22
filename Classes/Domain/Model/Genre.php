@@ -58,7 +58,7 @@ class Genre extends AbstractEntity
      *
      * @param string $title
      */
-    public function setTitle($title): void
+    public function setTitle($title)
     {
         $this->title = $title;
     }
