@@ -43,7 +43,7 @@ class ModuleDataStorageService implements SingletonInterface
         if (empty($moduleData) || !$moduleData) {
             return GeneralUtility::makeInstance(ModuleData::class);
         }
-        return unserialize($moduleData, ['allowed_classes' => true]);
+        return unserialize($moduleData, ['allowed_classes' => [ModuleData::class]]);
     }
 
     /**
