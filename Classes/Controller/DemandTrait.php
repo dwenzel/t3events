@@ -2,6 +2,7 @@
 
 namespace DWenzel\T3events\Controller;
 
+use DWenzel\T3events\Domain\Model\Dto\Search;
 use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
 use DWenzel\T3events\Domain\Model\Dto\EventDemand;
 use DWenzel\T3events\Domain\Model\Dto\EventLocationAwareDemandInterface;
@@ -11,7 +12,6 @@ use DWenzel\T3events\Domain\Model\Dto\SearchAwareDemandInterface;
 use DWenzel\T3events\Domain\Model\Dto\VenueAwareDemandInterface;
 use DWenzel\T3events\Domain\Repository\PeriodConstraintRepositoryInterface;
 use DWenzel\T3events\Utility\SettingsInterface as SI;
-use DWenzel\T3events\Utility\SettingsUtility;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 
 /**
@@ -33,7 +33,7 @@ trait DemandTrait
      *
      * @param array $searchRequest An array with the search request
      * @param array $settings Settings for search
-     * @return \DWenzel\T3events\Domain\Model\Dto\Search $search
+     * @return Search $search
      */
     abstract public function createSearchObject(array $searchRequest, array $settings);
 
@@ -41,7 +41,7 @@ trait DemandTrait
      * @param DemandInterface $demand
      * @param array $overwriteDemand
      */
-    public function overwriteDemandObject(&$demand, $overwriteDemand)
+    public function overwriteDemandObject(&$demand, $overwriteDemand): void
     {
         if (!(bool)$overwriteDemand) {
             return;

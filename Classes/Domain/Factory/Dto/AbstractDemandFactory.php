@@ -1,7 +1,6 @@
 <?php
 namespace DWenzel\T3events\Domain\Factory\Dto;
 
-use DWenzel\T3events\Object\ObjectManagerTrait;
 use DWenzel\T3events\Utility\SettingsInterface as SI;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
@@ -33,7 +32,7 @@ use DWenzel\T3events\Domain\Model\Dto\OrderAwareDemandInterface;
  */
 abstract class AbstractDemandFactory
 {
-    use SkipPropertyTrait, MapPropertyTrait, ObjectManagerTrait;
+    use SkipPropertyTrait, MapPropertyTrait;
 
     /**
      * Properties which should be mapped when settings
@@ -58,6 +57,7 @@ abstract class AbstractDemandFactory
      *
      * @return array
      */
+    #[\Override]
     public function getCompositeProperties()
     {
         return static::$compositeProperties;
@@ -68,6 +68,7 @@ abstract class AbstractDemandFactory
      *
      * @return array
      */
+    #[\Override]
     public function getMappedProperties()
     {
         return static::$mappedProperties;
@@ -83,9 +84,8 @@ abstract class AbstractDemandFactory
      * and must be set by concrete factory
      *
      * @param $demand
-     * @param array $settings
      */
-    public function applySettings($demand, array $settings)
+    public function applySettings($demand, array $settings): void
     {
         if (
             isset($settings['sortBy']) &&

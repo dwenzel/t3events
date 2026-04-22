@@ -41,10 +41,9 @@ trait EqualsTrait
      * We rely on the __toString method of
      * AbstractDomainObject
      *
-     * @param AbstractDomainObject $object
      * @return true
      */
-    public function equals(AbstractDomainObject $object)
+    public function equals(AbstractDomainObject $object): bool
     {
         return ($this->__toString() === $object->__toString());
     }

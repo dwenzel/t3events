@@ -45,9 +45,9 @@ class FilterResolver implements FilterResolverInterface
      *
      * If no filter exists for the key of NullFilter::class is returned
      *
-     * @param string $key
      * @return string class name
      */
+    #[\Override]
     public function resolve(string $key): string
     {
         if (!array_key_exists($key, static::$map)) {

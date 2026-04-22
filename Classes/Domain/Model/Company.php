@@ -19,6 +19,7 @@ namespace DWenzel\T3events\Domain\Model;
  *  GNU General Public License for more details.
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+use TYPO3\CMS\Extbase\Annotation\Validate;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 /**
@@ -34,7 +35,7 @@ class Company extends AbstractEntity
      * name
      *
      * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
+     * @Validate("NotEmpty")
      */
     protected $name = '';
 
@@ -52,9 +53,8 @@ class Company extends AbstractEntity
      * Sets the name
      *
      * @param string $name
-     * @return void
      */
-    public function setName($name)
+    public function setName($name): void
     {
         $this->name = $name;
     }

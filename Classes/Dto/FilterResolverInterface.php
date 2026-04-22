@@ -29,7 +29,6 @@ interface FilterResolverInterface
      *
      * If no filter exists for the key, NullFilter::class is returned
      *
-     * @param string $key
      * @return string Class name
      */
     public function resolve(string $key): string;

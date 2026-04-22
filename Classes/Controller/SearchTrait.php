@@ -12,9 +12,6 @@ use DWenzel\T3events\Domain\Model\Dto\SearchFactory;
  */
 trait SearchTrait
 {
-    /**
-     * @var SearchFactory
-     */
     protected SearchFactory $searchFactory;
 
     /**

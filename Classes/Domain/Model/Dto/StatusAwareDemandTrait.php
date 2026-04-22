@@ -22,7 +22,7 @@ trait StatusAwareDemandTrait
      * A single status
      * see $statuses for multiple
      *
-     * @var \DWenzel\T3events\Domain\Model\PerformanceStatus
+     * @var PerformanceStatus
      */
     protected $status;
 
@@ -41,7 +41,7 @@ trait StatusAwareDemandTrait
     /**
      * Returns the performance status
      *
-     * @return \DWenzel\T3events\Domain\Model\PerformanceStatus
+     * @return PerformanceStatus
      */
     public function getStatus()
     {
@@ -50,10 +50,8 @@ trait StatusAwareDemandTrait
 
     /**
      * sets the status
-     *
-     * @param PerformanceStatus|\DWenzel\T3events\Domain\Model\PerformanceStatus $status
      */
-    public function setStatus(PerformanceStatus $status)
+    public function setStatus(PerformanceStatus $status): void
     {
         $this->status = $status;
     }
@@ -69,7 +67,7 @@ trait StatusAwareDemandTrait
     /**
      * @param string $statuses
      */
-    public function setStatuses($statuses)
+    public function setStatuses($statuses): void
     {
         $this->statuses = $statuses;
     }
@@ -85,7 +83,7 @@ trait StatusAwareDemandTrait
     /**
      * @param boolean $excludeSelectedStatuses
      */
-    public function setExcludeSelectedStatuses($excludeSelectedStatuses)
+    public function setExcludeSelectedStatuses($excludeSelectedStatuses): void
     {
         $this->excludeSelectedStatuses = $excludeSelectedStatuses;
     }

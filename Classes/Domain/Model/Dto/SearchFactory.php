@@ -1,9 +1,7 @@
 <?php
 namespace DWenzel\T3events\Domain\Model\Dto;
 
-use DWenzel\T3events\Object\ObjectManagerTrait;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 
 /***************************************************************
  *  Copyright notice
@@ -24,14 +22,12 @@ use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
  ***************************************************************/
 class SearchFactory
 {
-    use ObjectManagerTrait;
-
     /**
      * Creates a search object from given settings
      *
      * @param array $searchRequest An array with the search request
      * @param array $settings Settings for search
-     * @return \DWenzel\T3events\Domain\Model\Dto\Search $search
+     * @return Search $search
      */
     public function get($searchRequest, $settings)
     {

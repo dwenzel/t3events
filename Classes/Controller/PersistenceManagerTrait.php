@@ -30,10 +30,8 @@ trait PersistenceManagerTrait
 
     /**
      * injects the persistence manager
-     *
-     * @param PersistenceManagerInterface $persistenceManager
      */
-    public function injectPersistenceManager(PersistenceManagerInterface $persistenceManager)
+    public function injectPersistenceManager(PersistenceManagerInterface $persistenceManager): void
     {
         $this->persistenceManager = $persistenceManager;
     }

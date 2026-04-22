@@ -20,21 +20,15 @@ namespace DWenzel\T3events\Resource;
  ***************************************************************/
 class VectorImage extends \DOMDocument
 {
-    /**
-     * @var \DOMXPath
-     */
-    protected ?\DOMXPath $xPath;
+    protected ?\DOMXPath $xPath = null;
 
     /**
      * Replaces text node children of a node
-     *
-     * @param string $nodeId
-     * @param string $content
      */
     public function replaceNodeText(string $nodeId, string $content): void
     {
         $element = $this->getElementById($nodeId);
-        if ($element === null) {
+        if (!$element instanceof \DOMElement) {
             return;
         }
 
@@ -57,7 +51,7 @@ class VectorImage extends \DOMDocument
     {
         foreach ($elementIds as $elementId) {
             $element = $this->getElementById($elementId);
-            if ($element === null) {
+            if (!$element instanceof \DOMElement) {
                 continue;
             }
             $element->setAttribute($attributeName, $attributeValue);
@@ -66,8 +60,6 @@ class VectorImage extends \DOMDocument
 
     /**
      * Hides elements by id
-     *
-     * @param array $elementIds
      */
     public function hideElements(array $elementIds): void
     {
@@ -76,8 +68,6 @@ class VectorImage extends \DOMDocument
 
     /**
      * Shows elements by id
-     *
-     * @param array $elementIds
      */
     public function showElements(array $elementIds): void
     {
@@ -91,8 +81,8 @@ class VectorImage extends \DOMDocument
      * which is quite slow
      *
      * @param string $elementId
-     * @return ?\DOMElement
      */
+    #[\Override]
     public function getElementById($elementId): ?\DOMElement
     {
         $element = $this->getXPath()->query("//*[@id='" . $elementId . "']")->item(0);
@@ -102,9 +92,6 @@ class VectorImage extends \DOMDocument
         return null;
     }
 
-    /**
-     * @return \DOMXPath
-     */
     public function getXPath(): \DOMXPath
     {
         if (!$this->xPath instanceof \DOMXPath) {

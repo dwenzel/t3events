@@ -10,14 +10,14 @@ namespace DWenzel\T3events\Domain\Model\Dto;
 trait SearchAwareDemandTrait
 {
     /**
-     * @var \DWenzel\T3events\Domain\Model\Dto\Search
+     * @var Search
      */
     protected $search;
 
     /**
      * Get search
      *
-     * @return \DWenzel\T3events\Domain\Model\Dto\Search
+     * @return Search
      */
     public function getSearch()
     {
@@ -27,10 +27,9 @@ trait SearchAwareDemandTrait
     /**
      * Set search object
      *
-     * @param \DWenzel\T3events\Domain\Model\Dto\Search $search A search object
-     * @return void
+     * @param Search $search A search object
      */
-    public function setSearch(Search $search)
+    public function setSearch(Search $search): void
     {
         $this->search = $search;
     }

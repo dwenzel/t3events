@@ -29,6 +29,7 @@ class VenueFilter implements FilterInterface
 {
     use VenueRepositoryTrait, OptionsTrait;
 
+    #[\Override]
     public function getOptionRepository(): DemandedRepositoryInterface
     {
         return $this->venueRepository;

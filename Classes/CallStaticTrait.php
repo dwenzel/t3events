@@ -34,9 +34,8 @@ trait CallStaticTrait
      *
      * @param string $className Name of the class
      * @param string $methodName Name of the method
-     * @return mixed
      */
-    protected function callStatic($className, $methodName)
+    protected function callStatic(string $className, string $methodName): mixed
     {
         $parameters = func_get_args();
         $parameters = array_slice($parameters, 2); // Remove $className and $methodName

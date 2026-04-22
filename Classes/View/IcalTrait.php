@@ -55,13 +55,12 @@ trait IcalTrait
     /**
      * Renders the content
      *
-     * @param null $actionName
      * @return string
      */
     public function render($actionName = null)
     {
         $content = $this->callStatic(get_parent_class($this), __FUNCTION__, $actionName);
-        $content = trim($content, static::$trimCharacters);
+        $content = trim((string) $content, static::$trimCharacters);
         return $this->replacePatterns($content);
     }
 }

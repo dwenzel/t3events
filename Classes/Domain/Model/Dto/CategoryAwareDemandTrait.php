@@ -44,7 +44,7 @@ trait CategoryAwareDemandTrait
     /**
      * @param string $categories
      */
-    public function setCategories($categories)
+    public function setCategories($categories): void
     {
         $this->categories = $categories;
     }

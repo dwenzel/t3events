@@ -44,7 +44,7 @@ trait AudienceAwareDemandTrait
     /**
      * @param string $audiences
      */
-    public function setAudiences($audiences)
+    public function setAudiences($audiences): void
     {
         $this->audiences = $audiences;
     }

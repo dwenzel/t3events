@@ -18,7 +18,7 @@ namespace DWenzel\T3events\Domain\Model;
  * GNU General Public License for more details.
  * This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
+use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /**
@@ -30,23 +30,20 @@ trait RelatedSchedulesTrait
     /**
      * related schedules
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Performance>
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
+     * @var ObjectStorage<Performance>
+     * @Lazy
      */
     protected $relatedSchedules;
 
-    /**
-     * @return ObjectStorage
-     */
     public function getRelatedSchedules(): ObjectStorage
     {
         return $this->relatedSchedules;
     }
 
     /**
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Performance> $relatedSchedules
+     * @param ObjectStorage<Performance> $relatedSchedules
      */
-    public function setRelatedSchedules(ObjectStorage $relatedSchedules)
+    public function setRelatedSchedules(ObjectStorage $relatedSchedules): void
     {
         $this->relatedSchedules = $relatedSchedules;
     }
@@ -54,7 +51,7 @@ trait RelatedSchedulesTrait
     /**
      * Add a related schedule
      */
-    public function addRelatedSchedule(Performance $schedule)
+    public function addRelatedSchedule(Performance $schedule): void
     {
         $this->relatedSchedules->attach($schedule);
     }
@@ -62,7 +59,7 @@ trait RelatedSchedulesTrait
     /**
      * removes a related schedule
      */
-    public function removeRelatedSchedule(Performance $schedule)
+    public function removeRelatedSchedule(Performance $schedule): void
     {
         $this->relatedSchedules->detach($schedule);
     }

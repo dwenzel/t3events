@@ -39,13 +39,6 @@ class Route
     const ORIGIN_SEPARATOR = '|';
 
     /**
-     * Origin of route
-     *
-     * @var string A string of fully qualified controller class name and action method separated by ORIGIN_SEPARATOR.
-     */
-    protected $origin;
-
-    /**
      * Options for routing method
      * default is
      * [
@@ -94,10 +87,17 @@ class Route
      * Route constructor.
      *
      * @var string $origin Pipe separated string of fully qualified controller class name and action method
+     * @param string $origin
      */
-    public function __construct($origin)
+    public function __construct(
+        /**
+         * Origin of route
+         *
+         * @var string A string of fully qualified controller class name and action method separated by ORIGIN_SEPARATOR.
+         */
+        protected $origin
+    )
     {
-        $this->origin = $origin;
     }
 
     /**
@@ -128,7 +128,7 @@ class Route
      * @param string $method Routing method. Allowed: redirect, forward, redirectToUri
      * @return Route The current route instance.
      */
-    public function setMethod($method)
+    public function setMethod($method): static
     {
         if (in_array($method, static::$validMethods)) {
             $this->method = $method;
@@ -155,7 +155,7 @@ class Route
      */
     public function getOption($name)
     {
-        return isset($this->options[$name]) ? $this->options[$name] : null;
+        return $this->options[$name] ?? null;
     }
 
     /**
@@ -166,7 +166,7 @@ class Route
      * @param mixed $value Option value
      * @return Route The current route instance.
      */
-    public function setOption($name, $value)
+    public function setOption($name, mixed $value): static
     {
         $this->options[$name] = $value;
 
@@ -184,7 +184,7 @@ class Route
      * @param array $options An array of option
      * @return Route The current route instance.
      */
-    public function setOptions(array $options)
+    public function setOptions(array $options): static
     {
         $this->options = $options;
 
@@ -197,7 +197,7 @@ class Route
      * @param string $name Option name
      * @return bool true if the option is set, otherwise false
      */
-    public function hasOption($name)
+    public function hasOption($name): bool
     {
         return array_key_exists($name, $this->options);
     }

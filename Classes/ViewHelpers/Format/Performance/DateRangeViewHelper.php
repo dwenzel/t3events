@@ -30,11 +30,12 @@ class DateRangeViewHelper extends AbstractDateRangeViewHelper
     const ARGUMENT_PERFORMANCE_DESCRIPTION = 'Performance for which the date range should be rendered.';
 
     /**
-     * @var \DWenzel\T3events\Domain\Model\Performance
+     * @var Performance
      */
     protected $performance;
 
-    public function initializeArguments()
+    #[\Override]
+    public function initializeArguments(): void
     {
         $this->registerArgument('performance', Performance::class, static::ARGUMENT_PERFORMANCE_DESCRIPTION, true);
         $this->registerArgument('format', 'string', static::ARGUMENT_FORMAT_DESCRIPTION, false, static::DEFAULT_DATE_FORMAT);
@@ -58,7 +59,7 @@ class DateRangeViewHelper extends AbstractDateRangeViewHelper
     /**
      * @return array An array of timestamps
      */
-    protected function getTimestamps()
+    protected function getTimestamps(): array
     {
         $startDate = $this->performance->getDate();
         $timestamps = [$startDate->getTimestamp()];

@@ -6,7 +6,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use DWenzel\T3events\Domain\Model\Dto\ModuleData;
 use DWenzel\T3events\Service\ModuleDataStorageService;
 use TYPO3\CMS\Extbase\Mvc\RequestInterface;
-use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 
 /**
  * Class ModuleDataTrait
@@ -16,20 +15,9 @@ use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
  */
 trait ModuleDataTrait
 {
-    /**
-     * @var ModuleData
-     */
     protected ModuleData $moduleData;
 
-    /**
-     * @var ModuleDataStorageService
-     */
     protected ModuleDataStorageService $moduleDataStorageService;
-
-    /**
-     * @var ObjectManagerInterface
-     */
-    protected $objectManager;
 
     /**
      * @var array
@@ -82,7 +70,7 @@ trait ModuleDataTrait
     /**
      * initializes all action methods
      */
-    public function initializeAction()
+    public function initializeAction(): void
     {
         $this->pageUid = (int)GeneralUtility::_GET('id');
         $this->settings = $this->mergeSettings();
@@ -92,7 +80,7 @@ trait ModuleDataTrait
      * Reset action
      * Resets all module data and forwards the request to the list action
      */
-    public function resetAction()
+    public function resetAction(): void
     {
         $this->moduleData =GeneralUtility::makeInstance(ModuleData::class);
         $this->moduleDataStorageService->persistModuleData($this->moduleData, $this->getModuleKey());
@@ -107,10 +95,7 @@ trait ModuleDataTrait
         return $this->moduleData;
     }
 
-    /**
-     * @param ModuleData $moduleData
-     */
-    public function setModuleData(ModuleData $moduleData)
+    public function setModuleData(ModuleData $moduleData): void
     {
         $this->moduleData = $moduleData;
     }

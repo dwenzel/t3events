@@ -44,7 +44,7 @@ trait GenreAwareDemandTrait
     /**
      * @param string $genres
      */
-    public function setGenres($genres)
+    public function setGenres($genres): void
     {
         $this->genres = $genres;
     }

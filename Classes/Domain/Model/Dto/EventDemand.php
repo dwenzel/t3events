@@ -81,9 +81,8 @@ class EventDemand extends AbstractDemand implements
      * Sets the genre
      *
      * @param string $genre
-     * @return void
      */
-    public function setGenre($genre)
+    public function setGenre($genre): void
     {
         $this->genre = $genre;
     }
@@ -102,9 +101,8 @@ class EventDemand extends AbstractDemand implements
      * Sets the venue
      *
      * @param string $venue
-     * @return void
      */
-    public function setVenue($venue)
+    public function setVenue($venue): void
     {
         $this->venue = $venue;
     }
@@ -123,9 +121,8 @@ class EventDemand extends AbstractDemand implements
      * Set event type
      *
      * @param string $eventType
-     * @return void
      */
-    public function setEventType($eventType)
+    public function setEventType($eventType): void
     {
         $this->eventType = $eventType;
     }
@@ -135,6 +132,7 @@ class EventDemand extends AbstractDemand implements
      *
      * @return string
      */
+    #[\Override]
     public function getCategoryConjunction()
     {
         return $this->categoryConjunction;
@@ -144,9 +142,9 @@ class EventDemand extends AbstractDemand implements
      * Set Category Conjunction
      *
      * @param string $categoryConjunction
-     * @return void
      */
-    public function setCategoryConjunction($categoryConjunction)
+    #[\Override]
+    public function setCategoryConjunction($categoryConjunction): void
     {
         $this->categoryConjunction = $categoryConjunction;
     }
@@ -156,6 +154,7 @@ class EventDemand extends AbstractDemand implements
      *
      * @return string
      */
+    #[\Override]
     public function getStartDateField()
     {
         return static::START_DATE_FIELD;
@@ -166,6 +165,7 @@ class EventDemand extends AbstractDemand implements
      *
      * @return string
      */
+    #[\Override]
     public function getEndDateField()
     {
         return static::END_DATE_FIELD;
@@ -185,9 +185,8 @@ class EventDemand extends AbstractDemand implements
      * Sets the categories
      *
      * @param string $categories
-     * @return void
      */
-    public function setCategories($categories)
+    public function setCategories($categories): void
     {
         $this->categories = $categories;
     }
@@ -195,6 +194,7 @@ class EventDemand extends AbstractDemand implements
     /**
      * @return string
      */
+    #[\Override]
     public function getAudienceField()
     {
         return static::AUDIENCE_FIELD;

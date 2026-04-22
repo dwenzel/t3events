@@ -1,36 +1,31 @@
 <?php
+
 namespace DWenzel\T3events\Controller;
+
+use DWenzel\T3events\Events\GenericSignalEvent;
 
 /**
  * Class SignalTrait
  *
- * @package DWenzel\T3events\Tests\Controller
+ * Emits PSR-14 events as a replacement for the deprecated SignalSlot mechanism.
+ * Works with TYPO3 v11 and v12 (ActionController provides $this->eventDispatcher).
+ *
+ * @package DWenzel\T3events\Controller
  */
 trait SignalTrait
 {
     /**
-     * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher
-     */
-    protected $signalSlotDispatcher;
-
-    /**
-     * Emits signals
+     * Emits a PSR-14 GenericSignalEvent, replacing the old SignalSlot signal.
      *
-     * @param string $class Name of the signaling class
-     * @param string $name Signal name
-     * @param array $arguments Signal arguments
+     * @param string $class  Name of the signaling class
+     * @param string $name   Signal name
+     * @param array  $arguments Signal arguments (passed by reference for backward compatibility)
      * @codeCoverageIgnore
-     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException
-     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
      */
-    public function emitSignal($class, $name, array &$arguments)
+    public function emitSignal($class, $name, array &$arguments): void
     {
-        /**
-         * Wrap arguments into array in order to allow changing the arguments
-         * count. Dispatcher throws InvalidSlotReturnException if slotResult count
-         * differs.
-         */
-        $slotResult = $this->signalSlotDispatcher->dispatch($class, $name, [$arguments]);
-        $arguments = $slotResult[0];
+        /** @var GenericSignalEvent $event */
+        $event = $this->eventDispatcher->dispatch(new GenericSignalEvent($class, $name, $arguments));
+        $arguments = $event->getArguments();
     }
 }

@@ -27,15 +27,14 @@ trait EventLocationRepositoryTrait
     /**
      * EventLocation repository
      *
-     * @var \DWenzel\T3events\Domain\Repository\EventLocationRepository
+     * @var EventLocationRepository
      */
     protected $eventLocationRepository;
 
     /**
      * Injects the eventLocation repository
-     * @param EventLocationRepository $eventLocationRepository
      */
-    public function injectEventLocationRepository(EventLocationRepository $eventLocationRepository)
+    public function injectEventLocationRepository(EventLocationRepository $eventLocationRepository): void
     {
         $this->eventLocationRepository = $eventLocationRepository;
     }

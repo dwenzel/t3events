@@ -34,16 +34,12 @@ class Option
      */
     protected $label = '';
 
-    /**
-     * @return string
-     */
     public function getValue(): string
     {
         return $this->value;
     }
 
     /**
-     * @param string $value
      * @return Option Returns instance
      */
     public function setValue(string $value): self
@@ -53,9 +49,6 @@ class Option
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getLabel(): string
     {
         return $this->label;
@@ -64,7 +57,6 @@ class Option
     /**
      * Set the label
      *
-     * @param string $label
      * @return Option Returns instance
      */
     public function setLabel(string $label): self

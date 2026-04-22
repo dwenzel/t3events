@@ -29,10 +29,7 @@ trait FilterFactoryTrait
      */
     protected $filterFactory;
 
-    /**
-     * @param FilterFactory $filterFactory
-     */
-    public function injectFilterFactory(FilterFactory $filterFactory)
+    public function injectFilterFactory(FilterFactory $filterFactory): void
     {
         $this->filterFactory = $filterFactory;
     }

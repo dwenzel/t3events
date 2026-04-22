@@ -2,7 +2,6 @@
 namespace DWenzel\T3events\Utility;
 
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use DWenzel\T3events\Domain\Model\Dto\EmConfiguration;
 
 /**
@@ -16,7 +15,6 @@ class EmConfigurationUtility
     /**
      * Gets the settings from extension manager
      *
-     * @return EmConfiguration
      * @throws \BadFunctionCallException
      */
     public static function getSettings(): EmConfiguration

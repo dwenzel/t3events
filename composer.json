@@ -1,5 +1,6 @@
 {
   "name": "dwenzel/t3events",
+  "version": "2.0.0",
   "type": "typo3-cms-extension",
   "description": "Versatile events extension for the TYPO3 CMS",
   "keywords": [
@@ -16,15 +17,12 @@
       "role": "Developer"
     }
   ],
-  "repositories": [
-    {"type": "vcs", "url": "git@github.com:brannow/t3extension_tools.git"}
-  ],
   "require": {
-    "php": "^7.2 || ^8.0",
+    "php": "^8.1",
     "ext-dom": "*",
-    "typo3/cms-core": "^11.5",
-    "typo3/cms-fluid": "^11.5",
-    "dwenzel/t3extension-tools": "^2.0"
+    "typo3/cms-core": "^11.5 || ^12.4",
+    "typo3/cms-fluid": "^11.5 || ^12.4",
+    "dwenzel/t3extension-tools": "^2.0 || ^4.0"
   },
   "require-dev": {
     "dwenzel/t3extension-tools": "dev-feature/v11 as 2.0"

@@ -45,7 +45,7 @@ trait PatternReplacingTrait
         $patterns = $this->getReplacePatterns();
         foreach ($patterns as $pattern=>$replacement)
         {
-            $content = preg_replace($pattern, $replacement, $content);
+            $content = preg_replace($pattern, (string) $replacement, (string) $content);
         }
 
         return $content;

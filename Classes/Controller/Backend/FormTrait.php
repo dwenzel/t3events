@@ -45,22 +45,14 @@ trait FormTrait
         return $_GET[$this->getParameterNameForModule()];
     }
 
-    /**
-     * @return string
-     */
     protected function getParameterNameForModule(): string
     {
-        $key = 'M';
         if ($this->isTypo3VersionGreaterThan8()) {
-            $key = 'route';
-
+            return 'route';
         }
-        return $key;
+        return 'M';
     }
 
-    /**
-     * @return bool
-     */
     protected function isTypo3VersionGreaterThan8(): bool
     {
         /** @var Typo3Version $version */
@@ -97,15 +89,11 @@ trait FormTrait
         $this->callStatic(HttpUtility::class, SI::REDIRECT, $url);
     }
 
-    /**
-     * @return string
-     */
     protected function getParameterNameForToken(): string
     {
-        $tokenParameterKey = SI::MODULE_TOKEN_KEY;
         if ($this->isTypo3VersionGreaterThan8()) {
-            $tokenParameterKey = SI::TOKEN_KEY;
+            return SI::TOKEN_KEY;
         }
-        return $tokenParameterKey;
+        return SI::MODULE_TOKEN_KEY;
     }
 }

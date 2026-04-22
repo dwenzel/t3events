@@ -50,12 +50,11 @@ class GeoCoder
         $url = $this->serviceUrl . urlencode($address);
 
         $response_json = $this->getUrl($url);
-        $response = json_decode($response_json, true);
+        $response = json_decode((string) $response_json, true);
         if ($response['status'] == 'OK') {
             return $response['results'][0]['geometry']['location'];
-        } else {
-            return false;
         }
+        return false;
     }
 
     /**
@@ -82,9 +81,9 @@ class GeoCoder
      * @return array An array with lat and lng values
      * @codeCoverageIgnore
      */
-    public function destination($lat, $lng, $bearing, $distance, $units = 'km')
+    public function destination($lat, $lng, $bearing, $distance, $units = 'km'): array
     {
-        $radius = strcasecmp($units, 'km') ? 3963.19 : 6378.137;
+        $radius = strcasecmp($units, 'km') !== 0 ? 3963.19 : 6378.137;
         $rLat = deg2rad($lat);
         $rLon = deg2rad($lng);
         $rBearing = deg2rad($bearing);
@@ -96,7 +95,7 @@ class GeoCoder
         $rLonB = $rLon + atan2(sin($rBearing) * sin($rAngDist) * cos($rLat),
                 cos($rAngDist) - sin($rLat) * sin($rLatB));
 
-        return array('lat' => rad2deg($rLatB), 'lng' => rad2deg($rLonB));
+        return ['lat' => rad2deg($rLatB), 'lng' => rad2deg($rLonB)];
     }
 
     /**
@@ -109,12 +108,9 @@ class GeoCoder
      * @return array An array describing a bounding box
      * @codeCoverageIgnore
      */
-    public function getBoundsByRadius($lat, $lng, $distance, $units = 'km')
+    public function getBoundsByRadius($lat, $lng, $distance, $units = 'km'): array
     {
-        return array('N' => $this->destination($lat, $lng, 0, $distance, $units),
-            'E' => $this->destination($lat, $lng, 90, $distance, $units),
-            'S' => $this->destination($lat, $lng, 180, $distance, $units),
-            'W' => $this->destination($lat, $lng, 270, $distance, $units));
+        return ['N' => $this->destination($lat, $lng, 0, $distance, $units), 'E' => $this->destination($lat, $lng, 90, $distance, $units), 'S' => $this->destination($lat, $lng, 180, $distance, $units), 'W' => $this->destination($lat, $lng, 270, $distance, $units)];
     }
 
     /**
@@ -125,19 +121,18 @@ class GeoCoder
      * @param float $latB Latitude of location B
      * @param float $lonB Longitude of location B
      * @param string $units Units: default km. Any other value will result in computing with mile based constants.
-     * @return float
      * @codeCoverageIgnore
      */
-    public function distance($latA, $lonA, $latB, $lonB, $units = 'km')
+    public function distance($latA, $lonA, $latB, $lonB, $units = 'km'): float
     {
-        $radius = strcasecmp($units, 'km') ? 3963.19 : 6378.137;
+        $radius = strcasecmp($units, 'km') !== 0 ? 3963.19 : 6378.137;
         $rLatA = deg2rad($latA);
         $rLatB = deg2rad($latB);
         $rHalfDeltaLat = deg2rad(($latB - $latA) / 2);
         $rHalfDeltaLon = deg2rad(($lonB - $lonA) / 2);
 
-        return 2 * $radius * asin(sqrt(pow(sin($rHalfDeltaLat), 2) +
-            cos($rLatA) * cos($rLatB) * pow(sin($rHalfDeltaLon), 2)));
+        return 2 * $radius * asin(sqrt(sin($rHalfDeltaLat) ** 2 +
+            cos($rLatA) * cos($rLatB) * sin($rHalfDeltaLon) ** 2));
     }
 
     /**
@@ -148,15 +143,15 @@ class GeoCoder
      * get geo location values and if succeeds update the latitude and
      * longitude values of the object.
      *
-     * @var \DWenzel\T3events\Domain\Model\GeoCodingInterface $object
+     * @var GeoCodingInterface $object
      */
-    public function updateGeoLocation(GeoCodingInterface &$object)
+    public function updateGeoLocation(GeoCodingInterface &$object): void
     {
         $city = $object->getPlace();
         if (!empty($city)) {
             $address = '';
             $zip = $object->getZip();
-            $address .= (!empty($zip)) ? $zip . ' ' : null;
+            $address .= (empty($zip)) ? null : $zip . ' ';
             $address .= $city;
             $geoLocation = $this->getLocation($address);
             if ($geoLocation) {

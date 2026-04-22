@@ -10,15 +10,9 @@ namespace DWenzel\T3events\Domain\Repository;
  * LICENSE.txt file that was distributed with this source code.
  * The TYPO3 project - inspiring people to share!
  */
-use DWenzel\T3events\Domain\Model\Dto\AudienceAwareDemandInterface;
-use DWenzel\T3events\Domain\Model\Dto\CategoryAwareDemandInterface;
+use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
-use DWenzel\T3events\Domain\Model\Dto\EventTypeAwareDemandInterface;
-use DWenzel\T3events\Domain\Model\Dto\GenreAwareDemandInterface;
 use DWenzel\T3events\Domain\Model\Dto\PerformanceDemand;
-use DWenzel\T3events\Domain\Model\Dto\PeriodAwareDemandInterface;
-use DWenzel\T3events\Domain\Model\Dto\StatusAwareDemandInterface;
-use DWenzel\T3events\Domain\Model\Dto\VenueAwareDemandInterface;
 use DWenzel\T3events\Utility\EmConfigurationUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
@@ -50,7 +44,7 @@ class PerformanceRepository extends Repository implements
     /**
      * initializes the repository
      */
-    public function initializeObject()
+    public function initializeObject(): void
     {
         $emConfiguration = EmConfigurationUtility::getSettings();
         if (!(bool)$emConfiguration->isRespectPerformanceStoragePage()) {
@@ -62,11 +56,10 @@ class PerformanceRepository extends Repository implements
     /**
      * Returns an array of constraints created from a given demand object.
      *
-     * @param QueryInterface $query
-     * @param DemandInterface $demand
      * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint>
-     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
+     * @throws InvalidQueryException
      */
+    #[\Override]
     public function createConstraintsFromDemand(
         QueryInterface $query,
         DemandInterface $demand
@@ -75,38 +68,32 @@ class PerformanceRepository extends Repository implements
         $constraints = [];
         $constraints[] = $query->equals('event.hidden', 0);
 
-        if ($demand instanceof PeriodAwareDemandInterface &&
-            (bool)$periodConstraints = $this->createPeriodConstraints($query, $demand)
+        if ((bool)$periodConstraints = $this->createPeriodConstraints($query, $demand)
         ) {
             $this->combineConstraints($query, $constraints, $periodConstraints, 'AND');
         }
 
-        if ($demand instanceof GenreAwareDemandInterface &&
-            (bool)$genreConstraints = $this->createGenreConstraints($query, $demand)
+        if ((bool)$genreConstraints = $this->createGenreConstraints($query, $demand)
         ) {
             $this->combineConstraints($query, $constraints, $genreConstraints, $demand->getCategoryConjunction());
         }
 
-        if ($demand instanceof EventTypeAwareDemandInterface &&
-            (bool)$eventTypeConstraints = $this->createEventTypeConstraints($query, $demand)
+        if ((bool)$eventTypeConstraints = $this->createEventTypeConstraints($query, $demand)
         ) {
             $this->combineConstraints($query, $constraints, $eventTypeConstraints, $demand->getCategoryConjunction());
         }
 
-        if ($demand instanceof VenueAwareDemandInterface &&
-            (bool)$venueConstraints = $this->createVenueConstraints($query, $demand)
+        if ((bool)$venueConstraints = $this->createVenueConstraints($query, $demand)
         ) {
             $this->combineConstraints($query, $constraints, $venueConstraints, $demand->getCategoryConjunction());
         }
 
-        if ($demand instanceof CategoryAwareDemandInterface &&
-            (bool)$categoryConstraints = $this->createCategoryConstraints($query, $demand)
+        if ((bool)$categoryConstraints = $this->createCategoryConstraints($query, $demand)
         ) {
             $this->combineConstraints($query, $constraints, $categoryConstraints, $demand->getCategoryConjunction());
         }
 
-        if ($demand instanceof AudienceAwareDemandInterface &&
-            (bool)$audienceConstraints = $this->createAudienceConstraints($query, $demand)
+        if ((bool)$audienceConstraints = $this->createAudienceConstraints($query, $demand)
         ) {
             $this->combineConstraints($query, $constraints, $audienceConstraints, $demand->getConstraintsConjunction());
         }
@@ -114,8 +101,7 @@ class PerformanceRepository extends Repository implements
         if ((bool)$searchConstraints = $this->createSearchConstraints($query, $demand)) {
             $this->combineConstraints($query, $constraints, $searchConstraints, 'OR');
         }
-        if ($demand instanceof StatusAwareDemandInterface &&
-            (bool)$statusConstraints = $this->createStatusConstraints($query, $demand)) {
+        if ((bool)$statusConstraints = $this->createStatusConstraints($query, $demand)) {
             $conjunction = 'OR';
             if ($demand->isExcludeSelectedStatuses()) {
                 $conjunction = 'NOTOR';

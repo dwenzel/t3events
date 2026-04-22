@@ -57,9 +57,9 @@ class PerformanceDemandFactory extends AbstractDemandFactory implements DemandFa
     /**
      * Creates a demand object from settings
      *
-     * @param array $settings
      * @return DemandInterface
      */
+    #[\Override]
     public function createFromSettings(array $settings)
     {
         /** @var PerformanceDemand $demand */

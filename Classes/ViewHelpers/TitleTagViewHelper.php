@@ -36,10 +36,8 @@ class TitleTagViewHelper extends AbstractViewHelper
 
     /**
      * Override the title tag
-     *
-     * @return void
      */
-    public function render()
+    public function render(): void
     {
         $content = $this->renderChildren();
         if (!empty($content)) {

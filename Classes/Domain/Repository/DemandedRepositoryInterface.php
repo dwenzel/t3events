@@ -2,6 +2,7 @@
 
 namespace DWenzel\T3events\Domain\Repository;
 
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
 
@@ -29,14 +30,13 @@ interface DemandedRepositoryInterface
      * @var string $recordList A comma separated string containing uids
      * @var string $sortField Sort by field
      * @var string $sortOrder
-     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface Matching Records
+     * @return QueryResultInterface Matching Records
      */
     public function findMultipleByUid($recordList, $sortField = 'uid', $sortOrder = QueryInterface::ORDER_ASCENDING);
 
     /**
      * Returns an array of orderings created from a given demand object.
      *
-     * @param \DWenzel\T3events\Domain\Model\Dto\DemandInterface $demand
      * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint>
      */
     public function createOrderingsFromDemand(DemandInterface $demand);
@@ -44,8 +44,6 @@ interface DemandedRepositoryInterface
     /**
      * Returns an array of constraints created from a given demand object.
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
-     * @param \DWenzel\T3events\Domain\Model\Dto\DemandInterface $demand
      * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint>
      * @abstract
      */
@@ -54,23 +52,21 @@ interface DemandedRepositoryInterface
     /**
      * Returns the objects of this repository matching the demand.
      *
-     * @param \DWenzel\T3events\Domain\Model\Dto\DemandInterface $demand
      * @param boolean $respectEnableFields
-     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     * @return QueryResultInterface
      */
     public function findDemanded(DemandInterface $demand, $respectEnableFields = true);
 
     /**
      * Returns all objects of this repository.
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     * @return QueryResultInterface
      */
     public function findAll();
 
     /**
      * Combine constraints
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
      * @param array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint> $constraints
      * @param array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint> $additionalConstraints
      * @param string $conjunction

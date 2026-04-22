@@ -31,15 +31,14 @@ trait EventRepositoryTrait
     /**
      * Event repository
      *
-     * @var \DWenzel\T3events\Domain\Repository\EventRepository
+     * @var EventRepository
      */
     protected $eventRepository;
 
     /**
      * Injects the event repository
-     * @param EventRepository $eventRepository
      */
-    public function injectEventRepository(EventRepository $eventRepository)
+    public function injectEventRepository(EventRepository $eventRepository): void
     {
         $this->eventRepository = $eventRepository;
     }

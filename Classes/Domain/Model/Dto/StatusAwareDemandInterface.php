@@ -13,14 +13,13 @@ interface StatusAwareDemandInterface
     /**
      * Returns the performance status
      *
-     * @return \DWenzel\T3events\Domain\Model\PerformanceStatus
+     * @return PerformanceStatus
      */
     public function getStatus();
 
     /**
      * sets the status
      *
-     * @param \DWenzel\T3events\Domain\Model\PerformanceStatus $status
      * @return void
      */
     public function setStatus(PerformanceStatus $status);

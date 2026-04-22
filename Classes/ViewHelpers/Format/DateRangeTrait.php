@@ -49,8 +49,8 @@ trait DateRangeTrait
         }
         $functionName = 'date';
 
-        if (strpos($startFormat, '%') !== false
-            && strpos($endFormat, '%' ) !== false
+        if (str_contains((string) $startFormat, '%')
+            && str_contains((string) $endFormat, '%' )
         ) {
             $functionName = 'strftime';
         }

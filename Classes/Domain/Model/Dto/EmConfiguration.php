@@ -34,12 +34,11 @@ class EmConfiguration
 
     /**
      * Constructor
-     * @param array $configuration
      */
     public function __construct(array $configuration)
     {
         foreach ($configuration as $key => $value) {
-            if (property_exists(__CLASS__, $key)) {
+            if (property_exists(self::class, $key)) {
                 $this->$key = $value;
             }
         }
@@ -56,7 +55,7 @@ class EmConfiguration
     /**
      * @param boolean $respectPerformanceStoragePage
      */
-    public function setRespectPerformanceStoragePage($respectPerformanceStoragePage)
+    public function setRespectPerformanceStoragePage($respectPerformanceStoragePage): void
     {
         $this->respectPerformanceStoragePage = $respectPerformanceStoragePage;
     }

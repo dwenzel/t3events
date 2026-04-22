@@ -11,10 +11,9 @@ interface SessionInterface
 
     /**
      * @param string $identifier
-     * @param mixed $value
      * @return void
      */
-    public function set($identifier, $value);
+    public function set($identifier, mixed $value);
 
     /**
      * @param string $identifier

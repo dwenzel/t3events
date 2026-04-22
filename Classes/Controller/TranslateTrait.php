@@ -13,23 +13,19 @@ trait TranslateTrait
     /**
      * Translate a given key
      *
-     * @param string $key
-     * @param string $extension
      * @param array|null $arguments
      * @codeCoverageIgnore
-     * @return string
      */
-    public function translate(string $key, string $extension = 't3events', array $arguments = null)
+    public function translate(string $key, string $extension = 't3events', array $arguments = null): string
     {
-        if (defined(get_class($this) . '::EXTENSION_KEY')) {
+        if (defined($this::class . '::EXTENSION_KEY')) {
             $extension = static::EXTENSION_KEY;
         }
 
         $translatedString = LocalizationUtility::translate($key, $extension, $arguments);
         if (is_null($translatedString)) {
             return $key;
-        } else {
-            return $translatedString;
         }
+        return $translatedString;
     }
 }

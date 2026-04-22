@@ -1,6 +1,8 @@
 <?php
 namespace DWenzel\T3events\Configuration;
 
+use TYPO3\CMS\Backend\Form\Element\UserElement;
+use DWenzel\T3events\InvalidConfigurationException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Lang\LanguageService;
 use DWenzel\T3events\DataProvider\Legend\LayeredLegendDataProviderInterface;
@@ -54,12 +56,12 @@ class PeriodConstraintLegend extends VectorImage
 
     /**
      * @param array $params
-     * @param \TYPO3\CMS\Backend\Form\Element\UserElement $parentObject
+     * @param UserElement $parentObject
      * @return string
      * @throws MissingFileException
-     * @throws \DWenzel\T3events\InvalidConfigurationException
+     * @throws InvalidConfigurationException
      */
-    public function render($params, $parentObject = null)
+    public function render($params, $parentObject = null): string|false
     {
         $this->initialize($params);
         $this->updateLayers();
@@ -70,10 +72,10 @@ class PeriodConstraintLegend extends VectorImage
 
     /**
      * @param $params
-     * @throws \DWenzel\T3events\MissingFileException
-     * @throws \DWenzel\T3events\InvalidConfigurationException
+     * @throws MissingFileException
+     * @throws InvalidConfigurationException
      */
-    public function initialize($params)
+    public function initialize(array $params): void
     {
         $absoluteFilePath = GeneralUtility::getFileAbsFileName($this->xmlFilePath);
         if (!file_exists($absoluteFilePath)) {
@@ -139,10 +141,9 @@ class PeriodConstraintLegend extends VectorImage
     /**
      * Translates a given language key
      *
-     * @param string $key
      * @return string
      */
-    public function translate($key)
+    public function translate(string $key)
     {
         $translatedString = $this->getLanguageService()->sL(self::LANGUAGE_FILE . $key);
         if (empty($translatedString)) {

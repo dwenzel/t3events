@@ -30,17 +30,14 @@ trait AudienceRepositoryTrait
     /**
      * Audience Repository
      *
-     * @var \DWenzel\T3events\Domain\Repository\AudienceRepository
+     * @var AudienceRepository
      */
     protected $audienceRepository;
 
     /**
      * injectAudienceRepository
-     *
-     * @param \DWenzel\T3events\Domain\Repository\AudienceRepository $audienceRepository
-     * @return void
      */
-    public function injectAudienceRepository(AudienceRepository $audienceRepository)
+    public function injectAudienceRepository(AudienceRepository $audienceRepository): void
     {
         $this->audienceRepository = $audienceRepository;
     }

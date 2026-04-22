@@ -29,7 +29,7 @@ trait ObjectManagerTrait
     /**
      * Object Manager
      *
-     * @var \TYPO3\CMS\Extbase\Object\ObjectManager
+     * @var ObjectManager
      */
     protected $objectManager;
 
@@ -37,7 +37,7 @@ trait ObjectManagerTrait
      * Injects the object manager
      * @var ObjectManager $objectManager
      */
-    public function injectObjectManager(ObjectManager $objectManager)
+    public function injectObjectManager(ObjectManager $objectManager): void
     {
         $this->objectManager = $objectManager;
     }

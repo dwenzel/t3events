@@ -2,6 +2,7 @@
 
 namespace DWenzel\T3events\Controller;
 
+use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 use DWenzel\T3events\Utility\SettingsInterface as SI;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Request;
@@ -21,7 +22,7 @@ trait EntityNotFoundHandlerTrait
     protected static $handleEntityNotFoundError = 'handleEntityNotFoundError';
 
     /**
-     * @var \TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder
+     * @var UriBuilder
      */
     protected $uriBuilder;
 
@@ -33,7 +34,7 @@ trait EntityNotFoundHandlerTrait
     /**
      * The current request.
      *
-     * @var \TYPO3\CMS\Extbase\Mvc\Request
+     * @var Request
      */
     protected $request;
 
@@ -65,8 +66,6 @@ trait EntityNotFoundHandlerTrait
     }
 
     /**
-     * @param \TYPO3\CMS\Extbase\Mvc\RequestInterface $request
-     * @return void
      * @throws \Exception
      * @override \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
@@ -96,10 +95,8 @@ trait EntityNotFoundHandlerTrait
      * Error handling if requested entity is not found
      *
      * @param string $configuration Configuration for handling
-     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException
-     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
      */
-    public function handleEntityNotFoundError($configuration)
+    public function handleEntityNotFoundError($configuration): void
     {
         if (empty($configuration)) {
             return;
@@ -112,7 +109,7 @@ trait EntityNotFoundHandlerTrait
             case 'redirectToPage':
                 if (count($configuration) === 1 || count($configuration) > 3) {
                     $msg = sprintf('If error handling "%s" is used, either 2 or 3 arguments, splitted by "," must be used', $configuration[0]);
-                    throw new \InvalidArgumentException($msg);
+                    throw new \InvalidArgumentException($msg, 6683741798);
                 }
                 $this->uriBuilder->reset();
                 $this->uriBuilder->setTargetPageUid($configuration[1]);
@@ -134,7 +131,7 @@ trait EntityNotFoundHandlerTrait
                     SI::ACTION_NAME => $this->request->getControllerActionName()
                 ];
                 $this->emitSignal(
-                    get_class($this),
+                    $this::class,
                     self::$handleEntityNotFoundError,
                     $params
                 );
@@ -198,5 +195,5 @@ trait EntityNotFoundHandlerTrait
      * @param integer $delay (optional) The delay in seconds. Default is no delay.
      * @param integer $statusCode (optional) The HTTP status code for the redirect. Default is "303 See Other
      */
-    abstract protected function redirectToUri($uri, $delay = 0, $statusCode = 303);
+    abstract protected function redirectToUri(mixed $uri, $delay = 0, $statusCode = 303);
 }

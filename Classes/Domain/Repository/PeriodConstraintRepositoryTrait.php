@@ -1,6 +1,7 @@
 <?php
 namespace DWenzel\T3events\Domain\Repository;
 
+use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use DWenzel\T3events\Domain\Model\Dto\PeriodAwareDemandInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use DWenzel\T3events\Utility\SettingsInterface as SI;
@@ -18,12 +19,10 @@ trait PeriodConstraintRepositoryTrait
     /**
      * Create period constraints from demand (time restriction)
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
-     * @param \DWenzel\T3events\Domain\Model\Dto\PeriodAwareDemandInterface $demand
      * @return array<\TYPO3\CMS\Extbase\Persistence\QOM\Constraint>
-     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
+     * @throws InvalidQueryException
      */
-    public function createPeriodConstraints(QueryInterface $query, PeriodAwareDemandInterface $demand)
+    public function createPeriodConstraints(QueryInterface $query, PeriodAwareDemandInterface $demand): array
     {
         // set start date initial to now
         $timezone = new \DateTimeZone(date_default_timezone_get());
@@ -91,7 +90,6 @@ trait PeriodConstraintRepositoryTrait
     }
 
     /**
-     * @param \DWenzel\T3events\Domain\Model\Dto\PeriodAwareDemandInterface $demand
      * @param \DateTime $startDate
      * @param \DateTime $endDate
      */

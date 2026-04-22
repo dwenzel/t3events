@@ -21,16 +21,14 @@ trait TaskRepositoryTrait
     /**
      * Task repository
      *
-     * @var \DWenzel\T3events\Domain\Repository\TaskRepositoryInterface
+     * @var TaskRepositoryInterface
      */
     protected $taskRepository;
 
     /**
      * Injects the task repository
-     *
-     * @param \DWenzel\T3events\Domain\Repository\TaskRepositoryInterface $taskRepository
      */
-    public function injectTaskRepository(TaskRepositoryInterface $taskRepository)
+    public function injectTaskRepository(TaskRepositoryInterface $taskRepository): void
     {
         $this->taskRepository = $taskRepository;
     }

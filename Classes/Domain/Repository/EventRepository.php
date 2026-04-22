@@ -19,6 +19,8 @@ namespace DWenzel\T3events\Domain\Repository;
  * GNU General Public License for more details.
  * This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+use DWenzel\T3events\Domain\Model\Dto\EventDemand;
+use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -39,12 +41,11 @@ class EventRepository extends AbstractDemandedRepository implements
     /**
      * Create category constraints from demand
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
-     * @param \DWenzel\T3events\Domain\Model\Dto\EventDemand $demand
+     * @param EventDemand $demand
      * @return array<\TYPO3\CMS\Extbase\Persistence\QOM\Constraint>
-     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
+     * @throws InvalidQueryException
      */
-    public function createCategoryConstraints(QueryInterface $query, $demand)
+    public function createCategoryConstraints(QueryInterface $query, $demand): array
     {
         // gather OR constraints (categories)
         $categoryConstraints = [];
@@ -83,10 +84,9 @@ class EventRepository extends AbstractDemandedRepository implements
     /**
      * Returns an array of constraints created from a given demand object.
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
-     * @param \DWenzel\T3events\Domain\Model\Dto\DemandInterface $demand
      * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint>
      */
+    #[\Override]
     public function createConstraintsFromDemand(QueryInterface $query, DemandInterface $demand)
     {
         $constraints = [];

@@ -12,7 +12,7 @@ use DWenzel\T3events\Session\SessionInterface;
 trait SessionTrait
 {
     /**
-     * @var \DWenzel\T3events\Session\SessionInterface
+     * @var SessionInterface
      */
     protected $session;
 
@@ -23,10 +23,7 @@ trait SessionTrait
      */
     protected $namespace;
 
-    /**
-     * @param \DWenzel\T3events\Session\SessionInterface $session
-     */
-    public function injectSession(SessionInterface $session)
+    public function injectSession(SessionInterface $session): void
     {
         $session->setNamespace($this->namespace);
         $this->session = $session;

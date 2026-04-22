@@ -35,23 +35,18 @@ trait FilterableControllerTrait
      * Gets filter options for view template
      *
      * @param array $settings
-     * @return array
      */
-    public function getFilterOptions($settings)
+    public function getFilterOptions($settings): array
     {
         $filterOptions = [];
         foreach ($settings as $key => $value) {
             $propertyName = lcfirst($key) . 'Repository';
-            if (property_exists(get_class($this), $propertyName)
+            if (property_exists($this::class, $propertyName)
                 && $this->{$propertyName} instanceof DemandedRepositoryInterface
             ) {
                 /** @var DemandedRepositoryInterface $repository */
                 $repository = $this->{$propertyName};
-                if (!empty($value)) {
-                    $result = $repository->findMultipleByUid($value, 'title');
-                } else {
-                    $result = $repository->findAll();
-                }
+                $result = empty($value) ? $repository->findAll() : $repository->findMultipleByUid($value, 'title');
                 $filterOptions[$key . 's'] = $result;
             }
             if ($key === 'periods') {
@@ -77,8 +72,6 @@ trait FilterableControllerTrait
     /**
      * Translate a given key
      *
-     * @param string $key
-     * @param string $extension
      * @param array|null $arguments
      * @return string
      */

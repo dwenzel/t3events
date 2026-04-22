@@ -28,7 +28,6 @@ interface EqualsInterface
     /**
      * Tells if an object equals this
      *
-     * @param AbstractDomainObject $object
      * @return bool
      */
     public function equals(AbstractDomainObject $object);

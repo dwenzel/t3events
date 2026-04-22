@@ -14,9 +14,10 @@ namespace DWenzel\T3events\Controller;
  *
  * The TYPO3 project - inspiring people to share!
  */
-
+use Psr\Http\Message\ResponseInterface;
+use TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException;
+use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
 use DWenzel\T3events\Domain\Factory\Dto\PerformanceDemandFactory;
-use DWenzel\T3events\Domain\Model\Dto\PerformanceDemand;
 use DWenzel\T3events\Domain\Model\Dto\SearchFactory;
 use DWenzel\T3events\Domain\Model\Performance;
 use DWenzel\T3events\Domain\Repository\CategoryRepository;
@@ -50,12 +51,6 @@ class PerformanceController
     const PERFORMANCE_QUICK_MENU_ACTION = 'quickMenuAction';
     const PERFORMANCE_SHOW_ACTION = 'showAction';
     const SESSION_NAME_SPACE = 'performanceController';
-
-    protected PerformanceRepository $performanceRepository;
-    protected CategoryRepository $categoryRepository;
-    protected GenreRepository $genreRepository;
-    protected VenueRepository $venueRepository;
-    protected EventTypeRepository $eventTypeRepository;
     protected ?ContentObjectRenderer $contentObject = null;
     protected PerformanceDemandFactory $performanceDemandFactory;
 
@@ -64,24 +59,20 @@ class PerformanceController
     /**
      * Constructor
      */
-    public function __construct(CategoryRepository $categoryRepository, PerformanceRepository $performanceRepository, GenreRepository $genreRepository, VenueRepository $venueRepository, EventTypeRepository $eventTypeRepository, SearchFactory $searchFactory, SettingsUtility $settingsUtility)
+    public function __construct(protected CategoryRepository $categoryRepository, protected PerformanceRepository $performanceRepository, protected GenreRepository $genreRepository, protected VenueRepository $venueRepository, protected EventTypeRepository $eventTypeRepository, SearchFactory $searchFactory, SettingsUtility $settingsUtility)
     {
         $this->performanceDemandFactory = GeneralUtility::makeInstance(PerformanceDemandFactory::class);
-        $this->categoryRepository = $categoryRepository;
-        $this->performanceRepository = $performanceRepository;
-        $this->genreRepository = $genreRepository;
-        $this->venueRepository = $venueRepository;
-        $this->eventTypeRepository = $eventTypeRepository;
         $this->settingsUtility = $settingsUtility;
         $this->searchFactory = $searchFactory;
-        $this->namespace = get_class($this);
+        $this->namespace = static::class;
     }
 
     /**
      * initializes all actions
-     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException
+     * @throws NoSuchArgumentException
      */
-    public function initializeAction()
+    #[\Override]
+    public function initializeAction(): void
     {
         $this->settings = $this->mergeSettings();
         $this->contentObject = $this->configurationManager->getContentObject();
@@ -101,9 +92,8 @@ class PerformanceController
      * action list
      *
      * @param array|null $overwriteDemand
-     * @return void
      */
-    public function listAction(array $overwriteDemand = null)
+    public function listAction(array $overwriteDemand = null): ResponseInterface
     {
         if ($overwriteDemand === null){
             $overwriteDemand = [];
@@ -120,35 +110,30 @@ class PerformanceController
         /** @var PerformanceListActionEvent $event */
         $event = $this->eventDispatcher->dispatch(new PerformanceListActionEvent($performances, $this->settings, $demand, $this->contentObject->data, (array)$overwriteDemand));
         $this->view->assignMultiple($event->toArray());
+        return $this->htmlResponse();
     }
 
     /**
      * action show
      *
-     * @param \DWenzel\T3events\Domain\Model\Performance $performance
-     * @return void
-     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
-     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException
      */
-    public function showAction(Performance $performance)
+    public function showAction(Performance $performance): ResponseInterface
     {
         $templateVariables = [
             SI::SETTINGS => $this->settings,
             'performance' => $performance
         ];
 
-        $this->emitSignal(__CLASS__, self::PERFORMANCE_SHOW_ACTION, $templateVariables);
+        $this->emitSignal(self::class, self::PERFORMANCE_SHOW_ACTION, $templateVariables);
         $this->view->assignMultiple($templateVariables);
+        return $this->htmlResponse();
     }
 
     /**
      * action quickMenu
      *
-     * @return void
-     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
-     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException
      */
-    public function quickMenuAction()
+    public function quickMenuAction(): ResponseInterface
     {
         $overwriteDemand = unserialize($this->session->get('tx_t3events_overwriteDemand'), ['allowed_classes' => false]);
 
@@ -169,23 +154,22 @@ class PerformanceController
             SI::SETTINGS => $this->settings,
             SI::OVERWRITE_DEMAND => $overwriteDemand
         ];
-        $this->emitSignal(__CLASS__, self::PERFORMANCE_QUICK_MENU_ACTION, $templateVariables);
+        $this->emitSignal(self::class, self::PERFORMANCE_QUICK_MENU_ACTION, $templateVariables);
         $this->view->assignMultiple(
             $templateVariables
         );
+        return $this->htmlResponse();
     }
 
     /**
      * Create Demand from Settings
      * This method is kept for backwards compatibility only.
      *
-     * @param array $settings
-     * @return \DWenzel\T3events\Domain\Model\Dto\DemandInterface
+     * @return DemandInterface
      * @deprecated Use demand factory instead
      */
-    protected function createDemandFromSettings($settings)
+    protected function createDemandFromSettings(array $settings)
     {
-        /** @var PerformanceDemand $demand */
         return $this->performanceDemandFactory->createFromSettings($settings);
     }
 }

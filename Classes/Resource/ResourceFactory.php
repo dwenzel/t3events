@@ -26,7 +26,6 @@ namespace DWenzel\T3events\Resource;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use DWenzel\T3events\Object\ObjectManagerTrait;
 use TYPO3\CMS\Core\Resource\FileInterface;
 use TYPO3\CMS\Core\Resource\ResourceFactory as CoreResourceFactory;
 use TYPO3\CMS\Core\Resource\File;
@@ -40,17 +39,14 @@ use TYPO3\CMS\Extbase\Domain\Model\FileReference;
  */
 class ResourceFactory extends CoreResourceFactory
 {
-    use ObjectManagerTrait;
-
     /**
      * Gets a file by combined identifier using the
      * resource factory's method.
      * Returns null if no file or a folder was found!
      *
      * @param $identifier
-     * @return null|\TYPO3\CMS\Core\Resource\FileInterface
      */
-    public function getFileObjectByCombinedIdentifier($identifier)
+    public function getFileObjectByCombinedIdentifier($identifier): ?FileInterface
     {
         $file = $this->retrieveFileOrFolderObject(
             $identifier
@@ -66,7 +62,7 @@ class ResourceFactory extends CoreResourceFactory
      * Creates a new (extbase) file reference from a given file object
      *
      * @param FileInterface|File $file
-     * @return \TYPO3\CMS\Extbase\Domain\Model\FileReference
+     * @return FileReference
      */
     public function createFileReferenceFromFileObject(File $file)
     {
@@ -77,7 +73,7 @@ class ResourceFactory extends CoreResourceFactory
                 'uid' => uniqid('NEW_'),
             ]
         );
-        /** @var \TYPO3\CMS\Extbase\Domain\Model\FileReference $fileReference */
+        /** @var FileReference $fileReference */
         $fileReference = GeneralUtility::makeInstance(
             FileReference::class
         );

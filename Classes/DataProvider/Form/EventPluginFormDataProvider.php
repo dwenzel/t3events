@@ -42,11 +42,9 @@ class EventPluginFormDataProvider implements FormDataProviderInterface
     /**
      * Remove fields depending on switchable controller action in tt_content
      * Restrict category selection based on configuration in tt_content
-     *
-     * @param array $result
-     * @return array
      */
-    public function addData(array $result)
+    #[\Override]
+    public function addData(array $result): array
     {
         if (isset($result['tableName'])
             && $result['tableName'] === 'tt_content'

@@ -23,11 +23,6 @@ class Typo3Session implements SessionInterface
 {
 
     /**
-     * @var string
-     */
-    protected $namespace;
-
-    /**
      * @var array
      */
     protected $data = [];
@@ -37,24 +32,19 @@ class Typo3Session implements SessionInterface
      *
      * @param string $namespace
      */
-    public function __construct($namespace = '')
+    public function __construct(protected $namespace = '')
     {
-        $this->namespace = $namespace;
     }
 
     /**
      * Tells if a given identifier exists in session
      *
      * @param string $identifier
-     * @return bool
      */
-    public function has($identifier)
+    #[\Override]
+    public function has($identifier) : bool
     {
-        if ($this->get($identifier)) {
-            return true;
-        }
-
-        return false;
+        return (bool) $this->get($identifier);
     }
 
     /**
@@ -62,9 +52,9 @@ class Typo3Session implements SessionInterface
      *
      * @param string $identifier
      * @param mixed $value
-     * @return void
      */
-    public function set($identifier, $value)
+    #[\Override]
+    public function set($identifier, $value): void
     {
         $this->data[$identifier] = $value;
         $GLOBALS['TSFE']->fe_user->setKey('ses', $this->namespace, $this->data);
@@ -77,21 +67,20 @@ class Typo3Session implements SessionInterface
      * @param string $identifier
      * @return mixed
      */
+    #[\Override]
     public function get($identifier)
     {
-        if (empty($this->data)) {
+        if ($this->data === []) {
             $this->data = (array) $GLOBALS['TSFE']->fe_user->getKey('ses', $this->namespace);
         }
-        if (isset($this->data[$identifier])) {
-            return $this->data[$identifier];
-        }
 
-        return null;
+        return $this->data[$identifier] ?? null;
     }
 
-    public function clean()
+    #[\Override]
+    public function clean(): void
     {
-        $GLOBALS['TSFE']->fe_user->setKey('ses', $this->namespace, array());
+        $GLOBALS['TSFE']->fe_user->setKey('ses', $this->namespace, []);
         $GLOBALS['TSFE']->fe_user->storeSessionData();
         $this->data = [];
     }
@@ -101,7 +90,8 @@ class Typo3Session implements SessionInterface
      *
      * @param string $namespace
      */
-    public function setNamespace($namespace)
+    #[\Override]
+    public function setNamespace($namespace): void
     {
         $this->namespace = $namespace;
     }

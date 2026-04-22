@@ -44,6 +44,7 @@ class FilterCollection implements Iterator, Countable
      *
      * @return FilterInterface|false
      */
+    #[\Override]
     public function current(): FilterInterface
     {
         return current($this->storage);
@@ -52,6 +53,7 @@ class FilterCollection implements Iterator, Countable
     /**
      * Moves to the next storage entry.
      */
+    #[\Override]
     public function next(): void
     {
         next($this->storage);
@@ -61,9 +63,8 @@ class FilterCollection implements Iterator, Countable
      * Returns the index at which the iterator currently is.
      *
      * The key is an object hash
-     *
-     * @return int
      */
+    #[\Override]
     public function key(): int
     {
         return key($this->storage);
@@ -71,8 +72,8 @@ class FilterCollection implements Iterator, Countable
 
     /**
      * Checks if the pointer of the storage points to a valid position
-     * @return bool
      */
+    #[\Override]
     public function valid(): bool
     {
         return current($this->storage) !== false;
@@ -81,6 +82,7 @@ class FilterCollection implements Iterator, Countable
     /**
      * Rewinds to the first storage element
      */
+    #[\Override]
     public function rewind(): void
     {
         reset($this->storage);
@@ -88,19 +90,14 @@ class FilterCollection implements Iterator, Countable
 
     /**
      * Attaches the filter
-     *
-     * @param FilterInterface $filter
      */
-    public function attach(FilterInterface $filter)
+    public function attach(FilterInterface $filter): void
     {
         $this->storage[spl_object_hash($filter)] = $filter;
     }
 
     /**
      * Checks whether a filter is contained in collection
-     *
-     * @param FilterInterface $filter
-     * @return bool
      */
     public function contains(FilterInterface $filter): bool
     {
@@ -109,19 +106,16 @@ class FilterCollection implements Iterator, Countable
 
     /**
      * Removes a filter from the collection
-     *
-     * @param FilterInterface $filter
      */
-    public function detach(FilterInterface $filter)
+    public function detach(FilterInterface $filter): void
     {
         unset($this->storage[spl_object_hash($filter)]);
     }
 
     /**
      * Count elements of collection
-     *
-     * @return int
      */
+    #[\Override]
     public function count(): int
     {
         return count($this->storage);

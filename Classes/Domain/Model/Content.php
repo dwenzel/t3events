@@ -159,9 +159,8 @@ class Content extends AbstractEntity
 
     /**
      * @param $crdate
-     * @return void
      */
-    public function setCrdate($crdate)
+    public function setCrdate($crdate): void
     {
         $this->crdate = $crdate;
     }
@@ -176,9 +175,8 @@ class Content extends AbstractEntity
 
     /**
      * @param $tstamp
-     * @return void
      */
-    public function setTstamp($tstamp)
+    public function setTstamp($tstamp): void
     {
         $this->tstamp = $tstamp;
     }
@@ -193,9 +191,8 @@ class Content extends AbstractEntity
 
     /**
      * @param $ctype
-     * @return void
      */
-    public function setCType($ctype)
+    public function setCType($ctype): void
     {
         $this->CType = $ctype;
     }
@@ -210,9 +207,8 @@ class Content extends AbstractEntity
 
     /**
      * @param $header
-     * @return void
      */
-    public function setHeader($header)
+    public function setHeader($header): void
     {
         $this->header = $header;
     }
@@ -227,9 +223,8 @@ class Content extends AbstractEntity
 
     /**
      * @param $headerPosition
-     * @return void
      */
-    public function setHeaderPosition($headerPosition)
+    public function setHeaderPosition($headerPosition): void
     {
         $this->headerPosition = $headerPosition;
     }
@@ -244,19 +239,16 @@ class Content extends AbstractEntity
 
     /**
      * @param $bodytext
-     * @return void
      */
-    public function setBodytext($bodytext)
+    public function setBodytext($bodytext): void
     {
         $this->bodytext = $bodytext;
     }
 
     /**
      * Get the colpos
-     *
-     * @return int
      */
-    public function getColPos()
+    public function getColPos(): int
     {
         return (int)$this->colPos;
     }
@@ -265,9 +257,8 @@ class Content extends AbstractEntity
      * Set colpos
      *
      * @param int $colPos
-     * @return void
      */
-    public function setColPos($colPos)
+    public function setColPos($colPos): void
     {
         $this->colPos = $colPos;
     }
@@ -282,9 +273,8 @@ class Content extends AbstractEntity
 
     /**
      * @param $image
-     * @return void
      */
-    public function setImage($image)
+    public function setImage($image): void
     {
         $this->image = $image;
     }
@@ -299,9 +289,8 @@ class Content extends AbstractEntity
 
     /**
      * @param $imagewidth
-     * @return void
      */
-    public function setImagewidth($imagewidth)
+    public function setImagewidth($imagewidth): void
     {
         $this->imagewidth = $imagewidth;
     }
@@ -316,9 +305,8 @@ class Content extends AbstractEntity
 
     /**
      * @param $imageorient
-     * @return void
      */
-    public function setImageorient($imageorient)
+    public function setImageorient($imageorient): void
     {
         $this->imageorient = $imageorient;
     }
@@ -333,9 +321,8 @@ class Content extends AbstractEntity
 
     /**
      * @param $imagecaption
-     * @return void
      */
-    public function setImagecaption($imagecaption)
+    public function setImagecaption($imagecaption): void
     {
         $this->imagecaption = $imagecaption;
     }
@@ -350,9 +337,8 @@ class Content extends AbstractEntity
 
     /**
      * @param $imagecols
-     * @return void
      */
-    public function setImagecols($imagecols)
+    public function setImagecols($imagecols): void
     {
         $this->imagecols = $imagecols;
     }
@@ -367,9 +353,8 @@ class Content extends AbstractEntity
 
     /**
      * @param $imageborder
-     * @return void
      */
-    public function setImageborder($imageborder)
+    public function setImageborder($imageborder): void
     {
         $this->imageborder = $imageborder;
     }
@@ -384,9 +369,8 @@ class Content extends AbstractEntity
 
     /**
      * @param $media
-     * @return void
      */
-    public function setMedia($media)
+    public function setMedia($media): void
     {
         $this->media = $media;
     }
@@ -401,9 +385,8 @@ class Content extends AbstractEntity
 
     /**
      * @param $layout
-     * @return void
      */
-    public function setLayout($layout)
+    public function setLayout($layout): void
     {
         $this->layout = $layout;
     }
@@ -418,9 +401,8 @@ class Content extends AbstractEntity
 
     /**
      * @param $cols
-     * @return void
      */
-    public function setCols($cols)
+    public function setCols($cols): void
     {
         $this->cols = $cols;
     }
@@ -435,9 +417,8 @@ class Content extends AbstractEntity
 
     /**
      * @param $subheader
-     * @return void
      */
-    public function setSubheader($subheader)
+    public function setSubheader($subheader): void
     {
         $this->subheader = $subheader;
     }
@@ -452,9 +433,8 @@ class Content extends AbstractEntity
 
     /**
      * @param $headerLink
-     * @return void
      */
-    public function setHeaderLink($headerLink)
+    public function setHeaderLink($headerLink): void
     {
         $this->headerLink = $headerLink;
     }
@@ -469,9 +449,8 @@ class Content extends AbstractEntity
 
     /**
      * @param $imageLink
-     * @return void
      */
-    public function setImageLink($imageLink)
+    public function setImageLink($imageLink): void
     {
         $this->imageLink = $imageLink;
     }
@@ -486,9 +465,8 @@ class Content extends AbstractEntity
 
     /**
      * @param $imageZoom
-     * @return void
      */
-    public function setImageZoom($imageZoom)
+    public function setImageZoom($imageZoom): void
     {
         $this->imageZoom = $imageZoom;
     }
@@ -503,9 +481,8 @@ class Content extends AbstractEntity
 
     /**
      * @param $altText
-     * @return void
      */
-    public function setAltText($altText)
+    public function setAltText($altText): void
     {
         $this->altText = $altText;
     }
@@ -520,9 +497,8 @@ class Content extends AbstractEntity
 
     /**
      * @param $titleText
-     * @return void
      */
-    public function setTitleText($titleText)
+    public function setTitleText($titleText): void
     {
         $this->titleText = $titleText;
     }
@@ -537,9 +513,8 @@ class Content extends AbstractEntity
 
     /**
      * @param $headerLayout
-     * @return void
      */
-    public function setHeaderLayout($headerLayout)
+    public function setHeaderLayout($headerLayout): void
     {
         $this->headerLayout = $headerLayout;
     }
@@ -554,9 +529,8 @@ class Content extends AbstractEntity
 
     /**
      * @param $listType
-     * @return void
      */
-    public function setListType($listType)
+    public function setListType($listType): void
     {
         $this->listType = $listType;
     }

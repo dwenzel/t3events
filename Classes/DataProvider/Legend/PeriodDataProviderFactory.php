@@ -27,8 +27,7 @@ use DWenzel\T3events\Utility\SettingsInterface as SI;
 class PeriodDataProviderFactory
 {
     /**
-     * @param array $params
-     * @return \DWenzel\T3events\DataProvider\Legend\LayeredLegendDataProviderInterface
+     * @return LayeredLegendDataProviderInterface
      */
     public function get(array $params)
     {

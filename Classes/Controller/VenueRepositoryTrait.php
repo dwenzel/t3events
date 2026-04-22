@@ -30,17 +30,14 @@ trait VenueRepositoryTrait
     /**
      * Venue Repository
      *
-     * @var \DWenzel\T3events\Domain\Repository\VenueRepository
+     * @var VenueRepository
      */
     protected $venueRepository;
 
     /**
      * injectVenueRepository
-     *
-     * @param \DWenzel\T3events\Domain\Repository\VenueRepository $venueRepository
-     * @return void
      */
-    public function injectVenueRepository(VenueRepository $venueRepository)
+    public function injectVenueRepository(VenueRepository $venueRepository): void
     {
         $this->venueRepository = $venueRepository;
     }

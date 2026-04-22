@@ -2,6 +2,8 @@
 
 namespace DWenzel\T3events\Domain\Repository;
 
+use DWenzel\T3events\Utility\GeoCoder;
+use TYPO3\CMS\Extbase\Annotation\Inject;
 use DWenzel\T3events\Domain\Model\Dto\SearchAwareDemandInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 
@@ -13,19 +15,17 @@ use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 trait LocationConstraintRepositoryTrait
 {
     /**
-     * @var \DWenzel\T3events\Utility\GeoCoder
-     * @TYPO3\CMS\Extbase\Annotation\Inject
+     * @var GeoCoder
+     * @Inject
      */
     protected $geoCoder;
 
     /**
      * Create location constraints from demand
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
-     * @param \DWenzel\T3events\Domain\Model\Dto\SearchAwareDemandInterface $demand
      * @return array<\TYPO3\CMS\Extbase\Persistence\QOM\Constraint>
      */
-    public function createLocationConstraints(QueryInterface $query, SearchAwareDemandInterface $demand)
+    public function createLocationConstraints(QueryInterface $query, SearchAwareDemandInterface $demand): array
     {
         $locationConstraints = [];
 

@@ -37,7 +37,7 @@ class FindEventsViewHelper extends AbstractViewHelper
      */
     public function render($timestamp, $events, $as)
     {
-        $filteredEvents = array();
+        $filteredEvents = [];
         foreach ($events as $event) {
             foreach ($event->getPerformances() as $performance) {
                 if (date('d.m.Y', $timestamp) === $performance->getDate()->format('d.m.Y')) {

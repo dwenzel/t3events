@@ -35,9 +35,8 @@ trait GenreRepositoryTrait
 
     /**
      * Injects the genre repository
-     * @param GenreRepository $genreRepository
      */
-    public function injectGenreRepository(GenreRepository $genreRepository)
+    public function injectGenreRepository(GenreRepository $genreRepository): void
     {
         $this->genreRepository = $genreRepository;
     }

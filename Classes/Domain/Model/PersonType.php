@@ -50,9 +50,8 @@ class PersonType extends AbstractValueObject
      * Sets the title
      *
      * @param string $title
-     * @return void
      */
-    public function setTitle($title)
+    public function setTitle($title): void
     {
         $this->title = $title;
     }

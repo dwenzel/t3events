@@ -70,7 +70,7 @@ class ButtonDemand
     /**
      * @param string $table
      */
-    public function setTable($table)
+    public function setTable($table): void
     {
         $this->table = $table;
     }
@@ -86,7 +86,7 @@ class ButtonDemand
     /**
      * @param string $labelKey
      */
-    public function setLabelKey($labelKey)
+    public function setLabelKey($labelKey): void
     {
         $this->labelKey = $labelKey;
     }
@@ -102,7 +102,7 @@ class ButtonDemand
     /**
      * @param string $action
      */
-    public function setAction($action)
+    public function setAction($action): void
     {
         $this->action = $action;
     }
@@ -118,7 +118,7 @@ class ButtonDemand
     /**
      * @param string $iconKey
      */
-    public function setIconKey($iconKey)
+    public function setIconKey($iconKey): void
     {
         $this->iconKey = $iconKey;
     }
@@ -134,7 +134,7 @@ class ButtonDemand
     /**
      * @param string $iconSize
      */
-    public function setIconSize($iconSize)
+    public function setIconSize($iconSize): void
     {
         $this->iconSize = $iconSize;
     }
@@ -150,7 +150,7 @@ class ButtonDemand
     /**
      * @param string $overlay
      */
-    public function setOverlay($overlay)
+    public function setOverlay($overlay): void
     {
         $this->overlay = $overlay;
     }

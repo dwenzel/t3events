@@ -29,9 +29,8 @@ trait OrderAwareDemandTrait
      *
      * @param string $order A comma separated list of orderings
      * in the form of '<fieldName>|<direction,<otherFieldName>|<direction>
-     * @return void
      */
-    public function setOrder($order)
+    public function setOrder($order): void
     {
         $this->order = $order;
     }

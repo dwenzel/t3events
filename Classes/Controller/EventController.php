@@ -14,7 +14,8 @@ namespace DWenzel\T3events\Controller;
  *
  * The TYPO3 project - inspiring people to share!
  */
-
+use Psr\Http\Message\ResponseInterface;
+use TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException;
 use DWenzel\T3events\Domain\Factory\Dto\EventDemandFactory;
 use DWenzel\T3events\Domain\Model\Dto\SearchFactory;
 use DWenzel\T3events\Domain\Model\Event;
@@ -43,41 +44,19 @@ class EventController extends ActionController
     const EVENT_LIST_ACTION = 'listAction';
     const EVENT_SHOW_ACTION = 'showAction';
 
-    protected EventDemandFactory $eventDemandFactory;
-    protected EventRepository $eventRepository;
-    protected EventTypeRepository $eventTypeRepository;
-    protected GenreRepository $genreRepository;
-    protected SessionInterface $session;
-    protected VenueRepository $venueRepository;
-
-    /**
-     * @param EventDemandFactory $eventDemandFactory
-     * @param EventRepository $eventRepository
-     * @param EventTypeRepository $eventTypeRepository
-     * @param GenreRepository $genreRepository
-     * @param SearchFactory $searchFactory
-     * @param SessionInterface $session
-     * @param SettingsUtility $settingsUtility
-     * @param VenueRepository $venueRepository
-     */
-    public function __construct(EventDemandFactory $eventDemandFactory, EventRepository $eventRepository, EventTypeRepository $eventTypeRepository, GenreRepository $genreRepository, SearchFactory $searchFactory, SessionInterface $session, SettingsUtility $settingsUtility, VenueRepository $venueRepository)
+    public function __construct(protected EventDemandFactory $eventDemandFactory, protected EventRepository $eventRepository, protected EventTypeRepository $eventTypeRepository, protected GenreRepository $genreRepository, SearchFactory $searchFactory, protected SessionInterface $session, SettingsUtility $settingsUtility, protected VenueRepository $venueRepository)
     {
-        $this->eventDemandFactory = $eventDemandFactory;
-        $this->eventRepository = $eventRepository;
-        $this->eventTypeRepository = $eventTypeRepository;
-        $this->genreRepository = $genreRepository;
         $this->searchFactory = $searchFactory;
-        $this->session = $session;
         $this->settingsUtility = $settingsUtility;
-        $this->venueRepository = $venueRepository;
     }
 
 
     /**
      * initializes all actions
-     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException
+     * @throws NoSuchArgumentException
      */
-    public function initializeAction()
+    #[\Override]
+    public function initializeAction(): void
     {
         $this->settings = $this->mergeSettings();
         if ($this->request->hasArgument(SI::OVERWRITE_DEMAND)) {
@@ -96,11 +75,8 @@ class EventController extends ActionController
      * action list
      *
      * @param array $overwriteDemand
-     * @return void
-     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException
-     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
      */
-    public function listAction($overwriteDemand = null)
+    public function listAction($overwriteDemand = null): ResponseInterface
     {
         if (!$overwriteDemand){
             $overwriteDemand = unserialize($this->session->get('tx_t3events_overwriteDemand'), ['allowed_classes' => false]);
@@ -130,36 +106,31 @@ class EventController extends ActionController
             'data' => $this->configurationManager->getContentObject()->data
         ];
 
-        $this->emitSignal(__CLASS__, self::EVENT_LIST_ACTION, $templateVariables);
+        $this->emitSignal(self::class, self::EVENT_LIST_ACTION, $templateVariables);
         $this->view->assignMultiple($templateVariables);
+        return $this->htmlResponse();
     }
 
     /**
      * action show
      *
-     * @param \DWenzel\T3events\Domain\Model\Event $event
-     * @return void
-     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException
-     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
      */
-    public function showAction(Event $event)
+    public function showAction(Event $event): ResponseInterface
     {
         $templateVariables = [
             SI::SETTINGS => $this->settings,
             'event' => $event
         ];
-        $this->emitSignal(__CLASS__, self::EVENT_SHOW_ACTION, $templateVariables);
+        $this->emitSignal(self::class, self::EVENT_SHOW_ACTION, $templateVariables);
         $this->view->assignMultiple($templateVariables);
+        return $this->htmlResponse();
     }
 
     /**
      * action quickMenu
      *
-     * @return void
-     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException
-     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
      */
-    public function quickMenuAction()
+    public function quickMenuAction(): ResponseInterface
     {
         // get session data
         $overwriteDemand = unserialize($this->session->get('tx_t3events_overwriteDemand'), ['allowed_classes' => false]);
@@ -177,9 +148,10 @@ class EventController extends ActionController
             SI::OVERWRITE_DEMAND => $overwriteDemand
         ];
 
-        $this->emitSignal(__CLASS__, self::EVENT_QUICK_MENU_ACTION, $templateVariables);
+        $this->emitSignal(self::class, self::EVENT_QUICK_MENU_ACTION, $templateVariables);
         $this->view->assignMultiple(
             $templateVariables
         );
+        return $this->htmlResponse();
     }
 }

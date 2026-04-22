@@ -1,6 +1,7 @@
 <?php
 namespace DWenzel\T3events\Domain\Repository;
 
+use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use DWenzel\T3events\Domain\Model\Dto\CategoryAwareDemandInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -16,12 +17,10 @@ trait CategoryConstraintRepositoryTrait
     /**
      * Create Category constraints from demand (time restriction)
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
-     * @param \DWenzel\T3events\Domain\Model\Dto\CategoryAwareDemandInterface $demand
      * @return array<\TYPO3\CMS\Extbase\Persistence\QOM\Constraint>
-     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
+     * @throws InvalidQueryException
      */
-    public function createCategoryConstraints(QueryInterface $query, CategoryAwareDemandInterface $demand)
+    public function createCategoryConstraints(QueryInterface $query, CategoryAwareDemandInterface $demand): array
     {
         $categoryConstraints = [];
         $categoryField = $demand->getCategoryField();

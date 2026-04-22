@@ -13,10 +13,7 @@ use TYPO3\CMS\Extbase\Mvc\RequestInterface;
  */
 abstract class AbstractBackendController extends ActionController
 {
-    /**
-     * @param RequestInterface $request
-     * @return ResponseInterface
-     */
+    #[\Override]
     public function processRequest(RequestInterface $request): ResponseInterface
     {
         /*$this->moduleData = $this->moduleDataStorageService->loadModuleData(...);

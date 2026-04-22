@@ -24,7 +24,7 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 class ButtonDemandCollection
 {
     /**
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<DWenzel\T3events\Domain\Model\Dto\ButtonDemand>
+     * @var ObjectStorage<ButtonDemand>
      */
     protected $demands;
 
@@ -36,7 +36,7 @@ class ButtonDemandCollection
     {
         //Do not remove the next line: It would break the functionality
         $this->initStorageObjects();
-        if (empty($settings)) {
+        if ($settings === null || $settings === []) {
             return;
         }
 
@@ -88,17 +88,14 @@ class ButtonDemandCollection
 
     /**
      * Adds a Demand
-     *
-     * @param \DWenzel\T3events\Domain\Model\Dto\ButtonDemand $demand
-     * @return void
      */
-    public function addDemand(ButtonDemand $demand)
+    public function addDemand(ButtonDemand $demand): void
     {
         $this->demands->attach($demand);
     }
 
     /**
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<DWenzel\T3events\Domain\Model\Dto\ButtonDemand>
+     * @return ObjectStorage<ButtonDemand>
      */
     public function getDemands()
     {
@@ -108,7 +105,7 @@ class ButtonDemandCollection
     /**
      * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<DWenzel\T3events\Domain\Model\Dto\ButtonDemand>
      */
-    public function setDemands(ObjectStorage $demands)
+    public function setDemands(ObjectStorage $demands): void
     {
         $this->demands = $demands;
     }
@@ -116,10 +113,9 @@ class ButtonDemandCollection
     /**
      * Removes a Demand
      *
-     * @param \DWenzel\T3events\Domain\Model\Dto\ButtonDemand $demandToRemove The Demand to be removed
-     * @return void
+     * @param ButtonDemand $demandToRemove The Demand to be removed
      */
-    public function removeDemand(ButtonDemand $demandToRemove)
+    public function removeDemand(ButtonDemand $demandToRemove): void
     {
         $this->demands->detach($demandToRemove);
     }

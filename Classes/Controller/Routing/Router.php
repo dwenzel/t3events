@@ -33,7 +33,8 @@ class Router implements SingletonInterface, RouterInterface
      * @param Route $route A route
      * @param string|null $identifier Optional identifier
      */
-    public function addRoute($route, $identifier = null)
+    #[\Override]
+    public function addRoute($route, $identifier = null): void
     {
         if (is_null($identifier)) {
             $identifier = $route->getOrigin();
@@ -50,6 +51,7 @@ class Router implements SingletonInterface, RouterInterface
      * @return Route|mixed
      * @throws ResourceNotFoundException
      */
+    #[\Override]
     public function getRoute($identifier)
     {
         if (isset($this->routes[$identifier])) {
@@ -64,6 +66,7 @@ class Router implements SingletonInterface, RouterInterface
      *
      * @return array
      */
+    #[\Override]
     public function getRoutes()
     {
         return $this->routes;

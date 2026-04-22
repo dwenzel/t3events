@@ -28,7 +28,8 @@ class UniqueViewHelper extends AbstractViewHelper
     /**
      * Initialize Arguments
      */
-    public function initializeArguments()
+    #[\Override]
+    public function initializeArguments(): void
     {
         $this->registerArgument('event', Event::class, static::ARGUMENT_EVENT_DESCRIPTION, true);
     }
@@ -48,7 +49,7 @@ class UniqueViewHelper extends AbstractViewHelper
         ) {
             /** @var ObjectStorage $performances */
             $performances = $this->arguments['event']->getPerformances();
-            if (count($performances)) {
+            if (count($performances) > 0) {
                 foreach ($performances as $performance) {
                     if ($eventLocation = $performance->getEventLocation()) {
                         $locations[] = $eventLocation;

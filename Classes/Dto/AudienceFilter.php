@@ -29,6 +29,7 @@ class AudienceFilter
 {
     use AudienceRepositoryTrait, OptionsTrait;
 
+    #[\Override]
     public function getOptionRepository(): DemandedRepositoryInterface
     {
         return $this->audienceRepository;

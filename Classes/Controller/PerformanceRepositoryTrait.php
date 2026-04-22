@@ -31,16 +31,14 @@ trait PerformanceRepositoryTrait
     /**
      * Performance repository
      *
-     * @var \DWenzel\T3events\Domain\Repository\PerformanceRepository
+     * @var PerformanceRepository
      */
     protected $performanceRepository;
 
     /**
      * Injects the performance repository
-     *
-     * @param \DWenzel\T3events\Domain\Repository\PerformanceRepository $performanceRepository
      */
-    public function injectPerformanceRepository(PerformanceRepository $performanceRepository)
+    public function injectPerformanceRepository(PerformanceRepository $performanceRepository): void
     {
         $this->performanceRepository = $performanceRepository;
     }

@@ -2,6 +2,7 @@
 
 namespace DWenzel\T3events\ViewHelpers\Format\Event;
 
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use DWenzel\T3events\Domain\Model\Event;
 use DWenzel\T3events\Domain\Model\Performance;
 use DWenzel\T3events\ViewHelpers\Format\AbstractDateRangeViewHelper;
@@ -27,14 +28,15 @@ class DateRangeViewHelper extends AbstractDateRangeViewHelper
     const ARGUMENT_EVENT_DESCRIPTION = 'Event for which the date range should be rendered.';
 
     /**
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage
+     * @var ObjectStorage
      */
     protected $performances;
 
     /**
      * Registers arguments with type, description and defaults
      */
-    public function initializeArguments()
+    #[\Override]
+    public function initializeArguments(): void
     {
         $this->registerArgument('event', Event::class, static::ARGUMENT_EVENT_DESCRIPTION, true);
         $this->registerArgument('format', 'string', static::ARGUMENT_FORMAT_DESCRIPTION, false, static::DEFAULT_DATE_FORMAT);
@@ -59,7 +61,7 @@ class DateRangeViewHelper extends AbstractDateRangeViewHelper
     /**
      * @return array An array of timestamps
      */
-    protected function getTimestamps()
+    protected function getTimestamps(): array
     {
         $timestamps = [];
         /** @var Performance $performance */

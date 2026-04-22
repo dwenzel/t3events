@@ -31,7 +31,6 @@ interface ConfigurableViewInterface extends ViewInterface
     /**
      * Applies a given configuration to the view
      *
-     * @param array $configuration
      * @return void
      */
     public function apply(array $configuration);

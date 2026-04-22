@@ -25,17 +25,14 @@ use DWenzel\T3events\Domain\Factory\Dto\PersonDemandFactory;
 trait PersonDemandFactoryTrait
 {
     /**
-     * @var \DWenzel\T3events\Domain\Factory\Dto\PersonDemandFactory
+     * @var PersonDemandFactory
      */
     protected $personDemandFactory;
 
     /**
      * Injects the personDemandFactory
-     *
-     * @param PersonDemandFactory $personDemandFactory
-     * @return void
      */
-    public function injectPersonDemandFactory(PersonDemandFactory $personDemandFactory)
+    public function injectPersonDemandFactory(PersonDemandFactory $personDemandFactory): void
     {
         $this->personDemandFactory = $personDemandFactory;
     }

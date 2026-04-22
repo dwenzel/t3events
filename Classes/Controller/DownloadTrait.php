@@ -1,11 +1,12 @@
 <?php
 namespace DWenzel\T3events\Controller;
 
+use TYPO3\CMS\Extbase\Mvc\Response;
+use DWenzel\T3events\Utility\SettingsUtility;
+use TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException;
 use TYPO3\CMS\Core\Resource\Driver\LocalDriver;
 use DWenzel\T3events\InvalidFileTypeException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
-use TYPO3\CMS\Extbase\Mvc\Web\Response;
 
 /**
  * Class DownloadTrait
@@ -13,7 +14,7 @@ use TYPO3\CMS\Extbase\Mvc\Web\Response;
 trait DownloadTrait
 {
     /**
-     * @var \TYPO3\CMS\Core\Resource\Driver\LocalDriver
+     * @var LocalDriver
      */
     protected $localDriver;
 
@@ -25,7 +26,7 @@ trait DownloadTrait
     protected $settings;
 
     /**
-     * @var \DWenzel\T3events\Utility\SettingsUtility
+     * @var SettingsUtility
      */
     protected $settingsUtility;
 
@@ -38,23 +39,13 @@ trait DownloadTrait
     protected $response;
 
     /**
-     * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
-     */
-    protected $objectManager;
-
-    /**
      * Injects the local driver for file system
-     *
-     * @param \TYPO3\CMS\Core\Resource\Driver\LocalDriver $localDriver
      */
-    public function injectLocalDriver(LocalDriver $localDriver)
+    public function injectLocalDriver(LocalDriver $localDriver): void
     {
         $this->localDriver = $localDriver;
     }
 
-    /**
-     * @return LocalDriver
-     */
     public function getLocalDriver(): LocalDriver
     {
         return $this->localDriver;
@@ -67,7 +58,7 @@ trait DownloadTrait
      * @param string $fileName
      * @param $prependDate
      * @return string
-     * @throws \TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException
+     * @throws InvalidFileNameException
      */
     public function getDownloadFileName($fileName, $prependDate = true)
     {
@@ -85,7 +76,7 @@ trait DownloadTrait
      * @param string $fileExtension
      * @param object $objectForFileName
      * @return string
-     * @throws \DWenzel\T3events\InvalidFileTypeException
+     * @throws InvalidFileTypeException
      */
     public function getContentForDownload($fileExtension, $objectForFileName = null)
     {
@@ -112,10 +103,9 @@ trait DownloadTrait
      * Sends download headers
      *
      * @param string $ext
-     * @param string $fileName
      * @throws InvalidFileTypeException
      */
-    public function sendDownloadHeaders($ext, $fileName)
+    public function sendDownloadHeaders($ext, string $fileName): void
     {
         switch ($ext) {
             case 'csv':

@@ -14,7 +14,8 @@ namespace DWenzel\T3events\Controller\Backend;
  *
  * The TYPO3 project - inspiring people to share!
  */
-
+use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
+use Psr\Http\Message\ResponseInterface;
 use DWenzel\T3events\CallStaticTrait;
 use DWenzel\T3events\Controller\AbstractBackendController;
 use DWenzel\T3events\Controller\AudienceRepositoryTrait;
@@ -40,7 +41,6 @@ use DWenzel\T3events\Domain\Model\Dto\ButtonDemand;
 use DWenzel\T3events\Service\ModuleDataStorageService;
 use DWenzel\T3events\Utility\SettingsInterface as SI;
 use DWenzel\T3events\Utility\SettingsUtility;
-use TYPO3\CMS\Backend\View\BackendTemplateView;
 use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
@@ -74,18 +74,13 @@ class EventController extends AbstractBackendController implements FilterableCon
         ]
     ];
 
-    public function __construct(SettingsUtility $settingsUtility, ModuleDataStorageService $moduleDataStorageService)
+    public function __construct(SettingsUtility $settingsUtility, ModuleDataStorageService $moduleDataStorageService, private readonly ModuleTemplateFactory $moduleTemplateFactory)
     {
         $this->moduleDataStorageService = $moduleDataStorageService;
         $this->settingsUtility = $settingsUtility;
     }
 
-    protected $defaultViewObjectName = BackendTemplateView::class;
-
-    /**
-     * @return void
-     */
-    public function initializeNewAction()
+    public function initializeNewAction(): void
     {
 
         $configuration = $this->configurationManager->getConfiguration(
@@ -103,12 +98,10 @@ class EventController extends AbstractBackendController implements FilterableCon
      * action list
      *
      * @param array $overwriteDemand
-     * @return void
-     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException
-     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
      */
-    public function listAction($overwriteDemand = null)
+    public function listAction($overwriteDemand = null): ResponseInterface
     {
+        $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
         $demand = $this->eventDemandFactory->createFromSettings($this->settings);
 
         if ($overwriteDemand === null) {
@@ -144,21 +137,27 @@ class EventController extends AbstractBackendController implements FilterableCon
             SI::MODULE => SI::ROUTE_EVENT_MODULE
         ];
 
-        $this->emitSignal(__CLASS__, self::LIST_ACTION, $templateVariables);
+        $this->emitSignal(self::class, self::LIST_ACTION, $templateVariables);
         $this->view->assignMultiple($templateVariables);
+        $moduleTemplate->setContent($this->view->render());
+        return $this->htmlResponse($moduleTemplate->renderContent());
     }
 
     /**
      * Redirect to new record form
      */
-    public function newAction()
+    public function newAction(): ResponseInterface
     {
+        $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
         $this->redirectToCreateNewRecord(SI::TABLE_EVENTS);
+        $moduleTemplate->setContent($this->view->render());
+        return $this->htmlResponse($moduleTemplate->renderContent());
     }
 
     /**
      * @return ConfigurationManagerInterface
      */
+    #[\Override]
     public function getConfigurationManager()
     {
         return $this->configurationManager;

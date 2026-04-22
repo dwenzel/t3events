@@ -35,9 +35,8 @@ trait EventLocationAwareDemandTrait
      * Sets the event locations
      *
      * @var string $eventLocations
-     * @return void
      */
-    public function setEventLocations($eventLocations)
+    public function setEventLocations($eventLocations): void
     {
         $this->eventLocations = $eventLocations;
     }

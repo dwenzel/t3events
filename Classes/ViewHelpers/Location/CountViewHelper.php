@@ -29,17 +29,16 @@ class CountViewHelper extends AbstractViewHelper
     /**
      * Initialize Arguments
      */
-    public function initializeArguments()
+    #[\Override]
+    public function initializeArguments(): void
     {
         $this->registerArgument('event', Event::class, static::ARGUMENT_EVENT_DESCRIPTION, true);
     }
 
     /**
      * Render method
-     *
-     * @return int
      */
-    public function render()
+    public function render(): int
     {
         $locationsArray = [];
 
@@ -52,7 +51,7 @@ class CountViewHelper extends AbstractViewHelper
             foreach ($performances as $performance) {
                 $eventLocation = $performance->getEventLocation();
                 if ($eventLocation) {
-                    array_push($locationsArray, $eventLocation->getUid());
+                    $locationsArray[] = $eventLocation->getUid();
                 }
             }
             // make unique

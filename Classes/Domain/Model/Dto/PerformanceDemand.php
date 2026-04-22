@@ -55,6 +55,7 @@ class PerformanceDemand extends AbstractDemand implements
      *
      * @return string
      */
+    #[\Override]
     public function getStartDateField()
     {
         return static::START_DATE_FIELD;
@@ -65,6 +66,7 @@ class PerformanceDemand extends AbstractDemand implements
      *
      * @return string
      */
+    #[\Override]
     public function getEndDateField()
     {
         return static::END_DATE_FIELD;
@@ -75,6 +77,7 @@ class PerformanceDemand extends AbstractDemand implements
      *
      * @return string
      */
+    #[\Override]
     public function getStatusField()
     {
         return static::STATUS_FIELD;
@@ -83,6 +86,7 @@ class PerformanceDemand extends AbstractDemand implements
     /**
      * @return string
      */
+    #[\Override]
     public function getCategoryField()
     {
         return static::CATEGORY_FIELD;
@@ -91,6 +95,7 @@ class PerformanceDemand extends AbstractDemand implements
     /**
      * @return string
      */
+    #[\Override]
     public function getEventLocationField()
     {
         return static::EVENT_LOCATION_FIELD;
@@ -99,6 +104,7 @@ class PerformanceDemand extends AbstractDemand implements
     /**
      * @return string
      */
+    #[\Override]
     public function getGenreField()
     {
         return static::GENRE_FIELD;
@@ -107,6 +113,7 @@ class PerformanceDemand extends AbstractDemand implements
     /**
      * @return string
      */
+    #[\Override]
     public function getVenueField()
     {
         return static::VENUE_FIELD;
@@ -115,6 +122,7 @@ class PerformanceDemand extends AbstractDemand implements
     /**
      * @return string
      */
+    #[\Override]
     public function getEventTypeField()
     {
         return static::EVENT_TYPE_FIELD;
@@ -123,6 +131,7 @@ class PerformanceDemand extends AbstractDemand implements
     /**
      * @return string
      */
+    #[\Override]
     public function getAudienceField()
     {
         return static::AUDIENCE_FIELD;

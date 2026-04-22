@@ -44,7 +44,7 @@ trait VenueAwareDemandTrait
     /**
      * @param string $venues
      */
-    public function setVenues($venues)
+    public function setVenues($venues): void
     {
         $this->venues = $venues;
     }

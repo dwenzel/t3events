@@ -3,7 +3,6 @@ namespace DWenzel\T3events\Service;
 
 use DWenzel\T3events\Configuration\ConfigurationManagerTrait;
 use DWenzel\T3events\Domain\Model\Notification;
-use DWenzel\T3events\Object\ObjectManagerTrait;
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
@@ -18,7 +17,7 @@ use TYPO3\CMS\Fluid\View\StandaloneView;
  */
 class NotificationService
 {
-    use ConfigurationManagerTrait, ObjectManagerTrait;
+    use ConfigurationManagerTrait;
 
     /**
      * Notify using the given data
@@ -31,9 +30,8 @@ class NotificationService
      * @param null|string $format
      * @param array $variables
      * @param array $attachments
-     * @return bool
      */
-    public function notify($recipient, $sender, $subject, $templateName, $folderName, $format = null, $variables = [], $attachments = null)
+    public function notify($recipient, $sender, $subject, $templateName, $folderName, $format = null, $variables = [], $attachments = null): bool
     {
         $templateView = $this->buildTemplateView($templateName, $format, $folderName);
         $templateView->assignMultiple($variables);
@@ -82,11 +80,8 @@ class NotificationService
     /**
      * Sends a prepared notification
      * Returns true on success and false on failure.
-     *
-     * @param \DWenzel\T3events\Domain\Model\Notification $notification
-     * @return bool
      */
-    public function send(Notification $notification)
+    public function send(Notification $notification): bool
     {
         /** @var $message MailMessage */
         $message = GeneralUtility::makeInstance(MailMessage::class);
@@ -123,13 +118,13 @@ class NotificationService
      * @param string $templateName
      * @param null|string $format
      * @param null|string $folderName
-     * @return \TYPO3\CMS\Fluid\View\StandaloneView
+     * @return StandaloneView
      * @internal param string $templateName
      * @internal param string $format Format for content. Default is html
      */
     protected function buildTemplateView($templateName, $format = null, $folderName = null)
     {
-        /** @var \TYPO3\CMS\Fluid\View\StandaloneView $emailView */
+        /** @var StandaloneView $emailView */
         $emailView = GeneralUtility::makeInstance(StandaloneView::class);
         $emailView->setTemplatePathAndFilename(
             $this->getTemplatePathAndFileName($templateName, $folderName)
@@ -148,7 +143,7 @@ class NotificationService
      * @var array $data An array containing data for attachement generation
      * @var MailMessage $message
      */
-    protected function buildAttachmentFromTemplate($data, MailMessage $message): void
+    protected function buildAttachmentFromTemplate(array $data, MailMessage $message): void
     {
         $attachmentView = $this->buildTemplateView(
             $data['templateName'],
@@ -169,15 +164,13 @@ class NotificationService
      *
      * @var string $templateName File name (without extension)
      * @var string $folderName Optional folder name, default 'Email'
-     * @return string
      */
-    protected function getTemplatePathAndFileName($templateName, $folderName = 'Email')
+    protected function getTemplatePathAndFileName(string $templateName, string $folderName = 'Email'): string
     {
         $extbaseFrameworkConfiguration = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
-        $templateRootPath = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($extbaseFrameworkConfiguration['view']['templateRootPath']);
-        $templatePathAndFilename = $templateRootPath . $folderName . '/' . $templateName . '.html';
+        $templateRootPath = GeneralUtility::getFileAbsFileName($extbaseFrameworkConfiguration['view']['templateRootPath']);
 
-        return $templatePathAndFilename;
+        return $templateRootPath . $folderName . '/' . $templateName . '.html';
     }
 
     /**
@@ -216,8 +209,7 @@ class NotificationService
     /**
      * Clones a given notification
      *
-     * @param \DWenzel\T3events\Domain\Model\Notification $oldNotification
-     * @return \DWenzel\T3events\Domain\Model\Notification
+     * @return Notification
      */
     public function duplicate(Notification $oldNotification)
     {

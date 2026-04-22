@@ -47,9 +47,8 @@ class ItemsProcFunc
      * Items process function to extend the selection of templateLayouts in the plugin
      *
      * @param array &$config configuration array
-     * @return void
      */
-    public function user_templateLayout(array &$config)
+    public function user_templateLayout(array &$config): void
     {
         $pageId = (int)($config['row']['pid'] ?? $config['flexParentDatabaseRow']['pid'] ?? 0);
         $templateLayouts = $this->templateLayoutUtility->getLayouts(static::EXTENSION_KEY, $pageId);
@@ -59,7 +58,7 @@ class ItemsProcFunc
                 htmlspecialchars($this->getLanguageService()->sL($layout[0])),
                 $layout[1]
             ];
-            array_push($config['items'], $additionalLayout);
+            $config['items'][] = $additionalLayout;
         }
     }
 

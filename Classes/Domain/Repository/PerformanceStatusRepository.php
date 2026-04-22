@@ -19,12 +19,8 @@ class PerformanceStatusRepository extends Repository implements DemandedReposito
 {
     use DemandedRepositoryTrait;
 
-    /**
-     * @param QueryInterface $query
-     * @param DemandInterface $demand
-     * @return array
-     */
-    public function createConstraintsFromDemand(QueryInterface $query, DemandInterface $demand)
+    #[\Override]
+    public function createConstraintsFromDemand(QueryInterface $query, DemandInterface $demand): array
     {
         // add constraints if required
         return [];

@@ -1,30 +1,32 @@
 <?php
 namespace DWenzel\T3events\Domain\Model;
 
-/***************************************************************
-     *  Copyright notice
-     *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
-     *  Michael Kasten <kasten@webfox01.de>, Agentur Webfox
-     *  All rights reserved
-     *  This script is part of the TYPO3 project. The TYPO3 project is
-     *  free software; you can redistribute it and/or modify
-     *  it under the terms of the GNU General Public License as published by
-     *  the Free Software Foundation; either version 3 of the License, or
-     *  (at your option) any later version.
-     *  The GNU General Public License can be found at
-     *  http://www.gnu.org/copyleft/gpl.html.
-     *  This script is distributed in the hope that it will be useful,
-     *  but WITHOUT ANY WARRANTY; without even the implied warranty of
-     *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-     *  GNU General Public License for more details.
-     *  This copyright notice MUST APPEAR in all copies of the script!
-     ***************************************************************/
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\Annotation\Validate;
 
+/***************************************************************
+ *  Copyright notice
+ *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
+ *  Michael Kasten <kasten@webfox01.de>, Agentur Webfox
+ *  All rights reserved
+ *  This script is part of the TYPO3 project. The TYPO3 project is
+ *  free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 3 of the License, or
+ *  (at your option) any later version.
+ *  The GNU General Public License can be found at
+ *  http://www.gnu.org/copyleft/gpl.html.
+ *  This script is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *  This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
 /**
  * @package t3events
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-class PerformanceStatus extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+class PerformanceStatus extends AbstractEntity
 {
     use EqualsTrait;
 
@@ -32,7 +34,7 @@ class PerformanceStatus extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * title
      *
      * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
+     * @Validate("NotEmpty")
      */
     protected $title;
 
@@ -40,7 +42,7 @@ class PerformanceStatus extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * cssClass
      *
      * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
+     * @Validate("NotEmpty")
      */
     protected $cssClass;
 
@@ -48,7 +50,7 @@ class PerformanceStatus extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * priority max allowed 2147483647
      *
      * @var integer
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
+     * @Validate("NotEmpty")
      */
     protected $priority = 2147483647;
 
@@ -66,9 +68,8 @@ class PerformanceStatus extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets the title
      *
      * @param string $title
-     * @return void
      */
-    public function setTitle($title)
+    public function setTitle($title): void
     {
         $this->title = $title;
     }
@@ -87,9 +88,8 @@ class PerformanceStatus extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets the priority
      *
      * @param integer $priority
-     * @return void
      */
-    public function setPriority($priority)
+    public function setPriority($priority): void
     {
         $this->priority = $priority;
     }
@@ -110,7 +110,7 @@ class PerformanceStatus extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param string $cssClass
      * @return string cssClass
      */
-    public function setCssClass($cssClass)
+    public function setCssClass($cssClass): void
     {
         $this->cssClass = $cssClass;
     }

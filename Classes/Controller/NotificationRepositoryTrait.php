@@ -30,17 +30,14 @@ trait NotificationRepositoryTrait
     /**
      * Notification Repository
      *
-     * @var \DWenzel\T3events\Domain\Repository\NotificationRepository
+     * @var NotificationRepository
      */
     protected $notificationRepository;
 
     /**
      * injectNotificationRepository
-     *
-     * @param \DWenzel\T3events\Domain\Repository\NotificationRepository $notificationRepository
-     * @return void
      */
-    public function injectNotificationRepository(NotificationRepository $notificationRepository)
+    public function injectNotificationRepository(NotificationRepository $notificationRepository): void
     {
         $this->notificationRepository = $notificationRepository;
     }

@@ -25,16 +25,19 @@ namespace DWenzel\T3events\Dto;
 class NullFilter implements FilterInterface
 {
 
+    #[\Override]
     public function getOptions(): iterable
     {
         return [];
     }
 
+    #[\Override]
     public function count(): int
     {
         return 0;
     }
 
+    #[\Override]
     public function configure(array $configuration): void
     {
     }

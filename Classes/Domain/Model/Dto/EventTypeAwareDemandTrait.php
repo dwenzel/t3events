@@ -44,7 +44,7 @@ trait EventTypeAwareDemandTrait
     /**
      * @param string $eventTypes
      */
-    public function setEventTypes($eventTypes)
+    public function setEventTypes($eventTypes): void
     {
         $this->eventTypes = $eventTypes;
     }

@@ -61,14 +61,14 @@ class Task extends AbstractEntity
     /**
      * Select a status
      *
-     * @var \DWenzel\T3events\Domain\Model\PerformanceStatus
+     * @var PerformanceStatus
      */
     protected $oldStatus;
 
     /**
      * Select the new status
      *
-     * @var \DWenzel\T3events\Domain\Model\PerformanceStatus
+     * @var PerformanceStatus
      */
     protected $newStatus;
 
@@ -93,9 +93,8 @@ class Task extends AbstractEntity
      * Sets the name
      *
      * @param string $name
-     * @return void
      */
-    public function setName($name)
+    public function setName($name): void
     {
         $this->name = $name;
     }
@@ -114,9 +113,8 @@ class Task extends AbstractEntity
      * Sets the action
      *
      * @param integer $action
-     * @return void
      */
-    public function setAction($action)
+    public function setAction($action): void
     {
         $this->action = $action;
     }
@@ -135,9 +133,8 @@ class Task extends AbstractEntity
      * sets the time period of action
      *
      * @param integer $periodDuration
-     * @return void
      */
-    public function setPeriodDuration($periodDuration)
+    public function setPeriodDuration($periodDuration): void
     {
         $this->periodDuration = $periodDuration;
     }
@@ -145,7 +142,7 @@ class Task extends AbstractEntity
     /**
      * Returns the oldStatus
      *
-     * @return \DWenzel\T3events\Domain\Model\PerformanceStatus $oldStatus
+     * @return PerformanceStatus $oldStatus
      */
     public function getOldStatus()
     {
@@ -155,10 +152,9 @@ class Task extends AbstractEntity
     /**
      * Sets the oldStatus
      *
-     * @param \DWenzel\T3events\Domain\Model\PerformanceStatus $oldStatus
-     * @return void
+     * @param PerformanceStatus $oldStatus
      */
-    public function setOldStatus($oldStatus)
+    public function setOldStatus($oldStatus): void
     {
         $this->oldStatus = $oldStatus;
     }
@@ -166,7 +162,7 @@ class Task extends AbstractEntity
     /**
      * Returns the newStatus
      *
-     * @return \DWenzel\T3events\Domain\Model\PerformanceStatus $newStatus
+     * @return PerformanceStatus $newStatus
      */
     public function getNewStatus()
     {
@@ -176,10 +172,9 @@ class Task extends AbstractEntity
     /**
      * Sets the newStatus
      *
-     * @param \DWenzel\T3events\Domain\Model\PerformanceStatus $newStatus
-     * @return void
+     * @param PerformanceStatus $newStatus
      */
-    public function setNewStatus($newStatus)
+    public function setNewStatus($newStatus): void
     {
         $this->newStatus = $newStatus;
     }
@@ -198,9 +193,8 @@ class Task extends AbstractEntity
      * Sets the folder
      *
      * @param string $folder
-     * @return void
      */
-    public function setFolder($folder)
+    public function setFolder($folder): void
     {
         $this->folder = $folder;
     }
@@ -220,7 +214,7 @@ class Task extends AbstractEntity
      *
      * @param string $period A string describing the period constraint. Allowed: all, pastOnly, futureOnly
      */
-    public function setPeriod($period)
+    public function setPeriod($period): void
     {
         $this->period = $period;
     }

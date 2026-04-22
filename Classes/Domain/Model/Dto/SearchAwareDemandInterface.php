@@ -12,14 +12,14 @@ interface SearchAwareDemandInterface
     /**
      * Get search
      *
-     * @return \DWenzel\T3events\Domain\Model\Dto\Search
+     * @return Search
      */
     public function getSearch();
 
     /**
      * Set search object
      *
-     * @param \DWenzel\T3events\Domain\Model\Dto\Search $search A search object
+     * @param Search $search A search object
      * @return void
      */
     public function setSearch(Search $search);

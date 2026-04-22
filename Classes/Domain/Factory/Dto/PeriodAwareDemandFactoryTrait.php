@@ -15,10 +15,9 @@ trait PeriodAwareDemandFactoryTrait
     /**
      * Sets period constraints from settings
      *
-     * @param \DWenzel\T3events\Domain\Model\Dto\PeriodAwareDemandInterface $demand
      * @param array $settings
      */
-    public function setPeriodConstraints(PeriodAwareDemandInterface $demand, $settings)
+    public function setPeriodConstraints(PeriodAwareDemandInterface $demand, $settings): void
     {
         $timeZone = new \DateTimeZone(date_default_timezone_get());
         if (!isset($settings['period'])) {

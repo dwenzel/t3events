@@ -71,9 +71,9 @@ class EventDemandFactory extends AbstractDemandFactory implements DemandFactoryI
     /**
      * Creates a demand object from settings
      *
-     * @param array $settings
      * @return DemandInterface
      */
+    #[\Override]
     public function createFromSettings(array $settings)
     {
         /** @var EventDemand $demand */

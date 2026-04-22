@@ -10,9 +10,10 @@ namespace DWenzel\T3events\Controller;
  * LICENSE.txt file that was distributed with this source code.
  * The TYPO3 project - inspiring people to share!
  */
+use TYPO3\CMS\Extbase\Mvc\Request;
+use TYPO3\CMS\Extbase\Mvc\Exception\NoSuchControllerException;
 use DWenzel\T3events\Controller\Routing\Route;
 use DWenzel\T3events\Controller\Routing\RouterInterface;
-use TYPO3\CMS\Extbase\Mvc\Web\Request;
 use DWenzel\T3events\Utility\SettingsInterface as SI;
 
 /**
@@ -35,10 +36,8 @@ trait RoutingTrait
 
     /**
      * Injects the router
-     *
-     * @param RouterInterface $router
      */
-    public function injectRouter(RouterInterface $router)
+    public function injectRouter(RouterInterface $router): void
     {
         $this->router = $router;
     }
@@ -50,9 +49,8 @@ trait RoutingTrait
      * @see Route
      * @param array|null $arguments Optional arguments for routing method
      * @param string|null $identifier An identifier for the route. If empty a default identifier for controller class and action name will be used.
-     * @return mixed|void
      */
-    public function dispatch(array $arguments = null, $identifier = null)
+    public function dispatch(array $arguments = null, $identifier = null): void
     {
         if (is_null($identifier)) {
             $identifier = $this->getOrigin();
@@ -68,7 +66,7 @@ trait RoutingTrait
                 'identifier' => $identifier,
                 'route' => $route
             ];
-            $this->emitSignal(__CLASS__, 'dispatchBegin', $signalArguments);
+            $this->emitSignal(self::class, 'dispatchBegin', $signalArguments);
         }
         $targetArguments = [];
         if (!is_null($arguments)) {
@@ -91,8 +89,6 @@ trait RoutingTrait
                 $options
             );
         }
-
-        return;
     }
 
     /**
@@ -100,10 +96,9 @@ trait RoutingTrait
      * Returns a string concatenated from controller object name  and action name
      * separated by Route::ORIGIN_SEPARATOR
      *
-     * @return string
-     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\NoSuchControllerException
+     * @throws NoSuchControllerException
      */
-    protected function getOrigin()
+    protected function getOrigin(): string
     {
         $actionName = $this->request->getControllerActionName();
         $controllerObjectName = $this->request->getControllerObjectName();

@@ -16,8 +16,6 @@ use DWenzel\T3events\Utility\SettingsInterface as SI;
 use DWenzel\T3events\Utility\SettingsUtility;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Extbase\Mvc\RequestInterface;
-use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
-use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 
 /**
  * Class ScheduleController
@@ -33,10 +31,9 @@ class ScheduleController extends PerformanceController
     }
 
     /**
-     * @param RequestInterface $request
-     * @return ResponseInterface
      * @throws \Exception
      */
+    #[\Override]
     public function processRequest(RequestInterface $request): ResponseInterface
     {
         $this->moduleData = $this->moduleDataStorageService->loadModuleData($this->getModuleKey());
@@ -49,12 +46,9 @@ class ScheduleController extends PerformanceController
     /**
      * action list
      *
-     * @param array $overwriteDemand
-     * @return void
-     * @throws InvalidSlotException
-     * @throws InvalidSlotReturnException
      */
-    public function listAction(array $overwriteDemand = null)
+    #[\Override]
+    public function listAction(array $overwriteDemand = null): ResponseInterface
     {
         $demand = $this->performanceDemandFactory->createFromSettings($this->settings);
         $filterSettings = $this->settings['filter'] ?? [];
@@ -77,7 +71,7 @@ class ScheduleController extends PerformanceController
             SI::MODULE => SI::ROUTE_SCHEDULE_MODULE
         ];
 
-        $this->emitSignal(__CLASS__, self::PERFORMANCE_LIST_ACTION, $templateVariables);
+        $this->emitSignal(self::class, self::PERFORMANCE_LIST_ACTION, $templateVariables);
         $this->view->assignMultiple($templateVariables);
     }
 }

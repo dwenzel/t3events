@@ -25,13 +25,10 @@ namespace DWenzel\T3events\Utility;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-use DWenzel\T3events\Object\ObjectManagerTrait;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface;
-
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
@@ -44,41 +41,12 @@ use DWenzel\T3events\Resource\ResourceFactory;
  */
 class SettingsUtility implements SingletonInterface
 {
-    use ObjectManagerTrait;
-
-    /**
-     * @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
-     */
-    protected $contentObjectRenderer;
-
     /**
      * @var array
      */
     protected $controllerKeys = [];
-
-     /**
-     * @var ResourceFactory
-     */
-    protected $resourceFactory;
-
-    /**
-     * injects the ContentObjectRenderer
-     *
-     * @param ContentObjectRenderer $contentObjectRenderer
-     */
-    public function injectContentObjectRenderer(ContentObjectRenderer $contentObjectRenderer)
+    public function __construct(protected ContentObjectRenderer $contentObjectRenderer, protected ResourceFactory $resourceFactory)
     {
-        $this->contentObjectRenderer = $contentObjectRenderer;
-    }
-
-    /**
-     * injects the ResourceFactory
-     *
-     * @param \DWenzel\T3events\Resource\ResourceFactory $resourceFactory
-     */
-    public function injectResourceFactory(ResourceFactory $resourceFactory)
-    {
-        $this->resourceFactory = $resourceFactory;
     }
 
     /**
@@ -100,12 +68,10 @@ class SettingsUtility implements SingletonInterface
      */
     public function getValueByKey($object, $config, $key)
     {
-        $value = null;
         if (isset($config[$key])) {
-            $value = $this->getValue($object, $config[$key]);
+            return $this->getValue($object, $config[$key]);
         }
-
-        return $value;
+        return null;
     }
 
     /**
@@ -116,7 +82,7 @@ class SettingsUtility implements SingletonInterface
      */
     public function getControllerKey($controller)
     {
-        $className = get_class($controller);
+        $className = $controller::class;
         if (isset($this->controllerKeys[$className])) {
             $controllerKey = $this->controllerKeys[$className];
         } else {
@@ -150,7 +116,6 @@ class SettingsUtility implements SingletonInterface
      * IF (at least one of) the files given in $config['always'] is found
      * THEN they are added to the resulting ObjectStorage
      *
-     * @param DomainObjectInterface $object
      * @param array $config TypoScript configuration array for look up
      * @return ObjectStorage
      */
@@ -232,7 +197,7 @@ class SettingsUtility implements SingletonInterface
         }
 
         if ($value === null && is_string($config)) {
-            $value = $config;
+            return $config;
         }
 
         return $value;

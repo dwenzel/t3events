@@ -11,9 +11,6 @@ use TYPO3\CMS\Core\Utility\ArrayUtility;
  */
 trait SettingsUtilityTrait
 {
-    /**
-     * @var SettingsUtility
-     */
     protected SettingsUtility $settingsUtility;
 
     /**
@@ -40,7 +37,7 @@ trait SettingsUtilityTrait
             $controllerSettings = $this->settings[$controllerKey];
         }
         $allowedControllerSettingKeys = ['search', 'notify'];
-        foreach ($controllerSettings as $key => $value) {
+        foreach (array_keys($controllerSettings) as $key) {
             if (!in_array($key, $allowedControllerSettingKeys)) {
                 unset($controllerSettings[$key]);
             }
