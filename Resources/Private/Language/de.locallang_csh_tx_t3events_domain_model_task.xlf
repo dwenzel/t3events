@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2023-05-12T11:10:48Z">
+		<header>
+			<description>Context Sensitive Help (CSH) for table tx_t3events_domain_model_task</description>
+			<type>CSH</type>
+			<csh_table>tx_t3events_domain_model_task</csh_table>
+			<generator>LFEditor</generator>
+		</header>
+		<body>
+			<trans-unit id="action.description" approved="yes">
+				<source><![CDATA[Select an action to perform]]></source>
+				<target><![CDATA[Wählen Sie die auszuführende Aktion.]]></target>
+			</trans-unit>
+			<trans-unit id="description.description" approved="yes">
+				<source><![CDATA[Describe the task]]></source>
+				<target><![CDATA[Beschreiben Sie die Aufgabe.]]></target>
+			</trans-unit>
+			<trans-unit id="folder.description" approved="yes">
+				<source><![CDATA[Folder/ Storage Page. If empty all records are processed.]]></source>
+				<target><![CDATA[Ordner/Seite. Wenn dieses Feld leer ist, werden alle in Frage kommenden Datensätze verarbeitet.]]></target>
+			</trans-unit>
+			<trans-unit id="name.description" approved="yes">
+				<source><![CDATA[Provide a name for the task]]></source>
+				<target><![CDATA[Geben Sie einen Titel für die Aufgabe ein.]]></target>
+			</trans-unit>
+			<trans-unit id="new_status.description" approved="yes">
+				<source><![CDATA[Select the new status]]></source>
+				<target><![CDATA[Wählen Sie einen neuen Status.]]></target>
+			</trans-unit>
+			<trans-unit id="old_status.description" approved="yes">
+				<source><![CDATA[Select a status. The action will be performed on performances with this status only.]]></source>
+				<target><![CDATA[Wählen Sie einen Status. Die Aktion wird nur an Aufführungen mit diesem Status ausgeführt.]]></target>
+			</trans-unit>
+			<trans-unit id="period_duration.description" approved="yes">
+				<source><![CDATA[Enter a specific time period (in hours). Negative values will cause the action to be performed on records where the date is the given amount of hours before 'now' and positive after 'now'.]]></source>
+				<target><![CDATA[Geben Sie einen Zeitraum in Stunden an. Bei negativen Werten wird die Aktion nur bei Datensätzen ausgeführt, deren Datum die angegebene Anzahl von Stunden zurückliegt, bei positiven danach.]]></target>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

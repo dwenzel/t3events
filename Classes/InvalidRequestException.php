@@ -1,12 +1,11 @@
 <?php
 
-namespace DWenzel\T3events\Configuration\Module;
-
+namespace DWenzel\T3events;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2019 Dirk Wenzel <wenzel@cps-it.de>
+ *  (c) 2023 Dirk Wenzel <wenzel@cps-it.de>
  *  All rights reserved
  *
  * The GNU General Public License can be found at
@@ -19,14 +18,7 @@ namespace DWenzel\T3events\Configuration\Module;
  * GNU General Public License for more details.
  * This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
-use DWenzel\T3events\Configuration\ExtensionConfiguration as EC;
-use DWenzel\T3events\Utility\SettingsInterface as SI;
-
-abstract class DefaultRegistration implements SI
+class InvalidRequestException extends \Exception
 {
-    protected static $extensionName = EC::EXTENSION_KEY;
-    protected static string $vendorExtensionName = EC::VENDOR . '.' . EC::EXTENSION_KEY;
-    protected static $mainModuleName = SI::MAIN_MODULE_EVENTS;
-    protected static $position = 'bottom';
+
 }
