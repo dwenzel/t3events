@@ -1,0 +1,967 @@
+2019-08-14         [RELEASE] Release of t3events 1.1.0 (Dirk Wenzel)
+2019-08-14 036e6aa [BUGFIX] invalid dev requirement removed (Dirk Wenzel)
+2019-08-14 31a5a14 [TASK] Extension configuration refactored (Dirk Wenzel)
+2019-08-13 5e2c245 [BUGFIX] module registration corrected - require dwenzel/t3extension-tools:~1.1 (Dirk Wenzel)
+2019-08-12 51a6824 [TASK] constants added to SettingsInterface (Dirk Wenzel)
+
+2019-08-07         [RELEASE] Release of t3events 1.0.2 (Dirk Wenzel)
+2019-08-07 8b39f5f [BUGFIX] stability tag corrected (Dirk Wenzel)
+
+2019-08-07         [RELEASE] Release of t3events 1.0.1 (Dirk Wenzel)
+2019-08-06 f30199d [BUGFIX] Fix relation between event and organizer in TCA of event table (Elias Häußler)
+
+2019-07-08         [RELEASE] Release of t3events 1.0.0 (Dirk Wenzel)
+2019-07-08 5ab3a51 [CI] fix exclusions for static code analysis (Dirk Wenzel)
+2019-07-01 8bbf469 [BUGFIX] fixed error caused by invalid namespace (Dirk Wenzel)
+2019-06-23 1f7e01c [TASK] method renamed (Dirk Wenzel)
+2019-06-22 b07e2d5 [BUGFIX] failing test for Dto/Option fixed (Dirk Wenzel)
+2019-06-22 86cf0bc [TASK] Dto/PeriodFilter implemented (Dirk Wenzel)
+2019-06-22 343c6a3 [BUGFIX] prevent unit test from failing due to deprecation (Dirk Wenzel)
+2019-06-22 7a797b6 [BUGFIX] require-dev dwenzel/t3calendar:dev-feature/version9Compatible (Dirk Wenzel)
+2019-06-22 220f385 [BUGFIX] require dev phpunit/phpunit: ^7.0 (Dirk Wenzel)
+2019-06-22 ff5929e [BUGFIX] fixed error in FilterCollectionFactoryTest, dev dependencies updated (Dirk Wenzel)
+2019-06-22 78091fd [TASK] Transfer objects and factories for filter implemented (Dirk Wenzel)
+2019-06-22 58fbea5 [TASK] coding guidelines (Dirk Wenzel)
+2019-06-21 26ca2ba [BUGFIX] fixe typo in EditUriViewHelperTest (Dirk Wenzel)
+2019-06-21 87fc98b [BUGFIX] fixed error in table configuration of performances - empty values no longer valid - default values for time fields - default value for field event_location (Dirk Wenzel)
+2019-06-21 99cd794 [BUGFIX] fixed error caused by invalid return url in backend module. (Dirk Wenzel)
+2019-06-21 dc50a00 [BUGFIX] missing storage pid in module fixed fixes: #81 (Dirk Wenzel)
+2019-06-21 9b9de57 [BUGFIX] set default value for organizer field - prevents error caused by invalid value - fixes: #80 (Dirk Wenzel)
+2019-06-14 e10f7d4 [TASK] obsolete NOT NULL removed from text field definition (Dirk Wenzel)
+2019-06-14 aa6a0dc [BUGFIX] dependencies in ext_emconf.php corrected (Dirk Wenzel)
+2019-06-05 04604e8 [TASK] deprecated replace removed from composer.json (Dirk Wenzel)
+2019-06-05 2e2fe7f [BUGFIX] Fix wrong project name and version number within docs (Daniel Siepmann)
+2019-06-05 060347e [BUGFIX] Fix syntax within yml file (Daniel Siepmann)
+2019-02-01 97b6e0e [TASK] annotation and coding style improved (Dirk Wenzel)
+2018-12-02 fc415b8 [TASK] license added (Dirk Wenzel)
+2018-12-02 b492692 [TASK] require php:^7.2 (Dirk Wenzel)
+2018-12-02 268c274 [TASK] FormTrait edited respecting new parameters for module and token (WIP) (Dirk Wenzel)
+2018-12-01 b83f99a [TASK] use extension key from SettingsInterface instead of 'magic variable' $_EXTKEY (Dirk Wenzel)
+2018-12-01 87889fe [TASK][BREAKING] obsolete extension upgrade scripts removed - Migration wizard for legacy plugin flex form settings removed. Please check all plugins. If any incompatibility occurs do to legacy flex form entries in the database, consider removing and re-adding them. (Dirk Wenzel)
+2018-10-06 59f5e28 [BUGFIX] typos in unit tests corrected, obsolete test for PerformanceController removed (Dirk Wenzel)
+2018-10-06 9919f21 [TASK] Be/EditRecordViewHelper now registers its arguments in method initializeArguments arguments in render method are no longer allowed (Dirk Wenzel)
+2018-10-06 49ab25c [TASK]  invalid call removed from update script Core class TYPO3\CMS\Install\Updates\InitialDatabaseSchemaUpdate does not longer exist (Dirk Wenzel)
+2018-10-06 1da0b8b [BUGFIX] typo in backend list template of events corrected. (Dirk Wenzel)
+2018-10-06 368f0ac [TASK] obsolete mark up for header button removed from event template. (Dirk Wenzel)
+2018-10-06 4218e3a [TASK] deprecated @lazy and @inject annotation replaced (Dirk Wenzel)
+2018-10-05 0672991 [TASK] allow typo3/cms-core:>=9.5 (Dirk Wenzel)
+2018-05-05 23bc09f [TASK] Backend/EventController now uses BackendViewTrait (Dirk Wenzel)
+2018-05-05 16271c2 [TASK] obsolete call of GeneralUtility::requireOnce replaced. (Dirk Wenzel)
+2018-05-05 db30655 [TASK] obsolete autoload-dev direction removed from composer.json (Dirk Wenzel)
+
+2019-06-28         [RELEASE] Release of t3events 0.43.1 (Dirk Wenzel)
+2019-06-28 abf62a6 [BUGFIX] dependency in ext_emconf.php corrected (Dirk Wenzel)
+
+2019-06-28         [RELEASE] Release of t3events 0.43.0 (Dirk Wenzel)
+2019-06-28 3102df5 [TASK] documentation updated, obsolete update skript removed (Dirk Wenzel)
+2019-06-28 b8e9986 [TASK] unit tests for Update/MigratePluginRecords removed - unit tests make no longer sense due to switch to symfony query builder (Dirk Wenzel)
+2019-06-28 7e880d7 [BUGFIX] requirement for dwenzel/t3extension-tools loosened (Dirk Wenzel)
+2019-06-25 b57e6ff [TASK] use dwenzel/extension-tools - allows to toggle caching of plugin (Dirk Wenzel)
+2019-06-03 e6fcaba [RELEASE] Release of t3events 0.42.3 (Dirk Wenzel) (Dirk Wenzel)
+2019-06-03 9d2e672 [BUGFIX] fixed error where Performance->quickMenuAction was not registered correctly as non-cacheable (Dirk Wenzel)
+2019-03-06 45654f6 [RELEASE] Release of t3events 0.42.2 (Dirk Wenzel) (Dirk Wenzel)
+2019-03-06 7310b86 [BUGFIX] fixed error in unit tests for CleanUpCommandController caused by insufficient mocking (Dirk Wenzel)
+2019-03-06 c21e5d7 [BUGFIX] fixed error in command controller where deletion of records was not persisted (Dirk Wenzel)
+
+2019-06-03         [RELEASE] Release of t3events 0.42.3 (Dirk Wenzel)
+2019-06-03 9d2e672 [BUGFIX] fixed error where Performance->quickMenuAction was not registered correctly as non-cacheable (Dirk Wenzel)
+
+2019-03-06         [RELEASE] Release of t3events 0.42.2 (Dirk Wenzel)
+2019-03-06 7310b86 [BUGFIX] fixed error in unit tests for CleanUpCommandController caused by insufficient mocking (Dirk Wenzel)
+2019-03-06 c21e5d7 [BUGFIX] fixed error in command controller where deletion of records was not persisted (Dirk Wenzel)
+
+2019-02-25         [RELEASE] Release of t3events 0.42.1 (Dirk Wenzel)
+2019-02-25 ef05d77 [BUGFIX] invalid annotation removed (Dirk Wenzel)
+2019-02-25 cb0f297 [BUGFIX] fixed error caused by invalid key from SettingsInterface for "config" (Dirk Wenzel)
+
+2019-02-15         [RELEASE] Release of t3events 0.42.0 (Dirk Wenzel)
+2019-02-15 3fff93a [TASK] use new method equals for object comparison - due to error caused by different handling of ObjectStorage on reconstitution of objects (Dirk Wenzel)
+2019-02-09 3a42117 [TASK] Update credits (Jasmina Ließmann)
+2019-02-01 56eb44a [TASK] coding style: declare variables explicitly (Dirk Wenzel)
+2019-02-01 cd68831 [TASK] coding style: obsolete call removed from extension updater (Dirk Wenzel)
+
+2019-02-07         [RELEASE] Release of t3events 0.41.2 (Dirk Wenzel)
+2019-02-07 71e8929 [BUGFIX] missing import for SettingsInterface added to Event/PerformanceViewHelper (Dirk Wenzel)
+
+2018-11-23         [RELEASE] Release of t3events 0.41.1 (Dirk Wenzel)
+2018-11-23 e27b03e [BUGFIX] missing TypoScript for showAction added closes #73 (Dirk Wenzel)
+2018-11-23 d916564 [BUGFIX] prevent slow loading in backend caused by core bug: see https://forge.typo3.org/issues/82730, closes #76 (Dirk Wenzel)
+2018-11-23 1108c6a [BUGFIX] fixed error caused by missing class in extension update script closes #77 (Dirk Wenzel)
+
+2018-11-22         [RELEASE] Release of t3events 0.41.0 (Dirk Wenzel)
+2018-11-21 c781c64 [TASK] Performances are now displayed in Backend with a label build from their localized date and the event title. (Dirk Wenzel)
+2018-11-20 d8e4701 [TASK] domain model Event extended by field relatedSchedules (Dirk Wenzel)
+2018-09-28 34e76fd [TASK] - new application icons (Timo Gockel)
+2018-09-27 48dcbb2 [BUGFIX] Add missing header schedules label (Steffen Mevius)
+2018-09-21 675e0a2 [BUGFIX] CI: redirect output of test-reporter to file (Dirk Wenzel)
+2018-09-20 fe84be5 [BUGFIX] CI: enable standard output for test-reporter (Dirk Wenzel)
+2018-09-20 f812e3c [BUGFIX] CI: add env variable (Dirk Wenzel)
+2018-09-20 2844899 [BUGFIX] CI: remove .Build directories after test-reporter script call (Dirk Wenzel)
+2018-09-20 89384c4 [BUGFIX] CI: enable output of test-reporter script (Dirk Wenzel)
+2018-09-20 5805a87 [BUGFIX] CI: path to coverage result added, ignore .Build directory (Dirk Wenzel)
+2018-09-20 4bfd7e2 [BUGFIX] CI: path to test-reporter script corrected (Dirk Wenzel)
+2018-09-20 dc59492 [TASK] CI: config for codeclimate added (Dirk Wenzel)
+2018-09-20 6c7c435 [BUGFIX] invalid return values fixed (Dirk Wenzel)
+2018-09-20 8578909 [TASK] CI: fix error in travis configuration (Dirk Wenzel)
+2018-09-20 1672a14 [TASK] CI: configuration for codeclimate added (Dirk Wenzel)
+2018-09-16 3484bb3 [TASK]  coding guidelines - more strings replaced by constants from SettingsInterface - immediately return value in BackendViewTrait->getPageRendererConfiguration (Dirk Wenzel)
+2018-09-15 e435fbf [BUGFIX] fixed error caused by missing SettingsInterface in PeriodConstraintRepositoryTrait (Dirk Wenzel)
+2018-09-15 4be1953 [TASK] coding guidelines: use constants from SettingsInterface. (Dirk Wenzel)
+2018-09-15 e2404bc [TASK] constructor refactored. (Dirk Wenzel)
+2018-09-15 05f15d9 [BUGFIX] fixed error caused by invalid use statement (Dirk Wenzel)
+2018-09-15 f28a1ee [TASK] coding guidelines - use string constant from SettingsInterface - obsolete updater MigrateTaskRecords removed (Dirk Wenzel)
+2018-09-15 a9af078 [TASK] code quality: - obsolete CSS file removed - apply coding guidelines to CSS (Dirk Wenzel)
+
+2018-09-11         [RELEASE] Release of t3events 0.40.1 (Dirk Wenzel)
+2018-09-11 6be021a [BUGFIX] fixed error in PeriodAwareDemandFactoryTrait caused by invalid argument for DateTime constructor (Dirk Wenzel)
+
+2018-07-06         [RELEASE] Release of t3events 0.40.0 (Dirk Wenzel)
+2018-07-06 7841ba3 [BUGFIX] fixed error caused by missing settings in backend controllers. Parent class ActionController now implements method injectConfigurationManager and fetches the settings there. Therefore we can not use our own implementation anymore. BackendControllers now provide the configuration manager via getter method. (Dirk Wenzel)
+2018-07-01 c4ba04d [TASK] constants added to PeriodConstraintRepositoryInterface and SettingsInterfacea (Dirk Wenzel)
+2018-06-30 fdd672d [TASK] Backen controller refactored - use constants - obsolete try-catch statement removed from ScheduleController->processRequest (Dirk Wenzel)
+2018-06-30 3b77b6d [TASK] BackendViewTrait refactored - method configurePageRenderer simplified (Dirk Wenzel)
+2018-06-30 6d2b1f2 [TASK] BackendView refactored - use ConfigurationManagerTrait - unit tests for BackendViewTrait added - documentation added - ModuleButtonTrait changed: early return for empty configuration parameter in method createButtons (Dirk Wenzel)
+2018-06-30 47139e6 [TASK] constants added to SettingsInterface (Dirk Wenzel)
+2018-06-30 c4280a0 [TASK] coding style - missing title tag added to template (Dirk Wenzel)
+2018-06-30 2d8d5ef [TASK] constants added to SettingsInterface (Dirk Wenzel)
+2018-06-29 1db69bc [TASK] CI: obsolete section branches remove from sonarcloud configuration (Dirk Wenzel)
+2018-06-28 6b6a521 [TASK] SettingsInterface implemented, BackendViewTrait refactored (Dirk Wenzel)
+2018-06-28 a50cc21 [TASK][BREAKING] deprecated AbstractController removed (Dirk Wenzel)
+2018-06-28 7510651 [TASK] BackendController refactored: - Traits pulled from AbstractBackendController to Backend/EventController and Backend/ScheduleController - FormTrait implemented (Dirk Wenzel)
+2018-06-27 fd8ee71 [TASK] ModuleDataTrait extended by getter and setter (Dirk Wenzel)
+2018-06-27 2b5dbde [TASK] coding style improved. (Dirk Wenzel)
+
+2018-06-27         [RELEASE] Release of t3events 0.39.0 (Dirk Wenzel)
+2018-06-26 72b79f0 [TASK] unit test for Backend/EventController added (Dirk Wenzel)
+2018-06-26 ace5c1e [TASK] Layout for modules using the BackendViewTemplate added. List template now uses the Module layout (Dirk Wenzel)
+2018-06-26 039d07a [BUGFIX] test removing visibility from constants... (Dirk Wenzel)
+2018-06-26 66dcfc1 [TASK] coding style and annotations (Dirk Wenzel)
+2018-06-26 9207c62 [TASK] AbstractBackendController now uses CallStaticTrait (in order to make static method calls testable) - unit test for Backend/EventController added (Dirk Wenzel)
+2018-06-26 4d83a65 [BUGFIX] Read configuration in initializeNewAction to set pageUid (s.mevius)
+2018-06-26 8a13a6c [TASK] ButtonDemand extended by attributes overlay and iconSize (Dirk Wenzel)
+2018-06-26 8f6dee2 [TASK] unit tests for ButtonDemand and ButtonDemandCollection and localized label added. (Dirk Wenzel)
+2018-06-26 b34dafb [TASK] svg icons for event and performance added. (Dirk Wenzel)
+2018-06-25 e2e093f [BUGFIX] failing ModuleDataTraitTest fixed. (Dirk Wenzel)
+2018-06-25 4122fb6 [TASK] require dwenzel/t3calendar:~0.6 (instead of ^0.6) (Dirk Wenzel)
+2018-06-25 bce124f [TASK] buttons for backend modules (WIP) - ModuleButtonTrait, ButtonDemand, ButtonDemandCollection implemented - AbstractBackendController extended by method redirectToCreateNewRecord - BackendViewTrait extended by methods getUriBuilder, getIconFactory, getButtonBar - Backend/EventController now uses BackendViewTrait and BackendTemplateView - EventController extended by methods newAction and getButtonConfiguration - ModuleDataTrait now determines module key by global parameter M - PerformanceController extended by method getButtonConfiguration (Dirk Wenzel)
+2018-06-25 de02163 [BUGFIX] fixed error in NotificationService caused by usage of obsolete method in StandaloneView (Dirk Wenzel)
+2018-06-25 1f4ed6a [BUGFIX] Prevent error on merging arguments in RoutingTrait (Nicole Cordes)
+2018-06-23 a7da195 [TASK] BackendViewTrait extended Trait now includes requirereJs modules and configuration according to configuration from TypoScript (Dirk Wenzel)
+2018-06-23 da24b93 [BUGFIX] obsolete property $view removed from DownloadTrait (Dirk Wenzel)
+2018-06-19 d7cf2d2 [BUGFIX] fixed error caused by missing module name in link for backend modules (Dirk Wenzel)
+2018-06-14 89cf905 [TASK] controller refactored - AbstractController does not use EntityNotFoundHandlerTrait any more (in order to prevent inheritance issues in php 7.2) - obsolete legacy flash message handling removed - obsolete variable removed from DemandedRepositoryTrait->findDemanded - annotation improved (Dirk Wenzel)
+2018-06-11 db22096 [BUGFIX] Simplify RouterLoader dependency management (Nicole Cordes)
+
+2018-06-01         [RELEASE] Release of t3events 0.38.0 (Dirk Wenzel)
+2018-06-01 e31afd2 [TASK] code quality: - invalid usage of deprecated Event/PerformancesViewHelper  removed from templates - early return removed from render method (Dirk Wenzel)
+2018-06-01 1705ece [TASK] code cleanup (Dirk Wenzel)
+2018-06-01 39ed60e [BUGFIX] CI: sonar-section readded. TYPO3 version 9 removed from matrix (Dirk Wenzel)
+2018-06-01 978ba52 [TASK] require typo3/cms:8.7.x (next version will not support TYPO3 9 yet) (Dirk Wenzel)
+2018-06-01 054017a [BUGFIX] prevent error caused by missing  section in template file (Dirk Wenzel)
+2018-05-22 bdc71c0 [TASK] invalid and deprecated method calls and configuration options replaced (Dirk Wenzel)
+2018-04-13 f435fe4 [TASK] deprecated classes and functions replaced - extbase ArrayUtility by core ArrayUtility - GeneralUtility::requireOnce by require_once (Dirk Wenzel)
+2018-04-13 015ce21 [TASK] fixed unit tests - respect strict argument types of count() method (Dirk Wenzel)
+2018-04-13 681975d [TASK] fix unit tests - obsolete coverage annotation removed - make sure that 'findDemanded' method returns a mock QueryResult (Dirk Wenzel)
+2018-04-13 4ed1cbf [TASK] require typo3/cms-core instead of typo3/cms and use typo3/minimal for travis ci. (Dirk Wenzel)
+2018-04-13 6c27966 [TASK] View/ConfigurableViewInterface and Controller/Backend/BackendViewTrait implemented. (Dirk Wenzel)
+2018-04-13 3689af7 [TASK] Unit Tests refactored for current version of testing framework. - DemandedRepositoryTrait->generateQuery is now public (Dirk Wenzel)
+2018-04-10 ef54b3e [TASK] drop support for TYPO3 version 7.x (Dirk Wenzel)
+2018-04-02 9070989 [TASK] allow typo3/cms version 9.x (Dirk Wenzel)
+2018-03-11 cf1eb67 [BUGFIX] CI remove build folder before sonar scan. (Dirk Wenzel)
+2018-03-11 b9625be [TASK] travis CI: sonar-runner coverage file paths configured, generate junit style log for phpunit (Dirk Wenzel)
+2018-03-11 2fbbe4f [TASK] CI configuration for sonar changed: use identifier typescript in properties (Dirk Wenzel)
+2018-03-11 073e971 [TASK] CI exclude TypoScript folder from TypeScript sonar check (Dirk Wenzel)
+2018-03-11 82e57f2 [TASK] code quality - deprecated <b> tag in HTML templates replaced by - jQuery library removed - duplicate markup moved to partial (Dirk Wenzel)
+2018-03-11 12e9103 [TASK] CI: ignore duplication in ext_tables and TCA files. (Dirk Wenzel)
+2018-03-11 f48b4f2 [TASK] travis CI: enable some more branches for sonarcloud (Dirk Wenzel)
+2018-03-10 66e5ff9 [TASK] travis CI: call sonar-runner with coverage. (Dirk Wenzel)
+
+2018-02-05         [RELEASE] Release of t3events 0.37.3 (Dirk Wenzel)
+2018-01-30 2596c02 [BUGFIX] missing label for plugin form added. (Dirk Wenzel)
+2017-11-06 cfad7d5 [BUGFIX] fixed error in PeriodConstraintRepositoryTrait where events with past start date and future end date where not selected correctly (when using specific constraint) (Dirk Wenzel)
+
+2017-10-25         [RELEASE] Release of t3events 0.37.2 (Dirk Wenzel)
+2017-10-25 7d32b4e [BUGFIX] fixed error in Be/EditRecordViewHelper which prevented from setting return URL for module correctly (TYPO3 Version 8). Templates adapted. Please make sure to adapt your custom templates for backend list views. (Dirk Wenzel)
+
+2017-10-05         [RELEASE] Release of t3events 0.37.1 (Dirk Wenzel)
+2017-09-29 204f32a [BUGFIX] fixed error in plugin configuration which prevented from unselecting caching of calendar widget (Dirk Wenzel)
+2017-09-27 ccb1f27 [TASK] Add ContentRepository. (Erik Rauchstein)
+
+2017-09-25         [RELEASE] Release of t3events 0.37.0 (Dirk Wenzel)
+2017-09-21 769ac63 [TASK] Add flex form plug-in setting sort by date desc. (Erik Rauchstein)
+2017-09-19 75d840c [TASK] invalid annotiation removed from PerformanceRepositoryTrait (Dirk Wenzel)
+2017-09-05 74e653a [BUGFIX] Add missing sorting configuration for content_elements field in domain model events. So that the backend sorting of the content element is also maintained in the frontend. (Erik Rauchstein)
+
+2017-08-28         [RELEASE] Release of t3events 0.36.0 (Dirk Wenzel)
+2017-08-23 4038dc4 [TASK] AbstractDateRangeViewHelper refactored. Documentation for DateRangeViewHelper added. (Dirk Wenzel)
+2017-08-22 6fd46cf [TASK] invalid coverage annotation removed (Dirk Wenzel)
+2017-08-22 73ffd62 [TASK] DateRangeTrait and AbstractDateRangeViewHelper implemented. DateRangeViewHelper for Performance and Event refactored. (Dirk Wenzel)
+2017-08-21 1aadd16 [TASK] Credits updated (Dirk Wenzel)
+2017-08-21 0ad01da [TASK] ConfigurationManagerTrait implemented, AbstractBackendController, FlashMessageTrait, ExtensionService, NotificationService and PerformanceViewHelper refactored using it. Closes #60 (Dirk Wenzel)
+2017-08-21 5549497 [TASK] ObjectManagerTrait implemented, AbstractDemandFactory, SearchFactory, ResourceFactory, ModuleDataStorageFactory, NotificationService, SettingsUtility refactored using it. (Dirk Wenzel)
+2017-08-14 ee386f0 [TASK] Add either "exclude => 1 on a TCA property or set the "eval => required" option. (Tobias Kummer)
+2017-08-11 82c1f3d [TASK] annotation in EditRecordViewHelper corrected. (Dirk Wenzel)
+
+2017-08-05         [RELEASE] Release of t3events 0.35.0 (Dirk Wenzel)
+2017-08-05 000aa8e [TASK] SensioLabs configuration adapted: ignore file syntax (Dirk Wenzel)
+2017-08-04 68f1f81 [TASK] unused variable removed in Typo3Session (Dirk Wenzel)
+2017-08-04 c33c435 [TASK] configuration for SensioLabs and badge added. Todos removed and missing line breaks added. (Dirk Wenzel)
+2017-08-04 b4699ac [TASK] annotations and type hinting improved, coding guidelines. (Dirk Wenzel)
+2017-07-31 f51221f [TASK] Add PerformanceStatusRepository. (Erik Rauchstein)
+2017-07-27 ec26439 [BUGFIX] fixed error where no events / performances were found when overwriteDemand contains empty startDate Closes #66 (Dirk Wenzel)
+2017-07-21 dd1f6e4 [TASK] table configuration changed. Relation Event < > Content Element is now realized without MM-table (Dirk Wenzel)
+2017-07-10 c081765 [BUGFIX] Invalid view helper occurrences removed from ICAL templates (Dirk Wenzel)
+2017-07-03 9c9a112 [TASK] Add Unit tests for new event field content_elements. (Erik Rauchstein)
+2017-07-03 7dc89ee [TASK] Add possibility to add content elements as inline records to events. (Erik Rauchstein)
+
+2017-06-29         [RELEASE] Release of t3events 0.34.0 (Dirk Wenzel)
+2017-06-26 fb6987b [BUGFIX] Fixed error where plugin could not be saved if any “sort by” option has been selected. Changed type of field ‘settings.order’  for plugins to radio button. Fixes #64 (Dirk Wenzel)
+2017-06-26 36970e3 [TASK] PerformanceController and ScheduleController refactored. They now use the performance demand factory instead of the legacy method createDemandFromSettings. (Dirk Wenzel)
+2017-06-26 c0a5660 [TASK][BREAKING] settings from plugin now overrule settings from TypoScript (for all action controllers) (Dirk Wenzel)
+2017-06-25 72e5fc3 [TASK] NotificationServiceTrait implemented (Dirk Wenzel)
+2017-06-25 4ceae5a [TASK] obsolete methods removed from AbstractBackendController (Dirk Wenzel)
+2017-06-25 521039d [TASK] unit test for PeriodConstraintLegend refactored (Dirk Wenzel)
+2017-06-25 6ad793f [TASK] annotation corrected. (Dirk Wenzel)
+2017-06-23 802e349 [BUGFIX] fixed error in partial Event/CalendarItem which caused rendering of wrong end time (Dirk Wenzel)
+2017-06-23 4e38561 [TASK] We now use custom views for display of events and performances in iCal format. CallStaticTrait, PatternReplacingTrait and IcalTrait implemented. Format/TrimViewHelper removed. (Dirk Wenzel)
+2017-06-23 a53eff8 [TASK] coding guidelines (Dirk Wenzel)
+2017-06-09 8b4d5b2 [BUGFIX] error in unit tests for TableConfiguration fixed. (Dirk Wenzel)
+2017-06-09 68928a6 [TASK] code style (Dirk Wenzel)
+2017-06-07 de33ab4 [TASK] obsolete option ‘showIconTable’ removed from table configuration. (Dirk Wenzel)
+2017-06-03 9493fc4 [TASK] travis ci: allow failures on TYPO3 6.2 (Dirk Wenzel)
+2017-06-03 dfada27 [TASK] require typo3/cms >=7.6.0 - TYPO3 6.2.x is not supported any more! (Dirk Wenzel)
+2017-06-03 642b026 [BUGFIX] fixed error which prevented period constraints legend in plugin from adapting on change in TYPO3 >= 8.7.1 Closes #60 (Dirk Wenzel)
+2017-05-24 cc35c9d [TASK] mock failing initialize method in unit test for DateRangeViewHelper (Dirk Wenzel)
+2017-05-24 4560904 [TASK] Event/DateRangeViewHelper refactored. Potentially breaking changes: If you used this view helper without format parameters (relying on global defaults, please adapt your templates. (Dirk Wenzel)
+
+2017-05-24         [RELEASE] Release of t3events 0.33.1 (Dirk Wenzel)
+2017-05-23 cba93f6 [BUGFIX] missing fields newUntil and archiveDate added to Model/Event Closes #62 (Dirk Wenzel)
+2017-05-05 22c02ab [TASK] set version number in ext_emconf.php (Dirk Wenzel)
+2017-05-11 e08a848 [BUGFIX] prevent unit test from running if required interface does not exist. (Dirk Wenzel)
+2017-05-11 eba2566 [BUGFIX] fixed error which prevented plugin form from adapting according to selected action Fixes: #59 (Dirk Wenzel)
+2017-05-10 144b45a [BUGFIX] fixed error in flex form configuration which prevented field settings.quickMenuType from displaying (Dirk Wenzel)
+2017-05-10 818da0f [BUGFIX] Visibility of fields for quikMenu action in plugin fixed. #fixes 59 (Dirk Wenzel)
+
+2017-05-05         [RELEASE] Release of t3events 0.33.0 (Dirk Wenzel)
+2017-05-05 58d7410 [BUGFIX] composer.json: obsolete require-dev entry removed (Dirk Wenzel)
+2017-05-05 edc33f5 [TASK] require dwenzel/t3calendar:^0.4.0 (Dirk Wenzel)
+2017-05-05 2adf67f [TASK] template Performance/Calender adapted: pass  settings as argument ‘parameters’. (Dirk Wenzel)
+2017-04-26 1aef59a [TASK] Default page TS config added. List template of PerformanceController uses TemplateLayouts from plugin settings. (Dirk Wenzel)
+2017-04-25 03703a9 [BUGFIX] set phpunit default configuration:backupGlobals=true (Dirk Wenzel)
+2017-04-25 54046b2 [TASK] travis-ci: use custom UnitTests.xml instead of those from testing frame work (Dirk Wenzel)
+2017-04-25 6137f6e [TASK] PerformanceController now calls parent constructor too. (Dirk Wenzel)
+2017-04-23 6212889 [TASK] Event and schedule list template edited: View helper <f:be.icon /> replaced (Dirk Wenzel)
+2017-04-21 bfb39e8 [BUGFIX] fix error cause by misinterpreted SQL conditin in table configuration for tx_t3events_domain_model_performance. Closes #57 (Dirk Wenzel)
+2017-04-21 6679910 [TASK] fix error in unit test which prevented from generating correct TYPO3 version. (Dirk Wenzel)
+2017-04-21 622fe1a [BUGFIX] icon name for edit wizard corrected. (Dirk Wenzel)
+2017-04-21 bc756b7 [BUGFIX] icon name for link wizard corrected. Invalid type hints in test class removed. Obsolete configuration variant for table tx_t3events_domain_model_audience removed. (Dirk Wenzel)
+2017-04-21 86f7bc1 [BUGFIX] type hint for argument of TableConfiguration::getWizardIcon removed. Convert version number before comparing. (Dirk Wenzel)
+2017-04-21 65f1fbd [TASK] Table configuration for wizard icons now is provided by an utility. (Dirk Wenzel)
+2017-04-19 b27e5b3 [BUGFIX] missing use statement for VersionNummerUtility added (Dirk Wenzel)
+2017-04-19 dc3abe0 [TASK] deactivate obsolete tests in TYPO3 8 (Dirk Wenzel)
+2017-04-19 6bf2018 [TASK] require-dev nimut/testing-framework. (Dirk Wenzel)
+2017-04-19 91c7e0b [TASK] obsolete travis-ci configuration removed (Dirk Wenzel)
+2017-04-19 04d6d7f [TASK] use nimut/testing-framework, drop coveralls reports (Dirk Wenzel)
+2017-04-19 560bf57 [BUGFIX] fix error caused by invalid key in flexform display condition (Dirk Wenzel)
+2017-04-19 95fb427 [TASK] disable update scripts for TYPO3 version >=8 (because of old database API usage) (Dirk Wenzel)
+
+2017-03-27         [RELEASE] Release of t3events 0.32.0 (Dirk Wenzel)
+2017-03-25 a091059 [TASK] Documentation updated. (Dirk Wenzel)
+2017-03-25 830c567 [BUGFIX] Fixed error caused by wrong property path from plugin settings in PerformanceController. (Dirk Wenzel)
+2017-03-25 160ecad [TASK] calendarAction moved to PerformanceController. (Dirk Wenzel)
+2017-03-22 f4827b0 [BUGFIX] Fixed error which prevented from saving newly created events in backend module. Closes: #56 (Dirk Wenzel)
+2017-03-22 3b319c1 [BUGFIX] call of ExtensionManagementUtility for non-existing table removed (Dirk Wenzel)
+2017-03-13 190ff4a [BUGFIX] settings path for detail and list pid in templates changed to match plugin value. (Dirk Wenzel)
+2017-03-12 8b70c0a [TASK] PeriodDataProviderFactory adapted: flex form data structure differs up to version 7.6.14 (Dirk Wenzel)
+2017-03-12 41706d0 [BUGFIX] Fixed error caused by differences in flex form data structure depending on TYPO3 version. Hide obsolete fields in plugin. (Dirk Wenzel)
+2017-03-11 6a1ccbd [TASK] invalid type hints corrected. (Dirk Wenzel)
+2017-03-11 8f9518a [TASK] travis ci configuration: use unit test config from package. Obsolete composer self-update removed. (Dirk Wenzel)
+2017-03-09 4c9eecf [TASK] travis ci configuration: use codecov script with branch name (Dirk Wenzel)
+2017-03-09 31d2e45 [TASK] MigratePluginRecords changed: default order now respect begin of performances too. (Dirk Wenzel)
+2017-03-08 4fd64a2 [BUGFIX] missing annotation in PerformancesViewHelper fixed. Invalid order field  in flex form configuration fixed. (Dirk Wenzel)
+2017-03-08 fb42d93 [TASK] Backend controller EventController and ScheduleController implemented. Configuration for new backend modules added. (Dirk Wenzel)
+2017-03-07 669855b [BUGFIX] fix failing unit test (caused by error in phpunit 4.8) (Dirk Wenzel)
+2017-03-07 993f4a1 [BUGFIX] fix error in condition for skipping test (when TYPO3 > 7.x) (Dirk Wenzel)
+2017-03-07 6863bf5 [TASK] allow current 8.x branch of TYPO3 (Dirk Wenzel)
+2017-01-10 b54035f [BUGFIX] Set default value for ‘tx_t3events_domain_model_person.birthday’ to ‘1000-01-01’ in ext_tables.sql (Christian Matthes)
+2017-03-07 941b938 [TASK] disable obsolete test for legacy flash message queue in TYPO3 > 7 (Dirk Wenzel)
+2017-03-07 9042d00 [TASK] skip test failing under PHP >= 7 due to invalid implementation in core. (Dirk Wenzel)
+2017-03-07 afde452 [TASK] [BREAKING] Default sorting configuration of plugin and TypoScript settings changed. Please read the section ‘Updating from previous versions’ _before_ updating! (Dirk Wenzel)
+2017-03-06 aa54263 [TASK] Plugin flexform configuration changed: settings.sortBy replaced by settings.orderBy. Updater MigratePluginRecords added (WIP) (Dirk Wenzel)
+2017-02-26 ead0f83 [BUGFIX] revert build matrix change. (Failing test: PHP Fatal error:  Declaration of Mock_FlashMessageService_fded861a::getMessageQueueByIdentifier($identifier = 'core.templ...') must be compatible with TYPO3\CMS\Core\Messaging\FlashMessageService::getMessageQueueByIdentifier($identifier = 'core.templ...') (Dirk Wenzel)
+2017-02-26 2bbb684 [TASK] travis ci configuration: build matrix updated. Prefer source install for typo3/cms and typo3/cms-core (Dirk Wenzel)
+2017-02-26 e9503d1 [TASK] travis configuration: missing build directory in Typo3 8.6 fixed (Dirk Wenzel)
+2017-02-26 7e0c804 [TASK] default root paths added to TypoScript configuration. (Dirk Wenzel)
+2017-01-17 528b2d5 [TASK] composer.json updated: branch aliases updated, typo3/cms-core replaced by typo3/cms. (Dirk Wenzel)
+2017-01-11 dc45435 [TASK] add resources mistakenly ignored by git. (Dirk Wenzel)
+
+2017-03-16         [RELEASE] Release of t3events 0.31.2 (Dirk Wenzel)
+2017-03-16 c7ac44e [BUGFIX] Fixed error in EventDemand which caused ordering in event list view to fail (provided by @Nemo64). Closes: #54 (Dirk Wenzel)
+
+2017-03-11         [RELEASE] Release of t3events 0.31.1 (Dirk Wenzel)
+2017-03-11 356498f [HOTFIX] require dwenzel/t3calendar:^0.2.0 Fixes #52 (Dirk Wenzel)
+
+2017-01-05         [RELEASE] Release of t3events 0.31.0 (Dirk Wenzel)
+2017-01-04 5147618 [TASK] EventController->calendarAction refactored using new CalendarItemStorage (Dirk Wenzel)
+2017-01-02 58977c0 [TASK] make property event of Performance lazy loading. Code clean up. (Dirk Wenzel)
+2016-12-31 5d27cc7 [TASK] Attribute id added to calendar container in template (Dirk Wenzel)
+2016-12-29 81e0fad [BUGFIX] fix invalid table configuration for edit, add and link wizards. Closes #49 (Dirk Wenzel)
+2016-12-29 9bb266f [BUGFIX] fix missing wizard icons (TYPO3 6.2) (Dirk Wenzel)
+2016-12-29 ce486ae [TASK] require t3calendar ^0.1.0 (Dirk Wenzel)
+2016-12-29 5861208 [TASK] require t3calendar dev-master (Dirk Wenzel)
+2016-12-29 bdb738a [TASK] register main module according to TYPO3 version (Dirk Wenzel)
+2016-12-29 de6c1de [TASK] use section 'main' instead of 'content' in default backend layout (Dirk Wenzel)
+2016-12-27 3edc4ab [TASK] t3events now requires t3calendar. Obsolete calendar classes removed. (Dirk Wenzel)
+2016-12-14 a215314 [BUGFIX] errors in template and partial for performance fixed. (Dirk Wenzel)
+2016-12-13 189fa54 [TASK] Templates and TyposConfiguration for ICS file download implemented. (Dirk Wenzel)
+2016-12-12 6acad10 [BUGFIX] add missing backend label for teaser field (Jasmina Ließmann)
+2016-12-11 27c2800 [TASK] EventController->calendarAction now assigns Performances from Event to view too. Performance implements CalendarItemInterface. Template Calendar uses Widget from t3calendar. (Dirk Wenzel)
+2016-12-11 434a05e [TASK] Unit test for EventController added. (Dirk Wenzel)
+2016-12-11 e1703c3 [TASK] Unit tests for EventController added and obsolete test removed (Dirk Wenzel)
+2016-12-11 f3f6607 [TASK] unit tests for EventController added. (Dirk Wenzel)
+2016-12-11 b788cef [TASK] EventController refactored using CalendarFactoryTrait, DemandTrait, EventDemandFactoryTrait, SessionTrait and SettingsUtilityTrait. t3events now requires t3calendar for development. Obsolete requirement mikey179/vfsStream removed. DemandTrait->overwriteDemandObject now supports legacy field 'genre' for instances of EventDemand. (Dirk Wenzel)
+
+2016-12-14         [RELEASE] Release of t3events 0.30.0 (Dirk Wenzel)
+2016-12-02 777d799 [BUGFIX] obsolete class TeaserRepository removed (Dirk Wenzel)
+2016-12-02 42d1261 [TASK] Missing credits added. (Dirk Wenzel)
+2016-12-01 6f131d5 [TASK] ClassLoader removed. (Dirk Wenzel)
+2016-12-01 484297e [TASK] ClassCacheManager, ClassLoader and ClassParser removed. (This was an experimental mechanism and will not be continued) (Dirk Wenzel)
+2016-12-01 96e80f8 [TASK] !!! Breaking change !!! Teaser, TeaserController, TeaserRepository removed. (Dirk Wenzel)
+2016-11-30 c958437 [TASK] PerformanceRepository now respects StatusAwareDemandInterface when creating status constraints (Dirk Wenzel)
+2016-11-30 c4daa2f [TASK] add unit tests for field 'images' of record event (Jasmina Ließmann)
+2016-11-30 da221fc [TASK] add unit tests for fields 'images', 'files' and 'related' of record event (Jasmina Ließmann)
+2016-11-29 f1141b9 [TASK] unit test for TaskRepository added. (Dirk Wenzel)
+2016-11-29 93984d7 [TASK] use new TaskRepositoryInterface for dependency injection in TaskRepositoryTrait (Dirk Wenzel)
+2016-11-29 72fb08f [TASK] code cleanup (Dirk Wenzel)
+2016-11-29 3d2dfa8 [FEATURE] add field 'related' for related events to event record (Jasmina Ließmann)
+2016-11-29 3b41967 [FEATURE] add field 'files' to event record (Jasmina Ließmann)
+2016-11-29 bcb2fe3 [FEATURE] add new field 'images' with file reference (Jasmina Ließmann)
+2016-11-29 c9645ad [TASK] TaskCommandController now uses PersistenceManager for persisting in method updateStatusCommand. Context sensitive help message for Task edited. (Dirk Wenzel)
+2016-11-28 91afae8 [TASK] register TaskCommandController by identifier (Dirk Wenzel)
+2016-11-28 ed8f1c1 [TASK] PerformanceRepository no longer extends AbstractDemandedRepository but uses DemandedRepositoryTrait (Dirk Wenzel)
+2016-11-27 a356951 [TASK] TaskCommandController refactored. Table configuration improved: do not show table icons, allow selecting performance status with language setting 'all' in performance. (Dirk Wenzel)
+2016-11-27 3dd7597 [TASK] TaskCommandController->updateStatusCommand now updates Performance status. Obsolete method runUpdatePerformanceStatus replaced. (Dirk Wenzel)
+2016-11-27 5e61850 [TASK] Update script MigrateTaskRecords now updates existing Tasks. Table configuration for Task extended by field period_duration, field period adapted. Constants for periods added to PeriodConstraintRepositoryInterface. Mi (Dirk Wenzel)
+2016-11-27 1338f2d [TASK] Task changed: field periodDuration replaces period. Field period now contains a string! Update script for Task records and SQL definition added. TaskCommandController now reads period and periodDuration from task for PerformanceDemand (WIP) (Dirk Wenzel)
+2016-11-27 12c0163 [TASK] TaskCommandController extended by method updateStatusCommand. Class constants for actions introduced. Code clean up (Dirk Wenzel)
+2016-11-19 a1f9475 [TASK] Format/ArrayToCsvViewHelper refactored. Unit tests and documentation added. (Dirk Wenzel)
+2016-11-19 9071771 [BUGFIX] inadvertently committed template changes reverted. (Dirk Wenzel)
+2016-11-19 a807f74 [TASK] Location/UniqueViewHelper implemented. This replaces the render type 'uniqueLocationList' of Event/PerformancesViewHelper (which is now deprecated) (Dirk Wenzel)
+2016-11-19 660172c [TASK] moved Event/Performances/Locations/CountViewHelper to Location/CountViewHelper. Unit tests and documentation added. (Dirk Wenzel)
+2016-11-16 092fefe [TASK] code style (Dirk Wenzel)
+2016-11-16 5618184 [TASK] magic method __call moved from AbstractDemandedRepository to DemandedRepositoryTrait. (Dirk Wenzel)
+2016-11-14 ba07e4e [TASK] SignalTrait->emitSignal is now public (Dirk Wenzel)
+2016-11-14 485ba23 [TASK] SignalInterface implemented. RoutingTrait->dispatch now emits a signal 'dispatchBegin' (Dirk Wenzel)
+2016-11-14 1a6f8fd [TASK] TranslateTrait->translate now allows overriding $extension by a class constant. (Dirk Wenzel)
+2016-11-12 1be3528 [TASK] PersistenceManagerTrait implemented. (Dirk Wenzel)
+2016-11-12 83b9c30 [TASK] TypoScript configuration for template paths of modules added (Dirk Wenzel)
+2016-11-11 9dc99c0 [TASK] RoutingTrait now respects default arguments when dispatching. (Dirk Wenzel)
+2016-11-10 2a9e1e3 [TASK] Unit test for Typo3BackendSession added. Tests for SessionTrait and TypoSession moved. Code cleanup. (Dirk Wenzel)
+2016-11-10 0bf6707 [TASK] ExtensionService->injectConfigurationManger() implemented. (Dirk Wenzel)
+2016-11-10 0114212 [BUGFIX] fix unit test failing unter TYPO3 6.2 because of missing injection method. (Dirk Wenzel)
+2016-11-10 584ba12 [TASK] Unit tests for ExtensionService added. (Dirk Wenzel)
+2016-11-10 209b003 [TASK] RouteLoaderDataProviderInterface implemented. RouteLoader extended by method loadFromProvider (Dirk Wenzel)
+2016-11-10 45396ad [BUGFIX] fixed error in RouteLoader caused by uninitialized router attribute. (Dirk Wenzel)
+2016-11-10 7d7020e [TASK] Routing simplified: RoutingTrait->dispatch does not look for routable actions anymore. (Dirk Wenzel)
+2016-11-08 a73c705 [BUGFIX] invalid settings path in templates fixed. (Dirk Wenzel)
+2016-11-08 e54aecc [BUGFIX] fixed error in TemplateLayoutUtility which prevented from getting template layouts from PageTS (Dirk Wenzel)
+2016-11-06 b970cfd [TASK] RoutingTrait now passes arguments when dispatching. (Dirk Wenzel)
+2016-11-06 a77c878 [TASK] Route and RouteLoader refactored: actionName now is an option. Unit test for RoutingTrait added. (Dirk Wenzel)
+2016-11-06 938e1d5 [TASK] RoutingTrait now dispatches to method from Route. (Dirk Wenzel)
+2016-11-06 c04182a [TASK] ResourceNotFoundException and RouteLoader implemented. Method Router->getRoute now throws an exception for missing route. (Dirk Wenzel)
+2016-11-03 34a22e4 [BUGFIX] typo in Router fixed. (Dirk Wenzel)
+2016-11-03 f205170 [TASK] RouterInferface, RoutableControllerInterface, RoutingTrait implemented (WIP) (Dirk Wenzel)
+2016-11-03 c1ab7ca [BUGFIX] typo in namespaces corrected. (Dirk Wenzel)
+2016-11-03 ba34a99 [TASK] Route and Router for controller implemented (Dirk Wenzel)
+2016-10-30 1448a9b [TASK] PersonDemand, PersonDemandFactory and PersonDemandFactoryTrait implemented. (Dirk Wenzel)
+2016-10-29 1437211 [TASK] TemplateLayoutUtility implemented. Hook ItemsProcFunc refactored using it. (Dirk Wenzel)
+2016-10-29 1793d73 [TASK] EventLocationRepositoryTrait implemented. (Dirk Wenzel)
+2016-10-28 9011eef [TASK] travis-ci configuration: call codecov.io script after success (Dirk Wenzel)
+2016-10-28 885f664  [BUGFIX] require TYPO3 < 8.4 - currently the query parser generates invalid joins when more then one constraint is added. (Dirk Wenzel)
+2016-10-27 f74aa6e [TASK] EventLocationAwareDemandTrait and StatusAwareDemandTrait implemented. PerformanceDemand and PerformanceRepository are now audience aware. Allow override of class constants for fields in PerformanceDemand and EventDemand. (Dirk Wenzel)
+2016-10-17 26bc608 [TASK] test swap condition (Dirk Wenzel)
+2016-10-17 9609b6f [TASK] test without condition (Dirk Wenzel)
+2016-10-17 7e7d073 [TASK] test newline (Dirk Wenzel)
+2016-10-17 b058d9e [TASK] test phpunit version on travis.ci (Dirk Wenzel)
+2016-10-17 617ea37 [TASK] run tests for TYPO3 8 under PHP 7.0 too. (Dirk Wenzel)
+2016-10-17 e245802 [TASK] version matrix of build configuration now includes PHP 7.1 and TYPO3 8 (Dirk Wenzel)
+2016-10-11 8f14b9a [TASK] obsolete configuration module for backend module removed (Dirk Wenzel)
+2016-10-09 849a46b [TASK] unit test for CategoryRepository added. (Dirk Wenzel)
+2016-10-09 29a3687 [TASK] VenueAwareDemandTrait, VenueConstraintRepositoryInterface, VenueConstraintRepositoryTrait implemented. PerformanceDemand refactored using EventTypeAwareDemandTrait, GenreAwareDemandTrait and VenueAwareDemandTrait. PerformanceRepository refactored using GenreConstraintRepositoryTrait, EventTypeConstraintRepositoryTrait, VenueConstraintRepositoryTrait and CategoryConstraintRepositoryTrait (Dirk Wenzel)
+2016-10-09 ef51247 [TASK] unit test for PerformanceRepository added. (Dirk Wenzel)
+2016-10-09 fd5a1f3 [TASK] unit test for PerformanceRepository added. (Dirk Wenzel)
+2016-10-09 4b5c47a [TASK] Unit test for PerformancRepository added. (Dirk Wenzel)
+2016-10-09 fb2e578 [TASK] method createConstraintsFromDemand is now public (Dirk Wenzel)
+2016-10-08 24f114a [TASK] EventTypeRepositoryTrait, GenreRepositoryTrait and VenueRepositoryTrait implemented. AbstractBackendController refactored. (Dirk Wenzel)
+2016-10-08 e500052 [TASK] obsolete unit tests removed. (Dirk Wenzel)
+2016-10-08 bd25366 [TASK] AudienceRepositoryTrait implemented (Dirk Wenzel)
+2016-10-05 d3d72e1 [TASK] company name corrected. (Dirk Wenzel)
+
+2016-10-03         [RELEASE] Release of t3events 0.29.0 (Dirk Wenzel)
+2016-10-03 05580c8 [BUGFIX] fixed error in SessionTraitTest caused by typo in use statement (Dirk Wenzel)
+2016-10-03 4092783 [TASK] vendor name changed. (Dirk Wenzel)
+2016-10-03 a51504d [TASK] deprecated settings in table configuration replaced. Localized string for tab 'access' added. (Dirk Wenzel)
+
+2016-09-30         [RELEASE] Release of t3events 0.28.0 (Dirk Wenzel)
+2016-09-15 c998c90 [TASK] Unit tests for CleanUpCommandController added. (Dirk Wenzel)
+2016-09-15 47d3f41 [TASK] CleanUpCommandController implemented. (Dirk Wenzel)
+2016-09-14 305d92f [TASK] traits for PerformanceDemandFactory, EventDemandFactory, PerformanceRepository and EventRepository implemented (Dirk Wenzel)
+2016-09-06 271f294 [BUGFIX] failing unit test for Genre fixed (Dirk Wenzel)
+2016-09-06 a901b00 [TASK] new field link added to domain models Genre, Audience, EventType and Venue (Dirk Wenzel)
+
+2016-08-12         [RELEASE] Release of t3events 0.27.0 (Dirk Wenzel)
+2016-08-07 69fd256 [TASK] obsolete OpenOffice style doc removed (Dirk Wenzel)
+2016-08-07 1e7cc29 [TASK] Makefile and conf.py for sphinx documentation added. (Dirk Wenzel)
+2016-08-07 dae094f [TASK] obsolete images removed. (Dirk Wenzel)
+2016-08-07 17ee0ec [TASK] ignore directory Documentation/_build (Dirk Wenzel)
+2016-07-19 11bfde7 [TASK] OrderAwareDemandInterface and OrderAwareDemandTrait implemented. PerformanceDemand now implements OrderAwareDemandInterface. PeriodAwareDemandInterface extended by accessors for property date. PeriodAwareDemandFactoryTrait extended: Time zone is now respected and start date is set according to period settings. (Dirk Wenzel)
+2016-07-18 241cf91 [TASK] AbstractDemandFactory and PerformanceDemandFactory implemented. EventDemandFactory now extends AbstractDemandFactory (Dirk Wenzel)
+2016-07-15 3a27304 [BUGFIX] fixed error where month names where not localized correctly. Mark up in Calender/Week template corrected. (Dirk Wenzel)
+2016-07-15 c8eafd2 [BUGFIX] prevent invalid array access in PeriodDataProviderFactory (Dirk Wenzel)
+2016-07-15 2351202 [BUGFIX] argument syntax in various view helpers fixed which caused an rendering error (htmlspecialchar expected string and got object) (Dirk Wenzel)
+2016-07-15 2731201 [TASK] PeriodUnknownDataProvider implemented. PeriodDataProviderFactory now returns an instance of PeriodUnknownDataProvider if no valid configuration is found. (Dirk Wenzel)
+2016-07-14 6a66fd2 [BUGFIX] error in unit test fixed. Type hint for argument of EventLocation->setCountry($county) corrected (Dirk Wenzel)
+2016-07-14 a05d80d [TASK] [BREAKING] all dependencies from extension static_info_tables removed. Make shure to migrate existing records (field tx_t3events_domain_model_eventlocation.country now contains a string instead of a reference to static_countries record) (Dirk Wenzel)
+2016-07-14 e811e0c [TASK] obsolete argument renderMode remove from flashMessage viewhelpers (Dirk Wenzel)
+2016-07-11 d05cf5f [TASK] allow TYPO3 version < 9.0 (Dirk Wenzel)
+2016-02-05 240422e [TASK] Documentation structure flattend, syntax issues fixed (Dirk Wenzel)
+2015-11-22 7e1f10f [TASK] settings for documentation rendering added. (Dirk Wenzel)
+2015-11-22 2ea18f5 [TASK] documentation updated, images added. (Dirk Wenzel)
+2015-11-22 7823b78 [TASK] settings for documentation rendering added. (Dirk Wenzel)
+2015-11-22 5c23e62 [TASK] documentation updated, images added. (Dirk Wenzel)
+
+2016-07-12         [RELEASE] Release of t3events 0.26.0 (Dirk Wenzel)
+2016-07-08 2779f4b [TASK] unit tests for SettingsUtilityTrait, ModuleDataTrait and EventDemand added. (Dirk Wenzel)
+2016-07-08 6ad99d0 [BUGFIX] scope for constant DEMAND_CLASS in EventDemandFactory corrected. (Dirk Wenzel)
+2016-07-07 aadf0fb [TASK] EventDemandFactory refactored using new traits MapPropertyTrait and SkipPropertyTrait (Dirk Wenzel)
+2016-07-07 9e11352 [TASK] EventDemandFactory now uses a class constant for creation of demand object. PeriodAwareDemandInterface extended. (Dirk Wenzel)
+2016-03-21 5dec587 [TASK] EventDemandFactory now sets start and end date to DateTime objects (Dirk Wenzel)
+2016-03-21 bce3f69 [TASK] missing setters added to PeriodAwareDemandInterface, annotations in PeriodAwareDemandTrait corrected. (Dirk Wenzel)
+2016-03-21 e092be0 [TASK] DemandFactoryInterface and EventDemandFactory implemented (Dirk Wenzel)
+
+2016-07-08         [RELEASE] Release of t3events 0.25.0 (Dirk Wenzel)
+2016-07-07 1a3a88b [BUGFIX] show event module only if enabled in extension configuration (Dirk Wenzel)
+2016-07-07 c2b6755 [BUGFIX] Add additional rte configuration for the description field of domain model event. This prevent that the links are not rendered correctly in fluid template if you use the viewhelper "f:format.html". (Erik Rauchstein)
+2016-07-05 51bb631 [TASK] BREAKING! All controllers can now receive a merged array of TypoScript settings consisting of controller and action settings from TypoScript and settings from flexform. Some default TypoScript settings had to be moved. Please check whether your plugins/moduls still work as expected. (Dirk Wenzel)
+2016-07-01 a4f6263 [TASK] obsolete TypoScript settings for PaginateViewHelper removed (Dirk Wenzel)
+2016-07-01 b2627f8 [TASK] BREAKING! Obsolete class PaginateController removed. List templates now use the default pagination template from fluid. Overwriting templates can be achieved by setting templateRootPaths. (Dirk Wenzel)
+
+2016-06-29         [RELEASE] Release of t3events 0.24.0 (Dirk Wenzel)
+2016-06-17 62e576e [BUGFIX] missing language key added (Dirk Wenzel)
+2016-06-16 cef1525 [BUGFIX] missing close tag for TypoScript condition added. (Dirk Wenzel)
+2016-06-17 a9c1c62 [TASK] localized strings for backend partials of search form added. Translate view helpers in those partials now always use localization from t3events. (Dirk Wenzel)
+2016-06-17 7253791 [TASK] CategoryRepositoryTrait implemented. PerformanceController and AbstractBackendController use it. (Dirk Wenzel)
+2016-06-14 8cb2f70 [TASK] improve loading time of plugin in backend: Avoid validating SVG for period constraint legend. (Dirk Wenzel)
+2016-06-07 f905b94 [TASK]  common layouts, templates and partials and CSS for backend modules added. (Dirk Wenzel)
+2016-06-06 c1e855d [TASK] PerformanceController now uses DemandTrait (Dirk Wenzel)
+2016-06-06 5ec80b0 [TASK] PerformanceDemand now implements GenreAwareDemandInterface, VenueAwareDemandInterface, EventTypeAwareDemandInterface. DemandTrait->overwriteDemand respects settings['venues'] (Dirk Wenzel)
+2016-06-06 02be0c8 [BUGFIX] missing settingsUtility property in unit test for PerformanceController fixed. (Dirk Wenzel)
+2016-06-06 c0a4f14 [TASK] Controller/DemandTrait implemented. Use it in AbstractController (Dirk Wenzel)
+2016-06-06 bd5faa2 [TASK] EventLocationAwareDemandInterface, VenueAwareDemandInterface implemented, PeriodAwareDemandInterface extendend (Dirk Wenzel)
+2016-06-06 1069931 [TASK] NotificationRepositoryTrait and CompanyRepositoryTrait for Controllers implemented, use it in AbstractBackendController. (Dirk Wenzel)
+2016-06-06 d5cf18f [TASK] PerformanceController now uses SettingsUtilityTrait (Dirk Wenzel)
+2016-06-06 b3c272c [TASK] main backend module for events added. (Dirk Wenzel)
+2016-05-31 1bf33a6 [TASK] Typo3BackendSession added (WIP). Annotation in SessionTrait corrected. Alternative implementations of SessionInterface registered via TypoScript. (Dirk Wenzel)
+2016-05-30 f00f0d4 [TASK] unit tests for EntityNotFoundHanderTrait added. (Dirk Wenzel)
+2016-05-30 401aa84 [TASK] EntityNotFoundHanderTrait extended by method processRequest no handling 'entity not found' errors (Dirk Wenzel)
+2016-05-30 c1f918c [TASK] EventController and PerformanceController refactored using traits instead of extending AbstractController (Dirk Wenzel)
+2016-05-30 f709f44 [TASK] Domain/Model/Dto/SearchFactory and Controller/SearchTrait implemented, AbstractController refactored using it (Dirk Wenzel)
+2016-05-30 2f1d763 [TASK] TranslateTrait implemented (Dirk Wenzel)
+2016-05-30 ddcc807 [TASK] code cleanup (Dirk Wenzel)
+2016-05-30 1f0b46d [TASK] SignalTrait and EntityNotFoundHandlerTrait implemented. AbstractController refactored using it. (Dirk Wenzel)
+2016-05-30 de36cb9 [TASK] SettingsUtilityTrait implemented, AbstractController refactored using it. (Dirk Wenzel)
+2016-05-30 d24c45a [TASK] SessionTrait implemented, PerformanceController refactored using it. (Dirk Wenzel)
+2016-05-30 517fa47 [TASK] SessionInterface and  Typo3Session extended by method setNamespace. (Dirk Wenzel)
+2016-05-27 13e3ce3 [TASK] Controller/DownloadTrait implemented (Dirk Wenzel)
+2016-05-27 8cf15dc [TASK] ModuleDataTrait implemented (Dirk Wenzel)
+
+2016-06-13         [RELEASE] Release of t3events 0.23.1 (Dirk Wenzel)
+2016-06-13 b0ff3e3 [BUGFIX] fixed error in PeriodConstraintRepositoryTrait which prevented plugin from selecting past event respecting end date correctly. (Dirk Wenzel)
+
+2016-06-03         [RELEASE] Release of t3events 0.23.0 (Dirk Wenzel)
+2016-05-27 020500b [TASK] visibility_matrix.ods added (Dirk Wenzel)
+2016-05-26 e32e4ea [TASK] validation for email address removed from Notification->recipient (Dirk Wenzel)
+2016-05-26 00e5ab1 [TASK] NotificationService now handles comma separated lists of recipients too. (Dirk Wenzel)
+2016-05-25 7defa1d [TASK] PeriodConstraintLegend now shows a legend for period 'all' too. PeriodAllDataProvider implemented, PeriodDataProviderFactory extended. closes #41 (Dirk Wenzel)
+
+2016-05-24         [RELEASE] Release of t3events 0.22.0 (Dirk Wenzel)
+2016-05-19 2d686e2 [TASK] branch alias dev-develop added. (Dirk Wenzel)
+2016-05-19 f4b482a [TASK] branch alias 'dev-master' removed from composer configuration (Dirk Wenzel)
+2016-05-18 969f163 [TASK] Notification now has new attributes senderEmail and senderName. Accessoren for property sender are deprecated and will be removed later. (Dirk Wenzel)
+2016-05-17 ac04636 [BUGFIX] work around for issue in dependency resolver in TYPO3 6.2 (Dirk Wenzel)
+2016-05-17 b228ba1 [BUGFIX] fixed error caused by missing flex form xml path in existing plugin records. (Dirk Wenzel)
+2016-05-16 204a47d [TASK] PeriodDataProviderFactory now respects different structure in plugin flexform between TYPO3 version 6.2 and 7.6 (Dirk Wenzel)
+2016-05-16 6a65856 [TASK] PeriodConstraintLegend refactored using class constants for label keys (Dirk Wenzel)
+2016-05-16 06143fc [TASK] unit tests for PeriodDataProviderFactory added (Dirk Wenzel)
+2016-05-16 2c0ccfa [TASK] unit tests for VectorImage and AbstractPeriodDataProvider added. (Dirk Wenzel)
+2016-05-12 a587727 [TASK] PeriodConstraintLegend now uses new MissingFileException. Unit tests added. (Dirk Wenzel)
+2016-05-12 6354ac0 [TASK] unit tests for VectorImage added (Dirk Wenzel)
+2016-05-10 3132f44 [TASK] PeriodConstraintLegend refactored using PeriodDataProvider (Dirk Wenzel)
+2016-05-10 affe62a [TASK] PeriodConstraintLegend refactored: methods replaceNodeText and setElementsAttribute pulled up to VectorImage. Class path corrected. (Dirk Wenzel)
+2016-05-10 50d9852 [TASK] PluginFlexFormService refactored: renamed to PeriodConstraintLegend. Now extends VectorImage class (Dirk Wenzel)
+2016-05-10 ad10475 [TASK] code cleanup and renaming (Dirk Wenzel)
+2016-05-09 f43b7bf [TASK] legend for period constraints now fits for all combinations of period and respectEndDate settings. (Dirk Wenzel)
+2016-05-05 ab63642 [TASK] PluginFlexFormService now renders SVG for period constraint legend. (Dirk Wenzel)
+2016-04-27 8dfc46b [TASK] FlexFormService implemented. (Dirk Wenzel)
+2016-04-26 94c883f [TASK] plugin now allows to respect the end date too. PeriodAwareDemandInterface, PeriodAwareDemand and PeriodConstraintRepositoryTrait extended. (Dirk Wenzel)
+2016-04-26 a704d63 [TASK] PerformanceController now respects the default time zone and converts start and end date for period type byDate to DateTime when creating demand from settings. (Dirk Wenzel)
+
+2016-05-03         [RELEASE] Release of t3events 0.21.1 (Dirk Wenzel)
+2016-05-03 0fb94f7 [BUGFIX] fixed error in AbstractController->processRequest which prevented from reading error handling settings correctly. (Dirk Wenzel)
+
+2016-04-23         [RELEASE] Release of t3events 0.21.0 (Dirk Wenzel)
+2016-04-23 4058095 [TASK] FlashMessageTrait implemented (Dirk Wenzel)
+2016-04-22 f4402aa [TASK] code cleanup (Dirk Wenzel)
+2016-04-22 09f5d88 [BUGFIX] Hand over $eventLocations as array to prevent fatal error. (Erik Rauchstein)
+2016-04-21 c346639 [TASK] Unit test for PerformanceRepository added. (Erik Rauchstein)
+2016-04-19 908638f [BUGFIX] Add alias SysCategory for Category to prevent fatal error. (Erik Rauchstein)
+
+2016-04-12         [RELEASE] Release of t3events 0.20.0 (Dirk Wenzel)
+2016-04-11 0c70bb2 [BUGFIX] Change typo script configuration so the fluid pagination controller and typo3 extension service will be extended. (Erik Rauchstein)
+2016-04-11 522928e [TASK] PerformanceRepository now does not find performances with hidden event anymore. (Dirk Wenzel)
+2016-04-07 bea845b [BUGFIX] missing key in UnitTests for AbstractController added. (Dirk Wenzel)
+2016-04-07 6564a32 [TASK] AbstractController->handleEntityNotFound now passes the actionName to slot methods and can forward the request. (Dirk Wenzel)
+2016-04-07 9341f0b [TASK] Default value for constructor argument $namespace of Typo3Session class added. (Dirk Wenzel)
+2016-04-01 ef8859f [TASK] AbstractController now respects action name while handling exceptions in method processRequest. Obsolete leading slash in class path in DateRangeViewHelper-initializeArguments removed. (Dirk Wenzel)
+
+2016-03-22         [RELEASE] Release of t3events 0.19.1 (Dirk Wenzel)
+2016-03-22 9aa4137 [HOTFIX] fixed fatal error which prevented PerformanceRepository from creating QuerySettings correctly. (Dirk Wenzel)
+
+2016-03-22         [RELEASE] Release of t3events 0.19.0 (Dirk Wenzel)
+2016-03-18 cbb6d0c [TASK] EmConfiguration and EmConfigurationUtility implemented. Default query setting 'respect storage page'  of PerformanceRepository can now be set in extension manager configuration. (Dirk Wenzel)
+2016-03-02 3e99287 [TASK] EditRecordViewHelper implemented (Dirk Wenzel)
+
+2016-03-17         [RELEASE] Release of t3events 0.18.0 (Dirk Wenzel)
+2016-03-17 d9507d4 [TASK] unit tests for Person added (Dirk Wenzel)
+2016-03-16 11eb8be [BUGFIX] Add functions add and remove for images and correct variable name in setImages function. Add missing Labels. (Erik Rauchstein)
+2016-03-15 3b9e0eb [TASK] Add field images to tx_t3events_domain_model_person. (Erik Rauchstein)
+2016-03-15 79fd78b [TASK] fixed parameter error in ResourceFactory (Dirk Wenzel)
+2016-03-15 830dc74 [TASK] SettingsUtility refactored and extended: Method getValue replaces getValueByKey. New method getFileStorage returns a FileStorage with FileReferences build from TypoScript settings (Dirk Wenzel)
+2016-03-15 947c1a1 [TASK] ResourceFactory implemented (Dirk Wenzel)
+2016-03-14 2b0059a [TASK] Notification extended by field attachements. NotificationService adds attachments to generated message. (Dirk Wenzel)
+
+2016-02-29         [RELEASE] Release of t3events 0.17.1 (Dirk Wenzel)
+2016-02-28 3a4c112 [BUGFIX] missing dependency satooshi/php-coveralls added. (Dirk Wenzel)
+2016-02-28 e5feb9a [TASK] travis ci build matrix adapted. (Dirk Wenzel)
+2016-02-28 120e033 [TASK] travis ci build matrix adapted. (Dirk Wenzel)
+2016-02-28 88a5aa7 [TASK] build configuration updated. (Dirk Wenzel)
+2016-02-27 aa1ff76 [TASK] branch alias added to composer.json (Dirk Wenzel)
+2016-02-27 0ffdae2 [BUGFIX] syntax errors in composer.json corrected. (Dirk Wenzel)
+2016-02-27 d8ad2ef [TASK] composer.json added. (Dirk Wenzel)
+
+2016-02-26         [RELEASE] Release of t3events 0.17.0 (Dirk Wenzel)
+2016-02-26 96fff32 [BUGFIX] signature of method overwriteDemandObject now matches parents signature. (Dirk Wenzel)
+2016-02-26 d42b66e [TASK] travis: set PHP 7 as default (Dirk Wenzel)
+2016-02-26 98b0413 [TASK] test TYPO3 7.6 with PHP 5.6, set PHP 7 as default (Dirk Wenzel)
+2016-02-26 25dbbd8 [BUGFIX] PerformanceDemand->getCategoryField returned wrong constant (Dirk Wenzel)
+2016-02-25 022d1fd [TASK] CategoryAwareDemandInterface, CategoryAwareDemandTrait, CategoryConstraintControllerInterface and CategoryConstraintControllerTrait implemented. PerformanceDemand now implements CategoryAwareDemandInterface (Dirk Wenzel)
+2016-02-25 81d3ef9 [BUGFIX] fixed error in PerformanceRepository which prevented category constraints from being added to query constraints. Prevent fatal error under PHP 5.6 caused by visibility mismatch of method getFilterOptions in interface and implementation. (Dirk Wenzel)
+2016-02-24 2105e0a [TASK] Category and CategoryRepository implemented. PerformanceController extended by property categoryRepository. Filter option categories added to quick menu template for performances. (Dirk Wenzel)
+2016-02-24 6c562bc [TASK] DemandedRepositoryInterface and DemandedRepositoryTrait implemented (extracted from AbstractDemandedRepository) (Dirk Wenzel)
+2016-02-24 1ec5a5b [TASK] FilterableControllerInterface and FilterableControllerTrait implemented (extracted from AbstractBackendRepository). PerformanceController now implements FilterableControllerInterface. (Dirk Wenzel)
+2016-02-21 ab4d357 [TASK] Signature of SettingsUtility->getValueByKey changed to match signature of ObjectAccess::getPropertyPath (Dirk Wenzel)
+2016-02-21 cbe6497 [TASK] AbstractBackendController->getContentForDownload implemented, method getBaseUrlForFrontend pulled up from child. Signature of SettingsUtility->getValueByKey changed to match signature of ObjectAccess::getPropertyPath (Dirk Wenzel)
+2016-02-21 cd4c900 [BUGFIX] fixed error which prevented AbstractController from filtering by genre and event type. (Dirk Wenzel)
+2016-02-21 0cf1a6a [TASK] AbstractBackendController->sendDownloadHeaders now throws an InvalidFileTypeException for invalid file extensions. (Dirk Wenzel)
+2016-02-20 bababc4 [TASK] unit tests for Notification and Person added. Tests for PerformanceController removed, fixed and added. (Dirk Wenzel)
+2016-02-20 8cc7a18 [TASK] AudienceAwareDemandInterface, AudienceAwareDemandTrait, AudienceConstraintRepositoryInterface, AudienceConstraintRepositoryTrait implemented. EventDemand now implements AudienceAwareDemandInterface, EventRepository implements AudienceConstraintRepositoryInterface. Default values for properties title and description of Audience changed to null. (Dirk Wenzel)
+2016-02-20 8116f7c [TASK] AudienceRepository now extends AbstractDemandedRepository. Property audienceRepository added to AbstractBackendController. Method getFilterOptions now generates period options (Dirk Wenzel)
+2016-02-20 81004e8 [BUGFIX] fix missing break in overwriteDemandObject switch (Dirk Wenzel)
+2016-02-19 a2964ef [TASK] AbstractController->overwriteDemandObject now respects genres and eventTypes for EventDemand (Dirk Wenzel)
+2016-02-18 3da4865 [TASK] Add language labels for model person et al (Sebastian Kreideweiß)
+2016-02-18 3b9cb7a [TASK] missing labels for backend added. (Dirk Wenzel)
+2016-02-18 8373478 [BUGFIX] Set start date and end date with timezone in performance controller (Sebastian Kreideweiß)
+2016-02-17 aface3a [TASK] AbstractController->overwriteDemandObject implemented. (Dirk Wenzel)
+2016-02-17 925a967 [TASK] AbstractBackendController extended by properties companyRepository, eventTypeRepository, genreRepository, venueRepository, notificationRepository, notificationService, persistenceManager Method getFilterOptions implemented. (Dirk Wenzel)
+2016-02-17 7dbb541 [TASK] SettingsUtility->getControllerKey implemented (Dirk Wenzel)
+2016-02-17 292630e [BUGFIX] Set startDate und endDate in overwriteDemandObject, in performance controller (Sebastian Kreideweiß)
+2016-02-17 6ad9b3d [FEATURE] Array to CVS viewhelper. (Vladimir Falcon)
+2016-02-17 a931782 [TASK] AbstractController extended by property settingsUtility. (Dirk Wenzel)
+2016-02-17 73b3952 [TASK] AbstractBackendController extended by methods injectLocalDriver, getDownloadFileName, sendDownloadHeaders (Dirk Wenzel)
+2016-02-16 b5897d9 [TASK] AbstractBackendController implemented (Dirk Wenzel)
+2016-02-16 058eee7 [BUGFIX] prevent empty constraint by event type (Dirk Wenzel)
+2016-02-16 3251e17 [TASK] interfaces and traits for event type aware demand and event type constraint repository implemented. (Dirk Wenzel)
+2016-02-15 7d4406e [TASK] obsolete option src_dir removed from coveralls configuration, use --root_dir flag instead (Dirk Wenzel)
+2016-02-15 c97dcf0 [TASK] GenreConstraintRepositoryTrait implemented. (Dirk Wenzel)
+2016-02-15 7926acf [TASK] GenreAwareDemandTrait implemented (Dirk Wenzel)
+2016-02-15 1e81098 [TASK] ModuleData and ModuleDataStorageService implemented. (Dirk Wenzel)
+2016-02-15 877c345 [TASK] GenreAwareDemandInterface and GenreConstraintRepositoryInterface implemented. (Dirk Wenzel)
+2016-02-15 62b7514 [BUGFIX] fixed error which prevented PerformanceRepository from building constraints correctly (Dirk Wenzel)
+2016-02-12 c9d3656 [TASK] SettingsUtility implemented. (Dirk Wenzel)
+2016-02-08 9823784 [BUGFIX] use strings for extbase type in TCA instead of class constants (prevents error when class is extended using proxy) (Dirk Wenzel)
+2016-02-06 d6d15ee [BUGFIX] fix missing acces tab in TCA of Performance. Typo in SQL corrected. (Dirk Wenzel)
+2016-02-05 93a3b62 [TASK] Typ constants of model Person changed to strings. Field type adapted. Property Www added. (Dirk Wenzel)
+2016-02-03 ea01aee [TASK] AbstractController->translate now returns the key if no localized string is found. (Dirk Wenzel)
+2016-02-03 76da167 [TASK] field tx_extbase_type added to table configuration of Person (Dirk Wenzel)
+2016-02-01 2df3d6c [TASK] PeriodConstraintRepositoryTrait now sets the start date for futureOnly and pastOnly constraint to last midnight (Dirk Wenzel)
+2016-01-30 e165c22 [BUGFIX] default value for starttime and endtime removed from table configuration of event and performance. (Dirk Wenzel)
+2016-01-28 5a90d7e [TASK] set error handling for diffent controller (Dirk Wenzel)
+2016-01-28 0dea27c [TASK] default error handler for detail view set (Dirk Wenzel)
+2016-01-27 fae9b29 [TASK] field fe_group added to performance model (Dirk Wenzel)
+2016-01-26 19cafd8 [BUGFIX] missing DB field added. (Dirk Wenzel)
+2016-01-26 475d2d3 [TASK] Event is now categorizable. Plugin allows filtering by category (Dirk Wenzel)
+2016-01-26 e2ec7f7 [TASK] failing unit test fixed (Dirk Wenzel)
+2016-01-26 b1a9bee [TASK] getter and setter for Person->birthday implemented (Dirk Wenzel)
+2016-01-25 64d16e3 [TASK] Genre->getLanguageUid implemented (Dirk Wenzel)
+2016-01-15 dcaf10e [BUGFIX] failing unit tests for PerformanceRepository fixed. (Dirk Wenzel)
+2016-01-14 fdd50fe [BUGFIX] failing unit tests fixed (Dirk Wenzel)
+2016-01-13 646f50c [BUGFIX] failing unit test for AbstractController fixed. Fixed error in StatusConstraintRepositoryTrait which prevented objects without a status from being displayed when selected status should be excluded. (Dirk Wenzel)
+2016-01-13 7f4c316 [TASK] Plugin now allows to filter by performance status StatusAwareDemandInterface and StatusConstraintRepositoryTrait implemented. Use it in PerformanceRepository. (Dirk Wenzel)
+2016-01-12 80529e3 [TASK] AbstractController->handleEntityNotFound per default emits a signal now which allows to pass in a redirect URI or parameters for a controller redirect. (Dirk Wenzel)
+2016-01-12 399e445 [BUGFIX] fixed issue which prevented plugin from being translated cause by wrong parameter in GeneralUtility; (Dirk Wenzel)
+2016-01-08 bf6ecbd [TASK] AddressTrait implemented. Use it in Company and Person. Person extended by field title. (Dirk Wenzel)
+2016-01-08 97cedc5 [BUGFIX] invalid configuration option for RTE replaced. (Dirk Wenzel)
+2016-01-06 1713164 [TASK] model Content implemented. (Dirk Wenzel)
+2016-01-05 3a05688 [TASK] compatibility with typo3 updated (Dirk Wenzel)
+2016-01-05 d13ea38 [TASK] field audience added to Event (Dirk Wenzel)
+2015-12-14 936af1e [TASK] table configuration for performance and sql edited. (Dirk Wenzel)
+2015-12-14 ca12622 [TASK] reservation property of Notification moved to extension t3events_reservation (Dirk Wenzel)
+2015-12-14 5c755a3 [TASK] interfaces and traits for location and period constraint repositories implemented. AbstractRepository, EventRepository and PerformanceRepository refactored. (Dirk Wenzel)
+2015-12-14 7b9c4bd [TASK] location aware interface and trait for search implemented. Search refactored. (Dirk Wenzel)
+2015-12-13 d7de592 [BUGFIX] PerformanceDemand uses SearchAwareDemandTrait and implements SearchAwareDemandInterface (Dirk Wenzel)
+2015-12-13 1e795ad [TASK] period and search aware traits and interfaces implemented. Unit tests added and some test classes moved. (Dirk Wenzel)
+2015-12-13 679c742 [TASK] PeriodAwareDemandInterface implemented. Use it in EventDemand and EventRepository->createPeriodConstraints (Dirk Wenzel)
+2015-12-13 93a3def [TASK] CalendarController->indexAction refactored. Unit tests added. (Dirk Wenzel)
+2015-12-13 d634558 [TASK] unit tests for Typo3Session added. (Dirk Wenzel)
+2015-12-12 9ff4acf [TASK] obsolete controller classes removed. (Dirk Wenzel)
+2015-12-12 940d0eb [TASK] AbstractDemandedRepository->findMultipleByUid now only adds constraints if uid list is not empty. Unit tests for EventRepository added. (Dirk Wenzel)
+2015-12-12 1eaf3d7 [TASK] Repositories for EventType, Genre, Venue and Person now extend AbstractDemandedRepository. Obsolete class AbstractRepository removed. (Dirk Wenzel)
+2015-12-12 604be6a [TASK] save overwriteDemand argument in initializeListAction and reset it in initializeQuickMenuAction. This allows arbitrary plugin order. (Dirk Wenzel)
+2015-12-12 a05e84c [BUGFIX] missing search for performances implemented. (Dirk Wenzel)
+2015-12-12 8f16ea1 [TASK] EventRepository->createSearchConstraints pulled up to AbstractDemandedRepository (Dirk Wenzel)
+2015-12-11 80bc128 [TASK] require minimum php version 5.5.0 (Dirk Wenzel)
+2015-12-11 461df8f [TASK] PerformanceController->quickMenuAction implemented. (Dirk Wenzel)
+2015-12-11 a8866a8 [TASK] use locallang_db.xlf instead of xml. (Dirk Wenzel)
+2015-12-11 4f7d258 [BUGFIX] prevent findMultipleByUid from matching empty constraint by uid (Dirk Wenzel)
+2015-12-11 0b65a32 [TASK] PerformanceController and PerformanceRepository now respect constraints from settings and overwriteDemand. (Dirk Wenzel)
+2015-12-11 8cebb5e [TASK] assign overwriteDemand in quickMenuAction (Dirk Wenzel)
+2015-12-11 f600a82 [TASK] PerformanceController now uses new property session for storing session data (Dirk Wenzel)
+2015-12-11 94ff83e [TASK] EventController and PerformanceController now emit a signal to signal slot dispatcher before assigning variables to view. (Dirk Wenzel)
+2015-12-11 7529c8a [TASK] SessionInterface, NamespaceAwareIntrerface and Typo3Session implemented. (Dirk Wenzel)
+2015-12-09 cccba20 [TASK] fields audience, new_until, archive_date added to table configuration for events. CompanyRepository added. (Dirk Wenzel)
+2015-12-09 a551183 [BUGFIX] path to language file corrected. Allow notification on standard pages. (Dirk Wenzel)
+2015-12-09 5c76d0f [TASK] Person, Audience,Company implemented. Language file converted to xlf format. (Dirk Wenzel)
+2015-12-09 c697519 [TASK] code formatted (Dirk Wenzel)
+2015-12-03 28ddf8b [TASK] Event plugin can now display performances (list and detail view) (Dirk Wenzel)
+2015-12-03 e60731d [TASK] Performance extended by property event. (Dirk Wenzel)
+2015-12-03 e43f98a [TASK] EventDemand refactored, PerformanceDemand extended. (Dirk Wenzel)
+2015-12-03 d967029 [TASK] PerformanceController extended:  createDemandFromSettings and overwriteDemandObject implemented. List action finds demanded instead of all. (Dirk Wenzel)
+2015-12-02 447cf36 [TASK] EventRepository->createConstraintsFromDemand refactored. Unit tests added. (Dirk Wenzel)
+2015-11-29 81bb015 [BUGFIX] Changed range for maxItems field in flex form to lower 1. This is a workaround for core bug https://forge.typo3.org/issues/70916 (range is not evaluated correctly and prevents from saving the flex form) (Dirk Wenzel)
+2015-11-29 1444498 [TASK] unit tests for AbstractDemandedRepository added. Its method combineConstraints now supports NotOr and NotAnd conjunction too. (Dirk Wenzel)
+2015-11-28 b82703c [TASK] suggest wizards for pages added to plugin flex form (Dirk Wenzel)
+2015-11-28 8acd3d9 [TASK] EventController->createDemandFromSettings refactored. Hook in AbstractDemandedRepository->generateQuery moved up to allow changing constraints array. Signature of DemandInface->setSeach changed to require Search object. (Dirk Wenzel)
+2015-11-25 e44889c [TASK] unit tests for AbstractDemandedRepository added. (Dirk Wenzel)
+2015-11-25 3c78cb6 [TASK] default sort field for genres, venues and event types in quickMenuAction set to title (Dirk Wenzel)
+2015-11-25 5ec1195 [BUGFIX] fixed error which prevented custom template layouts from being displayed in plugin settings. (caused by changes in core from 7.6.0 on) (Dirk Wenzel)
+2015-11-25 4dda1b7 [TASK] display of fields in Event plugin adapted according selected action. Field select_key (plugin mode) is now hidden by default. (Dirk Wenzel)
+2015-11-25 dd4d03a [TASK] Event plugin now allows to prevent any output from being displayed if the query result is empty. (Dirk Wenzel)
+2015-11-24 c26a80e [TASK] unit test for CalendarController added, method getInterval refactored. (Dirk Wenzel)
+2015-11-24 c42831a [TASK] unit test for CalendarController added, method getInterval refactored. (Dirk Wenzel)
+2015-11-24 f1059e0 [BUGFIX] use custom format.date view helper (prevents error caused by missing argument base) (Dirk Wenzel)
+2015-11-24 6f5ed79 [BUGFIX] set dependency from static_info_tables (Dirk Wenzel)
+2015-11-24 8bff628 [BUGFIX] fixed error caused by missing time zone in CalendarDay and CalendarController. (Dirk Wenzel)
+2015-11-24 22105e5 [BUGFIX] fixed error caused by missing time zone in CalendarDay and CalendarController. (Dirk Wenzel)
+2015-11-23 bd49047 [BUGFIX] fatal error caused by missing view helper arguments in templates fixed (Dirk Wenzel)
+2015-11-22 014cc6e [TASK] default ordering removed in quickMenuAction. Localized string added. (Dirk Wenzel)
+2015-11-09 e3c1507 [BUGFIX] illegal usage of short array notation corrected. (Dirk Wenzel)
+2015-11-06 0b47525 [TASK] PHP 5.3 is no longer supported. (Dirk Wenzel)
+2015-11-06 48afb11 [BUGFIX] failing unit tests fixed (Dirk Wenzel)
+2015-11-06 2f5f4c9 [TASK] hook into AbstractDemandedRepository->findDemanded implemented (Dirk Wenzel)
+2015-11-06 f7a4aeb [TASK] EventRepository now uses findDemanded from parent class. Set and read orderings in demand object. (Dirk Wenzel)
+2015-11-06 e2e742b [TASK] code cleanup (Dirk Wenzel)
+2015-11-06 e4bace1 [BUGFIX] fixed error in BackendUtility hook which prevented plugins from being copied. (Dirk Wenzel)
+2015-10-25 aeaaffe [TASK] PersonRepository implemented. (Dirk Wenzel)
+2015-10-25 67464f8 [BUGFIX] TCA: ordering of PersonType corrected. (Dirk Wenzel)
+2015-10-25 dcf1973 [TASK] code cleanup (Dirk Wenzel)
+2015-10-25 67795a3 [TASK] prevent type icons below select fields from being displayed. (Dirk Wenzel)
+2015-10-23 96bf5ea [TASK] models Person and PersonType implemented (Dirk Wenzel)
+2015-10-23 e675f89 [TASK] allow additional initialization in proxy classes (Dirk Wenzel)
+2015-10-22 aa58067 [TASK] ProxyClass generator implemented (adapted from tx_news by Georg Ringer) (Dirk Wenzel)
+2015-10-22 eb05aa4 [TASK] assign content objects data to list view (Dirk Wenzel)
+2015-10-21 be8d9a1 [BUGFIX] fix format of start date of Performance/DateRange view helper if no end date is given (Dirk Wenzel)
+2015-10-21 3ba8ac3 [TASK] view helper Format/Event/DateRange implemented (Dirk Wenzel)
+2015-10-21 6419489 [BUGFIX] fixed error cause by wrong argument in Format/Date view helper (Dirk Wenzel)
+2015-10-21 5a28bb4 [TASK] new view helper Format/Performance/DateRange implemented (Dirk Wenzel)
+2015-10-21 8d06db0 [TASK] property endDate added to Performance (Dirk Wenzel)
+2015-10-21 321fcb4 [TASK] Format/Date view helper now has an optional argument base and respects the current timezone. (Dirk Wenzel)
+2015-10-12 a7cede8 [TASK] unit tests for CalendarDay, CalendarMonth, CalendarWeek and CalendarYear added. (Dirk Wenzel)
+2015-10-12 9ed9dac [TASK] Extension is compatible with TYPO3 versions from 6.2.0-7.5.99 (Dirk Wenzel)
+2015-10-12 3e661ed [TASK] CalendarController refactored for display of calendar year, template implemented. (Dirk Wenzel)
+2015-10-11 28c5c0b [TASK] CalendarController methods getStartDate, getCalendarYear, getCurrentCalendarYear implemented (Dirk Wenzel)
+2015-10-11 f7f3009 [TASK] CalendarYear implemented. Property currentYear added to Calendar. (Dirk Wenzel)
+2015-09-08 cc8ad32 [TASK] template for calendar week implemented (Dirk Wenzel)
+2015-09-08 0a82c4f [TASK] Determine start date for calendar week and add week to calendar in widget controller. Unintended offset in start date for month caused by wrong date string corrected. Template for mini month improved: buttons for year back and ahead added. Detect view mode in template and allow navigation there. (Dirk Wenzel)
+2015-09-07 7a0b635 [TASK] render events whithout pagination too (Dirk Wenzel)
+2015-09-07 b658063 [TASK] comboPane implemented (Dirk Wenzel)
+2015-09-05 1a11a29 [TASK] loading indicator added. Click event for ajax navigation registered for dynamically generated items. (Dirk Wenzel)
+2015-09-05 6e3fd2f [TASK] Skip uncovered files from whitelist in coverage report. Show coverage on stdout. (Dirk Wenzel)
+2015-09-05 3133af8 whitelist for code coverage configured (Dirk Wenzel)
+2015-09-04 8eeb753 [TASK] default values for parameters of indexAction changed. (optional parameters are not properly detected) (Dirk Wenzel)
+2015-09-04 3602d66 [TASK] Calendar now allows enabling Ajax. Necessary JavaScript has to be added manually. JavaScript resources folder renamed. jQuery library added. (Dirk Wenzel)
+2015-09-02 7270689 [TASK] visibility of flex form fields adapted. Hook moved to BackendUtility class. Default value for periodDuration set. closes #6 (Dirk Wenzel)
+2015-09-02 b61bf92 [BUGFIX] added noCache and noCacheHash parameter to forms in List and QuickMenu template. (Dirk Wenzel)
+2015-09-02 3020628 [TASK] set compatible version to  TYPO3 7.4 (Dirk Wenzel)
+2015-09-02 775434a [BUGFIX] prevent error in detail view link caused by missing pluginName and controller argument (Dirk Wenzel)
+2015-09-02 eaa3b20 [TASK] variable annotation added (Dirk Wenzel)
+2015-09-02 1b563ef [BUGFIX] AbstractDemand-> setLimit doesn't allow zero value anymore. (Dirk Wenzel)
+2015-09-02 bfea646 [TASK] remove deprecated strict option from unit test configuration (Dirk Wenzel)
+2015-09-02 6394641 [BUGFIX] coverage annotation corrected (Dirk Wenzel)
+2015-09-02 d56cf9c [BUGFIX] covage annotation corrected (Dirk Wenzel)
+2015-09-02 efef689 [BUGFIX] covage annotation corrected (Dirk Wenzel)
+2015-09-02 1f7b44c [BUGFIX] use new syntax for wizards in TCA (Dirk Wenzel)
+2015-09-02 c80ece6 [BUGFIX] prevent NULL value for limit in EventRepository (Dirk Wenzel)
+2015-09-02 6c84721 [BUGFIX] obsolete file TeaserController_dw.php removed. (Dirk Wenzel)
+2015-09-02 ed625d9 [TASK] code cleanup (Dirk Wenzel)
+2015-09-02 86bb69c [TASK] logic from EventController->calendarAction moved to widget controller CalendarController. CalendarViewHelper implemented. (Dirk Wenzel)
+2015-09-02 ab28ee2 [TASK] flex form has new option showCalendarNavigation (Dirk Wenzel)
+2015-09-02 c4fa0af [TASK] method getMonth added to Calendar,  coverage annotation corrected (Dirk Wenzel)
+2015-09-02 f4dc2d5 [TASK] property startDate and method getMonth added to CalendarMonth (Dirk Wenzel)
+2015-09-01 6555bf1 [TASK] flex form options for calendar added (Dirk Wenzel)
+2015-09-01 f91d288 [TASK] display period added to Calendar (Dirk Wenzel)
+2015-09-01 987574f [TASK] coverage annotation corrected (Dirk Wenzel)
+2015-09-01 b70dc01 [TASK] Calendar implemented (Dirk Wenzel)
+2015-09-01 3296e79 [BUGFIX] file name of  CalendarDayTest corrected (Dirk Wenzel)
+2015-09-01 3ee1025 [TASK] CalendarMonth implemented (Dirk Wenzel)
+2015-09-01 c48c42e [TASK] CalendarWeek implemented (Dirk Wenzel)
+2015-09-01 930c40b [TASK] CalendarDay implemented (Dirk Wenzel)
+2015-08-13 8526101 [TASK] EventController->createCalendarConfigurationFromSettings now sets defaults. Use it in calendarAction. (Dirk Wenzel)
+2015-08-13 f01bba8 [BUGFIX] failing unit tests for EventController fixed (Dirk Wenzel)
+2015-07-20 ac43945 [BUGFIX] file GeocodingInterface.php renamed to GeoCodingInterface.php in order to match interface name. Closes: #28 (Dirk Wenzel)
+2015-07-17 dd4ec18 [TASK] plugin option for detail view (only) added, labels for switchable controller actions adapted. (Dirk Wenzel)
+2015-07-01 65cee99 [TASK] CalendarController implemented (Dirk Wenzel)
+2015-07-01 a55f59f [TASK] CalendarConfiguration implemented. Use it in EventController (Dirk Wenzel)
+2015-06-19 0c37b9a [TASK] !!! Breaking changes: Sort options in plugin changed. Please update plugin settings. Default QuickMenu template rewritten. (Dirk Wenzel)
+2015-06-18 337a569 [TASK] EventRepository refactored: all constraints are now build in method createConstraintsFromDemand. Search fields added to QuickMenu template. Flex form option added. (Dirk Wenzel)
+2015-06-18 69046cd [TASK] full text search and radius search implemented. (Dirk Wenzel)
+2015-06-18 14c4dc3 [TASK] format.date view helper implemented. It allows to format a time value (given as integer of seconds) according to a date (respecting timezone, day light saving zone etc.) (Dirk Wenzel)
+2015-06-18 a3fc110 [BUGFIX] annotation corrected, default values removed from table configuration of fields 'admission', 'begin' and 'end'. (Dirk Wenzel)
+2015-06-15 7ba93af [TASK] event.performances view helper now respects a given date format for date ranges too and supports strftime compatible format strings. (Dirk Wenzel)
+2015-06-15 864d794 [BUGFIX] error in configuration of table tx_t3event_domain_model_event corrected which prevented display of field organizer. (Dirk Wenzel)
+2015-06-15 5fd97a7 [BUGFIX] error in configuration of table tx_t3events_domain_model_eventlocation corrected which prevented proper display of records. (Dirk Wenzel)
+2015-06-15 5b30dcb [TASK] made table configuration cacheable. (Dirk Wenzel)
+2015-06-09 f47411b [BUGFIX] put periodConstraints into array (if any) (Dirk Wenzel)
+2015-06-09 d91642e [TASK] extension builder artifacts removed (Dirk Wenzel)
+2015-06-08 0a0c7af [TASK] model Event now has an additional field 'teaser'. Table configuration for field 'description' changed to contain an RTE (Dirk Wenzel)
+2015-06-08 b01f0b4 [TASK] code cleanup (Dirk Wenzel)
+2015-06-08 ab456d5 [BUGFIX] annotation corrected, cast all integer params (Dirk Wenzel)
+2015-06-05 07880df [FEATURE] Calendar view for events implemented (Christian Matthes)
+2015-05-22 54d2220 [BUGFIX] startDate and endDate now use DateTime instead of string for query; correction of endDate calculation when endDate is not set (Christian Matthes)
+
+2015-04-16         [RELEASE] Release of t3events 0.16.2 (Dirk Wenzel)
+2015-04-16 473102e [TASK] spelling of class names corrected (Dirk Wenzel)
+2015-04-15 487a874 [BUGFIX] Compatibility fix for TYPO3 CMS 7.1 (Christian Matthes)
+
+2015-02-24         [RELEASE] Release of t3events 0.16.1 (Dirk Wenzel)
+2015-02-24 652e737 [BUGFIX] test for empty array, closes #26 (Dirk Wenzel)
+2015-02-23 16eb1b4 [BUGFIX] respect period in date constraint (Dirk Wenzel)
+2015-01-27 b48708e Update .travis.yml (Dirk Wenzel)
+2015-01-27 ba9b8f2 skip test (failing because of missing dependency) (Dirk Wenzel)
+2015-01-26 785f4c9 revert: test fix php error: --ignore-platform-reqs added to composer install command (Dirk Wenzel)
+2015-01-26 ec2973d revert: test fix php error: --ignore-platform-reqs added to composer install command (Dirk Wenzel)
+2015-01-26 798be0f test fix php error: --ignore-platform-reqs added to composer install command (Dirk Wenzel)
+2015-01-26 b099bf5 unit test for EventLocation edited: mock model and Country object (Dirk Wenzel)
+2015-01-26 6104bbe [TASK] method createDemandFromSettings implemented, listAction refactored (Dirk Wenzel)
+2015-01-26 0e553b3 error in TeaserRepository fixed: add constraints only if not empty) (Dirk Wenzel)
+2015-01-26 0a79c50 unit tests for TeaserController added (Dirk Wenzel)
+2015-01-26 88c12cb error in unit test for AbstractController fixed (Dirk Wenzel)
+2015-01-25 94fc9bf base class for test cases changed from extbase to core (Dirk Wenzel)
+2015-01-25 5a7da26 unit test for method createDemandObjectFromSettings implemented (Dirk Wenzel)
+2015-01-25 449a76f [BUGFIX] prevent error which occurs due to missing array if none of performances has a status set (Dirk Wenzel)
+2015-01-25 fb2bbd2 [BUGFIX] fixed error caused by invalid argument in for each if overwriteDemand is NULL (Dirk Wenzel)
+
+2014-12-04 [RELEASE] Release of t3events 0.16.0 (Dirk Wenzel)
+2014-12-04 c56c2fc [TASK] use method findDemanded from AbstractDemandedRepository (Dirk Wenzel)
+2014-11-20 66f12a5 [BUGFIX] update changed records in performancRepository. Use @inject instead of inject-Methods (Dirk Wenzel)
+2014-11-20 d7118e0 [TASK] .gitignore added (Dirk Wenzel)
+2014-11-20 eb671f6 [BUGFIX] class path for Typo3QuerySettings corrected (Dirk Wenzel)
+2014-11-20 e797281 [BUGFIX] missing DemandInterface added (Dirk Wenzel)
+2014-10-24 a5dd2e4 [FEATURE] plugin flexform now adapts visible fields according to selected action (Dirk Wenzel)
+2014-10-22 79227a9 [TASK] add new constraint by event locations (Dirk Wenzel)
+2014-10-22 d625b7e [TASK] new field eventLocations, getter and setter implemented (Dirk Wenzel)
+2014-10-22 dae23d9 [TASK] new field constraintsConjunctions, getter and setter added (Dirk Wenzel)
+2014-10-22 36c4791 [TASK] AbstractDemandedRepository edited - new magic method countContaining<PropertyName> implemented - helper method combineConstraints implemented (Dirk Wenzel)
+2014-10-20 6e1d00a [BUGFIX] mock external class in unit test (Dirk Wenzel)
+2014-10-17 3755252 [TASK] respect orderings from demand in performance repositoy (Dirk Wenzel)
+2014-10-09 86ed858 [BUGFIX] mapping of domain model Country edited, base class changed to static Country from static_info_tables (Dirk Wenzel)
+2014-10-06 3f6ba99 [BUGFIX] File moved to correct folder. (Dirk Wenzel)
+2014-10-06 86b8e82 [FEATURE] Geolocation: Eventlocation now has fields for latitude and longitude. They allow to display the location on a map. (Dirk Wenzel)
+2014-10-06 63a973e GeocodingInterface implemented (Dirk Wenzel)
+2014-09-24 99d6fd4 params of method findDemanded adapted, missing argument in call of method createConstraintsFromDemand added (Dirk Wenzel)
+2014-09-24 f85671c [TASK] refactor performance repository: create constraints in method createConstraintsFromDemand (Dirk Wenzel)
+2014-09-24 506dc79 [BUGFIX] missing field hidden, getter and setter added. (Dirk Wenzel)
+2014-09-24 961c11a [TASK] unit test for Event added (Dirk Wenzel)
+2014-09-24 292c887 [BUGFIX] wrong classname containing underscores corrected (Dirk Wenzel)
+2014-09-23 223ba25 [BUGFIX] calls of method getStoragePage replaced by getStoragePages (Dirk Wenzel)
+2014-09-23 1d96dad version 0.16.0-dev (Dirk Wenzel)
+2014-09-23 a151e3b deprecated method replaced, dev version number set (Dirk Wenzel)
+2014-09-23 98bc98b class AbstractDemandedRepository implemented. Use it as parent of EventRepository and PerformanceRepository (Dirk Wenzel)
+2014-09-22 6edb739 fixed error caused by missing method setRespectEnableFields (Dirk Wenzel)
+2014-09-19 c96ebd6 base class changed to AbstractRepository (Dirk Wenzel)
+2014-09-09 d88bf04 class name of query settings corrected (Dirk Wenzel)
+2014-08-12 7aeaa4b missing settings variable added to call of createDemandFromSettings (Dirk Wenzel)
+2014-08-12 0a65edd methods EventController::createDemandFromSettings and ::overwriteDemandObject implemented (Dirk Wenzel)
+2014-08-11 fb02515 typo in unit test for EventController corrected (Dirk Wenzel)
+2014-08-11 00c1a8b Base class of EventController changed to AbstractController, use methods addFlashMessage and translate (Dirk Wenzel)
+2014-08-11 f0ba0d4 typo in @covers annotation corrected (Dirk Wenzel)
+2014-08-11 c159529 clas AbstractController implemented (Dirk Wenzel)
+2013-07-19 	Dirk Wenzel <wenzel@webfox01.de>
+	0.14-1	- some language keys added
+2013-07-16 	Dirk Wenzel <wenzel@webfox01.de>
+	0.14.0	[Feature] #50071 HeaderData ViewHelper implemented
+			[Feature] #50070 MetaTag ViewHelper implemented
+			Trim ViewHelper implemented
+2013-07-11 	Dirk Wenzel <wenzel@webfox01.de>
+	0.13.0	- [FEATURE] #49899 Title Tag ViewHelper - display title tag and set title for indexed search 
+2013-06-25	Dirk Wenzel <wenzel@webfox01.de>
+	0.12.1	- Fix for issue #49407 typo3-debug-console message: selectItemsTCA in class tx_staticinfotables_div, hotlist feature replaced by suggest wizard in
+			TCA for EventLocation
+			- Plugin Configuration changed to prevent non-caching behaviour of list plugin (#49390)
+			- Fix for issue #49425 Add french localisation for frontend by courtesy of Daniel Huf
+			- Code cleanup
+2013-06-15	Dirk Wenzel <wenzel@webfox01.de>
+	0.11.0 	- New Feature: Events are now aware of fe user group access rights
+2013-06-10	Dirk Wenzel <wenzel@webfox01.de>
+			- New task implemented: hide performances by date
+2013-06-10	Dirk Wenzel <wenzel@webfox01.de>
+	0.10.2	- Bugfix for issue #48982 Plugin shows INVALID VALUE... instead of plugin type.
+2013-06-06	Dirk Wenzel <wenzel@webfox01.de>
+	0.10.1	- fixed broken itemProcFunc in plugin flexform caused by line break
+2013-06-06	Dirk Wenzel <wenzel@webfox01.de>
+	0.10.0	New features: 
+			- plugin namespace: plugin namespace can now be set thus allowing to use multiple plugin instances on one page
+			- plugin layout: new field in plugin allows setting a layout value which can be used in fluid template.
+			- listAction of EventController now returns an ordered array of events when called with parameter [overwriteDemand][uidList] (comma separated string or array) 
+2013-05-30	Dirk Wenzel <wenzel@webfox01.de>
+	0.9.2	- Changed TCA of performance: sort select field for event location by name
+2013-05-25	Dirk Wenzel <wenzel@webfox01.de>
+	0.9.1	- Bugfix for issue #48537 List Plugin does not respect time restriction when venue is set.
+2013-05-23	Dirk Wenzel <wenzel@webfox01.de>
+	0.9.0	- New feature: List plugin now allows flexible filtering by time period (issue #48439)
+2013-05-22	Dirk Wenzel <wenzel@webfox01.de>
+	0.8.3	- Bugfix for issue #48428 Performances are not sorted correctly in frontend
+2013-05-07	Dirk Wenzel <wenzel@webfox01.de>
+	0.8.2	- Bugfix for issue #48006 List Plugin prevents caching
+			- Bugfix for issue #48017 List Plugin doesn't show more than 100 events
+2013-05-02	Dirk Wenzel <wenzel@webfox01.de>
+	0.8.1	- Bugfix for issue #47851 'Scheduler task fails when an event has no location'
+2013-05-02	Dirk Wenzel <wenzel@webfox01.de>
+			- New viewhelper event.performances.locations.count
+			- Fix for issue #47825 'Event Viewhelper does not show unique location list correctly'
+			- Fix for issue #47820 'Show event location only once for multiple performances at the same location'
+			- Default JavaScript removed (was trivial and required jQuery), closes issues #46792 and #46791
+			- code cleanup
+2013-04-23	Dirk Wenzel <wenzel@webfox01.de>
+	0.7.2	- fix for bug 47512: List Plugin does not respect genre constraint
+2013-04-23	Dirk Wenzel <wenzel@webfox01.de>
+	0.7.1	- fix for bug 47503: List Plugin doesn't respect venue constraint
+2013-04-17	Dirk Wenzel <wenzel@webfox01.de>
+	0.7.0	New Feature: Teaser-Plugin now allows to select upcoming/past/all events. 
+2013-04-09	Dirk Wenzel <wenzel@webfox01.de>
+	0.6.7	- fixed error in ExtensionService with wrong method parameter
+			- code cleanup 
+2013-04-08	Dirk Wenzel <wenzel@webfox01.de>
+	0.6.6	FE Plugin can now be configured as non-cached. 
+2013-04-05	Dirk Wenzel <wenzel@webfox01.de>
+	0.6.5	All image fields now allow to select existing images. 
+			TCA cleanup. 
+			FE Plugin now allows to select random teaser (Attention! this feature is still experimental. It works only with MySQL DB and without caching!) 
+			TYPO3 version constraint changed: currently version 4.5.x is not supported because of missing comment view helper in fluid 1.
+			Code cleanup.
+2013-03-27	Dirk Wenzel <wenzel@webfox01.de>
+	0.6.1	Bug Fixes, changes to TCA, TypoScript and default CSS, and code cleanup: 
+			Issues [Bug #46493], [Bug #46495], [Bug #46499] fixed.
+			Please save the old CSS file before updating and adapt your TypoScript.
+2013-03-13 	Dirk Wenzel <wenzel@webfox01.de>
+	0.6.0	- New Features: Domain Model Task for automatic update via scheduler and scheduler task implemented
+			- some localization for backend added
+2013-02-27 	Dirk Wenzel <wenzel@webfox01.de>
+	0.5.0	- New features - Please update your database
+			- Teaser now contains field for external link (Partial Teaser/Item.html changed!)
+			- Event List and Quick Menus now allow filtering by event type
+2013-02-27 	Dirk Wenzel <wenzel@webfox01.de>
+	0.4.1	- Localization of BE improved.
+			- code cleanup
+2013-02-26 	Dirk Wenzel <wenzel@webfox01.de>
+	0.4.0	- New Features - Please update your database
+			- Events now contain new field venue
+			- Quick Menu allows filtering event list by venues (template file QuickMenu.html changed!). 
+			- some test cases added 
+2013-02-17	Dirk Wenzel <wenzel@webfox01.de>
+	0.3.11	- failing unit tests fixed
+			- fatal error of teaser plugin fixed
+			- code cleanup
+2013-02-17	Dirk Wenzel <wenzel@webfox01.de>
+	0.3.10 	- code cleanup (rules compliance improved)
+2013-02-16	Dirk Wenzel <wenzel@webfox01.de>
+	0.3.9 	- fixed bug which prevented teaser plugin from showing correct amount of teasers (please adapt your plugin settings!) [Bug #45525]
+			- documentation improved
+2013-02-15	Dirk Wenzel <wenzel@webfox01.de>
+	0.3.8	- fixed bug which prevented quick menu from working
+			- debug messages from teaser template removed  
+2013-02-14	Dirk Wenzel <wenzel@webfox01.de>
+	0.3.6	- made TicketClass title and color exclude fields
+2013-02-12	Dirk Wenzel <wenzel@webfox01.de>
+	0.3.6	- PerformancesViewhelper:getLowestPrice() now allways returns float as expected. Partial Teaser/Item changed: displays price only when at least one performance with one ticketClass is available [Bug #45457] 
+2013-02-12	Dirk Wenzel <wenzel@webfox01.de>
+	0.3.5	- Plugin is now configurable to show only past, only future or all events (list view)
+			- fancy icons for records added
+2013-02-11 	Dirk Wenzel <wenzel@webfox01.de>
+			- PerformancesViewHelper: type 'crucialStatus' renders title when tag has no children
+2013-01-30 	Dirk Wenzel <wenzel@webfox01.de>
+	0.3.4	- removed debug view helper from pagination template
+			- teaser item template changed to respect 'inheritData' settings
+			- BE label for performances now contains date and name of event location
+			- extension icon added
+2013-01-29 Dirk Wenzel	<wenzel@webfox01.de>
+	0.3.1	- pagination template changed: don't show page number when only one page is visible
+			- added some documentation
+2013-01-27 Dirk Wenzel	<wenzel@webfox01.de>
+	0.3.0	- extension renamed to t3events
+			- dependency for static_info_tables_extbase removed (not available/necessary in 6.0 any more)
+			- added documentation in manual.sxw (not yet completed)
+			- minor template changes
+			- localization for be added (plugin)
+2013-01-26 Dirk Wenzel	<wenzel@webfox01.de>
+	0.2.3	- set list action non-cachable to prevent error with sort menu 
+				caused by cached content
+			- use lazy loading for relations to improve performance
+			- code cleanup
+			- add a wrap around highlights and teasers in teaser list
+			- implemented type 'lowestPrice' for ts:event.performances view helper
+2013-01-26 Michael Kasten  <kasten@webfox01.de>
+  	0.2.2 	- add an id to the quickmenu select and submit, in the quickmenu template: Event/Quickmenu.html
+	 	    - add an id, label and fieldset html tags to the sorting form in the list template : Event/List.html
+	      	- change to the correct version number in emconf :)
+2013-01-25 Dirk Wenzel    <wenzel@webfox01.de>
+  	0.2.1   - set list action non-cachable to prevent error with sort menu 
+             caused by cached content
+            - use lazy loading for relations to improve performance
+            - code cleanup
+            - add a wrap around highlights and teasers in teaser list
+2013-01-25 Dirk Wenzel    <wenzel@webfox01.de>
+    0.2.0   - sorting for list completed (direction added)
+            - localized strings added
+            - header removed from quick menu template
+2013-01-25 Dirk Wenzel    <wenzel@webfox01.de>
+    0.1.5   - quick search improved
+            - sorting for list view implemented
+2013-01-25 Michael Kasten  <kasten@webfox01.de>
+	0.1.4 - edit the teaser list item template
+2013-01-25 Dirk Wenzel    <wenzel@webfox01.de>
+    0.1.3   - quick search implemented
+            - plugin configuration improved
+            - CSS cleanup (custom code removed)
+2013-01-17 Dirk Wenzel    <wenzel@webfox01.de>
+    0.1.2   - prepare for search changes in teaser and event repositories and controllers
+            - sorting for teasers and events implemented 
+2013-01-15 Dirk Wenzel    <wenzel@webfox01.de>
+    0.1.1   - made debug statement in TicketClass/Item and Teaser/List templates conditional
+2013-01-15 Dirk Wenzel    <wenzel@webfox01.de>
+    0.1.0   - main functions implemented - beta status
+2012-12-18 Dirk Wenzel    <wenzel@webfox01.de>
+    0.0.3   - templates and styling almost finished
+2012-12-05 Dirk Wenzel  <wenzel@webfox01.de>
+    0.0.2   - teaser viewhelper partly implemented
+2012-11-11 Dirk Wenzel  <wenzel@webfox01.de>
+    0.0.1   - initial code: DB, model, TCA

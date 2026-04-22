@@ -1,0 +1,13 @@
+﻿.. |img-3|      image:: ../../Images/eventGeneralTab.png
+   :height: 514
+   :width: 374
+.. :align: left
+.. :border: 0
+.. :name: Grafik1
+
+.. |img-4|      image:: ../../Images/manual_html_m63a1b3be.png
+   :height: 429
+   :width: 577
+.. :align: left
+.. :border: 0
+.. :name: Grafik3

@@ -1,0 +1,30 @@
+<phpunit
+	backupGlobals="true"
+	backupStaticAttributes="false"
+	bootstrap="../../.Build/vendor/nimut/testing-framework/res/Configuration/UnitTestsBootstrap.php"
+	colors="true"
+	convertErrorsToExceptions="true"
+	convertWarningsToExceptions="true"
+	forceCoversAnnotation="false"
+	processIsolation="false"
+	stopOnError="false"
+	stopOnFailure="false"
+	stopOnIncomplete="false"
+	stopOnSkipped="false"
+	verbose="false">
+
+	<testsuites>
+		<testsuite name="EXT:t3events tests">
+			<directory>../Unit/</directory>
+		</testsuite>
+	</testsuites>
+	<filter>
+		<whitelist processUncoveredFilesFromWhitelist="false">
+			<directory suffix=".php">../../Classes/</directory>
+		</whitelist>
+	</filter>
+	<logging>
+		<log type="coverage-text" target="php://stdout" showUncoveredFiles="true" />
+	</logging>
+
+</phpunit>

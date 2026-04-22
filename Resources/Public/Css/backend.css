@@ -1,0 +1,64 @@
+.tx-t3events .button-group form {
+	display: inline-block;
+}
+
+.tx-t3events form .button-group {
+	clear: both;
+	margin-top: 1em;
+}
+
+.tx-t3events .clear {
+	clear: both;
+}
+
+.tx-t3events .column {
+	width: 33%;
+	min-width: 230px;
+	float: left;
+}
+
+.tx-t3events .button {
+	display: inline-block;
+}
+
+.tx-t3events a.button,
+.tx-t3events input.button {
+	width: auto;
+	margin: 0 10px 0 0;
+	background: #1C3862;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	color: #FFFFFF;
+	font-size: 12px;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.tx-t3events a.button {
+	padding: 8px 22px;
+}
+
+.tx-t3events input.button {
+	padding: 10px 22px;
+}
+
+.tx-t3events a.button:hover,
+.tx-t3events input.button:hover {
+	background: #CD1421;
+}
+
+/* Buttons */
+.button-group .button.left {
+	border-bottom-right-radius: 0;
+	border-top-right-radius: 0;
+}
+
+.button-group .button.right {
+	border-bottom-left-radius: 0;
+	border-top-left-radius: 0;
+}
+
+#typo3-docbody .button-group form {
+	margin-bottom: 0;
+}

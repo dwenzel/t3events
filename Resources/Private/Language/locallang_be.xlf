@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2016-12-13T12:38:35Z">
+		<trans-unit id="tx_t3events_domain_model_event.content_elements">
+			<source>Content Elements</source>
+		</trans-unit>
+            <body>
+		      <trans-unit id="flexforms_general.ajaxEnabled"><source>use Ajax</source></trans-unit>
+              <trans-unit id="flexforms_general.ascending"><source>ascending</source></trans-unit>
+              <trans-unit id="flexforms_general.backPage"><source>Back Page</source></trans-unit>
+              <trans-unit id="flexforms_general.cache.makeNonCacheable"><source>Don't cache plugin contents</source></trans-unit>
+              <trans-unit id="flexforms_general.conjunction"><source>Conjunction</source></trans-unit>
+              <trans-unit id="flexforms_general.categories"><source>Categories</source></trans-unit>
+              <trans-unit id="flexforms_general.conjunction.and"><source>And</source></trans-unit>
+              <trans-unit id="flexforms_general.conjunction.or"><source>Or</source></trans-unit>
+              <trans-unit id="flexforms_general.constraintBy"><source>constraint by</source></trans-unit>
+              <trans-unit id="flexforms_general.constraints"><source>Constraints</source></trans-unit>
+              <trans-unit id="flexforms_general.date"><source>Date</source></trans-unit>
+              <trans-unit id="flexforms_general.dateDesc"><source>Date descending</source></trans-unit>
+              <trans-unit id="flexforms_general.descending"><source>descending</source></trans-unit>
+              <trans-unit id="flexforms_general.detailPage"><source>Detail Page</source></trans-unit>
+              <trans-unit id="flexforms_general.displayPeriod"><source>Display Period</source></trans-unit>
+              <trans-unit id="flexforms_general.displayPeriodDay"><source>Day</source></trans-unit>
+              <trans-unit id="flexforms_general.displayPeriodMonth"><source>Month</source></trans-unit>
+              <trans-unit id="flexforms_general.displayPeriodQuarter"><source>Quarter</source></trans-unit>
+              <trans-unit id="flexforms_general.displayPeriodSemester"><source>Semester</source></trans-unit>
+              <trans-unit id="flexforms_general.displayPeriodTrimester"><source>Trimester</source></trans-unit>
+              <trans-unit id="flexforms_general.displayPeriodWeek"><source>Week</source></trans-unit>
+              <trans-unit id="flexforms_general.displayPeriodYear"><source>Year</source></trans-unit>
+              <trans-unit id="flexforms_general.duration"><source>Duration</source></trans-unit>
+              <trans-unit id="flexforms_general.end"><source>End</source></trans-unit>
+              <trans-unit id="flexforms_general.excludeSelectedStatuses"><source>exclude selected statuses</source></trans-unit>
+              <trans-unit id="flexforms_general.hideIfEmptyResult"><source>Hide plugin content if empty result</source></trans-unit>
+              <trans-unit id="flexforms_general.highlightsToTop"><source>highlights to top</source></trans-unit>
+              <trans-unit id="flexforms_general.label.events"><source>Events</source></trans-unit>
+              <trans-unit id="flexforms_general.label.performances"><source>Performances</source></trans-unit>
+              <trans-unit id="flexforms_general.listPage"><source>List Page</source></trans-unit>
+              <trans-unit id="flexforms_general.maxHighlighted"><source>Highlights count</source></trans-unit>
+              <trans-unit id="flexforms_general.maxItems"><source>Items count (max)</source></trans-unit>
+              <trans-unit id="flexforms_general.mode"><source>What to display</source></trans-unit>
+              <trans-unit id="flexforms_general.mode.event_list"><source>List/Detail</source></trans-unit>
+              <trans-unit id="flexforms_general.mode.event_show"><source>Detail</source></trans-unit>
+              <trans-unit id="flexforms_general.mode.performance_list_show"><source>List/Detail</source></trans-unit>
+              <trans-unit id="flexforms_general.mode.performance_show"><source>Detail</source></trans-unit>
+              <trans-unit id="flexforms_general.mode.quick_menu"><source>Quick Menu</source></trans-unit>
+              <trans-unit id="flexforms_general.pages"><source>Pages</source></trans-unit>
+              <trans-unit id="flexforms_general.period"><source>Period</source></trans-unit>
+              <trans-unit id="flexforms_general.period.all"><source>all</source></trans-unit>
+              <trans-unit id="flexforms_general.period.futureOnly"><source>future only</source></trans-unit>
+              <trans-unit id="flexforms_general.period.pastOnly"><source>past only</source></trans-unit>
+              <trans-unit id="flexforms_general.period.specific"><source>specific</source></trans-unit>
+              <trans-unit id="flexforms_general.period.specific.byDate"><source>Date</source></trans-unit>
+              <trans-unit id="flexforms_general.period.specific.byDay"><source>Days</source></trans-unit>
+              <trans-unit id="flexforms_general.period.specific.byMonth"><source>Months</source></trans-unit>
+              <trans-unit id="flexforms_general.period.specific.byYear"><source>Years</source></trans-unit>
+              <trans-unit id="flexforms_general.quick_menu.type"><source>Quick Menu: Type</source></trans-unit>
+              <trans-unit id="flexforms_general.quick_menu.type.eventTypes"><source>Event Types</source></trans-unit>
+              <trans-unit id="flexforms_general.quick_menu.type.genres"><source>Genres</source></trans-unit>
+              <trans-unit id="flexforms_general.quick_menu.type.venues"><source>Venues</source></trans-unit>
+              <trans-unit id="flexforms_general.random"><source>random</source></trans-unit>
+              <trans-unit id="flexforms_general.respectEndDate"><source>respect end date</source></trans-unit>
+              <trans-unit id="flexforms_general.showRadiusSearch"><source>Show Radius Search</source></trans-unit>
+              <trans-unit id="flexforms_general.showSearchField"><source>Show Search Field</source></trans-unit>
+              <trans-unit id="flexforms_general.sortBy"><source>sort by</source></trans-unit>
+              <trans-unit id="flexforms_general.sortDirection"><source>Sort Direction</source></trans-unit>
+              <trans-unit id="flexforms_general.start"><source>Start</source></trans-unit>
+              <trans-unit id="flexforms_general.statuses"><source>Status</source></trans-unit>
+              <trans-unit id="flexforms_general.template"><source>Template</source></trans-unit>
+              <trans-unit id="flexforms_general.templateLayout"><source>Template Layout</source></trans-unit>
+              <trans-unit id="flexforms_general.title"><source>Title</source></trans-unit>
+              <trans-unit id="flexforms_general.venues"><source>Venues</source></trans-unit>
+              <trans-unit id="flexforms_general.viewMode"><source>View Mode</source></trans-unit>
+              <trans-unit id="flexforms_general.viewModeComboPane"><source>Combo View</source></trans-unit>
+              <trans-unit id="flexforms_general.viewModeMiniMonth"><source>Single Month (small)</source></trans-unit>
+              <trans-unit id="flexforms_tab.settings"><source>Settings</source></trans-unit>
+              <trans-unit id="label.end"><source>End</source></trans-unit>
+              <trans-unit id="label.now"><source>Now</source></trans-unit>
+              <trans-unit id="label.start"><source>Start</source></trans-unit>
+              <trans-unit id="plugin.combined.title"><source>Events</source></trans-unit>
+
+        </body>
+	</file>
+</xliff>

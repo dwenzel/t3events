@@ -1,0 +1,88 @@
+{namespace ts=DWenzel\T3events\ViewHelpers}
+<!--suppress JSUnusedAssignment -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en"
+      xmlns:f="https://xsd.helhum.io/ns/typo3/cms-fluid/master/ViewHelpers">
+<f:layout name="Module"/>
+<f:section name="main">
+    <f:comment>
+        <f:debug title="demand">{demand}</f:debug>
+        <f:debug title="settings" inline="true">{settings}</f:debug>
+        <f:debug title="filterOptions">{filterOptions}</f:debug>
+        <f:debug title="events">{events}</f:debug>
+    </f:comment>
+
+    <h1>{f:translate(key: 'header.events')}</h1>
+
+    <f:comment>Search form</f:comment>
+    <f:render partial="Backend/Common/SearchForm"
+              arguments="{demand: '{demand}', overwriteDemand: '{overwriteDemand}', filterOptions: '{filterOptions}', showSubjectField: '{settings.search.showSubjectField}'}"/>
+    <f:flashMessages/>
+
+    <f:comment>Paginated list</f:comment>
+    <f:if condition="{events}">
+        <f:then>
+                <div class="panel panel-space panel-default recordlist">
+                    <table class="table table-striped table-hover typo3-dblist">
+                        <thead>
+                        <tr class="c-headline">
+                            <th class="col-icon">ID</th>
+                            <th class="col-title">{f:translate(key: 'label.title', default: 'Title')}</th>
+                            <th class="col-control"></th>
+                            <th>{f:translate(key: 'label.eventType', default: 'Event Type')}</th>
+                            <th>{f:translate(key: 'label.genres', default: 'Genres')}</th>
+                            <th>{f:translate(key: 'label.audience', default: 'Audience')}</th>
+                        </tr>
+                        </thead>
+                        <f:for each="{events}" as="event">
+                            <tr class="db_list_normal">
+                                <td nowrap="nowrap">{event.uid}</td>
+                                <td nowrap="nowrap">
+                                    <a class="actions-open"
+                                       title="Edit event {event.uid}"
+                                       href="{ts:be.editUri(
+                                                table: 'tx_t3events_domain_model_event',
+                                                record: event.uid,
+                                                module: module
+                                           )}"
+                                    >
+                                        {event.headline}
+                                    </a>
+                                </td>
+                                <td nowrap="nowrap" class="col-control">
+                                    <div class="btn btn-default">
+                                        <!--suppress HtmlUnknownTarget -->
+                                        <a class="actions-open"
+                                           title="Edit event {event.uid}"
+                                           href="{ts:be.editUri(
+                                                table: 'tx_t3events_domain_model_event',
+                                                record: event.uid,
+                                                module: module
+                                           )}"
+                                        >
+                                            <core:icon identifier="actions-open" />
+                                        </a>
+                                    </div>
+
+                                </td>
+                                <td nowrap="nowrap">{event.eventType.title}</td>
+                                <td nowrap="nowrap">
+                                    <f:for each="{event.genre}" as="genre" iteration="genreIteration">
+                                        {genre.title}{f:if(condition: '{genreIteration.isLast}', else: ', ')}
+                                    </f:for>
+                                </td>
+                                <td nowrap="nowrap">
+                                    <f:for each="{event.audience}" as="audience" iteration="audienceIteration">
+                                        {audience.title}{f:if(condition: '{audienceIteration.isLast}', else: ', ')}
+                                    </f:for>
+                                </td>
+                            </tr>
+                        </f:for>
+                    </table>
+                </div>
+        </f:then>
+    </f:if>
+</f:section>
+
+<f:comment>Header buttons</f:comment>
+<f:section name="headerButtons">
+</f:section>

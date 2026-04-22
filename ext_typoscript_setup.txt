@@ -1,0 +1,76 @@
+module.tx_t3events {
+    view {
+        templateRootPaths {
+            10 = {$module.tx_t3events.view.templateRootPaths.10}
+        }
+
+        partialRootPaths {
+            10 = {$module.tx_t3events.view.partialRootPaths.10}
+        }
+
+        layoutRootPaths {
+            10 = {$module.tx_t3events.view.layoutRootPaths.10}
+        }
+    }
+
+    settings {
+        persistence.storagePid = {$module.tx_t3events.persistence.storagePid}
+        storagePages = {$module.tx_t3events.persistence.storagePid}
+        event {
+            list {
+                maxItems = {$module.tx_t3events.settings.event.list.maxItems}
+                filter {
+                    genre = all
+                    audience = all
+                    venue = all
+                    eventType = all
+                    periods = futureOnly,pastOnly,all
+                }
+
+                paginate {
+                    itemsPerPage = 25
+                    insertBelow = 0
+                    insertAbove = 1
+                }
+            }
+
+            search {
+                fields = headline,subtitle
+                showSubjectField = 1
+            }
+        }
+
+        schedule {
+            list {
+                maxItems = {$module.tx_t3events.settings.schedule.list.maxItems}
+                period = all
+                filter {
+                    genre = all
+                    audience = all
+                    venue = all
+                    eventType = all
+                    periods = futureOnly,pastOnly,all
+                }
+
+                paginate {
+                    itemsPerPage = 25
+                    insertBelow = 0
+                    insertAbove = 1
+                }
+
+                search {
+                    fields = event.headline,event.subtitle
+                    showSubjectField = 1
+                }
+
+                order = date|asc,begin|asc
+            }
+        }
+    }
+}
+
+lib.compatVersion76 = TEXT
+lib.compatVersion76.value = false
+[compatVersion("7.6.0") || compatVersion("8.7.0")]
+    lib.compatVersion76.value = true
+[global]

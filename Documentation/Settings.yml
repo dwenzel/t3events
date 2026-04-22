@@ -1,0 +1,4 @@
+conf.py:
+  copyright: 2013-2015, Dirk Wenzel and Michael Kasten
+  project: t3vents
+  release: 0.42.4
