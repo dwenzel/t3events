@@ -155,6 +155,43 @@ plugin.tx_t3events {
     )
 }
 
+module.tx_t3events {
+    view {
+        templateRootPaths.0 = EXT:t3events/Resources/Private/Templates/
+        partialRootPaths.0 = EXT:t3events/Resources/Private/Partials/
+        layoutRootPaths.0 = EXT:t3events/Resources/Private/Layouts/
+    }
+
+    settings {
+        event {
+            list {
+                filter {
+                    genre = all
+                    audience = all
+                    venue = all
+                    eventType = all
+                    periods = futureOnly,pastOnly,all
+                }
+                search {
+                    fields = headline,subtitle
+                    showSubjectField = 1
+                }
+            }
+        }
+        schedule {
+            list {
+                filter {
+                    periods = futureOnly,pastOnly,all
+                }
+                search {
+                    fields = event.headline,event.subtitle
+                    showSubjectField = 1
+                }
+            }
+        }
+    }
+}
+
 ####################
 # config extbase to use a different template root path for paginate widget
 # this setting is part of a workaround for the limits of <f:widget.paginate /> view helper - specially the missing option to localize its output

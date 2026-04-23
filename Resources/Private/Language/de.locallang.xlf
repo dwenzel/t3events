@@ -118,12 +118,8 @@
             <target>Termine</target>
         </trans-unit>
         <trans-unit id="label.search.field.subject" approved="yes" xml:space="preserve">
-            <source>BAK number, title, description</source>
-            <target>BAK-Nummer, Titel, Beschreibung</target>
-        </trans-unit>
-        <trans-unit id="label.number" approved="yes" xml:space="preserve">
-            <source>BAK number</source>
-            <target>BAK-Nummer</target>
+            <source>Subject</source>
+            <target>Suchbegriff</target>
         </trans-unit>
         <trans-unit id="label.title" approved="yes" xml:space="preserve">
             <source>Title</source>

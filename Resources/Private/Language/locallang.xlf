@@ -86,10 +86,7 @@
 			<source>specific</source>
 		</trans-unit>
 		<trans-unit id="label.search.field.subject" xml:space="preserve">
-			<source>BAK number, title, description</source>
-		</trans-unit>
-		<trans-unit id="label.number" xml:space="preserve">
-			<source>BAK number</source>
+			<source>Subject</source>
 		</trans-unit>
 		<trans-unit id="label.title" xml:space="preserve">
 			<source>Title</source>

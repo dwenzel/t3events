@@ -26,15 +26,16 @@
                         <thead>
                         <tr class="c-headline">
                             <th class="col-icon">ID</th>
-                            <th>{f:translate(key: 'label.number', default: 'BAK-Nummer')}</th>
-                            <th class="col-title">{f:translate(key: 'label.title', default: 'Titel')}</th>
+                            <th class="col-title">{f:translate(key: 'label.title', default: 'Title')}</th>
+                            <th>{f:translate(key: 'label.eventType', default: 'Event Type')}</th>
+                            <th>{f:translate(key: 'label.genres', default: 'Genres')}</th>
+                            <th>{f:translate(key: 'label.audience', default: 'Audience')}</th>
                             <th class="col-control"></th>
                         </tr>
                         </thead>
                         <f:for each="{events}" as="event">
                             <tr class="db_list_normal">
                                 <td nowrap="nowrap">{event.uid}</td>
-                                <td nowrap="nowrap">{event.number}</td>
                                 <td nowrap="nowrap">
                                     <a class="actions-open"
                                        title="Edit event {event.uid}"
@@ -44,8 +45,19 @@
                                                 module: module
                                            )}"
                                     >
-                                        {event.title}
+                                        {event.headline}
                                     </a>
+                                </td>
+                                <td nowrap="nowrap">{event.eventType.title}</td>
+                                <td nowrap="nowrap">
+                                    <f:for each="{event.genre}" as="genre" iteration="genreIteration">
+                                        {genre.title}{f:if(condition: '{genreIteration.isLast}', else: ', ')}
+                                    </f:for>
+                                </td>
+                                <td nowrap="nowrap">
+                                    <f:for each="{event.audience}" as="audience" iteration="audienceIteration">
+                                        {audience.title}{f:if(condition: '{audienceIteration.isLast}', else: ', ')}
+                                    </f:for>
                                 </td>
                                 <td nowrap="nowrap" class="col-control">
                                     <div class="btn btn-default">

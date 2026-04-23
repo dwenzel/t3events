@@ -13,7 +13,7 @@
 
     <f:comment>Search form</f:comment>
     <f:render partial="Backend/Common/SearchForm"
-              arguments="{overwriteDemand: overwriteDemand, filterOptions: filterOptions, showSubjectField: '{settings.search.showSubjectField}'}"/>
+              arguments="{overwriteDemand: overwriteDemand, filterOptions: filterOptions, showSubjectField: settings.search.showSubjectField}"/>
     <f:flashMessages/>
 
     <f:comment>Paginated list</f:comment>
@@ -25,9 +25,9 @@
                         <tr class="c-headline">
                             <th class="col-icon">ID</th>
                             <th>{f:translate(key: 'label.date', default: 'Date')}</th>
-                            <th>{f:translate(key: 'label.endDate', default: 'End Date')}</th>
                             <th>{f:translate(key: 'label.eventLocation', default: 'Location')}</th>
                             <th>{f:translate(key: 'label.eventType', default: 'Event Type')}</th>
+                            <th>{f:translate(key: 'label.status', default: 'Status')}</th>
                             <th class="col-control"></th>
                         </tr>
                         </thead>
@@ -37,11 +37,9 @@
                                 <td nowrap="nowrap">
                                     <f:format.date format="d.m.Y">{schedule.date}</f:format.date>
                                 </td>
-                                <td nowrap="nowrap">
-                                    <f:format.date format="d.m.Y">{schedule.endDate}</f:format.date>
-                                </td>
                                 <td nowrap="nowrap">{schedule.eventLocation.name}</td>
-                                <td nowrap="nowrap">{schedule.eventType.title}</td>
+                                <td nowrap="nowrap">{schedule.event.eventType.title}</td>
+                                <td nowrap="nowrap">{schedule.status.title}</td>
                                 <td nowrap="nowrap">
                                     <div class="btn btn-default">
                                         <!--suppress HtmlUnknownTarget -->
@@ -66,4 +64,3 @@
 
 <f:comment>Header buttons</f:comment>
 <f:section name="headerButtons"/>
-
