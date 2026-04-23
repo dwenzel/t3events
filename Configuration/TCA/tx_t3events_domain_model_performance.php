@@ -1,10 +1,14 @@
 <?php
-if (!defined('TYPO3_MODE')) {
+use DWenzel\T3events\Utility\TableConfiguration;
+use DWenzel\T3events\Service\TCA\ScheduleConfigurationService;
+use TYPO3\CMS\Core\Resource\File;
+
+if (!defined('TYPO3')) {
     die('Access denied.');
 }
 $ll = 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf';
-$linkWizardIconPath = \DWenzel\T3events\Utility\TableConfiguration::getWizardIcon('link');
-$cll = \DWenzel\T3events\Utility\TableConfiguration::getLanguageFilePath() . 'locallang_general.xlf:';
+$linkWizardIconPath = TableConfiguration::getWizardIcon('link');
+$cll = TableConfiguration::getLanguageFilePath() . 'locallang_general.xlf:';
 
 return [
     'ctrl' => [
@@ -12,10 +16,9 @@ return [
         'label' => 'date',
         'label_alt' => 'event_location',
         'label_alt_force' => 1,
-        'label_userFunc' => \DWenzel\T3events\Service\TCA\ScheduleConfigurationService::class . '->getLabel',
+        'label_userFunc' => ScheduleConfigurationService::class . '->getLabel',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
-        'cruser_id' => 'cruser_id',
         'dividers2tabs' => true,
         'sortby' => 'sorting',
         'versioningWS' => true,
@@ -78,7 +81,7 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
-                    ['', 0],
+                    ['label' => '', 'value' => 0],
                 ],
                 'foreign_table' => 'tx_t3events_domain_model_performance',
                 'foreign_table_where' => 'AND tx_t3events_domain_model_performance.pid=###CURRENT_PID### AND tx_t3events_domain_model_performance.sys_language_uid IN (-1,0)'
@@ -101,10 +104,8 @@ return [
             'exclude' => 1,
             'label' => $cll . 'LGL.starttime',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'inputDateTime',
+                'type' => 'datetime',
                 'size' => 13,
-                'eval' => 'datetime',
                 'checkbox' => 0,
                 'default' => 0,
                 'behaviour' => [
@@ -116,10 +117,8 @@ return [
             'exclude' => 1,
             'label' => $cll . 'LGL.endtime',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'inputDateTime',
+                'type' => 'datetime',
                 'size' => 13,
-                'eval' => 'datetime',
                 'checkbox' => 0,
                 'default' => 0,
                 'behaviour' => [
@@ -137,16 +136,16 @@ return [
                 'maxitems' => 20,
                 'items' => [
                     [
-                        $cll . 'LGL.hide_at_login',
-                        -1,
+                        'label' => $cll . 'LGL.hide_at_login',
+                        'value' => -1,
                     ],
                     [
-                        $cll . 'LGL.any_login',
-                        -2,
+                        'label' => $cll . 'LGL.any_login',
+                        'value' => -2,
                     ],
                     [
-                        $cll . 'LGL.usergroups',
-                        '--div--',
+                        'label' => $cll . 'LGL.usergroups',
+                        'value' => '--div--',
                     ],
                 ],
                 'exclusiveKeys' => '-1,-2',
@@ -158,57 +157,51 @@ return [
             'exclude' => 0,
             'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_performance.date',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'inputDateTime',
+                'type' => 'datetime',
                 'size' => 7,
-                'eval' => 'date,required',
                 'checkbox' => 1,
-                'default' => strtotime('today')
+                'format' => 'date',
+                'required' => true
             ],
         ],
         'end_date' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_performance.endDate',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'inputDateTime',
+                'type' => 'datetime',
                 'size' => 7,
-                'eval' => 'date',
                 'checkbox' => 1,
-                'default' => strtotime('today')
+                'format' => 'date'
             ]
         ],
         'admission' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_performance.admission',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'inputDateTime',
+                'type' => 'datetime',
                 'size' => 4,
-                'eval' => 'time,int',
                 'checkbox' => 1,
+                'format' => 'time',
             ],
         ],
         'begin' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_performance.begin',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'inputDateTime',
+                'type' => 'datetime',
                 'size' => 4,
-                'eval' => 'time,int',
                 'checkbox' => 1,
+                'format' => 'time',
             ],
         ],
         'end' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_performance.end',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'inputDateTime',
+                'type' => 'datetime',
                 'size' => 4,
-                'eval' => 'time,int',
                 'checkbox' => 1,
+                'format' => 'time',
             ],
         ],
         'status_info' => [
@@ -225,18 +218,14 @@ return [
             'exclude' => 1,
             'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_performance.external_provider_link',
             'config' => [
-                'type' => 'input',
-                'softref' => 'typolink',
-                'renderType' => 'inputLink',
+                'type' => 'link',
             ]
         ],
         'additional_link' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_performance.additional_link',
             'config' => [
-                'type' => 'input',
-                'softref' => 'typolink',
-                'renderType' => 'inputLink',
+                'type' => 'link',
             ]
         ],
         'provider_type' => [
@@ -246,8 +235,8 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
-                    ['LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_performance.internal', 0],
-                    ['LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_performance.external', 1],
+                    ['label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_performance.internal', 'value' => 0],
+                    ['label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_performance.external', 'value' => 1],
                 ],
                 'size' => 1,
                 'maxitems' => 1,
@@ -257,7 +246,10 @@ return [
         'images' => [
             'exclude' => 1,
             'label' => $ll . ':tx_t3events_domain_model_performance.images',
-            'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig('images', [
+            'config' => [
+                ### !!! Watch out for fieldName different from columnName
+                'type' => 'file',
+                'allowed' => $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'],
                 'appearance' => [
                     'createNewRelationLinkTitle' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:images.addFileReference'
                 ],
@@ -270,39 +262,42 @@ return [
                             --palette--;;imageoverlayPalette,
                             --palette--;;filePalette'
                         ],
-                        \TYPO3\CMS\Core\Resource\File::FILETYPE_TEXT => [
+                        File::FILETYPE_TEXT => [
                             'showitem' => '
                             --palette--;;imageoverlayPalette,
                             --palette--;;filePalette'
                         ],
-                        \TYPO3\CMS\Core\Resource\File::FILETYPE_IMAGE => [
+                        File::FILETYPE_IMAGE => [
                             'showitem' => '
                             --palette--;;imageoverlayPalette,
                             --palette--;;filePalette'
                         ],
-                        \TYPO3\CMS\Core\Resource\File::FILETYPE_AUDIO => [
+                        File::FILETYPE_AUDIO => [
                             'showitem' => '
                             --palette--;;audioOverlayPalette,
                             --palette--;;filePalette'
                         ],
-                        \TYPO3\CMS\Core\Resource\File::FILETYPE_VIDEO => [
+                        File::FILETYPE_VIDEO => [
                             'showitem' => '
                             --palette--;;videoOverlayPalette,
                             --palette--;;filePalette'
                         ],
-                        \TYPO3\CMS\Core\Resource\File::FILETYPE_APPLICATION => [
+                        File::FILETYPE_APPLICATION => [
                             'showitem' => '
                             --palette--;;imageoverlayPalette,
                             --palette--;;filePalette'
                         ]
                     ]
                 ],
-            ], $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'])
+            ]
         ],
         'plan' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_performance.plan',
-            'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig('plan', [
+            'config' => [
+                ### !!! Watch out for fieldName different from columnName
+                'type' => 'file',
+                'allowed' => $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'],
                 'maxitems' => 1,
                 'appearance' => [
                     'createNewRelationLinkTitle' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:images.addFileReference'
@@ -316,34 +311,34 @@ return [
                             --palette--;LLL:EXT:core/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                             --palette--;;filePalette'
                         ],
-                        \TYPO3\CMS\Core\Resource\File::FILETYPE_TEXT => [
+                        File::FILETYPE_TEXT => [
                             'showitem' => '
                             --palette--;LLL:EXT:core/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                             --palette--;;filePalette'
                         ],
-                        \TYPO3\CMS\Core\Resource\File::FILETYPE_IMAGE => [
+                        File::FILETYPE_IMAGE => [
                             'showitem' => '
                             --palette--;LLL:EXT:core/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                             --palette--;;filePalette'
                         ],
-                        \TYPO3\CMS\Core\Resource\File::FILETYPE_AUDIO => [
+                        File::FILETYPE_AUDIO => [
                             'showitem' => '
                             --palette--;LLL:EXT:core/locallang_tca.xlf:sys_file_reference.audioOverlayPalette;audioOverlayPalette,
                             --palette--;;filePalette'
                         ],
-                        \TYPO3\CMS\Core\Resource\File::FILETYPE_VIDEO => [
+                        File::FILETYPE_VIDEO => [
                             'showitem' => '
                             --palette--;LLL:EXT:core/locallang_tca.xlf:sys_file_reference.videoOverlayPalette;videoOverlayPalette,
                             --palette--;;filePalette'
                         ],
-                        \TYPO3\CMS\Core\Resource\File::FILETYPE_APPLICATION => [
+                        File::FILETYPE_APPLICATION => [
                             'showitem' => '
                             --palette--;LLL:EXT:core/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                             --palette--;;filePalette'
                         ]
                     ]
                 ],
-            ], $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'])
+            ]
         ],
         'no_handling_fee' => [
             'exclude' => 1,
@@ -370,7 +365,7 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
-                    ['', 0],
+                    ['label' => '', 'value' => 0],
                 ],
                 'default' => 0,
                 'foreign_table' => 'tx_t3events_domain_model_eventlocation',
@@ -406,7 +401,7 @@ return [
                 'renderType' => 'selectSingle',
                 'l10nmode' => 'mergeIfNotBlank',
                 'items' => [
-                    ['', 0],
+                    ['label' => '', 'value' => 0],
                 ],
                 'default' => 0,
                 'foreign_table' => 'tx_t3events_domain_model_performancestatus',

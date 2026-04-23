@@ -35,7 +35,6 @@ class DateRangeViewHelper extends AbstractDateRangeViewHelper
     /**
      * Registers arguments with type, description and defaults
      */
-    #[\Override]
     public function initializeArguments(): void
     {
         $this->registerArgument('event', Event::class, static::ARGUMENT_EVENT_DESCRIPTION, true);

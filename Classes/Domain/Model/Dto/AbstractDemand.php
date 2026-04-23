@@ -88,7 +88,6 @@ class AbstractDemand extends AbstractEntity implements DemandInterface
      *
      * @param int $limit A limit for the demand. Only values > 0 are allowed. Default 100
      */
-    #[\Override]
     public function setLimit($limit = 100): void
     {
         $validatedLimit = (int)$limit;
@@ -103,7 +102,6 @@ class AbstractDemand extends AbstractEntity implements DemandInterface
      *
      * @return int The limit for the demand
      */
-    #[\Override]
     public function getLimit()
     {
         return $this->limit;
@@ -114,7 +112,6 @@ class AbstractDemand extends AbstractEntity implements DemandInterface
      *
      * @param int $offset An offset for the demand
      */
-    #[\Override]
     public function setOffset($offset = 0): void
     {
         $this->offset = (int)$offset;
@@ -125,7 +122,6 @@ class AbstractDemand extends AbstractEntity implements DemandInterface
      *
      * @return int The offset of the demand
      */
-    #[\Override]
     public function getOffset()
     {
         return $this->offset;
@@ -137,7 +133,6 @@ class AbstractDemand extends AbstractEntity implements DemandInterface
      * @param string $sortBy The sort criteria in dot notation
      * @deprecated use setOrder instead
      */
-    #[\Override]
     public function setSortBy($sortBy): void
     {
         $this->sortBy = $sortBy;
@@ -149,7 +144,6 @@ class AbstractDemand extends AbstractEntity implements DemandInterface
      * @return string The sort criteria in dot notation
      * @deprecated use getOrder instead
      */
-    #[\Override]
     public function getSortBy()
     {
         return $this->sortBy;
@@ -161,7 +155,6 @@ class AbstractDemand extends AbstractEntity implements DemandInterface
      * @param string $sortDirection The sort direction
      * @deprecated use setOrder instead
      */
-    #[\Override]
     public function setSortDirection($sortDirection): void
     {
         $this->sortDirection = $sortDirection;
@@ -173,7 +166,6 @@ class AbstractDemand extends AbstractEntity implements DemandInterface
      * @return string The sort direction
      * @deprecated use getOrder instead
      */
-    #[\Override]
     public function getSortDirection()
     {
         return $this->sortDirection;
@@ -194,7 +186,6 @@ class AbstractDemand extends AbstractEntity implements DemandInterface
      *
      * @return string A comma separated list of storage page ids
      */
-    #[\Override]
     public function getStoragePages()
     {
         return $this->storagePages;
@@ -225,7 +216,6 @@ class AbstractDemand extends AbstractEntity implements DemandInterface
      *
      * @return string|null
      */
-    #[\Override]
     public function getOrder()
     {
         return $this->order;
@@ -236,7 +226,6 @@ class AbstractDemand extends AbstractEntity implements DemandInterface
      *
      * @param string $order A comma separated List of orderings
      */
-    #[\Override]
     public function setOrder($order): void
     {
         $this->order = $order;

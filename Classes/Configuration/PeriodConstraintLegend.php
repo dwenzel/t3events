@@ -55,13 +55,12 @@ class PeriodConstraintLegend extends VectorImage
     protected $xmlFilePath = 'EXT:t3events/Resources/Public/Images/period_constraints.svg';
 
     /**
-     * @param array $params
      * @param UserElement $parentObject
      * @return string
      * @throws MissingFileException
      * @throws InvalidConfigurationException
      */
-    public function render($params, $parentObject = null): string|false
+    public function render(array $params, $parentObject = null): string|false
     {
         $this->initialize($params);
         $this->updateLayers();
@@ -91,7 +90,7 @@ class PeriodConstraintLegend extends VectorImage
     /**
      * @return PeriodDataProviderFactory
      */
-    public function getDataProviderFactory()
+    public function getDataProviderFactory(): object
     {
         return GeneralUtility::makeInstance(PeriodDataProviderFactory::class);
     }

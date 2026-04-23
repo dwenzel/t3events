@@ -25,6 +25,7 @@ namespace DWenzel\T3events\Utility;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+use TYPO3\CMS\Core\Resource\FileInterface;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
@@ -157,7 +158,7 @@ class SettingsUtility implements SingletonInterface
             $combinedIdentifiers = GeneralUtility::trimExplode(',', $valueFromSettings, true);
             foreach ($combinedIdentifiers as $fileId) {
                 $file = $this->resourceFactory->getFileObjectByCombinedIdentifier($fileId);
-                if ($file === null) {
+                if (!$file instanceof FileInterface) {
                     continue;
                 }
                 $fileReference = $this->resourceFactory->createFileReferenceFromFileObject($file);

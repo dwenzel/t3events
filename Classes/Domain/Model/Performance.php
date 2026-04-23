@@ -95,16 +95,16 @@ class Performance extends AbstractEntity
      * images
      *
      * @var ObjectStorage<FileReference>
-     * @Lazy
      */
+    #[Lazy]
     protected $images;
 
     /**
      * plan
      *
      * @var ObjectStorage<FileReference>
-     * @Lazy
      */
+    #[Lazy]
     protected $plan;
 
     /**
@@ -123,32 +123,32 @@ class Performance extends AbstractEntity
 
     /**
      * @var Event
-     * @Lazy
      */
+    #[Lazy]
     protected $event;
 
     /**
      * eventLocation
      *
-     * @Lazy
      * @var EventLocation
      */
+    #[Lazy]
     protected $eventLocation;
 
     /**
      * ticketClass
      *
-     * @Lazy
      * @var ObjectStorage<TicketClass>
      */
+    #[Lazy]
     protected $ticketClass;
 
     /**
      * status
      *
-     * @Lazy
      * @var PerformanceStatus
      */
+    #[Lazy]
     protected $status;
 
     /**

@@ -1,50 +1,57 @@
 <?php
-if (!defined('TYPO3_MODE')) {
-    die('Access denied.');
-}
+use DWenzel\T3events\Configuration\ExtensionConfiguration;
+use DWenzel\T3events\Controller\EventController;
+use DWenzel\T3events\Controller\PerformanceController;
+use DWenzel\T3events\Hooks\BackendUtility;
+use DWenzel\T3events\DataProvider\Form\EventPluginFormDataProvider;
+use TYPO3\CMS\Backend\Form\FormDataProvider\TcaFlexPrepare;
+use TYPO3\CMS\Backend\Form\FormDataProvider\TcaFlexProcess;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
+use DWenzel\T3events\Update\LegacyFileFieldsUpdateWizard;
+use DWenzel\T3events\Configuration\PeriodConstraintLegendFormElement;
 
-\DWenzel\T3events\Configuration\ExtensionConfiguration::configurePlugins();
+defined('TYPO3') || die();
+
+// Register combined plugin (replaces ExtensionConfiguration::configurePlugins() from t3extension-tools v3)
+ExtensionUtility::configurePlugin(
+    't3events',
+    'Events',
+    [
+        EventController::class => 'list, show, quickMenu',
+        PerformanceController::class => 'list, show, quickMenu',
+    ],
+    [
+        EventController::class => 'quickMenu',
+        PerformanceController::class => 'quickMenu',
+    ],
+);
 // Modify flexform values
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_befunc.php']['getFlexFormDSClass']['t3events'] =
-    'DWenzel\\T3events\\Hooks\\BackendUtility';
+    BackendUtility::class;
 
-/** @var \TYPO3\CMS\Core\Information\Typo3Version $typo3Version */
-$typo3Version = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Information\Typo3Version::class);
-
-if (\TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger($typo3Version->getVersion()) >= 8005000) {
-    // Modify flexform fields since core 8.5 via formEngine: Inject a data provider
-    // between TcaFlexPrepare and TcaFlexProcess
-    $GLOBALS['TYPO3_CONF_VARS']['SYS']['formEngine']['formDataGroup']['tcaDatabaseRecord']
-    [\DWenzel\T3events\DataProvider\Form\EventPluginFormDataProvider::class] = [
-        'depends' => [
-            \TYPO3\CMS\Backend\Form\FormDataProvider\TcaFlexPrepare::class,
-        ],
-        'before' => [
-            \TYPO3\CMS\Backend\Form\FormDataProvider\TcaFlexProcess::class,
-        ],
-    ];
+// Modify flexform fields via formEngine: Inject a data provider
+// between TcaFlexPrepare and TcaFlexProcess
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['formEngine']['formDataGroup']['tcaDatabaseRecord']
+[EventPluginFormDataProvider::class] = [
+    'depends' => [
+        TcaFlexPrepare::class,
+    ],
+    'before' => [
+        TcaFlexProcess::class,
+    ],
+];
 
 
-    /** @noinspection PhpUnhandledExceptionInspection */
-    \DWenzel\T3events\Configuration\ExtensionConfiguration::registerIcons();
-}
+ExtensionManagementUtility::addPageTSConfig('<INCLUDE_TYPOSCRIPT: source="FILE:EXT:t3events/Configuration/TSconfig/PageTSconfig.ts">');
 
-
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig('<INCLUDE_TYPOSCRIPT: source="FILE:EXT:t3events/Configuration/TSconfig/PageTSconfig.ts">');
-
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update'][\DWenzel\T3events\Update\LegacyFileFieldsUpdateWizard::IDENTIFIER] = \DWenzel\T3events\Update\LegacyFileFieldsUpdateWizard::class;
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update'][LegacyFileFieldsUpdateWizard::IDENTIFIER] = LegacyFileFieldsUpdateWizard::class;
 
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['formEngine']['nodeRegistry']['t3eventsLegendPeriodConstraints'] = [
     'nodeName' => 't3eventsLegendPeriodConstraints',
     'priority' => 40,
-    'class' => \DWenzel\T3events\Configuration\PeriodConstraintLegendFormElement::class,
+    'class' => PeriodConstraintLegendFormElement::class,
 ];
 
-if (isset($GLOBALS['TSFE'])) {
-    \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Object\Container\Container::class)
-        ->registerImplementation(\DWenzel\T3events\Session\SessionInterface::class, \DWenzel\T3events\Session\Typo3Session::class);
-} else {
-    \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Object\Container\Container::class)
-        ->registerImplementation(\DWenzel\T3events\Session\SessionInterface::class, \DWenzel\T3events\Session\Typo3BackendSession::class);
-}
+// Session interface binding is handled via Configuration/Services.yaml
 

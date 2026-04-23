@@ -35,7 +35,7 @@
         </trans-unit>
         <trans-unit id="button.reset" approved="yes" xml:space="preserve">
             <source>reset</source>
-            <target>zurücksetzen</target>
+            <target>Zurücksetzen</target>
         </trans-unit>
         <trans-unit id="button.save" approved="yes" xml:space="preserve">
             <source>Save</source>
@@ -43,7 +43,7 @@
         </trans-unit>
         <trans-unit id="button.search" approved="yes" xml:space="preserve">
             <source>search</source>
-            <target>suchen</target>
+            <target>Suchen</target>
         </trans-unit>
         <trans-unit id="button.send" approved="yes" xml:space="preserve">
             <source>Send</source>
@@ -99,15 +99,15 @@
         </trans-unit>
         <trans-unit id="label.period.all" approved="yes" xml:space="preserve">
             <source>all</source>
-            <target>alle</target>
+            <target>Alle</target>
         </trans-unit>
         <trans-unit id="label.period.futureOnly" approved="yes" xml:space="preserve">
             <source>upcoming</source>
-            <target>zukünftige</target>
+            <target>Zukünftige</target>
         </trans-unit>
         <trans-unit id="label.period.pastOnly" approved="yes" xml:space="preserve">
             <source>past</source>
-            <target>vergangene</target>
+            <target>Vergangene</target>
         </trans-unit>
         <trans-unit id="label.period.specific" approved="yes" xml:space="preserve">
             <source>specific</source>
@@ -118,8 +118,24 @@
             <target>Termine</target>
         </trans-unit>
         <trans-unit id="label.search.field.subject" approved="yes" xml:space="preserve">
-            <source>Subject</source>
-            <target>Suchbegriff</target>
+            <source>BAK number, title, description</source>
+            <target>BAK-Nummer, Titel, Beschreibung</target>
+        </trans-unit>
+        <trans-unit id="label.number" approved="yes" xml:space="preserve">
+            <source>BAK number</source>
+            <target>BAK-Nummer</target>
+        </trans-unit>
+        <trans-unit id="label.title" approved="yes" xml:space="preserve">
+            <source>Title</source>
+            <target>Titel</target>
+        </trans-unit>
+        <trans-unit id="label.date" approved="yes" xml:space="preserve">
+            <source>Date</source>
+            <target>Datum</target>
+        </trans-unit>
+        <trans-unit id="label.endDate" approved="yes" xml:space="preserve">
+            <source>End Date</source>
+            <target>Enddatum</target>
         </trans-unit>
         <trans-unit id="placeholder.location" approved="yes" xml:space="preserve">
             <source>Location</source>

@@ -73,25 +73,25 @@ class LegacyFileFieldsUpdateWizard implements UpgradeWizardInterface, ChattyInte
         $this->output = new NullOutput();
     }
 
-    #[\Override]
+
     public function getIdentifier(): string
     {
         return static::IDENTIFIER;
     }
 
-    #[\Override]
+
     public function getTitle(): string
     {
         return static::TITLE;
     }
 
-    #[\Override]
+
     public function getDescription(): string
     {
         return static::DESCRIPTION;
     }
 
-    #[\Override]
+
     public function executeUpdate(): bool
     {
         $result = true;
@@ -118,13 +118,13 @@ class LegacyFileFieldsUpdateWizard implements UpgradeWizardInterface, ChattyInte
         return $result;
     }
 
-    #[\Override]
+
     public function updateNecessary(): bool
     {
         return ($this->countTablesToUpdate() > 0);
     }
 
-    #[\Override]
+
     public function getPrerequisites(): array
     {
         return static::PREREQUISITES;
@@ -135,7 +135,7 @@ class LegacyFileFieldsUpdateWizard implements UpgradeWizardInterface, ChattyInte
         return $this->output;
     }
 
-    #[\Override]
+
     public function setOutput(OutputInterface $output): void
     {
         $this->output = $output;
@@ -226,9 +226,7 @@ class LegacyFileFieldsUpdateWizard implements UpgradeWizardInterface, ChattyInte
                         ExpressionBuilder::NEQ,
                         'CAST(' . $queryBuilder->quoteIdentifier($fieldToMigrate) . ' AS CHAR)'
                     )
-                )
-                ->orderBy('uid')
-                ->execute();
+                )->orderBy('uid')->executeQuery();
 
             return $result->fetchAll();
         } catch (Exception $e) {
@@ -279,16 +277,13 @@ class LegacyFileFieldsUpdateWizard implements UpgradeWizardInterface, ChattyInte
 
                 $queryBuilder = $connectionPool->getQueryBuilderForTable('sys_file');
                 $queryBuilder->getRestrictions()->removeAll();
-                $existingFileRecord = $queryBuilder->select('uid')->from('sys_file')->where(
-                    $queryBuilder->expr()->eq(
-                        'sha1',
-                        $queryBuilder->createNamedParameter($fileSha1, Connection::PARAM_STR)
-                    ),
-                    $queryBuilder->expr()->eq(
-                        'storage',
-                        $queryBuilder->createNamedParameter($storageUid, Connection::PARAM_INT)
-                    )
-                )->execute()->fetch();
+                $existingFileRecord = $queryBuilder->select('uid')->from('sys_file')->where($queryBuilder->expr()->eq(
+                    'sha1',
+                    $queryBuilder->createNamedParameter($fileSha1, Connection::PARAM_STR)
+                ), $queryBuilder->expr()->eq(
+                    'storage',
+                    $queryBuilder->createNamedParameter($storageUid, Connection::PARAM_INT)
+                ))->executeQuery()->fetchAssociative();
 
                 // the file exists, the file does not have to be moved again
                 if (is_array($existingFileRecord)) {
@@ -337,7 +332,7 @@ class LegacyFileFieldsUpdateWizard implements UpgradeWizardInterface, ChattyInte
                 ];
 
                 $queryBuilder = $connectionPool->getQueryBuilderForTable('sys_file_reference');
-                $queryBuilder->insert('sys_file_reference')->values($fields)->execute();
+                $queryBuilder->insert('sys_file_reference')->values($fields)->executeStatement();
                 ++$i;
             }
         }
@@ -351,7 +346,7 @@ class LegacyFileFieldsUpdateWizard implements UpgradeWizardInterface, ChattyInte
                     'uid',
                     $queryBuilder->createNamedParameter($row['uid'], Connection::PARAM_INT)
                 )
-            )->set($fieldToMigrate, $i)->execute();
+            )->set($fieldToMigrate, $i)->executeStatement();
         }
 
         $this->output->writeln(sprintf(

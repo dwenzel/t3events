@@ -46,7 +46,6 @@ class EditUriViewHelper extends AbstractViewHelper
     /**
      * Initialize Arguments
      */
-    #[\Override]
     public function initializeArguments(): void
     {
         parent::initializeArguments();
@@ -75,7 +74,6 @@ class EditUriViewHelper extends AbstractViewHelper
      * @throws RouteNotFoundException
      * @codeCoverageIgnore
      */
-    #[\Override]
     public static function renderStatic(
         array $arguments,
         \Closure $renderChildrenClosure,

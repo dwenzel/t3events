@@ -37,18 +37,15 @@ class AbstractPeriodDataProvider
     {
     }
 
-    /**
-     * @return array
-     */
-    public function getAllLayerIds()
+    public function getAllLayerIds(): array
     {
         return $this->getLayerIds(self::ALL_LAYERS);
     }
 
     /**
-     * @return mixed
+     * @return mixed[]
      */
-    public function getVisibleLayerIds()
+    public function getVisibleLayerIds(): array
     {
         $visibleLayers = $this->getLayerIds(static::VISIBLE_LAYERS);
 

@@ -1,10 +1,13 @@
 <?php
-if (!defined('TYPO3_MODE')) {
+use DWenzel\T3events\Utility\TableConfiguration;
+use TYPO3\CMS\Core\Resource\File;
+
+if (!defined('TYPO3')) {
     die('Access denied.');
 }
 
 $ll = 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf';
-$cll = \DWenzel\T3events\Utility\TableConfiguration::getLanguageFilePath() . 'locallang_general.xlf:';
+$cll = TableConfiguration::getLanguageFilePath() . 'locallang_general.xlf:';
 
 return [
     'ctrl' => [
@@ -12,7 +15,6 @@ return [
         'label' => 'name',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
-        'cruser_id' => 'cruser_id',
         'dividers2tabs' => true,
         'versioningWS' => true,
         'origUid' => 't3_origuid',
@@ -51,7 +53,7 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
-                    ['', 0],
+                    ['label' => '', 'value' => 0],
                 ],
                 'foreign_table' => 'tx_t3events_domain_model_eventlocation',
                 'foreign_table_where' => 'AND tx_t3events_domain_model_eventlocation.pid=###CURRENT_PID### AND tx_t3events_domain_model_eventlocation.sys_language_uid IN (-1,0)',
@@ -79,10 +81,8 @@ return [
             'exclude' => 1,
             'label' => $cll . 'LGL.starttime',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'inputDateTime',
+                'type' => 'datetime',
                 'size' => 13,
-                'eval' => 'datetime',
                 'checkbox' => 0,
                 'default' => 0,
                 'range' => [
@@ -97,10 +97,8 @@ return [
             'exclude' => 1,
             'label' => $cll . 'LGL.endtime',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'inputDateTime',
+                'type' => 'datetime',
                 'size' => 13,
-                'eval' => 'datetime',
                 'checkbox' => 0,
                 'default' => 0,
                 'range' => [
@@ -117,7 +115,8 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'trim,required'
+                'eval' => 'trim',
+                'required' => true
             ],
         ],
         'address' => [
@@ -133,7 +132,10 @@ return [
         'image' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_eventlocation.image',
-            'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig('image', [
+            'config' => [
+                ### !!! Watch out for fieldName different from columnName
+                'type' => 'file',
+                'allowed' => $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'],
                 'maxitems' => 1,
                 'appearance' => [
                     'createNewRelationLinkTitle' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:images.addFileReference'
@@ -147,34 +149,34 @@ return [
                             --palette--;;imageoverlayPalette,
                             --palette--;;filePalette'
                         ],
-                        \TYPO3\CMS\Core\Resource\File::FILETYPE_TEXT => [
+                        File::FILETYPE_TEXT => [
                             'showitem' => '
                             --palette--;;imageoverlayPalette,
                             --palette--;;filePalette'
                         ],
-                        \TYPO3\CMS\Core\Resource\File::FILETYPE_IMAGE => [
+                        File::FILETYPE_IMAGE => [
                             'showitem' => '
                             --palette--;;imageoverlayPalette,
                             --palette--;;filePalette'
                         ],
-                        \TYPO3\CMS\Core\Resource\File::FILETYPE_AUDIO => [
+                        File::FILETYPE_AUDIO => [
                             'showitem' => '
                             --palette--;;audioOverlayPalette,
                             --palette--;;filePalette'
                         ],
-                        \TYPO3\CMS\Core\Resource\File::FILETYPE_VIDEO => [
+                        File::FILETYPE_VIDEO => [
                             'showitem' => '
                             --palette--;;videoOverlayPalette,
                             --palette--;;filePalette'
                         ],
-                        \TYPO3\CMS\Core\Resource\File::FILETYPE_APPLICATION => [
+                        File::FILETYPE_APPLICATION => [
                             'showitem' => '
                             --palette--;;imageoverlayPalette,
                             --palette--;;filePalette'
                         ]
                     ]
                 ],
-            ], $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'])
+            ]
         ],
         'zip' => [
             'exclude' => 1,

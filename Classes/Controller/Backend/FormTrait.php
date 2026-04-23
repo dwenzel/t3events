@@ -18,9 +18,9 @@ namespace DWenzel\T3events\Controller\Backend;
 use DWenzel\T3events\Utility\SettingsInterface as SI;
 use TYPO3\CMS\Backend\Routing\Exception\RouteNotFoundException;
 use TYPO3\CMS\Backend\Routing\UriBuilder;
+use TYPO3\CMS\Core\Http\RedirectResponse;
 use TYPO3\CMS\Core\Information\Typo3Version;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Utility\HttpUtility;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 
 /**
@@ -42,7 +42,7 @@ trait FormTrait
      */
     public function getModuleKey()
     {
-        return $_GET[$this->getParameterNameForModule()];
+        return $_GET[$this->getParameterNameForModule()] ?? '';
     }
 
     protected function getParameterNameForModule(): string
@@ -66,7 +66,7 @@ trait FormTrait
      * @param string $table table name
      * @throws RouteNotFoundException
      */
-    protected function redirectToCreateNewRecord($table)
+    protected function redirectToCreateNewRecord($table): RedirectResponse
     {
         /** @var UriBuilder $uriBuilder */
         $uriBuilder = $this->callStatic(
@@ -86,7 +86,7 @@ trait FormTrait
                 SI::RETURN_URL => $returnUrl
             ]
         );
-        $this->callStatic(HttpUtility::class, SI::REDIRECT, $url);
+        return new RedirectResponse($url);
     }
 
     protected function getParameterNameForToken(): string

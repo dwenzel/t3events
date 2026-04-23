@@ -1,9 +1,13 @@
 <?php
-if (!defined('TYPO3_MODE')) {
+use DWenzel\T3events\Utility\TableConfiguration;
+use DWenzel\T3events\Domain\Model\Task;
+use DWenzel\T3events\Domain\Repository\PeriodConstraintRepositoryInterface;
+
+if (!defined('TYPO3')) {
     die('Access denied.');
 }
 $ll = 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf';
-$cll = \DWenzel\T3events\Utility\TableConfiguration::getLanguageFilePath() . 'locallang_general.xlf:';
+$cll = TableConfiguration::getLanguageFilePath() . 'locallang_general.xlf:';
 
 return [
     'ctrl' => [
@@ -11,7 +15,6 @@ return [
         'label' => 'name',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
-        'cruser_id' => 'cruser_id',
         'dividers2tabs' => true,
 
         'versioningWS' => true,
@@ -56,7 +59,7 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
-                    ['', 0],
+                    ['label' => '', 'value' => 0],
                 ],
                 'foreign_table' => 'tx_t3events_domain_model_task',
                 'foreign_table_where' => 'AND tx_t3events_domain_model_task.pid=###CURRENT_PID### AND tx_t3events_domain_model_task.sys_language_uid IN (-1,0)'
@@ -79,10 +82,8 @@ return [
             'exclude' => 1,
             'label' => $cll . 'LGL.starttime',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'inputDateTime',
+                'type' => 'datetime',
                 'size' => 13,
-                'eval' => 'datetime',
                 'checkbox' => 0,
                 'default' => 0,
                 'range' => [
@@ -98,10 +99,8 @@ return [
             'exclude' => 1,
             'label' => $cll . 'LGL.endtime',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'inputDateTime',
+                'type' => 'datetime',
                 'size' => 13,
-                'eval' => 'datetime',
                 'checkbox' => 0,
                 'default' => 0,
                 'range' => [
@@ -118,7 +117,8 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'required,trim'
+                'eval' => 'trim',
+                'required' => true
             ],
         ],
         'description' => [
@@ -138,10 +138,10 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
-                    [$ll . ':tx_t3events_domain_model_task.action.none', \DWenzel\T3events\Domain\Model\Task::ACTION_NONE],
-                    [$ll . ':tx_t3events_domain_model_task.action.updateStatus', \DWenzel\T3events\Domain\Model\Task::ACTION_UPDATE_STATUS],
-                    ['delete', \DWenzel\T3events\Domain\Model\Task::ACTION_DELETE],
-                    [$ll . ':tx_t3events_domain_model_task.action.hidePerformance', \DWenzel\T3events\Domain\Model\Task::ACTION_HIDE_PERFORMANCE],
+                    ['label' => $ll . ':tx_t3events_domain_model_task.action.none', 'value' => Task::ACTION_NONE],
+                    ['label' => $ll . ':tx_t3events_domain_model_task.action.updateStatus', 'value' => Task::ACTION_UPDATE_STATUS],
+                    ['label' => 'delete', 'value' => Task::ACTION_DELETE],
+                    ['label' => $ll . ':tx_t3events_domain_model_task.action.hidePerformance', 'value' => Task::ACTION_HIDE_PERFORMANCE],
                 ],
                 'size' => 1,
                 'maxitems' => 1,
@@ -156,11 +156,11 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
-                    ['', ''],
-                    [$ll . ':label.period.all', \DWenzel\T3events\Domain\Repository\PeriodConstraintRepositoryInterface::PERIOD_ALL],
-                    [$ll . ':label.period.past', \DWenzel\T3events\Domain\Repository\PeriodConstraintRepositoryInterface::PERIOD_PAST],
-                    [$ll . ':label.period.future', \DWenzel\T3events\Domain\Repository\PeriodConstraintRepositoryInterface::PERIOD_FUTURE],
-                    [$ll . ':label.period.specific', \DWenzel\T3events\Domain\Repository\PeriodConstraintRepositoryInterface::PERIOD_SPECIFIC]
+                    ['label' => '', 'value' => ''],
+                    ['label' => $ll . ':label.period.all', 'value' => PeriodConstraintRepositoryInterface::PERIOD_ALL],
+                    ['label' => $ll . ':label.period.past', 'value' => PeriodConstraintRepositoryInterface::PERIOD_PAST],
+                    ['label' => $ll . ':label.period.future', 'value' => PeriodConstraintRepositoryInterface::PERIOD_FUTURE],
+                    ['label' => $ll . ':label.period.specific', 'value' => PeriodConstraintRepositoryInterface::PERIOD_SPECIFIC]
                 ],
                 'size' => 1,
                 'maxitems' => 1,
@@ -170,11 +170,10 @@ return [
             'exclude' => 1,
             'label' => $ll . ':label.period_duration',
             'config' => [
-                'type' => 'input',
+                'type' => 'number',
                 'size' => 5,
-                'eval' => 'int',
             ],
-            'displayCond' => 'FIELD:period:=:' . \DWenzel\T3events\Domain\Repository\PeriodConstraintRepositoryInterface::PERIOD_SPECIFIC,
+            'displayCond' => 'FIELD:period:=:' . PeriodConstraintRepositoryInterface::PERIOD_SPECIFIC,
         ],
         'old_status' => [
             'exclude' => 1,
@@ -207,7 +206,6 @@ return [
             'label' => $ll . ':tx_t3events_domain_model_task.folder',
             'config' => [
                 'type' => 'group',
-                'internal_type' => 'db',
                 'allowed' => 'pages',
                 'size' => 5,
                 'minitems' => 0,

@@ -15,6 +15,7 @@ use DWenzel\T3events\Service\ModuleDataStorageService;
 use DWenzel\T3events\Utility\SettingsInterface as SI;
 use DWenzel\T3events\Utility\SettingsUtility;
 use Psr\Http\Message\ResponseInterface;
+use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
 use TYPO3\CMS\Extbase\Mvc\RequestInterface;
 
 /**
@@ -24,7 +25,7 @@ class ScheduleController extends PerformanceController
 {
     use ModuleDataTrait, FormTrait, SettingsUtilityTrait;
 
-    public function __construct(ModuleDataStorageService $moduleDataStorageService, CategoryRepository $categoryRepository, PerformanceRepository $performanceRepository, GenreRepository $genreRepository, VenueRepository $venueRepository, EventTypeRepository $eventTypeRepository, SearchFactory $searchFactory, SettingsUtility $settingsUtility)
+    public function __construct(ModuleDataStorageService $moduleDataStorageService, CategoryRepository $categoryRepository, PerformanceRepository $performanceRepository, GenreRepository $genreRepository, VenueRepository $venueRepository, EventTypeRepository $eventTypeRepository, SearchFactory $searchFactory, SettingsUtility $settingsUtility, private readonly ModuleTemplateFactory $moduleTemplateFactory)
     {
         $this->moduleDataStorageService = $moduleDataStorageService;
         parent::__construct($categoryRepository, $performanceRepository, $genreRepository, $venueRepository, $eventTypeRepository, $searchFactory, $settingsUtility);
@@ -33,7 +34,6 @@ class ScheduleController extends PerformanceController
     /**
      * @throws \Exception
      */
-    #[\Override]
     public function processRequest(RequestInterface $request): ResponseInterface
     {
         $this->moduleData = $this->moduleDataStorageService->loadModuleData($this->getModuleKey());
@@ -47,7 +47,6 @@ class ScheduleController extends PerformanceController
      * action list
      *
      */
-    #[\Override]
     public function listAction(array $overwriteDemand = null): ResponseInterface
     {
         $demand = $this->performanceDemandFactory->createFromSettings($this->settings);
@@ -73,5 +72,8 @@ class ScheduleController extends PerformanceController
 
         $this->emitSignal(self::class, self::PERFORMANCE_LIST_ACTION, $templateVariables);
         $this->view->assignMultiple($templateVariables);
+        $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
+        $moduleTemplate->setContent($this->view->render());
+        return $this->htmlResponse($moduleTemplate->renderContent());
     }
 }

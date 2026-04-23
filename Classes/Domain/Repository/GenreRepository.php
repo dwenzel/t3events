@@ -34,7 +34,6 @@ class GenreRepository extends AbstractDemandedRepository
      *
      * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint>
      */
-    #[\Override]
     public function createConstraintsFromDemand(QueryInterface $query, DemandInterface $demand): array
     {
         // add constraints if required

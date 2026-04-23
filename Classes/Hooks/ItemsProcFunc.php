@@ -36,7 +36,7 @@ class ItemsProcFunc
     /**
      * @var TemplateLayoutUtility
      */
-    protected $templateLayoutUtility;
+    protected object $templateLayoutUtility;
 
     public function __construct()
     {

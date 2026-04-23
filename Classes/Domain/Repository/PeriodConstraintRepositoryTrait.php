@@ -61,21 +61,15 @@ trait PeriodConstraintRepositoryTrait
             case PeriodConstraintRepositoryInterface::PERIOD_SPECIFIC:
                 if ($respectEndDate) {
                     $periodConstraint[] = $query->logicalOr(
-                        [
-                            $query->logicalAnd(
-                                [
-                                    $query->lessThanOrEqual($endDateField, $upperLimit),
-                                    $query->greaterThanOrEqual($endDateField, $lowerLimit),
-                                    $query->lessThanOrEqual($startDateField, $lowerLimit)
-                                ]
-                            ),
-                            $query->logicalAnd(
-                                [
-                                    $query->greaterThanOrEqual($startDateField, $lowerLimit),
-                                    $query->lessThanOrEqual($endDateField, $upperLimit)
-                                ]
-                            )
-                        ]
+                        $query->logicalAnd(
+                            $query->lessThanOrEqual($endDateField, $upperLimit),
+                            $query->greaterThanOrEqual($endDateField, $lowerLimit),
+                            $query->lessThanOrEqual($startDateField, $lowerLimit)
+                        ),
+                        $query->logicalAnd(
+                            $query->greaterThanOrEqual($startDateField, $lowerLimit),
+                            $query->lessThanOrEqual($endDateField, $upperLimit)
+                        )
                     );
                 } else {
                     $periodConstraint[] = $query->logicalAnd(

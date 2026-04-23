@@ -38,7 +38,6 @@ class Typo3BackendSession implements SessionInterface
      *
      * @param string $identifier
      */
-    #[\Override]
     public function has($identifier) : bool
     {
         return (bool) $this->get($identifier);
@@ -50,7 +49,6 @@ class Typo3BackendSession implements SessionInterface
      * @param string $identifier
      * @param mixed $value
      */
-    #[\Override]
     public function set($identifier, $value): void
     {
         $this->data[$identifier] = $value;
@@ -63,7 +61,6 @@ class Typo3BackendSession implements SessionInterface
      * @param string $identifier
      * @return mixed
      */
-    #[\Override]
     public function get($identifier)
     {
         if ($this->data === []) {
@@ -73,7 +70,6 @@ class Typo3BackendSession implements SessionInterface
         return $this->data[$identifier] ?? null;
     }
 
-    #[\Override]
     public function clean(): void
     {
         //should clear backend user data for module
@@ -85,7 +81,6 @@ class Typo3BackendSession implements SessionInterface
      *
      * @param string $namespace
      */
-    #[\Override]
     public function setNamespace($namespace): void
     {
         $this->namespace = $namespace;

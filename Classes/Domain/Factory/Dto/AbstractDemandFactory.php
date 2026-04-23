@@ -57,7 +57,6 @@ abstract class AbstractDemandFactory
      *
      * @return array
      */
-    #[\Override]
     public function getCompositeProperties()
     {
         return static::$compositeProperties;
@@ -68,7 +67,6 @@ abstract class AbstractDemandFactory
      *
      * @return array
      */
-    #[\Override]
     public function getMappedProperties()
     {
         return static::$mappedProperties;

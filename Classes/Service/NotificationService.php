@@ -100,7 +100,7 @@ class NotificationService
         if ($files = $notification->getAttachments()) {
             /** @var FileReference $file */
             foreach ($files as $file) {
-                $message->attachFromPath($file->getOriginalResource()->getPublicUrl(true));
+                $message->attachFromPath($file->getOriginalResource()->getPublicUrl());
             }
         }
         $message->send();
@@ -115,14 +115,12 @@ class NotificationService
      * Get a template view
      * Uses the given template name
      *
-     * @param string $templateName
      * @param null|string $format
-     * @param null|string $folderName
      * @return StandaloneView
      * @internal param string $templateName
      * @internal param string $format Format for content. Default is html
      */
-    protected function buildTemplateView($templateName, $format = null, $folderName = null)
+    protected function buildTemplateView(string $templateName, $format = null, ?string $folderName = null)
     {
         /** @var StandaloneView $emailView */
         $emailView = GeneralUtility::makeInstance(StandaloneView::class);

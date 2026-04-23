@@ -36,7 +36,7 @@ class PeriodConstraintLegendNode extends AbstractFormElement
     /**
      * @var PeriodConstraintLegend
      */
-    protected $image;
+    protected object $image;
 
 
     protected $parameters = [];

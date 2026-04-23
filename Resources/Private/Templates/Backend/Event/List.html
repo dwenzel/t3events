@@ -15,7 +15,7 @@
 
     <f:comment>Search form</f:comment>
     <f:render partial="Backend/Common/SearchForm"
-              arguments="{demand: '{demand}', overwriteDemand: '{overwriteDemand}', filterOptions: '{filterOptions}', showSubjectField: '{settings.search.showSubjectField}'}"/>
+              arguments="{demand: demand, overwriteDemand: overwriteDemand, filterOptions: filterOptions, showSubjectField: settings.search.showSubjectField}"/>
     <f:flashMessages/>
 
     <f:comment>Paginated list</f:comment>
@@ -26,16 +26,15 @@
                         <thead>
                         <tr class="c-headline">
                             <th class="col-icon">ID</th>
-                            <th class="col-title">{f:translate(key: 'label.title', default: 'Title')}</th>
+                            <th>{f:translate(key: 'label.number', default: 'BAK-Nummer')}</th>
+                            <th class="col-title">{f:translate(key: 'label.title', default: 'Titel')}</th>
                             <th class="col-control"></th>
-                            <th>{f:translate(key: 'label.eventType', default: 'Event Type')}</th>
-                            <th>{f:translate(key: 'label.genres', default: 'Genres')}</th>
-                            <th>{f:translate(key: 'label.audience', default: 'Audience')}</th>
                         </tr>
                         </thead>
                         <f:for each="{events}" as="event">
                             <tr class="db_list_normal">
                                 <td nowrap="nowrap">{event.uid}</td>
+                                <td nowrap="nowrap">{event.number}</td>
                                 <td nowrap="nowrap">
                                     <a class="actions-open"
                                        title="Edit event {event.uid}"
@@ -45,12 +44,11 @@
                                                 module: module
                                            )}"
                                     >
-                                        {event.headline}
+                                        {event.title}
                                     </a>
                                 </td>
                                 <td nowrap="nowrap" class="col-control">
                                     <div class="btn btn-default">
-                                        <!--suppress HtmlUnknownTarget -->
                                         <a class="actions-open"
                                            title="Edit event {event.uid}"
                                            href="{ts:be.editUri(
@@ -59,21 +57,9 @@
                                                 module: module
                                            )}"
                                         >
-                                            <core:icon identifier="actions-open" />
+                                            <core:icon identifier="actions-open" size="small" />
                                         </a>
                                     </div>
-
-                                </td>
-                                <td nowrap="nowrap">{event.eventType.title}</td>
-                                <td nowrap="nowrap">
-                                    <f:for each="{event.genre}" as="genre" iteration="genreIteration">
-                                        {genre.title}{f:if(condition: '{genreIteration.isLast}', else: ', ')}
-                                    </f:for>
-                                </td>
-                                <td nowrap="nowrap">
-                                    <f:for each="{event.audience}" as="audience" iteration="audienceIteration">
-                                        {audience.title}{f:if(condition: '{audienceIteration.isLast}', else: ', ')}
-                                    </f:for>
                                 </td>
                             </tr>
                         </f:for>

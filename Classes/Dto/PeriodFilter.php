@@ -41,19 +41,16 @@ class PeriodFilter implements FilterInterface
 
     protected $options = [];
 
-    #[\Override]
     public function getOptions(): iterable
     {
         return $this->options;
     }
 
-    #[\Override]
     public function count(): int
     {
         return count($this->options);
     }
 
-    #[\Override]
     public function configure(array $configuration): void
     {
         $keys = static::DEFAULT_OPTION_KEYS;

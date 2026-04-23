@@ -34,24 +34,24 @@ class PerformanceStatus extends AbstractEntity
      * title
      *
      * @var string
-     * @Validate("NotEmpty")
      */
+    #[Validate(['validator' => 'NotEmpty'])]
     protected $title;
 
     /**
      * cssClass
      *
      * @var string
-     * @Validate("NotEmpty")
      */
+    #[Validate(['validator' => 'NotEmpty'])]
     protected $cssClass;
 
     /**
      * priority max allowed 2147483647
      *
      * @var integer
-     * @Validate("NotEmpty")
      */
+    #[Validate(['validator' => 'NotEmpty'])]
     protected $priority = 2147483647;
 
     /**

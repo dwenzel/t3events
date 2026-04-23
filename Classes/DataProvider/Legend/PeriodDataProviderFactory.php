@@ -29,7 +29,7 @@ class PeriodDataProviderFactory
     /**
      * @return LayeredLegendDataProviderInterface
      */
-    public function get(array $params)
+    public function get(array $params): object
     {
         $class = PeriodUnknownDataProvider::class;
         $flexFormData = [];

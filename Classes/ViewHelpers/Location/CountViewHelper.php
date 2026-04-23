@@ -29,7 +29,6 @@ class CountViewHelper extends AbstractViewHelper
     /**
      * Initialize Arguments
      */
-    #[\Override]
     public function initializeArguments(): void
     {
         $this->registerArgument('event', Event::class, static::ARGUMENT_EVENT_DESCRIPTION, true);

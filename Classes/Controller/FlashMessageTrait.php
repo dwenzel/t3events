@@ -1,11 +1,10 @@
 <?php
 namespace DWenzel\T3events\Controller;
 
+use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
-use TYPO3\CMS\Extbase\Mvc\Request;
 use TYPO3\CMS\Extbase\Annotation\Inject;
 use DWenzel\T3extensionTools\Service\ExtensionService;
-use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Core\Messaging\FlashMessageQueue;
 use TYPO3\CMS\Core\Messaging\FlashMessageService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -22,13 +21,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 trait FlashMessageTrait
 {
-    /**
-     * The current request.
-     *
-     * @var Request
-     */
-    protected $request;
-
     /**
      * @var FlashMessageQueue
      */
@@ -67,7 +59,7 @@ trait FlashMessageTrait
     public function addFlashMessage(
         $messageBody,
         $messageTitle = '',
-        $severity = AbstractMessage::OK,
+        $severity = ContextualFeedbackSeverity::OK,
         $storeInSession = true
     ): void {
         if (!is_string($messageBody)) {

@@ -59,7 +59,6 @@ class PerformanceRepository extends Repository implements
      * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint>
      * @throws InvalidQueryException
      */
-    #[\Override]
     public function createConstraintsFromDemand(
         QueryInterface $query,
         DemandInterface $demand

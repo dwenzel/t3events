@@ -47,7 +47,6 @@ class FilterResolver implements FilterResolverInterface
      *
      * @return string class name
      */
-    #[\Override]
     public function resolve(string $key): string
     {
         if (!array_key_exists($key, static::$map)) {

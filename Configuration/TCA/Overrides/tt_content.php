@@ -1,6 +1,14 @@
 <?php
 
-\DWenzel\T3events\Configuration\ExtensionConfiguration::registerPlugins();
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
+
+// Register combined plugin in tt_content (replaces ExtensionConfiguration::registerPlugins() from t3extension-tools v3)
+ExtensionUtility::registerPlugin(
+    't3events',
+    'Events',
+    'LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:plugin.combined.title',
+);
 
 $temporaryColumns = [
     'tx_t3events_event' => [
@@ -11,11 +19,11 @@ $temporaryColumns = [
     ],
 ];
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns(
+ExtensionManagementUtility::addTCAcolumns(
     'tt_content',
     $temporaryColumns
 );
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes(
+ExtensionManagementUtility::addToAllTCAtypes(
     'tt_content', 'tx_t3events_event'
 );

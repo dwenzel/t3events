@@ -34,39 +34,16 @@ use TYPO3\CMS\Core\Pagination\PaginatorInterface;
  */
 final class NumberedPagination implements PaginationInterface
 {
-    /**
-     * @var PaginatorInterface
-     */
-    protected PaginatorInterface $paginator;
-
-    /**
-     * @var int
-     */
     protected int $maximumNumberOfLinks = 3;
 
-    /**
-     * @var int
-     */
     protected int $displayRangeStart = 0;
 
-    /**
-     * @var int
-     */
     protected int $displayRangeEnd = 0;
 
-    /**
-     * @var bool
-     */
     protected bool $hasLessPages = false;
 
-    /**
-     * @var bool
-     */
     protected bool $hasMorePages = false;
 
-    /**
-     * @return void
-     */
     protected function calculateDisplayRange(): void
     {
         $numberOfPages = $this->paginator->getNumberOfPages();
@@ -94,30 +71,19 @@ final class NumberedPagination implements PaginationInterface
         $this->hasMorePages = $this->displayRangeEnd + 1 < $this->paginator->getNumberOfPages();
     }
 
-    /**
-     * @param PaginatorInterface $paginator
-     * @param int $maximumNumberOfLinks
-     */
-    public function __construct(PaginatorInterface $paginator, int $maximumNumberOfLinks = 0)
+    public function __construct(protected PaginatorInterface $paginator, int $maximumNumberOfLinks = 0)
     {
-        $this->paginator = $paginator;
         if (0 < $maximumNumberOfLinks) {
             $this->maximumNumberOfLinks = $maximumNumberOfLinks;
         }
         $this->calculateDisplayRange();
     }
 
-    /**
-     * @return PaginatorInterface
-     */
     public function getPaginator(): PaginatorInterface
     {
         return $this->paginator;
     }
 
-    /**
-     * @return int|null
-     */
     public function getPreviousPageNumber(): ?int
     {
         $previousPage = $this->paginator->getCurrentPageNumber() - 1;
@@ -131,9 +97,6 @@ final class NumberedPagination implements PaginationInterface
             : null;
     }
 
-    /**
-     * @return int|null
-     */
     public function getNextPageNumber(): ?int
     {
         $nextPage = $this->paginator->getCurrentPageNumber() + 1;
@@ -143,25 +106,16 @@ final class NumberedPagination implements PaginationInterface
             : null;
     }
 
-    /**
-     * @return int
-     */
     public function getFirstPageNumber(): int
     {
         return 1;
     }
 
-    /**
-     * @return int
-     */
     public function getLastPageNumber(): int
     {
         return $this->paginator->getNumberOfPages();
     }
 
-    /**
-     * @return int
-     */
     public function getStartRecordNumber(): int
     {
         if ($this->paginator->getCurrentPageNumber() > $this->paginator->getNumberOfPages()) {
@@ -171,9 +125,6 @@ final class NumberedPagination implements PaginationInterface
         return $this->paginator->getKeyOfFirstPaginatedItem() + 1;
     }
 
-    /**
-     * @return int
-     */
     public function getEndRecordNumber(): int
     {
         if ($this->paginator->getCurrentPageNumber() > $this->paginator->getNumberOfPages()) {
@@ -191,41 +142,26 @@ final class NumberedPagination implements PaginationInterface
         return range($this->displayRangeStart, $this->displayRangeEnd);
     }
 
-    /**
-     * @return bool
-     */
     public function getHasLessPages(): bool
     {
         return $this->hasLessPages;
     }
 
-    /**
-     * @return bool
-     */
     public function getHasMorePages(): bool
     {
         return $this->hasMorePages;
     }
 
-    /**
-     * @return int
-     */
     public function getMaximumNumberOfLinks(): int
     {
         return $this->maximumNumberOfLinks;
     }
 
-    /**
-     * @return int
-     */
     public function getDisplayRangeStart(): int
     {
         return $this->displayRangeStart;
     }
 
-    /**
-     * @return int
-     */
     public function getDisplayRangeEnd(): int
     {
         return $this->displayRangeEnd;

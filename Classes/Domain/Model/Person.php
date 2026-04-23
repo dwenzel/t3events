@@ -41,8 +41,8 @@ class Person extends AbstractEntity
      * email
      *
      * @var string
-     * @Validate("EmailAddress")
      */
+    #[Validate(['validator' => 'EmailAddress'])]
     protected $email = '';
 
     /**
@@ -98,8 +98,8 @@ class Person extends AbstractEntity
 
     /**
      * @var ObjectStorage<FileReference>
-     * @Lazy
      */
+    #[Lazy]
     protected $images;
 
     /**
@@ -113,7 +113,6 @@ class Person extends AbstractEntity
     /**
      * Setter for the pid.
      */
-    #[\Override]
     public function setPid(?int $pid): void
     {
         $this->pid = $pid;

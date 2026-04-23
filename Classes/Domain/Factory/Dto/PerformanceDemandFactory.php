@@ -59,7 +59,6 @@ class PerformanceDemandFactory extends AbstractDemandFactory implements DemandFa
      *
      * @return DemandInterface
      */
-    #[\Override]
     public function createFromSettings(array $settings)
     {
         /** @var PerformanceDemand $demand */

@@ -58,7 +58,7 @@ class Genre extends AbstractEntity
      *
      * @param string $title
      */
-    public function setTitle($title)
+    public function setTitle($title): void
     {
         $this->title = $title;
     }
@@ -68,7 +68,7 @@ class Genre extends AbstractEntity
      *
      * @return int
      */
-    public function getLanguageUid()
+    public function getLanguageUid(): ?int
     {
         return $this->_languageUid;
     }

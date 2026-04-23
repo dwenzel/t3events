@@ -74,7 +74,6 @@ class DateViewHelper extends AbstractViewHelper
     /**
      * Initialize arguments
      */
-    #[\Override]
     public function initializeArguments(): void
     {
         $this->registerArgument('date', 'mixed', 'either a DateTime object or a string that is accepted by DateTime constructor', false);

@@ -40,8 +40,8 @@ class EventLocation extends AbstractEntity implements GeoCodingInterface
      * name
      *
      * @var string
-     * @Validate("NotEmpty")
      */
+    #[Validate(['validator' => 'NotEmpty'])]
     protected $name;
 
     /**
@@ -55,8 +55,8 @@ class EventLocation extends AbstractEntity implements GeoCodingInterface
      * image
      *
      * @var ObjectStorage<FileReference>
-     * @Lazy
      */
+    #[Lazy]
     protected $image;
 
     /**
@@ -212,7 +212,6 @@ class EventLocation extends AbstractEntity implements GeoCodingInterface
      *
      * @return string $zip
      */
-    #[\Override]
     public function getZip()
     {
         return $this->zip;
@@ -233,7 +232,6 @@ class EventLocation extends AbstractEntity implements GeoCodingInterface
      *
      * @return string $place
      */
-    #[\Override]
     public function getPlace()
     {
         return $this->place;
@@ -314,7 +312,6 @@ class EventLocation extends AbstractEntity implements GeoCodingInterface
      *
      * @return float
      */
-    #[\Override]
     public function getLatitude()
     {
         return $this->latitude;
@@ -325,7 +322,6 @@ class EventLocation extends AbstractEntity implements GeoCodingInterface
      *
      * @var float $latitude
      */
-    #[\Override]
     public function setLatitude($latitude): void
     {
         $this->latitude = $latitude;
@@ -336,7 +332,6 @@ class EventLocation extends AbstractEntity implements GeoCodingInterface
      *
      * @return float
      */
-    #[\Override]
     public function getLongitude()
     {
         return $this->longitude;
@@ -347,7 +342,6 @@ class EventLocation extends AbstractEntity implements GeoCodingInterface
      *
      * @var float $longitude
      */
-    #[\Override]
     public function setLongitude($longitude): void
     {
         $this->longitude = $longitude;

@@ -44,7 +44,6 @@ class FilterCollection implements Iterator, Countable
      *
      * @return FilterInterface|false
      */
-    #[\Override]
     public function current(): FilterInterface
     {
         return current($this->storage);
@@ -53,7 +52,6 @@ class FilterCollection implements Iterator, Countable
     /**
      * Moves to the next storage entry.
      */
-    #[\Override]
     public function next(): void
     {
         next($this->storage);
@@ -64,7 +62,6 @@ class FilterCollection implements Iterator, Countable
      *
      * The key is an object hash
      */
-    #[\Override]
     public function key(): int
     {
         return key($this->storage);
@@ -73,7 +70,6 @@ class FilterCollection implements Iterator, Countable
     /**
      * Checks if the pointer of the storage points to a valid position
      */
-    #[\Override]
     public function valid(): bool
     {
         return current($this->storage) !== false;
@@ -82,7 +78,6 @@ class FilterCollection implements Iterator, Countable
     /**
      * Rewinds to the first storage element
      */
-    #[\Override]
     public function rewind(): void
     {
         reset($this->storage);
@@ -115,7 +110,6 @@ class FilterCollection implements Iterator, Countable
     /**
      * Count elements of collection
      */
-    #[\Override]
     public function count(): int
     {
         return count($this->storage);

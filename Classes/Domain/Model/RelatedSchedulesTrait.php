@@ -31,8 +31,8 @@ trait RelatedSchedulesTrait
      * related schedules
      *
      * @var ObjectStorage<Performance>
-     * @Lazy
      */
+    #[Lazy]
     protected $relatedSchedules;
 
     public function getRelatedSchedules(): ObjectStorage

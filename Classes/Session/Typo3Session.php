@@ -41,7 +41,6 @@ class Typo3Session implements SessionInterface
      *
      * @param string $identifier
      */
-    #[\Override]
     public function has($identifier) : bool
     {
         return (bool) $this->get($identifier);
@@ -53,7 +52,6 @@ class Typo3Session implements SessionInterface
      * @param string $identifier
      * @param mixed $value
      */
-    #[\Override]
     public function set($identifier, $value): void
     {
         $this->data[$identifier] = $value;
@@ -67,7 +65,6 @@ class Typo3Session implements SessionInterface
      * @param string $identifier
      * @return mixed
      */
-    #[\Override]
     public function get($identifier)
     {
         if ($this->data === []) {
@@ -77,7 +74,6 @@ class Typo3Session implements SessionInterface
         return $this->data[$identifier] ?? null;
     }
 
-    #[\Override]
     public function clean(): void
     {
         $GLOBALS['TSFE']->fe_user->setKey('ses', $this->namespace, []);
@@ -90,7 +86,6 @@ class Typo3Session implements SessionInterface
      *
      * @param string $namespace
      */
-    #[\Override]
     public function setNamespace($namespace): void
     {
         $this->namespace = $namespace;

@@ -26,7 +26,7 @@ class RouteLoader
     /**
      * @var RouterInterface
      */
-    protected $router;
+    protected object $router;
 
     public function __construct(RouterInterface $router = null)
     {
@@ -75,7 +75,7 @@ class RouteLoader
      * @return Route A new route object
      * @codeCoverageIgnore
      */
-    protected function createRoute($origin)
+    protected function createRoute($origin): object
     {
         return GeneralUtility::makeInstance(Route::class, $origin);
     }

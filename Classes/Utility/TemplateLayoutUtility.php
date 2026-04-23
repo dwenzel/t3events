@@ -78,10 +78,9 @@ class TemplateLayoutUtility implements SingletonInterface
      * Wrapper function for static call of core BackendUtility::getPageTSconfig
      *
      * @param int $pageId Uid of page
-     * @return  array
      * @codeCoverageIgnore
      */
-    protected function getPageTSConfig($pageId)
+    protected function getPageTSConfig($pageId): array
     {
         return BackendUtility::getPagesTSconfig($pageId);
     }

@@ -29,7 +29,6 @@ class GenreFilter implements FilterInterface
 {
     use GenreRepositoryTrait, OptionsTrait;
 
-    #[\Override]
     public function getOptionRepository(): DemandedRepositoryInterface
     {
         return $this->genreRepository;

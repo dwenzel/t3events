@@ -1,10 +1,13 @@
 <?php
-if (!defined('TYPO3_MODE')) {
+use DWenzel\T3events\Utility\TableConfiguration;
+use TYPO3\CMS\Core\Resource\File;
+
+if (!defined('TYPO3')) {
     die('Access denied.');
 }
 
 $ll = 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf';
-$cll = \DWenzel\T3events\Utility\TableConfiguration::getLanguageFilePath() . 'locallang_general.xlf:';
+$cll = TableConfiguration::getLanguageFilePath() . 'locallang_general.xlf:';
 
 return [
     'ctrl' => [
@@ -12,7 +15,6 @@ return [
         'label' => 'name',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
-        'cruser_id' => 'cruser_id',
         'dividers2tabs' => true,
         'default_sortby' => 'ORDER BY last_name, first_name',
         'versioningWS' => true,
@@ -54,7 +56,7 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
-                    ['', 0],
+                    ['label' => '', 'value' => 0],
                 ],
                 'foreign_table' => 'tx_t3events_domain_model_person',
                 'foreign_table_where' => 'AND tx_t3events_domain_model_person . pid = -1 AND tx_t3events_domain_model_person . sys_language_uid IN(-1, 0)',
@@ -81,10 +83,8 @@ return [
             'exclude' => 1,
             'label' => $cll . 'LGL.starttime',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'inputDateTime',
+                'type' => 'datetime',
                 'size' => 13,
-                'eval' => 'datetime',
                 'checkbox' => 0,
                 'default' => 0,
                 'range' => [
@@ -99,10 +99,8 @@ return [
             'exclude' => 1,
             'label' => $cll . 'LGL.endtime',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'inputDateTime',
+                'type' => 'datetime',
                 'size' => 13,
-                'eval' => 'datetime',
                 'checkbox' => 0,
                 'default' => 0,
                 'range' => [
@@ -120,8 +118,8 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
-                    [$ll . ':tx_t3events_domain_model_person.type.default', 'Tx_T3events_Default'],
-                    [$ll . ':tx_t3events_domain_model_person.type.contact', 'Tx_T3events_Contact'],
+                    ['label' => $ll . ':tx_t3events_domain_model_person.type.default', 'value' => 'Tx_T3events_Default'],
+                    ['label' => $ll . ':tx_t3events_domain_model_person.type.contact', 'value' => 'Tx_T3events_Contact'],
                 ],
                 'size' => 1,
                 'maxitems' => 1,
@@ -164,7 +162,8 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'trim,required'
+                'eval' => 'trim',
+                'required' => true
             ],
         ],
         'last_name' => [
@@ -173,7 +172,8 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'trim,required'
+                'eval' => 'trim',
+                'required' => true
             ],
         ],
         'gender' => [
@@ -183,17 +183,17 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
-                    [$ll . ':tx_t3events_domain_model_person.gender.I.0', 0],
-                    [$ll . ':tx_t3events_domain_model_person.gender.I.1', 1],
+                    ['label' => $ll . ':tx_t3events_domain_model_person.gender.I.0', 'value' => 0],
+                    ['label' => $ll . ':tx_t3events_domain_model_person.gender.I.1', 'value' => 1],
                 ],
                 'minitems' => 0,
                 'maxitems' => 1,
-                'eval' => 'required',
                 'fieldWizard' => [
                     'selectIcons' => [
                         'disabled' => false
                     ]
-                ]
+                ],
+                'required' => true
             ],
         ],
         'address' => [
@@ -254,36 +254,35 @@ return [
         'images' => [
             'exclude' => 1,
             'label' => $ll . ':tx_t3events_domain_model_person.images',
-            'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
-                'images',
-                [
-                    'maxitems' => 1,
-                    'appearance' => [
-                        'headerThumbnail' => [
-                            'width' => '100',
-                            'height' => '100',
-                        ],
-                        'createNewRelationLinkTitle' => $ll . ':label.add-images'
+            'config' => [
+                ### !!! Watch out for fieldName different from columnName
+                'type' => 'file',
+                'allowed' => $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'],
+                'maxitems' => 1,
+                'appearance' => [
+                    'headerThumbnail' => [
+                        'width' => '100',
+                        'height' => '100',
                     ],
-                    // custom configuration for displaying fields in the overlay/reference table
-                    // to use the imageoverlayPalette instead of the basicoverlayPalette
-                    'overrideChildTca' => [
-                        'types' => [
-                            '0' => [
-                                'showitem' => '
+                    'createNewRelationLinkTitle' => $ll . ':label.add-images'
+                ],
+                // custom configuration for displaying fields in the overlay/reference table
+                // to use the imageoverlayPalette instead of the basicoverlayPalette
+                'overrideChildTca' => [
+                    'types' => [
+                        '0' => [
+                            'showitem' => '
                         --palette--;LLL:EXT:core/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                         --palette--;;filePalette'
-                            ],
-                            \TYPO3\CMS\Core\Resource\File::FILETYPE_IMAGE => [
-                                'showitem' => '
+                        ],
+                        File::FILETYPE_IMAGE => [
+                            'showitem' => '
                         --palette--;LLL:EXT:core/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                         --palette--;;filePalette'
-                            ],
                         ],
                     ],
                 ],
-                $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']
-            )
+            ]
         ],
     ],
 ];

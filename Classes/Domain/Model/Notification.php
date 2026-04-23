@@ -53,16 +53,16 @@ class Notification extends AbstractEntity
 
     /**
      * @var string $subject
-     * @Validate("NotEmpty")
      */
+    #[Validate(['validator' => 'NotEmpty'])]
     protected $subject;
 
     /**
      * Body text
      *
      * @var string $bodytext
-     * @Validate("NotEmpty")
      */
+    #[Validate(['validator' => 'NotEmpty'])]
     protected $bodytext;
 
     /**
@@ -79,8 +79,8 @@ class Notification extends AbstractEntity
 
     /**
      * @var ObjectStorage<FileReference>
-     * @Lazy
      */
+    #[Lazy]
     protected $attachments;
 
     /**

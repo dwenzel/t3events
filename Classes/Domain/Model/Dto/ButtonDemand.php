@@ -52,7 +52,7 @@ class ButtonDemand
     /**
      * @var string
      */
-    protected $iconSize = Icon::SIZE_DEFAULT;
+    protected $iconSize = Icon::SIZE_MEDIUM;
 
     /**
      * @var string

@@ -19,24 +19,9 @@ trait DownloadTrait
     protected $localDriver;
 
     /**
-     * Contains the settings of the current extension
-     *
-     * @var array
-     */
-    protected $settings;
-
-    /**
      * @var SettingsUtility
      */
     protected $settingsUtility;
-
-    /**
-     * The response which will be returned by this action controller
-     *
-     * @var \TYPO3\CMS\Extbase\Mvc\Response
-     * @api
-     */
-    protected $response;
 
     /**
      * Injects the local driver for file system

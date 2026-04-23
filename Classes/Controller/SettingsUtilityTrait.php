@@ -14,16 +14,6 @@ trait SettingsUtilityTrait
     protected SettingsUtility $settingsUtility;
 
     /**
-     * @var array
-     */
-    protected $settings;
-
-    /**
-     * @var string
-     */
-    protected $actionMethodName = 'indexAction';
-
-    /**
      * Merges TypoScript settings for action an controller into one array
      * @return array
      */

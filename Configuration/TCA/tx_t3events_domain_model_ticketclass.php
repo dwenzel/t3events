@@ -1,8 +1,10 @@
 <?php
-if (!defined('TYPO3_MODE')) {
+use DWenzel\T3events\Utility\TableConfiguration;
+
+if (!defined('TYPO3')) {
     die('Access denied.');
 }
-$cll = \DWenzel\T3events\Utility\TableConfiguration::getLanguageFilePath() . 'locallang_general.xlf:';
+$cll = TableConfiguration::getLanguageFilePath() . 'locallang_general.xlf:';
 
 return [
     'ctrl' => [
@@ -10,7 +12,6 @@ return [
         'label' => 'title',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
-        'cruser_id' => 'cruser_id',
         'dividers2tabs' => true,
         'sortby' => 'sorting',
         'versioningWS' => true,
@@ -63,7 +64,7 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
-                    ['', 0],
+                    ['label' => '', 'value' => 0],
                 ],
                 'foreign_table' => 'tx_t3events_domain_model_ticketclass',
                 'foreign_table_where' => 'AND tx_t3events_domain_model_ticketclass.pid=###CURRENT_PID### AND tx_t3events_domain_model_ticketclass.sys_language_uid IN (-1,0)',
@@ -86,10 +87,8 @@ return [
             'exclude' => 1,
             'label' => $cll . 'LGL.starttime',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'inputDateTime',
+                'type' => 'datetime',
                 'size' => 13,
-                'eval' => 'datetime',
                 'checkbox' => 0,
                 'default' => 0,
                 'range' => [
@@ -104,8 +103,7 @@ return [
             'exclude' => 1,
             'label' => $cll . 'LGL.endtime',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'inputDateTime',
+                'type' => 'datetime',
                 'size' => 13,
                 'checkbox' => 0,
                 'default' => 0,
@@ -123,24 +121,24 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 10,
-                'eval' => 'trim,required'
+                'eval' => 'trim',
+                'required' => true
             ],
         ],
         'color' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_ticketclass.color',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'colorpicker'
+                'type' => 'color'
             ]
         ],
         'price' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_ticketclass.price',
             'config' => [
-                'type' => 'input',
+                'type' => 'number',
                 'size' => 30,
-                'eval' => 'double2'
+                'format' => 'decimal'
             ],
         ],
         'type' => [
@@ -149,9 +147,9 @@ return [
             'config' => [
                 'type' => 'radio',
                 'items' => [
-                    ['LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_ticketclass.normal', 0],
-                    ['LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_ticketclass.reduced', 1],
-                    ['LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_ticketclass.special', 2],
+                    ['label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_ticketclass.normal', 'value' => 0],
+                    ['label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_ticketclass.reduced', 'value' => 1],
+                    ['label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_ticketclass.special', 'value' => 2],
                 ],
                 'default' => 0,
             ],

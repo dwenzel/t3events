@@ -40,7 +40,6 @@ class MetaTagViewHelper extends AbstractTagBasedViewHelper
     /**
      * Arguments initialization
      */
-    #[\Override]
     public function initializeArguments(): void
     {
         $this->registerTagAttribute('name', 'string', 'Name of meta tag');
@@ -55,7 +54,6 @@ class MetaTagViewHelper extends AbstractTagBasedViewHelper
      * @param boolean $useCurrentDomain If set, current domain is used
      * @param boolean $forceAbsoluteUrl If set, absolute url is forced
      */
-    #[\Override]
     public function render($useCurrentDomain = false, $forceAbsoluteUrl = false): void
     {
 

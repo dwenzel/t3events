@@ -129,7 +129,7 @@ trait DemandedRepositoryTrait
 
         if (!empty($constraints)) {
             $query->matching(
-                $query->logicalAnd($constraints)
+                $query->logicalAnd(...$constraints)
             );
         }
 
@@ -166,23 +166,23 @@ trait DemandedRepositoryTrait
         if ($conjunction !== null && count($additionalConstraints)) {
             switch (strtolower($conjunction)) {
                 case 'or':
-                    $constraints[] = $query->logicalOr($additionalConstraints);
+                    $constraints[] = $query->logicalOr(...$additionalConstraints);
                     break;
                 case 'notand':
                     foreach ($additionalConstraints as $additionalConstraint) {
-                        $constraints[] = $query->logicalNot($query->logicalAnd($additionalConstraint));
+                        $constraints[] = $query->logicalNot($additionalConstraint);
                     }
                     break;
                 case 'notor':
                     foreach ($additionalConstraints as $additionalConstraint) {
-                        $constraints[] = $query->logicalNot($query->logicalOr($additionalConstraint));
+                        $constraints[] = $query->logicalNot($additionalConstraint);
                     }
                     break;
                 default:
-                    $constraints[] = $query->logicalAnd($additionalConstraints);
+                    $constraints[] = $query->logicalAnd(...$additionalConstraints);
             }
         } else {
-            $constraints[] = $query->logicalAnd($additionalConstraints);
+            $constraints[] = $query->logicalAnd(...$additionalConstraints);
         }
     }
 

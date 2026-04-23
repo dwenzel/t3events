@@ -14,6 +14,7 @@ namespace DWenzel\T3events\Controller;
  *
  * The TYPO3 project - inspiring people to share!
  */
+use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException;
 use DWenzel\T3events\Domain\Factory\Dto\EventDemandFactory;
@@ -26,7 +27,6 @@ use DWenzel\T3events\Domain\Repository\VenueRepository;
 use DWenzel\T3events\Session\SessionInterface;
 use DWenzel\T3events\Utility\SettingsInterface as SI;
 use DWenzel\T3events\Utility\SettingsUtility;
-use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
@@ -55,7 +55,6 @@ class EventController extends ActionController
      * initializes all actions
      * @throws NoSuchArgumentException
      */
-    #[\Override]
     public function initializeAction(): void
     {
         $this->settings = $this->mergeSettings();
@@ -94,7 +93,7 @@ class EventController extends ActionController
             $this->addFlashMessage(
                 $this->translate('tx_t3events.noEventsForSelectionMessage'),
                 $this->translate('tx_t3events.noEventsForSelectionTitle'),
-                FlashMessage::WARNING
+                ContextualFeedbackSeverity::WARNING
             );
         }
 
@@ -103,7 +102,7 @@ class EventController extends ActionController
             'demand' => $demand,
             SI::SETTINGS => $this->settings,
             SI::OVERWRITE_DEMAND => $overwriteDemand,
-            'data' => $this->configurationManager->getContentObject()->data
+            'data' => $this->request->getAttribute('currentContentObject')->data
         ];
 
         $this->emitSignal(self::class, self::EVENT_LIST_ACTION, $templateVariables);

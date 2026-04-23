@@ -90,72 +90,72 @@ class Event extends AbstractEntity
      * images
      *
      * @var ObjectStorage<FileReference>
-     * @Lazy
      */
+    #[Lazy]
     protected $images;
 
     /**
      * files
      *
      * @var ObjectStorage<FileReference>
-     * @Lazy
      */
+    #[Lazy]
     protected $files;
 
     /**
      * related
      *
      * @var ObjectStorage<\DWenzel\T3events\Domain\Model\Event>
-     * @Lazy
      */
+    #[Lazy]
     protected $related;
 
     /**
      * genre
      *
-     * @Lazy
      * @var ObjectStorage<Genre>
      */
+    #[Lazy]
     protected $genre;
 
     /**
      * venue
      *
-     * @Lazy
      * @var ObjectStorage<Venue>
      */
+    #[Lazy]
     protected $venue;
 
     /**
      * eventType
      *
-     * @Lazy
      * @var EventType
      */
+    #[Lazy]
     protected $eventType;
 
     /**
      * performances
      *
-     * @Lazy
      * @var ObjectStorage<Performance>
      */
+    #[Lazy]
     protected $performances;
 
     /**
      * organizer
      *
-     * @Lazy
      * @var Organizer
      */
+    #[Lazy]
     protected $organizer;
 
     /**
      * Audience
      *
-     * @Lazy
      * @var ObjectStorage<Audience>
      */
+    #[Lazy]
     protected $audience;
 
     /**
@@ -169,9 +169,9 @@ class Event extends AbstractEntity
     protected $archiveDate;
 
     /**
-     * @Lazy
      * @var ObjectStorage<Content>
      */
+    #[Lazy]
     protected $contentElements;
 
     /**

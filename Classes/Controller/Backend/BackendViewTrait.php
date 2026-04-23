@@ -4,13 +4,10 @@ namespace DWenzel\T3events\Controller\Backend;
 
 use DWenzel\T3events\Domain\Model\Dto\ButtonDemandCollection;
 use DWenzel\T3events\Utility\SettingsInterface;
-use DWenzel\T3events\View\ConfigurableViewInterface;
 use TYPO3\CMS\Backend\Template\Components\ButtonBar;
-use TYPO3\CMS\Backend\View\BackendTemplateView;
 use TYPO3\CMS\Core\Imaging\IconFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 
 /**
@@ -23,64 +20,15 @@ trait BackendViewTrait
     use ModuleButtonTrait;
 
     /**
-     * Settings (from TypoScript for module)
-     *
-     * @var array
-     */
-    protected $settings;
-
-    /**
-     * @var UriBuilder
-     */
-    protected $uriBuilder;
-
-    /**
      * @return ConfigurationManagerInterface
      */
     abstract public function getConfigurationManager();
 
-    public function initializeView(ViewInterface $view): void
+    public function initializeView(): void
     {
-        if (
-            $view instanceof ConfigurableViewInterface &&
-            !empty($this->settings[ConfigurableViewInterface::SETTINGS_KEY])
-        ) {
-            $view->apply($this->settings[ConfigurableViewInterface::SETTINGS_KEY]);
-        }
-
-        if ($view instanceof BackendTemplateView) {
-            $this->configurePageRenderer($view);
-
-            $demandCollection = new ButtonDemandCollection($this->getButtonConfiguration());
-            $this->createButtons($demandCollection);
-        }
-    }
-
-    protected function configurePageRenderer(BackendTemplateView $view)
-    {
-        $rendererConfiguration = $this->getPageRendererConfiguration();
-
-        if (empty($rendererConfiguration[SettingsInterface::REQUIRE_JS]) ||
-            !\is_array($rendererConfiguration[SettingsInterface::REQUIRE_JS]??'')) {
-            return;
-        }
-        $pageRenderer = $view->getModuleTemplate()->getPageRenderer();
-
-        $configuration[SettingsInterface::PATH] = [];
-        $modulesToLoad = [];
-        foreach ($rendererConfiguration[SettingsInterface::REQUIRE_JS] as $identifier => $config) {
-            $configuration[SettingsInterface::PATHS][$identifier] = $config[SettingsInterface::PATH];
-            if (!empty($config[SettingsInterface::MODULES]) && \is_array($config[SettingsInterface::MODULES])) {
-                foreach ($config[SettingsInterface::MODULES] as $module) {
-                    $modulesToLoad[] = $identifier . SettingsInterface::PATH_SEPARATOR . $module;
-                }
-            }
-        }
-        $pageRenderer->addRequireJsConfiguration($configuration);
-        foreach ($modulesToLoad as $moduleToLoad) {
-            $pageRenderer->loadRequireJsModule($moduleToLoad);
-        }
-
+        // Button creation via ModuleButtonTrait is not compatible with TYPO3 v12.
+        // In v12, buttons must be added to ModuleTemplate::getDocHeaderComponent()->getButtonBar(),
+        // not a standalone ButtonBar instance. TODO: re-implement when needed.
     }
 
     /**
@@ -95,12 +43,8 @@ trait BackendViewTrait
         return $this->uriBuilder;
     }
 
-    protected function getIconFactory()
+    protected function getIconFactory(): IconFactory
     {
-        if ($this->view instanceof BackendTemplateView) {
-            return $this->view->getModuleTemplate()->getIconFactory();
-        }
-
         return GeneralUtility::makeInstance(IconFactory::class);
     }
 
@@ -108,12 +52,8 @@ trait BackendViewTrait
      * Returns a button bar either from module template or freshly instantiated
      * @return ButtonBar
      */
-    protected function getButtonBar()
+    protected function getButtonBar(): ButtonBar
     {
-        if ($this->view instanceof BackendTemplateView) {
-            return $this->view->getModuleTemplate()->getDocHeaderComponent()->getButtonBar();
-        }
-
         return GeneralUtility::makeInstance(ButtonBar::class);
     }
 

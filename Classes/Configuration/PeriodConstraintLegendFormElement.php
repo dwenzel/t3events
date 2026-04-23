@@ -23,7 +23,6 @@ class PeriodConstraintLegendFormElement extends AbstractFormElement
         $this->iconFactory = GeneralUtility::makeInstance(IconFactory::class);
     }
 
-    #[\Override]
     public function render(): array
     {
         $fieldInformationResult = $this->renderFieldInformation();

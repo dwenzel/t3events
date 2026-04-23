@@ -76,14 +76,13 @@ interface SettingsInterface
     /**
      * Modules Registration
      */
-    public const MAIN_MODULE_EVENTS = 'T3eventsEvents';
+    public const MAIN_MODULE_EVENTS = 'events';
 
     /**
-     * routes identifiers are generated during registration
-     * @see ext_tables.php
+     * Route identifiers match module keys in Configuration/Backend/Modules.php (TYPO3 v12+)
      */
-    public const ROUTE_EVENT_MODULE = 'T3eventsEvents_T3eventsM1';
-    public const ROUTE_SCHEDULE_MODULE = 'T3eventsEvents_T3eventsM2';
+    public const ROUTE_EVENT_MODULE = 'events_m1';
+    public const ROUTE_SCHEDULE_MODULE = 'events_m2';
 
     /**
      * Core route for convenience

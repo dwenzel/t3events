@@ -29,7 +29,6 @@ class EventTypeFilter implements FilterInterface
 {
     use EventTypeRepositoryTrait, OptionsTrait;
 
-    #[\Override]
     public function getOptionRepository(): DemandedRepositoryInterface
     {
         return $this->eventTypeRepository;

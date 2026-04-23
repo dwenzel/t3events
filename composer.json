@@ -24,9 +24,6 @@
     "typo3/cms-fluid": "^11.5 || ^12.4",
     "dwenzel/t3extension-tools": "^2.0 || ^4.0"
   },
-  "require-dev": {
-    "dwenzel/t3extension-tools": "dev-feature/v11 as 2.0"
-  },
   "autoload": {
     "psr-4": {
       "DWenzel\\T3events\\": "Classes"

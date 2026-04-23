@@ -71,11 +71,10 @@ class PerformanceController
      * initializes all actions
      * @throws NoSuchArgumentException
      */
-    #[\Override]
     public function initializeAction(): void
     {
         $this->settings = $this->mergeSettings();
-        $this->contentObject = $this->configurationManager->getContentObject();
+        $this->contentObject = $this->request->getAttribute('currentContentObject');
         if ($this->request->hasArgument(SI::OVERWRITE_DEMAND)) {
             $this->session->set(
                 'tx_t3events_overwriteDemand',

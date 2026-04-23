@@ -13,7 +13,6 @@ namespace DWenzel\T3events\Service;
  *
  * The TYPO3 project - inspiring people to share!
  */
-use DWenzel\T3events\Object\ObjectManagerTrait;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -27,15 +26,12 @@ use DWenzel\T3events\Domain\Model\Dto\ModuleData;
  */
 class ModuleDataStorageService implements SingletonInterface
 {
-    use ObjectManagerTrait;
-
     /**
      * Loads module data for a given key or returns a fresh object initially
      *
-     * @param string $key
      * @return ModuleData
      */
-    public function loadModuleData($key)
+    public function loadModuleData(string $key)
     {
         if ($this->getBackendUserAuthentication() instanceof BackendUserAuthentication) {
             $moduleData = $this->getBackendUserAuthentication()->getModuleData($key);
@@ -48,10 +44,8 @@ class ModuleDataStorageService implements SingletonInterface
 
     /**
      * Persists serialized module data to user settings
-     *
-     * @param string $key
      */
-    public function persistModuleData(ModuleData $moduleData, $key): void
+    public function persistModuleData(ModuleData $moduleData, string $key): void
     {
         $this->getBackendUserAuthentication()->pushModuleData($key, serialize($moduleData));
     }
