@@ -72,8 +72,9 @@ class FilterableControllerTraitTest extends UnitTestCase
      */
     protected $subject;
 
-    public function setUp()
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getMockForTrait(
             FilterableControllerTrait::class
         );
@@ -132,7 +133,7 @@ class FilterableControllerTraitTest extends UnitTestCase
     public function getFilterOptionsAddsAllOptionsForExistingRepositoryProperty()
     {
         $this->subject = $this->getMockBuilder(DummyControllerWithAudienceRepository::class)
-            ->setMethods(['translate'])->getMock();
+            ->onlyMethods(['translate'])->getMock();
 
         $settings = [
             'audience' => ''
@@ -167,7 +168,7 @@ class FilterableControllerTraitTest extends UnitTestCase
         $audienceRepository = $this->getMockAudienceRepository(['findMultipleByUid']);
         $mockQueryResult = $this->getMockQueryResult();
         $this->subject = $this->getAccessibleMock(
-            DummyControllerWithAudienceRepository::class, ['dummy']
+            DummyControllerWithAudienceRepository::class, []
         );
 
         $this->inject($this->subject, 'audienceRepository', $audienceRepository);
@@ -248,7 +249,7 @@ class FilterableControllerTraitTest extends UnitTestCase
     protected function getMockAudienceRepository(array $methods = [])
     {
         $audienceRepository = $this->getMockBuilder(AudienceRepository::class)
-            ->setMethods($methods)
+            ->onlyMethods($methods)
             ->disableOriginalConstructor()
             ->getMock();
         return $audienceRepository;

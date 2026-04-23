@@ -32,8 +32,9 @@ class EventDemandFactoryTraitTest extends UnitTestCase
     /**
      * set up the subject
      */
-    public function setUp()
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getMockForTrait(
             EventDemandFactoryTrait::class
         );
@@ -48,7 +49,7 @@ class EventDemandFactoryTraitTest extends UnitTestCase
         $eventDemandFactory = $this->getMockBuilder(EventDemandFactory::class)
             ->getMock();
 
-        $this->subject->injectEventDemandFactory($eventDemandFactory);
+        $this->inject($this->subject, "eventDemandFactory", $eventDemandFactory);
 
         $this->assertAttributeSame(
             $eventDemandFactory,

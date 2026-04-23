@@ -36,8 +36,9 @@ class DemandedRepositoryTraitTest extends UnitTestCase
      */
     protected $subject;
 
-    public function setUp()
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getMockForTrait(
             DemandedRepositoryTrait::class
         );
@@ -128,7 +129,7 @@ class DemandedRepositoryTraitTest extends UnitTestCase
         $mockDemand->setOffset($storagePageIds);
         $mockQuery = $this->getMockBuilder(Query::class)
             ->disableOriginalConstructor()
-            ->setMethods(['getQuerySettings'])->getMock();
+            ->onlyMethods(['getQuerySettings'])->getMock();
         $mockQuerySettings = $this->getMockQuerySettings();
         $mockQuery->expects($this->once())
             ->method('getQuerySettings')

@@ -34,8 +34,9 @@ class RelatedSchedulesTraitTest extends UnitTestCase
     /**
      * set up subject
      */
-    public function setUp()
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getMockBuilder(RelatedSchedulesTrait::class)
             ->getMockForTrait();
 

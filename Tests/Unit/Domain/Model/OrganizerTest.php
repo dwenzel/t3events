@@ -39,12 +39,13 @@ class OrganizerTest extends \Nimut\TestingFramework\TestCase\UnitTestCase
      */
     protected $fixture;
 
-    public function setUp()
+    public function setUp(): void
     {
+        parent::setUp();
         $this->fixture = new \DWenzel\T3events\Domain\Model\Organizer();
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         unset($this->fixture);
     }

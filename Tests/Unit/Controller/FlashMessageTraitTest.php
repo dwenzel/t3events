@@ -40,8 +40,9 @@ class FlashMessageTraitTest extends UnitTestCase
     /**
      * set up
      */
-    public function setUp()
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getMockForTrait(
             FlashMessageTrait::class
         );
@@ -70,7 +71,7 @@ class FlashMessageTraitTest extends UnitTestCase
     protected function mockFlashMessageService()
     {
         $mockFlashMessageService = $this->getMockBuilder(FlashMessageService::class)
-            ->setMethods(['getMessageQueueByIdentifier'])->getMock();
+            ->onlyMethods(['getMessageQueueByIdentifier'])->getMock();
         $this->inject(
             $this->subject,
             'flashMessageService',
@@ -86,7 +87,7 @@ class FlashMessageTraitTest extends UnitTestCase
     protected function mockRequest()
     {
         $mockRequest = $this->getMockBuilder(Request::class)
-            ->setMethods(['getControllerExtensionName', 'getPluginName'])->getMock();
+            ->onlyMethods(['getControllerExtensionName', 'getPluginName'])->getMock();
         $this->inject(
             $this->subject,
             'request',
@@ -102,7 +103,7 @@ class FlashMessageTraitTest extends UnitTestCase
     protected function mockExtensionService()
     {
         $mockExtensionService = $this->getMockBuilder(ExtensionService::class)
-            ->setMethods(['getPluginNamespace'])->getMock();
+            ->onlyMethods(['getPluginNamespace'])->getMock();
         $this->inject(
             $this->subject,
             'extensionService',
@@ -122,7 +123,7 @@ class FlashMessageTraitTest extends UnitTestCase
         $pluginName = 'bazPlugin';
         $this->subject = $this->getMockBuilder(FlashMessageTrait::class)
             ->disableOriginalConstructor()
-            ->setMethods(['useLegacyFlashMessageHandling'])->getMockForTrait();
+            ->onlyMethods(['useLegacyFlashMessageHandling'])->getMockForTrait();
 
         $mockExtensionService = $this->mockExtensionService();
         $mockRequest = $this->mockRequest();
@@ -197,7 +198,7 @@ class FlashMessageTraitTest extends UnitTestCase
     {
         return $this->getMockBuilder(FlashMessageQueue::class)
             ->disableOriginalConstructor()
-            ->setMethods($methods)
+            ->onlyMethods($methods)
             ->getMock();
     }
 }

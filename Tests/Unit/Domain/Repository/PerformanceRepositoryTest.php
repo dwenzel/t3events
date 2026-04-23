@@ -59,11 +59,12 @@ class PerformanceRepositoryTest extends UnitTestCase
     /**
      *
      */
-    public function setUp()
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getAccessibleMock(
             PerformanceRepository::class,
-            ['dummy'], [], '', false
+            [], [], '', false
         );
         $this->objectManager = $this->getMockObjectManager();
         $this->inject(
@@ -90,7 +91,7 @@ class PerformanceRepositoryTest extends UnitTestCase
         );
         /** @var QueryInterface|\PHPUnit_Framework_MockObject_MockObject $query */
         $query = $this->getMockBuilder(Query::class)
-            ->setMethods(['equals'])
+            ->onlyMethods(['equals'])
             ->disableOriginalConstructor()
             ->getMock();
         $comparison = $this->getMockBuilder(ConstraintInterface::class)->getMock();
@@ -281,13 +282,13 @@ class PerformanceRepositoryTest extends UnitTestCase
             ->will($this->returnValue(''));
         return [
             ['getGenres', null],
-            ['getGenres', ''],
+            ['getGenres'],
             ['getVenues', null],
-            ['getVenues', ''],
+            ['getVenues'],
             ['getEventTypes', null],
-            ['getEventTypes', ''],
+            ['getEventTypes'],
             ['getCategories', null],
-            ['getCategories', ''],
+            ['getCategories'],
             ['getSearch', $mockSearchObjectWithNullSubject],
             ['getSearch', $mockSearchObjectWithEmptySubject],
         ];
@@ -515,7 +516,7 @@ class PerformanceRepositoryTest extends UnitTestCase
     protected function getMockPerformanceDemand(array $methods = [])
     {
         return $this->getMockBuilder(PerformanceDemand::class)
-            ->setMethods($methods)
+            ->onlyMethods($methods)
             ->getMock();
     }
 
@@ -524,6 +525,10 @@ class PerformanceRepositoryTest extends UnitTestCase
      */
     protected function getMockSearch(array $methods = [])
     {
-        return $this->getMockBuilder(Search::class)->setMethods($methods)->getMock();
+        $builder = $this->getMockBuilder(Search::class);
+        if (!empty($methods)) {
+            $builder->onlyMethods($methods);
+        }
+        return $builder->getMock();
     }
 }

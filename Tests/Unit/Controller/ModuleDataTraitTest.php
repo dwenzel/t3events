@@ -52,10 +52,11 @@ class ModuleDataTraitTest extends UnitTestCase
     /**
      * set up
      */
-    public function setUp()
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getMockBuilder(ModuleDataTrait::class)
-            ->setMethods(['getModuleKey'])
+            ->onlyMethods(['getModuleKey'])
             ->getMockForTrait();
 
         $this->objectManager = $this->getMockObjectManager();
@@ -137,7 +138,7 @@ class ModuleDataTraitTest extends UnitTestCase
     protected function getMockModuleDataStorageService(array $methods = [])
     {
         return $this->getMockBuilder(ModuleDataStorageService::class)
-            ->setMethods($methods)
+            ->onlyMethods($methods)
             ->getMock();
     }
 

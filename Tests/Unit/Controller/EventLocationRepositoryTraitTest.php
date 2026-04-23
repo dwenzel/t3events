@@ -32,8 +32,9 @@ class EventLocationRepositoryTraitTest extends UnitTestCase
     /**
      * set up
      */
-    public function setUp()
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getMockForTrait(
             EventLocationRepositoryTrait::class
         );

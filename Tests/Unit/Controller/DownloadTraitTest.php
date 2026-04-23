@@ -29,8 +29,9 @@ class DownloadTraitTest extends UnitTestCase
     /**
      * set up
      */
-    public function setUp()
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getMockForTrait(
             DownloadTrait::class
         );
@@ -220,7 +221,7 @@ class DownloadTraitTest extends UnitTestCase
     {
         $mockBuilder = $this->getMockBuilder(LocalDriver::class);
         if (!empty($methods)) {
-            $mockBuilder->setMethods($methods);
+            $mockBuilder->onlyMethods($methods);
         }
         return $mockBuilder->getMock();
     }
@@ -231,7 +232,10 @@ class DownloadTraitTest extends UnitTestCase
      */
     protected function getMockResponse(array $methods = ['sendHeaders', 'setHeader'])
     {
-        return $this->getMockBuilder(Response::class)
-            ->setMethods($methods)->getMock();
+        $builder = $this->getMockBuilder(Response::class);
+        if (!empty($methods)) {
+            $builder->onlyMethods($methods);
+        }
+        return $builder->getMock();
     }
 }

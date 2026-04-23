@@ -11,6 +11,7 @@ use DWenzel\T3events\Domain\Repository\PerformanceRepository;
 use DWenzel\T3events\Utility\SettingsInterface as SI;
 use Nimut\TestingFramework\MockObject\AccessibleMockObjectInterface;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 
 /**
@@ -56,10 +57,11 @@ class ScheduleControllerTest extends UnitTestCase
     /**
      * set up
      */
-    public function setUp()
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getMockBuilder(ScheduleController::class)
-            ->setMethods(
+            ->onlyMethods(
                 [
                     'createDemandFromSettings',
                     'emitSignal',
@@ -85,15 +87,18 @@ class ScheduleControllerTest extends UnitTestCase
             'moduleData',
             $this->moduleData
         );
-        $this->subject->injectPerformanceRepository($mockPerformanceRepository);
+        $this->inject($this->subject, "performanceRepository", $mockPerformanceRepository);
         /** @var PerformanceDemandFactory|\PHPUnit_Framework_MockObject_MockObject performanceDemandFactory */
         $this->performanceDemandFactory = $this->getMockBuilder(PerformanceDemandFactory::class)
-            ->setMethods(['createFromSettings'])->getMock();
+            ->onlyMethods(['createFromSettings'])->getMock();
         /** @var PerformanceDemand|\PHPUnit_Framework_MockObject_MockObject $mockDemand */
         $mockDemand = $this->getMockBuilder(PerformanceDemand::class)->getMock();
         $this->performanceDemandFactory->method('createFromSettings')->will($this->returnValue($mockDemand));
-        $this->subject->injectPerformanceDemandFactory($this->performanceDemandFactory);
+        $this->inject($this->subject, "performanceDemandFactory", $this->performanceDemandFactory);
         $this->inject($this->subject, SI::SETTINGS, $this->settings);
+        $mockModuleTemplateFactory = $this->getMockBuilder(ModuleTemplateFactory::class)
+            ->disableOriginalConstructor()->getMock();
+        $this->inject($this->subject, 'moduleTemplateFactory', $mockModuleTemplateFactory);
     }
 
     /**

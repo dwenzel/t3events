@@ -30,10 +30,11 @@ class EqualsTraitTest extends UnitTestCase
      */
     protected $subject;
 
-    public function setUp()
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getMockBuilder(EqualsTrait::class)
-            ->setMethods(['__toString'])
+            ->onlyMethods(['__toString'])
             ->getMockForTrait();
     }
 
@@ -41,7 +42,7 @@ class EqualsTraitTest extends UnitTestCase
     {
         /** @var AbstractDomainObject|MockObject $objectToCompare */
         $objectToCompare = $this->getMockBuilder(AbstractDomainObject::class)
-            ->setMethods(['__toString'])
+            ->onlyMethods(['__toString'])
             ->getMockForAbstractClass();
         $objectToCompare->expects($this->once())
             ->method('__toString')
@@ -62,7 +63,7 @@ class EqualsTraitTest extends UnitTestCase
 
         /** @var AbstractDomainObject|MockObject $objectToCompare */
         $objectToCompare = $this->getMockBuilder(AbstractDomainObject::class)
-            ->setMethods(['__toString'])
+            ->onlyMethods(['__toString'])
             ->getMockForAbstractClass();
         $objectToCompare->expects($this->once())
             ->method('__toString')

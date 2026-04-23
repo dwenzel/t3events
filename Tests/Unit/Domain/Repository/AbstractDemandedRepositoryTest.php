@@ -26,6 +26,8 @@ use DWenzel\T3events\Tests\Unit\Domain\Model\Dto\MockDemandTrait;
 use Nimut\TestingFramework\MockObject\AccessibleMockObjectInterface;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
+use Psr\EventDispatcher\EventDispatcherInterface;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
@@ -48,11 +50,15 @@ class AbstractDemandedRepositoryTest extends UnitTestCase
      */
     protected $fixture;
 
-    public function setUp()
+    public function setUp(): void
     {
+        parent::setUp();
         $this->fixture = $this->getAccessibleMock(
             AbstractDemandedRepository::class,
             array('createConstraintsFromDemand', 'createQuery'), array(), '', false);
+        $mockEventDispatcher = $this->createMock(EventDispatcherInterface::class);
+        $mockEventDispatcher->method('dispatch')->willReturnArgument(0);
+        GeneralUtility::setSingletonInstance(EventDispatcherInterface::class, $mockEventDispatcher);
     }
 
     /**
@@ -157,7 +163,7 @@ class AbstractDemandedRepositoryTest extends UnitTestCase
     {
         /** @var AbstractDemandedRepository|MockObject $fixture */
         $fixture = $this->getMockBuilder(AbstractDemandedRepository::class)
-            ->setMethods(['createConstraintsFromDemand', 'generateQuery'])
+            ->onlyMethods(['createConstraintsFromDemand', 'generateQuery'])
             ->disableOriginalConstructor()
             ->getMockForAbstractClass();
         $mockDemand = $this->getMockDemand();
@@ -332,7 +338,7 @@ class AbstractDemandedRepositoryTest extends UnitTestCase
     {
         $fixture = $this->getAccessibleMock(
             AbstractDemandedRepository::class,
-            array('dummy', 'createConstraintsFromDemand'), array(), '', false);
+            array('createConstraintsFromDemand'), array(), '', false);
         $constraints = array();
         $mockQuery = $this->getMockQuery(['logicalAnd']);
         $additionalConstraint = [$this->getMockConstraint()];
@@ -355,7 +361,7 @@ class AbstractDemandedRepositoryTest extends UnitTestCase
     {
         $fixture = $this->getAccessibleMock(
             AbstractDemandedRepository::class,
-            array('dummy', 'createConstraintsFromDemand'), array(), '', false);
+            array('createConstraintsFromDemand'), array(), '', false);
         $constraints = array();
         $conjunction = 'or';
         $mockQuery = $this->getMockQuery(['logicalOr']);
@@ -380,7 +386,7 @@ class AbstractDemandedRepositoryTest extends UnitTestCase
     {
         $fixture = $this->getAccessibleMock(
             AbstractDemandedRepository::class,
-            array('dummy', 'createConstraintsFromDemand'), array(), '', false);
+            array('createConstraintsFromDemand'), array(), '', false);
         $constraints = array();
         $conjunction = 'NotAnd';
         $mockQuery = $this->getMockQuery(['logicalNot', 'logicalAnd']);
@@ -410,7 +416,7 @@ class AbstractDemandedRepositoryTest extends UnitTestCase
     {
         $fixture = $this->getAccessibleMock(
             AbstractDemandedRepository::class,
-            array('dummy', 'createConstraintsFromDemand'), array(), '', false);
+            array('createConstraintsFromDemand'), array(), '', false);
         $constraints = array();
         $conjunction = 'NotOr';
         $mockQuery = $this->getMockQuery(['logicalNot', 'logicalOr']);

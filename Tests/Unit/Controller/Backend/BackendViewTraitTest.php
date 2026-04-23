@@ -65,32 +65,34 @@ class BackendViewTraitTest extends UnitTestCase
     /**
      * set up subject
      */
-    public function setUp()
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getMockBuilder(BackendViewTrait::class)
-            ->setMethods(['getViewProperty', 'getConfigurationManager'])
+            ->onlyMethods(['getConfigurationManager'])
+            ->addMethods(['getViewProperty'])
             ->getMockForTrait();
 
         $this->configurationManager = $this->getMockBuilder(ConfigurationManager::class)
             ->disableOriginalConstructor()
-            ->setMethods(['getConfiguration'])
+            ->onlyMethods(['getConfiguration'])
             ->getMock();
         $this->subject->method('getConfigurationManager')
             ->willReturn($this->configurationManager);
         $this->pageRenderer = $this->getMockBuilder(PageRenderer::class)
             ->disableOriginalConstructor()
-            ->setMethods(['addRequireJsConfiguration', 'loadRequireJsModule'])
+            ->onlyMethods(['addRequireJsConfiguration', 'loadRequireJsModule'])
             ->getMock();
         $this->moduleTemplate = $this->getMockBuilder(ModuleTemplate::class)
             ->disableOriginalConstructor()
-            ->setMethods(['getPageRenderer'])
+            ->onlyMethods(['getPageRenderer'])
             ->getMock();
         $this->moduleTemplate->expects($this->any())
             ->method('getPageRenderer')
             ->willReturn($this->pageRenderer);
 
         $this->view = $this->getMockBuilder(BackendTemplateView::class)
-            ->setMethods(['getModuleTemplate'])
+            ->onlyMethods(['getModuleTemplate'])
             ->getMock();
         $this->view->expects($this->any())
             ->method('getModuleTemplate')
@@ -113,7 +115,7 @@ class BackendViewTraitTest extends UnitTestCase
         );
         /** @var ConfigurableViewInterface|ViewInterface|\PHPUnit_Framework_MockObject_MockObject $mockView */
         $mockView = $this->getMockBuilder(ConfigurableViewInterface::class)
-            ->setMethods(['apply'])
+            ->onlyMethods(['apply'])
             ->getMockForAbstractClass();
         $mockView->expects($this->once())->method('apply')
             ->with($settings[ConfigurableViewInterface::SETTINGS_KEY]);

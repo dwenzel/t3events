@@ -86,8 +86,9 @@ class EventControllerTest extends UnitTestCase
     /**
      * set up
      */
-    public function setUp()
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getAccessibleMock(
             EventController::class,
             ['emitSignal', 'getFilterOptions', 'overwriteDemandObject', 'addFlashMessage', 'translate', 'callStatic']
@@ -105,8 +106,8 @@ class EventControllerTest extends UnitTestCase
         $this->configurationManager = $this->getMockForAbstractClass(ConfigurationManagerInterface::class);
         /** @var EventDemandFactory|\PHPUnit_Framework_MockObject_MockObject $mockDemandFactory */
         $this->eventDemandFactory = $this->getMockBuilder(EventDemandFactory::class)
-            ->setMethods(['createFromSettings'])->getMock();
-        $this->subject->injectEventDemandFactory($this->eventDemandFactory);
+            ->onlyMethods(['createFromSettings'])->getMock();
+        $this->subject->_set("eventDemandFactory", $this->eventDemandFactory);
         $this->subject->injectConfigurationManager($this->configurationManager);
         $this->inject(
             $this->subject,
@@ -119,16 +120,16 @@ class EventControllerTest extends UnitTestCase
             []
         );
         $this->subject->setModuleData($this->moduleData);
-        $this->subject->injectEventRepository($mockEventRepository);
+        $this->subject->_set("eventRepository", $mockEventRepository);
         $this->eventDemand = $this->getMockBuilder(EventDemand::class)
             ->getMock();
 
         $this->formProtectionFactory = $this->getMockBuilder(FormProtectionFactory::class)
-            ->setMethods(['generateToken'])
+            ->onlyMethods(['generateToken'])
             ->disableOriginalConstructor()
             ->getMock();
         $this->uriBuilder = $this->getMockBuilder(UriBuilder::class)
-            ->setMethods(['buildUriFromRoute'])->getMock();
+            ->onlyMethods(['buildUriFromRoute'])->getMock();
     }
 
     /**
@@ -271,26 +272,31 @@ class EventControllerTest extends UnitTestCase
         ];
         $redirectUrl = 'fakeUrl';
 
+        $expectedCallStaticArgs = [
+            [GeneralUtility::class, 'makeInstance', UriBuilder::class],
+            [HttpUtility::class, SI::REDIRECT]
+        ];
+        $callStaticReturns = [$this->uriBuilder, null];
+        $callStaticIndex = 0;
         $this->subject->expects($this->exactly(2))
             ->method('callStatic')
-            ->withConsecutive(
-                [GeneralUtility::class, 'makeInstance', UriBuilder::class],
-                [HttpUtility::class, SI::REDIRECT]
-            )->willReturnOnConsecutiveCalls(
-                $this->uriBuilder,
-                null
-            );
+            ->willReturnCallback(function() use (&$callStaticIndex, $expectedCallStaticArgs, $callStaticReturns) {
+                $this->assertSame($expectedCallStaticArgs[$callStaticIndex], func_get_args());
+                return $callStaticReturns[$callStaticIndex++];
+            });
 
+        $expectedUriBuilderCalls = [
+            [SI::ROUTE_EVENT_MODULE],
+            $expectedUriBuilderParameters
+        ];
+        $uriBuilderReturns = [$returnUrl, $redirectUrl];
+        $uriBuilderIndex = 0;
         $this->uriBuilder->expects($this->exactly(2))
             ->method('buildUriFromRoute')
-            ->withConsecutive(
-                [SI::ROUTE_EVENT_MODULE],
-                $expectedUriBuilderParameters
-            )
-            ->willReturnOnConsecutiveCalls(
-                $returnUrl,
-                $redirectUrl
-            );
+            ->willReturnCallback(function() use (&$uriBuilderIndex, $expectedUriBuilderCalls, $uriBuilderReturns) {
+                $this->assertSame($expectedUriBuilderCalls[$uriBuilderIndex], func_get_args());
+                return $uriBuilderReturns[$uriBuilderIndex++];
+            });
 
         $this->subject->newAction();
     }

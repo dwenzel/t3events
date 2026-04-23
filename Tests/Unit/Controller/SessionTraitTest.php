@@ -37,8 +37,9 @@ class SessionTraitTest extends UnitTestCase
     /**
      * set up
      */
-    public function setUp()
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getMockForTrait(
             SessionTrait::class
         );
@@ -67,7 +68,7 @@ class SessionTraitTest extends UnitTestCase
     {
         $namespace = 'foo';
         $this->subject = $this->getAccessibleMock(
-            DummyClassWithNamespace::class, ['dummy']
+            DummyClassWithNamespace::class, []
         );
         $this->subject->_set(
             'namespace',
@@ -87,7 +88,7 @@ class SessionTraitTest extends UnitTestCase
     protected function getMockSession()
     {
         return $this->getMockBuilder(SessionInterface::class)
-            ->setMethods(
+            ->onlyMethods(
                 ['has', 'get', 'clean', 'set', 'setNamespace']
             )->getMockForAbstractClass();
     }

@@ -34,10 +34,11 @@ class RouterTest extends UnitTestCase
     /**
      * set up subject
      */
-    public function setUp()
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getAccessibleMock(
-            Router::class, ['dummy']
+            Router::class, []
         );
     }
 
@@ -135,7 +136,7 @@ class RouterTest extends UnitTestCase
     {
         return $this->getMockBuilder(Route::class)
             ->setConstructorArgs($constructorArguments)
-            ->setMethods($methods)
+            ->onlyMethods($methods)
             ->getMock();
     }
 }

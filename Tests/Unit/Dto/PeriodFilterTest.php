@@ -36,10 +36,11 @@ class PeriodFilterTest extends TestCase
     protected $subject;
 
     /** @noinspection ReturnTypeCanBeDeclaredInspection */
-    public function setUp()
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getMockBuilder(PeriodFilter::class)
-            ->setMethods(['translate'])
+            ->onlyMethods(['translate'])
             ->getMock();
     }
 

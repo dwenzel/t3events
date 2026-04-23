@@ -32,10 +32,11 @@ class ArrayToCsvViewHelperTest extends UnitTestCase
     /**
      * set up
      */
-    public function setUp()
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getAccessibleMock(
-            ArrayToCsvViewHelper::class, ['dummy', 'registerArgument']
+            ArrayToCsvViewHelper::class, ['registerArgument']
         );
     }
 
@@ -73,13 +74,18 @@ class ArrayToCsvViewHelperTest extends UnitTestCase
      */
     public function initializeArgumentsRegistersArguments()
     {
+        $expectedRegisterArgs = [
+            ['source', 'array', ArrayToCsvViewHelper::ARGUMENT_SOURCE_DESCRIPTION, true, null],
+            ['delimiter', 'string', ArrayToCsvViewHelper::ARGUMENT_DELIMITER_DESCRIPTION, false, ','],
+            ['quote', 'string', ArrayToCsvViewHelper::ARGUMENT_QUOTE_DESCRIPTION, false, '"']
+        ];
+        $registerCallIndex = 0;
         $this->subject->expects($this->exactly(3))
             ->method('registerArgument')
-            ->withConsecutive(
-                ['source', 'array', ArrayToCsvViewHelper::ARGUMENT_SOURCE_DESCRIPTION, true, null],
-                ['delimiter', 'string', ArrayToCsvViewHelper::ARGUMENT_DELIMITER_DESCRIPTION, false, ','],
-                ['quote', 'string', ArrayToCsvViewHelper::ARGUMENT_QUOTE_DESCRIPTION, false, '"']
-            );
+            ->willReturnCallback(function() use (&$registerCallIndex, $expectedRegisterArgs) {
+                $this->assertSame($expectedRegisterArgs[$registerCallIndex], func_get_args());
+                $registerCallIndex++;
+            });
         $this->subject->initializeArguments();
     }
 

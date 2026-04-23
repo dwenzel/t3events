@@ -38,10 +38,11 @@ class ScheduleConfigurationServiceTest extends UnitTestCase
     /**
      * set up subject
      */
-    public function setUp()
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getMockBuilder(ScheduleConfigurationService::class)
-            ->setMethods(['callStatic', 'translate'])
+            ->onlyMethods(['callStatic', 'translate'])
             ->getMock();
     }
 
@@ -147,33 +148,19 @@ class ScheduleConfigurationServiceTest extends UnitTestCase
         $mockEventRecord = ['foo'];
         $mockEventTitle = 'baz';
 
+        $expectedCallStaticArgs = [
+            [BackendUtility::class, 'getRecord', SI::TABLE_SCHEDULES, $parameters['row']['uid']],
+            [BackendUtility::class, 'getRecord', SI::TABLE_EVENTS, $mockScheduleRecord['event']],
+            [BackendUtility::class, 'getRecordTitle', SI::TABLE_EVENTS, $mockEventRecord]
+        ];
+        $callStaticReturns = [$mockScheduleRecord, $mockEventRecord, $mockEventTitle];
+        $callStaticIndex = 0;
         $this->subject->expects($this->exactly(3))
             ->method('callStatic')
-            ->withConsecutive(
-                [
-                    BackendUtility::class,
-                    'getRecord',
-                    SI::TABLE_SCHEDULES,
-                    $parameters['row']['uid']
-                ],
-[
-                    BackendUtility::class,
-                    'getRecord',
-                    SI::TABLE_EVENTS,
-                    $mockScheduleRecord['event']
-                ],
-                [
-                    BackendUtility::class,
-                    'getRecordTitle',
-                    SI::TABLE_EVENTS,
-                    $mockEventRecord
-                ]
-            )
-            ->willReturnOnConsecutiveCalls(
-                $mockScheduleRecord,
-                $mockEventRecord,
-                $mockEventTitle
-            );
+            ->willReturnCallback(function() use (&$callStaticIndex, $expectedCallStaticArgs, $callStaticReturns) {
+                $this->assertSame($expectedCallStaticArgs[$callStaticIndex], func_get_args());
+                return $callStaticReturns[$callStaticIndex++];
+            });
         $expectedTitle = ' - ' . $mockEventTitle;
         $this->subject->getLabel($parameters);
         $this->assertEquals(

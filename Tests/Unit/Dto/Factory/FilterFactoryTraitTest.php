@@ -39,8 +39,9 @@ class FilterFactoryTraitTest extends UnitTestCase
      */
     protected $filterFactory;
 
-    public function setUp()
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getMockBuilder(FilterFactoryTrait::class)
             ->getMockForTrait();
 

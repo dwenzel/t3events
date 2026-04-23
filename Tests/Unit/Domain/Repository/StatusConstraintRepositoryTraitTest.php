@@ -58,8 +58,9 @@ class StatusConstraintRepositoryTraitTest extends UnitTestCase
     /**
      * set up
      */
-    public function setUp()
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getMockForTrait(
             StatusConstraintRepositoryTrait::class
         );
@@ -124,7 +125,7 @@ class StatusConstraintRepositoryTraitTest extends UnitTestCase
     protected function getMockStatusAwareDemand(array $methods = [])
     {
         return $this->getMockBuilder(StatusAwareDemandInterface::class)
-            ->setMethods($methods)
+            ->onlyMethods($methods)
             ->getMockForAbstractClass();
     }
 }

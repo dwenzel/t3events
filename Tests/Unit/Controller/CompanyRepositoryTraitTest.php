@@ -32,8 +32,9 @@ class CompanyRepositoryTraitTest extends UnitTestCase
     /**
      * set up
      */
-    public function setUp()
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getMockForTrait(
             \DWenzel\T3events\Controller\CompanyRepositoryTrait::class
         );

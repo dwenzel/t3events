@@ -44,13 +44,14 @@ class EventLocationTest extends UnitTestCase
      */
     protected $fixture;
 
-    public function setUp()
+    public function setUp(): void
     {
+        parent::setUp();
         $this->fixture = $this->getMockBuilder(EventLocation::class)
-            ->setMethods(['dummy'])->getMock();
+            ->getMock();
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         unset($this->fixture);
     }

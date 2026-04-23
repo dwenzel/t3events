@@ -34,13 +34,14 @@ class PersonDemandFactoryTest extends UnitTestCase
     /**
      * set up
      */
-    public function setUp()
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getAccessibleMock(
-            PersonDemandFactory::class, ['dummy'], [], '', false
+            PersonDemandFactory::class, [], [], '', false
         );
         $this->objectManager = $this->getMockObjectManager();
-        $this->subject->injectObjectManager($this->objectManager);
+        $this->subject->_set("objectManager", $this->objectManager);
     }
 
     /**
@@ -67,7 +68,7 @@ class PersonDemandFactoryTest extends UnitTestCase
     protected function getMockPersonDemand(array $methods = [])
     {
         return $this->getMockBuilder(PersonDemand::class)
-            ->setMethods($methods)
+            ->onlyMethods($methods)
             ->getMock();
     }
 
@@ -101,7 +102,7 @@ class PersonDemandFactoryTest extends UnitTestCase
         $settings = [
             $propertyName => $settingsValue
         ];
-        $mockDemand = $this->getMockPersonDemand(['dummy']);
+        $mockDemand = $this->getMockPersonDemand([]);
         $this->objectManager->expects($this->once())
             ->method('get')
             ->will($this->returnValue($mockDemand));
@@ -137,7 +138,7 @@ class PersonDemandFactoryTest extends UnitTestCase
         $settings = [
             $settingsKey => $settingsValue
         ];
-        $mockDemand = $this->getMockPersonDemand(['dummy']);
+        $mockDemand = $this->getMockPersonDemand([]);
         $this->objectManager->expects($this->once())
             ->method('get')
             ->will($this->returnValue($mockDemand));
@@ -155,7 +156,7 @@ class PersonDemandFactoryTest extends UnitTestCase
     public function skippedPropertiesDataProvider(): array
     {
         return [
-            ['foo', ''],
+            ['foo'],
             ['search', 'bar']
         ];
     }
@@ -171,7 +172,7 @@ class PersonDemandFactoryTest extends UnitTestCase
         $settings = [
             $propertyName => $propertyValue
         ];
-        $mockDemand = $this->getMockPersonDemand(['dummy']);
+        $mockDemand = $this->getMockPersonDemand([]);
         $this->objectManager->expects($this->once())
             ->method('get')
             ->will($this->returnValue($mockDemand));
@@ -194,7 +195,7 @@ class PersonDemandFactoryTest extends UnitTestCase
         ];
         $expectedOrder = 'foo|bar';
 
-        $mockDemand = $this->getMockPersonDemand(['dummy']);
+        $mockDemand = $this->getMockPersonDemand([]);
         $this->objectManager->expects($this->once())
             ->method('get')
             ->will($this->returnValue($mockDemand));

@@ -33,8 +33,9 @@ class ObjectManagerTraitTest extends UnitTestCase
     /**
      * set up
      */
-    public function setUp()
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getMockForTrait(
             ObjectManagerTrait::class
         );
@@ -48,9 +49,10 @@ class ObjectManagerTraitTest extends UnitTestCase
         /** @var ObjectManager|\PHPUnit_Framework_MockObject_MockObject $objectManager */
         $objectManager = $this->getMockObjectManager();
 
-        $this->subject->injectObjectManager($objectManager);
+        $this->inject($this->subject, "objectManager", $objectManager);
 
-        self::assertObjectHasAttribute(
+        $this->assertAttributeSame(
+            $objectManager,
             'objectManager',
             $this->subject
         );

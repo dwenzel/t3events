@@ -33,8 +33,9 @@ class PerformanceRepositoryTraitTest extends UnitTestCase
     /**
      * set up
      */
-    public function setUp()
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getMockForTrait(
             PerformanceRepositoryTrait::class
         );
@@ -49,7 +50,7 @@ class PerformanceRepositoryTraitTest extends UnitTestCase
         $performanceRepository = $this->getMockBuilder(PerformanceRepository::class)
             ->disableOriginalConstructor()->getMock();
 
-        $this->subject->injectPerformanceRepository($performanceRepository);
+        $this->inject($this->subject, "performanceRepository", $performanceRepository);
 
         $this->assertAttributeSame(
             $performanceRepository,

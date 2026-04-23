@@ -39,8 +39,9 @@ class AudienceFilterTest extends UnitTestCase
      */
     protected $audienceRepository;
 
-    public function setUp()
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = new AudienceFilter();
         $this->audienceRepository = $this->getMockBuilder(AudienceRepository::class)
             ->disableOriginalConstructor()

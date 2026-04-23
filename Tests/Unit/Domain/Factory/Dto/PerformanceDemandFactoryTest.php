@@ -33,13 +33,14 @@ class PerformanceDemandFactoryTest extends UnitTestCase
     /**
      * set up
      */
-    public function setUp()
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getAccessibleMock(
-            PerformanceDemandFactory::class, ['dummy'], [], '', false
+            PerformanceDemandFactory::class, [], [], '', false
         );
         $this->objectManager = $this->getMockObjectManager();
-        $this->subject->injectObjectManager($this->objectManager);
+        $this->subject->_set("objectManager", $this->objectManager);
     }
 
     /**
@@ -95,7 +96,7 @@ class PerformanceDemandFactoryTest extends UnitTestCase
         $settings = [
             $propertyName => $settingsValue
         ];
-        $mockDemand = $this->getMockPerformanceDemand(['dummy']);
+        $mockDemand = $this->getMockPerformanceDemand([]);
 
         $this->objectManager->expects($this->once())
             ->method('get')
@@ -132,7 +133,7 @@ class PerformanceDemandFactoryTest extends UnitTestCase
         $settings = [
             $settingsKey => $settingsValue
         ];
-        $mockDemand = $this->getMockPerformanceDemand(['dummy']);
+        $mockDemand = $this->getMockPerformanceDemand([]);
         $this->objectManager->expects($this->once())
             ->method('get')
             ->will($this->returnValue($mockDemand));
@@ -150,7 +151,7 @@ class PerformanceDemandFactoryTest extends UnitTestCase
     public function skippedPropertiesDataProvider(): array
     {
         return [
-            ['foo', ''],
+            ['foo'],
             ['periodType', 'bar'],
             ['periodStart', 'bar'],
             ['periodDuration', 'bar'],
@@ -169,7 +170,7 @@ class PerformanceDemandFactoryTest extends UnitTestCase
         $settings = [
             $propertyName => $propertyValue
         ];
-        $mockDemand = $this->getMockPerformanceDemand(['dummy']);
+        $mockDemand = $this->getMockPerformanceDemand([]);
         $this->objectManager->expects($this->once())
             ->method('get')
             ->will($this->returnValue($mockDemand));
@@ -191,7 +192,7 @@ class PerformanceDemandFactoryTest extends UnitTestCase
             'period' => SI::SPECIFIC,
             'periodType' => $periodType
         ];
-        $mockDemand = $this->getMockPerformanceDemand(['dummy']);
+        $mockDemand = $this->getMockPerformanceDemand([]);
         $this->objectManager->expects($this->once())
             ->method('get')
             ->will($this->returnValue($mockDemand));
@@ -217,7 +218,7 @@ class PerformanceDemandFactoryTest extends UnitTestCase
             'periodStart' => $periodStart,
             'periodDuration' => $periodDuration
         ];
-        $mockDemand = $this->getMockPerformanceDemand(['dummy']);
+        $mockDemand = $this->getMockPerformanceDemand([]);
         $this->objectManager->expects($this->once())
             ->method('get')
             ->will($this->returnValue($mockDemand));
@@ -248,7 +249,7 @@ class PerformanceDemandFactoryTest extends UnitTestCase
             'periodStartDate' => $startDate
         ];
 
-        $mockDemand = $this->getMockPerformanceDemand(['dummy']);
+        $mockDemand = $this->getMockPerformanceDemand([]);
         $this->objectManager->expects($this->once())
             ->method('get')
             ->will($this->returnValue($mockDemand));
@@ -276,7 +277,7 @@ class PerformanceDemandFactoryTest extends UnitTestCase
             'periodEndDate' => $endDate
         ];
 
-        $mockDemand = $this->getMockPerformanceDemand(['dummy']);
+        $mockDemand = $this->getMockPerformanceDemand([]);
         $this->objectManager->expects($this->once())
             ->method('get')
             ->will($this->returnValue($mockDemand));
@@ -303,7 +304,7 @@ class PerformanceDemandFactoryTest extends UnitTestCase
         ];
         $expectedOrder = 'foo|bar';
 
-        $mockDemand = $this->getMockPerformanceDemand(['dummy']);
+        $mockDemand = $this->getMockPerformanceDemand([]);
         $this->objectManager->expects($this->once())
             ->method('get')
             ->will($this->returnValue($mockDemand));
@@ -343,7 +344,7 @@ class PerformanceDemandFactoryTest extends UnitTestCase
         ];
         $expectedOrder = $expected;
 
-        $mockDemand = $this->getMockPerformanceDemand(['dummy']);
+        $mockDemand = $this->getMockPerformanceDemand([]);
         $this->objectManager->expects($this->once())
             ->method('get')
             ->will($this->returnValue($mockDemand));
@@ -362,7 +363,7 @@ class PerformanceDemandFactoryTest extends UnitTestCase
     protected function getMockPerformanceDemand(array $methods = [])
     {
         return $this->getMockBuilder(PerformanceDemand::class)
-            ->setMethods($methods)
+            ->onlyMethods($methods)
             ->getMock();
     }
 }

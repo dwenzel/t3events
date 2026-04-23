@@ -38,8 +38,9 @@ class EventTypeConstraintRepositoryTraitTest extends UnitTestCase
     /**
      * set up
      */
-    public function setUp()
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getMockForTrait(
             EventTypeConstraintRepositoryTrait::class
         );
@@ -99,7 +100,7 @@ class EventTypeConstraintRepositoryTraitTest extends UnitTestCase
     protected function getMockEventTypeAwareDemand(array $methods = [])
     {
         return $this->getMockBuilder(EventTypeAwareDemandInterface::class)
-            ->setMethods($methods)
+            ->onlyMethods($methods)
             ->getMockForAbstractClass();
     }
 }

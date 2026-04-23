@@ -42,11 +42,12 @@ class GenreRepositoryTest extends UnitTestCase
      */
     protected $fixture;
 
-    public function setUp()
+    public function setUp(): void
     {
+        parent::setUp();
         $this->fixture = $this->getAccessibleMock(
             GenreRepository::class,
-            ['dummy'], [], '', false);
+            [], [], '', false);
     }
 
     /**

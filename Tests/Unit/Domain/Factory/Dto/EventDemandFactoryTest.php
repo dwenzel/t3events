@@ -44,13 +44,14 @@ class EventDemandFactoryTest extends UnitTestCase
     /**
      * set up
      */
-    public function setUp()
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getAccessibleMock(
-            EventDemandFactory::class, ['dummy'], [], '', false
+            EventDemandFactory::class, [], [], '', false
         );
         $this->objectManager = $this->getMockObjectManager();
-        $this->subject->injectObjectManager($this->objectManager);
+        $this->subject->_set("objectManager", $this->objectManager);
 
     }
 
@@ -165,7 +166,7 @@ class EventDemandFactoryTest extends UnitTestCase
     public function skippedPropertiesDataProvider()
     {
         return [
-            ['foo', ''],
+            ['foo'],
             ['periodType', 'bar'],
             ['periodStart', 'bar'],
             ['periodDuration', 'bar'],
@@ -316,7 +317,7 @@ class EventDemandFactoryTest extends UnitTestCase
     {
         /** @var EventDemand|\PHPUnit_Framework_MockObject_MockObject $mockDemand */
         $mockDemand = $this->getMockBuilder(EventDemand::class)
-            ->setMethods(['dummy'])->getMock();
+            ->getMock();
         return $mockDemand;
     }
 }

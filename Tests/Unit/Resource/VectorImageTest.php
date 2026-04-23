@@ -28,10 +28,11 @@ class VectorImageTest extends UnitTestCase
      */
     protected $subject;
 
-    public function setUp()
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getAccessibleMock(
-            \DWenzel\T3events\Resource\VectorImage::class, ['dummy'], [], '', true
+            \DWenzel\T3events\Resource\VectorImage::class, [], [], '', true
         );
         // initialize property
         $this->subject->getXPath();
@@ -63,7 +64,7 @@ class VectorImageTest extends UnitTestCase
 
         /** @var \DOMElement $mockElement */
         $mockElement = $this->getMockBuilder(\DOMElement::class)
-            ->setMethods(['setAttribute'])
+            ->onlyMethods(['setAttribute'])
             ->setConstructorArgs(['fooTagName'])
             ->getMock();
         $validId = 'foo';
@@ -107,7 +108,7 @@ class VectorImageTest extends UnitTestCase
 
         /** @var \DOMElement $mockElement */
         $mockElement = $this->getMockBuilder(\DOMElement::class)
-            ->setMethods(['setAttribute'])
+            ->onlyMethods(['setAttribute'])
             ->setConstructorArgs(['fooTagName'])
             ->getMock();
         $validId = 'foo';

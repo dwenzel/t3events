@@ -32,8 +32,9 @@ class DateRangeViewHelperTest extends UnitTestCase
     /**
      * set up
      */
-    public function setUp()
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getAccessibleMock(
             DateRangeViewHelper::class, ['initialize']
         );
@@ -112,17 +113,22 @@ class DateRangeViewHelperTest extends UnitTestCase
     public function initializeArgumentsRegistersArguments()
     {
         $this->subject = $this->getMockBuilder(DateRangeViewHelper::class)
-            ->setMethods(['registerArgument'])->getMock();
+            ->onlyMethods(['registerArgument'])->getMock();
 
+        $expectedRegisterArgs = [
+            ['performance', Performance::class, DateRangeViewHelper::ARGUMENT_PERFORMANCE_DESCRIPTION, true, null],
+            ['format', 'string', DateRangeViewHelper::ARGUMENT_FORMAT_DESCRIPTION, false, 'd.m.Y'],
+            ['startFormat', 'string', DateRangeViewHelper::ARGUMENT_STARTFORMAT_DESCRIPTION, false, 'd.m.Y'],
+            ['endFormat', 'string', DateRangeViewHelper::ARGUMENT_ENDFORMAT_DESCRIPTION, false, 'd.m.Y'],
+            ['glue', 'string', DateRangeViewHelper::ARGUMENT_GLUE_DESCRIPTION, false, ' - ']
+        ];
+        $registerCallIndex = 0;
         $this->subject->expects($this->exactly(5))
             ->method('registerArgument')
-            ->withConsecutive(
-                ['performance', Performance::class, DateRangeViewHelper::ARGUMENT_PERFORMANCE_DESCRIPTION, true, null],
-                ['format', 'string', DateRangeViewHelper::ARGUMENT_FORMAT_DESCRIPTION, false, 'd.m.Y'],
-                ['startFormat', 'string', DateRangeViewHelper::ARGUMENT_STARTFORMAT_DESCRIPTION, false, 'd.m.Y'],
-                ['endFormat', 'string', DateRangeViewHelper::ARGUMENT_ENDFORMAT_DESCRIPTION, false, 'd.m.Y'],
-                ['glue', 'string', DateRangeViewHelper::ARGUMENT_GLUE_DESCRIPTION, false, ' - ']
-            );
+            ->willReturnCallback(function() use (&$registerCallIndex, $expectedRegisterArgs) {
+                $this->assertSame($expectedRegisterArgs[$registerCallIndex], func_get_args());
+                $registerCallIndex++;
+            });
         $this->subject->initializeArguments();
     }
 

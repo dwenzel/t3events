@@ -96,30 +96,31 @@ class PerformanceControllerTest extends UnitTestCase
      */
     protected $session;
 
-    public function setUp()
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getAccessibleMock(PerformanceController::class,
-            ['dummy', 'emitSignal', 'createSearchObject'], [], '', false);
+            ['emitSignal', 'createSearchObject'], [], '', false);
         $this->session = $this->getMockBuilder(SessionInterface::class)
-            ->setMethods(['has', 'get', 'clean', 'set', 'setNamespace'])->getMock();
+            ->onlyMethods(['has', 'get', 'clean', 'set', 'setNamespace'])->getMock();
         $this->performanceDemandFactory = $this->getMockBuilder(PerformanceDemandFactory::class)
-            ->setMethods(['createFromSettings'])
+            ->onlyMethods(['createFromSettings'])
             ->getMock();
         $mockDemand = $this->getMockBuilder(PerformanceDemand::class)->getMock();
         $this->performanceDemandFactory->method('createFromSettings')->will(self::returnValue($mockDemand));
-        $this->subject->injectPerformanceDemandFactory($this->performanceDemandFactory);
+        $this->subject->_set("performanceDemandFactory", $this->performanceDemandFactory);
 
         $mockResult = $this->getMockBuilder(QueryResultInterface::class)->getMock();
         $this->performanceRepository = $this->getMockBuilder(PerformanceRepository::class)
             ->disableOriginalConstructor()
-            ->setMethods(['findDemanded'])
+            ->onlyMethods(['findDemanded'])
             ->getMock();
         $this->performanceRepository->method('findDemanded')->will(self::returnValue($mockResult));
-        $this->subject->injectPerformanceRepository($this->performanceRepository);
+        $this->subject->_set("performanceRepository", $this->performanceRepository);
 
         $this->view = $this->getMockBuilder(TemplateView::class)
             ->disableOriginalConstructor()
-            ->setMethods(['assign', 'assignMultiple'])
+            ->onlyMethods(['assign', 'assignMultiple'])
             ->getMock();
         $this->contentObject = $this->getMockBuilder(ContentObjectRenderer::class)
             ->disableOriginalConstructor()
@@ -129,7 +130,7 @@ class PerformanceControllerTest extends UnitTestCase
             ->getMock();
         $mockRequest = $this->getMockBuilder(Request::class)->getMock();
         $mockConfigurationManager = $this->getMockBuilder(ConfigurationManagerInterface::class)
-            ->setMethods(
+            ->onlyMethods(
                 [
                     'getContentObject', 'setContentObject', 'getConfiguration',
                     'setConfiguration', 'isFeatureEnabled'
@@ -157,7 +158,7 @@ class PerformanceControllerTest extends UnitTestCase
         $repository = $this->getMockBuilder(PerformanceRepository::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->subject->injectPerformanceRepository($repository);
+        $this->subject->_set("performanceRepository", $repository);
 
         $this->assertSame(
             $repository,
@@ -247,7 +248,7 @@ class PerformanceControllerTest extends UnitTestCase
         $this->subject->_set(SI::SETTINGS, []);
         $this->mockSettingsUtility();
         $configurationManager = $this->getMockBuilder(ConfigurationManagerInterface::class)
-            ->setMethods(
+            ->onlyMethods(
                 [
                     'getContentObject', 'setContentObject', 'getConfiguration',
                     'setConfiguration', 'isFeatureEnabled'
@@ -266,7 +267,7 @@ class PerformanceControllerTest extends UnitTestCase
     {
         /** @var SettingsUtility|\PHPUnit_Framework_MockObject_MockObject $mockSettingsUtility */
         $mockSettingsUtility = $this->getMockBuilder(SettingsUtility::class)
-            ->setMethods(['getControllerKey'])
+            ->onlyMethods(['getControllerKey'])
             ->getMock();
         $this->subject->injectSettingsUtility($mockSettingsUtility);
         $mockSettingsUtility->expects($this->any())
@@ -563,7 +564,7 @@ class PerformanceControllerTest extends UnitTestCase
     {
         $this->subject = $this->getMockBuilder(PerformanceController::class)
             ->disableOriginalConstructor()
-            ->setMethods(
+            ->onlyMethods(
                 [
                     'overwriteDemandObject',
                     'createDemandFromSettings',
@@ -575,7 +576,7 @@ class PerformanceControllerTest extends UnitTestCase
         $repository = $this->getMockBuilder(PerformanceRepository::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->subject->injectPerformanceRepository($repository);
+        $this->subject->_set("performanceRepository", $repository);
         /** @var TemplateView|\PHPUnit_Framework_MockObject_MockObject $view */
         $view = $this->getMockBuilder(TemplateView::class)
             ->disableOriginalConstructor()
@@ -612,9 +613,9 @@ class PerformanceControllerTest extends UnitTestCase
         /** @var PerformanceRepository|\PHPUnit_Framework_MockObject_MockObject $repository */
         $repository = $this->getMockBuilder(PerformanceRepository::class)
             ->disableOriginalConstructor()
-            ->setMethods(['findDemanded'])
+            ->onlyMethods(['findDemanded'])
             ->getMock();
-        $this->subject->injectPerformanceRepository($repository);
+        $this->subject->_set("performanceRepository", $repository);
         $view = $this->getMockBuilder(TemplateView::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -665,7 +666,7 @@ class PerformanceControllerTest extends UnitTestCase
 
         $view = $this->getMockBuilder(TemplateView::class)
             ->disableOriginalConstructor()
-            ->setMethods(['assignMultiple'])
+            ->onlyMethods(['assignMultiple'])
             ->getMock();
 
         $view->expects(self::once())
@@ -685,7 +686,7 @@ class PerformanceControllerTest extends UnitTestCase
     {
         $this->injectMockRepositories(['findMultipleByUid', 'findAll']);
         $mockSession = $this->getMockBuilder(SessionInterface::class)
-            ->setMethods(['get', 'set', 'has', 'clean', 'setNamespace'])
+            ->onlyMethods(['get', 'set', 'has', 'clean', 'setNamespace'])
             ->getMock();
         $mockSession->expects(self::once())
             ->method('get');
@@ -794,14 +795,14 @@ class PerformanceControllerTest extends UnitTestCase
     {
         $this->performanceDemandFactory = $this->getMockBuilder(PerformanceDemandFactory::class)
             ->disableOriginalConstructor()
-            ->setMethods(['createFromSettings'])
+            ->onlyMethods(['createFromSettings'])
             ->getMock();
         /** @var PerformanceDemand|\PHPUnit_Framework_MockObject_MockObject $demand */
         $mockPerformanceDemand = $this->getMockBuilder(PerformanceDemand::class)->getMock();
         $this->performanceDemandFactory->expects(self::once())
             ->method('createFromSettings')
             ->will(self::returnValue($mockPerformanceDemand));
-        $this->subject->injectPerformanceDemandFactory($this->performanceDemandFactory);
+        $this->subject->_set("performanceDemandFactory", $this->performanceDemandFactory);
         return $mockPerformanceDemand;
     }
 

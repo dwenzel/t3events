@@ -38,10 +38,11 @@ class PerformanceDemandTest extends UnitTestCase
     protected $subject;
 
 
-    public function setUp()
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getMockBuilder(PerformanceDemand::class)
-            ->setMethods(['dummy'])->getMock();
+            ->getMock();
     }
 
     /**

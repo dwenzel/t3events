@@ -34,8 +34,9 @@ class VenueRepositoryTraitTest extends UnitTestCase
     /**
      * set up subject
      */
-    public function setUp()
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getMockForTrait(
             VenueRepositoryTrait::class
         );

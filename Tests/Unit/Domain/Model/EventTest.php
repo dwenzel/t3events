@@ -43,8 +43,9 @@ class EventTest extends UnitTestCase
      */
     protected $subject;
 
-    public function setUp()
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = new Event();
     }
 
@@ -600,7 +601,7 @@ class EventTest extends UnitTestCase
     protected function getMockPerformance(array $methods = [])
     {
         return $this->getMockBuilder(Performance::class)
-            ->setMethods($methods)
+            ->onlyMethods($methods)
             ->getMock();
     }
 
@@ -611,7 +612,7 @@ class EventTest extends UnitTestCase
     protected function getMockEvent(array $methods = [])
     {
         return $this->getMockBuilder(Event::class)
-            ->setMethods($methods)
+            ->onlyMethods($methods)
             ->getMock();
     }
 
@@ -624,7 +625,7 @@ class EventTest extends UnitTestCase
         $laterDate = new \DateTime('@5');
         $mockPerformanceA = $this->getMockPerformance(['getDate']);
         $mockPerformanceB = $this->getMockPerformance(['getDate']);
-        $fixture = $this->getMockEvent(['dummy']);
+        $fixture = $this->getMockEvent([]);
         $fixture->addPerformance($mockPerformanceA);
         $fixture->addPerformance($mockPerformanceB);
         $mockPerformanceA->expects($this->once())->method('getDate')

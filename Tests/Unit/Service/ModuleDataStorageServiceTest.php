@@ -43,11 +43,12 @@ class ModuleDataStorageServiceTest extends UnitTestCase
      */
     protected $subject;
 
-    public function setUp()
+    public function setUp(): void
     {
+        parent::setUp();
         $GLOBALS['BE_USER'] = $this->mockBackendUserAuthentication();
         $this->subject = $this->getAccessibleMock(
-            ModuleDataStorageService::class, ['dummy']
+            ModuleDataStorageService::class, []
         );
     }
 
@@ -55,7 +56,7 @@ class ModuleDataStorageServiceTest extends UnitTestCase
     {
         return $this->getMockBuilder(BackendUserAuthentication::class)
             ->disableOriginalConstructor()
-            ->setMethods(['getModuleData', 'pushModuleData'])
+            ->onlyMethods(['getModuleData', 'pushModuleData'])
             ->getMock();
     }
 
@@ -100,7 +101,7 @@ class ModuleDataStorageServiceTest extends UnitTestCase
         $key = 'foo';
         /** @var ObjectManager|MockObject $mockObjectManager */
         $mockObjectManager = $this->getMockObjectManager();
-        $this->subject->injectObjectManager($mockObjectManager);
+        $this->subject->_set("objectManager", $mockObjectManager);
         $mockModuleData = $this->getMockModuleData();
         $mockObjectManager->expects(self::once())
             ->method('get')

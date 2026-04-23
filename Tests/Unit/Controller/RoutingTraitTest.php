@@ -41,8 +41,9 @@ class RoutingTraitTest extends UnitTestCase
     /**
      * set up subject
      */
-    public function setUp()
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getMockForTrait(
             RoutingTrait::class
         );
@@ -69,7 +70,7 @@ class RoutingTraitTest extends UnitTestCase
         $identifier = 'foo';
 
         $mockRequest = $this->getMockBuilder(Request::class)
-            ->setMethods(['getControllerActionName', 'getControllerObjectName'])->getMock();
+            ->onlyMethods(['getControllerActionName', 'getControllerObjectName'])->getMock();
         $this->inject($this->subject, 'request', $mockRequest);
         $mockRequest->expects($this->once())
             ->method('getControllerActionName');
@@ -270,7 +271,7 @@ class RoutingTraitTest extends UnitTestCase
     public function dispatchEmitsSignalDispatchBegin()
     {
         $this->subject = $this->getMockBuilder(MockSignalController::class)
-            ->setMethods(['emitSignal'])->getMock();
+            ->onlyMethods(['emitSignal'])->getMock();
         $arguments = ['foo'];
         $identifier = 'bar';
         $mockRoute = $this->getMockRoute([], [$identifier]);
@@ -299,7 +300,7 @@ class RoutingTraitTest extends UnitTestCase
     {
         return $this->getMockBuilder(Route::class)
             ->setConstructorArgs($constructorArguments)
-            ->setMethods($methods)
+            ->onlyMethods($methods)
             ->getMock();
     }
 
@@ -309,7 +310,10 @@ class RoutingTraitTest extends UnitTestCase
      */
     protected function getMockRouter(array $methods = ['getRoute'])
     {
-        return $this->getMockBuilder(RouterInterface::class)
-            ->setMethods($methods)->getMockForAbstractClass();
+        $builder = $this->getMockBuilder(RouterInterface::class);
+        if (!empty($methods)) {
+            $builder->onlyMethods($methods);
+        }
+        return $builder->getMockForAbstractClass();
     }
 }

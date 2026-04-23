@@ -20,8 +20,9 @@ class FormTraitTest extends UnitTestCase
     /**
      * set up
      */
-    protected function setUp()
+    protected function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getMockForTrait(FormTrait::class);
         $this->setBackupGlobals(true);
     }

@@ -45,10 +45,11 @@ class AbstractBackendControllerTest extends UnitTestCase
     /**
      * set up
      */
-    protected function setUp()
+    protected function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getAccessibleMock(
-            AbstractBackendController::class, ['dummy'], [], '', false
+            AbstractBackendController::class, [], [], '', false
         );
     }
 

@@ -46,10 +46,11 @@ class Typo3SessionTest extends UnitTestCase
     /**
      *
      */
-    public function setUp()
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getAccessibleMock(
-            Typo3Session::class, ['dummy'], [], '', false);
+            Typo3Session::class, [], [], '', false);
         $this->subject->setNamespace(self::SESSION_NAMESPACE);
 
         $this->tsfe = $this->getAccessibleMock(

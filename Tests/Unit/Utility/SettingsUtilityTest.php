@@ -58,13 +58,14 @@ class SettingsUtilityTest extends UnitTestCase
      */
     protected $subject;
 
-    public function setUp()
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getAccessibleMock(
-            SettingsUtility::class, ['dummy']
+            SettingsUtility::class, []
         );
         $this->objectManager = $this->getMockObjectManager();
-        $this->subject->injectObjectManager($this->objectManager);
+        $this->subject->_set("objectManager", $this->objectManager);
     }
 
     /**
@@ -265,7 +266,7 @@ class SettingsUtilityTest extends UnitTestCase
         $this->subject = $this->getAccessibleMock(
             SettingsUtility::class, ['getValue']
         );
-        $this->subject->injectObjectManager($this->objectManager);
+        $this->subject->_set("objectManager", $this->objectManager);
 
         $config = [
             'field' => 'foo'
@@ -309,7 +310,7 @@ class SettingsUtilityTest extends UnitTestCase
         $this->subject = $this->getAccessibleMock(
             SettingsUtility::class, ['getValue']
         );
-        $this->subject->injectObjectManager($this->objectManager);
+        $this->subject->_set("objectManager", $this->objectManager);
 
         $config = ['foo'];
         /** @var AbstractDomainObject|MockObject $mockObject */
@@ -405,12 +406,15 @@ class SettingsUtilityTest extends UnitTestCase
             ->will(self::returnValue(0));
         $mockResourceFactory = $this->mockResourceFactory();
 
+        $expectedIdentifierArgs = [[$defaultValue], [$alwaysValue]];
+        $identifierCallIndex = 0;
         $mockResourceFactory->expects($this->exactly(2))
             ->method('getFileObjectByCombinedIdentifier')
-            ->withConsecutive(
-                [$defaultValue], [$alwaysValue]
-            )
-            ->will(self::returnValue($mockFile));
+            ->willReturnCallback(function() use (&$identifierCallIndex, $expectedIdentifierArgs, $mockFile) {
+                $this->assertSame($expectedIdentifierArgs[$identifierCallIndex], func_get_args());
+                $identifierCallIndex++;
+                return $mockFile;
+            });
         $mockResourceFactory->expects($this->exactly(2))
             ->method('createFileReferenceFromFileObject')
             ->with($mockFile)
@@ -431,7 +435,7 @@ class SettingsUtilityTest extends UnitTestCase
         /** @var ResourceFactory|MockObject $mockResourceFactory */
         $mockResourceFactory = $this->getMockBuilder(ResourceFactory::class)
             ->disableOriginalConstructor()
-            ->setMethods(
+            ->onlyMethods(
                 ['getFileObjectByCombinedIdentifier', 'createFileReferenceFromFileObject']
             )->getMock();
         $this->subject->injectResourceFactory($mockResourceFactory);
@@ -445,8 +449,11 @@ class SettingsUtilityTest extends UnitTestCase
      */
     protected function getMockObjectStorage(array $methods = [])
     {
-        return $this->getMockBuilder(ObjectStorage::class)
-            ->setMethods($methods)->getMock();
+        $builder = $this->getMockBuilder(ObjectStorage::class);
+        if (!empty($methods)) {
+            $builder->onlyMethods($methods);
+        }
+        return $builder->getMock();
     }
 
     /**

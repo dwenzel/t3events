@@ -40,13 +40,14 @@ class PeriodConstraintLegendTest extends UnitTestCase
     /**
      * set up
      */
-    public function setUp()
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getMockBuilder(PeriodConstraintLegend::class)
-            ->setMethods(['dummy'])->getMock();
+            ->getMock();
 
         $this->periodDataProviderFactory = $this->getMockBuilder(PeriodDataProviderFactory::class)
-            ->setMethods(['get'])->getMock();
+            ->onlyMethods(['get'])->getMock();
 
     }
 
@@ -69,12 +70,12 @@ class PeriodConstraintLegendTest extends UnitTestCase
     public function initializeSetsDataProvider()
     {
         $this->subject = $this->getMockBuilder(PeriodConstraintLegend::class)
-            ->setMethods(['getDataProviderFactory', 'load'])->getMock();
+            ->onlyMethods(['getDataProviderFactory', 'load'])->getMock();
         $params = ['foo'];
 
         $mockDataProvider = $this->getMockLayeredLegendDataProvider();
         $this->periodDataProviderFactory = $this->getMockBuilder(PeriodDataProviderFactory::class)
-            ->setMethods(['get'])->getMock();
+            ->onlyMethods(['get'])->getMock();
         $this->periodDataProviderFactory->expects($this->once())
             ->method('get')
             ->will($this->returnValue($mockDataProvider));
@@ -106,7 +107,7 @@ class PeriodConstraintLegendTest extends UnitTestCase
     public function renderUpdatesLayers()
     {
         $this->subject = $this->getMockBuilder(PeriodConstraintLegend::class)
-            ->setMethods(
+            ->onlyMethods(
                 ['initialize', 'hideElements', 'showElements', 'setLabels', 'saveXML']
             )
             ->getMock();
@@ -139,31 +140,41 @@ class PeriodConstraintLegendTest extends UnitTestCase
     public function renderSetsLabels()
     {
         $this->subject = $this->getMockBuilder(PeriodConstraintLegend::class)
-            ->setMethods(
+            ->onlyMethods(
                 ['initialize', 'updateLayers', 'saveXML', 'getLanguageService', 'replaceNodeText']
             )
             ->getMock();
         $params = ['foo'];
 
         $mockLanguageService = $this->getMockBuilder(LanguageService::class)
-            ->setMethods(['sL'])->getMock();
+            ->onlyMethods(['sL'])->getMock();
         $this->subject->expects($this->any())
             ->method('getLanguageService')
             ->will($this->returnValue($mockLanguageService));
+        $expectedSlArgs = [
+            [PeriodConstraintLegend::LANGUAGE_FILE . PeriodConstraintLegend::START_POINT_KEY],
+            [PeriodConstraintLegend::LANGUAGE_FILE . PeriodConstraintLegend::END_POINT_KEY]
+        ];
+        $slCallIndex = 0;
         $mockLanguageService->expects($this->exactly(2))
             ->method('sL')
-            ->withConsecutive(
-                [PeriodConstraintLegend::LANGUAGE_FILE . PeriodConstraintLegend::START_POINT_KEY],
-                [PeriodConstraintLegend::LANGUAGE_FILE . PeriodConstraintLegend::END_POINT_KEY]
-            )
-            ->will($this->returnValue('foo'));
+            ->willReturnCallback(function() use (&$slCallIndex, $expectedSlArgs) {
+                $this->assertSame($expectedSlArgs[$slCallIndex], func_get_args());
+                $slCallIndex++;
+                return 'foo';
+            });
 
+        $expectedReplaceArgs = [
+            [PeriodConstraintLegend::START_TEXT_LAYER_ID, 'foo'],
+            [PeriodConstraintLegend::END_TEXT_LAYER_ID, 'foo']
+        ];
+        $replaceCallIndex = 0;
         $this->subject->expects($this->exactly(2))
             ->method('replaceNodeText')
-            ->withConsecutive(
-                [PeriodConstraintLegend::START_TEXT_LAYER_ID, 'foo'],
-                [PeriodConstraintLegend::END_TEXT_LAYER_ID, 'foo']
-            );
+            ->willReturnCallback(function() use (&$replaceCallIndex, $expectedReplaceArgs) {
+                $this->assertSame($expectedReplaceArgs[$replaceCallIndex], func_get_args());
+                $replaceCallIndex++;
+            });
         $this->subject->render($params);
     }
 
@@ -174,7 +185,7 @@ class PeriodConstraintLegendTest extends UnitTestCase
     protected function getMockLayeredLegendDataProvider(array $methods = [])
     {
         return $this->getMockBuilder(LayeredLegendDataProviderInterface::class)
-            ->setMethods($methods)
+            ->onlyMethods($methods)
             ->getMockForAbstractClass();
     }
 }

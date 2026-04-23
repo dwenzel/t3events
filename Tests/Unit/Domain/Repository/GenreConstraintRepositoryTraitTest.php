@@ -39,8 +39,9 @@ class GenreConstraintRepositoryTraitTest extends UnitTestCase
     /**
      * set up
      */
-    public function setUp()
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getMockForTrait(
             GenreConstraintRepositoryTrait::class
         );
@@ -84,13 +85,15 @@ class GenreConstraintRepositoryTraitTest extends UnitTestCase
         $this->demand->expects($this->any())
             ->method('getGenres')
             ->will($this->returnValue($genreList));
+        $expectedArgs = [[self::GENRE_FIELD, 1], [self::GENRE_FIELD, 2]];
+        $callIndex = 0;
         $query->expects($this->exactly(2))
             ->method('contains')
-            ->withConsecutive(
-                [self::GENRE_FIELD, 1],
-                [self::GENRE_FIELD, 2]
-            )
-            ->will($this->returnValue($mockConstraint));
+            ->willReturnCallback(function() use (&$callIndex, $expectedArgs, $mockConstraint) {
+                $this->assertSame($expectedArgs[$callIndex], func_get_args());
+                $callIndex++;
+                return $mockConstraint;
+            });
         $this->assertSame(
             [$mockConstraint, $mockConstraint],
             $this->subject->createGenreConstraints($query, $this->demand)
@@ -104,7 +107,7 @@ class GenreConstraintRepositoryTraitTest extends UnitTestCase
     protected function getMockGenreAwareDemand(array $methods = [])
     {
         return $this->getMockBuilder(GenreAwareDemandInterface::class)
-            ->setMethods($methods)
+            ->onlyMethods($methods)
             ->getMockForAbstractClass();
     }
 

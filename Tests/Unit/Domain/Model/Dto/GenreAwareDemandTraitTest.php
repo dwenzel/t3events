@@ -15,14 +15,15 @@ class GenreAwareDemandTraitTest extends UnitTestCase
      */
     protected $subject;
 
-    public function setUp()
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getMockForTrait(
             GenreAwareDemandTrait::class
         );
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         unset($this->subject);
     }

@@ -39,13 +39,14 @@ class SearchFactoryTest extends UnitTestCase
     /**
      * set up
      */
-    public function setUp()
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getAccessibleMock(
-            SearchFactory::class, ['dummy']
+            SearchFactory::class, []
         );
         $this->objectManager = $this->getMockObjectManager();
-        $this->subject->injectObjectManager($this->objectManager);
+        $this->subject->_set("objectManager", $this->objectManager);
     }
 
     /**
@@ -141,7 +142,7 @@ class SearchFactoryTest extends UnitTestCase
     protected function getMockSearch(array $methods = [])
     {
         return $this->getMockBuilder(Search::class)
-            ->setMethods($methods)
+            ->onlyMethods($methods)
             ->getMock();
     }
 }

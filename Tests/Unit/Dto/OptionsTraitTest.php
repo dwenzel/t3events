@@ -48,13 +48,14 @@ class OptionsTraitTest extends UnitTestCase
      */
     protected $queryResult;
 
-    public function setUp()
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getMockBuilder(OptionsTrait::class)
-            ->setMethods(['getOptionRepository'])
+            ->onlyMethods(['getOptionRepository'])
             ->getMockForTrait();
         $this->repository = $this->getMockBuilder(DemandedRepositoryInterface::class)
-            ->setMethods(['findAll', 'findMultipleByUid'])
+            ->onlyMethods(['findAll', 'findMultipleByUid'])
             ->getMockForAbstractClass();
         $this->subject->method('getOptionRepository')
             ->willReturn($this->repository);

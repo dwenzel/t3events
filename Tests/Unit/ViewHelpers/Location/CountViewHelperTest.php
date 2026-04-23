@@ -39,10 +39,11 @@ class CountViewHelperTest extends UnitTestCase
     /**
      * set up
      */
-    public function setUp()
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getAccessibleMock(
-            CountViewHelper::class, ['dummy', 'registerArgument']
+            CountViewHelper::class, ['registerArgument']
         );
     }
 
@@ -78,17 +79,17 @@ class CountViewHelperTest extends UnitTestCase
             $locationCount = \count($case['uids']);
             /** @var EventLocation|MockObject $eventLocation */
             $eventLocation = $this->getMockBuilder(EventLocation::class)
-                ->setMethods(['getUid'])->getMock();
+                ->onlyMethods(['getUid'])->getMock();
             $eventLocation->expects($this->exactly($locationCount))
                 ->method('getUid')
                 ->will(new ConsecutiveCalls($case['uids']));
             $event = $this->getMockBuilder(Event::class)
-                ->setMethods(['getPerformances'])->getMock();
+                ->onlyMethods(['getPerformances'])->getMock();
             $objectStorage = new ObjectStorage();
             foreach ($case['uids'] as $uid) {
                 /** @var Performance|MockObject $performance */
                 $performance = $this->getMockBuilder(Performance::class)
-                    ->setMethods(['getEventLocation'])->getMock();
+                    ->onlyMethods(['getEventLocation'])->getMock();
                 $performance->expects($this->once())
                     ->method('getEventLocation')
                     ->will($this->returnValue($eventLocation));

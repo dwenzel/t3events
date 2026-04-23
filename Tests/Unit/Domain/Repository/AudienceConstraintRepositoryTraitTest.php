@@ -37,15 +37,16 @@ class AudienceConstraintRepositoryTraitTest extends UnitTestCase
     /**
      * set up
      */
-    public function setUp()
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getMockForTrait(
             AudienceConstraintRepositoryTrait::class
         );
         $this->query = $this->getMockBuilder(QueryInterface::class)
             ->getMock();
         $this->demand = $this->getMockBuilder(AudienceAwareDemandInterface::class)
-            ->setMethods(
+            ->onlyMethods(
                 [
                     'getAudiences', 'setAudiences', 'getAudienceField'
                 ]
@@ -79,7 +80,7 @@ class AudienceConstraintRepositoryTraitTest extends UnitTestCase
         /** @var QueryInterface|MockObject $query */
         $query = $this->getMockBuilder(Query::class)
             ->disableOriginalConstructor()
-            ->setMethods(['contains'])
+            ->onlyMethods(['contains'])
             ->getMock();
         $mockConstraint = 'fooConstraint';
 
@@ -89,13 +90,15 @@ class AudienceConstraintRepositoryTraitTest extends UnitTestCase
         $this->demand->expects($this->any())
             ->method('getAudiences')
             ->will($this->returnValue($audienceList));
+        $expectedArgs = [[self::AUDIENCE_FIELD, 1], [self::AUDIENCE_FIELD, 2]];
+        $callIndex = 0;
         $query->expects($this->exactly(2))
             ->method('contains')
-            ->withConsecutive(
-                [self::AUDIENCE_FIELD, 1],
-                [self::AUDIENCE_FIELD, 2]
-            )
-            ->will($this->returnValue($mockConstraint));
+            ->willReturnCallback(function() use (&$callIndex, $expectedArgs, $mockConstraint) {
+                $this->assertSame($expectedArgs[$callIndex], func_get_args());
+                $callIndex++;
+                return $mockConstraint;
+            });
         $this->assertSame(
             [$mockConstraint, $mockConstraint],
             $this->subject->createAudienceConstraints($query, $this->demand)

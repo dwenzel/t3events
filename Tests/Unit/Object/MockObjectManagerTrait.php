@@ -37,21 +37,12 @@ trait MockObjectManagerTrait
     protected $objectManager;
 
     /**
-     * Returns a builder object to create mock objects using a fluent interface.
-     *
-     * @param string|string[] $className
-     *
-     * @return MockBuilder
-     */
-    abstract public function getMockBuilder($className);
-
-    /**
      * @return ObjectManager|MockObject
      */
     protected function getMockObjectManager()
     {
         return $this->getMockBuilder(ObjectManager::class)
             ->disableOriginalConstructor()
-            ->setMethods(['get'])->getMock();
+            ->onlyMethods(['get'])->getMock();
     }
 }

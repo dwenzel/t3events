@@ -35,15 +35,16 @@ class EventPluginFormDataProviderTest extends UnitTestCase
     /**
      * set up subject
      */
-    public function setUp()
+    public function setUp(): void
     {
+        parent::setUp();
         if (!interface_exists(FormDataProviderInterface::class)) {
             $this->markTestSkipped();
         }
         $this->subject = $this->getMockBuilder(EventPluginFormDataProvider::class)
-            ->setMethods(['dummy'])->getMock();
+            ->getMock();
         $this->backendUtility = $this->getMockBuilder(BackendUtility::class)
-            ->setMethods(['getFlexFormDS_postProcessDS'])->getMock();
+            ->onlyMethods(['getFlexFormDS_postProcessDS'])->getMock();
         $this->subject->__construct($this->backendUtility);
     }
 

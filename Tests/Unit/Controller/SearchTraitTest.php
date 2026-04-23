@@ -35,8 +35,9 @@ class SearchTraitTest extends UnitTestCase
     /**
      * set up
      */
-    public function setUp()
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getMockForTrait(
             SearchTrait::class
         );
@@ -50,7 +51,7 @@ class SearchTraitTest extends UnitTestCase
         /** @var SearchFactory|MockObject $mockFactory */
         $mockFactory = $this->getMockBuilder(SearchFactory::class)->getMock();
 
-        $this->subject->injectSearchFactory($mockFactory);
+        $this->inject($this->subject, 'searchFactory', $mockFactory);
 
         $this->assertAttributeSame(
             $mockFactory,
@@ -69,11 +70,11 @@ class SearchTraitTest extends UnitTestCase
 
         /** @var SearchFactory|MockObject $mockFactory */
         $mockFactory = $this->getMockBuilder(SearchFactory::class)
-            ->setMethods(['get'])->getMock();
+            ->onlyMethods(['get'])->getMock();
 
         /** @var Search|MockObject $mockSearch */
         $mockSearch = $this->getMockBuilder(Search::class)->getMock();
-        $this->subject->injectSearchFactory($mockFactory);
+        $this->inject($this->subject, 'searchFactory', $mockFactory);
 
         $mockFactory->expects($this->once())
             ->method('get')

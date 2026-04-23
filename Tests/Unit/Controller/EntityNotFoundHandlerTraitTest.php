@@ -69,8 +69,9 @@ class EntityNotFoundHandlerTraitTest extends UnitTestCase
     /**
      * set up
      */
-    public function setUp()
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getMockForTrait(
             EntityNotFoundHandlerTrait::class,
             [], '', true, true, true, ['isSSLEnabled']
@@ -323,7 +324,7 @@ class EntityNotFoundHandlerTraitTest extends UnitTestCase
         $mockResponse = $this->getMockBuilder(ResponseInterface::class)->getMock();
         /** @var Request|\PHPUnit_Framework_MockObject_MockObject $mockRequest */
         $mockRequest = $this->getMockBuilder(Request::class)
-            ->setMethods(['getControllerName', 'getControllerActionName'])->getMock();
+            ->onlyMethods(['getControllerName', 'getControllerActionName'])->getMock();
         $mockRequest->expects(self::once())
             ->method('getControllerName')
             ->will(self::returnValue($controllerName));
@@ -389,7 +390,7 @@ class EntityNotFoundHandlerTraitTest extends UnitTestCase
     {
         $mockDispatcher = $this->getMockBuilder(Dispatcher::class)
             ->disableOriginalConstructor()
-            ->setMethods(['dispatch'])
+            ->onlyMethods(['dispatch'])
             ->getMock();
         return $mockDispatcher;
     }

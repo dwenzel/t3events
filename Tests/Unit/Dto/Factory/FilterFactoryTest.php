@@ -46,11 +46,12 @@ class FilterFactoryTest extends UnitTestCase
 
 
     /** @noinspection ReturnTypeCanBeDeclaredInspection */
-    public function setUp()
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = new FilterFactory();
         $this->objectManager = $this->getMockObjectManager();
-        $this->subject->injectObjectManager($this->objectManager);
+        $this->inject($this->subject, "objectManager", $this->objectManager);
     }
 
     public function testGetReturnsNullFilterForInvalidKey(): void

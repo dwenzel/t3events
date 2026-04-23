@@ -33,8 +33,9 @@ class PerformanceDemandFactoryTraitTest extends UnitTestCase
     /**
      * set up the subject
      */
-    public function setUp()
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getMockForTrait(
             PerformanceDemandFactoryTrait::class
         );
@@ -49,7 +50,7 @@ class PerformanceDemandFactoryTraitTest extends UnitTestCase
         $performanceDemandFactory = $this->getMockBuilder(PerformanceDemandFactory::class)
             ->getMock();
 
-        $this->subject->injectPerformanceDemandFactory($performanceDemandFactory);
+        $this->inject($this->subject, "performanceDemandFactory", $performanceDemandFactory);
 
         $this->assertAttributeSame(
             $performanceDemandFactory,

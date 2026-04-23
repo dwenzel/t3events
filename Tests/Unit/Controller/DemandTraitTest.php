@@ -36,13 +36,14 @@ class DemandTraitTest extends UnitTestCase
     /**
      * set up
      */
-    public function setUp()
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getMockForTrait(
             DemandTrait::class
         );
         $mockSettingsUtility = $this->getMockBuilder(SettingsUtility::class)
-            ->setMethods(['getControllerKey'])->getMock();
+            ->onlyMethods(['getControllerKey'])->getMock();
         $this->inject(
             $this->subject,
             'settingsUtility',
@@ -357,7 +358,7 @@ class DemandTraitTest extends UnitTestCase
         $method = 'set' . ucfirst($key);
         $demand = $this->getMockBuilder(
             DemandInterface::class)
-            ->setMethods([$method])->getMockForAbstractClass();
+            ->onlyMethods([$method])->getMockForAbstractClass();
 
         $overwriteDemand = [
             $key => ''

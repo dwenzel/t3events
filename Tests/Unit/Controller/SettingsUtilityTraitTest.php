@@ -36,8 +36,9 @@ class SettingsUtilityTraitTest extends UnitTestCase
     /**
      * set up
      */
-    public function setUp()
+    public function setUp(): void
     {
+        parent::setUp();
         $this->fixture = $this->getMockBuilder(SettingsUtilityTrait::class)
             ->getMockForTrait();
     }
@@ -48,7 +49,7 @@ class SettingsUtilityTraitTest extends UnitTestCase
     public function injectSettingsUtilitySetsObject()
     {
         $object = $this->mockSettingsUtility();
-        $this->fixture->injectSettingsUtility($object);
+        $this->inject($this->fixture, 'settingsUtility', $object);
 
         $this->assertAttributeEquals(
             $object,
@@ -64,9 +65,13 @@ class SettingsUtilityTraitTest extends UnitTestCase
     protected function mockSettingsUtility(array $methods = [])
     {
         /** @var SettingsUtility|MockObject $object */
-        $object = $this->getMockBuilder(SettingsUtility::class)
-            ->setMethods($methods)->getMock();
-        $this->fixture->injectSettingsUtility($object);
+        $builder = $this->getMockBuilder(SettingsUtility::class)
+            ->disableOriginalConstructor();
+        if (!empty($methods)) {
+            $builder->onlyMethods($methods);
+        }
+        $object = $builder->getMock();
+        $this->inject($this->fixture, 'settingsUtility', $object);
 
         return $object;
     }

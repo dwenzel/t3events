@@ -38,10 +38,11 @@ class UniqueViewHelperTest extends UnitTestCase
     /**
      * set up
      */
-    public function setUp()
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getAccessibleMock(
-            UniqueViewHelper::class, ['dummy', 'registerArgument']
+            UniqueViewHelper::class, ['registerArgument']
         );
     }
 
@@ -73,7 +74,7 @@ class UniqueViewHelperTest extends UnitTestCase
             $uniqueIds = array_unique($case);
             $uniqueCount = \count($uniqueIds);
             $event = $this->getMockBuilder(Event::class)
-                ->setMethods(['getPerformances'])->getMock();
+                ->onlyMethods(['getPerformances'])->getMock();
             $performanceStorage = new ObjectStorage();
 
             foreach ($case as $location) {

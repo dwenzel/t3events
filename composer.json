@@ -24,6 +24,10 @@
     "typo3/cms-fluid": "^11.5 || ^12.4",
     "dwenzel/t3extension-tools": "^2.0 || ^4.0"
   },
+  "require-dev": {
+    "typo3/testing-framework": "^8.0",
+    "phpunit/phpunit": "^10.5"
+  },
   "autoload": {
     "psr-4": {
       "DWenzel\\T3events\\": "Classes"
@@ -31,12 +35,22 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "DWenzel\\T3events\\Tests\\": "Tests"
+      "DWenzel\\T3events\\Tests\\": "Tests",
+      "Nimut\\TestingFramework\\TestCase\\": "Tests/Compatibility/TestCase/",
+      "Nimut\\TestingFramework\\MockObject\\": "Tests/Compatibility/MockObject/",
+      "TYPO3\\CMS\\Extbase\\Object\\": "Tests/Compatibility/Extbase/Object/",
+      "TYPO3\\CMS\\Extbase\\Mvc\\View\\": "Tests/Compatibility/Extbase/Mvc/View/",
+      "TYPO3\\CMS\\Extbase\\Mvc\\Web\\": "Tests/Compatibility/Extbase/Mvc/Web/",
+      "TYPO3\\CMS\\Lang\\": "Tests/Compatibility/Lang/"
     }
   },
   "config": {
     "vendor-dir": ".Build/vendor",
     "bin-dir": ".Build/bin",
+    "allow-plugins": {
+      "typo3/cms-composer-installers": true,
+      "typo3/class-alias-loader": true
+    },
     "preferred-install": {
       "typo3/cms": "source",
       "typo3/cms-core": "source",

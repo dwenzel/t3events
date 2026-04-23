@@ -39,8 +39,9 @@ class VenueConstraintRepositoryTraitTest extends UnitTestCase
     /**
      * set up
      */
-    public function setUp()
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getMockForTrait(
             VenueConstraintRepositoryTrait::class
         );
@@ -83,13 +84,15 @@ class VenueConstraintRepositoryTraitTest extends UnitTestCase
         $this->demand->expects($this->any())
             ->method('getVenues')
             ->will($this->returnValue($venueList));
+        $expectedArgs = [[self::VENUE_FIELD, 1], [self::VENUE_FIELD, 2]];
+        $callIndex = 0;
         $query->expects($this->exactly(2))
             ->method('contains')
-            ->withConsecutive(
-                [self::VENUE_FIELD, 1],
-                [self::VENUE_FIELD, 2]
-            )
-            ->will($this->returnValue($mockConstraint));
+            ->willReturnCallback(function() use (&$callIndex, $expectedArgs, $mockConstraint) {
+                $this->assertSame($expectedArgs[$callIndex], func_get_args());
+                $callIndex++;
+                return $mockConstraint;
+            });
         $this->assertSame(
             [$mockConstraint, $mockConstraint],
             $this->subject->createVenueConstraints($query, $this->demand)
@@ -102,7 +105,10 @@ class VenueConstraintRepositoryTraitTest extends UnitTestCase
      */
     protected function getMockVenueAwareDemand(array $methods = [])
     {
-        return $this->getMockBuilder(VenueAwareDemandInterface::class)
-            ->setMethods($methods)->getMockForAbstractClass();
+        $builder = $this->getMockBuilder(VenueAwareDemandInterface::class);
+        if (!empty($methods)) {
+            $builder->onlyMethods($methods);
+        }
+        return $builder->getMockForAbstractClass();
     }
 }

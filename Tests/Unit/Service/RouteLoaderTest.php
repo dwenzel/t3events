@@ -43,8 +43,9 @@ class RouteLoaderTest extends UnitTestCase
     /**
      * set up
      */
-    public function setUp()
+    public function setUp(): void
     {
+        parent::setUp();
         $this->mockRouter = $this->getMockForAbstractClass(
             RouterInterface::class
         );
@@ -63,7 +64,7 @@ class RouteLoaderTest extends UnitTestCase
     protected function getMockRoute(array $methods = [], $origin = 'foo|bar')
     {
         $mockRoute = $this->getMockBuilder(Route::class)
-            ->setMethods($methods)
+            ->onlyMethods($methods)
             ->setConstructorArgs([$origin])->getMock();
 
         $this->subject->expects($this->once())

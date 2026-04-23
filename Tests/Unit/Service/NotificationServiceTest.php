@@ -38,13 +38,14 @@ class NotificationServiceTest extends UnitTestCase
     /**
      * set up subject
      */
-    public function setUp()
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getAccessibleMock(
-            NotificationService::class, ['dummy']
+            NotificationService::class, []
         );
         $this->objectManager = $this->getMockObjectManager();
-        $this->subject->injectObjectManager($this->objectManager);
+        $this->subject->_set("objectManager", $this->objectManager);
     }
 
     /**
@@ -91,9 +92,9 @@ class NotificationServiceTest extends UnitTestCase
     public function notifySetsRecipients($recipient, $expectedRecipients)
     {
         $this->subject = $this->getAccessibleMock(
-            NotificationService::class, ['dummy', 'buildTemplateView']
+            NotificationService::class, ['buildTemplateView']
         );
-        $this->subject->injectObjectManager($this->objectManager);
+        $this->subject->_set("objectManager", $this->objectManager);
 
         $mockTemplateView = $this->getMockBuilder(StandaloneView::class)
             ->disableOriginalConstructor()
@@ -128,7 +129,7 @@ class NotificationServiceTest extends UnitTestCase
     {
         $message = $this->getMockBuilder(MailMessage::class)
             ->disableOriginalConstructor()
-            ->setMethods(
+            ->onlyMethods(
                 [
                     'setTo',
                     'setBody',
