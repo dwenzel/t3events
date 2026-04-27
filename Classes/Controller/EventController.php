@@ -14,9 +14,11 @@ namespace DWenzel\T3events\Controller;
  *
  * The TYPO3 project - inspiring people to share!
  */
+use TYPO3\CMS\Core\Pagination\SimplePagination;
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException;
+use TYPO3\CMS\Extbase\Pagination\QueryResultPaginator;
 use DWenzel\T3events\Domain\Factory\Dto\EventDemandFactory;
 use DWenzel\T3events\Domain\Model\Dto\SearchFactory;
 use DWenzel\T3events\Domain\Model\Event;
@@ -75,10 +77,11 @@ class EventController extends ActionController
      *
      * @param array $overwriteDemand
      */
-    public function listAction($overwriteDemand = null): ResponseInterface
+    public function listAction($overwriteDemand = null, int $currentPage = 1): ResponseInterface
     {
         if (!$overwriteDemand){
-            $overwriteDemand = unserialize($this->session->get('tx_t3events_overwriteDemand'), ['allowed_classes' => false]);
+            $sessionValue = $this->session->get('tx_t3events_overwriteDemand');
+            $overwriteDemand = $sessionValue !== null ? unserialize($sessionValue, ['allowed_classes' => false]) : null;
         }
 
         $demand = $this->eventDemandFactory->createFromSettings($this->settings);
@@ -104,6 +107,13 @@ class EventController extends ActionController
             SI::OVERWRITE_DEMAND => $overwriteDemand,
             'data' => $this->request->getAttribute('currentContentObject')->data
         ];
+
+        if (!empty($this->settings['event']['list']['paginate'])) {
+            $itemsPerPage = (int)($this->settings['event']['list']['itemsPerPage'] ?? 5);
+            $paginator = new QueryResultPaginator($events, $currentPage, $itemsPerPage);
+            $templateVariables['paginator'] = $paginator;
+            $templateVariables['pagination'] = new SimplePagination($paginator);
+        }
 
         $this->emitSignal(self::class, self::EVENT_LIST_ACTION, $templateVariables);
         $this->view->assignMultiple($templateVariables);
@@ -132,7 +142,8 @@ class EventController extends ActionController
     public function quickMenuAction(): ResponseInterface
     {
         // get session data
-        $overwriteDemand = unserialize($this->session->get('tx_t3events_overwriteDemand'), ['allowed_classes' => false]);
+        $sessionValue = $this->session->get('tx_t3events_overwriteDemand');
+        $overwriteDemand = $sessionValue !== null ? unserialize($sessionValue, ['allowed_classes' => false]) : null;
 
         // get filter options from plugin
         $genres = $this->genreRepository->findMultipleByUid($this->settings[SI::GENRES], 'title');

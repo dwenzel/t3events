@@ -60,15 +60,27 @@ This Template is responsible for creating a list of events.
 		</f:if>
 		<f:if condition="{settings.event.list.paginate}">
 			<f:then>
-				<f:widget.paginate
-					objects="{events}"
-					as="paginatedEvents"
-					configuration="{itemsPerPage: 5, insertAbove: 0, insertBelow: 1}"
-					>
-					<f:for each="{paginatedEvents}" as="event">
-						<f:render partial="Event/ListItem" arguments="{event: event}" />
-					</f:for>
-				</f:widget.paginate>
+				<f:for each="{paginator.paginatedItems}" as="event">
+					<f:render partial="Event/ListItem" arguments="{event: event}" />
+				</f:for>
+				<f:if condition="{pagination.lastPageNumber} > 1">
+					<nav class="f3-widget-paginator">
+						<ul>
+							<f:if condition="{pagination.previousPageNumber}">
+								<li class="previous"><a href="{f:uri.action(action: 'list', arguments: {currentPage: pagination.previousPageNumber})}">«</a></li>
+							</f:if>
+							<f:for each="{pagination.allPageNumbers}" as="page">
+								<f:if condition="{page} == {paginator.currentPageNumber}">
+									<f:then><li class="current"><span>{page}</span></li></f:then>
+									<f:else><li><a href="{f:uri.action(action: 'list', arguments: {currentPage: page})}">{page}</a></li></f:else>
+								</f:if>
+							</f:for>
+							<f:if condition="{pagination.nextPageNumber}">
+								<li class="next"><a href="{f:uri.action(action: 'list', arguments: {currentPage: pagination.nextPageNumber})}">»</a></li>
+							</f:if>
+						</ul>
+					</nav>
+				</f:if>
 			</f:then>
 			<f:else>
 				<f:for each="{events}" as="event">

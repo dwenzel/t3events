@@ -79,6 +79,8 @@
       <label index="label.now">Now</label>
       <label index="label.start">Start</label>
       <label index="plugin.combined.title">Events</label>
+      <label index="plugin.eventlist.title">Events: List</label>
+      <label index="plugin.performancelist.title">Performances: List</label>
     </languageKey>
     <languageKey index="af"/>
     <languageKey index="ar"/>
@@ -160,6 +162,8 @@
       <label index="label.now">Jetzt</label>
       <label index="label.start">Beginn</label>
       <label index="plugin.combined.title">Veranstaltung</label>
+      <label index="plugin.eventlist.title">Veranstaltungen: Liste</label>
+      <label index="plugin.performancelist.title">Vorstellungen: Liste</label>
     </languageKey>
     <languageKey index="el"/>
     <languageKey index="eo"/>
