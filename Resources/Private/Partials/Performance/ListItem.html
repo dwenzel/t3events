@@ -1,18 +1,24 @@
-<div class="list-item" xmlns:f="http://typo3.org/ns/fluid/ViewHelpers">
+<div class="list-item mb-4" xmlns:f="http://typo3.org/ns/fluid/ViewHelpers">
 	<div class="date">
 		<f:format.date format="d.m.Y">{performance.date}</f:format.date>
 	</div>
+	<f:if condition="{performance.event.headline} || {performance.event.title}">
 	<h2 class="header">
 		<f:link.action
 			action="show"
-			arguments="{performance: '{performance}'}"
+			controller="Event"
+			pluginName="EventList"
+			arguments="{event: performance.event}"
 			pageUid="{settings.detailPid}">
-			{performance.event.headline}
+			{f:if(condition: performance.event.headline, then: performance.event.headline, else: performance.event.title)}
 		</f:link.action>
 	</h2>
+	</f:if>
+	<f:if condition="{performance.event.subtitle}">
 	<div class="subtitle performanceItemContainer">
 		<h3>{performance.event.subtitle}</h3>
 	</div>
+	</f:if>
 	<div class="row clearfix">
 		<div class="section column float-left {f:if(condition: '{performance.freePlaces}', then: 'width-50')}">
 			<f:if condition="{performance.event.audience->f:count()}">
@@ -25,7 +31,7 @@
 			</f:if>
 			<f:if condition="{performance.eventLocation}">
 				<div class="eventLocation">
-					<strong>{f:translate(key: 'tx_t3events_domain_model_performance.eventLocation')}:</strong>&nbsp;
+					<strong>{f:translate(key: 'tx_t3events_domain_model_eventlocation')}:</strong>&nbsp;
 					<f:if condition="{performance.eventLocation.place}">
 						<span class="place">{performance.eventLocation.place}</span><br />
 					</f:if>
@@ -57,7 +63,9 @@
 			<f:link.action
 				class="button float-right"
 				action="show"
-				arguments="{performance: performance}"
+				controller="Event"
+				pluginName="EventList"
+				arguments="{event: performance.event}"
 				pageUid="{settings.detailPid}">
 				{f:translate(key: 'button.show', default: 'button.show')}
 			</f:link.action>

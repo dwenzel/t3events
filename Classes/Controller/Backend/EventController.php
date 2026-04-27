@@ -14,6 +14,7 @@ namespace DWenzel\T3events\Controller\Backend;
  *
  * The TYPO3 project - inspiring people to share!
  */
+use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Backend\Template\Components\ButtonBar;
 use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
@@ -109,7 +110,7 @@ class EventController extends AbstractBackendController implements FilterableCon
         $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
 
         // Add "New Event" button to doc header
-        $backendUriBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Backend\Routing\UriBuilder::class);
+        $backendUriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
         $returnUrl = (string)$backendUriBuilder->buildUriFromRoute(SI::ROUTE_EVENT_MODULE);
         $newUrl = (string)$backendUriBuilder->buildUriFromRoute(SI::ROUTE_EDIT_RECORD_MODULE, [
             SI::EDIT => [SI::TABLE_EVENTS => [$this->pageUid => 'new']],

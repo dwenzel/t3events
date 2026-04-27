@@ -25,7 +25,7 @@ trait DateRangeTrait
      * Get date range from timestamps
      *
      * @param array $timestamps An ordered array of timestamps
-     * @return array
+     * @return string
      */
     protected function getDateRange(array $timestamps)
     {

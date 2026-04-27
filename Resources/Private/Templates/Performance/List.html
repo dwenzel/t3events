@@ -36,10 +36,7 @@
 </f:section>
 
 <f:section name="pagination">
-    <f:widget.paginate objects="{performances}" as="paginatedPerformances"
-                       configuration="{itemsPerPage: 20, insertAbove: 1, insertBelow: 1, maximumNumberOfLinks: 3}">
-        <f:render section="performanceList" arguments="{performances: '{paginatedPerformances}', settings: settings}"/>
-    </f:widget.paginate>
+    <f:render section="performanceList" arguments="{performances: performances, settings: settings}"/>
 </f:section>
 <f:section name="performanceList">
     <f:for each="{performances}" as="performance" iteration="iteration">

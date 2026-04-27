@@ -228,7 +228,7 @@ class LegacyFileFieldsUpdateWizard implements UpgradeWizardInterface, ChattyInte
                     )
                 )->orderBy('uid')->executeQuery();
 
-            return $result->fetchAll();
+            return $result->fetchAllAssociative();
         } catch (Exception $e) {
             throw new \RuntimeException('Database query failed. Error was: ' . $e->getPrevious()->getMessage(), 1511950673, $e);
         }
@@ -305,13 +305,13 @@ class LegacyFileFieldsUpdateWizard implements UpgradeWizardInterface, ChattyInte
                 } catch (\InvalidArgumentException) {
 
                     // no file found, no reference can be set
-                    $this->output->warning(sprintf(
+                    $this->output->writeln('<comment>WARNING: ' . sprintf(
                         'File ' . $sourcePath . ' does not exist. Reference was not migrated from %s:%s:%s and UID %d',
                         $table,
                         $fieldToMigrate,
                         $row[$fieldToMigrate],
                         $row['uid']
-                    ));
+                    ) . '</comment>');
 
                     continue;
                 }

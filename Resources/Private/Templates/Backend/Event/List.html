@@ -45,7 +45,7 @@
                                                 module: module
                                            )}"
                                     >
-                                        {event.headline}
+                                        {f:if(condition: event.headline, then: event.headline, else: event.title)}
                                     </a>
                                 </td>
                                 <td nowrap="nowrap">{event.eventType.title}</td>

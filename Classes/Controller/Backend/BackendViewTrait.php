@@ -2,7 +2,6 @@
 
 namespace DWenzel\T3events\Controller\Backend;
 
-use DWenzel\T3events\Domain\Model\Dto\ButtonDemandCollection;
 use DWenzel\T3events\Utility\SettingsInterface;
 use TYPO3\CMS\Backend\Template\Components\ButtonBar;
 use TYPO3\CMS\Core\Imaging\IconFactory;
@@ -50,7 +49,6 @@ trait BackendViewTrait
 
     /**
      * Returns a button bar either from module template or freshly instantiated
-     * @return ButtonBar
      */
     protected function getButtonBar(): ButtonBar
     {

@@ -1,44 +1,29 @@
 <div class="performanceItem {f:if(condition:'{iteration.total}==1', then: 'open')}">
 	<div class="performance short">
 		<div class="performanceHeader clearfix">
-			<div class="infos city">
-				<div class="inside">
-					<div class="mobile"><strong>
-						<f:translate key="tx_t3events_domain_model_eventlocation.place" />
-					</strong></div>
-					{performance.eventLocation.place}
-				</div>
-			</div>
 			<div class="infos location">
 				<div class="inside">
-					<div class="mobile"><strong>
-						<f:translate key="tx_t3events_domain_model_eventlocation" />
-					</strong></div>
+					<strong><f:translate key="tx_t3events_domain_model_eventlocation" />:</strong>
 					{performance.eventLocation.name}
 				</div>
 			</div>
 			<div class="infos date">
 				<div class="inside">
-					<div class="mobile"><strong>
-						<f:translate key="tx_t3events.date" />
-						,
-						<f:translate key="tx_t3events.time" />
-						:</strong></div>
+					<strong><f:translate key="tx_t3events.date" />, <f:translate key="tx_t3events.time" />:</strong>
 					<f:cObject typoscriptObjectPath="lib.dateMe">
 						<f:format.date format="U">{performance.date}</f:format.date>
 					</f:cObject>
 					<f:format.date format="H:i">@{performance.begin}</f:format.date>
 				</div>
 			</div>
-			<div title="{performance.status.title}" class="infos ticketSignal">
-				<div class="inside">
-					<div class="mobile"><strong>
-						<f:translate key="tx_t3events.tickets" />
-						:</strong></div>
-					<span class="{performance.status.cssClass}"></span>
-					<f:translate key="tx_t3events.tickets" />
+			<f:if condition="{performance.status}">
+				<div title="{performance.status.title}" class="infos ticketSignal">
+					<div class="inside">
+						<strong><f:translate key="tx_t3events.tickets" />:</strong>
+						<span class="{performance.status.cssClass}">{performance.status.title}</span>
+					</div>
 				</div>
-			</div>
+			</f:if>
 		</div>
 	</div>
 	<div class="performance long">
@@ -66,10 +51,6 @@
 				/>
 		</f:if>
 
-		<f:comment>Location</f:comment>
-		<f:if condition="{performance.eventLocation}">
-			<f:render partial="EventLocation/Item" arguments="{eventLocation: performance.eventLocation}" />
-		</f:if>
 		<f:comment>Organizer</f:comment>
 		<f:if condition="{event.organizer}">
 			<f:render partial="Organizer/Item" arguments="{organizer: event.organizer}" />

@@ -9,14 +9,14 @@
 						<f:image image="{image}"
 							width="{settings.event.list.image.width}"
 							height="{settings.event.list.image.height}"
-							alt="{event.headline}" />
+							alt="{f:if(condition: event.headline, then: event.headline, else: event.title)}" />
 					</f:for>
 				</f:then>
 				<f:else>
 					<f:image src="{settings.event.list.dummyImage}"
 						width="{settings.event.list.image.width}"
 						height="{settings.event.list.image.height}"
-						alt="{event.headline}" />
+						alt="{f:if(condition: event.headline, then: event.headline, else: event.title)}" />
 				</f:else>
 			</f:if>
 		</f:link.action>
@@ -29,11 +29,13 @@
 			<f:translate key="tx_t3events.tickets" />
 
 		</f:link.action>
+		<f:if condition="{event.headline} || {event.title}">
 		<h2 class="eventHeader">
 			<f:link.action action="show" arguments="{event: event}" pageUid="{settings.detailPid}">
-				{event.headline}
+				{f:if(condition: event.headline, then: event.headline, else: event.title)}
 			</f:link.action>
 		</h2>
+		</f:if>
 
 
 		<p class="eventSubtitle">

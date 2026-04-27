@@ -25,13 +25,12 @@ class NotificationService
      * @param string $recipient
      * @param string $sender
      * @param string $subject
-     * @param string $templateName
      * @param $folderName
      * @param null|string $format
      * @param array $variables
      * @param array $attachments
      */
-    public function notify($recipient, $sender, $subject, $templateName, $folderName, $format = null, $variables = [], $attachments = null): bool
+    public function notify($recipient, $sender, $subject, string $templateName, ?string $folderName, $format = null, $variables = [], $attachments = null): bool
     {
         $templateView = $this->buildTemplateView($templateName, $format, $folderName);
         $templateView->assignMultiple($variables);
@@ -63,13 +62,11 @@ class NotificationService
     /**
      * Renders the body of a notification using a given template
      *
-     * @param string $templateName
-     * @param string|null $format
      * @param string $folderName
      * @param array $variables
      * @return string
      */
-    public function render($templateName, $folderName, $format = null, $variables = [])
+    public function render(string $templateName, $folderName, ?string $format = null, $variables = [])
     {
         $templateView = $this->buildTemplateView($templateName, $folderName, $format);
         $templateView->assignMultiple($variables);

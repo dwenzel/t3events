@@ -21,9 +21,9 @@ class SwitchableControllerActionsPluginUpdater implements UpgradeWizardInterface
 {
     public const IDENTIFIER = 't3eventsSwitchableControllerActionsPluginUpdater';
 
-    private const SOURCE_LIST_TYPE = 't3events_events';
+    private const string SOURCE_LIST_TYPE = 't3events_events';
 
-    private const MIGRATION_MAP = [
+    private const array MIGRATION_MAP = [
         'Event->list;Event->show' => 't3events_eventlist',
         'Event->show'             => 't3events_eventlist',
         'Event->list'             => 't3events_eventlist',
@@ -31,6 +31,9 @@ class SwitchableControllerActionsPluginUpdater implements UpgradeWizardInterface
         'Performance->show'       => 't3events_performancelist',
         'Performance->list'       => 't3events_performancelist',
     ];
+    public function __construct(private readonly ConnectionPool $connectionPool)
+    {
+    }
 
     public function getIdentifier(): string
     {
@@ -56,7 +59,7 @@ class SwitchableControllerActionsPluginUpdater implements UpgradeWizardInterface
 
     public function updateNecessary(): bool
     {
-        return count($this->getMigrationRecords()) > 0;
+        return $this->getMigrationRecords() !== [];
     }
 
     public function executeUpdate(): bool
@@ -64,7 +67,7 @@ class SwitchableControllerActionsPluginUpdater implements UpgradeWizardInterface
         foreach ($this->getMigrationRecords() as $record) {
             $flexFormArray = GeneralUtility::xml2array($record['pi_flexform']);
             $sca = $flexFormArray['data']['sDEF']['lDEF']['switchableControllerActions']['vDEF'] ?? '';
-            $targetListType = self::MIGRATION_MAP[trim($sca)] ?? null;
+            $targetListType = self::MIGRATION_MAP[trim((string) $sca)] ?? null;
 
             if ($targetListType === null) {
                 // Unknown value — skip to avoid data loss
@@ -83,7 +86,7 @@ class SwitchableControllerActionsPluginUpdater implements UpgradeWizardInterface
 
     private function getMigrationRecords(): array
     {
-        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
+        $queryBuilder = $this->connectionPool
             ->getQueryBuilderForTable('tt_content');
         $queryBuilder->getRestrictions()
             ->removeAll()
@@ -108,7 +111,7 @@ class SwitchableControllerActionsPluginUpdater implements UpgradeWizardInterface
 
     private function updateContentElement(int $uid, string $newListType, string $flexForm): void
     {
-        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
+        $queryBuilder = $this->connectionPool
             ->getQueryBuilderForTable('tt_content');
         $queryBuilder
             ->update('tt_content')

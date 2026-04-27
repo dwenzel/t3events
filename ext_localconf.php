@@ -1,5 +1,4 @@
 <?php
-use DWenzel\T3events\Configuration\ExtensionConfiguration;
 use DWenzel\T3events\Controller\EventController;
 use DWenzel\T3events\Controller\PerformanceController;
 use DWenzel\T3events\Hooks\BackendUtility;

@@ -13,8 +13,8 @@
                     <f:image image="{image}"
                         width="{settings.event.single.image.width}"
                         height="{settings.event.single.image.height}"
-                        alt="{event.headline}"
-                        title="{event.headline} {event.subtitle}"
+                        alt="{f:if(condition: event.headline, then: event.headline, else: event.title)}"
+                        title="{f:if(condition: event.headline, then: event.headline, else: event.title)} {event.subtitle}"
                     />
                 </f:for>
 			</div>
@@ -24,8 +24,8 @@
 				<f:image src="{settings.event.single.dummyImage}"
 					width="{settings.event.single.image.width}"
 					height="{settings.event.single.image.height}"
-					alt="{event.headline}"
-					title="{event.headline} {event.subtitle}" />
+					alt="{f:if(condition: event.headline, then: event.headline, else: event.title)}"
+					title="{f:if(condition: event.headline, then: event.headline, else: event.title)} {event.subtitle}" />
 			</div>
 		</f:else>
 	</f:if>
@@ -67,38 +67,14 @@
 </div>
 <div class="eventRight fl">
 	<div class="eventDescription">
-		<h2>{event.headline}</h2>
+		<f:if condition="{event.headline} || {event.title}"><h2>{f:if(condition: event.headline, then: event.headline, else: event.title)}</h2></f:if>
 
 		<div>
-			<h3>{event.subtitle}</h3>
+			<f:if condition="{event.subtitle}"><h3>{event.subtitle}</h3></f:if>
 			<f:format.html>{event.description}</f:format.html>
 		</div>
 	</div>
 	<div class="eventPerformances">
-		<div class="legends small desktop clearfix">
-			<div class="infos city">
-				<div class="inside">
-					<f:translate key="tx_t3events_domain_model_eventlocation.place" />
-				</div>
-			</div>
-			<div class="infos location">
-				<div class="inside">
-					<f:translate key="tx_t3events_domain_model_eventlocation" />
-				</div>
-			</div>
-			<div class="infos date">
-				<div class="inside">
-					<f:translate key="tx_t3events_domain_model_performance.date" />
-					,
-					<f:translate key="tx_t3events.time" />
-				</div>
-			</div>
-			<div class="infos ticketSignal">
-				<div class="inside">
-					<f:translate key="tx_t3events.tickets" />
-				</div>
-			</div>
-		</div>
 		<f:for each="{event.performances}" as="performance" iteration="iteration">
 			<f:render partial="Performance/Item" arguments="{performance: performance, event: event, iteration: iteration}" />
 		</f:for>

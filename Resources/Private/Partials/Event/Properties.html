@@ -4,7 +4,7 @@
 			<f:translate key="tx_t3events_domain_model_event.headline" />
 		</td>
 		<td>
-			{event.headline}
+			{f:if(condition: event.headline, then: event.headline, else: event.title)}
 		</td>
 	</tr>
 	<tr>

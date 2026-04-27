@@ -169,10 +169,6 @@ trait DemandedRepositoryTrait
                     $constraints[] = $query->logicalOr(...$additionalConstraints);
                     break;
                 case 'notand':
-                    foreach ($additionalConstraints as $additionalConstraint) {
-                        $constraints[] = $query->logicalNot($additionalConstraint);
-                    }
-                    break;
                 case 'notor':
                     foreach ($additionalConstraints as $additionalConstraint) {
                         $constraints[] = $query->logicalNot($additionalConstraint);

@@ -116,7 +116,7 @@ class DateViewHelper extends AbstractViewHelper
 
         if (!$date instanceof \DateTime) {
             try {
-                $base = $base instanceof \DateTime ? $base->format('U') : strtotime((MathUtility::canBeInterpretedAsInteger($base) ? '@' : '') . $base);
+                $base = $base instanceof \DateTime ? (int)$base->format('U') : (strtotime((MathUtility::canBeInterpretedAsInteger($base) ? '@' : '') . $base) ?: null);
                 $dateTimestamp = strtotime((MathUtility::canBeInterpretedAsInteger($date) ? '@' : '') . $date, $base);
                 $modifiedDate = new \DateTime('@' . $dateTimestamp);
                 $modifiedDate->setTimezone(new \DateTimeZone(date_default_timezone_get()));
@@ -132,7 +132,7 @@ class DateViewHelper extends AbstractViewHelper
         }
 
         if (str_contains((string) $format, '%')) {
-            return strftime($format, $modifiedDate->format('U'));
+            return strftime($format, (int)$modifiedDate->format('U'));
         }
         return $modifiedDate->format($format);
     }

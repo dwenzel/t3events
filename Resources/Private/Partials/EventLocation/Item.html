@@ -16,10 +16,10 @@
 	</f:if>
 	<f:if condition="{eventLocation.zip}">
 		<span class="zip">
-			{eventLocation.zip}						
+			{eventLocation.zip}
 		</span>
 	</f:if>
-	<f:if condition="{eventLocation.place}">
+	<f:if condition="{eventLocation.place} && !{eventLocation.name}">
 		<span class="place">
 			{eventLocation.place}
 		</span><br />

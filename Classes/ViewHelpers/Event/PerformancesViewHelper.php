@@ -100,7 +100,7 @@ class PerformancesViewHelper extends AbstractTagBasedViewHelper
     /**
      * Get date range of performances
      *
-     * @return array
+     * @return string
      */
     public function getDateRange(): string
     {
@@ -116,12 +116,13 @@ class PerformancesViewHelper extends AbstractTagBasedViewHelper
             $timestamps[] = $performance->getDate()->getTimestamp();
         }
         sort($timestamps);
+        $lastTimestamp = end($timestamps);
         if (str_contains((string) $format, '%')) {
             $dateRange = strftime($format, $timestamps[0]);
-            $dateRange .= ' - ' . strftime($format, end($timestamps));
+            $dateRange .= ' - ' . strftime($format, $lastTimestamp ?: $timestamps[0]);
         } else {
             $dateRange = date($format, $timestamps[0]);
-            $dateRange .= ' - ' . date($format, end($timestamps));
+            $dateRange .= ' - ' . date($format, $lastTimestamp ?: $timestamps[0]);
         }
 
         return $dateRange;
