@@ -43,6 +43,11 @@ class ScheduleController extends PerformanceController
         return $response;
     }
 
+    public function getModuleKey(): string
+    {
+        return 'events_m2';
+    }
+
     /**
      * action list
      *

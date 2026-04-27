@@ -172,6 +172,11 @@ class EventController extends AbstractBackendController implements FilterableCon
         return $this->redirectToCreateNewRecord(SI::TABLE_EVENTS);
     }
 
+    public function getModuleKey(): string
+    {
+        return 'events_m1';
+    }
+
     /**
      * @return ConfigurationManagerInterface
      */
