@@ -121,10 +121,8 @@ class RouteTest extends UnitTestCase
         ];
 
         // @extensionScannerIgnoreLine false positive: own Route::getOptions(), not a deprecated TYPO3 method
-        $this->assertSame(
-            $expectedOptions,
-            $this->subject->getOptions()
-        );
+        $actualOptions = $this->subject->getOptions();
+        $this->assertSame($expectedOptions, $actualOptions);
     }
 
     /**
@@ -171,13 +169,11 @@ class RouteTest extends UnitTestCase
             'foo' => 'bar'
         ];
 
-        // @extensionScannerIgnoreLine false positive: own Route::setOptions()/getOptions(), not deprecated TYPO3 methods
+        // @extensionScannerIgnoreLine false positive: own Route::setOptions(), not a deprecated TYPO3 method
         $this->subject->setOptions($options);
-        $this->assertSame(
-            $options,
-            // @extensionScannerIgnoreLine
-            $this->subject->getOptions()
-        );
+        // @extensionScannerIgnoreLine false positive: own Route::getOptions(), not a deprecated TYPO3 method
+        $actualOptions = $this->subject->getOptions();
+        $this->assertSame($options, $actualOptions);
     }
 
     /**
@@ -186,10 +182,8 @@ class RouteTest extends UnitTestCase
     public function setOptionsReturnsObject()
     {
         // @extensionScannerIgnoreLine false positive: own Route::setOptions(), not a deprecated TYPO3 method
-        $this->assertSame(
-            $this->subject,
-            $this->subject->setOptions([])
-        );
+        $result = $this->subject->setOptions([]);
+        $this->assertSame($this->subject, $result);
     }
 
     /**

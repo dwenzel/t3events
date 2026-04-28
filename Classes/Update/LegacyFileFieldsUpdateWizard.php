@@ -184,6 +184,7 @@ class LegacyFileFieldsUpdateWizard implements UpgradeWizardInterface, ChattyInte
             ))->executeQuery()
                 ->fetchOne();
         } catch (\Exception $exception) {
+            // @extensionScannerIgnoreLine false positive: PSR-3 LoggerInterface::error() is not deprecated
             $this->logger->error(
                 'An error occurred while counting record to update: ' . $exception->getMessage(),
                 [
