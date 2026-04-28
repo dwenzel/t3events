@@ -57,7 +57,6 @@ class PersonDemandFactory extends AbstractDemandFactory implements DemandFactory
      * Creates a demand object from settings
      *
      * @param array<string, mixed> $settings
-     * @return DemandInterface
      */
     public function createFromSettings(array $settings): DemandInterface
     {

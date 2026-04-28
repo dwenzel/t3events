@@ -103,6 +103,11 @@ class Person extends AbstractEntity
 
     public function getPersonType(): ?PersonType
     {
+        if ($this->personType instanceof LazyLoadingProxy) {
+            /** @var PersonType $instance */
+            $instance = $this->personType->_loadRealInstance();
+            return $instance;
+        }
         return $this->personType;
     }
 
@@ -111,9 +116,6 @@ class Person extends AbstractEntity
         $this->personType = $personType;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
@@ -124,9 +126,6 @@ class Person extends AbstractEntity
         $this->name = $name;
     }
 
-    /**
-     * @return int
-     */
     public function getGender(): int
     {
         return $this->gender;
@@ -137,9 +136,6 @@ class Person extends AbstractEntity
         $this->gender = $gender;
     }
 
-    /**
-     * @return string
-     */
     public function getFirstName(): string
     {
         return $this->firstName;
@@ -150,9 +146,6 @@ class Person extends AbstractEntity
         $this->firstName = $firstName;
     }
 
-    /**
-     * @return string
-     */
     public function getLastName(): string
     {
         return $this->lastName;
@@ -180,17 +173,12 @@ class Person extends AbstractEntity
 
     /**
      * Sets the phone
-     *
-     * @param string $phone
      */
     public function setPhone(string $phone): void
     {
         $this->phone = $phone;
     }
 
-    /**
-     * @return string
-     */
     public function getTitle(): string
     {
         return $this->title;
@@ -201,9 +189,6 @@ class Person extends AbstractEntity
         $this->title = $title;
     }
 
-    /**
-     * @return \DateTime|null
-     */
     public function getBirthday(): ?\DateTime
     {
         return $this->birthday;
@@ -214,9 +199,6 @@ class Person extends AbstractEntity
         $this->birthday = $birthday;
     }
 
-    /**
-     * @return string
-     */
     public function getWww(): string
     {
         return $this->www;

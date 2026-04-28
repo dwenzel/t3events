@@ -70,7 +70,6 @@ class EditUriViewHelper extends AbstractViewHelper
     }
 
     /**
-     * @return string
      * @throws RouteNotFoundException
      * @codeCoverageIgnore
      */

@@ -2,6 +2,7 @@
 
 namespace DWenzel\T3events\Events;
 
+use TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface;
 use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
 use TYPO3\CMS\Extbase\Persistence\Generic\Qom\ConstraintInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
@@ -10,16 +11,16 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
 final class QueryGeneratePreMatchEvent
 {
     /**
-     * @param QueryInterface<\TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface> $query
+     * @param QueryInterface<DomainObjectInterface> $query
      * @param array<ConstraintInterface> $constrains
-     * @param Repository<\TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface> $baseRepository
+     * @param Repository<DomainObjectInterface> $baseRepository
      */
     public function __construct(private QueryInterface $query, private ?DemandInterface $demand, private array $constrains, private readonly bool $respectEnableFields, private readonly Repository $baseRepository)
     {
     }
 
     /**
-     * @return QueryInterface<\TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface>
+     * @return QueryInterface<DomainObjectInterface>
      */
     public function getQuery(): QueryInterface
     {
@@ -27,7 +28,7 @@ final class QueryGeneratePreMatchEvent
     }
 
     /**
-     * @param QueryInterface<\TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface> $query
+     * @param QueryInterface<DomainObjectInterface> $query
      */
     public function setQuery(QueryInterface $query): void
     {
@@ -66,7 +67,7 @@ final class QueryGeneratePreMatchEvent
     }
 
     /**
-     * @return Repository<\TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface>
+     * @return Repository<DomainObjectInterface>
      */
     public function getBaseRepository(): Repository
     {

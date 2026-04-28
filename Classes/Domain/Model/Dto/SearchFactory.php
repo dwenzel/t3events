@@ -27,7 +27,6 @@ class SearchFactory
      *
      * @param array<string, mixed> $searchRequest An array with the search request
      * @param array<string, mixed> $settings Settings for search
-     * @return Search
      */
     public function get(array $searchRequest, array $settings): Search
     {

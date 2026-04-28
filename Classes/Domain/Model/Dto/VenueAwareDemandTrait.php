@@ -28,22 +28,13 @@ namespace DWenzel\T3events\Domain\Model\Dto;
 trait VenueAwareDemandTrait
 {
 
-    /**
-     * @var string|null
-     */
     protected ?string $venues = null;
 
-    /**
-     * @return string|null
-     */
     public function getVenues(): ?string
     {
         return $this->venues;
     }
 
-    /**
-     * @param string|null $venues
-     */
     public function setVenues(?string $venues): void
     {
         $this->venues = $venues;

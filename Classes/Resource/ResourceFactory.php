@@ -60,9 +60,6 @@ class ResourceFactory extends CoreResourceFactory
 
     /**
      * Creates a new (extbase) file reference from a given file object
-     *
-     * @param File $file
-     * @return FileReference
      */
     public function createFileReferenceFromFileObject(File $file): FileReference
     {

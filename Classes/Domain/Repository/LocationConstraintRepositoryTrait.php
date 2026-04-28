@@ -2,6 +2,9 @@
 
 namespace DWenzel\T3events\Domain\Repository;
 
+use DWenzel\T3events\Domain\Model\Dto\Search;
+use TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface;
+use TYPO3\CMS\Extbase\Persistence\Generic\Qom\ConstraintInterface;
 use DWenzel\T3events\Utility\GeoCoder;
 use TYPO3\CMS\Extbase\Annotation\Inject;
 use DWenzel\T3events\Domain\Model\Dto\SearchAwareDemandInterface;
@@ -15,7 +18,6 @@ use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 trait LocationConstraintRepositoryTrait
 {
     /**
-     * @var GeoCoder
      * @Inject
      */
     protected GeoCoder $geoCoder;
@@ -23,14 +25,14 @@ trait LocationConstraintRepositoryTrait
     /**
      * Create location constraints from demand
      *
-     * @param QueryInterface<\TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface> $query
-     * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\ConstraintInterface>
+     * @param QueryInterface<DomainObjectInterface> $query
+     * @return array<ConstraintInterface>
      */
     public function createLocationConstraints(QueryInterface $query, SearchAwareDemandInterface $demand): array
     {
         $locationConstraints = [];
 
-        if ($demand->getSearch()) {
+        if ($demand->getSearch() instanceof Search) {
             $locationConstraints = [];
             $search = $demand->getSearch();
 
@@ -39,9 +41,9 @@ trait LocationConstraintRepositoryTrait
             $location = $search->getLocation();
             $radius = $search->getRadius();
 
-            if (!empty($location)
-                && !empty($radius)
-                && empty($bounds)
+            if ($location !== null && $location !== '' && $location !== '0'
+                && ($radius !== null && $radius !== 0)
+                && ($bounds === null || $bounds === [])
             ) {
                 $geoLocation = $this->geoCoder->getLocation($location);
                 if ($geoLocation !== false) {

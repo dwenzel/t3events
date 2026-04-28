@@ -60,8 +60,6 @@ class Genre extends AbstractEntity
 
     /**
      * Gets the link
-     *
-     * @return string
      */
     public function getLink(): string
     {

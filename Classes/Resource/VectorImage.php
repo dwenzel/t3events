@@ -83,8 +83,6 @@ class VectorImage extends \DOMDocument
      * We overwrite parents method in order to
      * avoid having to validate the document against a DTD
      * which is quite slow
-     *
-     * @param string $elementId
      */
     public function getElementById(string $elementId): ?\DOMElement
     {

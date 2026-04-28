@@ -27,14 +27,11 @@ trait ConfigurationManagerTrait
 {
     /**
      * Object Manager
-     *
-     * @var ConfigurationManagerInterface
      */
     protected ConfigurationManagerInterface $configurationManager;
 
     /**
      * Injects the object manager
-     * @param ConfigurationManagerInterface $configurationManager
      */
     public function injectConfigurationManager(ConfigurationManagerInterface $configurationManager): void
     {

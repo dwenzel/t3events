@@ -27,9 +27,6 @@ namespace DWenzel\T3events\Domain\Model\Dto;
  ***************************************************************/
 class EmConfiguration
 {
-    /**
-     * @var bool
-     */
     protected bool $respectPerformanceStoragePage = false;
 
     /**
@@ -46,17 +43,11 @@ class EmConfiguration
         }
     }
 
-    /**
-     * @return bool
-     */
     public function isRespectPerformanceStoragePage(): bool
     {
         return $this->respectPerformanceStoragePage;
     }
 
-    /**
-     * @param bool $respectPerformanceStoragePage
-     */
     public function setRespectPerformanceStoragePage(bool $respectPerformanceStoragePage): void
     {
         $this->respectPerformanceStoragePage = $respectPerformanceStoragePage;

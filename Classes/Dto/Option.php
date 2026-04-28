@@ -24,14 +24,8 @@ namespace DWenzel\T3events\Dto;
  */
 class Option
 {
-    /**
-     * @var string
-     */
     protected string $value = '';
 
-    /**
-     * @var string
-     */
     protected string $label = '';
 
     public function getValue(): string

@@ -8,9 +8,6 @@ namespace DWenzel\T3events\Domain\Model\Dto;
  */
 class ModuleData
 {
-    /**
-     * @var DemandInterface|null
-     */
     protected ?DemandInterface $demand = null;
 
     /**
@@ -20,8 +17,6 @@ class ModuleData
 
     /**
      * Get the demand
-     *
-     * @return DemandInterface|null
      */
     public function getDemand(): ?DemandInterface
     {

@@ -1,6 +1,8 @@
 <?php
 namespace DWenzel\T3events\Domain\Repository;
 
+use TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface;
+use TYPO3\CMS\Extbase\Persistence\Generic\Qom\ConstraintInterface;
 use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use DWenzel\T3events\Domain\Model\Dto\PeriodAwareDemandInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
@@ -19,8 +21,8 @@ trait PeriodConstraintRepositoryTrait
     /**
      * Create period constraints from demand (time restriction)
      *
-     * @param QueryInterface<\TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface> $query
-     * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\ConstraintInterface>
+     * @param QueryInterface<DomainObjectInterface> $query
+     * @return array<ConstraintInterface>
      * @throws InvalidQueryException
      */
     public function createPeriodConstraints(QueryInterface $query, PeriodAwareDemandInterface $demand): array
@@ -84,10 +86,6 @@ trait PeriodConstraintRepositoryTrait
         return $periodConstraint;
     }
 
-    /**
-     * @param \DateTime $startDate
-     * @param \DateTime $endDate
-     */
     protected function determineDateRange(PeriodAwareDemandInterface $demand, \DateTime &$startDate, \DateTime &$endDate): void
     {
         // period constraints
@@ -133,7 +131,7 @@ trait PeriodConstraintRepositoryTrait
                     }
                     break;
             }
-            if ($periodType != 'byDate') {
+            if ($periodType !== 'byDate') {
                 $startDate->setTime(0, 0, 0);
                 $startDate->modify($deltaStart);
                 $endDate->modify($deltaEnd);

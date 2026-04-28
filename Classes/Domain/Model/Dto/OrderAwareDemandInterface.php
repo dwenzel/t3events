@@ -9,9 +9,6 @@ namespace DWenzel\T3events\Domain\Model\Dto;
  */
 interface OrderAwareDemandInterface
 {
-    /**
-     * @return string|null
-     */
     public function getOrder(): ?string;
 
     /**

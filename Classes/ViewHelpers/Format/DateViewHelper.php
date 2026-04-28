@@ -66,9 +66,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 class DateViewHelper extends AbstractViewHelper
 {
 
-    /**
-     * @var boolean
-     */
     protected bool $escapingInterceptorEnabled = false;
 
     /**

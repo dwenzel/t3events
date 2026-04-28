@@ -23,22 +23,16 @@ class Search extends AbstractEntity implements LocationAwareInterface
 
     /**
      * Basic search word
-     *
-     * @var string|null
      */
     protected ?string $subject = null;
 
     /**
      * Search fields
-     *
-     * @var string|null
      */
     protected ?string $fields = null;
 
     /**
      * Get the subject
-     *
-     * @return string|null
      */
     public function getSubject(): ?string
     {
@@ -47,8 +41,6 @@ class Search extends AbstractEntity implements LocationAwareInterface
 
     /**
      * Set subject
-     *
-     * @param string|null $subject
      */
     public function setSubject(?string $subject): void
     {

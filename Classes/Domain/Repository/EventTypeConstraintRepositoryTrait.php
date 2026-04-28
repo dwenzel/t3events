@@ -1,6 +1,8 @@
 <?php
 namespace DWenzel\T3events\Domain\Repository;
 
+use TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface;
+use TYPO3\CMS\Extbase\Persistence\Generic\Qom\ConstraintInterface;
 use DWenzel\T3events\Domain\Model\Dto\EventTypeAwareDemandInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -16,15 +18,15 @@ trait EventTypeConstraintRepositoryTrait
     /**
      * Create EventType constraints from demand (time restriction)
      *
-     * @param QueryInterface<\TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface> $query
-     * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\ConstraintInterface>
+     * @param QueryInterface<DomainObjectInterface> $query
+     * @return array<ConstraintInterface>
      */
     public function createEventTypeConstraints(QueryInterface $query, EventTypeAwareDemandInterface $demand): array
     {
         $eventTypeConstraints = [];
         $eventTypeField = $demand->getEventTypeField();
         $eventTypeList = $demand->getEventTypes();
-        if (!empty($eventTypeList)) {
+        if ($eventTypeList !== null && $eventTypeList !== '' && $eventTypeList !== '0') {
             $eventTypes = GeneralUtility::intExplode(',', $demand->getEventTypes(), true);
             $eventTypeConstraints[] = $query->in($eventTypeField, $eventTypes);
         }

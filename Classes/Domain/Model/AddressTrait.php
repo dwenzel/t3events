@@ -61,8 +61,6 @@ trait AddressTrait
 
     /**
      * Sets the address
-     *
-     * @param string $address
      */
     public function setAddress(string $address): void
     {
@@ -71,8 +69,6 @@ trait AddressTrait
 
     /**
      * Sets the city
-     *
-     * @param string $city
      */
     public function setCity(string $city): void
     {
@@ -81,17 +77,12 @@ trait AddressTrait
 
     /**
      * Sets the zip
-     *
-     * @param string $zip
      */
     public function setZip(string $zip): void
     {
         $this->zip = $zip;
     }
 
-    /**
-     * @return string
-     */
     public function getCountry(): string
     {
         return $this->country;

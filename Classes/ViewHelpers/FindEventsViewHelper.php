@@ -30,9 +30,7 @@ class FindEventsViewHelper extends AbstractViewHelper
 {
 
     /**
-     * @param int $timestamp
      * @param array<mixed> $events
-     * @param string $as
      * @return string
      */
     public function render(int $timestamp, array $events, string $as): mixed

@@ -33,9 +33,6 @@ class ItemsProcFunc
      */
     const EXTENSION_KEY = 't3events';
 
-    /**
-     * @var TemplateLayoutUtility
-     */
     protected TemplateLayoutUtility $templateLayoutUtility;
 
     public function __construct()
@@ -65,7 +62,6 @@ class ItemsProcFunc
     /**
      * Returns Language Service
      *
-     * @return LanguageService
      * @codeCoverageIgnore
      */
     protected function getLanguageService(): LanguageService

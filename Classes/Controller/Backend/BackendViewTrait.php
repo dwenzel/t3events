@@ -52,9 +52,6 @@ trait BackendViewTrait
         return GeneralUtility::makeInstance(ButtonBar::class);
     }
 
-    /**
-     * @return mixed
-     */
     protected function getPageRendererConfiguration(): mixed
     {
         $extbaseFrameworkConfiguration = $this->getConfigurationManager()->getConfiguration(

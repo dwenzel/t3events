@@ -32,32 +32,24 @@ class PerformanceStatus extends AbstractEntity
 
     /**
      * title
-     *
-     * @var string
      */
     #[Validate(['validator' => 'NotEmpty'])]
     protected string $title = '';
 
     /**
      * cssClass
-     *
-     * @var string
      */
     #[Validate(['validator' => 'NotEmpty'])]
     protected string $cssClass = '';
 
     /**
      * priority max allowed 2147483647
-     *
-     * @var int
      */
     #[Validate(['validator' => 'NotEmpty'])]
     protected int $priority = 2147483647;
 
     /**
      * Returns the title
-     *
-     * @return string
      */
     public function getTitle(): string
     {
@@ -66,8 +58,6 @@ class PerformanceStatus extends AbstractEntity
 
     /**
      * Sets the title
-     *
-     * @param string $title
      */
     public function setTitle(string $title): void
     {
@@ -76,8 +66,6 @@ class PerformanceStatus extends AbstractEntity
 
     /**
      * Returns the priority
-     *
-     * @return int
      */
     public function getPriority(): int
     {
@@ -86,8 +74,6 @@ class PerformanceStatus extends AbstractEntity
 
     /**
      * Sets the priority
-     *
-     * @param int $priority
      */
     public function setPriority(int $priority): void
     {
@@ -96,8 +82,6 @@ class PerformanceStatus extends AbstractEntity
 
     /**
      * Returns the cssClass
-     *
-     * @return string
      */
     public function getCssClass(): string
     {
@@ -106,8 +90,6 @@ class PerformanceStatus extends AbstractEntity
 
     /**
      * Sets the cssClass
-     *
-     * @param string $cssClass
      */
     public function setCssClass(string $cssClass): void
     {

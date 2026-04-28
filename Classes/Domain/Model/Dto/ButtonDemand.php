@@ -41,9 +41,6 @@ class ButtonDemand
 
     protected string $overlay = '';
 
-    /**
-     * @return string
-     */
     public function getTable(): string
     {
         return $this->table;
@@ -54,9 +51,6 @@ class ButtonDemand
         $this->table = $table;
     }
 
-    /**
-     * @return string
-     */
     public function getLabelKey(): string
     {
         return $this->labelKey;
@@ -67,9 +61,6 @@ class ButtonDemand
         $this->labelKey = $labelKey;
     }
 
-    /**
-     * @return string
-     */
     public function getAction(): string
     {
         return $this->action;
@@ -80,9 +71,6 @@ class ButtonDemand
         $this->action = $action;
     }
 
-    /**
-     * @return string
-     */
     public function getIconKey(): string
     {
         return $this->iconKey;
@@ -93,9 +81,6 @@ class ButtonDemand
         $this->iconKey = $iconKey;
     }
 
-    /**
-     * @return string
-     */
     public function getIconSize(): string
     {
         return $this->iconSize;
@@ -106,9 +91,6 @@ class ButtonDemand
         $this->iconSize = $iconSize;
     }
 
-    /**
-     * @return string
-     */
     public function getOverlay(): string
     {
         return $this->overlay;

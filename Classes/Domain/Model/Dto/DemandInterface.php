@@ -19,24 +19,12 @@ namespace DWenzel\T3events\Domain\Model\Dto;
  */
 interface DemandInterface
 {
-    /**
-     * @return int|null
-     */
     public function getLimit(): ?int;
 
-    /**
-     * @param int|null $limit
-     */
     public function setLimit(?int $limit): void;
 
-    /**
-     * @return int|null
-     */
     public function getOffset(): ?int;
 
-    /**
-     * @param int|null $offset
-     */
     public function setOffset(?int $offset): void;
 
     /**
@@ -49,9 +37,6 @@ interface DemandInterface
      */
     public function getSortBy(): ?string;
 
-    /**
-     * @return string|null
-     */
     public function getOrder(): ?string;
 
     /**

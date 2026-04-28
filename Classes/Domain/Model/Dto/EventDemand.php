@@ -34,43 +34,31 @@ class EventDemand extends AbstractDemand implements
 
     /**
      * Genre
-     *
-     * @var string|null
      */
     protected ?string $genre = null;
 
     /**
      * Venue
-     *
-     * @var string|null
      */
     protected ?string $venue = null;
 
     /**
      * Event Type
-     *
-     * @var string|null
      */
     protected ?string $eventType = null;
 
     /**
      * Categories
-     *
-     * @var string|null
      */
     protected ?string $categories = null;
 
     /**
      * Category Conjunction
-     *
-     * @var string|null
      */
     protected ?string $categoryConjunction = null;
 
     /**
      * Returns the genre
-     *
-     * @return string|null
      */
     public function getGenre(): ?string
     {
@@ -79,8 +67,6 @@ class EventDemand extends AbstractDemand implements
 
     /**
      * Sets the genre
-     *
-     * @param string|null $genre
      */
     public function setGenre(?string $genre): void
     {
@@ -89,8 +75,6 @@ class EventDemand extends AbstractDemand implements
 
     /**
      * Returns the venue
-     *
-     * @return string|null
      */
     public function getVenue(): ?string
     {
@@ -99,8 +83,6 @@ class EventDemand extends AbstractDemand implements
 
     /**
      * Sets the venue
-     *
-     * @param string|null $venue
      */
     public function setVenue(?string $venue): void
     {
@@ -109,8 +91,6 @@ class EventDemand extends AbstractDemand implements
 
     /**
      * Returns the Event Type
-     *
-     * @return string|null
      */
     public function getEventType(): ?string
     {
@@ -119,8 +99,6 @@ class EventDemand extends AbstractDemand implements
 
     /**
      * Set event type
-     *
-     * @param string|null $eventType
      */
     public function setEventType(?string $eventType): void
     {
@@ -129,8 +107,6 @@ class EventDemand extends AbstractDemand implements
 
     /**
      * Returns the Category Conjunction
-     *
-     * @return string|null
      */
     public function getCategoryConjunction(): ?string
     {
@@ -139,8 +115,6 @@ class EventDemand extends AbstractDemand implements
 
     /**
      * Set Category Conjunction
-     *
-     * @param string|null $categoryConjunction
      */
     public function setCategoryConjunction(?string $categoryConjunction): void
     {
@@ -149,8 +123,6 @@ class EventDemand extends AbstractDemand implements
 
     /**
      * Gets the start date field
-     *
-     * @return string
      */
     public function getStartDateField(): string
     {
@@ -159,8 +131,6 @@ class EventDemand extends AbstractDemand implements
 
     /**
      * Gets the endDate field
-     *
-     * @return string
      */
     public function getEndDateField(): string
     {
@@ -169,8 +139,6 @@ class EventDemand extends AbstractDemand implements
 
     /**
      * Returns the categories
-     *
-     * @return string|null
      */
     public function getCategories(): ?string
     {
@@ -179,17 +147,12 @@ class EventDemand extends AbstractDemand implements
 
     /**
      * Sets the categories
-     *
-     * @param string|null $categories
      */
     public function setCategories(?string $categories): void
     {
         $this->categories = $categories;
     }
 
-    /**
-     * @return string
-     */
     public function getAudienceField(): string
     {
         return static::AUDIENCE_FIELD;

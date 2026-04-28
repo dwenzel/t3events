@@ -31,49 +31,27 @@ use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
 class Notification extends AbstractEntity
 {
 
-    /**
-     * @var string|null
-     */
     protected ?string $recipient = null;
 
-    /**
-     * @var string|null
-     */
     protected ?string $sender = null;
 
-    /**
-     * @var string|null
-     */
     protected ?string $senderEmail = null;
 
-    /**
-     * @var string|null
-     */
     protected ?string $senderName = null;
 
-    /**
-     * @var string
-     */
     #[Validate(['validator' => 'NotEmpty'])]
     protected string $subject = '';
 
     /**
      * Body text
-     *
-     * @var string
      */
     #[Validate(['validator' => 'NotEmpty'])]
     protected string $bodytext = '';
 
-    /**
-     * @var string|null
-     */
     protected ?string $format = null;
 
     /**
      * Send time
-     *
-     * @var \DateTime|null
      */
     protected ?\DateTime $sentAt = null;
 
@@ -85,8 +63,6 @@ class Notification extends AbstractEntity
 
     /**
      * Returns the recipient
-     *
-     * @return string|null
      */
     public function getRecipient(): ?string
     {
@@ -95,8 +71,6 @@ class Notification extends AbstractEntity
 
     /**
      * Sets the recipient
-     *
-     * @param string|null $recipient
      */
     public function setRecipient(?string $recipient): void
     {
@@ -105,8 +79,6 @@ class Notification extends AbstractEntity
 
     /**
      * Returns the subject
-     *
-     * @return string
      */
     public function getSubject(): string
     {
@@ -115,8 +87,6 @@ class Notification extends AbstractEntity
 
     /**
      * Sets the subject
-     *
-     * @param string $subject
      */
     public function setSubject(string $subject): void
     {
@@ -126,7 +96,6 @@ class Notification extends AbstractEntity
     /**
      * Returns the sender email
      *
-     * @return string|null
      * @deprecated Use getSenderEmail and getSenderName instead
      */
     public function getSender(): ?string
@@ -137,7 +106,6 @@ class Notification extends AbstractEntity
     /**
      * Sets the sender email
      *
-     * @param string|null $sender
      * @deprecated Use setSenderEmail and setSenderName instead
      */
     public function setSender(?string $sender): void
@@ -148,8 +116,6 @@ class Notification extends AbstractEntity
 
     /**
      * Returns the bodytext
-     *
-     * @return string
      */
     public function getBodytext(): string
     {
@@ -158,8 +124,6 @@ class Notification extends AbstractEntity
 
     /**
      * Sets the bodytext
-     *
-     * @param string $bodytext
      */
     public function setBodytext(string $bodytext): void
     {
@@ -168,8 +132,6 @@ class Notification extends AbstractEntity
 
     /**
      * Returns the format
-     *
-     * @return string|null
      */
     public function getFormat(): ?string
     {
@@ -178,8 +140,6 @@ class Notification extends AbstractEntity
 
     /**
      * Sets the format
-     *
-     * @param string|null $format
      */
     public function setFormat(?string $format): void
     {
@@ -188,8 +148,6 @@ class Notification extends AbstractEntity
 
     /**
      * Returns the time when notification was send
-     *
-     * @return \DateTime|null
      */
     public function getSentAt(): ?\DateTime
     {
@@ -198,8 +156,6 @@ class Notification extends AbstractEntity
 
     /**
      * Sets send at
-     *
-     * @param \DateTime|null $sentAt
      */
     public function setSentAt(?\DateTime $sentAt): void
     {
@@ -238,9 +194,6 @@ class Notification extends AbstractEntity
         $this->attachments->detach($fileReference);
     }
 
-    /**
-     * @return string|null
-     */
     public function getSenderEmail(): ?string
     {
         if ($this->senderEmail === null) {
@@ -250,26 +203,17 @@ class Notification extends AbstractEntity
         return $this->senderEmail;
     }
 
-    /**
-     * @param string|null $senderEmail
-     */
     public function setSenderEmail(?string $senderEmail): void
     {
         $this->senderEmail = $senderEmail;
         $this->sender = $senderEmail;
     }
 
-    /**
-     * @return string|null
-     */
     public function getSenderName(): ?string
     {
         return $this->senderName;
     }
 
-    /**
-     * @param string|null $senderName
-     */
     public function setSenderName(?string $senderName): void
     {
         $this->senderName = $senderName;

@@ -65,8 +65,6 @@ class Audience extends AbstractEntity
 
     /**
      * Gets the link
-     *
-     * @return string
      */
     public function getLink(): string
     {

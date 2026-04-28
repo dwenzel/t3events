@@ -81,7 +81,6 @@ abstract class AbstractDemandFactory
      * Property names found in the $compositeProperties are skipped here
      * and must be set by concrete factory
      *
-     * @param mixed $demand
      * @param array<string, mixed> $settings
      */
     public function applySettings(mixed $demand, array $settings): void

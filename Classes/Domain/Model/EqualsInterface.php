@@ -27,8 +27,6 @@ interface EqualsInterface
 {
     /**
      * Tells if an object equals this
-     *
-     * @return bool
      */
     public function equals(AbstractDomainObject $object): bool;
 }

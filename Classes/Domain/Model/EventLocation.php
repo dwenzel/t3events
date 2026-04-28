@@ -38,16 +38,12 @@ class EventLocation extends AbstractEntity implements GeoCodingInterface
 
     /**
      * name
-     *
-     * @var string
      */
     #[Validate(['validator' => 'NotEmpty'])]
     protected string $name = '';
 
     /**
      * address
-     *
-     * @var string|null
      */
     protected ?string $address = null;
 
@@ -61,50 +57,36 @@ class EventLocation extends AbstractEntity implements GeoCodingInterface
 
     /**
      * zip
-     *
-     * @var string|null
      */
     protected ?string $zip = null;
 
     /**
      * place
-     *
-     * @var string|null
      */
     protected ?string $place = null;
 
     /**
      * details
-     *
-     * @var string|null
      */
     protected ?string $details = null;
 
     /**
      * www
-     *
-     * @var string|null
      */
     protected ?string $www = null;
 
     /**
      * country
-     *
-     * @var string|null
      */
     protected ?string $country = null;
 
     /**
      * Latitude
-     *
-     * @var float|null
      */
     protected ?float $latitude = null;
 
     /**
      * Longitude
-     *
-     * @var float|null
      */
     protected ?float $longitude = null;
 
@@ -119,8 +101,6 @@ class EventLocation extends AbstractEntity implements GeoCodingInterface
 
     /**
      * Initializes all \TYPO3\CMS\Extbase\Persistence\ObjectStorage properties.
-     *
-     * @return void
      */
     protected function initStorageObjects(): void
     {
@@ -129,8 +109,6 @@ class EventLocation extends AbstractEntity implements GeoCodingInterface
 
     /**
      * Returns the name
-     *
-     * @return string
      */
     public function getName(): string
     {
@@ -139,8 +117,6 @@ class EventLocation extends AbstractEntity implements GeoCodingInterface
 
     /**
      * Sets the name
-     *
-     * @param string $name
      */
     public function setName(string $name): void
     {
@@ -149,8 +125,6 @@ class EventLocation extends AbstractEntity implements GeoCodingInterface
 
     /**
      * Returns the address
-     *
-     * @return string|null
      */
     public function getAddress(): ?string
     {
@@ -159,8 +133,6 @@ class EventLocation extends AbstractEntity implements GeoCodingInterface
 
     /**
      * Sets the address
-     *
-     * @param string|null $address
      */
     public function setAddress(?string $address): void
     {
@@ -209,8 +181,6 @@ class EventLocation extends AbstractEntity implements GeoCodingInterface
 
     /**
      * Returns the zip
-     *
-     * @return string|null
      */
     public function getZip(): ?string
     {
@@ -219,8 +189,6 @@ class EventLocation extends AbstractEntity implements GeoCodingInterface
 
     /**
      * Sets the zip
-     *
-     * @param string|null $zip
      */
     public function setZip(?string $zip): void
     {
@@ -229,8 +197,6 @@ class EventLocation extends AbstractEntity implements GeoCodingInterface
 
     /**
      * Returns the place
-     *
-     * @return string|null
      */
     public function getPlace(): ?string
     {
@@ -239,8 +205,6 @@ class EventLocation extends AbstractEntity implements GeoCodingInterface
 
     /**
      * Sets the place
-     *
-     * @param string|null $place
      */
     public function setPlace(?string $place): void
     {
@@ -249,8 +213,6 @@ class EventLocation extends AbstractEntity implements GeoCodingInterface
 
     /**
      * Returns the details
-     *
-     * @return string|null
      */
     public function getDetails(): ?string
     {
@@ -259,8 +221,6 @@ class EventLocation extends AbstractEntity implements GeoCodingInterface
 
     /**
      * Sets the details
-     *
-     * @param string|null $details
      */
     public function setDetails(?string $details): void
     {
@@ -269,8 +229,6 @@ class EventLocation extends AbstractEntity implements GeoCodingInterface
 
     /**
      * Returns the www
-     *
-     * @return string|null
      */
     public function getWww(): ?string
     {
@@ -279,8 +237,6 @@ class EventLocation extends AbstractEntity implements GeoCodingInterface
 
     /**
      * Sets the www
-     *
-     * @param string|null $www
      */
     public function setWww(?string $www): void
     {
@@ -289,8 +245,6 @@ class EventLocation extends AbstractEntity implements GeoCodingInterface
 
     /**
      * Returns the country
-     *
-     * @return string|null
      */
     public function getCountry(): ?string
     {
@@ -299,8 +253,6 @@ class EventLocation extends AbstractEntity implements GeoCodingInterface
 
     /**
      * Sets the country
-     *
-     * @param string|null $country
      */
     public function setCountry(?string $country): void
     {
@@ -309,8 +261,6 @@ class EventLocation extends AbstractEntity implements GeoCodingInterface
 
     /**
      * Returns the latitude
-     *
-     * @return float|null
      */
     public function getLatitude(): ?float
     {
@@ -319,8 +269,6 @@ class EventLocation extends AbstractEntity implements GeoCodingInterface
 
     /**
      * Sets the latitude
-     *
-     * @param float|null $latitude
      */
     public function setLatitude(?float $latitude): void
     {
@@ -329,8 +277,6 @@ class EventLocation extends AbstractEntity implements GeoCodingInterface
 
     /**
      * Returns the longitude
-     *
-     * @return float|null
      */
     public function getLongitude(): ?float
     {
@@ -339,8 +285,6 @@ class EventLocation extends AbstractEntity implements GeoCodingInterface
 
     /**
      * Sets the longitude
-     *
-     * @param float|null $longitude
      */
     public function setLongitude(?float $longitude): void
     {

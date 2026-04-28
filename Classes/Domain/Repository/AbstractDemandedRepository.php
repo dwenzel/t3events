@@ -1,6 +1,7 @@
 <?php
 namespace DWenzel\T3events\Domain\Repository;
 
+use TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
 /***************************************************************
@@ -21,11 +22,10 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
  *  GNU General Public License for more details.
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * Class AbstractDemandedRepository
  * @deprecated Use respository traits instead
- * @extends Repository<\TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface>
+ * @extends Repository<DomainObjectInterface>
  */
 abstract class AbstractDemandedRepository extends Repository implements DemandedRepositoryInterface
 {

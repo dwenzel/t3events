@@ -52,8 +52,6 @@ class EventType extends AbstractValueObject
 
     /**
      * Gets the link
-     *
-     * @return string
      */
     public function getLink(): string
     {

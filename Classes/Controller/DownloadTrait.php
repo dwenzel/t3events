@@ -5,7 +5,6 @@ use DWenzel\T3events\Utility\SettingsUtility;
 use TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException;
 use TYPO3\CMS\Core\Resource\Driver\LocalDriver;
 use DWenzel\T3events\InvalidFileTypeException;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Class DownloadTrait
@@ -33,9 +32,7 @@ trait DownloadTrait
     /**
      * Gets a sanitized filename for download
      *
-     * @param string $fileName
      * @param $prependDate
-     * @return string
      * @throws InvalidFileNameException
      */
     public function getDownloadFileName(string $fileName, bool $prependDate = true): string
@@ -51,9 +48,7 @@ trait DownloadTrait
      * Creates a download file name, sends download headers renders
      * the view and returns the result
      *
-     * @param string $fileExtension
      * @param object $objectForFileName
-     * @return string
      * @throws InvalidFileTypeException
      */
     public function getContentForDownload(string $fileExtension, mixed $objectForFileName = null): string
@@ -80,7 +75,6 @@ trait DownloadTrait
     /**
      * Sends download headers
      *
-     * @param string $ext
      * @throws InvalidFileTypeException
      */
     public function sendDownloadHeaders(string $ext, string $fileName): void

@@ -26,8 +26,6 @@ class Typo3BackendSession implements SessionInterface
 
     /**
      * Typo3Session constructor.
-     *
-     * @param string $namespace
      */
     public function __construct(protected string $namespace = '')
     {
@@ -35,8 +33,6 @@ class Typo3BackendSession implements SessionInterface
 
     /**
      * Tells if a given identifier exists in session
-     *
-     * @param string $identifier
      */
     public function has(string $identifier): bool
     {
@@ -45,9 +41,6 @@ class Typo3BackendSession implements SessionInterface
 
     /**
      * Sets a session key
-     *
-     * @param string $identifier
-     * @param mixed $value
      */
     public function set(string $identifier, mixed $value): void
     {
@@ -57,9 +50,6 @@ class Typo3BackendSession implements SessionInterface
 
     /**
      * Gets a value by key
-     *
-     * @param string $identifier
-     * @return mixed
      */
     public function get(string $identifier): mixed
     {
@@ -78,8 +68,6 @@ class Typo3BackendSession implements SessionInterface
 
     /**
      * Sets the namespace
-     *
-     * @param string $namespace
      */
     public function setNamespace(string $namespace): void
     {

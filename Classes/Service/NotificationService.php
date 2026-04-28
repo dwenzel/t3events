@@ -22,12 +22,6 @@ class NotificationService
     /**
      * Notify using the given data
      *
-     * @param string $recipient
-     * @param string $sender
-     * @param string $subject
-     * @param string $templateName
-     * @param null|string $folderName
-     * @param null|string $format
      * @param array<mixed> $variables
      * @param array<mixed>|null $attachments
      */
@@ -63,11 +57,7 @@ class NotificationService
     /**
      * Renders the body of a notification using a given template
      *
-     * @param string $templateName
-     * @param string|null $folderName
-     * @param null|string $format
      * @param array<mixed> $variables
-     * @return string
      */
     public function render(string $templateName, ?string $folderName = null, ?string $format = null, array $variables = []): string
     {
@@ -119,10 +109,7 @@ class NotificationService
      * Get a template view
      * Uses the given template name
      *
-     * @param string $templateName
      * @param null|string $format Format for content. Default is html
-     * @param null|string $folderName
-     * @return StandaloneView
      */
     protected function buildTemplateView(string $templateName, ?string $format = null, ?string $folderName = null): StandaloneView
     {
@@ -143,7 +130,6 @@ class NotificationService
 
     /**
      * @param array<mixed> $data An array containing data for attachment generation
-     * @param MailMessage $message
      */
     protected function buildAttachmentFromTemplate(array $data, MailMessage $message): void
     {
@@ -213,9 +199,6 @@ class NotificationService
 
     /**
      * Clones a given notification
-     *
-     * @param Notification $oldNotification
-     * @return Notification
      */
     public function duplicate(Notification $oldNotification): Notification
     {

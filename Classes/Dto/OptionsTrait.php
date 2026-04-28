@@ -2,6 +2,7 @@
 
 namespace DWenzel\T3events\Dto;
 
+use TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface;
 use DWenzel\T3events\Domain\Repository\DemandedRepositoryInterface;
 use DWenzel\T3events\Utility\SettingsInterface as SI;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
@@ -29,7 +30,7 @@ use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 trait OptionsTrait
 {
     /**
-     * @var QueryResultInterface<\TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface>|array<mixed>
+     * @var QueryResultInterface<DomainObjectInterface>|array<mixed>
      */
     protected iterable $options = [];
 

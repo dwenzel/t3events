@@ -19,6 +19,7 @@ namespace DWenzel\T3events\Update;
  * GNU General Public License for more details.
  * This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+use TYPO3\CMS\Core\Resource\ResourceStorage;
 use TYPO3\CMS\Core\Database\Connection;
 use Doctrine\DBAL\Exception;
 use DWenzel\T3events\Utility\SettingsInterface as SI;
@@ -42,7 +43,7 @@ use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
  */
 class LegacyFileFieldsUpdateWizard implements UpgradeWizardInterface, ChattyInterface, LoggerAwareInterface
 {
-    public ?\TYPO3\CMS\Core\Resource\ResourceStorage $storage = null;
+    public ?ResourceStorage $storage = null;
     use LoggerAwareTrait;
 
     public const IDENTIFIER = 't3eventsLegacyFileFieldUpdateWizard';
@@ -63,9 +64,6 @@ class LegacyFileFieldsUpdateWizard implements UpgradeWizardInterface, ChattyInte
 
     private const string TARGET_PATH = '_migrated/tx_t3events/';
 
-    /**
-     * @var OutputInterface
-     */
     protected OutputInterface $output;
 
     public function __construct(private readonly ConnectionPool $connectionPool)
@@ -231,7 +229,7 @@ class LegacyFileFieldsUpdateWizard implements UpgradeWizardInterface, ChattyInte
             return $result->fetchAllAssociative();
         } catch (Exception $e) {
             $previous = $e->getPrevious();
-            throw new \RuntimeException('Database query failed. Error was: ' . ($previous !== null ? $previous->getMessage() : $e->getMessage()), 1511950673, $e);
+            throw new \RuntimeException('Database query failed. Error was: ' . ($previous instanceof \Throwable ? $previous->getMessage() : $e->getMessage()), 1511950673, $e);
         }
     }
 
@@ -257,7 +255,7 @@ class LegacyFileFieldsUpdateWizard implements UpgradeWizardInterface, ChattyInte
         $fileadminDirectory = rtrim((string) $GLOBALS['TYPO3_CONF_VARS']['BE']['fileadminDir'], '/') . '/';
         $i = 0;
 
-        if ($this->storage === null) {
+        if (!$this->storage instanceof ResourceStorage) {
             return;
         }
         $storageUid = (int)$this->storage->getUid();

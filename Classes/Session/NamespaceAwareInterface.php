@@ -10,8 +10,6 @@ interface NamespaceAwareInterface
 {
     /**
      * Sets the namespace
-     *
-     * @param string $namespace
      */
     public function setNamespace(string $namespace): void;
 }

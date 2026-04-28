@@ -32,8 +32,6 @@ trait EqualsTrait
 
     /**
      * Returns the class name and the uid of the object as string
-     *
-     * @return string
      */
     abstract public function __toString(): string;
 
@@ -41,8 +39,6 @@ trait EqualsTrait
      * Tells if an object is the same as this.
      * We rely on the __toString method of
      * AbstractDomainObject
-     *
-     * @return bool
      */
     public function equals(AbstractDomainObject $object): bool
     {

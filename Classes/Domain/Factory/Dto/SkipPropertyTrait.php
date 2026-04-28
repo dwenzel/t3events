@@ -17,7 +17,6 @@ trait SkipPropertyTrait
      * Tells whether a property should be set directly from
      * settings value.
      *
-     * @param string $name
      * @return bool Returns true for empty and composite properties otherwise false
      */
     protected function shouldSkipProperty(string $name, mixed $value): bool

@@ -1,6 +1,7 @@
 <?php
 namespace DWenzel\T3events\Domain\Repository;
 
+use TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
 /***************************************************************
@@ -24,7 +25,7 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
 /**
  * @package t3events
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
- * @extends Repository<\TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface>
+ * @extends Repository<DomainObjectInterface>
  */
 class EventLocationRepository extends Repository
 {

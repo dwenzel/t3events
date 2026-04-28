@@ -10,6 +10,8 @@ namespace DWenzel\T3events\Domain\Repository;
  * LICENSE.txt file that was distributed with this source code.
  * The TYPO3 project - inspiring people to share!
  */
+use TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface;
+use TYPO3\CMS\Extbase\Persistence\Generic\Qom\ConstraintInterface;
 use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
 use DWenzel\T3events\Domain\Model\Dto\PerformanceDemand;
@@ -23,7 +25,7 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
  * Class PerformanceRepository
  *
  * @package DWenzel\T3events\Domain\Repository
- * @extends Repository<\TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface>
+ * @extends Repository<DomainObjectInterface>
  */
 class PerformanceRepository extends Repository implements
     DemandedRepositoryInterface,
@@ -49,7 +51,7 @@ class PerformanceRepository extends Repository implements
     public function initializeObject(): void
     {
         $emConfiguration = EmConfigurationUtility::getSettings();
-        if (!(bool)$emConfiguration->isRespectPerformanceStoragePage()) {
+        if (!$emConfiguration->isRespectPerformanceStoragePage()) {
             $this->defaultQuerySettings = GeneralUtility::makeInstance(Typo3QuerySettings::class);
             $this->defaultQuerySettings->setRespectStoragePage(false);
         }
@@ -58,8 +60,8 @@ class PerformanceRepository extends Repository implements
     /**
      * Returns an array of constraints created from a given demand object.
      *
-     * @param QueryInterface<\TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface> $query
-     * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\ConstraintInterface>
+     * @param QueryInterface<DomainObjectInterface> $query
+     * @return array<ConstraintInterface>
      * @throws InvalidQueryException
      */
     public function createConstraintsFromDemand(

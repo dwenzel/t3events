@@ -1,8 +1,6 @@
 <?php
 namespace DWenzel\T3events\Controller;
 
-use DWenzel\T3events\Dto\FilterCollection;
-
 /***************************************************************
  *
  *  Copyright notice

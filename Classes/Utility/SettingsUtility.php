@@ -25,7 +25,7 @@ namespace DWenzel\T3events\Utility;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-use TYPO3\CMS\Core\Resource\FileInterface;
+use TYPO3\CMS\Core\Resource\File;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
@@ -61,8 +61,6 @@ class SettingsUtility implements SingletonInterface
      *
      * @param object|array<mixed> $object
      * @param array<mixed> $config
-     * @param string $key
-     * @return mixed
      * @deprecated Replace by $this->getValue()
      */
     public function getValueByKey(mixed $object, mixed $config, string $key): mixed
@@ -75,9 +73,6 @@ class SettingsUtility implements SingletonInterface
 
     /**
      * Gets a settings key for a controller
-     *
-     * @param object $controller
-     * @return string
      */
     public function getControllerKey(object $controller): string
     {
@@ -117,7 +112,7 @@ class SettingsUtility implements SingletonInterface
      * THEN they are added to the resulting ObjectStorage
      *
      * @param array<mixed> $config TypoScript configuration array for look up
-     * @return ObjectStorage<\TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface>
+     * @return ObjectStorage<DomainObjectInterface>
      */
     public function getFileStorage(DomainObjectInterface $object, mixed $config): ObjectStorage
     {
@@ -157,7 +152,7 @@ class SettingsUtility implements SingletonInterface
             $combinedIdentifiers = GeneralUtility::trimExplode(',', $valueFromSettings, true);
             foreach ($combinedIdentifiers as $fileId) {
                 $file = $this->resourceFactory->getFileObjectByCombinedIdentifier($fileId);
-                if (!$file instanceof \TYPO3\CMS\Core\Resource\File) {
+                if (!$file instanceof File) {
                     continue;
                 }
                 $fileReference = $this->resourceFactory->createFileReferenceFromFileObject($file);
@@ -180,7 +175,6 @@ class SettingsUtility implements SingletonInterface
      *
      * @param object|array<string, mixed> $object
      * @param array<string, mixed>|string $config
-     * @return mixed
      */
     public function getValue(mixed $object, mixed $config): mixed
     {

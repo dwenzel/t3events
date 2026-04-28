@@ -9,15 +9,10 @@ namespace DWenzel\T3events\Domain\Model\Dto;
  */
 trait SearchAwareDemandTrait
 {
-    /**
-     * @var Search|null
-     */
     protected ?Search $search = null;
 
     /**
      * Get search
-     *
-     * @return Search|null
      */
     public function getSearch(): ?Search
     {

@@ -45,7 +45,6 @@ class Router implements SingletonInterface, RouterInterface
      * Throws an exception if no route can be found for an identifier.
      *
      * @param string $identifier Identifier
-     * @return Route
      * @throws ResourceNotFoundException
      */
     public function getRoute(string $identifier): Route

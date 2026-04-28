@@ -10,15 +10,11 @@ trait LocationAwareTrait
 {
     /**
      * Search location
-     *
-     * @var string|null
      */
     protected ?string $location = null;
 
     /**
      * Search radius
-     *
-     * @var int|null
      */
     protected ?int $radius = null;
 
@@ -31,8 +27,6 @@ trait LocationAwareTrait
 
     /**
      * Get location
-     *
-     * @return string|null
      */
     public function getLocation(): ?string
     {

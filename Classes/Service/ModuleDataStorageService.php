@@ -28,8 +28,6 @@ class ModuleDataStorageService implements SingletonInterface
 {
     /**
      * Loads module data for a given key or returns a fresh object initially
-     *
-     * @return ModuleData
      */
     public function loadModuleData(string $key): ModuleData
     {
@@ -41,7 +39,7 @@ class ModuleDataStorageService implements SingletonInterface
         }
         try {
             $result = unserialize($moduleData, ['allowed_classes' => [ModuleData::class]]);
-        } catch (\Throwable $e) {
+        } catch (\Throwable) {
             return GeneralUtility::makeInstance(ModuleData::class);
         }
         if (!$result instanceof ModuleData) {

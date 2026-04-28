@@ -28,7 +28,6 @@ class PeriodDataProviderFactory
 {
     /**
      * @param array<string, mixed> $params
-     * @return LayeredLegendDataProviderInterface
      */
     public function get(array $params): LayeredLegendDataProviderInterface
     {

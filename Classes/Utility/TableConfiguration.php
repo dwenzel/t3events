@@ -66,9 +66,6 @@ class TableConfiguration
      * Gets the correct icon name for a wizard
      * TYPO3 version is respected
      * Known wizard names are: add, edit, link, rte
-     *
-     * @param string $wizardName
-     * @return string|null
      */
     public static function getWizardIcon(string $wizardName): ?string
     {

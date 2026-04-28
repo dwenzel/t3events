@@ -1,6 +1,8 @@
 <?php
 namespace DWenzel\T3events\Domain\Repository;
 
+use TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface;
+use TYPO3\CMS\Extbase\Persistence\Generic\Qom\ConstraintInterface;
 use DWenzel\T3events\Domain\Model\Dto\StatusAwareDemandInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -17,8 +19,8 @@ trait StatusConstraintRepositoryTrait
     /**
      * Create Status constraints from demand (time restriction)
      *
-     * @param QueryInterface<\TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface> $query
-     * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\ConstraintInterface>
+     * @param QueryInterface<DomainObjectInterface> $query
+     * @return array<ConstraintInterface>
      */
     public function createStatusConstraints(QueryInterface $query, StatusAwareDemandInterface $demand): array
     {

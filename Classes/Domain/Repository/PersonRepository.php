@@ -10,6 +10,8 @@ namespace DWenzel\T3events\Domain\Repository;
  * LICENSE.txt file that was distributed with this source code.
  * The TYPO3 project - inspiring people to share!
  */
+use TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface;
+use TYPO3\CMS\Extbase\Persistence\Generic\Qom\ConstraintInterface;
 use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 
@@ -22,8 +24,8 @@ class PersonRepository extends AbstractDemandedRepository
     /**
      * Returns an array of constraints created from a given demand object.
      *
-     * @param QueryInterface<\TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface> $query
-     * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\ConstraintInterface>
+     * @param QueryInterface<DomainObjectInterface> $query
+     * @return array<ConstraintInterface>
      */
     public function createConstraintsFromDemand(QueryInterface $query, DemandInterface $demand): array
     {

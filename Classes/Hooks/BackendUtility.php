@@ -62,7 +62,6 @@ class BackendUtility
      *
      * @param array<mixed> &$dataStructure flexform structure
      * @param array<mixed> $row row of current record
-     * @return void
      */
     protected function updateFlexforms(array &$dataStructure, array $row): void
     {
@@ -117,7 +116,6 @@ class BackendUtility
      *
      * @param array<mixed> &$dataStructure flexform structure
      * @param array<string, string> $fieldsToBeRemoved fields which need to be removed
-     * @return void
      */
     protected function deleteFromStructure(array &$dataStructure, array $fieldsToBeRemoved): void
     {

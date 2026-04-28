@@ -50,8 +50,6 @@ class ButtonDemandCollection
 
     /**
      * Initializes all \TYPO3\CMS\Extbase\Persistence\ObjectStorage properties.
-     *
-     * @return void
      */
     protected function initStorageObjects(): void
     {

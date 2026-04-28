@@ -52,7 +52,7 @@ trait ModuleButtonTrait
      */
     protected function createButtons(ButtonDemandCollection $configuration): void
     {
-        if (!$configuration->getDemands()->count()) {
+        if ($configuration->getDemands()->count() === 0) {
             return;
         }
         $buttonBar = $this->getButtonBar();

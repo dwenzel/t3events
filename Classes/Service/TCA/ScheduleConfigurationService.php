@@ -34,7 +34,6 @@ class ScheduleConfigurationService
 
     /**
      * @param array<mixed> $parameters
-     * @param mixed $parentObject
      */
     public function getLabel(array &$parameters, mixed $parentObject = null): void
     {

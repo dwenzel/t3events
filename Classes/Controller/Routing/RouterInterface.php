@@ -32,7 +32,6 @@ interface RouterInterface
      * Get a route by identifier
      *
      * @param string $identifier Identifier
-     * @return Route
      */
     public function getRoute(string $identifier): Route;
 

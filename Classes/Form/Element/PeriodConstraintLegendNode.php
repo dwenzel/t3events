@@ -33,9 +33,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class PeriodConstraintLegendNode extends AbstractFormElement
 {
 
-    /**
-     * @var PeriodConstraintLegend
-     */
     protected PeriodConstraintLegend $image;
 
     /** @var array<mixed> */

@@ -15,13 +15,7 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
  */
 class PerformancesViewHelper extends AbstractTagBasedViewHelper
 {
-    /**
-     * @var mixed
-     */
     public mixed $tagNameChildren = null;
-    /**
-     * @var mixed
-     */
     public mixed $classChildren = null;
     public mixed $class = null;
     use ConfigurationManagerTrait;
@@ -57,8 +51,6 @@ class PerformancesViewHelper extends AbstractTagBasedViewHelper
 
     /**
      * Render method
-     *
-     * @return string
      */
     public function render(): string
     {
@@ -100,8 +92,6 @@ class PerformancesViewHelper extends AbstractTagBasedViewHelper
 
     /**
      * Get date range of performances
-     *
-     * @return string
      */
     public function getDateRange(): string
     {
@@ -149,7 +139,7 @@ class PerformancesViewHelper extends AbstractTagBasedViewHelper
             }
         }
         if ($states !== []) {
-            usort($states, fn($a, $b): int => (int)$a['priority'] - (int)$b['priority']);
+            usort($states, fn($a, $b): int => $a['priority'] - $b['priority']);
 
             return $states[0];
         }

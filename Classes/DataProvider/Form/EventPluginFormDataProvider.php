@@ -22,14 +22,10 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class EventPluginFormDataProvider implements FormDataProviderInterface
 {
-    /**
-     * @var BackendUtility
-     */
     protected BackendUtility $backendUtility;
 
     /**
      * injects the backend utility
-     * @param BackendUtility|null $backendUtility
      */
     public function __construct(?BackendUtility $backendUtility = null)
     {

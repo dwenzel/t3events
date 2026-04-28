@@ -74,7 +74,6 @@ trait FilterableControllerTrait
      * Translate a given key
      *
      * @param array<mixed>|null $arguments
-     * @return string
      */
     abstract public function translate(string $key, string $extension = 't3events', ?array $arguments = null): string;
 }

@@ -37,53 +37,35 @@ class Event extends AbstractEntity
 
     /**
      * Hidden
-     *
-     * @var int
      */
     protected int $hidden = 0;
 
-    /**
-     * @var DateTime|null
-     */
     protected ?DateTime $crdate = null;
 
-    /**
-     * @var DateTime|null
-     */
     protected ?DateTime $tstamp = null;
 
 
     /**
      * Enter a title.
      *
-     * @var string
      * @Required
      */
     protected string $headline = '';
 
     /**
      * subtitle
-     *
-     * @var string
      */
     protected ?string $subtitle = null;
 
-    /**
-     * @var string
-     */
     protected ?string $teaser = null;
 
     /**
      * description
-     *
-     * @var string
      */
     protected ?string $description = null;
 
     /**
      * keywords
-     *
-     * @var string
      */
     protected ?string $keywords = null;
 
@@ -159,14 +141,8 @@ class Event extends AbstractEntity
     #[Lazy]
     protected ObjectStorage $audience;
 
-    /**
-     * @var \DateTime|null
-     */
     protected ?\DateTime $newUntil = null;
 
-    /**
-     * @var \DateTime|null
-     */
     protected ?\DateTime $archiveDate = null;
 
     /**
@@ -190,8 +166,6 @@ class Event extends AbstractEntity
 
     /**
      * Initializes all \TYPO3\CMS\Extbase\Persistence\ObjectStorage properties.
-     *
-     * @return void
      */
     protected function initStorageObjects(): void
     {
@@ -209,8 +183,6 @@ class Event extends AbstractEntity
 
     /**
      * Returns hidden
-     *
-     * @return int
      */
     public function getHidden(): int
     {
@@ -219,8 +191,6 @@ class Event extends AbstractEntity
 
     /**
      * Sets hidden
-     *
-     * @param int $hidden
      */
     public function setHidden(int $hidden): void
     {
@@ -239,8 +209,6 @@ class Event extends AbstractEntity
 
     /**
      * Sets the subtitle
-     *
-     * @param string|null $subtitle
      */
     public function setSubtitle(?string $subtitle): void
     {
@@ -249,8 +217,6 @@ class Event extends AbstractEntity
 
     /**
      * Gets the teaser text
-     *
-     * @return string|null
      */
     public function getTeaser(): ?string
     {
@@ -259,8 +225,6 @@ class Event extends AbstractEntity
 
     /**
      * Sets the teaser text
-     *
-     * @param string|null $teaser
      */
     public function setTeaser(?string $teaser): void
     {
@@ -279,8 +243,6 @@ class Event extends AbstractEntity
 
     /**
      * Sets the description
-     *
-     * @param string|null $description
      */
     public function setDescription(?string $description): void
     {
@@ -299,8 +261,6 @@ class Event extends AbstractEntity
 
     /**
      * Sets the keywords
-     *
-     * @param string|null $keywords
      */
     public function setKeywords(?string $keywords): void
     {
@@ -503,11 +463,14 @@ class Event extends AbstractEntity
 
     /**
      * Returns the eventType
-     *
-     * @return EventType|null
      */
     public function getEventType(): ?EventType
     {
+        if ($this->eventType instanceof LazyLoadingProxy) {
+            /** @var EventType $instance */
+            $instance = $this->eventType->_loadRealInstance();
+            return $instance;
+        }
         return $this->eventType;
     }
 
@@ -521,8 +484,6 @@ class Event extends AbstractEntity
 
     /**
      * Returns the headline
-     *
-     * @return string
      */
     public function getHeadline(): string
     {
@@ -531,8 +492,6 @@ class Event extends AbstractEntity
 
     /**
      * Sets the headline
-     *
-     * @param string $headline
      */
     public function setHeadline(string $headline): void
     {
@@ -541,11 +500,14 @@ class Event extends AbstractEntity
 
     /**
      * Returns the organizer
-     *
-     * @return Organizer|null
      */
     public function getOrganizer(): ?Organizer
     {
+        if ($this->organizer instanceof LazyLoadingProxy) {
+            /** @var Organizer $instance */
+            $instance = $this->organizer->_loadRealInstance();
+            return $instance;
+        }
         return $this->organizer;
     }
 
@@ -559,8 +521,6 @@ class Event extends AbstractEntity
 
     /**
      * Get the earliest date of this event
-     *
-     * @return int|null
      */
     public function getEarliestDate(): ?int
     {
@@ -652,33 +612,21 @@ class Event extends AbstractEntity
         $this->audience->detach($audienceToRemove);
     }
 
-    /**
-     * @return \DateTime|null
-     */
     public function getNewUntil(): ?\DateTime
     {
         return $this->newUntil;
     }
 
-    /**
-     * @param \DateTime|null $newUntil
-     */
     public function setNewUntil(?\DateTime $newUntil): void
     {
         $this->newUntil = $newUntil;
     }
 
-    /**
-     * @return \DateTime|null
-     */
     public function getArchiveDate(): ?\DateTime
     {
         return $this->archiveDate;
     }
 
-    /**
-     * @param \DateTime|null $archiveDate
-     */
     public function setArchiveDate(?\DateTime $archiveDate): void
     {
         $this->archiveDate = $archiveDate;

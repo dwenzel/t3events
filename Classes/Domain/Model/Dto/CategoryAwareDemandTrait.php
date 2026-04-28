@@ -28,22 +28,13 @@ namespace DWenzel\T3events\Domain\Model\Dto;
 trait CategoryAwareDemandTrait
 {
 
-    /**
-     * @var string|null
-     */
     protected ?string $categories = null;
 
-    /**
-     * @return string|null
-     */
     public function getCategories(): ?string
     {
         return $this->categories;
     }
 
-    /**
-     * @param string|null $categories
-     */
     public function setCategories(?string $categories): void
     {
         $this->categories = $categories;

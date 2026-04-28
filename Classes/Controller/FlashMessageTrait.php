@@ -3,7 +3,6 @@ namespace DWenzel\T3events\Controller;
 
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
-use TYPO3\CMS\Extbase\Annotation\Inject;
 use DWenzel\T3extensionTools\Service\ExtensionService;
 use TYPO3\CMS\Core\Messaging\FlashMessageQueue;
 use TYPO3\CMS\Core\Messaging\FlashMessageService;

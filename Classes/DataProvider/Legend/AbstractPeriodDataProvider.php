@@ -30,8 +30,6 @@ class AbstractPeriodDataProvider
 
     /**
      * AbstractPeriodDataProvider constructor.
-     *
-     * @param bool $respectEndDate
      */
     public function __construct(protected bool $respectEndDate = false)
     {
@@ -63,7 +61,6 @@ class AbstractPeriodDataProvider
     /**
      * Gets an array of layer ids from comma separated string
      *
-     * @param string $layerList
      * @return list<string>
      */
     protected function getLayerIds(string $layerList): array

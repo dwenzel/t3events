@@ -30,64 +30,46 @@ class Performance extends AbstractEntity
 
     /**
      * date
-     *
-     * @var \DateTime|null
      */
     protected ?\DateTime $date = null;
 
     /**
      * admission
-     *
-     * @var int|null
      */
     protected ?int $admission = null;
 
     /**
      * begin
-     *
-     * @var int|null
      */
     protected ?int $begin = null;
 
     /**
      * end
-     *
-     * @var int|null
      */
     protected ?int $end = null;
 
     /**
      * statusInfo
-     *
-     * @var string|null
      */
     protected ?string $statusInfo = null;
 
     /**
      * externalProviderLink
-     *
-     * @var string|null
      */
     protected ?string $externalProviderLink = null;
 
     /**
      * additionalLink
-     *
-     * @var string|null
      */
     protected ?string $additionalLink = null;
 
     /**
      * providerType
-     *
-     * @var int
      */
     protected int $providerType = 0;
 
     /**
      * image
-     *
-     * @var string|null
      */
     protected ?string $image = null;
 
@@ -109,15 +91,11 @@ class Performance extends AbstractEntity
 
     /**
      * noHandlingFee
-     *
-     * @var bool
      */
     protected bool $noHandlingFee = false;
 
     /**
      * priceNotice
-     *
-     * @var string|null
      */
     protected ?string $priceNotice = null;
 
@@ -153,8 +131,6 @@ class Performance extends AbstractEntity
 
     /**
      * hidden
-     *
-     * @var int
      */
     protected int $hidden = 0;
 
@@ -169,8 +145,6 @@ class Performance extends AbstractEntity
 
     /**
      * Initializes all \TYPO3\CMS\Extbase\Persistence\ObjectStorage properties.
-     *
-     * @return void
      */
     protected function initStorageObjects(): void
     {
@@ -191,6 +165,11 @@ class Performance extends AbstractEntity
      */
     public function getEvent(): ?Event
     {
+        if ($this->event instanceof LazyLoadingProxy) {
+            /** @var Event $instance */
+            $instance = $this->event->_loadRealInstance();
+            return $instance;
+        }
         return $this->event;
     }
 
@@ -204,11 +183,14 @@ class Performance extends AbstractEntity
 
     /**
      * Returns the eventLocation
-     *
-     * @return EventLocation|null
      */
     public function getEventLocation(): ?EventLocation
     {
+        if ($this->eventLocation instanceof LazyLoadingProxy) {
+            /** @var EventLocation $instance */
+            $instance = $this->eventLocation->_loadRealInstance();
+            return $instance;
+        }
         return $this->eventLocation;
     }
 
@@ -222,8 +204,6 @@ class Performance extends AbstractEntity
 
     /**
      * Returns the date
-     *
-     * @return \DateTime|null
      */
     public function getDate(): ?\DateTime
     {
@@ -232,23 +212,16 @@ class Performance extends AbstractEntity
 
     /**
      * Sets the date
-     *
-     * @param \DateTime|null $date
      */
     public function setDate(?\DateTime $date): void
     {
         $this->date = $date;
     }
 
-    /**
-     * @var \DateTime|null
-     */
     protected ?\DateTime $endDate = null;
 
     /**
      * Gets the end date
-     *
-     * @return \DateTime|null
      */
     public function getEndDate(): ?\DateTime
     {
@@ -257,8 +230,6 @@ class Performance extends AbstractEntity
 
     /**
      * Sets the end date
-     *
-     * @param \DateTime|null $date
      */
     public function setEndDate(?\DateTime $date): void
     {
@@ -267,8 +238,6 @@ class Performance extends AbstractEntity
 
     /**
      * Returns the admission
-     *
-     * @return int|null
      */
     public function getAdmission(): ?int
     {
@@ -277,8 +246,6 @@ class Performance extends AbstractEntity
 
     /**
      * Sets the admission
-     *
-     * @param int|null $admission
      */
     public function setAdmission(?int $admission): void
     {
@@ -287,8 +254,6 @@ class Performance extends AbstractEntity
 
     /**
      * Returns the begin
-     *
-     * @return int|null
      */
     public function getBegin(): ?int
     {
@@ -297,8 +262,6 @@ class Performance extends AbstractEntity
 
     /**
      * Sets the begin
-     *
-     * @param int|null $begin
      */
     public function setBegin(?int $begin): void
     {
@@ -307,8 +270,6 @@ class Performance extends AbstractEntity
 
     /**
      * Returns the end
-     *
-     * @return int|null
      */
     public function getEnd(): ?int
     {
@@ -317,8 +278,6 @@ class Performance extends AbstractEntity
 
     /**
      * Sets the end
-     *
-     * @param int|null $end
      */
     public function setEnd(?int $end): void
     {
@@ -327,8 +286,6 @@ class Performance extends AbstractEntity
 
     /**
      * Returns the statusInfo
-     *
-     * @return string|null
      */
     public function getStatusInfo(): ?string
     {
@@ -337,8 +294,6 @@ class Performance extends AbstractEntity
 
     /**
      * Sets the statusInfo
-     *
-     * @param string|null $statusInfo
      */
     public function setStatusInfo(?string $statusInfo): void
     {
@@ -347,8 +302,6 @@ class Performance extends AbstractEntity
 
     /**
      * Returns the image
-     *
-     * @return string|null
      */
     public function getImage(): ?string
     {
@@ -357,8 +310,6 @@ class Performance extends AbstractEntity
 
     /**
      * Sets the image
-     *
-     * @param string|null $image
      */
     public function setImage(?string $image): void
     {
@@ -447,8 +398,6 @@ class Performance extends AbstractEntity
 
     /**
      * Returns the noHandlingFee
-     *
-     * @return bool
      */
     public function getNoHandlingFee(): bool
     {
@@ -457,8 +406,6 @@ class Performance extends AbstractEntity
 
     /**
      * Sets the noHandlingFee
-     *
-     * @param bool $noHandlingFee
      */
     public function setNoHandlingFee(bool $noHandlingFee): void
     {
@@ -467,8 +414,6 @@ class Performance extends AbstractEntity
 
     /**
      * Returns the boolean state of noHandlingFee
-     *
-     * @return bool
      */
     public function isNoHandlingFee(): bool
     {
@@ -477,11 +422,14 @@ class Performance extends AbstractEntity
 
     /**
      * Returns the status
-     *
-     * @return PerformanceStatus|null
      */
     public function getStatus(): ?PerformanceStatus
     {
+        if ($this->status instanceof LazyLoadingProxy) {
+            /** @var PerformanceStatus $instance */
+            $instance = $this->status->_loadRealInstance();
+            return $instance;
+        }
         return $this->status;
     }
 
@@ -495,8 +443,6 @@ class Performance extends AbstractEntity
 
     /**
      * Returns the priceNotice
-     *
-     * @return string|null
      */
     public function getPriceNotice(): ?string
     {
@@ -505,8 +451,6 @@ class Performance extends AbstractEntity
 
     /**
      * Sets the priceNotice
-     *
-     * @param string|null $priceNotice
      */
     public function setPriceNotice(?string $priceNotice): void
     {
@@ -553,8 +497,6 @@ class Performance extends AbstractEntity
 
     /**
      * Returns the additionalLink
-     *
-     * @return string|null
      */
     public function getAdditionalLink(): ?string
     {
@@ -563,8 +505,6 @@ class Performance extends AbstractEntity
 
     /**
      * Sets the additionalLink
-     *
-     * @param string|null $additionalLink
      */
     public function setAdditionalLink(?string $additionalLink): void
     {
@@ -573,8 +513,6 @@ class Performance extends AbstractEntity
 
     /**
      * Returns the externalProviderLink
-     *
-     * @return string|null
      */
     public function getExternalProviderLink(): ?string
     {
@@ -583,8 +521,6 @@ class Performance extends AbstractEntity
 
     /**
      * Sets the externalProviderLink
-     *
-     * @param string|null $externalProviderLink
      */
     public function setExternalProviderLink(?string $externalProviderLink): void
     {
@@ -593,8 +529,6 @@ class Performance extends AbstractEntity
 
     /**
      * Returns the providerType
-     *
-     * @return int
      */
     public function getProviderType(): int
     {
@@ -603,8 +537,6 @@ class Performance extends AbstractEntity
 
     /**
      * Sets the providerType
-     *
-     * @param int $providerType
      */
     public function setProviderType(int $providerType): void
     {
@@ -613,8 +545,6 @@ class Performance extends AbstractEntity
 
     /**
      * Return hidden
-     *
-     * @return int
      */
     public function getHidden(): int
     {
@@ -623,8 +553,6 @@ class Performance extends AbstractEntity
 
     /**
      * Set hidden
-     *
-     * @param int $hidden
      */
     public function setHidden(int $hidden): void
     {

@@ -19,11 +19,12 @@ namespace DWenzel\T3events\Domain\Repository;
  *  GNU General Public License for more details.
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+use TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
 /**
  * The repository for Companies
- * @extends Repository<\TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface>
+ * @extends Repository<DomainObjectInterface>
  */
 class CompanyRepository extends Repository
 {

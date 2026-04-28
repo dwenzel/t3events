@@ -28,22 +28,13 @@ namespace DWenzel\T3events\Domain\Model\Dto;
 trait GenreAwareDemandTrait
 {
 
-    /**
-     * @var string|null
-     */
     protected ?string $genres = null;
 
-    /**
-     * @return string|null
-     */
     public function getGenres(): ?string
     {
         return $this->genres;
     }
 
-    /**
-     * @param string|null $genres
-     */
     public function setGenres(?string $genres): void
     {
         $this->genres = $genres;

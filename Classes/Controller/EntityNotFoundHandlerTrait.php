@@ -63,7 +63,7 @@ trait EntityNotFoundHandlerTrait
      */
     public function handleEntityNotFoundError(string $configuration): ?ResponseInterface
     {
-        if (empty($configuration)) {
+        if ($configuration === '' || $configuration === '0') {
             return null;
         }
         $configuration = GeneralUtility::trimExplode(',', $configuration);

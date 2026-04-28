@@ -28,8 +28,6 @@ class AbstractDemand extends AbstractEntity implements DemandInterface
 
     /**
      * Category Conjunction
-     *
-     * @var string|null
      */
     protected ?string $categoryConjunction = null;
 
@@ -68,15 +66,10 @@ class AbstractDemand extends AbstractEntity implements DemandInterface
      */
     protected ?string $uidList = null;
 
-    /**
-     * @var string|null
-     */
     protected ?string $constraintsConjunction = null;
 
     /**
      * Returns the Category Conjunction
-     *
-     * @return string|null
      */
     public function getCategoryConjunction(): ?string
     {
@@ -191,8 +184,6 @@ class AbstractDemand extends AbstractEntity implements DemandInterface
 
     /**
      * Gets a list of unique ids
-     *
-     * @return string|null
      */
     public function getUidList(): ?string
     {
@@ -211,8 +202,6 @@ class AbstractDemand extends AbstractEntity implements DemandInterface
 
     /**
      * Gets the orderings
-     *
-     * @return string|null
      */
     public function getOrder(): ?string
     {
@@ -231,8 +220,6 @@ class AbstractDemand extends AbstractEntity implements DemandInterface
 
     /**
      * Get Constraints Conjunction
-     *
-     * @return string|null
      */
     public function getConstraintsConjunction(): ?string
     {
@@ -241,8 +228,6 @@ class AbstractDemand extends AbstractEntity implements DemandInterface
 
     /**
      * Set Constraints Conjunction
-     *
-     * @param string|null $conjunction
      */
     public function setConstraintsConjunction(?string $conjunction): void
     {
@@ -251,8 +236,6 @@ class AbstractDemand extends AbstractEntity implements DemandInterface
 
     /**
      * Set Category Conjunction
-     *
-     * @param string|null $categoryConjunction
      */
     public function setCategoryConjunction(?string $categoryConjunction): void
     {

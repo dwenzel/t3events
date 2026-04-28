@@ -61,8 +61,6 @@ trait PeriodAwareDemandFactoryTrait
     /**
      * Helper method. Creates a date object from
      * integers and strings.
-     * @param mixed $value
-     * @return \DateTime
      */
     protected function createDate(mixed $value): \DateTime {
         $timeZone = new \DateTimeZone(date_default_timezone_get());

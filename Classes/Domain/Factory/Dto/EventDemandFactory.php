@@ -72,7 +72,6 @@ class EventDemandFactory extends AbstractDemandFactory implements DemandFactoryI
      * Creates a demand object from settings
      *
      * @param array<string, mixed> $settings
-     * @return DemandInterface
      */
     public function createFromSettings(array $settings): DemandInterface
     {

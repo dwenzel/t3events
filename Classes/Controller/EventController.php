@@ -92,7 +92,7 @@ class EventController extends ActionController
         $this->overwriteDemandObject($demand, $overwriteDemand);
         $events = $this->eventRepository->findDemanded($demand);
 
-        /** @var QueryResultInterface<\DWenzel\T3events\Domain\Model\Event> $events */
+        /** @var QueryResultInterface<Event> $events */
         if (
             !$events->count()
             && !$this->settings['hideIfEmptyResult']
@@ -145,6 +145,9 @@ class EventController extends ActionController
         return $this->htmlResponse();
     }
 
+    /**
+     * @param string[] $tags
+     */
     protected function addPageCacheTags(array $tags): void
     {
         if (isset($GLOBALS['TSFE'])) {

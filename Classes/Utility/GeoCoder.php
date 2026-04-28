@@ -31,8 +31,6 @@ class GeoCoder
 
     /**
      * Returns the base url of the geo coding service
-     *
-     * @return string
      */
     public function getServiceUrl(): string
     {
@@ -75,7 +73,6 @@ class GeoCoder
      *
      * @param float $lat Latitude
      * @param float $lng Longitude
-     * @param float $bearing
      * @param float $distance Distance
      * @param string $units Units: default km. Any other value will result in computing with mile based constants.
      * @return array<string, float> An array with lat and lng values
@@ -142,16 +139,14 @@ class GeoCoder
      * Will first read city and zip attributes then tries to
      * get geo location values and if succeeds update the latitude and
      * longitude values of the object.
-     *
-     * @param GeoCodingInterface $object
      */
     public function updateGeoLocation(GeoCodingInterface &$object): void
     {
         $city = $object->getPlace();
-        if (!empty($city)) {
+        if ($city !== null && $city !== '' && $city !== '0') {
             $address = '';
             $zip = $object->getZip();
-            $address .= (empty($zip)) ? null : $zip . ' ';
+            $address .= ($zip === null || $zip === '' || $zip === '0') ? null : $zip . ' ';
             $address .= $city;
             $geoLocation = $this->getLocation($address);
             if ($geoLocation) {

@@ -29,9 +29,6 @@ class DateRangeViewHelper extends AbstractDateRangeViewHelper
 {
     const ARGUMENT_PERFORMANCE_DESCRIPTION = 'Performance for which the date range should be rendered.';
 
-    /**
-     * @var Performance
-     */
     protected Performance $performance;
 
     public function initializeArguments(): void
@@ -61,10 +58,10 @@ class DateRangeViewHelper extends AbstractDateRangeViewHelper
     protected function getTimestamps(): array
     {
         $startDate = $this->performance->getDate();
-        $timestamps = $startDate !== null ? [$startDate->getTimestamp()] : [0];
+        $timestamps = $startDate instanceof \DateTime ? [$startDate->getTimestamp()] : [0];
         $endDate = $this->performance->getEndDate();
 
-        if ($endDate !== null && $startDate !== null && $endDate > $startDate) {
+        if ($endDate instanceof \DateTime && $startDate instanceof \DateTime && $endDate > $startDate) {
             $timestamps[] = $endDate->getTimestamp();
         }
 

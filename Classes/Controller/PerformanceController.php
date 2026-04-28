@@ -110,7 +110,7 @@ class PerformanceController
 
         /** @var \TYPO3\CMS\Extbase\Persistence\QueryResultInterface $performances */
         /** @var PerformanceListActionEvent $event */
-        $event = $this->eventDispatcher->dispatch(new PerformanceListActionEvent($performances, $this->settings, $demand, $this->contentObject !== null ? $this->contentObject->data : [], (array)$overwriteDemand));
+        $event = $this->eventDispatcher->dispatch(new PerformanceListActionEvent($performances, $this->settings, $demand, $this->contentObject instanceof ContentObjectRenderer ? $this->contentObject->data : [], $overwriteDemand));
         $this->view->assignMultiple($event->toArray());
         $this->addPageCacheTags(['tx_t3events_domain_model_performance']);
         return $this->htmlResponse();
@@ -136,6 +136,9 @@ class PerformanceController
         return $this->htmlResponse();
     }
 
+    /**
+     * @param string[] $tags
+     */
     protected function addPageCacheTags(array $tags): void
     {
         if (isset($GLOBALS['TSFE'])) {
@@ -181,7 +184,6 @@ class PerformanceController
      * This method is kept for backwards compatibility only.
      *
      * @param array<string, mixed> $settings
-     * @return DemandInterface
      * @deprecated Use demand factory instead
      */
     protected function createDemandFromSettings(array $settings): DemandInterface

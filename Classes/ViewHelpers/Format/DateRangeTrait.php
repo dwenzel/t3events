@@ -25,7 +25,6 @@ trait DateRangeTrait
      * Get date range from timestamps
      *
      * @param array<int, int> $timestamps An ordered array of timestamps
-     * @return string
      */
     protected function getDateRange(array $timestamps): string
     {
@@ -58,7 +57,7 @@ trait DateRangeTrait
         $dateRange = (string) call_user_func($functionName, $startFormat, $timestamps[0]);
 
         if (count($timestamps) > 1) {
-            $dateRange .= $glue . (string) call_user_func($functionName, $endFormat, end($timestamps));
+            $dateRange .= $glue . call_user_func($functionName, $endFormat, end($timestamps));
         }
 
         return $dateRange;

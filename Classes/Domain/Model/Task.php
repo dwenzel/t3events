@@ -77,8 +77,6 @@ class Task extends AbstractEntity
 
     /**
      * Get the periodDuration
-     *
-     * @return integer
      */
     public function getPeriodDuration(): int
     {
@@ -97,6 +95,11 @@ class Task extends AbstractEntity
      */
     public function getOldStatus(): ?PerformanceStatus
     {
+        if ($this->oldStatus instanceof LazyLoadingProxy) {
+            /** @var PerformanceStatus $instance */
+            $instance = $this->oldStatus->_loadRealInstance();
+            return $instance;
+        }
         return $this->oldStatus;
     }
 
@@ -112,6 +115,11 @@ class Task extends AbstractEntity
      */
     public function getNewStatus(): ?PerformanceStatus
     {
+        if ($this->newStatus instanceof LazyLoadingProxy) {
+            /** @var PerformanceStatus $instance */
+            $instance = $this->newStatus->_loadRealInstance();
+            return $instance;
+        }
         return $this->newStatus;
     }
 

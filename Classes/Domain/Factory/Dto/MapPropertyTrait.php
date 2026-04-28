@@ -16,8 +16,6 @@ trait MapPropertyTrait
 
     /**
      * Maps some old property names to more convenient ones
-     *
-     * @param string $propertyName
      */
     protected function mapPropertyName(string &$propertyName): void
     {

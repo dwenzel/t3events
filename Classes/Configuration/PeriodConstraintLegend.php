@@ -44,14 +44,8 @@ class PeriodConstraintLegend extends VectorImage
     const START_TEXT_LAYER_ID = 'text-start-text';
     const END_TEXT_LAYER_ID = 'text-end-text';
 
-    /**
-     * @var LayeredLegendDataProviderInterface|null
-     */
     protected ?LayeredLegendDataProviderInterface $dataProvider = null;
 
-    /**
-     * @var string
-     */
     protected string $xmlFilePath = 'EXT:t3events/Resources/Public/Images/period_constraints.svg';
 
     /**
@@ -88,9 +82,6 @@ class PeriodConstraintLegend extends VectorImage
         $this->dataProvider = $this->getDataProviderFactory()->get($params);
     }
 
-    /**
-     * @return PeriodDataProviderFactory
-     */
     public function getDataProviderFactory(): PeriodDataProviderFactory
     {
         return GeneralUtility::makeInstance(PeriodDataProviderFactory::class);
@@ -102,7 +93,7 @@ class PeriodConstraintLegend extends VectorImage
      */
     protected function updateLayers(): void
     {
-        if ($this->dataProvider === null) {
+        if (!$this->dataProvider instanceof LayeredLegendDataProviderInterface) {
             return;
         }
         $this->hideElements($this->dataProvider->getAllLayerIds());
@@ -114,7 +105,7 @@ class PeriodConstraintLegend extends VectorImage
      */
     protected function setLabels(): void
     {
-        if ($this->dataProvider === null) {
+        if (!$this->dataProvider instanceof LayeredLegendDataProviderInterface) {
             return;
         }
         $startPointKey = self::START_POINT_KEY;
@@ -145,13 +136,11 @@ class PeriodConstraintLegend extends VectorImage
 
     /**
      * Translates a given language key
-     *
-     * @return string
      */
     public function translate(string $key): string
     {
         $translatedString = $this->getLanguageService()->sL(self::LANGUAGE_FILE . $key);
-        if (empty($translatedString)) {
+        if ($translatedString === '' || $translatedString === '0') {
             return $key;
         }
 

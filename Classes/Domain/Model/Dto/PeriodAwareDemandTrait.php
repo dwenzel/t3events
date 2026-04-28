@@ -10,9 +10,6 @@ namespace DWenzel\T3events\Domain\Model\Dto;
  */
 trait PeriodAwareDemandTrait
 {
-    /**
-     * @var \DateTime|null
-     */
     protected ?\DateTime $date = null;
 
     /**
@@ -45,9 +42,6 @@ trait PeriodAwareDemandTrait
      */
     protected ?\DateTime $endDate = null;
 
-    /**
-     * @var bool
-     */
     protected bool $respectEndDate = false;
 
     /**
@@ -68,8 +62,6 @@ trait PeriodAwareDemandTrait
 
     /**
      * Returns the date
-     *
-     * @return \DateTime|null
      */
     public function getDate(): ?\DateTime
     {
@@ -78,17 +70,12 @@ trait PeriodAwareDemandTrait
 
     /**
      * sets the date
-     *
-     * @param \DateTime|null $date
      */
     public function setDate(?\DateTime $date): void
     {
         $this->date = $date;
     }
 
-    /**
-     * @return string|null
-     */
     public function getPeriodType(): ?string
     {
         return $this->periodType;
@@ -102,9 +89,6 @@ trait PeriodAwareDemandTrait
         $this->periodType = $periodType;
     }
 
-    /**
-     * @return int|null
-     */
     public function getPeriodStart(): ?int
     {
         return $this->periodStart;
@@ -126,17 +110,11 @@ trait PeriodAwareDemandTrait
         $this->periodDuration = $duration;
     }
 
-    /**
-     * @return int|null
-     */
     public function getPeriodDuration(): ?int
     {
         return $this->periodDuration;
     }
 
-    /**
-     * @return \DateTime|null
-     */
     public function getStartDate(): ?\DateTime
     {
         return $this->startDate;
@@ -150,9 +128,6 @@ trait PeriodAwareDemandTrait
         $this->startDate = $date;
     }
 
-    /**
-     * @return \DateTime|null
-     */
     public function getEndDate(): ?\DateTime
     {
         return $this->endDate;
@@ -166,17 +141,11 @@ trait PeriodAwareDemandTrait
         $this->endDate = $date;
     }
 
-    /**
-     * @return bool
-     */
     public function isRespectEndDate(): bool
     {
         return $this->respectEndDate;
     }
 
-    /**
-     * @param bool $respectEndDate
-     */
     public function setRespectEndDate(bool $respectEndDate): void
     {
         $this->respectEndDate = $respectEndDate;

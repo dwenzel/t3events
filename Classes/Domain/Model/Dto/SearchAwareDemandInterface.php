@@ -11,8 +11,6 @@ interface SearchAwareDemandInterface
 {
     /**
      * Get search
-     *
-     * @return Search|null
      */
     public function getSearch(): ?Search;
 

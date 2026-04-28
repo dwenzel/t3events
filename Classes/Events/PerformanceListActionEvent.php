@@ -2,6 +2,7 @@
 
 namespace DWenzel\T3events\Events;
 
+use TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface;
 use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
 use DWenzel\T3events\Utility\SettingsInterface as SI;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
@@ -12,7 +13,7 @@ final class PerformanceListActionEvent
     private array $overwriteData = [];
 
     /**
-     * @param QueryResultInterface<\TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface> $queryResult
+     * @param QueryResultInterface<DomainObjectInterface> $queryResult
      * @param array<string, mixed> $settings
      * @param array<string, mixed> $contentObjectData
      * @param array<string, mixed> $overwriteDemand
@@ -22,7 +23,7 @@ final class PerformanceListActionEvent
     }
 
     /**
-     * @return QueryResultInterface<\TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface>
+     * @return QueryResultInterface<DomainObjectInterface>
      */
     public function getQueryResult(): QueryResultInterface
     {

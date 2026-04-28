@@ -37,8 +37,6 @@ trait PatternReplacingTrait
 
     /**
      * Replaces
-     * @param string $content
-     * @return string
      */
     public function replacePatterns(string $content): string
     {
