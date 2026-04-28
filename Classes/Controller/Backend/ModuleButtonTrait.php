@@ -58,7 +58,8 @@ trait ModuleButtonTrait
         $buttonBar = $this->getButtonBar();
         $uriBuilder = $this->getUriBuilder();
         $request = $uriBuilder->getRequest();
-        $iconFactory = $this->getIconFactory(); // @extensionScannerIgnoreLine false positive: own method, not ModuleTemplate::getIconFactory()
+        // @extensionScannerIgnoreLine false positive: own method, not ModuleTemplate::getIconFactory()
+        $iconFactory = $this->getIconFactory();
 
         /** @var ButtonDemand $demand */
         foreach ($configuration->getDemands() as $demand) {

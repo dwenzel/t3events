@@ -40,7 +40,8 @@ trait RoutingTrait
         $route = $this->router->getRoute($identifier);
 
         $method = $route->getMethod();
-        $options = $route->getOptions(); // @extensionScannerIgnoreLine false positive: own Route class, not a deprecated TYPO3 method
+        // @extensionScannerIgnoreLine false positive: own Route class, not a deprecated TYPO3 method
+        $options = $route->getOptions();
 
         if ($this instanceof SignalInterface) {
             $signalArguments = [

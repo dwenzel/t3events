@@ -107,10 +107,8 @@ class LegacyFileFieldsUpdateWizard implements UpgradeWizardInterface, ChattyInte
                 }
             }
         } catch (\Exception $exception) {
-            // @extensionScannerIgnoreLine false positive: PSR-3 logger->error() is not deprecated
-            $this->logger->error(
-                'An error occurred while performing update: ' . $exception->getMessage()
-            );
+            // @extensionScannerIgnoreLine false positive: PSR-3 LoggerInterface::error() is not deprecated
+            $this->logger->error('An error occurred while performing update: ' . $exception->getMessage());
             $result = false;
         }
 

@@ -48,7 +48,8 @@ class RouteLoader
         }
 
         if (!is_null($options)) {
-            $route->setOptions($options); // @extensionScannerIgnoreLine false positive: own Route class, not a deprecated TYPO3 method
+            // @extensionScannerIgnoreLine false positive: own Route class, not a deprecated TYPO3 method
+            $route->setOptions($options);
         }
         $this->router->addRoute($route);
     }

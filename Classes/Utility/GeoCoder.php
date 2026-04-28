@@ -47,7 +47,8 @@ class GeoCoder
     {
         $url = $this->serviceUrl . urlencode($address);
 
-        $response_json = $this->getUrl($url); // @extensionScannerIgnoreLine false positive: own wrapper method, not a deprecated TYPO3 method
+        // @extensionScannerIgnoreLine false positive: own wrapper method, not a deprecated TYPO3 method
+        $response_json = $this->getUrl($url);
         $response = json_decode((string) $response_json, true);
         if ($response['status'] == 'OK') {
             return $response['results'][0]['geometry']['location'];

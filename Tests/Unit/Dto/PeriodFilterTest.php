@@ -54,7 +54,8 @@ class PeriodFilterTest extends TestCase
 
     public function testGetOptionsReturnsIterable(): void
     {
-        self::assertIsIterable($this->subject->getOptions()); // @extensionScannerIgnoreLine false positive: own PeriodFilter::getOptions(), not a deprecated TYPO3 method
+        // @extensionScannerIgnoreLine false positive: own PeriodFilter::getOptions(), not a deprecated TYPO3 method
+        self::assertIsIterable($this->subject->getOptions());
     }
 
     public function testCountInitiallyReturnsZero(): void
@@ -79,7 +80,8 @@ class PeriodFilterTest extends TestCase
 
         $this->subject->configure($configuration);
 
-        $generatedOptions = $this->subject->getOptions() // @extensionScannerIgnoreLine false positive: own PeriodFilter::getOptions(), not a deprecated TYPO3 method;
+        $generatedOptions = // @extensionScannerIgnoreLine false positive: own PeriodFilter::getOptions(), not a deprecated TYPO3 method
+$this->subject->getOptions();
 
         self::assertCount(
             $expectedCount,
@@ -106,7 +108,8 @@ class PeriodFilterTest extends TestCase
 
         $this->subject->configure($configuration);
 
-        $generatedOptions = $this->subject->getOptions() // @extensionScannerIgnoreLine false positive: own PeriodFilter::getOptions(), not a deprecated TYPO3 method;
+        $generatedOptions = // @extensionScannerIgnoreLine false positive: own PeriodFilter::getOptions(), not a deprecated TYPO3 method
+$this->subject->getOptions();
 
         self::assertCount(
             $expectedCount,

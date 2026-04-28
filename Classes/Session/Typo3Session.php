@@ -49,7 +49,8 @@ class Typo3Session implements SessionInterface
     {
         $this->data[$identifier] = $value;
         $GLOBALS['TSFE']->fe_user->setKey('ses', $this->namespace, $this->data);
-        $GLOBALS['TSFE']->fe_user->storeSessionData(); // @extensionScannerIgnoreLine storeSessionData() still exists in v12 FrontendUserAuthentication
+        // @extensionScannerIgnoreLine storeSessionData() still exists in v12 FrontendUserAuthentication
+        $GLOBALS['TSFE']->fe_user->storeSessionData();
     }
 
     /**
@@ -67,7 +68,8 @@ class Typo3Session implements SessionInterface
     public function clean(): void
     {
         $GLOBALS['TSFE']->fe_user->setKey('ses', $this->namespace, []);
-        $GLOBALS['TSFE']->fe_user->storeSessionData(); // @extensionScannerIgnoreLine storeSessionData() still exists in v12 FrontendUserAuthentication
+        // @extensionScannerIgnoreLine storeSessionData() still exists in v12 FrontendUserAuthentication
+        $GLOBALS['TSFE']->fe_user->storeSessionData();
         $this->data = [];
     }
 
