@@ -12,7 +12,7 @@ use TYPO3\CMS\Extbase\Mvc\Request;
 use TYPO3\CMS\Extbase\Mvc\RequestInterface;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 use TYPO3\CMS\Extbase\Property\Exception\TargetNotFoundException;
-use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
@@ -388,10 +388,9 @@ class EntityNotFoundHandlerTraitTest extends UnitTestCase
      */
     protected function getMockDispatcher(): \PHPUnit\Framework\MockObject\MockObject
     {
-        $mockDispatcher = $this->getMockBuilder(Dispatcher::class)
-            ->disableOriginalConstructor()
+        $mockDispatcher = $this->getMockBuilder(EventDispatcherInterface::class)
             ->onlyMethods(['dispatch'])
-            ->getMock();
+            ->getMockForAbstractClass();
         return $mockDispatcher;
     }
 }

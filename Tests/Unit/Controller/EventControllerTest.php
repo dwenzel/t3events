@@ -26,6 +26,7 @@ use DWenzel\T3events\Utility\SettingsUtility;
 use Nimut\TestingFramework\MockObject\AccessibleMockObjectInterface;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
+use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Mvc\Request;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
@@ -287,7 +288,7 @@ class EventControllerTest extends UnitTestCase
             });
         $this->subject->expects($this->once())
             ->method('addFlashMessage')
-            ->with($message, $title, FlashMessage::WARNING);
+            ->with($message, $title, ContextualFeedbackSeverity::WARNING);
 
         $this->subject->listAction();
     }

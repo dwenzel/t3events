@@ -6,11 +6,12 @@ use DWenzel\T3events\Controller\FlashMessageTrait;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
+use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Core\Messaging\FlashMessageQueue;
 use TYPO3\CMS\Core\Messaging\FlashMessageService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-use TYPO3\CMS\Extbase\Mvc\Web\Request;
+use TYPO3\CMS\Extbase\Mvc\Request;
 use TYPO3\CMS\Extbase\Service\ExtensionService;
 
 /***************************************************************
@@ -169,7 +170,7 @@ class FlashMessageTraitTest extends UnitTestCase
     {
         $messageBody = 'foo';
         $messageTitle = 'bar';
-        $severity = AbstractMessage::ERROR;
+        $severity = ContextualFeedbackSeverity::ERROR;
         $storeInSession = false;
         $expectedMessage = GeneralUtility::makeInstance(
             FlashMessage::class, $messageBody, $messageTitle, $severity, $storeInSession

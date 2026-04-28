@@ -25,11 +25,11 @@ use DWenzel\T3events\View\ConfigurableViewInterface;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Backend\Template\ModuleTemplate;
-use TYPO3\CMS\Backend\View\BackendTemplateView;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
+use TYPO3\CMS\Fluid\View\TemplateView;
+use TYPO3Fluid\Fluid\View\ViewInterface;
 use DWenzel\T3events\Utility\SettingsInterface as SI;
 
 /**
@@ -91,8 +91,9 @@ class BackendViewTraitTest extends UnitTestCase
             ->method('getPageRenderer')
             ->willReturn($this->pageRenderer);
 
-        $this->view = $this->getMockBuilder(BackendTemplateView::class)
-            ->onlyMethods(['getModuleTemplate'])
+        $this->view = $this->getMockBuilder(TemplateView::class)
+            ->disableOriginalConstructor()
+            ->addMethods(['getModuleTemplate'])
             ->getMock();
         $this->view->expects($this->any())
             ->method('getModuleTemplate')
@@ -113,7 +114,7 @@ class BackendViewTraitTest extends UnitTestCase
             SI::SETTINGS,
             $settings
         );
-        /** @var ConfigurableViewInterface|ViewInterface|\PHPUnit_Framework_MockObject_MockObject $mockView */
+        /** @var ConfigurableViewInterface|\PHPUnit_Framework_MockObject_MockObject $mockView */
         $mockView = $this->getMockBuilder(ConfigurableViewInterface::class)
             ->onlyMethods(['apply'])
             ->getMockForAbstractClass();

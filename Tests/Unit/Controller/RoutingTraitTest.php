@@ -18,7 +18,7 @@ use DWenzel\T3events\Controller\RoutingTrait;
 use DWenzel\T3events\Controller\SignalInterface;
 use DWenzel\T3events\Controller\SignalTrait;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
-use TYPO3\CMS\Extbase\Mvc\Web\Request;
+use TYPO3\CMS\Extbase\Mvc\Request;
 use DWenzel\T3events\Utility\SettingsInterface as SI;
 
 class MockSignalController implements SignalInterface

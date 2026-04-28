@@ -4,9 +4,8 @@ namespace DWenzel\T3events\Tests\Controller;
 use DWenzel\T3events\Tests\Unit\Object\MockObjectManagerTrait;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use DWenzel\T3events\Controller\DownloadTrait;
+use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Resource\Driver\LocalDriver;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
-use TYPO3\CMS\Extbase\Mvc\Web\Response;
 /**
  * Class DownloadTraitTest
  *
@@ -22,7 +21,7 @@ class DownloadTraitTest extends UnitTestCase
     protected $subject;
 
     /**
-     * @var ObjectManager|\PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     protected $objectManager;
 
@@ -207,7 +206,7 @@ class DownloadTraitTest extends UnitTestCase
 
         $this->objectManager->expects($this->once())
             ->method('get')
-            ->with(Response::class)
+            ->with(ResponseInterface::class)
             ->will($this->returnValue($mockResponse));
 
         $this->subject->sendDownloadHeaders($unknownValidExtension, $fileName);
@@ -228,13 +227,13 @@ class DownloadTraitTest extends UnitTestCase
 
     /**
      * @param array $methods Methods to mock
-     * @return Response|\PHPUnit_Framework_MockObject_MockObject
+     * @return ResponseInterface|\PHPUnit_Framework_MockObject_MockObject
      */
     protected function getMockResponse(array $methods = ['sendHeaders', 'setHeader'])
     {
-        $builder = $this->getMockBuilder(Response::class);
+        $builder = $this->getMockBuilder(ResponseInterface::class);
         if (!empty($methods)) {
-            $builder->onlyMethods($methods);
+            $builder->addMethods($methods);
         }
         return $builder->getMock();
     }

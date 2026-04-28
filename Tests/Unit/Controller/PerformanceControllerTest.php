@@ -42,7 +42,7 @@ use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Mvc\Request;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
-use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use TYPO3\CMS\Fluid\View\TemplateView;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
@@ -125,9 +125,8 @@ class PerformanceControllerTest extends UnitTestCase
         $this->contentObject = $this->getMockBuilder(ContentObjectRenderer::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $mockDispatcher = $this->getMockBuilder(Dispatcher::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $mockDispatcher = $this->getMockBuilder(EventDispatcherInterface::class)
+            ->getMockForAbstractClass();
         $mockRequest = $this->getMockBuilder(Request::class)->getMock();
         $mockConfigurationManager = $this->getMockBuilder(ConfigurationManagerInterface::class)
             ->onlyMethods(

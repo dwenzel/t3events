@@ -5,7 +5,7 @@ namespace DWenzel\T3events\Tests\Unit\Domain\Repository;
 use DWenzel\T3events\Domain\Repository\TaskRepository;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
-use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
+use Psr\Container\ContainerInterface;
 use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 
 /**
@@ -28,7 +28,7 @@ class TaskRepositoryTest extends UnitTestCase
     protected $subject;
 
     /**
-     * @var ObjectManagerInterface |MockObject
+     * @var ContainerInterface |MockObject
      */
     protected $objectManager;
 
@@ -42,7 +42,7 @@ class TaskRepositoryTest extends UnitTestCase
             ->disableOriginalConstructor()
             ->onlyMethods(['setDefaultQuerySettings'])
             ->getMock();
-        $this->objectManager = $this->getMockBuilder(ObjectManagerInterface::class)
+        $this->objectManager = $this->getMockBuilder(ContainerInterface::class)
             ->getMockForAbstractClass();
         $this->inject(
             $this->subject,
