@@ -40,9 +40,8 @@ class TitleTagViewHelper extends AbstractViewHelper
     public function render(): void
     {
         $content = $this->renderChildren();
-        if (!empty($content)) {
-            $GLOBALS['TSFE']->page['title'] = $content;
-            $GLOBALS['TSFE']->indexedDocTitle = $content;
+        if (!empty($content) && isset($GLOBALS['TSFE'])) {
+            $GLOBALS['TSFE']->pageTitle = $content;
         }
     }
 }

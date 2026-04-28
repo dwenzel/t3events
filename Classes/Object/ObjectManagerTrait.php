@@ -19,7 +19,7 @@
 namespace DWenzel\T3events\Object;
 
 
-use TYPO3\CMS\Extbase\Object\ObjectManager;
+use Psr\Container\ContainerInterface;
 
 /**
  * ObjectManagerTrait
@@ -27,14 +27,14 @@ use TYPO3\CMS\Extbase\Object\ObjectManager;
 trait ObjectManagerTrait
 {
     /**
-     * Object Manager
+     * Object Manager / Container
      */
-    protected ObjectManager $objectManager;
+    protected ContainerInterface $objectManager;
 
     /**
-     * Injects the object manager
+     * Injects the container
      */
-    public function injectObjectManager(ObjectManager $objectManager): void
+    public function injectObjectManager(ContainerInterface $objectManager): void
     {
         $this->objectManager = $objectManager;
     }

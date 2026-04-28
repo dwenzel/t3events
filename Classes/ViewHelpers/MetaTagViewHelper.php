@@ -1,8 +1,9 @@
 <?php
 namespace DWenzel\T3events\ViewHelpers;
 
-use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
+use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
 
 /***************************************************************
  *  Copyright notice
@@ -71,7 +72,7 @@ class MetaTagViewHelper extends AbstractTagBasedViewHelper
         }
 
         if ($useCurrentDomain || (isset($this->arguments['content']) && !empty($this->arguments['content']))) {
-            $GLOBALS['TSFE']->getPageRenderer()->addMetaTag($this->tag->render());
+            GeneralUtility::makeInstance(PageRenderer::class)->addHeaderData($this->tag->render());
         }
         return '';
     }
