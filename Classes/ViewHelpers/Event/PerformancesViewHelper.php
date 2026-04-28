@@ -135,7 +135,7 @@ class PerformancesViewHelper extends AbstractTagBasedViewHelper
         foreach ($this->performances as $performance) {
             $status = $performance->getStatus();
             if ($status) {
-                $states[] = ['title' => $status->getTitle(), 'priority' => $status->getPriority(), 'cssClass' => $status->getCssClass()];
+                $states[] = ['title' => $status->getTitle(), 'priority' => $status->getPriority(), 'cssClass' => $status->getCssClass()]; // @extensionScannerIgnoreLine false positive: own PerformanceStatus::getPriority(), not a deprecated TYPO3 method
             }
         }
         if ($states !== []) {

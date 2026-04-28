@@ -101,7 +101,7 @@ class PerformanceStatusTest extends UnitTestCase
     {
         $this->assertSame(
             2147483647,
-            $this->fixture->getPriority()
+            $this->fixture->getPriority() // @extensionScannerIgnoreLine false positive: own PerformanceStatus::getPriority(), not a deprecated TYPO3 method
         );
     }
 
@@ -114,7 +114,7 @@ class PerformanceStatusTest extends UnitTestCase
 
         $this->assertSame(
             12,
-            $this->fixture->getPriority()
+            $this->fixture->getPriority() // @extensionScannerIgnoreLine false positive: own PerformanceStatus::getPriority(), not a deprecated TYPO3 method
         );
     }
 }

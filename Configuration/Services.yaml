@@ -22,3 +22,12 @@ services:
 
   DWenzel\T3events\Update\LegacyFileFieldsUpdateWizard:
     public: true
+    tags:
+      - name: upgradeWizard
+        identifier: 't3eventsLegacyFileFieldUpdateWizard'
+
+  DWenzel\T3events\Updates\SwitchableControllerActionsPluginUpdater:
+    public: true
+    tags:
+      - name: upgradeWizard
+        identifier: 't3eventsSwitchableControllerActionsPluginUpdater'

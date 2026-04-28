@@ -54,7 +54,7 @@ class LegacyFileFieldsUpdateWizardTest extends TestCase
 
     public function testOutputCanBeSet(): void
     {
-        $this->subject->setOutput($this->output);
+        $this->subject->setOutput($this->output); // @extensionScannerIgnoreLine false positive: ChattyInterface::setOutput() still exists in v12
         self::assertSame(
             $this->output,
             $this->subject->getOutput()
@@ -87,7 +87,7 @@ class LegacyFileFieldsUpdateWizardTest extends TestCase
     {
         self::assertSame(
             LegacyFileFieldsUpdateWizard::PREREQUISITES,
-            $this->subject->getPrerequisites()
+            $this->subject->getPrerequisites() // @extensionScannerIgnoreLine false positive: UpgradeWizardInterface::getPrerequisites() is not deprecated
         );
     }
 }

@@ -67,7 +67,7 @@ class OptionsTraitTest extends UnitTestCase
     public function testGetOptionsInitiallyReturnsIterable()
     {
         $this->assertTrue(
-            is_iterable($this->subject->getOptions())
+            is_iterable($this->subject->getOptions() // @extensionScannerIgnoreLine false positive: own OptionsTrait::getOptions(), not a deprecated TYPO3 method)
         );
     }
 
@@ -89,7 +89,7 @@ class OptionsTraitTest extends UnitTestCase
         $this->subject->configure($config);
         $this->assertSame(
             $this->queryResult,
-            $this->subject->getOptions()
+            $this->subject->getOptions() // @extensionScannerIgnoreLine false positive: own OptionsTrait::getOptions(), not a deprecated TYPO3 method
         );
     }
 
@@ -104,7 +104,7 @@ class OptionsTraitTest extends UnitTestCase
         $this->subject->configure($config);
         $this->assertSame(
             $this->queryResult,
-            $this->subject->getOptions()
+            $this->subject->getOptions() // @extensionScannerIgnoreLine false positive: own OptionsTrait::getOptions(), not a deprecated TYPO3 method
         );
     }
 }

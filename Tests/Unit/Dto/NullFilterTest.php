@@ -44,7 +44,7 @@ class NullFilterTest extends UnitTestCase
         $expected = [];
         $this->assertSame(
             $expected,
-            $this->subject->getOptions()
+            $this->subject->getOptions() // @extensionScannerIgnoreLine false positive: own Filter::getOptions(), not a deprecated TYPO3 method
         );
     }
 
