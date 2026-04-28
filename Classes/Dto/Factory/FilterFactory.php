@@ -33,11 +33,14 @@ class FilterFactory
     {
     }
 
+    /**
+     * @param array<mixed> $configuration
+     */
     public function get(string $key = '', array $configuration = []): FilterInterface
     {
+        /** @var class-string<FilterInterface> $filterClass */
         $filterClass = $this->getFilterResolver()->resolve($key);
 
-        /** @var FilterInterface $filter */
         $filter = GeneralUtility::makeInstance($filterClass);
         $filter->configure($configuration);
 

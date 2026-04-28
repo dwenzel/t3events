@@ -23,12 +23,9 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class RouteLoader
 {
-    /**
-     * @var RouterInterface
-     */
-    protected object $router;
+    protected RouterInterface $router;
 
-    public function __construct(RouterInterface $router = null)
+    public function __construct(?RouterInterface $router = null)
     {
         $this->router = $router ?: GeneralUtility::makeInstance(Router::class);
     }
@@ -39,10 +36,10 @@ class RouteLoader
      *
      * @param string $origin A string of fully qualified controller class name and action method separated by ORIGIN_SEPARATOR.
      * @param string|null $method Routing method. Allowed: redirect (default), forward, redirectToUri
-     * @param array|null $options Options for the route.
+     * @param array<string, mixed>|null $options Options for the route.
      * @internal param string $action The target action name
      */
-    public function register($origin, $method = null, array $options = null): void
+    public function register(string $origin, ?string $method = null, ?array $options = null): void
     {
         $route = $this->createRoute($origin);
 
@@ -75,7 +72,7 @@ class RouteLoader
      * @return Route A new route object
      * @codeCoverageIgnore
      */
-    protected function createRoute($origin): object
+    protected function createRoute(string $origin): Route
     {
         return GeneralUtility::makeInstance(Route::class, $origin);
     }

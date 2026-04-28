@@ -25,6 +25,9 @@ namespace DWenzel\T3events\Dto;
 class NullFilter implements FilterInterface
 {
 
+    /**
+     * @return iterable<mixed>
+     */
     public function getOptions(): iterable
     {
         return [];
@@ -35,6 +38,9 @@ class NullFilter implements FilterInterface
         return 0;
     }
 
+    /**
+     * @param array<mixed> $configuration
+     */
     public function configure(array $configuration): void
     {
     }

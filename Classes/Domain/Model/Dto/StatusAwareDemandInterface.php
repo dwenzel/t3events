@@ -13,38 +13,37 @@ interface StatusAwareDemandInterface
     /**
      * Returns the performance status
      *
-     * @return PerformanceStatus
+     * @return PerformanceStatus|null
      */
-    public function getStatus();
+    public function getStatus(): ?PerformanceStatus;
 
     /**
      * sets the status
-     *
-     * @return void
      */
-    public function setStatus(PerformanceStatus $status);
+    public function setStatus(PerformanceStatus $status): void;
+
+    /**
+     * @return string|null
+     */
+    public function getStatuses(): ?string;
+
+    /**
+     * @param string|null $statuses
+     */
+    public function setStatuses(?string $statuses): void;
+
+    /**
+     * @return bool
+     */
+    public function isExcludeSelectedStatuses(): bool;
+
+    /**
+     * @param bool $excludeSelectedStatuses
+     */
+    public function setExcludeSelectedStatuses(bool $excludeSelectedStatuses): void;
 
     /**
      * @return string
      */
-    public function getStatuses();
-
-    /**
-     * @param string $statuses
-     */
-    public function setStatuses($statuses);
-    /**
-     * @return boolean
-     */
-    public function isExcludeSelectedStatuses();
-
-    /**
-     * @param boolean $excludeSelectedStatuses
-     */
-    public function setExcludeSelectedStatuses($excludeSelectedStatuses);
-
-    /**
-     * @return string
-     */
-    public function getStatusField();
+    public function getStatusField(): string;
 }

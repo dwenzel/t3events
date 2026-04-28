@@ -23,6 +23,7 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
 
 /**
  * The repository for Companies
+ * @extends Repository<\TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface>
  */
 class CompanyRepository extends Repository
 {

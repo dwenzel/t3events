@@ -11,30 +11,30 @@ trait LocationAwareTrait
     /**
      * Search location
      *
-     * @var string
+     * @var string|null
      */
-    protected $location;
+    protected ?string $location = null;
 
     /**
      * Search radius
      *
-     * @var integer
+     * @var int|null
      */
-    protected $radius;
+    protected ?int $radius = null;
 
     /**
      * Bounding box
      *
-     * @var array
+     * @var array<string, mixed>|null
      */
-    protected $bounds;
+    protected ?array $bounds = null;
 
     /**
      * Get location
      *
-     * @return string A string describing a location
+     * @return string|null
      */
-    public function getLocation()
+    public function getLocation(): ?string
     {
         return $this->location;
     }
@@ -42,9 +42,9 @@ trait LocationAwareTrait
     /**
      * Set location
      *
-     * @param string $location A string describing a location
+     * @param string|null $location A string describing a location
      */
-    public function setLocation($location): void
+    public function setLocation(?string $location): void
     {
         $this->location = $location;
     }
@@ -52,9 +52,9 @@ trait LocationAwareTrait
     /**
      * Get radius
      *
-     * @return integer The search radius in meter around the search location
+     * @return int|null The search radius in meter around the search location
      */
-    public function getRadius()
+    public function getRadius(): ?int
     {
         return $this->radius;
     }
@@ -62,9 +62,9 @@ trait LocationAwareTrait
     /**
      * Set radius
      *
-     * @param integer $radius The search radius in meter
+     * @param int|null $radius The search radius in meter
      */
-    public function setRadius($radius): void
+    public function setRadius(?int $radius): void
     {
         $this->radius = $radius;
     }
@@ -72,9 +72,9 @@ trait LocationAwareTrait
     /**
      * Get Bounds
      *
-     * @return array An array describing a bounding box around a geolocation
+     * @return array<string, mixed>|null
      */
-    public function getBounds()
+    public function getBounds(): ?array
     {
         return $this->bounds;
     }
@@ -82,9 +82,9 @@ trait LocationAwareTrait
     /**
      * Set Bounds
      *
-     * @param array $bounds
+     * @param array<string, mixed>|null $bounds
      */
-    public function setBounds($bounds): void
+    public function setBounds(?array $bounds): void
     {
         $this->bounds = $bounds;
     }

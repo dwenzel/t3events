@@ -26,11 +26,13 @@ use DWenzel\T3events\Controller\Backend\ScheduleController;
  */
 abstract class Schedule extends DefaultRegistration
 {
-    static protected $subModuleName = 'm2';
-    static protected $controllerActions = [
+    static protected string $subModuleName = 'm2';
+    /** @var array<string, string> */
+    static protected array $controllerActions = [
         ScheduleController::class => 'list, show, edit, delete, reset',
     ];
-    static protected $moduleConfiguration = [
+    /** @var array<string, string> */
+    static protected array $moduleConfiguration = [
         'access' => 'user,group',
         'icon' => 'EXT:t3events/Resources/Public/Icons/calendar-blue.svg',
         'labels' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_m2.xlf',

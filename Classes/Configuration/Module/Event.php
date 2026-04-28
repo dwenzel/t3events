@@ -26,11 +26,13 @@ use DWenzel\T3events\Controller\Backend\EventController;
  */
 abstract class Event extends DefaultRegistration
 {
-    static protected $subModuleName = 'm1';
-    static protected $controllerActions = [
+    static protected string $subModuleName = 'm1';
+    /** @var array<string, string> */
+    static protected array $controllerActions = [
         EventController::class => 'list, show, reset, new',
     ];
-    static protected $moduleConfiguration = [
+    /** @var array<string, string> */
+    static protected array $moduleConfiguration = [
         'access' => 'user,group',
         'icon' => 'EXT:t3events/Resources/Public/Icons/calendar.svg',
         'labels' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_mod_main.xlf',

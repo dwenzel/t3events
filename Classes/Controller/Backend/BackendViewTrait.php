@@ -18,10 +18,7 @@ trait BackendViewTrait
 {
     use ModuleButtonTrait;
 
-    /**
-     * @return ConfigurationManagerInterface
-     */
-    abstract public function getConfigurationManager();
+    abstract public function getConfigurationManager(): ConfigurationManagerInterface;
 
     public function initializeView(): void
     {
@@ -33,7 +30,7 @@ trait BackendViewTrait
     /**
      * Get an UriBuilder for the current request
      */
-    protected function getUriBuilder()
+    protected function getUriBuilder(): UriBuilder
     {
         if (!$this->uriBuilder instanceof UriBuilder) {
             $this->uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
@@ -58,11 +55,12 @@ trait BackendViewTrait
     /**
      * @return mixed
      */
-    protected function getPageRendererConfiguration()
+    protected function getPageRendererConfiguration(): mixed
     {
         $extbaseFrameworkConfiguration = $this->getConfigurationManager()->getConfiguration(
             ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
         );
+        // @phpstan-ignore-next-line
         return $this->getViewProperty($extbaseFrameworkConfiguration, SettingsInterface::PAGE_RENDERER);
     }
 }

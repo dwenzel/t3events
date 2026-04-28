@@ -15,9 +15,9 @@ trait PeriodAwareDemandFactoryTrait
     /**
      * Sets period constraints from settings
      *
-     * @param array $settings
+     * @param array<string, mixed> $settings
      */
-    public function setPeriodConstraints(PeriodAwareDemandInterface $demand, $settings): void
+    public function setPeriodConstraints(PeriodAwareDemandInterface $demand, array $settings): void
     {
         $timeZone = new \DateTimeZone(date_default_timezone_get());
         if (!isset($settings['period'])) {
@@ -61,10 +61,10 @@ trait PeriodAwareDemandFactoryTrait
     /**
      * Helper method. Creates a date object from
      * integers and strings.
-     * @param $value
+     * @param mixed $value
      * @return \DateTime
      */
-    protected function createDate($value) {
+    protected function createDate(mixed $value): \DateTime {
         $timeZone = new \DateTimeZone(date_default_timezone_get());
         if (is_numeric($value)) {
             $dateTime = new \DateTime('midnight', $timeZone);

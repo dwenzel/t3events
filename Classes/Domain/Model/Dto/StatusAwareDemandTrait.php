@@ -22,28 +22,28 @@ trait StatusAwareDemandTrait
      * A single status
      * see $statuses for multiple
      *
-     * @var PerformanceStatus
+     * @var PerformanceStatus|null
      */
-    protected $status;
+    protected ?PerformanceStatus $status = null;
 
     /**
      * Statuses (multiple)
      *
-     * @var string
+     * @var string|null
      */
-    protected $statuses;
+    protected ?string $statuses = null;
 
     /**
      * @var bool
      */
-    protected $excludeSelectedStatuses;
+    protected bool $excludeSelectedStatuses = false;
 
     /**
      * Returns the performance status
      *
-     * @return PerformanceStatus
+     * @return PerformanceStatus|null
      */
-    public function getStatus()
+    public function getStatus(): ?PerformanceStatus
     {
         return $this->status;
     }
@@ -57,33 +57,33 @@ trait StatusAwareDemandTrait
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getStatuses()
+    public function getStatuses(): ?string
     {
         return $this->statuses;
     }
 
     /**
-     * @param string $statuses
+     * @param string|null $statuses
      */
-    public function setStatuses($statuses): void
+    public function setStatuses(?string $statuses): void
     {
         $this->statuses = $statuses;
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
-    public function isExcludeSelectedStatuses()
+    public function isExcludeSelectedStatuses(): bool
     {
         return $this->excludeSelectedStatuses;
     }
 
     /**
-     * @param boolean $excludeSelectedStatuses
+     * @param bool $excludeSelectedStatuses
      */
-    public function setExcludeSelectedStatuses($excludeSelectedStatuses): void
+    public function setExcludeSelectedStatuses(bool $excludeSelectedStatuses): void
     {
         $this->excludeSelectedStatuses = $excludeSelectedStatuses;
     }

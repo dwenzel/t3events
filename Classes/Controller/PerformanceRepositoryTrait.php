@@ -28,12 +28,7 @@ use DWenzel\T3events\Domain\Repository\PerformanceRepository;
  */
 trait PerformanceRepositoryTrait
 {
-    /**
-     * Performance repository
-     *
-     * @var PerformanceRepository
-     */
-    protected $performanceRepository;
+    protected PerformanceRepository $performanceRepository;
 
     /**
      * Injects the performance repository

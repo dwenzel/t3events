@@ -28,7 +28,7 @@ class TemplateLayoutUtility implements SingletonInterface
      * @param string $extensionKey Extension key
      * @param int|null $pageId Optional page id for pages TS config. If empty only the settings in TYPO3_CONF_VARS are considered.
      */
-    public function hasLayouts($extensionKey, $pageId = null): bool
+    public function hasLayouts(string $extensionKey, ?int $pageId = null): bool
     {
         $pageTSConfig = [];
         if (!is_null($pageId)) {
@@ -48,8 +48,9 @@ class TemplateLayoutUtility implements SingletonInterface
      *
      * @param string $extensionKey Extension key
      * @param int|null $pageId Optional page id for pages TS config. If empty only the settings in TYPO3_CONF_VARS are considered.
+     * @return array<mixed>
      */
-    public function getLayouts($extensionKey, $pageId = null): array
+    public function getLayouts(string $extensionKey, ?int $pageId = null): array
     {
         $templateLayouts = [];
 
@@ -59,7 +60,7 @@ class TemplateLayoutUtility implements SingletonInterface
                     $GLOBALS['TYPO3_CONF_VARS']['EXT'][$extensionKey]['templateLayouts']);
             }
 
-            $pageTSConfig = $this->getPageTSConfig($pageId);
+            $pageTSConfig = $pageId !== null ? $this->getPageTSConfig($pageId) : [];
             $pageTSKey = $this->getPageTSKey($extensionKey);
             $hasPageTSConf = $this->hasTSConfigTemplateLayouts($pageTSConfig, $pageTSKey);
 
@@ -78,9 +79,10 @@ class TemplateLayoutUtility implements SingletonInterface
      * Wrapper function for static call of core BackendUtility::getPageTSconfig
      *
      * @param int $pageId Uid of page
+     * @return array<mixed>
      * @codeCoverageIgnore
      */
-    protected function getPageTSConfig($pageId): array
+    protected function getPageTSConfig(int $pageId): array
     {
         return BackendUtility::getPagesTSconfig($pageId);
     }
@@ -88,10 +90,10 @@ class TemplateLayoutUtility implements SingletonInterface
     /**
      * Tells if page TS config is hast templateLayouts for an extension key
      *
-     * @param array $pageTSConfig TSConfig for a page
+     * @param array<mixed> $pageTSConfig TSConfig for a page
      * @param string $pageTSKey Extension key
      */
-    protected function hasTSConfigTemplateLayouts(array $pageTSConfig, $pageTSKey): bool
+    protected function hasTSConfigTemplateLayouts(array $pageTSConfig, string $pageTSKey): bool
     {
         return isset($pageTSConfig[$pageTSKey]['templateLayouts.'])
         && is_array($pageTSConfig[$pageTSKey]['templateLayouts.']);
@@ -110,7 +112,7 @@ class TemplateLayoutUtility implements SingletonInterface
      *
      * @param string $extensionKey Extension key
      */
-    protected function hasTYPO3ConfVarsTemplateLayouts($extensionKey): bool
+    protected function hasTYPO3ConfVarsTemplateLayouts(string $extensionKey): bool
     {
         return isset($GLOBALS['TYPO3_CONF_VARS']['EXT'][$extensionKey]['templateLayouts'])
         && is_array($GLOBALS['TYPO3_CONF_VARS']['EXT'][$extensionKey]['templateLayouts']);

@@ -40,9 +40,9 @@ trait ModuleButtonTrait
      *   ]
      * ]
      * Each entry in the array describes one button
-     * @return array
+     * @return array<int, array<string, mixed>>
      */
-    public function getButtonConfiguration()
+    public function getButtonConfiguration(): array
     {
         return $this->buttonConfiguration;
     }
@@ -50,7 +50,7 @@ trait ModuleButtonTrait
     /**
      * @param ButtonDemandCollection $configuration button configuration
      */
-    protected function createButtons(ButtonDemandCollection $configuration)
+    protected function createButtons(ButtonDemandCollection $configuration): void
     {
         if (!$configuration->getDemands()->count()) {
             return;
@@ -91,27 +91,17 @@ trait ModuleButtonTrait
         }
     }
 
-    /**
-     * @return ButtonBar
-     */
-    abstract protected function getButtonBar();
+    abstract protected function getButtonBar(): ButtonBar;
 
-    /**
-     * @return UriBuilder
-     */
-    abstract protected function getUriBuilder();
+    abstract protected function getUriBuilder(): UriBuilder;
 
-    /**
-     * @return IconFactory
-     */
-    abstract protected function getIconFactory();
+    abstract protected function getIconFactory(): IconFactory;
 
     /**
      * Translate a given key
      *
-     * @param array|null $arguments
-     * @return string
+     * @param array<mixed>|null $arguments
      */
-    abstract public function translate(string $key, string $extension = 't3events', array $arguments = null);
+    abstract public function translate(string $key, string $extension = 't3events', ?array $arguments = null): string;
 
 }

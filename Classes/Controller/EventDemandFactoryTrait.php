@@ -28,10 +28,7 @@ use DWenzel\T3events\Domain\Factory\Dto\EventDemandFactory;
  */
 trait EventDemandFactoryTrait
 {
-    /**
-     * @var EventDemandFactory
-     */
-    protected $eventDemandFactory;
+    protected EventDemandFactory $eventDemandFactory;
 
     /**
      * Injects the eventDemandFactory

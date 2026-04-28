@@ -17,8 +17,8 @@ trait SearchTrait
     /**
      * Creates a search object from given settings
      *
-     * @param array $searchRequest An array with the search request
-     * @param array $settings Settings for search
+     * @param array<string, mixed> $searchRequest An array with the search request
+     * @param array<string, mixed> $settings Settings for search
      * @return Search $search
      */
     public function createSearchObject(array $searchRequest, array $settings): Search

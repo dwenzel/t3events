@@ -10,16 +10,16 @@ namespace DWenzel\T3events\Domain\Model\Dto;
 trait OrderAwareDemandTrait
 {
     /**
-     * @var string Orderings: comma separated list of sort fields and orderings ('fieldA|asc,fieldB|desc')
+     * @var string|null Orderings: comma separated list of sort fields and orderings ('fieldA|asc,fieldB|desc')
      */
-    protected $order;
+    protected ?string $order = null;
 
     /**
      * Gets the order
      *
      * @return string|null A comma separated list of orderings
      */
-    public function getOrder()
+    public function getOrder(): ?string
     {
         return $this->order;
     }
@@ -27,10 +27,10 @@ trait OrderAwareDemandTrait
     /**
      * Sets the order
      *
-     * @param string $order A comma separated list of orderings
+     * @param string|null $order A comma separated list of orderings
      * in the form of '<fieldName>|<direction,<otherFieldName>|<direction>
      */
-    public function setOrder($order): void
+    public function setOrder(?string $order): void
     {
         $this->order = $order;
     }

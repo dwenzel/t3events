@@ -19,17 +19,11 @@ trait EntityNotFoundHandlerTrait
 {
     use SignalTrait;
 
-    protected static $handleEntityNotFoundError = 'handleEntityNotFoundError';
+    protected static string $handleEntityNotFoundError = 'handleEntityNotFoundError';
 
-    /**
-     * @var string
-     */
-    protected $entityNotFoundMessage = 'The requested entity could not be found';
+    protected string $entityNotFoundMessage = 'The requested entity could not be found';
 
-    /**
-     * @return string
-     */
-    public function getEntityNotFoundMessage()
+    public function getEntityNotFoundMessage(): string
     {
         return $this->entityNotFoundMessage;
     }
@@ -67,7 +61,7 @@ trait EntityNotFoundHandlerTrait
      *
      * @param string $configuration Configuration for handling
      */
-    public function handleEntityNotFoundError($configuration): ?ResponseInterface
+    public function handleEntityNotFoundError(string $configuration): ?ResponseInterface
     {
         if (empty($configuration)) {
             return null;
@@ -82,14 +76,14 @@ trait EntityNotFoundHandlerTrait
                     throw new \InvalidArgumentException($msg, 6683741798);
                 }
                 $this->uriBuilder->reset();
-                $this->uriBuilder->setTargetPageUid($configuration[1]);
+                $this->uriBuilder->setTargetPageUid((int)$configuration[1]);
                 $this->uriBuilder->setCreateAbsoluteUri(true);
                 if ($this->isSSLEnabled()) {
                     $this->uriBuilder->setAbsoluteUriScheme('https');
                 }
                 $url = $this->uriBuilder->build();
                 if (isset($configuration[2])) {
-                    return $this->redirectToUri($url, 0, (int)$configuration[2]);
+                    return $this->redirectToUri($url, null, (int)$configuration[2]);
                 }
                 return $this->redirectToUri($url);
             default:
@@ -131,11 +125,9 @@ trait EntityNotFoundHandlerTrait
      * Tells if TYPO3 SSL is enabled
      *
      * Wrapper method for static call
-     *
-     * @return bool
      */
-    protected function isSSLEnabled()
+    protected function isSSLEnabled(): bool
     {
-        return GeneralUtility::getIndpEnv('TYPO3_SSL');
+        return (bool)GeneralUtility::getIndpEnv('TYPO3_SSL');
     }
 }

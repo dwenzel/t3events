@@ -18,18 +18,18 @@ class PerformancesViewHelper extends AbstractTagBasedViewHelper
     /**
      * @var mixed
      */
-    public $tagNameChildren;
+    public mixed $tagNameChildren = null;
     /**
      * @var mixed
      */
-    public $classChildren;
-    public $class;
+    public mixed $classChildren = null;
+    public mixed $class = null;
     use ConfigurationManagerTrait;
 
     /**
      * @var ObjectStorage<Performance>
      */
-    protected $performances;
+    protected ObjectStorage $performances;
     /**
      * Constructor
      */
@@ -60,7 +60,7 @@ class PerformancesViewHelper extends AbstractTagBasedViewHelper
      *
      * @return string
      */
-    public function render()
+    public function render(): string
     {
         $this->performances = $this->arguments['event']->getPerformances();
         $this->tagName = $this->arguments['tagName'];
@@ -76,7 +76,8 @@ class PerformancesViewHelper extends AbstractTagBasedViewHelper
                 $content = $this->getDateRange();
                 break;
             case 'crucialStatus':
-                if ($status = $this->getCrucialStatus()) {
+                $status = $this->getCrucialStatus();
+                if (is_array($status)) {
                     $title = $status['title'];
                     $this->class .= ' ' . $status['cssClass'];
                     if ($this->renderChildren() === null) {
@@ -113,16 +114,21 @@ class PerformancesViewHelper extends AbstractTagBasedViewHelper
         $dateRange = '';
         /** @var Performance $performance */
         foreach ($this->performances as $performance) {
-            $timestamps[] = $performance->getDate()->getTimestamp();
+            $date = $performance->getDate();
+            if ($date !== null) {
+                $timestamps[] = $date->getTimestamp();
+            }
         }
         sort($timestamps);
         $lastTimestamp = end($timestamps);
+        $firstTimestamp = $timestamps[0] ?? 0;
+        $resolvedLastTimestamp = $lastTimestamp !== false ? $lastTimestamp : $firstTimestamp;
         if (str_contains((string) $format, '%')) {
-            $dateRange = strftime($format, $timestamps[0]);
-            $dateRange .= ' - ' . strftime($format, $lastTimestamp ?: $timestamps[0]);
+            $dateRange = strftime($format, $firstTimestamp);
+            $dateRange .= ' - ' . strftime($format, $resolvedLastTimestamp);
         } else {
-            $dateRange = date($format, $timestamps[0]);
-            $dateRange .= ' - ' . date($format, $lastTimestamp ?: $timestamps[0]);
+            $dateRange = date($format, $firstTimestamp);
+            $dateRange .= ' - ' . date($format, $resolvedLastTimestamp);
         }
 
         return $dateRange;
@@ -131,7 +137,7 @@ class PerformancesViewHelper extends AbstractTagBasedViewHelper
     /**
      * Get crucial status over all performances. Returns the status with the highest priority.
      *
-     * @return string
+     * @return array{title: string, cssClass: string, priority: int}|string
      */
     public function getCrucialStatus(): array|string
     {
@@ -143,7 +149,7 @@ class PerformancesViewHelper extends AbstractTagBasedViewHelper
             }
         }
         if ($states !== []) {
-            usort($states, fn($a, $b): int|float => $a['priority'] - $b['priority']);
+            usort($states, fn($a, $b): int => (int)$a['priority'] - (int)$b['priority']);
 
             return $states[0];
         }

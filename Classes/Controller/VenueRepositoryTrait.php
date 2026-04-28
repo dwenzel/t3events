@@ -27,12 +27,7 @@ use DWenzel\T3events\Domain\Repository\VenueRepository;
  */
 trait VenueRepositoryTrait
 {
-    /**
-     * Venue Repository
-     *
-     * @var VenueRepository
-     */
-    protected $venueRepository;
+    protected VenueRepository $venueRepository;
 
     /**
      * injectVenueRepository

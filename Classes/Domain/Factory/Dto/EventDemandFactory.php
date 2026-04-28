@@ -44,9 +44,9 @@ class EventDemandFactory extends AbstractDemandFactory implements DemandFactoryI
      * Properties which should be mapped when settings
      * are applied to demand object
      *
-     * @var array
+     * @var array<string, string>
      */
-    protected static $mappedProperties = [
+    protected static array $mappedProperties = [
         SI::GENRES => SI::LEGACY_KEY_GENRE,
         SI::VENUES => 'venue',
         SI::EVENT_TYPES => 'eventType',
@@ -58,9 +58,9 @@ class EventDemandFactory extends AbstractDemandFactory implements DemandFactoryI
      * but have to be composed from various settings or
      * require any special logic before setting
      *
-     * @var array
+     * @var list<string>
      */
-    protected static $compositeProperties = [
+    protected static array $compositeProperties = [
         'periodType',
         'periodStart',
         'periodEndDate',
@@ -71,12 +71,13 @@ class EventDemandFactory extends AbstractDemandFactory implements DemandFactoryI
     /**
      * Creates a demand object from settings
      *
+     * @param array<string, mixed> $settings
      * @return DemandInterface
      */
-    public function createFromSettings(array $settings)
+    public function createFromSettings(array $settings): DemandInterface
     {
         /** @var EventDemand $demand */
-        $demand = GeneralUtility::makeInstance(static::DEMAND_CLASS);
+        $demand = GeneralUtility::makeInstance(EventDemand::class);
 
         if ($demand instanceof PeriodAwareDemandInterface) {
             $this->setPeriodConstraints($demand, $settings);

@@ -15,6 +15,7 @@ namespace DWenzel\T3events\Domain\Model;
  */
 
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
 
 /**
  * Class Task
@@ -30,71 +31,31 @@ class Task extends AbstractEntity
     const ACTION_DELETE = 2;
     const ACTION_HIDE_PERFORMANCE = 3;
 
-    /**
-     * Provide a name for the task
-     *
-     * @var string
-     */
-    protected $name;
+    protected string $name = '';
 
-    /**
-     * Select an action to perform
-     *
-     * @var integer
-     */
-    protected $action;
+    protected int $action = self::ACTION_NONE;
 
-    /**
-     * Period
-     *
-     * @var string
-     */
-    protected $period;
+    protected string $period = '';
 
-    /**
-     * Enter a period of action in seconds. Negative values are possible too.
-     *
-     * @var integer
-     */
-    protected $periodDuration;
+    protected int $periodDuration = 0;
 
-    /**
-     * Select a status
-     *
-     * @var PerformanceStatus
-     */
-    protected $oldStatus;
+    protected LazyLoadingProxy|PerformanceStatus|null $oldStatus = null;
 
-    /**
-     * Select the new status
-     *
-     * @var PerformanceStatus
-     */
-    protected $newStatus;
+    protected LazyLoadingProxy|PerformanceStatus|null $newStatus = null;
 
-    /**
-     * folder
-     *
-     * @var string
-     */
-    protected $folder;
+    protected string $folder = '';
 
     /**
      * Returns the name
      *
      * @return string $name
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * Sets the name
-     *
-     * @param string $name
-     */
-    public function setName($name): void
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
@@ -104,17 +65,12 @@ class Task extends AbstractEntity
      *
      * @return integer $action
      */
-    public function getAction()
+    public function getAction(): int
     {
         return $this->action;
     }
 
-    /**
-     * Sets the action
-     *
-     * @param integer $action
-     */
-    public function setAction($action): void
+    public function setAction(int $action): void
     {
         $this->action = $action;
     }
@@ -124,17 +80,12 @@ class Task extends AbstractEntity
      *
      * @return integer
      */
-    public function getPeriodDuration()
+    public function getPeriodDuration(): int
     {
         return $this->periodDuration;
     }
 
-    /**
-     * sets the time period of action
-     *
-     * @param integer $periodDuration
-     */
-    public function setPeriodDuration($periodDuration): void
+    public function setPeriodDuration(int $periodDuration): void
     {
         $this->periodDuration = $periodDuration;
     }
@@ -144,17 +95,12 @@ class Task extends AbstractEntity
      *
      * @return PerformanceStatus $oldStatus
      */
-    public function getOldStatus()
+    public function getOldStatus(): ?PerformanceStatus
     {
         return $this->oldStatus;
     }
 
-    /**
-     * Sets the oldStatus
-     *
-     * @param PerformanceStatus $oldStatus
-     */
-    public function setOldStatus($oldStatus): void
+    public function setOldStatus(?PerformanceStatus $oldStatus): void
     {
         $this->oldStatus = $oldStatus;
     }
@@ -164,17 +110,12 @@ class Task extends AbstractEntity
      *
      * @return PerformanceStatus $newStatus
      */
-    public function getNewStatus()
+    public function getNewStatus(): ?PerformanceStatus
     {
         return $this->newStatus;
     }
 
-    /**
-     * Sets the newStatus
-     *
-     * @param PerformanceStatus $newStatus
-     */
-    public function setNewStatus($newStatus): void
+    public function setNewStatus(?PerformanceStatus $newStatus): void
     {
         $this->newStatus = $newStatus;
     }
@@ -184,17 +125,12 @@ class Task extends AbstractEntity
      *
      * @return string $folder
      */
-    public function getFolder()
+    public function getFolder(): string
     {
         return $this->folder;
     }
 
-    /**
-     * Sets the folder
-     *
-     * @param string $folder
-     */
-    public function setFolder($folder): void
+    public function setFolder(string $folder): void
     {
         $this->folder = $folder;
     }
@@ -204,17 +140,12 @@ class Task extends AbstractEntity
      *
      * @return string A string describing the period constraint. Allowed: all, pastOnly, futureOnly
      */
-    public function getPeriod()
+    public function getPeriod(): string
     {
         return $this->period;
     }
 
-    /**
-     * Set the period
-     *
-     * @param string $period A string describing the period constraint. Allowed: all, pastOnly, futureOnly
-     */
-    public function setPeriod($period): void
+    public function setPeriod(string $period): void
     {
         $this->period = $period;
     }

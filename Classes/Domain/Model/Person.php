@@ -6,6 +6,7 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
+use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
 
 /***************************************************************
  *  Copyright notice
@@ -30,77 +31,34 @@ class Person extends AbstractEntity
     const PERSON_TYPE_UNKNOWN = 'Tx_T3events_Default';
     const PERSON_TYPE_CONTACT = 'Tx_T3events_Contact';
 
-    /**
-     * type
-     *
-     * @var string
-     */
-    protected $type = self::PERSON_TYPE_UNKNOWN;
+    protected string $type = self::PERSON_TYPE_UNKNOWN;
 
-    /**
-     * email
-     *
-     * @var string
-     */
     #[Validate(['validator' => 'EmailAddress'])]
-    protected $email = '';
+    protected string $email = '';
 
-    /**
-     * @var PersonType
-     */
-    protected $personType;
+    protected LazyLoadingProxy|PersonType|null $personType = null;
 
-    /**
-     * @var string
-     */
-    protected $name;
+    protected string $name = '';
 
-    /**
-     * @var int
-     */
-    protected $gender;
+    protected int $gender = 0;
 
-    /**
-     * @var string
-     */
-    protected $firstName;
+    protected string $firstName = '';
 
-    /**
-     * @var string
-     */
-    protected $lastName;
+    protected string $lastName = '';
 
-    /**
-     * phone
-     *
-     * @var string
-     */
-    protected $phone = '';
+    protected string $phone = '';
 
-    /**
-     * Title
-     *
-     * @var string
-     */
-    protected $title;
+    protected string $title = '';
 
-    /**
-     * @var \DateTime
-     */
-    protected $birthday;
+    protected ?\DateTime $birthday = null;
 
-    /**
-     * WWW
-     *
-     * @var string
-     */
-    protected $www;
+    protected string $www = '';
 
     /**
      * @var ObjectStorage<FileReference>
      */
     #[Lazy]
-    protected $images;
+    protected ObjectStorage $images;
 
     /**
      *
@@ -123,17 +81,12 @@ class Person extends AbstractEntity
      *
      * @return string $type
      */
-    public function getType()
+    public function getType(): string
     {
         return $this->type;
     }
 
-    /**
-     * Sets the type
-     *
-     * @param string $type
-     */
-    public function setType($type): void
+    public function setType(string $type): void
     {
         $this->type = $type;
     }
@@ -143,23 +96,17 @@ class Person extends AbstractEntity
      *
      * @return string $email
      */
-    public function getEmail()
+    public function getEmail(): string
     {
         return $this->email;
     }
 
-    /**
-     * @return PersonType
-     */
-    public function getPersonType()
+    public function getPersonType(): ?PersonType
     {
         return $this->personType;
     }
 
-    /**
-     * @param PersonType $personType
-     */
-    public function setPersonType($personType): void
+    public function setPersonType(?PersonType $personType): void
     {
         $this->personType = $personType;
     }
@@ -167,15 +114,12 @@ class Person extends AbstractEntity
     /**
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @param string $name
-     */
-    public function setName($name): void
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
@@ -183,15 +127,12 @@ class Person extends AbstractEntity
     /**
      * @return int
      */
-    public function getGender()
+    public function getGender(): int
     {
         return $this->gender;
     }
 
-    /**
-     * @param int $gender
-     */
-    public function setGender($gender): void
+    public function setGender(int $gender): void
     {
         $this->gender = $gender;
     }
@@ -199,15 +140,12 @@ class Person extends AbstractEntity
     /**
      * @return string
      */
-    public function getFirstName()
+    public function getFirstName(): string
     {
         return $this->firstName;
     }
 
-    /**
-     * @param string $firstName
-     */
-    public function setFirstName($firstName): void
+    public function setFirstName(string $firstName): void
     {
         $this->firstName = $firstName;
     }
@@ -215,15 +153,12 @@ class Person extends AbstractEntity
     /**
      * @return string
      */
-    public function getLastName()
+    public function getLastName(): string
     {
         return $this->lastName;
     }
 
-    /**
-     * @param string $lastName
-     */
-    public function setLastName($lastName): void
+    public function setLastName(string $lastName): void
     {
         $this->lastName = $lastName;
     }
@@ -233,17 +168,12 @@ class Person extends AbstractEntity
      *
      * @return string $phone
      */
-    public function getPhone()
+    public function getPhone(): string
     {
         return $this->phone;
     }
 
-    /**
-     * Sets the email
-     *
-     * @param string $email
-     */
-    public function setEmail($email): void
+    public function setEmail(string $email): void
     {
         $this->email = $email;
     }
@@ -253,7 +183,7 @@ class Person extends AbstractEntity
      *
      * @param string $phone
      */
-    public function setPhone($phone): void
+    public function setPhone(string $phone): void
     {
         $this->phone = $phone;
     }
@@ -261,31 +191,25 @@ class Person extends AbstractEntity
     /**
      * @return string
      */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }
 
-    /**
-     * @param string $title
-     */
-    public function setTitle($title): void
+    public function setTitle(string $title): void
     {
         $this->title = $title;
     }
 
     /**
-     * @return \DateTime
+     * @return \DateTime|null
      */
-    public function getBirthday()
+    public function getBirthday(): ?\DateTime
     {
         return $this->birthday;
     }
 
-    /**
-     * @param \DateTime $birthday
-     */
-    public function setBirthday($birthday): void
+    public function setBirthday(?\DateTime $birthday): void
     {
         $this->birthday = $birthday;
     }
@@ -293,15 +217,12 @@ class Person extends AbstractEntity
     /**
      * @return string
      */
-    public function getWww()
+    public function getWww(): string
     {
         return $this->www;
     }
 
-    /**
-     * @param string $www
-     */
-    public function setWww($www): void
+    public function setWww(string $www): void
     {
         $this->www = $www;
     }
@@ -309,7 +230,7 @@ class Person extends AbstractEntity
     /**
      * @return ObjectStorage<FileReference>
      */
-    public function getImages()
+    public function getImages(): ObjectStorage
     {
         return $this->images;
     }
@@ -317,7 +238,7 @@ class Person extends AbstractEntity
     /**
      * @param ObjectStorage<FileReference> $images
      */
-    public function setImages($images): void
+    public function setImages(ObjectStorage $images): void
     {
         $this->images = $images;
     }

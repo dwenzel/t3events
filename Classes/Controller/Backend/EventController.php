@@ -68,7 +68,8 @@ class EventController extends AbstractBackendController implements FilterableCon
     const LIST_ACTION = 'listAction';
     const EXTENSION_KEY = 't3events';
 
-    protected $buttonConfiguration = [
+    /** @var array<int, array<string, mixed>> */
+    protected array $buttonConfiguration = [
         [
             ButtonDemand::TABLE_KEY => SI::TABLE_EVENTS,
             ButtonDemand::LABEL_KEY => 'button.newAction.event',
@@ -92,20 +93,23 @@ class EventController extends AbstractBackendController implements FilterableCon
         $configuration = $this->configurationManager->getConfiguration(
             ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
         );
-        if (!empty($configuration[SI::PERSISTENCE][SI::STORAGE_PID])) {
-            $this->pageUid = $configuration[SI::PERSISTENCE][SI::STORAGE_PID];
+        $persistence = $configuration[SI::PERSISTENCE] ?? [];
+        if (is_array($persistence) && !empty($persistence[SI::STORAGE_PID])) {
+            $this->pageUid = (int)$persistence[SI::STORAGE_PID];
         }
-        if (!empty($configuration[SI::SETTINGS][SI::PERSISTENCE][SI::STORAGE_PID])) {
-            $this->pageUid = $configuration[SI::SETTINGS][SI::PERSISTENCE][SI::STORAGE_PID];
+        $configSettings = $configuration[SI::SETTINGS] ?? [];
+        $settingsPersistence = is_array($configSettings) ? ($configSettings[SI::PERSISTENCE] ?? []) : [];
+        if (is_array($settingsPersistence) && !empty($settingsPersistence[SI::STORAGE_PID])) {
+            $this->pageUid = (int)$settingsPersistence[SI::STORAGE_PID];
         }
     }
 
     /**
      * action list
      *
-     * @param array $overwriteDemand
+     * @param array<string, mixed>|null $overwriteDemand
      */
-    public function listAction($overwriteDemand = null): ResponseInterface
+    public function listAction(?array $overwriteDemand = null): ResponseInterface
     {
         $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
 
@@ -149,12 +153,13 @@ class EventController extends AbstractBackendController implements FilterableCon
         $configuration = $this->configurationManager->getConfiguration(
             ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
         );
+        $persistenceConfig = $configuration[SI::PERSISTENCE] ?? [];
         $templateVariables = [
             SI::EVENTS => $events,
             SI::DEMAND => $demand,
             SI::OVERWRITE_DEMAND => $overwriteDemand,
             'filterOptions' => $this->getFilterOptions($this->settings[SI::FILTER] ?? []),
-            SI::STORAGE_PID => $configuration[SI::PERSISTENCE][SI::STORAGE_PID],
+            SI::STORAGE_PID => is_array($persistenceConfig) ? ($persistenceConfig[SI::STORAGE_PID] ?? null) : null,
             SI::SETTINGS => $this->settings,
             SI::MODULE => SI::ROUTE_EVENT_MODULE
         ];
@@ -178,10 +183,7 @@ class EventController extends AbstractBackendController implements FilterableCon
         return 'events_m1';
     }
 
-    /**
-     * @return ConfigurationManagerInterface
-     */
-    public function getConfigurationManager()
+    public function getConfigurationManager(): ConfigurationManagerInterface
     {
         return $this->configurationManager;
     }

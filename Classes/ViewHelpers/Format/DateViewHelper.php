@@ -69,7 +69,7 @@ class DateViewHelper extends AbstractViewHelper
     /**
      * @var boolean
      */
-    protected $escapingInterceptorEnabled = false;
+    protected bool $escapingInterceptorEnabled = false;
 
     /**
      * Initialize arguments
@@ -116,9 +116,11 @@ class DateViewHelper extends AbstractViewHelper
 
         if (!$date instanceof \DateTime) {
             try {
-                $base = $base instanceof \DateTime ? (int)$base->format('U') : (strtotime((MathUtility::canBeInterpretedAsInteger($base) ? '@' : '') . $base) ?: null);
-                $dateTimestamp = strtotime((MathUtility::canBeInterpretedAsInteger($date) ? '@' : '') . $date, $base);
-                $modifiedDate = new \DateTime('@' . $dateTimestamp);
+                $baseTimestamp = $base instanceof \DateTime ? (int)$base->format('U') : (strtotime((MathUtility::canBeInterpretedAsInteger($base) ? '@' : '') . $base) ?: null);
+                $dateTimestamp = $baseTimestamp !== null
+                    ? strtotime((MathUtility::canBeInterpretedAsInteger($date) ? '@' : '') . $date, $baseTimestamp)
+                    : strtotime((MathUtility::canBeInterpretedAsInteger($date) ? '@' : '') . $date);
+                $modifiedDate = new \DateTime('@' . ($dateTimestamp !== false ? $dateTimestamp : 0));
                 $modifiedDate->setTimezone(new \DateTimeZone(date_default_timezone_get()));
             } catch (\Exception) {
                 throw new \TYPO3Fluid\Fluid\Core\ViewHelper\Exception('"' . $date . '" could not be parsed by \DateTime constructor.', 1241722579);

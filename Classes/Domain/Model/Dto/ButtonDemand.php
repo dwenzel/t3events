@@ -29,48 +29,27 @@ class ButtonDemand
     const TABLE_KEY = 'table';
     const OVERLAY_KEY = 'overlay';
 
-    /**
-     * @var string
-     */
-    protected $table;
+    protected string $table = '';
 
-    /**
-     * @var string
-     */
-    protected $labelKey;
+    protected string $labelKey = '';
 
-    /**
-     * @var string
-     */
-    protected $action;
+    protected string $action = '';
 
-    /**
-     * @var string
-     */
-    protected $iconKey;
+    protected string $iconKey = '';
 
-    /**
-     * @var string
-     */
-    protected $iconSize = Icon::SIZE_MEDIUM;
+    protected string $iconSize = Icon::SIZE_MEDIUM;
 
-    /**
-     * @var string
-     */
-    protected $overlay;
+    protected string $overlay = '';
 
     /**
      * @return string
      */
-    public function getTable()
+    public function getTable(): string
     {
         return $this->table;
     }
 
-    /**
-     * @param string $table
-     */
-    public function setTable($table): void
+    public function setTable(string $table): void
     {
         $this->table = $table;
     }
@@ -78,15 +57,12 @@ class ButtonDemand
     /**
      * @return string
      */
-    public function getLabelKey()
+    public function getLabelKey(): string
     {
         return $this->labelKey;
     }
 
-    /**
-     * @param string $labelKey
-     */
-    public function setLabelKey($labelKey): void
+    public function setLabelKey(string $labelKey): void
     {
         $this->labelKey = $labelKey;
     }
@@ -94,15 +70,12 @@ class ButtonDemand
     /**
      * @return string
      */
-    public function getAction()
+    public function getAction(): string
     {
         return $this->action;
     }
 
-    /**
-     * @param string $action
-     */
-    public function setAction($action): void
+    public function setAction(string $action): void
     {
         $this->action = $action;
     }
@@ -110,15 +83,12 @@ class ButtonDemand
     /**
      * @return string
      */
-    public function getIconKey()
+    public function getIconKey(): string
     {
         return $this->iconKey;
     }
 
-    /**
-     * @param string $iconKey
-     */
-    public function setIconKey($iconKey): void
+    public function setIconKey(string $iconKey): void
     {
         $this->iconKey = $iconKey;
     }
@@ -126,15 +96,12 @@ class ButtonDemand
     /**
      * @return string
      */
-    public function getIconSize()
+    public function getIconSize(): string
     {
         return $this->iconSize;
     }
 
-    /**
-     * @param string $iconSize
-     */
-    public function setIconSize($iconSize): void
+    public function setIconSize(string $iconSize): void
     {
         $this->iconSize = $iconSize;
     }
@@ -142,15 +109,12 @@ class ButtonDemand
     /**
      * @return string
      */
-    public function getOverlay()
+    public function getOverlay(): string
     {
         return $this->overlay;
     }
 
-    /**
-     * @param string $overlay
-     */
-    public function setOverlay($overlay): void
+    public function setOverlay(string $overlay): void
     {
         $this->overlay = $overlay;
     }

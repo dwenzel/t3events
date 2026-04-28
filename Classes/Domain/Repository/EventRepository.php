@@ -41,11 +41,11 @@ class EventRepository extends AbstractDemandedRepository implements
     /**
      * Create category constraints from demand
      *
-     * @param EventDemand $demand
-     * @return array<\TYPO3\CMS\Extbase\Persistence\QOM\Constraint>
+     * @param QueryInterface<\TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface> $query
+     * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\ConstraintInterface>
      * @throws InvalidQueryException
      */
-    public function createCategoryConstraints(QueryInterface $query, $demand): array
+    public function createCategoryConstraints(QueryInterface $query, EventDemand $demand): array
     {
         // gather OR constraints (categories)
         $categoryConstraints = [];
@@ -84,10 +84,12 @@ class EventRepository extends AbstractDemandedRepository implements
     /**
      * Returns an array of constraints created from a given demand object.
      *
-     * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint>
+     * @param QueryInterface<\TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface> $query
+     * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\ConstraintInterface>
      */
-    public function createConstraintsFromDemand(QueryInterface $query, DemandInterface $demand)
+    public function createConstraintsFromDemand(QueryInterface $query, DemandInterface $demand): array
     {
+        /** @var EventDemand $demand */
         $constraints = [];
         if ((bool) $periodConstraints = $this->createPeriodConstraints($query, $demand)) {
             $this->combineConstraints($query, $constraints, $periodConstraints, 'AND');

@@ -24,10 +24,7 @@ use DWenzel\T3events\Domain\Factory\Dto\PersonDemandFactory;
  */
 trait PersonDemandFactoryTrait
 {
-    /**
-     * @var PersonDemandFactory
-     */
-    protected $personDemandFactory;
+    protected PersonDemandFactory $personDemandFactory;
 
     /**
      * Injects the personDemandFactory

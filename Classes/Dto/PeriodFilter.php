@@ -39,8 +39,12 @@ class PeriodFilter implements FilterInterface
 
     const PREFIX_OPTION_LABEL_KEY = 'label.period.';
 
-    protected $options = [];
+    /** @var array<mixed> */
+    protected array $options = [];
 
+    /**
+     * @return iterable<mixed>
+     */
     public function getOptions(): iterable
     {
         return $this->options;
@@ -51,6 +55,9 @@ class PeriodFilter implements FilterInterface
         return count($this->options);
     }
 
+    /**
+     * @param array<mixed> $configuration
+     */
     public function configure(array $configuration): void
     {
         $keys = static::DEFAULT_OPTION_KEYS;

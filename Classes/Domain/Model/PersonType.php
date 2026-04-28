@@ -29,29 +29,19 @@ class PersonType extends AbstractValueObject
 {
     use EqualsTrait;
 
-    /**
-     * title
-     *
-     * @var string
-     */
-    protected $title;
+    protected string $title = '';
 
     /**
      * Returns the title
      *
      * @return string $title
      */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }
 
-    /**
-     * Sets the title
-     *
-     * @param string $title
-     */
-    public function setTitle($title): void
+    public function setTitle(string $title): void
     {
         $this->title = $title;
     }

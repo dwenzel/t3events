@@ -30,36 +30,21 @@ class EventType extends AbstractValueObject
 
     use EqualsTrait;
 
-    /**
-     * title
-     *
-     * @var string
-     */
-    protected $title;
+    protected string $title = '';
 
-    /**
-     * Link
-     *
-     * @var string
-     */
-    protected $link;
+    protected string $link = '';
 
     /**
      * Returns the title
      *
      * @return string $title
      */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }
 
-    /**
-     * Sets the title
-     *
-     * @param string $title
-     */
-    public function setTitle($title): void
+    public function setTitle(string $title): void
     {
         $this->title = $title;
     }
@@ -70,17 +55,12 @@ class EventType extends AbstractValueObject
      *
      * @return string
      */
-    public function getLink()
+    public function getLink(): string
     {
         return $this->link;
     }
 
-    /**
-     * Sets the link
-     *
-     * @param string $link
-     */
-    public function setLink($link): void
+    public function setLink(string $link): void
     {
         $this->link = $link;
     }

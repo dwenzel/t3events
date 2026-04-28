@@ -21,21 +21,11 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 trait FlashMessageTrait
 {
-    /**
-     * @var FlashMessageQueue
-     */
-    protected $flashMessageQueue;
+    protected ?FlashMessageQueue $flashMessageQueue = null;
 
-    /**
-     * @var FlashMessageService
-     */
-    protected $flashMessageService;
+    protected FlashMessageService $flashMessageService;
 
-    /**
-     * @var \TYPO3\CMS\Extbase\Service\ExtensionService
-     * @Inject
-     */
-    protected $extensionService;
+    protected ExtensionService $extensionService;
 
     public function injectFlashMessageService(FlashMessageService $flashMessageService): void
     {
@@ -57,15 +47,11 @@ trait FlashMessageTrait
      * @throws \InvalidArgumentException if the message body is no string
      */
     public function addFlashMessage(
-        $messageBody,
-        $messageTitle = '',
-        $severity = ContextualFeedbackSeverity::OK,
-        $storeInSession = true
+        string $messageBody,
+        string $messageTitle = '',
+        ContextualFeedbackSeverity $severity = ContextualFeedbackSeverity::OK,
+        bool $storeInSession = true
     ): void {
-        if (!is_string($messageBody)) {
-            throw new \InvalidArgumentException('The message body must be of type string, "' . gettype($messageBody) . '" given.',
-                1243258395);
-        }
         /* @var \TYPO3\CMS\Core\Messaging\FlashMessage $flashMessage */
         $flashMessage = GeneralUtility::makeInstance(
             FlashMessage::class, $messageBody, $messageTitle, $severity, $storeInSession
@@ -74,10 +60,7 @@ trait FlashMessageTrait
         $this->getFlashMessageQueue()->enqueue($flashMessage);
     }
 
-    /**
-     * @return FlashMessageQueue
-     */
-    public function getFlashMessageQueue()
+    public function getFlashMessageQueue(): FlashMessageQueue
     {
         if (!$this->flashMessageQueue instanceof FlashMessageQueue) {
                 $this->flashMessageQueue = $this->flashMessageService->getMessageQueueByIdentifier(

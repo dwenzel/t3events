@@ -9,21 +9,21 @@ namespace DWenzel\T3events\Domain\Model\Dto;
 class ModuleData
 {
     /**
-     * @var DemandInterface
+     * @var DemandInterface|null
      */
-    protected $demand;
+    protected ?DemandInterface $demand = null;
 
     /**
-     * @var array
+     * @var array<string, mixed>|null
      */
-    protected $overwriteDemand;
+    protected ?array $overwriteDemand = null;
 
     /**
      * Get the demand
      *
-     * @return DemandInterface
+     * @return DemandInterface|null
      */
-    public function getDemand()
+    public function getDemand(): ?DemandInterface
     {
         return $this->demand;
     }
@@ -38,6 +38,8 @@ class ModuleData
 
     /**
      * Sets the overwriteDemand
+     *
+     * @param array<string, mixed> $overwriteDemand
      */
     public function setOverwriteDemand(array $overwriteDemand): void
     {
@@ -47,9 +49,9 @@ class ModuleData
     /**
      * Gets the overwriteDemand
      *
-     * @return array
+     * @return array<string, mixed>|null
      */
-    public function getOverwriteDemand()
+    public function getOverwriteDemand(): ?array
     {
         return $this->overwriteDemand;
     }

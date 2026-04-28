@@ -23,10 +23,7 @@ use TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface;
  */
 trait PersistenceManagerTrait
 {
-    /**
-     * @var PersistenceManagerInterface
-     */
-    protected $persistenceManager;
+    protected PersistenceManagerInterface $persistenceManager;
 
     /**
      * injects the persistence manager

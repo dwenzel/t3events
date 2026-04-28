@@ -29,22 +29,22 @@ trait GenreAwareDemandTrait
 {
 
     /**
-     * @var string
+     * @var string|null
      */
-    protected $genres;
+    protected ?string $genres = null;
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getGenres()
+    public function getGenres(): ?string
     {
         return $this->genres;
     }
 
     /**
-     * @param string $genres
+     * @param string|null $genres
      */
-    public function setGenres($genres): void
+    public function setGenres(?string $genres): void
     {
         $this->genres = $genres;
     }

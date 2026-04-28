@@ -9,9 +9,9 @@ namespace DWenzel\T3events\Domain\Factory\Dto;
 trait SkipPropertyTrait
 {
     /**
-     * @return array
+     * @return list<string>
      */
-    abstract public function getCompositeProperties();
+    abstract public function getCompositeProperties(): array;
 
     /**
      * Tells whether a property should be set directly from
@@ -20,7 +20,7 @@ trait SkipPropertyTrait
      * @param string $name
      * @return bool Returns true for empty and composite properties otherwise false
      */
-    protected function shouldSkipProperty($name, mixed $value): bool
+    protected function shouldSkipProperty(string $name, mixed $value): bool
     {
         if (empty($value)) {
             return true;

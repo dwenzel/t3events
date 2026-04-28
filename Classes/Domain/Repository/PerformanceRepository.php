@@ -23,6 +23,7 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
  * Class PerformanceRepository
  *
  * @package DWenzel\T3events\Domain\Repository
+ * @extends Repository<\TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface>
  */
 class PerformanceRepository extends Repository implements
     DemandedRepositoryInterface,
@@ -39,6 +40,7 @@ class PerformanceRepository extends Repository implements
         VenueConstraintRepositoryTrait, CategoryConstraintRepositoryTrait,
         AudienceConstraintRepositoryTrait;
 
+    /** @var array<non-empty-string, QueryInterface::ORDER_*> */
     protected $defaultOrderings = ['sorting' => QueryInterface::ORDER_ASCENDING];
 
     /**
@@ -56,13 +58,14 @@ class PerformanceRepository extends Repository implements
     /**
      * Returns an array of constraints created from a given demand object.
      *
-     * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint>
+     * @param QueryInterface<\TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface> $query
+     * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\ConstraintInterface>
      * @throws InvalidQueryException
      */
     public function createConstraintsFromDemand(
         QueryInterface $query,
         DemandInterface $demand
-    ) {
+    ): array {
         /** @var PerformanceDemand $demand */
         $constraints = [];
         $constraints[] = $query->equals('event.hidden', 0);

@@ -32,37 +32,37 @@ class TicketClass extends AbstractEntity
     /**
      * title
      *
-     * @var string
+     * @var string|null
      */
-    protected $title;
+    protected ?string $title = null;
 
     /**
      * color
      *
-     * @var string
+     * @var string|null
      */
-    protected $color;
+    protected ?string $color = null;
 
     /**
      * price
      *
      * @var float
      */
-    protected $price = 0.0;
+    protected float $price = 0.0;
 
     /**
      * type
      *
-     * @var integer;
+     * @var int
      */
-    protected $type = 0;
+    protected int $type = 0;
 
     /**
      * Returns the title
      *
-     * @return string $title
+     * @return string|null
      */
-    public function getTitle()
+    public function getTitle(): ?string
     {
         return $this->title;
     }
@@ -70,9 +70,9 @@ class TicketClass extends AbstractEntity
     /**
      * Sets the title
      *
-     * @param string $title
+     * @param string|null $title
      */
-    public function setTitle($title): void
+    public function setTitle(?string $title): void
     {
         $this->title = $title;
     }
@@ -80,9 +80,9 @@ class TicketClass extends AbstractEntity
     /**
      * Returns the color
      *
-     * @return string $color
+     * @return string|null
      */
-    public function getColor()
+    public function getColor(): ?string
     {
         return $this->color;
     }
@@ -90,9 +90,9 @@ class TicketClass extends AbstractEntity
     /**
      * Sets the color
      *
-     * @param string $color
+     * @param string|null $color
      */
-    public function setColor($color): void
+    public function setColor(?string $color): void
     {
         $this->color = $color;
     }
@@ -100,9 +100,9 @@ class TicketClass extends AbstractEntity
     /**
      * Returns the price
      *
-     * @return float price
+     * @return float
      */
-    public function getPrice()
+    public function getPrice(): float
     {
         return $this->price;
     }
@@ -111,9 +111,8 @@ class TicketClass extends AbstractEntity
      * Sets the price
      *
      * @param float $price
-     * @return float price
      */
-    public function setPrice($price): void
+    public function setPrice(float $price): void
     {
         $this->price = $price;
     }
@@ -121,9 +120,9 @@ class TicketClass extends AbstractEntity
     /**
      * Returns the type
      *
-     * @return integer $type
+     * @return int
      */
-    public function getType()
+    public function getType(): int
     {
         return $this->type;
     }
@@ -131,9 +130,9 @@ class TicketClass extends AbstractEntity
     /**
      * Sets the type
      *
-     * @param integer $type
+     * @param int $type
      */
-    public function setType($type): void
+    public function setType(int $type): void
     {
         $this->type = $type;
     }

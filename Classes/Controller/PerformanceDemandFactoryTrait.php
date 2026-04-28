@@ -28,10 +28,7 @@ use DWenzel\T3events\Domain\Factory\Dto\PerformanceDemandFactory;
  */
 trait PerformanceDemandFactoryTrait
 {
-    /**
-     * @var PerformanceDemandFactory
-     */
-    protected $performanceDemandFactory;
+    protected PerformanceDemandFactory $performanceDemandFactory;
 
     /**
      * Injects the performanceDemandFactory

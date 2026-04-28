@@ -31,15 +31,23 @@ class ModuleDataStorageService implements SingletonInterface
      *
      * @return ModuleData
      */
-    public function loadModuleData(string $key)
+    public function loadModuleData(string $key): ModuleData
     {
         if ($this->getBackendUserAuthentication() instanceof BackendUserAuthentication) {
             $moduleData = $this->getBackendUserAuthentication()->getModuleData($key);
         }
-        if (empty($moduleData) || !$moduleData) {
+        if (empty($moduleData)) {
             return GeneralUtility::makeInstance(ModuleData::class);
         }
-        return unserialize($moduleData, ['allowed_classes' => [ModuleData::class]]);
+        try {
+            $result = unserialize($moduleData, ['allowed_classes' => [ModuleData::class]]);
+        } catch (\Throwable $e) {
+            return GeneralUtility::makeInstance(ModuleData::class);
+        }
+        if (!$result instanceof ModuleData) {
+            return GeneralUtility::makeInstance(ModuleData::class);
+        }
+        return $result;
     }
 
     /**
@@ -55,6 +63,8 @@ class ModuleDataStorageService implements SingletonInterface
      */
     public function getBackendUserAuthentication(): BackendUserAuthentication
     {
-        return $GLOBALS['BE_USER'];
+        /** @var BackendUserAuthentication $beUser */
+        $beUser = $GLOBALS['BE_USER'];
+        return $beUser;
     }
 }

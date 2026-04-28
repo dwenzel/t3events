@@ -16,7 +16,8 @@ trait GenreConstraintRepositoryTrait
     /**
      * Create Genre constraints from demand (time restriction)
      *
-     * @return array<\TYPO3\CMS\Extbase\Persistence\QOM\Constraint>
+     * @param QueryInterface<\TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface> $query
+     * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\ConstraintInterface>
      */
     public function createGenreConstraints(QueryInterface $query, GenreAwareDemandInterface $demand): array
     {

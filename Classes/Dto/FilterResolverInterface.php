@@ -29,7 +29,7 @@ interface FilterResolverInterface
      *
      * If no filter exists for the key, NullFilter::class is returned
      *
-     * @return string Class name
+     * @return class-string Class name
      */
     public function resolve(string $key): string;
 }

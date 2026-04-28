@@ -29,6 +29,9 @@ use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+/**
+ * @extends Repository<\TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface>
+ */
 class CategoryRepository extends Repository implements DemandedRepositoryInterface
 {
     use DemandedRepositoryTrait;
@@ -36,7 +39,8 @@ class CategoryRepository extends Repository implements DemandedRepositoryInterfa
     /**
      * Returns an array of constraints created from a given demand object.
      *
-     * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint>
+     * @param QueryInterface<\TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface> $query
+     * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\ConstraintInterface>
      */
     public function createConstraintsFromDemand(QueryInterface $query, DemandInterface $demand): array
     {

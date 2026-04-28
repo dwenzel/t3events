@@ -31,30 +31,20 @@ class Company extends AbstractEntity
 {
     use AddressTrait;
 
-    /**
-     * name
-     *
-     * @var string
-     */
     #[Validate(['validator' => 'NotEmpty'])]
-    protected $name = '';
+    protected string $name = '';
 
     /**
      * Returns the name
      *
      * @return string $name
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * Sets the name
-     *
-     * @param string $name
-     */
-    public function setName($name): void
+    public function setName(string $name): void
     {
         $this->name = $name;
     }

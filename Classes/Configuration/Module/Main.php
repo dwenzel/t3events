@@ -20,10 +20,12 @@ namespace DWenzel\T3events\Configuration\Module;
  ***************************************************************/
 class Main extends DefaultRegistration
 {
-    static protected $subModuleName = '';
-    static protected $mainModuleName = 'events';
-    static protected $controllerActions = [];
-    static protected $moduleConfiguration = [
+    static protected string $subModuleName = '';
+    static protected string $mainModuleName = 'events';
+    /** @var array<string, string> */
+    static protected array $controllerActions = [];
+    /** @var array<string, string> */
+    static protected array $moduleConfiguration = [
         'access' => 'user,group',
         'icon' => 'EXT:t3events/Resources/Public/Icons/event-calendar.svg',
         'labels' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_mod_main.xlf',

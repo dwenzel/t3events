@@ -28,19 +28,9 @@ use TYPO3\CMS\Core\Utility\VersionNumberUtility;
  */
 trait FormTrait
 {
-    /**
-     * Page uid
-     *
-     * @var integer
-     */
-    protected $pageUid = 0;
+    protected int $pageUid = 0;
 
-    /**
-     * Gets the module key
-     *
-     * @return string
-     */
-    public function getModuleKey()
+    public function getModuleKey(): string
     {
         return $_GET[$this->getParameterNameForModule()] ?? '';
     }
@@ -66,14 +56,10 @@ trait FormTrait
      * @param string $table table name
      * @throws RouteNotFoundException
      */
-    protected function redirectToCreateNewRecord($table): RedirectResponse
+    protected function redirectToCreateNewRecord(string $table): RedirectResponse
     {
         /** @var UriBuilder $uriBuilder */
-        $uriBuilder = $this->callStatic(
-            GeneralUtility::class,
-            'makeInstance',
-            UriBuilder::class
-        );
+        $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
         $returnUrl = (string)$uriBuilder->buildUriFromRoute(SI::ROUTE_EVENT_MODULE);
         $url = (string)$uriBuilder->buildUriFromRoute(
             SI::ROUTE_EDIT_RECORD_MODULE,

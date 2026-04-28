@@ -27,49 +27,50 @@ use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
 interface DemandedRepositoryInterface
 {
     /**
-     * @var string $recordList A comma separated string containing uids
-     * @var string $sortField Sort by field
-     * @var string $sortOrder
-     * @return QueryResultInterface Matching Records
+     * @param string $recordList A comma separated string containing uids
+     * @param string $sortField Sort by field
+     * @param string $sortOrder
+     * @return QueryResultInterface<object> Matching Records
      */
-    public function findMultipleByUid($recordList, $sortField = 'uid', $sortOrder = QueryInterface::ORDER_ASCENDING);
+    public function findMultipleByUid(string $recordList, string $sortField = 'uid', string $sortOrder = QueryInterface::ORDER_ASCENDING): QueryResultInterface;
 
     /**
      * Returns an array of orderings created from a given demand object.
      *
-     * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint>
+     * @return array<string, string>
      */
-    public function createOrderingsFromDemand(DemandInterface $demand);
+    public function createOrderingsFromDemand(DemandInterface $demand): array;
 
     /**
      * Returns an array of constraints created from a given demand object.
      *
-     * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint>
-     * @abstract
+     * @param QueryInterface<\TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface> $query
+     * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\ConstraintInterface>
      */
-    public function createConstraintsFromDemand(QueryInterface $query, DemandInterface $demand);
+    public function createConstraintsFromDemand(QueryInterface $query, DemandInterface $demand): array;
 
     /**
      * Returns the objects of this repository matching the demand.
      *
-     * @param boolean $respectEnableFields
-     * @return QueryResultInterface
+     * @param bool $respectEnableFields
+     * @return QueryResultInterface<object>
      */
-    public function findDemanded(DemandInterface $demand, $respectEnableFields = true);
+    public function findDemanded(DemandInterface $demand, bool $respectEnableFields = true): QueryResultInterface;
 
     /**
      * Returns all objects of this repository.
      *
-     * @return QueryResultInterface
+     * @return QueryResultInterface<object>
      */
     public function findAll();
 
     /**
      * Combine constraints
      *
-     * @param array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint> $constraints
-     * @param array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint> $additionalConstraints
-     * @param string $conjunction
+     * @param QueryInterface<\TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface> $query
+     * @param array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\ConstraintInterface> $constraints
+     * @param array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\ConstraintInterface> $additionalConstraints
+     * @param string|null $conjunction
      */
-    public function combineConstraints(QueryInterface $query, &$constraints, $additionalConstraints, $conjunction = null);
+    public function combineConstraints(QueryInterface $query, array &$constraints, array $additionalConstraints, ?string $conjunction = null): void;
 }

@@ -36,7 +36,7 @@ class PerformanceStatus extends AbstractEntity
      * @var string
      */
     #[Validate(['validator' => 'NotEmpty'])]
-    protected $title;
+    protected string $title = '';
 
     /**
      * cssClass
@@ -44,22 +44,22 @@ class PerformanceStatus extends AbstractEntity
      * @var string
      */
     #[Validate(['validator' => 'NotEmpty'])]
-    protected $cssClass;
+    protected string $cssClass = '';
 
     /**
      * priority max allowed 2147483647
      *
-     * @var integer
+     * @var int
      */
     #[Validate(['validator' => 'NotEmpty'])]
-    protected $priority = 2147483647;
+    protected int $priority = 2147483647;
 
     /**
      * Returns the title
      *
-     * @return string $title
+     * @return string
      */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }
@@ -69,7 +69,7 @@ class PerformanceStatus extends AbstractEntity
      *
      * @param string $title
      */
-    public function setTitle($title): void
+    public function setTitle(string $title): void
     {
         $this->title = $title;
     }
@@ -77,9 +77,9 @@ class PerformanceStatus extends AbstractEntity
     /**
      * Returns the priority
      *
-     * @return integer $priority
+     * @return int
      */
-    public function getPriority()
+    public function getPriority(): int
     {
         return $this->priority;
     }
@@ -87,9 +87,9 @@ class PerformanceStatus extends AbstractEntity
     /**
      * Sets the priority
      *
-     * @param integer $priority
+     * @param int $priority
      */
-    public function setPriority($priority): void
+    public function setPriority(int $priority): void
     {
         $this->priority = $priority;
     }
@@ -97,9 +97,9 @@ class PerformanceStatus extends AbstractEntity
     /**
      * Returns the cssClass
      *
-     * @return string cssClass
+     * @return string
      */
-    public function getCssClass()
+    public function getCssClass(): string
     {
         return $this->cssClass;
     }
@@ -108,9 +108,8 @@ class PerformanceStatus extends AbstractEntity
      * Sets the cssClass
      *
      * @param string $cssClass
-     * @return string cssClass
      */
-    public function setCssClass($cssClass): void
+    public function setCssClass(string $cssClass): void
     {
         $this->cssClass = $cssClass;
     }

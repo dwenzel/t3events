@@ -1,7 +1,6 @@
 <?php
 namespace DWenzel\T3events\Controller;
 
-use TYPO3\CMS\Extbase\Mvc\Response;
 use DWenzel\T3events\Utility\SettingsUtility;
 use TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException;
 use TYPO3\CMS\Core\Resource\Driver\LocalDriver;
@@ -13,15 +12,9 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 trait DownloadTrait
 {
-    /**
-     * @var LocalDriver
-     */
-    protected $localDriver;
+    protected LocalDriver $localDriver;
 
-    /**
-     * @var SettingsUtility
-     */
-    protected $settingsUtility;
+    protected SettingsUtility $settingsUtility;
 
     /**
      * Injects the local driver for file system
@@ -45,7 +38,7 @@ trait DownloadTrait
      * @return string
      * @throws InvalidFileNameException
      */
-    public function getDownloadFileName($fileName, $prependDate = true)
+    public function getDownloadFileName(string $fileName, bool $prependDate = true): string
     {
         if ($prependDate) {
             $fileName = date('Y-m-d_H-m') . '_' . $fileName;
@@ -63,7 +56,7 @@ trait DownloadTrait
      * @return string
      * @throws InvalidFileTypeException
      */
-    public function getContentForDownload($fileExtension, $objectForFileName = null)
+    public function getContentForDownload(string $fileExtension, mixed $objectForFileName = null): string
     {
         $controllerKey = $this->settingsUtility->getControllerKey($this);
         $fileName = $controllerKey;
@@ -90,7 +83,7 @@ trait DownloadTrait
      * @param string $ext
      * @throws InvalidFileTypeException
      */
-    public function sendDownloadHeaders($ext, string $fileName): void
+    public function sendDownloadHeaders(string $ext, string $fileName): void
     {
         switch ($ext) {
             case 'csv':
@@ -167,19 +160,15 @@ trait DownloadTrait
 
         $headers = [
             'Pragma' => 'public',
-            'Expires' => 0,
+            'Expires' => '0',
             'Cache-Control' => 'public',
             'Content-Description' => 'File Transfer',
             'Content-Type' => $cType,
             'Content-Disposition' => 'attachment; filename="' . $fileName . '.' . $ext . '"',
             'Content-Transfer-Encoding' => 'binary',
         ];
-        if (!$this->response instanceof Response) {
-            $this->response = GeneralUtility::makeInstance(Response::class);
-        }
         foreach ($headers as $header => $data) {
-            $this->response->setHeader($header, $data);
+            header($header . ': ' . $data);
         }
-        $this->response->sendHeaders();
     }
 }

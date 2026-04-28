@@ -31,5 +31,8 @@ interface ConfigurableViewInterface
      *
      * @return void
      */
-    public function apply(array $configuration);
+    /**
+     * @param array<string, mixed> $configuration
+     */
+    public function apply(array $configuration): void;
 }

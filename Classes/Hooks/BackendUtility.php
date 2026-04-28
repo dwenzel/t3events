@@ -28,18 +28,19 @@ class BackendUtility
     /**
      * Fields which are removed in event quick menu view
      *
-     * @var array
+     * @var array<string, string>
      */
-    public $removedFieldsInEventQuickMenuView = ['sDEF' => 'settings.cache.makeNonCacheable', 'constraints' => 'settings.statuses,settings.excludeSelectedStatuses,settings.respectEndDate,legend,settings.period,settings.periodType,settings.periodStart,settings.periodDuration,settings.periodStartDate, settings.periodEndDate', 'pages' => 'settings.detailPid,settings.backPid', 'template' => 'settings.hideIfEmptyResult'];
+    public array $removedFieldsInEventQuickMenuView = ['sDEF' => 'settings.cache.makeNonCacheable', 'constraints' => 'settings.statuses,settings.excludeSelectedStatuses,settings.respectEndDate,legend,settings.period,settings.periodType,settings.periodStart,settings.periodDuration,settings.periodStartDate, settings.periodEndDate', 'pages' => 'settings.detailPid,settings.backPid', 'template' => 'settings.hideIfEmptyResult'];
 
     /**
      * Fields which are removed in performance quick menu view
      *
-     * @var array
+     * @var array<string, string>
      */
-    public $removedFieldsInPerformanceQuickMenuView = ['sDEF' => 'settings.cache.makeNonCacheable', 'constraints' => 'settings.statuses,settings.excludeSelectedStatuses,settings.respectEndDate,legend,settings.period,settings.periodType,settings.periodStart,settings.periodDuration,settings.periodStartDate, settings.periodEndDate', 'pages' => 'settings.detailPid,settings.backPid', 'template' => 'settings.hideIfEmptyResult'];
+    public array $removedFieldsInPerformanceQuickMenuView = ['sDEF' => 'settings.cache.makeNonCacheable', 'constraints' => 'settings.statuses,settings.excludeSelectedStatuses,settings.respectEndDate,legend,settings.period,settings.periodType,settings.periodStart,settings.periodDuration,settings.periodStartDate, settings.periodEndDate', 'pages' => 'settings.detailPid,settings.backPid', 'template' => 'settings.hideIfEmptyResult'];
 
-    public $removedFieldsInEventDetailView = ['sDEF' => 'settings.sortBy,settings.sortDirection,settings.order,settings.maxItems', 'constraints' => 'settings.statuses,settings.excludeSelectedStatuses,settings.respectEndDate,legend,settings.period,settings.periodType,settings.periodStart,settings.periodDuration,
+    /** @var array<string, string> */
+    public array $removedFieldsInEventDetailView = ['sDEF' => 'settings.sortBy,settings.sortDirection,settings.order,settings.maxItems', 'constraints' => 'settings.statuses,settings.excludeSelectedStatuses,settings.respectEndDate,legend,settings.period,settings.periodType,settings.periodStart,settings.periodDuration,
 			settings.periodStartDate,settings.periodEndDate,settings.categoryConjunction,settings.venues,settings.genres,
 			settings.eventTypes,settings.statuses,settings.excludeSelectedStatuses,settings.categories', 'template' => 'settings.hideIfEmptyResult'];
 
@@ -47,13 +48,9 @@ class BackendUtility
      * Hook function of t3lib_befunc
      * It is used to change the flexform for placements
      *
-     * @param array &$dataStructure Flexform structure
-     * @param array $conf some strange configuration
-     * @param array $row row of current record
-     * @param string $table table name
-     * @param string $fieldName some strange field name
+     * @param array<mixed> $row row of current record
      */
-    public function getFlexFormDS_postProcessDS(&$dataStructure, $conf, array $row, $table, $fieldName): void
+    public function getFlexFormDS_postProcessDS(mixed &$dataStructure, mixed $conf, array $row, string $table, string $fieldName): void
     {
         if ($table === 'tt_content' && $row['list_type'] === 't3events_events' && is_array($dataStructure)) {
             $this->updateFlexforms($dataStructure, $row);
@@ -63,11 +60,11 @@ class BackendUtility
     /**
      * Update flexform configuration if a action is selected
      *
-     * @param array|string &$dataStructure flexform structure
-     * @param array $row row of current record
+     * @param array<mixed> &$dataStructure flexform structure
+     * @param array<mixed> $row row of current record
      * @return void
      */
-    protected function updateFlexforms(array &$dataStructure, array $row)
+    protected function updateFlexforms(array &$dataStructure, array $row): void
     {
         $selectedView = '';
 
@@ -118,11 +115,11 @@ class BackendUtility
     /**
      * Remove fields from flexform structure
      *
-     * @param array &$dataStructure flexform structure
-     * @param array $fieldsToBeRemoved fields which need to be removed
+     * @param array<mixed> &$dataStructure flexform structure
+     * @param array<string, string> $fieldsToBeRemoved fields which need to be removed
      * @return void
      */
-    protected function deleteFromStructure(array &$dataStructure, array $fieldsToBeRemoved)
+    protected function deleteFromStructure(array &$dataStructure, array $fieldsToBeRemoved): void
     {
         foreach ($fieldsToBeRemoved as $sheetName => $sheetFields) {
             $fieldsInSheet = GeneralUtility::trimExplode(',', $sheetFields, true);

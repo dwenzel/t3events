@@ -33,9 +33,10 @@ class ScheduleConfigurationService
     use CallStaticTrait, TranslateTrait;
 
     /**
-     * @param $parentObject
+     * @param array<mixed> $parameters
+     * @param mixed $parentObject
      */
-    public function getLabel(array &$parameters, $parentObject = null): void
+    public function getLabel(array &$parameters, mixed $parentObject = null): void
     {
         $recordLabel = '';
         $record = $this->callStatic(

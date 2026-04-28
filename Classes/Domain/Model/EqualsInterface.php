@@ -30,5 +30,5 @@ interface EqualsInterface
      *
      * @return bool
      */
-    public function equals(AbstractDomainObject $object);
+    public function equals(AbstractDomainObject $object): bool;
 }

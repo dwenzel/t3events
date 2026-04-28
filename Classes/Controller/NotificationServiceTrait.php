@@ -21,12 +21,7 @@ use DWenzel\T3events\Service\NotificationService;
  */
 trait NotificationServiceTrait
 {
-    /**
-     * Notification Service
-     *
-     * @var NotificationService
-     */
-    protected $notificationService;
+    protected NotificationService $notificationService;
 
     /**
      * injects the NotificationService

@@ -14,7 +14,8 @@ interface VenueConstraintRepositoryInterface
     /**
      * Create venue constraints from demand
      *
-     * @return array<\TYPO3\CMS\Extbase\Persistence\QOM\Constraint>
+     * @param QueryInterface<\TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface> $query
+     * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\ConstraintInterface>
      */
-    public function createVenueConstraints(QueryInterface $query, VenueAwareDemandInterface $demand);
+    public function createVenueConstraints(QueryInterface $query, VenueAwareDemandInterface $demand): array;
 }

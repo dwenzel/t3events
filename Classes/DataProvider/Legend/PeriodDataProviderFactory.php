@@ -27,9 +27,10 @@ use DWenzel\T3events\Utility\SettingsInterface as SI;
 class PeriodDataProviderFactory
 {
     /**
+     * @param array<string, mixed> $params
      * @return LayeredLegendDataProviderInterface
      */
-    public function get(array $params): object
+    public function get(array $params): LayeredLegendDataProviderInterface
     {
         $class = PeriodUnknownDataProvider::class;
         $flexFormData = [];

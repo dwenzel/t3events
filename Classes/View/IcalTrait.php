@@ -34,9 +34,9 @@ trait IcalTrait
 
     /**
      * Pattern to replace from content
-     * @var array
+     * @var array<string, string>
      */
-    static protected $replacePatterns = [
+    static protected array $replacePatterns = [
         '~\R~u' => "\r\n",
     ];
 
@@ -45,9 +45,12 @@ trait IcalTrait
      * (tabulator, NUL-Byte, vertical tabulator)
      * @var string Characters to trim from content
      */
-    static protected $trimCharacters = "\t\0\x0B";
+    static protected string $trimCharacters = "\t\0\x0B";
 
-    protected function getReplacePatterns()
+    /**
+     * @return array<string, string>
+     */
+    protected function getReplacePatterns(): array
     {
         return static::$replacePatterns;
     }
@@ -59,7 +62,8 @@ trait IcalTrait
      */
     public function render($actionName = null)
     {
-        $content = $this->callStatic(get_parent_class($this), __FUNCTION__, $actionName);
+        $parentClass = get_parent_class($this);
+        $content = $parentClass !== false ? $this->callStatic($parentClass, __FUNCTION__, $actionName) : '';
         $content = trim((string) $content, static::$trimCharacters);
         return $this->replacePatterns($content);
     }

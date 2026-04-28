@@ -24,6 +24,7 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use Doctrine\Common\Annotations\Annotation\Required;
 use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
+use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
 use DateTime;
 
 /**
@@ -39,17 +40,17 @@ class Event extends AbstractEntity
      *
      * @var int
      */
-    protected $hidden;
+    protected int $hidden = 0;
 
     /**
-     * @var DateTime
+     * @var DateTime|null
      */
-    protected $crdate;
+    protected ?DateTime $crdate = null;
 
     /**
-     * @var DateTime
+     * @var DateTime|null
      */
-    protected $tstamp;
+    protected ?DateTime $tstamp = null;
 
 
     /**
@@ -58,33 +59,33 @@ class Event extends AbstractEntity
      * @var string
      * @Required
      */
-    protected $headline;
+    protected string $headline = '';
 
     /**
      * subtitle
      *
      * @var string
      */
-    protected $subtitle;
+    protected ?string $subtitle = null;
 
     /**
      * @var string
      */
-    protected $teaser;
+    protected ?string $teaser = null;
 
     /**
      * description
      *
      * @var string
      */
-    protected $description;
+    protected ?string $description = null;
 
     /**
      * keywords
      *
      * @var string
      */
-    protected $keywords;
+    protected ?string $keywords = null;
 
     /**
      * images
@@ -92,7 +93,7 @@ class Event extends AbstractEntity
      * @var ObjectStorage<FileReference>
      */
     #[Lazy]
-    protected $images;
+    protected ObjectStorage $images;
 
     /**
      * files
@@ -100,7 +101,7 @@ class Event extends AbstractEntity
      * @var ObjectStorage<FileReference>
      */
     #[Lazy]
-    protected $files;
+    protected ObjectStorage $files;
 
     /**
      * related
@@ -108,7 +109,7 @@ class Event extends AbstractEntity
      * @var ObjectStorage<\DWenzel\T3events\Domain\Model\Event>
      */
     #[Lazy]
-    protected $related;
+    protected ObjectStorage $related;
 
     /**
      * genre
@@ -116,7 +117,7 @@ class Event extends AbstractEntity
      * @var ObjectStorage<Genre>
      */
     #[Lazy]
-    protected $genre;
+    protected ObjectStorage $genre;
 
     /**
      * venue
@@ -124,15 +125,15 @@ class Event extends AbstractEntity
      * @var ObjectStorage<Venue>
      */
     #[Lazy]
-    protected $venue;
+    protected ObjectStorage $venue;
 
     /**
      * eventType
      *
-     * @var EventType
+     * @var EventType|null
      */
     #[Lazy]
-    protected $eventType;
+    protected LazyLoadingProxy|EventType|null $eventType = null;
 
     /**
      * performances
@@ -140,15 +141,15 @@ class Event extends AbstractEntity
      * @var ObjectStorage<Performance>
      */
     #[Lazy]
-    protected $performances;
+    protected ObjectStorage $performances;
 
     /**
      * organizer
      *
-     * @var Organizer
+     * @var Organizer|null
      */
     #[Lazy]
-    protected $organizer;
+    protected LazyLoadingProxy|Organizer|null $organizer = null;
 
     /**
      * Audience
@@ -156,23 +157,23 @@ class Event extends AbstractEntity
      * @var ObjectStorage<Audience>
      */
     #[Lazy]
-    protected $audience;
+    protected ObjectStorage $audience;
 
     /**
-     * @var \DateTime
+     * @var \DateTime|null
      */
-    protected $newUntil;
+    protected ?\DateTime $newUntil = null;
 
     /**
-     * @var \DateTime
+     * @var \DateTime|null
      */
-    protected $archiveDate;
+    protected ?\DateTime $archiveDate = null;
 
     /**
      * @var ObjectStorage<Content>
      */
     #[Lazy]
-    protected $contentElements;
+    protected ObjectStorage $contentElements;
 
     /**
      * Constructor
@@ -192,7 +193,7 @@ class Event extends AbstractEntity
      *
      * @return void
      */
-    protected function initStorageObjects()
+    protected function initStorageObjects(): void
     {
         $this->images = new ObjectStorage();
         $this->files = new ObjectStorage();
@@ -211,7 +212,7 @@ class Event extends AbstractEntity
      *
      * @return int
      */
-    public function getHidden()
+    public function getHidden(): int
     {
         return $this->hidden;
     }
@@ -221,7 +222,7 @@ class Event extends AbstractEntity
      *
      * @param int $hidden
      */
-    public function setHidden($hidden): void
+    public function setHidden(int $hidden): void
     {
         $this->hidden = $hidden;
     }
@@ -229,9 +230,9 @@ class Event extends AbstractEntity
     /**
      * Returns the subtitle
      *
-     * @return string $subtitle
+     * @return string|null $subtitle
      */
-    public function getSubtitle()
+    public function getSubtitle(): ?string
     {
         return $this->subtitle;
     }
@@ -239,9 +240,9 @@ class Event extends AbstractEntity
     /**
      * Sets the subtitle
      *
-     * @param string $subtitle
+     * @param string|null $subtitle
      */
-    public function setSubtitle($subtitle): void
+    public function setSubtitle(?string $subtitle): void
     {
         $this->subtitle = $subtitle;
     }
@@ -249,9 +250,9 @@ class Event extends AbstractEntity
     /**
      * Gets the teaser text
      *
-     * @return string
+     * @return string|null
      */
-    public function getTeaser()
+    public function getTeaser(): ?string
     {
         return $this->teaser;
     }
@@ -259,9 +260,9 @@ class Event extends AbstractEntity
     /**
      * Sets the teaser text
      *
-     * @param string $teaser
+     * @param string|null $teaser
      */
-    public function setTeaser($teaser): void
+    public function setTeaser(?string $teaser): void
     {
         $this->teaser = $teaser;
     }
@@ -269,9 +270,9 @@ class Event extends AbstractEntity
     /**
      * Returns the description
      *
-     * @return string $description
+     * @return string|null $description
      */
-    public function getDescription()
+    public function getDescription(): ?string
     {
         return $this->description;
     }
@@ -279,9 +280,9 @@ class Event extends AbstractEntity
     /**
      * Sets the description
      *
-     * @param string $description
+     * @param string|null $description
      */
-    public function setDescription($description): void
+    public function setDescription(?string $description): void
     {
         $this->description = $description;
     }
@@ -289,9 +290,9 @@ class Event extends AbstractEntity
     /**
      * Returns the keywords
      *
-     * @return string $keywords
+     * @return string|null $keywords
      */
-    public function getKeywords()
+    public function getKeywords(): ?string
     {
         return $this->keywords;
     }
@@ -299,9 +300,9 @@ class Event extends AbstractEntity
     /**
      * Sets the keywords
      *
-     * @param string $keywords
+     * @param string|null $keywords
      */
-    public function setKeywords($keywords): void
+    public function setKeywords(?string $keywords): void
     {
         $this->keywords = $keywords;
     }
@@ -329,9 +330,9 @@ class Event extends AbstractEntity
     /**
      * Returns the images
      *
-     * @return ObjectStorage $images
+     * @return ObjectStorage<FileReference>
      */
-    public function getImages()
+    public function getImages(): ObjectStorage
     {
         return $this->images;
     }
@@ -339,7 +340,7 @@ class Event extends AbstractEntity
     /**
      * Sets the images
      *
-     * @param ObjectStorage $images Images
+     * @param ObjectStorage<FileReference> $images Images
      */
     public function setImages(ObjectStorage $images): void
     {
@@ -369,9 +370,9 @@ class Event extends AbstractEntity
     /**
      * Returns the files
      *
-     * @return ObjectStorage $files
+     * @return ObjectStorage<FileReference>
      */
-    public function getFiles()
+    public function getFiles(): ObjectStorage
     {
         return $this->files;
     }
@@ -379,7 +380,7 @@ class Event extends AbstractEntity
     /**
      * Sets the files
      *
-     * @param ObjectStorage $files Files
+     * @param ObjectStorage<FileReference> $files Files
      */
     public function setFiles(ObjectStorage $files): void
     {
@@ -409,7 +410,7 @@ class Event extends AbstractEntity
      *
      * @return ObjectStorage<\DWenzel\T3events\Domain\Model\Event>
      */
-    public function getRelated()
+    public function getRelated(): ObjectStorage
     {
         return $this->related;
     }
@@ -445,9 +446,9 @@ class Event extends AbstractEntity
     /**
      * Returns the genre
      *
-     * @return ObjectStorage<Genre> $genre
+     * @return ObjectStorage<Genre>
      */
-    public function getGenre()
+    public function getGenre(): ObjectStorage
     {
         return $this->genre;
     }
@@ -465,9 +466,9 @@ class Event extends AbstractEntity
     /**
      * Returns the venue
      *
-     * @return ObjectStorage<Venue> $venue
+     * @return ObjectStorage<Venue>
      */
-    public function getVenue()
+    public function getVenue(): ObjectStorage
     {
         return $this->venue;
     }
@@ -503,9 +504,9 @@ class Event extends AbstractEntity
     /**
      * Returns the eventType
      *
-     * @return EventType $eventType
+     * @return EventType|null
      */
-    public function getEventType()
+    public function getEventType(): ?EventType
     {
         return $this->eventType;
     }
@@ -521,9 +522,9 @@ class Event extends AbstractEntity
     /**
      * Returns the headline
      *
-     * @return string headline
+     * @return string
      */
-    public function getHeadline()
+    public function getHeadline(): string
     {
         return $this->headline;
     }
@@ -532,9 +533,8 @@ class Event extends AbstractEntity
      * Sets the headline
      *
      * @param string $headline
-     * @return string headline
      */
-    public function setHeadline($headline): void
+    public function setHeadline(string $headline): void
     {
         $this->headline = $headline;
     }
@@ -542,9 +542,9 @@ class Event extends AbstractEntity
     /**
      * Returns the organizer
      *
-     * @return Organizer $organizer
+     * @return Organizer|null
      */
-    public function getOrganizer()
+    public function getOrganizer(): ?Organizer
     {
         return $this->organizer;
     }
@@ -560,23 +560,24 @@ class Event extends AbstractEntity
     /**
      * Get the earliest date of this event
      *
-     * @return \DateTime
+     * @return int|null
      */
-    public function getEarliestDate()
+    public function getEarliestDate(): ?int
     {
         $dates = [];
         foreach ($this->performances as $performance) {
-            $dates[] = $performance->getDate()->getTimestamp();
+            $date = $performance->getDate();
+            if ($date !== null) {
+                $dates[] = $date->getTimestamp();
+            }
         }
         sort($dates);
 
-        return $dates[0];
+        return $dates[0] ?? null;
     }
 
     /**
      * Adds a Performance
-     *
-     * @return ObjectStorage<Performance> performances
      */
     public function addPerformance(Performance $performance): void
     {
@@ -587,7 +588,6 @@ class Event extends AbstractEntity
      * Removes a Performance
      *
      * @param Performance $performanceToRemove The Performance to be removed
-     * @return ObjectStorage<Performance> performances
      */
     public function removePerformance(Performance $performanceToRemove): void
     {
@@ -597,9 +597,9 @@ class Event extends AbstractEntity
     /**
      * Returns the performances(s)
      *
-     * @return ObjectStorage<Performance> performances
+     * @return ObjectStorage<Performance>
      */
-    public function getPerformances()
+    public function getPerformances(): ObjectStorage
     {
         return $this->performances;
     }
@@ -608,7 +608,6 @@ class Event extends AbstractEntity
      * Sets the performances
      *
      * @param ObjectStorage<Performance> $performances
-     * @return ObjectStorage<Performance> performances
      */
     public function setPerformances(ObjectStorage $performances): void
     {
@@ -618,9 +617,9 @@ class Event extends AbstractEntity
     /**
      * Returns the audience
      *
-     * @return ObjectStorage<Audience> $audience
+     * @return ObjectStorage<Audience>
      */
-    public function getAudience()
+    public function getAudience(): ObjectStorage
     {
         return $this->audience;
     }
@@ -654,49 +653,49 @@ class Event extends AbstractEntity
     }
 
     /**
-     * @return \DateTime
+     * @return \DateTime|null
      */
-    public function getNewUntil()
+    public function getNewUntil(): ?\DateTime
     {
         return $this->newUntil;
     }
 
     /**
-     * @param \DateTime $newUntil
+     * @param \DateTime|null $newUntil
      */
-    public function setNewUntil($newUntil): void
+    public function setNewUntil(?\DateTime $newUntil): void
     {
         $this->newUntil = $newUntil;
     }
 
     /**
-     * @return \DateTime
+     * @return \DateTime|null
      */
-    public function getArchiveDate()
+    public function getArchiveDate(): ?\DateTime
     {
         return $this->archiveDate;
     }
 
     /**
-     * @param \DateTime $archiveDate
+     * @param \DateTime|null $archiveDate
      */
-    public function setArchiveDate($archiveDate): void
+    public function setArchiveDate(?\DateTime $archiveDate): void
     {
         $this->archiveDate = $archiveDate;
     }
 
     /**
-     * @return ObjectStorage<Content> contentElements
+     * @return ObjectStorage<Content>
      */
-    public function getContentElements()
+    public function getContentElements(): ObjectStorage
     {
         return $this->contentElements;
     }
 
     /**
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Content> contentElements
+     * @param ObjectStorage<Content> $contentElements
      */
-    public function setContentElements($contentElements): void
+    public function setContentElements(ObjectStorage $contentElements): void
     {
         $this->contentElements = $contentElements;
     }
@@ -712,29 +711,28 @@ class Event extends AbstractEntity
      * Removes a Content Element
      *
      * @param Content $contentElements The Content Element to be removed
-     * @return ObjectStorage<Content> contentElements
      */
     public function removeContentElements(Content $contentElements): void
     {
         $this->contentElements->detach($contentElements);
     }
 
-    public function getCrdate(): DateTime
+    public function getCrdate(): ?DateTime
     {
         return $this->crdate;
     }
 
-    public function setCrdate(DateTime $crdate): void
+    public function setCrdate(?DateTime $crdate): void
     {
         $this->crdate = $crdate;
     }
 
-    public function getTstamp(): DateTime
+    public function getTstamp(): ?DateTime
     {
         return $this->tstamp;
     }
 
-    public function setTstamp(DateTime $tstamp): void
+    public function setTstamp(?DateTime $tstamp): void
     {
         $this->tstamp = $tstamp;
     }

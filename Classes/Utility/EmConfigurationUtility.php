@@ -27,9 +27,9 @@ class EmConfigurationUtility
     /**
      * Parse settings and return it as array
      *
-     * @return array un-serialized settings from extension manager
+     * @return array<string, mixed> un-serialized settings from extension manager
      */
-    public static function parseSettings()
+    public static function parseSettings(): array
     {
         return $GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['t3events'] ?? [];
     }

@@ -26,12 +26,7 @@ use DWenzel\T3events\Domain\Repository\GenreRepository;
  */
 trait GenreRepositoryTrait
 {
-    /**
-     * Genre repository
-     *
-     * @var GenreRepository
-     */
-    protected $genreRepository;
+    protected GenreRepository $genreRepository;
 
     /**
      * Injects the genre repository

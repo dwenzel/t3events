@@ -28,9 +28,9 @@ class DateRangeViewHelper extends AbstractDateRangeViewHelper
     const ARGUMENT_EVENT_DESCRIPTION = 'Event for which the date range should be rendered.';
 
     /**
-     * @var ObjectStorage
+     * @var ObjectStorage<Performance>
      */
-    protected $performances;
+    protected ObjectStorage $performances;
 
     /**
      * Registers arguments with type, description and defaults
@@ -47,7 +47,7 @@ class DateRangeViewHelper extends AbstractDateRangeViewHelper
     /**
      * Renders the content
      */
-    public function render()
+    public function render(): string
     {
         /** @var Event $event */
         $event = $this->arguments['event'];
@@ -58,17 +58,21 @@ class DateRangeViewHelper extends AbstractDateRangeViewHelper
     }
 
     /**
-     * @return array An array of timestamps
+     * @return array<int, int> An array of timestamps
      */
     protected function getTimestamps(): array
     {
         $timestamps = [];
         /** @var Performance $performance */
         foreach ($this->performances as $performance) {
-            $timestamps[] = $performance->getDate()->getTimestamp();
+            $date = $performance->getDate();
+            if ($date !== null) {
+                $timestamps[] = $date->getTimestamp();
+            }
         }
-        sort(array_unique($timestamps));
+        $unique = array_unique($timestamps);
+        sort($unique);
 
-        return $timestamps;
+        return $unique;
     }
 }

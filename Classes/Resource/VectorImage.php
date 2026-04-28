@@ -32,7 +32,7 @@ class VectorImage extends \DOMDocument
             return;
         }
 
-        while ($element->hasChildNodes()) {
+        while ($element->hasChildNodes() && $element->firstChild !== null) {
             $element->removeChild($element->firstChild);
         }
         $textNode = $this->createTextNode($content);
@@ -43,11 +43,11 @@ class VectorImage extends \DOMDocument
      * Sets an attribute of a set of elements
      * to a common value
      *
-     * @param array $elementIds Array of IDs of elements
+     * @param list<string> $elementIds Array of IDs of elements
      * @param string $attributeName Name of attribute to set
      * @param string $attributeValue Value to set
      */
-    protected function setElementsAttribute(array $elementIds, $attributeName, $attributeValue): void
+    protected function setElementsAttribute(array $elementIds, string $attributeName, string $attributeValue): void
     {
         foreach ($elementIds as $elementId) {
             $element = $this->getElementById($elementId);
@@ -60,6 +60,8 @@ class VectorImage extends \DOMDocument
 
     /**
      * Hides elements by id
+     *
+     * @param list<string> $elementIds
      */
     public function hideElements(array $elementIds): void
     {
@@ -68,6 +70,8 @@ class VectorImage extends \DOMDocument
 
     /**
      * Shows elements by id
+     *
+     * @param list<string> $elementIds
      */
     public function showElements(array $elementIds): void
     {
@@ -82,9 +86,10 @@ class VectorImage extends \DOMDocument
      *
      * @param string $elementId
      */
-    public function getElementById($elementId): ?\DOMElement
+    public function getElementById(string $elementId): ?\DOMElement
     {
-        $element = $this->getXPath()->query("//*[@id='" . $elementId . "']")->item(0);
+        $result = $this->getXPath()->query("//*[@id='" . $elementId . "']");
+        $element = $result !== false ? $result->item(0) : null;
         if ($element instanceof \DOMElement) {
             return $element;
         }

@@ -25,13 +25,13 @@ class EventPluginFormDataProvider implements FormDataProviderInterface
     /**
      * @var BackendUtility
      */
-    protected $backendUtility;
+    protected BackendUtility $backendUtility;
 
     /**
      * injects the backend utility
      * @param BackendUtility|null $backendUtility
      */
-    public function __construct($backendUtility = null)
+    public function __construct(?BackendUtility $backendUtility = null)
     {
         if (!$backendUtility instanceof BackendUtility) {
             $backendUtility = GeneralUtility::makeInstance(BackendUtility::class);
@@ -42,6 +42,9 @@ class EventPluginFormDataProvider implements FormDataProviderInterface
     /**
      * Remove fields depending on switchable controller action in tt_content
      * Restrict category selection based on configuration in tt_content
+     *
+     * @param array<string, mixed> $result
+     * @return array<string, mixed>
      */
     public function addData(array $result): array
     {

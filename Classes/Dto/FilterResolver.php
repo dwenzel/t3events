@@ -28,11 +28,11 @@ class FilterResolver implements FilterResolverInterface
 {
 
     /**
-     * @var array Map of keys to Filter Classes
+     * @var array<string, class-string> Map of keys to Filter Classes
      *
      * Override in order to add implementation
      */
-    static $map = [
+    static array $map = [
         SI::AUDIENCES => AudienceFilter::class,
         SI::EVENT_TYPES => EventTypeFilter::class,
         SI::GENRES => GenreFilter::class,
@@ -45,7 +45,7 @@ class FilterResolver implements FilterResolverInterface
      *
      * If no filter exists for the key of NullFilter::class is returned
      *
-     * @return string class name
+     * @return class-string class name
      */
     public function resolve(string $key): string
     {

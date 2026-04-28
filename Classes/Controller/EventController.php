@@ -31,6 +31,7 @@ use DWenzel\T3events\Utility\SettingsInterface as SI;
 use DWenzel\T3events\Utility\SettingsUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
+use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
  * Class EventController
@@ -75,20 +76,23 @@ class EventController extends ActionController
     /**
      * action list
      *
-     * @param array $overwriteDemand
+     * @param array<string, mixed>|null $overwriteDemand
      */
-    public function listAction($overwriteDemand = null, int $currentPage = 1): ResponseInterface
+    public function listAction(?array $overwriteDemand = null, int $currentPage = 1): ResponseInterface
     {
-        if (!$overwriteDemand){
+        if ($overwriteDemand === null) {
             $sessionValue = $this->session->get('tx_t3events_overwriteDemand');
-            $overwriteDemand = $sessionValue !== null ? unserialize($sessionValue, ['allowed_classes' => false]) : null;
+            $overwriteDemand = is_string($sessionValue) ? unserialize($sessionValue, ['allowed_classes' => false]) : [];
+            if (!is_array($overwriteDemand)) {
+                $overwriteDemand = [];
+            }
         }
 
         $demand = $this->eventDemandFactory->createFromSettings($this->settings);
         $this->overwriteDemandObject($demand, $overwriteDemand);
         $events = $this->eventRepository->findDemanded($demand);
 
-        /** @var QueryResultInterface $events */
+        /** @var QueryResultInterface<\DWenzel\T3events\Domain\Model\Event> $events */
         if (
             !$events->count()
             && !$this->settings['hideIfEmptyResult']
@@ -100,12 +104,13 @@ class EventController extends ActionController
             );
         }
 
+        $contentObject = $this->request->getAttribute('currentContentObject');
         $templateVariables = [
             'events' => $events,
             'demand' => $demand,
             SI::SETTINGS => $this->settings,
             SI::OVERWRITE_DEMAND => $overwriteDemand,
-            'data' => $this->request->getAttribute('currentContentObject')->data
+            'data' => $contentObject instanceof ContentObjectRenderer ? $contentObject->data : []
         ];
 
         if (!empty($this->settings['event']['list']['paginate'])) {
@@ -117,6 +122,7 @@ class EventController extends ActionController
 
         $this->emitSignal(self::class, self::EVENT_LIST_ACTION, $templateVariables);
         $this->view->assignMultiple($templateVariables);
+        $this->addPageCacheTags(['tx_t3events_domain_model_event']);
         return $this->htmlResponse();
     }
 
@@ -132,7 +138,18 @@ class EventController extends ActionController
         ];
         $this->emitSignal(self::class, self::EVENT_SHOW_ACTION, $templateVariables);
         $this->view->assignMultiple($templateVariables);
+        $this->addPageCacheTags([
+            'tx_t3events_domain_model_event',
+            'tx_t3events_domain_model_event_' . $event->getUid(),
+        ]);
         return $this->htmlResponse();
+    }
+
+    protected function addPageCacheTags(array $tags): void
+    {
+        if (isset($GLOBALS['TSFE'])) {
+            $GLOBALS['TSFE']->addCacheTags($tags);
+        }
     }
 
     /**
@@ -143,7 +160,7 @@ class EventController extends ActionController
     {
         // get session data
         $sessionValue = $this->session->get('tx_t3events_overwriteDemand');
-        $overwriteDemand = $sessionValue !== null ? unserialize($sessionValue, ['allowed_classes' => false]) : null;
+        $overwriteDemand = is_string($sessionValue) ? unserialize($sessionValue, ['allowed_classes' => false]) : null;
 
         // get filter options from plugin
         $genres = $this->genreRepository->findMultipleByUid($this->settings[SI::GENRES], 'title');

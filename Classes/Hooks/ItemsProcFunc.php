@@ -36,7 +36,7 @@ class ItemsProcFunc
     /**
      * @var TemplateLayoutUtility
      */
-    protected object $templateLayoutUtility;
+    protected TemplateLayoutUtility $templateLayoutUtility;
 
     public function __construct()
     {
@@ -46,7 +46,7 @@ class ItemsProcFunc
     /**
      * Items process function to extend the selection of templateLayouts in the plugin
      *
-     * @param array &$config configuration array
+     * @param array<mixed> &$config configuration array
      */
     public function user_templateLayout(array &$config): void
     {
@@ -68,8 +68,10 @@ class ItemsProcFunc
      * @return LanguageService
      * @codeCoverageIgnore
      */
-    protected function getLanguageService()
+    protected function getLanguageService(): LanguageService
     {
-        return $GLOBALS['LANG'];
+        /** @var LanguageService $lang */
+        $lang = $GLOBALS['LANG'];
+        return $lang;
     }
 }

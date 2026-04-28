@@ -18,12 +18,13 @@ trait LocationConstraintRepositoryTrait
      * @var GeoCoder
      * @Inject
      */
-    protected $geoCoder;
+    protected GeoCoder $geoCoder;
 
     /**
      * Create location constraints from demand
      *
-     * @return array<\TYPO3\CMS\Extbase\Persistence\QOM\Constraint>
+     * @param QueryInterface<\TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface> $query
+     * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\ConstraintInterface>
      */
     public function createLocationConstraints(QueryInterface $query, SearchAwareDemandInterface $demand): array
     {
@@ -43,7 +44,9 @@ trait LocationConstraintRepositoryTrait
                 && empty($bounds)
             ) {
                 $geoLocation = $this->geoCoder->getLocation($location);
-                $bounds = $this->geoCoder->getBoundsByRadius($geoLocation['lat'], $geoLocation['lng'], $radius / 1000);
+                if ($geoLocation !== false) {
+                    $bounds = $this->geoCoder->getBoundsByRadius($geoLocation['lat'], $geoLocation['lng'], $radius / 1000);
+                }
             }
             if ($bounds &&
                 !empty($bounds['N']) &&

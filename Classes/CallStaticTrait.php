@@ -40,6 +40,8 @@ trait CallStaticTrait
         $parameters = func_get_args();
         $parameters = array_slice($parameters, 2); // Remove $className and $methodName
 
-        return call_user_func_array($className . '::' . $methodName, $parameters);
+        /** @var callable $callback */
+        $callback = $className . '::' . $methodName;
+        return call_user_func_array($callback, $parameters);
     }
 }

@@ -25,6 +25,7 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
 /**
  * Class AbstractDemandedRepository
  * @deprecated Use respository traits instead
+ * @extends Repository<\TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface>
  */
 abstract class AbstractDemandedRepository extends Repository implements DemandedRepositoryInterface
 {

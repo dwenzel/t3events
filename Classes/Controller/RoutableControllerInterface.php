@@ -25,9 +25,9 @@ interface RoutableControllerInterface
      * Searches for a route and if any found executes its method
      *
      * @see Route
-     * @param array|null $arguments Arguments for routing method
+     * @param array<string, mixed>|null $arguments Arguments for routing method
      * @param string|null $identifier An identifier for the route. If empty a default identifier for controller class and action name will be used.
      * @return mixed
      */
-    public function dispatch(array $arguments = null, $identifier = null);
+    public function dispatch(?array $arguments = null, ?string $identifier = null): mixed;
 }

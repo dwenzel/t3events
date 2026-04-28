@@ -29,22 +29,22 @@ trait VenueAwareDemandTrait
 {
 
     /**
-     * @var string
+     * @var string|null
      */
-    protected $venues;
+    protected ?string $venues = null;
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getVenues()
+    public function getVenues(): ?string
     {
         return $this->venues;
     }
 
     /**
-     * @param string $venues
+     * @param string|null $venues
      */
-    public function setVenues($venues): void
+    public function setVenues(?string $venues): void
     {
         $this->venues = $venues;
     }

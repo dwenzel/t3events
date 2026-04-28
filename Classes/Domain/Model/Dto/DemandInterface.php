@@ -20,58 +20,57 @@ namespace DWenzel\T3events\Domain\Model\Dto;
 interface DemandInterface
 {
     /**
-     * @return int
+     * @return int|null
      */
-    public function getLimit();
+    public function getLimit(): ?int;
 
     /**
-     * @param integer $limit
+     * @param int|null $limit
      */
-    public function setLimit($limit);
+    public function setLimit(?int $limit): void;
 
     /**
-     * @return integer
+     * @return int|null
      */
-    public function getOffset();
+    public function getOffset(): ?int;
 
     /**
-     * @param integer $offset
+     * @param int|null $offset
      */
-    public function setOffset($offset);
+    public function setOffset(?int $offset): void;
 
     /**
-     * @param string $sortBy The sort criteria in dot notation
-     * @return void
+     * @param string|null $sortBy The sort criteria in dot notation
      */
-    public function setSortBy($sortBy);
+    public function setSortBy(?string $sortBy): void;
 
     /**
-     * @return string The sort criteria in dot notation
+     * @return string|null The sort criteria in dot notation
      */
-    public function getSortBy();
+    public function getSortBy(): ?string;
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getOrder();
+    public function getOrder(): ?string;
 
     /**
-     * @param string $order A comma separated list of orderings: <sortField>|<sortDirection>,<otherSortField>|<sortDirection>
+     * @param string|null $order A comma separated list of orderings: <sortField>|<sortDirection>,<otherSortField>|<sortDirection>
      */
-    public function setOrder($order);
+    public function setOrder(?string $order): void;
 
     /**
-     * @param string $sortDirection The sort direction
+     * @param string|null $sortDirection The sort direction
      */
-    public function setSortDirection($sortDirection);
+    public function setSortDirection(?string $sortDirection): void;
 
     /**
-     * @return string The sort direction
+     * @return string|null The sort direction
      */
-    public function getSortDirection();
+    public function getSortDirection(): ?string;
 
     /**
-     * @return string Comma separated list of storage page ids
+     * @return string|null Comma separated list of storage page ids
      */
-    public function getStoragePages();
+    public function getStoragePages(): ?string;
 }

@@ -2,6 +2,7 @@
 namespace DWenzel\T3events\Controller;
 
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use DWenzel\T3events\Domain\Model\Dto\ModuleData;
 use DWenzel\T3events\Service\ModuleDataStorageService;
@@ -21,14 +22,11 @@ trait ModuleDataTrait
     protected ModuleDataStorageService $moduleDataStorageService;
 
     /**
-     * @return array
+     * @return array<mixed>
      */
-    abstract public function mergeSettings();
+    abstract public function mergeSettings(): array;
 
-    /**
-     * @return string
-     */
-    abstract public function getModuleKey();
+    abstract public function getModuleKey(): string;
 
     public function processRequest(RequestInterface $request): ResponseInterface
     {
@@ -50,7 +48,9 @@ trait ModuleDataTrait
      */
     public function initializeAction(): void
     {
-        $this->pageUid = (int)($GLOBALS['TYPO3_REQUEST']->getQueryParams()['id'] ?? null);
+        /** @var ServerRequestInterface $typo3Request */
+        $typo3Request = $GLOBALS['TYPO3_REQUEST'];
+        $this->pageUid = (int)($typo3Request->getQueryParams()['id'] ?? null);
         $this->settings = $this->mergeSettings();
     }
 
@@ -65,10 +65,7 @@ trait ModuleDataTrait
         return new ForwardResponse('list');
     }
 
-    /**
-     * @return ModuleData
-     */
-    public function getModuleData()
+    public function getModuleData(): ModuleData
     {
         return $this->moduleData;
     }

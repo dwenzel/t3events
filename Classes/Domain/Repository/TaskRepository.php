@@ -19,6 +19,7 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
  * Class TaskRepository
  *
  * @package DWenzel\T3events\Domain\Repository
+ * @extends Repository<\TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface>
  */
 class TaskRepository extends Repository implements TaskRepositoryInterface
 {

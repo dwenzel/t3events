@@ -40,7 +40,8 @@ interface PeriodConstraintRepositoryInterface
     /**
      * Create period constraints from demand (time restriction)
      *
-     * @return array<\TYPO3\CMS\Extbase\Persistence\QOM\Constraint>
+     * @param QueryInterface<\TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface> $query
+     * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\ConstraintInterface>
      */
-    public function createPeriodConstraints(QueryInterface $query, PeriodAwareDemandInterface $demand);
+    public function createPeriodConstraints(QueryInterface $query, PeriodAwareDemandInterface $demand): array;
 }

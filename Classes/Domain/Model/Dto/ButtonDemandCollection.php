@@ -26,13 +26,15 @@ class ButtonDemandCollection
     /**
      * @var ObjectStorage<ButtonDemand>
      */
-    protected $demands;
+    protected ObjectStorage $demands;
 
 
     /**
      * Constructor
+     *
+     * @param array<mixed>|null $settings
      */
-    public function __construct(array $settings = null)
+    public function __construct(?array $settings = null)
     {
         //Do not remove the next line: It would break the functionality
         $this->initStorageObjects();
@@ -51,7 +53,7 @@ class ButtonDemandCollection
      *
      * @return void
      */
-    protected function initStorageObjects()
+    protected function initStorageObjects(): void
     {
         $this->demands = new ObjectStorage();
     }
@@ -59,9 +61,9 @@ class ButtonDemandCollection
     /**
      * Creates a single button demand from settings and adds it to this collection
      *
-     * @param $buttonConfig
+     * @param array<string, mixed> $buttonConfig
      */
-    protected function createSingleDemand($buttonConfig)
+    protected function createSingleDemand(array $buttonConfig): void
     {
         $demand = new ButtonDemand();
         if (!empty($buttonConfig[ButtonDemand::TABLE_KEY])) {
@@ -97,13 +99,13 @@ class ButtonDemandCollection
     /**
      * @return ObjectStorage<ButtonDemand>
      */
-    public function getDemands()
+    public function getDemands(): ObjectStorage
     {
         return $this->demands;
     }
 
     /**
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<DWenzel\T3events\Domain\Model\Dto\ButtonDemand>
+     * @param ObjectStorage<ButtonDemand> $demands
      */
     public function setDemands(ObjectStorage $demands): void
     {

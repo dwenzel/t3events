@@ -39,7 +39,7 @@ trait CategorizableTrait
      * @var ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category>
      */
     #[Lazy]
-    protected $categories;
+    protected ObjectStorage $categories;
 
     /**
      * Adds a Category
@@ -60,9 +60,9 @@ trait CategorizableTrait
     /**
      * Returns the categories
      *
-     * @return ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category> $categories
+     * @return ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category>
      */
-    public function getCategories()
+    public function getCategories(): ObjectStorage
     {
         return $this->categories;
     }

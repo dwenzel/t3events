@@ -24,6 +24,8 @@ use Iterator;
 
 /**
  * Class FilterCollection
+ *
+ * @implements Iterator<string, FilterInterface>
  */
 class FilterCollection implements Iterator, Countable
 {
@@ -35,16 +37,16 @@ class FilterCollection implements Iterator, Countable
      *   spl_object_hash => $filter
      * ]
      *
-     * @var array
+     * @var array<string, FilterInterface>
      */
-    protected $storage = [];
+    protected array $storage = [];
 
     /**
      * Returns the current storage entry
      *
      * @return FilterInterface|false
      */
-    public function current(): FilterInterface
+    public function current(): FilterInterface|false
     {
         return current($this->storage);
     }
@@ -62,7 +64,7 @@ class FilterCollection implements Iterator, Countable
      *
      * The key is an object hash
      */
-    public function key(): int
+    public function key(): string|int|null
     {
         return key($this->storage);
     }

@@ -35,21 +35,23 @@ abstract class Combined implements PluginConfigurationInterface
 {
     use PluginConfigurationTrait;
 
-    static protected $pluginName = 'Events';
-    static protected $pluginSignature = 't3events_events';
-    static protected $pluginTitle = 'LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:plugin.combined.title';
-    static protected $flexForm = 'FILE:EXT:t3events/Configuration/FlexForms/flexform_events.xml';
-    static protected $controllerActions = [
+    static protected string $pluginName = 'Events';
+    static protected string $pluginSignature = 't3events_events';
+    static protected string $pluginTitle = 'LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:plugin.combined.title';
+    static protected string $flexForm = 'FILE:EXT:t3events/Configuration/FlexForms/flexform_events.xml';
+    /** @var array<string, string> */
+    static protected array $controllerActions = [
         EventController::class => 'list, show, quickMenu',
         PerformanceController::class => 'list, show, quickMenu',
     ];
 
-    static protected $nonCacheableControllerActions = [
+    /** @var array<string, string> */
+    static protected array $nonCacheableControllerActions = [
         EventController::class => 'quickMenu',
         PerformanceController::class => 'quickMenu',
     ];
 
-    static protected $extensionName = ExtensionConfiguration::EXTENSION_KEY;
+    static protected string $extensionName = ExtensionConfiguration::EXTENSION_KEY;
 
     static protected string $vendorExtensionName = ExtensionConfiguration::VENDOR . '.' . ExtensionConfiguration::EXTENSION_KEY;
 

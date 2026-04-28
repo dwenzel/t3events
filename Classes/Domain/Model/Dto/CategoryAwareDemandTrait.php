@@ -29,22 +29,22 @@ trait CategoryAwareDemandTrait
 {
 
     /**
-     * @var string
+     * @var string|null
      */
-    protected $categories;
+    protected ?string $categories = null;
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getCategories()
+    public function getCategories(): ?string
     {
         return $this->categories;
     }
 
     /**
-     * @param string $categories
+     * @param string|null $categories
      */
-    public function setCategories($categories): void
+    public function setCategories(?string $categories): void
     {
         $this->categories = $categories;
     }

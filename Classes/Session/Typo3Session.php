@@ -23,16 +23,16 @@ class Typo3Session implements SessionInterface
 {
 
     /**
-     * @var array
+     * @var array<mixed>
      */
-    protected $data = [];
+    protected array $data = [];
 
     /**
      * Typo3Session constructor.
      *
      * @param string $namespace
      */
-    public function __construct(protected $namespace = '')
+    public function __construct(protected string $namespace = '')
     {
     }
 
@@ -41,7 +41,7 @@ class Typo3Session implements SessionInterface
      *
      * @param string $identifier
      */
-    public function has($identifier) : bool
+    public function has(string $identifier): bool
     {
         return (bool) $this->get($identifier);
     }
@@ -52,7 +52,7 @@ class Typo3Session implements SessionInterface
      * @param string $identifier
      * @param mixed $value
      */
-    public function set($identifier, $value): void
+    public function set(string $identifier, mixed $value): void
     {
         $this->data[$identifier] = $value;
         $GLOBALS['TSFE']->fe_user->setKey('ses', $this->namespace, $this->data);
@@ -65,7 +65,7 @@ class Typo3Session implements SessionInterface
      * @param string $identifier
      * @return mixed
      */
-    public function get($identifier)
+    public function get(string $identifier): mixed
     {
         if ($this->data === []) {
             $this->data = (array) $GLOBALS['TSFE']->fe_user->getKey('ses', $this->namespace);
@@ -86,7 +86,7 @@ class Typo3Session implements SessionInterface
      *
      * @param string $namespace
      */
-    public function setNamespace($namespace): void
+    public function setNamespace(string $namespace): void
     {
         $this->namespace = $namespace;
     }

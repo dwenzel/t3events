@@ -26,7 +26,7 @@ interface RouterInterface
      * @param Route $route A route
      * @param string|null $identifier Optional identifier
      */
-    public function addRoute($route, $identifier = null);
+    public function addRoute(Route $route, ?string $identifier = null): void;
 
     /**
      * Get a route by identifier
@@ -34,12 +34,12 @@ interface RouterInterface
      * @param string $identifier Identifier
      * @return Route
      */
-    public function getRoute($identifier);
+    public function getRoute(string $identifier): Route;
 
     /**
      * Get all routes
      *
-     * @return array<Route> An array of Route objects
+     * @return array<string, Route> An array of Route objects
      */
-    public function getRoutes();
+    public function getRoutes(): array;
 }

@@ -27,12 +27,7 @@ use DWenzel\T3events\Domain\Repository\CompanyRepository;
  */
 trait CompanyRepositoryTrait
 {
-    /**
-     * Company Repository
-     *
-     * @var CompanyRepository
-     */
-    protected $companyRepository;
+    protected CompanyRepository $companyRepository;
 
     /**
      * injectCompanyRepository

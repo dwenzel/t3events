@@ -28,6 +28,8 @@ interface FilterInterface
 
     /**
      * Returns the filter options
+     *
+     * @return iterable<mixed>
      */
     public function getOptions(): iterable;
 
@@ -41,6 +43,8 @@ interface FilterInterface
      *
      * This method is supposed to be called after creation of
      * the filter object and should provide the options
+     *
+     * @param array<mixed> $configuration
      */
     public function configure(array $configuration): void;
 }

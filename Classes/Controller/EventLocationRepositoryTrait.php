@@ -24,12 +24,7 @@ use DWenzel\T3events\Domain\Repository\EventLocationRepository;
  */
 trait EventLocationRepositoryTrait
 {
-    /**
-     * EventLocation repository
-     *
-     * @var EventLocationRepository
-     */
-    protected $eventLocationRepository;
+    protected EventLocationRepository $eventLocationRepository;
 
     /**
      * Injects the eventLocation repository

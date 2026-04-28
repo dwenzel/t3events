@@ -46,7 +46,7 @@ class ResourceFactory extends CoreResourceFactory
      *
      * @param $identifier
      */
-    public function getFileObjectByCombinedIdentifier($identifier): ?FileInterface
+    public function getFileObjectByCombinedIdentifier(string $identifier): ?FileInterface
     {
         $file = $this->retrieveFileOrFolderObject(
             $identifier
@@ -61,10 +61,10 @@ class ResourceFactory extends CoreResourceFactory
     /**
      * Creates a new (extbase) file reference from a given file object
      *
-     * @param FileInterface|File $file
+     * @param File $file
      * @return FileReference
      */
-    public function createFileReferenceFromFileObject(File $file)
+    public function createFileReferenceFromFileObject(File $file): FileReference
     {
         $coreFileReference =  $this->createFileReferenceObject(
             [

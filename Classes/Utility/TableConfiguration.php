@@ -39,9 +39,9 @@ class TableConfiguration
 
     /**
      * Icon paths by TYPO3 version
-     * @var array
+     * @var array<int, array<string, string>>
      */
-    protected static $iconPaths = [
+    protected static array $iconPaths = [
         8 => [
             'add' => 'actions-add',
             'edit' => 'actions-open',
@@ -70,7 +70,7 @@ class TableConfiguration
      * @param string $wizardName
      * @return string|null
      */
-    public static function getWizardIcon($wizardName)
+    public static function getWizardIcon(string $wizardName): ?string
     {
         $version = self::getVersion();
         if (isset(self::$iconPaths[$version]) && !empty(self::$iconPaths[$version][$wizardName])) {

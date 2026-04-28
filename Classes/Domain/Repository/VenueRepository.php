@@ -32,7 +32,8 @@ class VenueRepository extends AbstractDemandedRepository
     /**
      * Returns an array of constraints created from a given demand object.
      *
-     * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint>
+     * @param QueryInterface<\TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface> $query
+     * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\ConstraintInterface>
      */
     public function createConstraintsFromDemand(QueryInterface $query, DemandInterface $demand): array
     {

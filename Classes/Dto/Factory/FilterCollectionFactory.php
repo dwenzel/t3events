@@ -32,6 +32,8 @@ class FilterCollectionFactory
 
     /**
      * Builds a FilterCollection from configuration
+     *
+     * @param array<mixed> $configuration
      */
     public function create(array $configuration): FilterCollection
     {

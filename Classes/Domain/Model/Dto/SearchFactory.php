@@ -25,11 +25,11 @@ class SearchFactory
     /**
      * Creates a search object from given settings
      *
-     * @param array $searchRequest An array with the search request
-     * @param array $settings Settings for search
-     * @return Search $search
+     * @param array<string, mixed> $searchRequest An array with the search request
+     * @param array<string, mixed> $settings Settings for search
+     * @return Search
      */
-    public function get($searchRequest, $settings)
+    public function get(array $searchRequest, array $settings): Search
     {
         /** @var Search $searchObject */
         $searchObject = GeneralUtility::makeInstance(Search::class);

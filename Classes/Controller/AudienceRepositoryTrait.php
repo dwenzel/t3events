@@ -27,12 +27,7 @@ use DWenzel\T3events\Domain\Repository\AudienceRepository;
  */
 trait AudienceRepositoryTrait
 {
-    /**
-     * Audience Repository
-     *
-     * @var AudienceRepository
-     */
-    protected $audienceRepository;
+    protected AudienceRepository $audienceRepository;
 
     /**
      * injectAudienceRepository

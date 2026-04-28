@@ -6,45 +6,42 @@ interface LocationAwareInterface
     /**
      * Get Bounds
      *
-     * @return array An array describing a bounding box around a geolocation
+     * @return array<string, mixed>|null An array describing a bounding box around a geolocation
      */
-    public function getBounds();
+    public function getBounds(): ?array;
 
     /**
      * Get location
      *
-     * @return string A string describing a location
+     * @return string|null A string describing a location
      */
-    public function getLocation();
+    public function getLocation(): ?string;
 
     /**
      * Get radius
      *
-     * @return integer The search radius in meter around the search location
+     * @return int|null The search radius in meter around the search location
      */
-    public function getRadius();
+    public function getRadius(): ?int;
 
     /**
      * Set Bounds
      *
-     * @param array $bounds
-     * @return void
+     * @param array<string, mixed>|null $bounds
      */
-    public function setBounds($bounds);
+    public function setBounds(?array $bounds): void;
 
     /**
      * Set location
      *
-     * @param string $location A string describing a location
-     * @return void
+     * @param string|null $location A string describing a location
      */
-    public function setLocation($location);
+    public function setLocation(?string $location): void;
 
     /**
      * Set radius
      *
-     * @param integer $radius The search radius in meter
-     * @return void
+     * @param int|null $radius The search radius in meter
      */
-    public function setRadius($radius);
+    public function setRadius(?int $radius): void;
 }

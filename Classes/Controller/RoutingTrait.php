@@ -14,10 +14,7 @@ use DWenzel\T3events\Utility\SettingsInterface as SI;
  */
 trait RoutingTrait
 {
-    /**
-     * @var RouterInterface
-     */
-    protected $router;
+    protected RouterInterface $router;
 
     /**
      * Injects the router
@@ -35,7 +32,7 @@ trait RoutingTrait
      * @param array|null $arguments Optional arguments for routing method
      * @param string|null $identifier An identifier for the route. If empty a default identifier for controller class and action name will be used.
      */
-    public function dispatch(array $arguments = null, $identifier = null): void
+    public function dispatch(?array $arguments = null, ?string $identifier = null): void
     {
         if (is_null($identifier)) {
             $identifier = $this->getOrigin();

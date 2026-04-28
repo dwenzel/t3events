@@ -36,10 +36,11 @@ class PeriodConstraintLegendNode extends AbstractFormElement
     /**
      * @var PeriodConstraintLegend
      */
-    protected object $image;
+    protected PeriodConstraintLegend $image;
 
-
-    protected $parameters = [];
+    /** @var array<mixed> */
+    protected array $parameters = [];
+    /** @param array<string, mixed> $data */
     public function __construct(NodeFactory $nodeFactory, array $data)
     {
         parent::__construct($nodeFactory, $data);
@@ -47,7 +48,10 @@ class PeriodConstraintLegendNode extends AbstractFormElement
         $this->image = GeneralUtility::makeInstance(PeriodConstraintLegend::class);
     }
 
-    public function render()
+    /**
+     * @return array<string, mixed>
+     */
+    public function render(): array
     {
         $result = $this->initializeResultArray();
         $result['html'] = $this->image->render($this->parameters);

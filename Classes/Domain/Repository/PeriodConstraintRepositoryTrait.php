@@ -19,7 +19,8 @@ trait PeriodConstraintRepositoryTrait
     /**
      * Create period constraints from demand (time restriction)
      *
-     * @return array<\TYPO3\CMS\Extbase\Persistence\QOM\Constraint>
+     * @param QueryInterface<\TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface> $query
+     * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\ConstraintInterface>
      * @throws InvalidQueryException
      */
     public function createPeriodConstraints(QueryInterface $query, PeriodAwareDemandInterface $demand): array
@@ -87,7 +88,7 @@ trait PeriodConstraintRepositoryTrait
      * @param \DateTime $startDate
      * @param \DateTime $endDate
      */
-    protected function determineDateRange(PeriodAwareDemandInterface $demand, &$startDate, &$endDate)
+    protected function determineDateRange(PeriodAwareDemandInterface $demand, \DateTime &$startDate, \DateTime &$endDate): void
     {
         // period constraints
         $period = $demand->getPeriod();
@@ -97,11 +98,11 @@ trait PeriodConstraintRepositoryTrait
 
         if ($period === SI::SPECIFIC && $periodType) {
             // get delta value
-            $deltaStart = ($periodStart < 0) ? $periodStart : '+' . $periodStart;
+            $deltaStart = ($periodStart < 0) ? (string)$periodStart : '+' . $periodStart;
             $deltaEnd = ($periodDuration > 0) ? '+' . $periodDuration : '+' . 999;
 
-            $year = $startDate->format('Y');
-            $month = $startDate->format('m');
+            $year = (int)$startDate->format('Y');
+            $month = (int)$startDate->format('m');
 
             // get specific delta
             switch ($periodType) {

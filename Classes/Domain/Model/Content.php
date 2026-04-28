@@ -29,508 +29,267 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
  ***************************************************************/
 class Content extends AbstractEntity
 {
-    /**
-     * @var \DateTime
-     */
-    protected $crdate;
+    protected ?\DateTime $crdate = null;
+    protected ?\DateTime $tstamp = null;
+    protected ?string $CType = null;
+    protected ?string $header = null;
+    protected ?string $headerPosition = null;
+    protected ?string $bodytext = null;
+    protected ?int $colPos = null;
+    protected ?string $image = null;
+    protected ?int $imagewidth = null;
+    protected ?int $imageorient = null;
+    protected ?string $imagecaption = null;
+    protected ?int $imagecols = null;
+    protected ?int $imageborder = null;
+    protected ?string $media = null;
+    protected ?string $layout = null;
+    protected ?int $cols = null;
+    protected ?string $subheader = null;
+    protected ?string $headerLink = null;
+    protected ?string $imageLink = null;
+    protected ?string $imageZoom = null;
+    protected ?string $altText = null;
+    protected ?string $titleText = null;
+    protected ?string $headerLayout = null;
+    protected ?string $listType = null;
 
-    /**
-     * @var \DateTime
-     */
-    protected $tstamp;
-
-    /**
-     * @var string
-     */
-    protected $CType;
-
-    /**
-     * @var string
-     */
-    protected $header;
-
-    /**
-     * @var string
-     */
-    protected $headerPosition;
-
-    /**
-     * @var string
-     */
-    protected $bodytext;
-
-    /**
-     * @var int
-     */
-    protected $colPos;
-
-    /**
-     * @var string
-     */
-    protected $image;
-
-    /**
-     * @var int
-     */
-    protected $imagewidth;
-
-    /**
-     * @var int
-     */
-    protected $imageorient;
-
-    /**
-     * @var string
-     */
-    protected $imagecaption;
-
-    /**
-     * @var int
-     */
-    protected $imagecols;
-
-    /**
-     * @var int
-     */
-    protected $imageborder;
-
-    /**
-     * @var string
-     */
-    protected $media;
-
-    /**
-     * @var string
-     */
-    protected $layout;
-
-    /**
-     * @var int
-     */
-    protected $cols;
-
-    /**
-     * @var string
-     */
-    protected $subheader;
-
-    /**
-     * @var string
-     */
-    protected $headerLink;
-
-    /**
-     * @var string
-     */
-    protected $imageLink;
-
-    /**
-     * @var string
-     */
-    protected $imageZoom;
-
-    /**
-     * @var string
-     */
-    protected $altText;
-
-    /**
-     * @var string
-     */
-    protected $titleText;
-
-    /**
-     * @var string
-     */
-    protected $headerLayout;
-
-    /**
-     * @var string
-     */
-    protected $listType;
-
-    /**
-     * @return \DateTime
-     */
-    public function getCrdate()
+    public function getCrdate(): ?\DateTime
     {
         return $this->crdate;
     }
 
-    /**
-     * @param $crdate
-     */
-    public function setCrdate($crdate): void
+    public function setCrdate(?\DateTime $crdate): void
     {
         $this->crdate = $crdate;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getTstamp()
+    public function getTstamp(): ?\DateTime
     {
         return $this->tstamp;
     }
 
-    /**
-     * @param $tstamp
-     */
-    public function setTstamp($tstamp): void
+    public function setTstamp(?\DateTime $tstamp): void
     {
         $this->tstamp = $tstamp;
     }
 
-    /**
-     * @return string
-     */
-    public function getCType()
+    public function getCType(): ?string
     {
         return $this->CType;
     }
 
-    /**
-     * @param $ctype
-     */
-    public function setCType($ctype): void
+    public function setCType(?string $ctype): void
     {
         $this->CType = $ctype;
     }
 
-    /**
-     * @return string
-     */
-    public function getHeader()
+    public function getHeader(): ?string
     {
         return $this->header;
     }
 
-    /**
-     * @param $header
-     */
-    public function setHeader($header): void
+    public function setHeader(?string $header): void
     {
         $this->header = $header;
     }
 
-    /**
-     * @return string
-     */
-    public function getHeaderPosition()
+    public function getHeaderPosition(): ?string
     {
         return $this->headerPosition;
     }
 
-    /**
-     * @param $headerPosition
-     */
-    public function setHeaderPosition($headerPosition): void
+    public function setHeaderPosition(?string $headerPosition): void
     {
         $this->headerPosition = $headerPosition;
     }
 
-    /**
-     * @return string
-     */
-    public function getBodytext()
+    public function getBodytext(): ?string
     {
         return $this->bodytext;
     }
 
-    /**
-     * @param $bodytext
-     */
-    public function setBodytext($bodytext): void
+    public function setBodytext(?string $bodytext): void
     {
         $this->bodytext = $bodytext;
     }
 
-    /**
-     * Get the colpos
-     */
     public function getColPos(): int
     {
         return (int)$this->colPos;
     }
 
-    /**
-     * Set colpos
-     *
-     * @param int $colPos
-     */
-    public function setColPos($colPos): void
+    public function setColPos(?int $colPos): void
     {
         $this->colPos = $colPos;
     }
 
-    /**
-     * @return string
-     */
-    public function getImage()
+    public function getImage(): ?string
     {
         return $this->image;
     }
 
-    /**
-     * @param $image
-     */
-    public function setImage($image): void
+    public function setImage(?string $image): void
     {
         $this->image = $image;
     }
 
-    /**
-     * @return int
-     */
-    public function getImagewidth()
+    public function getImagewidth(): ?int
     {
         return $this->imagewidth;
     }
 
-    /**
-     * @param $imagewidth
-     */
-    public function setImagewidth($imagewidth): void
+    public function setImagewidth(?int $imagewidth): void
     {
         $this->imagewidth = $imagewidth;
     }
 
-    /**
-     * @return int
-     */
-    public function getImageorient()
+    public function getImageorient(): ?int
     {
         return $this->imageorient;
     }
 
-    /**
-     * @param $imageorient
-     */
-    public function setImageorient($imageorient): void
+    public function setImageorient(?int $imageorient): void
     {
         $this->imageorient = $imageorient;
     }
 
-    /**
-     * @return string
-     */
-    public function getImagecaption()
+    public function getImagecaption(): ?string
     {
         return $this->imagecaption;
     }
 
-    /**
-     * @param $imagecaption
-     */
-    public function setImagecaption($imagecaption): void
+    public function setImagecaption(?string $imagecaption): void
     {
         $this->imagecaption = $imagecaption;
     }
 
-    /**
-     * @return int
-     */
-    public function getImagecols()
+    public function getImagecols(): ?int
     {
         return $this->imagecols;
     }
 
-    /**
-     * @param $imagecols
-     */
-    public function setImagecols($imagecols): void
+    public function setImagecols(?int $imagecols): void
     {
         $this->imagecols = $imagecols;
     }
 
-    /**
-     * @return int
-     */
-    public function getImageborder()
+    public function getImageborder(): ?int
     {
         return $this->imageborder;
     }
 
-    /**
-     * @param $imageborder
-     */
-    public function setImageborder($imageborder): void
+    public function setImageborder(?int $imageborder): void
     {
         $this->imageborder = $imageborder;
     }
 
-    /**
-     * @return string
-     */
-    public function getMedia()
+    public function getMedia(): ?string
     {
         return $this->media;
     }
 
-    /**
-     * @param $media
-     */
-    public function setMedia($media): void
+    public function setMedia(?string $media): void
     {
         $this->media = $media;
     }
 
-    /**
-     * @return string
-     */
-    public function getLayout()
+    public function getLayout(): ?string
     {
         return $this->layout;
     }
 
-    /**
-     * @param $layout
-     */
-    public function setLayout($layout): void
+    public function setLayout(?string $layout): void
     {
         $this->layout = $layout;
     }
 
-    /**
-     * @return int
-     */
-    public function getCols()
+    public function getCols(): ?int
     {
         return $this->cols;
     }
 
-    /**
-     * @param $cols
-     */
-    public function setCols($cols): void
+    public function setCols(?int $cols): void
     {
         $this->cols = $cols;
     }
 
-    /**
-     * @return string
-     */
-    public function getSubheader()
+    public function getSubheader(): ?string
     {
         return $this->subheader;
     }
 
-    /**
-     * @param $subheader
-     */
-    public function setSubheader($subheader): void
+    public function setSubheader(?string $subheader): void
     {
         $this->subheader = $subheader;
     }
 
-    /**
-     * @return string
-     */
-    public function getHeaderLink()
+    public function getHeaderLink(): ?string
     {
         return $this->headerLink;
     }
 
-    /**
-     * @param $headerLink
-     */
-    public function setHeaderLink($headerLink): void
+    public function setHeaderLink(?string $headerLink): void
     {
         $this->headerLink = $headerLink;
     }
 
-    /**
-     * @return string
-     */
-    public function getImageLink()
+    public function getImageLink(): ?string
     {
         return $this->imageLink;
     }
 
-    /**
-     * @param $imageLink
-     */
-    public function setImageLink($imageLink): void
+    public function setImageLink(?string $imageLink): void
     {
         $this->imageLink = $imageLink;
     }
 
-    /**
-     * @return string
-     */
-    public function getImageZoom()
+    public function getImageZoom(): ?string
     {
         return $this->imageZoom;
     }
 
-    /**
-     * @param $imageZoom
-     */
-    public function setImageZoom($imageZoom): void
+    public function setImageZoom(?string $imageZoom): void
     {
         $this->imageZoom = $imageZoom;
     }
 
-    /**
-     * @return string
-     */
-    public function getAltText()
+    public function getAltText(): ?string
     {
         return $this->altText;
     }
 
-    /**
-     * @param $altText
-     */
-    public function setAltText($altText): void
+    public function setAltText(?string $altText): void
     {
         $this->altText = $altText;
     }
 
-    /**
-     * @return string
-     */
-    public function getTitleText()
+    public function getTitleText(): ?string
     {
         return $this->titleText;
     }
 
-    /**
-     * @param $titleText
-     */
-    public function setTitleText($titleText): void
+    public function setTitleText(?string $titleText): void
     {
         $this->titleText = $titleText;
     }
 
-    /**
-     * @return string
-     */
-    public function getHeaderLayout()
+    public function getHeaderLayout(): ?string
     {
         return $this->headerLayout;
     }
 
-    /**
-     * @param $headerLayout
-     */
-    public function setHeaderLayout($headerLayout): void
+    public function setHeaderLayout(?string $headerLayout): void
     {
         $this->headerLayout = $headerLayout;
     }
 
-    /**
-     * @return string
-     */
-    public function getListType()
+    public function getListType(): ?string
     {
         return $this->listType;
     }
 
-    /**
-     * @param $listType
-     */
-    public function setListType($listType): void
+    public function setListType(?string $listType): void
     {
         $this->listType = $listType;
     }

@@ -4,7 +4,7 @@ namespace DWenzel\T3events\Configuration;
 use TYPO3\CMS\Backend\Form\Element\UserElement;
 use DWenzel\T3events\InvalidConfigurationException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Lang\LanguageService;
+use TYPO3\CMS\Core\Localization\LanguageService;
 use DWenzel\T3events\DataProvider\Legend\LayeredLegendDataProviderInterface;
 use DWenzel\T3events\DataProvider\Legend\PeriodAllDataProvider;
 use DWenzel\T3events\DataProvider\Legend\PeriodDataProviderFactory;
@@ -45,22 +45,23 @@ class PeriodConstraintLegend extends VectorImage
     const END_TEXT_LAYER_ID = 'text-end-text';
 
     /**
-     * @var LayeredLegendDataProviderInterface
+     * @var LayeredLegendDataProviderInterface|null
      */
-    protected $dataProvider;
+    protected ?LayeredLegendDataProviderInterface $dataProvider = null;
 
     /**
      * @var string
      */
-    protected $xmlFilePath = 'EXT:t3events/Resources/Public/Images/period_constraints.svg';
+    protected string $xmlFilePath = 'EXT:t3events/Resources/Public/Images/period_constraints.svg';
 
     /**
-     * @param UserElement $parentObject
-     * @return string
+     * @param array<string, mixed> $params
+     * @param UserElement|null $parentObject
+     * @return string|false
      * @throws MissingFileException
      * @throws InvalidConfigurationException
      */
-    public function render(array $params, $parentObject = null): string|false
+    public function render(array $params, mixed $parentObject = null): string|false
     {
         $this->initialize($params);
         $this->updateLayers();
@@ -70,7 +71,7 @@ class PeriodConstraintLegend extends VectorImage
     }
 
     /**
-     * @param $params
+     * @param array<string, mixed> $params
      * @throws MissingFileException
      * @throws InvalidConfigurationException
      */
@@ -90,7 +91,7 @@ class PeriodConstraintLegend extends VectorImage
     /**
      * @return PeriodDataProviderFactory
      */
-    public function getDataProviderFactory(): object
+    public function getDataProviderFactory(): PeriodDataProviderFactory
     {
         return GeneralUtility::makeInstance(PeriodDataProviderFactory::class);
     }
@@ -99,18 +100,23 @@ class PeriodConstraintLegend extends VectorImage
      * Enables and disables layers depending on values of
      * period and respectEndDate*
      */
-    protected function updateLayers()
+    protected function updateLayers(): void
     {
+        if ($this->dataProvider === null) {
+            return;
+        }
         $this->hideElements($this->dataProvider->getAllLayerIds());
         $this->showElements($this->dataProvider->getVisibleLayerIds());
     }
 
     /**
      * Sets the label in svg respecting current language
-
      */
-    protected function setLabels()
+    protected function setLabels(): void
     {
+        if ($this->dataProvider === null) {
+            return;
+        }
         $startPointKey = self::START_POINT_KEY;
 
         if ($this->dataProvider instanceof PeriodFutureDataProvider
@@ -129,12 +135,12 @@ class PeriodConstraintLegend extends VectorImage
 
     /**
      * Gets the language service
-     *
-     * @return LanguageService
      */
-    protected function getLanguageService()
+    protected function getLanguageService(): LanguageService
     {
-        return $GLOBALS['LANG'];
+        /** @var LanguageService $lang */
+        $lang = $GLOBALS['LANG'];
+        return $lang;
     }
 
     /**
@@ -142,7 +148,7 @@ class PeriodConstraintLegend extends VectorImage
      *
      * @return string
      */
-    public function translate(string $key)
+    public function translate(string $key): string
     {
         $translatedString = $this->getLanguageService()->sL(self::LANGUAGE_FILE . $key);
         if (empty($translatedString)) {

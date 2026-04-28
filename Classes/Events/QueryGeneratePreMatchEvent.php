@@ -10,17 +10,25 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
 final class QueryGeneratePreMatchEvent
 {
     /**
-     * @param ConstraintInterface[] $constrains
+     * @param QueryInterface<\TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface> $query
+     * @param array<ConstraintInterface> $constrains
+     * @param Repository<\TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface> $baseRepository
      */
     public function __construct(private QueryInterface $query, private ?DemandInterface $demand, private array $constrains, private readonly bool $respectEnableFields, private readonly Repository $baseRepository)
     {
     }
 
+    /**
+     * @return QueryInterface<\TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface>
+     */
     public function getQuery(): QueryInterface
     {
         return $this->query;
     }
 
+    /**
+     * @param QueryInterface<\TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface> $query
+     */
     public function setQuery(QueryInterface $query): void
     {
         $this->query = $query;
@@ -37,7 +45,7 @@ final class QueryGeneratePreMatchEvent
     }
 
     /**
-     * @return ConstraintInterface[]
+     * @return array<ConstraintInterface>
      */
     public function getConstrains(): array
     {
@@ -45,7 +53,7 @@ final class QueryGeneratePreMatchEvent
     }
 
     /**
-     * @param ConstraintInterface[] $constrains
+     * @param array<ConstraintInterface> $constrains
      */
     public function setConstrains(array $constrains): void
     {
@@ -57,6 +65,9 @@ final class QueryGeneratePreMatchEvent
         return $this->respectEnableFields;
     }
 
+    /**
+     * @return Repository<\TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface>
+     */
     public function getBaseRepository(): Repository
     {
         return $this->baseRepository;

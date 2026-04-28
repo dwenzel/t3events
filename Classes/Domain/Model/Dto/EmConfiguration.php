@@ -30,10 +30,12 @@ class EmConfiguration
     /**
      * @var bool
      */
-    protected $respectPerformanceStoragePage = false;
+    protected bool $respectPerformanceStoragePage = false;
 
     /**
      * Constructor
+     *
+     * @param array<string, mixed> $configuration
      */
     public function __construct(array $configuration)
     {
@@ -45,17 +47,17 @@ class EmConfiguration
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
-    public function isRespectPerformanceStoragePage()
+    public function isRespectPerformanceStoragePage(): bool
     {
         return $this->respectPerformanceStoragePage;
     }
 
     /**
-     * @param boolean $respectPerformanceStoragePage
+     * @param bool $respectPerformanceStoragePage
      */
-    public function setRespectPerformanceStoragePage($respectPerformanceStoragePage): void
+    public function setRespectPerformanceStoragePage(bool $respectPerformanceStoragePage): void
     {
         $this->respectPerformanceStoragePage = $respectPerformanceStoragePage;
     }

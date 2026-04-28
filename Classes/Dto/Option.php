@@ -27,12 +27,12 @@ class Option
     /**
      * @var string
      */
-    protected $value = '';
+    protected string $value = '';
 
     /**
      * @var string
      */
-    protected $label = '';
+    protected string $label = '';
 
     public function getValue(): string
     {

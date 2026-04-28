@@ -27,7 +27,7 @@ trait FilterFactoryTrait
     /**
      * @var FilterFactory
      */
-    protected $filterFactory;
+    protected FilterFactory $filterFactory;
 
     public function injectFilterFactory(FilterFactory $filterFactory): void
     {

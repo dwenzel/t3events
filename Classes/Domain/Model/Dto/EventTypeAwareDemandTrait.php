@@ -29,22 +29,22 @@ trait EventTypeAwareDemandTrait
 {
 
     /**
-     * @var string
+     * @var string|null
      */
-    protected $eventTypes;
+    protected ?string $eventTypes = null;
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getEventTypes()
+    public function getEventTypes(): ?string
     {
         return $this->eventTypes;
     }
 
     /**
-     * @param string $eventTypes
+     * @param string|null $eventTypes
      */
-    public function setEventTypes($eventTypes): void
+    public function setEventTypes(?string $eventTypes): void
     {
         $this->eventTypes = $eventTypes;
     }

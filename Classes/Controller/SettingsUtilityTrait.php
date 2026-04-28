@@ -15,11 +15,11 @@ trait SettingsUtilityTrait
 
     /**
      * Merges TypoScript settings for action an controller into one array
-     * @return array
+     * @return array<string, mixed>
      */
-    public function mergeSettings()
+    public function mergeSettings(): array
     {
-        $actionName = preg_replace('/Action$/', '', $this->actionMethodName);
+        $actionName = (string) preg_replace('/Action$/', '', $this->actionMethodName);
         $controllerKey = $this->settingsUtility->getControllerKey($this);
         $controllerSettings = [];
         $actionSettings = [];

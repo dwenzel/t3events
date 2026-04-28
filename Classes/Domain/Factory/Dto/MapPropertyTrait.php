@@ -10,16 +10,16 @@ namespace DWenzel\T3events\Domain\Factory\Dto;
 trait MapPropertyTrait
 {
     /**
-     * @return array
+     * @return array<string, string>
      */
-    abstract public function getMappedProperties();
+    abstract public function getMappedProperties(): array;
 
     /**
      * Maps some old property names to more convenient ones
      *
-     * @param $propertyName
+     * @param string $propertyName
      */
-    protected function mapPropertyName(&$propertyName)
+    protected function mapPropertyName(string &$propertyName): void
     {
         $mappedProperties = $this->getMappedProperties();
 

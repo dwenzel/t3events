@@ -36,9 +36,9 @@ class PersonDemandFactory extends AbstractDemandFactory implements DemandFactory
      * Properties which should be mapped when settings
      * are applied to demand object
      *
-     * @var array
+     * @var array<string, string>
      */
-    protected static $mappedProperties = [
+    protected static array $mappedProperties = [
         'maxItems' => 'limit'
     ];
 
@@ -47,23 +47,25 @@ class PersonDemandFactory extends AbstractDemandFactory implements DemandFactory
      * but have to be composed from various settings or
      * require any special logic before setting
      *
-     * @var array
+     * @var list<string>
      */
-    protected static $compositeProperties = [
+    protected static array $compositeProperties = [
         'search'
     ];
 
     /**
      * Creates a demand object from settings
      *
+     * @param array<string, mixed> $settings
      * @return DemandInterface
      */
-    public function createFromSettings(array $settings)
+    public function createFromSettings(array $settings): DemandInterface
     {
         /** @var PersonDemand $demand */
-        $demand = GeneralUtility::makeInstance(static::DEMAND_CLASS);
+        $demand = GeneralUtility::makeInstance(PersonDemand::class);
 
         if ($demand instanceof PeriodAwareDemandInterface) {
+            // @phpstan-ignore-next-line
             $this->setPeriodConstraints($demand, $settings);
         }
 

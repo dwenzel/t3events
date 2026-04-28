@@ -21,40 +21,20 @@ namespace DWenzel\T3events\Domain\Model;
 trait AddressTrait
 {
 
-    /**
-     * address
-     *
-     * @var string
-     */
-    protected $address = '';
+    protected string $address = '';
 
-    /**
-     * city
-     *
-     * @var string
-     */
-    protected $city = '';
+    protected string $city = '';
 
-    /**
-     * zip
-     *
-     * @var string
-     */
-    protected $zip = '';
+    protected string $zip = '';
 
-    /**
-     * country
-     *
-     * @var string
-     */
-    protected $country = '';
+    protected string $country = '';
 
     /**
      * Returns the address
      *
      * @return string $address
      */
-    public function getAddress()
+    public function getAddress(): string
     {
         return $this->address;
     }
@@ -64,7 +44,7 @@ trait AddressTrait
      *
      * @return string $city
      */
-    public function getCity()
+    public function getCity(): string
     {
         return $this->city;
     }
@@ -74,7 +54,7 @@ trait AddressTrait
      *
      * @return string $zip
      */
-    public function getZip()
+    public function getZip(): string
     {
         return $this->zip;
     }
@@ -84,7 +64,7 @@ trait AddressTrait
      *
      * @param string $address
      */
-    public function setAddress($address): void
+    public function setAddress(string $address): void
     {
         $this->address = $address;
     }
@@ -94,7 +74,7 @@ trait AddressTrait
      *
      * @param string $city
      */
-    public function setCity($city): void
+    public function setCity(string $city): void
     {
         $this->city = $city;
     }
@@ -104,7 +84,7 @@ trait AddressTrait
      *
      * @param string $zip
      */
-    public function setZip($zip): void
+    public function setZip(string $zip): void
     {
         $this->zip = $zip;
     }
@@ -112,15 +92,12 @@ trait AddressTrait
     /**
      * @return string
      */
-    public function getCountry()
+    public function getCountry(): string
     {
         return $this->country;
     }
 
-    /**
-     * @param string $country
-     */
-    public function setCountry($country): void
+    public function setCountry(string $country): void
     {
         $this->country = $country;
     }

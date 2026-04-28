@@ -27,12 +27,7 @@ use DWenzel\T3events\Domain\Repository\NotificationRepository;
  */
 trait NotificationRepositoryTrait
 {
-    /**
-     * Notification Repository
-     *
-     * @var NotificationRepository
-     */
-    protected $notificationRepository;
+    protected NotificationRepository $notificationRepository;
 
     /**
      * injectNotificationRepository

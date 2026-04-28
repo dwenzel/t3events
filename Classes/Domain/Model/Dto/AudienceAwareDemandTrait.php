@@ -29,22 +29,22 @@ trait AudienceAwareDemandTrait
 {
 
     /**
-     * @var string
+     * @var string|null
      */
-    protected $audiences;
+    protected ?string $audiences = null;
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getAudiences()
+    public function getAudiences(): ?string
     {
         return $this->audiences;
     }
 
     /**
-     * @param string $audiences
+     * @param string|null $audiences
      */
-    public function setAudiences($audiences): void
+    public function setAudiences(?string $audiences): void
     {
         $this->audiences = $audiences;
     }

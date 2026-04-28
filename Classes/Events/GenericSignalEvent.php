@@ -12,6 +12,9 @@ namespace DWenzel\T3events\Events;
  */
 final class GenericSignalEvent
 {
+    /**
+     * @param array<mixed> $arguments
+     */
     public function __construct(
         private readonly string $class,
         private readonly string $name,
@@ -29,11 +32,17 @@ final class GenericSignalEvent
         return $this->name;
     }
 
+    /**
+     * @return array<mixed>
+     */
     public function getArguments(): array
     {
         return $this->arguments;
     }
 
+    /**
+     * @param array<mixed> $arguments
+     */
     public function setArguments(array $arguments): void
     {
         $this->arguments = $arguments;

@@ -34,9 +34,10 @@ trait FilterableControllerTrait
     /**
      * Gets filter options for view template
      *
-     * @param array $settings
+     * @param array<string, mixed> $settings
+     * @return array<string, mixed>
      */
-    public function getFilterOptions($settings): array
+    public function getFilterOptions(array $settings): array
     {
         $filterOptions = [];
         foreach ($settings as $key => $value) {
@@ -72,8 +73,8 @@ trait FilterableControllerTrait
     /**
      * Translate a given key
      *
-     * @param array|null $arguments
+     * @param array<mixed>|null $arguments
      * @return string
      */
-    abstract public function translate(string $key, string $extension = 't3events', array $arguments = null);
+    abstract public function translate(string $key, string $extension = 't3events', ?array $arguments = null): string;
 }

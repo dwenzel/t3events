@@ -18,12 +18,7 @@ use DWenzel\T3events\Domain\Repository\TaskRepositoryInterface;
  */
 trait TaskRepositoryTrait
 {
-    /**
-     * Task repository
-     *
-     * @var TaskRepositoryInterface
-     */
-    protected $taskRepository;
+    protected TaskRepositoryInterface $taskRepository;
 
     /**
      * Injects the task repository

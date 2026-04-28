@@ -33,17 +33,18 @@ class AbstractPeriodDataProvider
      *
      * @param bool $respectEndDate
      */
-    public function __construct(protected $respectEndDate = false)
+    public function __construct(protected bool $respectEndDate = false)
     {
     }
 
+    /** @return list<string> */
     public function getAllLayerIds(): array
     {
         return $this->getLayerIds(self::ALL_LAYERS);
     }
 
     /**
-     * @return mixed[]
+     * @return list<string>
      */
     public function getVisibleLayerIds(): array
     {
@@ -63,8 +64,9 @@ class AbstractPeriodDataProvider
      * Gets an array of layer ids from comma separated string
      *
      * @param string $layerList
+     * @return list<string>
      */
-    protected function getLayerIds($layerList): array
+    protected function getLayerIds(string $layerList): array
     {
         return GeneralUtility::trimExplode(',', $layerList, true);
     }

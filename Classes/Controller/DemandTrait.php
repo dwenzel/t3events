@@ -24,17 +24,17 @@ trait DemandTrait
     /**
      * Creates a search object from given settings
      *
-     * @param array $searchRequest An array with the search request
-     * @param array $settings Settings for search
-     * @return Search $search
+     * @param array<string, mixed> $searchRequest An array with the search request
+     * @param array<string, mixed> $settings Settings for search
+     * @return Search
      */
-    abstract public function createSearchObject(array $searchRequest, array $settings);
+    abstract public function createSearchObject(array $searchRequest, array $settings): Search;
 
     /**
      * @param DemandInterface $demand
-     * @param array $overwriteDemand
+     * @param array<string, mixed>|null $overwriteDemand
      */
-    public function overwriteDemandObject(&$demand, $overwriteDemand): void
+    public function overwriteDemandObject(DemandInterface &$demand, ?array $overwriteDemand): void
     {
         if (!(bool)$overwriteDemand) {
             return;
@@ -51,13 +51,13 @@ trait DemandTrait
 
     /**
      * Overwrites a single property according to the setting in overwriteDemand
-     * @param $demand
-     * @param $overwriteDemand
-     * @param $propertyName
-     * @param $propertyValue
-     * @param $timeZone
+     * @param mixed $demand
+     * @param array<string, mixed> $overwriteDemand
+     * @param string $propertyName
+     * @param mixed $propertyValue
+     * @param \DateTimeZone $timeZone
      */
-    protected function overwriteProperty(&$demand, $overwriteDemand, $propertyName, $propertyValue, $timeZone)
+    protected function overwriteProperty(mixed &$demand, array $overwriteDemand, string $propertyName, mixed $propertyValue, \DateTimeZone $timeZone): void
     {
         switch ($propertyName) {
             case 'sortBy':

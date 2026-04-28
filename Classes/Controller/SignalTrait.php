@@ -19,10 +19,10 @@ trait SignalTrait
      *
      * @param string $class  Name of the signaling class
      * @param string $name   Signal name
-     * @param array  $arguments Signal arguments (passed by reference for backward compatibility)
+     * @param array<mixed>  $arguments Signal arguments (passed by reference for backward compatibility)
      * @codeCoverageIgnore
      */
-    public function emitSignal($class, $name, array &$arguments): void
+    public function emitSignal(string $class, string $name, array &$arguments): void
     {
         /** @var GenericSignalEvent $event */
         $event = $this->eventDispatcher->dispatch(new GenericSignalEvent($class, $name, $arguments));

@@ -29,36 +29,21 @@ class Organizer extends AbstractEntity
 {
     use EqualsTrait;
 
-    /**
-     * name
-     *
-     * @var string
-     */
-    protected $name;
+    protected string $name = '';
 
-    /**
-     * link
-     *
-     * @var string
-     */
-    protected $link;
+    protected string $link = '';
 
     /**
      * Returns the name
      *
      * @return string $name
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * Sets the name
-     *
-     * @param string $name
-     */
-    public function setName($name): void
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
@@ -68,17 +53,12 @@ class Organizer extends AbstractEntity
      *
      * @return string $link
      */
-    public function getLink()
+    public function getLink(): string
     {
         return $this->link;
     }
 
-    /**
-     * Sets the link
-     *
-     * @param string $link
-     */
-    public function setLink($link): void
+    public function setLink(string $link): void
     {
         $this->link = $link;
     }

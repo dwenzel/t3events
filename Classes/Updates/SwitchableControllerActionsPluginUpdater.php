@@ -84,6 +84,7 @@ class SwitchableControllerActionsPluginUpdater implements UpgradeWizardInterface
         return true;
     }
 
+    /** @return array<int, array<string, mixed>> */
     private function getMigrationRecords(): array
     {
         $queryBuilder = $this->connectionPool
@@ -121,6 +122,7 @@ class SwitchableControllerActionsPluginUpdater implements UpgradeWizardInterface
             ->executeStatement();
     }
 
+    /** @param array<string, mixed> $input */
     private function array2xml(array $input): string
     {
         $options = [

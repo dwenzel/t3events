@@ -32,7 +32,7 @@ class DateRangeViewHelper extends AbstractDateRangeViewHelper
     /**
      * @var Performance
      */
-    protected $performance;
+    protected Performance $performance;
 
     public function initializeArguments(): void
     {
@@ -46,7 +46,7 @@ class DateRangeViewHelper extends AbstractDateRangeViewHelper
     /**
      *
      */
-    public function render()
+    public function render(): string
     {
         $this->performance = $this->arguments['performance'];
         $this->initialize();
@@ -56,15 +56,15 @@ class DateRangeViewHelper extends AbstractDateRangeViewHelper
 
 
     /**
-     * @return array An array of timestamps
+     * @return array<int, int> An array of timestamps
      */
     protected function getTimestamps(): array
     {
         $startDate = $this->performance->getDate();
-        $timestamps = [$startDate->getTimestamp()];
+        $timestamps = $startDate !== null ? [$startDate->getTimestamp()] : [0];
         $endDate = $this->performance->getEndDate();
 
-        if (!empty($endDate) && $endDate > $startDate) {
+        if ($endDate !== null && $startDate !== null && $endDate > $startDate) {
             $timestamps[] = $endDate->getTimestamp();
         }
 

@@ -42,7 +42,7 @@ use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
  */
 class LegacyFileFieldsUpdateWizard implements UpgradeWizardInterface, ChattyInterface, LoggerAwareInterface
 {
-    public $storage;
+    public ?\TYPO3\CMS\Core\Resource\ResourceStorage $storage = null;
     use LoggerAwareTrait;
 
     public const IDENTIFIER = 't3eventsLegacyFileFieldUpdateWizard';
@@ -66,7 +66,7 @@ class LegacyFileFieldsUpdateWizard implements UpgradeWizardInterface, ChattyInte
     /**
      * @var OutputInterface
      */
-    protected $output;
+    protected OutputInterface $output;
 
     public function __construct(private readonly ConnectionPool $connectionPool)
     {
@@ -175,7 +175,7 @@ class LegacyFileFieldsUpdateWizard implements UpgradeWizardInterface, ChattyInte
         $queryBuilder = $connectionPool->getQueryBuilderForTable($table);
 
         try {
-            return $queryBuilder
+            return (int)$queryBuilder
                 ->count($fieldToMigrate)
                 ->from($table)->where($queryBuilder->expr()->isNotNull($fieldToMigrate), $queryBuilder->expr()->neq(
                 $fieldToMigrate,
@@ -203,7 +203,7 @@ class LegacyFileFieldsUpdateWizard implements UpgradeWizardInterface, ChattyInte
      * Get records from table where the field to migrate is not empty (NOT NULL and != '')
      * and also not numeric (which means that it is migrated)
      *
-     *
+     * @return array<int, array<string, mixed>>
      */
     protected function getRecordsFromTable(string $table, string $fieldToMigrate): array
     {
@@ -230,16 +230,17 @@ class LegacyFileFieldsUpdateWizard implements UpgradeWizardInterface, ChattyInte
 
             return $result->fetchAllAssociative();
         } catch (Exception $e) {
-            throw new \RuntimeException('Database query failed. Error was: ' . $e->getPrevious()->getMessage(), 1511950673, $e);
+            $previous = $e->getPrevious();
+            throw new \RuntimeException('Database query failed. Error was: ' . ($previous !== null ? $previous->getMessage() : $e->getMessage()), 1511950673, $e);
         }
     }
 
     /**
      * Migrates a single field.
      *
-     *
+     * @param array<string, mixed> $row
      */
-    protected function migrateField(array $row, string $table, string $fieldToMigrate)
+    protected function migrateField(array $row, string $table, string $fieldToMigrate): void
     {
         $this->output->writeln(sprintf(
             'START migration for %s:%s:%s and UID %d',
@@ -256,6 +257,9 @@ class LegacyFileFieldsUpdateWizard implements UpgradeWizardInterface, ChattyInte
         $fileadminDirectory = rtrim((string) $GLOBALS['TYPO3_CONF_VARS']['BE']['fileadminDir'], '/') . '/';
         $i = 0;
 
+        if ($this->storage === null) {
+            return;
+        }
         $storageUid = (int)$this->storage->getUid();
         $connectionPool = $this->connectionPool;
 
@@ -273,7 +277,7 @@ class LegacyFileFieldsUpdateWizard implements UpgradeWizardInterface, ChattyInte
                 }
 
                 // see if the file already exists in the storage
-                $fileSha1 = sha1_file($sourcePath);
+                $fileSha1 = (string)sha1_file($sourcePath);
 
                 $queryBuilder = $connectionPool->getQueryBuilderForTable('sys_file');
                 $queryBuilder->getRestrictions()->removeAll();

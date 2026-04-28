@@ -32,63 +32,63 @@ class Notification extends AbstractEntity
 {
 
     /**
-     * @var string $recipient
+     * @var string|null
      */
-    protected $recipient;
+    protected ?string $recipient = null;
 
     /**
-     * @var string $sender
+     * @var string|null
      */
-    protected $sender;
+    protected ?string $sender = null;
+
+    /**
+     * @var string|null
+     */
+    protected ?string $senderEmail = null;
+
+    /**
+     * @var string|null
+     */
+    protected ?string $senderName = null;
 
     /**
      * @var string
-     */
-    protected $senderEmail;
-
-    /**
-     * @var string
-     */
-    protected $senderName;
-
-    /**
-     * @var string $subject
      */
     #[Validate(['validator' => 'NotEmpty'])]
-    protected $subject;
+    protected string $subject = '';
 
     /**
      * Body text
      *
-     * @var string $bodytext
+     * @var string
      */
     #[Validate(['validator' => 'NotEmpty'])]
-    protected $bodytext;
+    protected string $bodytext = '';
 
     /**
-     * @var string|null $format
+     * @var string|null
      */
-    protected $format;
+    protected ?string $format = null;
 
     /**
      * Send time
      *
-     * @var \DateTime $sentAt
+     * @var \DateTime|null
      */
-    protected $sentAt;
+    protected ?\DateTime $sentAt = null;
 
     /**
      * @var ObjectStorage<FileReference>
      */
     #[Lazy]
-    protected $attachments;
+    protected ObjectStorage $attachments;
 
     /**
      * Returns the recipient
      *
-     * @return string
+     * @return string|null
      */
-    public function getRecipient()
+    public function getRecipient(): ?string
     {
         return $this->recipient;
     }
@@ -96,9 +96,9 @@ class Notification extends AbstractEntity
     /**
      * Sets the recipient
      *
-     * @var string $recipient
+     * @param string|null $recipient
      */
-    public function setRecipient($recipient): void
+    public function setRecipient(?string $recipient): void
     {
         $this->recipient = $recipient;
     }
@@ -108,7 +108,7 @@ class Notification extends AbstractEntity
      *
      * @return string
      */
-    public function getSubject()
+    public function getSubject(): string
     {
         return $this->subject;
     }
@@ -116,9 +116,9 @@ class Notification extends AbstractEntity
     /**
      * Sets the subject
      *
-     * @var string $subject
+     * @param string $subject
      */
-    public function setSubject($subject): void
+    public function setSubject(string $subject): void
     {
         $this->subject = $subject;
     }
@@ -126,10 +126,10 @@ class Notification extends AbstractEntity
     /**
      * Returns the sender email
      *
-     * @return string
+     * @return string|null
      * @deprecated Use getSenderEmail and getSenderName instead
      */
-    public function getSender()
+    public function getSender(): ?string
     {
         return $this->sender;
     }
@@ -137,10 +137,10 @@ class Notification extends AbstractEntity
     /**
      * Sets the sender email
      *
-     * @var string $sender
+     * @param string|null $sender
      * @deprecated Use setSenderEmail and setSenderName instead
      */
-    public function setSender($sender): void
+    public function setSender(?string $sender): void
     {
         $this->sender = $sender;
         $this->senderEmail = $sender;
@@ -151,7 +151,7 @@ class Notification extends AbstractEntity
      *
      * @return string
      */
-    public function getBodytext()
+    public function getBodytext(): string
     {
         return $this->bodytext;
     }
@@ -159,9 +159,9 @@ class Notification extends AbstractEntity
     /**
      * Sets the bodytext
      *
-     * @var string $bodytext
+     * @param string $bodytext
      */
-    public function setBodytext($bodytext): void
+    public function setBodytext(string $bodytext): void
     {
         $this->bodytext = $bodytext;
     }
@@ -169,9 +169,9 @@ class Notification extends AbstractEntity
     /**
      * Returns the format
      *
-     * @return string
+     * @return string|null
      */
-    public function getFormat()
+    public function getFormat(): ?string
     {
         return $this->format;
     }
@@ -179,9 +179,9 @@ class Notification extends AbstractEntity
     /**
      * Sets the format
      *
-     * @var string $format
+     * @param string|null $format
      */
-    public function setFormat($format): void
+    public function setFormat(?string $format): void
     {
         $this->format = $format;
     }
@@ -189,9 +189,9 @@ class Notification extends AbstractEntity
     /**
      * Returns the time when notification was send
      *
-     * @return \DateTime
+     * @return \DateTime|null
      */
-    public function getSentAt()
+    public function getSentAt(): ?\DateTime
     {
         return $this->sentAt;
     }
@@ -199,9 +199,9 @@ class Notification extends AbstractEntity
     /**
      * Sets send at
      *
-     * @var \DateTime $sentAt
+     * @param \DateTime|null $sentAt
      */
-    public function setSentAt($sentAt): void
+    public function setSentAt(?\DateTime $sentAt): void
     {
         $this->sentAt = $sentAt;
     }
@@ -209,7 +209,7 @@ class Notification extends AbstractEntity
     /**
      * @return ObjectStorage<FileReference>
      */
-    public function getAttachments()
+    public function getAttachments(): ObjectStorage
     {
         return $this->attachments;
     }
@@ -217,7 +217,7 @@ class Notification extends AbstractEntity
     /**
      * @param ObjectStorage<FileReference> $attachments
      */
-    public function setAttachments($attachments): void
+    public function setAttachments(ObjectStorage $attachments): void
     {
         $this->attachments = $attachments;
     }
@@ -239,38 +239,38 @@ class Notification extends AbstractEntity
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getSenderEmail()
+    public function getSenderEmail(): ?string
     {
         if ($this->senderEmail === null) {
-            return($this->sender);
+            return $this->sender;
         }
 
         return $this->senderEmail;
     }
 
     /**
-     * @param string $senderEmail
+     * @param string|null $senderEmail
      */
-    public function setSenderEmail($senderEmail): void
+    public function setSenderEmail(?string $senderEmail): void
     {
         $this->senderEmail = $senderEmail;
         $this->sender = $senderEmail;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getSenderName()
+    public function getSenderName(): ?string
     {
         return $this->senderName;
     }
 
     /**
-     * @param string $senderName
+     * @param string|null $senderName
      */
-    public function setSenderName($senderName): void
+    public function setSenderName(?string $senderName): void
     {
         $this->senderName = $senderName;
     }

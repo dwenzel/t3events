@@ -11,17 +11,9 @@ use DWenzel\T3events\Session\SessionInterface;
  */
 trait SessionTrait
 {
-    /**
-     * @var SessionInterface
-     */
-    protected $session;
+    protected SessionInterface $session;
 
-    /**
-     * namespace
-     *
-     * @var string
-     */
-    protected $namespace;
+    protected string $namespace = '';
 
     public function injectSession(SessionInterface $session): void
     {

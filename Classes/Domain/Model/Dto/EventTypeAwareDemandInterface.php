@@ -9,18 +9,17 @@ namespace DWenzel\T3events\Domain\Model\Dto;
 interface EventTypeAwareDemandInterface
 {
     /**
-     * @return string
+     * @return string|null
      */
-    public function getEventTypes();
+    public function getEventTypes(): ?string;
 
     /**
-     * @param string $eventTypes
-     * @return void
+     * @param string|null $eventTypes
      */
-    public function setEventTypes($eventTypes);
+    public function setEventTypes(?string $eventTypes): void;
 
     /**
      * @return string
      */
-    public function getEventTypeField();
+    public function getEventTypeField(): string;
 }

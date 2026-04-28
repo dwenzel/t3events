@@ -74,7 +74,8 @@ class PerformanceController
     public function initializeAction(): void
     {
         $this->settings = $this->mergeSettings();
-        $this->contentObject = $this->request->getAttribute('currentContentObject');
+        $contentObject = $this->request->getAttribute('currentContentObject');
+        $this->contentObject = $contentObject instanceof ContentObjectRenderer ? $contentObject : null;
         if ($this->request->hasArgument(SI::OVERWRITE_DEMAND)) {
             $this->session->set(
                 'tx_t3events_overwriteDemand',
@@ -90,15 +91,16 @@ class PerformanceController
     /**
      * action list
      *
-     * @param array|null $overwriteDemand
+     * @param array<string, mixed>|null $overwriteDemand
      */
-    public function listAction(array $overwriteDemand = null): ResponseInterface
+    public function listAction(?array $overwriteDemand = null): ResponseInterface
     {
         if ($overwriteDemand === null){
             $overwriteDemand = [];
             $sessionData = $this->session->get('tx_t3events_overwriteDemand');
             if (is_string($sessionData)) {
-                $overwriteDemand = unserialize($sessionData, ['allowed_classes' => false]);
+                $unserialized = unserialize($sessionData, ['allowed_classes' => false]);
+                $overwriteDemand = is_array($unserialized) ? $unserialized : [];
             }
         }
 
@@ -106,9 +108,11 @@ class PerformanceController
         $this->overwriteDemandObject($demand, $overwriteDemand);
         $performances = $this->performanceRepository->findDemanded($demand);
 
+        /** @var \TYPO3\CMS\Extbase\Persistence\QueryResultInterface $performances */
         /** @var PerformanceListActionEvent $event */
-        $event = $this->eventDispatcher->dispatch(new PerformanceListActionEvent($performances, $this->settings, $demand, $this->contentObject->data, (array)$overwriteDemand));
+        $event = $this->eventDispatcher->dispatch(new PerformanceListActionEvent($performances, $this->settings, $demand, $this->contentObject !== null ? $this->contentObject->data : [], (array)$overwriteDemand));
         $this->view->assignMultiple($event->toArray());
+        $this->addPageCacheTags(['tx_t3events_domain_model_performance']);
         return $this->htmlResponse();
     }
 
@@ -125,7 +129,18 @@ class PerformanceController
 
         $this->emitSignal(self::class, self::PERFORMANCE_SHOW_ACTION, $templateVariables);
         $this->view->assignMultiple($templateVariables);
+        $this->addPageCacheTags([
+            'tx_t3events_domain_model_performance',
+            'tx_t3events_domain_model_performance_' . $performance->getUid(),
+        ]);
         return $this->htmlResponse();
+    }
+
+    protected function addPageCacheTags(array $tags): void
+    {
+        if (isset($GLOBALS['TSFE'])) {
+            $GLOBALS['TSFE']->addCacheTags($tags);
+        }
     }
 
     /**
@@ -134,7 +149,8 @@ class PerformanceController
      */
     public function quickMenuAction(): ResponseInterface
     {
-        $overwriteDemand = unserialize($this->session->get('tx_t3events_overwriteDemand'), ['allowed_classes' => false]);
+        $sessionValue = $this->session->get('tx_t3events_overwriteDemand');
+        $overwriteDemand = is_string($sessionValue) ? unserialize($sessionValue, ['allowed_classes' => false]) : [];
 
         // get filter options from plugin
         $filterConfiguration = [
@@ -164,10 +180,11 @@ class PerformanceController
      * Create Demand from Settings
      * This method is kept for backwards compatibility only.
      *
+     * @param array<string, mixed> $settings
      * @return DemandInterface
      * @deprecated Use demand factory instead
      */
-    protected function createDemandFromSettings(array $settings)
+    protected function createDemandFromSettings(array $settings): DemandInterface
     {
         return $this->performanceDemandFactory->createFromSettings($settings);
     }

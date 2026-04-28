@@ -13,5 +13,5 @@ interface NamespaceAwareInterface
      *
      * @param string $namespace
      */
-    public function setNamespace($namespace);
+    public function setNamespace(string $namespace): void;
 }

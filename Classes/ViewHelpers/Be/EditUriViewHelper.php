@@ -60,7 +60,7 @@ class EditUriViewHelper extends AbstractViewHelper
      * @throws RouteNotFoundException
      * @codeCoverageIgnore
      */
-    public function render()
+    public function render(): string
     {
         return static::renderStatic(
             $this->arguments,
@@ -78,7 +78,7 @@ class EditUriViewHelper extends AbstractViewHelper
         array $arguments,
         \Closure $renderChildrenClosure,
         RenderingContextInterface $renderingContext
-    )
+    ): string
     {
         /** @var UriBuilder $uriBuilder */
         $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);

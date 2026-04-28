@@ -31,11 +31,11 @@ trait ObjectManagerTrait
      *
      * @var ObjectManager
      */
-    protected $objectManager;
+    protected ObjectManager $objectManager;
 
     /**
      * Injects the object manager
-     * @var ObjectManager $objectManager
+     * @param ObjectManager $objectManager
      */
     public function injectObjectManager(ObjectManager $objectManager): void
     {

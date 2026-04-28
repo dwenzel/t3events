@@ -12,9 +12,10 @@ use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 interface EventTypeConstraintRepositoryInterface
 {
     /**
-     * Create genre constraints from demand
+     * Create event type constraints from demand
      *
-     * @return array<\TYPO3\CMS\Extbase\Persistence\QOM\Constraint>
+     * @param QueryInterface<\TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface> $query
+     * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\ConstraintInterface>
      */
-    public function createEventTypeConstraints(QueryInterface $query, EventTypeAwareDemandInterface $demand);
+    public function createEventTypeConstraints(QueryInterface $query, EventTypeAwareDemandInterface $demand): array;
 }

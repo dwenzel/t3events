@@ -54,7 +54,7 @@ class MetaTagViewHelper extends AbstractTagBasedViewHelper
      * @param boolean $useCurrentDomain If set, current domain is used
      * @param boolean $forceAbsoluteUrl If set, absolute url is forced
      */
-    public function render($useCurrentDomain = false, $forceAbsoluteUrl = false): void
+    public function render(bool $useCurrentDomain = false, bool $forceAbsoluteUrl = false): string
     {
 
         // set current domain
@@ -73,5 +73,6 @@ class MetaTagViewHelper extends AbstractTagBasedViewHelper
         if ($useCurrentDomain || (isset($this->arguments['content']) && !empty($this->arguments['content']))) {
             $GLOBALS['TSFE']->getPageRenderer()->addMetaTag($this->tag->render());
         }
+        return '';
     }
 }
