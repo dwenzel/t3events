@@ -7,6 +7,7 @@ use TYPO3\CMS\Backend\Template\Components\ButtonBar;
 use TYPO3\CMS\Core\Imaging\IconFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 
 /**
@@ -20,7 +21,7 @@ trait BackendViewTrait
 
     abstract public function getConfigurationManager(): ConfigurationManagerInterface;
 
-    public function initializeView(): void
+    public function initializeView(ViewInterface $view): void
     {
         // Button creation via ModuleButtonTrait is not compatible with TYPO3 v12.
         // In v12, buttons must be added to ModuleTemplate::getDocHeaderComponent()->getButtonBar(),
