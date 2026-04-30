@@ -15,7 +15,6 @@ namespace DWenzel\T3events\Controller;
  * The TYPO3 project - inspiring people to share!
  */
 use TYPO3\CMS\Core\Pagination\SimplePagination;
-use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException;
 use TYPO3\CMS\Extbase\Pagination\QueryResultPaginator;
@@ -100,7 +99,7 @@ class EventController extends ActionController
             $this->addFlashMessage(
                 $this->translate('tx_t3events.noEventsForSelectionMessage'),
                 $this->translate('tx_t3events.noEventsForSelectionTitle'),
-                ContextualFeedbackSeverity::WARNING
+                \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING
             );
         }
 
