@@ -73,7 +73,7 @@ class EventDemandFactory extends AbstractDemandFactory implements DemandFactoryI
      *
      * @param array<string, mixed> $settings
      */
-    public function createFromSettings(array $settings): DemandInterface
+    public function createFromSettings(array $settings)
     {
         /** @var EventDemand $demand */
         $demand = GeneralUtility::makeInstance(EventDemand::class);

@@ -58,7 +58,7 @@ class PersonDemandFactory extends AbstractDemandFactory implements DemandFactory
      *
      * @param array<string, mixed> $settings
      */
-    public function createFromSettings(array $settings): DemandInterface
+    public function createFromSettings(array $settings)
     {
         /** @var PersonDemand $demand */
         $demand = GeneralUtility::makeInstance(PersonDemand::class);
