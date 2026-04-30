@@ -21,9 +21,9 @@ class SwitchableControllerActionsPluginUpdater implements UpgradeWizardInterface
 {
     public const IDENTIFIER = 't3eventsSwitchableControllerActionsPluginUpdater';
 
-    private const string SOURCE_LIST_TYPE = 't3events_events';
+    private const SOURCE_LIST_TYPE = 't3events_events';
 
-    private const array MIGRATION_MAP = [
+    private const MIGRATION_MAP = [
         'Event->list;Event->show' => 't3events_eventlist',
         'Event->show'             => 't3events_eventlist',
         'Event->list'             => 't3events_eventlist',
