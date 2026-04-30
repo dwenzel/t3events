@@ -41,62 +41,62 @@ class ButtonDemand
 
     protected string $overlay = '';
 
-    public function getTable(): string
+    public function getTable()
     {
         return $this->table;
     }
 
-    public function setTable(string $table): void
+    public function setTable(string $table)
     {
         $this->table = $table;
     }
 
-    public function getLabelKey(): string
+    public function getLabelKey()
     {
         return $this->labelKey;
     }
 
-    public function setLabelKey(string $labelKey): void
+    public function setLabelKey(string $labelKey)
     {
         $this->labelKey = $labelKey;
     }
 
-    public function getAction(): string
+    public function getAction()
     {
         return $this->action;
     }
 
-    public function setAction(string $action): void
+    public function setAction(string $action)
     {
         $this->action = $action;
     }
 
-    public function getIconKey(): string
+    public function getIconKey()
     {
         return $this->iconKey;
     }
 
-    public function setIconKey(string $iconKey): void
+    public function setIconKey(string $iconKey)
     {
         $this->iconKey = $iconKey;
     }
 
-    public function getIconSize(): string
+    public function getIconSize()
     {
         return $this->iconSize;
     }
 
-    public function setIconSize(string $iconSize): void
+    public function setIconSize(string $iconSize)
     {
         $this->iconSize = $iconSize;
     }
 
-    public function getOverlay(): string
+    public function getOverlay()
     {
         return $this->overlay;
     }
 
-    public function setOverlay(string $overlay): void
+    public function setOverlay(string $overlay)
     {
         $this->overlay = $overlay;
     }

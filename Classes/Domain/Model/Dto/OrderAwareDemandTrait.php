@@ -19,7 +19,7 @@ trait OrderAwareDemandTrait
      *
      * @return string|null A comma separated list of orderings
      */
-    public function getOrder(): ?string
+    public function getOrder()
     {
         return $this->order;
     }
@@ -30,7 +30,7 @@ trait OrderAwareDemandTrait
      * @param string|null $order A comma separated list of orderings
      * in the form of '<fieldName>|<direction,<otherFieldName>|<direction>
      */
-    public function setOrder(?string $order): void
+    public function setOrder(?string $order)
     {
         $this->order = $order;
     }

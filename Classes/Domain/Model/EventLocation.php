@@ -110,7 +110,7 @@ class EventLocation extends AbstractEntity implements GeoCodingInterface
     /**
      * Returns the name
      */
-    public function getName(): string
+    public function getName()
     {
         return $this->name;
     }
@@ -118,7 +118,7 @@ class EventLocation extends AbstractEntity implements GeoCodingInterface
     /**
      * Sets the name
      */
-    public function setName(string $name): void
+    public function setName(string $name)
     {
         $this->name = $name;
     }
@@ -126,7 +126,7 @@ class EventLocation extends AbstractEntity implements GeoCodingInterface
     /**
      * Returns the address
      */
-    public function getAddress(): ?string
+    public function getAddress()
     {
         return $this->address;
     }
@@ -134,7 +134,7 @@ class EventLocation extends AbstractEntity implements GeoCodingInterface
     /**
      * Sets the address
      */
-    public function setAddress(?string $address): void
+    public function setAddress(?string $address)
     {
         $this->address = $address;
     }
@@ -144,7 +144,7 @@ class EventLocation extends AbstractEntity implements GeoCodingInterface
      *
      * @param FileReference $image Image
      */
-    public function addImage(FileReference $image): void
+    public function addImage(FileReference $image)
     {
         $this->image->attach($image);
     }
@@ -154,7 +154,7 @@ class EventLocation extends AbstractEntity implements GeoCodingInterface
      *
      * @param FileReference $imageToRemove Image
      */
-    public function removeImage(FileReference $imageToRemove): void
+    public function removeImage(FileReference $imageToRemove)
     {
         $this->image->detach($imageToRemove);
     }
@@ -164,7 +164,7 @@ class EventLocation extends AbstractEntity implements GeoCodingInterface
      *
      * @return ObjectStorage<FileReference>
      */
-    public function getImage(): ObjectStorage
+    public function getImage()
     {
         return $this->image;
     }
@@ -174,7 +174,7 @@ class EventLocation extends AbstractEntity implements GeoCodingInterface
      *
      * @param ObjectStorage<FileReference> $image
      */
-    public function setImage(ObjectStorage $image): void
+    public function setImage(ObjectStorage $image)
     {
         $this->image = $image;
     }
@@ -182,7 +182,7 @@ class EventLocation extends AbstractEntity implements GeoCodingInterface
     /**
      * Returns the zip
      */
-    public function getZip(): ?string
+    public function getZip()
     {
         return $this->zip;
     }
@@ -190,7 +190,7 @@ class EventLocation extends AbstractEntity implements GeoCodingInterface
     /**
      * Sets the zip
      */
-    public function setZip(?string $zip): void
+    public function setZip(?string $zip)
     {
         $this->zip = $zip;
     }
@@ -198,7 +198,7 @@ class EventLocation extends AbstractEntity implements GeoCodingInterface
     /**
      * Returns the place
      */
-    public function getPlace(): ?string
+    public function getPlace()
     {
         return $this->place;
     }
@@ -206,7 +206,7 @@ class EventLocation extends AbstractEntity implements GeoCodingInterface
     /**
      * Sets the place
      */
-    public function setPlace(?string $place): void
+    public function setPlace(?string $place)
     {
         $this->place = $place;
     }
@@ -214,7 +214,7 @@ class EventLocation extends AbstractEntity implements GeoCodingInterface
     /**
      * Returns the details
      */
-    public function getDetails(): ?string
+    public function getDetails()
     {
         return $this->details;
     }
@@ -222,7 +222,7 @@ class EventLocation extends AbstractEntity implements GeoCodingInterface
     /**
      * Sets the details
      */
-    public function setDetails(?string $details): void
+    public function setDetails(?string $details)
     {
         $this->details = $details;
     }
@@ -230,7 +230,7 @@ class EventLocation extends AbstractEntity implements GeoCodingInterface
     /**
      * Returns the www
      */
-    public function getWww(): ?string
+    public function getWww()
     {
         return $this->www;
     }
@@ -238,7 +238,7 @@ class EventLocation extends AbstractEntity implements GeoCodingInterface
     /**
      * Sets the www
      */
-    public function setWww(?string $www): void
+    public function setWww(?string $www)
     {
         $this->www = $www;
     }
@@ -246,7 +246,7 @@ class EventLocation extends AbstractEntity implements GeoCodingInterface
     /**
      * Returns the country
      */
-    public function getCountry(): ?string
+    public function getCountry()
     {
         return $this->country;
     }
@@ -254,7 +254,7 @@ class EventLocation extends AbstractEntity implements GeoCodingInterface
     /**
      * Sets the country
      */
-    public function setCountry(?string $country): void
+    public function setCountry(?string $country)
     {
         $this->country = $country;
     }
@@ -262,7 +262,7 @@ class EventLocation extends AbstractEntity implements GeoCodingInterface
     /**
      * Returns the latitude
      */
-    public function getLatitude(): ?float
+    public function getLatitude()
     {
         return $this->latitude;
     }
@@ -270,7 +270,7 @@ class EventLocation extends AbstractEntity implements GeoCodingInterface
     /**
      * Sets the latitude
      */
-    public function setLatitude(?float $latitude): void
+    public function setLatitude(?float $latitude)
     {
         $this->latitude = $latitude;
     }
@@ -278,7 +278,7 @@ class EventLocation extends AbstractEntity implements GeoCodingInterface
     /**
      * Returns the longitude
      */
-    public function getLongitude(): ?float
+    public function getLongitude()
     {
         return $this->longitude;
     }
@@ -286,7 +286,7 @@ class EventLocation extends AbstractEntity implements GeoCodingInterface
     /**
      * Sets the longitude
      */
-    public function setLongitude(?float $longitude): void
+    public function setLongitude(?float $longitude)
     {
         $this->longitude = $longitude;
     }

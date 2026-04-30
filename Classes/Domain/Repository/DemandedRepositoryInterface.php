@@ -33,14 +33,14 @@ interface DemandedRepositoryInterface
      * @param string $sortField Sort by field
      * @return QueryResultInterface<object> Matching Records
      */
-    public function findMultipleByUid(string $recordList, string $sortField = 'uid', string $sortOrder = QueryInterface::ORDER_ASCENDING): QueryResultInterface;
+    public function findMultipleByUid(string $recordList, string $sortField = 'uid', string $sortOrder = QueryInterface::ORDER_ASCENDING);
 
     /**
      * Returns an array of orderings created from a given demand object.
      *
      * @return array<string, string>
      */
-    public function createOrderingsFromDemand(DemandInterface $demand): array;
+    public function createOrderingsFromDemand(DemandInterface $demand);
 
     /**
      * Returns an array of constraints created from a given demand object.
@@ -48,14 +48,14 @@ interface DemandedRepositoryInterface
      * @param QueryInterface<DomainObjectInterface> $query
      * @return array<ConstraintInterface>
      */
-    public function createConstraintsFromDemand(QueryInterface $query, DemandInterface $demand): array;
+    public function createConstraintsFromDemand(QueryInterface $query, DemandInterface $demand);
 
     /**
      * Returns the objects of this repository matching the demand.
      *
      * @return QueryResultInterface<object>
      */
-    public function findDemanded(DemandInterface $demand, bool $respectEnableFields = true): QueryResultInterface;
+    public function findDemanded(DemandInterface $demand, bool $respectEnableFields = true);
 
     /**
      * Returns all objects of this repository.
@@ -71,5 +71,5 @@ interface DemandedRepositoryInterface
      * @param array<ConstraintInterface> $constraints
      * @param array<ConstraintInterface> $additionalConstraints
      */
-    public function combineConstraints(QueryInterface $query, array &$constraints, array $additionalConstraints, ?string $conjunction = null): void;
+    public function combineConstraints(QueryInterface $query, array &$constraints, array $additionalConstraints, ?string $conjunction = null);
 }

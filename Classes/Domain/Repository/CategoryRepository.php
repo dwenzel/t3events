@@ -44,7 +44,7 @@ class CategoryRepository extends Repository implements DemandedRepositoryInterfa
      * @param QueryInterface<DomainObjectInterface> $query
      * @return array<ConstraintInterface>
      */
-    public function createConstraintsFromDemand(QueryInterface $query, DemandInterface $demand): array
+    public function createConstraintsFromDemand(QueryInterface $query, DemandInterface $demand)
     {
         return [];
     }

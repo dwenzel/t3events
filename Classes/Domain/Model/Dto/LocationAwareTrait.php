@@ -28,7 +28,7 @@ trait LocationAwareTrait
     /**
      * Get location
      */
-    public function getLocation(): ?string
+    public function getLocation()
     {
         return $this->location;
     }
@@ -38,7 +38,7 @@ trait LocationAwareTrait
      *
      * @param string|null $location A string describing a location
      */
-    public function setLocation(?string $location): void
+    public function setLocation(?string $location)
     {
         $this->location = $location;
     }
@@ -48,7 +48,7 @@ trait LocationAwareTrait
      *
      * @return int|null The search radius in meter around the search location
      */
-    public function getRadius(): ?int
+    public function getRadius()
     {
         return $this->radius;
     }
@@ -58,7 +58,7 @@ trait LocationAwareTrait
      *
      * @param int|null $radius The search radius in meter
      */
-    public function setRadius(?int $radius): void
+    public function setRadius(?int $radius)
     {
         $this->radius = $radius;
     }
@@ -68,7 +68,7 @@ trait LocationAwareTrait
      *
      * @return array<string, mixed>|null
      */
-    public function getBounds(): ?array
+    public function getBounds()
     {
         return $this->bounds;
     }
@@ -78,7 +78,7 @@ trait LocationAwareTrait
      *
      * @param array<string, mixed>|null $bounds
      */
-    public function setBounds(?array $bounds): void
+    public function setBounds(?array $bounds)
     {
         $this->bounds = $bounds;
     }

@@ -39,12 +39,12 @@ class EventType extends AbstractValueObject
      *
      * @return string $title
      */
-    public function getTitle(): string
+    public function getTitle()
     {
         return $this->title;
     }
 
-    public function setTitle(string $title): void
+    public function setTitle(string $title)
     {
         $this->title = $title;
     }
@@ -53,12 +53,12 @@ class EventType extends AbstractValueObject
     /**
      * Gets the link
      */
-    public function getLink(): string
+    public function getLink()
     {
         return $this->link;
     }
 
-    public function setLink(string $link): void
+    public function setLink(string $link)
     {
         $this->link = $link;
     }

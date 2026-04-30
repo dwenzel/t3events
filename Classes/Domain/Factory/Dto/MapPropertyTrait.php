@@ -12,7 +12,7 @@ trait MapPropertyTrait
     /**
      * @return array<string, string>
      */
-    abstract public function getMappedProperties(): array;
+    abstract public function getMappedProperties();
 
     /**
      * Maps some old property names to more convenient ones

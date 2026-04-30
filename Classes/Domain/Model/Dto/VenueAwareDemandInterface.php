@@ -8,9 +8,9 @@ namespace DWenzel\T3events\Domain\Model\Dto;
  */
 interface VenueAwareDemandInterface
 {
-    public function getVenues(): ?string;
+    public function getVenues();
 
-    public function setVenues(?string $venues): void;
+    public function setVenues(?string $venues);
 
-    public function getVenueField(): string;
+    public function getVenueField();
 }

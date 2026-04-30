@@ -30,12 +30,12 @@ trait AudienceAwareDemandTrait
 
     protected ?string $audiences = null;
 
-    public function getAudiences(): ?string
+    public function getAudiences()
     {
         return $this->audiences;
     }
 
-    public function setAudiences(?string $audiences): void
+    public function setAudiences(?string $audiences)
     {
         $this->audiences = $audiences;
     }

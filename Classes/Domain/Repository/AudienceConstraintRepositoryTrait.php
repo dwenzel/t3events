@@ -21,7 +21,7 @@ trait AudienceConstraintRepositoryTrait
      * @param QueryInterface<DomainObjectInterface> $query
      * @return array<ConstraintInterface>
      */
-    public function createAudienceConstraints(QueryInterface $query, AudienceAwareDemandInterface $demand): array
+    public function createAudienceConstraints(QueryInterface $query, AudienceAwareDemandInterface $demand)
     {
         $audienceConstraints = [];
         $audienceField = $demand->getAudienceField();

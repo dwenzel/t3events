@@ -54,242 +54,242 @@ class Content extends AbstractEntity
     protected ?string $headerLayout = null;
     protected ?string $listType = null;
 
-    public function getCrdate(): ?\DateTime
+    public function getCrdate()
     {
         return $this->crdate;
     }
 
-    public function setCrdate(?\DateTime $crdate): void
+    public function setCrdate(?\DateTime $crdate)
     {
         $this->crdate = $crdate;
     }
 
-    public function getTstamp(): ?\DateTime
+    public function getTstamp()
     {
         return $this->tstamp;
     }
 
-    public function setTstamp(?\DateTime $tstamp): void
+    public function setTstamp(?\DateTime $tstamp)
     {
         $this->tstamp = $tstamp;
     }
 
-    public function getCType(): ?string
+    public function getCType()
     {
         return $this->CType;
     }
 
-    public function setCType(?string $ctype): void
+    public function setCType(?string $ctype)
     {
         $this->CType = $ctype;
     }
 
-    public function getHeader(): ?string
+    public function getHeader()
     {
         return $this->header;
     }
 
-    public function setHeader(?string $header): void
+    public function setHeader(?string $header)
     {
         $this->header = $header;
     }
 
-    public function getHeaderPosition(): ?string
+    public function getHeaderPosition()
     {
         return $this->headerPosition;
     }
 
-    public function setHeaderPosition(?string $headerPosition): void
+    public function setHeaderPosition(?string $headerPosition)
     {
         $this->headerPosition = $headerPosition;
     }
 
-    public function getBodytext(): ?string
+    public function getBodytext()
     {
         return $this->bodytext;
     }
 
-    public function setBodytext(?string $bodytext): void
+    public function setBodytext(?string $bodytext)
     {
         $this->bodytext = $bodytext;
     }
 
-    public function getColPos(): int
+    public function getColPos()
     {
         return (int)$this->colPos;
     }
 
-    public function setColPos(?int $colPos): void
+    public function setColPos(?int $colPos)
     {
         $this->colPos = $colPos;
     }
 
-    public function getImage(): ?string
+    public function getImage()
     {
         return $this->image;
     }
 
-    public function setImage(?string $image): void
+    public function setImage(?string $image)
     {
         $this->image = $image;
     }
 
-    public function getImagewidth(): ?int
+    public function getImagewidth()
     {
         return $this->imagewidth;
     }
 
-    public function setImagewidth(?int $imagewidth): void
+    public function setImagewidth(?int $imagewidth)
     {
         $this->imagewidth = $imagewidth;
     }
 
-    public function getImageorient(): ?int
+    public function getImageorient()
     {
         return $this->imageorient;
     }
 
-    public function setImageorient(?int $imageorient): void
+    public function setImageorient(?int $imageorient)
     {
         $this->imageorient = $imageorient;
     }
 
-    public function getImagecaption(): ?string
+    public function getImagecaption()
     {
         return $this->imagecaption;
     }
 
-    public function setImagecaption(?string $imagecaption): void
+    public function setImagecaption(?string $imagecaption)
     {
         $this->imagecaption = $imagecaption;
     }
 
-    public function getImagecols(): ?int
+    public function getImagecols()
     {
         return $this->imagecols;
     }
 
-    public function setImagecols(?int $imagecols): void
+    public function setImagecols(?int $imagecols)
     {
         $this->imagecols = $imagecols;
     }
 
-    public function getImageborder(): ?int
+    public function getImageborder()
     {
         return $this->imageborder;
     }
 
-    public function setImageborder(?int $imageborder): void
+    public function setImageborder(?int $imageborder)
     {
         $this->imageborder = $imageborder;
     }
 
-    public function getMedia(): ?string
+    public function getMedia()
     {
         return $this->media;
     }
 
-    public function setMedia(?string $media): void
+    public function setMedia(?string $media)
     {
         $this->media = $media;
     }
 
-    public function getLayout(): ?string
+    public function getLayout()
     {
         return $this->layout;
     }
 
-    public function setLayout(?string $layout): void
+    public function setLayout(?string $layout)
     {
         $this->layout = $layout;
     }
 
-    public function getCols(): ?int
+    public function getCols()
     {
         return $this->cols;
     }
 
-    public function setCols(?int $cols): void
+    public function setCols(?int $cols)
     {
         $this->cols = $cols;
     }
 
-    public function getSubheader(): ?string
+    public function getSubheader()
     {
         return $this->subheader;
     }
 
-    public function setSubheader(?string $subheader): void
+    public function setSubheader(?string $subheader)
     {
         $this->subheader = $subheader;
     }
 
-    public function getHeaderLink(): ?string
+    public function getHeaderLink()
     {
         return $this->headerLink;
     }
 
-    public function setHeaderLink(?string $headerLink): void
+    public function setHeaderLink(?string $headerLink)
     {
         $this->headerLink = $headerLink;
     }
 
-    public function getImageLink(): ?string
+    public function getImageLink()
     {
         return $this->imageLink;
     }
 
-    public function setImageLink(?string $imageLink): void
+    public function setImageLink(?string $imageLink)
     {
         $this->imageLink = $imageLink;
     }
 
-    public function getImageZoom(): ?string
+    public function getImageZoom()
     {
         return $this->imageZoom;
     }
 
-    public function setImageZoom(?string $imageZoom): void
+    public function setImageZoom(?string $imageZoom)
     {
         $this->imageZoom = $imageZoom;
     }
 
-    public function getAltText(): ?string
+    public function getAltText()
     {
         return $this->altText;
     }
 
-    public function setAltText(?string $altText): void
+    public function setAltText(?string $altText)
     {
         $this->altText = $altText;
     }
 
-    public function getTitleText(): ?string
+    public function getTitleText()
     {
         return $this->titleText;
     }
 
-    public function setTitleText(?string $titleText): void
+    public function setTitleText(?string $titleText)
     {
         $this->titleText = $titleText;
     }
 
-    public function getHeaderLayout(): ?string
+    public function getHeaderLayout()
     {
         return $this->headerLayout;
     }
 
-    public function setHeaderLayout(?string $headerLayout): void
+    public function setHeaderLayout(?string $headerLayout)
     {
         $this->headerLayout = $headerLayout;
     }
 
-    public function getListType(): ?string
+    public function getListType()
     {
         return $this->listType;
     }
 
-    public function setListType(?string $listType): void
+    public function setListType(?string $listType)
     {
         $this->listType = $listType;
     }

@@ -19,5 +19,5 @@ interface LocationConstraintRepositoryInterface
      * @param QueryInterface<DomainObjectInterface> $query
      * @return array<ConstraintInterface>
      */
-    public function createLocationConstraints(QueryInterface $query, SearchAwareDemandInterface $demand): array;
+    public function createLocationConstraints(QueryInterface $query, SearchAwareDemandInterface $demand);
 }

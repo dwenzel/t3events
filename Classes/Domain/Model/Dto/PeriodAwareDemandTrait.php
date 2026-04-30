@@ -47,7 +47,7 @@ trait PeriodAwareDemandTrait
     /**
      * @return string|null The time limit for the demand
      */
-    public function getPeriod(): ?string
+    public function getPeriod()
     {
         return $this->period;
     }
@@ -55,7 +55,7 @@ trait PeriodAwareDemandTrait
     /**
      * @param string|null $period A time limit for the demand
      */
-    public function setPeriod(?string $period = null): void
+    public function setPeriod(?string $period = null)
     {
         $this->period = $period;
     }
@@ -63,7 +63,7 @@ trait PeriodAwareDemandTrait
     /**
      * Returns the date
      */
-    public function getDate(): ?\DateTime
+    public function getDate()
     {
         return $this->date;
     }
@@ -71,12 +71,12 @@ trait PeriodAwareDemandTrait
     /**
      * sets the date
      */
-    public function setDate(?\DateTime $date): void
+    public function setDate(?\DateTime $date)
     {
         $this->date = $date;
     }
 
-    public function getPeriodType(): ?string
+    public function getPeriodType()
     {
         return $this->periodType;
     }
@@ -84,12 +84,12 @@ trait PeriodAwareDemandTrait
     /**
      * @param string|null $periodType Type of period: day, month, year, date
      */
-    public function setPeriodType(?string $periodType): void
+    public function setPeriodType(?string $periodType)
     {
         $this->periodType = $periodType;
     }
 
-    public function getPeriodStart(): ?int
+    public function getPeriodStart()
     {
         return $this->periodStart;
     }
@@ -97,7 +97,7 @@ trait PeriodAwareDemandTrait
     /**
      * @param int|null $start Start value for time period (day, month or year)
      */
-    public function setPeriodStart(?int $start): void
+    public function setPeriodStart(?int $start)
     {
         $this->periodStart = $start;
     }
@@ -105,17 +105,17 @@ trait PeriodAwareDemandTrait
     /**
      * @param int|null $duration Duration value for period (days, months, years)
      */
-    public function setPeriodDuration(?int $duration): void
+    public function setPeriodDuration(?int $duration)
     {
         $this->periodDuration = $duration;
     }
 
-    public function getPeriodDuration(): ?int
+    public function getPeriodDuration()
     {
         return $this->periodDuration;
     }
 
-    public function getStartDate(): ?\DateTime
+    public function getStartDate()
     {
         return $this->startDate;
     }
@@ -123,12 +123,12 @@ trait PeriodAwareDemandTrait
     /**
      * @param \DateTime|null $date Start date
      */
-    public function setStartDate(?\DateTime $date): void
+    public function setStartDate(?\DateTime $date)
     {
         $this->startDate = $date;
     }
 
-    public function getEndDate(): ?\DateTime
+    public function getEndDate()
     {
         return $this->endDate;
     }
@@ -136,17 +136,17 @@ trait PeriodAwareDemandTrait
     /**
      * @param \DateTime|null $date End date
      */
-    public function setEndDate(?\DateTime $date): void
+    public function setEndDate(?\DateTime $date)
     {
         $this->endDate = $date;
     }
 
-    public function isRespectEndDate(): bool
+    public function isRespectEndDate()
     {
         return $this->respectEndDate;
     }
 
-    public function setRespectEndDate(bool $respectEndDate): void
+    public function setRespectEndDate(bool $respectEndDate)
     {
         $this->respectEndDate = $respectEndDate;
     }

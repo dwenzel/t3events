@@ -19,5 +19,5 @@ interface GenreConstraintRepositoryInterface
      * @param QueryInterface<DomainObjectInterface> $query
      * @return array<ConstraintInterface>
      */
-    public function createGenreConstraints(QueryInterface $query, GenreAwareDemandInterface $demand): array;
+    public function createGenreConstraints(QueryInterface $query, GenreAwareDemandInterface $demand);
 }

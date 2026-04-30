@@ -21,7 +21,7 @@ trait EventTypeConstraintRepositoryTrait
      * @param QueryInterface<DomainObjectInterface> $query
      * @return array<ConstraintInterface>
      */
-    public function createEventTypeConstraints(QueryInterface $query, EventTypeAwareDemandInterface $demand): array
+    public function createEventTypeConstraints(QueryInterface $query, EventTypeAwareDemandInterface $demand)
     {
         $eventTypeConstraints = [];
         $eventTypeField = $demand->getEventTypeField();

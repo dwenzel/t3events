@@ -30,12 +30,12 @@ trait VenueAwareDemandTrait
 
     protected ?string $venues = null;
 
-    public function getVenues(): ?string
+    public function getVenues()
     {
         return $this->venues;
     }
 
-    public function setVenues(?string $venues): void
+    public function setVenues(?string $venues)
     {
         $this->venues = $venues;
     }

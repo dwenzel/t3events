@@ -33,14 +33,14 @@ trait EqualsTrait
     /**
      * Returns the class name and the uid of the object as string
      */
-    abstract public function __toString(): string;
+    abstract public function __toString();
 
     /**
      * Tells if an object is the same as this.
      * We rely on the __toString method of
      * AbstractDomainObject
      */
-    public function equals(AbstractDomainObject $object): bool
+    public function equals(AbstractDomainObject $object)
     {
         return ($this->__toString() === $object->__toString());
     }

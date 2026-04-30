@@ -63,7 +63,7 @@ class Person extends AbstractEntity
     /**
      *
      */
-    public function initializeObject(): void
+    public function initializeObject()
     {
         $this->images = new ObjectStorage();
     }
@@ -71,7 +71,7 @@ class Person extends AbstractEntity
     /**
      * Setter for the pid.
      */
-    public function setPid(?int $pid): void
+    public function setPid(?int $pid)
     {
         $this->pid = $pid;
     }
@@ -81,12 +81,12 @@ class Person extends AbstractEntity
      *
      * @return string $type
      */
-    public function getType(): string
+    public function getType()
     {
         return $this->type;
     }
 
-    public function setType(string $type): void
+    public function setType(string $type)
     {
         $this->type = $type;
     }
@@ -96,12 +96,12 @@ class Person extends AbstractEntity
      *
      * @return string $email
      */
-    public function getEmail(): string
+    public function getEmail()
     {
         return $this->email;
     }
 
-    public function getPersonType(): ?PersonType
+    public function getPersonType()
     {
         if ($this->personType instanceof LazyLoadingProxy) {
             /** @var PersonType $instance */
@@ -111,47 +111,47 @@ class Person extends AbstractEntity
         return $this->personType;
     }
 
-    public function setPersonType(?PersonType $personType): void
+    public function setPersonType(?PersonType $personType)
     {
         $this->personType = $personType;
     }
 
-    public function getName(): string
+    public function getName()
     {
         return $this->name;
     }
 
-    public function setName(string $name): void
+    public function setName(string $name)
     {
         $this->name = $name;
     }
 
-    public function getGender(): int
+    public function getGender()
     {
         return $this->gender;
     }
 
-    public function setGender(int $gender): void
+    public function setGender(int $gender)
     {
         $this->gender = $gender;
     }
 
-    public function getFirstName(): string
+    public function getFirstName()
     {
         return $this->firstName;
     }
 
-    public function setFirstName(string $firstName): void
+    public function setFirstName(string $firstName)
     {
         $this->firstName = $firstName;
     }
 
-    public function getLastName(): string
+    public function getLastName()
     {
         return $this->lastName;
     }
 
-    public function setLastName(string $lastName): void
+    public function setLastName(string $lastName)
     {
         $this->lastName = $lastName;
     }
@@ -161,12 +161,12 @@ class Person extends AbstractEntity
      *
      * @return string $phone
      */
-    public function getPhone(): string
+    public function getPhone()
     {
         return $this->phone;
     }
 
-    public function setEmail(string $email): void
+    public function setEmail(string $email)
     {
         $this->email = $email;
     }
@@ -174,37 +174,37 @@ class Person extends AbstractEntity
     /**
      * Sets the phone
      */
-    public function setPhone(string $phone): void
+    public function setPhone(string $phone)
     {
         $this->phone = $phone;
     }
 
-    public function getTitle(): string
+    public function getTitle()
     {
         return $this->title;
     }
 
-    public function setTitle(string $title): void
+    public function setTitle(string $title)
     {
         $this->title = $title;
     }
 
-    public function getBirthday(): ?\DateTime
+    public function getBirthday()
     {
         return $this->birthday;
     }
 
-    public function setBirthday(?\DateTime $birthday): void
+    public function setBirthday(?\DateTime $birthday)
     {
         $this->birthday = $birthday;
     }
 
-    public function getWww(): string
+    public function getWww()
     {
         return $this->www;
     }
 
-    public function setWww(string $www): void
+    public function setWww(string $www)
     {
         $this->www = $www;
     }
@@ -212,7 +212,7 @@ class Person extends AbstractEntity
     /**
      * @return ObjectStorage<FileReference>
      */
-    public function getImages(): ObjectStorage
+    public function getImages()
     {
         return $this->images;
     }
@@ -220,17 +220,17 @@ class Person extends AbstractEntity
     /**
      * @param ObjectStorage<FileReference> $images
      */
-    public function setImages(ObjectStorage $images): void
+    public function setImages(ObjectStorage $images)
     {
         $this->images = $images;
     }
 
-    public function addImage(FileReference $fileReference): void
+    public function addImage(FileReference $fileReference)
     {
         $this->images->attach($fileReference);
     }
 
-    public function removeImage(FileReference $fileReference): void
+    public function removeImage(FileReference $fileReference)
     {
         $this->images->detach($fileReference);
     }

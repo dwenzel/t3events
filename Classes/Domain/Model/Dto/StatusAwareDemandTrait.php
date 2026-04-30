@@ -34,7 +34,7 @@ trait StatusAwareDemandTrait
     /**
      * Returns the performance status
      */
-    public function getStatus(): ?PerformanceStatus
+    public function getStatus()
     {
         return $this->status;
     }
@@ -42,27 +42,27 @@ trait StatusAwareDemandTrait
     /**
      * sets the status
      */
-    public function setStatus(PerformanceStatus $status): void
+    public function setStatus(PerformanceStatus $status)
     {
         $this->status = $status;
     }
 
-    public function getStatuses(): ?string
+    public function getStatuses()
     {
         return $this->statuses;
     }
 
-    public function setStatuses(?string $statuses): void
+    public function setStatuses(?string $statuses)
     {
         $this->statuses = $statuses;
     }
 
-    public function isExcludeSelectedStatuses(): bool
+    public function isExcludeSelectedStatuses()
     {
         return $this->excludeSelectedStatuses;
     }
 
-    public function setExcludeSelectedStatuses(bool $excludeSelectedStatuses): void
+    public function setExcludeSelectedStatuses(bool $excludeSelectedStatuses)
     {
         $this->excludeSelectedStatuses = $excludeSelectedStatuses;
     }

@@ -19,5 +19,5 @@ interface VenueConstraintRepositoryInterface
      * @param QueryInterface<DomainObjectInterface> $query
      * @return array<ConstraintInterface>
      */
-    public function createVenueConstraints(QueryInterface $query, VenueAwareDemandInterface $demand): array;
+    public function createVenueConstraints(QueryInterface $query, VenueAwareDemandInterface $demand);
 }

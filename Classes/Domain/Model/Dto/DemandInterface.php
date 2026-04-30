@@ -19,43 +19,43 @@ namespace DWenzel\T3events\Domain\Model\Dto;
  */
 interface DemandInterface
 {
-    public function getLimit(): ?int;
+    public function getLimit();
 
-    public function setLimit(?int $limit): void;
+    public function setLimit(?int $limit);
 
-    public function getOffset(): ?int;
+    public function getOffset();
 
-    public function setOffset(?int $offset): void;
+    public function setOffset(?int $offset);
 
     /**
      * @param string|null $sortBy The sort criteria in dot notation
      */
-    public function setSortBy(?string $sortBy): void;
+    public function setSortBy(?string $sortBy);
 
     /**
      * @return string|null The sort criteria in dot notation
      */
-    public function getSortBy(): ?string;
+    public function getSortBy();
 
-    public function getOrder(): ?string;
+    public function getOrder();
 
     /**
      * @param string|null $order A comma separated list of orderings: <sortField>|<sortDirection>,<otherSortField>|<sortDirection>
      */
-    public function setOrder(?string $order): void;
+    public function setOrder(?string $order);
 
     /**
      * @param string|null $sortDirection The sort direction
      */
-    public function setSortDirection(?string $sortDirection): void;
+    public function setSortDirection(?string $sortDirection);
 
     /**
      * @return string|null The sort direction
      */
-    public function getSortDirection(): ?string;
+    public function getSortDirection();
 
     /**
      * @return string|null Comma separated list of storage page ids
      */
-    public function getStoragePages(): ?string;
+    public function getStoragePages();
 }

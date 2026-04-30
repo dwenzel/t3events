@@ -19,5 +19,5 @@ interface CategoryConstraintRepositoryInterface
      * @param QueryInterface<DomainObjectInterface> $query
      * @return array<ConstraintInterface>
      */
-    public function createCategoryConstraints(QueryInterface $query, CategoryAwareDemandInterface $demand): array;
+    public function createCategoryConstraints(QueryInterface $query, CategoryAwareDemandInterface $demand);
 }

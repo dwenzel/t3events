@@ -34,7 +34,7 @@ trait AddressTrait
      *
      * @return string $address
      */
-    public function getAddress(): string
+    public function getAddress()
     {
         return $this->address;
     }
@@ -44,7 +44,7 @@ trait AddressTrait
      *
      * @return string $city
      */
-    public function getCity(): string
+    public function getCity()
     {
         return $this->city;
     }
@@ -54,7 +54,7 @@ trait AddressTrait
      *
      * @return string $zip
      */
-    public function getZip(): string
+    public function getZip()
     {
         return $this->zip;
     }
@@ -62,7 +62,7 @@ trait AddressTrait
     /**
      * Sets the address
      */
-    public function setAddress(string $address): void
+    public function setAddress(string $address)
     {
         $this->address = $address;
     }
@@ -70,7 +70,7 @@ trait AddressTrait
     /**
      * Sets the city
      */
-    public function setCity(string $city): void
+    public function setCity(string $city)
     {
         $this->city = $city;
     }
@@ -78,17 +78,17 @@ trait AddressTrait
     /**
      * Sets the zip
      */
-    public function setZip(string $zip): void
+    public function setZip(string $zip)
     {
         $this->zip = $zip;
     }
 
-    public function getCountry(): string
+    public function getCountry()
     {
         return $this->country;
     }
 
-    public function setCountry(string $country): void
+    public function setCountry(string $country)
     {
         $this->country = $country;
     }

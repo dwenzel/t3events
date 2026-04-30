@@ -25,7 +25,7 @@ trait PeriodConstraintRepositoryTrait
      * @return array<ConstraintInterface>
      * @throws InvalidQueryException
      */
-    public function createPeriodConstraints(QueryInterface $query, PeriodAwareDemandInterface $demand): array
+    public function createPeriodConstraints(QueryInterface $query, PeriodAwareDemandInterface $demand)
     {
         // set start date initial to now
         $timezone = new \DateTimeZone(date_default_timezone_get());

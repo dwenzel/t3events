@@ -44,5 +44,5 @@ interface PeriodConstraintRepositoryInterface
      * @param QueryInterface<DomainObjectInterface> $query
      * @return array<ConstraintInterface>
      */
-    public function createPeriodConstraints(QueryInterface $query, PeriodAwareDemandInterface $demand): array;
+    public function createPeriodConstraints(QueryInterface $query, PeriodAwareDemandInterface $demand);
 }

@@ -30,12 +30,12 @@ trait GenreAwareDemandTrait
 
     protected ?string $genres = null;
 
-    public function getGenres(): ?string
+    public function getGenres()
     {
         return $this->genres;
     }
 
-    public function setGenres(?string $genres): void
+    public function setGenres(?string $genres)
     {
         $this->genres = $genres;
     }

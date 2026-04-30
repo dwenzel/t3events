@@ -44,7 +44,7 @@ trait CategorizableTrait
     /**
      * Adds a Category
      */
-    public function addCategory(SysCategory $category): void
+    public function addCategory(SysCategory $category)
     {
         $this->categories->attach($category);
     }
@@ -53,7 +53,7 @@ trait CategorizableTrait
      *
      * @param \TYPO3\CMS\Extbase\Domain\Model\Category $categoryToRemove The Category to be removed
      */
-    public function removeCategory(SysCategory $categoryToRemove): void
+    public function removeCategory(SysCategory $categoryToRemove)
     {
         $this->categories->detach($categoryToRemove);
     }
@@ -62,7 +62,7 @@ trait CategorizableTrait
      *
      * @return ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category>
      */
-    public function getCategories(): ObjectStorage
+    public function getCategories()
     {
         return $this->categories;
     }
@@ -72,7 +72,7 @@ trait CategorizableTrait
      *
      * @param ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category> $categories
      */
-    public function setCategories(ObjectStorage $categories): void
+    public function setCategories(ObjectStorage $categories)
     {
         $this->categories = $categories;
     }

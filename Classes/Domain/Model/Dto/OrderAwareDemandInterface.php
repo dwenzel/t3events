@@ -9,10 +9,10 @@ namespace DWenzel\T3events\Domain\Model\Dto;
  */
 interface OrderAwareDemandInterface
 {
-    public function getOrder(): ?string;
+    public function getOrder();
 
     /**
      * @param string|null $order A comma separated list of orderings: <sortField>|<sortDirection>,<otherSortField>|<sortDirection>
      */
-    public function setOrder(?string $order): void;
+    public function setOrder(?string $order);
 }

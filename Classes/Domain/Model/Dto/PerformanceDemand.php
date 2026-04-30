@@ -53,7 +53,7 @@ class PerformanceDemand extends AbstractDemand implements
     /**
      * Gets the start date field
      */
-    public function getStartDateField(): string
+    public function getStartDateField()
     {
         return static::START_DATE_FIELD;
     }
@@ -61,7 +61,7 @@ class PerformanceDemand extends AbstractDemand implements
     /**
      * Gets the endDate field
      */
-    public function getEndDateField(): string
+    public function getEndDateField()
     {
         return static::END_DATE_FIELD;
     }
@@ -69,37 +69,37 @@ class PerformanceDemand extends AbstractDemand implements
     /**
      * Gets the status field name
      */
-    public function getStatusField(): string
+    public function getStatusField()
     {
         return static::STATUS_FIELD;
     }
 
-    public function getCategoryField(): string
+    public function getCategoryField()
     {
         return static::CATEGORY_FIELD;
     }
 
-    public function getEventLocationField(): string
+    public function getEventLocationField()
     {
         return static::EVENT_LOCATION_FIELD;
     }
 
-    public function getGenreField(): string
+    public function getGenreField()
     {
         return static::GENRE_FIELD;
     }
 
-    public function getVenueField(): string
+    public function getVenueField()
     {
         return static::VENUE_FIELD;
     }
 
-    public function getEventTypeField(): string
+    public function getEventTypeField()
     {
         return static::EVENT_TYPE_FIELD;
     }
 
-    public function getAudienceField(): string
+    public function getAudienceField()
     {
         return static::AUDIENCE_FIELD;
     }

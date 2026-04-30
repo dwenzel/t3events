@@ -23,7 +23,7 @@ trait CategoryConstraintRepositoryTrait
      * @return array<ConstraintInterface>
      * @throws InvalidQueryException
      */
-    public function createCategoryConstraints(QueryInterface $query, CategoryAwareDemandInterface $demand): array
+    public function createCategoryConstraints(QueryInterface $query, CategoryAwareDemandInterface $demand)
     {
         $categoryConstraints = [];
         $categoryField = $demand->getCategoryField();

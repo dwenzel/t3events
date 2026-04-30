@@ -38,7 +38,7 @@ trait RelatedSchedulesTrait
     /**
      * @return ObjectStorage<Performance>
      */
-    public function getRelatedSchedules(): ObjectStorage
+    public function getRelatedSchedules()
     {
         return $this->relatedSchedules;
     }
@@ -46,7 +46,7 @@ trait RelatedSchedulesTrait
     /**
      * @param ObjectStorage<Performance> $relatedSchedules
      */
-    public function setRelatedSchedules(ObjectStorage $relatedSchedules): void
+    public function setRelatedSchedules(ObjectStorage $relatedSchedules)
     {
         $this->relatedSchedules = $relatedSchedules;
     }
@@ -54,7 +54,7 @@ trait RelatedSchedulesTrait
     /**
      * Add a related schedule
      */
-    public function addRelatedSchedule(Performance $schedule): void
+    public function addRelatedSchedule(Performance $schedule)
     {
         $this->relatedSchedules->attach($schedule);
     }
@@ -62,7 +62,7 @@ trait RelatedSchedulesTrait
     /**
      * removes a related schedule
      */
-    public function removeRelatedSchedule(Performance $schedule): void
+    public function removeRelatedSchedule(Performance $schedule)
     {
         $this->relatedSchedules->detach($schedule);
     }

@@ -21,7 +21,7 @@ trait EventLocationAwareDemandTrait
     /**
      * Gets the event locations
      */
-    public function getEventLocations(): ?string
+    public function getEventLocations()
     {
         return $this->eventLocations;
     }
@@ -29,7 +29,7 @@ trait EventLocationAwareDemandTrait
     /**
      * Sets the event locations
      */
-    public function setEventLocations(?string $eventLocations): void
+    public function setEventLocations(?string $eventLocations)
     {
         $this->eventLocations = $eventLocations;
     }

@@ -17,7 +17,7 @@ trait PeriodAwareDemandFactoryTrait
      *
      * @param array<string, mixed> $settings
      */
-    public function setPeriodConstraints(PeriodAwareDemandInterface $demand, array $settings): void
+    public function setPeriodConstraints(PeriodAwareDemandInterface $demand, array $settings)
     {
         $timeZone = new \DateTimeZone(date_default_timezone_get());
         if (!isset($settings['period'])) {

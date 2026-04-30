@@ -30,12 +30,12 @@ trait EventTypeAwareDemandTrait
 
     protected ?string $eventTypes = null;
 
-    public function getEventTypes(): ?string
+    public function getEventTypes()
     {
         return $this->eventTypes;
     }
 
-    public function setEventTypes(?string $eventTypes): void
+    public function setEventTypes(?string $eventTypes)
     {
         $this->eventTypes = $eventTypes;
     }

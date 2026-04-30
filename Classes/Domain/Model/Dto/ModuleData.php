@@ -18,7 +18,7 @@ class ModuleData
     /**
      * Get the demand
      */
-    public function getDemand(): ?DemandInterface
+    public function getDemand()
     {
         return $this->demand;
     }
@@ -26,7 +26,7 @@ class ModuleData
     /**
      * Sets the demand
      */
-    public function setDemand(DemandInterface$demand): void
+    public function setDemand(DemandInterface$demand)
     {
         $this->demand = $demand;
     }
@@ -36,7 +36,7 @@ class ModuleData
      *
      * @param array<string, mixed> $overwriteDemand
      */
-    public function setOverwriteDemand(array $overwriteDemand): void
+    public function setOverwriteDemand(array $overwriteDemand)
     {
         $this->overwriteDemand = $overwriteDemand;
     }
@@ -46,7 +46,7 @@ class ModuleData
      *
      * @return array<string, mixed>|null
      */
-    public function getOverwriteDemand(): ?array
+    public function getOverwriteDemand()
     {
         return $this->overwriteDemand;
     }

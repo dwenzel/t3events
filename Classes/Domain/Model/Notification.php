@@ -64,7 +64,7 @@ class Notification extends AbstractEntity
     /**
      * Returns the recipient
      */
-    public function getRecipient(): ?string
+    public function getRecipient()
     {
         return $this->recipient;
     }
@@ -72,7 +72,7 @@ class Notification extends AbstractEntity
     /**
      * Sets the recipient
      */
-    public function setRecipient(?string $recipient): void
+    public function setRecipient(?string $recipient)
     {
         $this->recipient = $recipient;
     }
@@ -80,7 +80,7 @@ class Notification extends AbstractEntity
     /**
      * Returns the subject
      */
-    public function getSubject(): string
+    public function getSubject()
     {
         return $this->subject;
     }
@@ -88,7 +88,7 @@ class Notification extends AbstractEntity
     /**
      * Sets the subject
      */
-    public function setSubject(string $subject): void
+    public function setSubject(string $subject)
     {
         $this->subject = $subject;
     }
@@ -98,7 +98,7 @@ class Notification extends AbstractEntity
      *
      * @deprecated Use getSenderEmail and getSenderName instead
      */
-    public function getSender(): ?string
+    public function getSender()
     {
         return $this->sender;
     }
@@ -108,7 +108,7 @@ class Notification extends AbstractEntity
      *
      * @deprecated Use setSenderEmail and setSenderName instead
      */
-    public function setSender(?string $sender): void
+    public function setSender(?string $sender)
     {
         $this->sender = $sender;
         $this->senderEmail = $sender;
@@ -117,7 +117,7 @@ class Notification extends AbstractEntity
     /**
      * Returns the bodytext
      */
-    public function getBodytext(): string
+    public function getBodytext()
     {
         return $this->bodytext;
     }
@@ -125,7 +125,7 @@ class Notification extends AbstractEntity
     /**
      * Sets the bodytext
      */
-    public function setBodytext(string $bodytext): void
+    public function setBodytext(string $bodytext)
     {
         $this->bodytext = $bodytext;
     }
@@ -133,7 +133,7 @@ class Notification extends AbstractEntity
     /**
      * Returns the format
      */
-    public function getFormat(): ?string
+    public function getFormat()
     {
         return $this->format;
     }
@@ -141,7 +141,7 @@ class Notification extends AbstractEntity
     /**
      * Sets the format
      */
-    public function setFormat(?string $format): void
+    public function setFormat(?string $format)
     {
         $this->format = $format;
     }
@@ -149,7 +149,7 @@ class Notification extends AbstractEntity
     /**
      * Returns the time when notification was send
      */
-    public function getSentAt(): ?\DateTime
+    public function getSentAt()
     {
         return $this->sentAt;
     }
@@ -157,7 +157,7 @@ class Notification extends AbstractEntity
     /**
      * Sets send at
      */
-    public function setSentAt(?\DateTime $sentAt): void
+    public function setSentAt(?\DateTime $sentAt)
     {
         $this->sentAt = $sentAt;
     }
@@ -165,7 +165,7 @@ class Notification extends AbstractEntity
     /**
      * @return ObjectStorage<FileReference>
      */
-    public function getAttachments(): ObjectStorage
+    public function getAttachments()
     {
         return $this->attachments;
     }
@@ -173,7 +173,7 @@ class Notification extends AbstractEntity
     /**
      * @param ObjectStorage<FileReference> $attachments
      */
-    public function setAttachments(ObjectStorage $attachments): void
+    public function setAttachments(ObjectStorage $attachments)
     {
         $this->attachments = $attachments;
     }
@@ -181,7 +181,7 @@ class Notification extends AbstractEntity
     /**
      * Adds an attachment to the attachment gallery
      */
-    public function addAttachment(FileReference $fileReference): void
+    public function addAttachment(FileReference $fileReference)
     {
         $this->attachments->attach($fileReference);
     }
@@ -189,12 +189,12 @@ class Notification extends AbstractEntity
     /**
      * Removes an attachment from the attachment gallery
      */
-    public function removeAttachment(FileReference $fileReference): void
+    public function removeAttachment(FileReference $fileReference)
     {
         $this->attachments->detach($fileReference);
     }
 
-    public function getSenderEmail(): ?string
+    public function getSenderEmail()
     {
         if ($this->senderEmail === null) {
             return $this->sender;
@@ -203,18 +203,18 @@ class Notification extends AbstractEntity
         return $this->senderEmail;
     }
 
-    public function setSenderEmail(?string $senderEmail): void
+    public function setSenderEmail(?string $senderEmail)
     {
         $this->senderEmail = $senderEmail;
         $this->sender = $senderEmail;
     }
 
-    public function getSenderName(): ?string
+    public function getSenderName()
     {
         return $this->senderName;
     }
 
-    public function setSenderName(?string $senderName): void
+    public function setSenderName(?string $senderName)
     {
         $this->senderName = $senderName;
     }

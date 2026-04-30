@@ -38,12 +38,12 @@ class Organizer extends AbstractEntity
      *
      * @return string $name
      */
-    public function getName(): string
+    public function getName()
     {
         return $this->name;
     }
 
-    public function setName(string $name): void
+    public function setName(string $name)
     {
         $this->name = $name;
     }
@@ -53,12 +53,12 @@ class Organizer extends AbstractEntity
      *
      * @return string $link
      */
-    public function getLink(): string
+    public function getLink()
     {
         return $this->link;
     }
 
-    public function setLink(string $link): void
+    public function setLink(string $link)
     {
         $this->link = $link;
     }

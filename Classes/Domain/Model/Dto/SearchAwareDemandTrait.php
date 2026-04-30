@@ -14,7 +14,7 @@ trait SearchAwareDemandTrait
     /**
      * Get search
      */
-    public function getSearch(): ?Search
+    public function getSearch()
     {
         return $this->search;
     }
@@ -24,7 +24,7 @@ trait SearchAwareDemandTrait
      *
      * @param Search $search A search object
      */
-    public function setSearch(Search $search): void
+    public function setSearch(Search $search)
     {
         $this->search = $search;
     }

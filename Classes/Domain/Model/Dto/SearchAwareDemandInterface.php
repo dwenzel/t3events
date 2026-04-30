@@ -12,12 +12,12 @@ interface SearchAwareDemandInterface
     /**
      * Get search
      */
-    public function getSearch(): ?Search;
+    public function getSearch();
 
     /**
      * Set search object
      *
      * @param Search $search A search object
      */
-    public function setSearch(Search $search): void;
+    public function setSearch(Search $search);
 }

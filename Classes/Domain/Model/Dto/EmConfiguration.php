@@ -43,12 +43,12 @@ class EmConfiguration
         }
     }
 
-    public function isRespectPerformanceStoragePage(): bool
+    public function isRespectPerformanceStoragePage()
     {
         return $this->respectPerformanceStoragePage;
     }
 
-    public function setRespectPerformanceStoragePage(bool $respectPerformanceStoragePage): void
+    public function setRespectPerformanceStoragePage(bool $respectPerformanceStoragePage)
     {
         $this->respectPerformanceStoragePage = $respectPerformanceStoragePage;
     }

@@ -47,7 +47,7 @@ class EventRepository extends AbstractDemandedRepository implements
      * @return array<ConstraintInterface>
      * @throws InvalidQueryException
      */
-    public function createCategoryConstraints(QueryInterface $query, EventDemand $demand): array
+    public function createCategoryConstraints(QueryInterface $query, EventDemand $demand)
     {
         // gather OR constraints (categories)
         $categoryConstraints = [];
@@ -89,7 +89,7 @@ class EventRepository extends AbstractDemandedRepository implements
      * @param QueryInterface<DomainObjectInterface> $query
      * @return array<ConstraintInterface>
      */
-    public function createConstraintsFromDemand(QueryInterface $query, DemandInterface $demand): array
+    public function createConstraintsFromDemand(QueryInterface $query, DemandInterface $demand)
     {
         /** @var EventDemand $demand */
         $constraints = [];

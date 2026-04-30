@@ -21,15 +21,15 @@ namespace DWenzel\T3events\Domain\Model;
  */
 interface GeoCodingInterface
 {
-    public function getPlace(): ?string;
+    public function getPlace();
 
-    public function getZip(): ?string;
+    public function getZip();
 
-    public function getLatitude(): ?float;
+    public function getLatitude();
 
-    public function getLongitude(): ?float;
+    public function getLongitude();
 
-    public function setLatitude(?float $latitude): void;
+    public function setLatitude(?float $latitude);
 
-    public function setLongitude(?float $longitude): void;
+    public function setLongitude(?float $longitude);
 }

@@ -38,12 +38,12 @@ class Audience extends AbstractEntity
      *
      * @return string $title
      */
-    public function getTitle(): string
+    public function getTitle()
     {
         return $this->title;
     }
 
-    public function setTitle(string $title): void
+    public function setTitle(string $title)
     {
         $this->title = $title;
     }
@@ -53,12 +53,12 @@ class Audience extends AbstractEntity
      *
      * @return string $description
      */
-    public function getDescription(): string
+    public function getDescription()
     {
         return $this->description;
     }
 
-    public function setDescription(string $description): void
+    public function setDescription(string $description)
     {
         $this->description = $description;
     }
@@ -66,12 +66,12 @@ class Audience extends AbstractEntity
     /**
      * Gets the link
      */
-    public function getLink(): string
+    public function getLink()
     {
         return $this->link;
     }
 
-    public function setLink(string $link): void
+    public function setLink(string $link)
     {
         $this->link = $link;
     }

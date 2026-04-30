@@ -27,7 +27,7 @@ class PersonRepository extends AbstractDemandedRepository
      * @param QueryInterface<DomainObjectInterface> $query
      * @return array<ConstraintInterface>
      */
-    public function createConstraintsFromDemand(QueryInterface $query, DemandInterface $demand): array
+    public function createConstraintsFromDemand(QueryInterface $query, DemandInterface $demand)
     {
         // add constraints if required
         return [];

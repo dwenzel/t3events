@@ -34,7 +34,7 @@ trait DemandedRepositoryTrait
      * @param QueryInterface<\TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface> $query
      * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\ConstraintInterface>
      */
-    abstract public function createConstraintsFromDemand(QueryInterface $query, DemandInterface $demand): array;
+    abstract public function createConstraintsFromDemand(QueryInterface $query, DemandInterface $demand);
 
     /**
      * Returns a query for objects of this repository
@@ -49,7 +49,7 @@ trait DemandedRepositoryTrait
      * @param string $sortOrder
      * @return QueryResultInterface<object> Matching Records
      */
-    public function findMultipleByUid(string $recordList, string $sortField = 'uid', string $sortOrder = QueryInterface::ORDER_ASCENDING): QueryResultInterface
+    public function findMultipleByUid(string $recordList, string $sortField = 'uid', string $sortOrder = QueryInterface::ORDER_ASCENDING)
     {
         $query = $this->createQuery();
         $uids = GeneralUtility::intExplode(',', $recordList, true);
@@ -67,7 +67,7 @@ trait DemandedRepositoryTrait
      * @param bool $respectEnableFields
      * @return QueryResultInterface<object>
      */
-    public function findDemanded(DemandInterface $demand, bool $respectEnableFields = true): QueryResultInterface
+    public function findDemanded(DemandInterface $demand, bool $respectEnableFields = true)
     {
         $query = $this->generateQuery($demand, $respectEnableFields);
         return $query->execute();
@@ -78,7 +78,7 @@ trait DemandedRepositoryTrait
      *
      * @return array<string, string>
      */
-    public function createOrderingsFromDemand(DemandInterface $demand): array
+    public function createOrderingsFromDemand(DemandInterface $demand)
     {
         $orderings = [];
 
@@ -107,7 +107,7 @@ trait DemandedRepositoryTrait
      * @return QueryInterface<\TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface>
      * @throws InvalidQueryException
      */
-    public function generateQuery(?DemandInterface $demand = null, bool $respectEnableFields = true): QueryInterface
+    public function generateQuery(?DemandInterface $demand = null, bool $respectEnableFields = true)
     {
         /** @var QueryInterface<\TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface> $query */
         $query = $this->createQuery();
@@ -167,7 +167,7 @@ trait DemandedRepositoryTrait
      * @param array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\ConstraintInterface> $additionalConstraints
      * @param string|null $conjunction
      */
-    public function combineConstraints(QueryInterface $query, array &$constraints, array $additionalConstraints, ?string $conjunction = null): void
+    public function combineConstraints(QueryInterface $query, array &$constraints, array $additionalConstraints, ?string $conjunction = null)
     {
         if ($conjunction !== null && count($additionalConstraints)) {
             switch (strtolower($conjunction)) {
@@ -195,7 +195,7 @@ trait DemandedRepositoryTrait
      * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\ConstraintInterface>
      * @throws InvalidQueryException
      */
-    public function createSearchConstraints(QueryInterface $query, SearchAwareDemandInterface $demand): array
+    public function createSearchConstraints(QueryInterface $query, SearchAwareDemandInterface $demand)
     {
         $searchConstraints = [];
         if ($search = $demand->getSearch()) {

@@ -30,12 +30,12 @@ trait CategoryAwareDemandTrait
 
     protected ?string $categories = null;
 
-    public function getCategories(): ?string
+    public function getCategories()
     {
         return $this->categories;
     }
 
-    public function setCategories(?string $categories): void
+    public function setCategories(?string $categories)
     {
         $this->categories = $categories;
     }

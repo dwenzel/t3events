@@ -57,7 +57,7 @@ abstract class AbstractDemandFactory
      *
      * @return list<string>
      */
-    public function getCompositeProperties(): array
+    public function getCompositeProperties()
     {
         return static::$compositeProperties;
     }
@@ -67,7 +67,7 @@ abstract class AbstractDemandFactory
      *
      * @return array<string, string>
      */
-    public function getMappedProperties(): array
+    public function getMappedProperties()
     {
         return static::$mappedProperties;
     }
@@ -83,7 +83,7 @@ abstract class AbstractDemandFactory
      *
      * @param array<string, mixed> $settings
      */
-    public function applySettings(mixed $demand, array $settings): void
+    public function applySettings(mixed $demand, array $settings)
     {
         if (
             isset($settings['sortBy']) &&

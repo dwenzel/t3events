@@ -26,7 +26,7 @@ class TaskRepository extends Repository implements TaskRepositoryInterface
     /**
      * initializes the object
      */
-    public function initializeObject(): void
+    public function initializeObject()
     {
         $querySettings = GeneralUtility::makeInstance(Typo3QuerySettings::class);
         $querySettings->setRespectStoragePage(false);

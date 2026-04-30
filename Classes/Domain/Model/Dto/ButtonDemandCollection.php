@@ -89,7 +89,7 @@ class ButtonDemandCollection
     /**
      * Adds a Demand
      */
-    public function addDemand(ButtonDemand $demand): void
+    public function addDemand(ButtonDemand $demand)
     {
         $this->demands->attach($demand);
     }
@@ -97,7 +97,7 @@ class ButtonDemandCollection
     /**
      * @return ObjectStorage<ButtonDemand>
      */
-    public function getDemands(): ObjectStorage
+    public function getDemands()
     {
         return $this->demands;
     }
@@ -105,7 +105,7 @@ class ButtonDemandCollection
     /**
      * @param ObjectStorage<ButtonDemand> $demands
      */
-    public function setDemands(ObjectStorage $demands): void
+    public function setDemands(ObjectStorage $demands)
     {
         $this->demands = $demands;
     }
@@ -115,7 +115,7 @@ class ButtonDemandCollection
      *
      * @param ButtonDemand $demandToRemove The Demand to be removed
      */
-    public function removeDemand(ButtonDemand $demandToRemove): void
+    public function removeDemand(ButtonDemand $demandToRemove)
     {
         $this->demands->detach($demandToRemove);
     }

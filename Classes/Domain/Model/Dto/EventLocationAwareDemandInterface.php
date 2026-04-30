@@ -8,9 +8,9 @@ namespace DWenzel\T3events\Domain\Model\Dto;
  */
 interface EventLocationAwareDemandInterface
 {
-    public function getEventLocations(): ?string;
+    public function getEventLocations();
 
-    public function setEventLocations(?string $eventLocations): void;
+    public function setEventLocations(?string $eventLocations);
 
-    public function getEventLocationField(): string;
+    public function getEventLocationField();
 }

@@ -60,7 +60,7 @@ class EventDemand extends AbstractDemand implements
     /**
      * Returns the genre
      */
-    public function getGenre(): ?string
+    public function getGenre()
     {
         return $this->genre;
     }
@@ -68,7 +68,7 @@ class EventDemand extends AbstractDemand implements
     /**
      * Sets the genre
      */
-    public function setGenre(?string $genre): void
+    public function setGenre(?string $genre)
     {
         $this->genre = $genre;
     }
@@ -76,7 +76,7 @@ class EventDemand extends AbstractDemand implements
     /**
      * Returns the venue
      */
-    public function getVenue(): ?string
+    public function getVenue()
     {
         return $this->venue;
     }
@@ -84,7 +84,7 @@ class EventDemand extends AbstractDemand implements
     /**
      * Sets the venue
      */
-    public function setVenue(?string $venue): void
+    public function setVenue(?string $venue)
     {
         $this->venue = $venue;
     }
@@ -92,7 +92,7 @@ class EventDemand extends AbstractDemand implements
     /**
      * Returns the Event Type
      */
-    public function getEventType(): ?string
+    public function getEventType()
     {
         return $this->eventType;
     }
@@ -100,7 +100,7 @@ class EventDemand extends AbstractDemand implements
     /**
      * Set event type
      */
-    public function setEventType(?string $eventType): void
+    public function setEventType(?string $eventType)
     {
         $this->eventType = $eventType;
     }
@@ -108,7 +108,7 @@ class EventDemand extends AbstractDemand implements
     /**
      * Returns the Category Conjunction
      */
-    public function getCategoryConjunction(): ?string
+    public function getCategoryConjunction()
     {
         return $this->categoryConjunction;
     }
@@ -116,7 +116,7 @@ class EventDemand extends AbstractDemand implements
     /**
      * Set Category Conjunction
      */
-    public function setCategoryConjunction(?string $categoryConjunction): void
+    public function setCategoryConjunction(?string $categoryConjunction)
     {
         $this->categoryConjunction = $categoryConjunction;
     }
@@ -124,7 +124,7 @@ class EventDemand extends AbstractDemand implements
     /**
      * Gets the start date field
      */
-    public function getStartDateField(): string
+    public function getStartDateField()
     {
         return static::START_DATE_FIELD;
     }
@@ -132,7 +132,7 @@ class EventDemand extends AbstractDemand implements
     /**
      * Gets the endDate field
      */
-    public function getEndDateField(): string
+    public function getEndDateField()
     {
         return static::END_DATE_FIELD;
     }
@@ -140,7 +140,7 @@ class EventDemand extends AbstractDemand implements
     /**
      * Returns the categories
      */
-    public function getCategories(): ?string
+    public function getCategories()
     {
         return $this->categories;
     }
@@ -148,12 +148,12 @@ class EventDemand extends AbstractDemand implements
     /**
      * Sets the categories
      */
-    public function setCategories(?string $categories): void
+    public function setCategories(?string $categories)
     {
         $this->categories = $categories;
     }
 
-    public function getAudienceField(): string
+    public function getAudienceField()
     {
         return static::AUDIENCE_FIELD;
     }

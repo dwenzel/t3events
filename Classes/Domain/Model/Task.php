@@ -50,12 +50,12 @@ class Task extends AbstractEntity
      *
      * @return string $name
      */
-    public function getName(): string
+    public function getName()
     {
         return $this->name;
     }
 
-    public function setName(string $name): void
+    public function setName(string $name)
     {
         $this->name = $name;
     }
@@ -65,12 +65,12 @@ class Task extends AbstractEntity
      *
      * @return integer $action
      */
-    public function getAction(): int
+    public function getAction()
     {
         return $this->action;
     }
 
-    public function setAction(int $action): void
+    public function setAction(int $action)
     {
         $this->action = $action;
     }
@@ -78,12 +78,12 @@ class Task extends AbstractEntity
     /**
      * Get the periodDuration
      */
-    public function getPeriodDuration(): int
+    public function getPeriodDuration()
     {
         return $this->periodDuration;
     }
 
-    public function setPeriodDuration(int $periodDuration): void
+    public function setPeriodDuration(int $periodDuration)
     {
         $this->periodDuration = $periodDuration;
     }
@@ -93,7 +93,7 @@ class Task extends AbstractEntity
      *
      * @return PerformanceStatus $oldStatus
      */
-    public function getOldStatus(): ?PerformanceStatus
+    public function getOldStatus()
     {
         if ($this->oldStatus instanceof LazyLoadingProxy) {
             /** @var PerformanceStatus $instance */
@@ -103,7 +103,7 @@ class Task extends AbstractEntity
         return $this->oldStatus;
     }
 
-    public function setOldStatus(?PerformanceStatus $oldStatus): void
+    public function setOldStatus(?PerformanceStatus $oldStatus)
     {
         $this->oldStatus = $oldStatus;
     }
@@ -113,7 +113,7 @@ class Task extends AbstractEntity
      *
      * @return PerformanceStatus $newStatus
      */
-    public function getNewStatus(): ?PerformanceStatus
+    public function getNewStatus()
     {
         if ($this->newStatus instanceof LazyLoadingProxy) {
             /** @var PerformanceStatus $instance */
@@ -123,7 +123,7 @@ class Task extends AbstractEntity
         return $this->newStatus;
     }
 
-    public function setNewStatus(?PerformanceStatus $newStatus): void
+    public function setNewStatus(?PerformanceStatus $newStatus)
     {
         $this->newStatus = $newStatus;
     }
@@ -133,12 +133,12 @@ class Task extends AbstractEntity
      *
      * @return string $folder
      */
-    public function getFolder(): string
+    public function getFolder()
     {
         return $this->folder;
     }
 
-    public function setFolder(string $folder): void
+    public function setFolder(string $folder)
     {
         $this->folder = $folder;
     }
@@ -148,12 +148,12 @@ class Task extends AbstractEntity
      *
      * @return string A string describing the period constraint. Allowed: all, pastOnly, futureOnly
      */
-    public function getPeriod(): string
+    public function getPeriod()
     {
         return $this->period;
     }
 
-    public function setPeriod(string $period): void
+    public function setPeriod(string $period)
     {
         $this->period = $period;
     }

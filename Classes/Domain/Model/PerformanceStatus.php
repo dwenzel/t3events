@@ -51,7 +51,7 @@ class PerformanceStatus extends AbstractEntity
     /**
      * Returns the title
      */
-    public function getTitle(): string
+    public function getTitle()
     {
         return $this->title;
     }
@@ -59,7 +59,7 @@ class PerformanceStatus extends AbstractEntity
     /**
      * Sets the title
      */
-    public function setTitle(string $title): void
+    public function setTitle(string $title)
     {
         $this->title = $title;
     }
@@ -67,7 +67,7 @@ class PerformanceStatus extends AbstractEntity
     /**
      * Returns the priority
      */
-    public function getPriority(): int
+    public function getPriority()
     {
         return $this->priority;
     }
@@ -75,7 +75,7 @@ class PerformanceStatus extends AbstractEntity
     /**
      * Sets the priority
      */
-    public function setPriority(int $priority): void
+    public function setPriority(int $priority)
     {
         $this->priority = $priority;
     }
@@ -83,7 +83,7 @@ class PerformanceStatus extends AbstractEntity
     /**
      * Returns the cssClass
      */
-    public function getCssClass(): string
+    public function getCssClass()
     {
         return $this->cssClass;
     }
@@ -91,7 +91,7 @@ class PerformanceStatus extends AbstractEntity
     /**
      * Sets the cssClass
      */
-    public function setCssClass(string $cssClass): void
+    public function setCssClass(string $cssClass)
     {
         $this->cssClass = $cssClass;
     }

@@ -19,5 +19,5 @@ interface StatusConstraintRepositoryInterface
      * @param QueryInterface<DomainObjectInterface> $query
      * @return array<ConstraintInterface>
      */
-    public function createStatusConstraints(QueryInterface $query, StatusAwareDemandInterface $demand): array;
+    public function createStatusConstraints(QueryInterface $query, StatusAwareDemandInterface $demand);
 }

@@ -19,5 +19,5 @@ interface EventTypeConstraintRepositoryInterface
      * @param QueryInterface<DomainObjectInterface> $query
      * @return array<ConstraintInterface>
      */
-    public function createEventTypeConstraints(QueryInterface $query, EventTypeAwareDemandInterface $demand): array;
+    public function createEventTypeConstraints(QueryInterface $query, EventTypeAwareDemandInterface $demand);
 }

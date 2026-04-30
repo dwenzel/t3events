@@ -38,12 +38,12 @@ class Genre extends AbstractEntity
      *
      * @return string $title
      */
-    public function getTitle(): string
+    public function getTitle()
     {
         return $this->title;
     }
 
-    public function setTitle(string $title): void
+    public function setTitle(string $title)
     {
         $this->title = $title;
     }
@@ -53,7 +53,7 @@ class Genre extends AbstractEntity
      *
      * @return int
      */
-    public function getLanguageUid(): ?int
+    public function getLanguageUid()
     {
         return $this->_languageUid;
     }
@@ -61,12 +61,12 @@ class Genre extends AbstractEntity
     /**
      * Gets the link
      */
-    public function getLink(): string
+    public function getLink()
     {
         return $this->link;
     }
 
-    public function setLink(string $link): void
+    public function setLink(string $link)
     {
         $this->link = $link;
     }

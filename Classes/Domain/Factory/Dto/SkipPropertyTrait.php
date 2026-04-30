@@ -11,7 +11,7 @@ trait SkipPropertyTrait
     /**
      * @return list<string>
      */
-    abstract public function getCompositeProperties(): array;
+    abstract public function getCompositeProperties();
 
     /**
      * Tells whether a property should be set directly from
