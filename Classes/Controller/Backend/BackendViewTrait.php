@@ -19,7 +19,7 @@ trait BackendViewTrait
 {
     use ModuleButtonTrait;
 
-    abstract public function getConfigurationManager(): ConfigurationManagerInterface;
+    abstract public function getConfigurationManager();
 
     public function initializeView(ViewInterface $view): void
     {
