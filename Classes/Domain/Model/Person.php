@@ -71,7 +71,7 @@ class Person extends AbstractEntity
     /**
      * Setter for the pid.
      */
-    public function setPid(?int $pid)
+    public function setPid(int $pid)
     {
         $this->pid = $pid;
     }
