@@ -60,9 +60,9 @@ class LegacyFileFieldsUpdateWizard implements UpgradeWizardInterface, ChattyInte
         SI::TABLE_SCHEDULES => ['plan'],
     ];
 
-    private const string SOURCE_PATH = 'uploads/tx_t3events/';
+    private const SOURCE_PATH = 'uploads/tx_t3events/';
 
-    private const string TARGET_PATH = '_migrated/tx_t3events/';
+    private const TARGET_PATH = '_migrated/tx_t3events/';
 
     protected OutputInterface $output;
 
