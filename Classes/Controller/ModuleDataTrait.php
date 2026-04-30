@@ -58,7 +58,7 @@ trait ModuleDataTrait
      * Reset action
      * Resets all module data and forwards the request to the list action
      */
-    public function resetAction(): ResponseInterface
+    public function resetAction()
     {
         $this->moduleData = GeneralUtility::makeInstance(ModuleData::class);
         $this->moduleDataStorageService->persistModuleData($this->moduleData, $this->getModuleKey());

@@ -77,7 +77,7 @@ class EventController extends ActionController
      *
      * @param array<string, mixed>|null $overwriteDemand
      */
-    public function listAction(?array $overwriteDemand = null, int $currentPage = 1): ResponseInterface
+    public function listAction(?array $overwriteDemand = null, int $currentPage = 1)
     {
         if ($overwriteDemand === null) {
             $sessionValue = $this->session->get('tx_t3events_overwriteDemand');
@@ -129,7 +129,7 @@ class EventController extends ActionController
      * action show
      *
      */
-    public function showAction(Event $event): ResponseInterface
+    public function showAction(Event $event)
     {
         $templateVariables = [
             SI::SETTINGS => $this->settings,
@@ -158,7 +158,7 @@ class EventController extends ActionController
      * action quickMenu
      *
      */
-    public function quickMenuAction(): ResponseInterface
+    public function quickMenuAction()
     {
         // get session data
         $sessionValue = $this->session->get('tx_t3events_overwriteDemand');

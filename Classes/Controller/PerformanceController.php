@@ -93,7 +93,7 @@ class PerformanceController
      *
      * @param array<string, mixed>|null $overwriteDemand
      */
-    public function listAction(?array $overwriteDemand = null): ResponseInterface
+    public function listAction(?array $overwriteDemand = null)
     {
         if ($overwriteDemand === null){
             $overwriteDemand = [];
@@ -120,7 +120,7 @@ class PerformanceController
      * action show
      *
      */
-    public function showAction(Performance $performance): ResponseInterface
+    public function showAction(Performance $performance)
     {
         $templateVariables = [
             SI::SETTINGS => $this->settings,
@@ -150,7 +150,7 @@ class PerformanceController
      * action quickMenu
      *
      */
-    public function quickMenuAction(): ResponseInterface
+    public function quickMenuAction()
     {
         $sessionValue = $this->session->get('tx_t3events_overwriteDemand');
         $overwriteDemand = is_string($sessionValue) ? unserialize($sessionValue, ['allowed_classes' => false]) : [];

@@ -53,7 +53,7 @@ class ScheduleController extends PerformanceController
      *
      * @param array<string, mixed>|null $overwriteDemand
      */
-    public function listAction(?array $overwriteDemand = null): ResponseInterface
+    public function listAction(?array $overwriteDemand = null)
     {
         $demand = $this->performanceDemandFactory->createFromSettings($this->settings);
         $filterSettings = $this->settings['filter'] ?? [];

@@ -109,7 +109,7 @@ class EventController extends AbstractBackendController implements FilterableCon
      *
      * @param array<string, mixed>|null $overwriteDemand
      */
-    public function listAction(?array $overwriteDemand = null): ResponseInterface
+    public function listAction(?array $overwriteDemand = null)
     {
         $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
 
@@ -173,7 +173,7 @@ class EventController extends AbstractBackendController implements FilterableCon
     /**
      * Redirect to new record form
      */
-    public function newAction(): ResponseInterface
+    public function newAction()
     {
         return $this->redirectToCreateNewRecord(SI::TABLE_EVENTS);
     }
