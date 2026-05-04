@@ -38,7 +38,7 @@ class PersonDemandFactory extends AbstractDemandFactory implements DemandFactory
      *
      * @var array<string, string>
      */
-    protected static array $mappedProperties = [
+    protected static $mappedProperties = [
         'maxItems' => 'limit'
     ];
 
@@ -49,7 +49,7 @@ class PersonDemandFactory extends AbstractDemandFactory implements DemandFactory
      *
      * @var list<string>
      */
-    protected static array $compositeProperties = [
+    protected static $compositeProperties = [
         'search'
     ];
 

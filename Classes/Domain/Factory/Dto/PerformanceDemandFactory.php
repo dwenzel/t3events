@@ -39,7 +39,7 @@ class PerformanceDemandFactory extends AbstractDemandFactory implements DemandFa
      *
      * @var array<string, string>
      */
-    protected static array $mappedProperties = [
+    protected static $mappedProperties = [
         'maxItems' => 'limit'
     ];
 
@@ -50,7 +50,7 @@ class PerformanceDemandFactory extends AbstractDemandFactory implements DemandFa
      *
      * @var list<string>
      */
-    protected static array $compositeProperties = [
+    protected static $compositeProperties = [
         'search'
     ];
 

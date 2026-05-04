@@ -15,7 +15,7 @@ namespace DWenzel\T3events\Controller\Backend;
  * The TYPO3 project - inspiring people to share!
  */
 use TYPO3\CMS\Backend\Routing\UriBuilder;
-use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
+use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Backend\Template\Components\ButtonBar;
 use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
 use TYPO3\CMS\Core\Imaging\IconFactory;
@@ -147,7 +147,7 @@ class EventController extends AbstractBackendController implements FilterableCon
             $this->addFlashMessage(
                 $this->translate('message.noEventFound.text'),
                 $this->translate('message.noEventFound.title'),
-                ContextualFeedbackSeverity::WARNING
+                AbstractMessage::WARNING
             );
         }
         $configuration = $this->configurationManager->getConfiguration(
@@ -167,7 +167,7 @@ class EventController extends AbstractBackendController implements FilterableCon
         $this->emitSignal(self::class, self::LIST_ACTION, $templateVariables);
         $this->view->assignMultiple($templateVariables);
         $moduleTemplate->setContent($this->view->render());
-        return $moduleTemplate->renderResponse();
+        return $this->htmlResponse($moduleTemplate->renderContent());
     }
 
     /**
@@ -180,7 +180,7 @@ class EventController extends AbstractBackendController implements FilterableCon
 
     public function getModuleKey(): string
     {
-        return 'events_m1';
+        return 'T3eventsEvents_T3eventsM1';
     }
 
     public function getConfigurationManager(): ConfigurationManagerInterface

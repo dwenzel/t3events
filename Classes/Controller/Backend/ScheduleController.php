@@ -45,7 +45,7 @@ class ScheduleController extends PerformanceController
 
     public function getModuleKey(): string
     {
-        return 'events_m2';
+        return 'T3eventsEvents_T3eventsM2';
     }
 
     /**
@@ -80,6 +80,6 @@ class ScheduleController extends PerformanceController
         $this->view->assignMultiple($templateVariables);
         $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
         $moduleTemplate->setContent($this->view->render());
-        return $moduleTemplate->renderResponse();
+        return $this->htmlResponse($moduleTemplate->renderContent());
     }
 }

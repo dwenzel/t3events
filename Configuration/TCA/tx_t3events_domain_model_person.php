@@ -83,7 +83,9 @@ return [
             'exclude' => 1,
             'label' => $cll . 'LGL.starttime',
             'config' => [
-                'type' => 'datetime',
+                'type' => 'input',
+                'renderType' => 'inputDateTime',
+                'eval' => 'datetime',
                 'size' => 13,
                 'checkbox' => 0,
                 'default' => 0,
@@ -99,7 +101,9 @@ return [
             'exclude' => 1,
             'label' => $cll . 'LGL.endtime',
             'config' => [
-                'type' => 'datetime',
+                'type' => 'input',
+                'renderType' => 'inputDateTime',
+                'eval' => 'datetime',
                 'size' => 13,
                 'checkbox' => 0,
                 'default' => 0,
@@ -254,10 +258,7 @@ return [
         'images' => [
             'exclude' => 1,
             'label' => $ll . ':tx_t3events_domain_model_person.images',
-            'config' => [
-                ### !!! Watch out for fieldName different from columnName
-                'type' => 'file',
-                'allowed' => $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'],
+            'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig('images', [
                 'maxitems' => 1,
                 'appearance' => [
                     'headerThumbnail' => [
@@ -282,7 +283,7 @@ return [
                         ],
                     ],
                 ],
-            ]
+            ], $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'])
         ],
     ],
 ];

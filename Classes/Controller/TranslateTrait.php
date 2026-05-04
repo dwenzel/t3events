@@ -16,7 +16,7 @@ trait TranslateTrait
      * @param array<string, mixed>|null $arguments
      * @codeCoverageIgnore
      */
-    public function translate(string $key, string $extension = 't3events', ?array $arguments = null): string
+    public function translate($key, $extension = 't3events', $arguments = null)
     {
         if (defined($this::class . '::EXTENSION_KEY')) {
             // @phpstan-ignore-next-line

@@ -67,7 +67,7 @@ class PerformanceRepository extends Repository implements
     public function createConstraintsFromDemand(
         QueryInterface $query,
         DemandInterface $demand
-    ): array {
+    ) {
         /** @var PerformanceDemand $demand */
         $constraints = [];
         $constraints[] = $query->equals('event.hidden', 0);

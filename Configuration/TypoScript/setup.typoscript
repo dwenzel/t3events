@@ -158,11 +158,17 @@ plugin.tx_t3events {
 module.tx_t3events {
     view {
         templateRootPaths.0 = EXT:t3events/Resources/Private/Templates/
+        templateRootPaths.1 = EXT:t3events/Resources/Private/Templates/Backend/
         partialRootPaths.0 = EXT:t3events/Resources/Private/Partials/
         layoutRootPaths.0 = EXT:t3events/Resources/Private/Layouts/
     }
 
+    persistence {
+        storagePid = {$plugin.tx_t3events.persistence.storagePid}
+    }
+
     settings {
+        storagePages = {$plugin.tx_t3events.persistence.storagePid}
         event {
             list {
                 filter {

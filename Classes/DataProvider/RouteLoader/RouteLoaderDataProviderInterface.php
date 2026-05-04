@@ -24,5 +24,5 @@ interface RouteLoaderDataProviderInterface
      * @return array<string, mixed> An array of configuration options (Arguments for RouteLoader->register method)
      * @see
      */
-    public function getConfiguration(): array;
+    public function getConfiguration();
 }

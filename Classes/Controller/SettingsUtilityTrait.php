@@ -3,6 +3,7 @@ namespace DWenzel\T3events\Controller;
 
 use DWenzel\T3events\Utility\SettingsUtility;
 use TYPO3\CMS\Core\Utility\ArrayUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Class SettingsUtilityTrait
@@ -11,7 +12,12 @@ use TYPO3\CMS\Core\Utility\ArrayUtility;
  */
 trait SettingsUtilityTrait
 {
-    protected SettingsUtility $settingsUtility;
+    protected ?SettingsUtility $settingsUtility = null;
+
+    public function injectSettingsUtility(SettingsUtility $settingsUtility): void
+    {
+        $this->settingsUtility = $settingsUtility;
+    }
 
     /**
      * Merges TypoScript settings for action an controller into one array
@@ -20,7 +26,8 @@ trait SettingsUtilityTrait
     public function mergeSettings(): array
     {
         $actionName = (string) preg_replace('/Action$/', '', $this->actionMethodName);
-        $controllerKey = $this->settingsUtility->getControllerKey($this);
+        $settingsUtility = $this->settingsUtility ?? GeneralUtility::makeInstance(SettingsUtility::class);
+        $controllerKey = $settingsUtility->getControllerKey($this);
         $controllerSettings = [];
         $actionSettings = [];
         if (!empty($this->settings[$controllerKey])) {

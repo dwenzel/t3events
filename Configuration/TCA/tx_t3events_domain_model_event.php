@@ -97,7 +97,9 @@ return [
             'exclude' => 1,
             'label' => $cll . 'LGL.starttime',
             'config' => [
-                'type' => 'datetime',
+                'type' => 'input',
+                'renderType' => 'inputDateTime',
+                'eval' => 'datetime',
                 'size' => 10,
                 'checkbox' => 0,
                 'default' => 0,
@@ -110,7 +112,9 @@ return [
             'exclude' => 1,
             'label' => $cll . 'LGL.endtime',
             'config' => [
-                'type' => 'datetime',
+                'type' => 'input',
+                'renderType' => 'inputDateTime',
+                'eval' => 'datetime',
                 'size' => 10,
                 'checkbox' => 0,
                 'default' => 0,
@@ -199,10 +203,7 @@ return [
         'images' => [
             'exclude' => 1,
             'label' => $ll . ':tx_t3events_domain_model_event.images',
-            'config' => [
-                ### !!! Watch out for fieldName different from columnName
-                'type' => 'file',
-                'allowed' => $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'],
+            'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig('images', [
                 'appearance' => [
                     'createNewRelationLinkTitle' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:images.addFileReference'
                 ],
@@ -242,15 +243,12 @@ return [
                         ]
                     ]
                 ],
-            ]
+            ], $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'])
         ],
         'files' => [
             'exclude' => 1,
             'label' => $ll . ':tx_t3events_domain_model_event.files',
-            'config' => [
-                ### !!! Watch out for fieldName different from columnName
-                'type' => 'file',
-                'allowed' => $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'],
+            'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig('files', [
                 'appearance' => [
                     'createNewRelationLinkTitle' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:images.addFileReference'
                 ],
@@ -290,7 +288,7 @@ return [
                         ]
                     ]
                 ],
-            ]
+            ], $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'])
         ],
         'related' => [
             'exclude' => 1,
@@ -448,7 +446,9 @@ return [
             'exclude' => 1,
             'label' => $ll . ':tx_t3events_domain_model_event.new_until',
             'config' => [
-                'type' => 'datetime',
+                'type' => 'input',
+                'renderType' => 'inputDateTime',
+                'eval' => 'datetime',
                 'size' => 10,
                 'default' => 0
             ]
@@ -457,10 +457,11 @@ return [
             'exclude' => 1,
             'label' => $ll . ':tx_t3events_domain_model_event.archive_date',
             'config' => [
-                'type' => 'datetime',
+                'type' => 'input',
+                'renderType' => 'inputDateTime',
+                'eval' => 'date',
                 'size' => 10,
-                'default' => 0,
-                'format' => 'date'
+                'default' => 0
             ]
         ],
         'content_elements' => [

@@ -103,6 +103,6 @@ trait ModuleButtonTrait
      *
      * @param array<mixed>|null $arguments
      */
-    abstract public function translate(string $key, string $extension = 't3events', ?array $arguments = null): string;
+    abstract public function translate($key, $extension = 't3events', $arguments = null);
 
 }

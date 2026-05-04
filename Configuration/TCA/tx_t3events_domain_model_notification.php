@@ -111,7 +111,9 @@ return [
             'exclude' => 1,
             'label' => $ll . ':tx_t3events_domain_model_notification.send_at',
             'config' => [
-                'type' => 'datetime',
+                'type' => 'input',
+                'renderType' => 'inputDateTime',
+                'eval' => 'datetime',
                 'readOnly' => '1',
                 'size' => 7,
                 'default' => 0

@@ -1,12 +1,11 @@
 <?php
 namespace DWenzel\T3events\Controller;
 
-use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
-use DWenzel\T3extensionTools\Service\ExtensionService;
 use TYPO3\CMS\Core\Messaging\FlashMessageQueue;
 use TYPO3\CMS\Core\Messaging\FlashMessageService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Service\ExtensionService;
 
 /**
  * FlashMessageTrait
@@ -46,11 +45,11 @@ trait FlashMessageTrait
      * @throws \InvalidArgumentException if the message body is no string
      */
     public function addFlashMessage(
-        string $messageBody,
-        string $messageTitle = '',
-        ContextualFeedbackSeverity $severity = ContextualFeedbackSeverity::OK,
-        bool $storeInSession = true
-    ): void {
+        $messageBody,
+        $messageTitle = '',
+        $severity = \TYPO3\CMS\Core\Messaging\AbstractMessage::OK,
+        $storeInSession = true
+    ) {
         /* @var \TYPO3\CMS\Core\Messaging\FlashMessage $flashMessage */
         $flashMessage = GeneralUtility::makeInstance(
             FlashMessage::class, $messageBody, $messageTitle, $severity, $storeInSession
@@ -59,11 +58,11 @@ trait FlashMessageTrait
         $this->getFlashMessageQueue()->enqueue($flashMessage);
     }
 
-    public function getFlashMessageQueue(): FlashMessageQueue
+    public function getFlashMessageQueue(?string $identifier = null): FlashMessageQueue
     {
         if (!$this->flashMessageQueue instanceof FlashMessageQueue) {
                 $this->flashMessageQueue = $this->flashMessageService->getMessageQueueByIdentifier(
-                    'extbase.flashmessages.' . $this->extensionService->getPluginNamespace($this->request->getControllerExtensionName(), $this->request->getPluginName())
+                    $identifier ?? 'extbase.flashmessages.' . $this->extensionService->getPluginNamespace($this->request->getControllerExtensionName(), $this->request->getPluginName())
                 );
         }
 

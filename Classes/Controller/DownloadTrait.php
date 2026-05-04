@@ -13,7 +13,7 @@ trait DownloadTrait
 {
     protected LocalDriver $localDriver;
 
-    protected SettingsUtility $settingsUtility;
+    protected ?SettingsUtility $settingsUtility = null;
 
     /**
      * Injects the local driver for file system

@@ -2,6 +2,8 @@
 namespace DWenzel\T3events\Domain\Factory\Dto;
 
 use DWenzel\T3events\Utility\SettingsInterface as SI;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 use DWenzel\T3events\Domain\Model\Dto\OrderAwareDemandInterface;
@@ -34,13 +36,21 @@ abstract class AbstractDemandFactory
 {
     use SkipPropertyTrait, MapPropertyTrait;
 
+    /** @var ObjectManager|null */
+    protected ?ObjectManager $objectManager = null;
+
+    public function injectObjectManager(ObjectManager $objectManager): void
+    {
+        $this->objectManager = $objectManager;
+    }
+
     /**
      * Properties which should be mapped when settings
      * are applied to demand object
      *
      * @var array<string, string>
      */
-    protected static array $mappedProperties = [];
+    protected static $mappedProperties = [];
 
     /**
      * Composite properties which can not set directly
@@ -49,7 +59,7 @@ abstract class AbstractDemandFactory
      *
      * @var list<string>
      */
-    protected static array $compositeProperties = [];
+    protected static $compositeProperties = [];
 
     /**
      * Returns an array of property names
@@ -99,6 +109,9 @@ abstract class AbstractDemandFactory
                 continue;
             }
             $this->mapPropertyName($propertyName);
+            if (in_array($propertyName, ['limit', 'offset', 'radius', 'periodStart', 'periodDuration'], true) && is_string($propertyValue)) {
+                $propertyValue = (int)$propertyValue;
+            }
             if (ObjectAccess::isPropertySettable($demand, $propertyName)) {
                 ObjectAccess::setProperty($demand, $propertyName, $propertyValue);
             }

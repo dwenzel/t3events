@@ -125,6 +125,12 @@ trait DemandTrait
             case SI::END_DATE:
                 $demand->setEndDate(new \DateTime($propertyValue, $timeZone));
                 break;
+            case 'limit':
+                $demand->setLimit((int)$propertyValue);
+                break;
+            case 'offset':
+                $demand->setOffset((int)$propertyValue);
+                break;
             case SI::SORT_DIRECTION:
                 if ($propertyValue !== 'desc') {
                     $propertyValue = 'asc';

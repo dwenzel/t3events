@@ -51,20 +51,33 @@ class PerformanceController
     const PERFORMANCE_QUICK_MENU_ACTION = 'quickMenuAction';
     const PERFORMANCE_SHOW_ACTION = 'showAction';
     const SESSION_NAME_SPACE = 'performanceController';
-    protected ?ContentObjectRenderer $contentObject = null;
-    protected PerformanceDemandFactory $performanceDemandFactory;
-
-
+    protected $contentObject = null;
+    protected $performanceDemandFactory;
+    protected $categoryRepository;
+    protected $performanceRepository;
+    protected $genreRepository;
+    protected $venueRepository;
+    protected $eventTypeRepository;
 
     /**
      * Constructor
      */
-    public function __construct(protected CategoryRepository $categoryRepository, protected PerformanceRepository $performanceRepository, protected GenreRepository $genreRepository, protected VenueRepository $venueRepository, protected EventTypeRepository $eventTypeRepository, SearchFactory $searchFactory, SettingsUtility $settingsUtility)
+    public function __construct(CategoryRepository $categoryRepository, PerformanceRepository $performanceRepository, GenreRepository $genreRepository, VenueRepository $venueRepository, EventTypeRepository $eventTypeRepository, SearchFactory $searchFactory, SettingsUtility $settingsUtility)
     {
+        $this->categoryRepository = $categoryRepository;
+        $this->performanceRepository = $performanceRepository;
+        $this->genreRepository = $genreRepository;
+        $this->venueRepository = $venueRepository;
+        $this->eventTypeRepository = $eventTypeRepository;
         $this->performanceDemandFactory = GeneralUtility::makeInstance(PerformanceDemandFactory::class);
         $this->settingsUtility = $settingsUtility;
         $this->searchFactory = $searchFactory;
         $this->namespace = static::class;
+    }
+
+    public function injectPerformanceRepository(PerformanceRepository $performanceRepository): void
+    {
+        $this->performanceRepository = $performanceRepository;
     }
 
     /**
@@ -186,7 +199,7 @@ class PerformanceController
      * @param array<string, mixed> $settings
      * @deprecated Use demand factory instead
      */
-    protected function createDemandFromSettings(array $settings): DemandInterface
+    protected function createDemandFromSettings($settings)
     {
         return $this->performanceDemandFactory->createFromSettings($settings);
     }

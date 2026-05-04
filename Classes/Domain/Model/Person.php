@@ -31,28 +31,28 @@ class Person extends AbstractEntity
     const PERSON_TYPE_UNKNOWN = 'Tx_T3events_Default';
     const PERSON_TYPE_CONTACT = 'Tx_T3events_Contact';
 
-    protected string $type = self::PERSON_TYPE_UNKNOWN;
+    protected $type = self::PERSON_TYPE_UNKNOWN;
 
     #[Validate(['validator' => 'EmailAddress'])]
-    protected string $email = '';
+    protected $email = '';
 
     protected LazyLoadingProxy|PersonType|null $personType = null;
 
-    protected string $name = '';
+    protected $name = '';
 
-    protected int $gender = 0;
+    protected $gender = 0;
 
-    protected string $firstName = '';
+    protected $firstName = '';
 
-    protected string $lastName = '';
+    protected $lastName = '';
 
-    protected string $phone = '';
+    protected $phone = '';
 
-    protected string $title = '';
+    protected $title = '';
 
     protected ?\DateTime $birthday = null;
 
-    protected string $www = '';
+    protected $www = '';
 
     /**
      * @var ObjectStorage<FileReference>
@@ -71,7 +71,7 @@ class Person extends AbstractEntity
     /**
      * Setter for the pid.
      */
-    public function setPid(int $pid)
+    public function setPid(int $pid): void
     {
         $this->pid = $pid;
     }

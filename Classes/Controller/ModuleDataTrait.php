@@ -19,7 +19,7 @@ trait ModuleDataTrait
 {
     protected ModuleData $moduleData;
 
-    protected ModuleDataStorageService $moduleDataStorageService;
+    protected ?ModuleDataStorageService $moduleDataStorageService = null;
 
     /**
      * @return array<mixed>
@@ -28,18 +28,17 @@ trait ModuleDataTrait
 
     abstract public function getModuleKey(): string;
 
-    public function processRequest(RequestInterface $request): ResponseInterface
+    public function injectModuleDataStorageService(ModuleDataStorageService $moduleDataStorageService): void
     {
-        $this->moduleData = $this->moduleDataStorageService->loadModuleData($this->getModuleKey());
+        $this->moduleDataStorageService = $moduleDataStorageService;
+    }
 
-        try {
-            $response = parent::processRequest($request);
-            $this->moduleDataStorageService->persistModuleData($this->moduleData, $this->getModuleKey());
-        } catch (\Exception $e) {
-            $this->moduleDataStorageService->persistModuleData($this->moduleData, $this->getModuleKey());
-            throw $e;
-        }
-
+    protected function callActionMethod(RequestInterface $request): ResponseInterface
+    {
+        $moduleDataStorageService = $this->moduleDataStorageService ?? GeneralUtility::makeInstance(ModuleDataStorageService::class);
+        $this->moduleData = $moduleDataStorageService->loadModuleData($this->getModuleKey());
+        $response = parent::callActionMethod($request);
+        $moduleDataStorageService->persistModuleData($this->moduleData, $this->getModuleKey());
         return $response;
     }
 
@@ -61,7 +60,8 @@ trait ModuleDataTrait
     public function resetAction()
     {
         $this->moduleData = GeneralUtility::makeInstance(ModuleData::class);
-        $this->moduleDataStorageService->persistModuleData($this->moduleData, $this->getModuleKey());
+        $moduleDataStorageService = $this->moduleDataStorageService ?? GeneralUtility::makeInstance(ModuleDataStorageService::class);
+        $moduleDataStorageService->persistModuleData($this->moduleData, $this->getModuleKey());
         return new ForwardResponse('list');
     }
 

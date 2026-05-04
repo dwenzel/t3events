@@ -79,7 +79,9 @@ return [
             'exclude' => 1,
             'label' => $cll . 'LGL.starttime',
             'config' => [
-                'type' => 'datetime',
+                'type' => 'input',
+                'renderType' => 'inputDateTime',
+                'eval' => 'datetime',
                 'size' => 13,
                 'checkbox' => 0,
                 'default' => 0,
@@ -95,7 +97,9 @@ return [
             'exclude' => 1,
             'label' => $cll . 'LGL.endtime',
             'config' => [
-                'type' => 'datetime',
+                'type' => 'input',
+                'renderType' => 'inputDateTime',
+                'eval' => 'datetime',
                 'size' => 13,
                 'checkbox' => 0,
                 'default' => 0,
@@ -124,7 +128,8 @@ return [
             'exclude' => 1,
             'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_organizer.link',
             'config' => [
-                'type' => 'link'
+                'type' => 'input',
+                'renderType' => 'inputLink',
             ]
         ],
     ],

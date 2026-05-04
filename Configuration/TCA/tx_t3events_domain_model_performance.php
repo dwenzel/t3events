@@ -104,7 +104,9 @@ return [
             'exclude' => 1,
             'label' => $cll . 'LGL.starttime',
             'config' => [
-                'type' => 'datetime',
+                'type' => 'input',
+                'renderType' => 'inputDateTime',
+                'eval' => 'datetime',
                 'size' => 13,
                 'checkbox' => 0,
                 'default' => 0,
@@ -117,7 +119,9 @@ return [
             'exclude' => 1,
             'label' => $cll . 'LGL.endtime',
             'config' => [
-                'type' => 'datetime',
+                'type' => 'input',
+                'renderType' => 'inputDateTime',
+                'eval' => 'datetime',
                 'size' => 13,
                 'checkbox' => 0,
                 'default' => 0,
@@ -157,51 +161,55 @@ return [
             'exclude' => 0,
             'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_performance.date',
             'config' => [
-                'type' => 'datetime',
+                'type' => 'input',
+                'renderType' => 'inputDateTime',
+                'eval' => 'date,required',
                 'size' => 7,
                 'checkbox' => 1,
-                'format' => 'date',
-                'required' => true
             ],
         ],
         'end_date' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_performance.endDate',
             'config' => [
-                'type' => 'datetime',
+                'type' => 'input',
+                'renderType' => 'inputDateTime',
+                'eval' => 'date',
                 'size' => 7,
                 'checkbox' => 1,
-                'format' => 'date'
             ]
         ],
         'admission' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_performance.admission',
             'config' => [
-                'type' => 'datetime',
+                'type' => 'input',
+                'renderType' => 'inputDateTime',
+                'eval' => 'time,int',
                 'size' => 4,
                 'checkbox' => 1,
-                'format' => 'time',
             ],
         ],
         'begin' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_performance.begin',
             'config' => [
-                'type' => 'datetime',
+                'type' => 'input',
+                'renderType' => 'inputDateTime',
+                'eval' => 'time,int',
                 'size' => 4,
                 'checkbox' => 1,
-                'format' => 'time',
             ],
         ],
         'end' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_performance.end',
             'config' => [
-                'type' => 'datetime',
+                'type' => 'input',
+                'renderType' => 'inputDateTime',
+                'eval' => 'time,int',
                 'size' => 4,
                 'checkbox' => 1,
-                'format' => 'time',
             ],
         ],
         'status_info' => [
@@ -218,14 +226,16 @@ return [
             'exclude' => 1,
             'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_performance.external_provider_link',
             'config' => [
-                'type' => 'link',
+                'type' => 'input',
+                'renderType' => 'inputLink',
             ]
         ],
         'additional_link' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_performance.additional_link',
             'config' => [
-                'type' => 'link',
+                'type' => 'input',
+                'renderType' => 'inputLink',
             ]
         ],
         'provider_type' => [
@@ -246,10 +256,7 @@ return [
         'images' => [
             'exclude' => 1,
             'label' => $ll . ':tx_t3events_domain_model_performance.images',
-            'config' => [
-                ### !!! Watch out for fieldName different from columnName
-                'type' => 'file',
-                'allowed' => $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'],
+            'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig('images', [
                 'appearance' => [
                     'createNewRelationLinkTitle' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:images.addFileReference'
                 ],
@@ -289,15 +296,12 @@ return [
                         ]
                     ]
                 ],
-            ]
+            ], $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'])
         ],
         'plan' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_performance.plan',
-            'config' => [
-                ### !!! Watch out for fieldName different from columnName
-                'type' => 'file',
-                'allowed' => $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'],
+            'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig('plan', [
                 'maxitems' => 1,
                 'appearance' => [
                     'createNewRelationLinkTitle' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:images.addFileReference'
@@ -338,7 +342,7 @@ return [
                         ]
                     ]
                 ],
-            ]
+            ], $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'])
         ],
         'no_handling_fee' => [
             'exclude' => 1,

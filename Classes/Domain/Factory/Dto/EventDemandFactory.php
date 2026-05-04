@@ -46,7 +46,7 @@ class EventDemandFactory extends AbstractDemandFactory implements DemandFactoryI
      *
      * @var array<string, string>
      */
-    protected static array $mappedProperties = [
+    protected static $mappedProperties = [
         SI::GENRES => SI::LEGACY_KEY_GENRE,
         SI::VENUES => 'venue',
         SI::EVENT_TYPES => 'eventType',
@@ -60,7 +60,7 @@ class EventDemandFactory extends AbstractDemandFactory implements DemandFactoryI
      *
      * @var list<string>
      */
-    protected static array $compositeProperties = [
+    protected static $compositeProperties = [
         'periodType',
         'periodStart',
         'periodEndDate',

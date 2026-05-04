@@ -109,7 +109,8 @@ return [
             'exclude' => 1,
             'label' => $ll . ':label.link',
             'config' => [
-                'type' => 'link'
+                'type' => 'input',
+                'renderType' => 'inputLink',
             ]
         ]
     ],

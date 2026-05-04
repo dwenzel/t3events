@@ -28,5 +28,5 @@ interface RoutableControllerInterface
      * @param array<string, mixed>|null $arguments Arguments for routing method
      * @param string|null $identifier An identifier for the route. If empty a default identifier for controller class and action name will be used.
      */
-    public function dispatch(?array $arguments = null, ?string $identifier = null): mixed;
+    public function dispatch(?array $arguments = null, ?string $identifier = null);
 }

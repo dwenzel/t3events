@@ -77,8 +77,7 @@ class EditUriViewHelper extends AbstractViewHelper
         array $arguments,
         \Closure $renderChildrenClosure,
         RenderingContextInterface $renderingContext
-    ): string
-    {
+    ) {
         /** @var UriBuilder $uriBuilder */
         $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
         $returnUrl = (string)$uriBuilder->buildUriFromRoute($arguments[SI::MODULE]);

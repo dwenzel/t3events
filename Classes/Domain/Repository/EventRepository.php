@@ -26,6 +26,7 @@ use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 use DWenzel\T3events\Utility\SettingsInterface as SI;
 
 /**
@@ -39,6 +40,12 @@ class EventRepository extends AbstractDemandedRepository implements
 {
     use PeriodConstraintRepositoryTrait, LocationConstraintRepositoryTrait,
         AudienceConstraintRepositoryTrait;
+
+    public function initializeObject(): void
+    {
+        $this->defaultQuerySettings = GeneralUtility::makeInstance(Typo3QuerySettings::class);
+        $this->defaultQuerySettings->setRespectStoragePage(false);
+    }
 
     /**
      * Create category constraints from demand
@@ -107,6 +114,11 @@ class EventRepository extends AbstractDemandedRepository implements
         }
         if ((bool) $audienceConstraints = $this->createAudienceConstraints($query, $demand)) {
             $this->combineConstraints($query, $constraints, $audienceConstraints, 'AND');
+        }
+
+        if ($demand->getStoragePages() !== null) {
+            $pages = GeneralUtility::intExplode(',', $demand->getStoragePages());
+            $constraints[] = $query->in('pid', $pages);
         }
 
         return $constraints;

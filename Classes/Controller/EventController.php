@@ -46,8 +46,21 @@ class EventController extends ActionController
     const EVENT_LIST_ACTION = 'listAction';
     const EVENT_SHOW_ACTION = 'showAction';
 
-    public function __construct(protected EventDemandFactory $eventDemandFactory, protected EventRepository $eventRepository, protected EventTypeRepository $eventTypeRepository, protected GenreRepository $genreRepository, SearchFactory $searchFactory, protected SessionInterface $session, SettingsUtility $settingsUtility, protected VenueRepository $venueRepository)
+    protected $eventDemandFactory;
+    protected $eventRepository;
+    protected $eventTypeRepository;
+    protected $genreRepository;
+    protected $session;
+    protected $venueRepository;
+
+    public function __construct(EventDemandFactory $eventDemandFactory, EventRepository $eventRepository, EventTypeRepository $eventTypeRepository, GenreRepository $genreRepository, SearchFactory $searchFactory, SessionInterface $session, SettingsUtility $settingsUtility, VenueRepository $venueRepository)
     {
+        $this->eventDemandFactory = $eventDemandFactory;
+        $this->eventRepository = $eventRepository;
+        $this->eventTypeRepository = $eventTypeRepository;
+        $this->genreRepository = $genreRepository;
+        $this->session = $session;
+        $this->venueRepository = $venueRepository;
         $this->searchFactory = $searchFactory;
         $this->settingsUtility = $settingsUtility;
     }
