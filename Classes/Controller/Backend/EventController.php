@@ -165,8 +165,8 @@ class EventController extends AbstractBackendController implements FilterableCon
         ];
 
         $this->emitSignal(self::class, self::LIST_ACTION, $templateVariables);
-        $this->view->assignMultiple($templateVariables);
-        $moduleTemplate->setContent($this->view->render());
+        $this->patchModuleTemplateView($moduleTemplate);
+        $moduleTemplate->assignMultiple($templateVariables);
         return $moduleTemplate->renderResponse();
     }
 

@@ -2,6 +2,7 @@
 
 namespace DWenzel\T3events\Controller;
 
+use DWenzel\T3events\Controller\Backend\BackendModuleViewTrait;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\RequestInterface;
@@ -13,6 +14,8 @@ use TYPO3\CMS\Extbase\Mvc\RequestInterface;
  */
 abstract class AbstractBackendController extends ActionController
 {
+    use BackendModuleViewTrait;
+
     public function processRequest(RequestInterface $request): ResponseInterface
     {
         /*$this->moduleData = $this->moduleDataStorageService->loadModuleData(...);

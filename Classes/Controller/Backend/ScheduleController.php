@@ -23,7 +23,7 @@ use TYPO3\CMS\Extbase\Mvc\RequestInterface;
  */
 class ScheduleController extends PerformanceController
 {
-    use ModuleDataTrait, FormTrait, SettingsUtilityTrait;
+    use ModuleDataTrait, FormTrait, SettingsUtilityTrait, BackendModuleViewTrait;
 
     public function __construct(ModuleDataStorageService $moduleDataStorageService, CategoryRepository $categoryRepository, PerformanceRepository $performanceRepository, GenreRepository $genreRepository, VenueRepository $venueRepository, EventTypeRepository $eventTypeRepository, SearchFactory $searchFactory, SettingsUtility $settingsUtility, private readonly ModuleTemplateFactory $moduleTemplateFactory)
     {
@@ -77,9 +77,10 @@ class ScheduleController extends PerformanceController
         ];
 
         $this->emitSignal(self::class, self::PERFORMANCE_LIST_ACTION, $templateVariables);
-        $this->view->assignMultiple($templateVariables);
+
         $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
-        $moduleTemplate->setContent($this->view->render());
+        $this->patchModuleTemplateView($moduleTemplate);
+        $moduleTemplate->assignMultiple($templateVariables);
         return $moduleTemplate->renderResponse();
     }
 }
