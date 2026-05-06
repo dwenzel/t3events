@@ -2,7 +2,6 @@
 namespace DWenzel\T3events\ViewHelpers;
 
 use TYPO3\CMS\Core\Page\PageRenderer;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /***************************************************************
@@ -41,11 +40,14 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 class HeaderDataViewHelper extends AbstractViewHelper
 {
 
+    public function __construct(private readonly PageRenderer $pageRenderer)
+    {
+    }
     /**
      * Renders HeaderData
      */
     public function render(): void
     {
-        GeneralUtility::makeInstance(PageRenderer::class)->addHeaderData($this->renderChildren());
+        $this->pageRenderer->addHeaderData($this->renderChildren());
     }
 }

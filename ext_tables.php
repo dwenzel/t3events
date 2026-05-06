@@ -1,5 +1,5 @@
 <?php
 
-use DWenzel\T3events\Configuration\ExtensionConfiguration;
+declare(strict_types=1);
 
-ExtensionConfiguration::configureTables();
+defined('TYPO3') || die();

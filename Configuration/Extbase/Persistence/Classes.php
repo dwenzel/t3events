@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use DWenzel\T3events\Domain\Model\Content;
 use DWenzel\T3events\Domain\Model\Person;
 use DWenzel\T3events\Domain\Model\Category;

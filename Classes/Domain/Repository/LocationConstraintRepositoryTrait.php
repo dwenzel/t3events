@@ -41,7 +41,7 @@ trait LocationConstraintRepositoryTrait
             $location = $search->getLocation();
             $radius = $search->getRadius();
 
-            if ($location !== null && $location !== '' && $location !== '0'
+            if (!in_array($location, [null, '', '0'], true)
                 && ($radius !== null && $radius !== 0)
                 && ($bounds === null || $bounds === [])
             ) {

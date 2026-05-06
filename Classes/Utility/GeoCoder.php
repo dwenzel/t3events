@@ -144,10 +144,10 @@ class GeoCoder
     public function updateGeoLocation(GeoCodingInterface &$object): void
     {
         $city = $object->getPlace();
-        if ($city !== null && $city !== '' && $city !== '0') {
+        if (!in_array($city, [null, '', '0'], true)) {
             $address = '';
             $zip = $object->getZip();
-            $address .= ($zip === null || $zip === '' || $zip === '0') ? null : $zip . ' ';
+            $address .= (in_array($zip, [null, '', '0'], true)) ? null : $zip . ' ';
             $address .= $city;
             $geoLocation = $this->getLocation($address);
             if ($geoLocation) {

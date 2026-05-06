@@ -1,6 +1,6 @@
 <?php
+use TYPO3\CMS\Core\Resource\FileType;
 use DWenzel\T3events\Utility\TableConfiguration;
-use TYPO3\CMS\Core\Resource\File;
 
 if (!defined('TYPO3')) {
     die('Access denied.');
@@ -275,7 +275,7 @@ return [
                         --palette--;LLL:EXT:core/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                         --palette--;;filePalette'
                         ],
-                        File::FILETYPE_IMAGE => [
+                        FileType::IMAGE->value => [
                             'showitem' => '
                         --palette--;LLL:EXT:core/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                         --palette--;;filePalette'

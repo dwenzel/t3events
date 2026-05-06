@@ -45,7 +45,6 @@ trait FilterableControllerTrait
             if (property_exists($this::class, $propertyName)
                 && $this->{$propertyName} instanceof DemandedRepositoryInterface
             ) {
-                /** @var DemandedRepositoryInterface $repository */
                 $repository = $this->{$propertyName};
                 $result = empty($value) ? $repository->findAll() : $repository->findMultipleByUid($value, 'title');
                 $filterOptions[$key . 's'] = $result;

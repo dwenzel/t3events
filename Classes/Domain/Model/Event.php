@@ -88,7 +88,7 @@ class Event extends AbstractEntity
     /**
      * related
      *
-     * @var ObjectStorage<\DWenzel\T3events\Domain\Model\Event>
+     * @var ObjectStorage<Event>
      */
     #[Lazy]
     protected ObjectStorage $related;
@@ -350,7 +350,7 @@ class Event extends AbstractEntity
     /**
      * Adds a related event
      */
-    public function addRelated(\DWenzel\T3events\Domain\Model\Event $event): void
+    public function addRelated(Event $event): void
     {
         $this->related->attach($event);
     }
@@ -358,9 +358,9 @@ class Event extends AbstractEntity
     /**
      * Removes a related event
      *
-     * @param \DWenzel\T3events\Domain\Model\Event $eventToRemove The related event to be removed
+     * @param Event $eventToRemove The related event to be removed
      */
-    public function removeRelated(\DWenzel\T3events\Domain\Model\Event $eventToRemove): void
+    public function removeRelated(Event $eventToRemove): void
     {
         $this->related->detach($eventToRemove);
     }
@@ -368,7 +368,7 @@ class Event extends AbstractEntity
     /**
      * Returns the related events
      *
-     * @return ObjectStorage<\DWenzel\T3events\Domain\Model\Event>
+     * @return ObjectStorage<Event>
      */
     public function getRelated(): ObjectStorage
     {
@@ -378,7 +378,7 @@ class Event extends AbstractEntity
     /**
      * Sets the related events
      *
-     * @param ObjectStorage<\DWenzel\T3events\Domain\Model\Event> $related
+     * @param ObjectStorage<Event> $related
      */
     public function setRelated(ObjectStorage $related): void
     {

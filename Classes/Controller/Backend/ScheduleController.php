@@ -81,6 +81,6 @@ class ScheduleController extends PerformanceController
         $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
         $this->patchModuleTemplateView($moduleTemplate);
         $moduleTemplate->assignMultiple($templateVariables);
-        return $moduleTemplate->renderResponse();
+        return $moduleTemplate->renderResponse('Schedule/List');
     }
 }

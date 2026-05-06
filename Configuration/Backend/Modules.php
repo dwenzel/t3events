@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use DWenzel\T3events\Controller\Backend\EventController;
 use DWenzel\T3events\Controller\Backend\ScheduleController;
 

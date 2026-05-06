@@ -1,10 +1,11 @@
 <?php
+declare(strict_types=1);
+
 use DWenzel\T3events\Controller\EventController;
 use DWenzel\T3events\Controller\PerformanceController;
 use DWenzel\T3events\DataProvider\Form\EventPluginFormDataProvider;
 use TYPO3\CMS\Backend\Form\FormDataProvider\TcaFlexPrepare;
 use TYPO3\CMS\Backend\Form\FormDataProvider\TcaFlexProcess;
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 use DWenzel\T3events\Configuration\PeriodConstraintLegendFormElement;
 
@@ -22,6 +23,7 @@ ExtensionUtility::configurePlugin(
         EventController::class => 'quickMenu',
         PerformanceController::class => 'quickMenu',
     ],
+    ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT,
 );
 
 // Register dedicated plugins (replaces switchableControllerActions, removed in TYPO3 v12)
@@ -30,12 +32,14 @@ ExtensionUtility::configurePlugin(
     'EventList',
     [EventController::class => 'list, show'],
     [],
+    ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT,
 );
 ExtensionUtility::configurePlugin(
     't3events',
     'PerformanceList',
     [PerformanceController::class => 'list, show'],
     [],
+    ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT,
 );
 // Modify flexform fields via formEngine: Inject a data provider
 // between TcaFlexPrepare and TcaFlexProcess
@@ -48,9 +52,6 @@ $GLOBALS['TYPO3_CONF_VARS']['SYS']['formEngine']['formDataGroup']['tcaDatabaseRe
         TcaFlexProcess::class,
     ],
 ];
-
-
-ExtensionManagementUtility::addPageTSConfig('<INCLUDE_TYPOSCRIPT: source="FILE:EXT:t3events/Configuration/TSconfig/PageTSconfig.ts">');
 
 // Upgrade wizards are registered via Configuration/Services.yaml (tags: upgradeWizard)
 

@@ -4,7 +4,6 @@ namespace DWenzel\T3events\Form\Element;
 
 use DWenzel\T3events\Configuration\PeriodConstraintLegend;
 use TYPO3\CMS\Backend\Form\Element\AbstractFormElement;
-use TYPO3\CMS\Backend\Form\NodeFactory;
 
 /***************************************************************
  *  Copyright notice
@@ -32,26 +31,15 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class PeriodConstraintLegendNode extends AbstractFormElement
 {
-
-    protected PeriodConstraintLegend $image;
-
-    /** @var array<mixed> */
-    protected array $parameters = [];
-    /** @param array<string, mixed> $data */
-    public function __construct(NodeFactory $nodeFactory, array $data)
-    {
-        parent::__construct($nodeFactory, $data);
-        $this->parameters = $this->data['parameterArray']['fieldConf']['config']['parameters'] ?? [];
-        $this->image = GeneralUtility::makeInstance(PeriodConstraintLegend::class);
-    }
-
     /**
      * @return array<string, mixed>
      */
     public function render(): array
     {
+        $parameters = $this->data['parameterArray']['fieldConf']['config']['parameters'] ?? [];
+        $image = GeneralUtility::makeInstance(PeriodConstraintLegend::class);
         $result = $this->initializeResultArray();
-        $result['html'] = $this->image->render($this->parameters);
+        $result['html'] = $image->render($parameters);
         return $result;
     }
 }

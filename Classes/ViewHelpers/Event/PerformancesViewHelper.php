@@ -58,7 +58,7 @@ class PerformancesViewHelper extends AbstractTagBasedViewHelper
         $this->tagName = $this->arguments['tagName'];
         $this->tagNameChildren = $this->arguments['tagNameChildren'];
         $this->classChildren = $this->arguments['classChildren'];
-        $this->class = $this->arguments['class'];
+        $this->class = $this->additionalArguments['class'];
         $this->initialize();
         $type = $this->arguments['type'];
         $content = '';
@@ -140,7 +140,7 @@ class PerformancesViewHelper extends AbstractTagBasedViewHelper
             }
         }
         if ($states !== []) {
-            usort($states, fn($a, $b): int => $a['priority'] - $b['priority']);
+            usort($states, fn(array $a, array $b): int => $a['priority'] - $b['priority']);
 
             return $states[0];
         }

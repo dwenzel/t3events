@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace DWenzel\T3events\Domain\Factory\Dto;
 
 use DWenzel\T3events\Domain\Model\Dto\DemandInterface;

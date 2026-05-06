@@ -37,6 +37,13 @@ class MetaTagViewHelper extends AbstractTagBasedViewHelper
      * @var    string
      */
     protected $tagName = 'meta';
+    /**
+     * Constructor
+     */
+    public function __construct(private readonly PageRenderer $pageRenderer)
+    {
+        parent::__construct();
+    }
 
     /**
      * Arguments initialization
@@ -72,7 +79,7 @@ class MetaTagViewHelper extends AbstractTagBasedViewHelper
         }
 
         if ($useCurrentDomain || (isset($this->arguments['content']) && !empty($this->arguments['content']))) {
-            GeneralUtility::makeInstance(PageRenderer::class)->addHeaderData($this->tag->render());
+            $this->pageRenderer->addHeaderData($this->tag->render());
         }
         return '';
     }

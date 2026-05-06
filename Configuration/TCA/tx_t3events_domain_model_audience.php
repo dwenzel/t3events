@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 use DWenzel\T3events\Utility\TableConfiguration;
 
 if (!defined('TYPO3')) {

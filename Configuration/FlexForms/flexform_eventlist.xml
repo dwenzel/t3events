@@ -16,16 +16,16 @@
                             <type>radio</type>
                             <items type="array">
                                 <numIndex index="0" type="array">
-                                    <numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.date</numIndex>
-                                    <numIndex index="1">performances.date|asc,performances.begin|asc</numIndex>
+                                    <label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.date</label>
+                                    <value>performances.date|asc,performances.begin|asc</value>
                                 </numIndex>
                                 <numIndex index="1" type="array">
-                                    <numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.dateDesc</numIndex>
-                                    <numIndex index="1">performances.date|desc,performances.begin|desc</numIndex>
+                                    <label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.dateDesc</label>
+                                    <value>performances.date|desc,performances.begin|desc</value>
                                 </numIndex>
                                 <numIndex index="2" type="array">
-                                    <numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.title</numIndex>
-                                    <numIndex index="1">event.headline|asc</numIndex>
+                                    <label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.title</label>
+                                    <value>event.headline|asc</value>
                                 </numIndex>
                             </items>
                         </config>
@@ -33,9 +33,9 @@
                     <settings.maxItems>
                         <label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.maxItems</label>
                         <config>
-                            <type>input</type>
+                            <type>number</type>
                             <size>3</size>
-                            <eval>int,trim</eval>
+                            <eval>trim</eval>
                         </config>
                     </settings.maxItems>
                     <view.pluginNamespace>
@@ -63,7 +63,6 @@
                         <label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.statuses</label>
                         <config>
                             <type>group</type>
-                            <internal_type>db</internal_type>
                             <allowed>tx_t3events_domain_model_performancestatus</allowed>
                             <size>3</size>
                             <autoSizeMax>20</autoSizeMax>
@@ -90,20 +89,20 @@
                             <renderType>selectSingle</renderType>
                             <items type="array">
                                 <numIndex index="0" type="array">
-                                    <numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.period.all</numIndex>
-                                    <numIndex index="1">all</numIndex>
+                                    <label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.period.all</label>
+                                    <value>all</value>
                                 </numIndex>
                                 <numIndex index="1" type="array">
-                                    <numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.period.futureOnly</numIndex>
-                                    <numIndex index="1">futureOnly</numIndex>
+                                    <label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.period.futureOnly</label>
+                                    <value>futureOnly</value>
                                 </numIndex>
                                 <numIndex index="2" type="array">
-                                    <numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.period.pastOnly</numIndex>
-                                    <numIndex index="1">pastOnly</numIndex>
+                                    <label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.period.pastOnly</label>
+                                    <value>pastOnly</value>
                                 </numIndex>
                                 <numIndex index="3" type="array">
-                                    <numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.period.specific</numIndex>
-                                    <numIndex index="1">specific</numIndex>
+                                    <label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.period.specific</label>
+                                    <value>specific</value>
                                 </numIndex>
                             </items>
                         </config>
@@ -131,20 +130,20 @@
                             <type>radio</type>
                             <items type="array">
                                 <numIndex index="0" type="array">
-                                    <numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.period.specific.byDay</numIndex>
-                                    <numIndex index="1">byDay</numIndex>
+                                    <label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.period.specific.byDay</label>
+                                    <value>byDay</value>
                                 </numIndex>
                                 <numIndex index="1" type="array">
-                                    <numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.period.specific.byMonth</numIndex>
-                                    <numIndex index="1">byMonth</numIndex>
+                                    <label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.period.specific.byMonth</label>
+                                    <value>byMonth</value>
                                 </numIndex>
                                 <numIndex index="2" type="array">
-                                    <numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.period.specific.byYear</numIndex>
-                                    <numIndex index="1">byYear</numIndex>
+                                    <label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.period.specific.byYear</label>
+                                    <value>byYear</value>
                                 </numIndex>
                                 <numIndex index="3" type="array">
-                                    <numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.period.specific.byDate</numIndex>
-                                    <numIndex index="1">byDate</numIndex>
+                                    <label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.period.specific.byDate</label>
+                                    <value>byDate</value>
                                 </numIndex>
                             </items>
                         </config>
@@ -158,13 +157,13 @@
                             </AND>
                         </displayCond>
                         <config>
-                            <type>input</type>
+                            <type>number</type>
                             <size>1</size>
                             <range>
                                 <upper>999</upper>
                                 <lower>-999</lower>
                             </range>
-                            <eval>int,trim</eval>
+                            <eval>trim</eval>
                         </config>
                     </settings.periodStart>
                     <settings.periodDuration>
@@ -182,8 +181,8 @@
                                 <lower>1</lower>
                             </range>
                             <default>1</default>
-                            <eval>int,trim</eval>
-                            <type>input</type>
+                            <eval>trim</eval>
+                            <type>number</type>
                         </config>
                     </settings.periodDuration>
                     <settings.periodStartDate>
@@ -213,12 +212,12 @@
                             <renderType>selectSingle</renderType>
                             <items>
                                 <numIndex index="0">
-                                    <numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.conjunction.or</numIndex>
-                                    <numIndex index="1">OR</numIndex>
+                                    <label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.conjunction.or</label>
+                                    <value>OR</value>
                                 </numIndex>
                                 <numIndex index="1">
-                                    <numIndex index="0">LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.conjunction.and</numIndex>
-                                    <numIndex index="1">AND</numIndex>
+                                    <label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.conjunction.and</label>
+                                    <value>AND</value>
                                 </numIndex>
                             </items>
                         </config>
@@ -227,7 +226,6 @@
                         <label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.venues</label>
                         <config>
                             <type>group</type>
-                            <internal_type>db</internal_type>
                             <allowed>tx_t3events_domain_model_venue</allowed>
                             <size>5</size>
                             <autoSizeMax>20</autoSizeMax>
@@ -244,7 +242,6 @@
                         <label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.quick_menu.type.genres</label>
                         <config>
                             <type>group</type>
-                            <internal_type>db</internal_type>
                             <allowed>tx_t3events_domain_model_genre</allowed>
                             <size>5</size>
                             <autoSizeMax>20</autoSizeMax>
@@ -261,7 +258,6 @@
                         <label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.quick_menu.type.eventtypes</label>
                         <config>
                             <type>group</type>
-                            <internal_type>db</internal_type>
                             <allowed>tx_t3events_domain_model_eventtype</allowed>
                             <size>5</size>
                             <autoSizeMax>20</autoSizeMax>
@@ -311,8 +307,8 @@
                             <itemsProcFunc>DWenzel\T3events\Hooks\ItemsProcFunc-&gt;user_templateLayout</itemsProcFunc>
                             <items>
                                 <numIndex index="0">
-                                    <numIndex index="0">---</numIndex>
-                                    <numIndex index="1"/>
+                                    <label>---</label>
+                                    <value/>
                                 </numIndex>
                             </items>
                         </config>
@@ -335,7 +331,6 @@
                         <label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xlf:flexforms_general.listPage</label>
                         <config>
                             <type>group</type>
-                            <internal_type>db</internal_type>
                             <allowed>pages</allowed>
                             <minitems>0</minitems>
                             <maxitems>1</maxitems>
@@ -350,7 +345,6 @@
                         <label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xlf:flexforms_general.detailPage</label>
                         <config>
                             <type>group</type>
-                            <internal_type>db</internal_type>
                             <allowed>pages</allowed>
                             <minitems>0</minitems>
                             <maxitems>1</maxitems>
@@ -365,7 +359,6 @@
                         <label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xlf:flexforms_general.backPage</label>
                         <config>
                             <type>group</type>
-                            <internal_type>db</internal_type>
                             <allowed>pages</allowed>
                             <minitems>0</minitems>
                             <maxitems>1</maxitems>

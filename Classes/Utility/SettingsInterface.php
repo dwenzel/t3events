@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /***************************************************************
  *  Copyright notice
  *
@@ -15,7 +18,6 @@
  * GNU General Public License for more details.
  * This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 namespace DWenzel\T3events\Utility;
 
 /**

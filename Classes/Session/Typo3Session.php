@@ -48,9 +48,9 @@ class Typo3Session implements SessionInterface
     public function set(string $identifier, mixed $value): void
     {
         $this->data[$identifier] = $value;
-        $GLOBALS['TSFE']->fe_user->setKey('ses', $this->namespace, $this->data);
+        $GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.user')->setKey('ses', $this->namespace, $this->data);
         // @extensionScannerIgnoreLine storeSessionData() still exists in v12 FrontendUserAuthentication
-        $GLOBALS['TSFE']->fe_user->storeSessionData();
+        $GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.user')->storeSessionData();
     }
 
     /**
@@ -59,7 +59,7 @@ class Typo3Session implements SessionInterface
     public function get(string $identifier): mixed
     {
         if ($this->data === []) {
-            $this->data = (array) $GLOBALS['TSFE']->fe_user->getKey('ses', $this->namespace);
+            $this->data = (array) $GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.user')->getKey('ses', $this->namespace);
         }
 
         return $this->data[$identifier] ?? null;
@@ -67,9 +67,9 @@ class Typo3Session implements SessionInterface
 
     public function clean(): void
     {
-        $GLOBALS['TSFE']->fe_user->setKey('ses', $this->namespace, []);
+        $GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.user')->setKey('ses', $this->namespace, []);
         // @extensionScannerIgnoreLine storeSessionData() still exists in v12 FrontendUserAuthentication
-        $GLOBALS['TSFE']->fe_user->storeSessionData();
+        $GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.user')->storeSessionData();
         $this->data = [];
     }
 

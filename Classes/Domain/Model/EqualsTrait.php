@@ -27,9 +27,6 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractDomainObject;
  */
 trait EqualsTrait
 {
-    /** @phpstan-ignore-next-line */
-    protected $uid;
-
     /**
      * Returns the class name and the uid of the object as string
      */

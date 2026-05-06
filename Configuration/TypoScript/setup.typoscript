@@ -157,7 +157,7 @@ plugin.tx_t3events {
 
 module.tx_t3events {
     view {
-        templateRootPaths.0 = EXT:t3events/Resources/Private/Templates/
+        templateRootPaths.0 = EXT:t3events/Resources/Private/Templates/Backend/
         partialRootPaths.0 = EXT:t3events/Resources/Private/Partials/
         layoutRootPaths.0 = EXT:t3events/Resources/Private/Layouts/
     }

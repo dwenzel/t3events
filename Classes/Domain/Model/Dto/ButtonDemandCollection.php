@@ -19,6 +19,7 @@ namespace DWenzel\T3events\Domain\Model\Dto;
  * This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Core\Imaging\IconSize;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 class ButtonDemandCollection
@@ -77,7 +78,8 @@ class ButtonDemandCollection
             $demand->setIconKey($buttonConfig[ButtonDemand::ICON_KEY]);
         }
         if (!empty($buttonConfig[ButtonDemand::ICON_SIZE_KEY])) {
-            $demand->setIconSize($buttonConfig[ButtonDemand::ICON_SIZE_KEY]);
+            $iconSize = $buttonConfig[ButtonDemand::ICON_SIZE_KEY];
+            $demand->setIconSize($iconSize instanceof IconSize ? $iconSize : IconSize::from($iconSize));
         }
         if (!empty($buttonConfig[ButtonDemand::OVERLAY_KEY])) {
             $demand->setOverlay($buttonConfig[ButtonDemand::OVERLAY_KEY]);

@@ -1,6 +1,9 @@
 <?php
+declare(strict_types=1);
+
+use TYPO3\CMS\Core\Resource\FileType;
+
 use DWenzel\T3events\Utility\TableConfiguration;
-use TYPO3\CMS\Core\Resource\File;
 
 if (!defined('TYPO3')) {
     die('Access denied.');
@@ -215,27 +218,27 @@ return [
                             --palette--;;imageoverlayPalette,
                             --palette--;;filePalette'
                         ],
-                        File::FILETYPE_TEXT => [
+                        FileType::TEXT->value => [
                             'showitem' => '
                             --palette--;;imageoverlayPalette,
                             --palette--;;filePalette'
                         ],
-                        File::FILETYPE_IMAGE => [
+                        FileType::IMAGE->value => [
                             'showitem' => '
                             --palette--;;imageoverlayPalette,
                             --palette--;;filePalette'
                         ],
-                        File::FILETYPE_AUDIO => [
+                        FileType::AUDIO->value => [
                             'showitem' => '
                             --palette--;;audioOverlayPalette,
                             --palette--;;filePalette'
                         ],
-                        File::FILETYPE_VIDEO => [
+                        FileType::VIDEO->value => [
                             'showitem' => '
                             --palette--;;videoOverlayPalette,
                             --palette--;;filePalette'
                         ],
-                        File::FILETYPE_APPLICATION => [
+                        FileType::APPLICATION->value => [
                             'showitem' => '
                             --palette--;;imageoverlayPalette,
                             --palette--;;filePalette'
@@ -263,27 +266,27 @@ return [
                             --palette--;;imageoverlayPalette,
                             --palette--;;filePalette'
                         ],
-                        File::FILETYPE_TEXT => [
+                        FileType::TEXT->value => [
                             'showitem' => '
                             --palette--;;imageoverlayPalette,
                             --palette--;;filePalette'
                         ],
-                        File::FILETYPE_IMAGE => [
+                        FileType::IMAGE->value => [
                             'showitem' => '
                             --palette--;;imageoverlayPalette,
                             --palette--;;filePalette'
                         ],
-                        File::FILETYPE_AUDIO => [
+                        FileType::AUDIO->value => [
                             'showitem' => '
                             --palette--;;audioOverlayPalette,
                             --palette--;;filePalette'
                         ],
-                        File::FILETYPE_VIDEO => [
+                        FileType::VIDEO->value => [
                             'showitem' => '
                             --palette--;;videoOverlayPalette,
                             --palette--;;filePalette'
                         ],
-                        File::FILETYPE_APPLICATION => [
+                        FileType::APPLICATION->value => [
                             'showitem' => '
                             --palette--;;imageoverlayPalette,
                             --palette--;;filePalette'

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DWenzel\T3events\Domain\Repository;
 /**
  * This file is part of the TYPO3 CMS project.

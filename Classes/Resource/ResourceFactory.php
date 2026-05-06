@@ -29,6 +29,7 @@ namespace DWenzel\T3events\Resource;
 use TYPO3\CMS\Core\Resource\FileInterface;
 use TYPO3\CMS\Core\Resource\ResourceFactory as CoreResourceFactory;
 use TYPO3\CMS\Core\Resource\File;
+use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 
@@ -37,20 +38,20 @@ use TYPO3\CMS\Extbase\Domain\Model\FileReference;
  *
  * @package DWenzel\T3events\Resource
  */
-class ResourceFactory extends CoreResourceFactory
+class ResourceFactory implements SingletonInterface
 {
+    public function __construct(protected readonly CoreResourceFactory $coreResourceFactory)
+    {
+    }
+
     /**
      * Gets a file by combined identifier using the
      * resource factory's method.
      * Returns null if no file or a folder was found!
-     *
-     * @param $identifier
      */
     public function getFileObjectByCombinedIdentifier(string $identifier): ?FileInterface
     {
-        $file = $this->retrieveFileOrFolderObject(
-            $identifier
-        );
+        $file = $this->coreResourceFactory->retrieveFileOrFolderObject($identifier);
         if ($file instanceof FileInterface) {
             return $file;
         }
@@ -63,7 +64,7 @@ class ResourceFactory extends CoreResourceFactory
      */
     public function createFileReferenceFromFileObject(File $file): FileReference
     {
-        $coreFileReference =  $this->createFileReferenceObject(
+        $coreFileReference = $this->coreResourceFactory->createFileReferenceObject(
             [
                 'uid_local' => $file->getUid(),
                 'uid_foreign' => uniqid('NEW_'),
@@ -71,9 +72,7 @@ class ResourceFactory extends CoreResourceFactory
             ]
         );
         /** @var FileReference $fileReference */
-        $fileReference = GeneralUtility::makeInstance(
-            FileReference::class
-        );
+        $fileReference = GeneralUtility::makeInstance(FileReference::class);
         $fileReference->setOriginalResource($coreFileReference);
 
         return $fileReference;

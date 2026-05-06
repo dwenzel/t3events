@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 
@@ -16,10 +18,11 @@ ExtensionUtility::registerPlugin(
     'EventList',
     'LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:plugin.eventlist.title',
 );
-$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['t3events_eventlist'] = 'pi_flexform';
+ExtensionManagementUtility::addToAllTCAtypes('tt_content', '--div--;Configuration,pi_flexform,', 't3events_eventlist', 'after:subheader');
 ExtensionManagementUtility::addPiFlexFormValue(
-    't3events_eventlist',
-    'FILE:EXT:t3events/Configuration/FlexForms/flexform_eventlist.xml'
+    '*',
+    'FILE:EXT:t3events/Configuration/FlexForms/flexform_eventlist.xml',
+    't3events_eventlist'
 );
 
 ExtensionUtility::registerPlugin(
@@ -27,10 +30,11 @@ ExtensionUtility::registerPlugin(
     'PerformanceList',
     'LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:plugin.performancelist.title',
 );
-$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['t3events_performancelist'] = 'pi_flexform';
+ExtensionManagementUtility::addToAllTCAtypes('tt_content', '--div--;Configuration,pi_flexform,', 't3events_performancelist', 'after:subheader');
 ExtensionManagementUtility::addPiFlexFormValue(
-    't3events_performancelist',
-    'FILE:EXT:t3events/Configuration/FlexForms/flexform_eventlist.xml'
+    '*',
+    'FILE:EXT:t3events/Configuration/FlexForms/flexform_eventlist.xml',
+    't3events_performancelist'
 );
 
 $temporaryColumns = [

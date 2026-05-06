@@ -26,7 +26,7 @@ trait EventTypeConstraintRepositoryTrait
         $eventTypeConstraints = [];
         $eventTypeField = $demand->getEventTypeField();
         $eventTypeList = $demand->getEventTypes();
-        if ($eventTypeList !== null && $eventTypeList !== '' && $eventTypeList !== '0') {
+        if (!in_array($eventTypeList, [null, '', '0'], true)) {
             $eventTypes = GeneralUtility::intExplode(',', $demand->getEventTypes(), true);
             $eventTypeConstraints[] = $query->in($eventTypeField, $eventTypes);
         }

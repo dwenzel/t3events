@@ -115,12 +115,10 @@ class NotificationService
     {
         /** @var StandaloneView $emailView */
         $emailView = GeneralUtility::makeInstance(StandaloneView::class);
-        $emailView->setTemplatePathAndFilename(
-            $this->getTemplatePathAndFileName($templateName, $folderName)
-        );
-        $emailView->setTemplateRootPaths($this->getTemplateRootPaths());
-        $emailView->setPartialRootPaths($this->getPartialRootPaths());
-        $emailView->setLayoutRootPaths($this->getLayoutRootPaths());
+        $emailView->getRenderingContext()->getTemplatePaths()->setTemplatePathAndFilename($this->getTemplatePathAndFileName($templateName, $folderName));
+        $emailView->getRenderingContext()->getTemplatePaths()->setTemplateRootPaths($this->getTemplateRootPaths());
+        $emailView->getRenderingContext()->getTemplatePaths()->setPartialRootPaths($this->getPartialRootPaths());
+        $emailView->getRenderingContext()->getTemplatePaths()->setLayoutRootPaths($this->getLayoutRootPaths());
         if ($format === 'plain') {
             $emailView->setFormat('txt');
         }

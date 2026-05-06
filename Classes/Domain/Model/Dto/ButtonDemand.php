@@ -1,7 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DWenzel\T3events\Domain\Model\Dto;
-use TYPO3\CMS\Core\Imaging\Icon;
+use TYPO3\CMS\Core\Imaging\IconSize;
 
 /***************************************************************
  *  Copyright notice
@@ -37,7 +39,7 @@ class ButtonDemand
 
     protected string $iconKey = '';
 
-    protected string $iconSize = Icon::SIZE_MEDIUM;
+    protected IconSize $iconSize = IconSize::MEDIUM;
 
     protected string $overlay = '';
 
@@ -81,12 +83,12 @@ class ButtonDemand
         $this->iconKey = $iconKey;
     }
 
-    public function getIconSize(): string
+    public function getIconSize(): IconSize
     {
         return $this->iconSize;
     }
 
-    public function setIconSize(string $iconSize): void
+    public function setIconSize(IconSize $iconSize): void
     {
         $this->iconSize = $iconSize;
     }

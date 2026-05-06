@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
 // In TYPO3 v12, makeCategorizable() was removed. Use native type=category instead.
