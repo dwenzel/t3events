@@ -54,7 +54,8 @@ class AudienceTest extends UnitTestCase
      */
     public function getTitleReturnsInitialValueForString()
     {
-        $this->assertNull(
+        $this->assertSame(
+            '',
             $this->fixture->getTitle()
         );
     }
@@ -77,7 +78,8 @@ class AudienceTest extends UnitTestCase
      */
     public function getDescriptionReturnsInitialValueForString()
     {
-        $this->assertNull(
+        $this->assertSame(
+            '',
             $this->fixture->getDescription()
         );
     }
@@ -100,7 +102,8 @@ class AudienceTest extends UnitTestCase
      */
     public function getLinkReturnsInitiallyNull()
     {
-        $this->assertNull(
+        $this->assertSame(
+            '',
             $this->fixture->getLink()
         );
     }

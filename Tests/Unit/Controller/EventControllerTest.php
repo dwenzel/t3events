@@ -96,9 +96,9 @@ class EventControllerTest extends UnitTestCase
             ->disableOriginalConstructor()
             ->onlyMethods(['assign', 'assignMultiple'])
             ->getMock();
-        $mockRequest = $this->getMockBuilder(Request::class)->getMock();
+        $mockRequest = $this->getMockBuilder(Request::class)->disableOriginalConstructor()->getMock();
         $this->subject->_set('view', $this->view);
-        $this->subject->injectSession($mockSession);
+        $this->subject->_set('session', $mockSession);
         $this->subject->_set('request', $mockRequest);
 
         $mockContentObjectRenderer = $this->getMockBuilder(ContentObjectRenderer::class)->getMock();
@@ -168,8 +168,9 @@ class EventControllerTest extends UnitTestCase
     {
         /** @var SettingsUtility|\PHPUnit_Framework_MockObject_MockObject $mockSettingsUtility */
         $mockSettingsUtility = $this->getMockBuilder(SettingsUtility::class)
+            ->disableOriginalConstructor()
             ->onlyMethods(['getControllerKey'])->getMock();
-        $this->subject->injectSettingsUtility($mockSettingsUtility);
+        $this->subject->_set('settingsUtility', $mockSettingsUtility);
         $mockSettingsUtility->expects($this->any())
             ->method('getControllerKey')
             ->will($this->returnValue('performance'));

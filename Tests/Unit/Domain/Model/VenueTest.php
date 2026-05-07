@@ -59,7 +59,8 @@ class VenueTest extends UnitTestCase
      */
     public function getTitleReturnsInitialValueForString()
     {
-        $this->assertNull(
+        $this->assertSame(
+            '',
             $this->fixture->getTitle()
         );
     }
@@ -82,7 +83,8 @@ class VenueTest extends UnitTestCase
      */
     public function getLinkReturnsInitiallyNull()
     {
-        $this->assertNull(
+        $this->assertSame(
+            '',
             $this->fixture->getLink()
         );
     }

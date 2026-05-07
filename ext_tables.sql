@@ -324,7 +324,7 @@ CREATE TABLE tx_t3events_domain_model_ticketclass (
 
   title varchar(255) DEFAULT '' NOT NULL,
   color varchar(255) DEFAULT '' NOT NULL,
-  price double(11,2) DEFAULT '0.00' NOT NULL,
+  price double(11,2) DEFAULT '0' NOT NULL,
   type int(11) DEFAULT '0' NOT NULL,
 
   tstamp int(11) unsigned DEFAULT '0' NOT NULL,

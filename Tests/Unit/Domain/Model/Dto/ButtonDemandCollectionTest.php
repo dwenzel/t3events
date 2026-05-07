@@ -5,6 +5,7 @@ use DWenzel\T3events\Domain\Model\Dto\ButtonDemand;
 use DWenzel\T3events\Domain\Model\Dto\ButtonDemandCollection;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
+use TYPO3\CMS\Core\Imaging\IconSize;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /***************************************************************
@@ -99,7 +100,7 @@ class ButtonDemandCollectionTest extends UnitTestCase
             ButtonDemand::TABLE_KEY => 'foo',
             ButtonDemand::ACTION_KEY => 'bar',
             ButtonDemand::ICON_KEY => 'baz',
-            ButtonDemand::ICON_SIZE_KEY => 'nope',
+            ButtonDemand::ICON_SIZE_KEY => 'small',
             ButtonDemand::LABEL_KEY => 'boom',
             ButtonDemand::OVERLAY_KEY => 'zap'
         ];
@@ -129,7 +130,7 @@ class ButtonDemandCollectionTest extends UnitTestCase
             $firstDemand->getIconKey()
         );
         $this->assertSame(
-            $singleButtonConfig[ButtonDemand::ICON_SIZE_KEY],
+            IconSize::from($singleButtonConfig[ButtonDemand::ICON_SIZE_KEY]),
             $firstDemand->getIconSize()
         );
         $this->assertSame(

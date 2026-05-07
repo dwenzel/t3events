@@ -51,6 +51,10 @@ class PerformanceDemandFactory extends AbstractDemandFactory implements DemandFa
      * @var list<string>
      */
     protected static array $compositeProperties = [
+        'periodType',
+        'periodStart',
+        'periodEndDate',
+        'periodDuration',
         'search'
     ];
 

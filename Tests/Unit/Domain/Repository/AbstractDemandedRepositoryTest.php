@@ -27,6 +27,7 @@ use Nimut\TestingFramework\MockObject\AccessibleMockObjectInterface;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\EventDispatcher\EventDispatcherInterface;
+use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
@@ -45,6 +46,8 @@ class AbstractDemandedRepositoryTest extends UnitTestCase
 {
     use MockConstraintsTrait, MockDemandTrait, MockQueryTrait, MockQuerySettingsTrait;
 
+    protected bool $resetSingletonInstances = true;
+
     /**
      * @var AbstractDemandedRepository|AccessibleMockObjectInterface|MockObject
      */
@@ -56,8 +59,9 @@ class AbstractDemandedRepositoryTest extends UnitTestCase
         $this->fixture = $this->getAccessibleMock(
             AbstractDemandedRepository::class,
             array('createConstraintsFromDemand', 'createQuery'), array(), '', false);
-        $mockEventDispatcher = $this->createMock(EventDispatcherInterface::class);
-        $mockEventDispatcher->method('dispatch')->willReturnArgument(0);
+        $mockEventDispatcher = new class implements EventDispatcherInterface, SingletonInterface {
+            public function dispatch(object $event): object { return $event; }
+        };
         GeneralUtility::setSingletonInstance(EventDispatcherInterface::class, $mockEventDispatcher);
     }
 

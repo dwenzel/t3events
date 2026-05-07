@@ -55,7 +55,7 @@ class EventTypeTest extends \Nimut\TestingFramework\TestCase\UnitTestCase
      */
     public function getTitleReturnsInitialValueForString()
     {
-        $this->assertNull($this->fixture->getTitle());
+        $this->assertSame('', $this->fixture->getTitle());
     }
 
     /**
@@ -76,9 +76,7 @@ class EventTypeTest extends \Nimut\TestingFramework\TestCase\UnitTestCase
      */
     public function getLinkReturnsInitiallyNull()
     {
-        $this->assertNull(
-            $this->fixture->getLink()
-        );
+        $this->assertSame('', $this->fixture->getLink());
     }
 
     /**

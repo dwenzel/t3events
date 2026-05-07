@@ -39,7 +39,7 @@ class ButtonDemand
 
     protected string $iconKey = '';
 
-    protected IconSize $iconSize = IconSize::MEDIUM;
+    protected IconSize $iconSize = IconSize::DEFAULT;
 
     protected string $overlay = '';
 

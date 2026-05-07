@@ -25,8 +25,8 @@ use DWenzel\T3events\Utility\SettingsInterface as SI;
 use Nimut\TestingFramework\MockObject\AccessibleMockObjectInterface;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
+use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Backend\Routing\UriBuilder;
-use TYPO3\CMS\Core\FormProtection\FormProtectionFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\HttpUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
@@ -69,11 +69,6 @@ class EventControllerTest extends UnitTestCase
     protected $queryResult;
 
     /**
-     * @var FormProtectionFactory|MockObject
-     */
-    protected $formProtectionFactory;
-
-    /**
      * @var ConfigurationManagerInterface|MockObject
      */
     protected $configurationManager;
@@ -89,10 +84,13 @@ class EventControllerTest extends UnitTestCase
     public function setUp(): void
     {
         parent::setUp();
+        $mockResponse = $this->getMockBuilder(ResponseInterface::class)->getMockForAbstractClass();
         $this->subject = $this->getAccessibleMock(
             EventController::class,
-            ['emitSignal', 'getFilterOptions', 'overwriteDemandObject', 'addFlashMessage', 'translate', 'callStatic']
+            ['emitSignal', 'getFilterOptions', 'overwriteDemandObject', 'addFlashMessage', 'translate', 'callStatic', 'renderWithModuleTemplate'],
+            [], '', false
         );
+        $this->subject->method('renderWithModuleTemplate')->willReturn($mockResponse);
         $this->view = $this->getMockForAbstractClass(
             ViewInterface::class
         );
@@ -124,10 +122,6 @@ class EventControllerTest extends UnitTestCase
         $this->eventDemand = $this->getMockBuilder(EventDemand::class)
             ->getMock();
 
-        $this->formProtectionFactory = $this->getMockBuilder(FormProtectionFactory::class)
-            ->onlyMethods(['generateToken'])
-            ->disableOriginalConstructor()
-            ->getMock();
         $this->uriBuilder = $this->getMockBuilder(UriBuilder::class)
             ->onlyMethods(['buildUriFromRoute'])->getMock();
     }

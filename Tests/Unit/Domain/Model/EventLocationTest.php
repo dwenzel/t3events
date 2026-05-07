@@ -47,8 +47,7 @@ class EventLocationTest extends UnitTestCase
     public function setUp(): void
     {
         parent::setUp();
-        $this->fixture = $this->getMockBuilder(EventLocation::class)
-            ->getMock();
+        $this->fixture = new EventLocation();
     }
 
     public function tearDown(): void
@@ -61,7 +60,7 @@ class EventLocationTest extends UnitTestCase
      */
     public function getNameReturnsInitialValueForString()
     {
-        $this->assertNull($this->fixture->getName());
+        $this->assertSame('', $this->fixture->getName());
     }
 
     /**
@@ -105,9 +104,11 @@ class EventLocationTest extends UnitTestCase
      */
     public function getImageReturnsInitialValueForString()
     {
-        $this->assertNull(
+        $this->assertInstanceOf(
+            \TYPO3\CMS\Extbase\Persistence\ObjectStorage::class,
             $this->fixture->getImage()
         );
+        $this->assertCount(0, $this->fixture->getImage());
     }
 
     /**
@@ -115,10 +116,12 @@ class EventLocationTest extends UnitTestCase
      */
     public function setImageForStringSetsImage()
     {
-        $this->fixture->setImage('Conceived at T3CON10');
+        $imageStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+
+        $this->fixture->setImage($imageStorage);
 
         $this->assertSame(
-            'Conceived at T3CON10',
+            $imageStorage,
             $this->fixture->getImage()
         );
     }

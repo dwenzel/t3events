@@ -110,23 +110,6 @@ class EventController extends AbstractBackendController implements FilterableCon
      */
     public function listAction(?array $overwriteDemand = null): ResponseInterface
     {
-        $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
-
-        // Add "New Event" button to doc header
-        $backendUriBuilder = $this->backendUriBuilder;
-        $returnUrl = (string)$backendUriBuilder->buildUriFromRoute(SI::ROUTE_EVENT_MODULE);
-        $newUrl = (string)$backendUriBuilder->buildUriFromRoute(SI::ROUTE_EDIT_RECORD_MODULE, [
-            SI::EDIT => [SI::TABLE_EVENTS => [$this->pageUid => 'new']],
-            SI::RETURN_URL => $returnUrl,
-        ]);
-        $iconFactory = $this->iconFactory;
-        $buttonBar = $moduleTemplate->getDocHeaderComponent()->getButtonBar();
-        $newButton = $buttonBar->makeLinkButton()
-            ->setHref($newUrl)
-            ->setTitle($this->translate('button.newAction.event'))
-            ->setIcon($iconFactory->getIcon('ext-t3events-event', IconSize::SMALL, 'overlay-new'));
-        $buttonBar->addButton($newButton, ButtonBar::BUTTON_POSITION_LEFT, 1);
-
         $demand = $this->eventDemandFactory->createFromSettings($this->settings);
 
         if ($overwriteDemand === null) {
@@ -164,6 +147,26 @@ class EventController extends AbstractBackendController implements FilterableCon
         ];
 
         $this->emitSignal(self::class, self::LIST_ACTION, $templateVariables);
+        return $this->renderWithModuleTemplate($templateVariables);
+    }
+
+    protected function renderWithModuleTemplate(array $templateVariables): ResponseInterface
+    {
+        $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
+
+        // Add "New Event" button to doc header
+        $returnUrl = (string)$this->backendUriBuilder->buildUriFromRoute(SI::ROUTE_EVENT_MODULE);
+        $newUrl = (string)$this->backendUriBuilder->buildUriFromRoute(SI::ROUTE_EDIT_RECORD_MODULE, [
+            SI::EDIT => [SI::TABLE_EVENTS => [$this->pageUid => 'new']],
+            SI::RETURN_URL => $returnUrl,
+        ]);
+        $buttonBar = $moduleTemplate->getDocHeaderComponent()->getButtonBar();
+        $newButton = $buttonBar->makeLinkButton()
+            ->setHref($newUrl)
+            ->setTitle($this->translate('button.newAction.event'))
+            ->setIcon($this->iconFactory->getIcon('ext-t3events-event', IconSize::SMALL, 'overlay-new'));
+        $buttonBar->addButton($newButton, ButtonBar::BUTTON_POSITION_LEFT, 1);
+
         $this->patchModuleTemplateView($moduleTemplate);
         $moduleTemplate->assignMultiple($templateVariables);
         return $moduleTemplate->renderResponse('Event/List');

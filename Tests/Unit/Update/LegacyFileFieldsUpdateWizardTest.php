@@ -7,6 +7,7 @@ use DWenzel\T3events\Update\LegacyFileFieldsUpdateWizard;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Output\OutputInterface;
+use TYPO3\CMS\Core\Database\ConnectionPool;
 
 /***************************************************************
  *  Copyright notice
@@ -39,7 +40,9 @@ class LegacyFileFieldsUpdateWizardTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $this->subject = new LegacyFileFieldsUpdateWizard();
+        $mockConnectionPool = $this->getMockBuilder(ConnectionPool::class)
+            ->disableOriginalConstructor()->getMock();
+        $this->subject = new LegacyFileFieldsUpdateWizard($mockConnectionPool);
         $this->output = $this->getMockForAbstractClass(OutputInterface::class);
     }
 

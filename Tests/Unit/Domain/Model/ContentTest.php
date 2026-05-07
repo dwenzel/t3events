@@ -142,7 +142,7 @@ class ContentTest extends UnitTestCase
      */
     public function imageOrientCanBeSet()
     {
-        $fieldValue = 'Test123';
+        $fieldValue = 123;
         $this->ttContentDomainModelInstance->setImageorient($fieldValue);
         $this->assertEquals($fieldValue, $this->ttContentDomainModelInstance->getImageorient());
     }

@@ -47,9 +47,7 @@ class PersonTest extends UnitTestCase
      */
     public function getGenderReturnsInitialValueForInteger()
     {
-        $this->assertNull(
-            $this->subject->getGender()
-        );
+        $this->assertSame(0, $this->subject->getGender());
     }
 
     /**
@@ -71,9 +69,7 @@ class PersonTest extends UnitTestCase
      */
     public function getFirstNameReturnsInitialValueForString()
     {
-        $this->assertNull(
-            $this->subject->getFirstName()
-        );
+        $this->assertSame('', $this->subject->getFirstName());
     }
 
     /**
@@ -95,9 +91,7 @@ class PersonTest extends UnitTestCase
      */
     public function getLastNameReturnsInitialValueForString()
     {
-        $this->assertNull(
-            $this->subject->getLastName()
-        );
+        $this->assertSame('', $this->subject->getLastName());
     }
 
     /**
@@ -119,9 +113,7 @@ class PersonTest extends UnitTestCase
      */
     public function getNameReturnsInitialValueForString()
     {
-        $this->assertNull(
-            $this->subject->getName()
-        );
+        $this->assertSame('', $this->subject->getName());
     }
 
     /**
@@ -340,9 +332,7 @@ class PersonTest extends UnitTestCase
      */
     public function getWwwInitiallyReturnsNull()
     {
-        $this->assertNull(
-            $this->subject->getWww()
-        );
+        $this->assertSame('', $this->subject->getWww());
     }
 
     /**
@@ -364,9 +354,7 @@ class PersonTest extends UnitTestCase
      */
     public function getTitleInitiallyReturnsNull()
     {
-        $this->assertNull(
-            $this->subject->getTitle()
-        );
+        $this->assertSame('', $this->subject->getTitle());
     }
 
     /**

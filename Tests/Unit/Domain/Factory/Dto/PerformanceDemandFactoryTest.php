@@ -4,7 +4,7 @@ namespace DWenzel\T3events\Tests\Unit\Domain\Factory\Dto;
 
 use DWenzel\T3events\Domain\Factory\Dto\PerformanceDemandFactory;
 use DWenzel\T3events\Domain\Model\Dto\PerformanceDemand;
-use DWenzel\T3events\Tests\Unit\Object\MockObjectManagerTrait;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 use DWenzel\T3events\Utility\SettingsInterface as SI;
@@ -23,8 +23,6 @@ use DWenzel\T3events\Utility\SettingsInterface as SI;
  */
 class PerformanceDemandFactoryTest extends UnitTestCase
 {
-    use MockObjectManagerTrait;
-
     /**
      * @var PerformanceDemandFactory
      */
@@ -39,8 +37,6 @@ class PerformanceDemandFactoryTest extends UnitTestCase
         $this->subject = $this->getAccessibleMock(
             PerformanceDemandFactory::class, [], [], '', false
         );
-        $this->objectManager = $this->getMockObjectManager();
-        $this->subject->_set("objectManager", $this->objectManager);
     }
 
     /**
@@ -49,10 +45,7 @@ class PerformanceDemandFactoryTest extends UnitTestCase
     public function createFromSettingsReturnsPerformanceDemand()
     {
         $mockDemand = $this->getMockPerformanceDemand();
-        $this->objectManager->expects($this->once())
-            ->method('get')
-            ->with(PerformanceDemand::class)
-            ->will($this->returnValue($mockDemand));
+        GeneralUtility::addInstance(PerformanceDemand::class, $mockDemand);
 
         $this->assertSame(
             $mockDemand,
@@ -98,9 +91,7 @@ class PerformanceDemandFactoryTest extends UnitTestCase
         ];
         $mockDemand = $this->getMockPerformanceDemand([]);
 
-        $this->objectManager->expects($this->once())
-            ->method('get')
-            ->will($this->returnValue($mockDemand));
+        GeneralUtility::addInstance(PerformanceDemand::class, $mockDemand);
         $createdDemand = $this->subject->createFromSettings($settings);
         $this->assertAttributeSame(
             $expectedValue,
@@ -134,9 +125,7 @@ class PerformanceDemandFactoryTest extends UnitTestCase
             $settingsKey => $settingsValue
         ];
         $mockDemand = $this->getMockPerformanceDemand([]);
-        $this->objectManager->expects($this->once())
-            ->method('get')
-            ->will($this->returnValue($mockDemand));
+        GeneralUtility::addInstance(PerformanceDemand::class, $mockDemand);
         $createdDemand = $this->subject->createFromSettings($settings);
         $this->assertAttributeSame(
             $expectedValue,
@@ -165,15 +154,13 @@ class PerformanceDemandFactoryTest extends UnitTestCase
      * @param $propertyName
      * @param $propertyValue
      */
-    public function createFromSettingsDoesNotSetSkippedValues($propertyName, $propertyValue)
+    public function createFromSettingsDoesNotSetSkippedValues($propertyName, $propertyValue = null)
     {
         $settings = [
             $propertyName => $propertyValue
         ];
         $mockDemand = $this->getMockPerformanceDemand([]);
-        $this->objectManager->expects($this->once())
-            ->method('get')
-            ->will($this->returnValue($mockDemand));
+        GeneralUtility::addInstance(PerformanceDemand::class, $mockDemand);
         $createdDemand = $this->subject->createFromSettings($settings);
 
         $this->assertEquals(
@@ -193,9 +180,7 @@ class PerformanceDemandFactoryTest extends UnitTestCase
             'periodType' => $periodType
         ];
         $mockDemand = $this->getMockPerformanceDemand([]);
-        $this->objectManager->expects($this->once())
-            ->method('get')
-            ->will($this->returnValue($mockDemand));
+        GeneralUtility::addInstance(PerformanceDemand::class, $mockDemand);
         $createdDemand = $this->subject->createFromSettings($settings);
 
         $this->assertAttributeSame(
@@ -219,9 +204,7 @@ class PerformanceDemandFactoryTest extends UnitTestCase
             'periodDuration' => $periodDuration
         ];
         $mockDemand = $this->getMockPerformanceDemand([]);
-        $this->objectManager->expects($this->once())
-            ->method('get')
-            ->will($this->returnValue($mockDemand));
+        GeneralUtility::addInstance(PerformanceDemand::class, $mockDemand);
         $createdDemand = $this->subject->createFromSettings($settings);
 
         $this->assertAttributeSame(
@@ -250,9 +233,7 @@ class PerformanceDemandFactoryTest extends UnitTestCase
         ];
 
         $mockDemand = $this->getMockPerformanceDemand([]);
-        $this->objectManager->expects($this->once())
-            ->method('get')
-            ->will($this->returnValue($mockDemand));
+        GeneralUtility::addInstance(PerformanceDemand::class, $mockDemand);
         $createdDemand = $this->subject->createFromSettings($settings);
 
         $timeZone = new \DateTimeZone(date_default_timezone_get());
@@ -278,9 +259,7 @@ class PerformanceDemandFactoryTest extends UnitTestCase
         ];
 
         $mockDemand = $this->getMockPerformanceDemand([]);
-        $this->objectManager->expects($this->once())
-            ->method('get')
-            ->will($this->returnValue($mockDemand));
+        GeneralUtility::addInstance(PerformanceDemand::class, $mockDemand);
         $createdDemand = $this->subject->createFromSettings($settings);
 
         $timeZone = new \DateTimeZone(date_default_timezone_get());
@@ -305,9 +284,7 @@ class PerformanceDemandFactoryTest extends UnitTestCase
         $expectedOrder = 'foo|bar';
 
         $mockDemand = $this->getMockPerformanceDemand([]);
-        $this->objectManager->expects($this->once())
-            ->method('get')
-            ->will($this->returnValue($mockDemand));
+        GeneralUtility::addInstance(PerformanceDemand::class, $mockDemand);
         $createdDemand = $this->subject->createFromSettings($settings);
 
         $this->assertSame(
@@ -345,9 +322,7 @@ class PerformanceDemandFactoryTest extends UnitTestCase
         $expectedOrder = $expected;
 
         $mockDemand = $this->getMockPerformanceDemand([]);
-        $this->objectManager->expects($this->once())
-            ->method('get')
-            ->will($this->returnValue($mockDemand));
+        GeneralUtility::addInstance(PerformanceDemand::class, $mockDemand);
         $createdDemand = $this->subject->createFromSettings($settings);
 
         $this->assertSame(

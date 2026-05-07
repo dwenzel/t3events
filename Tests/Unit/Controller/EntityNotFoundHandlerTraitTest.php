@@ -212,7 +212,7 @@ class EntityNotFoundHandlerTraitTest extends UnitTestCase
     public function handleEntityNotFoundErrorRedirectsToUriIfSignalSetsRedirectUri()
     {
         /** @var Request|\PHPUnit_Framework_MockObject_MockObject $mockRequest */
-        $mockRequest = $this->getMockBuilder(Request::class)->getMock();
+        $mockRequest = $this->getMockBuilder(Request::class)->disableOriginalConstructor()->getMock();
         $this->inject(
             $this->subject,
             'request',
@@ -253,7 +253,7 @@ class EntityNotFoundHandlerTraitTest extends UnitTestCase
      */
     public function handleEntityNotFoundErrorRedirectsIfSignalSetsRedirect()
     {
-        $mockRequest = $this->getMockBuilder(Request::class)->getMock();
+        $mockRequest = $this->getMockBuilder(Request::class)->disableOriginalConstructor()->getMock();
         $mockDispatcher = $this->getMockDispatcher();
         $config = 'foo';
         $expectedParams = [
@@ -321,9 +321,10 @@ class EntityNotFoundHandlerTraitTest extends UnitTestCase
             DummyEntityNotFoundHandlerController::class, ['handleEntityNotFoundError']
         );
         $subject->_set(SI::SETTINGS, $settings);
-        $mockResponse = $this->getMockBuilder(ResponseInterface::class)->getMock();
+        $mockResponse = $this->getMockBuilder(ResponseInterface::class)->getMockForAbstractClass();
         /** @var Request|\PHPUnit_Framework_MockObject_MockObject $mockRequest */
         $mockRequest = $this->getMockBuilder(Request::class)
+            ->disableOriginalConstructor()
             ->onlyMethods(['getControllerName', 'getControllerActionName'])->getMock();
         $mockRequest->expects(self::once())
             ->method('getControllerName')
@@ -345,7 +346,7 @@ class EntityNotFoundHandlerTraitTest extends UnitTestCase
     public function handleEntityNotFoundErrorForwardsIfSignalSetsForward()
     {
         /** @var Request|\PHPUnit_Framework_MockObject_MockObject $mockRequest */
-        $mockRequest = $this->getMockBuilder(Request::class)->getMock();
+        $mockRequest = $this->getMockBuilder(Request::class)->disableOriginalConstructor()->getMock();
         $mockDispatcher = $this->getMockDispatcher();
         $config = 'foo';
         $expectedParams = [

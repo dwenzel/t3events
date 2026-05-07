@@ -5,10 +5,8 @@ namespace DWenzel\T3events\Tests\Unit\Dto\Factory;
 use DWenzel\T3events\Dto\Factory\FilterFactory;
 use DWenzel\T3events\Dto\FilterResolverInterface;
 use DWenzel\T3events\Dto\NullFilter;
-use DWenzel\T3events\Tests\Unit\Object\MockObjectManagerTrait;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
-use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 
 /***************************************************************
  *  Copyright notice
@@ -32,41 +30,36 @@ use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
  */
 class FilterFactoryTest extends UnitTestCase
 {
-    use MockObjectManagerTrait;
-
     /**
      * @var FilterFactory|MockObject
      */
     protected $subject;
 
     /**
-     * @var ObjectManagerInterface|MockObject
+     * @var FilterResolverInterface|MockObject
      */
-    protected $objectManager;
-
+    protected $filterResolver;
 
     /** @noinspection ReturnTypeCanBeDeclaredInspection */
     public function setUp(): void
     {
         parent::setUp();
-        $this->subject = new FilterFactory();
-        $this->objectManager = $this->getMockObjectManager();
-        $this->inject($this->subject, "objectManager", $this->objectManager);
+        $this->filterResolver = $this->getMockBuilder(FilterResolverInterface::class)
+            ->getMockForAbstractClass();
+        $this->subject = new FilterFactory($this->filterResolver);
     }
 
     public function testGetReturnsNullFilterForInvalidKey(): void
     {
-        $expectedFilter = new NullFilter();
-
         $invalidKey = 'fo0Bar4BAz';
 
-        $this->objectManager->expects(self::once())
-            ->method('get')
-            ->with(NullFilter::class)
-            ->willReturn($expectedFilter);
+        $this->filterResolver->expects(self::once())
+            ->method('resolve')
+            ->with($invalidKey)
+            ->willReturn(NullFilter::class);
 
-        $this->assertSame(
-            $expectedFilter,
+        $this->assertInstanceOf(
+            NullFilter::class,
             $this->subject->get($invalidKey)
         );
     }
@@ -75,11 +68,11 @@ class FilterFactoryTest extends UnitTestCase
     {
         $resolver = $this->getMockBuilder(FilterResolverInterface::class)
             ->getMockForAbstractClass();
-        $this->subject->injectFilterResolver($resolver);
+        $subject = new FilterFactory($resolver);
 
         $this->assertSame(
             $resolver,
-            $this->subject->getFilterResolver()
+            $subject->getFilterResolver()
         );
     }
 

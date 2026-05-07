@@ -73,7 +73,7 @@ class StatusAwareDemandTraitTest extends UnitTestCase
      */
     public function isExcludeSelectesStatusesInitiallyReturnsNull()
     {
-        $this->assertNull(
+        $this->assertFalse(
             $this->subject->isExcludeSelectedStatuses()
         );
     }
