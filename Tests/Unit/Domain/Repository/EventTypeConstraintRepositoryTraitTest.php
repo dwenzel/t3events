@@ -79,14 +79,14 @@ class EventTypeConstraintRepositoryTraitTest extends UnitTestCase
 
         $this->demand->expects($this->any())
             ->method('getEventTypeField')
-            ->will($this->returnValue(self::EVENT_TYPE_FIELD));
+            ->willReturn(self::EVENT_TYPE_FIELD);
         $this->demand->expects($this->any())
             ->method('getEventTypes')
-            ->will($this->returnValue($eventTypeList));
+            ->willReturn($eventTypeList);
         $query->expects($this->once())
             ->method('in')
             ->with(self::EVENT_TYPE_FIELD, [1, 2])
-            ->will($this->returnValue($mockConstraint));
+            ->willReturn($mockConstraint);
         $this->assertSame(
             [$mockConstraint],
             $this->subject->createEventTypeConstraints($query, $this->demand)

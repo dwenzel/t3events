@@ -108,7 +108,7 @@ class AbstractPeriodDataProviderTest extends UnitTestCase
         $this->subject->__construct(true);
         $this->subject->expects($this->exactly(3))
             ->method('getLayerIds')
-            ->will($this->onConsecutiveCalls($allLayers, $layersToHide, $layersToShow));
+            ->willReturnOnConsecutiveCalls($allLayers, $layersToHide, $layersToShow);
         $this->assertEquals(
             $expectedLayers,
             $this->subject->getVisibleLayerIds()

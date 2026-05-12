@@ -56,7 +56,7 @@ class PerformanceDemandFactoryTest extends UnitTestCase
     /**
      * @return array
      */
-    public function settablePropertiesDataProvider(): array
+    public static function settablePropertiesDataProvider(): array
     {
         /** propertyName, $settingsValue, $expectedValue */
         return [
@@ -103,7 +103,7 @@ class PerformanceDemandFactoryTest extends UnitTestCase
     /**
      * @return array
      */
-    public function mappedPropertiesDataProvider(): array
+    public static function mappedPropertiesDataProvider(): array
     {
         /** settingsKey, propertyName, $settingsValue, $expectedValue */
         return [
@@ -137,7 +137,7 @@ class PerformanceDemandFactoryTest extends UnitTestCase
     /**
      * @return array
      */
-    public function skippedPropertiesDataProvider(): array
+    public static function skippedPropertiesDataProvider(): array
     {
         return [
             ['foo'],
@@ -296,13 +296,13 @@ class PerformanceDemandFactoryTest extends UnitTestCase
     /**
      * @return array
      */
-    public function allowedValuesForCreateFormSettingsMapsOrderFormEventSettingsDataProvider(): array
+    public static function allowedValuesForCreateFormSettingsMapsOrderFormEventSettingsDataProvider(): array
     {
         return [
-            'performance.date asc' => [
+            'performanceDateAsc' => [
                 'date|asc,begin|asc', 'performances.date|asc,performances.begin|asc'
             ],
-            'performance.date desc' => [
+            'performanceDateDesc' => [
                 'date|desc,begin|desc', 'performances.date|desc,performances.begin|desc'
             ]
         ];

@@ -30,7 +30,7 @@ use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 trait OptionsTrait
 {
     /**
-     * @var QueryResultInterface<DomainObjectInterface>|array<mixed>
+     * @var QueryResultInterface<int, DomainObjectInterface>|array<mixed>
      */
     protected iterable $options = [];
 

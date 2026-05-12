@@ -26,6 +26,7 @@ use DWenzel\T3events\Domain\Factory\Dto\PerformanceDemandFactory;
  *
  * @package DWenzel\T3events\Controller
  */
+// @phpstan-ignore-next-line trait.unused (trait consumed in Tests/Unit/ — outside PHPStan scan scope)
 trait PerformanceDemandFactoryTrait
 {
     protected PerformanceDemandFactory $performanceDemandFactory;

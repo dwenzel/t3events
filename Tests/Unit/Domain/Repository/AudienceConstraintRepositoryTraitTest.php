@@ -86,10 +86,10 @@ class AudienceConstraintRepositoryTraitTest extends UnitTestCase
 
         $this->demand->expects($this->any())
             ->method('getAudienceField')
-            ->will($this->returnValue(self::AUDIENCE_FIELD));
+            ->willReturn(self::AUDIENCE_FIELD);
         $this->demand->expects($this->any())
             ->method('getAudiences')
-            ->will($this->returnValue($audienceList));
+            ->willReturn($audienceList);
         $expectedArgs = [[self::AUDIENCE_FIELD, 1], [self::AUDIENCE_FIELD, 2]];
         $callIndex = 0;
         $query->expects($this->exactly(2))

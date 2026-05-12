@@ -96,7 +96,7 @@ class ScheduleControllerTest extends UnitTestCase
             ->onlyMethods(['createFromSettings'])->getMock();
         /** @var PerformanceDemand|\PHPUnit_Framework_MockObject_MockObject $mockDemand */
         $mockDemand = $this->getMockBuilder(PerformanceDemand::class)->getMock();
-        $this->performanceDemandFactory->method('createFromSettings')->will($this->returnValue($mockDemand));
+        $this->performanceDemandFactory->method('createFromSettings')->willReturn($mockDemand);
         $this->inject($this->subject, "performanceDemandFactory", $this->performanceDemandFactory);
         $this->inject($this->subject, SI::SETTINGS, $this->settings);
     }
@@ -143,7 +143,7 @@ class ScheduleControllerTest extends UnitTestCase
 
         $this->performanceDemandFactory->expects($this->once())
             ->method('createFromSettings')
-            ->will($this->returnValue($mockDemand));
+            ->willReturn($mockDemand);
 
         return $mockDemand;
     }

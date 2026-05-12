@@ -66,6 +66,9 @@ class SwitchableControllerActionsPluginUpdater implements UpgradeWizardInterface
     {
         foreach ($this->getMigrationRecords() as $record) {
             $flexFormArray = GeneralUtility::xml2array($record['pi_flexform']);
+            if (!is_array($flexFormArray)) {
+                continue;
+            }
             $sca = $flexFormArray['data']['sDEF']['lDEF']['switchableControllerActions']['vDEF'] ?? '';
             $targetListType = self::MIGRATION_MAP[trim((string) $sca)] ?? null;
 

@@ -21,6 +21,9 @@ use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
  */
 trait DemandTrait
 {
+    /** @var array<string, mixed> */
+    protected array $settings;
+
     /**
      * Creates a search object from given settings
      *

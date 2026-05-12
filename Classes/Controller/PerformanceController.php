@@ -15,6 +15,7 @@ namespace DWenzel\T3events\Controller;
  * The TYPO3 project - inspiring people to share!
  */
 use Psr\Http\Message\ResponseInterface;
+use TYPO3\CMS\Core\Cache\CacheTag;
 use TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException;
 use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
 use DWenzel\T3events\Domain\Factory\Dto\PerformanceDemandFactory;
@@ -108,9 +109,10 @@ class PerformanceController
         $this->overwriteDemandObject($demand, $overwriteDemand);
         $performances = $this->performanceRepository->findDemanded($demand);
 
-        /** @var \TYPO3\CMS\Extbase\Persistence\QueryResultInterface $performances */
+        /** @var \TYPO3\CMS\Extbase\Persistence\QueryResultInterface<int, \TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface> $performances */
         /** @var PerformanceListActionEvent $event */
-        $event = $this->eventDispatcher->dispatch(new PerformanceListActionEvent($performances, $this->settings, $demand, $this->contentObject instanceof ContentObjectRenderer ? $this->contentObject->data : [], $overwriteDemand));
+        // @phpstan-ignore-next-line nullsafe.neverNull (contentObject may be null at runtime; nullsafe retained)
+        $event = $this->eventDispatcher->dispatch(new PerformanceListActionEvent($performances, $this->settings, $demand, $this->contentObject?->data ?? [], $overwriteDemand));
         $this->view->assignMultiple($event->toArray());
         $this->addPageCacheTags(['tx_t3events_domain_model_performance']);
         return $this->htmlResponse();
@@ -141,8 +143,12 @@ class PerformanceController
      */
     protected function addPageCacheTags(array $tags): void
     {
-        if (isset($GLOBALS['TSFE'])) {
-            $GLOBALS['TSFE']->addCacheTags($tags);
+        $cacheDataCollector = $this->request->getAttribute('frontend.cache.collector');
+        if ($cacheDataCollector !== null) {
+            // @extensionScannerIgnoreLine
+            $cacheDataCollector->addCacheTags(
+                ...array_map(static fn(string $tag) => new CacheTag($tag), $tags)
+            );
         }
     }
 
@@ -157,10 +163,10 @@ class PerformanceController
 
         // get filter options from plugin
         $filterConfiguration = [
-            SI::LEGACY_KEY_GENRE => $this->settings[SI::GENRES],
-            'venue' => $this->settings[SI::VENUES],
-            'eventType' => $this->settings[SI::EVENT_TYPES],
-            'category' => $this->settings['categories']
+            SI::LEGACY_KEY_GENRE => $this->settings[SI::GENRES] ?? null,
+            'venue' => $this->settings[SI::VENUES] ?? null,
+            'eventType' => $this->settings[SI::EVENT_TYPES] ?? null,
+            'category' => $this->settings['categories'] ?? null,
         ];
         $filterOptions = $this->getFilterOptions($filterConfiguration);
 

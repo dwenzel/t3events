@@ -7,6 +7,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Http\ForwardResponse;
 use TYPO3\CMS\Extbase\Mvc\Request;
 use TYPO3\CMS\Extbase\Mvc\RequestInterface;
+use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Extbase\Property\Exception as PropertyException;
 
@@ -22,6 +23,10 @@ trait EntityNotFoundHandlerTrait
     protected static string $handleEntityNotFoundError = 'handleEntityNotFoundError';
 
     protected string $entityNotFoundMessage = 'The requested entity could not be found';
+
+    protected RequestInterface $request;
+
+    protected UriBuilder $uriBuilder;
 
     public function getEntityNotFoundMessage(): string
     {

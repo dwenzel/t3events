@@ -48,7 +48,7 @@ class PatternReplacingTraitTest extends UnitTestCase
         $initialContent = "\n";
         $expected = "\r\n";
         $this->subject->expects($this->once())->method('getReplacePatterns')
-            ->will($this->returnValue($replacePatterns));
+            ->willReturn($replacePatterns);
 
         $this->assertSame(
             $expected,

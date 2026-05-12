@@ -49,7 +49,7 @@ class UniqueViewHelperTest extends UnitTestCase
     /**
      * data provider for events with different unique location count
      */
-    public function eventDataProvider()
+    public static function eventDataProvider()
     {
         $locationA = new EventLocation();
         $locationA->setName('foo');
@@ -73,8 +73,7 @@ class UniqueViewHelperTest extends UnitTestCase
         foreach ($cases as $case) {
             $uniqueIds = array_unique($case);
             $uniqueCount = \count($uniqueIds);
-            $event = $this->getMockBuilder(Event::class)
-                ->onlyMethods(['getPerformances'])->getMock();
+            $event = self::createStub(Event::class);
             $performanceStorage = new ObjectStorage();
 
             foreach ($case as $location) {
@@ -84,9 +83,7 @@ class UniqueViewHelperTest extends UnitTestCase
                 }
                 $performanceStorage->attach($performance);
             }
-            $event->expects($this->atLeastOnce())
-                ->method('getPerformances')
-                ->will($this->returnValue($performanceStorage));
+            $event->method('getPerformances')->willReturn($performanceStorage);
             $dataSets[] = [$event, $uniqueCount];
         }
 

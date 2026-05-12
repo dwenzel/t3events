@@ -40,8 +40,12 @@ class TitleTagViewHelper extends AbstractViewHelper
     public function render(): void
     {
         $content = $this->renderChildren();
-        if (!empty($content) && isset($GLOBALS['TSFE'])) {
-            $GLOBALS['TSFE']->pageTitle = $content;
+        if (!empty($content)) {
+            // @phpstan-ignore-next-line method.notFound (getRequest() added to RenderingContextInterface in Fluid v4; missing from PHPStan stubs)
+            $frontendController = $this->renderingContext->getRequest()->getAttribute('frontend.controller');
+            if ($frontendController !== null) {
+                $frontendController->pageTitle = $content;
+            }
         }
     }
 }

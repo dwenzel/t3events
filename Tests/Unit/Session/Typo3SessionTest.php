@@ -15,8 +15,8 @@ namespace DWenzel\T3events\Tests\Unit\Session;
  */
 
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
-use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use DWenzel\T3events\Session\Typo3Session;
 
 /**
@@ -34,11 +34,6 @@ class Typo3SessionTest extends UnitTestCase
     protected $subject;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject|\TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController|\TYPO3\CMS\Core\Tests\AccessibleObjectInterface
-     */
-    protected $tsfe = null;
-
-    /**
      * @var FrontendUserAuthentication
      */
     protected $feUser;
@@ -53,13 +48,14 @@ class Typo3SessionTest extends UnitTestCase
             Typo3Session::class, [], [], '', false);
         $this->subject->setNamespace(self::SESSION_NAMESPACE);
 
-        $this->tsfe = $this->getAccessibleMock(
-            TypoScriptFrontendController::class, [], [], '', false);
         $this->feUser = $this->getAccessibleMock(
-            FrontendUserAuthentication::class, [], [], '', false
+            FrontendUserAuthentication::class, ['setKey', 'getKey', 'storeSessionData'], [], '', false
         );
-        $this->tsfe->fe_user = $this->feUser;
-        $GLOBALS['TSFE'] = $this->tsfe;
+        $mockRequest = $this->getMockBuilder(ServerRequestInterface::class)->getMock();
+        $mockRequest->method('getAttribute')
+            ->with('frontend.user')
+            ->willReturn($this->feUser);
+        $GLOBALS['TYPO3_REQUEST'] = $mockRequest;
     }
 
     /**
@@ -131,7 +127,7 @@ class Typo3SessionTest extends UnitTestCase
         $this->feUser->expects($this->once())
             ->method('getKey')
             ->with('ses', self::SESSION_NAMESPACE)
-            ->will($this->returnValue($expectedSessionValue));
+            ->willReturn($expectedSessionValue);
 
         $this->assertSame(
             $value,
@@ -148,7 +144,7 @@ class Typo3SessionTest extends UnitTestCase
         $this->feUser->expects($this->once())
             ->method('getKey')
             ->with('ses', self::SESSION_NAMESPACE)
-            ->will($this->returnValue(null));
+            ->willReturn(null);
 
         $this->assertNull(
             $this->subject->get($identifier)

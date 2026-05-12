@@ -33,7 +33,7 @@ interface DemandedRepositoryInterface
     /**
      * @param string $recordList A comma separated string containing uids
      * @param string $sortField Sort by field
-     * @return QueryResultInterface<object> Matching Records
+     * @return QueryResultInterface<int, DomainObjectInterface> Matching Records
      */
     public function findMultipleByUid(string $recordList, string $sortField = 'uid', string $sortOrder = QueryInterface::ORDER_ASCENDING): QueryResultInterface;
 
@@ -55,14 +55,14 @@ interface DemandedRepositoryInterface
     /**
      * Returns the objects of this repository matching the demand.
      *
-     * @return QueryResultInterface<object>
+     * @return QueryResultInterface<int, DomainObjectInterface>
      */
     public function findDemanded(DemandInterface $demand, bool $respectEnableFields = true): QueryResultInterface;
 
     /**
      * Returns all objects of this repository.
      *
-     * @return QueryResultInterface<object>
+     * @return QueryResultInterface<int, object>
      */
     public function findAll();
 

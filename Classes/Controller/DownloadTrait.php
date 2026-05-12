@@ -9,6 +9,7 @@ use DWenzel\T3events\InvalidFileTypeException;
 /**
  * Class DownloadTrait
  */
+// @phpstan-ignore-next-line trait.unused (trait consumed in Tests/Unit/ — outside PHPStan scan scope)
 trait DownloadTrait
 {
     protected LocalDriver $localDriver;

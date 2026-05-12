@@ -32,9 +32,9 @@ trait DateRangeTrait
     {
         $format = static::DEFAULT_DATE_FORMAT;
 
-        $endFormat = $this->arguments['endFormat'];
-        $startFormat = $this->arguments['startFormat'];
-        $glue = $this->arguments['glue'];
+        $endFormat = $this->arguments['endFormat'] ?? null;
+        $startFormat = $this->arguments['startFormat'] ?? null;
+        $glue = $this->arguments['glue'] ?? null;
 
         if (!empty($this->arguments['format'])) {
             $format = $this->arguments['format'];
@@ -48,18 +48,10 @@ trait DateRangeTrait
         if (empty($glue)) {
             $glue = static::DEFAULT_GLUE;
         }
-        $functionName = 'date';
-
-        if (str_contains((string) $startFormat, '%')
-            && str_contains((string) $endFormat, '%' )
-        ) {
-            $functionName = 'strftime';
-        }
-
-        $dateRange = (string) call_user_func($functionName, $startFormat, $timestamps[0]);
+        $dateRange = date((string) $startFormat, $timestamps[0]);
 
         if (count($timestamps) > 1) {
-            $dateRange .= $glue . call_user_func($functionName, $endFormat, end($timestamps));
+            $dateRange .= $glue . date((string) $endFormat, (int) end($timestamps));
         }
 
         return $dateRange;

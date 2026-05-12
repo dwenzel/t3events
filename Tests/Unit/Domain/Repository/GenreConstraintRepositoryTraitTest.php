@@ -81,10 +81,10 @@ class GenreConstraintRepositoryTraitTest extends UnitTestCase
 
         $this->demand->expects($this->any())
             ->method('getGenreField')
-            ->will($this->returnValue(self::GENRE_FIELD));
+            ->willReturn(self::GENRE_FIELD);
         $this->demand->expects($this->any())
             ->method('getGenres')
-            ->will($this->returnValue($genreList));
+            ->willReturn($genreList);
         $expectedArgs = [[self::GENRE_FIELD, 1], [self::GENRE_FIELD, 2]];
         $callIndex = 0;
         $query->expects($this->exactly(2))

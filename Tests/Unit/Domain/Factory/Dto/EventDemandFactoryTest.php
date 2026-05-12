@@ -67,7 +67,7 @@ class EventDemandFactoryTest extends UnitTestCase
     /**
      * @return array
      */
-    public function settablePropertiesDataProvider()
+    public static function settablePropertiesDataProvider()
     {
         /** propertyName, $settingsValue, $expectedValue */
         return [
@@ -110,7 +110,7 @@ class EventDemandFactoryTest extends UnitTestCase
     /**
      * @return array
      */
-    public function mappedPropertiesDataProvider()
+    public static function mappedPropertiesDataProvider()
     {
         /** settingsKey, propertyName, $settingsValue, $expectedValue */
         return [
@@ -148,7 +148,7 @@ class EventDemandFactoryTest extends UnitTestCase
     /**
      * @return array
      */
-    public function skippedPropertiesDataProvider()
+    public static function skippedPropertiesDataProvider()
     {
         return [
             ['foo'],

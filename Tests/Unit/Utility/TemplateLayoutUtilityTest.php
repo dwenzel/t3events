@@ -82,7 +82,7 @@ class TemplateLayoutUtilityTest extends UnitTestCase
         $this->subject->expects($this->once())
             ->method('getPageTSConfig')
             ->with($pageId)
-            ->will($this->returnValue($pagesTSConfig));
+            ->willReturn($pagesTSConfig);
 
         $this->assertTrue(
             $this->subject->hasLayouts($extensionKey, $pageId)
@@ -141,7 +141,7 @@ class TemplateLayoutUtilityTest extends UnitTestCase
         $this->subject->expects($this->any())
             ->method('getPageTSConfig')
             ->with($pageId)
-            ->will($this->returnValue($pagesTSConfig));
+            ->willReturn($pagesTSConfig);
         $this->assertSame(
             $expectedLayouts,
             $this->subject->getLayouts($extensionKey, $pageId)

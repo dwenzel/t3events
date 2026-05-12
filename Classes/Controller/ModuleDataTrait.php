@@ -21,6 +21,11 @@ trait ModuleDataTrait
 
     protected ModuleDataStorageService $moduleDataStorageService;
 
+    /** @var array<string, mixed> */
+    protected array $settings;
+
+    protected int $pageUid = 0;
+
     /**
      * @return array<mixed>
      */

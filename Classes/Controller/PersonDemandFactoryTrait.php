@@ -22,6 +22,7 @@ use DWenzel\T3events\Domain\Factory\Dto\PersonDemandFactory;
  *
  * @package DWenzel\T3events\Controller
  */
+// @phpstan-ignore-next-line trait.unused (trait consumed in Tests/Unit/ — outside PHPStan scan scope)
 trait PersonDemandFactoryTrait
 {
     protected PersonDemandFactory $personDemandFactory;

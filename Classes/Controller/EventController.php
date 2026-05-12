@@ -14,6 +14,7 @@ namespace DWenzel\T3events\Controller;
  *
  * The TYPO3 project - inspiring people to share!
  */
+use TYPO3\CMS\Core\Cache\CacheTag;
 use TYPO3\CMS\Core\Pagination\SimplePagination;
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use Psr\Http\Message\ResponseInterface;
@@ -31,7 +32,6 @@ use DWenzel\T3events\Utility\SettingsInterface as SI;
 use DWenzel\T3events\Utility\SettingsUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
-use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
  * Class EventController
@@ -92,10 +92,10 @@ class EventController extends ActionController
         $this->overwriteDemandObject($demand, $overwriteDemand);
         $events = $this->eventRepository->findDemanded($demand);
 
-        /** @var QueryResultInterface<Event> $events */
+        /** @var QueryResultInterface<int, Event> $events */
         if (
             !$events->count()
-            && !$this->settings['hideIfEmptyResult']
+            && !($this->settings['hideIfEmptyResult'] ?? false)
         ) {
             $this->addFlashMessage(
                 $this->translate('tx_t3events.noEventsForSelectionMessage'),
@@ -110,7 +110,8 @@ class EventController extends ActionController
             'demand' => $demand,
             SI::SETTINGS => $this->settings,
             SI::OVERWRITE_DEMAND => $overwriteDemand,
-            'data' => $contentObject instanceof ContentObjectRenderer ? $contentObject->data : []
+            // @phpstan-ignore-next-line nullsafe.neverNull (getAttribute may return null at runtime; nullsafe retained)
+            'data' => $contentObject?->data ?? []
         ];
 
         if (!empty($this->settings['event']['list']['paginate'])) {
@@ -150,8 +151,12 @@ class EventController extends ActionController
      */
     protected function addPageCacheTags(array $tags): void
     {
-        if (isset($GLOBALS['TSFE'])) {
-            $GLOBALS['TSFE']->addCacheTags($tags);
+        $cacheDataCollector = $this->request->getAttribute('frontend.cache.collector');
+        if ($cacheDataCollector !== null) {
+            // @extensionScannerIgnoreLine
+            $cacheDataCollector->addCacheTags(
+                ...array_map(static fn(string $tag) => new CacheTag($tag), $tags)
+            );
         }
     }
 

@@ -42,6 +42,8 @@ class EventPluginFormDataProviderTest extends UnitTestCase
             $this->markTestSkipped();
         }
         $this->subject = $this->getMockBuilder(EventPluginFormDataProvider::class)
+            ->disableOriginalConstructor()
+            ->onlyMethods([])
             ->getMock();
         $this->backendUtility = $this->getMockBuilder(BackendUtility::class)
             ->onlyMethods(['getFlexFormDS_postProcessDS'])->getMock();
@@ -78,7 +80,7 @@ class EventPluginFormDataProviderTest extends UnitTestCase
      * as passed from form engine
      * @return array
      */
-    public function validResultDataProvider()
+    public static function validResultDataProvider()
     {
         $result = [
             'tableName' => 'tt_content',

@@ -81,6 +81,9 @@ class ScheduleController extends PerformanceController
         return $this->renderWithModuleTemplate($templateVariables, 'Schedule/List');
     }
 
+    /**
+     * @param array<string, mixed> $templateVariables
+     */
     protected function renderWithModuleTemplate(array $templateVariables, string $template): ResponseInterface
     {
         $moduleTemplate = $this->moduleTemplateFactory->create($this->request);

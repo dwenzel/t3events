@@ -18,6 +18,7 @@ services:
           - '@DWenzel\T3events\Session\Typo3Session'
 
   DWenzel\T3events\Domain\Repository\TaskRepositoryInterface: '@DWenzel\T3events\Domain\Repository\TaskRepository'
+  DWenzel\T3events\Resource\CoreResourceFactoryInterface: '@DWenzel\T3events\Resource\CoreResourceFactoryAdapter'
   DWenzel\T3events\Session\SessionInterface: '@DWenzel\T3events\Session\Typo3Session'
 
   DWenzel\T3events\Update\LegacyFileFieldsUpdateWizard:

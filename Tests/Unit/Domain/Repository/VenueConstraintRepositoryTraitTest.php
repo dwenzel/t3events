@@ -80,10 +80,10 @@ class VenueConstraintRepositoryTraitTest extends UnitTestCase
 
         $this->demand->expects($this->any())
             ->method('getVenueField')
-            ->will($this->returnValue(self::VENUE_FIELD));
+            ->willReturn(self::VENUE_FIELD);
         $this->demand->expects($this->any())
             ->method('getVenues')
-            ->will($this->returnValue($venueList));
+            ->willReturn($venueList);
         $expectedArgs = [[self::VENUE_FIELD, 1], [self::VENUE_FIELD, 2]];
         $callIndex = 0;
         $query->expects($this->exactly(2))

@@ -123,6 +123,7 @@ class EventController extends AbstractBackendController implements FilterableCon
 
         $events = $this->eventRepository->findDemanded($demand);
 
+        // @phpstan-ignore-next-line instanceof.alwaysTrue (findDemanded returns QueryResultInterface; guard retained for runtime safety)
         if (($events instanceof QueryResultInterface && !$events->count())
             || !count($events)
         ) {
@@ -150,6 +151,9 @@ class EventController extends AbstractBackendController implements FilterableCon
         return $this->renderWithModuleTemplate($templateVariables);
     }
 
+    /**
+     * @param array<string, mixed> $templateVariables
+     */
     protected function renderWithModuleTemplate(array $templateVariables): ResponseInterface
     {
         $moduleTemplate = $this->moduleTemplateFactory->create($this->request);

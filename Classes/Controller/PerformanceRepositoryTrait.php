@@ -26,6 +26,7 @@ use DWenzel\T3events\Domain\Repository\PerformanceRepository;
  *
  * @package DWenzel\T3events\Controller
  */
+// @phpstan-ignore-next-line trait.unused (trait consumed in Tests/Unit/ — outside PHPStan scan scope)
 trait PerformanceRepositoryTrait
 {
     protected PerformanceRepository $performanceRepository;

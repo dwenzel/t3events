@@ -50,9 +50,6 @@ class MetaTagViewHelper extends AbstractTagBasedViewHelper
      */
     public function initializeArguments(): void
     {
-        $this->registerTagAttribute('name', 'string', 'Name of meta tag');
-        $this->registerTagAttribute('property', 'string', 'Property of meta tag');
-        $this->registerTagAttribute('content', 'string', 'Content of meta tag');
     }
 
 
@@ -72,13 +69,13 @@ class MetaTagViewHelper extends AbstractTagBasedViewHelper
 
         // prepend current domain
         if ($forceAbsoluteUrl) {
-            $path = $this->arguments['content'];
+            $path = $this->additionalArguments['content'] ?? '';
             if (!\str_starts_with((string) $path, GeneralUtility::getIndpEnv('TYPO3_SITE_URL'))) {
-                $this->tag->addAttribute('content', GeneralUtility::getIndpEnv('TYPO3_SITE_URL') . $this->arguments['content']);
+                $this->tag->addAttribute('content', GeneralUtility::getIndpEnv('TYPO3_SITE_URL') . ($this->additionalArguments['content'] ?? ''));
             }
         }
 
-        if ($useCurrentDomain || (isset($this->arguments['content']) && !empty($this->arguments['content']))) {
+        if ($useCurrentDomain || (!empty($this->additionalArguments['content']))) {
             $this->pageRenderer->addHeaderData($this->tag->render());
         }
         return '';

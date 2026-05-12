@@ -57,6 +57,7 @@ trait ModuleButtonTrait
         }
         $buttonBar = $this->getButtonBar();
         $uriBuilder = $this->getUriBuilder();
+        // @phpstan-ignore-next-line method.notFound (getRequest() exists on UriBuilder since TYPO3 v12; missing from PHPStan stubs)
         $request = $uriBuilder->getRequest();
         // @extensionScannerIgnoreLine false positive: own method, not ModuleTemplate::getIconFactory()
         $iconFactory = $this->getIconFactory();

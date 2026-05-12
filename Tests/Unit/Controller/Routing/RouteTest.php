@@ -70,7 +70,7 @@ class RouteTest extends UnitTestCase
      *
      * @return array
      */
-    public function setMethodDataProvider()
+    public static function setMethodDataProvider()
     {
         return [
             [Route::METHOD_FORWARD, Route::METHOD_FORWARD],

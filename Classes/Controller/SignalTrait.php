@@ -3,6 +3,7 @@
 namespace DWenzel\T3events\Controller;
 
 use DWenzel\T3events\Events\GenericSignalEvent;
+use Psr\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Class SignalTrait
@@ -14,6 +15,7 @@ use DWenzel\T3events\Events\GenericSignalEvent;
  */
 trait SignalTrait
 {
+    protected EventDispatcherInterface $eventDispatcher;
     /**
      * Emits a PSR-14 GenericSignalEvent, replacing the old SignalSlot signal.
      *

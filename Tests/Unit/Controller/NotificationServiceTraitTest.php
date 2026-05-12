@@ -46,6 +46,7 @@ class NotificationServiceTraitTest extends UnitTestCase
     {
         /** @var NotificationService|\PHPUnit_Framework_MockObject_MockObject $notificationService */
         $notificationService = $this->getMockBuilder(NotificationService::class)
+            ->disableOriginalConstructor()
             ->getMock();
 
         $this->subject->injectNotificationService($notificationService);

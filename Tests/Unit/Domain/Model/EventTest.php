@@ -627,9 +627,9 @@ class EventTest extends UnitTestCase
         $fixture->addPerformance($mockPerformanceA);
         $fixture->addPerformance($mockPerformanceB);
         $mockPerformanceA->expects($this->once())->method('getDate')
-            ->will($this->returnValue($earliestDate));
+            ->willReturn($earliestDate);
         $mockPerformanceB->expects($this->once())->method('getDate')
-            ->will($this->returnValue($laterDate));
+            ->willReturn($laterDate);
         $this->assertSame(
             1,
             $fixture->getEarliestDate()

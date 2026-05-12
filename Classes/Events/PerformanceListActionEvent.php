@@ -15,7 +15,7 @@ final class PerformanceListActionEvent
     private array $overwriteData = [];
 
     /**
-     * @param QueryResultInterface<DomainObjectInterface> $queryResult
+     * @param QueryResultInterface<int, DomainObjectInterface> $queryResult
      * @param array<string, mixed> $settings
      * @param array<string, mixed> $contentObjectData
      * @param array<string, mixed> $overwriteDemand
@@ -25,7 +25,7 @@ final class PerformanceListActionEvent
     }
 
     /**
-     * @return QueryResultInterface<DomainObjectInterface>
+     * @return QueryResultInterface<int, DomainObjectInterface>
      */
     public function getQueryResult(): QueryResultInterface
     {

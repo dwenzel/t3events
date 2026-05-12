@@ -27,7 +27,6 @@ namespace DWenzel\T3events\Resource;
  ***************************************************************/
 
 use TYPO3\CMS\Core\Resource\FileInterface;
-use TYPO3\CMS\Core\Resource\ResourceFactory as CoreResourceFactory;
 use TYPO3\CMS\Core\Resource\File;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -40,7 +39,7 @@ use TYPO3\CMS\Extbase\Domain\Model\FileReference;
  */
 class ResourceFactory implements SingletonInterface
 {
-    public function __construct(protected readonly CoreResourceFactory $coreResourceFactory)
+    public function __construct(protected readonly CoreResourceFactoryInterface $coreResourceFactory)
     {
     }
 

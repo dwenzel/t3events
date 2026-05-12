@@ -3,10 +3,11 @@ namespace DWenzel\T3events\Controller;
 
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
-use DWenzel\T3extensionTools\Service\ExtensionService;
+use TYPO3\CMS\Extbase\Service\ExtensionService;
 use TYPO3\CMS\Core\Messaging\FlashMessageQueue;
 use TYPO3\CMS\Core\Messaging\FlashMessageService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Mvc\RequestInterface;
 
 /**
  * FlashMessageTrait
@@ -18,9 +19,12 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  *
  * @package DWenzel\T3events\Controller
  */
+// @phpstan-ignore-next-line trait.unused (trait consumed in Tests/Unit/ — outside PHPStan scan scope)
 trait FlashMessageTrait
 {
     protected ?FlashMessageQueue $flashMessageQueue = null;
+
+    protected RequestInterface $request;
 
     protected FlashMessageService $flashMessageService;
 

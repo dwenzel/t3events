@@ -31,7 +31,7 @@ class FormTraitTest extends UnitTestCase
      * provides data for test getModuleKeyReturnsGetParameter
      * @return array
      */
-    public function getModuleKeyReturnsGetParameterDataProvider()
+    public static function getModuleKeyReturnsGetParameterDataProvider()
     {
         /** @var Typo3Version $version */
         $version = GeneralUtility::makeInstance(Typo3Version::class);
@@ -45,7 +45,7 @@ class FormTraitTest extends UnitTestCase
         }
         $_GET[$key] = $value;
         return [
-            ['expected key' => $value]
+            [$value]
         ];
     }
 
@@ -55,9 +55,6 @@ class FormTraitTest extends UnitTestCase
      * @param string $expectedValue
      */
     public function getModuleKeyReturnsGetParameter(string $expectedValue) {
-        if(!defined('TYPO3_version')) {
-            self::markTestSkipped('required constant `TYPO3_version` is not defined');
-        }
         self::assertSame(
             $expectedValue,
             $this->subject->getModuleKey()

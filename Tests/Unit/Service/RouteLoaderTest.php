@@ -69,7 +69,7 @@ class RouteLoaderTest extends UnitTestCase
 
         $this->subject->expects($this->once())
             ->method('createRoute')
-            ->will($this->returnValue($mockRoute));
+            ->willReturn($mockRoute);
         return $mockRoute;
     }
 
@@ -103,7 +103,7 @@ class RouteLoaderTest extends UnitTestCase
         $mockRoute->expects($this->once())
             ->method('setMethod')
             ->with($method)
-            ->will($this->returnValue($mockRoute));
+            ->willReturn($mockRoute);
 
         $this->subject->register(
             $origin, $method
@@ -123,7 +123,7 @@ class RouteLoaderTest extends UnitTestCase
         $mockRoute->expects($this->once())
             ->method('setOptions')
             ->with($options)
-            ->will($this->returnValue($mockRoute));
+            ->willReturn($mockRoute);
 
         $this->subject->register(
             $origin, null, $options
@@ -143,7 +143,7 @@ class RouteLoaderTest extends UnitTestCase
 
         $mockDataProvider->expects($this->once())
             ->method('getConfiguration')
-            ->will($this->returnValue($config));
+            ->willReturn($config);
 
         $this->subject->loadFromProvider($mockDataProvider);
     }
@@ -168,10 +168,10 @@ class RouteLoaderTest extends UnitTestCase
         $mockRoute = $this->getMockRoute(['setMethod', 'setOptions'], $origin);
         $mockDataProvider->expects($this->once())
             ->method('getConfiguration')
-            ->will($this->returnValue($config));
+            ->willReturn($config);
         $this->subject->expects($this->once())
             ->method('createRoute')
-            ->will($this->returnValue($mockRoute));
+            ->willReturn($mockRoute);
         $mockRoute->expects($this->once())
             ->method('setMethod')
             ->with($method);

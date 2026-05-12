@@ -1,29 +1,24 @@
 <?php
 namespace DWenzel\T3events\Tests\Controller;
 
-use DWenzel\T3events\Tests\Unit\Object\MockObjectManagerTrait;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use DWenzel\T3events\Controller\DownloadTrait;
 use DWenzel\T3events\InvalidFileTypeException;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 use TYPO3\CMS\Core\Resource\Driver\LocalDriver;
+
 /**
  * Class DownloadTraitTest
  *
  * @package DWenzel\T3events\Tests\Controller
  */
+#[RunTestsInSeparateProcesses]
 class DownloadTraitTest extends UnitTestCase
 {
-    use MockObjectManagerTrait;
-
     /**
      * @var DownloadTrait
      */
     protected $subject;
-
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $objectManager;
 
     /**
      * set up
@@ -34,9 +29,6 @@ class DownloadTraitTest extends UnitTestCase
         $this->subject = $this->getMockForTrait(
             DownloadTrait::class
         );
-        $this->objectManager = $this->getMockObjectManager();
-
-        $this->inject($this->subject, 'objectManager', $this->objectManager);
     }
 
     /**
@@ -69,7 +61,7 @@ class DownloadTraitTest extends UnitTestCase
         $mockLocalDriver->expects($this->once())
             ->method('sanitizeFileName')
             ->with($fileName)
-            ->will($this->returnValue($sanitizedFileName));
+            ->willReturn($sanitizedFileName);
 
         $this->assertSame(
             $sanitizedFileName,
@@ -100,7 +92,7 @@ class DownloadTraitTest extends UnitTestCase
     /**
      * @return array
      */
-    public function allowedFileTypesForDownloadHeadersDataProvider()
+    public static function allowedFileTypesForDownloadHeadersDataProvider()
     {
         return [
             'csv' => ['csv', 'text/csv'],
@@ -142,7 +134,7 @@ class DownloadTraitTest extends UnitTestCase
     /**
      * return array
      */
-    public function forbiddenFileTypesForDownloadHeadersDataProvider()
+    public static function forbiddenFileTypesForDownloadHeadersDataProvider()
     {
         return [
             'inc' => ['inc'],

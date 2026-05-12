@@ -77,9 +77,36 @@ abstract class UnitTestCase extends Typo3UnitTestCase
             ->setConstructorArgs($arguments)
             ->setMockClassName($mockClassName);
 
-        // Always call onlyMethods(), even with empty array, so original methods are called through.
-        // Without calling onlyMethods(), PHPUnit 10 mocks ALL public methods and returns null.
-        $mockBuilder->onlyMethods($methods ?? []);
+        // Split methods into existing (onlyMethods) and non-existing (addMethods).
+        // PHPUnit 10 requires onlyMethods() to list only methods that actually exist in the class.
+        $methodsArray = $methods ?? [];
+        if (!empty($methodsArray)) {
+            $reflClass = new \ReflectionClass($originalClassName);
+            $existingMethods = [];
+            $newMethods = [];
+            foreach ($methodsArray as $method) {
+                if ($reflClass->hasMethod($method)) {
+                    $existingMethods[] = $method;
+                } else {
+                    $newMethods[] = $method;
+                }
+            }
+            // Only call onlyMethods() when there are existing methods to mock.
+            // Calling onlyMethods([]) sets emptyMethodsArray=true in MockBuilder,
+            // which causes getMock() to pass null to the generator — ignoring
+            // addMethods() entries. Skip onlyMethods([]) so the generator receives
+            // the addMethods list intact.
+            if (!empty($existingMethods)) {
+                $mockBuilder->onlyMethods($existingMethods);
+            }
+            if (!empty($newMethods)) {
+                $mockBuilder->addMethods($newMethods);
+            }
+        } else {
+            // Always call onlyMethods([]) so original methods are called through.
+            // Without it, PHPUnit 10 mocks ALL public methods and returns null.
+            $mockBuilder->onlyMethods([]);
+        }
 
         if (!$callOriginalConstructor) {
             $mockBuilder->disableOriginalConstructor();

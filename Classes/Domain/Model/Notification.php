@@ -61,6 +61,11 @@ class Notification extends AbstractEntity
     #[Lazy]
     protected ObjectStorage $attachments;
 
+    public function initializeObject(): void
+    {
+        $this->attachments = new ObjectStorage();
+    }
+
     /**
      * Returns the recipient
      */

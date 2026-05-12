@@ -1,7 +1,6 @@
 <?php
 namespace DWenzel\T3events\Utility;
 
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use DWenzel\T3events\Domain\Model\Dto\EmConfiguration;
 
 /**
@@ -20,7 +19,6 @@ class EmConfigurationUtility
     public static function getSettings(): EmConfiguration
     {
         $configuration = self::parseSettings();
-        require_once ExtensionManagementUtility::extPath('t3events') . 'Classes/Domain/Model/Dto/EmConfiguration.php';
         return new EmConfiguration($configuration);
     }
 

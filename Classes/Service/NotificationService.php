@@ -5,10 +5,12 @@ use DWenzel\T3events\Configuration\ConfigurationManagerTrait;
 use DWenzel\T3events\Domain\Model\Notification;
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\View\ViewFactoryData;
+use TYPO3\CMS\Core\View\ViewFactoryInterface;
+use TYPO3\CMS\Core\View\ViewInterface;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
-use TYPO3\CMS\Fluid\View\StandaloneView;
 
 /**
  * Class NotificationService
@@ -18,6 +20,10 @@ use TYPO3\CMS\Fluid\View\StandaloneView;
 class NotificationService
 {
     use ConfigurationManagerTrait;
+
+    public function __construct(private readonly ViewFactoryInterface $viewFactory)
+    {
+    }
 
     /**
      * Notify using the given data
@@ -111,19 +117,15 @@ class NotificationService
      *
      * @param null|string $format Format for content. Default is html
      */
-    protected function buildTemplateView(string $templateName, ?string $format = null, ?string $folderName = null): StandaloneView
+    protected function buildTemplateView(string $templateName, ?string $format = null, ?string $folderName = null): ViewInterface
     {
-        /** @var StandaloneView $emailView */
-        $emailView = GeneralUtility::makeInstance(StandaloneView::class);
-        $emailView->getRenderingContext()->getTemplatePaths()->setTemplatePathAndFilename($this->getTemplatePathAndFileName($templateName, $folderName));
-        $emailView->getRenderingContext()->getTemplatePaths()->setTemplateRootPaths($this->getTemplateRootPaths());
-        $emailView->getRenderingContext()->getTemplatePaths()->setPartialRootPaths($this->getPartialRootPaths());
-        $emailView->getRenderingContext()->getTemplatePaths()->setLayoutRootPaths($this->getLayoutRootPaths());
-        if ($format === 'plain') {
-            $emailView->setFormat('txt');
-        }
-
-        return $emailView;
+        return $this->viewFactory->create(new ViewFactoryData(
+            templateRootPaths: $this->getTemplateRootPaths(),
+            partialRootPaths: $this->getPartialRootPaths(),
+            layoutRootPaths: $this->getLayoutRootPaths(),
+            templatePathAndFilename: $this->getTemplatePathAndFileName($templateName, $folderName),
+            format: $format === 'plain' ? 'txt' : null,
+        ));
     }
 
     /**
@@ -207,9 +209,11 @@ class NotificationService
             ObjectAccess::setProperty(
                 $notification,
                 $property,
+                // @phpstan-ignore-next-line argument.type (getSettablePropertyNames returns string[]; all valid property names are non-empty)
                 $oldNotification->_getProperty($property));
         }
 
+        // @phpstan-ignore-next-line return.type (makeInstance returns object; actual runtime type is Notification)
         return $notification;
     }
 }

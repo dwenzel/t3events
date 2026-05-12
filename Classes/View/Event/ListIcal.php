@@ -18,7 +18,8 @@ namespace DWenzel\T3events\View\Event;
  */
 
 use DWenzel\T3events\View\IcalTrait;
-use TYPO3\CMS\Fluid\View\TemplateView;
+use TYPO3\CMS\Fluid\Core\Rendering\RenderingContextFactory;
+use TYPO3Fluid\Fluid\View\TemplateView;
 
 /**
  * Class ListIcal
@@ -27,4 +28,9 @@ use TYPO3\CMS\Fluid\View\TemplateView;
 class ListIcal extends TemplateView
 {
     use IcalTrait;
+
+    public function __construct(RenderingContextFactory $renderingContextFactory)
+    {
+        parent::__construct($renderingContextFactory->create());
+    }
 }

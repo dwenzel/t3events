@@ -47,7 +47,7 @@ class TableConfigurationTest extends UnitTestCase
     /**
      * @return  array
      */
-    public function wizardIconDataProvider()
+    public static function wizardIconDataProvider()
     {
         $iconStrings = [
             8 => [
@@ -102,7 +102,7 @@ class TableConfigurationTest extends UnitTestCase
     /**
      * data provider for language file paths
      */
-    public function languageFilePathDataProvider()
+    public static function languageFilePathDataProvider()
     {
         $pathStrings = [
             7 => [

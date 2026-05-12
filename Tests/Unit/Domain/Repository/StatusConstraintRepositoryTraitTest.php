@@ -102,16 +102,16 @@ class StatusConstraintRepositoryTraitTest extends UnitTestCase
 
         $this->demand->expects($this->any())
             ->method('getStatusField')
-            ->will($this->returnValue(self::STATUS_FIELD));
+            ->willReturn(self::STATUS_FIELD);
         $this->demand->expects($this->any())
             ->method('getStatuses')
-            ->will($this->returnValue($statusList));
+            ->willReturn($statusList);
         $query->expects($this->once())
             ->method('in')
             ->with(
                 self::STATUS_FIELD, [1, 2]
             )
-            ->will($this->returnValue($mockConstraint));
+            ->willReturn($mockConstraint);
         $this->assertSame(
             [$mockConstraint],
             $this->subject->createStatusConstraints($query, $this->demand)

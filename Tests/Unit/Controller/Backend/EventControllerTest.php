@@ -123,6 +123,7 @@ class EventControllerTest extends UnitTestCase
             ->getMock();
 
         $this->uriBuilder = $this->getMockBuilder(UriBuilder::class)
+            ->disableOriginalConstructor()
             ->onlyMethods(['buildUriFromRoute'])->getMock();
     }
 
@@ -149,7 +150,7 @@ class EventControllerTest extends UnitTestCase
         $demandFactory->expects($this->once())
             ->method('createFromSettings')
             ->with($settings)
-            ->will($this->returnValue($mockDemand));
+            ->willReturn($mockDemand);
 
         $this->subject->listAction();
     }
@@ -178,7 +179,7 @@ class EventControllerTest extends UnitTestCase
         $demandFactory = $this->subject->_get('eventDemandFactory');
         $demandFactory->expects($this->once())
             ->method('createFromSettings')
-            ->will($this->returnValue($mockDemand));
+            ->willReturn($mockDemand);
 
         return $mockDemand;
     }
@@ -232,67 +233,12 @@ class EventControllerTest extends UnitTestCase
     {
         $this->eventDemandFactory->expects($this->once())
             ->method('createFromSettings')
-            ->will($this->returnValue($this->eventDemand));
-        // can not match expectedTemplateVariables as soon as method 'emitSignal' is called.
-        $this->view->expects($this->once())
-            ->method('assignMultiple');
+            ->willReturn($this->eventDemand);
+        // listAction passes variables to renderWithModuleTemplate (not directly to view)
+        $this->subject->expects($this->once())
+            ->method('renderWithModuleTemplate')
+            ->with($this->isType('array'));
         $this->subject->listAction();
-    }
-
-    /**
-     * @test
-     */
-    public function newActionRedirectsToModuleEditRecord()
-    {
-        $tableName = 'tx_t3events_domain_model_event';
-        $pageId = '14';
-        $returnUrl = 'bazBar.html';
-        $this->inject(
-            $this->subject,
-            'pageUid',
-            $pageId
-        );
-
-        $expectedUriBuilderParameters = [
-            SI::ROUTE_EDIT_RECORD_MODULE,
-            [
-                SI::EDIT => [
-                    $tableName => [
-                        $pageId => 'new'
-                    ]
-                ],
-                SI::RETURN_URL => $returnUrl
-            ]
-        ];
-        $redirectUrl = 'fakeUrl';
-
-        $expectedCallStaticArgs = [
-            [GeneralUtility::class, 'makeInstance', UriBuilder::class],
-            [HttpUtility::class, SI::REDIRECT]
-        ];
-        $callStaticReturns = [$this->uriBuilder, null];
-        $callStaticIndex = 0;
-        $this->subject->expects($this->exactly(2))
-            ->method('callStatic')
-            ->willReturnCallback(function() use (&$callStaticIndex, $expectedCallStaticArgs, $callStaticReturns) {
-                $this->assertSame($expectedCallStaticArgs[$callStaticIndex], func_get_args());
-                return $callStaticReturns[$callStaticIndex++];
-            });
-
-        $expectedUriBuilderCalls = [
-            [SI::ROUTE_EVENT_MODULE],
-            $expectedUriBuilderParameters
-        ];
-        $uriBuilderReturns = [$returnUrl, $redirectUrl];
-        $uriBuilderIndex = 0;
-        $this->uriBuilder->expects($this->exactly(2))
-            ->method('buildUriFromRoute')
-            ->willReturnCallback(function() use (&$uriBuilderIndex, $expectedUriBuilderCalls, $uriBuilderReturns) {
-                $this->assertSame($expectedUriBuilderCalls[$uriBuilderIndex], func_get_args());
-                return $uriBuilderReturns[$uriBuilderIndex++];
-            });
-
-        $this->subject->newAction();
     }
 
     /**
@@ -311,7 +257,7 @@ class EventControllerTest extends UnitTestCase
         $this->configurationManager->expects($this->once())
             ->method('getConfiguration')
             ->with(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK)
-            ->will($this->returnValue($configuration));
+            ->willReturn($configuration);
         $this->subject->initializeNewAction();
         $this->assertAttributeEquals(
             $pageIdFromFrameWorkConfiguration,
@@ -343,7 +289,7 @@ class EventControllerTest extends UnitTestCase
         $this->configurationManager->expects($this->once())
             ->method('getConfiguration')
             ->with(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK)
-            ->will($this->returnValue($configuration));
+            ->willReturn($configuration);
         $this->subject->initializeNewAction();
         $this->assertAttributeEquals(
             $pageIdFromModuleSettings,

@@ -10,6 +10,7 @@ namespace DWenzel\T3events\Domain\Repository;
  * LICENSE.txt file that was distributed with this source code.
  * The TYPO3 project - inspiring people to share!
  */
+use TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
 use DWenzel\T3events\Domain\Model\Dto\SearchAwareDemandInterface;
@@ -47,7 +48,7 @@ trait DemandedRepositoryTrait
      * @param string $recordList A comma separated string containing uids
      * @param string $sortField Sort by field
      * @param string $sortOrder
-     * @return QueryResultInterface<object> Matching Records
+     * @return QueryResultInterface<int, DomainObjectInterface> Matching Records
      */
     public function findMultipleByUid(string $recordList, string $sortField = 'uid', string $sortOrder = QueryInterface::ORDER_ASCENDING): QueryResultInterface
     {
@@ -65,7 +66,7 @@ trait DemandedRepositoryTrait
      * Returns the objects of this repository matching the demand.
      *
      * @param bool $respectEnableFields
-     * @return QueryResultInterface<object>
+     * @return QueryResultInterface<int, DomainObjectInterface>
      */
     public function findDemanded(DemandInterface $demand, bool $respectEnableFields = true): QueryResultInterface
     {
@@ -87,7 +88,9 @@ trait DemandedRepositoryTrait
 
             // go through every order statement
             foreach ($orderList as $orderItem) {
-                [$orderField, $ascDesc] = GeneralUtility::trimExplode('|', $orderItem, true);
+                $orderParts = GeneralUtility::trimExplode('|', $orderItem, true);
+                [$orderField] = $orderParts;
+                $ascDesc = $orderParts[1] ?? null;
                 // count == 1 means that no direction is given
                 if ($ascDesc) {
                     $orderings[$orderField] = ((strtolower($ascDesc) === 'desc') ?

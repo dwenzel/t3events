@@ -73,7 +73,7 @@ class VectorImageTest extends UnitTestCase
         $this->subject->expects($this->once())
             ->method('getElementById')
             ->with($validId)
-            ->will($this->returnValue($mockElement));
+            ->willReturn($mockElement);
 
         $mockElement->expects($this->once())
             ->method('setAttribute')
@@ -117,7 +117,7 @@ class VectorImageTest extends UnitTestCase
         $this->subject->expects($this->once())
             ->method('getElementById')
             ->with($validId)
-            ->will($this->returnValue($mockElement));
+            ->willReturn($mockElement);
 
         $mockElement->expects($this->once())
             ->method('setAttribute')

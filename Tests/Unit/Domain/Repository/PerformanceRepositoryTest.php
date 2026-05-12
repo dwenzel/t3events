@@ -66,12 +66,6 @@ class PerformanceRepositoryTest extends UnitTestCase
             PerformanceRepository::class,
             [], [], '', false
         );
-        $this->objectManager = $this->getMockObjectManager();
-        $this->inject(
-            $this->subject,
-            'objectManager',
-            $this->objectManager
-        );
     }
 
     /**
@@ -98,7 +92,7 @@ class PerformanceRepositoryTest extends UnitTestCase
         $query->expects($this->once())
             ->method('equals')
             ->with('event.hidden', 0)
-            ->will($this->returnValue($comparison));
+            ->willReturn($comparison);
 
         $this->assertEquals(
             [$comparison],
@@ -147,8 +141,7 @@ class PerformanceRepositoryTest extends UnitTestCase
         $demand->expects($this->any())
             ->method('getEventLocations')
             ->with()
-            ->will($this->returnValue($locationIds)
-            );
+            ->willReturn($locationIds);
         $expectedLocationParams = GeneralUtility::intExplode(',', $locationIds);
 
         $query->expects($this->once())
@@ -180,8 +173,7 @@ class PerformanceRepositoryTest extends UnitTestCase
         $this->subject->expects($this->once())
             ->method('createStatusConstraints')
             ->with($query, $demand)
-            ->will($this->returnValue($mockStatusConstraints)
-            );
+            ->willReturn($mockStatusConstraints);
         $this->subject->expects($this->once())
             ->method('combineConstraints')
             ->with($query, $constraints, $mockStatusConstraints, 'OR');
@@ -210,13 +202,12 @@ class PerformanceRepositoryTest extends UnitTestCase
 
         $demand->expects($this->once())
             ->method('isExcludeSelectedStatuses')
-            ->will($this->returnValue(true));
+            ->willReturn(true);
 
         $this->subject->expects($this->once())
             ->method('createStatusConstraints')
             ->with($query, $demand)
-            ->will($this->returnValue($mockStatusConstraints)
-            );
+            ->willReturn($mockStatusConstraints);
         $this->subject->expects($this->once())
             ->method('combineConstraints')
             ->with($query, $constraints, $mockStatusConstraints, 'NOTOR');
@@ -230,11 +221,7 @@ class PerformanceRepositoryTest extends UnitTestCase
     public function initializeObjectInitiallySetsRespectStoragePageFalse()
     {
         $mockQuerySettings = $this->getMockQuerySettings(['setRespectStoragePage']);
-
-        $this->objectManager->expects($this->once())
-            ->method('get')
-            ->with(Typo3QuerySettings::class)
-            ->will($this->returnValue($mockQuerySettings));
+        GeneralUtility::addInstance(Typo3QuerySettings::class, $mockQuerySettings);
 
         $mockQuerySettings->expects($this->once())
             ->method('setRespectStoragePage')
@@ -253,10 +240,7 @@ class PerformanceRepositoryTest extends UnitTestCase
         ];
         $GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['t3events'] = $emSettings;
         $mockQuerySettings = $this->getMockQuerySettings(['setRespectStoragePage']);
-        $this->objectManager->expects($this->once())
-            ->method('get')
-            ->with(Typo3QuerySettings::class)
-            ->will($this->returnValue($mockQuerySettings));
+        GeneralUtility::addInstance(Typo3QuerySettings::class, $mockQuerySettings);
 
         $mockQuerySettings->expects($this->once())
             ->method('setRespectStoragePage')
@@ -270,25 +254,21 @@ class PerformanceRepositoryTest extends UnitTestCase
      *
      * @return array
      */
-    public function emptyDemandValuesDataProvider()
+    public static function emptyDemandValuesDataProvider()
     {
-        $mockSearchObjectWithNullSubject = $this->getMockSearch(['getSubject']);
-        $mockSearchObjectWithNullSubject->expects($this->any())
-            ->method('getSubject')
-            ->will($this->returnValue(null));
-        $mockSearchObjectWithEmptySubject = $this->getMockSearch(['getSubject']);
-        $mockSearchObjectWithEmptySubject->expects($this->any())
-            ->method('getSubject')
-            ->will($this->returnValue(''));
+        $mockSearchObjectWithNullSubject = self::createStub(Search::class);
+        $mockSearchObjectWithNullSubject->method('getSubject')->willReturn(null);
+        $mockSearchObjectWithEmptySubject = self::createStub(Search::class);
+        $mockSearchObjectWithEmptySubject->method('getSubject')->willReturn('');
         return [
             ['getGenres', null],
-            ['getGenres'],
+            ['getGenres', null],
             ['getVenues', null],
-            ['getVenues'],
+            ['getVenues', null],
             ['getEventTypes', null],
-            ['getEventTypes'],
+            ['getEventTypes', null],
             ['getCategories', null],
-            ['getCategories'],
+            ['getCategories', null],
             ['getSearch', $mockSearchObjectWithNullSubject],
             ['getSearch', $mockSearchObjectWithEmptySubject],
         ];
@@ -328,7 +308,7 @@ class PerformanceRepositoryTest extends UnitTestCase
 
         $demand->expects($this->any())
             ->method($getter)
-            ->will($this->returnValue($value));
+            ->willReturn($value);
 
         $this->subject->expects($this->never())
             ->method('combineConstraints');
@@ -341,17 +321,13 @@ class PerformanceRepositoryTest extends UnitTestCase
      *
      * @return array
      */
-    public function nonEmptyDemandValuesDataProvider()
+    public static function nonEmptyDemandValuesDataProvider()
     {
         $searchSubject = 'foo';
         $searchField = 'bar';
-        $mockSearchObjectWithEmptySubject = $this->getMockSearch(['getSubject', 'getFields']);
-        $mockSearchObjectWithEmptySubject->expects($this->any())
-            ->method('getSubject')
-            ->will($this->returnValue($searchSubject));
-        $mockSearchObjectWithEmptySubject->expects($this->any())
-            ->method('getFields')
-            ->will($this->returnValue($searchField));
+        $mockSearchObjectWithEmptySubject = self::createStub(Search::class);
+        $mockSearchObjectWithEmptySubject->method('getSubject')->willReturn($searchSubject);
+        $mockSearchObjectWithEmptySubject->method('getFields')->willReturn($searchField);
 
         return [
             ['getGenres', '1', 'contains', PerformanceDemand::GENRE_FIELD, 1],
@@ -403,14 +379,14 @@ class PerformanceRepositoryTest extends UnitTestCase
         $query->expects($this->once())
             ->method($comparisonMethod)
             ->with($propertyName, $operand)
-            ->will($this->returnValue($mockComparison));
+            ->willReturn($mockComparison);
 
         $demand->expects($this->any())
             ->method('getCategoryConjunction')
-            ->will($this->returnValue('OR'));
+            ->willReturn('OR');
         $demand->expects($this->any())
             ->method($getter)
-            ->will($this->returnValue($demandValue));
+            ->willReturn($demandValue);
 
         $this->subject->expects($this->once())
             ->method('combineConstraints')
@@ -444,7 +420,7 @@ class PerformanceRepositoryTest extends UnitTestCase
         $storagePages = GeneralUtility::intExplode(',', $storagePageList);
         $demand->expects($this->any())
             ->method('getStoragePages')
-            ->will($this->returnValue($storagePageList));
+            ->willReturn($storagePageList);
         $query = $this->getMockQuery();
         $query->expects($this->once())
             ->method('in')
@@ -501,8 +477,7 @@ class PerformanceRepositoryTest extends UnitTestCase
 
         $this->subject->expects($this->once())
             ->method('createPeriodConstraints')
-            ->will($this->returnValue($mockPeriodConstraints)
-            );
+            ->willReturn($mockPeriodConstraints);
         $this->subject->expects($this->once())
             ->method('combineConstraints')
             ->with($query, $constraints, $mockPeriodConstraints, 'AND');

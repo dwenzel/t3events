@@ -79,7 +79,7 @@ class SearchTraitTest extends UnitTestCase
         $mockFactory->expects($this->once())
             ->method('get')
             ->with($searchRequest, $settings)
-            ->will($this->returnValue($mockSearch));
+            ->willReturn($mockSearch);
 
         $this->assertSame(
             $mockSearch,

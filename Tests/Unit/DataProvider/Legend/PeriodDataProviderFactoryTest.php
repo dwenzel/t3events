@@ -61,7 +61,7 @@ class PeriodDataProviderFactoryTest extends UnitTestCase
     /**
      * @return array
      */
-    public function getValidParamsDataProvider()
+    public static function getValidParamsDataProvider()
     {
         $validClasses = [
             SI::FUTURE_ONLY => PeriodFutureDataProvider::class,

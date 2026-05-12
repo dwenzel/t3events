@@ -83,7 +83,7 @@ class RoutingTraitTest extends UnitTestCase
         $this->subject->injectRouter($mockRouter);
         $mockRouter->expects($this->once())
             ->method('getRoute')
-            ->will($this->returnValue($mockRoute));
+            ->willReturn($mockRoute);
 
         $this->subject->dispatch();
     }
@@ -102,7 +102,7 @@ class RoutingTraitTest extends UnitTestCase
         $mockRouter->expects($this->once())
             ->method('getRoute')
             ->with($identifier)
-            ->will($this->returnValue($mockRoute));
+            ->willReturn($mockRoute);
 
         $this->subject->dispatch(null, $identifier);
     }
@@ -124,10 +124,10 @@ class RoutingTraitTest extends UnitTestCase
         $this->subject->injectRouter($mockRouter);
         $mockRouter->expects($this->once())
             ->method('getRoute')
-            ->will($this->returnValue($mockRoute));
+            ->willReturn($mockRoute);
         $mockRoute->expects($this->once())
             ->method('getMethod')
-            ->will($this->returnValue($method));
+            ->willReturn($method);
 
         $this->subject->expects($this->once())
             ->method($method);
@@ -172,14 +172,14 @@ class RoutingTraitTest extends UnitTestCase
         $this->subject->injectRouter($mockRouter);
         $mockRouter->expects($this->once())
             ->method('getRoute')
-            ->will($this->returnValue($mockRoute));
+            ->willReturn($mockRoute);
 
         $mockRoute->expects($this->once())
             ->method('getMethod')
-            ->will($this->returnValue($method));
+            ->willReturn($method);
         $mockRoute->expects($this->once())
             ->method('getOptions')
-            ->will($this->returnValue($optionsFromRoute));
+            ->willReturn($optionsFromRoute);
 
         $this->subject->expects($this->once())
             ->method($method)
@@ -238,18 +238,18 @@ class RoutingTraitTest extends UnitTestCase
         $this->subject->injectRouter($mockRouter);
         $mockRouter->expects($this->once())
             ->method('getRoute')
-            ->will($this->returnValue($mockRoute));
+            ->willReturn($mockRoute);
 
         $mockRoute->expects($this->once())
             ->method('getMethod')
-            ->will($this->returnValue($method));
+            ->willReturn($method);
         $mockRoute->expects($this->once())
             ->method('getOptions')
-            ->will($this->returnValue($optionsFromRoute));
+            ->willReturn($optionsFromRoute);
         $mockRoute->expects($this->atLeastOnce())
             ->method('getOption')
             ->with(SI::ARGUMENTS)
-            ->will($this->returnValue($defaultArguments));
+            ->willReturn($defaultArguments);
 
         $this->subject->expects($this->once())
             ->method($method)
@@ -279,7 +279,7 @@ class RoutingTraitTest extends UnitTestCase
         $mockRouter = $this->getMockRouter();
         $mockRouter->expects($this->once())
             ->method('getRoute')
-            ->will($this->returnValue($mockRoute));
+            ->willReturn($mockRoute);
 
         $this->subject->injectRouter($mockRouter);
 

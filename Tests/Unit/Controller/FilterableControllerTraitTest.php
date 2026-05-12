@@ -144,7 +144,7 @@ class FilterableControllerTraitTest extends UnitTestCase
 
         $audienceRepository->expects($this->once())
             ->method('findAll')
-            ->will($this->returnValue($mockQueryResult));
+            ->willReturn($mockQueryResult);
         $expectedResult = [
             'audiences' => $mockQueryResult
         ];
@@ -176,7 +176,7 @@ class FilterableControllerTraitTest extends UnitTestCase
         $audienceRepository->expects($this->once())
             ->method('findMultipleByUid')
             ->with($uidList, 'title')
-            ->will($this->returnValue($mockQueryResult));
+            ->willReturn($mockQueryResult);
         $expectedResult = [
             'audiences' => $mockQueryResult
         ];
@@ -200,7 +200,7 @@ class FilterableControllerTraitTest extends UnitTestCase
 
         $this->subject->expects($this->any())
             ->method('translate')
-            ->will($this->returnValue('label.period'));
+            ->willReturn('label.period');
         $settings = [
             'periods' => ''
         ];
@@ -225,7 +225,7 @@ class FilterableControllerTraitTest extends UnitTestCase
         );
         $this->subject->expects($this->any())
             ->method('translate')
-            ->will($this->returnValue('label.period'));
+            ->willReturn('label.period');
         $settings = [
             'periods' => 'foo'
         ];

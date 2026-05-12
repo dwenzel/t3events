@@ -16,6 +16,7 @@ use DWenzel\T3events\Domain\Repository\TaskRepositoryInterface;
  * Class TaskRepositoryTrait
  * Provides a TaskRepository
  */
+// @phpstan-ignore-next-line trait.unused (trait consumed in Tests/Unit/ — outside PHPStan scan scope)
 trait TaskRepositoryTrait
 {
     protected TaskRepositoryInterface $taskRepository;

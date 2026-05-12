@@ -5,6 +5,7 @@ use TYPO3\CMS\Extbase\Mvc\Exception\NoSuchControllerException;
 use DWenzel\T3events\Controller\Routing\Route;
 use DWenzel\T3events\Controller\Routing\RouterInterface;
 use DWenzel\T3events\Utility\SettingsInterface as SI;
+use TYPO3\CMS\Extbase\Mvc\RequestInterface;
 
 /**
  * Class RoutingTrait
@@ -12,9 +13,12 @@ use DWenzel\T3events\Utility\SettingsInterface as SI;
  *
  * @package DWenzel\T3events\Controller
  */
+// @phpstan-ignore-next-line trait.unused (trait consumed in Tests/Unit/ — outside PHPStan scan scope)
 trait RoutingTrait
 {
     protected RouterInterface $router;
+
+    protected RequestInterface $request;
 
     /**
      * Injects the router

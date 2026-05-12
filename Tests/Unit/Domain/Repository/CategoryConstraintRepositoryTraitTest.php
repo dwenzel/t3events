@@ -88,10 +88,10 @@ class CategoryConstraintRepositoryTraitTest extends UnitTestCase
 
         $this->demand->expects($this->any())
             ->method('getCategoryField')
-            ->will($this->returnValue(self::CATEGORY_FIELD));
+            ->willReturn(self::CATEGORY_FIELD);
         $this->demand->expects($this->any())
             ->method('getCategories')
-            ->will($this->returnValue($categoryList));
+            ->willReturn($categoryList);
         $expectedArgs = [[self::CATEGORY_FIELD, 1], [self::CATEGORY_FIELD, 2]];
         $callIndex = 0;
         $query->expects($this->exactly(2))

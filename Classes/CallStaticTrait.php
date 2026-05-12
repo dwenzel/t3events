@@ -40,8 +40,8 @@ trait CallStaticTrait
         $parameters = func_get_args();
         $parameters = array_slice($parameters, 2); // Remove $className and $methodName
 
-        /** @var callable $callback */
         $callback = $className . '::' . $methodName;
+        // @phpstan-ignore-next-line argument.type (string in "Class::method" format is a valid callable at runtime)
         return call_user_func_array($callback, $parameters);
     }
 }

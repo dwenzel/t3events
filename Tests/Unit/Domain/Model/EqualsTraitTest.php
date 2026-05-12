@@ -53,6 +53,7 @@ class EqualsTraitTest extends UnitTestCase
             ->willReturn('bar');
 
         $this->assertFalse(
+            // @extensionScannerIgnoreLine
             $this->subject->equals($objectToCompare)
         );
     }
@@ -74,6 +75,7 @@ class EqualsTraitTest extends UnitTestCase
             ->willReturn($toString);
 
         $this->assertTrue(
+            // @extensionScannerIgnoreLine
             $this->subject->equals($objectToCompare)
         );
     }

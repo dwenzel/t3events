@@ -15,7 +15,6 @@ use DWenzel\T3events\Domain\Model\Dto\Search;
 use DWenzel\T3events\Domain\Model\Dto\SearchAwareDemandInterface;
 use DWenzel\T3events\Domain\Model\Dto\VenueAwareDemandInterface;
 use DWenzel\T3events\Domain\Repository\PeriodConstraintRepositoryInterface;
-use DWenzel\T3events\Utility\SettingsUtility;
 use DWenzel\T3events\Utility\SettingsInterface as SI;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 
@@ -26,7 +25,6 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
  */
 class DemandTraitTest extends UnitTestCase
 {
-    const DUMMY_CONTROLLER_KEY = 'dummy';
 
     /**
      * @var DemandTrait
@@ -42,17 +40,6 @@ class DemandTraitTest extends UnitTestCase
         $this->subject = $this->getMockForTrait(
             DemandTrait::class
         );
-        $mockSettingsUtility = $this->getMockBuilder(SettingsUtility::class)
-            ->disableOriginalConstructor()
-            ->onlyMethods(['getControllerKey'])->getMock();
-        $this->inject(
-            $this->subject,
-            'settingsUtility',
-            $mockSettingsUtility
-        );
-        $mockSettingsUtility->expects($this->any())
-            ->method('getControllerKey')
-            ->will($this->returnValue(self::DUMMY_CONTROLLER_KEY));
     }
 
     /**
@@ -186,7 +173,7 @@ class DemandTraitTest extends UnitTestCase
         $this->subject->expects($this->once())
             ->method('createSearchObject')
             ->with($overwriteDemand['search'], $settings['search'])
-            ->will($this->returnValue($mockSearchObject));
+            ->willReturn($mockSearchObject);
 
         $demand->expects($this->once())->method('setSearch')
             ->with($mockSearchObject);
@@ -330,7 +317,7 @@ class DemandTraitTest extends UnitTestCase
         $this->subject->overwriteDemandObject($demand, $overwriteDemand);
     }
 
-    public function emptyOverwriteDemandKeysDataProvider()
+    public static function emptyOverwriteDemandKeysDataProvider()
     {
         return [
             [SI::START_DATE],

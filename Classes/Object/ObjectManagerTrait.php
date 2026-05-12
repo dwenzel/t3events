@@ -24,6 +24,7 @@ use Psr\Container\ContainerInterface;
 /**
  * ObjectManagerTrait
  */
+// @phpstan-ignore-next-line trait.unused (trait consumed in Tests/Unit/ — outside PHPStan scan scope)
 trait ObjectManagerTrait
 {
     /**

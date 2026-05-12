@@ -32,6 +32,7 @@ trait BackendViewTrait
      */
     protected function getUriBuilder(): UriBuilder
     {
+        // @phpstan-ignore-next-line instanceof.alwaysTrue (makeInstance returns object; guard retained for runtime safety)
         if (!$this->uriBuilder instanceof UriBuilder) {
             $this->uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
             $this->uriBuilder->setRequest($this->request);

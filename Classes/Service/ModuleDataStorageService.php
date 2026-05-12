@@ -31,6 +31,7 @@ class ModuleDataStorageService implements SingletonInterface
      */
     public function loadModuleData(string $key): ModuleData
     {
+        // @phpstan-ignore-next-line instanceof.alwaysTrue (getBackendUserAuthentication() may return null at runtime; guard retained)
         if ($this->getBackendUserAuthentication() instanceof BackendUserAuthentication) {
             $moduleData = $this->getBackendUserAuthentication()->getModuleData($key);
         }
