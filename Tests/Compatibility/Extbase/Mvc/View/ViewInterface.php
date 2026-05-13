@@ -12,5 +12,5 @@ interface ViewInterface
 {
     public function assign(string $key, mixed $value): self;
     public function assignMultiple(array $values): self;
-    public function render(string $actionName = null): string;
+    public function render(?string $actionName = null): string;
 }
