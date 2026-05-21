@@ -58,7 +58,7 @@ class PerformancesViewHelper extends AbstractTagBasedViewHelper
         $this->tagName = $this->arguments['tagName'];
         $this->tagNameChildren = $this->arguments['tagNameChildren'];
         $this->classChildren = $this->arguments['classChildren'];
-        $this->class = $this->additionalArguments['class'];
+        $this->class = $this->additionalArguments['class'] ?? '';
         $this->initialize();
         $type = $this->arguments['type'];
         $content = '';
