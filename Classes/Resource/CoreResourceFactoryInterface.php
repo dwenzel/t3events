@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DWenzel\T3events\Resource;
 
 use TYPO3\CMS\Core\Resource\FileReference;

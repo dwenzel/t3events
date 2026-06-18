@@ -147,7 +147,7 @@ class PerformanceController
         if ($cacheDataCollector !== null) {
             // @extensionScannerIgnoreLine
             $cacheDataCollector->addCacheTags(
-                ...array_map(static fn(string $tag) => new CacheTag($tag), $tags)
+                ...array_map(static fn(string $tag): CacheTag => new CacheTag($tag), $tags)
             );
         }
     }

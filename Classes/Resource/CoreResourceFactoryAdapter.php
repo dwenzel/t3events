@@ -12,9 +12,9 @@ use TYPO3\CMS\Core\Resource\ResourceFactory as Typo3ResourceFactory;
  * CoreResourceFactoryInterface. Required because the core class is readonly
  * in TYPO3 v13 and cannot be mocked or aliased directly without an adapter.
  */
-final class CoreResourceFactoryAdapter implements CoreResourceFactoryInterface
+final readonly class CoreResourceFactoryAdapter implements CoreResourceFactoryInterface
 {
-    public function __construct(private readonly Typo3ResourceFactory $resourceFactory)
+    public function __construct(private Typo3ResourceFactory $resourceFactory)
     {
     }
 

@@ -30,7 +30,6 @@ namespace DWenzel\T3events\ViewHelpers\Be;
 use DWenzel\T3events\Utility\SettingsInterface as SI;
 use TYPO3\CMS\Backend\Routing\Exception\RouteNotFoundException;
 use TYPO3\CMS\Backend\Routing\UriBuilder;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
@@ -41,6 +40,9 @@ class EditUriViewHelper extends AbstractViewHelper
     const DESCRIPTION_ARGUMENT_TABLE = 'table of record to edit';
     const DESCRIPTION_ARGUMENT_RECORD = 'id of record';
     const DESCRIPTION_ARGUMENT_MODULE = 'module to return to';
+    public function __construct(private readonly UriBuilder $uriBuilder)
+    {
+    }
 
     /**
      * Initialize Arguments
@@ -61,8 +63,7 @@ class EditUriViewHelper extends AbstractViewHelper
      */
     public function render(): string
     {
-        /** @var UriBuilder $uriBuilder */
-        $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
+        $uriBuilder = $this->uriBuilder;
         $returnUrl = (string)$uriBuilder->buildUriFromRoute($this->arguments[SI::MODULE]);
         return (string)$uriBuilder->buildUriFromRoute(
             SI::ROUTE_EDIT_RECORD_MODULE,

@@ -131,8 +131,16 @@ class EventController extends ActionController
      * action show
      *
      */
-    public function showAction(Event $event): ResponseInterface
+    public function showAction(?Event $event = null): ResponseInterface
     {
+        if ($event === null) {
+            $listPid = (int)($this->settings['listPid'] ?? 0);
+            $uri = $this->uriBuilder->reset()
+                ->setTargetPageUid($listPid > 0 ? $listPid : (int)$GLOBALS['TSFE']->id)
+                ->build();
+            return $this->redirectToUri($uri, 0, 301);
+        }
+
         $templateVariables = [
             SI::SETTINGS => $this->settings,
             'event' => $event
@@ -155,7 +163,7 @@ class EventController extends ActionController
         if ($cacheDataCollector !== null) {
             // @extensionScannerIgnoreLine
             $cacheDataCollector->addCacheTags(
-                ...array_map(static fn(string $tag) => new CacheTag($tag), $tags)
+                ...array_map(static fn(string $tag): CacheTag => new CacheTag($tag), $tags)
             );
         }
     }
