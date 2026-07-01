@@ -133,6 +133,6 @@ trait EntityNotFoundHandlerTrait
      */
     protected function isSSLEnabled(): bool
     {
-        return (bool)GeneralUtility::getIndpEnv('TYPO3_SSL');
+        return (bool)($this->request->getAttribute('normalizedParams')?->isHttps() ?? false);
     }
 }

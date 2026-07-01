@@ -30,7 +30,6 @@ return [
             'starttime' => 'starttime',
             'endtime' => 'endtime',
         ],
-        'searchFields' => 'name, last_name, first_name',
         'iconfile' => 'EXT:t3events/Resources/Public/Icons/tx_t3events_domain_model_person.png'
     ],
     'types' => [

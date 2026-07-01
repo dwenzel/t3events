@@ -6,8 +6,8 @@ use DWenzel\T3events\Domain\Model\Dto\Search;
 use TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface;
 use TYPO3\CMS\Extbase\Persistence\Generic\Qom\ConstraintInterface;
 use DWenzel\T3events\Utility\GeoCoder;
-use TYPO3\CMS\Extbase\Annotation\Inject;
 use DWenzel\T3events\Domain\Model\Dto\SearchAwareDemandInterface;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 
 /**
@@ -17,10 +17,15 @@ use TYPO3\CMS\Extbase\Persistence\QueryInterface;
  */
 trait LocationConstraintRepositoryTrait
 {
-    /**
-     * @Inject
-     */
-    protected GeoCoder $geoCoder;
+    private ?GeoCoder $geoCoder = null;
+
+    private function getGeoCoder(): GeoCoder
+    {
+        if ($this->geoCoder === null) {
+            $this->geoCoder = GeneralUtility::makeInstance(GeoCoder::class);
+        }
+        return $this->geoCoder;
+    }
 
     /**
      * Create location constraints from demand
@@ -45,9 +50,9 @@ trait LocationConstraintRepositoryTrait
                 && ($radius !== null && $radius !== 0)
                 && ($bounds === null || $bounds === [])
             ) {
-                $geoLocation = $this->geoCoder->getLocation($location);
+                $geoLocation = $this->getGeoCoder()->getLocation($location);
                 if ($geoLocation !== false) {
-                    $bounds = $this->geoCoder->getBoundsByRadius($geoLocation['lat'], $geoLocation['lng'], $radius / 1000);
+                    $bounds = $this->getGeoCoder()->getBoundsByRadius($geoLocation['lat'], $geoLocation['lng'], $radius / 1000);
                 }
             }
             if ($bounds &&

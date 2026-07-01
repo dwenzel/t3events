@@ -24,7 +24,6 @@ return [
         'enablecolumns' => [
             'disabled' => 'hidden',
         ],
-        'searchFields' => 'title,description,',
         'iconfile' => 'EXT:t3events/Resources/Public/Icons/tx_t3events_domain_model_notification.gif'
     ],
     'types' => [

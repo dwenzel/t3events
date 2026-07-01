@@ -1,1 +1,1 @@
-@import "EXT:t3events/Configuration/TSconfig/PageTSconfig.ts"
+@import 'EXT:t3events/Configuration/TSconfig/PageTSconfig.ts'

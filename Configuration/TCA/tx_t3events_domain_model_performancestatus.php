@@ -26,7 +26,6 @@ return [
             'starttime' => 'starttime',
             'endtime' => 'endtime',
         ],
-        'searchFields' => 'title,css_class,priority,',
         'iconfile' => 'EXT:t3events/Resources/Public/Icons/tx_t3events_domain_model_performancestatus.gif'
     ],
     'types' => [

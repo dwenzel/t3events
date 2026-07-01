@@ -31,7 +31,6 @@ return [
             'endtime' => 'endtime',
             'fe_group' => 'fe_group',
         ],
-        'searchFields' => 'headline,subtitle,teaser,description,keywords,genre,venue,event_type,performances,organizer,',
         'iconfile' => 'EXT:t3events/Resources/Public/Icons/tx_t3events_domain_model_event.gif'
     ],
     'types' => [

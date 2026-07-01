@@ -2,7 +2,6 @@
 namespace DWenzel\T3events\ViewHelpers;
 
 use TYPO3\CMS\Core\Page\PageRenderer;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
 
 /***************************************************************
@@ -45,11 +44,9 @@ class MetaTagViewHelper extends AbstractTagBasedViewHelper
         parent::__construct();
     }
 
-    /**
-     * Arguments initialization
-     */
     public function initializeArguments(): void
     {
+        parent::initializeArguments();
     }
 
 
@@ -61,17 +58,19 @@ class MetaTagViewHelper extends AbstractTagBasedViewHelper
      */
     public function render(bool $useCurrentDomain = false, bool $forceAbsoluteUrl = false): string
     {
+        $normalizedParams = $this->renderingContext->getRequest()->getAttribute('normalizedParams');
 
         // set current domain
         if ($useCurrentDomain) {
-            $this->tag->addAttribute('content', GeneralUtility::getIndpEnv('TYPO3_REQUEST_URL'));
+            $this->tag->addAttribute('content', $normalizedParams?->getRequestUrl() ?? '');
         }
 
         // prepend current domain
         if ($forceAbsoluteUrl) {
+            $siteUrl = $normalizedParams?->getSiteUrl() ?? '';
             $path = $this->additionalArguments['content'] ?? '';
-            if (!\str_starts_with((string) $path, GeneralUtility::getIndpEnv('TYPO3_SITE_URL'))) {
-                $this->tag->addAttribute('content', GeneralUtility::getIndpEnv('TYPO3_SITE_URL') . ($this->additionalArguments['content'] ?? ''));
+            if (!\str_starts_with((string) $path, $siteUrl)) {
+                $this->tag->addAttribute('content', $siteUrl . ($this->additionalArguments['content'] ?? ''));
             }
         }
 

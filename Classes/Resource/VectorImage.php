@@ -32,7 +32,7 @@ class VectorImage extends \DOMDocument
             return;
         }
 
-        while ($element->hasChildNodes() && $element->firstChild !== null) {
+        while ($element->hasChildNodes() && $element->firstChild instanceof \DOMNode) {
             $element->removeChild($element->firstChild);
         }
         $textNode = $this->createTextNode($content);

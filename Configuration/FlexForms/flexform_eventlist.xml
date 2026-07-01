@@ -304,7 +304,7 @@
                         <config>
                             <type>select</type>
                             <renderType>selectSingle</renderType>
-                            <itemsProcFunc>DWenzel\T3events\Hooks\ItemsProcFunc-&gt;user_templateLayout</itemsProcFunc>
+                            <itemsProcFunc>DWenzel\T3events\Hooks\ItemsProcFunc->user_templateLayout</itemsProcFunc>
                             <items>
                                 <numIndex index="0">
                                     <label>---</label>

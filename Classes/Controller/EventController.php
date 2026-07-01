@@ -133,25 +133,11 @@ class EventController extends ActionController
      */
     public function showAction(?Event $event = null): ResponseInterface
     {
-        if ($event === null) {
-            $listPid = (int)($this->settings['listPid'] ?? 0);
-            $uri = $this->uriBuilder->reset()
-                ->setTargetPageUid($listPid > 0 ? $listPid : (int)$GLOBALS['TSFE']->id)
-                ->build();
-            return $this->redirectToUri($uri, 0, 301);
-        }
-
-        $templateVariables = [
-            SI::SETTINGS => $this->settings,
-            'event' => $event
-        ];
-        $this->emitSignal(self::class, self::EVENT_SHOW_ACTION, $templateVariables);
-        $this->view->assignMultiple($templateVariables);
-        $this->addPageCacheTags([
-            'tx_t3events_domain_model_event',
-            'tx_t3events_domain_model_event_' . $event->getUid(),
-        ]);
-        return $this->htmlResponse();
+        $listPid = (int)($this->settings['listPid'] ?? 0);
+        $uri = $this->uriBuilder->reset()
+            ->setTargetPageUid($listPid > 0 ? $listPid : (int)($this->request->getAttribute('routing')?->getPageId() ?? 0))
+            ->build();
+        return $this->redirectToUri($uri, 0, 301);
     }
 
     /**

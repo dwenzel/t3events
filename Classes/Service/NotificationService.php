@@ -3,6 +3,7 @@ namespace DWenzel\T3events\Service;
 
 use DWenzel\T3events\Configuration\ConfigurationManagerTrait;
 use DWenzel\T3events\Domain\Model\Notification;
+use TYPO3\CMS\Core\Mail\Mailer;
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\View\ViewFactoryData;
@@ -21,8 +22,10 @@ class NotificationService
 {
     use ConfigurationManagerTrait;
 
-    public function __construct(private readonly ViewFactoryInterface $viewFactory)
-    {
+    public function __construct(
+        private readonly ViewFactoryInterface $viewFactory,
+        private readonly Mailer $mailer,
+    ) {
     }
 
     /**
@@ -55,7 +58,7 @@ class NotificationService
                 $this->buildAttachmentFromTemplate($attachment, $message);
             }
         }
-        $message->send();
+        $this->mailer->send($message);
 
         return $message->isSent();
     }
@@ -103,7 +106,7 @@ class NotificationService
                 }
             }
         }
-        $message->send();
+        $this->mailer->send($message);
         if ($message->isSent()) {
             $notification->setSentAt(new \DateTime());
         }

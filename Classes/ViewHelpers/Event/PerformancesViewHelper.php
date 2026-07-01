@@ -15,9 +15,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
  */
 class PerformancesViewHelper extends AbstractTagBasedViewHelper
 {
-    public mixed $tagNameChildren = null;
-    public mixed $classChildren = null;
-    public mixed $class = null;
     use ConfigurationManagerTrait;
 
     /**
@@ -37,16 +34,17 @@ class PerformancesViewHelper extends AbstractTagBasedViewHelper
      */
     public function initializeArguments(): void
     {
-        parent::registerArgument('event', Event::class, 'Event whose performances should be rendered.', true);
-        parent::registerArgument('tagName', 'string', 'Tag name to use for enclosing container', false, 'div');
-        parent::registerArgument('tagNameChildren', 'string', 'Tag name to use for child nodes', false, 'span');
-        parent::registerArgument('type', 'string', 'Result type: available options are: dateRange, crucialStatus', true);
-        parent::registerArgument('class', 'string', 'Class attribute for enclosing container', false, 'list');
-        parent::registerArgument('classChildren', 'string', 'Class attribute for children', false, 'single');
-        parent::registerArgument('classFirst', 'string', 'Class name for first child', false, 'first');
-        parent::registerArgument('classLast', 'string', 'Class name for last child', false, 'last');
-        parent::registerArgument('childSeparator', 'string', 'Character or string separating children entries', false, ', ');
-        parent::registerArgument('dateFormat', 'string', 'A string describing the date format - see php date() for options', false, 'd.m.Y');
+        parent::initializeArguments();
+        $this->registerArgument('event', Event::class, 'Event whose performances should be rendered.', true);
+        $this->registerArgument('tagName', 'string', 'Tag name to use for enclosing container', false, 'div');
+        $this->registerArgument('tagNameChildren', 'string', 'Tag name to use for child nodes', false, 'span');
+        $this->registerArgument('type', 'string', 'Result type: available options are: dateRange, crucialStatus', true);
+        $this->registerArgument('class', 'string', 'Class attribute for enclosing container', false, 'list');
+        $this->registerArgument('classChildren', 'string', 'Class attribute for children', false, 'single');
+        $this->registerArgument('classFirst', 'string', 'Class name for first child', false, 'first');
+        $this->registerArgument('classLast', 'string', 'Class name for last child', false, 'last');
+        $this->registerArgument('childSeparator', 'string', 'Character or string separating children entries', false, ', ');
+        $this->registerArgument('dateFormat', 'string', 'A string describing the date format - see php date() for options', false, 'd.m.Y');
     }
 
     /**
@@ -56,9 +54,7 @@ class PerformancesViewHelper extends AbstractTagBasedViewHelper
     {
         $this->performances = $this->arguments['event']->getPerformances();
         $this->tagName = $this->arguments['tagName'];
-        $this->tagNameChildren = $this->arguments['tagNameChildren'];
-        $this->classChildren = $this->arguments['classChildren'];
-        $this->class = $this->additionalArguments['class'] ?? '';
+        $cssClass = (string)($this->additionalArguments['class'] ?? '');
         $this->initialize();
         $type = $this->arguments['type'];
         $content = '';
@@ -71,7 +67,7 @@ class PerformancesViewHelper extends AbstractTagBasedViewHelper
                 $status = $this->getCrucialStatus();
                 if (is_array($status)) {
                     $title = $status['title'];
-                    $this->class .= ' ' . $status['cssClass'];
+                    $cssClass .= ' ' . $status['cssClass'];
                     if ($this->renderChildren() === null) {
                         $content = $status['title'];
                     }
@@ -81,7 +77,7 @@ class PerformancesViewHelper extends AbstractTagBasedViewHelper
                 break;
         }
         $this->tag->setContent($content);
-        $this->tag->addAttribute('class', $this->class);
+        $this->tag->addAttribute('class', $cssClass);
         $this->tag->addAttribute('title', $title);
         $this->tag->forceClosingTag(true);
         $this->renderChildren();
