@@ -238,7 +238,7 @@ trait DemandedRepositoryTrait
             return $query->matching($query->contains($propertyName, $arguments[0]))->execute()->count();
         }
         $parents = class_parents($this);
-        if ($parents !== false && count($parents)
+        if (count($parents)
         && is_callable('parent::__call')
         && $methodName !== '') {
             return parent::__call($methodName, $arguments);

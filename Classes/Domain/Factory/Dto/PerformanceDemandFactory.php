@@ -86,9 +86,7 @@ class PerformanceDemandFactory extends AbstractDemandFactory implements DemandFa
         ) {
             $settings['order'] = 'date|desc,begin|desc';
         }
-        if ($demand instanceof PeriodAwareDemandInterface) {
-            $this->setPeriodConstraints($demand, $settings);
-        }
+        $this->setPeriodConstraints($demand, $settings);
         $this->applySettings($demand, $settings);
 
         return $demand;

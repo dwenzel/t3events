@@ -15,6 +15,7 @@ namespace DWenzel\T3events\Controller;
  * The TYPO3 project - inspiring people to share!
  */
 use TYPO3\CMS\Core\Cache\CacheTag;
+use TYPO3\CMS\Core\Routing\PageArguments;
 use TYPO3\CMS\Core\Pagination\SimplePagination;
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use Psr\Http\Message\ResponseInterface;
@@ -133,11 +134,27 @@ class EventController extends ActionController
      */
     public function showAction(?Event $event = null): ResponseInterface
     {
-        $listPid = (int)($this->settings['listPid'] ?? 0);
-        $uri = $this->uriBuilder->reset()
-            ->setTargetPageUid($listPid > 0 ? $listPid : (int)($this->request->getAttribute('routing')?->getPageId() ?? 0))
-            ->build();
-        return $this->redirectToUri($uri, 0, 301);
+        if ($event === null) {
+            $listPid = (int)($this->settings['listPid'] ?? 0);
+            $routing = $this->request->getAttribute('routing');
+            $currentPageId = $routing instanceof PageArguments ? $routing->getPageId() : 0;
+            $uri = $this->uriBuilder->reset()
+                ->setTargetPageUid($listPid > 0 ? $listPid : $currentPageId)
+                ->build();
+            return $this->redirectToUri($uri, null, 301);
+        }
+
+        $templateVariables = [
+            SI::SETTINGS => $this->settings,
+            'event' => $event
+        ];
+        $this->emitSignal(self::class, self::EVENT_SHOW_ACTION, $templateVariables);
+        $this->view->assignMultiple($templateVariables);
+        $this->addPageCacheTags([
+            'tx_t3events_domain_model_event',
+            'tx_t3events_domain_model_event_' . $event->getUid(),
+        ]);
+        return $this->htmlResponse();
     }
 
     /**

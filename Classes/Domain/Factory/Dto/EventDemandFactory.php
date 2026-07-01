@@ -78,9 +78,7 @@ class EventDemandFactory extends AbstractDemandFactory implements DemandFactoryI
         /** @var EventDemand $demand */
         $demand = GeneralUtility::makeInstance(EventDemand::class);
 
-        if ($demand instanceof PeriodAwareDemandInterface) {
-            $this->setPeriodConstraints($demand, $settings);
-        }
+        $this->setPeriodConstraints($demand, $settings);
         $this->applySettings($demand, $settings);
 
         return $demand;

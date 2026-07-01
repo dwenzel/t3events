@@ -212,11 +212,9 @@ class NotificationService
             ObjectAccess::setProperty(
                 $notification,
                 $property,
-                // @phpstan-ignore-next-line argument.type (getSettablePropertyNames returns string[]; all valid property names are non-empty)
                 $oldNotification->_getProperty($property));
         }
 
-        // @phpstan-ignore-next-line return.type (makeInstance returns object; actual runtime type is Notification)
         return $notification;
     }
 }

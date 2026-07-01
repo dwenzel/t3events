@@ -1,6 +1,7 @@
 <?php
 namespace DWenzel\T3events\ViewHelpers;
 
+use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
 
@@ -58,7 +59,7 @@ class MetaTagViewHelper extends AbstractTagBasedViewHelper
      */
     public function render(bool $useCurrentDomain = false, bool $forceAbsoluteUrl = false): string
     {
-        $normalizedParams = $this->renderingContext->getRequest()->getAttribute('normalizedParams');
+        $normalizedParams = $this->renderingContext->getAttribute(ServerRequestInterface::class)->getAttribute('normalizedParams');
 
         // set current domain
         if ($useCurrentDomain) {
