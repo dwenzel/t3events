@@ -77,6 +77,8 @@
               <trans-unit id="label.now"><source>Now</source></trans-unit>
               <trans-unit id="label.start"><source>Start</source></trans-unit>
               <trans-unit id="plugin.combined.title"><source>Events</source></trans-unit>
+              <trans-unit id="plugin.eventlist.title"><source>Event list</source></trans-unit>
+              <trans-unit id="plugin.performancelist.title"><source>Performance list</source></trans-unit>
 
         </body>
 	</file>
