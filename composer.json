@@ -29,7 +29,10 @@
   },
   "require-dev": {
     "a9f/typo3-fractor": "^0.5",
+    "phpstan/extension-installer": "^1.4",
+    "phpstan/phpstan": "^2.1",
     "phpunit/phpunit": "^11.5",
+    "saschaegerer/phpstan-typo3": "^2.1 || ^3.0",
     "ssch/typo3-rector": "^3.0",
     "typo3/testing-framework": "^8.2 || ^9.0"
   },
@@ -55,7 +58,8 @@
     "allow-plugins": {
       "typo3/cms-composer-installers": true,
       "typo3/class-alias-loader": true,
-      "a9f/fractor-extension-installer": true
+      "a9f/fractor-extension-installer": true,
+      "phpstan/extension-installer": true
     },
     "preferred-install": {
       "typo3/cms": "source",
@@ -74,7 +78,8 @@
     "rector:check": "rector process --dry-run",
     "rector:fix": "rector process",
     "fractor:check": "fractor process --dry-run",
-    "fractor:fix": "fractor process"
+    "fractor:fix": "fractor process",
+    "phpstan": "phpstan analyse --no-progress"
   },
   "extra": {
     "typo3/cms": {
@@ -88,6 +93,7 @@
     "rector:check": "Show changes Rector would make (PHP)",
     "rector:fix": "Apply Rector changes (PHP)",
     "fractor:check": "Show changes Fractor would make (TypoScript, FlexForms, Fluid, YAML)",
-    "fractor:fix": "Apply Fractor changes"
+    "fractor:fix": "Apply Fractor changes",
+    "phpstan": "Static analysis (level and baseline in phpstan.neon)"
   }
 }

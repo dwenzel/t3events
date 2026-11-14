@@ -1,0 +1,10 @@
+includes:
+    - phpstan-baseline.neon
+
+parameters:
+    # Level for the 4.x line. Findings that are known and not yet fixed are
+    # listed in phpstan-baseline.neon; new code must not add to it.
+    level: 8
+    paths:
+        - Classes
+    tmpDir: .Build/.phpstan
