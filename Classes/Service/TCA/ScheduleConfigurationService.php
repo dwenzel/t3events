@@ -49,7 +49,7 @@ class ScheduleConfigurationService
         if (isset($record['date'])) {
             $dateFormat = $this->translate(
                 SI::TRANSLATION_FILE_DB . ':' . SI::DATE_FORMAT_SHORT
-            );
+            ) ?: 'd.m.Y';
 
             $timeZone = new \DateTimeZone(date_default_timezone_get());
             $date = new \DateTime('now', $timeZone);

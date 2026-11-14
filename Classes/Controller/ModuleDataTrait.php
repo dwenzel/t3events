@@ -17,6 +17,11 @@ use TYPO3\CMS\Extbase\Mvc\ResponseInterface;
  */
 trait ModuleDataTrait
 {
+    /**
+     * @var int Uid of the page selected in the page tree
+     */
+    protected $pageUid = 0;
+
     protected ?ModuleData $moduleData = null;
     protected ModuleDataStorageService $moduleDataStorageService;
 
