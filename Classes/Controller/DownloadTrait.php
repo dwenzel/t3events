@@ -38,7 +38,7 @@ trait DownloadTrait
     public function getDownloadFileName(string $fileName, bool $prependDate = true): string
     {
         if ($prependDate) {
-            $fileName = date('Y-m-d_H-m') . '_' . $fileName;
+            $fileName = date('Y-m-d_H-i') . '_' . $fileName;
         }
 
         return $this->localDriver->sanitizeFileName($fileName);
