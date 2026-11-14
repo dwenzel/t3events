@@ -143,9 +143,7 @@ class EventControllerTest extends UnitTestCase
         $mockRequest = $this->subject->_get('request');
         $mockRequest->expects($this->exactly(2))
             ->method('hasArgument')
-            ->willReturnCallback(function(string $name) {
-                return $name === SI::OVERWRITE_DEMAND;
-            });
+            ->willReturnCallback(fn(string $name) => $name === SI::OVERWRITE_DEMAND);
         $mockRequest->expects($this->once())
             ->method('getArgument')
             ->willReturn($overwriteDemand);
