@@ -8,7 +8,7 @@
     "events"
   ],
   "license": [
-    "GPL-2.0+"
+    "GPL-2.0-or-later"
   ],
   "authors": [
     {
@@ -19,13 +19,17 @@
   "require": {
     "php": "^8.1",
     "ext-dom": "*",
-    "typo3/cms-core": "^11.5 || ^12.4",
-    "typo3/cms-fluid": "^11.5 || ^12.4",
-    "dwenzel/t3extension-tools": "^2.0 || ^4.0"
+    "dwenzel/t3extension-tools": "^4.0",
+    "typo3/cms-backend": "^12.4",
+    "typo3/cms-core": "^12.4",
+    "typo3/cms-extbase": "^12.4",
+    "typo3/cms-fluid": "^12.4",
+    "typo3/cms-frontend": "^12.4",
+    "typo3/cms-install": "^12.4"
   },
   "require-dev": {
-    "typo3/testing-framework": "^8.0",
-    "phpunit/phpunit": "^10.5"
+    "phpunit/phpunit": "^10.5.62",
+    "typo3/testing-framework": "^8.0"
   },
   "autoload": {
     "psr-4": {
@@ -54,14 +58,16 @@
       "typo3/cms": "source",
       "typo3/cms-core": "source",
       "*": "dist"
-    }
+    },
+    "sort-packages": true
   },
   "scripts": {
     "post-autoload-dump": [
       "mkdir -p .Build/Web/typo3conf/ext/",
       "mkdir -p .Build/log/coverage/",
       "[ -L .Build/Web/typo3conf/ext/t3events ] || ln -snvf ../../../../. .Build/Web/typo3conf/ext/t3events"
-    ]
+    ],
+    "test:unit": "phpunit -c phpunit.xml"
   },
   "extra": {
     "typo3/cms": {
@@ -69,5 +75,8 @@
       "cms-package-dir": "{$vendor-dir}/typo3/cms",
       "web-dir": ".Build/Web"
     }
+  },
+  "scripts-descriptions": {
+    "test:unit": "Run the unit tests"
   }
 }
