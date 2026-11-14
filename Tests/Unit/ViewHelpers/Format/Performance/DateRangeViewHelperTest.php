@@ -128,6 +128,7 @@ class DateRangeViewHelperTest extends UnitTestCase
             ->willReturnCallback(function() use (&$registerCallIndex, $expectedRegisterArgs) {
                 $this->assertSame($expectedRegisterArgs[$registerCallIndex], func_get_args());
                 $registerCallIndex++;
+                return $this->subject;
             });
         $this->subject->initializeArguments();
     }

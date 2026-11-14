@@ -132,7 +132,7 @@ class DemandedRepositoryTraitTest extends UnitTestCase
             AbstractDemandedRepository::class,
             array('createQuery', 'createConstraintsFromDemand'), array(), '', false);
         /** @var AbstractDemand|MockObject $mockDemand */
-        $mockDemand = $this->getAccessibleMockForAbstractClass(AbstractDemand::class);
+        $mockDemand = $this->getAccessibleMock(AbstractDemand::class, null);
         $storagePageIds = '3,5';
         $mockDemand->setStoragePages($storagePageIds);
         $mockQuery = $this->getMockBuilder(Query::class)
