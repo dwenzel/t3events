@@ -44,7 +44,7 @@ class NotificationTest extends UnitTestCase
     protected function setUp(): void
     {
         $this->subject = $this->getAccessibleMock(
-            Notification::class, ['dummy']
+            Notification::class, null
         );
     }
 

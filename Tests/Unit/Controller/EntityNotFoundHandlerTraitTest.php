@@ -10,10 +10,12 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\Request;
 use TYPO3\CMS\Extbase\Mvc\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use TYPO3\CMS\Core\Http\ImmediateResponseException;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 use TYPO3\CMS\Extbase\Property\Exception\TargetNotFoundException;
 use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
-use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
+use TYPO3\CMS\Frontend\Controller\ErrorController;
 
 /**
  * Class DummyParent
@@ -106,32 +108,36 @@ class EntityNotFoundHandlerTraitTest extends UnitTestCase
      */
     public function handleEntityNotFoundErrorConfigurationCallsPageNotFoundHandler()
     {
-        $mockFrontendController = $this->getAccessibleMock(
-            TypoScriptFrontendController::class,
-            ['pageNotFoundAndExit'], [], '', false);
-        $GLOBALS['TSFE'] = $mockFrontendController;
-        $mockFrontendController->expects(self::once())
-            ->method('pageNotFoundAndExit')
-            ->with($this->subject->getEntityNotFoundMessage());
+        $request = $this->createMock(ServerRequestInterface::class);
+        $GLOBALS['TYPO3_REQUEST'] = $request;
+        $response = $this->createMock(ResponseInterface::class);
+        $errorController = $this->createMock(ErrorController::class);
+        $errorController->expects(self::once())
+            ->method('pageNotFoundAction')
+            ->with($request, $this->subject->getEntityNotFoundMessage())
+            ->willReturn($response);
+        GeneralUtility::addInstance(ErrorController::class, $errorController);
+
+        $this->expectException(ImmediateResponseException::class);
         $this->subject->handleEntityNotFoundError('pageNotFoundHandler');
     }
 
     /**
      * @test
-     * @expectedException \InvalidArgumentException
      */
     public function handleEntityNotFoundErrorConfigurationWithTooFeeOptionsForRedirectToPageThrowsError()
     {
+        $this->expectException(\InvalidArgumentException::class);
         $this->subject->handleEntityNotFoundError('redirectToPage');
     }
 
 
     /**
      * @test
-     * @expectedException \InvalidArgumentException
      */
     public function handleEntityNotFoundErrorConfigurationWithTooManyOptionsForRedirectToPageThrowsError()
     {
+        $this->expectException(\InvalidArgumentException::class);
         $this->subject->handleEntityNotFoundError('redirectToPage, arg1, arg2, arg3');
     }
 
@@ -159,7 +165,7 @@ class EntityNotFoundHandlerTraitTest extends UnitTestCase
     public function handleEntityNotFoundErrorConfigurationRedirectsToCorrectPageWithStatus()
     {
         $mockUriBuilder = $this->getAccessibleMock(
-            UriBuilder::class, ['setTargetPageUid', 'build', 'redirectToUri']);
+            UriBuilder::class, ['setTargetPageUid', 'build']);
         $this->inject(
             $this->subject,
             'uriBuilder',
@@ -222,7 +228,7 @@ class EntityNotFoundHandlerTraitTest extends UnitTestCase
         $config = 'foo';
         $expectedParams = [
             SI::CONFIG => GeneralUtility::trimExplode(',', $config),
-            'requestArguments' => null,
+            'requestArguments' => [],
             SI::ACTION_NAME => null
         ];
         $slotResult = [
@@ -257,7 +263,7 @@ class EntityNotFoundHandlerTraitTest extends UnitTestCase
         $config = 'foo';
         $expectedParams = [
             SI::CONFIG => GeneralUtility::trimExplode(',', $config),
-            'requestArguments' => null,
+            'requestArguments' => [],
             SI::ACTION_NAME => null
         ];
         $slotResult = [
@@ -299,11 +305,11 @@ class EntityNotFoundHandlerTraitTest extends UnitTestCase
 
     /**
      * @test
-     * @expectedException \TYPO3\CMS\Extbase\Property\Exception\TargetNotFoundException
-     * @expectedExceptionCode 1464634137
      */
     public function processRequestCallsEntityNotFoundHandler()
     {
+        $this->expectException(\TYPO3\CMS\Extbase\Property\Exception\TargetNotFoundException::class);
+        $this->expectExceptionCode(1464634137);
         $errorHandlingConfig = 'fooHandling';
         $controllerName = 'foo';
         $actionName = 'bar';
@@ -349,7 +355,7 @@ class EntityNotFoundHandlerTraitTest extends UnitTestCase
         $config = 'foo';
         $expectedParams = [
             SI::CONFIG => GeneralUtility::trimExplode(',', $config),
-            'requestArguments' => null,
+            'requestArguments' => [],
             SI::ACTION_NAME => null
         ];
         $slotResult = [

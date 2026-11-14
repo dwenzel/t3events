@@ -44,7 +44,7 @@ class EventTypeRepositoryTest extends UnitTestCase
     {
         $this->fixture = $this->getAccessibleMock(
             EventTypeRepository::class,
-            ['dummy'], [], '', false);
+            null, [], '', false);
     }
 
     /**

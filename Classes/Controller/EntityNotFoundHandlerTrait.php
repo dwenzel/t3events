@@ -3,11 +3,13 @@
 namespace DWenzel\T3events\Controller;
 
 use DWenzel\T3events\Utility\SettingsInterface as SI;
+use TYPO3\CMS\Core\Http\ImmediateResponseException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Request;
 use TYPO3\CMS\Extbase\Mvc\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Extbase\Property\Exception as PropertyException;
+use TYPO3\CMS\Frontend\Controller\ErrorController;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
@@ -132,8 +134,11 @@ trait EntityNotFoundHandlerTrait
                 }
                 break;
             case 'pageNotFoundHandler':
-                $this->getFrontendController()->pageNotFoundAndExit($this->entityNotFoundMessage);
-                break;
+                $response = GeneralUtility::makeInstance(ErrorController::class)->pageNotFoundAction(
+                    $GLOBALS['TYPO3_REQUEST'],
+                    $this->entityNotFoundMessage
+                );
+                throw new ImmediateResponseException($response, 1731582330);
             default:
                 $params = [
                     SI::CONFIG => $conf,

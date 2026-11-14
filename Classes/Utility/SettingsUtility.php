@@ -120,7 +120,7 @@ class SettingsUtility implements SingletonInterface
         if (isset($this->controllerKeys[$className])) {
             $controllerKey = $this->controllerKeys[$className];
         } else {
-            $controllerKey = lcfirst(str_replace('Controller', '', end(explode('\\', $className))));
+            $controllerKey = lcfirst(str_replace('Controller', '', substr(strrchr('\\' . $className, '\\'), 1)));
             $this->controllerKeys[$className] = $controllerKey;
         }
 

@@ -56,6 +56,7 @@ class TaskRepositoryTest extends UnitTestCase
     public function initializeObjectsSetsDefaultQuerySettings()
     {
         $mockQuerySettings = $this->getMockBuilder(Typo3QuerySettings::class)
+            ->disableOriginalConstructor()
             ->setMethods(['setRespectStoragePage'])->getMock();
         $this->objectManager->expects($this->once())
             ->method('get')

@@ -39,11 +39,12 @@ use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Mvc\Request;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
+use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 use TYPO3\CMS\Fluid\View\TemplateView;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
-use PHPUnit\Framework\TestCase;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 
 /**
  * Test case for class \DWenzel\T3events\Controller\PerformanceController.
@@ -56,7 +57,7 @@ use PHPUnit\Framework\TestCase;
  * @author Michael Kasten <kasten@webfox01.de>
  * @coversDefaultClass \DWenzel\T3events\Controller\PerformanceController
  */
-class PerformanceControllerTest extends TestCase
+class PerformanceControllerTest extends UnitTestCase
 {
     use MockObjectManagerTrait;
 
@@ -95,10 +96,15 @@ class PerformanceControllerTest extends TestCase
      */
     protected $session;
 
+    /**
+     * @var QueryResultInterface|MockObject
+     */
+    protected $queryResult;
+
     protected function setUp(): void
     {
         $this->subject = $this->getAccessibleMock(PerformanceController::class,
-            ['dummy', 'emitSignal', 'createSearchObject'], [], '', false);
+            ['emitSignal', 'createSearchObject'], [], '', false);
         $this->session = $this->getMockBuilder(SessionInterface::class)
             ->setMethods(['has', 'get', 'clean', 'set', 'setNamespace'])->getMock();
         $this->performanceDemandFactory = $this->getMockBuilder(PerformanceDemandFactory::class)
@@ -283,9 +289,11 @@ class PerformanceControllerTest extends TestCase
         $overwriteDemand = ['foo'];
         $mockSession = $this->subject->_get('session');
         $mockRequest = $this->subject->_get('request');
-        $mockRequest->expects(self::once())
-            ->method('hasArgument')
-            ->will(self::returnValue(true));
+        $mockRequest->method('hasArgument')
+            ->willReturnMap([
+                [SI::OVERWRITE_DEMAND, true],
+                [SI::RESET_DEMAND, false],
+            ]);
         $mockRequest->expects(self::once())
             ->method('getArgument')
             ->will(self::returnValue($overwriteDemand));
@@ -300,16 +308,20 @@ class PerformanceControllerTest extends TestCase
     /**
      * @test
      */
-    public function initializeQuickMenuActionResetsOverwriteDemandInSession()
+    public function initializeActionCleansSessionIfResetDemandIsRequested()
     {
+        $this->subject->_set(SI::SETTINGS, []);
+        $this->mockSettingsUtility();
         $mockSession = $this->subject->_get('session');
         $mockRequest = $this->subject->_get('request');
-        $mockRequest->expects(self::once())
-            ->method('hasArgument')
-            ->will(self::returnValue(false));
+        $mockRequest->method('hasArgument')
+            ->willReturnMap([
+                [SI::OVERWRITE_DEMAND, false],
+                [SI::RESET_DEMAND, true],
+            ]);
         $mockSession->expects(self::once())
             ->method('clean');
-        $this->subject->initializeQuickMenuAction();
+        $this->subject->initializeAction();
     }
 
     /**
@@ -575,6 +587,8 @@ class PerformanceControllerTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $this->subject->injectPerformanceRepository($repository);
+        $this->inject($this->subject, 'session', $this->session);
+        $this->injectRequestAndQueryResult($repository);
         /** @var TemplateView|\PHPUnit_Framework_MockObject_MockObject $view */
         $view = $this->getMockBuilder(TemplateView::class)
             ->disableOriginalConstructor()
@@ -614,10 +628,13 @@ class PerformanceControllerTest extends TestCase
             ->setMethods(['findDemanded'])
             ->getMock();
         $this->subject->injectPerformanceRepository($repository);
+        $this->inject($this->subject, 'session', $this->session);
+        $this->injectRequestAndQueryResult($repository);
         $view = $this->getMockBuilder(TemplateView::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->subject->_set('view', $view);
+        $this->subject->_set('contentObject', $this->contentObject);
         $settings = array('foo');
         $this->subject->_set(SI::SETTINGS, $settings);
         /** @var PerformanceDemand|\PHPUnit_Framework_MockObject_MockObject $demand */
@@ -636,7 +653,8 @@ class PerformanceControllerTest extends TestCase
 
         $repository->expects(self::once())
             ->method('findDemanded')
-            ->with($mockDemand);
+            ->with($mockDemand)
+            ->willReturn($this->queryResult);
 
         $this->subject->listAction([]);
     }
@@ -804,4 +822,20 @@ class PerformanceControllerTest extends TestCase
         return $mockPerformanceDemand;
     }
 
+    /**
+     * Provides a request and a query result for the pagination in listAction
+     */
+    protected function injectRequestAndQueryResult(MockObject $repository): void
+    {
+        $query = $this->createMock(QueryInterface::class);
+        $query->method('setLimit')->willReturnSelf();
+        $query->method('setOffset')->willReturnSelf();
+        $query->method('execute')->willReturn([]);
+        $this->queryResult = $this->createMock(QueryResultInterface::class);
+        $this->queryResult->method('getQuery')->willReturn($query);
+        $repository->method('findDemanded')->willReturn($this->queryResult);
+        $request = $this->createMock(Request::class);
+        $request->method('hasArgument')->willReturn(false);
+        $this->inject($this->subject, 'request', $request);
+    }
 }

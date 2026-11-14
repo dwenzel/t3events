@@ -67,7 +67,7 @@ class SessionTraitTest extends UnitTestCase
     {
         $namespace = 'foo';
         $this->subject = $this->getAccessibleMock(
-            DummyClassWithNamespace::class, ['dummy']
+            DummyClassWithNamespace::class, null
         );
         $this->subject->_set(
             'namespace',

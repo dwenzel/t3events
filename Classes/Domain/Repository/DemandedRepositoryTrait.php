@@ -90,7 +90,9 @@ trait DemandedRepositoryTrait
             if (!empty($orderList)) {
                 // go through every order statement
                 foreach ($orderList as $orderItem) {
-                    list($orderField, $ascDesc) = GeneralUtility::trimExplode('|', $orderItem, true);
+                    $orderParts = GeneralUtility::trimExplode('|', $orderItem, true);
+                    $orderField = $orderParts[0];
+                    $ascDesc = $orderParts[1] ?? null;
                     // count == 1 means that no direction is given
                     if ($ascDesc) {
                         $orderings[$orderField] = ((strtolower($ascDesc) == 'desc') ?
@@ -172,7 +174,7 @@ trait DemandedRepositoryTrait
     public function combineConstraints(QueryInterface $query, &$constraints, $additionalConstraints, $conjunction = null)
     {
         if (count($additionalConstraints)) {
-            switch (strtolower($conjunction)) {
+            switch (strtolower((string)$conjunction)) {
                 case 'or':
                     $constraints[] = $query->logicalOr($additionalConstraints);
                     break;

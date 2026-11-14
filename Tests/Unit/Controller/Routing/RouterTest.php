@@ -37,7 +37,7 @@ class RouterTest extends UnitTestCase
     protected function setUp(): void
     {
         $this->subject = $this->getAccessibleMock(
-            Router::class, ['dummy']
+            Router::class, null
         );
     }
 
@@ -118,11 +118,11 @@ class RouterTest extends UnitTestCase
 
     /**
      * @test
-     * @expectedException \DWenzel\T3events\ResourceNotFoundException
-     * @expectedExceptionCode 1478437880
      */
     public function getRouteThrowsExceptionForMissingRoute()
     {
+        $this->expectException(\DWenzel\T3events\ResourceNotFoundException::class);
+        $this->expectExceptionCode(1478437880);
         $this->subject->getRoute('invalidRouteIdentifier');
     }
 

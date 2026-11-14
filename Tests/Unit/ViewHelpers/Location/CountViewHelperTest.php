@@ -42,7 +42,7 @@ class CountViewHelperTest extends UnitTestCase
     protected function setUp(): void
     {
         $this->subject = $this->getAccessibleMock(
-            CountViewHelper::class, ['dummy', 'registerArgument']
+            CountViewHelper::class, ['registerArgument']
         );
     }
 

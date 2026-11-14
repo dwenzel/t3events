@@ -34,7 +34,7 @@ class Typo3SessionTest extends UnitTestCase
     protected $subject;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject|\TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController|\TYPO3\CMS\Core\Tests\AccessibleObjectInterface
+     * @var \PHPUnit_Framework_MockObject_MockObject|\TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController|\TYPO3\CMS\Core\Tests\AccessibleMockObjectInterface
      */
     protected $tsfe = null;
 
@@ -49,7 +49,7 @@ class Typo3SessionTest extends UnitTestCase
     protected function setUp(): void
     {
         $this->subject = $this->getAccessibleMock(
-            Typo3Session::class, ['dummy'], [], '', false);
+            Typo3Session::class, null, [], '', false);
         $this->subject->setNamespace(self::SESSION_NAMESPACE);
 
         $this->tsfe = $this->getAccessibleMock(

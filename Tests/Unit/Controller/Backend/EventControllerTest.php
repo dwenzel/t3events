@@ -21,6 +21,7 @@ use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
 use DWenzel\T3events\Domain\Model\Dto\EventDemand;
 use DWenzel\T3events\Domain\Model\Dto\ModuleData;
 use DWenzel\T3events\Domain\Repository\EventRepository;
+use DWenzel\T3events\Service\ModuleDataStorageService;
 use DWenzel\T3events\Utility\SettingsInterface as SI;
 use Nimut\TestingFramework\MockObject\AccessibleMockObjectInterface;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
@@ -31,6 +32,8 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\HttpUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
+use TYPO3\CMS\Extbase\Mvc\Request;
+use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
 
@@ -90,12 +93,21 @@ class EventControllerTest extends UnitTestCase
     {
         $this->subject = $this->getAccessibleMock(
             EventController::class,
-            ['emitSignal', 'getFilterOptions', 'overwriteDemandObject', 'addFlashMessage', 'translate', 'callStatic']
+            ['emitSignal', 'getFilterOptions', 'overwriteDemandObject', 'addFlashMessage', 'translate', 'callStatic'],
+            [$this->createMock(ModuleDataStorageService::class)]
         );
         $this->view = $this->getMockForAbstractClass(
             ViewInterface::class
         );
-        $this->queryResult = $this->getMockBuilder(QueryResultInterface::class)->getMockForAbstractClass();
+        $query = $this->createMock(QueryInterface::class);
+        $query->method('setLimit')->willReturnSelf();
+        $query->method('setOffset')->willReturnSelf();
+        $query->method('execute')->willReturn([]);
+        $this->queryResult = $this->createMock(QueryResultInterface::class);
+        $this->queryResult->method('getQuery')->willReturn($query);
+        $request = $this->createMock(Request::class);
+        $request->method('hasArgument')->willReturn(false);
+        $this->inject($this->subject, 'request', $request);
         $this->moduleData = $this->getMockBuilder(ModuleData::class)->getMock();
         /** @var EventRepository|\PHPUnit_Framework_MockObject_MockObject $mockEventRepository */
         $mockEventRepository = $this->getMockBuilder(EventRepository::class)
@@ -128,6 +140,7 @@ class EventControllerTest extends UnitTestCase
             ->disableOriginalConstructor()
             ->getMock();
         $this->uriBuilder = $this->getMockBuilder(UriBuilder::class)
+            ->disableOriginalConstructor()
             ->setMethods(['buildUriFromRoute'])->getMock();
     }
 

@@ -43,7 +43,7 @@ class ItemsProcFuncTest extends UnitTestCase
     protected function setUp(): void
     {
         $this->subject = $this->getAccessibleMock(
-            ItemsProcFunc::class, ['dummy', 'getLanguageService'], [], '', false
+            ItemsProcFunc::class, ['getLanguageService'], [], '', false
         );
 
         $this->templateLayoutUtility = $this->getMockBuilder(TemplateLayoutUtility::class)
@@ -60,6 +60,8 @@ class ItemsProcFuncTest extends UnitTestCase
      */
     public function constructorSetsTemplateLayoutUtility()
     {
+        // the constructor gets TemplateLayoutUtility (a singleton) from GeneralUtility::makeInstance()
+        $this->resetSingletonInstances = true;
         unset($this->templateLayoutUtility);
         /** @noinspection ImplicitMagicMethodCallInspection */
         $this->subject->__construct();

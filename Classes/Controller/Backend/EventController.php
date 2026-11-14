@@ -150,8 +150,8 @@ class EventController extends AbstractBackendController implements FilterableCon
             SI::EVENTS => $events,
             SI::DEMAND => $demand,
             SI::OVERWRITE_DEMAND => $overwriteDemand,
-            'filterOptions' => $this->getFilterOptions($this->settings[SI::FILTER]),
-            SI::STORAGE_PID => $configuration[SI::PERSISTENCE][SI::STORAGE_PID],
+            'filterOptions' => $this->getFilterOptions($this->settings[SI::FILTER] ?? []),
+            SI::STORAGE_PID => $configuration[SI::PERSISTENCE][SI::STORAGE_PID] ?? null,
             SI::SETTINGS => $this->settings,
             SI::MODULE => SI::ROUTE_EVENT_MODULE
         ];

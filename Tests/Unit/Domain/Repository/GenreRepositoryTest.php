@@ -46,7 +46,7 @@ class GenreRepositoryTest extends UnitTestCase
     {
         $this->fixture = $this->getAccessibleMock(
             GenreRepository::class,
-            ['dummy'], [], '', false);
+            null, [], '', false);
     }
 
     /**

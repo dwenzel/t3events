@@ -26,7 +26,7 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 class DateRangeViewHelperTest extends UnitTestCase
 {
     /**
-     * @var DateRangeViewHelper|\PHPUnit_Framework_MockObject_MockObject|\TYPO3\CMS\Core\Tests\AccessibleObjectInterface
+     * @var DateRangeViewHelper|\PHPUnit_Framework_MockObject_MockObject|\TYPO3\CMS\Core\Tests\AccessibleMockObjectInterface
      */
     protected $subject;
 
@@ -120,8 +120,8 @@ class DateRangeViewHelperTest extends UnitTestCase
             ->withConsecutive(
                 ['event', Event::class, DateRangeViewHelper::ARGUMENT_EVENT_DESCRIPTION, true, null],
                 ['format', 'string', DateRangeViewHelper::ARGUMENT_FORMAT_DESCRIPTION, false, 'd.m.Y'],
-                ['startFormat', 'string', DateRangeViewHelper::ARGUMENT_STARTFORMAT_DESCRIPTION, false, 'd.m.Y'],
-                ['endFormat', 'string', DateRangeViewHelper::ARGUMENT_ENDFORMAT_DESCRIPTION, false, 'd.m.Y'],
+                ['startFormat', 'string', DateRangeViewHelper::ARGUMENT_STARTFORMAT_DESCRIPTION, false, null],
+                ['endFormat', 'string', DateRangeViewHelper::ARGUMENT_ENDFORMAT_DESCRIPTION, false, null],
                 ['glue', 'string', DateRangeViewHelper::ARGUMENT_GLUE_DESCRIPTION, false, ' - ']
             );
         $this->subject->initializeArguments();
@@ -135,6 +135,13 @@ class DateRangeViewHelperTest extends UnitTestCase
      */
     public function renderReturnsExpectedString($arguments, $expected)
     {
+        // Fluid fills in the default values of registered arguments
+        $arguments += [
+            'format' => DateRangeViewHelper::DEFAULT_DATE_FORMAT,
+            'startFormat' => null,
+            'endFormat' => null,
+            'glue' => DateRangeViewHelper::DEFAULT_GLUE,
+        ];
         $this->subject->setArguments($arguments);
         $this->subject->expects($this->once())->method('initialize');
 

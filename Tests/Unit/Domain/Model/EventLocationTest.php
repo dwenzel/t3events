@@ -23,6 +23,8 @@ namespace DWenzel\T3events\Tests\Unit\Domain\Model;
 
 use DWenzel\T3events\Domain\Model\EventLocation;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\CMS\Extbase\Domain\Model\FileReference;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /**
  * Test case for class \DWenzel\T3events\Domain\Model\EventLocation.
@@ -102,9 +104,10 @@ class EventLocationTest extends UnitTestCase
     /**
      * @test
      */
-    public function getImageReturnsInitialValueForString()
+    public function getImageReturnsInitiallyEmptyObjectStorage()
     {
-        $this->assertNull(
+        $this->assertEquals(
+            new ObjectStorage(),
             $this->fixture->getImage()
         );
     }
@@ -112,12 +115,14 @@ class EventLocationTest extends UnitTestCase
     /**
      * @test
      */
-    public function setImageForStringSetsImage()
+    public function setImageForObjectStorageSetsImage()
     {
-        $this->fixture->setImage('Conceived at T3CON10');
+        $objectStorage = new ObjectStorage();
+        $objectStorage->attach(new FileReference());
+        $this->fixture->setImage($objectStorage);
 
         $this->assertSame(
-            'Conceived at T3CON10',
+            $objectStorage,
             $this->fixture->getImage()
         );
     }

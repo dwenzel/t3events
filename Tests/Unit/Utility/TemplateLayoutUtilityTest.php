@@ -33,7 +33,7 @@ class TemplateLayoutUtilityTest extends UnitTestCase
     protected function setUp(): void
     {
         $this->subject = $this->getAccessibleMock(
-            TemplateLayoutUtility::class, ['dummy', 'getPageTSConfig']
+            TemplateLayoutUtility::class, ['getPageTSConfig']
         );
     }
 

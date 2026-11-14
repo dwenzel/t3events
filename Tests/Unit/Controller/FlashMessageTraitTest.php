@@ -7,11 +7,7 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Messaging\FlashMessageQueue;
-use TYPO3\CMS\Core\Messaging\FlashMessageService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-use TYPO3\CMS\Extbase\Mvc\Web\Request;
-use TYPO3\CMS\Extbase\Service\ExtensionService;
 
 /***************************************************************
  *  Copyright notice
@@ -48,116 +44,12 @@ class FlashMessageTraitTest extends UnitTestCase
     }
 
     /**
-     * @return ConfigurationManagerInterface|\PHPUnit_Framework_MockObject_MockObject
-     */
-    protected function mockConfigurationManager()
-    {
-        $mockConfigurationManager = $this->getMockForAbstractClass(
-            ConfigurationManagerInterface::class
-        );
-        $this->inject(
-            $this->subject,
-            'configurationManager',
-            $mockConfigurationManager
-        );
-
-        return $mockConfigurationManager;
-    }
-
-    /**
-     * @return FlashMessageService|\PHPUnit_Framework_MockObject_MockObject
-     */
-    protected function mockFlashMessageService()
-    {
-        $mockFlashMessageService = $this->getMockBuilder(FlashMessageService::class)
-            ->setMethods(['getMessageQueueByIdentifier'])->getMock();
-        $this->inject(
-            $this->subject,
-            'flashMessageService',
-            $mockFlashMessageService
-        );
-
-        return $mockFlashMessageService;
-    }
-
-    /**
-     * @return Request|\PHPUnit_Framework_MockObject_MockObject
-     */
-    protected function mockRequest()
-    {
-        $mockRequest = $this->getMockBuilder(Request::class)
-            ->setMethods(['getControllerExtensionName', 'getPluginName'])->getMock();
-        $this->inject(
-            $this->subject,
-            'request',
-            $mockRequest
-        );
-
-        return $mockRequest;
-    }
-
-    /**
-     * @return ExtensionService|\PHPUnit_Framework_MockObject_MockObject
-     */
-    protected function mockExtensionService()
-    {
-        $mockExtensionService = $this->getMockBuilder(ExtensionService::class)
-            ->setMethods(['getPluginNamespace'])->getMock();
-        $this->inject(
-            $this->subject,
-            'extensionService',
-            $mockExtensionService
-        );
-
-        return $mockExtensionService;
-    }
-
-    /**
      * @test
-     */
-    public function getFlashMessageQueueInstantiatesQueue()
-    {
-        $namespace = 'fooNamespace';
-        $extensionName = 'barExtension';
-        $pluginName = 'bazPlugin';
-        $this->subject = $this->getMockBuilder(FlashMessageTrait::class)
-            ->disableOriginalConstructor()
-            ->setMethods(['useLegacyFlashMessageHandling'])->getMockForTrait();
-
-        $mockExtensionService = $this->mockExtensionService();
-        $mockRequest = $this->mockRequest();
-
-        $mockExtensionService->expects($this->once())
-            ->method('getPluginNamespace')
-            ->with($extensionName, $pluginName)
-            ->will($this->returnValue($namespace));
-        $mockRequest->expects($this->once())
-            ->method('getControllerExtensionName')
-            ->will($this->returnValue($extensionName));
-        $mockRequest->expects($this->once())
-            ->method('getPluginName')
-            ->will($this->returnValue($pluginName));
-
-        $mockFlashMessageQueue = $this->getMockFlashMessageQueue();
-        $mockFlashMessageService = $this->mockFlashMessageService();
-        $mockFlashMessageService->expects($this->once())
-            ->method('getMessageQueueByIdentifier')
-            ->with('extbase.flashmessages.' . $namespace)
-            ->will($this->returnValue($mockFlashMessageQueue));
-
-        $this->assertSame(
-            $mockFlashMessageQueue,
-            $this->subject->getFlashMessageQueue()
-        );
-    }
-
-    /**
-     * @test
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionCode 1243258395
      */
     public function addFlashMessageThrowsExceptionForMissingMessageBody()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionCode(1243258395);
         $this->subject->addFlashMessage(5);
     }
 
@@ -175,11 +67,11 @@ class FlashMessageTraitTest extends UnitTestCase
         );
 
         $mockMessageQueue = $this->getMockFlashMessageQueue(['enqueue']);
-        $this->inject(
-            $this->subject,
-            'flashMessageQueue',
-            $mockMessageQueue
-        );
+        // getFlashMessageQueue() is provided by ActionController
+        $this->subject = $this->getMockBuilder(FlashMessageTrait::class)
+            ->addMethods(['getFlashMessageQueue'])
+            ->getMockForTrait();
+        $this->subject->method('getFlashMessageQueue')->willReturn($mockMessageQueue);
 
         $mockMessageQueue->expects($this->once())
             ->method('enqueue')

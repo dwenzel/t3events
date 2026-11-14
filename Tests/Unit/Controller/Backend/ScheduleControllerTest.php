@@ -11,7 +11,10 @@ use DWenzel\T3events\Domain\Repository\PerformanceRepository;
 use DWenzel\T3events\Utility\SettingsInterface as SI;
 use Nimut\TestingFramework\MockObject\AccessibleMockObjectInterface;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\CMS\Extbase\Mvc\Request;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
+use TYPO3\CMS\Extbase\Persistence\QueryInterface;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
 /**
  * This file is part of the TYPO3 CMS project.
@@ -75,6 +78,13 @@ class ScheduleControllerTest extends UnitTestCase
         /** @var PerformanceRepository|\PHPUnit_Framework_MockObject_MockObject $mockPerformanceRepository */
         $mockPerformanceRepository = $this->getMockBuilder(PerformanceRepository::class)
             ->disableOriginalConstructor()->getMock();
+        $query = $this->createMock(QueryInterface::class);
+        $query->method('setLimit')->willReturnSelf();
+        $query->method('setOffset')->willReturnSelf();
+        $query->method('execute')->willReturn([]);
+        $queryResult = $this->createMock(QueryResultInterface::class);
+        $queryResult->method('getQuery')->willReturn($query);
+        $mockPerformanceRepository->method('findDemanded')->willReturn($queryResult);
         $this->inject(
             $this->subject,
             'view',
@@ -94,6 +104,9 @@ class ScheduleControllerTest extends UnitTestCase
         $this->performanceDemandFactory->method('createFromSettings')->will($this->returnValue($mockDemand));
         $this->subject->injectPerformanceDemandFactory($this->performanceDemandFactory);
         $this->inject($this->subject, SI::SETTINGS, $this->settings);
+        $request = $this->createMock(Request::class);
+        $request->method('hasArgument')->willReturn(false);
+        $this->inject($this->subject, 'request', $request);
     }
 
     /**

@@ -17,7 +17,7 @@ use TYPO3\CMS\Extbase\Mvc\ResponseInterface;
  */
 trait ModuleDataTrait
 {
-    protected ModuleData $moduleData;
+    protected ?ModuleData $moduleData = null;
     protected ModuleDataStorageService $moduleDataStorageService;
 
     /**

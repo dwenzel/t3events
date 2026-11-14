@@ -76,8 +76,7 @@ class AbstractDemandTest extends \Nimut\TestingFramework\TestCase\UnitTestCase
     public function setLimitCastsStringToInteger()
     {
         $this->fixture->setLimit('2');
-        $this->assertInternalType(
-            'int',
+        $this->assertIsInt(
             $this->fixture->getLimit()
         );
     }

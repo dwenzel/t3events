@@ -167,7 +167,7 @@ class FilterableControllerTraitTest extends UnitTestCase
         $audienceRepository = $this->getMockAudienceRepository(['findMultipleByUid']);
         $mockQueryResult = $this->getMockQueryResult();
         $this->subject = $this->getAccessibleMock(
-            DummyControllerWithAudienceRepository::class, ['dummy']
+            DummyControllerWithAudienceRepository::class, null
         );
 
         $this->inject($this->subject, 'audienceRepository', $audienceRepository);
