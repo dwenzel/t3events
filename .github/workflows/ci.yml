@@ -1,0 +1,77 @@
+name: CI
+
+on:
+  push:
+    branches: [main, 'support/**']
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  composer-validate:
+    name: composer validate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          tools: composer:v2
+          coverage: none
+      - run: composer validate --strict --no-check-lock
+
+  php-lint:
+    name: PHP lint ${{ matrix.php }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php: ['8.3', '8.4']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+      - name: Lint PHP files
+        run: find . -name '*.php' -not -path './.Build/*' -print0 | xargs -0 -n1 -P4 php -l > /dev/null
+
+  rector-fractor:
+    name: Rector and Fractor (dry run)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          tools: composer:v2
+          coverage: none
+      - uses: ramsey/composer-install@v3
+      - run: composer rector:check
+      - run: composer fractor:check
+
+  unit-tests:
+    name: Unit tests TYPO3 ${{ matrix.typo3 }}, PHP ${{ matrix.php }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - typo3: '^13.4'
+            php: '8.3'
+          - typo3: '^13.4'
+            php: '8.4'
+          - typo3: '^14.3'
+            php: '8.3'
+          - typo3: '^14.3'
+            php: '8.4'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          tools: composer:v2
+          coverage: none
+      - name: Install dependencies for TYPO3 ${{ matrix.typo3 }}
+        run: composer update --no-progress --prefer-dist -W --with "typo3/cms-core:${{ matrix.typo3 }}"
+      - run: composer test:unit
