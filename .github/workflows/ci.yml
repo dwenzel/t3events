@@ -36,6 +36,23 @@ jobs:
       - name: Lint PHP files
         run: find . -name '*.php' -not -path './.Build/*' -print0 | xargs -0 -n1 -P4 php -l > /dev/null
 
+  rector-fractor:
+    name: Rector and Fractor (dry run)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          tools: composer:v2
+          coverage: none
+      - name: Allow packages with security advisories
+        run: composer config audit.block-insecure false
+      - name: Install dependencies
+        run: composer update --no-progress --prefer-dist
+      - run: composer rector:check
+      - run: composer fractor:check
+
   unit-tests:
     name: Unit tests TYPO3 12.4, PHP ${{ matrix.php }}
     runs-on: ubuntu-latest
