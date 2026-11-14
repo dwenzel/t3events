@@ -26,6 +26,8 @@ use TYPO3\CMS\Lang\LanguageService;
  */
 class ItemsProcFuncTest extends UnitTestCase
 {
+    protected bool $resetSingletonInstances = true;
+
 
     /**
      * @var ItemsProcFunc | \PHPUnit_Framework_MockObject_MockObject

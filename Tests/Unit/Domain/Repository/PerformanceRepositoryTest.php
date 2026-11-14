@@ -220,7 +220,10 @@ class PerformanceRepositoryTest extends UnitTestCase
      */
     public function initializeObjectInitiallySetsRespectStoragePageFalse()
     {
-        $mockQuerySettings = $this->getMockQuerySettings(['setRespectStoragePage']);
+        $mockQuerySettings = $this->getMockBuilder(Typo3QuerySettings::class)
+            ->disableOriginalConstructor()
+            ->onlyMethods(['setRespectStoragePage'])
+            ->getMock();
         GeneralUtility::addInstance(Typo3QuerySettings::class, $mockQuerySettings);
 
         $mockQuerySettings->expects($this->once())
@@ -239,7 +242,10 @@ class PerformanceRepositoryTest extends UnitTestCase
             'respectPerformanceStoragePage' => false
         ];
         $GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['t3events'] = $emSettings;
-        $mockQuerySettings = $this->getMockQuerySettings(['setRespectStoragePage']);
+        $mockQuerySettings = $this->getMockBuilder(Typo3QuerySettings::class)
+            ->disableOriginalConstructor()
+            ->onlyMethods(['setRespectStoragePage'])
+            ->getMock();
         GeneralUtility::addInstance(Typo3QuerySettings::class, $mockQuerySettings);
 
         $mockQuerySettings->expects($this->once())

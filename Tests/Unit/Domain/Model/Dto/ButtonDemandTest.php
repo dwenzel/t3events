@@ -3,7 +3,7 @@
 namespace DWenzel\T3events\Tests;
 use DWenzel\T3events\Domain\Model\Dto\ButtonDemand;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
-use TYPO3\CMS\Core\Imaging\IconSize;
+use TYPO3\CMS\Core\Imaging\Icon;
 
 /***************************************************************
  *  Copyright notice
@@ -143,7 +143,7 @@ class ButtonDemandTest extends  UnitTestCase
     public function getIconSizeInitiallyDefaultValue()
     {
         $this->assertSame(
-            IconSize::DEFAULT,
+            Icon::SIZE_MEDIUM,
             $this->subject->getIconSize()
         );
     }
@@ -153,7 +153,7 @@ class ButtonDemandTest extends  UnitTestCase
      */
     public function setIconSizeForStringSetsIconSize()
     {
-        $iconSize = IconSize::SMALL;
+        $iconSize = Icon::SIZE_SMALL;
         $this->subject->setIconSize($iconSize);
         $this->assertSame(
             $iconSize,

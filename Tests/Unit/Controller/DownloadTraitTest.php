@@ -92,9 +92,10 @@ class DownloadTraitTest extends UnitTestCase
 
         $mockLocalDriver->expects($this->once())
             ->method('sanitizeFileName')
-            ->with($expectedFileName);
+            ->with($expectedFileName)
+            ->willReturn($expectedFileName);
 
-        $this->subject->getDownloadFileName($fileName);
+        self::assertSame($expectedFileName, $this->subject->getDownloadFileName($fileName));
     }
 
     /**
