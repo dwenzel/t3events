@@ -85,7 +85,7 @@ trait RoutingTrait
 
         $options = array_values($options);
 
-        if (method_exists($this, $method)) {
+        if (is_string($method) && method_exists($this, $method)) {
             call_user_func_array(
                 [$this, $method],
                 $options

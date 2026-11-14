@@ -188,7 +188,7 @@ class PerformanceController
     public function listAction(array $overwriteDemand = null)
     {
         if (!$overwriteDemand){
-            $overwriteDemand = unserialize($this->session->get('tx_t3events_overwriteDemand'), ['allowed_classes' => false]);
+            $overwriteDemand = unserialize((string)$this->session->get('tx_t3events_overwriteDemand'), ['allowed_classes' => false]);
         }
 
         $demand = $this->performanceDemandFactory->createFromSettings($this->settings);
@@ -249,7 +249,7 @@ class PerformanceController
      */
     public function quickMenuAction()
     {
-        $overwriteDemand = unserialize($this->session->get('tx_t3events_overwriteDemand'), ['allowed_classes' => false]);
+        $overwriteDemand = unserialize((string)$this->session->get('tx_t3events_overwriteDemand'), ['allowed_classes' => false]);
 
         // get filter options from plugin
         $filterConfiguration = [
