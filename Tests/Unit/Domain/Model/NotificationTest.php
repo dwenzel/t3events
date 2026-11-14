@@ -21,6 +21,7 @@ namespace DWenzel\T3events\Tests\Unit\Domain\Model;
      ***************************************************************/
 use DWenzel\T3events\Domain\Model\Notification;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /**
  * Test case for class \DWenzel\T3events\Domain\Model\Notification.
@@ -241,5 +242,27 @@ class NotificationTest extends UnitTestCase
             $name,
             $this->subject->getSenderName()
         );
+    }
+
+    /**
+     * @test
+     */
+    public function getAttachmentsInitiallyReturnsEmptyObjectStorage()
+    {
+        $subject = new Notification();
+        self::assertInstanceOf(ObjectStorage::class, $subject->getAttachments());
+        self::assertCount(0, $subject->getAttachments());
+    }
+
+    /**
+     * @test
+     */
+    public function initializeObjectInitializesAttachments()
+    {
+        $reflection = new \ReflectionClass(Notification::class);
+        /** @var Notification $subject */
+        $subject = $reflection->newInstanceWithoutConstructor();
+        $subject->initializeObject();
+        self::assertCount(0, $subject->getAttachments());
     }
 }

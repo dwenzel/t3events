@@ -61,6 +61,19 @@ class Notification extends AbstractEntity
     #[Lazy]
     protected ObjectStorage $attachments;
 
+    public function __construct()
+    {
+        $this->initializeObject();
+    }
+
+    /**
+     * Called by the DataMapper, which does not call the constructor
+     */
+    public function initializeObject(): void
+    {
+        $this->attachments = new ObjectStorage();
+    }
+
     /**
      * Returns the recipient
      */
