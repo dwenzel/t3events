@@ -87,7 +87,9 @@ trait DemandedRepositoryTrait
 
             // go through every order statement
             foreach ($orderList as $orderItem) {
-                [$orderField, $ascDesc] = GeneralUtility::trimExplode('|', $orderItem, true);
+                $orderParts = GeneralUtility::trimExplode('|', $orderItem, true);
+                $orderField = $orderParts[0];
+                $ascDesc = $orderParts[1] ?? null;
                 // count == 1 means that no direction is given
                 if ($ascDesc) {
                     $orderings[$orderField] = ((strtolower($ascDesc) === 'desc') ?
