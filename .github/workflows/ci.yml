@@ -50,6 +50,19 @@ jobs:
       - run: composer rector:check
       - run: composer fractor:check
 
+  phpstan:
+    name: PHPStan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          tools: composer:v2
+          coverage: none
+      - uses: ramsey/composer-install@v3
+      - run: composer phpstan
+
   unit-tests:
     name: Unit tests TYPO3 ${{ matrix.typo3 }}, PHP ${{ matrix.php }}
     runs-on: ubuntu-latest
