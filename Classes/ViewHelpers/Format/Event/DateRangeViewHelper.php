@@ -38,8 +38,8 @@ class DateRangeViewHelper extends AbstractDateRangeViewHelper
     {
         $this->registerArgument('event', Event::class, static::ARGUMENT_EVENT_DESCRIPTION, true);
         $this->registerArgument('format', 'string', static::ARGUMENT_FORMAT_DESCRIPTION, false, static::DEFAULT_DATE_FORMAT);
-        $this->registerArgument('startFormat', 'string', static::ARGUMENT_STARTFORMAT_DESCRIPTION, false, static::DEFAULT_DATE_FORMAT);
-        $this->registerArgument('endFormat', 'string', static::ARGUMENT_ENDFORMAT_DESCRIPTION, false, static::DEFAULT_DATE_FORMAT);
+        $this->registerArgument('startFormat', 'string', static::ARGUMENT_STARTFORMAT_DESCRIPTION, false, null);
+        $this->registerArgument('endFormat', 'string', static::ARGUMENT_ENDFORMAT_DESCRIPTION, false, null);
         $this->registerArgument('glue', 'string', static::ARGUMENT_GLUE_DESCRIPTION, false, static::DEFAULT_GLUE);
     }
 
@@ -66,7 +66,8 @@ class DateRangeViewHelper extends AbstractDateRangeViewHelper
         foreach ($this->performances as $performance) {
             $timestamps[] = $performance->getDate()->getTimestamp();
         }
-        sort(array_unique($timestamps));
+        $timestamps = array_unique($timestamps);
+        sort($timestamps);
 
         return $timestamps;
     }

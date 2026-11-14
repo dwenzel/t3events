@@ -79,7 +79,7 @@ class EventController extends ActionController
         /** @var QueryResultInterface $events */
         if (
             !$events->count()
-            && !$this->settings['hideIfEmptyResult']
+            && empty($this->settings['hideIfEmptyResult'])
         ) {
             $this->addFlashMessage(
                 $this->translate('tx_t3events.noEventsForSelectionMessage'),
@@ -131,9 +131,9 @@ class EventController extends ActionController
         $overwriteDemand = unserialize($this->session->get('tx_t3events_overwriteDemand'), ['allowed_classes' => false]);
 
         // get filter options from plugin
-        $genres = $this->genreRepository->findMultipleByUid($this->settings[SI::GENRES], 'title');
-        $venues = $this->venueRepository->findMultipleByUid($this->settings[SI::VENUES], 'title');
-        $eventTypes = $this->eventTypeRepository->findMultipleByUid($this->settings[SI::EVENT_TYPES], 'title');
+        $genres = $this->genreRepository->findMultipleByUid($this->settings[SI::GENRES] ?? '', 'title');
+        $venues = $this->venueRepository->findMultipleByUid($this->settings[SI::VENUES] ?? '', 'title');
+        $eventTypes = $this->eventTypeRepository->findMultipleByUid($this->settings[SI::EVENT_TYPES] ?? '', 'title');
 
         $templateVariables = [
             SI::GENRES => $genres,

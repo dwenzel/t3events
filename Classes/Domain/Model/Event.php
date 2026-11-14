@@ -599,7 +599,7 @@ class Event extends AbstractEntity
         }
         sort($dates);
 
-        return $dates[0];
+        return $dates[0] ?? null;
     }
 
     /**
