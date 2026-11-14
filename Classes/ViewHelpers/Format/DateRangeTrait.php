@@ -39,15 +39,9 @@ trait DateRangeTrait
         if (!empty($this->arguments['format'])) {
             $format = $this->arguments['format'];
         }
-        if ($startFormat === null) {
-            $startFormat = $format;
-        }
-        if ($endFormat === null) {
-            $endFormat = $format;
-        }
-        if ($glue === null) {
-            $glue = static::DEFAULT_GLUE;
-        }
+        $startFormat ??= $format;
+        $endFormat ??= $format;
+        $glue ??= static::DEFAULT_GLUE;
         $dateRange = date((string) $startFormat, $timestamps[0]);
 
         if (count($timestamps) > 1) {

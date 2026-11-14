@@ -101,7 +101,7 @@ class DemandedRepositoryTraitTest extends UnitTestCase
         /** @var AbstractDemandedRepository|AccessibleMockObjectInterface|MockObject $fixture */
         $fixture = $this->getAccessibleMock(
             AbstractDemandedRepository::class,
-            array('createQuery', 'createConstraintsFromDemand'), array(), '', false);
+            ['createQuery', 'createConstraintsFromDemand'], [], '', false);
         /** @var AbstractDemand|MockObject|AccessibleMockObjectInterface $mockDemand */
         $mockDemand = $this->getMockDemand(['getLimit']);
         $limit = 3;
@@ -130,7 +130,7 @@ class DemandedRepositoryTraitTest extends UnitTestCase
         /** @var AbstractDemandedRepository|MockObject|AccessibleMockObjectInterface $fixture */
         $fixture = $this->getAccessibleMock(
             AbstractDemandedRepository::class,
-            array('createQuery', 'createConstraintsFromDemand'), array(), '', false);
+            ['createQuery', 'createConstraintsFromDemand'], [], '', false);
         /** @var AbstractDemand|MockObject $mockDemand */
         $mockDemand = $this->getAccessibleMock(AbstractDemand::class, null);
         $storagePageIds = '3,5';

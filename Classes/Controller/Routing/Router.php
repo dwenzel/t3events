@@ -36,9 +36,7 @@ class Router implements SingletonInterface, RouterInterface
      */
     public function addRoute(Route $route, ?string $identifier = null): void
     {
-        if (is_null($identifier)) {
-            $identifier = $route->getOrigin();
-        }
+        $identifier ??= $route->getOrigin();
 
         $this->routes[$identifier] = $route;
     }
