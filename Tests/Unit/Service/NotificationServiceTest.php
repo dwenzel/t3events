@@ -4,6 +4,7 @@ namespace DWenzel\T3events\Tests\Unit\Service;
 use DWenzel\T3events\Tests\Unit\Object\MockObjectManagerTrait;
 use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Core\Mail\MailMessage;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 use DWenzel\T3events\Domain\Model\Notification;
@@ -28,8 +29,6 @@ use DWenzel\T3events\Service\NotificationService;
  ***************************************************************/
 class NotificationServiceTest extends UnitTestCase
 {
-    use MockObjectManagerTrait;
-
     /**
      * @var NotificationService
      */
@@ -44,8 +43,6 @@ class NotificationServiceTest extends UnitTestCase
         $this->subject = $this->getAccessibleMock(
             NotificationService::class, []
         );
-        $this->objectManager = $this->getMockObjectManager();
-        $this->subject->_set("objectManager", $this->objectManager);
     }
 
     /**
@@ -72,9 +69,7 @@ class NotificationServiceTest extends UnitTestCase
         $notification->setRecipient($recipientArgument);
 
         $mockMessage = $this->getMockMailMessage();
-        $this->objectManager->expects(self::once())
-            ->method('get')
-            ->willReturn($mockMessage);
+        GeneralUtility::addInstance(MailMessage::class, $mockMessage);
 
         $mockMessage->expects(self::once())
             ->method('setTo')
@@ -94,7 +89,6 @@ class NotificationServiceTest extends UnitTestCase
         $this->subject = $this->getAccessibleMock(
             NotificationService::class, ['buildTemplateView']
         );
-        $this->subject->_set("objectManager", $this->objectManager);
 
         $mockTemplateView = $this->getMockBuilder(StandaloneView::class)
             ->disableOriginalConstructor()
@@ -105,10 +99,7 @@ class NotificationServiceTest extends UnitTestCase
             ->will(self::returnValue($mockTemplateView));
 
         $mockMessage = $this->getMockMailMessage();
-        $this->objectManager->expects(self::once())
-            ->method('get')
-            ->with(MailMessage::class)
-            ->willReturn($mockMessage);
+        GeneralUtility::addInstance(MailMessage::class, $mockMessage);
 
         $mockMessage->expects(self::once())
             ->method('setTo')
@@ -132,14 +123,17 @@ class NotificationServiceTest extends UnitTestCase
             ->onlyMethods(
                 [
                     'setTo',
-                    'setBody',
+                    'text',
+                    'html',
                     'send',
+                    'isSent',
                     'setFrom',
                     'setSubject'
                 ]
             )->getMock();
         $message->method('setTo')->willReturn($message);
         $message->method('send')->willReturn(true);
+        $message->method('isSent')->willReturn(true);
         $message->method('setFrom')->willReturn($message);
         $message->method('setSubject')->willReturn($message);
 

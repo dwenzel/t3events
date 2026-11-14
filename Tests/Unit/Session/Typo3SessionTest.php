@@ -56,7 +56,7 @@ class Typo3SessionTest extends UnitTestCase
         $this->tsfe = $this->getAccessibleMock(
             TypoScriptFrontendController::class, [], [], '', false);
         $this->feUser = $this->getAccessibleMock(
-            FrontendUserAuthentication::class, [], [], '', false
+            FrontendUserAuthentication::class, ['getKey', 'setKey', 'storeSessionData'], [], '', false
         );
         $this->tsfe->fe_user = $this->feUser;
         $GLOBALS['TSFE'] = $this->tsfe;
