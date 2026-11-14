@@ -40,11 +40,12 @@ class CategoryRepositoryTest extends UnitTestCase
      */
     protected $fixture;
 
-    protected function setUp(): void
+    public function setUp(): void
     {
+        parent::setUp();
         $this->fixture = $this->getAccessibleMock(
             CategoryRepository::class,
-            ['dummy'], [], '', false);
+            [], [], '', false);
     }
 
     /**

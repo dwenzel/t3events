@@ -33,8 +33,9 @@ class NullFilterTest extends UnitTestCase
      */
     protected $subject;
 
-    protected function setUp(): void
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = new NullFilter();
     }
 
@@ -43,6 +44,7 @@ class NullFilterTest extends UnitTestCase
         $expected = [];
         $this->assertSame(
             $expected,
+            // @extensionScannerIgnoreLine false positive: own Filter::getOptions(), not a deprecated TYPO3 method
             $this->subject->getOptions()
         );
     }

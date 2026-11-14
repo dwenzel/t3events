@@ -2,27 +2,29 @@
 namespace DWenzel\T3events\Domain\Model;
 
 /***************************************************************
-     *  Copyright notice
-     *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
-     *  Michael Kasten <kasten@webfox01.de>, Agentur Webfox
-     *  All rights reserved
-     *  This script is part of the TYPO3 project. The TYPO3 project is
-     *  free software; you can redistribute it and/or modify
-     *  it under the terms of the GNU General Public License as published by
-     *  the Free Software Foundation; either version 3 of the License, or
-     *  (at your option) any later version.
-     *  The GNU General Public License can be found at
-     *  http://www.gnu.org/copyleft/gpl.html.
-     *  This script is distributed in the hope that it will be useful,
-     *  but WITHOUT ANY WARRANTY; without even the implied warranty of
-     *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-     *  GNU General Public License for more details.
-     *  This copyright notice MUST APPEAR in all copies of the script!
-     ***************************************************************/
+ *  Copyright notice
+ *  (c) 2012 Dirk Wenzel <wenzel@webfox01.de>, Agentur Webfox
+ *  Michael Kasten <kasten@webfox01.de>, Agentur Webfox
+ *  All rights reserved
+ *  This script is part of the TYPO3 project. The TYPO3 project is
+ *  free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 3 of the License, or
+ *  (at your option) any later version.
+ *  The GNU General Public License can be found at
+ *  http://www.gnu.org/copyleft/gpl.html.
+ *  This script is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *  This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
+use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use Doctrine\Common\Annotations\Annotation\Required;
 use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
+use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
 use DateTime;
 
 /**
@@ -35,143 +37,119 @@ class Event extends AbstractEntity
 
     /**
      * Hidden
-     *
-     * @var int
      */
-    protected $hidden;
+    protected int $hidden = 0;
 
-    /**
-     * @var DateTime
-     */
-    protected $crdate;
+    protected ?DateTime $crdate = null;
 
-    /**
-     * @var DateTime
-     */
-    protected $tstamp;
+    protected ?DateTime $tstamp = null;
 
 
     /**
      * Enter a title.
      *
-     * @var string
      * @Required
      */
-    protected $headline;
+    protected string $headline = '';
 
     /**
      * subtitle
-     *
-     * @var string
      */
-    protected $subtitle;
+    protected ?string $subtitle = null;
 
-    /**
-     * @var string
-     */
-    protected $teaser;
+    protected ?string $teaser = null;
 
     /**
      * description
-     *
-     * @var string
      */
-    protected $description;
+    protected ?string $description = null;
 
     /**
      * keywords
-     *
-     * @var string
      */
-    protected $keywords;
+    protected ?string $keywords = null;
 
     /**
      * images
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
-     * @Lazy
+     * @var ObjectStorage<FileReference>
      */
-    protected $images;
+    #[Lazy]
+    protected ObjectStorage $images;
 
     /**
      * files
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
-     * @Lazy
+     * @var ObjectStorage<FileReference>
      */
-    protected $files;
+    #[Lazy]
+    protected ObjectStorage $files;
 
     /**
      * related
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Event>
-     * @Lazy
+     * @var ObjectStorage<\DWenzel\T3events\Domain\Model\Event>
      */
-    protected $related;
+    #[Lazy]
+    protected ObjectStorage $related;
 
     /**
      * genre
      *
-     * @Lazy
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Genre>
+     * @var ObjectStorage<Genre>
      */
-    protected $genre;
+    #[Lazy]
+    protected ObjectStorage $genre;
 
     /**
      * venue
      *
-     * @Lazy
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Venue>
+     * @var ObjectStorage<Venue>
      */
-    protected $venue;
+    #[Lazy]
+    protected ObjectStorage $venue;
 
     /**
      * eventType
      *
-     * @Lazy
-     * @var \DWenzel\T3events\Domain\Model\EventType
+     * @var EventType|null
      */
-    protected $eventType;
+    #[Lazy]
+    protected LazyLoadingProxy|EventType|null $eventType = null;
 
     /**
      * performances
      *
-     * @Lazy
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Performance>
+     * @var ObjectStorage<Performance>
      */
-    protected $performances;
+    #[Lazy]
+    protected ObjectStorage $performances;
 
     /**
      * organizer
      *
-     * @Lazy
-     * @var \DWenzel\T3events\Domain\Model\Organizer
+     * @var Organizer|null
      */
-    protected $organizer;
+    #[Lazy]
+    protected LazyLoadingProxy|Organizer|null $organizer = null;
 
     /**
      * Audience
      *
-     * @Lazy
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Audience>
+     * @var ObjectStorage<Audience>
      */
-    protected $audience;
+    #[Lazy]
+    protected ObjectStorage $audience;
+
+    protected ?\DateTime $newUntil = null;
+
+    protected ?\DateTime $archiveDate = null;
 
     /**
-     * @var \DateTime
+     * @var ObjectStorage<Content>
      */
-    protected $newUntil;
-
-    /**
-     * @var \DateTime
-     */
-    protected $archiveDate;
-
-    /**
-     * @Lazy
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Content>
-     */
-    protected $contentElements;
+    #[Lazy]
+    protected ObjectStorage $contentElements;
 
     /**
      * Constructor
@@ -188,10 +166,8 @@ class Event extends AbstractEntity
 
     /**
      * Initializes all \TYPO3\CMS\Extbase\Persistence\ObjectStorage properties.
-     *
-     * @return void
      */
-    protected function initStorageObjects()
+    protected function initStorageObjects(): void
     {
         $this->images = new ObjectStorage();
         $this->files = new ObjectStorage();
@@ -207,20 +183,16 @@ class Event extends AbstractEntity
 
     /**
      * Returns hidden
-     *
-     * @return int
      */
-    public function getHidden()
+    public function getHidden(): int
     {
         return $this->hidden;
     }
 
     /**
      * Sets hidden
-     *
-     * @param int $hidden
      */
-    public function setHidden($hidden)
+    public function setHidden(int $hidden): void
     {
         $this->hidden = $hidden;
     }
@@ -228,40 +200,33 @@ class Event extends AbstractEntity
     /**
      * Returns the subtitle
      *
-     * @return string $subtitle
+     * @return string|null $subtitle
      */
-    public function getSubtitle()
+    public function getSubtitle(): ?string
     {
         return $this->subtitle;
     }
 
     /**
      * Sets the subtitle
-     *
-     * @param string $subtitle
-     * @return void
      */
-    public function setSubtitle($subtitle)
+    public function setSubtitle(?string $subtitle): void
     {
         $this->subtitle = $subtitle;
     }
 
     /**
      * Gets the teaser text
-     *
-     * @return string
      */
-    public function getTeaser()
+    public function getTeaser(): ?string
     {
         return $this->teaser;
     }
 
     /**
      * Sets the teaser text
-     *
-     * @param string $teaser
      */
-    public function setTeaser($teaser)
+    public function setTeaser(?string $teaser): void
     {
         $this->teaser = $teaser;
     }
@@ -269,20 +234,17 @@ class Event extends AbstractEntity
     /**
      * Returns the description
      *
-     * @return string $description
+     * @return string|null $description
      */
-    public function getDescription()
+    public function getDescription(): ?string
     {
         return $this->description;
     }
 
     /**
      * Sets the description
-     *
-     * @param string $description
-     * @return void
      */
-    public function setDescription($description)
+    public function setDescription(?string $description): void
     {
         $this->description = $description;
     }
@@ -290,20 +252,17 @@ class Event extends AbstractEntity
     /**
      * Returns the keywords
      *
-     * @return string $keywords
+     * @return string|null $keywords
      */
-    public function getKeywords()
+    public function getKeywords(): ?string
     {
         return $this->keywords;
     }
 
     /**
      * Sets the keywords
-     *
-     * @param string $keywords
-     * @return void
      */
-    public function setKeywords($keywords)
+    public function setKeywords(?string $keywords): void
     {
         $this->keywords = $keywords;
     }
@@ -311,10 +270,9 @@ class Event extends AbstractEntity
     /**
      * Adds an image
      *
-     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $image Image
-     * @return void
+     * @param FileReference $image Image
      */
-    public function addImages(\TYPO3\CMS\Extbase\Domain\Model\FileReference $image)
+    public function addImages(FileReference $image): void
     {
         $this->images->attach($image);
     }
@@ -322,10 +280,9 @@ class Event extends AbstractEntity
     /**
      * Removes an image
      *
-     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $imageToRemove Image
-     * @return void
+     * @param FileReference $imageToRemove Image
      */
-    public function removeImages(\TYPO3\CMS\Extbase\Domain\Model\FileReference $imageToRemove)
+    public function removeImages(FileReference $imageToRemove): void
     {
         $this->images->detach($imageToRemove);
     }
@@ -333,9 +290,9 @@ class Event extends AbstractEntity
     /**
      * Returns the images
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage $images
+     * @return ObjectStorage<FileReference>
      */
-    public function getImages()
+    public function getImages(): ObjectStorage
     {
         return $this->images;
     }
@@ -343,10 +300,9 @@ class Event extends AbstractEntity
     /**
      * Sets the images
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $images Images
-     * @return void
+     * @param ObjectStorage<FileReference> $images Images
      */
-    public function setImages(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $images)
+    public function setImages(ObjectStorage $images): void
     {
         $this->images = $images;
     }
@@ -354,10 +310,9 @@ class Event extends AbstractEntity
     /**
      * Adds a file
      *
-     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $file File
-     * @return void
+     * @param FileReference $file File
      */
-    public function addFiles(\TYPO3\CMS\Extbase\Domain\Model\FileReference $file)
+    public function addFiles(FileReference $file): void
     {
         $this->files->attach($file);
     }
@@ -365,10 +320,9 @@ class Event extends AbstractEntity
     /**
      * Removes a file
      *
-     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $fileToRemove File
-     * @return void
+     * @param FileReference $fileToRemove File
      */
-    public function removeFiles(\TYPO3\CMS\Extbase\Domain\Model\FileReference $fileToRemove)
+    public function removeFiles(FileReference $fileToRemove): void
     {
         $this->files->detach($fileToRemove);
     }
@@ -376,9 +330,9 @@ class Event extends AbstractEntity
     /**
      * Returns the files
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage $files
+     * @return ObjectStorage<FileReference>
      */
-    public function getFiles()
+    public function getFiles(): ObjectStorage
     {
         return $this->files;
     }
@@ -386,21 +340,17 @@ class Event extends AbstractEntity
     /**
      * Sets the files
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $files Files
-     * @return void
+     * @param ObjectStorage<FileReference> $files Files
      */
-    public function setFiles(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $files)
+    public function setFiles(ObjectStorage $files): void
     {
         $this->files = $files;
     }
 
     /**
      * Adds a related event
-     *
-     * @param \DWenzel\T3events\Domain\Model\Event $event
-     * @return void
      */
-    public function addRelated(\DWenzel\T3events\Domain\Model\Event $event)
+    public function addRelated(\DWenzel\T3events\Domain\Model\Event $event): void
     {
         $this->related->attach($event);
     }
@@ -409,9 +359,8 @@ class Event extends AbstractEntity
      * Removes a related event
      *
      * @param \DWenzel\T3events\Domain\Model\Event $eventToRemove The related event to be removed
-     * @return void
      */
-    public function removeRelated(\DWenzel\T3events\Domain\Model\Event $eventToRemove)
+    public function removeRelated(\DWenzel\T3events\Domain\Model\Event $eventToRemove): void
     {
         $this->related->detach($eventToRemove);
     }
@@ -419,9 +368,9 @@ class Event extends AbstractEntity
     /**
      * Returns the related events
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Event>
+     * @return ObjectStorage<\DWenzel\T3events\Domain\Model\Event>
      */
-    public function getRelated()
+    public function getRelated(): ObjectStorage
     {
         return $this->related;
     }
@@ -429,21 +378,17 @@ class Event extends AbstractEntity
     /**
      * Sets the related events
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Event> $related
-     * @return void
+     * @param ObjectStorage<\DWenzel\T3events\Domain\Model\Event> $related
      */
-    public function setRelated(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $related)
+    public function setRelated(ObjectStorage $related): void
     {
         $this->related = $related;
     }
 
     /**
      * Adds a Genre
-     *
-     * @param \DWenzel\T3events\Domain\Model\Genre $genre
-     * @return void
      */
-    public function addGenre(Genre $genre)
+    public function addGenre(Genre $genre): void
     {
         $this->genre->attach($genre);
     }
@@ -451,10 +396,9 @@ class Event extends AbstractEntity
     /**
      * Removes a Genre
      *
-     * @param \DWenzel\T3events\Domain\Model\Genre $genreToRemove The Genre to be removed
-     * @return void
+     * @param Genre $genreToRemove The Genre to be removed
      */
-    public function removeGenre(Genre $genreToRemove)
+    public function removeGenre(Genre $genreToRemove): void
     {
         $this->genre->detach($genreToRemove);
     }
@@ -462,9 +406,9 @@ class Event extends AbstractEntity
     /**
      * Returns the genre
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Genre> $genre
+     * @return ObjectStorage<Genre>
      */
-    public function getGenre()
+    public function getGenre(): ObjectStorage
     {
         return $this->genre;
     }
@@ -472,10 +416,9 @@ class Event extends AbstractEntity
     /**
      * Sets the genre
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Genre> $genre
-     * @return void
+     * @param ObjectStorage<Genre> $genre
      */
-    public function setGenre(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $genre)
+    public function setGenre(ObjectStorage $genre): void
     {
         $this->genre = $genre;
     }
@@ -483,9 +426,9 @@ class Event extends AbstractEntity
     /**
      * Returns the venue
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Venue> $venue
+     * @return ObjectStorage<Venue>
      */
-    public function getVenue()
+    public function getVenue(): ObjectStorage
     {
         return $this->venue;
     }
@@ -493,21 +436,17 @@ class Event extends AbstractEntity
     /**
      * Sets a venue
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Venue> $venue
-     * @return void
+     * @param ObjectStorage<Venue> $venue
      */
-    public function setVenue(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $venue)
+    public function setVenue(ObjectStorage $venue): void
     {
         $this->venue = $venue;
     }
 
     /**
      * Adds a venue
-     *
-     * @param \DWenzel\T3events\Domain\Model\Venue $venue
-     * @return void
      */
-    public function addVenue(Venue $venue)
+    public function addVenue(Venue $venue): void
     {
         $this->venue->attach($venue);
     }
@@ -515,100 +454,92 @@ class Event extends AbstractEntity
     /**
      * Removes a venue
      *
-     * @param \DWenzel\T3events\Domain\Model\Venue $venueToRemove The Venue to be removed
-     * @return void
+     * @param Venue $venueToRemove The Venue to be removed
      */
-    public function removeVenue(Venue $venueToRemove)
+    public function removeVenue(Venue $venueToRemove): void
     {
         $this->venue->detach($venueToRemove);
     }
 
     /**
      * Returns the eventType
-     *
-     * @return \DWenzel\T3events\Domain\Model\EventType $eventType
      */
-    public function getEventType()
+    public function getEventType(): ?EventType
     {
+        if ($this->eventType instanceof LazyLoadingProxy) {
+            /** @var EventType $instance */
+            $instance = $this->eventType->_loadRealInstance();
+            return $instance;
+        }
         return $this->eventType;
     }
 
     /**
      * Sets the eventType
-     *
-     * @param \DWenzel\T3events\Domain\Model\EventType $eventType
-     * @return void
      */
-    public function setEventType(EventType $eventType)
+    public function setEventType(EventType $eventType): void
     {
         $this->eventType = $eventType;
     }
 
     /**
      * Returns the headline
-     *
-     * @return string headline
      */
-    public function getHeadline()
+    public function getHeadline(): string
     {
         return $this->headline;
     }
 
     /**
      * Sets the headline
-     *
-     * @param string $headline
-     * @return string headline
      */
-    public function setHeadline($headline)
+    public function setHeadline(string $headline): void
     {
         $this->headline = $headline;
     }
 
     /**
      * Returns the organizer
-     *
-     * @return \DWenzel\T3events\Domain\Model\Organizer $organizer
      */
-    public function getOrganizer()
+    public function getOrganizer(): ?Organizer
     {
+        if ($this->organizer instanceof LazyLoadingProxy) {
+            /** @var Organizer $instance */
+            $instance = $this->organizer->_loadRealInstance();
+            return $instance;
+        }
         return $this->organizer;
     }
 
     /**
      * Sets the organizer
-     *
-     * @param \DWenzel\T3events\Domain\Model\Organizer $organizer
-     * @return void
      */
-    public function setOrganizer(Organizer $organizer)
+    public function setOrganizer(Organizer $organizer): void
     {
         $this->organizer = $organizer;
     }
 
     /**
      * Get the earliest date of this event
-     *
-     * @return \DateTime
      */
-    public function getEarliestDate()
+    public function getEarliestDate(): ?int
     {
-        $dates = array();
+        $dates = [];
         foreach ($this->performances as $performance) {
-            $dates[] = $performance->getDate()->getTimestamp();
+            $date = $performance->getDate();
+            if ($date !== null) {
+                $dates[] = $date->getTimestamp();
+            }
         }
         sort($dates);
 
-        return $dates[0];
+        return $dates[0] ?? null;
     }
 
     /**
      * Adds a Performance
-     *
-     * @param \DWenzel\T3events\Domain\Model\Performance $performance
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Performance> performances
      */
-    public function addPerformance(Performance $performance)
+    public function addPerformance(Performance $performance): void
     {
         $this->performances->attach($performance);
     }
@@ -616,10 +547,9 @@ class Event extends AbstractEntity
     /**
      * Removes a Performance
      *
-     * @param \DWenzel\T3events\Domain\Model\Performance $performanceToRemove The Performance to be removed
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Performance> performances
+     * @param Performance $performanceToRemove The Performance to be removed
      */
-    public function removePerformance(Performance $performanceToRemove)
+    public function removePerformance(Performance $performanceToRemove): void
     {
         $this->performances->detach($performanceToRemove);
     }
@@ -627,9 +557,9 @@ class Event extends AbstractEntity
     /**
      * Returns the performances(s)
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Performance> performances
+     * @return ObjectStorage<Performance>
      */
-    public function getPerformances()
+    public function getPerformances(): ObjectStorage
     {
         return $this->performances;
     }
@@ -637,10 +567,9 @@ class Event extends AbstractEntity
     /**
      * Sets the performances
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Performance> $performances
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Performance> performances
+     * @param ObjectStorage<Performance> $performances
      */
-    public function setPerformances(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $performances)
+    public function setPerformances(ObjectStorage $performances): void
     {
         $this->performances = $performances;
     }
@@ -648,9 +577,9 @@ class Event extends AbstractEntity
     /**
      * Returns the audience
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Audience> $audience
+     * @return ObjectStorage<Audience>
      */
-    public function getAudience()
+    public function getAudience(): ObjectStorage
     {
         return $this->audience;
     }
@@ -658,21 +587,17 @@ class Event extends AbstractEntity
     /**
      * Sets a audience
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Audience> $audience
-     * @return void
+     * @param ObjectStorage<Audience> $audience
      */
-    public function setAudience(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $audience)
+    public function setAudience(ObjectStorage $audience): void
     {
         $this->audience = $audience;
     }
 
     /**
      * Adds a audience
-     *
-     * @param \DWenzel\T3events\Domain\Model\Audience $audience
-     * @return void
      */
-    public function addAudience(Audience $audience)
+    public function addAudience(Audience $audience): void
     {
         $this->audience->attach($audience);
     }
@@ -680,108 +605,82 @@ class Event extends AbstractEntity
     /**
      * Removes a audience
      *
-     * @param \DWenzel\T3events\Domain\Model\Audience $audienceToRemove The Audience to be removed
-     * @return void
+     * @param Audience $audienceToRemove The Audience to be removed
      */
-    public function removeAudience(Audience $audienceToRemove)
+    public function removeAudience(Audience $audienceToRemove): void
     {
         $this->audience->detach($audienceToRemove);
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getNewUntil()
+    public function getNewUntil(): ?\DateTime
     {
         return $this->newUntil;
     }
 
-    /**
-     * @param \DateTime $newUntil
-     */
-    public function setNewUntil($newUntil)
+    public function setNewUntil(?\DateTime $newUntil): void
     {
         $this->newUntil = $newUntil;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getArchiveDate()
+    public function getArchiveDate(): ?\DateTime
     {
         return $this->archiveDate;
     }
 
-    /**
-     * @param \DateTime $archiveDate
-     */
-    public function setArchiveDate($archiveDate)
+    public function setArchiveDate(?\DateTime $archiveDate): void
     {
         $this->archiveDate = $archiveDate;
     }
 
     /**
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Content> contentElements
+     * @return ObjectStorage<Content>
      */
-    public function getContentElements()
+    public function getContentElements(): ObjectStorage
     {
         return $this->contentElements;
     }
 
     /**
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Content> contentElements
+     * @param ObjectStorage<Content> $contentElements
      */
-    public function setContentElements($contentElements)
+    public function setContentElements(ObjectStorage $contentElements): void
     {
         $this->contentElements = $contentElements;
     }
 
     /**
-     * @param \DWenzel\T3events\Domain\Model\Content $contentElements The Content Element to be removed
+     * @param Content $contentElements The Content Element to be removed
      */
-    public function addContentElements(Content $contentElements){
+    public function addContentElements(Content $contentElements): void{
         $this->contentElements->attach($contentElements);
     }
 
     /**
      * Removes a Content Element
      *
-     * @param \DWenzel\T3events\Domain\Model\Content $contentElements The Content Element to be removed
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Content> contentElements
+     * @param Content $contentElements The Content Element to be removed
      */
-    public function removeContentElements(Content $contentElements)
+    public function removeContentElements(Content $contentElements): void
     {
         $this->contentElements->detach($contentElements);
     }
 
-    /**
-     * @return DateTime
-     */
-    public function getCrdate(): DateTime
+    public function getCrdate(): ?DateTime
     {
         return $this->crdate;
     }
 
-    /**
-     * @param DateTime $crdate
-     */
-    public function setCrdate(DateTime $crdate): void
+    public function setCrdate(?DateTime $crdate): void
     {
         $this->crdate = $crdate;
     }
 
-    /**
-     * @return DateTime
-     */
-    public function getTstamp(): DateTime
+    public function getTstamp(): ?DateTime
     {
         return $this->tstamp;
     }
 
-    /**
-     * @param DateTime $tstamp
-     */
-    public function setTstamp(DateTime $tstamp): void
+    public function setTstamp(?DateTime $tstamp): void
     {
         $this->tstamp = $tstamp;
     }

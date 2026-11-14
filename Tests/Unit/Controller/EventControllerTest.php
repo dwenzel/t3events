@@ -1,6 +1,6 @@
 <?php
 
-namespace DWenzel\T3events\Tests\Unit\Controller;
+namespace DWenzel\T3events\Tests\Controller;
 
 /**
  * This file is part of the TYPO3 CMS project.
@@ -26,6 +26,7 @@ use DWenzel\T3events\Utility\SettingsUtility;
 use Nimut\TestingFramework\MockObject\AccessibleMockObjectInterface;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
+use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Mvc\Request;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
@@ -67,32 +68,33 @@ class EventControllerTest extends UnitTestCase
     protected $eventRepository;
 
 
-    protected function setUp(): void
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getAccessibleMock(
             EventController::class,
             ['overwriteDemandObject', 'emitSignal', 'addFlashMessage', 'translate'], [], '', false
         );
         $this->eventDemandFactory = $this->getMockBuilder(EventDemandFactory::class)
-            ->setMethods(['createFromSettings'])
+            ->onlyMethods(['createFromSettings'])
             ->getMock();
         $mockDemand = $this->getMockEventDemand();
         $this->eventDemandFactory->method('createFromSettings')->will($this->returnValue($mockDemand));
-        $this->subject->injectEventDemandFactory($this->eventDemandFactory);
+        $this->subject->_set("eventDemandFactory", $this->eventDemandFactory);
         $mockResult = $this->getMockBuilder(QueryResultInterface::class)->getMock();
         $this->eventRepository = $this->getMockBuilder(EventRepository::class)
-            ->setMethods(['findDemanded'])
+            ->onlyMethods(['findDemanded'])
             ->disableOriginalConstructor()
             ->getMock();
         $this->eventRepository->method('findDemanded')->will($this->returnValue($mockResult));
-        $this->subject->injectEventRepository($this->eventRepository);
+        $this->subject->_set("eventRepository", $this->eventRepository);
         /** @var SessionInterface|\PHPUnit_Framework_MockObject_MockObject $mockSession */
         $mockSession = $this->getMockBuilder(SessionInterface::class)
-            ->setMethods(['has', 'get', 'clean', 'set', 'setNamespace'])
+            ->onlyMethods(['has', 'get', 'clean', 'set', 'setNamespace'])
             ->getMock();
         $this->view = $this->getMockBuilder(TemplateView::class)
             ->disableOriginalConstructor()
-            ->setMethods(['assign', 'assignMultiple'])
+            ->onlyMethods(['assign', 'assignMultiple'])
             ->getMock();
         $mockRequest = $this->getMockBuilder(Request::class)->getMock();
         $this->subject->_set('view', $this->view);
@@ -114,7 +116,7 @@ class EventControllerTest extends UnitTestCase
     protected function getMockEventDemand(array $methods = [])
     {
         return $this->getMockBuilder(EventDemand::class)
-            ->setMethods($methods)
+            ->onlyMethods($methods)
             ->getMock();
     }
 
@@ -126,12 +128,12 @@ class EventControllerTest extends UnitTestCase
     {
         $this->eventDemandFactory = $this->getMockBuilder(EventDemandFactory::class)
             ->disableOriginalConstructor()
-            ->setMethods(['createFromSettings'])->getMock();
+            ->onlyMethods(['createFromSettings'])->getMock();
         $mockEventDemand = $this->getMockEventDemand();
         $this->eventDemandFactory->expects($this->once())
             ->method('createFromSettings')
             ->will($this->returnValue($mockEventDemand));
-        $this->subject->injectEventDemandFactory($this->eventDemandFactory);
+        $this->subject->_set("eventDemandFactory", $this->eventDemandFactory);
         return $mockEventDemand;
     }
 
@@ -166,7 +168,7 @@ class EventControllerTest extends UnitTestCase
     {
         /** @var SettingsUtility|\PHPUnit_Framework_MockObject_MockObject $mockSettingsUtility */
         $mockSettingsUtility = $this->getMockBuilder(SettingsUtility::class)
-            ->setMethods(['getControllerKey'])->getMock();
+            ->onlyMethods(['getControllerKey'])->getMock();
         $this->subject->injectSettingsUtility($mockSettingsUtility);
         $mockSettingsUtility->expects($this->any())
             ->method('getControllerKey')
@@ -272,16 +274,21 @@ class EventControllerTest extends UnitTestCase
     {
         $title = 'foo';
         $message = 'bar';
+        $expectedTranslateArgs = [
+            ['tx_t3events.noEventsForSelectionMessage'],
+            ['tx_t3events.noEventsForSelectionTitle']
+        ];
+        $translateReturns = [$message, $title];
+        $translateCallIndex = 0;
         $this->subject->expects($this->exactly(2))
             ->method('translate')
-            ->withConsecutive(
-                ['tx_t3events.noEventsForSelectionMessage'],
-                ['tx_t3events.noEventsForSelectionTitle']
-            )
-            ->will($this->onConsecutiveCalls($message, $title));
+            ->willReturnCallback(function() use (&$translateCallIndex, $expectedTranslateArgs, $translateReturns) {
+                $this->assertSame($expectedTranslateArgs[$translateCallIndex], func_get_args());
+                return $translateReturns[$translateCallIndex++];
+            });
         $this->subject->expects($this->once())
             ->method('addFlashMessage')
-            ->with($message, $title, FlashMessage::WARNING);
+            ->with($message, $title, ContextualFeedbackSeverity::WARNING);
 
         $this->subject->listAction();
     }

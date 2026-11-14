@@ -10,12 +10,14 @@ namespace DWenzel\T3events\Domain\Repository;
  * LICENSE.txt file that was distributed with this source code.
  * The TYPO3 project - inspiring people to share!
  */
-
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
 use DWenzel\T3events\Domain\Model\Dto\SearchAwareDemandInterface;
+use DWenzel\T3events\Events\QueryGeneratePreMatchEvent;
 use DWenzel\T3events\UnsupportedMethodException;
-use TYPO3\CMS\Core\Utility\ArrayUtility;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 
 /**
@@ -29,27 +31,25 @@ trait DemandedRepositoryTrait
     /**
      * Returns an array of constraints created from a given demand object.
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
-     * @param \DWenzel\T3events\Domain\Model\Dto\DemandInterface $demand
-     * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint>
-     * @abstract
+     * @param QueryInterface<\TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface> $query
+     * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\ConstraintInterface>
      */
-    abstract public function createConstraintsFromDemand(QueryInterface $query, DemandInterface $demand);
+    abstract public function createConstraintsFromDemand(QueryInterface $query, DemandInterface $demand): array;
 
     /**
      * Returns a query for objects of this repository
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\QueryInterface
+     * @return QueryInterface<\TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface>
      */
     abstract public function createQuery();
 
     /**
-     * @var string $recordList A comma separated string containing uids
-     * @var string $sortField Sort by field
-     * @var string $sortOrder
-     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface Matching Records
+     * @param string $recordList A comma separated string containing uids
+     * @param string $sortField Sort by field
+     * @param string $sortOrder
+     * @return QueryResultInterface<object> Matching Records
      */
-    public function findMultipleByUid($recordList, $sortField = 'uid', $sortOrder = QueryInterface::ORDER_ASCENDING)
+    public function findMultipleByUid(string $recordList, string $sortField = 'uid', string $sortOrder = QueryInterface::ORDER_ASCENDING): QueryResultInterface
     {
         $query = $this->createQuery();
         $uids = GeneralUtility::intExplode(',', $recordList, true);
@@ -64,11 +64,10 @@ trait DemandedRepositoryTrait
     /**
      * Returns the objects of this repository matching the demand.
      *
-     * @param \DWenzel\T3events\Domain\Model\Dto\DemandInterface $demand
-     * @param boolean $respectEnableFields
-     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface|array
+     * @param bool $respectEnableFields
+     * @return QueryResultInterface<object>
      */
-    public function findDemanded(DemandInterface $demand, $respectEnableFields = true)
+    public function findDemanded(DemandInterface $demand, bool $respectEnableFields = true): QueryResultInterface
     {
         $query = $this->generateQuery($demand, $respectEnableFields);
         return $query->execute();
@@ -77,28 +76,25 @@ trait DemandedRepositoryTrait
     /**
      * Returns an array of orderings created from a given demand object.
      *
-     * @param \DWenzel\T3events\Domain\Model\Dto\DemandInterface $demand
-     * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint>
+     * @return array<string, string>
      */
-    public function createOrderingsFromDemand(DemandInterface $demand)
+    public function createOrderingsFromDemand(DemandInterface $demand): array
     {
         $orderings = [];
 
         if ($demand->getOrder()) {
             $orderList = GeneralUtility::trimExplode(',', $demand->getOrder(), true);
 
-            if (!empty($orderList)) {
-                // go through every order statement
-                foreach ($orderList as $orderItem) {
-                    list($orderField, $ascDesc) = GeneralUtility::trimExplode('|', $orderItem, true);
-                    // count == 1 means that no direction is given
-                    if ($ascDesc) {
-                        $orderings[$orderField] = ((strtolower($ascDesc) == 'desc') ?
-                            QueryInterface::ORDER_DESCENDING :
-                            QueryInterface::ORDER_ASCENDING);
-                    } else {
-                        $orderings[$orderField] = QueryInterface::ORDER_ASCENDING;
-                    }
+            // go through every order statement
+            foreach ($orderList as $orderItem) {
+                [$orderField, $ascDesc] = GeneralUtility::trimExplode('|', $orderItem, true);
+                // count == 1 means that no direction is given
+                if ($ascDesc) {
+                    $orderings[$orderField] = ((strtolower($ascDesc) === 'desc') ?
+                        QueryInterface::ORDER_DESCENDING :
+                        QueryInterface::ORDER_ASCENDING);
+                } else {
+                    $orderings[$orderField] = QueryInterface::ORDER_ASCENDING;
                 }
             }
         }
@@ -108,51 +104,53 @@ trait DemandedRepositoryTrait
 
 
     /**
-     * @param DemandInterface $demand
-     * @param bool $respectEnableFields
-     * @return QueryInterface
+     * @return QueryInterface<\TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface>
+     * @throws InvalidQueryException
      */
-    public function generateQuery(?DemandInterface $demand = null, $respectEnableFields = true)
+    public function generateQuery(?DemandInterface $demand = null, bool $respectEnableFields = true): QueryInterface
     {
+        /** @var QueryInterface<\TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface> $query */
         $query = $this->createQuery();
+        if ($demand === null) {
+            return $query;
+        }
         $constraints = $this->createConstraintsFromDemand($query, $demand);
 
         if ($respectEnableFields === false) {
             $query->getQuerySettings()->setIgnoreEnableFields(true);
         }
-        // Call hook functions for additional constraints
-        if (ArrayUtility::isValidPath($GLOBALS['TYPO3_CONF_VARS']['EXT'],'t3events:Domain/Repository/AbstractDemandedRepository.php:findDemanded', ':')
-            && is_array($GLOBALS['TYPO3_CONF_VARS']['EXT']['t3events']['Domain/Repository/AbstractDemandedRepository.php']['findDemanded'])) {
-            $params = [
-                'demand' => &$demand,
-                'respectEnableFields' => &$respectEnableFields,
-                'query' => &$query,
-                'constraints' => &$constraints,
-            ];
-            foreach ($GLOBALS['TYPO3_CONF_VARS']['EXT']['t3events']['Domain/Repository/AbstractDemandedRepository.php']['findDemanded'] as $reference) {
-                GeneralUtility::callUserFunction($reference, $params, $this);
-            }
-        }
+
+        /** @var QueryGeneratePreMatchEvent $event */
+        $event = GeneralUtility::makeInstance(EventDispatcherInterface::class)->dispatch(new QueryGeneratePreMatchEvent(
+            $query,
+            $demand,
+            $constraints,
+            $respectEnableFields,
+            $this
+        ));
+        $query = $event->getQuery();
+        $constraints = $event->getConstrains();
+        $demand = $event->getDemand();
 
         if (!empty($constraints)) {
             $query->matching(
-                $query->logicalAnd($constraints)
+                $query->logicalAnd(...$constraints)
             );
         }
 
-        if ($orderings = $this->createOrderingsFromDemand($demand)) {
+        if ($demand !== null && $orderings = $this->createOrderingsFromDemand($demand)) {
             $query->setOrderings($orderings);
         }
 
-        if ($demand->getLimit() !== null) {
+        if ($demand !== null && $demand->getLimit() !== null) {
             $query->setLimit((int)$demand->getLimit());
         }
 
-        if ($demand->getOffset() !== null) {
+        if ($demand !== null && $demand->getOffset() !== null) {
             $query->setOffset((int)$demand->getOffset());
         }
 
-        if ($demand->getStoragePages()) {
+        if ($demand !== null && $demand->getStoragePages()) {
             $pageIds = GeneralUtility::intExplode(',', $demand->getStoragePages());
             $query->getQuerySettings()->setStoragePageIds($pageIds);
         }
@@ -164,43 +162,40 @@ trait DemandedRepositoryTrait
     /**
      * Combine constraints
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
-     * @param array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint> $constraints
-     * @param array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\Constraint> $additionalConstraints
-     * @param string $conjunction
+     * @param QueryInterface<\TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface> $query
+     * @param array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\ConstraintInterface> $constraints
+     * @param array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\ConstraintInterface> $additionalConstraints
+     * @param string|null $conjunction
      */
-    public function combineConstraints(QueryInterface $query, &$constraints, $additionalConstraints, $conjunction = null)
+    public function combineConstraints(QueryInterface $query, array &$constraints, array $additionalConstraints, ?string $conjunction = null): void
     {
-        if (count($additionalConstraints)) {
+        if ($conjunction !== null && count($additionalConstraints)) {
             switch (strtolower($conjunction)) {
                 case 'or':
-                    $constraints[] = $query->logicalOr($additionalConstraints);
+                    $constraints[] = $query->logicalOr(...$additionalConstraints);
                     break;
                 case 'notand':
-                    foreach ($additionalConstraints as $additionalConstraint) {
-                        $constraints[] = $query->logicalNot($query->logicalAnd($additionalConstraint));
-                    }
-                    break;
                 case 'notor':
                     foreach ($additionalConstraints as $additionalConstraint) {
-                        $constraints[] = $query->logicalNot($query->logicalOr($additionalConstraint));
+                        $constraints[] = $query->logicalNot($additionalConstraint);
                     }
                     break;
                 default:
-                    $constraints[] = $query->logicalAnd($additionalConstraints);
+                    $constraints[] = $query->logicalAnd(...$additionalConstraints);
             }
+        } else {
+            $constraints[] = $query->logicalAnd(...$additionalConstraints);
         }
     }
 
     /**
      * Create search constraints from demand
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
-     * @param \DWenzel\T3events\Domain\Model\Dto\SearchAwareDemandInterface $demand
-     * @return array<\TYPO3\CMS\Extbase\Persistence\QOM\Constraint>
-     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
+     * @param QueryInterface<\TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface> $query
+     * @return array<\TYPO3\CMS\Extbase\Persistence\Generic\Qom\ConstraintInterface>
+     * @throws InvalidQueryException
      */
-    public function createSearchConstraints(QueryInterface $query, SearchAwareDemandInterface $demand)
+    public function createSearchConstraints(QueryInterface $query, SearchAwareDemandInterface $demand): array
     {
         $searchConstraints = [];
         if ($search = $demand->getSearch()) {
@@ -209,7 +204,7 @@ trait DemandedRepositoryTrait
             if (!empty($subject)) {
                 // search text in specified search fields
                 $searchFields = GeneralUtility::trimExplode(',', $search->getFields(), true);
-                if (count($searchFields) === 0) {
+                if ($searchFields === []) {
                     throw new \UnexpectedValueException('No search fields given', 1382608407);
                 }
                 foreach ($searchFields as $field) {
@@ -227,7 +222,7 @@ trait DemandedRepositoryTrait
      * to implement our own magic
      *
      * @param string $methodName The name of the magic method
-     * @param string $arguments The arguments of the magic method
+     * @param array<mixed> $arguments The arguments of the magic method
      * @return mixed
      * @throws UnsupportedMethodException
      */
@@ -237,18 +232,17 @@ trait DemandedRepositoryTrait
         if ($substring === 'countContaining' && strlen($methodName) > 16) {
             $propertyName = lcfirst(substr($methodName, 15));
             $query = $this->createQuery();
-            $result = $query->matching($query->contains($propertyName, $arguments[0]))->execute()->count();
-
-            return $result;
-        } elseif (
-            count(class_parents($this))
-            && is_callable('parent::__call')
-        ) {
+            return $query->matching($query->contains($propertyName, $arguments[0]))->execute()->count();
+        }
+        $parents = class_parents($this);
+        if ($parents !== false && count($parents)
+        && is_callable('parent::__call')
+        && $methodName !== '') {
             return parent::__call($methodName, $arguments);
         }
 
         throw new UnsupportedMethodException(
-            'The method "' . $methodName . '" is not supported by class' . __CLASS__ . 'using trait ' . __TRAIT__,
+            'The method "' . $methodName . '" is not supported by class' . self::class . 'using trait ' . __TRAIT__,
             1479289568
         );
     }

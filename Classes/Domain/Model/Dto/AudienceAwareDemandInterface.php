@@ -8,19 +8,9 @@ namespace DWenzel\T3events\Domain\Model\Dto;
  */
 interface AudienceAwareDemandInterface
 {
-    /**
-     * @return string
-     */
-    public function getAudiences();
+    public function getAudiences(): ?string;
 
-    /**
-     * @param string $audiences
-     * @return void
-     */
-    public function setAudiences($audiences);
+    public function setAudiences(?string $audiences): void;
 
-    /**
-     * @return string
-     */
-    public function getAudienceField();
+    public function getAudienceField(): string;
 }

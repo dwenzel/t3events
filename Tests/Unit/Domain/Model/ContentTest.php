@@ -43,6 +43,7 @@ class ContentTest extends UnitTestCase
      */
     protected function setUp(): void
     {
+        parent::setUp();
         $this->ttContentDomainModelInstance = new Content();
     }
 

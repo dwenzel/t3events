@@ -27,15 +27,14 @@ use DWenzel\T3events\Utility\SettingsInterface as SI;
 class PeriodDataProviderFactory
 {
     /**
-     * @param array $params
-     * @return \DWenzel\T3events\DataProvider\Legend\LayeredLegendDataProviderInterface
+     * @param array<string, mixed> $params
      */
-    public function get(array $params)
+    public function get(array $params): LayeredLegendDataProviderInterface
     {
         $class = PeriodUnknownDataProvider::class;
         $flexFormData = [];
         if (isset($params['row']['pi_flexform'])) {
-            if (!(is_array($params['row']['pi_flexform']))) {
+            if (!(is_array($params['row']['pi_flexform']??''))) {
                 $pluginSettings = GeneralUtility::xml2array($params['row']['pi_flexform']);
             } else {
                 $pluginSettings = $params['row']['pi_flexform'];

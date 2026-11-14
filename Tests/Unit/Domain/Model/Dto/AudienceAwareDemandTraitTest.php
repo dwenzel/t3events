@@ -15,14 +15,15 @@ class AudienceAwareDemandTraitTest extends UnitTestCase
      */
     protected $subject;
 
-    protected function setUp(): void
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getMockForTrait(
             AudienceAwareDemandTrait::class
         );
     }
 
-    protected function tearDown(): void
+    public function tearDown(): void
     {
         unset($this->subject);
     }

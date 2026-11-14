@@ -1,11 +1,13 @@
 <?php
-namespace DWenzel\T3events\Tests\Unit\Controller;
+
+namespace DWenzel\T3events\Tests\Controller;
 
 use DWenzel\T3events\Controller\ModuleDataTrait;
 use DWenzel\T3events\Domain\Model\Dto\ModuleData;
 use DWenzel\T3events\Service\ModuleDataStorageService;
 use DWenzel\T3events\Utility\SettingsInterface as SI;
-use PHPUnit\Framework\TestCase;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
 use DWenzel\T3events\Tests\Unit\Object\MockObjectManagerTrait;
 
 /***************************************************************
@@ -33,9 +35,14 @@ use DWenzel\T3events\Tests\Unit\Object\MockObjectManagerTrait;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-class ModuleDataTraitTest extends TestCase
+/**
+ * Class ModuleDataTraitTest
+ *
+ * @package DWenzel\T3events\Tests\Controller
+ */
+class ModuleDataTraitTest extends UnitTestCase
 {
-    use \DWenzel\T3events\Tests\Unit\Object\MockObjectManagerTrait;
+    use MockObjectManagerTrait;
 
     /**
      * @var ModuleDataTrait|\PHPUnit_Framework_MockObject_MockObject
@@ -45,10 +52,11 @@ class ModuleDataTraitTest extends TestCase
     /**
      * set up
      */
-    protected function setUp(): void
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getMockBuilder(ModuleDataTrait::class)
-            ->setMethods(['getModuleKey'])
+            ->onlyMethods(['getModuleKey'])
             ->getMockForTrait();
 
         $this->objectManager = $this->getMockObjectManager();
@@ -130,7 +138,7 @@ class ModuleDataTraitTest extends TestCase
     protected function getMockModuleDataStorageService(array $methods = [])
     {
         return $this->getMockBuilder(ModuleDataStorageService::class)
-            ->setMethods($methods)
+            ->onlyMethods($methods)
             ->getMock();
     }
 

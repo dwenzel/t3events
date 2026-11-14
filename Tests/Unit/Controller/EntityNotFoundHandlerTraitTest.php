@@ -1,18 +1,18 @@
 <?php
 
-namespace DWenzel\T3events\Tests\Unit\Controller;
+namespace DWenzel\T3events\Tests\Controller;
 
 use DWenzel\T3events\Controller\EntityNotFoundHandlerTrait;
 use DWenzel\T3events\Utility\SettingsInterface as SI;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\Request;
 use TYPO3\CMS\Extbase\Mvc\RequestInterface;
-use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 use TYPO3\CMS\Extbase\Property\Exception\TargetNotFoundException;
-use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
@@ -22,7 +22,7 @@ class DummyParent extends ActionController
 {
     /**
      * @param \TYPO3\CMS\Extbase\Mvc\RequestInterface $request
-     * @param \TYPO3\CMS\Extbase\Mvc\ResponseInterface $response
+     * @param ResponseInterface $response
      * @return void
      * @throws \Exception
      * @override \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
@@ -69,8 +69,9 @@ class EntityNotFoundHandlerTraitTest extends UnitTestCase
     /**
      * set up
      */
-    protected function setUp(): void
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getMockForTrait(
             EntityNotFoundHandlerTrait::class,
             [], '', true, true, true, ['isSSLEnabled']
@@ -323,7 +324,7 @@ class EntityNotFoundHandlerTraitTest extends UnitTestCase
         $mockResponse = $this->getMockBuilder(ResponseInterface::class)->getMock();
         /** @var Request|\PHPUnit_Framework_MockObject_MockObject $mockRequest */
         $mockRequest = $this->getMockBuilder(Request::class)
-            ->setMethods(['getControllerName', 'getControllerActionName'])->getMock();
+            ->onlyMethods(['getControllerName', 'getControllerActionName'])->getMock();
         $mockRequest->expects(self::once())
             ->method('getControllerName')
             ->will(self::returnValue($controllerName));
@@ -387,10 +388,9 @@ class EntityNotFoundHandlerTraitTest extends UnitTestCase
      */
     protected function getMockDispatcher(): \PHPUnit\Framework\MockObject\MockObject
     {
-        $mockDispatcher = $this->getMockBuilder(Dispatcher::class)
-            ->disableOriginalConstructor()
-            ->setMethods(['dispatch'])
-            ->getMock();
+        $mockDispatcher = $this->getMockBuilder(EventDispatcherInterface::class)
+            ->onlyMethods(['dispatch'])
+            ->getMockForAbstractClass();
         return $mockDispatcher;
     }
 }

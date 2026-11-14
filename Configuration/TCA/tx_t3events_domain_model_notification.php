@@ -1,9 +1,11 @@
 <?php
-if (!defined('TYPO3_MODE')) {
+use DWenzel\T3events\Utility\TableConfiguration;
+
+if (!defined('TYPO3')) {
     die('Access denied.');
 }
 $ll = 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf';
-$cll = \DWenzel\T3events\Utility\TableConfiguration::getLanguageFilePath() . 'locallang_general.xlf:';
+$cll = TableConfiguration::getLanguageFilePath() . 'locallang_general.xlf:';
 
 return [
     'ctrl' => [
@@ -13,7 +15,6 @@ return [
         'label_alt_force' => '1',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
-        'cruser_id' => 'cruser_id',
         'dividers2tabs' => true,
         'sortby' => 'sent_at',
         'versioningWS' => true,
@@ -110,12 +111,10 @@ return [
             'exclude' => 1,
             'label' => $ll . ':tx_t3events_domain_model_notification.send_at',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'inputDateTime',
+                'type' => 'datetime',
                 'readOnly' => '1',
                 'size' => 7,
-                'default' => '0',
-                'eval' => 'datetime'
+                'default' => 0
             ],
         ],
     ],

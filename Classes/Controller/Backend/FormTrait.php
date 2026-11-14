@@ -18,9 +18,9 @@ namespace DWenzel\T3events\Controller\Backend;
 use DWenzel\T3events\Utility\SettingsInterface as SI;
 use TYPO3\CMS\Backend\Routing\Exception\RouteNotFoundException;
 use TYPO3\CMS\Backend\Routing\UriBuilder;
+use TYPO3\CMS\Core\Http\RedirectResponse;
 use TYPO3\CMS\Core\Information\Typo3Version;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Utility\HttpUtility;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 
 /**
@@ -28,39 +28,21 @@ use TYPO3\CMS\Core\Utility\VersionNumberUtility;
  */
 trait FormTrait
 {
-    /**
-     * Page uid
-     *
-     * @var integer
-     */
-    protected $pageUid = 0;
+    protected int $pageUid = 0;
 
-    /**
-     * Gets the module key
-     *
-     * @return string
-     */
-    public function getModuleKey()
+    public function getModuleKey(): string
     {
-        return $_GET[$this->getParameterNameForModule()];
+        return $_GET[$this->getParameterNameForModule()] ?? '';
     }
 
-    /**
-     * @return string
-     */
     protected function getParameterNameForModule(): string
     {
-        $key = 'M';
         if ($this->isTypo3VersionGreaterThan8()) {
-            $key = 'route';
-
+            return 'route';
         }
-        return $key;
+        return 'M';
     }
 
-    /**
-     * @return bool
-     */
     protected function isTypo3VersionGreaterThan8(): bool
     {
         /** @var Typo3Version $version */
@@ -74,14 +56,10 @@ trait FormTrait
      * @param string $table table name
      * @throws RouteNotFoundException
      */
-    protected function redirectToCreateNewRecord($table)
+    protected function redirectToCreateNewRecord(string $table): RedirectResponse
     {
         /** @var UriBuilder $uriBuilder */
-        $uriBuilder = $this->callStatic(
-            GeneralUtility::class,
-            'makeInstance',
-            UriBuilder::class
-        );
+        $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
         $returnUrl = (string)$uriBuilder->buildUriFromRoute(SI::ROUTE_EVENT_MODULE);
         $url = (string)$uriBuilder->buildUriFromRoute(
             SI::ROUTE_EDIT_RECORD_MODULE,
@@ -94,18 +72,14 @@ trait FormTrait
                 SI::RETURN_URL => $returnUrl
             ]
         );
-        $this->callStatic(HttpUtility::class, SI::REDIRECT, $url);
+        return new RedirectResponse($url);
     }
 
-    /**
-     * @return string
-     */
     protected function getParameterNameForToken(): string
     {
-        $tokenParameterKey = SI::MODULE_TOKEN_KEY;
         if ($this->isTypo3VersionGreaterThan8()) {
-            $tokenParameterKey = SI::TOKEN_KEY;
+            return SI::TOKEN_KEY;
         }
-        return $tokenParameterKey;
+        return SI::MODULE_TOKEN_KEY;
     }
 }

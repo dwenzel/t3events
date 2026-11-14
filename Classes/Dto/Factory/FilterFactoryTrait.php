@@ -24,15 +24,9 @@ namespace DWenzel\T3events\Dto\Factory;
  */
 trait FilterFactoryTrait
 {
-    /**
-     * @var FilterFactory
-     */
-    protected $filterFactory;
+    protected FilterFactory $filterFactory;
 
-    /**
-     * @param FilterFactory $filterFactory
-     */
-    public function injectFilterFactory(FilterFactory $filterFactory)
+    public function injectFilterFactory(FilterFactory $filterFactory): void
     {
         $this->filterFactory = $filterFactory;
     }

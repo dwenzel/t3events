@@ -39,9 +39,9 @@ class TableConfiguration
 
     /**
      * Icon paths by TYPO3 version
-     * @var array
+     * @var array<int, array<string, string>>
      */
-    protected static $iconPaths = [
+    protected static array $iconPaths = [
         8 => [
             'add' => 'actions-add',
             'edit' => 'actions-open',
@@ -66,11 +66,8 @@ class TableConfiguration
      * Gets the correct icon name for a wizard
      * TYPO3 version is respected
      * Known wizard names are: add, edit, link, rte
-     *
-     * @param string $wizardName
-     * @return string|null
      */
-    public static function getWizardIcon($wizardName)
+    public static function getWizardIcon(string $wizardName): ?string
     {
         $version = self::getVersion();
         if (isset(self::$iconPaths[$version]) && !empty(self::$iconPaths[$version][$wizardName])) {
@@ -81,10 +78,8 @@ class TableConfiguration
 
     /**
      * Gets a short version of the TYPO3 version number
-     *
-     * @return int
      */
-    protected static function getVersion()
+    protected static function getVersion(): int
     {
         $version = 8;
         $versionNumber = VersionNumberUtility::convertVersionNumberToInteger(
@@ -94,7 +89,7 @@ class TableConfiguration
             $version = 6;
         }
         if ($versionNumber >= 7000000 && $versionNumber < 8000000) {
-            $version = 7;
+            return 7;
         }
 
         return $version;
@@ -103,17 +98,12 @@ class TableConfiguration
     /**
      * Gets the path to local language files depending on current TYPO3 version
      * @param string $extension Extension key containing the language files
-     * @return string
      */
-    public static function getLanguageFilePath($extension = 'core')
+    public static function getLanguageFilePath(string $extension = 'core'): string
     {
-        $path = 'LLL:EXT:' . $extension . '/';
-
-        if (static::getVersion() > 7)
-        {
-            $path = 'LLL:EXT:' . $extension . '/Resources/Private/Language/';
+        if (static::getVersion() > 7) {
+            return 'LLL:EXT:' . $extension . '/Resources/Private/Language/';
         }
-
-        return $path;
+        return 'LLL:EXT:' . $extension . '/';
     }
 }

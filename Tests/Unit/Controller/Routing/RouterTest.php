@@ -1,6 +1,6 @@
 <?php
 
-namespace DWenzel\T3events\Tests\Unit\Controller\Routing;
+namespace DWenzel\T3events\Tests\Controller\Routing;
 
 /**
  * This file is part of the TYPO3 CMS project.
@@ -34,10 +34,11 @@ class RouterTest extends UnitTestCase
     /**
      * set up subject
      */
-    protected function setUp(): void
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getAccessibleMock(
-            Router::class, ['dummy']
+            Router::class, []
         );
     }
 
@@ -135,7 +136,7 @@ class RouterTest extends UnitTestCase
     {
         return $this->getMockBuilder(Route::class)
             ->setConstructorArgs($constructorArguments)
-            ->setMethods($methods)
+            ->onlyMethods($methods)
             ->getMock();
     }
 }

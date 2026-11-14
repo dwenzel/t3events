@@ -1,13 +1,13 @@
 <?php
 namespace DWenzel\T3events\Controller;
 
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use DWenzel\T3events\Domain\Model\Dto\ModuleData;
 use DWenzel\T3events\Service\ModuleDataStorageService;
-use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
-use TYPO3\CMS\Extbase\Mvc\Exception\StopActionException;
+use TYPO3\CMS\Extbase\Http\ForwardResponse;
 use TYPO3\CMS\Extbase\Mvc\RequestInterface;
-use TYPO3\CMS\Extbase\Mvc\ResponseInterface;
 
 /**
  * Class ModuleDataTrait
@@ -18,57 +18,39 @@ use TYPO3\CMS\Extbase\Mvc\ResponseInterface;
 trait ModuleDataTrait
 {
     protected ModuleData $moduleData;
+
     protected ModuleDataStorageService $moduleDataStorageService;
 
     /**
-     * @var array
+     * @return array<mixed>
      */
-    protected $settings;
+    abstract public function mergeSettings(): array;
 
-    /**
-     * @return array
-     */
-    abstract public function mergeSettings();
+    abstract public function getModuleKey(): string;
 
-    /**
-     * @return string
-     */
-    abstract public function getModuleKey();
-
-    /**
-     * Forwards the request to another action and / or controller.
-     * Request is directly transfered to the other action / controller
-     * without the need for a new request.
-     *
-     * @param string $actionName Name of the action to forward to
-     * @param string $controllerName Unqualified object name of the controller to forward to. If not specified, the current controller is used.
-     * @param string $extensionName Name of the extension containing the controller to forward to. If not specified, the current extension is assumed.
-     * @param array $arguments Arguments to pass to the target action
-     * @return void
-     */
-    abstract public function forward(
-        $actionName,
-        $controllerName = null,
-        $extensionName = null,
-        array $arguments = null
-    );
-
-    /**
-     * injects the module data storage service
-     *
-     * @param ModuleDataStorageService $service
-     */
-    public function injectModuleDataStorageService(ModuleDataStorageService $service)
+    public function processRequest(RequestInterface $request): ResponseInterface
     {
-        $this->moduleDataStorageService = $service;
+        $this->moduleData = $this->moduleDataStorageService->loadModuleData($this->getModuleKey());
+
+        try {
+            $response = parent::processRequest($request);
+            $this->moduleDataStorageService->persistModuleData($this->moduleData, $this->getModuleKey());
+        } catch (\Exception $e) {
+            $this->moduleDataStorageService->persistModuleData($this->moduleData, $this->getModuleKey());
+            throw $e;
+        }
+
+        return $response;
     }
 
     /**
      * initializes all action methods
      */
-    public function initializeAction()
+    public function initializeAction(): void
     {
-        $this->pageUid = (int)GeneralUtility::_GET('id');
+        /** @var ServerRequestInterface $typo3Request */
+        $typo3Request = $GLOBALS['TYPO3_REQUEST'];
+        $this->pageUid = (int)($typo3Request->getQueryParams()['id'] ?? null);
         $this->settings = $this->mergeSettings();
     }
 
@@ -76,25 +58,19 @@ trait ModuleDataTrait
      * Reset action
      * Resets all module data and forwards the request to the list action
      */
-    public function resetAction()
+    public function resetAction(): ResponseInterface
     {
         $this->moduleData = GeneralUtility::makeInstance(ModuleData::class);
         $this->moduleDataStorageService->persistModuleData($this->moduleData, $this->getModuleKey());
-        $this->forward('list');
+        return new ForwardResponse('list');
     }
 
-    /**
-     * @return ModuleData
-     */
-    public function getModuleData()
+    public function getModuleData(): ModuleData
     {
         return $this->moduleData;
     }
 
-    /**
-     * @param ModuleData $moduleData
-     */
-    public function setModuleData(ModuleData $moduleData)
+    public function setModuleData(ModuleData $moduleData): void
     {
         $this->moduleData = $moduleData;
     }

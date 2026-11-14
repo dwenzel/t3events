@@ -41,10 +41,11 @@ class AudienceTest extends UnitTestCase
      */
     protected $fixture;
 
-    protected function setUp(): void
+    public function setUp(): void
     {
+        parent::setUp();
         $this->fixture = $this->getAccessibleMock(
-            Audience::class, ['dummy']
+            Audience::class, []
         );
     }
 

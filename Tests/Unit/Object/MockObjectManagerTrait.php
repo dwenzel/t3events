@@ -1,9 +1,10 @@
 <?php
 namespace DWenzel\T3events\Tests\Unit\Object;
 
+use Nimut\TestingFramework\MockObject\AccessibleMockObjectInterface;
 use PHPUnit\Framework\MockObject\MockBuilder;
 use PHPUnit\Framework\MockObject\MockObject;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
+use Psr\Container\ContainerInterface;
 
 /***************************************************************
  *  Copyright notice
@@ -22,34 +23,26 @@ use TYPO3\CMS\Extbase\Object\ObjectManager;
  * This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-trait MockObjectManagerTrait
+trait MockContainerInterfaceTrait
 {
 
     /**
-     * @var MockObject*/
+     * @var MockObject|AccessibleMockObjectInterface
+     */
     protected $subject;
 
     /**
-     * @var ObjectManager|MockObject
+     * @var ContainerInterface|MockObject
      */
     protected $objectManager;
 
     /**
-     * Returns a builder object to create mock objects using a fluent interface.
-     *
-     * @param string|string[] $className
-     *
-     * @return MockBuilder
+     * @return ContainerInterface|MockObject
      */
-    abstract public function getMockBuilder(string $className): MockBuilder;
-
-    /**
-     * @return ObjectManager|MockObject
-     */
-    protected function getMockObjectManager()
+    protected function getMockContainerInterface()
     {
-        return $this->getMockBuilder(ObjectManager::class)
+        return $this->getMockBuilder(ContainerInterface::class)
             ->disableOriginalConstructor()
-            ->setMethods(['get'])->getMock();
+            ->onlyMethods(['get'])->getMock();
     }
 }

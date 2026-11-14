@@ -1,6 +1,6 @@
 <?php
 
-namespace DWenzel\T3events\Tests\Unit\Controller;
+namespace DWenzel\T3events\Tests\Controller;
 
 use DWenzel\T3events\Controller\DemandTrait;
 use DWenzel\T3events\Domain\Model\Dto\AbstractDemand;
@@ -22,7 +22,7 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 /**
  * Class DemandTraitTest
  *
- * @package DWenzel\T3events\Tests\Unit\Controller
+ * @package DWenzel\T3events\Tests\Controller
  */
 class DemandTraitTest extends UnitTestCase
 {
@@ -36,13 +36,14 @@ class DemandTraitTest extends UnitTestCase
     /**
      * set up
      */
-    protected function setUp(): void
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getMockForTrait(
             DemandTrait::class
         );
         $mockSettingsUtility = $this->getMockBuilder(SettingsUtility::class)
-            ->setMethods(['getControllerKey'])->getMock();
+            ->onlyMethods(['getControllerKey'])->getMock();
         $this->inject(
             $this->subject,
             'settingsUtility',
@@ -357,7 +358,7 @@ class DemandTraitTest extends UnitTestCase
         $method = 'set' . ucfirst($key);
         $demand = $this->getMockBuilder(
             DemandInterface::class)
-            ->setMethods([$method])->getMockForAbstractClass();
+            ->onlyMethods([$method])->getMockForAbstractClass();
 
         $overwriteDemand = [
             $key => ''

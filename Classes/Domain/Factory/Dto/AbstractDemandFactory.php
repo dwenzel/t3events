@@ -1,7 +1,6 @@
 <?php
 namespace DWenzel\T3events\Domain\Factory\Dto;
 
-use DWenzel\T3events\Object\ObjectManagerTrait;
 use DWenzel\T3events\Utility\SettingsInterface as SI;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
@@ -33,32 +32,32 @@ use DWenzel\T3events\Domain\Model\Dto\OrderAwareDemandInterface;
  */
 abstract class AbstractDemandFactory
 {
-    use SkipPropertyTrait, MapPropertyTrait, ObjectManagerTrait;
+    use SkipPropertyTrait, MapPropertyTrait;
 
     /**
      * Properties which should be mapped when settings
      * are applied to demand object
      *
-     * @var array
+     * @var array<string, string>
      */
-    protected static $mappedProperties = [];
+    protected static array $mappedProperties = [];
 
     /**
      * Composite properties which can not set directly
      * but have to be composed from various settings or
      * require any special logic before setting
      *
-     * @var array
+     * @var list<string>
      */
-    protected static $compositeProperties = [];
+    protected static array $compositeProperties = [];
 
     /**
      * Returns an array of property names
      * which can not be set directly
      *
-     * @return array
+     * @return list<string>
      */
-    public function getCompositeProperties()
+    public function getCompositeProperties(): array
     {
         return static::$compositeProperties;
     }
@@ -66,9 +65,9 @@ abstract class AbstractDemandFactory
     /**
      * Returns a map of property names: ['newName' => 'oldName]
      *
-     * @return array
+     * @return array<string, string>
      */
-    public function getMappedProperties()
+    public function getMappedProperties(): array
     {
         return static::$mappedProperties;
     }
@@ -82,10 +81,9 @@ abstract class AbstractDemandFactory
      * Property names found in the $compositeProperties are skipped here
      * and must be set by concrete factory
      *
-     * @param $demand
-     * @param array $settings
+     * @param array<string, mixed> $settings
      */
-    public function applySettings($demand, array $settings)
+    public function applySettings(mixed $demand, array $settings): void
     {
         if (
             isset($settings['sortBy']) &&

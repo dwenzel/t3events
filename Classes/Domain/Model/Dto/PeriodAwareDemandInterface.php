@@ -8,104 +8,62 @@ namespace DWenzel\T3events\Domain\Model\Dto;
  */
 interface PeriodAwareDemandInterface
 {
-    /**
-     * @return string
-     */
-    public function getPeriod();
+    public function getPeriod(): ?string;
+
+    public function setPeriod(?string $period): void;
+
+    public function getPeriodStart(): ?int;
 
     /**
-     * @param string $period
+     * @param int|null $start Start value for time period (day, month or year)
      */
-    public function setPeriod($period);
+    public function setPeriodStart(?int $start): void;
+
+    public function getPeriodType(): ?string;
+
+    public function setPeriodType(?string $periodType): void;
+
+    public function getPeriodDuration(): ?int;
 
     /**
-     * @return mixed
+     * @param int|null $duration Duration value for period (days, months, years)
      */
-    public function getPeriodStart();
+    public function setPeriodDuration(?int $duration): void;
+
+    public function getStartDate(): ?\DateTime;
 
     /**
-     * @param int $start $start Start value for time period (day, month or year)
-     * @return void
+     * @param \DateTime|null $date Start date
      */
-    public function setPeriodStart($start);
+    public function setStartDate(?\DateTime $date): void;
+
+    public function getDate(): ?\DateTime;
 
     /**
-     * @return mixed
+     * @param \DateTime|null $date Start date
      */
-    public function getPeriodType();
+    public function setDate(?\DateTime $date): void;
+
+    public function getEndDate(): ?\DateTime;
 
     /**
-     * @param string $periodType
+     * @param \DateTime|null $date End date
      */
-    public function setPeriodType($periodType);
-
-    /**
-     * @return mixed
-     */
-    public function getPeriodDuration();
-
-    /**
-     * @param int $duration Duration value for period (days, months, years)
-     * @return void
-     */
-    public function setPeriodDuration($duration);
-
-    /**
-     * @return \DateTime
-     */
-    public function getStartDate();
-
-    /**
-     * @param \DateTime $date Start date
-     * @return void
-     */
-    public function setStartDate($date);
-
-    /**
-     * @return \DateTime
-     */
-    public function getDate();
-
-    /**
-     * @param \DateTime $date Start date
-     * @return void
-     */
-    public function setDate($date);
-
-    /**
-     * @return mixed
-     */
-    public function getEndDate();
-
-    /**
-     * @param \DateTime $date Start date
-     * @return void
-     */
-    public function setEndDate($date);
+    public function setEndDate(?\DateTime $date): void;
 
     /**
      * Returns the field name of the start date field
      * in dot notation
-     *
-     * @return string
      */
-    public function getStartDateField();
+    public function getStartDateField(): string;
 
     /**
      * Returns the field name of the end date field
      * in dot notation
-     *
-     * @return string
      */
-    public function getEndDateField();
+    public function getEndDateField(): string;
 
-    /**
-     * @return bool
-     */
-    public function isRespectEndDate();
+    public function isRespectEndDate(): bool;
 
-    /**
-     * @param boolean $respectEndDate
-     */
-    public function setRespectEndDate($respectEndDate);
+    public function setRespectEndDate(bool $respectEndDate): void;
 }

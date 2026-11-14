@@ -16,9 +16,7 @@ class PeriodConstraintLegendFormElement extends AbstractFormElement
 {
     /**
      * Container objects give $nodeFactory down to other containers.
-     *
-     * @param NodeFactory $nodeFactory
-     * @param array $data
+     * @param array<string, mixed> $data
      */
     public function __construct(NodeFactory $nodeFactory, array $data)
     {
@@ -26,6 +24,7 @@ class PeriodConstraintLegendFormElement extends AbstractFormElement
         $this->iconFactory = GeneralUtility::makeInstance(IconFactory::class);
     }
 
+    /** @return array<string, mixed> */
     public function render(): array
     {
         $fieldInformationResult = $this->renderFieldInformation();

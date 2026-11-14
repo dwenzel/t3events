@@ -19,20 +19,20 @@ namespace DWenzel\T3events\View;
  ***************************************************************/
 
 
-use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
-
 /**
  * Interface ConfigurableViewInterface
  */
-interface ConfigurableViewInterface extends ViewInterface
+interface ConfigurableViewInterface
 {
     const SETTINGS_KEY = 'view';
 
     /**
      * Applies a given configuration to the view
      *
-     * @param array $configuration
      * @return void
      */
-    public function apply(array $configuration);
+    /**
+     * @param array<string, mixed> $configuration
+     */
+    public function apply(array $configuration): void;
 }

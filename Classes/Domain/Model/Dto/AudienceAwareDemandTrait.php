@@ -28,23 +28,14 @@ namespace DWenzel\T3events\Domain\Model\Dto;
 trait AudienceAwareDemandTrait
 {
 
-    /**
-     * @var string
-     */
-    protected $audiences;
+    protected ?string $audiences = null;
 
-    /**
-     * @return string
-     */
-    public function getAudiences()
+    public function getAudiences(): ?string
     {
         return $this->audiences;
     }
 
-    /**
-     * @param string $audiences
-     */
-    public function setAudiences($audiences)
+    public function setAudiences(?string $audiences): void
     {
         $this->audiences = $audiences;
     }

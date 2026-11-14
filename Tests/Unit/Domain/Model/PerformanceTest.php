@@ -46,12 +46,13 @@ class PerformanceTest extends \Nimut\TestingFramework\TestCase\UnitTestCase
      */
     protected $fixture;
 
-    protected function setUp(): void
+    public function setUp(): void
     {
+        parent::setUp();
         $this->fixture = new \DWenzel\T3events\Domain\Model\Performance();
     }
 
-    protected function tearDown(): void
+    public function tearDown(): void
     {
         unset($this->fixture);
     }

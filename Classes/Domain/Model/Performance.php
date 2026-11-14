@@ -13,10 +13,11 @@ namespace DWenzel\T3events\Domain\Model;
  *
  * The TYPO3 project - inspiring people to share!
  */
+use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
-use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
+use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
 
 
 /**
@@ -29,133 +30,109 @@ class Performance extends AbstractEntity
 
     /**
      * date
-     *
-     * @var \DateTime
      */
-    protected $date;
+    protected ?\DateTime $date = null;
 
     /**
      * admission
-     *
-     * @var int
      */
-    protected $admission;
+    protected ?int $admission = null;
 
     /**
      * begin
-     *
-     * @var int
      */
-    protected $begin;
+    protected ?int $begin = null;
 
     /**
      * end
-     *
-     * @var int
      */
-    protected $end;
+    protected ?int $end = null;
 
     /**
      * statusInfo
-     *
-     * @var string
      */
-    protected $statusInfo;
+    protected ?string $statusInfo = null;
 
     /**
      * externalProviderLink
-     *
-     * @var string
      */
-    protected $externalProviderLink;
+    protected ?string $externalProviderLink = null;
 
     /**
      * additionalLink
-     *
-     * @var string
      */
-    protected $additionalLink;
+    protected ?string $additionalLink = null;
 
     /**
      * providerType
-     *
-     * @var integer
      */
-    protected $providerType = 0;
+    protected int $providerType = 0;
 
     /**
      * image
-     *
-     * @var string
      */
-    protected $image;
+    protected ?string $image = null;
 
     /**
      * images
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
-     * @Lazy
+     * @var ObjectStorage<FileReference>
      */
-    protected $images;
+    #[Lazy]
+    protected ObjectStorage $images;
 
     /**
      * plan
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
-     * @Lazy
+     * @var ObjectStorage<FileReference>
      */
-    protected $plan;
+    #[Lazy]
+    protected ObjectStorage $plan;
 
     /**
      * noHandlingFee
-     *
-     * @var boolean
      */
-    protected $noHandlingFee = false;
+    protected bool $noHandlingFee = false;
 
     /**
      * priceNotice
-     *
-     * @var string
      */
-    protected $priceNotice;
+    protected ?string $priceNotice = null;
 
     /**
-     * @var \DWenzel\T3events\Domain\Model\Event
-     * @Lazy
+     * @var Event|null
      */
-    protected $event;
+    #[Lazy]
+    protected LazyLoadingProxy|Event|null $event = null;
 
     /**
      * eventLocation
      *
-     * @Lazy
-     * @var \DWenzel\T3events\Domain\Model\EventLocation
+     * @var EventLocation|null
      */
-    protected $eventLocation;
+    #[Lazy]
+    protected LazyLoadingProxy|EventLocation|null $eventLocation = null;
 
     /**
      * ticketClass
      *
-     * @Lazy
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\TicketClass>
+     * @var ObjectStorage<TicketClass>
      */
-    protected $ticketClass;
+    #[Lazy]
+    protected ObjectStorage $ticketClass;
 
     /**
      * status
      *
-     * @Lazy
-     * @var \DWenzel\T3events\Domain\Model\PerformanceStatus
+     * @var PerformanceStatus|null
      */
-    protected $status;
+    #[Lazy]
+    protected LazyLoadingProxy|PerformanceStatus|null $status = null;
 
     /**
      * hidden
-     *
-     * @var integer
      */
-    protected $hidden;
+    protected int $hidden = 0;
 
     /**
      * __construct
@@ -168,10 +145,8 @@ class Performance extends AbstractEntity
 
     /**
      * Initializes all \TYPO3\CMS\Extbase\Persistence\ObjectStorage properties.
-     *
-     * @return void
      */
-    protected function initStorageObjects()
+    protected function initStorageObjects(): void
     {
         /**
          * Do not modify this method!
@@ -184,200 +159,159 @@ class Performance extends AbstractEntity
     }
 
     /**
-     * Returns the eventLocation
+     * Returns the event
      *
-     * @return \DWenzel\T3events\Domain\Model\Event
+     * @return Event|null
      */
-    public function getEvent()
+    public function getEvent(): ?Event
     {
         if ($this->event instanceof LazyLoadingProxy) {
-            $this->event->_loadRealInstance();
+            /** @var Event $instance */
+            $instance = $this->event->_loadRealInstance();
+            return $instance;
         }
-
         return $this->event;
     }
 
     /**
      * Sets the event
-     *
-     * @param \DWenzel\T3events\Domain\Model\Event $event
      */
-    public function setEvent(Event $event)
+    public function setEvent(Event $event): void
     {
         $this->event = $event;
     }
 
     /**
      * Returns the eventLocation
-     *
-     * @return \DWenzel\T3events\Domain\Model\EventLocation eventLocation
      */
-    public function getEventLocation()
+    public function getEventLocation(): ?EventLocation
     {
         if ($this->eventLocation instanceof LazyLoadingProxy) {
-            $this->eventLocation->_loadRealInstance();
+            /** @var EventLocation $instance */
+            $instance = $this->eventLocation->_loadRealInstance();
+            return $instance;
         }
         return $this->eventLocation;
     }
 
     /**
      * Sets the eventLocation
-     *
-     * @param \DWenzel\T3events\Domain\Model\EventLocation $eventLocation
-     * @return \DWenzel\T3events\Domain\Model\EventLocation eventLocation
      */
-    public function setEventLocation(\DWenzel\T3events\Domain\Model\EventLocation $eventLocation)
+    public function setEventLocation(EventLocation $eventLocation): void
     {
         $this->eventLocation = $eventLocation;
     }
 
     /**
      * Returns the date
-     *
-     * @return \DateTime $date
      */
-    public function getDate()
+    public function getDate(): ?\DateTime
     {
         return $this->date;
     }
 
     /**
      * Sets the date
-     *
-     * @param \DateTime $date
-     * @return void
      */
-    public function setDate($date)
+    public function setDate(?\DateTime $date): void
     {
         $this->date = $date;
     }
 
-    /**
-     * @var \DateTime
-     */
-    protected $endDate;
+    protected ?\DateTime $endDate = null;
 
     /**
      * Gets the end date
-     *
-     * @return \DateTime
      */
-    public function getEndDate()
+    public function getEndDate(): ?\DateTime
     {
         return $this->endDate;
     }
 
     /**
      * Sets the end date
-     *
-     * @param \DateTime $date
      */
-    public function setEndDate($date)
+    public function setEndDate(?\DateTime $date): void
     {
         $this->endDate = $date;
     }
 
     /**
      * Returns the admission
-     *
-     * @return int $admission
      */
-    public function getAdmission()
+    public function getAdmission(): ?int
     {
         return $this->admission;
     }
 
     /**
      * Sets the admission
-     *
-     * @param int $admission
-     * @return void
      */
-    public function setAdmission($admission)
+    public function setAdmission(?int $admission): void
     {
         $this->admission = $admission;
     }
 
     /**
      * Returns the begin
-     *
-     * @return int $begin
      */
-    public function getBegin()
+    public function getBegin(): ?int
     {
         return $this->begin;
     }
 
     /**
      * Sets the begin
-     *
-     * @param int $begin
-     * @return void
      */
-    public function setBegin($begin)
+    public function setBegin(?int $begin): void
     {
         $this->begin = $begin;
     }
 
     /**
      * Returns the end
-     *
-     * @return int $end
      */
-    public function getEnd()
+    public function getEnd(): ?int
     {
         return $this->end;
     }
 
     /**
      * Sets the end
-     *
-     * @param int $end
-     * @return void
      */
-    public function setEnd($end)
+    public function setEnd(?int $end): void
     {
         $this->end = $end;
     }
 
     /**
      * Returns the statusInfo
-     *
-     * @return string $statusInfo
      */
-    public function getStatusInfo()
+    public function getStatusInfo(): ?string
     {
         return $this->statusInfo;
     }
 
     /**
      * Sets the statusInfo
-     *
-     * @param string $statusInfo
-     * @return void
      */
-    public function setStatusInfo($statusInfo)
+    public function setStatusInfo(?string $statusInfo): void
     {
         $this->statusInfo = $statusInfo;
     }
 
     /**
      * Returns the image
-     *
-     * @return string $image
      */
-    public function getImage()
+    public function getImage(): ?string
     {
         return $this->image;
     }
 
     /**
      * Sets the image
-     *
-     * @param string $image
-     * @return void
      */
-    public function setImage($image)
+    public function setImage(?string $image): void
     {
         $this->image = $image;
     }
@@ -385,10 +319,9 @@ class Performance extends AbstractEntity
     /**
      * Adds an image
      *
-     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $image Image
-     * @return void
+     * @param FileReference $image Image
      */
-    public function addImages(\TYPO3\CMS\Extbase\Domain\Model\FileReference $image)
+    public function addImages(FileReference $image): void
     {
         $this->images->attach($image);
     }
@@ -396,10 +329,9 @@ class Performance extends AbstractEntity
     /**
      * Removes an image
      *
-     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $imageToRemove Image
-     * @return void
+     * @param FileReference $imageToRemove Image
      */
-    public function removeImages(\TYPO3\CMS\Extbase\Domain\Model\FileReference $imageToRemove)
+    public function removeImages(FileReference $imageToRemove): void
     {
         $this->images->detach($imageToRemove);
     }
@@ -407,9 +339,9 @@ class Performance extends AbstractEntity
     /**
      * Returns the images
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage $images
+     * @return ObjectStorage<FileReference>
      */
-    public function getImages()
+    public function getImages(): ObjectStorage
     {
         return $this->images;
     }
@@ -417,10 +349,9 @@ class Performance extends AbstractEntity
     /**
      * Sets the images
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $images Images
-     * @return void
+     * @param ObjectStorage<FileReference> $images
      */
-    public function setImages(ObjectStorage $images)
+    public function setImages(ObjectStorage $images): void
     {
         $this->images = $images;
     }
@@ -428,10 +359,9 @@ class Performance extends AbstractEntity
     /**
      * Adds a plan
      *
-     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $plan Plan
-     * @return void
+     * @param FileReference $plan Plan
      */
-    public function addPlan(\TYPO3\CMS\Extbase\Domain\Model\FileReference $plan)
+    public function addPlan(FileReference $plan): void
     {
         $this->plan->attach($plan);
     }
@@ -439,10 +369,9 @@ class Performance extends AbstractEntity
     /**
      * Removes a plan
      *
-     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $planToRemove $planToRemove
-     * @return void
+     * @param FileReference $planToRemove $planToRemove
      */
-    public function removePlan(\TYPO3\CMS\Extbase\Domain\Model\FileReference $planToRemove)
+    public function removePlan(FileReference $planToRemove): void
     {
         $this->plan->detach($planToRemove);
     }
@@ -450,9 +379,9 @@ class Performance extends AbstractEntity
     /**
      * Returns the plan
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage $plan
+     * @return ObjectStorage<FileReference>
      */
-    public function getPlan()
+    public function getPlan(): ObjectStorage
     {
         return $this->plan;
     }
@@ -460,97 +389,78 @@ class Performance extends AbstractEntity
     /**
      * Sets the plan
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $plan Plan
-     * @return void
+     * @param ObjectStorage<FileReference> $plan
      */
-    public function setPlan(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $plan)
+    public function setPlan(ObjectStorage $plan): void
     {
         $this->plan = $plan;
     }
 
     /**
      * Returns the noHandlingFee
-     *
-     * @return boolean $noHandlingFee
      */
-    public function getNoHandlingFee()
+    public function getNoHandlingFee(): bool
     {
         return $this->noHandlingFee;
     }
 
     /**
      * Sets the noHandlingFee
-     *
-     * @param boolean $noHandlingFee
-     * @return void
      */
-    public function setNoHandlingFee($noHandlingFee)
+    public function setNoHandlingFee(bool $noHandlingFee): void
     {
         $this->noHandlingFee = $noHandlingFee;
     }
 
     /**
      * Returns the boolean state of noHandlingFee
-     *
-     * @return boolean
      */
-    public function isNoHandlingFee()
+    public function isNoHandlingFee(): bool
     {
         return $this->getNoHandlingFee();
     }
 
     /**
      * Returns the status
-     *
-     * @return \DWenzel\T3events\Domain\Model\PerformanceStatus $status
      */
-    public function getStatus()
+    public function getStatus(): ?PerformanceStatus
     {
         if ($this->status instanceof LazyLoadingProxy) {
-            $this->status->_loadRealInstance();
+            /** @var PerformanceStatus $instance */
+            $instance = $this->status->_loadRealInstance();
+            return $instance;
         }
         return $this->status;
     }
 
     /**
      * Sets the status
-     *
-     * @param \DWenzel\T3events\Domain\Model\PerformanceStatus $status
-     * @return void
      */
-    public function setStatus(\DWenzel\T3events\Domain\Model\PerformanceStatus $status)
+    public function setStatus(PerformanceStatus $status): void
     {
         $this->status = $status;
     }
 
     /**
      * Returns the priceNotice
-     *
-     * @return string $priceNotice
      */
-    public function getPriceNotice()
+    public function getPriceNotice(): ?string
     {
         return $this->priceNotice;
     }
 
     /**
      * Sets the priceNotice
-     *
-     * @param string $priceNotice
-     * @return void
      */
-    public function setPriceNotice($priceNotice)
+    public function setPriceNotice(?string $priceNotice): void
     {
         $this->priceNotice = $priceNotice;
     }
 
     /**
      * Adds a TicketClass
-     *
-     * @param \DWenzel\T3events\Domain\Model\TicketClass $ticketClass
-     * @return void
      */
-    public function addTicketClass(\DWenzel\T3events\Domain\Model\TicketClass $ticketClass)
+    public function addTicketClass(TicketClass $ticketClass): void
     {
         $this->ticketClass->attach($ticketClass);
     }
@@ -558,10 +468,9 @@ class Performance extends AbstractEntity
     /**
      * Removes a TicketClass
      *
-     * @param \DWenzel\T3events\Domain\Model\TicketClass $ticketClassToRemove The TicketClass to be removed
-     * @return void
+     * @param TicketClass $ticketClassToRemove The TicketClass to be removed
      */
-    public function removeTicketClass(\DWenzel\T3events\Domain\Model\TicketClass $ticketClassToRemove)
+    public function removeTicketClass(TicketClass $ticketClassToRemove): void
     {
         $this->ticketClass->detach($ticketClassToRemove);
     }
@@ -569,9 +478,9 @@ class Performance extends AbstractEntity
     /**
      * Returns the ticketClass
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\TicketClass> $ticketClass
+     * @return ObjectStorage<TicketClass>
      */
-    public function getTicketClass()
+    public function getTicketClass(): ObjectStorage
     {
         return $this->ticketClass;
     }
@@ -579,94 +488,74 @@ class Performance extends AbstractEntity
     /**
      * Sets the ticketClass
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\TicketClass> $ticketClass
-     * @return void
+     * @param ObjectStorage<TicketClass> $ticketClass
      */
-    public function setTicketClass(ObjectStorage $ticketClass)
+    public function setTicketClass(ObjectStorage $ticketClass): void
     {
         $this->ticketClass = $ticketClass;
     }
 
     /**
      * Returns the additionalLink
-     *
-     * @return string additionalLink
      */
-    public function getAdditionalLink()
+    public function getAdditionalLink(): ?string
     {
         return $this->additionalLink;
     }
 
     /**
      * Sets the additionalLink
-     *
-     * @param string $additionalLink
-     * @return string additionalLink
      */
-    public function setAdditionalLink($additionalLink)
+    public function setAdditionalLink(?string $additionalLink): void
     {
         $this->additionalLink = $additionalLink;
     }
 
     /**
      * Returns the externalProviderLink
-     *
-     * @return string externalProviderLink
      */
-    public function getExternalProviderLink()
+    public function getExternalProviderLink(): ?string
     {
         return $this->externalProviderLink;
     }
 
     /**
      * Sets the externalProviderLink
-     *
-     * @param string $externalProviderLink
-     * @return string externalProviderLink
      */
-    public function setExternalProviderLink($externalProviderLink)
+    public function setExternalProviderLink(?string $externalProviderLink): void
     {
         $this->externalProviderLink = $externalProviderLink;
     }
 
     /**
      * Returns the providerType
-     *
-     * @return integer $providerType
      */
-    public function getProviderType()
+    public function getProviderType(): int
     {
         return $this->providerType;
     }
 
     /**
      * Sets the providerType
-     *
-     * @param integer $providerType
-     * @return void
      */
-    public function setProviderType($providerType)
+    public function setProviderType(int $providerType): void
     {
         $this->providerType = $providerType;
     }
 
     /**
      * Return hidden
-     *
-     * @return integer
      */
-    public function getHidden()
+    public function getHidden(): int
     {
         return $this->hidden;
     }
 
     /**
      * Set hidden
-     *
-     * @var integer $hidden
      */
-    public function setHidden($hidden)
+    public function setHidden(int $hidden): void
     {
-        $this->hidden = ($hidden);
+        $this->hidden = $hidden;
     }
 }

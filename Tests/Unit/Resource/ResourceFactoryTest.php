@@ -1,6 +1,6 @@
 <?php
 
-namespace DWenzel\T3events\Tests\Unit\Resource;
+namespace DWenzel\T3events\Tests\Resource;
 
 use DWenzel\T3events\Resource\ResourceFactory;
 use DWenzel\T3events\Tests\Unit\Object\MockObjectManagerTrait;
@@ -48,14 +48,15 @@ class ResourceFactoryTest extends UnitTestCase
     /**
      * set up
      */
-    protected function setUp(): void
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getMockBuilder(ResourceFactory::class)
             ->disableOriginalConstructor()
-            ->setMethods(['retrieveFileOrFolderObject'])
+            ->onlyMethods(['retrieveFileOrFolderObject'])
             ->getMock();
         $this->objectManager = $this->getMockObjectManager();
-        $this->subject->injectObjectManager($this->objectManager);
+        $this->inject($this->subject, "objectManager", $this->objectManager);
     }
 
     /**
@@ -108,16 +109,16 @@ class ResourceFactoryTest extends UnitTestCase
     {
         $this->subject = $this->getMockBuilder(ResourceFactory::class)
             ->disableOriginalConstructor()
-            ->setMethods(['createFileReferenceObject'])
+            ->onlyMethods(['createFileReferenceObject'])
             ->getMock();
-        $this->subject->injectObjectManager($this->objectManager);
+        $this->inject($this->subject, "objectManager", $this->objectManager);
         /** @var FileReference|MockObject $mockCoreFileReference */
         $mockCoreFileReference = $this->getMockBuilder(FileReference::class)
             ->disableOriginalConstructor()
             ->getMock();
         $mockExtbaseFileReference = $this->getMockBuilder(
             ExtbaseFileReference::class)
-            ->setMethods(['setOriginalResource'])
+            ->onlyMethods(['setOriginalResource'])
             ->getMock();
         /** @var File|MockObject $mockFileObject */
         $mockFileObject = $this->getMockBuilder(File::class)

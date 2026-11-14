@@ -1,7 +1,12 @@
 <?php
 
+use DWenzel\T3events\Domain\Model\Content;
+use DWenzel\T3events\Domain\Model\Person;
+use DWenzel\T3events\Domain\Model\Category;
+use DWenzel\T3events\Domain\Model\Event;
+
 return [
-    DWenzel\T3events\Domain\Model\Content::class => [
+    Content::class => [
         'tableName' => 'tt_content',
         'properties' => [
             'altText' => [
@@ -19,7 +24,7 @@ return [
         ]
     ],
 
-    DWenzel\T3events\Domain\Model\Person::class => [
+    Person::class => [
         'properties' => [
             'type' => [
                 'fieldName' => 'tx_extbase_type'
@@ -27,10 +32,10 @@ return [
         ],
     ],
 
-    DWenzel\T3events\Domain\Model\Category::class => [
+    Category::class => [
         'tableName' => 'sys_category'
     ],
-    \DWenzel\T3events\Domain\Model\Event::class => [
+    Event::class => [
         'tableName' => 'tx_t3events_domain_model_event',
         'properties' => [
             'crdate' => [

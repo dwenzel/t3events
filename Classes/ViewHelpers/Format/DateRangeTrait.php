@@ -24,10 +24,9 @@ trait DateRangeTrait
     /**
      * Get date range from timestamps
      *
-     * @param array $timestamps An ordered array of timestamps
-     * @return array
+     * @param array<int, int> $timestamps An ordered array of timestamps
      */
-    protected function getDateRange(array $timestamps)
+    protected function getDateRange(array $timestamps): string
     {
         $format = static::DEFAULT_DATE_FORMAT;
 
@@ -49,13 +48,13 @@ trait DateRangeTrait
         }
         $functionName = 'date';
 
-        if (strpos($startFormat, '%') !== false
-            && strpos($endFormat, '%' ) !== false
+        if (str_contains((string) $startFormat, '%')
+            && str_contains((string) $endFormat, '%' )
         ) {
             $functionName = 'strftime';
         }
 
-        $dateRange = call_user_func($functionName, $startFormat, $timestamps[0]);
+        $dateRange = (string) call_user_func($functionName, $startFormat, $timestamps[0]);
 
         if (count($timestamps) > 1) {
             $dateRange .= $glue . call_user_func($functionName, $endFormat, end($timestamps));

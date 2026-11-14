@@ -1,59 +1,28 @@
 <?php
 namespace DWenzel\T3events\Controller;
 
+use DWenzel\T3events\Utility\SettingsUtility;
+use TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException;
 use TYPO3\CMS\Core\Resource\Driver\LocalDriver;
 use DWenzel\T3events\InvalidFileTypeException;
-use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
-use TYPO3\CMS\Extbase\Mvc\Web\Response;
 
 /**
  * Class DownloadTrait
  */
 trait DownloadTrait
 {
-    /**
-     * @var \TYPO3\CMS\Core\Resource\Driver\LocalDriver
-     */
-    protected $localDriver;
+    protected LocalDriver $localDriver;
 
-    /**
-     * Contains the settings of the current extension
-     *
-     * @var array
-     */
-    protected $settings;
-
-    /**
-     * @var \DWenzel\T3events\Utility\SettingsUtility
-     */
-    protected $settingsUtility;
-
-    /**
-     * The response which will be returned by this action controller
-     *
-     * @var \TYPO3\CMS\Extbase\Mvc\Response
-     * @api
-     */
-    protected $response;
-
-    /**
-     * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
-     */
-    protected $objectManager;
+    protected SettingsUtility $settingsUtility;
 
     /**
      * Injects the local driver for file system
-     *
-     * @param \TYPO3\CMS\Core\Resource\Driver\LocalDriver $localDriver
      */
-    public function injectLocalDriver(LocalDriver $localDriver)
+    public function injectLocalDriver(LocalDriver $localDriver): void
     {
         $this->localDriver = $localDriver;
     }
 
-    /**
-     * @return LocalDriver
-     */
     public function getLocalDriver(): LocalDriver
     {
         return $this->localDriver;
@@ -63,12 +32,10 @@ trait DownloadTrait
     /**
      * Gets a sanitized filename for download
      *
-     * @param string $fileName
      * @param $prependDate
-     * @return string
-     * @throws \TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException
+     * @throws InvalidFileNameException
      */
-    public function getDownloadFileName($fileName, $prependDate = true)
+    public function getDownloadFileName(string $fileName, bool $prependDate = true): string
     {
         if ($prependDate) {
             $fileName = date('Y-m-d_H-m') . '_' . $fileName;
@@ -81,12 +48,10 @@ trait DownloadTrait
      * Creates a download file name, sends download headers renders
      * the view and returns the result
      *
-     * @param string $fileExtension
      * @param object $objectForFileName
-     * @return string
-     * @throws \DWenzel\T3events\InvalidFileTypeException
+     * @throws InvalidFileTypeException
      */
-    public function getContentForDownload($fileExtension, $objectForFileName = null)
+    public function getContentForDownload(string $fileExtension, mixed $objectForFileName = null): string
     {
         $controllerKey = $this->settingsUtility->getControllerKey($this);
         $fileName = $controllerKey;
@@ -110,11 +75,9 @@ trait DownloadTrait
     /**
      * Sends download headers
      *
-     * @param string $ext
-     * @param string $fileName
      * @throws InvalidFileTypeException
      */
-    public function sendDownloadHeaders($ext, $fileName)
+    public function sendDownloadHeaders(string $ext, string $fileName): void
     {
         switch ($ext) {
             case 'csv':
@@ -191,19 +154,15 @@ trait DownloadTrait
 
         $headers = [
             'Pragma' => 'public',
-            'Expires' => 0,
+            'Expires' => '0',
             'Cache-Control' => 'public',
             'Content-Description' => 'File Transfer',
             'Content-Type' => $cType,
             'Content-Disposition' => 'attachment; filename="' . $fileName . '.' . $ext . '"',
             'Content-Transfer-Encoding' => 'binary',
         ];
-        if (!$this->response instanceof Response) {
-            $this->response = $this->objectManager->get(Response::class);
-        }
         foreach ($headers as $header => $data) {
-            $this->response->setHeader($header, $data);
+            header($header . ': ' . $data);
         }
-        $this->response->sendHeaders();
     }
 }

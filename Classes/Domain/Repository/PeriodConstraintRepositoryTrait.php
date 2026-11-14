@@ -1,6 +1,9 @@
 <?php
 namespace DWenzel\T3events\Domain\Repository;
 
+use TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface;
+use TYPO3\CMS\Extbase\Persistence\Generic\Qom\ConstraintInterface;
+use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use DWenzel\T3events\Domain\Model\Dto\PeriodAwareDemandInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use DWenzel\T3events\Utility\SettingsInterface as SI;
@@ -18,12 +21,11 @@ trait PeriodConstraintRepositoryTrait
     /**
      * Create period constraints from demand (time restriction)
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
-     * @param \DWenzel\T3events\Domain\Model\Dto\PeriodAwareDemandInterface $demand
-     * @return array<\TYPO3\CMS\Extbase\Persistence\QOM\Constraint>
-     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
+     * @param QueryInterface<DomainObjectInterface> $query
+     * @return array<ConstraintInterface>
+     * @throws InvalidQueryException
      */
-    public function createPeriodConstraints(QueryInterface $query, PeriodAwareDemandInterface $demand)
+    public function createPeriodConstraints(QueryInterface $query, PeriodAwareDemandInterface $demand): array
     {
         // set start date initial to now
         $timezone = new \DateTimeZone(date_default_timezone_get());
@@ -62,21 +64,15 @@ trait PeriodConstraintRepositoryTrait
             case PeriodConstraintRepositoryInterface::PERIOD_SPECIFIC:
                 if ($respectEndDate) {
                     $periodConstraint[] = $query->logicalOr(
-                        [
-                            $query->logicalAnd(
-                                [
-                                    $query->lessThanOrEqual($endDateField, $upperLimit),
-                                    $query->greaterThanOrEqual($endDateField, $lowerLimit),
-                                    $query->lessThanOrEqual($startDateField, $lowerLimit)
-                                ]
-                            ),
-                            $query->logicalAnd(
-                                [
-                                    $query->greaterThanOrEqual($startDateField, $lowerLimit),
-                                    $query->lessThanOrEqual($endDateField, $upperLimit)
-                                ]
-                            )
-                        ]
+                        $query->logicalAnd(
+                            $query->lessThanOrEqual($endDateField, $upperLimit),
+                            $query->greaterThanOrEqual($endDateField, $lowerLimit),
+                            $query->lessThanOrEqual($startDateField, $lowerLimit)
+                        ),
+                        $query->logicalAnd(
+                            $query->greaterThanOrEqual($startDateField, $lowerLimit),
+                            $query->lessThanOrEqual($endDateField, $upperLimit)
+                        )
                     );
                 } else {
                     $periodConstraint[] = $query->logicalAnd(
@@ -90,12 +86,7 @@ trait PeriodConstraintRepositoryTrait
         return $periodConstraint;
     }
 
-    /**
-     * @param \DWenzel\T3events\Domain\Model\Dto\PeriodAwareDemandInterface $demand
-     * @param \DateTime $startDate
-     * @param \DateTime $endDate
-     */
-    protected function determineDateRange(PeriodAwareDemandInterface $demand, &$startDate, &$endDate)
+    protected function determineDateRange(PeriodAwareDemandInterface $demand, \DateTime &$startDate, \DateTime &$endDate): void
     {
         // period constraints
         $period = $demand->getPeriod();
@@ -105,11 +96,11 @@ trait PeriodConstraintRepositoryTrait
 
         if ($period === SI::SPECIFIC && $periodType) {
             // get delta value
-            $deltaStart = ($periodStart < 0) ? $periodStart : '+' . $periodStart;
+            $deltaStart = ($periodStart < 0) ? (string)$periodStart : '+' . $periodStart;
             $deltaEnd = ($periodDuration > 0) ? '+' . $periodDuration : '+' . 999;
 
-            $year = $startDate->format('Y');
-            $month = $startDate->format('m');
+            $year = (int)$startDate->format('Y');
+            $month = (int)$startDate->format('m');
 
             // get specific delta
             switch ($periodType) {
@@ -140,7 +131,7 @@ trait PeriodConstraintRepositoryTrait
                     }
                     break;
             }
-            if ($periodType != 'byDate') {
+            if ($periodType !== 'byDate') {
                 $startDate->setTime(0, 0, 0);
                 $startDate->modify($deltaStart);
                 $endDate->modify($deltaEnd);

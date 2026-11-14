@@ -28,18 +28,12 @@ use DWenzel\T3events\Domain\Repository\CategoryRepository;
  */
 trait CategoryRepositoryTrait
 {
-    /**
-     * @var \DWenzel\T3events\Domain\Repository\CategoryRepository
-     */
-    protected $categoryRepository;
+    protected CategoryRepository $categoryRepository;
 
     /**
      * injectCategoryRepository
-     *
-     * @param \DWenzel\T3events\Domain\Repository\CategoryRepository $categoryRepository
-     * @return void
      */
-    public function injectCategoryRepository(CategoryRepository $categoryRepository)
+    public function injectCategoryRepository(CategoryRepository $categoryRepository): void
     {
         $this->categoryRepository = $categoryRepository;
     }

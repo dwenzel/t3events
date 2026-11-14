@@ -1,13 +1,17 @@
 <?php
-namespace DWenzel\T3events\Tests\Unit\Controller;
+namespace DWenzel\T3events\Tests\Controller;
 
 use DWenzel\T3events\Tests\Unit\Object\MockObjectManagerTrait;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 use DWenzel\T3events\Controller\DownloadTrait;
-use PHPUnit\Framework\TestCase;
+use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Resource\Driver\LocalDriver;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
-use TYPO3\CMS\Extbase\Mvc\Web\Response;
-class DownloadTraitTest extends TestCase
+/**
+ * Class DownloadTraitTest
+ *
+ * @package DWenzel\T3events\Tests\Controller
+ */
+class DownloadTraitTest extends UnitTestCase
 {
     use MockObjectManagerTrait;
 
@@ -17,15 +21,16 @@ class DownloadTraitTest extends TestCase
     protected $subject;
 
     /**
-     * @var ObjectManager|\PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     protected $objectManager;
 
     /**
      * set up
      */
-    protected function setUp(): void
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getMockForTrait(
             DownloadTrait::class
         );
@@ -201,7 +206,7 @@ class DownloadTraitTest extends TestCase
 
         $this->objectManager->expects($this->once())
             ->method('get')
-            ->with(Response::class)
+            ->with(ResponseInterface::class)
             ->will($this->returnValue($mockResponse));
 
         $this->subject->sendDownloadHeaders($unknownValidExtension, $fileName);
@@ -215,18 +220,21 @@ class DownloadTraitTest extends TestCase
     {
         $mockBuilder = $this->getMockBuilder(LocalDriver::class);
         if (!empty($methods)) {
-            $mockBuilder->setMethods($methods);
+            $mockBuilder->onlyMethods($methods);
         }
         return $mockBuilder->getMock();
     }
 
     /**
      * @param array $methods Methods to mock
-     * @return Response|\PHPUnit_Framework_MockObject_MockObject
+     * @return ResponseInterface|\PHPUnit_Framework_MockObject_MockObject
      */
     protected function getMockResponse(array $methods = ['sendHeaders', 'setHeader'])
     {
-        return $this->getMockBuilder(Response::class)
-            ->setMethods($methods)->getMock();
+        $builder = $this->getMockBuilder(ResponseInterface::class);
+        if (!empty($methods)) {
+            $builder->addMethods($methods);
+        }
+        return $builder->getMock();
     }
 }

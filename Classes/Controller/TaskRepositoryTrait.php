@@ -18,19 +18,12 @@ use DWenzel\T3events\Domain\Repository\TaskRepositoryInterface;
  */
 trait TaskRepositoryTrait
 {
-    /**
-     * Task repository
-     *
-     * @var \DWenzel\T3events\Domain\Repository\TaskRepositoryInterface
-     */
-    protected $taskRepository;
+    protected TaskRepositoryInterface $taskRepository;
 
     /**
      * Injects the task repository
-     *
-     * @param \DWenzel\T3events\Domain\Repository\TaskRepositoryInterface $taskRepository
      */
-    public function injectTaskRepository(TaskRepositoryInterface $taskRepository)
+    public function injectTaskRepository(TaskRepositoryInterface $taskRepository): void
     {
         $this->taskRepository = $taskRepository;
     }

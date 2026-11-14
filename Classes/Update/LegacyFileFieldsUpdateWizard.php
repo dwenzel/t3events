@@ -19,7 +19,8 @@ namespace DWenzel\T3events\Update;
  * GNU General Public License for more details.
  * This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
+use TYPO3\CMS\Core\Resource\ResourceStorage;
+use TYPO3\CMS\Core\Database\Connection;
 use Doctrine\DBAL\Exception;
 use DWenzel\T3events\Utility\SettingsInterface as SI;
 use Psr\Log\LoggerAwareInterface;
@@ -42,6 +43,7 @@ use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
  */
 class LegacyFileFieldsUpdateWizard implements UpgradeWizardInterface, ChattyInterface, LoggerAwareInterface
 {
+    public ?ResourceStorage $storage = null;
     use LoggerAwareTrait;
 
     public const IDENTIFIER = 't3eventsLegacyFileFieldUpdateWizard';
@@ -62,30 +64,31 @@ class LegacyFileFieldsUpdateWizard implements UpgradeWizardInterface, ChattyInte
 
     private const TARGET_PATH = '_migrated/tx_t3events/';
 
-    /**
-     * @var OutputInterface
-     */
-    protected $output;
+    protected OutputInterface $output;
 
-    public function __construct()
+    public function __construct(private readonly ConnectionPool $connectionPool)
     {
         $this->output = new NullOutput();
     }
+
 
     public function getIdentifier(): string
     {
         return static::IDENTIFIER;
     }
 
+
     public function getTitle(): string
     {
         return static::TITLE;
     }
 
+
     public function getDescription(): string
     {
         return static::DESCRIPTION;
     }
+
 
     public function executeUpdate(): bool
     {
@@ -104,19 +107,20 @@ class LegacyFileFieldsUpdateWizard implements UpgradeWizardInterface, ChattyInte
                 }
             }
         } catch (\Exception $exception) {
-            $this->logger->error(
-                'An error occurred while performing update: ' . $exception->getMessage()
-            );
+            // @extensionScannerIgnoreLine false positive: PSR-3 LoggerInterface::error() is not deprecated
+            $this->logger->error('An error occurred while performing update: ' . $exception->getMessage());
             $result = false;
         }
 
         return $result;
     }
 
+
     public function updateNecessary(): bool
     {
         return ($this->countTablesToUpdate() > 0);
     }
+
 
     public function getPrerequisites(): array
     {
@@ -128,6 +132,7 @@ class LegacyFileFieldsUpdateWizard implements UpgradeWizardInterface, ChattyInte
         return $this->output;
     }
 
+
     public function setOutput(OutputInterface $output): void
     {
         $this->output = $output;
@@ -137,8 +142,10 @@ class LegacyFileFieldsUpdateWizard implements UpgradeWizardInterface, ChattyInte
     {
         $count = 0;
         foreach (static::TABLES_TO_UPDATE as $tableName => $fields) {
-            if (empty($fields) || !is_array($fields))
-            {
+            if (empty($fields)) {
+                continue;
+            }
+            if (!is_array($fields)) {
                 continue;
             }
             foreach ($fields as $field) {
@@ -157,33 +164,27 @@ class LegacyFileFieldsUpdateWizard implements UpgradeWizardInterface, ChattyInte
      *
      * @param string $table table name
      * @param string $fieldToMigrate field name
-     * @return int
      */
     protected function countRecords(string $table, string $fieldToMigrate): int
     {
         /** @var ConnectionPool $connectionPool */
-        $connectionPool = GeneralUtility::makeInstance(ConnectionPool::class);
+        $connectionPool = $this->connectionPool;
         $queryBuilder = $connectionPool->getQueryBuilderForTable($table);
 
         try {
-            return $queryBuilder
+            return (int)$queryBuilder
                 ->count($fieldToMigrate)
-                ->from($table)
-                ->where(
-                    $queryBuilder->expr()->isNotNull($fieldToMigrate),
-                    $queryBuilder->expr()->neq(
-                        $fieldToMigrate,
-                        $queryBuilder->createNamedParameter('', \PDO::PARAM_STR)
-                    ),
-                    $queryBuilder->expr()->comparison(
-                        'CAST(CAST(' . $queryBuilder->quoteIdentifier($fieldToMigrate) . ' AS DECIMAL) AS CHAR)',
-                        ExpressionBuilder::NEQ,
-                        'CAST(' . $queryBuilder->quoteIdentifier($fieldToMigrate) . ' AS CHAR)'
-                    )
-                )
-                ->execute()
+                ->from($table)->where($queryBuilder->expr()->isNotNull($fieldToMigrate), $queryBuilder->expr()->neq(
+                $fieldToMigrate,
+                $queryBuilder->createNamedParameter('', Connection::PARAM_STR)
+            ), $queryBuilder->expr()->comparison(
+                'CAST(CAST(' . $queryBuilder->quoteIdentifier($fieldToMigrate) . ' AS DECIMAL) AS CHAR)',
+                ExpressionBuilder::NEQ,
+                'CAST(' . $queryBuilder->quoteIdentifier($fieldToMigrate) . ' AS CHAR)'
+            ))->executeQuery()
                 ->fetchOne();
         } catch (\Exception $exception) {
+            // @extensionScannerIgnoreLine false positive: PSR-3 LoggerInterface::error() is not deprecated
             $this->logger->error(
                 'An error occurred while counting record to update: ' . $exception->getMessage(),
                 [
@@ -200,14 +201,11 @@ class LegacyFileFieldsUpdateWizard implements UpgradeWizardInterface, ChattyInte
      * Get records from table where the field to migrate is not empty (NOT NULL and != '')
      * and also not numeric (which means that it is migrated)
      *
-     * @param string $table
-     * @param string $fieldToMigrate
-     *
-     * @return array
+     * @return array<int, array<string, mixed>>
      */
     protected function getRecordsFromTable(string $table, string $fieldToMigrate): array
     {
-        $connectionPool = GeneralUtility::makeInstance(ConnectionPool::class);
+        $connectionPool = $this->connectionPool;
         $queryBuilder = $connectionPool->getQueryBuilderForTable($table);
         $queryBuilder->getRestrictions()->removeAll();
 
@@ -219,35 +217,28 @@ class LegacyFileFieldsUpdateWizard implements UpgradeWizardInterface, ChattyInte
                     $queryBuilder->expr()->isNotNull($fieldToMigrate),
                     $queryBuilder->expr()->neq(
                         $fieldToMigrate,
-                        $queryBuilder->createNamedParameter('', \PDO::PARAM_STR)
+                        $queryBuilder->createNamedParameter('', Connection::PARAM_STR)
                     ),
                     $queryBuilder->expr()->comparison(
                         'CAST(CAST(' . $queryBuilder->quoteIdentifier($fieldToMigrate) . ' AS DECIMAL) AS CHAR)',
                         ExpressionBuilder::NEQ,
                         'CAST(' . $queryBuilder->quoteIdentifier($fieldToMigrate) . ' AS CHAR)'
                     )
-                )
-                ->orderBy('uid')
-                ->execute();
+                )->orderBy('uid')->executeQuery();
 
-            return $result->fetchAll();
+            return $result->fetchAllAssociative();
         } catch (Exception $e) {
-            throw new \RuntimeException(
-                'Database query failed. Error was: ' . $e->getPrevious()->getMessage(),
-                1511950673
-            );
+            $previous = $e->getPrevious();
+            throw new \RuntimeException('Database query failed. Error was: ' . ($previous instanceof \Throwable ? $previous->getMessage() : $e->getMessage()), 1511950673, $e);
         }
     }
 
     /**
      * Migrates a single field.
      *
-     * @param array $row
-     * @param string $table
-     * @param string $fieldToMigrate
-     *
+     * @param array<string, mixed> $row
      */
-    protected function migrateField(array $row, string $table, string $fieldToMigrate)
+    protected function migrateField(array $row, string $table, string $fieldToMigrate): void
     {
         $this->output->writeln(sprintf(
             'START migration for %s:%s:%s and UID %d',
@@ -258,14 +249,17 @@ class LegacyFileFieldsUpdateWizard implements UpgradeWizardInterface, ChattyInte
         ));
 
         $fieldItems = GeneralUtility::trimExplode(',', $row[$fieldToMigrate], true);
-        if (empty($fieldItems) || is_numeric($row[$fieldToMigrate])) {
+        if ($fieldItems === [] || is_numeric($row[$fieldToMigrate])) {
             return;
         }
-        $fileadminDirectory = rtrim($GLOBALS['TYPO3_CONF_VARS']['BE']['fileadminDir'], '/') . '/';
+        $fileadminDirectory = rtrim((string) $GLOBALS['TYPO3_CONF_VARS']['BE']['fileadminDir'], '/') . '/';
         $i = 0;
 
+        if (!$this->storage instanceof ResourceStorage) {
+            return;
+        }
         $storageUid = (int)$this->storage->getUid();
-        $connectionPool = GeneralUtility::makeInstance(ConnectionPool::class);
+        $connectionPool = $this->connectionPool;
 
         foreach ($fieldItems as $item) {
             $fileUid = null;
@@ -281,20 +275,17 @@ class LegacyFileFieldsUpdateWizard implements UpgradeWizardInterface, ChattyInte
                 }
 
                 // see if the file already exists in the storage
-                $fileSha1 = sha1_file($sourcePath);
+                $fileSha1 = (string)sha1_file($sourcePath);
 
                 $queryBuilder = $connectionPool->getQueryBuilderForTable('sys_file');
                 $queryBuilder->getRestrictions()->removeAll();
-                $existingFileRecord = $queryBuilder->select('uid')->from('sys_file')->where(
-                    $queryBuilder->expr()->eq(
-                        'sha1',
-                        $queryBuilder->createNamedParameter($fileSha1, \PDO::PARAM_STR)
-                    ),
-                    $queryBuilder->expr()->eq(
-                        'storage',
-                        $queryBuilder->createNamedParameter($storageUid, \PDO::PARAM_INT)
-                    )
-                )->execute()->fetch();
+                $existingFileRecord = $queryBuilder->select('uid')->from('sys_file')->where($queryBuilder->expr()->eq(
+                    'sha1',
+                    $queryBuilder->createNamedParameter($fileSha1, Connection::PARAM_STR)
+                ), $queryBuilder->expr()->eq(
+                    'storage',
+                    $queryBuilder->createNamedParameter($storageUid, Connection::PARAM_INT)
+                ))->executeQuery()->fetchAssociative();
 
                 // the file exists, the file does not have to be moved again
                 if (is_array($existingFileRecord)) {
@@ -313,16 +304,16 @@ class LegacyFileFieldsUpdateWizard implements UpgradeWizardInterface, ChattyInte
                     /** @var File $file */
                     $file = $this->storage->getFile(self::TARGET_PATH . $item);
                     $fileUid = $file->getUid();
-                } catch (\InvalidArgumentException $e) {
+                } catch (\InvalidArgumentException) {
 
                     // no file found, no reference can be set
-                    $this->output->warning(sprintf(
+                    $this->output->writeln('<comment>WARNING: ' . sprintf(
                         'File ' . $sourcePath . ' does not exist. Reference was not migrated from %s:%s:%s and UID %d',
                         $table,
                         $fieldToMigrate,
                         $row[$fieldToMigrate],
                         $row['uid']
-                    ));
+                    ) . '</comment>');
 
                     continue;
                 }
@@ -343,7 +334,7 @@ class LegacyFileFieldsUpdateWizard implements UpgradeWizardInterface, ChattyInte
                 ];
 
                 $queryBuilder = $connectionPool->getQueryBuilderForTable('sys_file_reference');
-                $queryBuilder->insert('sys_file_reference')->values($fields)->execute();
+                $queryBuilder->insert('sys_file_reference')->values($fields)->executeStatement();
                 ++$i;
             }
         }
@@ -355,9 +346,9 @@ class LegacyFileFieldsUpdateWizard implements UpgradeWizardInterface, ChattyInte
             $queryBuilder->update($table)->where(
                 $queryBuilder->expr()->eq(
                     'uid',
-                    $queryBuilder->createNamedParameter($row['uid'], \PDO::PARAM_INT)
+                    $queryBuilder->createNamedParameter($row['uid'], Connection::PARAM_INT)
                 )
-            )->set($fieldToMigrate, $i)->execute();
+            )->set($fieldToMigrate, $i)->executeStatement();
         }
 
         $this->output->writeln(sprintf(

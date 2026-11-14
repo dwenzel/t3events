@@ -20,25 +20,19 @@ namespace DWenzel\T3events\Resource;
  ***************************************************************/
 class VectorImage extends \DOMDocument
 {
-    /**
-     * @var \DOMXPath
-     */
-    protected $xPath;
+    protected ?\DOMXPath $xPath = null;
 
     /**
      * Replaces text node children of a node
-     *
-     * @param string $nodeId
-     * @param string $content
      */
-    public function replaceNodeText($nodeId, $content)
+    public function replaceNodeText(string $nodeId, string $content): void
     {
         $element = $this->getElementById($nodeId);
-        if ($element === null) {
+        if (!$element instanceof \DOMElement) {
             return;
         }
 
-        while ($element->hasChildNodes()) {
+        while ($element->hasChildNodes() && $element->firstChild !== null) {
             $element->removeChild($element->firstChild);
         }
         $textNode = $this->createTextNode($content);
@@ -49,15 +43,15 @@ class VectorImage extends \DOMDocument
      * Sets an attribute of a set of elements
      * to a common value
      *
-     * @param array $elementIds Array of IDs of elements
+     * @param list<string> $elementIds Array of IDs of elements
      * @param string $attributeName Name of attribute to set
      * @param string $attributeValue Value to set
      */
-    protected function setElementsAttribute(array $elementIds, $attributeName, $attributeValue)
+    protected function setElementsAttribute(array $elementIds, string $attributeName, string $attributeValue): void
     {
         foreach ($elementIds as $elementId) {
             $element = $this->getElementById($elementId);
-            if ($element === null) {
+            if (!$element instanceof \DOMElement) {
                 continue;
             }
             $element->setAttribute($attributeName, $attributeValue);
@@ -67,9 +61,9 @@ class VectorImage extends \DOMDocument
     /**
      * Hides elements by id
      *
-     * @param array $elementIds
+     * @param list<string> $elementIds
      */
-    public function hideElements(array $elementIds)
+    public function hideElements(array $elementIds): void
     {
         $this->setElementsAttribute($elementIds, 'style', 'display:none');
     }
@@ -77,9 +71,9 @@ class VectorImage extends \DOMDocument
     /**
      * Shows elements by id
      *
-     * @param array $elementIds
+     * @param list<string> $elementIds
      */
-    public function showElements(array $elementIds)
+    public function showElements(array $elementIds): void
     {
         $this->setElementsAttribute($elementIds, 'style', 'display:inline');
     }
@@ -89,21 +83,18 @@ class VectorImage extends \DOMDocument
      * We overwrite parents method in order to
      * avoid having to validate the document against a DTD
      * which is quite slow
-     *
-     * @param string $elementId
-     * @return \DOMNode|null
-     * @todo: Set return type to ?DOMElement in v12 as breaking patch and drop #[\ReturnTypeWillChange]
      */
-    #[\ReturnTypeWillChange]
-    public function getElementById($elementId)
+    public function getElementById(string $elementId): ?\DOMElement
     {
-        return $this->getXPath()->query("//*[@id='" . $elementId . "']")->item(0);
+        $result = $this->getXPath()->query("//*[@id='" . $elementId . "']");
+        $element = $result !== false ? $result->item(0) : null;
+        if ($element instanceof \DOMElement) {
+            return $element;
+        }
+        return null;
     }
 
-    /**
-     * @return \DOMXPath
-     */
-    public function getXPath()
+    public function getXPath(): \DOMXPath
     {
         if (!$this->xPath instanceof \DOMXPath) {
             $this->xPath = new \DOMXPath($this);
