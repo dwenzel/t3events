@@ -26,6 +26,8 @@ namespace DWenzel\T3events\Tests\Unit\Domain\Model;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 use DWenzel\T3events\Domain\Model\Event;
+use TYPO3\CMS\Extbase\Domain\Model\FileReference;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /**
  * Test case for class \DWenzel\T3events\Domain\Model\Performance.
@@ -356,21 +358,23 @@ class PerformanceTest extends \Nimut\TestingFramework\TestCase\UnitTestCase
      * @test
      * @covers ::getPlan
      */
-    public function getPlanReturnsInitialValueForString()
+    public function getPlanReturnsInitiallyEmptyObjectStorage()
     {
-        $this->assertNull($this->fixture->getPlan());
+        $this->assertEquals(new ObjectStorage(), $this->fixture->getPlan());
     }
 
     /**
      * @test
      * @covers ::setPlan
      */
-    public function setPlanForStringSetsPlan()
+    public function setPlanForObjectStorageSetsPlan()
     {
-        $this->fixture->setPlan('Conceived at T3CON10');
+        $objectStorage = new ObjectStorage();
+        $objectStorage->attach(new FileReference());
+        $this->fixture->setPlan($objectStorage);
 
         $this->assertSame(
-            'Conceived at T3CON10',
+            $objectStorage,
             $this->fixture->getPlan()
         );
     }

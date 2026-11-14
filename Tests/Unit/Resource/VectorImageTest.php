@@ -31,7 +31,7 @@ class VectorImageTest extends UnitTestCase
     protected function setUp(): void
     {
         $this->subject = $this->getAccessibleMock(
-            \DWenzel\T3events\Resource\VectorImage::class, ['dummy'], [], '', true
+            \DWenzel\T3events\Resource\VectorImage::class, null, [], '', true
         );
         // initialize property
         $this->subject->getXPath();

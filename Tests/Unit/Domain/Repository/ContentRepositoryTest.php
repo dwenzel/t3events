@@ -44,7 +44,7 @@ class ContentRepositoryTest extends UnitTestCase
     {
         $this->fixture = $this->getAccessibleMock(
             ContentRepository::class,
-            ['dummy'], [], '', false);
+            null, [], '', false);
     }
 
     /**

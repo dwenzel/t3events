@@ -41,7 +41,7 @@ class NotificationServiceTest extends UnitTestCase
     protected function setUp(): void
     {
         $this->subject = $this->getAccessibleMock(
-            NotificationService::class, ['dummy']
+            NotificationService::class, null
         );
         $this->objectManager = $this->getMockObjectManager();
         $this->subject->injectObjectManager($this->objectManager);
@@ -91,7 +91,7 @@ class NotificationServiceTest extends UnitTestCase
     public function notifySetsRecipients($recipient, $expectedRecipients)
     {
         $this->subject = $this->getAccessibleMock(
-            NotificationService::class, ['dummy', 'buildTemplateView']
+            NotificationService::class, ['buildTemplateView']
         );
         $this->subject->injectObjectManager($this->objectManager);
 

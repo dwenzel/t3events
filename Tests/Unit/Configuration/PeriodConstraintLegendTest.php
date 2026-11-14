@@ -31,6 +31,12 @@ use TYPO3\CMS\Core\Localization\LanguageService;
 class PeriodConstraintLegendTest extends TestCase
 {
     /**
+     * Path relative to the public path of the test instance (.Build/Web).
+     * EXT: paths can not be resolved, since extensions are not loaded in unit tests.
+     */
+    protected const XML_FILE_PATH = 'typo3conf/ext/t3events/Resources/Public/Images/period_constraints.svg';
+
+    /**
      * @var PeriodConstraintLegend|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $subject;
@@ -75,7 +81,9 @@ class PeriodConstraintLegendTest extends TestCase
     {
         $this->subject = $this->getMockBuilder(PeriodConstraintLegend::class)
             ->setMethods(['getDataProviderFactory', 'load'])->getMock();
-        $params = ['foo'];
+        $params = [
+            PeriodConstraintLegend::PARAM_XML_FILE_PATH => self::XML_FILE_PATH
+        ];
 
         $mockDataProvider = $this->getMockLayeredLegendDataProvider();
         $this->periodDataProviderFactory = $this->getMockBuilder(PeriodDataProviderFactory::class)
@@ -112,7 +120,9 @@ class PeriodConstraintLegendTest extends TestCase
                 ['hideElements', 'showElements', 'setLabels', 'saveXML', 'getDataProviderFactory']
             )
             ->getMock();
-        $params = ['foo'];
+        $params = [
+            PeriodConstraintLegend::PARAM_XML_FILE_PATH => self::XML_FILE_PATH
+        ];
         $allLayers = ['foo'];
         $visibleLayers = ['bar'];
 

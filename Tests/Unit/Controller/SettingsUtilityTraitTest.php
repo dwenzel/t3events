@@ -79,6 +79,40 @@ class SettingsUtilityTraitTest extends UnitTestCase
         $controllerKey = 'foo';
         $typoScriptSettings = [
             $controllerKey => [
+                'search' => ['bar']
+            ]
+        ];
+
+        $this->inject(
+            $this->fixture,
+            SI::SETTINGS,
+            $typoScriptSettings
+        );
+
+        $mockSettingsUtility = $this->mockSettingsUtility(['getControllerKey']);
+        $mockSettingsUtility->expects($this->once())
+            ->method('getControllerKey')
+            ->will($this->returnValue($controllerKey));
+
+        $expectedSettings = [
+            $controllerKey => ['search' => ['bar']],
+            'search' => ['bar']
+        ];
+
+        $this->assertEquals(
+            $expectedSettings,
+            $this->fixture->mergeSettings()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function mergeSettingsDoesNotMergeOtherControllerSettings()
+    {
+        $controllerKey = 'foo';
+        $typoScriptSettings = [
+            $controllerKey => [
                 'bar'
             ]
         ];
@@ -95,8 +129,7 @@ class SettingsUtilityTraitTest extends UnitTestCase
             ->will($this->returnValue($controllerKey));
 
         $expectedSettings = [
-            $controllerKey => ['bar'],
-            'bar'
+            $controllerKey => ['bar']
         ];
 
         $this->assertEquals(
@@ -187,8 +220,7 @@ class SettingsUtilityTraitTest extends UnitTestCase
                 'bar',
                 $actionKey => ['key' => 'actionValue']
             ],
-            'key' => 'pluginValue',
-            'bar'
+            'key' => 'pluginValue'
         ];
 
         $this->assertEquals(

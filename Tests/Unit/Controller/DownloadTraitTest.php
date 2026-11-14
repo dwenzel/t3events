@@ -3,11 +3,11 @@ namespace DWenzel\T3events\Tests\Unit\Controller;
 
 use DWenzel\T3events\Tests\Unit\Object\MockObjectManagerTrait;
 use DWenzel\T3events\Controller\DownloadTrait;
-use PHPUnit\Framework\TestCase;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Core\Resource\Driver\LocalDriver;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Mvc\Web\Response;
-class DownloadTraitTest extends TestCase
+class DownloadTraitTest extends UnitTestCase
 {
     use MockObjectManagerTrait;
 
@@ -158,11 +158,11 @@ class DownloadTraitTest extends TestCase
     /**
      * @test
      * @dataProvider forbiddenFileTypesForDownloadHeadersDataProvider
-     * @expectedException \DWenzel\T3events\InvalidFileTypeException
-     * @expectedExceptionCode 1456009720
      */
     public function sendDownloadHeadersDoesNotSendHeadersForForbiddenFileTypes($fileExtension)
     {
+        $this->expectException(\DWenzel\T3events\InvalidFileTypeException::class);
+        $this->expectExceptionCode(1456009720);
         $fileName = 'foo';
 
         $mockResponse = $this->getMockResponse();

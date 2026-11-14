@@ -36,7 +36,7 @@ class PerformanceDemandFactoryTest extends UnitTestCase
     protected function setUp(): void
     {
         $this->subject = $this->getAccessibleMock(
-            PerformanceDemandFactory::class, ['dummy'], [], '', false
+            PerformanceDemandFactory::class, null, [], '', false
         );
         $this->objectManager = $this->getMockObjectManager();
         $this->subject->injectObjectManager($this->objectManager);

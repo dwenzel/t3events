@@ -41,7 +41,7 @@ class UniqueViewHelperTest extends UnitTestCase
     protected function setUp(): void
     {
         $this->subject = $this->getAccessibleMock(
-            UniqueViewHelper::class, ['dummy', 'registerArgument']
+            UniqueViewHelper::class, ['registerArgument']
         );
     }
 

@@ -42,7 +42,7 @@ class PerformanceStatusRepositoryTest extends UnitTestCase
     {
         $this->fixture = $this->getAccessibleMock(
             PerformanceStatusRepository::class,
-            ['dummy'], [], '', false);
+            null, [], '', false);
     }
 
     /**

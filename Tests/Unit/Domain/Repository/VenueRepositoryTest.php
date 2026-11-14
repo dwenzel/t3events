@@ -41,7 +41,7 @@ class VenueRepositoryTest extends UnitTestCase
     {
         $this->fixture = $this->getAccessibleMock(
             VenueRepository::class,
-            ['dummy'], [], '', false);
+            null, [], '', false);
     }
 
     /**

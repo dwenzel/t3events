@@ -63,7 +63,7 @@ class PerformanceRepositoryTest extends UnitTestCase
     {
         $this->subject = $this->getAccessibleMock(
             PerformanceRepository::class,
-            ['dummy'], [], '', false
+            null, [], '', false
         );
         $this->objectManager = $this->getMockObjectManager();
         $this->inject(

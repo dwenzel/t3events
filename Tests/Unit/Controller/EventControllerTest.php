@@ -145,10 +145,12 @@ class EventControllerTest extends UnitTestCase
         $overwriteDemand = ['foo'];
         $mockSession = $this->subject->_get('session');
         $mockRequest = $this->subject->_get('request');
-        $mockRequest->expects($this->once())
-            ->method('hasArgument')
-            ->will($this->returnValue(true));
-        $mockRequest->expects($this->once())
+        $mockRequest->method('hasArgument')
+            ->willReturnMap([
+                [SI::OVERWRITE_DEMAND, true],
+                [SI::RESET_DEMAND, false],
+            ]);
+        $mockRequest->expects(self::once())
             ->method('getArgument')
             ->will($this->returnValue($overwriteDemand));
 
@@ -176,16 +178,20 @@ class EventControllerTest extends UnitTestCase
     /**
      * @test
      */
-    public function initializeQuickMenuActionResetsOverwriteDemandInSession()
+    public function initializeActionCleansSessionIfResetDemandIsRequested()
     {
+        $this->subject->_set(SI::SETTINGS, []);
+        $this->mockSettingsUtility();
         $mockSession = $this->subject->_get('session');
         $mockRequest = $this->subject->_get('request');
-        $mockRequest->expects($this->once())
-            ->method('hasArgument')
-            ->will($this->returnValue(false));
-        $mockSession->expects($this->once())
+        $mockRequest->method('hasArgument')
+            ->willReturnMap([
+                [SI::OVERWRITE_DEMAND, false],
+                [SI::RESET_DEMAND, true],
+            ]);
+        $mockSession->expects(self::once())
             ->method('clean');
-        $this->subject->initializeQuickMenuAction();
+        $this->subject->initializeAction();
     }
 
     /**

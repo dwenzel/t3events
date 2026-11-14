@@ -43,7 +43,7 @@ class PersonRepositoryTest extends UnitTestCase
     {
         $this->fixture = $this->getAccessibleMock(
             PersonRepository::class,
-            ['dummy'], [], '', false);
+            null, [], '', false);
     }
 
     /**

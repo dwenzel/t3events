@@ -25,7 +25,7 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 class ArrayToCsvViewHelperTest extends UnitTestCase
 {
     /**
-     * @var ArrayToCsvViewHelper|\PHPUnit_Framework_MockObject_MockObject|\TYPO3\CMS\Core\Tests\AccessibleObjectInterface
+     * @var ArrayToCsvViewHelper|\PHPUnit_Framework_MockObject_MockObject|\TYPO3\CMS\Core\Tests\AccessibleMockObjectInterface
      */
     protected $subject;
 
@@ -35,7 +35,7 @@ class ArrayToCsvViewHelperTest extends UnitTestCase
     protected function setUp(): void
     {
         $this->subject = $this->getAccessibleMock(
-            ArrayToCsvViewHelper::class, ['dummy', 'registerArgument']
+            ArrayToCsvViewHelper::class, ['registerArgument']
         );
     }
 

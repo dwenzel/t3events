@@ -51,7 +51,7 @@ class EventRepositoryTest extends UnitTestCase
     protected function setUp(): void
     {
         $this->fixture = $this->getAccessibleMock(EventRepository::class,
-            array('dummy'), array(), '', false);
+            null, array(), '', false);
     }
 
     /**
@@ -333,11 +333,11 @@ class EventRepositoryTest extends UnitTestCase
     /**
      * @test
      * @covers ::createSearchConstraints
-     * @expectedException \UnexpectedValueException
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
      */
     public function createSearchConstraintsThrowsExceptionForMissingSearchFields()
     {
+        $this->expectException(\UnexpectedValueException::class);
         $demand = $this->getMockEventDemand(['getSearch']);
         $mockSearch = $this->getMockSearch(['getSubject']);
         $query = $this->getMockQuery();

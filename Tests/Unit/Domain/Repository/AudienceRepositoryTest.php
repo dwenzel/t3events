@@ -44,7 +44,7 @@ class AudienceRepositoryTest extends UnitTestCase
     {
         $this->fixture = $this->getAccessibleMock(
             AudienceRepository::class,
-            ['dummy'], [], '', false);
+            null, [], '', false);
     }
 
     /**

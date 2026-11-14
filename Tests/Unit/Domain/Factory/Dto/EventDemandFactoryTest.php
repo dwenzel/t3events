@@ -46,7 +46,7 @@ class EventDemandFactoryTest extends UnitTestCase
     protected function setUp(): void
     {
         $this->subject = $this->getAccessibleMock(
-            EventDemandFactory::class, ['dummy'], [], '', false
+            EventDemandFactory::class, null, [], '', false
         );
         $this->objectManager = $this->getMockObjectManager();
         $this->subject->injectObjectManager($this->objectManager);

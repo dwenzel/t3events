@@ -74,11 +74,11 @@ class DemandedRepositoryTraitTest extends UnitTestCase
 
     /**
      * @test
-     * @expectedException \DWenzel\T3events\UnsupportedMethodException
-     * @expectedExceptionCode 1479289568
      */
     public function magicCallMethodThrowsUnsupportedMethodException()
     {
+        $this->expectException(\DWenzel\T3events\UnsupportedMethodException::class);
+        $this->expectExceptionCode(1479289568);
         /** @noinspection PhpUndefinedMethodInspection */
         $this->subject->unsupportedMethod();
     }

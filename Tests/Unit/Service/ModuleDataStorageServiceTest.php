@@ -47,7 +47,7 @@ class ModuleDataStorageServiceTest extends UnitTestCase
     {
         $GLOBALS['BE_USER'] = $this->mockBackendUserAuthentication();
         $this->subject = $this->getAccessibleMock(
-            ModuleDataStorageService::class, ['dummy']
+            ModuleDataStorageService::class, null
         );
     }
 

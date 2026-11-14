@@ -61,7 +61,7 @@ class SettingsUtilityTest extends UnitTestCase
     protected function setUp(): void
     {
         $this->subject = $this->getAccessibleMock(
-            SettingsUtility::class, ['dummy']
+            SettingsUtility::class, null
         );
         $this->objectManager = $this->getMockObjectManager();
         $this->subject->injectObjectManager($this->objectManager);
@@ -100,15 +100,13 @@ class SettingsUtilityTest extends UnitTestCase
      */
     public function getValueByKeyReturnsValueFromObjectByPath()
     {
-        $mockParentObject = $this->getAccessibleMock(
-            AbstractDomainObject::class, ['getFoo']
-        );
-        $mockChildObject = $this->getAccessibleMock(
-            AbstractDomainObject::class, ['getBar']
-        );
+        $mockParentObject = $this->getMockBuilder(AbstractDomainObject::class)
+            ->addMethods(['getFoo'])
+            ->getMockForAbstractClass();
+        $mockChildObject = $this->getMockBuilder(AbstractDomainObject::class)
+            ->addMethods(['getBar'])
+            ->getMockForAbstractClass();
         $expectedValue = 'baz';
-        $mockChildObject->_set('bar', $expectedValue);
-        $mockParentObject->_set('foo', $mockChildObject);
 
         $key = 'fooValue';
         $config = [
@@ -134,9 +132,9 @@ class SettingsUtilityTest extends UnitTestCase
      */
     public function getValueByKeyReturnsDefaultValueIfObjectByPathReturnsNull()
     {
-        $mockParentObject = $this->getAccessibleMock(
-            AbstractDomainObject::class, ['getFoo']
-        );
+        $mockParentObject = $this->getMockBuilder(AbstractDomainObject::class)
+            ->addMethods(['getFoo'])
+            ->getMockForAbstractClass();
         $expectedFallbackValue = 'fallback';
 
         $key = 'fooValue';
@@ -163,9 +161,9 @@ class SettingsUtilityTest extends UnitTestCase
         $cObj = new ContentObjectRenderer();
         $this->subject->injectContentObjectRenderer($cObj);
 
-        $mockParentObject = $this->getAccessibleMock(
-            AbstractDomainObject::class, ['getFoo']
-        );
+        $mockParentObject = $this->getMockBuilder(AbstractDomainObject::class)
+            ->addMethods(['getFoo'])
+            ->getMockForAbstractClass();
         $fieldValue = 'field value';
         $wrap = '|Wrap |';
         $expectedWrappedValue = 'Wrap field value';

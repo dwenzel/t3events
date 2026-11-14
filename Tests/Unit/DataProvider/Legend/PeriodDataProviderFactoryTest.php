@@ -42,7 +42,7 @@ class PeriodDataProviderFactoryTest extends UnitTestCase
     protected function setUp(): void
     {
         $this->subject = $this->getAccessibleMock(
-            PeriodDataProviderFactory::class, ['dummy']
+            PeriodDataProviderFactory::class, null
         );
     }
 
