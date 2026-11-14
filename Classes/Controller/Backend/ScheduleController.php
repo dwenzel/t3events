@@ -77,7 +77,14 @@ class ScheduleController extends PerformanceController
         ];
 
         $this->emitSignal(self::class, self::PERFORMANCE_LIST_ACTION, $templateVariables);
+        return $this->renderWithModuleTemplate($templateVariables);
+    }
 
+    /**
+     * @param array<string, mixed> $templateVariables
+     */
+    protected function renderWithModuleTemplate(array $templateVariables): ResponseInterface
+    {
         $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
         $this->patchModuleTemplateView($moduleTemplate);
         $moduleTemplate->assignMultiple($templateVariables);
