@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace DWenzel\T3events\ViewHelpers\Format;
 
+use TYPO3\CMS\Core\Localization\DateFormatter;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -42,12 +44,25 @@ trait DateRangeTrait
         $startFormat ??= $format;
         $endFormat ??= $format;
         $glue ??= static::DEFAULT_GLUE;
-        $dateRange = date((string) $startFormat, $timestamps[0]);
+        // Formats containing % are strftime formats; they are rendered with the
+        // ICU based DateFormatter of TYPO3, since strftime() is deprecated in PHP 8.1.
+        $useStrftimeFormat = str_contains((string) $startFormat, '%')
+            && str_contains((string) $endFormat, '%');
+
+        $dateRange = $this->formatTimestamp((string) $startFormat, $timestamps[0], $useStrftimeFormat);
 
         if (count($timestamps) > 1) {
-            $dateRange .= $glue . date((string) $endFormat, end($timestamps));
+            $dateRange .= $glue . $this->formatTimestamp((string) $endFormat, end($timestamps), $useStrftimeFormat);
         }
 
         return $dateRange;
+    }
+
+    protected function formatTimestamp(string $format, int $timestamp, bool $useStrftimeFormat): string
+    {
+        if ($useStrftimeFormat) {
+            return (new DateFormatter())->strftime($format, $timestamp);
+        }
+        return date($format, $timestamp);
     }
 }
