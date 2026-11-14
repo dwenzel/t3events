@@ -29,6 +29,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\Expression\ExpressionBuilder;
 use TYPO3\CMS\Core\Resource\File;
+use TYPO3\CMS\Core\Resource\ResourceStorage;
 use TYPO3\CMS\Core\Resource\StorageRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Install\Updates\ChattyInterface;
@@ -66,6 +67,11 @@ class LegacyFileFieldsUpdateWizard implements UpgradeWizardInterface, ChattyInte
      * @var OutputInterface
      */
     protected $output;
+
+    /**
+     * @var ResourceStorage|null
+     */
+    protected $storage;
 
     public function __construct()
     {
@@ -316,13 +322,13 @@ class LegacyFileFieldsUpdateWizard implements UpgradeWizardInterface, ChattyInte
                 } catch (\InvalidArgumentException $e) {
 
                     // no file found, no reference can be set
-                    $this->output->warning(sprintf(
+                    $this->output->writeln('<comment>WARNING: ' . sprintf(
                         'File ' . $sourcePath . ' does not exist. Reference was not migrated from %s:%s:%s and UID %d',
                         $table,
                         $fieldToMigrate,
                         $row[$fieldToMigrate],
                         $row['uid']
-                    ));
+                    ) . '</comment>');
 
                     continue;
                 }

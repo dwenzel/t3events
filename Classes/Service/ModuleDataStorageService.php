@@ -37,13 +37,15 @@ class ModuleDataStorageService implements SingletonInterface
      */
     public function loadModuleData($key)
     {
+        $moduleData = null;
         if ($this->getBackendUserAuthentication() instanceof BackendUserAuthentication) {
             $moduleData = $this->getBackendUserAuthentication()->getModuleData($key);
         }
-        if (empty($moduleData) || !$moduleData) {
+        if (!empty($moduleData)) {
+            $moduleData = unserialize($moduleData, ['allowed_classes' => [ModuleData::class]]);
+        }
+        if (!$moduleData instanceof ModuleData) {
             $moduleData = $this->objectManager->get(ModuleData::class);
-        } else {
-            $moduleData = unserialize($moduleData, ['allowed_classes' => true]);
         }
         return $moduleData;
     }

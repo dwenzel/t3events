@@ -127,14 +127,41 @@ class ModuleDataStorageServiceTest extends UnitTestCase
             ->method('getBackendUserAuthentication')
             ->will(self::returnValue($mockBackendUserAuthentication));
 
-        $mockModuleData = $this->getMockModuleData();
+        $moduleData = new ModuleData();
+        $moduleData->setOverwriteDemand(['foo' => 'bar']);
         $mockBackendUserAuthentication->expects(self::once())
             ->method('getModuleData')
-            ->will(self::returnValue(serialize($mockModuleData)));
+            ->will(self::returnValue(serialize($moduleData)));
 
         self::assertEquals(
-            $mockModuleData,
+            $moduleData,
             $this->subject->loadModuleData($key)
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function loadModuleDataReturnsNewModuleDataForOtherClasses()
+    {
+        $this->subject = $this->getAccessibleMock(
+            ModuleDataStorageService::class, ['getBackendUserAuthentication']
+        );
+        $mockObjectManager = $this->getMockObjectManager();
+        $this->subject->injectObjectManager($mockObjectManager);
+        $newModuleData = new ModuleData();
+        $mockObjectManager->method('get')
+            ->with(ModuleData::class)
+            ->willReturn($newModuleData);
+        $mockBackendUserAuthentication = $this->mockBackendUserAuthentication();
+        $this->subject->method('getBackendUserAuthentication')
+            ->willReturn($mockBackendUserAuthentication);
+        $mockBackendUserAuthentication->method('getModuleData')
+            ->willReturn(serialize(new \ArrayObject()));
+
+        self::assertSame(
+            $newModuleData,
+            $this->subject->loadModuleData('foo')
         );
     }
 
