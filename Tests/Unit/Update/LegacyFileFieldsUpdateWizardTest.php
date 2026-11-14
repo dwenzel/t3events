@@ -6,7 +6,9 @@ namespace DWenzel\T3events\Tests\Unit\Update;
 use DWenzel\T3events\Update\LegacyFileFieldsUpdateWizard;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Console\Output\OutputInterface;
+use TYPO3\CMS\Core\Resource\ResourceStorage;
 
 /***************************************************************
  *  Copyright notice
@@ -87,6 +89,33 @@ class LegacyFileFieldsUpdateWizardTest extends TestCase
         self::assertSame(
             LegacyFileFieldsUpdateWizard::PREREQUISITES,
             $this->subject->getPrerequisites()
+        );
+    }
+
+    public function testMigrateFieldReportsMissingFileAndContinues(): void
+    {
+        $GLOBALS['TYPO3_CONF_VARS']['BE']['fileadminDir'] = 'fileadmin/';
+        $storage = $this->createMock(ResourceStorage::class);
+        $storage->method('getFile')
+            ->willThrowException(new \InvalidArgumentException('File not found', 1731590000));
+        $storageProperty = new \ReflectionProperty($this->subject, 'storage');
+        $storageProperty->setAccessible(true);
+        $storageProperty->setValue($this->subject, $storage);
+        $output = new BufferedOutput();
+        $this->subject->setOutput($output);
+
+        $migrateField = new \ReflectionMethod($this->subject, 'migrateField');
+        $migrateField->setAccessible(true);
+        $migrateField->invoke(
+            $this->subject,
+            ['uid' => 5, 'image' => 'missing.jpg'],
+            'tx_t3events_domain_model_event',
+            'image'
+        );
+
+        self::assertStringContainsString(
+            'Reference was not migrated from tx_t3events_domain_model_event:image:missing.jpg and UID 5',
+            $output->fetch()
         );
     }
 }
