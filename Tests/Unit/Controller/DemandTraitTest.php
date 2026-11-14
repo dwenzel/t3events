@@ -220,10 +220,7 @@ class DemandTraitTest extends UnitTestCase
         $demand = $this->getMockForAbstractClass(
             AbstractDemand::class, [], '', true, true, true, ['setOrder']
         );
-        $overwriteDemand = array(
-            'sortBy' => 'foo',
-            SI::SORT_DIRECTION => 'bar'
-        );
+        $overwriteDemand = ['sortBy' => 'foo', SI::SORT_DIRECTION => 'bar'];
 
         $demand->expects($this->once())->method('setOrder')
             ->with('foo|bar');
@@ -239,9 +236,7 @@ class DemandTraitTest extends UnitTestCase
         $demand = $this->getMockForAbstractClass(
             AbstractDemand::class, [], '', true, true, true, ['setSortDirection']
         );
-        $overwriteDemand = array(
-            SI::SORT_DIRECTION => 'foo'
-        );
+        $overwriteDemand = [SI::SORT_DIRECTION => 'foo'];
 
         $demand->expects($this->once())->method('setSortDirection')
             ->with('asc');
@@ -257,9 +252,7 @@ class DemandTraitTest extends UnitTestCase
         $demand = $this->getMockForAbstractClass(
             AbstractDemand::class, [], '', true, true, true, ['setSortDirection']
         );
-        $overwriteDemand = array(
-            SI::SORT_DIRECTION => 'desc'
-        );
+        $overwriteDemand = [SI::SORT_DIRECTION => 'desc'];
 
         $demand->expects($this->once())->method('setSortDirection')
             ->with('desc');
@@ -357,7 +350,7 @@ class DemandTraitTest extends UnitTestCase
      */
     public function overWriteDemandNeverSetsEmptyValues($key)
     {
-        $method = 'set' . ucfirst($key);
+        $method = 'set' . ucfirst((string) $key);
         $builder = $this->getMockBuilder(DemandInterface::class);
         // PHPUnit 10: onlyMethods() requires the method to exist; addMethods() for non-existing ones
         if (method_exists(DemandInterface::class, $method)) {

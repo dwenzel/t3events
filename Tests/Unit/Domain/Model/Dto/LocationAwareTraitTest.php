@@ -79,7 +79,7 @@ class LocationAwareTraitTest extends UnitTestCase
      */
     public function setBoundsForArraySetsBounds()
     {
-        $bounds = array('test' => 'value');
+        $bounds = ['test' => 'value'];
         $this->fixture->setBounds($bounds);
         $this->assertSame($bounds, $this->fixture->getBounds());
     }

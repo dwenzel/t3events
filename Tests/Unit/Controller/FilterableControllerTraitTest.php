@@ -87,7 +87,7 @@ class FilterableControllerTraitTest extends UnitTestCase
     private function getFilterOptionsReflection(): \ReflectionMethod
     {
         $reflectionMethod = new \ReflectionMethod(
-            \get_class($this->subject),
+            $this->subject::class,
             'getFilterOptions'
         );
         $reflectionMethod->setAccessible(true);
