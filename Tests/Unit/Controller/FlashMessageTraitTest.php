@@ -88,6 +88,7 @@ class FlashMessageTraitTest extends UnitTestCase
     protected function mockRequest()
     {
         $mockRequest = $this->getMockBuilder(Request::class)
+            ->disableOriginalConstructor()
             ->onlyMethods(['getControllerExtensionName', 'getPluginName'])->getMock();
         $this->inject(
             $this->subject,

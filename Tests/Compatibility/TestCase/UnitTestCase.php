@@ -14,12 +14,21 @@ abstract class UnitTestCase extends Typo3UnitTestCase
 {
     /**
      * Injects $dependency into property $name of $target via reflection.
+     * Falls back to dynamic property assignment for trait mocks where the property
+     * may not be declared (e.g. getMockForTrait() of a trait that uses $settingsUtility
+     * from SettingsUtilityTrait without declaring it itself).
      */
     protected function inject(object $target, string $name, mixed $dependency): void
     {
-        $property = new \ReflectionProperty($target, $name);
-        $property->setAccessible(true);
-        $property->setValue($target, $dependency);
+        try {
+            $property = new \ReflectionProperty($target, $name);
+            $property->setAccessible(true);
+            $property->setValue($target, $dependency);
+        } catch (\ReflectionException $e) {
+            // Property not declared in the mock class (typical for trait mocks).
+            // PHPUnit mock classes are not readonly, so we can set the property dynamically.
+            $target->$name = $dependency;
+        }
     }
 
     /**

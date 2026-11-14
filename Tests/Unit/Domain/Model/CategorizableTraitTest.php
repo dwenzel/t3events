@@ -44,6 +44,8 @@ class CategorizableTraitTest extends UnitTestCase
         $this->subject = $this->getMockForTrait(
             CategorizableTrait::class
         );
+        // Initialize the typed ObjectStorage property (no constructor runs on trait mocks)
+        $this->inject($this->subject, 'categories', new ObjectStorage());
     }
 
     /**
@@ -51,7 +53,8 @@ class CategorizableTraitTest extends UnitTestCase
      */
     public function getCategoriesReturnsInitialNull()
     {
-        $this->assertNull(
+        $this->assertEquals(
+            new ObjectStorage(),
             $this->subject->getCategories()
         );
     }

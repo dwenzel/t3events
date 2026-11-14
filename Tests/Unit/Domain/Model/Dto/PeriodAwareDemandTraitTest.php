@@ -70,7 +70,7 @@ class PeriodAwareDemandTraitTest extends UnitTestCase
      */
     public function setPeriodForStringSetsDefaultEmptyString()
     {
-        $this->fixture->setPeriod();
+        $this->fixture->setPeriod('');
         $this->assertSame(
             '',
             $this->fixture->getPeriod()

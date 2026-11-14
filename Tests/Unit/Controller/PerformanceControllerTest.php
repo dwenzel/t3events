@@ -127,7 +127,7 @@ class PerformanceControllerTest extends UnitTestCase
             ->getMock();
         $mockDispatcher = $this->getMockBuilder(EventDispatcherInterface::class)
             ->getMockForAbstractClass();
-        $mockRequest = $this->getMockBuilder(Request::class)->getMock();
+        $mockRequest = $this->getMockBuilder(Request::class)->disableOriginalConstructor()->getMock();
         $mockConfigurationManager = $this->getMockBuilder(ConfigurationManagerInterface::class)
             ->onlyMethods(
                 [
@@ -266,9 +266,10 @@ class PerformanceControllerTest extends UnitTestCase
     {
         /** @var SettingsUtility|\PHPUnit_Framework_MockObject_MockObject $mockSettingsUtility */
         $mockSettingsUtility = $this->getMockBuilder(SettingsUtility::class)
+            ->disableOriginalConstructor()
             ->onlyMethods(['getControllerKey'])
             ->getMock();
-        $this->subject->injectSettingsUtility($mockSettingsUtility);
+        $this->subject->_set('settingsUtility', $mockSettingsUtility);
         $mockSettingsUtility->expects($this->any())
             ->method('getControllerKey')
             ->will(self::returnValue('performance'));

@@ -55,7 +55,8 @@ class GenreTest extends \Nimut\TestingFramework\TestCase\UnitTestCase
      */
     public function getTitleReturnsInitialValueForString()
     {
-        $this->assertNull(
+        $this->assertSame(
+            '',
             $this->fixture->getTitle()
         );
     }
@@ -101,7 +102,8 @@ class GenreTest extends \Nimut\TestingFramework\TestCase\UnitTestCase
      */
     public function getLinkReturnsInitiallyNull()
     {
-        $this->assertNull(
+        $this->assertSame(
+            '',
             $this->fixture->getLink()
         );
     }

@@ -57,7 +57,7 @@ class PerformanceStatusTest extends UnitTestCase
      */
     public function getTitleReturnsInitialValueForString()
     {
-        $this->assertNull($this->fixture->getTitle());
+        $this->assertSame('', $this->fixture->getTitle());
     }
 
     /**
@@ -78,7 +78,7 @@ class PerformanceStatusTest extends UnitTestCase
      */
     public function getCssClassReturnsInitialValueForString()
     {
-        $this->assertNull($this->fixture->getCssClass());
+        $this->assertSame('', $this->fixture->getCssClass());
     }
 
     /**

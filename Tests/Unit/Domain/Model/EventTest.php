@@ -54,9 +54,7 @@ class EventTest extends UnitTestCase
      */
     public function getHeadlineReturnsInitialValueForString()
     {
-        $this->assertNull(
-            $this->subject->getHeadline()
-        );
+        $this->assertSame('', $this->subject->getHeadline());
     }
 
     /**
@@ -643,9 +641,7 @@ class EventTest extends UnitTestCase
      */
     public function getHiddenReturnsInitialyNull()
     {
-        $this->assertNull(
-            $this->subject->getHidden()
-        );
+        $this->assertSame(0, $this->subject->getHidden());
     }
 
     /**

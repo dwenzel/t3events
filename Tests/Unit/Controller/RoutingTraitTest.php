@@ -70,6 +70,7 @@ class RoutingTraitTest extends UnitTestCase
         $identifier = 'foo';
 
         $mockRequest = $this->getMockBuilder(Request::class)
+            ->disableOriginalConstructor()
             ->onlyMethods(['getControllerActionName', 'getControllerObjectName'])->getMock();
         $this->inject($this->subject, 'request', $mockRequest);
         $mockRequest->expects($this->once())
