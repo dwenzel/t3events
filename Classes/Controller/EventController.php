@@ -14,10 +14,23 @@ namespace DWenzel\T3events\Controller;
  *
  * The TYPO3 project - inspiring people to share!
  */
-
+use TYPO3\CMS\Core\Cache\CacheTag;
+use TYPO3\CMS\Core\Routing\PageArguments;
+use TYPO3\CMS\Core\Pagination\SimplePagination;
+use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
+use Psr\Http\Message\ResponseInterface;
+use TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException;
+use TYPO3\CMS\Extbase\Pagination\QueryResultPaginator;
+use DWenzel\T3events\Domain\Factory\Dto\EventDemandFactory;
+use DWenzel\T3events\Domain\Model\Dto\SearchFactory;
 use DWenzel\T3events\Domain\Model\Event;
+use DWenzel\T3events\Domain\Repository\EventRepository;
+use DWenzel\T3events\Domain\Repository\EventTypeRepository;
+use DWenzel\T3events\Domain\Repository\GenreRepository;
+use DWenzel\T3events\Domain\Repository\VenueRepository;
+use DWenzel\T3events\Session\SessionInterface;
 use DWenzel\T3events\Utility\SettingsInterface as SI;
-use TYPO3\CMS\Core\Messaging\FlashMessage;
+use DWenzel\T3events\Utility\SettingsUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
@@ -28,22 +41,25 @@ use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
  */
 class EventController extends ActionController
 {
-    use DemandTrait, EventDemandFactoryTrait,
-        EventRepositoryTrait, EntityNotFoundHandlerTrait,
-        EventTypeRepositoryTrait, FilterableControllerTrait,
-        GenreRepositoryTrait, SearchTrait, SessionTrait,
-        SettingsUtilityTrait, VenueRepositoryTrait,
-        TranslateTrait;
+    use DemandTrait, EntityNotFoundHandlerTrait, FilterableControllerTrait,
+        SettingsUtilityTrait, SearchTrait, TranslateTrait;
 
     const EVENT_QUICK_MENU_ACTION = 'quickMenuAction';
     const EVENT_LIST_ACTION = 'listAction';
     const EVENT_SHOW_ACTION = 'showAction';
 
+    public function __construct(protected EventDemandFactory $eventDemandFactory, protected EventRepository $eventRepository, protected EventTypeRepository $eventTypeRepository, protected GenreRepository $genreRepository, SearchFactory $searchFactory, protected SessionInterface $session, SettingsUtility $settingsUtility, protected VenueRepository $venueRepository)
+    {
+        $this->searchFactory = $searchFactory;
+        $this->settingsUtility = $settingsUtility;
+    }
+
+
     /**
      * initializes all actions
-     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException
+     * @throws NoSuchArgumentException
      */
-    public function initializeAction()
+    public function initializeAction(): void
     {
         $this->settings = $this->mergeSettings();
         if ($this->request->hasArgument(SI::OVERWRITE_DEMAND)) {
@@ -61,74 +77,109 @@ class EventController extends ActionController
     /**
      * action list
      *
-     * @param array $overwriteDemand
-     * @return void
-     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException
-     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
+     * @param array<string, mixed>|null $overwriteDemand
      */
-    public function listAction($overwriteDemand = null)
+    public function listAction(?array $overwriteDemand = null, int $currentPage = 1): ResponseInterface
     {
-        if (!$overwriteDemand){
-            $overwriteDemand = unserialize($this->session->get('tx_t3events_overwriteDemand'), ['allowed_classes' => false]);
+        if ($overwriteDemand === null) {
+            $sessionValue = $this->session->get('tx_t3events_overwriteDemand');
+            $overwriteDemand = is_string($sessionValue) ? unserialize($sessionValue, ['allowed_classes' => false]) : [];
+            if (!is_array($overwriteDemand)) {
+                $overwriteDemand = [];
+            }
         }
 
         $demand = $this->eventDemandFactory->createFromSettings($this->settings);
         $this->overwriteDemandObject($demand, $overwriteDemand);
         $events = $this->eventRepository->findDemanded($demand);
 
-        /** @var QueryResultInterface $events */
+        /** @var QueryResultInterface<int, Event> $events */
         if (
             !$events->count()
-            && !$this->settings['hideIfEmptyResult']
+            && !($this->settings['hideIfEmptyResult'] ?? false)
         ) {
             $this->addFlashMessage(
                 $this->translate('tx_t3events.noEventsForSelectionMessage'),
                 $this->translate('tx_t3events.noEventsForSelectionTitle'),
-                FlashMessage::WARNING
+                ContextualFeedbackSeverity::WARNING
             );
         }
 
+        $contentObject = $this->request->getAttribute('currentContentObject');
         $templateVariables = [
             'events' => $events,
             'demand' => $demand,
             SI::SETTINGS => $this->settings,
             SI::OVERWRITE_DEMAND => $overwriteDemand,
-            'data' => $this->configurationManager->getContentObject()->data
+            // @phpstan-ignore-next-line nullsafe.neverNull (getAttribute may return null at runtime; nullsafe retained)
+            'data' => $contentObject?->data ?? []
         ];
 
-        $this->emitSignal(__CLASS__, self::EVENT_LIST_ACTION, $templateVariables);
+        if (!empty($this->settings['event']['list']['paginate'])) {
+            $itemsPerPage = (int)($this->settings['event']['list']['itemsPerPage'] ?? 5);
+            $paginator = new QueryResultPaginator($events, $currentPage, $itemsPerPage);
+            $templateVariables['paginator'] = $paginator;
+            $templateVariables['pagination'] = new SimplePagination($paginator);
+        }
+
+        $this->emitSignal(self::class, self::EVENT_LIST_ACTION, $templateVariables);
         $this->view->assignMultiple($templateVariables);
+        $this->addPageCacheTags(['tx_t3events_domain_model_event']);
+        return $this->htmlResponse();
     }
 
     /**
      * action show
      *
-     * @param \DWenzel\T3events\Domain\Model\Event $event
-     * @return void
-     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException
-     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
      */
-    public function showAction(Event $event)
+    public function showAction(?Event $event = null): ResponseInterface
     {
+        if ($event === null) {
+            $listPid = (int)($this->settings['listPid'] ?? 0);
+            $routing = $this->request->getAttribute('routing');
+            $currentPageId = $routing instanceof PageArguments ? $routing->getPageId() : 0;
+            $uri = $this->uriBuilder->reset()
+                ->setTargetPageUid($listPid > 0 ? $listPid : $currentPageId)
+                ->build();
+            return $this->redirectToUri($uri, null, 301);
+        }
+
         $templateVariables = [
             SI::SETTINGS => $this->settings,
             'event' => $event
         ];
-        $this->emitSignal(__CLASS__, self::EVENT_SHOW_ACTION, $templateVariables);
+        $this->emitSignal(self::class, self::EVENT_SHOW_ACTION, $templateVariables);
         $this->view->assignMultiple($templateVariables);
+        $this->addPageCacheTags([
+            'tx_t3events_domain_model_event',
+            'tx_t3events_domain_model_event_' . $event->getUid(),
+        ]);
+        return $this->htmlResponse();
+    }
+
+    /**
+     * @param string[] $tags
+     */
+    protected function addPageCacheTags(array $tags): void
+    {
+        $cacheDataCollector = $this->request->getAttribute('frontend.cache.collector');
+        if ($cacheDataCollector !== null) {
+            // @extensionScannerIgnoreLine
+            $cacheDataCollector->addCacheTags(
+                ...array_map(static fn(string $tag): CacheTag => new CacheTag($tag), $tags)
+            );
+        }
     }
 
     /**
      * action quickMenu
      *
-     * @return void
-     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException
-     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
      */
-    public function quickMenuAction()
+    public function quickMenuAction(): ResponseInterface
     {
         // get session data
-        $overwriteDemand = unserialize($this->session->get('tx_t3events_overwriteDemand'), ['allowed_classes' => false]);
+        $sessionValue = $this->session->get('tx_t3events_overwriteDemand');
+        $overwriteDemand = is_string($sessionValue) ? unserialize($sessionValue, ['allowed_classes' => false]) : null;
 
         // get filter options from plugin
         $genres = $this->genreRepository->findMultipleByUid($this->settings[SI::GENRES], 'title');
@@ -143,9 +194,10 @@ class EventController extends ActionController
             SI::OVERWRITE_DEMAND => $overwriteDemand
         ];
 
-        $this->emitSignal(__CLASS__, self::EVENT_QUICK_MENU_ACTION, $templateVariables);
+        $this->emitSignal(self::class, self::EVENT_QUICK_MENU_ACTION, $templateVariables);
         $this->view->assignMultiple(
             $templateVariables
         );
+        return $this->htmlResponse();
     }
 }

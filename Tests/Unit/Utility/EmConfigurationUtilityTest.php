@@ -31,6 +31,17 @@ use DWenzel\T3events\Domain\Model\Dto\EmConfiguration;
  ***************************************************************/
 class EmConfigurationUtilityTest extends UnitTestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+        unset($GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['t3events']);
+    }
+
+    protected function tearDown(): void
+    {
+        unset($GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['t3events']);
+        parent::tearDown();
+    }
 
     /**
      * @test

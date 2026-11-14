@@ -1,15 +1,13 @@
 <?php
 namespace DWenzel\T3events\Controller;
 
-use DWenzel\T3events\Configuration\ConfigurationManagerTrait;
+use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Extbase\Service\ExtensionService;
-use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Core\Messaging\FlashMessageQueue;
 use TYPO3\CMS\Core\Messaging\FlashMessageService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
+use TYPO3\CMS\Extbase\Mvc\RequestInterface;
 
 /**
  * FlashMessageTrait
@@ -21,37 +19,23 @@ use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
  *
  * @package DWenzel\T3events\Controller
  */
+// @phpstan-ignore-next-line trait.unused (trait consumed in Tests/Unit/ — outside PHPStan scan scope)
 trait FlashMessageTrait
 {
-    /**
-     * The current request.
-     *
-     * @var \TYPO3\CMS\Extbase\Mvc\Request
-     */
-    protected $request;
+    protected ?FlashMessageQueue $flashMessageQueue = null;
 
-    /**
-     * @var FlashMessageQueue
-     */
-    protected $flashMessageQueue;
+    protected RequestInterface $request;
 
-    /**
-     * @var \TYPO3\CMS\Core\Messaging\FlashMessageService
-     */
-    protected $flashMessageService;
+    protected FlashMessageService $flashMessageService;
 
-    /**
-     * @var \TYPO3\CMS\Extbase\Service\ExtensionService
-     * @TYPO3\CMS\Extbase\Annotation\Inject
-     */
-    protected $extensionService;
+    protected ExtensionService $extensionService;
 
-    public function injectFlashMessageService(FlashMessageService $flashMessageService)
+    public function injectFlashMessageService(FlashMessageService $flashMessageService): void
     {
         $this->flashMessageService = $flashMessageService;
     }
 
-    public function injectExtensionService(ExtensionService $extensionService)
+    public function injectExtensionService(ExtensionService $extensionService): void
     {
         $this->extensionService = $extensionService;
     }
@@ -63,31 +47,30 @@ trait FlashMessageTrait
      * @param string $messageTitle Optional message title
      * @param integer $severity Optional severity, must be one of \TYPO3\CMS\Core\Messaging\FlashMessage constants
      * @param boolean $storeInSession Optional, defines whether the message should be stored in the session (default) or not
-     * @return void
-     * @throws \InvalidArgumentException|\TYPO3\CMS\Core\Exception if the message body is no string
+     * @throws \InvalidArgumentException if the message body is no string
      */
     public function addFlashMessage(
-        $messageBody,
-        $messageTitle = '',
-        $severity = AbstractMessage::OK,
-        $storeInSession = true
-    ): void
-    {
-        if (!is_string($messageBody)) {
-            throw new \InvalidArgumentException('The message body must be of type string, "' . gettype($messageBody) . '" given.',
-                1243258395);
-        }
+        string $messageBody,
+        string $messageTitle = '',
+        ContextualFeedbackSeverity $severity = ContextualFeedbackSeverity::OK,
+        bool $storeInSession = true
+    ): void {
         /* @var \TYPO3\CMS\Core\Messaging\FlashMessage $flashMessage */
         $flashMessage = GeneralUtility::makeInstance(
-            FlashMessage::class,
-            $messageBody,
-            $messageTitle,
-            $severity,
-            $storeInSession
+            FlashMessage::class, $messageBody, $messageTitle, $severity, $storeInSession
         );
 
         $this->getFlashMessageQueue()->enqueue($flashMessage);
     }
 
+    public function getFlashMessageQueue(): FlashMessageQueue
+    {
+        if (!$this->flashMessageQueue instanceof FlashMessageQueue) {
+                $this->flashMessageQueue = $this->flashMessageService->getMessageQueueByIdentifier(
+                    'extbase.flashmessages.' . $this->extensionService->getPluginNamespace($this->request->getControllerExtensionName(), $this->request->getPluginName())
+                );
+        }
 
+        return $this->flashMessageQueue;
+    }
 }

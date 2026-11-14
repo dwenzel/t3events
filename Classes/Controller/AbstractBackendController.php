@@ -1,14 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DWenzel\T3events\Controller;
 
-use DWenzel\T3events\Domain\Model\Dto\ModuleData;
-use DWenzel\T3events\Service\ModuleDataStorageService;
-use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
-use TYPO3\CMS\Extbase\Mvc\Exception\StopActionException;
-use TYPO3\CMS\Extbase\Mvc\Exception\UnsupportedRequestTypeException;
-use TYPO3\CMS\Extbase\Mvc\RequestInterface;
+use DWenzel\T3events\Controller\Backend\BackendModuleViewTrait;
 use Psr\Http\Message\ResponseInterface;
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+use TYPO3\CMS\Extbase\Mvc\RequestInterface;
 
 /**
  * Class AbstractBackendController
@@ -17,17 +16,11 @@ use Psr\Http\Message\ResponseInterface;
  */
 abstract class AbstractBackendController extends ActionController
 {
-    use ModuleDataTrait;
+    use BackendModuleViewTrait;
 
-    public function __construct(ModuleDataStorageService $moduleDataStorageService) {
-        $this->moduleDataStorageService = $moduleDataStorageService;
-    }
-    /**
-     * Load and persist module data
-     */
     public function processRequest(RequestInterface $request): ResponseInterface
     {
-        $this->moduleData = $this->moduleDataStorageService->loadModuleData($this->getModuleKey());
+        /*$this->moduleData = $this->moduleDataStorageService->loadModuleData(...);
 
         try {
             $response = parent::processRequest($request);
@@ -37,6 +30,7 @@ abstract class AbstractBackendController extends ActionController
             throw $e;
         }
 
-        return $response;
+        return $response;*/
+        return parent::processRequest($request);
     }
 }

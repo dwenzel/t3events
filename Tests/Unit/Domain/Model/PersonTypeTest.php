@@ -42,6 +42,7 @@ class PersonTypeTest extends UnitTestCase
 
     protected function setUp(): void
     {
+        parent::setUp();
         $this->subject = new PersonType();
     }
 
@@ -50,9 +51,7 @@ class PersonTypeTest extends UnitTestCase
      */
     public function getTitleReturnsInitialValueForString()
     {
-        $this->assertNull(
-            $this->subject->getTitle()
-        );
+        $this->assertSame('', $this->subject->getTitle());
     }
 
     /**

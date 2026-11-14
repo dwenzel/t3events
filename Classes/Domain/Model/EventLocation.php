@@ -1,6 +1,9 @@
 <?php
 namespace DWenzel\T3events\Domain\Model;
 
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\Domain\Model\FileReference;
+use TYPO3\CMS\Extbase\Annotation\Validate;
 use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
@@ -29,81 +32,63 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
  *
  * @package t3events
  */
-class EventLocation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity implements GeoCodingInterface
+class EventLocation extends AbstractEntity implements GeoCodingInterface
 {
     use EqualsTrait;
 
     /**
      * name
-     *
-     * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
-    protected $name;
+    #[Validate(['validator' => 'NotEmpty'])]
+    protected string $name = '';
 
     /**
      * address
-     *
-     * @var string
      */
-    protected $address;
+    protected ?string $address = null;
 
     /**
      * image
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
-     * @Lazy
+     * @var ObjectStorage<FileReference>
      */
-    protected $image;
+    #[Lazy]
+    protected ObjectStorage $image;
 
     /**
      * zip
-     *
-     * @var string
      */
-    protected $zip;
+    protected ?string $zip = null;
 
     /**
      * place
-     *
-     * @var string
      */
-    protected $place;
+    protected ?string $place = null;
 
     /**
      * details
-     *
-     * @var string
      */
-    protected $details;
+    protected ?string $details = null;
 
     /**
      * www
-     *
-     * @var string
      */
-    protected $www;
+    protected ?string $www = null;
 
     /**
      * country
-     *
-     * @var string
      */
-    protected $country;
+    protected ?string $country = null;
 
     /**
      * Latitude
-     *
-     * @var float
      */
-    protected $latitude;
+    protected ?float $latitude = null;
 
     /**
      * Longitude
-     *
-     * @var float
      */
-    protected $longitude;
+    protected ?float $longitude = null;
 
     /**
      * Constructor
@@ -116,52 +101,40 @@ class EventLocation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity imple
 
     /**
      * Initializes all \TYPO3\CMS\Extbase\Persistence\ObjectStorage properties.
-     *
-     * @return void
      */
-    protected function initStorageObjects()
+    protected function initStorageObjects(): void
     {
         $this->image = new ObjectStorage();
     }
 
     /**
      * Returns the name
-     *
-     * @return string $name
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
     /**
      * Sets the name
-     *
-     * @param string $name
-     * @return void
      */
-    public function setName($name)
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
 
     /**
      * Returns the address
-     *
-     * @return string $address
      */
-    public function getAddress()
+    public function getAddress(): ?string
     {
         return $this->address;
     }
 
     /**
      * Sets the address
-     *
-     * @param string $address
-     * @return void
      */
-    public function setAddress($address)
+    public function setAddress(?string $address): void
     {
         $this->address = $address;
     }
@@ -169,10 +142,9 @@ class EventLocation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity imple
     /**
      * Adds an image
      *
-     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $image Image
-     * @return void
+     * @param FileReference $image Image
      */
-    public function addImage(\TYPO3\CMS\Extbase\Domain\Model\FileReference $image)
+    public function addImage(FileReference $image): void
     {
         $this->image->attach($image);
     }
@@ -180,10 +152,9 @@ class EventLocation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity imple
     /**
      * Removes an image
      *
-     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $imageToRemove Image
-     * @return void
+     * @param FileReference $imageToRemove Image
      */
-    public function removeImage(\TYPO3\CMS\Extbase\Domain\Model\FileReference $imageToRemove)
+    public function removeImage(FileReference $imageToRemove): void
     {
         $this->image->detach($imageToRemove);
     }
@@ -191,9 +162,9 @@ class EventLocation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity imple
     /**
      * Returns the images
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage $images
+     * @return ObjectStorage<FileReference>
      */
-    public function getImage()
+    public function getImage(): ObjectStorage
     {
         return $this->image;
     }
@@ -201,155 +172,121 @@ class EventLocation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity imple
     /**
      * Sets the images
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $images Images
-     * @return void
+     * @param ObjectStorage<FileReference> $image
      */
-    public function setImage(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $image)
+    public function setImage(ObjectStorage $image): void
     {
         $this->image = $image;
     }
 
     /**
      * Returns the zip
-     *
-     * @return string $zip
      */
-    public function getZip()
+    public function getZip(): ?string
     {
         return $this->zip;
     }
 
     /**
      * Sets the zip
-     *
-     * @param string $zip
-     * @return void
      */
-    public function setZip($zip)
+    public function setZip(?string $zip): void
     {
         $this->zip = $zip;
     }
 
     /**
      * Returns the place
-     *
-     * @return string $place
      */
-    public function getPlace()
+    public function getPlace(): ?string
     {
         return $this->place;
     }
 
     /**
      * Sets the place
-     *
-     * @param string $place
-     * @return void
      */
-    public function setPlace($place)
+    public function setPlace(?string $place): void
     {
         $this->place = $place;
     }
 
     /**
      * Returns the details
-     *
-     * @return string $details
      */
-    public function getDetails()
+    public function getDetails(): ?string
     {
         return $this->details;
     }
 
     /**
      * Sets the details
-     *
-     * @param string $details
-     * @return void
      */
-    public function setDetails($details)
+    public function setDetails(?string $details): void
     {
         $this->details = $details;
     }
 
     /**
      * Returns the www
-     *
-     * @return string $www
      */
-    public function getWww()
+    public function getWww(): ?string
     {
         return $this->www;
     }
 
     /**
      * Sets the www
-     *
-     * @param string $www
-     * @return void
      */
-    public function setWww($www)
+    public function setWww(?string $www): void
     {
         $this->www = $www;
     }
 
     /**
      * Returns the country
-     *
-     * @return string $country
      */
-    public function getCountry()
+    public function getCountry(): ?string
     {
         return $this->country;
     }
 
     /**
      * Sets the country
-     *
-     * @param string $country
-     * @return void
      */
-    public function setCountry($country)
+    public function setCountry(?string $country): void
     {
         $this->country = $country;
     }
 
     /**
      * Returns the latitude
-     *
-     * @return float
      */
-    public function getLatitude()
+    public function getLatitude(): ?float
     {
         return $this->latitude;
     }
 
     /**
      * Sets the latitude
-     *
-     * @var float $latitude
      */
-    public function setLatitude($latitude)
+    public function setLatitude(?float $latitude): void
     {
         $this->latitude = $latitude;
     }
 
     /**
      * Returns the longitude
-     *
-     * @return float
      */
-    public function getLongitude()
+    public function getLongitude(): ?float
     {
         return $this->longitude;
     }
 
     /**
      * Sets the longitude
-     *
-     * @var float $longitude
      */
-    public function setLongitude($longitude)
+    public function setLongitude(?float $longitude): void
     {
         $this->longitude = $longitude;
     }

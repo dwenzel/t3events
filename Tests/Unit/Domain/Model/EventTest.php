@@ -43,8 +43,9 @@ class EventTest extends UnitTestCase
      */
     protected $subject;
 
-    protected function setUp(): void
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = new Event();
     }
 
@@ -53,9 +54,7 @@ class EventTest extends UnitTestCase
      */
     public function getHeadlineReturnsInitialValueForString()
     {
-        $this->assertNull(
-            $this->subject->getHeadline()
-        );
+        $this->assertSame('', $this->subject->getHeadline());
     }
 
     /**
@@ -600,7 +599,7 @@ class EventTest extends UnitTestCase
     protected function getMockPerformance(array $methods = [])
     {
         return $this->getMockBuilder(Performance::class)
-            ->setMethods($methods)
+            ->onlyMethods($methods)
             ->getMock();
     }
 
@@ -611,7 +610,7 @@ class EventTest extends UnitTestCase
     protected function getMockEvent(array $methods = [])
     {
         return $this->getMockBuilder(Event::class)
-            ->setMethods($methods)
+            ->onlyMethods($methods)
             ->getMock();
     }
 
@@ -624,13 +623,13 @@ class EventTest extends UnitTestCase
         $laterDate = new \DateTime('@5');
         $mockPerformanceA = $this->getMockPerformance(['getDate']);
         $mockPerformanceB = $this->getMockPerformance(['getDate']);
-        $fixture = $this->getMockEvent(['dummy']);
+        $fixture = $this->getMockEvent([]);
         $fixture->addPerformance($mockPerformanceA);
         $fixture->addPerformance($mockPerformanceB);
         $mockPerformanceA->expects($this->once())->method('getDate')
-            ->will($this->returnValue($earliestDate));
+            ->willReturn($earliestDate);
         $mockPerformanceB->expects($this->once())->method('getDate')
-            ->will($this->returnValue($laterDate));
+            ->willReturn($laterDate);
         $this->assertSame(
             1,
             $fixture->getEarliestDate()
@@ -642,9 +641,7 @@ class EventTest extends UnitTestCase
      */
     public function getHiddenReturnsInitialyNull()
     {
-        $this->assertNull(
-            $this->subject->getHidden()
-        );
+        $this->assertSame(0, $this->subject->getHidden());
     }
 
     /**

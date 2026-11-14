@@ -26,20 +26,15 @@ use DWenzel\T3events\Domain\Factory\Dto\PerformanceDemandFactory;
  *
  * @package DWenzel\T3events\Controller
  */
+// @phpstan-ignore-next-line trait.unused (trait consumed in Tests/Unit/ — outside PHPStan scan scope)
 trait PerformanceDemandFactoryTrait
 {
-    /**
-     * @var \DWenzel\T3events\Domain\Factory\Dto\PerformanceDemandFactory
-     */
-    protected $performanceDemandFactory;
+    protected PerformanceDemandFactory $performanceDemandFactory;
 
     /**
      * Injects the performanceDemandFactory
-     *
-     * @param PerformanceDemandFactory $performanceDemandFactory
-     * @return void
      */
-    public function injectPerformanceDemandFactory(PerformanceDemandFactory $performanceDemandFactory)
+    public function injectPerformanceDemandFactory(PerformanceDemandFactory $performanceDemandFactory): void
     {
         $this->performanceDemandFactory = $performanceDemandFactory;
     }

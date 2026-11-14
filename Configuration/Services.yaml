@@ -11,15 +11,24 @@ services:
     calls:
       - injectSession:
           - '@DWenzel\T3events\Session\Typo3BackendSession'
-
-  DWenzel\T3events\Controller\EventController:
-    calls:
-      - injectSession:
-          - '@DWenzel\T3events\Session\Typo3Session'
-
+          -
   DWenzel\T3events\Controller\PerformanceController:
     calls:
       - injectSession:
           - '@DWenzel\T3events\Session\Typo3Session'
 
   DWenzel\T3events\Domain\Repository\TaskRepositoryInterface: '@DWenzel\T3events\Domain\Repository\TaskRepository'
+  DWenzel\T3events\Resource\CoreResourceFactoryInterface: '@DWenzel\T3events\Resource\CoreResourceFactoryAdapter'
+  DWenzel\T3events\Session\SessionInterface: '@DWenzel\T3events\Session\Typo3Session'
+
+  DWenzel\T3events\Update\LegacyFileFieldsUpdateWizard:
+    public: true
+    tags:
+      - name: upgradeWizard
+        identifier: 't3eventsLegacyFileFieldUpdateWizard'
+
+  DWenzel\T3events\Updates\SwitchableControllerActionsPluginUpdater:
+    public: true
+    tags:
+      - name: upgradeWizard
+        identifier: 't3eventsSwitchableControllerActionsPluginUpdater'

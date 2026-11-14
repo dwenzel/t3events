@@ -24,16 +24,10 @@ use DWenzel\T3events\Domain\Model\Dto\ButtonDemandCollection;
 use TYPO3\CMS\Backend\Template\Components\ButtonBar;
 use TYPO3\CMS\Core\Imaging\IconFactory;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 
 trait ModuleButtonTrait
 {
-    /**
-     * @var ObjectManager
-     */
-    protected $objectManager;
-
     /**
      * Returns a configuration array for buttons
      * in the form
@@ -46,27 +40,26 @@ trait ModuleButtonTrait
      *   ]
      * ]
      * Each entry in the array describes one button
-     * @return array
+     * @return array<int, array<string, mixed>>
      */
-    public function getButtonConfiguration()
+    public function getButtonConfiguration(): array
     {
-        if(property_exists($this, 'buttonConfiguration')) {
-            return $this->buttonConfiguration;
-        }
-        return [];
+        return $this->buttonConfiguration;
     }
 
     /**
      * @param ButtonDemandCollection $configuration button configuration
      */
-    protected function createButtons(ButtonDemandCollection $configuration)
+    protected function createButtons(ButtonDemandCollection $configuration): void
     {
-        if (!$configuration->getDemands()->count()) {
+        if ($configuration->getDemands()->count() === 0) {
             return;
         }
         $buttonBar = $this->getButtonBar();
         $uriBuilder = $this->getUriBuilder();
+        // @phpstan-ignore-next-line method.notFound (getRequest() exists on UriBuilder since TYPO3 v12; missing from PHPStan stubs)
         $request = $uriBuilder->getRequest();
+        // @extensionScannerIgnoreLine false positive: own method, not ModuleTemplate::getIconFactory()
         $iconFactory = $this->getIconFactory();
 
         /** @var ButtonDemand $demand */
@@ -100,29 +93,17 @@ trait ModuleButtonTrait
         }
     }
 
-    /**
-     * @return ButtonBar
-     */
-    abstract protected function getButtonBar();
+    abstract protected function getButtonBar(): ButtonBar;
 
-    /**
-     * @return UriBuilder
-     */
-    abstract protected function getUriBuilder();
+    abstract protected function getUriBuilder(): UriBuilder;
 
-    /**
-     * @return IconFactory
-     */
-    abstract protected function getIconFactory();
+    abstract protected function getIconFactory(): IconFactory;
 
     /**
      * Translate a given key
      *
-     * @param string $key
-     * @param string $extension
-     * @param array $arguments
-     * @return string
+     * @param array<mixed>|null $arguments
      */
-    abstract public function translate($key, $extension = 't3events', $arguments = null);
+    abstract public function translate(string $key, string $extension = 't3events', ?array $arguments = null): string;
 
 }

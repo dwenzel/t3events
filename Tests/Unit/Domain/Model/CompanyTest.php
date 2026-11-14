@@ -38,6 +38,7 @@ class CompanyTest extends UnitTestCase
 
     protected function setUp(): void
     {
+        parent::setUp();
         $this->subject = new \DWenzel\T3events\Domain\Model\Company();
     }
 

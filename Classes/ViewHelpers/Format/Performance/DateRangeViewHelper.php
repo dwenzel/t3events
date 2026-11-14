@@ -29,12 +29,9 @@ class DateRangeViewHelper extends AbstractDateRangeViewHelper
 {
     const ARGUMENT_PERFORMANCE_DESCRIPTION = 'Performance for which the date range should be rendered.';
 
-    /**
-     * @var \DWenzel\T3events\Domain\Model\Performance
-     */
-    protected $performance;
+    protected Performance $performance;
 
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         $this->registerArgument('performance', Performance::class, static::ARGUMENT_PERFORMANCE_DESCRIPTION, true);
         $this->registerArgument('format', 'string', static::ARGUMENT_FORMAT_DESCRIPTION, false, static::DEFAULT_DATE_FORMAT);
@@ -46,7 +43,7 @@ class DateRangeViewHelper extends AbstractDateRangeViewHelper
     /**
      *
      */
-    public function render()
+    public function render(): string
     {
         $this->performance = $this->arguments['performance'];
         $this->initialize();
@@ -56,15 +53,15 @@ class DateRangeViewHelper extends AbstractDateRangeViewHelper
 
 
     /**
-     * @return array An array of timestamps
+     * @return array<int, int> An array of timestamps
      */
-    protected function getTimestamps()
+    protected function getTimestamps(): array
     {
         $startDate = $this->performance->getDate();
-        $timestamps = [$startDate->getTimestamp()];
+        $timestamps = $startDate instanceof \DateTime ? [$startDate->getTimestamp()] : [0];
         $endDate = $this->performance->getEndDate();
 
-        if (!empty($endDate) && $endDate > $startDate) {
+        if ($endDate instanceof \DateTime && $startDate instanceof \DateTime && $endDate > $startDate) {
             $timestamps[] = $endDate->getTimestamp();
         }
 

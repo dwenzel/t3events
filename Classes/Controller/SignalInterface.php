@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace DWenzel\T3events\Controller;
 
 /**
@@ -13,11 +16,11 @@ namespace DWenzel\T3events\Controller;
 interface SignalInterface
 {
     /**
-     * Emits signals
+     * Emits a PSR-14 event replacing the old SignalSlot signal.
      *
      * @param string $class Name of the signaling class
      * @param string $name Signal name
-     * @param array $arguments Signal arguments
+     * @param array<string, mixed> $arguments Signal arguments
      */
-    public function emitSignal($class, $name, array &$arguments);
+    public function emitSignal(string $class, string $name, array &$arguments): void;
 }

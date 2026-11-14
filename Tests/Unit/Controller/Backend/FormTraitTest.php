@@ -1,6 +1,6 @@
 <?php
 
-namespace DWenzel\T3events\Tests\Unit\Controller\Backend;
+namespace DWenzel\T3events\Tests\Controller\Backend;
 
 use DWenzel\T3events\Controller\Backend\FormTrait;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
@@ -22,6 +22,7 @@ class FormTraitTest extends UnitTestCase
      */
     protected function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getMockForTrait(FormTrait::class);
         $this->setBackupGlobals(true);
     }
@@ -30,7 +31,7 @@ class FormTraitTest extends UnitTestCase
      * provides data for test getModuleKeyReturnsGetParameter
      * @return array
      */
-    public function getModuleKeyReturnsGetParameterDataProvider()
+    public static function getModuleKeyReturnsGetParameterDataProvider()
     {
         /** @var Typo3Version $version */
         $version = GeneralUtility::makeInstance(Typo3Version::class);
@@ -44,7 +45,7 @@ class FormTraitTest extends UnitTestCase
         }
         $_GET[$key] = $value;
         return [
-            ['expected key' => $value]
+            [$value]
         ];
     }
 
@@ -54,9 +55,6 @@ class FormTraitTest extends UnitTestCase
      * @param string $expectedValue
      */
     public function getModuleKeyReturnsGetParameter(string $expectedValue) {
-        if(!defined('TYPO3_version')) {
-            self::markTestSkipped('required constant `TYPO3_version` is not defined');
-        }
         self::assertSame(
             $expectedValue,
             $this->subject->getModuleKey()

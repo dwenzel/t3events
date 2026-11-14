@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DWenzel\T3events\Domain\Model\Dto;
 
 /**
@@ -11,16 +13,13 @@ interface SearchAwareDemandInterface
 {
     /**
      * Get search
-     *
-     * @return \DWenzel\T3events\Domain\Model\Dto\Search
      */
-    public function getSearch();
+    public function getSearch(): ?Search;
 
     /**
      * Set search object
      *
-     * @param \DWenzel\T3events\Domain\Model\Dto\Search $search A search object
-     * @return void
+     * @param Search $search A search object
      */
-    public function setSearch(Search $search);
+    public function setSearch(Search $search): void;
 }

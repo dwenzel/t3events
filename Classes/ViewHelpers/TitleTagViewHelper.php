@@ -36,15 +36,16 @@ class TitleTagViewHelper extends AbstractViewHelper
 
     /**
      * Override the title tag
-     *
-     * @return void
      */
-    public function render()
+    public function render(): void
     {
         $content = $this->renderChildren();
         if (!empty($content)) {
-            $GLOBALS['TSFE']->page['title'] = $content;
-            $GLOBALS['TSFE']->indexedDocTitle = $content;
+            // @phpstan-ignore-next-line method.notFound (getRequest() added to RenderingContextInterface in Fluid v4; missing from PHPStan stubs)
+            $frontendController = $this->renderingContext->getRequest()->getAttribute('frontend.controller');
+            if ($frontendController !== null) {
+                $frontendController->pageTitle = $content;
+            }
         }
     }
 }

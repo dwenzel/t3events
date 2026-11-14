@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DWenzel\T3events\Domain\Repository;
 /**
  * This file is part of the TYPO3 CMS project.
@@ -10,21 +12,26 @@ namespace DWenzel\T3events\Domain\Repository;
  * LICENSE.txt file that was distributed with this source code.
  * The TYPO3 project - inspiring people to share!
  */
-
+use TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface;
+use TYPO3\CMS\Extbase\Persistence\Generic\Qom\ConstraintInterface;
 use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
+/**
+ * @extends Repository<DomainObjectInterface>
+ */
 class PerformanceStatusRepository extends Repository implements DemandedRepositoryInterface
 {
     use DemandedRepositoryTrait;
 
     /**
-     * @param QueryInterface $query
-     * @param DemandInterface $demand
-     * @return array
+     * Returns an array of constraints created from a given demand object.
+     *
+     * @param QueryInterface<DomainObjectInterface> $query
+     * @return array<ConstraintInterface>
      */
-    public function createConstraintsFromDemand(QueryInterface $query, DemandInterface $demand)
+    public function createConstraintsFromDemand(QueryInterface $query, DemandInterface $demand): array
     {
         // add constraints if required
         return [];

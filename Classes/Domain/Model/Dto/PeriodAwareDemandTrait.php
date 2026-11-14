@@ -10,181 +10,143 @@ namespace DWenzel\T3events\Domain\Model\Dto;
  */
 trait PeriodAwareDemandTrait
 {
-    /**
-     * @var \DateTime
-     */
-    protected $date;
+    protected ?\DateTime $date = null;
 
     /**
-     * @var string  A time period
+     * @var string|null A time period
      */
-    protected $period;
+    protected ?string $period = null;
 
     /**
-     * @var string $periodType Type of period: month, day, year, specific
+     * @var string|null Type of period: month, day, year, specific
      */
-    protected $periodType;
+    protected ?string $periodType = null;
 
     /**
-     * @var int $periodStart Start value used when constraining by day, month or year
+     * @var int|null Start value used when constraining by day, month or year
      */
-    protected $periodStart;
+    protected ?int $periodStart = null;
 
     /**
-     * @var int $periodDuration Duration value used when constraining by day, month or year
+     * @var int|null Duration value used when constraining by day, month or year
      */
-    protected $periodDuration;
+    protected ?int $periodDuration = null;
 
     /**
-     * @var \DateTime $startDate Start date when constraining by date
+     * @var \DateTime|null Start date when constraining by date
      */
-    protected $startDate;
+    protected ?\DateTime $startDate = null;
 
     /**
-     * @var \DateTime $endDate End date when constraining by date
+     * @var \DateTime|null End date when constraining by date
      */
-    protected $endDate;
+    protected ?\DateTime $endDate = null;
+
+    protected bool $respectEndDate = false;
 
     /**
-     * @var bool
+     * @return string|null The time limit for the demand
      */
-    protected $respectEndDate = false;
-
-    /**
-     * @return string The time limit for the demand
-     */
-    public function getPeriod()
+    public function getPeriod(): ?string
     {
         return $this->period;
     }
 
     /**
-     * @param string $period A time limit for the demand
-     * @return void
+     * @param string|null $period A time limit for the demand
      */
-    public function setPeriod($period = '')
+    public function setPeriod(?string $period = null): void
     {
         $this->period = $period;
     }
 
     /**
      * Returns the date
-     *
-     * @return \DateTime $date
      */
-    public function getDate()
+    public function getDate(): ?\DateTime
     {
         return $this->date;
     }
 
     /**
      * sets the date
-     *
-     * @param \DateTime $date
-     * @return void
      */
-    public function setDate($date)
+    public function setDate(?\DateTime $date): void
     {
         $this->date = $date;
     }
 
-    /**
-     * @return string
-     */
-    public function getPeriodType()
+    public function getPeriodType(): ?string
     {
         return $this->periodType;
     }
 
     /**
-     * @param string $type Type of period: day, month, year, date
-     * @return void
+     * @param string|null $periodType Type of period: day, month, year, date
      */
-    public function setPeriodType($type)
+    public function setPeriodType(?string $periodType): void
     {
-        $this->periodType = $type;
+        $this->periodType = $periodType;
     }
 
-    /**
-     * @return int
-     */
-    public function getPeriodStart()
+    public function getPeriodStart(): ?int
     {
         return $this->periodStart;
     }
 
     /**
-     * @param int $start $start Start value for time period (day, month or year)
-     * @return void
+     * @param int|null $start Start value for time period (day, month or year)
      */
-    public function setPeriodStart($start)
+    public function setPeriodStart(?int $start): void
     {
-        $this->periodStart = (int) $start;
+        $this->periodStart = $start;
     }
 
     /**
-     * @param int $duration Duration value for period (days, months, years)
-     * @return void
+     * @param int|null $duration Duration value for period (days, months, years)
      */
-    public function setPeriodDuration($duration)
+    public function setPeriodDuration(?int $duration): void
     {
-        $this->periodDuration = (int) $duration;
+        $this->periodDuration = $duration;
     }
 
-    /**
-     * @return int
-     */
-    public function getPeriodDuration()
+    public function getPeriodDuration(): ?int
     {
         return $this->periodDuration;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getStartDate()
+    public function getStartDate(): ?\DateTime
     {
         return $this->startDate;
     }
 
     /**
-     * @param \DateTime $date Start date
-     * @return void
+     * @param \DateTime|null $date Start date
      */
-    public function setStartDate($date)
+    public function setStartDate(?\DateTime $date): void
     {
         $this->startDate = $date;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getEndDate()
+    public function getEndDate(): ?\DateTime
     {
         return $this->endDate;
     }
 
     /**
-     * @param \DateTime $date End date
-     * @return void
+     * @param \DateTime|null $date End date
      */
-    public function setEndDate($date)
+    public function setEndDate(?\DateTime $date): void
     {
         $this->endDate = $date;
     }
 
-    /**
-     * @return boolean
-     */
-    public function isRespectEndDate()
+    public function isRespectEndDate(): bool
     {
         return $this->respectEndDate;
     }
 
-    /**
-     * @param boolean $respectEndDate
-     */
-    public function setRespectEndDate($respectEndDate)
+    public function setRespectEndDate(bool $respectEndDate): void
     {
         $this->respectEndDate = $respectEndDate;
     }

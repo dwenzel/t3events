@@ -15,6 +15,7 @@ namespace DWenzel\T3events\Domain\Model;
  */
 
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
 
 /**
  * Class Task
@@ -30,72 +31,31 @@ class Task extends AbstractEntity
     const ACTION_DELETE = 2;
     const ACTION_HIDE_PERFORMANCE = 3;
 
-    /**
-     * Provide a name for the task
-     *
-     * @var string
-     */
-    protected $name;
+    protected string $name = '';
 
-    /**
-     * Select an action to perform
-     *
-     * @var integer
-     */
-    protected $action;
+    protected int $action = self::ACTION_NONE;
 
-    /**
-     * Period
-     *
-     * @var string
-     */
-    protected $period;
+    protected string $period = '';
 
-    /**
-     * Enter a period of action in seconds. Negative values are possible too.
-     *
-     * @var integer
-     */
-    protected $periodDuration;
+    protected int $periodDuration = 0;
 
-    /**
-     * Select a status
-     *
-     * @var \DWenzel\T3events\Domain\Model\PerformanceStatus
-     */
-    protected $oldStatus;
+    protected LazyLoadingProxy|PerformanceStatus|null $oldStatus = null;
 
-    /**
-     * Select the new status
-     *
-     * @var \DWenzel\T3events\Domain\Model\PerformanceStatus
-     */
-    protected $newStatus;
+    protected LazyLoadingProxy|PerformanceStatus|null $newStatus = null;
 
-    /**
-     * folder
-     *
-     * @var string
-     */
-    protected $folder;
+    protected string $folder = '';
 
     /**
      * Returns the name
      *
      * @return string $name
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * Sets the name
-     *
-     * @param string $name
-     * @return void
-     */
-    public function setName($name)
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
@@ -105,39 +65,25 @@ class Task extends AbstractEntity
      *
      * @return integer $action
      */
-    public function getAction()
+    public function getAction(): int
     {
         return $this->action;
     }
 
-    /**
-     * Sets the action
-     *
-     * @param integer $action
-     * @return void
-     */
-    public function setAction($action)
+    public function setAction(int $action): void
     {
         $this->action = $action;
     }
 
     /**
      * Get the periodDuration
-     *
-     * @return integer
      */
-    public function getPeriodDuration()
+    public function getPeriodDuration(): int
     {
         return $this->periodDuration;
     }
 
-    /**
-     * sets the time period of action
-     *
-     * @param integer $periodDuration
-     * @return void
-     */
-    public function setPeriodDuration($periodDuration)
+    public function setPeriodDuration(int $periodDuration): void
     {
         $this->periodDuration = $periodDuration;
     }
@@ -145,20 +91,19 @@ class Task extends AbstractEntity
     /**
      * Returns the oldStatus
      *
-     * @return \DWenzel\T3events\Domain\Model\PerformanceStatus $oldStatus
+     * @return PerformanceStatus $oldStatus
      */
-    public function getOldStatus()
+    public function getOldStatus(): ?PerformanceStatus
     {
+        if ($this->oldStatus instanceof LazyLoadingProxy) {
+            /** @var PerformanceStatus $instance */
+            $instance = $this->oldStatus->_loadRealInstance();
+            return $instance;
+        }
         return $this->oldStatus;
     }
 
-    /**
-     * Sets the oldStatus
-     *
-     * @param \DWenzel\T3events\Domain\Model\PerformanceStatus $oldStatus
-     * @return void
-     */
-    public function setOldStatus($oldStatus)
+    public function setOldStatus(?PerformanceStatus $oldStatus): void
     {
         $this->oldStatus = $oldStatus;
     }
@@ -166,20 +111,19 @@ class Task extends AbstractEntity
     /**
      * Returns the newStatus
      *
-     * @return \DWenzel\T3events\Domain\Model\PerformanceStatus $newStatus
+     * @return PerformanceStatus $newStatus
      */
-    public function getNewStatus()
+    public function getNewStatus(): ?PerformanceStatus
     {
+        if ($this->newStatus instanceof LazyLoadingProxy) {
+            /** @var PerformanceStatus $instance */
+            $instance = $this->newStatus->_loadRealInstance();
+            return $instance;
+        }
         return $this->newStatus;
     }
 
-    /**
-     * Sets the newStatus
-     *
-     * @param \DWenzel\T3events\Domain\Model\PerformanceStatus $newStatus
-     * @return void
-     */
-    public function setNewStatus($newStatus)
+    public function setNewStatus(?PerformanceStatus $newStatus): void
     {
         $this->newStatus = $newStatus;
     }
@@ -189,18 +133,12 @@ class Task extends AbstractEntity
      *
      * @return string $folder
      */
-    public function getFolder()
+    public function getFolder(): string
     {
         return $this->folder;
     }
 
-    /**
-     * Sets the folder
-     *
-     * @param string $folder
-     * @return void
-     */
-    public function setFolder($folder)
+    public function setFolder(string $folder): void
     {
         $this->folder = $folder;
     }
@@ -210,17 +148,12 @@ class Task extends AbstractEntity
      *
      * @return string A string describing the period constraint. Allowed: all, pastOnly, futureOnly
      */
-    public function getPeriod()
+    public function getPeriod(): string
     {
         return $this->period;
     }
 
-    /**
-     * Set the period
-     *
-     * @param string $period A string describing the period constraint. Allowed: all, pastOnly, futureOnly
-     */
-    public function setPeriod($period)
+    public function setPeriod(string $period): void
     {
         $this->period = $period;
     }

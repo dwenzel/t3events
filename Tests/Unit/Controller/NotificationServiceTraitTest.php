@@ -1,6 +1,6 @@
 <?php
 
-namespace DWenzel\T3events\Tests\Unit\Controller;
+namespace DWenzel\T3events\Tests\Controller;
 
 /**
  * This file is part of the "Events" project.
@@ -33,8 +33,9 @@ class NotificationServiceTraitTest extends UnitTestCase
     /**
      * set up
      */
-    protected function setUp(): void
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getMockBuilder(NotificationServiceTrait::class)->getMockForTrait();
     }
 
@@ -45,6 +46,7 @@ class NotificationServiceTraitTest extends UnitTestCase
     {
         /** @var NotificationService|\PHPUnit_Framework_MockObject_MockObject $notificationService */
         $notificationService = $this->getMockBuilder(NotificationService::class)
+            ->disableOriginalConstructor()
             ->getMock();
 
         $this->subject->injectNotificationService($notificationService);

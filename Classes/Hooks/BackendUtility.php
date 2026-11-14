@@ -11,8 +11,6 @@ namespace DWenzel\T3events\Hooks;
  * LICENSE.txt file that was distributed with this source code.
  * The TYPO3 project - inspiring people to share!
  */
-
-use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -30,47 +28,29 @@ class BackendUtility
     /**
      * Fields which are removed in event quick menu view
      *
-     * @var array
+     * @var array<string, string>
      */
-    public $removedFieldsInEventQuickMenuView = array(
-        'sDEF' => 'settings.cache.makeNonCacheable',
-        'constraints' => 'settings.statuses,settings.excludeSelectedStatuses,settings.respectEndDate,legend,settings.period,settings.periodType,settings.periodStart,settings.periodDuration,settings.periodStartDate, settings.periodEndDate',
-        'pages' => 'settings.detailPid,settings.backPid',
-        'template' => 'settings.hideIfEmptyResult'
-    );
+    public array $removedFieldsInEventQuickMenuView = ['sDEF' => 'settings.cache.makeNonCacheable', 'constraints' => 'settings.statuses,settings.excludeSelectedStatuses,settings.respectEndDate,legend,settings.period,settings.periodType,settings.periodStart,settings.periodDuration,settings.periodStartDate, settings.periodEndDate', 'pages' => 'settings.detailPid,settings.backPid', 'template' => 'settings.hideIfEmptyResult'];
 
     /**
      * Fields which are removed in performance quick menu view
      *
-     * @var array
+     * @var array<string, string>
      */
-    public $removedFieldsInPerformanceQuickMenuView = array(
-        'sDEF' => 'settings.cache.makeNonCacheable',
-        'constraints' => 'settings.statuses,settings.excludeSelectedStatuses,settings.respectEndDate,legend,settings.period,settings.periodType,settings.periodStart,settings.periodDuration,settings.periodStartDate, settings.periodEndDate',
-        'pages' => 'settings.detailPid,settings.backPid',
-        'template' => 'settings.hideIfEmptyResult'
-    );
+    public array $removedFieldsInPerformanceQuickMenuView = ['sDEF' => 'settings.cache.makeNonCacheable', 'constraints' => 'settings.statuses,settings.excludeSelectedStatuses,settings.respectEndDate,legend,settings.period,settings.periodType,settings.periodStart,settings.periodDuration,settings.periodStartDate, settings.periodEndDate', 'pages' => 'settings.detailPid,settings.backPid', 'template' => 'settings.hideIfEmptyResult'];
 
-    public $removedFieldsInEventDetailView = array(
-        'sDEF' => 'settings.sortBy,settings.sortDirection,settings.order,settings.maxItems',
-        'constraints' => 'settings.statuses,settings.excludeSelectedStatuses,settings.respectEndDate,legend,settings.period,settings.periodType,settings.periodStart,settings.periodDuration,
+    /** @var array<string, string> */
+    public array $removedFieldsInEventDetailView = ['sDEF' => 'settings.sortBy,settings.sortDirection,settings.order,settings.maxItems', 'constraints' => 'settings.statuses,settings.excludeSelectedStatuses,settings.respectEndDate,legend,settings.period,settings.periodType,settings.periodStart,settings.periodDuration,
 			settings.periodStartDate,settings.periodEndDate,settings.categoryConjunction,settings.venues,settings.genres,
-			settings.eventTypes,settings.statuses,settings.excludeSelectedStatuses,settings.categories',
-        'template' => 'settings.hideIfEmptyResult'
-    );
+			settings.eventTypes,settings.statuses,settings.excludeSelectedStatuses,settings.categories', 'template' => 'settings.hideIfEmptyResult'];
 
     /**
      * Hook function of t3lib_befunc
      * It is used to change the flexform for placements
      *
-     * @param array &$dataStructure Flexform structure
-     * @param array $conf some strange configuration
-     * @param array $row row of current record
-     * @param string $table table name
-     * @param string $fieldName some strange field name
-     * @return void
+     * @param array<mixed> $row row of current record
      */
-    public function getFlexFormDS_postProcessDS(&$dataStructure, $conf, $row, $table, $fieldName)
+    public function getFlexFormDS_postProcessDS(mixed &$dataStructure, mixed $conf, array $row, string $table, string $fieldName): void
     {
         if ($table === 'tt_content' && $row['list_type'] === 't3events_events' && is_array($dataStructure)) {
             $this->updateFlexforms($dataStructure, $row);
@@ -80,11 +60,10 @@ class BackendUtility
     /**
      * Update flexform configuration if a action is selected
      *
-     * @param array|string &$dataStructure flexform structure
-     * @param array $row row of current record
-     * @return void
+     * @param array<mixed> &$dataStructure flexform structure
+     * @param array<mixed> $row row of current record
      */
-    protected function updateFlexforms(array &$dataStructure, array $row)
+    protected function updateFlexforms(array &$dataStructure, array $row): void
     {
         $selectedView = '';
 
@@ -94,15 +73,15 @@ class BackendUtility
         } else {
             $flexformSelection = $row['pi_flexform'];
         }
-        if (is_array($flexformSelection) && is_array($flexformSelection['data'])) {
-            $selectedView = $flexformSelection['data']['sDEF']['lDEF']['switchableControllerActions']['vDEF'] ?? '';
+        if (is_array($flexformSelection) && is_array($flexformSelection['data']??'')) {
+            $selectedView = $flexformSelection['data']['sDEF']['lDEF']['switchableControllerActions']['vDEF']??'';
             if (!empty($selectedView)) {
                 $actionParts = GeneralUtility::trimExplode(';', $selectedView, true);
                 $selectedView = $actionParts[0];
             }
 
             // new plugin element
-        } elseif (GeneralUtility::isFirstPartOfStr($row['uid'], 'NEW')) {
+        } elseif (\str_starts_with((string) $row['uid'], 'NEW')) {
             // use List as starting view
             $selectedView = 'Event->list';
         }
@@ -123,13 +102,8 @@ class BackendUtility
 
             }
 
-
-            if (ArrayUtility::isValidPath($GLOBALS['TYPO3_CONF_VARS']['EXT'], 't3events/Hooks/BackendUtility.php/updateFlexforms')
-                && is_array($GLOBALS['TYPO3_CONF_VARS']['EXT']['t3events']['Hooks/BackendUtility.php']['updateFlexforms'])) {
-                $params = array(
-                    'selectedView' => $selectedView,
-                    'dataStructure' => &$dataStructure,
-                );
+            if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXT']['t3events']['Hooks/BackendUtility.php']['updateFlexforms']??'')) {
+                $params = ['selectedView' => $selectedView, 'dataStructure' => &$dataStructure];
                 foreach ($GLOBALS['TYPO3_CONF_VARS']['EXT']['t3events']['Hooks/BackendUtility.php']['updateFlexforms'] as $reference) {
                     GeneralUtility::callUserFunction($reference, $params, $this);
                 }
@@ -140,11 +114,10 @@ class BackendUtility
     /**
      * Remove fields from flexform structure
      *
-     * @param array &$dataStructure flexform structure
-     * @param array $fieldsToBeRemoved fields which need to be removed
-     * @return void
+     * @param array<mixed> &$dataStructure flexform structure
+     * @param array<string, string> $fieldsToBeRemoved fields which need to be removed
      */
-    protected function deleteFromStructure(array &$dataStructure, array $fieldsToBeRemoved)
+    protected function deleteFromStructure(array &$dataStructure, array $fieldsToBeRemoved): void
     {
         foreach ($fieldsToBeRemoved as $sheetName => $sheetFields) {
             $fieldsInSheet = GeneralUtility::trimExplode(',', $sheetFields, true);

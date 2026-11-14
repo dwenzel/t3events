@@ -1,6 +1,11 @@
 <?php
+
+declare(strict_types=1);
+
 namespace DWenzel\T3events\Domain\Repository;
 
+use TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface;
+use TYPO3\CMS\Extbase\Persistence\Generic\Qom\ConstraintInterface;
 use DWenzel\T3events\Domain\Model\Dto\GenreAwareDemandInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -16,11 +21,10 @@ trait GenreConstraintRepositoryTrait
     /**
      * Create Genre constraints from demand (time restriction)
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
-     * @param \DWenzel\T3events\Domain\Model\Dto\GenreAwareDemandInterface $demand
-     * @return array<\TYPO3\CMS\Extbase\Persistence\QOM\Constraint>
+     * @param QueryInterface<DomainObjectInterface> $query
+     * @return array<ConstraintInterface>
      */
-    public function createGenreConstraints(QueryInterface $query, GenreAwareDemandInterface $demand)
+    public function createGenreConstraints(QueryInterface $query, GenreAwareDemandInterface $demand): array
     {
         $genreConstraints = [];
         $genreField = $demand->getGenreField();

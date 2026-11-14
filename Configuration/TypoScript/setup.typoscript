@@ -63,15 +63,6 @@ plugin.tx_t3events {
 
                 paginate = 1
                 showSortBy = 1
-
-                paginate {
-                    class = DWenzel\T3events\Pagination\NumberedPagination
-                    enabled = 1
-                    itemsPerPage = 9
-                    insertAbove = 0
-                    insertBelow = 1
-                    maximumNumberOfLinks = 5
-                }
             }
 
             detail {
@@ -130,17 +121,6 @@ plugin.tx_t3events {
                     }
                 }
 
-                # Paginate configuration.
-                paginate {
-                    class = DWenzel\T3events\Pagination\NumberedPagination
-                    enabled = 1
-                    itemsPerPage = 6
-                    insertAbove = 1
-                    insertBelow = 1
-                    maximumNumberOfLinks = 5
-                }
-
-
                 # legacy sorting
                 #sortBy = date
                 #sortDirection = asc
@@ -173,6 +153,43 @@ plugin.tx_t3events {
 			vertical-align:top;
 		}
     )
+}
+
+module.tx_t3events {
+    view {
+        templateRootPaths.0 = EXT:t3events/Resources/Private/Templates/Backend/
+        partialRootPaths.0 = EXT:t3events/Resources/Private/Partials/
+        layoutRootPaths.0 = EXT:t3events/Resources/Private/Layouts/
+    }
+
+    settings {
+        event {
+            list {
+                filter {
+                    genre = all
+                    audience = all
+                    venue = all
+                    eventType = all
+                    periods = futureOnly,pastOnly,all
+                }
+                search {
+                    fields = headline,subtitle
+                    showSubjectField = 1
+                }
+            }
+        }
+        schedule {
+            list {
+                filter {
+                    periods = futureOnly,pastOnly,all
+                }
+                search {
+                    fields = event.headline,event.subtitle
+                    showSubjectField = 1
+                }
+            }
+        }
+    }
 }
 
 ####################
@@ -250,4 +267,3 @@ pageEventICS {
         }
     }
 }
-

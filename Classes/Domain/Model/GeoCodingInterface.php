@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace DWenzel\T3events\Domain\Model;
 
 /**
@@ -21,15 +24,15 @@ namespace DWenzel\T3events\Domain\Model;
  */
 interface GeoCodingInterface
 {
-    public function getPlace();
+    public function getPlace(): ?string;
 
-    public function getZip();
+    public function getZip(): ?string;
 
-    public function getLatitude();
+    public function getLatitude(): ?float;
 
-    public function getLongitude();
+    public function getLongitude(): ?float;
 
-    public function setLatitude($latitude);
+    public function setLatitude(?float $latitude): void;
 
-    public function setLongitude($longitude);
+    public function setLongitude(?float $longitude): void;
 }

@@ -5,29 +5,33 @@ namespace DWenzel\T3events\Controller\Backend;
 use DWenzel\T3events\Controller\ModuleDataTrait;
 use DWenzel\T3events\Controller\PerformanceController;
 use DWenzel\T3events\Controller\SettingsUtilityTrait;
-use DWenzel\T3events\Pagination\NumberedPagination;
+use DWenzel\T3events\Domain\Model\Dto\SearchFactory;
+use DWenzel\T3events\Domain\Repository\CategoryRepository;
+use DWenzel\T3events\Domain\Repository\EventTypeRepository;
+use DWenzel\T3events\Domain\Repository\GenreRepository;
+use DWenzel\T3events\Domain\Repository\PerformanceRepository;
+use DWenzel\T3events\Domain\Repository\VenueRepository;
+use DWenzel\T3events\Service\ModuleDataStorageService;
 use DWenzel\T3events\Utility\SettingsInterface as SI;
-use TYPO3\CMS\Extbase\Mvc\RequestInterface;
+use DWenzel\T3events\Utility\SettingsUtility;
 use Psr\Http\Message\ResponseInterface;
-use TYPO3\CMS\Core\Pagination\SimplePagination;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Pagination\QueryResultPaginator;
-use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
-use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
+use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
+use TYPO3\CMS\Extbase\Mvc\RequestInterface;
 
 /**
  * Class ScheduleController
  */
 class ScheduleController extends PerformanceController
 {
-    use ModuleDataTrait, FormTrait, SettingsUtilityTrait;
+    use ModuleDataTrait, FormTrait, SettingsUtilityTrait, BackendModuleViewTrait;
+
+    public function __construct(ModuleDataStorageService $moduleDataStorageService, CategoryRepository $categoryRepository, PerformanceRepository $performanceRepository, GenreRepository $genreRepository, VenueRepository $venueRepository, EventTypeRepository $eventTypeRepository, SearchFactory $searchFactory, SettingsUtility $settingsUtility, private readonly ModuleTemplateFactory $moduleTemplateFactory)
+    {
+        $this->moduleDataStorageService = $moduleDataStorageService;
+        parent::__construct($categoryRepository, $performanceRepository, $genreRepository, $venueRepository, $eventTypeRepository, $searchFactory, $settingsUtility);
+    }
 
     /**
-     * Load and persist module data
-     *
-     * @param RequestInterface $request
-     * @param ResponseInterface $response
-     * @return void
      * @throws \Exception
      */
     public function processRequest(RequestInterface $request): ResponseInterface
@@ -36,19 +40,20 @@ class ScheduleController extends PerformanceController
 
         $response = parent::processRequest($request);
         $this->moduleDataStorageService->persistModuleData($this->moduleData, $this->getModuleKey());
-
         return $response;
+    }
+
+    public function getModuleKey(): string
+    {
+        return 'events_m2';
     }
 
     /**
      * action list
      *
-     * @param array $overwriteDemand
-     * @return void
-     * @throws InvalidSlotException
-     * @throws InvalidSlotReturnException
+     * @param array<string, mixed>|null $overwriteDemand
      */
-    public function listAction(array $overwriteDemand = null)
+    public function listAction(?array $overwriteDemand = null): ResponseInterface
     {
         $demand = $this->performanceDemandFactory->createFromSettings($this->settings);
         $filterSettings = $this->settings['filter'] ?? [];
@@ -62,24 +67,7 @@ class ScheduleController extends PerformanceController
 
         $this->overwriteDemandObject($demand, $overwriteDemand);
 
-        $performances = $this->performanceRepository->findDemanded($demand);
-
-        // pagination
-        $paginationConfiguration = $this->settings['event']['list']['paginate'] ?? [];
-        $itemsPerPage = (int)(($paginationConfiguration['itemsPerPage'] ?? '') ?: 10);
-        $maximumNumberOfLinks = (int)($paginationConfiguration['maximumNumberOfLinks'] ?? 0);
-        
-        $currentPage = max(1, $this->request->hasArgument('currentPage') ? (int)$this->request->getArgument('currentPage') : 1);
-        #$paginator = new ArrayPaginator($contacts->toArray(), $currentPage, $itemsPerPage);
-        $paginator = GeneralUtility::makeInstance(QueryResultPaginator::class, $performances, $currentPage, $itemsPerPage, (int)($this->settings['limit'] ?? 0), (int)($this->settings['offset'] ?? 0));
-        $paginationClass = $paginationConfiguration['class'] ?? NumberedPagination::class;
-        #$pagination = new SimplePagination($paginator);
-        $pagination = $this->getPagination($paginationClass, $maximumNumberOfLinks, $paginator);
-
-
         $templateVariables = [
-            'paginator' => $paginator,
-            'pagination' => $pagination,
             'performances' => $this->performanceRepository->findDemanded($demand),
             SI::OVERWRITE_DEMAND => $overwriteDemand,
             'demand' => $demand,
@@ -88,25 +76,19 @@ class ScheduleController extends PerformanceController
             SI::MODULE => SI::ROUTE_SCHEDULE_MODULE
         ];
 
-        $this->emitSignal(__CLASS__, self::PERFORMANCE_LIST_ACTION, $templateVariables);
-        $this->view->assignMultiple($templateVariables);
+        $this->emitSignal(self::class, self::PERFORMANCE_LIST_ACTION, $templateVariables);
+
+        return $this->renderWithModuleTemplate($templateVariables, 'Schedule/List');
     }
 
     /**
-     * @param $paginationClass
-     * @param int $maximumNumberOfLinks
-     * @param $paginator
-     * @return \#o#Э#A#M#C\GeorgRinger\News\Controller\NewsController.getPagination.0|NumberedPagination|mixed|\Psr\Log\LoggerAwareInterface|string|SimplePagination|\TYPO3\CMS\Core\SingletonInterface
+     * @param array<string, mixed> $templateVariables
      */
-    protected function getPagination($paginationClass, int $maximumNumberOfLinks, $paginator)
+    protected function renderWithModuleTemplate(array $templateVariables, string $template): ResponseInterface
     {
-        if (class_exists(NumberedPagination::class) && $paginationClass === NumberedPagination::class && $maximumNumberOfLinks) {
-            $pagination = GeneralUtility::makeInstance(NumberedPagination::class, $paginator, $maximumNumberOfLinks);
-        } elseif (class_exists($paginationClass)) {
-            $pagination = GeneralUtility::makeInstance($paginationClass, $paginator);
-        } else {
-            $pagination = GeneralUtility::makeInstance(SimplePagination::class, $paginator);
-        }
-        return $pagination;
+        $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
+        $this->patchModuleTemplateView($moduleTemplate);
+        $moduleTemplate->assignMultiple($templateVariables);
+        return $moduleTemplate->renderResponse($template);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace DWenzel\T3events\Tests\Unit\Controller;
+namespace DWenzel\T3events\Tests\Controller;
 
 use DWenzel\T3events\Controller\NotificationRepositoryTrait;
 use DWenzel\T3events\Domain\Repository\NotificationRepository;
@@ -33,8 +33,9 @@ class NotificationRepositoryTraitTest extends UnitTestCase
     /**
      * set up
      */
-    protected function setUp(): void
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getMockForTrait(
             NotificationRepositoryTrait::class
         );

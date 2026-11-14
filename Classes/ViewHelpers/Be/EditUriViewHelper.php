@@ -30,9 +30,7 @@ namespace DWenzel\T3events\ViewHelpers\Be;
 use DWenzel\T3events\Utility\SettingsInterface as SI;
 use TYPO3\CMS\Backend\Routing\Exception\RouteNotFoundException;
 use TYPO3\CMS\Backend\Routing\UriBuilder;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
-use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 
 /**
  * Class EditRecordViewHelper
@@ -42,11 +40,14 @@ class EditUriViewHelper extends AbstractViewHelper
     const DESCRIPTION_ARGUMENT_TABLE = 'table of record to edit';
     const DESCRIPTION_ARGUMENT_RECORD = 'id of record';
     const DESCRIPTION_ARGUMENT_MODULE = 'module to return to';
+    public function __construct(private readonly UriBuilder $uriBuilder)
+    {
+    }
 
     /**
      * Initialize Arguments
      */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
         $this->registerArgument(SI::TABLE, 'string', self::DESCRIPTION_ARGUMENT_TABLE, true);
@@ -60,39 +61,17 @@ class EditUriViewHelper extends AbstractViewHelper
      * @throws RouteNotFoundException
      * @codeCoverageIgnore
      */
-    public function render()
+    public function render(): string
     {
-        return static::renderStatic(
-            $this->arguments,
-            $this->buildRenderChildrenClosure(),
-            $this->renderingContext
-        );
-    }
-
-    /**
-     * @param array $arguments
-     * @param \Closure $renderChildrenClosure
-     * @param RenderingContextInterface $renderingContext
-     * @return string
-     * @throws RouteNotFoundException
-     * @codeCoverageIgnore
-     */
-    public static function renderStatic(
-        array $arguments,
-        \Closure $renderChildrenClosure,
-        RenderingContextInterface $renderingContext
-    )
-    {
-        /** @var UriBuilder $uriBuilder */
-        $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
-        $returnUrl = (string)$uriBuilder->buildUriFromRoute($arguments[SI::MODULE]);
+        $uriBuilder = $this->uriBuilder;
+        $returnUrl = (string)$uriBuilder->buildUriFromRoute($this->arguments[SI::MODULE]);
         return (string)$uriBuilder->buildUriFromRoute(
             SI::ROUTE_EDIT_RECORD_MODULE,
             [
                 SI::RETURN_URL => $returnUrl,
                 SI::EDIT => [
-                    $arguments[SI::TABLE] => [
-                        $arguments[SI::RECORD] => SI::EDIT
+                    $this->arguments[SI::TABLE] => [
+                        $this->arguments[SI::RECORD] => SI::EDIT
                     ]
                 ]
             ]

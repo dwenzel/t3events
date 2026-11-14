@@ -48,10 +48,11 @@ class EventRepositoryTest extends UnitTestCase
      */
     protected $fixture;
 
-    protected function setUp(): void
+    public function setUp(): void
     {
+        parent::setUp();
         $this->fixture = $this->getAccessibleMock(EventRepository::class,
-            array('dummy'), array(), '', false);
+            array(), array(), '', false);
     }
 
     /**
@@ -175,8 +176,7 @@ class EventRepositoryTest extends UnitTestCase
         $this->fixture->expects($this->once())
             ->method('createSearchConstraints')
             ->with($query, $demand)
-            ->will($this->returnValue($mockSearchConstraints)
-            );
+            ->willReturn($mockSearchConstraints);
         $this->fixture->expects($this->once())
             ->method('combineConstraints')
             ->with($query, $constraints, $mockSearchConstraints, 'OR');
@@ -201,8 +201,7 @@ class EventRepositoryTest extends UnitTestCase
         $this->fixture->expects($this->once())
             ->method('createLocationConstraints')
             ->with($query, $demand)
-            ->will($this->returnValue($mockLocationConstraints)
-            );
+            ->willReturn($mockLocationConstraints);
         $this->fixture->expects($this->once())
             ->method('combineConstraints')
             ->with($query, $constraints, $mockLocationConstraints, 'AND');
@@ -227,8 +226,7 @@ class EventRepositoryTest extends UnitTestCase
         $this->fixture->expects($this->once())
             ->method('createAudienceConstraints')
             ->with($query, $demand)
-            ->will($this->returnValue($mockAudienceConstraints)
-            );
+            ->willReturn($mockAudienceConstraints);
         $this->fixture->expects($this->once())
             ->method('combineConstraints')
             ->with($query, $constraints, $mockAudienceConstraints, 'AND');
@@ -253,8 +251,7 @@ class EventRepositoryTest extends UnitTestCase
         $this->fixture->expects($this->once())
             ->method('createCategoryConstraints')
             ->with($query, $demand)
-            ->will($this->returnValue($mockCategoryConstraints)
-            );
+            ->willReturn($mockCategoryConstraints);
         $this->fixture->expects($this->once())
             ->method('combineConstraints')
             ->with($query, $constraints, $mockCategoryConstraints, null);
@@ -279,8 +276,7 @@ class EventRepositoryTest extends UnitTestCase
         $this->fixture->expects($this->once())
             ->method('createPeriodConstraints')
             ->with($query, $demand)
-            ->will($this->returnValue($mockPeriodConstraints)
-            );
+            ->willReturn($mockPeriodConstraints);
         $this->fixture->expects($this->once())
             ->method('combineConstraints')
             ->with($query, $constraints, $mockPeriodConstraints, 'AND');
@@ -317,12 +313,10 @@ class EventRepositoryTest extends UnitTestCase
 
         $demand->expects($this->once())
             ->method('getSearch')
-            ->will($this->returnValue($mockSearch)
-            );
+            ->willReturn($mockSearch);
         $mockSearch->expects($this->once())
             ->method('getSubject')
-            ->will($this->returnValue('')
-            );
+            ->willReturn('');
 
         $this->assertEquals(
             array(),
@@ -333,28 +327,26 @@ class EventRepositoryTest extends UnitTestCase
     /**
      * @test
      * @covers ::createSearchConstraints
-     * @expectedException \UnexpectedValueException
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
      */
     public function createSearchConstraintsThrowsExceptionForMissingSearchFields()
     {
+        $this->expectException(\UnexpectedValueException::class);
         $demand = $this->getMockEventDemand(['getSearch']);
-        $mockSearch = $this->getMockSearch(['getSubject']);
+        $mockSearch = $this->getMockSearch(['getSubject', 'getFields']);
         $query = $this->getMockQuery();
 
         $demand->expects($this->once())
             ->method('getSearch')
-            ->will($this->returnValue($mockSearch)
-            );
+            ->willReturn($mockSearch);
         $mockSearch->expects($this->once())
             ->method('getSubject')
-            ->will($this->returnValue('foo')
-            );
+            ->willReturn('foo');
+        $mockSearch->expects($this->once())
+            ->method('getFields')
+            ->willReturn('');
 
-        $this->assertEquals(
-            array(),
-            $this->fixture->createSearchConstraints($query, $demand)
-        );
+        $this->fixture->createSearchConstraints($query, $demand);
     }
 
     /**
@@ -373,24 +365,22 @@ class EventRepositoryTest extends UnitTestCase
 
         $demand->expects($this->once())
             ->method('getSearch')
-            ->will($this->returnValue($mockSearch)
-            );
+            ->willReturn($mockSearch);
         $mockSearch->expects($this->once())
             ->method('getSubject')
-            ->will($this->returnValue($subject)
-            );
+            ->willReturn($subject);
         $mockSearch->expects($this->once())
             ->method('getFields')
-            ->will($this->returnValue($searchFields)
-            );
+            ->willReturn($searchFields);
+        $expectedLikeArgs = [['bar', '%' . $subject . '%'], ['baz', '%' . $subject . '%']];
+        $likeCallIndex = 0;
         $query->expects($this->exactly(2))
             ->method('like')
-            ->withConsecutive(
-                array('bar', '%' . $subject . '%'),
-                array('baz', '%' . $subject . '%')
-            )
-            ->will($this->returnValue($query)
-            );
+            ->willReturnCallback(function() use (&$likeCallIndex, $expectedLikeArgs, $query) {
+                $this->assertSame($expectedLikeArgs[$likeCallIndex], func_get_args());
+                $likeCallIndex++;
+                return $query;
+            });
 
         $expectedResult = array(
             $query,
@@ -428,14 +418,16 @@ class EventRepositoryTest extends UnitTestCase
 
         $demand->expects($this->any())
             ->method('getGenre')
-            ->will($this->returnValue($genreList));
+            ->willReturn($genreList);
+        $expectedGenreArgs = [[SI::LEGACY_KEY_GENRE, 1], [SI::LEGACY_KEY_GENRE, 2]];
+        $genreCallIndex = 0;
         $query->expects($this->exactly(2))
             ->method('contains')
-            ->withConsecutive(
-                [SI::LEGACY_KEY_GENRE, 1],
-                [SI::LEGACY_KEY_GENRE, 2]
-            )
-            ->will($this->returnValue($mockConstraint));
+            ->willReturnCallback(function() use (&$genreCallIndex, $expectedGenreArgs, $mockConstraint) {
+                $this->assertSame($expectedGenreArgs[$genreCallIndex], func_get_args());
+                $genreCallIndex++;
+                return $mockConstraint;
+            });
         $this->assertSame(
             [$mockConstraint, $mockConstraint],
             $this->fixture->createCategoryConstraints($query, $demand)
@@ -455,14 +447,16 @@ class EventRepositoryTest extends UnitTestCase
 
         $demand->expects($this->any())
             ->method('getVenue')
-            ->will($this->returnValue($venueList));
+            ->willReturn($venueList);
+        $expectedVenueArgs = [['venue', 1], ['venue', 2]];
+        $venueCallIndex = 0;
         $query->expects($this->exactly(2))
             ->method('contains')
-            ->withConsecutive(
-                ['venue', 1],
-                ['venue', 2]
-            )
-            ->will($this->returnValue($mockConstraint));
+            ->willReturnCallback(function() use (&$venueCallIndex, $expectedVenueArgs, $mockConstraint) {
+                $this->assertSame($expectedVenueArgs[$venueCallIndex], func_get_args());
+                $venueCallIndex++;
+                return $mockConstraint;
+            });
         $this->assertSame(
             [$mockConstraint, $mockConstraint],
             $this->fixture->createCategoryConstraints($query, $demand)
@@ -482,14 +476,16 @@ class EventRepositoryTest extends UnitTestCase
 
         $demand->expects($this->any())
             ->method('getEventType')
-            ->will($this->returnValue($eventTypeList));
+            ->willReturn($eventTypeList);
+        $expectedEventTypeArgs = [['eventType.uid', 1, true], ['eventType.uid', 2, true]];
+        $eventTypeCallIndex = 0;
         $query->expects($this->exactly(2))
             ->method('equals')
-            ->withConsecutive(
-                ['eventType.uid', 1],
-                ['eventType.uid', 2]
-            )
-            ->will($this->returnValue($mockConstraint));
+            ->willReturnCallback(function() use (&$eventTypeCallIndex, $expectedEventTypeArgs, $mockConstraint) {
+                $this->assertSame($expectedEventTypeArgs[$eventTypeCallIndex], func_get_args());
+                $eventTypeCallIndex++;
+                return $mockConstraint;
+            });
         $this->assertSame(
             [$mockConstraint, $mockConstraint],
             $this->fixture->createCategoryConstraints($query, $demand)
@@ -509,14 +505,16 @@ class EventRepositoryTest extends UnitTestCase
 
         $demand->expects($this->any())
             ->method('getCategories')
-            ->will($this->returnValue($categoryList));
+            ->willReturn($categoryList);
+        $expectedCategoryArgs = [['categories', 1], ['categories', 2]];
+        $categoryCallIndex = 0;
         $query->expects($this->exactly(2))
             ->method('contains')
-            ->withConsecutive(
-                ['categories', 1],
-                ['categories', 2]
-            )
-            ->will($this->returnValue($mockConstraint));
+            ->willReturnCallback(function() use (&$categoryCallIndex, $expectedCategoryArgs, $mockConstraint) {
+                $this->assertSame($expectedCategoryArgs[$categoryCallIndex], func_get_args());
+                $categoryCallIndex++;
+                return $mockConstraint;
+            });
         $this->assertSame(
             [$mockConstraint, $mockConstraint],
             $this->fixture->createCategoryConstraints($query, $demand)
@@ -529,8 +527,11 @@ class EventRepositoryTest extends UnitTestCase
      */
     protected function getMockEventDemand(array $methods = [])
     {
-        return $this->getMockBuilder(EventDemand::class)
-            ->setMethods($methods)->getMock();
+        $builder = $this->getMockBuilder(EventDemand::class);
+        if (!empty($methods)) {
+            $builder->onlyMethods($methods);
+        }
+        return $builder->getMock();
     }
 
     /**
@@ -539,7 +540,10 @@ class EventRepositoryTest extends UnitTestCase
      */
     protected function getMockSearch(array $methods = [])
     {
-        return $this->getMockBuilder(Search::class)
-            ->setMethods($methods)->getMock();
+        $builder = $this->getMockBuilder(Search::class);
+        if (!empty($methods)) {
+            $builder->onlyMethods($methods);
+        }
+        return $builder->getMock();
     }
 }

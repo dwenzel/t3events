@@ -15,14 +15,15 @@ class StatusAwareDemandTraitTest extends UnitTestCase
      */
     protected $subject;
 
-    protected function setUp(): void
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getMockForTrait(
             StatusAwareDemandTrait::class
         );
     }
 
-    protected function tearDown(): void
+    public function tearDown(): void
     {
         unset($this->subject);
     }
@@ -72,7 +73,7 @@ class StatusAwareDemandTraitTest extends UnitTestCase
      */
     public function isExcludeSelectesStatusesInitiallyReturnsNull()
     {
-        $this->assertNull(
+        $this->assertFalse(
             $this->subject->isExcludeSelectedStatuses()
         );
     }

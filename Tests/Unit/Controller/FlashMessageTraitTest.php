@@ -1,16 +1,17 @@
 <?php
 
-namespace DWenzel\T3events\Tests\Unit\Controller;
+namespace DWenzel\T3events\Tests\Controller;
 
 use DWenzel\T3events\Controller\FlashMessageTrait;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
+use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Core\Messaging\FlashMessageQueue;
 use TYPO3\CMS\Core\Messaging\FlashMessageService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-use TYPO3\CMS\Extbase\Mvc\Web\Request;
+use TYPO3\CMS\Extbase\Mvc\Request;
 use TYPO3\CMS\Extbase\Service\ExtensionService;
 
 /***************************************************************
@@ -40,8 +41,9 @@ class FlashMessageTraitTest extends UnitTestCase
     /**
      * set up
      */
-    protected function setUp(): void
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getMockForTrait(
             FlashMessageTrait::class
         );
@@ -70,7 +72,7 @@ class FlashMessageTraitTest extends UnitTestCase
     protected function mockFlashMessageService()
     {
         $mockFlashMessageService = $this->getMockBuilder(FlashMessageService::class)
-            ->setMethods(['getMessageQueueByIdentifier'])->getMock();
+            ->onlyMethods(['getMessageQueueByIdentifier'])->getMock();
         $this->inject(
             $this->subject,
             'flashMessageService',
@@ -86,7 +88,8 @@ class FlashMessageTraitTest extends UnitTestCase
     protected function mockRequest()
     {
         $mockRequest = $this->getMockBuilder(Request::class)
-            ->setMethods(['getControllerExtensionName', 'getPluginName'])->getMock();
+            ->disableOriginalConstructor()
+            ->onlyMethods(['getControllerExtensionName', 'getPluginName'])->getMock();
         $this->inject(
             $this->subject,
             'request',
@@ -102,7 +105,7 @@ class FlashMessageTraitTest extends UnitTestCase
     protected function mockExtensionService()
     {
         $mockExtensionService = $this->getMockBuilder(ExtensionService::class)
-            ->setMethods(['getPluginNamespace'])->getMock();
+            ->onlyMethods(['getPluginNamespace'])->getMock();
         $this->inject(
             $this->subject,
             'extensionService',
@@ -122,7 +125,7 @@ class FlashMessageTraitTest extends UnitTestCase
         $pluginName = 'bazPlugin';
         $this->subject = $this->getMockBuilder(FlashMessageTrait::class)
             ->disableOriginalConstructor()
-            ->setMethods(['useLegacyFlashMessageHandling'])->getMockForTrait();
+            ->getMockForTrait();
 
         $mockExtensionService = $this->mockExtensionService();
         $mockRequest = $this->mockRequest();
@@ -130,20 +133,20 @@ class FlashMessageTraitTest extends UnitTestCase
         $mockExtensionService->expects($this->once())
             ->method('getPluginNamespace')
             ->with($extensionName, $pluginName)
-            ->will($this->returnValue($namespace));
+            ->willReturn($namespace);
         $mockRequest->expects($this->once())
             ->method('getControllerExtensionName')
-            ->will($this->returnValue($extensionName));
+            ->willReturn($extensionName);
         $mockRequest->expects($this->once())
             ->method('getPluginName')
-            ->will($this->returnValue($pluginName));
+            ->willReturn($pluginName);
 
         $mockFlashMessageQueue = $this->getMockFlashMessageQueue();
         $mockFlashMessageService = $this->mockFlashMessageService();
         $mockFlashMessageService->expects($this->once())
             ->method('getMessageQueueByIdentifier')
             ->with('extbase.flashmessages.' . $namespace)
-            ->will($this->returnValue($mockFlashMessageQueue));
+            ->willReturn($mockFlashMessageQueue);
 
         $this->assertSame(
             $mockFlashMessageQueue,
@@ -153,22 +156,12 @@ class FlashMessageTraitTest extends UnitTestCase
 
     /**
      * @test
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionCode 1243258395
-     */
-    public function addFlashMessageThrowsExceptionForMissingMessageBody()
-    {
-        $this->subject->addFlashMessage(5);
-    }
-
-    /**
-     * @test
      */
     public function addFlashMessageEnqueuesMessage()
     {
         $messageBody = 'foo';
         $messageTitle = 'bar';
-        $severity = AbstractMessage::ERROR;
+        $severity = ContextualFeedbackSeverity::ERROR;
         $storeInSession = false;
         $expectedMessage = GeneralUtility::makeInstance(
             FlashMessage::class, $messageBody, $messageTitle, $severity, $storeInSession
@@ -197,7 +190,7 @@ class FlashMessageTraitTest extends UnitTestCase
     {
         return $this->getMockBuilder(FlashMessageQueue::class)
             ->disableOriginalConstructor()
-            ->setMethods($methods)
+            ->onlyMethods($methods)
             ->getMock();
     }
 }

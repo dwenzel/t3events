@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace DWenzel\T3events\Domain\Model;
 
 /***************************************************************
@@ -29,30 +32,19 @@ class PersonType extends AbstractValueObject
 {
     use EqualsTrait;
 
-    /**
-     * title
-     *
-     * @var string
-     */
-    protected $title;
+    protected string $title = '';
 
     /**
      * Returns the title
      *
      * @return string $title
      */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }
 
-    /**
-     * Sets the title
-     *
-     * @param string $title
-     * @return void
-     */
-    public function setTitle($title)
+    public function setTitle(string $title): void
     {
         $this->title = $title;
     }

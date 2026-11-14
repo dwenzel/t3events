@@ -29,10 +29,11 @@ class IcalTraitTest extends UnitTestCase
     /**
      * set up the subject
      */
-    protected function setUp(): void
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getMockBuilder(IcalTrait::class)
-            ->setMethods(['callStatic'])
+            ->onlyMethods(['callStatic'])
             ->getMockForTrait();
     }
 
@@ -45,7 +46,7 @@ class IcalTraitTest extends UnitTestCase
         $expected = $parentContent;
         $this->subject->expects($this->once())->method('callStatic')
             ->with(get_parent_class($this->subject), 'render')
-            ->will($this->returnValue($parentContent));
+            ->willReturn($parentContent);
 
         $this->assertSame(
             $expected,
@@ -62,7 +63,7 @@ class IcalTraitTest extends UnitTestCase
         $expected = "\r\n";
         $this->subject->expects($this->once())->method('callStatic')
             ->with(get_parent_class($this->subject), 'render')
-            ->will($this->returnValue($parentContent));
+            ->willReturn($parentContent);
 
         $this->assertSame(
             $expected,
@@ -79,7 +80,7 @@ class IcalTraitTest extends UnitTestCase
         $expected = "foo\tbar\0baz";
         $this->subject->expects($this->once())->method('callStatic')
             ->with(get_parent_class($this->subject), 'render')
-            ->will($this->returnValue($parentContent));
+            ->willReturn($parentContent);
 
         $this->assertSame(
             $expected,

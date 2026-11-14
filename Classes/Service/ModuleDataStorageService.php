@@ -13,10 +13,9 @@ namespace DWenzel\T3events\Service;
  *
  * The TYPO3 project - inspiring people to share!
  */
-use DWenzel\T3events\Object\ObjectManagerTrait;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\SingletonInterface;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use DWenzel\T3events\Domain\Model\Dto\ModuleData;
 
 /**
@@ -27,46 +26,44 @@ use DWenzel\T3events\Domain\Model\Dto\ModuleData;
  */
 class ModuleDataStorageService implements SingletonInterface
 {
-    use ObjectManagerTrait;
-
     /**
      * Loads module data for a given key or returns a fresh object initially
-     *
-     * @param string $key
-     * @return \DWenzel\T3events\Domain\Model\Dto\ModuleData
      */
-    public function loadModuleData($key)
+    public function loadModuleData(string $key): ModuleData
     {
+        // @phpstan-ignore-next-line instanceof.alwaysTrue (getBackendUserAuthentication() may return null at runtime; guard retained)
         if ($this->getBackendUserAuthentication() instanceof BackendUserAuthentication) {
             $moduleData = $this->getBackendUserAuthentication()->getModuleData($key);
         }
-        if (empty($moduleData) || !$moduleData) {
-            $moduleData = $this->objectManager->get(ModuleData::class);
-        } else {
-            $moduleData = unserialize($moduleData, ['allowed_classes' => true]);
+        if (empty($moduleData)) {
+            return GeneralUtility::makeInstance(ModuleData::class);
         }
-        return $moduleData;
+        try {
+            $result = unserialize($moduleData, ['allowed_classes' => [ModuleData::class]]);
+        } catch (\Throwable) {
+            return GeneralUtility::makeInstance(ModuleData::class);
+        }
+        if (!$result instanceof ModuleData) {
+            return GeneralUtility::makeInstance(ModuleData::class);
+        }
+        return $result;
     }
 
     /**
      * Persists serialized module data to user settings
-     *
-     * @param \DWenzel\T3events\Domain\Model\Dto\ModuleData $moduleData
-     * @param string $key
-     * @return void
      */
-    public function persistModuleData(ModuleData $moduleData, $key)
+    public function persistModuleData(ModuleData $moduleData, string $key): void
     {
         $this->getBackendUserAuthentication()->pushModuleData($key, serialize($moduleData));
     }
 
     /**
      * Gets the BackendUserAuthentication
-     *
-     * @return \TYPO3\CMS\Core\Authentication\BackendUserAuthentication
      */
     public function getBackendUserAuthentication(): BackendUserAuthentication
     {
-        return $GLOBALS['BE_USER'];
+        /** @var BackendUserAuthentication $beUser */
+        $beUser = $GLOBALS['BE_USER'];
+        return $beUser;
     }
 }

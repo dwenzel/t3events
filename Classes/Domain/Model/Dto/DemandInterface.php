@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace DWenzel\T3events\Domain\Model\Dto;
 
 /**
@@ -19,59 +22,43 @@ namespace DWenzel\T3events\Domain\Model\Dto;
  */
 interface DemandInterface
 {
-    /**
-     * @return int
-     */
-    public function getLimit();
+    public function getLimit(): ?int;
+
+    public function setLimit(?int $limit): void;
+
+    public function getOffset(): ?int;
+
+    public function setOffset(?int $offset): void;
 
     /**
-     * @param integer $limit
+     * @param string|null $sortBy The sort criteria in dot notation
      */
-    public function setLimit($limit);
+    public function setSortBy(?string $sortBy): void;
 
     /**
-     * @return integer
+     * @return string|null The sort criteria in dot notation
      */
-    public function getOffset();
+    public function getSortBy(): ?string;
+
+    public function getOrder(): ?string;
 
     /**
-     * @param integer $offset
+     * @param string|null $order A comma separated list of orderings: <sortField>|<sortDirection>,<otherSortField>|<sortDirection>
      */
-    public function setOffset($offset);
+    public function setOrder(?string $order): void;
 
     /**
-     * @param string $sortBy The sort criteria in dot notation
-     * @return void
+     * @param string|null $sortDirection The sort direction
      */
-    public function setSortBy($sortBy);
+    public function setSortDirection(?string $sortDirection): void;
 
     /**
-     * @return string The sort criteria in dot notation
+     * @return string|null The sort direction
      */
-    public function getSortBy();
+    public function getSortDirection(): ?string;
 
     /**
-     * @return string
+     * @return string|null Comma separated list of storage page ids
      */
-    public function getOrder();
-
-    /**
-     * @param string $order A comma separated list of orderings: <sortField>|<sortDirection>,<otherSortField>|<sortDirection>
-     */
-    public function setOrder($order);
-
-    /**
-     * @param string $sortDirection The sort direction
-     */
-    public function setSortDirection($sortDirection);
-
-    /**
-     * @return string The sort direction
-     */
-    public function getSortDirection();
-
-    /**
-     * @return string Comma separated list of storage page ids
-     */
-    public function getStoragePages();
+    public function getStoragePages(): ?string;
 }

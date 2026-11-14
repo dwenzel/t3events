@@ -46,12 +46,13 @@ class PerformanceTest extends \Nimut\TestingFramework\TestCase\UnitTestCase
      */
     protected $fixture;
 
-    protected function setUp(): void
+    public function setUp(): void
     {
+        parent::setUp();
         $this->fixture = new \DWenzel\T3events\Domain\Model\Performance();
     }
 
-    protected function tearDown(): void
+    public function tearDown(): void
     {
         unset($this->fixture);
     }
@@ -358,7 +359,11 @@ class PerformanceTest extends \Nimut\TestingFramework\TestCase\UnitTestCase
      */
     public function getPlanReturnsInitialValueForString()
     {
-        $this->assertNull($this->fixture->getPlan());
+        $this->assertInstanceOf(
+            \TYPO3\CMS\Extbase\Persistence\ObjectStorage::class,
+            $this->fixture->getPlan()
+        );
+        $this->assertCount(0, $this->fixture->getPlan());
     }
 
     /**
@@ -367,10 +372,12 @@ class PerformanceTest extends \Nimut\TestingFramework\TestCase\UnitTestCase
      */
     public function setPlanForStringSetsPlan()
     {
-        $this->fixture->setPlan('Conceived at T3CON10');
+        $planStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+
+        $this->fixture->setPlan($planStorage);
 
         $this->assertSame(
-            'Conceived at T3CON10',
+            $planStorage,
             $this->fixture->getPlan()
         );
     }
@@ -576,10 +583,7 @@ class PerformanceTest extends \Nimut\TestingFramework\TestCase\UnitTestCase
      */
     public function getHiddenForIntegerReturnsInitialNull()
     {
-        $this->assertSame(
-            null,
-            $this->fixture->getHidden()
-        );
+        $this->assertSame(0, $this->fixture->getHidden());
     }
 
     /**

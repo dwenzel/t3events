@@ -13,15 +13,13 @@ trait TranslateTrait
     /**
      * Translate a given key
      *
-     * @param string $key
-     * @param string $extension
-     * @param array $arguments
+     * @param array<string, mixed>|null $arguments
      * @codeCoverageIgnore
-     * @return string
      */
-    public function translate($key, $extension = 't3events', $arguments = null)
+    public function translate(string $key, string $extension = 't3events', ?array $arguments = null): string
     {
-        if (defined(get_class($this) . '::EXTENSION_KEY')) {
+        if (defined($this::class . '::EXTENSION_KEY')) {
+            // @phpstan-ignore-next-line
             $extension = static::EXTENSION_KEY;
         }
 
@@ -29,7 +27,6 @@ trait TranslateTrait
         if (is_null($translatedString)) {
             return $key;
         }
-
         return $translatedString;
     }
 }

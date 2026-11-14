@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DWenzel\T3events\Dto;
 
 use DWenzel\T3events\Controller\VenueRepositoryTrait;

@@ -1,6 +1,6 @@
 <?php
 
-namespace DWenzel\T3events\Tests\Unit\Controller\Routing;
+namespace DWenzel\T3events\Tests\Controller\Routing;
 
 /**
  * This file is part of the TYPO3 CMS project.
@@ -15,6 +15,7 @@ namespace DWenzel\T3events\Tests\Unit\Controller\Routing;
 use DWenzel\T3events\Controller\Routing\Route;
 use DWenzel\T3events\Controller\Routing\Router;
 use DWenzel\T3events\Controller\Routing\RouterInterface;
+use DWenzel\T3events\ResourceNotFoundException;
 use Nimut\TestingFramework\MockObject\AccessibleMockObjectInterface;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Core\SingletonInterface;
@@ -34,10 +35,11 @@ class RouterTest extends UnitTestCase
     /**
      * set up subject
      */
-    protected function setUp(): void
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getAccessibleMock(
-            Router::class, ['dummy']
+            Router::class, []
         );
     }
 
@@ -87,7 +89,7 @@ class RouterTest extends UnitTestCase
 
         $mockRoute->expects($this->once())
             ->method('getOrigin')
-            ->will($this->returnValue($origin));
+            ->willReturn($origin);
 
         $this->subject->addRoute($mockRoute);
 
@@ -118,11 +120,11 @@ class RouterTest extends UnitTestCase
 
     /**
      * @test
-     * @expectedException \DWenzel\T3events\ResourceNotFoundException
-     * @expectedExceptionCode 1478437880
      */
     public function getRouteThrowsExceptionForMissingRoute()
     {
+        $this->expectException(ResourceNotFoundException::class);
+        $this->expectExceptionCode(1478437880);
         $this->subject->getRoute('invalidRouteIdentifier');
     }
 
@@ -135,7 +137,7 @@ class RouterTest extends UnitTestCase
     {
         return $this->getMockBuilder(Route::class)
             ->setConstructorArgs($constructorArguments)
-            ->setMethods($methods)
+            ->onlyMethods($methods)
             ->getMock();
     }
 }

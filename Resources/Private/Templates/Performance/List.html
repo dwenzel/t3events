@@ -21,18 +21,26 @@
         <f:else>
             <div class="performance-list">
                 <f:flashMessages/>
-                <f:render section="performanceList"
-                          arguments="{performances: performances, settings: settings}"/>
+                <f:if condition="{performances->f:count()} > 20">
+                    <f:then>
+                        <f:render section="pagination" arguments="{performances: performances, settings: settings}"/>
+                    </f:then>
+                    <f:else>
+                        <f:render section="performanceList"
+                                  arguments="{performances: performances, settings: settings}"/>
+                    </f:else>
+                </f:if>
             </div>
         </f:else>
     </f:if>
 </f:section>
 
+<f:section name="pagination">
+    <f:render section="performanceList" arguments="{performances: performances, settings: settings}"/>
+</f:section>
 <f:section name="performanceList">
     <f:for each="{performances}" as="performance" iteration="iteration">
-        {f:if(condition: '{iteration.isFirst}', then: '
-        <hr/>
-        ')}
+        {f:if(condition: '{iteration.isFirst}', then: '<hr/>')}
         <f:render partial="Performance/ListItem" arguments="{performance: '{performance}', settings: settings}"/>
         <hr/>
     </f:for>

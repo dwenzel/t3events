@@ -19,24 +19,27 @@ namespace DWenzel\T3events\Domain\Model\Dto;
  * This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Core\Imaging\IconSize;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 class ButtonDemandCollection
 {
     /**
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<DWenzel\T3events\Domain\Model\Dto\ButtonDemand>
+     * @var ObjectStorage<ButtonDemand>
      */
-    protected $demands;
+    protected ObjectStorage $demands;
 
 
     /**
      * Constructor
+     *
+     * @param array<mixed>|null $settings
      */
-    public function __construct(array $settings = null)
+    public function __construct(?array $settings = null)
     {
         //Do not remove the next line: It would break the functionality
         $this->initStorageObjects();
-        if (empty($settings)) {
+        if ($settings === null || $settings === []) {
             return;
         }
 
@@ -48,10 +51,8 @@ class ButtonDemandCollection
 
     /**
      * Initializes all \TYPO3\CMS\Extbase\Persistence\ObjectStorage properties.
-     *
-     * @return void
      */
-    protected function initStorageObjects()
+    protected function initStorageObjects(): void
     {
         $this->demands = new ObjectStorage();
     }
@@ -59,9 +60,9 @@ class ButtonDemandCollection
     /**
      * Creates a single button demand from settings and adds it to this collection
      *
-     * @param $buttonConfig
+     * @param array<string, mixed> $buttonConfig
      */
-    protected function createSingleDemand($buttonConfig)
+    protected function createSingleDemand(array $buttonConfig): void
     {
         $demand = new ButtonDemand();
         if (!empty($buttonConfig[ButtonDemand::TABLE_KEY])) {
@@ -77,7 +78,8 @@ class ButtonDemandCollection
             $demand->setIconKey($buttonConfig[ButtonDemand::ICON_KEY]);
         }
         if (!empty($buttonConfig[ButtonDemand::ICON_SIZE_KEY])) {
-            $demand->setIconSize($buttonConfig[ButtonDemand::ICON_SIZE_KEY]);
+            $iconSize = $buttonConfig[ButtonDemand::ICON_SIZE_KEY];
+            $demand->setIconSize($iconSize instanceof IconSize ? $iconSize : IconSize::from($iconSize));
         }
         if (!empty($buttonConfig[ButtonDemand::OVERLAY_KEY])) {
             $demand->setOverlay($buttonConfig[ButtonDemand::OVERLAY_KEY]);
@@ -88,27 +90,24 @@ class ButtonDemandCollection
 
     /**
      * Adds a Demand
-     *
-     * @param \DWenzel\T3events\Domain\Model\Dto\ButtonDemand $demand
-     * @return void
      */
-    public function addDemand(ButtonDemand $demand)
+    public function addDemand(ButtonDemand $demand): void
     {
         $this->demands->attach($demand);
     }
 
     /**
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<DWenzel\T3events\Domain\Model\Dto\ButtonDemand>
+     * @return ObjectStorage<ButtonDemand>
      */
-    public function getDemands()
+    public function getDemands(): ObjectStorage
     {
         return $this->demands;
     }
 
     /**
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<DWenzel\T3events\Domain\Model\Dto\ButtonDemand>
+     * @param ObjectStorage<ButtonDemand> $demands
      */
-    public function setDemands(ObjectStorage $demands)
+    public function setDemands(ObjectStorage $demands): void
     {
         $this->demands = $demands;
     }
@@ -116,10 +115,9 @@ class ButtonDemandCollection
     /**
      * Removes a Demand
      *
-     * @param \DWenzel\T3events\Domain\Model\Dto\ButtonDemand $demandToRemove The Demand to be removed
-     * @return void
+     * @param ButtonDemand $demandToRemove The Demand to be removed
      */
-    public function removeDemand(ButtonDemand $demandToRemove)
+    public function removeDemand(ButtonDemand $demandToRemove): void
     {
         $this->demands->detach($demandToRemove);
     }

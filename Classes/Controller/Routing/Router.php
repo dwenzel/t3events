@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace DWenzel\T3events\Controller\Routing;
 
 /**
@@ -21,10 +24,8 @@ use TYPO3\CMS\Core\SingletonInterface;
  */
 class Router implements SingletonInterface, RouterInterface
 {
-    /**
-     * @var array
-     */
-    protected $routes = [];
+    /** @var array<string, Route> */
+    protected array $routes = [];
 
     /**
      * Adds a route
@@ -33,7 +34,7 @@ class Router implements SingletonInterface, RouterInterface
      * @param Route $route A route
      * @param string|null $identifier Optional identifier
      */
-    public function addRoute($route, $identifier = null)
+    public function addRoute(Route $route, ?string $identifier = null): void
     {
         if (is_null($identifier)) {
             $identifier = $route->getOrigin();
@@ -47,10 +48,9 @@ class Router implements SingletonInterface, RouterInterface
      * Throws an exception if no route can be found for an identifier.
      *
      * @param string $identifier Identifier
-     * @return Route|mixed
      * @throws ResourceNotFoundException
      */
-    public function getRoute($identifier)
+    public function getRoute(string $identifier): Route
     {
         if (isset($this->routes[$identifier])) {
             return $this->routes[$identifier];
@@ -62,9 +62,9 @@ class Router implements SingletonInterface, RouterInterface
     /**
      * Get all routes
      *
-     * @return array
+     * @return array<string, Route>
      */
-    public function getRoutes()
+    public function getRoutes(): array
     {
         return $this->routes;
     }

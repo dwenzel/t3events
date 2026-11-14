@@ -1,6 +1,6 @@
 <?php
 
-namespace DWenzel\T3events\Tests\Unit\Controller;
+namespace DWenzel\T3events\Tests\Controller;
 
 use DWenzel\T3events\Controller\DemandTrait;
 use DWenzel\T3events\Domain\Model\Dto\AbstractDemand;
@@ -15,18 +15,16 @@ use DWenzel\T3events\Domain\Model\Dto\Search;
 use DWenzel\T3events\Domain\Model\Dto\SearchAwareDemandInterface;
 use DWenzel\T3events\Domain\Model\Dto\VenueAwareDemandInterface;
 use DWenzel\T3events\Domain\Repository\PeriodConstraintRepositoryInterface;
-use DWenzel\T3events\Utility\SettingsUtility;
 use DWenzel\T3events\Utility\SettingsInterface as SI;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 
 /**
  * Class DemandTraitTest
  *
- * @package DWenzel\T3events\Tests\Unit\Controller
+ * @package DWenzel\T3events\Tests\Controller
  */
 class DemandTraitTest extends UnitTestCase
 {
-    const DUMMY_CONTROLLER_KEY = 'dummy';
 
     /**
      * @var DemandTrait
@@ -36,21 +34,12 @@ class DemandTraitTest extends UnitTestCase
     /**
      * set up
      */
-    protected function setUp(): void
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getMockForTrait(
             DemandTrait::class
         );
-        $mockSettingsUtility = $this->getMockBuilder(SettingsUtility::class)
-            ->setMethods(['getControllerKey'])->getMock();
-        $this->inject(
-            $this->subject,
-            'settingsUtility',
-            $mockSettingsUtility
-        );
-        $mockSettingsUtility->expects($this->any())
-            ->method('getControllerKey')
-            ->will($this->returnValue(self::DUMMY_CONTROLLER_KEY));
     }
 
     /**
@@ -58,10 +47,9 @@ class DemandTraitTest extends UnitTestCase
      */
     public function overwriteDemandObjectSetsGenres()
     {
-        $demand = $this->getMockForAbstractClass(
-            GenreAwareDemandInterface::class,
-            [], '', true, true, true, ['setGenres']
-        );
+        $demand = $this->getMockBuilder(PerformanceDemand::class)
+            ->onlyMethods(['setGenres'])
+            ->getMock();
         $overwriteDemand = [SI::LEGACY_KEY_GENRE => '1,2,3'];
 
         $demand->expects($this->once())->method('setGenres')
@@ -93,10 +81,9 @@ class DemandTraitTest extends UnitTestCase
      */
     public function overwriteDemandObjectSetsVenues()
     {
-        $demand = $this->getMockForAbstractClass(
-            VenueAwareDemandInterface::class,
-            [], '', true, true, true, ['setVenues']
-        );
+        $demand = $this->getMockBuilder(PerformanceDemand::class)
+            ->onlyMethods(['setVenues'])
+            ->getMock();
         $overwriteDemand = ['venue' => '1,2,3'];
 
         $demand->expects($this->once())->method('setVenues')
@@ -110,8 +97,9 @@ class DemandTraitTest extends UnitTestCase
      */
     public function overwriteDemandObjectSetsEventType()
     {
-        /** @var EventTypeAwareDemandInterface|\PHPUnit_Framework_MockObject_MockObject $demand */
-        $demand = $this->getMockBuilder(EventTypeAwareDemandInterface::class)->getMock();
+        $demand = $this->getMockBuilder(PerformanceDemand::class)
+            ->onlyMethods(['setEventTypes'])
+            ->getMock();
         $overwriteDemand = ['eventType' => '1,2,3'];
 
         $demand->expects($this->once())->method('setEventTypes')
@@ -125,8 +113,9 @@ class DemandTraitTest extends UnitTestCase
      */
     public function overwriteDemandObjectSetsEventLocations()
     {
-        /** @var EventLocationAwareDemandInterface|\PHPUnit_Framework_MockObject_MockObject $demand */
-        $demand = $this->getMockBuilder(EventLocationAwareDemandInterface::class)->getMock();
+        $demand = $this->getMockBuilder(PerformanceDemand::class)
+            ->onlyMethods(['setEventLocations'])
+            ->getMock();
         $overwriteDemand = ['eventLocation' => '1,2,3'];
 
         $demand->expects($this->once())->method('setEventLocations')
@@ -171,7 +160,9 @@ class DemandTraitTest extends UnitTestCase
             $settings
         );
 
-        $demand = $this->getMockBuilder(SearchAwareDemandInterface::class)->getMockForAbstractClass();
+        $demand = $this->getMockBuilder(EventDemand::class)
+            ->onlyMethods(['setSearch'])
+            ->getMock();
         $mockSearchObject = $this->getMockBuilder(Search::class)->getMock();
         $overwriteDemand = [
             'search' => [
@@ -182,7 +173,7 @@ class DemandTraitTest extends UnitTestCase
         $this->subject->expects($this->once())
             ->method('createSearchObject')
             ->with($overwriteDemand['search'], $settings['search'])
-            ->will($this->returnValue($mockSearchObject));
+            ->willReturn($mockSearchObject);
 
         $demand->expects($this->once())->method('setSearch')
             ->with($mockSearchObject);
@@ -268,8 +259,7 @@ class DemandTraitTest extends UnitTestCase
      */
     public function overwriteDemandObjectSetsStartDate()
     {
-        /** @var PeriodAwareDemandInterface|\PHPUnit_Framework_MockObject_MockObject $demand */
-        $demand = $this->getMockBuilder(PeriodAwareDemandInterface::class)->getMock();
+        $demand = $this->getMockBuilder(PerformanceDemand::class)->getMock();
         $dateString = '2012-10-15';
         $overwriteDemand = [
             SI::START_DATE => $dateString
@@ -327,7 +317,7 @@ class DemandTraitTest extends UnitTestCase
         $this->subject->overwriteDemandObject($demand, $overwriteDemand);
     }
 
-    public function emptyOverwriteDemandKeysDataProvider()
+    public static function emptyOverwriteDemandKeysDataProvider()
     {
         return [
             [SI::START_DATE],
@@ -355,9 +345,14 @@ class DemandTraitTest extends UnitTestCase
     public function overWriteDemandNeverSetsEmptyValues($key)
     {
         $method = 'set' . ucfirst($key);
-        $demand = $this->getMockBuilder(
-            DemandInterface::class)
-            ->setMethods([$method])->getMockForAbstractClass();
+        $builder = $this->getMockBuilder(DemandInterface::class);
+        // PHPUnit 10: onlyMethods() requires the method to exist; addMethods() for non-existing ones
+        if (method_exists(DemandInterface::class, $method)) {
+            $builder->onlyMethods([$method]);
+        } else {
+            $builder->addMethods([$method]);
+        }
+        $demand = $builder->getMockForAbstractClass();
 
         $overwriteDemand = [
             $key => ''

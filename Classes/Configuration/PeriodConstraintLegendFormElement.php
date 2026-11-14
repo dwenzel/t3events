@@ -1,11 +1,10 @@
 <?php
 
+declare(strict_types=1);
 
 namespace DWenzel\T3events\Configuration;
 
 use TYPO3\CMS\Backend\Form\Element\AbstractFormElement;
-use TYPO3\CMS\Backend\Form\NodeFactory;
-use TYPO3\CMS\Core\Imaging\IconFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -14,18 +13,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class PeriodConstraintLegendFormElement extends AbstractFormElement
 {
-    /**
-     * Container objects give $nodeFactory down to other containers.
-     *
-     * @param NodeFactory $nodeFactory
-     * @param array $data
-     */
-    public function __construct(NodeFactory $nodeFactory, array $data)
-    {
-        parent::__construct($nodeFactory, $data);
-        $this->iconFactory = GeneralUtility::makeInstance(IconFactory::class);
-    }
-
+    /** @return array<string, mixed> */
     public function render(): array
     {
         $fieldInformationResult = $this->renderFieldInformation();

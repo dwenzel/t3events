@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace DWenzel\T3events\Domain\Model\Dto;
 
 /**
@@ -8,19 +11,9 @@ namespace DWenzel\T3events\Domain\Model\Dto;
  */
 interface VenueAwareDemandInterface
 {
-    /**
-     * @return string
-     */
-    public function getVenues();
+    public function getVenues(): ?string;
 
-    /**
-     * @param string $venues
-     * @return void
-     */
-    public function setVenues($venues);
+    public function setVenues(?string $venues): void;
 
-    /**
-     * @return string
-     */
-    public function getVenueField();
+    public function getVenueField(): string;
 }

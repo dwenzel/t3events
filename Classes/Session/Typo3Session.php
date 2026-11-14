@@ -23,85 +23,60 @@ class Typo3Session implements SessionInterface
 {
 
     /**
-     * @var string
+     * @var array<mixed>
      */
-    protected $namespace;
-
-    /**
-     * @var array
-     */
-    protected $data = [];
+    protected array $data = [];
 
     /**
      * Typo3Session constructor.
-     *
-     * @param string $namespace
      */
-    public function __construct($namespace = '')
+    public function __construct(protected string $namespace = '')
     {
-        $this->namespace = $namespace;
     }
 
     /**
      * Tells if a given identifier exists in session
-     *
-     * @param string $identifier
-     * @return bool
      */
-    public function has($identifier)
+    public function has(string $identifier): bool
     {
-        if ($this->get($identifier)) {
-            return true;
-        }
-
-        return false;
+        return (bool) $this->get($identifier);
     }
 
     /**
      * Sets a session key
-     *
-     * @param string $identifier
-     * @param mixed $value
-     * @return void
      */
-    public function set($identifier, $value)
+    public function set(string $identifier, mixed $value): void
     {
         $this->data[$identifier] = $value;
-        $GLOBALS['TSFE']->fe_user->setKey('ses', $this->namespace, $this->data);
-        $GLOBALS['TSFE']->fe_user->storeSessionData();
+        $GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.user')->setKey('ses', $this->namespace, $this->data);
+        // @extensionScannerIgnoreLine storeSessionData() still exists in v12 FrontendUserAuthentication
+        $GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.user')->storeSessionData();
     }
 
     /**
      * Gets a value by key
-     *
-     * @param string $identifier
-     * @return mixed
      */
-    public function get($identifier)
+    public function get(string $identifier): mixed
     {
-        if (empty($this->data)) {
-            $this->data = (array) $GLOBALS['TSFE']->fe_user->getKey('ses', $this->namespace);
-        }
-        if (isset($this->data[$identifier])) {
-            return $this->data[$identifier];
+        if ($this->data === []) {
+            $this->data = (array) $GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.user')->getKey('ses', $this->namespace);
         }
 
-        return null;
+        return $this->data[$identifier] ?? null;
     }
 
-    public function clean()
+    public function clean(): void
     {
-        $GLOBALS['TSFE']->fe_user->setKey('ses', $this->namespace, array());
-        $GLOBALS['TSFE']->fe_user->storeSessionData();
+        $GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.user')->setKey('ses', $this->namespace, []);
+        // @extensionScannerIgnoreLine storeSessionData() still exists in v12 FrontendUserAuthentication
+        $GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.user')->storeSessionData();
         $this->data = [];
     }
 
     /**
      * Sets the namespace
-     *
-     * @param string $namespace
      */
-    public function setNamespace($namespace)
+    public function setNamespace(string $namespace): void
     {
         $this->namespace = $namespace;
     }

@@ -25,13 +25,11 @@ namespace DWenzel\T3events\Utility;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-use DWenzel\T3events\Object\ObjectManagerTrait;
+use TYPO3\CMS\Core\Resource\File;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface;
-
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
@@ -44,41 +42,10 @@ use DWenzel\T3events\Resource\ResourceFactory;
  */
 class SettingsUtility implements SingletonInterface
 {
-    use ObjectManagerTrait;
-
-    /**
-     * @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
-     */
-    protected $contentObjectRenderer;
-
-    /**
-     * @var array
-     */
-    protected $controllerKeys = [];
-
-     /**
-     * @var ResourceFactory
-     */
-    protected $resourceFactory;
-
-    /**
-     * injects the ContentObjectRenderer
-     *
-     * @param ContentObjectRenderer $contentObjectRenderer
-     */
-    public function injectContentObjectRenderer(ContentObjectRenderer $contentObjectRenderer)
+    /** @var array<string, string> */
+    protected array $controllerKeys = [];
+    public function __construct(protected ContentObjectRenderer $contentObjectRenderer, protected ResourceFactory $resourceFactory)
     {
-        $this->contentObjectRenderer = $contentObjectRenderer;
-    }
-
-    /**
-     * injects the ResourceFactory
-     *
-     * @param \DWenzel\T3events\Resource\ResourceFactory $resourceFactory
-     */
-    public function injectResourceFactory(ResourceFactory $resourceFactory)
-    {
-        $this->resourceFactory = $resourceFactory;
     }
 
     /**
@@ -92,35 +59,29 @@ class SettingsUtility implements SingletonInterface
      * If $config[$key] is a string we return this
      * If all above fails we return null.
      *
-     * @param object|array $object
-     * @param array $config
-     * @param string $key
-     * @return mixed
+     * @param object|array<mixed> $object
+     * @param array<mixed> $config
      * @deprecated Replace by $this->getValue()
      */
-    public function getValueByKey($object, $config, $key)
+    public function getValueByKey(mixed $object, mixed $config, string $key): mixed
     {
-        $value = null;
         if (isset($config[$key])) {
-            $value = $this->getValue($object, $config[$key]);
+            return $this->getValue($object, $config[$key]);
         }
-
-        return $value;
+        return null;
     }
 
     /**
      * Gets a settings key for a controller
-     *
-     * @param object $controller
-     * @return string
      */
-    public function getControllerKey($controller)
+    public function getControllerKey(object $controller): string
     {
-        $className = get_class($controller);
+        $className = $controller::class;
         if (isset($this->controllerKeys[$className])) {
             $controllerKey = $this->controllerKeys[$className];
         } else {
-            $controllerKey = lcfirst(str_replace('Controller', '', end(explode('\\', $className))));
+            $parts = explode('\\', $className);
+            $controllerKey = lcfirst(str_replace('Controller', '', end($parts)));
             $this->controllerKeys[$className] = $controllerKey;
         }
 
@@ -150,13 +111,12 @@ class SettingsUtility implements SingletonInterface
      * IF (at least one of) the files given in $config['always'] is found
      * THEN they are added to the resulting ObjectStorage
      *
-     * @param DomainObjectInterface $object
-     * @param array $config TypoScript configuration array for look up
-     * @return ObjectStorage
+     * @param array<mixed> $config TypoScript configuration array for look up
+     * @return ObjectStorage<DomainObjectInterface>
      */
-    public function getFileStorage(DomainObjectInterface $object, $config)
+    public function getFileStorage(DomainObjectInterface $object, mixed $config): ObjectStorage
     {
-        $fileStorage = $this->objectManager->get(
+        $fileStorage = GeneralUtility::makeInstance(
             ObjectStorage::class
         );
         $valueFromSettings = $this->getValue($object, $config);
@@ -192,7 +152,7 @@ class SettingsUtility implements SingletonInterface
             $combinedIdentifiers = GeneralUtility::trimExplode(',', $valueFromSettings, true);
             foreach ($combinedIdentifiers as $fileId) {
                 $file = $this->resourceFactory->getFileObjectByCombinedIdentifier($fileId);
-                if ($file === null) {
+                if (!$file instanceof File) {
                     continue;
                 }
                 $fileReference = $this->resourceFactory->createFileReferenceFromFileObject($file);
@@ -213,11 +173,10 @@ class SettingsUtility implements SingletonInterface
      * If $config is a string we return this
      * If all above fails we return null.
      *
-     * @param object|array $object
-     * @param array|string $config
-     * @return mixed|string
+     * @param object|array<string, mixed> $object
+     * @param array<string, mixed>|string $config
      */
-    public function getValue($object, $config)
+    public function getValue(mixed $object, mixed $config): mixed
     {
         $value = null;
 
@@ -232,7 +191,7 @@ class SettingsUtility implements SingletonInterface
         }
 
         if ($value === null && is_string($config)) {
-            $value = $config;
+            return $config;
         }
 
         return $value;

@@ -1,5 +1,4 @@
 <?php
-
 namespace DWenzel\T3events\Domain\Factory\Dto;
 
 use DWenzel\T3events\Domain\Model\Dto\PeriodAwareDemandInterface;
@@ -16,29 +15,30 @@ trait PeriodAwareDemandFactoryTrait
     /**
      * Sets period constraints from settings
      *
-     * @param \DWenzel\T3events\Domain\Model\Dto\PeriodAwareDemandInterface $demand
-     * @param array $settings
+     * @param array<string, mixed> $settings
      */
-    public function setPeriodConstraints(PeriodAwareDemandInterface $demand, $settings)
+    public function setPeriodConstraints(PeriodAwareDemandInterface $demand, array $settings): void
     {
         $timeZone = new \DateTimeZone(date_default_timezone_get());
+        if (!isset($settings['period'])) {
+            $settings['period'] = '';
+        }
 
-        if (isset($settings['period']) &&
-            ($settings['period'] === SI::FUTURE_ONLY
-                || $settings['period'] === SI::PAST_ONLY)
+
+        if ($settings['period'] === SI::FUTURE_ONLY
+            || $settings['period'] === SI::PAST_ONLY
         ) {
             $periodStartDate = new \DateTime('midnight', $timeZone);
             $demand->setStartDate($periodStartDate);
             $demand->setDate($periodStartDate);
         }
 
-        if (isset($settings['period']) &&
-            $settings['period'] === SI::SPECIFIC) {
+        if ($settings['period'] === SI::SPECIFIC) {
             $demand->setPeriodType($settings['periodType']);
         }
         if (isset($settings['periodType']) && $settings['periodType'] !== 'byDate') {
-            $demand->setPeriodStart($settings['periodStart']);
-            $demand->setPeriodDuration($settings['periodDuration']);
+            $demand->setPeriodStart($settings['periodStart'] ?? null);
+            $demand->setPeriodDuration($settings['periodDuration'] ?? null);
         }
         if (
             isset($settings['periodType']) &&
@@ -61,11 +61,8 @@ trait PeriodAwareDemandFactoryTrait
     /**
      * Helper method. Creates a date object from
      * integers and strings.
-     * @param $value
-     * @return \DateTime
      */
-    protected function createDate($value)
-    {
+    protected function createDate(mixed $value): \DateTime {
         $timeZone = new \DateTimeZone(date_default_timezone_get());
         if (is_numeric($value)) {
             $dateTime = new \DateTime('midnight', $timeZone);

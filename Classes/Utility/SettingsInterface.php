@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /***************************************************************
  *  Copyright notice
  *
@@ -15,7 +18,6 @@
  * GNU General Public License for more details.
  * This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 namespace DWenzel\T3events\Utility;
 
 /**
@@ -76,14 +78,13 @@ interface SettingsInterface
     /**
      * Modules Registration
      */
-    public const MAIN_MODULE_EVENTS = 'T3eventsEvents';
+    public const MAIN_MODULE_EVENTS = 'events';
 
     /**
-     * routes identifiers are generated during registration
-     * @see ext_tables.php
+     * Route identifiers match module keys in Configuration/Backend/Modules.php (TYPO3 v12+)
      */
-    public const ROUTE_EVENT_MODULE = 'T3eventsEvents_T3eventsM1';
-    public const ROUTE_SCHEDULE_MODULE = 'T3eventsEvents_T3eventsM2';
+    public const ROUTE_EVENT_MODULE = 'events_m1';
+    public const ROUTE_SCHEDULE_MODULE = 'events_m2';
 
     /**
      * Core route for convenience
@@ -116,7 +117,7 @@ interface SettingsInterface
     public const TABLE_TICKET_CLASS = 'tx_t3events_domain_model_ticketclass';
     public const TRANSLATION_FILE_PATH = 'EXT:t3events/Resources/Private/Language/';
     public const TRANSLATION_FILE_FRONTEND = 'LLL:EXT:t3events/Resources/Private/Language/locallang.xlf';
-    public const TRANSLATION_FILE_BACKEND = 'LLL:EXT:t3events/Resources/Private/Language/locallang_be.xlf';
+    public const TRANSLATION_FILE_BACKEND = 'LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml';
     public const TRANSLATION_FILE_DB = 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf';
     public const VENUES = 'venues';
     public const FILTER_OPTIONS = 'filterOptions';
