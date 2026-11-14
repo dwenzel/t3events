@@ -80,7 +80,9 @@ class EventDemandFactoryTest extends UnitTestCase
             ['offset', '10', 10],
             ['uidList', '7,8,9', '7,8,9'],
             ['storagePages', '7,8,9', '7,8,9'],
-            ['order', 'foo|bar,baz|asc', 'foo|bar,baz|asc']
+            ['order', 'foo|bar,baz|asc', 'foo|bar,baz|asc'],
+            // FlexForm option "manual sorting"
+            ['order', 'sorting|asc', 'sorting|asc']
         ];
     }
 

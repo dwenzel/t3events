@@ -68,6 +68,7 @@
               <trans-unit id="flexforms_general.template"><source>Template</source></trans-unit>
               <trans-unit id="flexforms_general.templateLayout"><source>Template Layout</source></trans-unit>
               <trans-unit id="flexforms_general.title"><source>Title</source></trans-unit>
+              <trans-unit id="flexforms_general.manualSorting"><source>Manual sorting (order of the records in the backend)</source></trans-unit>
               <trans-unit id="flexforms_general.venues"><source>Venues</source></trans-unit>
               <trans-unit id="flexforms_general.viewMode"><source>View Mode</source></trans-unit>
               <trans-unit id="flexforms_general.viewModeComboPane"><source>Combo View</source></trans-unit>

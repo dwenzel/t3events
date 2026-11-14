@@ -247,6 +247,10 @@
 				<source><![CDATA[Title]]></source>
 				<target><![CDATA[Titel]]></target>
 			</trans-unit>
+			<trans-unit id="flexforms_general.manualSorting" approved="yes">
+				<source><![CDATA[Manual sorting (order of the records in the backend)]]></source>
+				<target><![CDATA[Manuelle Sortierung (Reihenfolge der Datensätze im Backend)]]></target>
+			</trans-unit>
 			<trans-unit id="flexforms_general.venues" approved="yes">
 				<source><![CDATA[Venues]]></source>
 				<target><![CDATA[Einrichtungen]]></target>
