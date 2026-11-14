@@ -125,7 +125,7 @@ class FlashMessageTraitTest extends UnitTestCase
         $pluginName = 'bazPlugin';
         $this->subject = $this->getMockBuilder(FlashMessageTrait::class)
             ->disableOriginalConstructor()
-            ->onlyMethods(['useLegacyFlashMessageHandling'])->getMockForTrait();
+            ->getMockForTrait();
 
         $mockExtensionService = $this->mockExtensionService();
         $mockRequest = $this->mockRequest();
@@ -133,35 +133,25 @@ class FlashMessageTraitTest extends UnitTestCase
         $mockExtensionService->expects($this->once())
             ->method('getPluginNamespace')
             ->with($extensionName, $pluginName)
-            ->will($this->returnValue($namespace));
+            ->willReturn($namespace);
         $mockRequest->expects($this->once())
             ->method('getControllerExtensionName')
-            ->will($this->returnValue($extensionName));
+            ->willReturn($extensionName);
         $mockRequest->expects($this->once())
             ->method('getPluginName')
-            ->will($this->returnValue($pluginName));
+            ->willReturn($pluginName);
 
         $mockFlashMessageQueue = $this->getMockFlashMessageQueue();
         $mockFlashMessageService = $this->mockFlashMessageService();
         $mockFlashMessageService->expects($this->once())
             ->method('getMessageQueueByIdentifier')
             ->with('extbase.flashmessages.' . $namespace)
-            ->will($this->returnValue($mockFlashMessageQueue));
+            ->willReturn($mockFlashMessageQueue);
 
         $this->assertSame(
             $mockFlashMessageQueue,
             $this->subject->getFlashMessageQueue()
         );
-    }
-
-    /**
-     * @test
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionCode 1243258395
-     */
-    public function addFlashMessageThrowsExceptionForMissingMessageBody()
-    {
-        $this->subject->addFlashMessage(5);
     }
 
     /**

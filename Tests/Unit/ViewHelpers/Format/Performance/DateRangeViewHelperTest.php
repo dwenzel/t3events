@@ -43,7 +43,7 @@ class DateRangeViewHelperTest extends UnitTestCase
     /**
      * arguments data provider
      */
-    public function argumentsDataProvider()
+    public static function argumentsDataProvider()
     {
         $yesterdaysDate = new \DateTime('yesterday');
         $todaysDate = new \DateTime('today');
@@ -62,7 +62,7 @@ class DateRangeViewHelperTest extends UnitTestCase
 
 
         $customGlue = ' till ';
-        $customFormatRequiringStrftime = '%A %e %B %Y';
+        $customFormat = 'l j F Y';
         return [
             // performance with start date only, default date format and glue
             [
@@ -87,14 +87,14 @@ class DateRangeViewHelperTest extends UnitTestCase
                 // arguments
                 [
                     'performance' => $performanceWithDifferentStartAndEndDate,
-                    'startFormat' => $customFormatRequiringStrftime,
-                    'endFormat' => $customFormatRequiringStrftime,
+                    'startFormat' => $customFormat,
+                    'endFormat' => $customFormat,
                     'glue' => $customGlue
                 ],
                 // expected
-                strftime($customFormatRequiringStrftime, $yesterdaysDate->getTimestamp())
+                date($customFormat, $yesterdaysDate->getTimestamp())
                 . $customGlue
-                . strftime($customFormatRequiringStrftime, $todaysDate->getTimestamp())
+                . date($customFormat, $todaysDate->getTimestamp())
             ],// performance with same start and end date, default date format and glue
             [
                 // arguments
@@ -116,11 +116,11 @@ class DateRangeViewHelperTest extends UnitTestCase
             ->onlyMethods(['registerArgument'])->getMock();
 
         $expectedRegisterArgs = [
-            ['performance', Performance::class, DateRangeViewHelper::ARGUMENT_PERFORMANCE_DESCRIPTION, true, null],
-            ['format', 'string', DateRangeViewHelper::ARGUMENT_FORMAT_DESCRIPTION, false, 'd.m.Y'],
-            ['startFormat', 'string', DateRangeViewHelper::ARGUMENT_STARTFORMAT_DESCRIPTION, false, 'd.m.Y'],
-            ['endFormat', 'string', DateRangeViewHelper::ARGUMENT_ENDFORMAT_DESCRIPTION, false, 'd.m.Y'],
-            ['glue', 'string', DateRangeViewHelper::ARGUMENT_GLUE_DESCRIPTION, false, ' - ']
+            ['performance', Performance::class, DateRangeViewHelper::ARGUMENT_PERFORMANCE_DESCRIPTION, true, null, null],
+            ['format', 'string', DateRangeViewHelper::ARGUMENT_FORMAT_DESCRIPTION, false, 'd.m.Y', null],
+            ['startFormat', 'string', DateRangeViewHelper::ARGUMENT_STARTFORMAT_DESCRIPTION, false, 'd.m.Y', null],
+            ['endFormat', 'string', DateRangeViewHelper::ARGUMENT_ENDFORMAT_DESCRIPTION, false, 'd.m.Y', null],
+            ['glue', 'string', DateRangeViewHelper::ARGUMENT_GLUE_DESCRIPTION, false, ' - ', null]
         ];
         $registerCallIndex = 0;
         $this->subject->expects($this->exactly(5))

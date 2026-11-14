@@ -68,7 +68,7 @@ class PersonDemandFactoryTest extends UnitTestCase
     /**
      * @return array
      */
-    public function settablePropertiesDataProvider(): array
+    public static function settablePropertiesDataProvider(): array
     {
         /** propertyName, $settingsValue, $expectedValue */
         return [
@@ -108,7 +108,7 @@ class PersonDemandFactoryTest extends UnitTestCase
     /**
      * @return array
      */
-    public function mappedPropertiesDataProvider(): array
+    public static function mappedPropertiesDataProvider(): array
     {
         /** settingsKey, propertyName, $settingsValue, $expectedValue */
         return [
@@ -142,10 +142,10 @@ class PersonDemandFactoryTest extends UnitTestCase
     /**
      * @return array
      */
-    public function skippedPropertiesDataProvider(): array
+    public static function skippedPropertiesDataProvider(): array
     {
         return [
-            ['foo'],
+            ['foo', null],
             ['search', 'bar']
         ];
     }

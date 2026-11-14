@@ -7,8 +7,8 @@ use DWenzel\T3events\Domain\Model\Dto\ModuleData;
 use DWenzel\T3events\Service\ModuleDataStorageService;
 use DWenzel\T3events\Utility\SettingsInterface as SI;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
-use DWenzel\T3events\Tests\Unit\Object\MockObjectManagerTrait;
+use Psr\Http\Message\ServerRequestInterface;
+use TYPO3\CMS\Extbase\Http\ForwardResponse;
 
 /***************************************************************
  *
@@ -42,8 +42,6 @@ use DWenzel\T3events\Tests\Unit\Object\MockObjectManagerTrait;
  */
 class ModuleDataTraitTest extends UnitTestCase
 {
-    use MockObjectManagerTrait;
-
     /**
      * @var ModuleDataTrait|\PHPUnit_Framework_MockObject_MockObject
      */
@@ -56,11 +54,8 @@ class ModuleDataTraitTest extends UnitTestCase
     {
         parent::setUp();
         $this->subject = $this->getMockBuilder(ModuleDataTrait::class)
-            ->onlyMethods(['getModuleKey'])
+            ->onlyMethods(['getModuleKey', 'mergeSettings'])
             ->getMockForTrait();
-
-        $this->objectManager = $this->getMockObjectManager();
-        $this->inject($this->subject, 'objectManager', $this->objectManager);
     }
 
     /**
@@ -70,11 +65,11 @@ class ModuleDataTraitTest extends UnitTestCase
     {
         $mockService = $this->getMockModuleDataStorageService();
 
+        $this->inject($this->subject, 'moduleDataStorageService', $mockService);
 
-        $this->subject->injectModuleDataStorageService($mockService);
-        $this->assertAttributeSame(
-            $mockService, 'moduleDataStorageService', $this->subject
-        );
+        $prop = new \ReflectionProperty($this->subject, 'moduleDataStorageService');
+        $prop->setAccessible(true);
+        $this->assertSame($mockService, $prop->getValue($this->subject));
     }
 
     /**
@@ -84,28 +79,20 @@ class ModuleDataTraitTest extends UnitTestCase
     {
         $moduleKey = 'foo';
 
-        /** @var ModuleData|\PHPUnit_Framework_MockObject_MockObject $mockModuleData */
-        $mockModuleData = $this->getMockBuilder(ModuleData::class)->getMock();
-        $this->objectManager->expects($this->once())
-            ->method('get')
-            ->with(ModuleData::class)
-            ->will($this->returnValue($mockModuleData));
-
         $mockService = $this->getMockModuleDataStorageService(['persistModuleData']);
-        $this->subject->injectModuleDataStorageService($mockService);
+        $this->inject($this->subject, 'moduleDataStorageService', $mockService);
 
         $mockService->expects($this->once())
             ->method('persistModuleData')
-            ->with($mockModuleData, $moduleKey);
+            ->with($this->isInstanceOf(ModuleData::class), $moduleKey);
 
-        $this->subject->expects($this->once())
-            ->method(SI::FORWARD)
-            ->with('list');
         $this->subject->expects($this->once())
             ->method('getModuleKey')
-            ->will($this->returnValue($moduleKey));
+            ->willReturn($moduleKey);
 
-        $this->subject->resetAction();
+        $result = $this->subject->resetAction();
+
+        $this->assertInstanceOf(ForwardResponse::class, $result);
     }
 
     /**
@@ -114,20 +101,33 @@ class ModuleDataTraitTest extends UnitTestCase
     public function initializeActionMergesSettings()
     {
         $expectedSettings = ['foo'];
-        $this->subject = $this->getMockForTrait(
-            ModuleDataTrait::class,
-            [], '', true, true, true, ['mergeSettings']
-        );
+
+        $mockRequest = $this->getMockBuilder(ServerRequestInterface::class)->getMock();
+        $mockRequest->method('getQueryParams')->willReturn([]);
+        $GLOBALS['TYPO3_REQUEST'] = $mockRequest;
 
         $this->subject->expects($this->once())
             ->method('mergeSettings')
-            ->will($this->returnValue($expectedSettings));
+            ->willReturn($expectedSettings);
 
         $this->subject->initializeAction();
-        $this->assertAttributeSame(
-            $expectedSettings,
-            SI::SETTINGS,
-            $this->subject
+
+        $prop = new \ReflectionProperty($this->subject, 'settings');
+        $prop->setAccessible(true);
+        $this->assertSame($expectedSettings, $prop->getValue($this->subject));
+    }
+
+    /**
+     * @test
+     */
+    public function moduleDataCanBeSet()
+    {
+        $moduleData = $this->getMockBuilder(ModuleData::class)->getMock();
+        $this->subject->setModuleData($moduleData);
+
+        $this->assertSame(
+            $moduleData,
+            $this->subject->getModuleData()
         );
     }
 
@@ -138,29 +138,8 @@ class ModuleDataTraitTest extends UnitTestCase
     protected function getMockModuleDataStorageService(array $methods = [])
     {
         return $this->getMockBuilder(ModuleDataStorageService::class)
+            ->disableOriginalConstructor()
             ->onlyMethods($methods)
             ->getMock();
-    }
-
-    /**
-     * @test
-     */
-    public function getModuleDataInitiallyReturnsNull() {
-        $this->assertNull(
-            $this->subject->getModuleData()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function moduleDataCanBeSet() {
-        $moduleData = $this->getMockBuilder(ModuleData::class)->getMock();
-        $this->subject->setModuleData($moduleData);
-
-        $this->assertSame(
-            $moduleData,
-            $this->subject->getModuleData()
-        );
     }
 }

@@ -5,7 +5,7 @@ namespace DWenzel\T3events\Tests\Unit\Domain\Repository;
 use DWenzel\T3events\Domain\Repository\TaskRepository;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
-use Psr\Container\ContainerInterface;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 
 /**
@@ -28,11 +28,6 @@ class TaskRepositoryTest extends UnitTestCase
     protected $subject;
 
     /**
-     * @var ContainerInterface |MockObject
-     */
-    protected $objectManager;
-
-    /**
      * set up subject
      */
     public function setUp(): void
@@ -42,13 +37,6 @@ class TaskRepositoryTest extends UnitTestCase
             ->disableOriginalConstructor()
             ->onlyMethods(['setDefaultQuerySettings'])
             ->getMock();
-        $this->objectManager = $this->getMockBuilder(ContainerInterface::class)
-            ->getMockForAbstractClass();
-        $this->inject(
-            $this->subject,
-            'objectManager',
-            $this->objectManager
-        );
     }
 
     /**
@@ -57,11 +45,9 @@ class TaskRepositoryTest extends UnitTestCase
     public function initializeObjectsSetsDefaultQuerySettings()
     {
         $mockQuerySettings = $this->getMockBuilder(Typo3QuerySettings::class)
+            ->disableOriginalConstructor()
             ->onlyMethods(['setRespectStoragePage'])->getMock();
-        $this->objectManager->expects($this->once())
-            ->method('get')
-            ->with(Typo3QuerySettings::class)
-            ->will($this->returnValue($mockQuerySettings));
+        GeneralUtility::addInstance(Typo3QuerySettings::class, $mockQuerySettings);
         $mockQuerySettings->expects($this->once())
             ->method('setRespectStoragePage')
             ->with(false);
