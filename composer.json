@@ -28,7 +28,9 @@
     "typo3/cms-install": "^13.4 || ^14.3"
   },
   "require-dev": {
+    "a9f/typo3-fractor": "^0.5",
     "phpunit/phpunit": "^11.5",
+    "ssch/typo3-rector": "^3.0",
     "typo3/testing-framework": "^8.2 || ^9.0"
   },
   "autoload": {
@@ -52,7 +54,8 @@
     "bin-dir": ".Build/bin",
     "allow-plugins": {
       "typo3/cms-composer-installers": true,
-      "typo3/class-alias-loader": true
+      "typo3/class-alias-loader": true,
+      "a9f/fractor-extension-installer": true
     },
     "preferred-install": {
       "typo3/cms": "source",
@@ -67,7 +70,11 @@
       "mkdir -p .Build/log/coverage/",
       "[ -L .Build/Web/typo3conf/ext/t3events ] || ln -snvf ../../../../. .Build/Web/typo3conf/ext/t3events"
     ],
-    "test:unit": "phpunit -c phpunit.xml"
+    "test:unit": "phpunit -c phpunit.xml",
+    "rector:check": "rector process --dry-run",
+    "rector:fix": "rector process",
+    "fractor:check": "fractor process --dry-run",
+    "fractor:fix": "fractor process"
   },
   "extra": {
     "typo3/cms": {
@@ -77,6 +84,10 @@
     }
   },
   "scripts-descriptions": {
-    "test:unit": "Run the unit tests"
+    "test:unit": "Run the unit tests",
+    "rector:check": "Show changes Rector would make (PHP)",
+    "rector:fix": "Apply Rector changes (PHP)",
+    "fractor:check": "Show changes Fractor would make (TypoScript, FlexForms, Fluid, YAML)",
+    "fractor:fix": "Apply Fractor changes"
   }
 }
