@@ -71,6 +71,10 @@ jobs:
       # They are installed for testing only.
       - name: Allow packages with security advisories
         run: composer config audit.block-insecure false
+      # Fractor requires PHP 8.2; it is a development tool and not needed for the tests.
+      - name: Remove Fractor on PHP 8.1
+        if: matrix.php == '8.1'
+        run: composer remove --dev --no-update a9f/typo3-fractor
       - name: Install dependencies
         run: composer update --no-progress --prefer-dist
       - run: composer test:unit
