@@ -27,7 +27,7 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 /**
  * Class AbstractDateRangeViewHelper
  */
-class AbstractDateRangeViewHelper extends AbstractViewHelper
+abstract class AbstractDateRangeViewHelper extends AbstractViewHelper
 {
     use DateRangeTrait;
     const ARGUMENT_FORMAT_DESCRIPTION = 'A string describing the date format for start and end date. Default is \'d.m.Y\'. See PHP date() function for options. If the string contains a % strftime() function will be used instead.';
