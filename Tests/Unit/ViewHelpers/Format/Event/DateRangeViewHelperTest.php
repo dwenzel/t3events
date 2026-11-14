@@ -104,6 +104,18 @@ class DateRangeViewHelperTest extends UnitTestCase
                 date($customFormat, $yesterdaysDate->getTimestamp())
                 . $customGlue
                 . date($customFormat, $todaysDate->getTimestamp())
+            ],
+            // two performances, strftime format (rendered by the TYPO3 DateFormatter)
+            [
+                // arguments
+                [
+                    'event' => $eventWithTwoPerformances,
+                    'format' => '%d.%m.%Y',
+                ],
+                // expected
+                $yesterdaysDate->format('d.m.Y')
+                . DateRangeViewHelper::DEFAULT_GLUE
+                . $todaysDate->format('d.m.Y')
             ]
         ];
     }

@@ -1,6 +1,7 @@
 <?php
 namespace DWenzel\T3events\ViewHelpers\Event;
 
+use TYPO3\CMS\Core\Localization\DateFormatter;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use DWenzel\T3events\Configuration\ConfigurationManagerTrait;
 use DWenzel\T3events\Domain\Model\Event;
@@ -114,8 +115,9 @@ class PerformancesViewHelper extends AbstractTagBasedViewHelper
         $firstTimestamp = $timestamps[0] ?? 0;
         $resolvedLastTimestamp = $lastTimestamp !== false ? $lastTimestamp : $firstTimestamp;
         if (str_contains((string) $format, '%')) {
-            $dateRange = strftime($format, $firstTimestamp);
-            $dateRange .= ' - ' . strftime($format, $resolvedLastTimestamp);
+            $dateFormatter = new DateFormatter();
+            $dateRange = $dateFormatter->strftime($format, $firstTimestamp);
+            $dateRange .= ' - ' . $dateFormatter->strftime($format, $resolvedLastTimestamp);
         } else {
             $dateRange = date($format, $firstTimestamp);
             $dateRange .= ' - ' . date($format, $resolvedLastTimestamp);
