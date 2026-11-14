@@ -48,20 +48,20 @@ trait BackendModuleViewTrait
         $this->mergeConfiguredPaths(
             $templatePaths,
             $viewConfig['templateRootPaths'] ?? [],
-            [$templatePaths, 'getTemplateRootPaths'],
-            [$templatePaths, 'setTemplateRootPaths']
+            $templatePaths->getTemplateRootPaths(...),
+            $templatePaths->setTemplateRootPaths(...)
         );
         $this->mergeConfiguredPaths(
             $templatePaths,
             $viewConfig['partialRootPaths'] ?? [],
-            [$templatePaths, 'getPartialRootPaths'],
-            [$templatePaths, 'setPartialRootPaths']
+            $templatePaths->getPartialRootPaths(...),
+            $templatePaths->setPartialRootPaths(...)
         );
         $this->mergeConfiguredPaths(
             $templatePaths,
             $viewConfig['layoutRootPaths'] ?? [],
-            [$templatePaths, 'getLayoutRootPaths'],
-            [$templatePaths, 'setLayoutRootPaths']
+            $templatePaths->getLayoutRootPaths(...),
+            $templatePaths->setLayoutRootPaths(...)
         );
     }
 

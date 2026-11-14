@@ -185,9 +185,7 @@ class PerformanceControllerTest extends UnitTestCase
         $mockRequest = $this->subject->_get('request');
         $mockRequest->expects(self::exactly(2))
             ->method('hasArgument')
-            ->willReturnCallback(function(string $name) {
-                return $name === SI::OVERWRITE_DEMAND;
-            });
+            ->willReturnCallback(fn(string $name) => $name === SI::OVERWRITE_DEMAND);
         $mockRequest->expects(self::once())
             ->method('getArgument')
             ->will(self::returnValue($overwriteDemand));
@@ -232,7 +230,7 @@ class PerformanceControllerTest extends UnitTestCase
             $this->createMock(SettingsUtility::class)
         );
 
-        self::assertSame(get_class($this->subject), $this->subject->_get('namespace'));
+        self::assertSame($this->subject::class, $this->subject->_get('namespace'));
     }
 
     /**
@@ -256,9 +254,7 @@ class PerformanceControllerTest extends UnitTestCase
         /** @var PerformanceDemand|\PHPUnit_Framework_MockObject_MockObject $demand */
         $demand = $this->getMockBuilder(PerformanceDemand::class)
             ->getMock();
-        $overwriteDemand = array(
-            SI::LEGACY_KEY_GENRE => '1,2,3'
-        );
+        $overwriteDemand = [SI::LEGACY_KEY_GENRE => '1,2,3'];
 
         $demand->expects(self::once())->method('setGenres')
             ->with('1,2,3');
@@ -372,9 +368,7 @@ class PerformanceControllerTest extends UnitTestCase
     {
         /** @var PerformanceDemand|\PHPUnit_Framework_MockObject_MockObject $demand */
         $demand = $this->getMockBuilder(PerformanceDemand::class)->getMock();
-        $overwriteDemand = array(
-            'sortBy' => 'foo'
-        );
+        $overwriteDemand = ['sortBy' => 'foo'];
 
         $demand->expects(self::once())->method('setSortBy')
             ->with('foo');
@@ -390,10 +384,7 @@ class PerformanceControllerTest extends UnitTestCase
     {
         /** @var PerformanceDemand|\PHPUnit_Framework_MockObject_MockObject $demand */
         $demand = $this->getMockBuilder(PerformanceDemand::class)->getMock();
-        $overwriteDemand = array(
-            'sortBy' => 'foo',
-            SI::SORT_DIRECTION => 'bar'
-        );
+        $overwriteDemand = ['sortBy' => 'foo', SI::SORT_DIRECTION => 'bar'];
 
         $demand->expects(self::once())->method('setOrder')
             ->with('foo|bar');
@@ -409,9 +400,7 @@ class PerformanceControllerTest extends UnitTestCase
     {
         /** @var PerformanceDemand|\PHPUnit_Framework_MockObject_MockObject $demand */
         $demand = $this->getMockBuilder(PerformanceDemand::class)->getMock();
-        $overwriteDemand = array(
-            SI::SORT_DIRECTION => 'foo'
-        );
+        $overwriteDemand = [SI::SORT_DIRECTION => 'foo'];
 
         $demand->expects(self::once())->method('setSortDirection')
             ->with('asc');
@@ -427,9 +416,7 @@ class PerformanceControllerTest extends UnitTestCase
     {
         /** @var PerformanceDemand|\PHPUnit_Framework_MockObject_MockObject $demand */
         $demand = $this->getMockBuilder(PerformanceDemand::class)->getMock();
-        $overwriteDemand = array(
-            SI::SORT_DIRECTION => 'desc'
-        );
+        $overwriteDemand = [SI::SORT_DIRECTION => 'desc'];
 
         $demand->expects(self::once())->method('setSortDirection')
             ->with('desc');
@@ -498,7 +485,7 @@ class PerformanceControllerTest extends UnitTestCase
             ->getMockForAbstractClass();
         $this->inject($this->subject, 'view', $view);
         $this->inject($this->subject, 'contentObject', $this->contentObject);
-        $settings = array('foo');
+        $settings = ['foo'];
         $this->inject($this->subject, SI::SETTINGS, $settings);
         $this->inject($this->subject, 'performanceDemandFactory', $this->performanceDemandFactory);
         $mockDispatcher = $this->getMockBuilder(EventDispatcherInterface::class)->getMockForAbstractClass();
@@ -524,8 +511,8 @@ class PerformanceControllerTest extends UnitTestCase
     public function listActionCallsFindDemanded()
     {
         $this->subject = $this->getAccessibleMock(
-            'DWenzel\\T3events\\Controller\\PerformanceController',
-            array('overwriteDemandObject', 'emitSignal', 'addPageCacheTags', 'htmlResponse'),
+            \DWenzel\T3events\Controller\PerformanceController::class,
+            ['overwriteDemandObject', 'emitSignal', 'addPageCacheTags', 'htmlResponse'],
             [], '', false
         );
         /** @var PerformanceRepository|\PHPUnit_Framework_MockObject_MockObject $repository */
@@ -537,7 +524,7 @@ class PerformanceControllerTest extends UnitTestCase
         $view = $this->getMockBuilder(ViewInterface::class)
             ->getMockForAbstractClass();
         $this->subject->_set('view', $view);
-        $settings = array('foo');
+        $settings = ['foo'];
         $this->subject->_set(SI::SETTINGS, $settings);
         /** @var PerformanceDemand|\PHPUnit_Framework_MockObject_MockObject $demand */
         $mockDemand = $this->getMockBuilder(PerformanceDemand::class)->getMock();

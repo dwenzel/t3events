@@ -56,7 +56,7 @@ class AbstractBackendControllerTest extends UnitTestCase
     /**
      * @test
      */
-    public function dummy() {
+    public function dummy(): never {
         $this->markTestIncomplete();
     }
 }

@@ -52,7 +52,7 @@ class EventRepositoryTest extends UnitTestCase
     {
         parent::setUp();
         $this->fixture = $this->getAccessibleMock(EventRepository::class,
-            array(), array(), '', false);
+            [], [], '', false);
     }
 
     /**
@@ -65,7 +65,7 @@ class EventRepositoryTest extends UnitTestCase
         $query = $this->getMockQuery();
 
         $this->assertEquals(
-            array(),
+            [],
             $this->fixture->createConstraintsFromDemand($query, $demand)
         );
     }
@@ -78,7 +78,7 @@ class EventRepositoryTest extends UnitTestCase
     {
         $this->fixture = $this->getAccessibleMock(
             EventRepository::class,
-            array('createPeriodConstraints'), array(), '', false);
+            ['createPeriodConstraints'], [], '', false);
         $demand = $this->getMockEventDemand();
         $query = $this->getMockQuery();
 
@@ -95,7 +95,7 @@ class EventRepositoryTest extends UnitTestCase
     public function createConstraintsFromDemandCallsCreateCategoryConstraints()
     {
         $this->fixture = $this->getAccessibleMock(EventRepository::class,
-            array('createCategoryConstraints'), array(), '', false);
+            ['createCategoryConstraints'], [], '', false);
         $demand = $this->getMockEventDemand();
         $query = $this->getMockQuery();
 
@@ -113,7 +113,7 @@ class EventRepositoryTest extends UnitTestCase
     {
         $this->fixture = $this->getAccessibleMock(
             EventRepository::class,
-            array('createSearchConstraints'), array(), '', false);
+            ['createSearchConstraints'], [], '', false);
         $demand = $this->getMockEventDemand();
         $query = $this->getMockQuery();
 
@@ -131,7 +131,7 @@ class EventRepositoryTest extends UnitTestCase
     {
         $this->fixture = $this->getAccessibleMock(
             EventRepository::class,
-            array('createLocationConstraints'), array(), '', false);
+            ['createLocationConstraints'], [], '', false);
         $demand = $this->getMockEventDemand();
         $query = $this->getMockQuery();
 
@@ -167,11 +167,11 @@ class EventRepositoryTest extends UnitTestCase
     {
         $this->fixture = $this->getAccessibleMock(
             EventRepository::class,
-            array('createSearchConstraints', 'combineConstraints'), array(), '', false);
+            ['createSearchConstraints', 'combineConstraints'], [], '', false);
         $demand = $this->getMockEventDemand();
-        $constraints = array();
+        $constraints = [];
         $query = $this->getMockQuery();
-        $mockSearchConstraints = array('foo');
+        $mockSearchConstraints = ['foo'];
 
         $this->fixture->expects($this->once())
             ->method('createSearchConstraints')
@@ -192,11 +192,11 @@ class EventRepositoryTest extends UnitTestCase
     {
         $this->fixture = $this->getAccessibleMock(
             EventRepository::class,
-            array('createLocationConstraints', 'combineConstraints'), array(), '', false);
+            ['createLocationConstraints', 'combineConstraints'], [], '', false);
         $demand = $this->getMockEventDemand();
-        $constraints = array();
+        $constraints = [];
         $query = $this->getMockQuery();
-        $mockLocationConstraints = array('foo');
+        $mockLocationConstraints = ['foo'];
 
         $this->fixture->expects($this->once())
             ->method('createLocationConstraints')
@@ -242,11 +242,11 @@ class EventRepositoryTest extends UnitTestCase
     {
         $this->fixture = $this->getAccessibleMock(
             EventRepository::class,
-            array('createCategoryConstraints', 'combineConstraints'), array(), '', false);
+            ['createCategoryConstraints', 'combineConstraints'], [], '', false);
         $demand = $this->getMockEventDemand();
-        $constraints = array();
+        $constraints = [];
         $query = $this->getMockQuery();
-        $mockCategoryConstraints = array('foo');
+        $mockCategoryConstraints = ['foo'];
 
         $this->fixture->expects($this->once())
             ->method('createCategoryConstraints')
@@ -267,11 +267,11 @@ class EventRepositoryTest extends UnitTestCase
     {
         $this->fixture = $this->getAccessibleMock(
             EventRepository::class,
-            array('createPeriodConstraints', 'combineConstraints'), array(), '', false);
+            ['createPeriodConstraints', 'combineConstraints'], [], '', false);
         $demand = $this->getMockEventDemand();
-        $constraints = array();
+        $constraints = [];
         $query = $this->getMockQuery();
-        $mockPeriodConstraints = array('foo');
+        $mockPeriodConstraints = ['foo'];
 
         $this->fixture->expects($this->once())
             ->method('createPeriodConstraints')
@@ -295,7 +295,7 @@ class EventRepositoryTest extends UnitTestCase
         $query = $this->getMockQuery();
 
         $this->assertEquals(
-            array(),
+            [],
             $this->fixture->createSearchConstraints($query, $demand)
         );
     }
@@ -319,7 +319,7 @@ class EventRepositoryTest extends UnitTestCase
             ->willReturn('');
 
         $this->assertEquals(
-            array(),
+            [],
             $this->fixture->createSearchConstraints($query, $demand)
         );
     }
@@ -382,10 +382,7 @@ class EventRepositoryTest extends UnitTestCase
                 return $query;
             });
 
-        $expectedResult = array(
-            $query,
-            $query
-        );
+        $expectedResult = [$query, $query];
         $this->assertEquals(
             $expectedResult,
             $this->fixture->createSearchConstraints($query, $demand)

@@ -442,9 +442,7 @@ class PeriodConstraintRepositoryTraitTest extends UnitTestCase
         $this->query->expects($this->exactly(2))
             ->method('logicalAnd')
             ->with()
-            ->willReturnCallback(function() use ($mockAndConstraint) {
-                return $mockAndConstraint;
-            });
+            ->willReturnCallback(fn() => $mockAndConstraint);
 
         $this->subject->createPeriodConstraints($this->query, $this->demand);
     }

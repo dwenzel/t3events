@@ -208,7 +208,7 @@ class EntityNotFoundHandlerTraitTest extends UnitTestCase
         $mockDispatcher = $this->getMockDispatcher();
         $config = 'foo';
         $resultEvent = new GenericSignalEvent(
-            get_class($this->subject),
+            $this->subject::class,
             'handleEntityNotFoundError',
             [
                 SI::CONFIG => GeneralUtility::trimExplode(',', $config),
@@ -246,7 +246,7 @@ class EntityNotFoundHandlerTraitTest extends UnitTestCase
             'statusCode' => 300
         ];
         $resultEvent = new GenericSignalEvent(
-            get_class($this->subject),
+            $this->subject::class,
             'handleEntityNotFoundError',
             [
                 SI::CONFIG => GeneralUtility::trimExplode(',', $config),
@@ -337,7 +337,7 @@ class EntityNotFoundHandlerTraitTest extends UnitTestCase
             SI::ARGUMENTS => ['foo'],
         ];
         $resultEvent = new GenericSignalEvent(
-            get_class($this->subject),
+            $this->subject::class,
             'handleEntityNotFoundError',
             [
                 SI::CONFIG => GeneralUtility::trimExplode(',', $config),
