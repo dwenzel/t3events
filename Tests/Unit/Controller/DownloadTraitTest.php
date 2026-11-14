@@ -78,7 +78,7 @@ class DownloadTraitTest extends UnitTestCase
      */
     public function getDownloadFileNamePrependsDate()
     {
-        $date = date('Y-m-d_H-m');
+        $date = date('Y-m-d_H-i');
         $fileName = 'foo';
         $expectedFileName = $date . '_' . $fileName;
 
