@@ -16,9 +16,12 @@ use DWenzel\T3events\Domain\Model\Dto\AbstractDemand;
 use DWenzel\T3events\Domain\Repository\AbstractDemandedRepository;
 use DWenzel\T3events\Domain\Repository\DemandedRepositoryTrait;
 use DWenzel\T3events\Tests\Unit\Domain\Model\Dto\MockDemandTrait;
+use DWenzel\T3events\UnsupportedMethodException;
 use Nimut\TestingFramework\MockObject\AccessibleMockObjectInterface;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
+use Psr\EventDispatcher\EventDispatcherInterface;
+use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\Query;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
@@ -31,6 +34,8 @@ class DemandedRepositoryTraitTest extends UnitTestCase
 {
     use MockDemandTrait, MockQueryTrait, MockQuerySettingsTrait;
 
+    protected bool $resetSingletonInstances = true;
+
     /**
      * @var DemandedRepositoryTrait|\PHPUnit_Framework_MockObject_MockObject
      */
@@ -42,6 +47,10 @@ class DemandedRepositoryTraitTest extends UnitTestCase
         $this->subject = $this->getMockForTrait(
             DemandedRepositoryTrait::class
         );
+        $mockEventDispatcher = new class implements EventDispatcherInterface, SingletonInterface {
+            public function dispatch(object $event): object { return $event; }
+        };
+        GeneralUtility::setSingletonInstance(EventDispatcherInterface::class, $mockEventDispatcher);
     }
 
     /**
@@ -55,19 +64,19 @@ class DemandedRepositoryTraitTest extends UnitTestCase
         $mockQuery->expects($this->once())
             ->method('contains')
             ->with('foo', 'bar')
-            ->will($this->returnValue('matchCriteria'));
+            ->willReturn('matchCriteria');
         $mockQuery->expects($this->once())
             ->method('matching')
             ->with('matchCriteria')
-            ->will($this->returnValue($mockQuery));
+            ->willReturn($mockQuery);
         $mockQuery->expects($this->once())
             ->method('execute')
             ->with()
-            ->will($this->returnValue($mockQueryResult));
+            ->willReturn($mockQueryResult);
         $mockQueryResult->expects($this->once())
             ->method('count')
-            ->will($this->returnValue($countResult));
-        $this->subject->expects($this->once())->method('createQuery')->will($this->returnValue($mockQuery));
+            ->willReturn($countResult);
+        $this->subject->expects($this->once())->method('createQuery')->willReturn($mockQuery);
 
         /** @noinspection PhpUndefinedMethodInspection */
         $this->assertSame($countResult, $this->subject->countContainingFoo('bar'));
@@ -75,11 +84,11 @@ class DemandedRepositoryTraitTest extends UnitTestCase
 
     /**
      * @test
-     * @expectedException \DWenzel\T3events\UnsupportedMethodException
-     * @expectedExceptionCode 1479289568
      */
     public function magicCallMethodThrowsUnsupportedMethodException()
     {
+        $this->expectException(UnsupportedMethodException::class);
+        $this->expectExceptionCode(1479289568);
         /** @noinspection PhpUndefinedMethodInspection */
         $this->subject->unsupportedMethod();
     }
@@ -98,12 +107,12 @@ class DemandedRepositoryTraitTest extends UnitTestCase
         $limit = 3;
         $mockDemand->expects($this->atLeast(1))
             ->method('getLimit')
-            ->will($this->returnValue($limit));
+            ->willReturn($limit);
 
         $mockQuery = $this->getMockQuery(['setLimit']);
         $fixture->expects($this->once())
             ->method('createQuery')
-            ->will($this->returnValue($mockQuery));
+            ->willReturn($mockQuery);
         $fixture->expects($this->once())
             ->method('createConstraintsFromDemand');
 
@@ -126,17 +135,16 @@ class DemandedRepositoryTraitTest extends UnitTestCase
         $mockDemand = $this->getAccessibleMockForAbstractClass(AbstractDemand::class);
         $storagePageIds = '3,5';
         $mockDemand->setStoragePages($storagePageIds);
-        $mockDemand->setOffset($storagePageIds);
         $mockQuery = $this->getMockBuilder(Query::class)
             ->disableOriginalConstructor()
             ->onlyMethods(['getQuerySettings'])->getMock();
         $mockQuerySettings = $this->getMockQuerySettings();
         $mockQuery->expects($this->once())
             ->method('getQuerySettings')
-            ->will($this->returnValue($mockQuerySettings));
+            ->willReturn($mockQuerySettings);
         $fixture->expects($this->once())
             ->method('createQuery')
-            ->will($this->returnValue($mockQuery));
+            ->willReturn($mockQuery);
 
         $expectedStoragePageIds = GeneralUtility::intExplode(',', $storagePageIds);
 

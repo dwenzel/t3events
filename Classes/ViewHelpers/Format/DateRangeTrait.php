@@ -30,9 +30,9 @@ trait DateRangeTrait
     {
         $format = static::DEFAULT_DATE_FORMAT;
 
-        $endFormat = $this->arguments['endFormat'];
-        $startFormat = $this->arguments['startFormat'];
-        $glue = $this->arguments['glue'];
+        $endFormat = $this->arguments['endFormat'] ?? null;
+        $startFormat = $this->arguments['startFormat'] ?? null;
+        $glue = $this->arguments['glue'] ?? null;
 
         if (!empty($this->arguments['format'])) {
             $format = $this->arguments['format'];

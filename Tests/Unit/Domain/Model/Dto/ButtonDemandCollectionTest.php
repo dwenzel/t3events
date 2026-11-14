@@ -99,7 +99,7 @@ class ButtonDemandCollectionTest extends UnitTestCase
             ButtonDemand::TABLE_KEY => 'foo',
             ButtonDemand::ACTION_KEY => 'bar',
             ButtonDemand::ICON_KEY => 'baz',
-            ButtonDemand::ICON_SIZE_KEY => 'nope',
+            ButtonDemand::ICON_SIZE_KEY => 'small',
             ButtonDemand::LABEL_KEY => 'boom',
             ButtonDemand::OVERLAY_KEY => 'zap'
         ];

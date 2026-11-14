@@ -11,7 +11,7 @@ use DWenzel\T3events\Domain\Repository\PerformanceRepository;
 use DWenzel\T3events\Utility\SettingsInterface as SI;
 use Nimut\TestingFramework\MockObject\AccessibleMockObjectInterface;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
-use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
+use Psr\Http\Message\ResponseInterface;
 use TYPO3Fluid\Fluid\View\ViewInterface;
 
 /**
@@ -60,16 +60,19 @@ class ScheduleControllerTest extends UnitTestCase
     public function setUp(): void
     {
         parent::setUp();
+        $mockResponse = $this->getMockBuilder(ResponseInterface::class)->getMockForAbstractClass();
         $this->subject = $this->getMockBuilder(ScheduleController::class)
             ->onlyMethods(
                 [
                     'createDemandFromSettings',
                     'emitSignal',
                     'getFilterOptions',
-                    'overwriteDemandObject'
+                    'overwriteDemandObject',
+                    'renderWithModuleTemplate',
                 ])
             ->disableOriginalConstructor()
             ->getMock();
+        $this->subject->method('renderWithModuleTemplate')->willReturn($mockResponse);
         $this->view = $this->getMockForAbstractClass(
             ViewInterface::class
         );
@@ -96,9 +99,6 @@ class ScheduleControllerTest extends UnitTestCase
         $this->performanceDemandFactory->method('createFromSettings')->will($this->returnValue($mockDemand));
         $this->inject($this->subject, "performanceDemandFactory", $this->performanceDemandFactory);
         $this->inject($this->subject, SI::SETTINGS, $this->settings);
-        $mockModuleTemplateFactory = $this->getMockBuilder(ModuleTemplateFactory::class)
-            ->disableOriginalConstructor()->getMock();
-        $this->inject($this->subject, 'moduleTemplateFactory', $mockModuleTemplateFactory);
     }
 
     /**
@@ -193,11 +193,11 @@ class ScheduleControllerTest extends UnitTestCase
     /**
      * @test
      */
-    public function listActionAssignsVariablesToView()
+    public function listActionRendersModuleTemplate()
     {
-        // can not match expectedTemplateVariables as soon as method 'emitSignal' is called.
-        $this->view->expects($this->once())
-            ->method('assignMultiple');
+        $this->mockCreateDemandFromSettings();
+        $this->subject->expects($this->once())
+            ->method('renderWithModuleTemplate');
         $this->subject->listAction();
     }
 }

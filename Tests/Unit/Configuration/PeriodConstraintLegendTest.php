@@ -6,6 +6,8 @@ use DWenzel\T3events\Configuration\PeriodConstraintLegend;
 use DWenzel\T3events\DataProvider\Legend\LayeredLegendDataProviderInterface;
 use DWenzel\T3events\DataProvider\Legend\PeriodDataProviderFactory;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\CMS\Core\Core\ApplicationContext;
+use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Lang\LanguageService;
 
 /***************************************************************
@@ -43,21 +45,43 @@ class PeriodConstraintLegendTest extends UnitTestCase
     public function setUp(): void
     {
         parent::setUp();
+
+        $projectPath = (string) realpath(sys_get_temp_dir()) . '/t3events_test_env';
+        $publicPath = $projectPath . '/public';
+        if (!is_dir($publicPath)) {
+            mkdir($publicPath, 0777, true);
+        }
+        Environment::initialize(
+            new ApplicationContext('Testing'),
+            true,
+            false,
+            $projectPath,
+            $publicPath,
+            $projectPath . '/var',
+            $projectPath . '/config',
+            $projectPath . '/index.php',
+            PHP_OS_FAMILY === 'Windows' ? 'WINDOWS' : 'UNIX'
+        );
+
         $this->subject = $this->getMockBuilder(PeriodConstraintLegend::class)
             ->getMock();
 
         $this->periodDataProviderFactory = $this->getMockBuilder(PeriodDataProviderFactory::class)
             ->onlyMethods(['get'])->getMock();
-
     }
 
     /**
      * @test
-     * @expectedException \DWenzel\T3events\MissingFileException
-     * @expectedExceptionCode 1462887081
      */
     public function initializeThrowsMissingFileException()
     {
+        // Re-create subject without mocking any methods so the real initialize() runs.
+        $this->subject = $this->getMockBuilder(PeriodConstraintLegend::class)
+            ->disableOriginalConstructor()
+            ->onlyMethods([])
+            ->getMock();
+        $this->expectException(\DWenzel\T3events\MissingFileException::class);
+        $this->expectExceptionCode(1462887081);
         $params = ['foo'];
         $this->inject($this->subject, 'xmlFilePath', 'fooPath');
         $this->subject->initialize($params);
@@ -78,12 +102,21 @@ class PeriodConstraintLegendTest extends UnitTestCase
             ->onlyMethods(['get'])->getMock();
         $this->periodDataProviderFactory->expects($this->once())
             ->method('get')
-            ->will($this->returnValue($mockDataProvider));
+            ->willReturn($mockDataProvider);
         $this->subject->expects($this->once())
             ->method('getDataProviderFactory')
-            ->will($this->returnValue($this->periodDataProviderFactory));
+            ->willReturn($this->periodDataProviderFactory);
 
-        $this->subject->initialize($params);
+        // Use a real temp file within the test public path so getFileAbsFileName() accepts it.
+        // load() is mocked so it won't try to parse the file.
+        $tmpFile = tempnam(Environment::getPublicPath(), 'test_period_legend_');
+        $this->inject($this->subject, 'xmlFilePath', $tmpFile);
+
+        try {
+            $this->subject->initialize($params);
+        } finally {
+            unlink($tmpFile);
+        }
 
         $this->assertAttributeEquals(
             $mockDataProvider, 'dataProvider', $this->subject
@@ -119,10 +152,10 @@ class PeriodConstraintLegendTest extends UnitTestCase
         $this->inject($this->subject, 'dataProvider', $mockDataProvider);
         $mockDataProvider->expects($this->once())
             ->method('getAllLayerIds')
-            ->will($this->returnValue($allLayers));
+            ->willReturn($allLayers);
         $mockDataProvider->expects($this->once())
             ->method('getVisibleLayerIds')
-            ->will($this->returnValue($visibleLayers));
+            ->willReturn($visibleLayers);
 
         $this->subject->expects($this->once())
             ->method('hideElements')
@@ -147,10 +180,11 @@ class PeriodConstraintLegendTest extends UnitTestCase
         $params = ['foo'];
 
         $mockLanguageService = $this->getMockBuilder(LanguageService::class)
+            ->disableOriginalConstructor()
             ->onlyMethods(['sL'])->getMock();
         $this->subject->expects($this->any())
             ->method('getLanguageService')
-            ->will($this->returnValue($mockLanguageService));
+            ->willReturn($mockLanguageService);
         $expectedSlArgs = [
             [PeriodConstraintLegend::LANGUAGE_FILE . PeriodConstraintLegend::START_POINT_KEY],
             [PeriodConstraintLegend::LANGUAGE_FILE . PeriodConstraintLegend::END_POINT_KEY]
@@ -175,6 +209,11 @@ class PeriodConstraintLegendTest extends UnitTestCase
                 $this->assertSame($expectedReplaceArgs[$replaceCallIndex], func_get_args());
                 $replaceCallIndex++;
             });
+
+        // Inject a mock dataProvider so setLabels() does not bail out early.
+        $mockDataProvider = $this->getMockLayeredLegendDataProvider();
+        $this->inject($this->subject, 'dataProvider', $mockDataProvider);
+
         $this->subject->render($params);
     }
 

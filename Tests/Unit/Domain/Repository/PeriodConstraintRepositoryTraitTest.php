@@ -24,6 +24,9 @@ use DWenzel\T3events\Domain\Repository\PeriodConstraintRepositoryTrait;
 use DWenzel\T3events\Tests\Unit\Domain\Model\Dto\MockDemandTrait;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
+use TYPO3\CMS\Extbase\Persistence\Generic\Qom\AndInterface;
+use TYPO3\CMS\Extbase\Persistence\Generic\Qom\ConstraintInterface;
+use TYPO3\CMS\Extbase\Persistence\Generic\Qom\OrInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use DWenzel\T3events\Utility\SettingsInterface as SI;
 
@@ -58,6 +61,21 @@ class PeriodConstraintRepositoryTraitTest extends UnitTestCase
     protected $demand;
 
     /**
+     * @var ConstraintInterface|MockObject
+     */
+    protected $mockConstraint;
+
+    /**
+     * @var AndInterface|MockObject
+     */
+    protected $mockAndConstraint;
+
+    /**
+     * @var OrInterface|MockObject
+     */
+    protected $mockOrConstraint;
+
+    /**
      * set up
      */
     public function setUp(): void
@@ -67,6 +85,17 @@ class PeriodConstraintRepositoryTraitTest extends UnitTestCase
             PeriodConstraintRepositoryTrait::class
         );
         $this->query = $this->getMockQuery();
+        // Stub comparison methods to return type-correct mocks.
+        // TYPO3 v13: logicalAnd returns AndInterface, logicalOr returns OrInterface.
+        $this->mockConstraint = $this->getMockBuilder(ConstraintInterface::class)->getMockForAbstractClass();
+        $this->mockAndConstraint = $this->getMockBuilder(AndInterface::class)->getMockForAbstractClass();
+        $this->mockOrConstraint = $this->getMockBuilder(OrInterface::class)->getMockForAbstractClass();
+        foreach (['equals', 'lessThan', 'lessThanOrEqual', 'greaterThan', 'greaterThanOrEqual',
+                  'like', 'contains', 'in', 'logicalNot'] as $method) {
+            $this->query->method($method)->willReturn($this->mockConstraint);
+        }
+        $this->query->method('logicalAnd')->willReturn($this->mockAndConstraint);
+        $this->query->method('logicalOr')->willReturn($this->mockOrConstraint);
         $this->demand = $this->getMockPeriodAwareDemand(
             [
                 'getPeriod',
@@ -117,10 +146,10 @@ class PeriodConstraintRepositoryTraitTest extends UnitTestCase
 
         $this->demand->expects($this->any())
             ->method('getPeriod')
-            ->will($this->returnValue($period));
+            ->willReturn($period);
         $this->demand->expects($this->once())
             ->method('getStartDateField')
-            ->will($this->returnValue(self::START_DATE_FIELD));
+            ->willReturn(self::START_DATE_FIELD);
         $this->query->expects($this->once())
             ->method('greaterThanOrEqual')
             ->with(self::START_DATE_FIELD, $startDate->getTimestamp());
@@ -139,10 +168,10 @@ class PeriodConstraintRepositoryTraitTest extends UnitTestCase
 
         $this->demand->expects($this->any())
             ->method('getPeriod')
-            ->will($this->returnValue($period));
+            ->willReturn($period);
         $this->demand->expects($this->once())
             ->method('getStartDateField')
-            ->will($this->returnValue(self::START_DATE_FIELD));
+            ->willReturn(self::START_DATE_FIELD);
         $this->query->expects($this->once())
             ->method('lessThanOrEqual')
             ->with(self::START_DATE_FIELD, $startDate->getTimestamp());
@@ -153,7 +182,7 @@ class PeriodConstraintRepositoryTraitTest extends UnitTestCase
     /**
      * Data provider for specific period
      */
-    public function startDateByPeriodType()
+    public static function startDateByPeriodType()
     {
         $timeZone = new \DateTimeZone(date_default_timezone_get());
         $defaultStartDate = new \DateTime(
@@ -164,9 +193,9 @@ class PeriodConstraintRepositoryTraitTest extends UnitTestCase
         $year = $defaultStartDate->format('Y');
 
         return [
-            'by day' => ['byDay', $defaultStartDate],
-            'by month' => ['byMonth', new \DateTime('first day of this month  00:00:00', $timeZone)],
-            'by year' => ['byYear', new \DateTime($year . '-01-01', $timeZone)],
+            'byDay' => ['byDay', $defaultStartDate],
+            'byMonth' => ['byMonth', new \DateTime('first day of this month  00:00:00', $timeZone)],
+            'byYear' => ['byYear', new \DateTime($year . '-01-01', $timeZone)],
         ];
     }
 
@@ -183,19 +212,20 @@ class PeriodConstraintRepositoryTraitTest extends UnitTestCase
 
         $this->demand->expects($this->any())
             ->method('getPeriodType')
-            ->will($this->returnValue($periodType));
+            ->willReturn($periodType);
         $this->demand->expects($this->any())
             ->method('getPeriod')
-            ->will($this->returnValue($period));
+            ->willReturn($period);
         $this->demand->expects($this->any())
             ->method('getPeriodStart')
-            ->will($this->returnValue($periodStart));
+            ->willReturn($periodStart);
         $this->demand->expects($this->any())
             ->method('getStartDateField')
-            ->will($this->returnValue(self::START_DATE_FIELD));
+            ->willReturn(self::START_DATE_FIELD);
         $this->query->expects($this->once())
             ->method('greaterThanOrEqual')
-            ->with(self::START_DATE_FIELD, $expectedStartDate->getTimestamp());
+            ->with(self::START_DATE_FIELD, $expectedStartDate->getTimestamp())
+            ->willReturn($this->mockConstraint);
 
         $this->subject->createPeriodConstraints($this->query, $this->demand);
     }
@@ -212,22 +242,23 @@ class PeriodConstraintRepositoryTraitTest extends UnitTestCase
 
         $this->demand->expects($this->any())
             ->method('getPeriodType')
-            ->will($this->returnValue($periodType));
+            ->willReturn($periodType);
         $this->demand->expects($this->any())
             ->method('getPeriod')
-            ->will($this->returnValue($period));
+            ->willReturn($period);
         $this->demand->expects($this->any())
             ->method('getPeriodStart')
-            ->will($this->returnValue($periodStart));
+            ->willReturn($periodStart);
         $this->demand->expects($this->any())
             ->method('getStartDate')
-            ->will($this->returnValue($expectedStartDate));
+            ->willReturn($expectedStartDate);
         $this->demand->expects($this->any())
             ->method('getStartDateField')
-            ->will($this->returnValue(self::START_DATE_FIELD));
+            ->willReturn(self::START_DATE_FIELD);
         $this->query->expects($this->once())
             ->method('greaterThanOrEqual')
-            ->with(self::START_DATE_FIELD, $expectedStartDate->getTimestamp());
+            ->with(self::START_DATE_FIELD, $expectedStartDate->getTimestamp())
+            ->willReturn($this->mockConstraint);
 
         $this->subject->createPeriodConstraints($this->query, $this->demand);
     }
@@ -244,22 +275,23 @@ class PeriodConstraintRepositoryTraitTest extends UnitTestCase
 
         $this->demand->expects($this->any())
             ->method('getPeriodType')
-            ->will($this->returnValue($periodType));
+            ->willReturn($periodType);
         $this->demand->expects($this->any())
             ->method('getPeriod')
-            ->will($this->returnValue($period));
+            ->willReturn($period);
         $this->demand->expects($this->any())
             ->method('getPeriodStart')
-            ->will($this->returnValue($periodStart));
+            ->willReturn($periodStart);
         $this->demand->expects($this->any())
             ->method('getEndDate')
-            ->will($this->returnValue($expectedEndDate));
+            ->willReturn($expectedEndDate);
         $this->demand->expects($this->any())
             ->method('getStartDateField')
-            ->will($this->returnValue(self::START_DATE_FIELD));
+            ->willReturn(self::START_DATE_FIELD);
         $this->query->expects($this->once())
             ->method('lessThanOrEqual')
-            ->with(self::START_DATE_FIELD, $expectedEndDate->getTimestamp());
+            ->with(self::START_DATE_FIELD, $expectedEndDate->getTimestamp())
+            ->willReturn($this->mockConstraint);
 
         $this->subject->createPeriodConstraints($this->query, $this->demand);
     }
@@ -287,27 +319,30 @@ class PeriodConstraintRepositoryTraitTest extends UnitTestCase
 
         $this->demand->expects($this->any())
             ->method('getPeriod')
-            ->will($this->returnValue($period));
+            ->willReturn($period);
         $this->demand->expects($this->once())
             ->method('isRespectEndDate')
-            ->will($this->returnValue(true));
+            ->willReturn(true);
         $this->demand->expects($this->once())
             ->method('getStartDateField')
-            ->will($this->returnValue(self::START_DATE_FIELD));
+            ->willReturn(self::START_DATE_FIELD);
         $this->demand->expects($this->once())
             ->method('getEndDateField')
-            ->will($this->returnValue(self::END_DATE_FIELD));
+            ->willReturn(self::END_DATE_FIELD);
         $expectedGreaterArgs = [[self::START_DATE_FIELD, $endDate->getTimestamp()], [self::END_DATE_FIELD, $startDate->getTimestamp()]];
         $greaterCallIndex = 0;
+        $mockConstraint = $this->mockConstraint;
         $this->query->expects($this->exactly(2))
             ->method('greaterThanOrEqual')
-            ->willReturnCallback(function() use (&$greaterCallIndex, $expectedGreaterArgs) {
+            ->willReturnCallback(function() use (&$greaterCallIndex, $expectedGreaterArgs, $mockConstraint) {
                 $this->assertSame($expectedGreaterArgs[$greaterCallIndex], func_get_args());
                 $greaterCallIndex++;
+                return $mockConstraint;
             });
         $this->query->expects($this->once())
             ->method('logicalOr')
-            ->with();
+            ->with()
+            ->willReturn($this->mockOrConstraint);
 
         $this->subject->createPeriodConstraints($this->query, $this->demand);
     }
@@ -324,27 +359,30 @@ class PeriodConstraintRepositoryTraitTest extends UnitTestCase
 
         $this->demand->expects($this->any())
             ->method('getPeriod')
-            ->will($this->returnValue($period));
+            ->willReturn($period);
         $this->demand->expects($this->once())
             ->method('isRespectEndDate')
-            ->will($this->returnValue(true));
+            ->willReturn(true);
         $this->demand->expects($this->once())
             ->method('getStartDateField')
-            ->will($this->returnValue(self::START_DATE_FIELD));
+            ->willReturn(self::START_DATE_FIELD);
         $this->demand->expects($this->once())
             ->method('getEndDateField')
-            ->will($this->returnValue(self::END_DATE_FIELD));
+            ->willReturn(self::END_DATE_FIELD);
         $expectedLessArgs = [[self::END_DATE_FIELD, $endDate->getTimestamp()], [self::START_DATE_FIELD, $startDate->getTimestamp()]];
         $lessCallIndex = 0;
+        $mockConstraint = $this->mockConstraint;
         $this->query->expects($this->exactly(2))
             ->method('lessThanOrEqual')
-            ->willReturnCallback(function() use (&$lessCallIndex, $expectedLessArgs) {
+            ->willReturnCallback(function() use (&$lessCallIndex, $expectedLessArgs, $mockConstraint) {
                 $this->assertSame($expectedLessArgs[$lessCallIndex], func_get_args());
                 $lessCallIndex++;
+                return $mockConstraint;
             });
         $this->query->expects($this->once())
             ->method('logicalAnd')
-            ->with();
+            ->with()
+            ->willReturn($this->mockAndConstraint);
 
         $this->subject->createPeriodConstraints($this->query, $this->demand);
     }
@@ -362,44 +400,51 @@ class PeriodConstraintRepositoryTraitTest extends UnitTestCase
 
         $this->demand->expects($this->any())
             ->method('getPeriod')
-            ->will($this->returnValue($period));
+            ->willReturn($period);
         $this->demand->expects($this->any())
             ->method('getPeriodType')
-            ->will($this->returnValue($periodType));
+            ->willReturn($periodType);
         $this->demand->expects($this->once())
             ->method('isRespectEndDate')
-            ->will($this->returnValue(true));
+            ->willReturn(true);
         $this->demand->expects($this->once())
             ->method('getStartDateField')
-            ->will($this->returnValue(self::START_DATE_FIELD));
+            ->willReturn(self::START_DATE_FIELD);
         $this->demand->expects($this->once())
             ->method('getEndDateField')
-            ->will($this->returnValue(self::END_DATE_FIELD));
+            ->willReturn(self::END_DATE_FIELD);
         $this->demand->expects($this->any())
             ->method('getStartDate')
-            ->will($this->returnValue($startDate));
+            ->willReturn($startDate);
         $this->demand->expects($this->any())
             ->method('getEndDate')
-            ->will($this->returnValue($endDate));
+            ->willReturn($endDate);
         $expectedGreaterArgs2 = [[self::END_DATE_FIELD, $startDate->getTimestamp()], [self::START_DATE_FIELD, $startDate->getTimestamp()]];
         $greaterCallIndex2 = 0;
+        $mockConstraint = $this->mockConstraint;
         $this->query->expects($this->exactly(2))
             ->method('greaterThanOrEqual')
-            ->willReturnCallback(function() use (&$greaterCallIndex2, $expectedGreaterArgs2) {
+            ->willReturnCallback(function() use (&$greaterCallIndex2, $expectedGreaterArgs2, $mockConstraint) {
                 $this->assertSame($expectedGreaterArgs2[$greaterCallIndex2], func_get_args());
                 $greaterCallIndex2++;
+                return $mockConstraint;
             });
         $expectedLessArgs2 = [[self::END_DATE_FIELD, $endDate->getTimestamp()], [self::START_DATE_FIELD, $startDate->getTimestamp()], [self::END_DATE_FIELD, $endDate->getTimestamp()]];
         $lessCallIndex2 = 0;
         $this->query->expects($this->exactly(3))
             ->method('lessThanOrEqual')
-            ->willReturnCallback(function() use (&$lessCallIndex2, $expectedLessArgs2) {
+            ->willReturnCallback(function() use (&$lessCallIndex2, $expectedLessArgs2, $mockConstraint) {
                 $this->assertSame($expectedLessArgs2[$lessCallIndex2], func_get_args());
                 $lessCallIndex2++;
+                return $mockConstraint;
             });
+        $mockAndConstraint = $this->mockAndConstraint;
         $this->query->expects($this->exactly(2))
             ->method('logicalAnd')
-            ->with();
+            ->with()
+            ->willReturnCallback(function() use ($mockAndConstraint) {
+                return $mockAndConstraint;
+            });
 
         $this->subject->createPeriodConstraints($this->query, $this->demand);
     }

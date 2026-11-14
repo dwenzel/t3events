@@ -46,16 +46,15 @@ class FilterFactoryTraitTest extends UnitTestCase
             ->getMockForTrait();
 
         $this->filterFactory = $this->getMockBuilder(FilterFactory::class)
-            ->getMockForAbstractClass();
+            ->disableOriginalConstructor()
+            ->getMock();
     }
 
     public function testFilterFactoryCanBeInjected()
     {
         $this->subject->injectFilterFactory($this->filterFactory);
-        $this->assertAttributeEquals(
-            $this->filterFactory,
-            'filterFactory',
-            $this->subject
-        );
+        $prop = new \ReflectionProperty($this->subject, 'filterFactory');
+        $prop->setAccessible(true);
+        $this->assertSame($this->filterFactory, $prop->getValue($this->subject));
     }
 }

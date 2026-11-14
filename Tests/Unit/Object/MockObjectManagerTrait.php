@@ -23,7 +23,7 @@ use Psr\Container\ContainerInterface;
  * This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-trait MockContainerInterfaceTrait
+trait MockObjectManagerTrait
 {
 
     /**
@@ -39,10 +39,10 @@ trait MockContainerInterfaceTrait
     /**
      * @return ContainerInterface|MockObject
      */
-    protected function getMockContainerInterface()
+    protected function getMockObjectManager()
     {
         return $this->getMockBuilder(ContainerInterface::class)
             ->disableOriginalConstructor()
-            ->onlyMethods(['get'])->getMock();
+            ->onlyMethods(['get', 'has'])->getMock();
     }
 }

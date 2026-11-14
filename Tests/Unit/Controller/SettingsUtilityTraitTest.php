@@ -97,11 +97,10 @@ class SettingsUtilityTraitTest extends UnitTestCase
         $mockSettingsUtility = $this->mockSettingsUtility(['getControllerKey']);
         $mockSettingsUtility->expects($this->once())
             ->method('getControllerKey')
-            ->will($this->returnValue($controllerKey));
+            ->willReturn($controllerKey);
 
         $expectedSettings = [
             $controllerKey => ['bar'],
-            'bar'
         ];
 
         $this->assertEquals(
@@ -139,7 +138,7 @@ class SettingsUtilityTraitTest extends UnitTestCase
         $mockSettingsUtility = $this->mockSettingsUtility(['getControllerKey']);
         $mockSettingsUtility->expects($this->once())
             ->method('getControllerKey')
-            ->will($this->returnValue($controllerKey));
+            ->willReturn($controllerKey);
 
         $expectedSettings = [
             $controllerKey => [
@@ -185,7 +184,7 @@ class SettingsUtilityTraitTest extends UnitTestCase
         $mockSettingsUtility = $this->mockSettingsUtility(['getControllerKey']);
         $mockSettingsUtility->expects($this->once())
             ->method('getControllerKey')
-            ->will($this->returnValue($controllerKey));
+            ->willReturn($controllerKey);
 
         $expectedSettings = [
             $controllerKey => [
@@ -193,7 +192,6 @@ class SettingsUtilityTraitTest extends UnitTestCase
                 $actionKey => ['key' => 'actionValue']
             ],
             'key' => 'pluginValue',
-            'bar'
         ];
 
         $this->assertEquals(

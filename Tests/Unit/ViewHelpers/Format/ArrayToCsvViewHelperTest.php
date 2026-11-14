@@ -43,7 +43,7 @@ class ArrayToCsvViewHelperTest extends UnitTestCase
     /**
      * arguments data provider
      */
-    public function argumentsDataProvider()
+    public static function argumentsDataProvider()
     {
         return [
             // empty source with defaults for limiter and quote
@@ -75,9 +75,9 @@ class ArrayToCsvViewHelperTest extends UnitTestCase
     public function initializeArgumentsRegistersArguments()
     {
         $expectedRegisterArgs = [
-            ['source', 'array', ArrayToCsvViewHelper::ARGUMENT_SOURCE_DESCRIPTION, true, null],
-            ['delimiter', 'string', ArrayToCsvViewHelper::ARGUMENT_DELIMITER_DESCRIPTION, false, ','],
-            ['quote', 'string', ArrayToCsvViewHelper::ARGUMENT_QUOTE_DESCRIPTION, false, '"']
+            ['source', 'array', ArrayToCsvViewHelper::ARGUMENT_SOURCE_DESCRIPTION, true, null, null],
+            ['delimiter', 'string', ArrayToCsvViewHelper::ARGUMENT_DELIMITER_DESCRIPTION, false, ',', null],
+            ['quote', 'string', ArrayToCsvViewHelper::ARGUMENT_QUOTE_DESCRIPTION, false, '"', null]
         ];
         $registerCallIndex = 0;
         $this->subject->expects($this->exactly(3))

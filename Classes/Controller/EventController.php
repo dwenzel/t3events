@@ -95,7 +95,7 @@ class EventController extends ActionController
         /** @var QueryResultInterface<Event> $events */
         if (
             !$events->count()
-            && !$this->settings['hideIfEmptyResult']
+            && empty($this->settings['hideIfEmptyResult'])
         ) {
             $this->addFlashMessage(
                 $this->translate('tx_t3events.noEventsForSelectionMessage'),
