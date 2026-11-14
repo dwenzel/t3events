@@ -1,0 +1,73 @@
+name: Publish to TER
+
+on:
+  push:
+    tags:
+      - '*.*.*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Existing tag to publish, e.g. 4.0.0'
+        required: true
+
+jobs:
+  publish:
+    name: Publish to TER
+    runs-on: ubuntu-latest
+    env:
+      TYPO3_API_TOKEN: ${{ secrets.TYPO3_API_TOKEN }}
+      VERSION: ${{ github.event.inputs.version || github.ref_name }}
+
+    steps:
+      - name: Check version format
+        run: |
+          if ! [[ "$VERSION" =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
+            echo "::error::'$VERSION' is not a version tag (X.Y.Z)"
+            exit 1
+          fi
+
+      - name: Checkout tag
+        uses: actions/checkout@v4
+        with:
+          ref: refs/tags/${{ env.VERSION }}
+
+      - name: Check version in ext_emconf.php
+        run: |
+          # single quotes: PHP code, not shell variables
+          # shellcheck disable=SC2016
+          emconf_version=$(php -r '$_EXTKEY = "t3events"; include "ext_emconf.php"; echo $EM_CONF[$_EXTKEY]["version"];')
+          if [ "$emconf_version" != "$VERSION" ]; then
+            echo "::error::Tag $VERSION does not match version $emconf_version in ext_emconf.php"
+            exit 1
+          fi
+
+      - name: Check API token
+        id: token
+        run: |
+          if [ -z "$TYPO3_API_TOKEN" ]; then
+            echo "::notice::Secret TYPO3_API_TOKEN is not set, version $VERSION is not published to TER"
+            echo "available=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "available=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Setup PHP
+        if: steps.token.outputs.available == 'true'
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: intl, mbstring, json, zip, curl
+          tools: composer:v2
+
+      - name: Install tailor
+        if: steps.token.outputs.available == 'true'
+        run: composer global require typo3/tailor:^2.1 --prefer-dist --no-progress
+
+      - name: Publish to TER
+        if: steps.token.outputs.available == 'true'
+        env:
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          bin_dir=$(composer global config bin-dir --absolute)
+          comment="Release $VERSION, see https://github.com/$REPOSITORY/releases/tag/$VERSION"
+          "$bin_dir/tailor" ter:publish --comment "$comment" "$VERSION"
