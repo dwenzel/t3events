@@ -83,7 +83,7 @@ class NotificationService
     {
         /** @var MailMessage $message */
         $message = GeneralUtility::makeInstance(MailMessage::class);
-        $recipients = GeneralUtility::trimExplode(',', $notification->getRecipient(), true);
+        $recipients = GeneralUtility::trimExplode(',', (string)$notification->getRecipient(), true);
 
         $message->setTo($recipients)
             ->setFrom($notification->getSenderEmail(), $notification->getSenderName())
