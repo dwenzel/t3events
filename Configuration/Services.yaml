@@ -21,17 +21,6 @@ services:
   DWenzel\T3events\Resource\CoreResourceFactoryInterface: '@DWenzel\T3events\Resource\CoreResourceFactoryAdapter'
   DWenzel\T3events\Session\SessionInterface: '@DWenzel\T3events\Session\Typo3Session'
 
-  DWenzel\T3events\Update\LegacyFileFieldsUpdateWizard:
-    public: true
-    tags:
-      - name: upgradeWizard
-        identifier: 't3eventsLegacyFileFieldUpdateWizard'
-
-  DWenzel\T3events\Updates\SwitchableControllerActionsPluginUpdater:
-    public: true
-    tags:
-      - name: upgradeWizard
-        identifier: 't3eventsSwitchableControllerActionsPluginUpdater'
   DWenzel\T3events\Command\SeedFixturesCommand:
     tags:
       - name: console.command
