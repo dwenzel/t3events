@@ -52,7 +52,7 @@ $GLOBALS['TYPO3_CONF_VARS']['SYS']['formEngine']['formDataGroup']['tcaDatabaseRe
 
 ExtensionManagementUtility::addPageTSConfig('<INCLUDE_TYPOSCRIPT: source="FILE:EXT:t3events/Configuration/TSconfig/PageTSconfig.ts">');
 
-// Upgrade wizards are registered via Configuration/Services.yaml (tags: upgradeWizard)
+// Upgrade wizards are registered with the attribute #[UpgradeWizard] on their classes
 
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['formEngine']['nodeRegistry']['t3eventsLegendPeriodConstraints'] = [
     'nodeName' => 't3eventsLegendPeriodConstraints',
