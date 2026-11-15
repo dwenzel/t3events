@@ -206,7 +206,7 @@ trait DemandedRepositoryTrait
 
             if (!empty($subject)) {
                 // search text in specified search fields
-                $searchFields = GeneralUtility::trimExplode(',', $search->getFields(), true);
+                $searchFields = GeneralUtility::trimExplode(',', (string)$search->getFields(), true);
                 if ($searchFields === []) {
                     throw new \UnexpectedValueException('No search fields given', 1382608407);
                 }
