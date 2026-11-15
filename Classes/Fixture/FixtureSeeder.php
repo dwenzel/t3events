@@ -28,13 +28,19 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * including MM relations and reference index entries. Seeding purges
  * first, so it can be repeated.
  *
- * Records are created through the DataHandler: a backend user must be
- * initialized by the caller.
+ * The uids of the seeded records are kept in the registry as well. Seeding
+ * again creates every record with its previous uid (if that uid is still
+ * free), so pages and records keep their uids. Otherwise the backend would
+ * still refer to removed pages (e.g. the page selected in the page tree).
+ *
+ * Records are created through the DataHandler: a backend user with admin
+ * rights must be initialized by the caller (required to keep uids).
  */
 class FixtureSeeder
 {
     public const REGISTRY_NAMESPACE = 'tx_t3events';
     public const REGISTRY_KEY = 'fixtures.rootPageUid';
+    public const REGISTRY_KEY_UIDS = 'fixtures.uids';
 
     /** Tables written in the second pass, after the NEW ids of the first pass are known */
     protected const SECOND_PASS_TABLES = ['tt_content'];
@@ -60,14 +66,16 @@ class FixtureSeeder
         }
 
         return $this->transactional(function () use ($dataMap): array {
+            $previousUids = $this->getRecordUids();
             $purged = $this->purgeTree();
+            $dataMap = $this->assignPreviousUids($dataMap, $previousUids);
 
             $secondPass = array_intersect_key($dataMap, array_flip(self::SECOND_PASS_TABLES));
             $newIdMap = $this->process(array_diff_key($dataMap, $secondPass));
             $newIdMap += $this->process($this->substituteNewIds($secondPass, $newIdMap));
 
-            $rootPageUid = (int)$newIdMap[ShowcaseFixtures::ROOT_PAGE];
-            $this->storeRootPageUid($rootPageUid);
+            $this->writeRegistry(self::REGISTRY_KEY, (int)$newIdMap[ShowcaseFixtures::ROOT_PAGE]);
+            $this->writeRegistry(self::REGISTRY_KEY_UIDS, $this->collectRecordUids($dataMap, $newIdMap));
 
             $pages = [];
             foreach ($this->fixtures->frontendPages() as $newId => $title) {
@@ -94,11 +102,77 @@ class FixtureSeeder
         return $this->transactional(fn(): array => $this->purgeTree());
     }
 
+    public function getRootPageUid(): ?int
+    {
+        $uid = $this->readRegistry(self::REGISTRY_KEY);
+
+        return is_int($uid) && $uid > 0 ? $uid : null;
+    }
+
+    /**
+     * @return array<string, array<string, int>> table => [NEW id => uid] of the seeded records
+     */
+    public function getRecordUids(): array
+    {
+        $uids = $this->readRegistry(self::REGISTRY_KEY_UIDS);
+
+        return is_array($uids) ? $uids : [];
+    }
+
+    /**
+     * Sets the previous uid of each record, if it is not used by another record.
+     *
+     * @param array<string, array<string, array<string, mixed>>> $dataMap
+     * @param array<string, array<string, int>> $previousUids
+     * @return array<string, array<string, array<string, mixed>>>
+     */
+    protected function assignPreviousUids(array $dataMap, array $previousUids): array
+    {
+        foreach ($dataMap as $table => $records) {
+            foreach (array_keys($records) as $newId) {
+                $uid = (int)($previousUids[$table][$newId] ?? 0);
+                if ($uid > 0 && !$this->recordExists($table, $uid)) {
+                    $dataMap[$table][$newId]['uid'] = $uid;
+                }
+            }
+        }
+
+        return $dataMap;
+    }
+
+    /**
+     * @param array<string, array<string, array<string, mixed>>> $dataMap
+     * @param array<string, int> $newIdMap
+     * @return array<string, array<string, int>>
+     */
+    protected function collectRecordUids(array $dataMap, array $newIdMap): array
+    {
+        $uids = [];
+        foreach ($dataMap as $table => $records) {
+            foreach (array_keys($records) as $newId) {
+                $uids[$table][$newId] = (int)$newIdMap[$newId];
+            }
+        }
+
+        return $uids;
+    }
+
+    protected function recordExists(string $table, int $uid): bool
+    {
+        $queryBuilder = $this->queryBuilderWithoutRestrictions($table);
+
+        return (int)$queryBuilder->count('uid')
+            ->from($table)
+            ->where($queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($uid, Connection::PARAM_INT)))
+            ->executeQuery()
+            ->fetchOne() > 0;
+    }
+
     /**
      * Reads the registry table directly: the Registry API caches values in
-     * memory, which would survive the rollback of a dry run.
+     * memory, which would survive a failed transaction.
      */
-    public function getRootPageUid(): ?int
+    protected function readRegistry(string $key): mixed
     {
         $queryBuilder = $this->queryBuilderWithoutRestrictions('sys_registry');
         $value = $queryBuilder
@@ -106,30 +180,29 @@ class FixtureSeeder
             ->from('sys_registry')
             ->where(
                 $queryBuilder->expr()->eq('entry_namespace', $queryBuilder->createNamedParameter(self::REGISTRY_NAMESPACE)),
-                $queryBuilder->expr()->eq('entry_key', $queryBuilder->createNamedParameter(self::REGISTRY_KEY))
+                $queryBuilder->expr()->eq('entry_key', $queryBuilder->createNamedParameter($key))
             )
             ->executeQuery()
             ->fetchOne();
-        $uid = is_string($value) ? unserialize($value, ['allowed_classes' => false]) : null;
 
-        return is_int($uid) && $uid > 0 ? $uid : null;
+        return is_string($value) ? unserialize($value, ['allowed_classes' => false]) : null;
     }
 
-    protected function storeRootPageUid(int $uid): void
+    protected function writeRegistry(string $key, mixed $value): void
     {
-        $this->removeRootPageUid();
+        $this->removeRegistry($key);
         $this->connectionPool->getConnectionForTable('sys_registry')->insert('sys_registry', [
             'entry_namespace' => self::REGISTRY_NAMESPACE,
-            'entry_key' => self::REGISTRY_KEY,
-            'entry_value' => serialize($uid),
+            'entry_key' => $key,
+            'entry_value' => serialize($value),
         ], ['entry_value' => Connection::PARAM_LOB]);
     }
 
-    protected function removeRootPageUid(): void
+    protected function removeRegistry(string $key): void
     {
         $this->connectionPool->getConnectionForTable('sys_registry')->delete('sys_registry', [
             'entry_namespace' => self::REGISTRY_NAMESPACE,
-            'entry_key' => self::REGISTRY_KEY,
+            'entry_key' => $key,
         ]);
     }
 
@@ -143,6 +216,14 @@ class FixtureSeeder
             return [];
         }
         $dataHandler = GeneralUtility::makeInstance(DataHandler::class);
+        foreach ($dataMap as $table => $records) {
+            foreach ($records as $record) {
+                if (isset($record['uid'])) {
+                    // keep the uid of the previous seed (admin only)
+                    $dataHandler->suggestedInsertUids[$table . ':' . $record['uid']] = true;
+                }
+            }
+        }
         $dataHandler->start($dataMap, []);
         $dataHandler->process_datamap();
         if ($dataHandler->errorLog !== []) {
@@ -217,7 +298,8 @@ class FixtureSeeder
             }
         }
         if (!$countOnly) {
-            $this->removeRootPageUid();
+            $this->removeRegistry(self::REGISTRY_KEY);
+            $this->removeRegistry(self::REGISTRY_KEY_UIDS);
         }
 
         return $deleted;
