@@ -72,14 +72,44 @@ class FixtureSeederTest extends FunctionalTestCase
     public function seedingAgainReplacesFixtures(string $table, int $expectedCount): void
     {
         $this->subject->seed(self::PARENT_PAGE, new \DateTimeImmutable('today'));
-        $firstRootPage = $this->subject->getRootPageUid();
 
         $report = $this->subject->seed(self::PARENT_PAGE, new \DateTimeImmutable('today'));
 
         self::assertSame($expectedCount, $this->countRows($table));
-        self::assertNotSame($firstRootPage, $this->subject->getRootPageUid());
-        self::assertSame(0, $this->countRows('pages', $firstRootPage));
         self::assertSame(7, $report['purged']['pages']);
+    }
+
+    #[Test]
+    public function seedingAgainKeepsTheUidsOfAllRecords(): void
+    {
+        $this->subject->seed(self::PARENT_PAGE, new \DateTimeImmutable('today'));
+        $firstUids = $this->subject->getRecordUids();
+        $firstRootPage = $this->subject->getRootPageUid();
+
+        $this->subject->seed(self::PARENT_PAGE, new \DateTimeImmutable('today'));
+
+        self::assertSame($firstRootPage, $this->subject->getRootPageUid());
+        self::assertSame($firstUids, $this->subject->getRecordUids());
+        foreach ($firstUids as $table => $uids) {
+            foreach ($uids as $newId => $uid) {
+                self::assertSame(1, $this->countRows($table, $uid), $table . ':' . $newId);
+            }
+        }
+    }
+
+    #[Test]
+    public function seedingAgainUsesNewUidIfPreviousUidIsTaken(): void
+    {
+        $this->subject->seed(self::PARENT_PAGE, new \DateTimeImmutable('today'));
+        $genreUid = $this->subject->getRecordUids()['tx_t3events_domain_model_genre']['NEWgenreJazz'];
+        // the record was moved out of the showcase tree, so the purge keeps it
+        $this->getConnectionPool()->getConnectionForTable('tx_t3events_domain_model_genre')
+            ->update('tx_t3events_domain_model_genre', ['pid' => self::PARENT_PAGE], ['uid' => $genreUid]);
+
+        $this->subject->seed(self::PARENT_PAGE, new \DateTimeImmutable('today'));
+
+        self::assertNotSame($genreUid, $this->subject->getRecordUids()['tx_t3events_domain_model_genre']['NEWgenreJazz']);
+        self::assertSame(4, $this->countRows('tx_t3events_domain_model_genre'));
     }
 
     #[Test]
@@ -92,6 +122,7 @@ class FixtureSeederTest extends FunctionalTestCase
 
         self::assertSame($table === 'pages' ? 1 : 0, $this->countRows($table));
         self::assertNull($this->subject->getRootPageUid());
+        self::assertSame([], $this->subject->getRecordUids());
     }
 
     #[Test]
