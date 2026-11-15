@@ -267,3 +267,26 @@ pageEventICS {
         }
     }
 }
+
+# Plugin option "Disable caching" (settings.cache.notCacheable):
+# render the list plugin uncached. Needed for the sort and filter forms: their
+# values are sent with the request, and a cached page would ignore them.
+lib.tx_t3events.plugin.eventlist < tt_content.t3events_eventlist.20
+tt_content.t3events_eventlist.20 >
+tt_content.t3events_eventlist.20 = CASE
+tt_content.t3events_eventlist.20 {
+    key.data = flexform : pi_flexform:settings.cache.notCacheable
+    default < lib.tx_t3events.plugin.eventlist
+    1 = COA_INT
+    1.10 < lib.tx_t3events.plugin.eventlist
+}
+
+lib.tx_t3events.plugin.performancelist < tt_content.t3events_performancelist.20
+tt_content.t3events_performancelist.20 >
+tt_content.t3events_performancelist.20 = CASE
+tt_content.t3events_performancelist.20 {
+    key.data = flexform : pi_flexform:settings.cache.notCacheable
+    default < lib.tx_t3events.plugin.performancelist
+    1 = COA_INT
+    1.10 < lib.tx_t3events.plugin.performancelist
+}

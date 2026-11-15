@@ -133,14 +133,15 @@ class AbstractDemand extends AbstractEntity implements DemandInterface
     }
 
     /**
-     * Gets the sort field
+     * Gets the sort field: the explicitly set one, otherwise the field of the
+     * first entry of the order (used by the sort forms of the list templates)
      *
      * @return string|null The sort criteria in dot notation
      * @deprecated use getOrder instead
      */
     public function getSortBy(): ?string
     {
-        return $this->sortBy;
+        return $this->sortBy ?? $this->getFirstOrdering()[0] ?? null;
     }
 
     /**
@@ -155,14 +156,29 @@ class AbstractDemand extends AbstractEntity implements DemandInterface
     }
 
     /**
-     * Gets the sort direction
+     * Gets the sort direction: the explicitly set one, otherwise the direction
+     * of the first entry of the order ('asc' if the entry has none)
      *
      * @return string|null The sort direction
      * @deprecated use getOrder instead
      */
     public function getSortDirection(): ?string
     {
-        return $this->sortDirection;
+        return $this->sortDirection ?? $this->getFirstOrdering()[1] ?? null;
+    }
+
+    /**
+     * @return array{0?: string, 1?: string} field and direction of the first order entry
+     */
+    protected function getFirstOrdering(): array
+    {
+        $firstEntry = trim(explode(',', (string)$this->order)[0]);
+        if ($firstEntry === '') {
+            return [];
+        }
+        $parts = array_map(trim(...), explode('|', $firstEntry));
+
+        return [$parts[0], strtolower($parts[1] ?? '') === 'desc' ? 'desc' : 'asc'];
     }
 
     /**
