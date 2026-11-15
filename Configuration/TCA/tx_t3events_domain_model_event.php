@@ -36,7 +36,7 @@ return [
     'types' => [
         '1' => [
             'showitem' => '
-			    	 event_type,headline, subtitle,teaser,description,content_elements,
+			    	 event_type,headline, slug, subtitle,teaser,description,content_elements,
 			    	 --div--;' . $ll . ':tx_t3events_domain_model_event.tab.relations,
 			    	    images, files, related, related_schedules,
 			    	 --div--;LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf:tx_t3events_domain_model_event.extended,
@@ -156,6 +156,27 @@ return [
                 'size' => 30,
                 'eval' => 'trim',
                 'required' => true
+            ],
+        ],
+        'slug' => [
+            'exclude' => 1,
+            'label' => $ll . ':tx_t3events_domain_model_event.slug',
+            'description' => $ll . ':tx_t3events_domain_model_event.slug.description',
+            'config' => [
+                'type' => 'slug',
+                'size' => 50,
+                'generatorOptions' => [
+                    'fields' => ['headline'],
+                    'fieldSeparator' => '-',
+                    'prefixParentPageSlug' => false,
+                    'replacements' => [
+                        '/' => '-',
+                    ],
+                ],
+                'prependSlash' => false,
+                'fallbackCharacter' => '-',
+                'eval' => 'uniqueInPid',
+                'default' => '',
             ],
         ],
         'subtitle' => [

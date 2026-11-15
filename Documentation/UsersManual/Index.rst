@@ -26,5 +26,6 @@ Users manual
 		AuxiliaryRecords/Index
 		Events/Index
 		InsertPlugins/Index
+		ReadableUrls/Index
 		ShowcaseFixtures/Index
 

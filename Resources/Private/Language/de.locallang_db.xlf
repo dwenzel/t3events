@@ -109,6 +109,14 @@
             <source>Genre</source>
             <target>Genre</target>
         </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_event.slug" approved="yes">
+            <source>URL segment</source>
+            <target>URL-Segment</target>
+        </trans-unit>
+        <trans-unit id="tx_t3events_domain_model_event.slug.description" approved="yes">
+            <source>Part of the URL of the detail view (requires the route configuration of t3events in the site configuration). Generated from the headline.</source>
+            <target>Teil der URL der Detailansicht (erfordert die Routen-Konfiguration von t3events in der Site-Konfiguration). Wird aus der Überschrift erzeugt.</target>
+        </trans-unit>
         <trans-unit id="tx_t3events_domain_model_event.headline" approved="yes">
             <source>Headline</source>
             <target>Titel</target>

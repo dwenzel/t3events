@@ -38,3 +38,9 @@ services:
         command: 't3events:seed-fixtures'
         description: 'Seeds (or, with --purge, removes) the t3events showcase fixtures'
         schedulable: false
+
+  DWenzel\T3events\Updates\EventSlugUpdater:
+    public: true
+    tags:
+      - name: upgradeWizard
+        identifier: 't3eventsEventSlugUpdater'
