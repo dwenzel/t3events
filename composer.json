@@ -71,6 +71,7 @@
       "[ -L .Build/Web/typo3conf/ext/t3events ] || ln -snvf ../../../../. .Build/Web/typo3conf/ext/t3events"
     ],
     "test:unit": "phpunit -c phpunit.xml",
+    "test:functional": "phpunit -c Tests/Build/FunctionalTests.xml",
     "rector:check": "rector process --dry-run",
     "rector:fix": "rector process",
     "fractor:check": "fractor process --dry-run",
@@ -85,6 +86,7 @@
   },
   "scripts-descriptions": {
     "test:unit": "Run the unit tests",
+    "test:functional": "Run the functional tests (SQLite unless typo3Database* variables are set)",
     "rector:check": "Show changes Rector would make (PHP)",
     "rector:fix": "Apply Rector changes (PHP)",
     "fractor:check": "Show changes Fractor would make (TypoScript, FlexForms, Fluid, YAML)",
