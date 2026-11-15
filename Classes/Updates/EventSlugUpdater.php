@@ -20,6 +20,7 @@ use TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction;
 use TYPO3\CMS\Core\DataHandling\Model\RecordStateFactory;
 use TYPO3\CMS\Core\DataHandling\SlugHelper;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Install\Attribute\UpgradeWizard;
 use TYPO3\CMS\Install\Updates\DatabaseUpdatedPrerequisite;
 use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
 
@@ -27,6 +28,7 @@ use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
  * Fills the URL segment (slug) of events that have none, from the headline,
  * unique per storage folder. Used by the route configuration of t3events.
  */
+#[UpgradeWizard(EventSlugUpdater::IDENTIFIER)]
 class EventSlugUpdater implements UpgradeWizardInterface
 {
     public const IDENTIFIER = 't3eventsEventSlugUpdater';

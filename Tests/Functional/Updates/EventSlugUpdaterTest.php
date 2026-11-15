@@ -26,6 +26,17 @@ class EventSlugUpdaterTest extends FunctionalTestCase
     }
 
     #[Test]
+    public function wizardIsRegistered(): void
+    {
+        // the registry moved from EXT:install to EXT:core in TYPO3 14
+        $registryClass = class_exists(\TYPO3\CMS\Core\Upgrades\UpgradeWizardRegistry::class)
+            ? \TYPO3\CMS\Core\Upgrades\UpgradeWizardRegistry::class
+            : \TYPO3\CMS\Install\Updates\UpgradeWizardRegistry::class;
+
+        self::assertArrayHasKey(EventSlugUpdater::IDENTIFIER, $this->get($registryClass)->getUpgradeWizards());
+    }
+
+    #[Test]
     public function updateIsNecessaryForEventsWithoutSlug(): void
     {
         self::assertTrue($this->subject->updateNecessary());
