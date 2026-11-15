@@ -117,7 +117,9 @@
 			<f:translate key="tx_t3events_domain_model_performance.plan" />
 		</td>
 		<td>
-			{performance.plan}
+			<f:for each="{performance.plan}" as="plan">
+				<a href="{plan.originalResource.publicUrl}">{plan.originalResource.name}</a>
+			</f:for>
 		</td>
 	</tr>
 	<tr>
