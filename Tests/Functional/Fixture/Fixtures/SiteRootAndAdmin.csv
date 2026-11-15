@@ -1,0 +1,6 @@
+"pages"
+,"uid","pid","title","doktype","is_siteroot","slug"
+,1,0,"Root",1,1,"/"
+"be_users"
+,"uid","pid","username","admin","password"
+,1,0,"admin",1,"$2y$12$placeholder.not.used.for.login"
