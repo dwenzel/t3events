@@ -88,3 +88,27 @@ jobs:
       - name: Install dependencies for TYPO3 ${{ matrix.typo3 }}
         run: composer update --no-progress --prefer-dist -W --with "typo3/cms-core:${{ matrix.typo3 }}"
       - run: composer test:unit
+
+  functional-tests:
+    name: Functional tests TYPO3 ${{ matrix.typo3 }}, PHP ${{ matrix.php }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - typo3: '^13.4'
+            php: '8.3'
+          - typo3: '^14.3'
+            php: '8.4'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: pdo_sqlite
+          tools: composer:v2
+          coverage: none
+      - name: Install dependencies for TYPO3 ${{ matrix.typo3 }}
+        run: composer update --no-progress --prefer-dist -W --with "typo3/cms-core:${{ matrix.typo3 }}"
+      - name: Run functional tests (SQLite)
+        run: composer test:functional
