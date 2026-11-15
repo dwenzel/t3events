@@ -2,5 +2,7 @@
 This Template is responsible for displaying a single performance
 
 <f:section name="main">
-	<f:render partial="Performance/Properties" arguments="{performance: performance}" />
+	<div data-t3events-performance-detail="{performance.uid}">
+		<f:render partial="Performance/Properties" arguments="{performance: performance}" />
+	</div>
 </f:section>
