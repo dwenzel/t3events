@@ -36,6 +36,42 @@ Run the suite with `composer test:unit`. Two equivalent entry points are provide
 
 Both run the entire `Tests/Unit/` suite.
 
+## Functional tests
+
+```bash
+composer test:functional
+```
+
+Runs `Tests/Functional/` with `Tests/Build/FunctionalTests.xml`. The tests use
+SQLite by default (PHP extension `pdo_sqlite`); set the `typo3Database*`
+environment variables of the TYPO3 Testing Framework to use another database.
+Records are imported from CSV fixtures next to the tests (`Fixtures/*.csv`).
+
+## Showcase fixtures for manual tests
+
+The command `t3events:seed-fixtures` creates a page tree "t3events showcase"
+below the root page of the first site:
+
+- a storage folder with event types, genres, audiences, venues, an organizer,
+  performance statuses, a location and seven events with nine performances
+  (single date, several dates, running now, past, sold out, cancelled, hidden)
+- pages with event and performance list plugins in typical configurations;
+  the subheader of each plugin lists its settings
+- an extension template that renders the content and includes the t3events
+  TypoScript
+
+Dates are relative to the day of seeding. Running the command again replaces
+the fixtures; `--purge` removes them, `--dry-run` only reports, `--parent=<uid>`
+creates the tree below another page. The command refuses to run outside the
+application contexts Development, Testing and `*/Staging`.
+
+```bash
+vendor/bin/typo3 t3events:seed-fixtures
+```
+
+The data is defined in `Classes/Fixture/ShowcaseFixtures.php`, which also serves
+as an example of plugin configurations for integrators.
+
 ## Useful flags
 
 | Flag | Effect |
