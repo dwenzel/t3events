@@ -240,10 +240,8 @@ class FixtureSeeder
      * Replaces NEW ids in values (including comma separated lists and nested
      * FlexForm arrays) by the uids created in a previous pass.
      *
-     * @template T
-     * @param T $data
      * @param array<string, int> $newIdMap
-     * @return T
+     * @return mixed the data with NEW ids replaced; arrays stay arrays, strings stay strings
      */
     protected function substituteNewIds(mixed $data, array $newIdMap): mixed
     {
@@ -279,8 +277,10 @@ class FixtureSeeder
         }
         $pageUids = $this->collectPageTree($rootPageUid);
         if ($pageUids !== []) {
+            /** @var array<string, list<int>> $recordUids */
             $recordUids = ['pages' => $pageUids];
             foreach (array_keys($GLOBALS['TCA']) as $table) {
+                $table = (string)$table;
                 if ($table === 'pages') {
                     continue;
                 }
