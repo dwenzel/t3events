@@ -16,7 +16,8 @@ This Template is responsible for creating a list of events.
 	</f:if>
 	<f:flashMessages  />
 	<div class="eventList">
-		<f:if condition="{settings.event.list.showSortBy}">
+		<f:comment>The sort form needs an uncached plugin (option "Don't cache plugin contents")</f:comment>
+		<f:if condition="{settings.event.list.showSortBy} && {settings.cache.notCacheable}">
 			<f:if condition="{events}">
 				<span class="hint"><f:translate key="tx_t3events.hint.sortBy" /></span>
 				<f:form
