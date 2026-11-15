@@ -322,9 +322,14 @@ class ShowcaseFixtures
                 'NEWupcomingPage',
                 't3events_eventlist',
                 'Upcoming events',
-                'Event list: period future only, respecting end dates, ordered by date ascending, details on "Event detail".',
+                'Event list: period future only, respecting end dates, ordered by date ascending, details on "Event detail".'
+                . ' Not cached, so visitors can change the sort order.',
                 [
-                    'sDEF' => ['settings.order' => self::ORDER_DATE_ASC, 'settings.maxItems' => '20'],
+                    'sDEF' => [
+                        'settings.order' => self::ORDER_DATE_ASC,
+                        'settings.maxItems' => '20',
+                        'settings.cache.notCacheable' => '1',
+                    ],
                     'constraints' => ['settings.period' => 'futureOnly', 'settings.respectEndDate' => '1'],
                     'pages' => ['settings.detailPid' => self::EVENT_DETAIL_PAGE],
                 ]
