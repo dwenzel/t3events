@@ -3,6 +3,7 @@ namespace DWenzel\T3events\Service;
 
 use DWenzel\T3events\Configuration\ConfigurationManagerTrait;
 use DWenzel\T3events\Domain\Model\Notification;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use TYPO3\CMS\Core\Mail\Mailer;
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -58,9 +59,7 @@ class NotificationService
                 $this->buildAttachmentFromTemplate($attachment, $message);
             }
         }
-        $this->mailer->send($message);
-
-        return $message->isSent();
+        return $this->sendMessage($message);
     }
 
     /**
@@ -70,7 +69,7 @@ class NotificationService
      */
     public function render(string $templateName, ?string $folderName = null, ?string $format = null, array $variables = []): string
     {
-        $templateView = $this->buildTemplateView($templateName, $folderName, $format);
+        $templateView = $this->buildTemplateView($templateName, $format, $folderName);
         $templateView->assignMultiple($variables);
 
         return $templateView->render();
@@ -106,12 +105,27 @@ class NotificationService
                 }
             }
         }
-        $this->mailer->send($message);
-        if ($message->isSent()) {
+        $isSent = $this->sendMessage($message);
+        if ($isSent) {
             $notification->setSentAt(new \DateTime());
         }
 
-        return $message->isSent();
+        return $isSent;
+    }
+
+    /**
+     * Sends the message with the mailer.
+     * Returns true if the transport accepted the message.
+     */
+    protected function sendMessage(MailMessage $message): bool
+    {
+        try {
+            $this->mailer->send($message);
+        } catch (TransportExceptionInterface) {
+            return false;
+        }
+
+        return $this->mailer->getSentMessage() !== null;
     }
 
     /**
@@ -154,10 +168,11 @@ class NotificationService
      * Get template path and file name
      *
      * @param string $templateName File name (without extension)
-     * @param string $folderName Optional folder name, default 'Email'
+     * @param string|null $folderName Optional folder name, default 'Email'
      */
-    protected function getTemplatePathAndFileName(string $templateName, string $folderName = 'Email'): string
+    protected function getTemplatePathAndFileName(string $templateName, ?string $folderName = null): string
     {
+        $folderName ??= 'Email';
         $extbaseFrameworkConfiguration = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
         $templateRootPath = GeneralUtility::getFileAbsFileName((string)($extbaseFrameworkConfiguration['view']['templateRootPath'] ?? ''));
 

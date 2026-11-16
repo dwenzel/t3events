@@ -39,6 +39,7 @@ class EditUriViewHelperTest extends UnitTestCase
     {
         parent::setUp();
         $this->subject = $this->getMockBuilder(EditUriViewHelper::class)
+            ->setConstructorArgs([$this->createMock(UriBuilder::class)])
             ->onlyMethods(['registerArgument'])
             ->getMock();
     }
@@ -56,6 +57,7 @@ class EditUriViewHelperTest extends UnitTestCase
             ->willReturnCallback(function() use (&$registerCallIndex, $expectedRegisterArgs) {
                 $this->assertSame($expectedRegisterArgs[$registerCallIndex], func_get_args());
                 $registerCallIndex++;
+                return $this->subject;
             });
 
         $this->subject->initializeArguments();

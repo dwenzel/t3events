@@ -155,7 +155,10 @@ class SettingsUtilityTest extends UnitTestCase
      */
     public function getValueByKeyWrapsFieldValue()
     {
-        $cObj = new ContentObjectRenderer();
+        $cObj = $this->getMockBuilder(ContentObjectRenderer::class)
+            ->disableOriginalConstructor()
+            ->onlyMethods([])
+            ->getMock();
         $this->subject->_set('contentObjectRenderer', $cObj);
 
         $mockParentObject = $this->getAccessibleMock(

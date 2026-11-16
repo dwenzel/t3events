@@ -322,7 +322,7 @@ class AbstractDemandedRepositoryTest extends UnitTestCase
             AbstractDemandedRepository::class,
             array('createQuery', 'createConstraintsFromDemand'), array(), '', false);
         /** @var AbstractDemand|MockObject|AccessibleMockObjectInterface $mockDemand */
-        $mockDemand = $this->getAccessibleMockForAbstractClass('DWenzel\\T3events\\Domain\\Model\\Dto\\AbstractDemand');
+        $mockDemand = $this->getAccessibleMock('DWenzel\\T3events\\Domain\\Model\\Dto\\AbstractDemand', null);
         $offset = 3;
         $mockDemand->setOffset($offset);
         $mockQuery = $this->getMockQuery(['setOffset']);

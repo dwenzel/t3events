@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-- PHP 8.2 or higher
+- PHP 8.3 or higher
 - [Composer](https://getcomposer.org/)
 
 ## Setup
@@ -13,11 +13,14 @@ Install dependencies (only needed once, or after `composer.json` changes):
 composer install
 ```
 
-This installs PHPUnit 10.5 and the TYPO3 Testing Framework into `.Build/vendor/`.
+This installs PHPUnit 11.5 and the TYPO3 Testing Framework (8.x for TYPO3 13,
+9.x for TYPO3 14) into `.Build/vendor/`. Composer resolves the newest TYPO3
+version; to test against TYPO3 13, run
+`composer update -W --with typo3/cms-core:^13.4` first.
 
 ## Running all tests
 
-Two equivalent entry points are provided:
+Run the suite with `composer test:unit`. Two equivalent entry points are provided:
 
 **Via the root `phpunit.xml` (short form):**
 
@@ -192,7 +195,9 @@ These shims are registered as PSR-4 autoload paths in `composer.json` under
 
 ## PHPUnit version notes
 
-The suite targets **PHPUnit 10.5**. Key differences from older PHPUnit versions
+The suite targets **PHPUnit 11.5**. Test methods are still marked with
+`@test` annotations, which PHPUnit 11 reports as deprecated (removed in
+PHPUnit 12); they are to be replaced by attributes. Key differences from older PHPUnit versions
 that apply here:
 
 - Use `->willReturn($value)` instead of `->will($this->returnValue($value))`

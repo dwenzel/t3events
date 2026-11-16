@@ -2,10 +2,15 @@
 namespace DWenzel\T3events\Tests\Unit\Service;
 
 use PHPUnit\Framework\MockObject\MockObject;
+use Symfony\Component\Mailer\Exception\TransportException;
+use Symfony\Component\Mailer\SentMessage;
+use TYPO3\CMS\Core\Mail\Mailer;
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\CMS\Core\View\ViewFactoryInterface;
 use TYPO3\CMS\Core\View\ViewInterface;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use DWenzel\T3events\Domain\Model\Notification;
 use DWenzel\T3events\Service\NotificationService;
 
@@ -40,8 +45,19 @@ class NotificationServiceTest extends UnitTestCase
     {
         parent::setUp();
         $this->subject = $this->getAccessibleMock(
-            NotificationService::class, [], [], '', false
+            NotificationService::class, [], $this->constructorArguments()
         );
+    }
+
+    /**
+     * @return array<int, MockObject>
+     */
+    protected function constructorArguments(): array
+    {
+        return [
+            $this->createMock(ViewFactoryInterface::class),
+            $this->createMock(Mailer::class),
+        ];
     }
 
     /**
@@ -87,7 +103,7 @@ class NotificationServiceTest extends UnitTestCase
     public function notifySetsRecipients($recipient, $expectedRecipients)
     {
         $this->subject = $this->getAccessibleMock(
-            NotificationService::class, ['buildTemplateView'], [], '', false
+            NotificationService::class, ['buildTemplateView'], $this->constructorArguments()
         );
 
         $mockTemplateView = $this->getMockBuilder(ViewInterface::class)
@@ -113,6 +129,79 @@ class NotificationServiceTest extends UnitTestCase
     }
 
     /**
+     * @test
+     */
+    public function renderPassesFormatAndFolderNameInTheExpectedOrder(): void
+    {
+        $this->subject = $this->getAccessibleMock(
+            NotificationService::class, ['buildTemplateView'], $this->constructorArguments()
+        );
+        $mockTemplateView = $this->createMock(ViewInterface::class);
+        $mockTemplateView->method('render')->willReturn('');
+
+        $this->subject->expects(self::once())
+            ->method('buildTemplateView')
+            ->with('templateName', 'plain', 'folderName')
+            ->willReturn($mockTemplateView);
+
+        $this->subject->render('templateName', 'folderName', 'plain');
+    }
+
+    /**
+     * @test
+     */
+    public function getTemplatePathAndFileNameUsesDefaultFolderIfFolderNameIsNull(): void
+    {
+        $configurationManager = $this->createMock(ConfigurationManagerInterface::class);
+        $configurationManager->method('getConfiguration')
+            ->willReturn(['view' => ['templateRootPath' => '']]);
+        $this->subject->injectConfigurationManager($configurationManager);
+
+        self::assertSame(
+            'Email/templateName.html',
+            $this->subject->_call('getTemplatePathAndFileName', 'templateName', null)
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function sendReturnsTrueAndSetsSentAtIfMailerHasSentTheMessage(): void
+    {
+        $mailer = $this->createMock(Mailer::class);
+        $mailer->method('getSentMessage')->willReturn($this->createMock(SentMessage::class));
+        $this->subject = $this->getAccessibleMock(
+            NotificationService::class, [], [$this->createMock(ViewFactoryInterface::class), $mailer]
+        );
+        $notification = new Notification();
+        $notification->initializeObject();
+        $notification->setRecipient('foo@bar.baz');
+        GeneralUtility::addInstance(MailMessage::class, $this->getMockMailMessage());
+
+        self::assertTrue($this->subject->send($notification));
+        self::assertInstanceOf(\DateTime::class, $notification->getSentAt());
+    }
+
+    /**
+     * @test
+     */
+    public function sendReturnsFalseIfTransportFails(): void
+    {
+        $mailer = $this->createMock(Mailer::class);
+        $mailer->method('send')->willThrowException(new TransportException('failed'));
+        $this->subject = $this->getAccessibleMock(
+            NotificationService::class, [], [$this->createMock(ViewFactoryInterface::class), $mailer]
+        );
+        $notification = new Notification();
+        $notification->initializeObject();
+        $notification->setRecipient('foo@bar.baz');
+        GeneralUtility::addInstance(MailMessage::class, $this->getMockMailMessage());
+
+        self::assertFalse($this->subject->send($notification));
+        self::assertNull($notification->getSentAt());
+    }
+
+    /**
      * @return MailMessage|MockObject
      */
     protected function getMockMailMessage()
@@ -122,22 +211,17 @@ class NotificationServiceTest extends UnitTestCase
             ->onlyMethods(
                 [
                     'setTo',
-                    'setBody',
-                    'send',
                     'setFrom',
                     'setSubject',
                     'html',
                     'text',
-                    'isSent',
                 ]
             )->getMock();
         $message->method('setTo')->willReturn($message);
-        $message->method('send')->willReturn(true);
         $message->method('setFrom')->willReturn($message);
         $message->method('setSubject')->willReturn($message);
         $message->method('html')->willReturn($message);
         $message->method('text')->willReturn($message);
-        $message->method('isSent')->willReturn(true);
 
         return $message;
     }
