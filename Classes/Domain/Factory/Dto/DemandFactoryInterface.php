@@ -13,8 +13,7 @@ interface DemandFactoryInterface
     /**
      * Creates a demand object from settings
      *
-     * @param array $settings
-     * @return DemandInterface
+     * @param array<string, mixed> $settings
      */
-    public function createFromSettings(array $settings);
+    public function createFromSettings(array $settings): DemandInterface;
 }

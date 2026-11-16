@@ -16,28 +16,20 @@ namespace DWenzel\T3events\Domain\Model\Dto;
 
 trait EventLocationAwareDemandTrait
 {
-    /**
-     * @var string
-     */
-    protected $eventLocations;
+    protected ?string $eventLocations = null;
 
     /**
      * Gets the event locations
-     *
-     * @return string
      */
-    public function getEventLocations()
+    public function getEventLocations(): ?string
     {
         return $this->eventLocations;
     }
 
     /**
      * Sets the event locations
-     *
-     * @var string $eventLocations
-     * @return void
      */
-    public function setEventLocations($eventLocations)
+    public function setEventLocations(?string $eventLocations): void
     {
         $this->eventLocations = $eventLocations;
     }

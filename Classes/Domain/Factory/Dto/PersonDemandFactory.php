@@ -17,6 +17,7 @@ namespace DWenzel\T3events\Domain\Factory\Dto;
 use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
 use DWenzel\T3events\Domain\Model\Dto\PeriodAwareDemandInterface;
 use DWenzel\T3events\Domain\Model\Dto\PersonDemand;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Class PersonDemandFactory
@@ -35,9 +36,9 @@ class PersonDemandFactory extends AbstractDemandFactory implements DemandFactory
      * Properties which should be mapped when settings
      * are applied to demand object
      *
-     * @var array
+     * @var array<string, string>
      */
-    protected static $mappedProperties = [
+    protected static array $mappedProperties = [
         'maxItems' => 'limit'
     ];
 
@@ -46,24 +47,24 @@ class PersonDemandFactory extends AbstractDemandFactory implements DemandFactory
      * but have to be composed from various settings or
      * require any special logic before setting
      *
-     * @var array
+     * @var list<string>
      */
-    protected static $compositeProperties = [
+    protected static array $compositeProperties = [
         'search'
     ];
 
     /**
      * Creates a demand object from settings
      *
-     * @param array $settings
-     * @return DemandInterface
+     * @param array<string, mixed> $settings
      */
-    public function createFromSettings(array $settings)
+    public function createFromSettings(array $settings): DemandInterface
     {
         /** @var PersonDemand $demand */
-        $demand = $this->objectManager->get(static::DEMAND_CLASS);
+        $demand = GeneralUtility::makeInstance(PersonDemand::class);
 
         if ($demand instanceof PeriodAwareDemandInterface) {
+            // @phpstan-ignore-next-line
             $this->setPeriodConstraints($demand, $settings);
         }
 

@@ -15,6 +15,7 @@ namespace DWenzel\T3events\ViewHelpers\Location;
  */
 
 use DWenzel\T3events\Domain\Model\Event;
+use DWenzel\T3events\Domain\Model\Performance;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
@@ -29,17 +30,15 @@ class CountViewHelper extends AbstractViewHelper
     /**
      * Initialize Arguments
      */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         $this->registerArgument('event', Event::class, static::ARGUMENT_EVENT_DESCRIPTION, true);
     }
 
     /**
      * Render method
-     *
-     * @return int
      */
-    public function render()
+    public function render(): int
     {
         $locationsArray = [];
 
@@ -47,12 +46,12 @@ class CountViewHelper extends AbstractViewHelper
             isset($this->arguments['event'])
             && $this->arguments['event'] instanceof Event
         ) {
-            /** @var ObjectStorage $performances */
+            /** @var ObjectStorage<Performance> $performances */
             $performances = $this->arguments['event']->getPerformances();
             foreach ($performances as $performance) {
                 $eventLocation = $performance->getEventLocation();
                 if ($eventLocation) {
-                    array_push($locationsArray, $eventLocation->getUid());
+                    $locationsArray[] = $eventLocation->getUid();
                 }
             }
             // make unique

@@ -26,6 +26,8 @@ use TYPO3\CMS\Lang\LanguageService;
  */
 class ItemsProcFuncTest extends UnitTestCase
 {
+    protected bool $resetSingletonInstances = true;
+
 
     /**
      * @var ItemsProcFunc | \PHPUnit_Framework_MockObject_MockObject
@@ -40,14 +42,15 @@ class ItemsProcFuncTest extends UnitTestCase
     /**
      *  set up
      */
-    protected function setUp(): void
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getAccessibleMock(
-            ItemsProcFunc::class, ['dummy', 'getLanguageService'], [], '', false
+            ItemsProcFunc::class, ['getLanguageService'], [], '', false
         );
 
         $this->templateLayoutUtility = $this->getMockBuilder(TemplateLayoutUtility::class)
-            ->setMethods(['getLayouts'])->getMock();
+            ->onlyMethods(['getLayouts'])->getMock();
         $this->inject(
             $this->subject,
             'templateLayoutUtility',
@@ -133,7 +136,7 @@ class ItemsProcFuncTest extends UnitTestCase
     {
         $mockLanguageService = $this->getMockBuilder(LanguageService::class)
             ->disableOriginalConstructor()
-            ->setMethods(['sL'])->getMock();
+            ->onlyMethods(['sL'])->getMock();
         $extensionKey = ItemsProcFunc::EXTENSION_KEY;
         $title = 'foo';
         $templateName = 'bar';

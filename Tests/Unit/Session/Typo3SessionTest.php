@@ -46,16 +46,17 @@ class Typo3SessionTest extends UnitTestCase
     /**
      *
      */
-    protected function setUp(): void
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getAccessibleMock(
-            Typo3Session::class, ['dummy'], [], '', false);
+            Typo3Session::class, [], [], '', false);
         $this->subject->setNamespace(self::SESSION_NAMESPACE);
 
         $this->tsfe = $this->getAccessibleMock(
             TypoScriptFrontendController::class, [], [], '', false);
         $this->feUser = $this->getAccessibleMock(
-            FrontendUserAuthentication::class, [], [], '', false
+            FrontendUserAuthentication::class, ['getKey', 'setKey', 'storeSessionData'], [], '', false
         );
         $this->tsfe->fe_user = $this->feUser;
         $GLOBALS['TSFE'] = $this->tsfe;

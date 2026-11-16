@@ -39,8 +39,9 @@ class VenueFilterTest extends UnitTestCase
      */
     protected $venueRepository;
 
-    protected function setUp(): void
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = new VenueFilter();
         $this->venueRepository = $this->getMockBuilder(VenueRepository::class)
             ->disableOriginalConstructor()

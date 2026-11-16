@@ -1,6 +1,6 @@
 <?php
 
-namespace DWenzel\T3events\Tests\Unit\Controller;
+namespace DWenzel\T3events\Tests\Controller;
 
 use DWenzel\T3events\Controller\FilterableControllerTrait;
 use DWenzel\T3events\Domain\Repository\AudienceRepository;
@@ -62,7 +62,7 @@ class DummyControllerWithAudienceRepository
 /**
  * Class FilterableControllerTraitTest
  *
- * @package DWenzel\T3events\Tests\Unit\Controller
+ * @package DWenzel\T3events\Tests\Controller
  */
 class FilterableControllerTraitTest extends UnitTestCase
 {
@@ -72,8 +72,9 @@ class FilterableControllerTraitTest extends UnitTestCase
      */
     protected $subject;
 
-    protected function setUp(): void
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getMockForTrait(
             FilterableControllerTrait::class
         );
@@ -86,7 +87,7 @@ class FilterableControllerTraitTest extends UnitTestCase
     private function getFilterOptionsReflection(): \ReflectionMethod
     {
         $reflectionMethod = new \ReflectionMethod(
-            \get_class($this->subject),
+            $this->subject::class,
             'getFilterOptions'
         );
         $reflectionMethod->setAccessible(true);
@@ -132,7 +133,7 @@ class FilterableControllerTraitTest extends UnitTestCase
     public function getFilterOptionsAddsAllOptionsForExistingRepositoryProperty()
     {
         $this->subject = $this->getMockBuilder(DummyControllerWithAudienceRepository::class)
-            ->setMethods(['translate'])->getMock();
+            ->onlyMethods(['translate'])->getMock();
 
         $settings = [
             'audience' => ''
@@ -167,7 +168,7 @@ class FilterableControllerTraitTest extends UnitTestCase
         $audienceRepository = $this->getMockAudienceRepository(['findMultipleByUid']);
         $mockQueryResult = $this->getMockQueryResult();
         $this->subject = $this->getAccessibleMock(
-            DummyControllerWithAudienceRepository::class, ['dummy']
+            DummyControllerWithAudienceRepository::class, []
         );
 
         $this->inject($this->subject, 'audienceRepository', $audienceRepository);
@@ -248,7 +249,7 @@ class FilterableControllerTraitTest extends UnitTestCase
     protected function getMockAudienceRepository(array $methods = [])
     {
         $audienceRepository = $this->getMockBuilder(AudienceRepository::class)
-            ->setMethods($methods)
+            ->onlyMethods($methods)
             ->disableOriginalConstructor()
             ->getMock();
         return $audienceRepository;

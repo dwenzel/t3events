@@ -1,10 +1,12 @@
 <?php
 namespace DWenzel\T3events\Domain\Model;
 
+use TYPO3\CMS\Extbase\Annotation\Validate;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
+use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
 
 /***************************************************************
  *  Copyright notice
@@ -29,90 +31,45 @@ class Person extends AbstractEntity
     const PERSON_TYPE_UNKNOWN = 'Tx_T3events_Default';
     const PERSON_TYPE_CONTACT = 'Tx_T3events_Contact';
 
-    /**
-     * type
-     *
-     * @var string
-     */
-    protected $type = self::PERSON_TYPE_UNKNOWN;
+    protected string $type = self::PERSON_TYPE_UNKNOWN;
+
+    #[Validate(['validator' => 'EmailAddress'])]
+    protected string $email = '';
+
+    protected LazyLoadingProxy|PersonType|null $personType = null;
+
+    protected string $name = '';
+
+    protected int $gender = 0;
+
+    protected string $firstName = '';
+
+    protected string $lastName = '';
+
+    protected string $phone = '';
+
+    protected string $title = '';
+
+    protected ?\DateTime $birthday = null;
+
+    protected string $www = '';
 
     /**
-     * email
-     *
-     * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate("EmailAddress")
+     * @var ObjectStorage<FileReference>
      */
-    protected $email = '';
-
-    /**
-     * @var \DWenzel\T3events\Domain\Model\PersonType
-     */
-    protected $personType;
-
-    /**
-     * @var string
-     */
-    protected $name;
-
-    /**
-     * @var int
-     */
-    protected $gender;
-
-    /**
-     * @var string
-     */
-    protected $firstName;
-
-    /**
-     * @var string
-     */
-    protected $lastName;
-
-    /**
-     * phone
-     *
-     * @var string
-     */
-    protected $phone = '';
-
-    /**
-     * Title
-     *
-     * @var string
-     */
-    protected $title;
-
-    /**
-     * @var \DateTime
-     */
-    protected $birthday;
-
-    /**
-     * WWW
-     *
-     * @var string
-     */
-    protected $www;
-
-    /**
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
-     * @Lazy
-     */
-    protected $images;
+    #[Lazy]
+    protected ObjectStorage $images;
 
     /**
      *
      */
-    public function initializeObject()
+    public function initializeObject(): void
     {
         $this->images = new ObjectStorage();
     }
 
     /**
      * Setter for the pid.
-     *
-     * @param int|null $pid
      */
     public function setPid(?int $pid): void
     {
@@ -124,18 +81,12 @@ class Person extends AbstractEntity
      *
      * @return string $type
      */
-    public function getType()
+    public function getType(): string
     {
         return $this->type;
     }
 
-    /**
-     * Sets the type
-     *
-     * @param string $type
-     * @return void
-     */
-    public function setType($type)
+    public function setType(string $type): void
     {
         $this->type = $type;
     }
@@ -145,87 +96,62 @@ class Person extends AbstractEntity
      *
      * @return string $email
      */
-    public function getEmail()
+    public function getEmail(): string
     {
         return $this->email;
     }
 
-    /**
-     * @return \DWenzel\T3events\Domain\Model\PersonType
-     */
-    public function getPersonType()
+    public function getPersonType(): ?PersonType
     {
+        if ($this->personType instanceof LazyLoadingProxy) {
+            /** @var PersonType $instance */
+            $instance = $this->personType->_loadRealInstance();
+            return $instance;
+        }
         return $this->personType;
     }
 
-    /**
-     * @param \DWenzel\T3events\Domain\Model\PersonType $personType
-     */
-    public function setPersonType($personType)
+    public function setPersonType(?PersonType $personType): void
     {
         $this->personType = $personType;
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @param string $name
-     */
-    public function setName($name)
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
 
-    /**
-     * @return int
-     */
-    public function getGender()
+    public function getGender(): int
     {
         return $this->gender;
     }
 
-    /**
-     * @param int $gender
-     */
-    public function setGender($gender)
+    public function setGender(int $gender): void
     {
         $this->gender = $gender;
     }
 
-    /**
-     * @return string
-     */
-    public function getFirstName()
+    public function getFirstName(): string
     {
         return $this->firstName;
     }
 
-    /**
-     * @param string $firstName
-     */
-    public function setFirstName($firstName)
+    public function setFirstName(string $firstName): void
     {
         $this->firstName = $firstName;
     }
 
-    /**
-     * @return string
-     */
-    public function getLastName()
+    public function getLastName(): string
     {
         return $this->lastName;
     }
 
-    /**
-     * @param string $lastName
-     */
-    public function setLastName($lastName)
+    public function setLastName(string $lastName): void
     {
         $this->lastName = $lastName;
     }
@@ -235,109 +161,76 @@ class Person extends AbstractEntity
      *
      * @return string $phone
      */
-    public function getPhone()
+    public function getPhone(): string
     {
         return $this->phone;
     }
 
-    /**
-     * Sets the email
-     *
-     * @param string $email
-     * @return void
-     */
-    public function setEmail($email)
+    public function setEmail(string $email): void
     {
         $this->email = $email;
     }
 
     /**
      * Sets the phone
-     *
-     * @param string $phone
-     * @return void
      */
-    public function setPhone($phone)
+    public function setPhone(string $phone): void
     {
         $this->phone = $phone;
     }
 
-    /**
-     * @return string
-     */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }
 
-    /**
-     * @param string $title
-     */
-    public function setTitle($title)
+    public function setTitle(string $title): void
     {
         $this->title = $title;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getBirthday()
+    public function getBirthday(): ?\DateTime
     {
         return $this->birthday;
     }
 
-    /**
-     * @param \DateTime $birthday
-     */
-    public function setBirthday($birthday)
+    public function setBirthday(?\DateTime $birthday): void
     {
         $this->birthday = $birthday;
     }
 
-    /**
-     * @return string
-     */
-    public function getWww()
+    public function getWww(): string
     {
         return $this->www;
     }
 
-    /**
-     * @param string $www
-     */
-    public function setWww($www)
+    public function setWww(string $www): void
     {
         $this->www = $www;
     }
 
     /**
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
+     * @return ObjectStorage<FileReference>
      */
-    public function getImages()
+    public function getImages(): ObjectStorage
     {
         return $this->images;
     }
 
     /**
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $images
+     * @param ObjectStorage<FileReference> $images
      */
-    public function setImages($images)
+    public function setImages(ObjectStorage $images): void
     {
         $this->images = $images;
     }
 
-    /**
-     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $fileReference
-     */
-    public function addImage(FileReference $fileReference)
+    public function addImage(FileReference $fileReference): void
     {
         $this->images->attach($fileReference);
     }
 
-    /**
-     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $fileReference
-     */
-    public function removeImage(FileReference $fileReference)
+    public function removeImage(FileReference $fileReference): void
     {
         $this->images->detach($fileReference);
     }

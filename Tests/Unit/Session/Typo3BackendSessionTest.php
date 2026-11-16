@@ -31,10 +31,11 @@ class Typo3BackendSessionTest extends UnitTestCase
     /**
      *
      */
-    protected function setUp(): void
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getAccessibleMock(
-            Typo3BackendSession::class, ['dummy'], [], '', false);
+            Typo3BackendSession::class, [], [], '', false);
         $this->subject->setNamespace(self::SESSION_NAMESPACE);
     }
 

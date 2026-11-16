@@ -21,71 +21,48 @@ trait StatusAwareDemandTrait
     /**
      * A single status
      * see $statuses for multiple
-     *
-     * @var \DWenzel\T3events\Domain\Model\PerformanceStatus
      */
-    protected $status;
+    protected ?PerformanceStatus $status = null;
 
     /**
      * Statuses (multiple)
-     *
-     * @var string
      */
-    protected $statuses;
+    protected ?string $statuses = null;
 
-    /**
-     * @var bool
-     */
-    protected $excludeSelectedStatuses;
+    protected bool $excludeSelectedStatuses = false;
 
     /**
      * Returns the performance status
-     *
-     * @return \DWenzel\T3events\Domain\Model\PerformanceStatus
      */
-    public function getStatus()
+    public function getStatus(): ?PerformanceStatus
     {
         return $this->status;
     }
 
     /**
      * sets the status
-     *
-     * @param PerformanceStatus|\DWenzel\T3events\Domain\Model\PerformanceStatus $status
      */
-    public function setStatus(PerformanceStatus $status)
+    public function setStatus(PerformanceStatus $status): void
     {
         $this->status = $status;
     }
 
-    /**
-     * @return string
-     */
-    public function getStatuses()
+    public function getStatuses(): ?string
     {
         return $this->statuses;
     }
 
-    /**
-     * @param string $statuses
-     */
-    public function setStatuses($statuses)
+    public function setStatuses(?string $statuses): void
     {
         $this->statuses = $statuses;
     }
 
-    /**
-     * @return boolean
-     */
-    public function isExcludeSelectedStatuses()
+    public function isExcludeSelectedStatuses(): bool
     {
         return $this->excludeSelectedStatuses;
     }
 
-    /**
-     * @param boolean $excludeSelectedStatuses
-     */
-    public function setExcludeSelectedStatuses($excludeSelectedStatuses)
+    public function setExcludeSelectedStatuses(bool $excludeSelectedStatuses): void
     {
         $this->excludeSelectedStatuses = $excludeSelectedStatuses;
     }

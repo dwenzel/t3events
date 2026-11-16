@@ -39,13 +39,6 @@ class Route
     const ORIGIN_SEPARATOR = '|';
 
     /**
-     * Origin of route
-     *
-     * @var string A string of fully qualified controller class name and action method separated by ORIGIN_SEPARATOR.
-     */
-    protected $origin;
-
-    /**
      * Options for routing method
      * default is
      * [
@@ -59,9 +52,10 @@ class Route
      *  'uri' => null
      * ]
      *
-     * @var array
+     * @var array<string, mixed>
      */
-    protected $options = [
+    /** @var array<string, mixed> */
+    protected array $options = [
         SI::ACTION_NAME => null,
         SI::CONTROLLER_NAME => null,
         SI::KEY_EXTENSION_NAME => null,
@@ -77,14 +71,14 @@ class Route
      *
      * @var string Allowed: forward, redirect (default), redirectToUri
      */
-    protected $method = self::METHOD_REDIRECT;
+    protected string $method = self::METHOD_REDIRECT;
 
     /**
      * Valid routing methods
      *
-     * @var array
+     * @var list<string>
      */
-    protected static $validMethods = [
+    protected static array $validMethods = [
         self::METHOD_REDIRECT,
         self::METHOD_FORWARD,
         self::METHOD_REDIRECT_TO_URI
@@ -93,11 +87,15 @@ class Route
     /**
      * Route constructor.
      *
-     * @var string $origin Pipe separated string of fully qualified controller class name and action method
+     * @param string $origin Pipe separated string of fully qualified controller class name and action method
      */
-    public function __construct($origin)
+    public function __construct(
+        /**
+         * Origin of route: a string of fully qualified controller class name and action method separated by ORIGIN_SEPARATOR.
+         */
+        protected string $origin
+    )
     {
-        $this->origin = $origin;
     }
 
     /**
@@ -106,7 +104,7 @@ class Route
      *
      * @return string A pipe separated string of controller class name and action
      */
-    public function getOrigin()
+    public function getOrigin(): string
     {
         return $this->origin;
     }
@@ -116,7 +114,7 @@ class Route
      *
      * @return string Allowed: redirect (default), forward, redirectToUri
      */
-    public function getMethod()
+    public function getMethod(): string
     {
         return $this->method;
     }
@@ -126,9 +124,9 @@ class Route
      * This method implements a fluent interface.
      *
      * @param string $method Routing method. Allowed: redirect, forward, redirectToUri
-     * @return Route The current route instance.
+     * @return static The current route instance.
      */
-    public function setMethod($method)
+    public function setMethod(string $method): static
     {
         if (in_array($method, static::$validMethods)) {
             $this->method = $method;
@@ -140,9 +138,9 @@ class Route
     /**
      * Returns the options for routing method
      *
-     * @return array
+     * @return array<string, mixed>
      */
-    public function getOptions()
+    public function getOptions(): array
     {
         return $this->options;
     }
@@ -153,9 +151,9 @@ class Route
      * @param string $name Name of the option
      * @return mixed The Option value or null when option is not set
      */
-    public function getOption($name)
+    public function getOption(string $name): mixed
     {
-        return isset($this->options[$name]) ? $this->options[$name] : null;
+        return $this->options[$name] ?? null;
     }
 
     /**
@@ -164,9 +162,9 @@ class Route
      *
      * @param string $name Option name
      * @param mixed $value Option value
-     * @return Route The current route instance.
+     * @return static The current route instance.
      */
-    public function setOption($name, $value)
+    public function setOption(string $name, mixed $value): static
     {
         $this->options[$name] = $value;
 
@@ -181,10 +179,10 @@ class Route
      *  <optionName> => <optionValue>
      * ]
      *
-     * @param array $options An array of option
-     * @return Route The current route instance.
+     * @param array<string, mixed> $options An array of option
+     * @return static The current route instance.
      */
-    public function setOptions(array $options)
+    public function setOptions(array $options): static
     {
         $this->options = $options;
 
@@ -197,7 +195,7 @@ class Route
      * @param string $name Option name
      * @return bool true if the option is set, otherwise false
      */
-    public function hasOption($name)
+    public function hasOption(string $name): bool
     {
         return array_key_exists($name, $this->options);
     }

@@ -12,40 +12,21 @@ interface StatusAwareDemandInterface
 {
     /**
      * Returns the performance status
-     *
-     * @return \DWenzel\T3events\Domain\Model\PerformanceStatus
      */
-    public function getStatus();
+    public function getStatus(): ?PerformanceStatus;
 
     /**
      * sets the status
-     *
-     * @param \DWenzel\T3events\Domain\Model\PerformanceStatus $status
-     * @return void
      */
-    public function setStatus(PerformanceStatus $status);
+    public function setStatus(PerformanceStatus $status): void;
 
-    /**
-     * @return string
-     */
-    public function getStatuses();
+    public function getStatuses(): ?string;
 
-    /**
-     * @param string $statuses
-     */
-    public function setStatuses($statuses);
-    /**
-     * @return boolean
-     */
-    public function isExcludeSelectedStatuses();
+    public function setStatuses(?string $statuses): void;
 
-    /**
-     * @param boolean $excludeSelectedStatuses
-     */
-    public function setExcludeSelectedStatuses($excludeSelectedStatuses);
+    public function isExcludeSelectedStatuses(): bool;
 
-    /**
-     * @return string
-     */
-    public function getStatusField();
+    public function setExcludeSelectedStatuses(bool $excludeSelectedStatuses): void;
+
+    public function getStatusField(): string;
 }

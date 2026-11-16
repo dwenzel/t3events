@@ -9,6 +9,7 @@ use DWenzel\T3events\Dto\FilterInterface;
 use DWenzel\T3events\Tests\Unit\Object\MockObjectManagerTrait;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 /***************************************************************
@@ -55,19 +56,18 @@ class FilterCollectionFactoryTest extends UnitTestCase
      */
     protected $filterCollection;
 
-    protected function setUp(): void
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = new FilterCollectionFactory();
-        $this->objectManager = $this->getMockObjectManager();
-        $this->subject->injectObjectManager($this->objectManager);
         $this->filterFactory = $this->getMockBuilder(FilterFactory::class)
-            ->setMethods(['get'])
+            ->disableOriginalConstructor()
+            ->onlyMethods(['get'])
             ->getMock();
         $this->subject->injectFilterFactory($this->filterFactory);
 
         $this->filterCollection = new FilterCollection();
-        $this->objectManager->method('get')
-            ->willReturn($this->filterCollection);
+        GeneralUtility::addInstance(FilterCollection::class, $this->filterCollection);
     }
 
     public function testCreateReturnsFilterCollection()

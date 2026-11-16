@@ -39,22 +39,22 @@ class FilterFactoryTraitTest extends UnitTestCase
      */
     protected $filterFactory;
 
-    protected function setUp(): void
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getMockBuilder(FilterFactoryTrait::class)
             ->getMockForTrait();
 
         $this->filterFactory = $this->getMockBuilder(FilterFactory::class)
-            ->getMockForAbstractClass();
+            ->disableOriginalConstructor()
+            ->getMock();
     }
 
     public function testFilterFactoryCanBeInjected()
     {
         $this->subject->injectFilterFactory($this->filterFactory);
-        $this->assertAttributeEquals(
-            $this->filterFactory,
-            'filterFactory',
-            $this->subject
-        );
+        $prop = new \ReflectionProperty($this->subject, 'filterFactory');
+        $prop->setAccessible(true);
+        $this->assertSame($this->filterFactory, $prop->getValue($this->subject));
     }
 }

@@ -30,17 +30,16 @@ class FindEventsViewHelper extends AbstractViewHelper
 {
 
     /**
-     * @param int $timestamp
-     * @param array $events
-     * @param string $as
+     * @param array<mixed> $events
      * @return string
      */
-    public function render($timestamp, $events, $as)
+    public function render(int $timestamp, array $events, string $as): mixed
     {
-        $filteredEvents = array();
+        $filteredEvents = [];
         foreach ($events as $event) {
             foreach ($event->getPerformances() as $performance) {
-                if (date('d.m.Y', $timestamp) === $performance->getDate()->format('d.m.Y')) {
+                $date = $performance->getDate();
+                if ($date !== null && date('d.m.Y', $timestamp) === $date->format('d.m.Y')) {
                     $filteredEvents[] = $event;
                     break;
                 }

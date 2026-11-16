@@ -28,18 +28,12 @@ use DWenzel\T3events\Domain\Repository\EventTypeRepository;
  */
 trait EventTypeRepositoryTrait
 {
-    /**
-     * EventType repository
-     *
-     * @var \DWenzel\T3events\Domain\Repository\EventTypeRepository
-     */
-    protected $eventTypeRepository;
+    protected EventTypeRepository $eventTypeRepository;
 
     /**
      * Injects the eventType repository
-     * @param EventTypeRepository $eventTypeRepository
      */
-    public function injectEventTypeRepository(EventTypeRepository $eventTypeRepository)
+    public function injectEventTypeRepository(EventTypeRepository $eventTypeRepository): void
     {
         $this->eventTypeRepository = $eventTypeRepository;
     }

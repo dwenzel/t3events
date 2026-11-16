@@ -28,57 +28,50 @@ class AbstractDemand extends AbstractEntity implements DemandInterface
 
     /**
      * Category Conjunction
-     *
-     * @var string
      */
-    protected $categoryConjunction;
+    protected ?string $categoryConjunction = null;
 
     /**
-     * @var int A Limit for the demand
+     * @var int|null A Limit for the demand
      */
-    protected $limit = 100;
+    protected ?int $limit = 100;
 
     /**
-     * @var int An offset
+     * @var int|null An offset
      */
-    protected $offset;
+    protected ?int $offset = null;
 
     /**
-     * @var string Orderings: comma separated list of sort fields and orderings ('fieldA|asc,fieldB|desc')
+     * @var string|null Orderings: comma separated list of sort fields and orderings ('fieldA|asc,fieldB|desc')
      */
-    protected $order;
+    protected ?string $order = null;
 
     /**
-     * @var string Sort criteria
+     * @var string|null Sort criteria
      */
-    protected $sortBy;
+    protected ?string $sortBy = null;
 
     /**
-     * @var string Sort direction
+     * @var string|null Sort direction
      */
-    protected $sortDirection;
+    protected ?string $sortDirection = null;
 
     /**
-     * @var string Comma separated list of storage page
+     * @var string|null Comma separated list of storage page
      */
-    protected $storagePages;
+    protected ?string $storagePages = null;
 
     /**
-     * @var string $uidList A list of record uids
+     * @var string|null A list of record uids
      */
-    protected $uidList;
+    protected ?string $uidList = null;
 
-    /**
-     * @var string
-     */
-    protected $constraintsConjunction;
+    protected ?string $constraintsConjunction = null;
 
     /**
      * Returns the Category Conjunction
-     *
-     * @return string
      */
-    public function getCategoryConjunction()
+    public function getCategoryConjunction(): ?string
     {
         return $this->categoryConjunction;
     }
@@ -86,24 +79,21 @@ class AbstractDemand extends AbstractEntity implements DemandInterface
     /**
      * Sets the limit
      *
-     * @param int $limit A limit for the demand. Only values > 0 are allowed. Default 100
-     * @return void
+     * @param int|null $limit A limit for the demand. Only values > 0 are allowed. Default 100
      */
-    public function setLimit($limit = 100)
+    public function setLimit(?int $limit = 100): void
     {
-        $validatedLimit = (int)$limit;
-
-        if ( $validatedLimit > 0) {
-            $this->limit = $validatedLimit;
+        if ($limit !== null && $limit > 0) {
+            $this->limit = $limit;
         }
     }
 
     /**
      * Returns the limit for a query
      *
-     * @return int The limit for the demand
+     * @return int|null The limit for the demand
      */
-    public function getLimit()
+    public function getLimit(): ?int
     {
         return $this->limit;
     }
@@ -111,20 +101,19 @@ class AbstractDemand extends AbstractEntity implements DemandInterface
     /**
      * Sets the offset for a query
      *
-     * @param int $offset An offset for the demand
-     * @return void
+     * @param int|null $offset An offset for the demand
      */
-    public function setOffset($offset = 0)
+    public function setOffset(?int $offset = 0): void
     {
-        $this->offset = (int)$offset;
+        $this->offset = $offset;
     }
 
     /**
      * Gets the offset for a query
      *
-     * @return int The offset of the demand
+     * @return int|null The offset of the demand
      */
-    public function getOffset()
+    public function getOffset(): ?int
     {
         return $this->offset;
     }
@@ -132,11 +121,10 @@ class AbstractDemand extends AbstractEntity implements DemandInterface
     /**
      * Sets the sort field
      *
-     * @param string $sortBy The sort criteria in dot notation
-     * @return void
+     * @param string|null $sortBy The sort criteria in dot notation
      * @deprecated use setOrder instead
      */
-    public function setSortBy($sortBy)
+    public function setSortBy(?string $sortBy): void
     {
         $this->sortBy = $sortBy;
     }
@@ -144,10 +132,10 @@ class AbstractDemand extends AbstractEntity implements DemandInterface
     /**
      * Gets the sort field
      *
-     * @return string The sort criteria in dot notation
+     * @return string|null The sort criteria in dot notation
      * @deprecated use getOrder instead
      */
-    public function getSortBy()
+    public function getSortBy(): ?string
     {
         return $this->sortBy;
     }
@@ -155,11 +143,10 @@ class AbstractDemand extends AbstractEntity implements DemandInterface
     /**
      * Sets the sort direction
      *
-     * @param string $sortDirection The sort direction
-     * @return void
+     * @param string|null $sortDirection The sort direction
      * @deprecated use setOrder instead
      */
-    public function setSortDirection($sortDirection)
+    public function setSortDirection(?string $sortDirection): void
     {
         $this->sortDirection = $sortDirection;
     }
@@ -167,10 +154,10 @@ class AbstractDemand extends AbstractEntity implements DemandInterface
     /**
      * Gets the sort direction
      *
-     * @return string The sort direction
+     * @return string|null The sort direction
      * @deprecated use getOrder instead
      */
-    public function getSortDirection()
+    public function getSortDirection(): ?string
     {
         return $this->sortDirection;
     }
@@ -178,10 +165,9 @@ class AbstractDemand extends AbstractEntity implements DemandInterface
     /**
      * Sets the storage pages
      *
-     * @param string $storagePages A comma separated list of storage page ids
-     * @return void
+     * @param string|null $storagePages A comma separated list of storage page ids
      */
-    public function setStoragePages($storagePages)
+    public function setStoragePages(?string $storagePages): void
     {
         $this->storagePages = $storagePages;
     }
@@ -189,19 +175,17 @@ class AbstractDemand extends AbstractEntity implements DemandInterface
     /**
      * Gets the storage pages
      *
-     * @return string A comma separated list of storage page ids
+     * @return string|null A comma separated list of storage page ids
      */
-    public function getStoragePages()
+    public function getStoragePages(): ?string
     {
         return $this->storagePages;
     }
 
     /**
      * Gets a list of unique ids
-     *
-     * @return string|null
      */
-    public function getUidList()
+    public function getUidList(): ?string
     {
         return $this->uidList;
     }
@@ -209,20 +193,17 @@ class AbstractDemand extends AbstractEntity implements DemandInterface
     /**
      * Sets the unique id list
      *
-     * @param string $uidList A comma separated List of record uids
-     * @return void
+     * @param string|null $uidList A comma separated List of record uids
      */
-    public function setUidList($uidList)
+    public function setUidList(?string $uidList): void
     {
         $this->uidList = $uidList;
     }
 
     /**
      * Gets the orderings
-     *
-     * @return string|null
      */
-    public function getOrder()
+    public function getOrder(): ?string
     {
         return $this->order;
     }
@@ -230,41 +211,33 @@ class AbstractDemand extends AbstractEntity implements DemandInterface
     /**
      * Sets the orderings
      *
-     * @param string $order A comma separated List of orderings
-     * @return void
+     * @param string|null $order A comma separated List of orderings
      */
-    public function setOrder($order)
+    public function setOrder(?string $order): void
     {
         $this->order = $order;
     }
 
     /**
      * Get Constraints Conjunction
-     *
-     * @return string
      */
-    public function getConstraintsConjunction()
+    public function getConstraintsConjunction(): ?string
     {
         return $this->constraintsConjunction;
     }
 
     /**
      * Set Constraints Conjunction
-     *
-     * @param string $conjunction
      */
-    public function setConstraintsConjunction($conjunction)
+    public function setConstraintsConjunction(?string $conjunction): void
     {
         $this->constraintsConjunction = $conjunction;
     }
 
     /**
      * Set Category Conjunction
-     *
-     * @param string $categoryConjunction
-     * @return void
      */
-    public function setCategoryConjunction($categoryConjunction)
+    public function setCategoryConjunction(?string $categoryConjunction): void
     {
         $this->categoryConjunction = $categoryConjunction;
     }

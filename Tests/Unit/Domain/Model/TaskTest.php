@@ -30,10 +30,10 @@ class TaskTest extends UnitTestCase
      */
     protected $subject;
 
-    protected function setUp(): void
+    public function setUp(): void
     {
-        $this->subject = $this->getMockBuilder(Task::class)
-            ->setMethods(['dummy'])->getMock();
+        parent::setUp();
+        $this->subject = new Task();
     }
 
     /**
@@ -41,9 +41,7 @@ class TaskTest extends UnitTestCase
      */
     public function getNameReturnsInitialValueForString()
     {
-        $this->assertNull(
-            $this->subject->getName()
-        );
+        $this->assertSame('', $this->subject->getName());
     }
 
     /**
@@ -64,9 +62,7 @@ class TaskTest extends UnitTestCase
      */
     public function getActionReturnsInitialNull()
     {
-        $this->assertNull(
-            $this->subject->getAction()
-        );
+        $this->assertSame(Task::ACTION_NONE, $this->subject->getAction());
     }
 
     /**
@@ -87,9 +83,7 @@ class TaskTest extends UnitTestCase
      */
     public function getPeriodReturnsInitialNull()
     {
-        $this->assertNull(
-            $this->subject->getPeriod()
-        );
+        $this->assertSame('', $this->subject->getPeriod());
     }
 
     /**
@@ -110,9 +104,7 @@ class TaskTest extends UnitTestCase
      */
     public function getPeriodDurationReturnsInitialNull()
     {
-        $this->assertNull(
-            $this->subject->getPeriodDuration()
-        );
+        $this->assertSame(0, $this->subject->getPeriodDuration());
     }
 
     /**
@@ -181,9 +173,7 @@ class TaskTest extends UnitTestCase
      */
     public function getFolderReturnsInitialNull()
     {
-        $this->assertNull(
-            $this->subject->getFolder()
-        );
+        $this->assertSame('', $this->subject->getFolder());
     }
 
     /**

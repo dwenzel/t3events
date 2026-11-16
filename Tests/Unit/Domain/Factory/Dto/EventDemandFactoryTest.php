@@ -1,11 +1,12 @@
 <?php
+
 namespace DWenzel\T3events\Tests\Unit\Domain\Factory\Dto;
 
 use DWenzel\T3events\Domain\Factory\Dto\EventDemandFactory;
 use DWenzel\T3events\Domain\Model\Dto\EventDemand;
 use DWenzel\T3events\Utility\SettingsInterface as SI;
-use DWenzel\T3events\Tests\Unit\Object\MockObjectManagerTrait;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /***************************************************************
  *
@@ -33,8 +34,6 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
  ***************************************************************/
 class EventDemandFactoryTest extends UnitTestCase
 {
-    use MockObjectManagerTrait;
-
     /**
      * @var EventDemandFactory
      */
@@ -43,14 +42,12 @@ class EventDemandFactoryTest extends UnitTestCase
     /**
      * set up
      */
-    protected function setUp(): void
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getAccessibleMock(
-            EventDemandFactory::class, ['dummy'], [], '', false
+            EventDemandFactory::class, [], [], '', false
         );
-        $this->objectManager = $this->getMockObjectManager();
-        $this->subject->injectObjectManager($this->objectManager);
-
     }
 
     /**
@@ -59,11 +56,7 @@ class EventDemandFactoryTest extends UnitTestCase
     public function createFromSettingsReturnsEventDemand()
     {
         $mockDemand = $this->getMockEventDemand();
-
-        $this->objectManager->expects($this->once())
-            ->method('get')
-            ->with(EventDemand::class)
-            ->will($this->returnValue($mockDemand));
+        GeneralUtility::addInstance(EventDemand::class, $mockDemand);
 
         $this->assertSame(
             $mockDemand,
@@ -96,19 +89,15 @@ class EventDemandFactoryTest extends UnitTestCase
      * @dataProvider settablePropertiesDataProvider
      * @param string $propertyName
      * @param string|int $settingsValue
-     * @param mixed $expectedValue
      */
-    public function createFromSettingsSetsSettableProperties($propertyName, $settingsValue, $expectedValue)
+    public function createFromSettingsSetsSettableProperties($propertyName, $settingsValue, mixed $expectedValue)
     {
         $settings = [
             $propertyName => $settingsValue
         ];
         /** @var EventDemand|\PHPUnit_Framework_MockObject_MockObject $mockDemand */
         $mockDemand = $this->getMockEventDemand();
-
-        $this->objectManager->expects($this->once())
-            ->method('get')
-            ->will($this->returnValue($mockDemand));
+        GeneralUtility::addInstance(EventDemand::class, $mockDemand);
         $createdDemand = $this->subject->createFromSettings($settings);
         $this->assertAttributeSame(
             $expectedValue,
@@ -137,19 +126,15 @@ class EventDemandFactoryTest extends UnitTestCase
      * @param string $settingsKey
      * @param string $propertyName
      * @param string|int $settingsValue
-     * @param mixed $expectedValue
      */
-    public function createFromSettingsSetsMappedProperties($settingsKey, $propertyName, $settingsValue, $expectedValue)
+    public function createFromSettingsSetsMappedProperties($settingsKey, $propertyName, $settingsValue, mixed $expectedValue)
     {
         $settings = [
             $settingsKey => $settingsValue
         ];
         /** @var EventDemand|\PHPUnit_Framework_MockObject_MockObject $mockDemand */
         $mockDemand = $this->getMockEventDemand();
-
-        $this->objectManager->expects($this->once())
-            ->method('get')
-            ->will($this->returnValue($mockDemand));
+        GeneralUtility::addInstance(EventDemand::class, $mockDemand);
         $createdDemand = $this->subject->createFromSettings($settings);
         $this->assertAttributeSame(
             $expectedValue,
@@ -164,7 +149,7 @@ class EventDemandFactoryTest extends UnitTestCase
     public function skippedPropertiesDataProvider()
     {
         return [
-            ['foo', ''],
+            ['foo'],
             ['periodType', 'bar'],
             ['periodStart', 'bar'],
             ['periodDuration', 'bar'],
@@ -178,17 +163,14 @@ class EventDemandFactoryTest extends UnitTestCase
      * @param $propertyName
      * @param $propertyValue
      */
-    public function createFromSettingsDoesNotSetSkippedValues($propertyName, $propertyValue)
+    public function createFromSettingsDoesNotSetSkippedValues($propertyName, $propertyValue = null)
     {
         $settings = [
             $propertyName => $propertyValue
         ];
         /** @var EventDemand|\PHPUnit_Framework_MockObject_MockObject $mockDemand */
         $mockDemand = $this->getMockEventDemand();
-
-        $this->objectManager->expects($this->once())
-            ->method('get')
-            ->will($this->returnValue($mockDemand));
+        GeneralUtility::addInstance(EventDemand::class, $mockDemand);
         $createdDemand = $this->subject->createFromSettings($settings);
 
         $this->assertEquals(
@@ -208,9 +190,7 @@ class EventDemandFactoryTest extends UnitTestCase
             'periodType' => $periodType
         ];
         $mockDemand = $this->getMockEventDemand();
-        $this->objectManager->expects($this->once())
-            ->method('get')
-            ->will($this->returnValue($mockDemand));
+        GeneralUtility::addInstance(EventDemand::class, $mockDemand);
         $createdDemand = $this->subject->createFromSettings($settings);
 
         $this->assertAttributeSame(
@@ -234,9 +214,7 @@ class EventDemandFactoryTest extends UnitTestCase
             'periodDuration' => $periodDuration
         ];
         $mockDemand = $this->getMockEventDemand();
-        $this->objectManager->expects($this->once())
-            ->method('get')
-            ->will($this->returnValue($mockDemand));
+        GeneralUtility::addInstance(EventDemand::class, $mockDemand);
         $createdDemand = $this->subject->createFromSettings($settings);
 
         $this->assertAttributeSame(
@@ -265,9 +243,7 @@ class EventDemandFactoryTest extends UnitTestCase
         ];
 
         $mockDemand = $this->getMockEventDemand();
-        $this->objectManager->expects($this->once())
-            ->method('get')
-            ->will($this->returnValue($mockDemand));
+        GeneralUtility::addInstance(EventDemand::class, $mockDemand);
         $createdDemand = $this->subject->createFromSettings($settings);
 
         $timeZone = new \DateTimeZone(date_default_timezone_get());
@@ -293,9 +269,7 @@ class EventDemandFactoryTest extends UnitTestCase
         ];
 
         $mockDemand = $this->getMockEventDemand();
-        $this->objectManager->expects($this->once())
-            ->method('get')
-            ->will($this->returnValue($mockDemand));
+        GeneralUtility::addInstance(EventDemand::class, $mockDemand);
         $createdDemand = $this->subject->createFromSettings($settings);
 
         $timeZone = new \DateTimeZone(date_default_timezone_get());
@@ -313,9 +287,10 @@ class EventDemandFactoryTest extends UnitTestCase
      */
     protected function getMockEventDemand()
     {
-        /** @var EventDemand|\PHPUnit_Framework_MockObject_MockObject $mockDemand */
-        $mockDemand = $this->getMockBuilder(EventDemand::class)
-            ->setMethods(['dummy'])->getMock();
-        return $mockDemand;
+        // Use onlyMethods([]) so all methods call through to the real implementation,
+        // allowing property setters to store values for assertion.
+        return $this->getMockBuilder(EventDemand::class)
+            ->onlyMethods([])
+            ->getMock();
     }
 }

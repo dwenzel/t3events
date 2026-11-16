@@ -35,31 +35,28 @@ class EditUriViewHelperTest extends UnitTestCase
      */
     protected $subject;
 
-    /**
-     * @var UriBuilder|MockObject
-     */
-    protected $uriBuilder;
-
-    protected function setUp(): void
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getMockBuilder(EditUriViewHelper::class)
-            ->setMethods(['registerArgument', 'getUriBuilder'])
+            ->onlyMethods(['registerArgument'])
             ->getMock();
-        $this->uriBuilder = $this->getMockBuilder(UriBuilder::class)
-            ->setMethods(['buildUriFromRoute'])
-            ->getMock();
-        $this->subject->method('getUriBuilder')->willReturn($this->uriBuilder);
     }
 
     public function testArgumentsAreRegistered()
     {
+        $expectedRegisterArgs = [
+            [SI::TABLE, 'string', EditUriViewHelper::DESCRIPTION_ARGUMENT_TABLE, true, null, null],
+            [SI::RECORD, 'integer', EditUriViewHelper::DESCRIPTION_ARGUMENT_RECORD, true, null, null],
+            [SI::MODULE, 'string', EditUriViewHelper::DESCRIPTION_ARGUMENT_MODULE, true, null, null]
+        ];
+        $registerCallIndex = 0;
         $this->subject->expects($this->exactly(3))
             ->method('registerArgument')
-            ->withConsecutive(
-                [SI::TABLE, 'string', EditUriViewHelper::DESCRIPTION_ARGUMENT_TABLE, true],
-                [SI::RECORD, 'integer', EditUriViewHelper::DESCRIPTION_ARGUMENT_RECORD, true],
-                [SI::MODULE, 'string', EditUriViewHelper::DESCRIPTION_ARGUMENT_MODULE, true]
-            );
+            ->willReturnCallback(function() use (&$registerCallIndex, $expectedRegisterArgs) {
+                $this->assertSame($expectedRegisterArgs[$registerCallIndex], func_get_args());
+                $registerCallIndex++;
+            });
 
         $this->subject->initializeArguments();
     }

@@ -27,24 +27,20 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractDomainObject;
  */
 trait EqualsTrait
 {
+    /** @phpstan-ignore-next-line */
     protected $uid;
 
     /**
      * Returns the class name and the uid of the object as string
-     *
-     * @return string
      */
-    abstract public function __toString();
+    abstract public function __toString(): string;
 
     /**
      * Tells if an object is the same as this.
      * We rely on the __toString method of
      * AbstractDomainObject
-     *
-     * @param AbstractDomainObject $object
-     * @return true
      */
-    public function equals(AbstractDomainObject $object)
+    public function equals(AbstractDomainObject $object): bool
     {
         return ($this->__toString() === $object->__toString());
     }

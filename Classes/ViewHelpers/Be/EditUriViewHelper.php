@@ -46,7 +46,7 @@ class EditUriViewHelper extends AbstractViewHelper
     /**
      * Initialize Arguments
      */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
         $this->registerArgument(SI::TABLE, 'string', self::DESCRIPTION_ARGUMENT_TABLE, true);
@@ -60,7 +60,7 @@ class EditUriViewHelper extends AbstractViewHelper
      * @throws RouteNotFoundException
      * @codeCoverageIgnore
      */
-    public function render()
+    public function render(): string
     {
         return static::renderStatic(
             $this->arguments,
@@ -70,10 +70,6 @@ class EditUriViewHelper extends AbstractViewHelper
     }
 
     /**
-     * @param array $arguments
-     * @param \Closure $renderChildrenClosure
-     * @param RenderingContextInterface $renderingContext
-     * @return string
      * @throws RouteNotFoundException
      * @codeCoverageIgnore
      */
@@ -81,7 +77,7 @@ class EditUriViewHelper extends AbstractViewHelper
         array $arguments,
         \Closure $renderChildrenClosure,
         RenderingContextInterface $renderingContext
-    )
+    ): string
     {
         /** @var UriBuilder $uriBuilder */
         $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);

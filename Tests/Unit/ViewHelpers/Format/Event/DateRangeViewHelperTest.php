@@ -1,6 +1,6 @@
 <?php
 
-namespace DWenzel\T3events\Tests\Unit\ViewHelpers\Location;
+namespace DWenzel\T3events\Tests\ViewHelpers\Location;
 
 /**
  * This file is part of the "Events" project.
@@ -33,8 +33,9 @@ class DateRangeViewHelperTest extends UnitTestCase
     /**
      * set up
      */
-    protected function setUp(): void
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getAccessibleMock(
             DateRangeViewHelper::class, ['initialize']
         );
@@ -43,7 +44,7 @@ class DateRangeViewHelperTest extends UnitTestCase
     /**
      * arguments data provider
      */
-    public function argumentsDataProvider()
+    public static function argumentsDataProvider()
     {
         $yesterdaysDate = new \DateTime('yesterday');
         $todaysDate = new \DateTime('today');
@@ -68,7 +69,7 @@ class DateRangeViewHelperTest extends UnitTestCase
         $eventWithThreePerformances->addPerformance($performanceToday);
 
         $customGlue = ' till ';
-        $customFormatRequiringStrftime = '%A %e %B %Y';
+        $customFormat = 'l j F Y';
         return [
             // single performance, default date format and glue
             [
@@ -96,13 +97,13 @@ class DateRangeViewHelperTest extends UnitTestCase
                 // arguments
                 [
                     'event' => $eventWithThreePerformances,
-                    'format' => $customFormatRequiringStrftime,
+                    'format' => $customFormat,
                     'glue' => $customGlue,
                 ],
                 // expected
-                strftime($customFormatRequiringStrftime, $yesterdaysDate->getTimestamp())
+                date($customFormat, $yesterdaysDate->getTimestamp())
                 . $customGlue
-                . strftime($customFormatRequiringStrftime, $todaysDate->getTimestamp())
+                . date($customFormat, $todaysDate->getTimestamp())
             ]
         ];
     }
@@ -113,17 +114,22 @@ class DateRangeViewHelperTest extends UnitTestCase
     public function initializeArgumentsRegistersArguments()
     {
         $this->subject = $this->getMockBuilder(DateRangeViewHelper::class)
-            ->setMethods(['registerArgument'])->getMock();
+            ->onlyMethods(['registerArgument'])->getMock();
 
+        $expectedRegisterArgs = [
+            ['event', Event::class, DateRangeViewHelper::ARGUMENT_EVENT_DESCRIPTION, true, null, null],
+            ['format', 'string', DateRangeViewHelper::ARGUMENT_FORMAT_DESCRIPTION, false, 'd.m.Y', null],
+            ['startFormat', 'string', DateRangeViewHelper::ARGUMENT_STARTFORMAT_DESCRIPTION, false, 'd.m.Y', null],
+            ['endFormat', 'string', DateRangeViewHelper::ARGUMENT_ENDFORMAT_DESCRIPTION, false, 'd.m.Y', null],
+            ['glue', 'string', DateRangeViewHelper::ARGUMENT_GLUE_DESCRIPTION, false, ' - ', null]
+        ];
+        $registerCallIndex = 0;
         $this->subject->expects($this->exactly(5))
             ->method('registerArgument')
-            ->withConsecutive(
-                ['event', Event::class, DateRangeViewHelper::ARGUMENT_EVENT_DESCRIPTION, true, null],
-                ['format', 'string', DateRangeViewHelper::ARGUMENT_FORMAT_DESCRIPTION, false, 'd.m.Y'],
-                ['startFormat', 'string', DateRangeViewHelper::ARGUMENT_STARTFORMAT_DESCRIPTION, false, 'd.m.Y'],
-                ['endFormat', 'string', DateRangeViewHelper::ARGUMENT_ENDFORMAT_DESCRIPTION, false, 'd.m.Y'],
-                ['glue', 'string', DateRangeViewHelper::ARGUMENT_GLUE_DESCRIPTION, false, ' - ']
-            );
+            ->willReturnCallback(function() use (&$registerCallIndex, $expectedRegisterArgs) {
+                $this->assertSame($expectedRegisterArgs[$registerCallIndex], func_get_args());
+                $registerCallIndex++;
+            });
         $this->subject->initializeArguments();
     }
 

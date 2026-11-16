@@ -2,6 +2,11 @@
 
 namespace DWenzel\T3events\Domain\Repository;
 
+use DWenzel\T3events\Domain\Model\Dto\Search;
+use TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface;
+use TYPO3\CMS\Extbase\Persistence\Generic\Qom\ConstraintInterface;
+use DWenzel\T3events\Utility\GeoCoder;
+use TYPO3\CMS\Extbase\Annotation\Inject;
 use DWenzel\T3events\Domain\Model\Dto\SearchAwareDemandInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 
@@ -13,23 +18,21 @@ use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 trait LocationConstraintRepositoryTrait
 {
     /**
-     * @var \DWenzel\T3events\Utility\GeoCoder
-     * @TYPO3\CMS\Extbase\Annotation\Inject
+     * @Inject
      */
-    protected $geoCoder;
+    protected GeoCoder $geoCoder;
 
     /**
      * Create location constraints from demand
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
-     * @param \DWenzel\T3events\Domain\Model\Dto\SearchAwareDemandInterface $demand
-     * @return array<\TYPO3\CMS\Extbase\Persistence\QOM\Constraint>
+     * @param QueryInterface<DomainObjectInterface> $query
+     * @return array<ConstraintInterface>
      */
-    public function createLocationConstraints(QueryInterface $query, SearchAwareDemandInterface $demand)
+    public function createLocationConstraints(QueryInterface $query, SearchAwareDemandInterface $demand): array
     {
         $locationConstraints = [];
 
-        if ($demand->getSearch()) {
+        if ($demand->getSearch() instanceof Search) {
             $locationConstraints = [];
             $search = $demand->getSearch();
 
@@ -38,12 +41,14 @@ trait LocationConstraintRepositoryTrait
             $location = $search->getLocation();
             $radius = $search->getRadius();
 
-            if (!empty($location)
-                && !empty($radius)
-                && empty($bounds)
+            if ($location !== null && $location !== '' && $location !== '0'
+                && ($radius !== null && $radius !== 0)
+                && ($bounds === null || $bounds === [])
             ) {
                 $geoLocation = $this->geoCoder->getLocation($location);
-                $bounds = $this->geoCoder->getBoundsByRadius($geoLocation['lat'], $geoLocation['lng'], $radius / 1000);
+                if ($geoLocation !== false) {
+                    $bounds = $this->geoCoder->getBoundsByRadius($geoLocation['lat'], $geoLocation['lng'], $radius / 1000);
+                }
             }
             if ($bounds &&
                 !empty($bounds['N']) &&

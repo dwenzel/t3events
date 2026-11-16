@@ -28,18 +28,12 @@ use DWenzel\T3events\Domain\Factory\Dto\PerformanceDemandFactory;
  */
 trait PerformanceDemandFactoryTrait
 {
-    /**
-     * @var \DWenzel\T3events\Domain\Factory\Dto\PerformanceDemandFactory
-     */
-    protected $performanceDemandFactory;
+    protected PerformanceDemandFactory $performanceDemandFactory;
 
     /**
      * Injects the performanceDemandFactory
-     *
-     * @param PerformanceDemandFactory $performanceDemandFactory
-     * @return void
      */
-    public function injectPerformanceDemandFactory(PerformanceDemandFactory $performanceDemandFactory)
+    public function injectPerformanceDemandFactory(PerformanceDemandFactory $performanceDemandFactory): void
     {
         $this->performanceDemandFactory = $performanceDemandFactory;
     }

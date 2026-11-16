@@ -29,128 +29,74 @@ class ButtonDemand
     const TABLE_KEY = 'table';
     const OVERLAY_KEY = 'overlay';
 
-    /**
-     * @var string
-     */
-    protected $table;
+    protected string $table = '';
 
-    /**
-     * @var string
-     */
-    protected $labelKey;
+    protected string $labelKey = '';
 
-    /**
-     * @var string
-     */
-    protected $action;
+    protected string $action = '';
 
-    /**
-     * @var string
-     */
-    protected $iconKey;
+    protected string $iconKey = '';
 
-    /**
-     * @var string
-     */
-    protected $iconSize = Icon::SIZE_DEFAULT;
+    protected string $iconSize = Icon::SIZE_MEDIUM;
 
-    /**
-     * @var string
-     */
-    protected $overlay;
+    protected string $overlay = '';
 
-    /**
-     * @return string
-     */
-    public function getTable()
+    public function getTable(): string
     {
         return $this->table;
     }
 
-    /**
-     * @param string $table
-     */
-    public function setTable($table)
+    public function setTable(string $table): void
     {
         $this->table = $table;
     }
 
-    /**
-     * @return string
-     */
-    public function getLabelKey()
+    public function getLabelKey(): string
     {
         return $this->labelKey;
     }
 
-    /**
-     * @param string $labelKey
-     */
-    public function setLabelKey($labelKey)
+    public function setLabelKey(string $labelKey): void
     {
         $this->labelKey = $labelKey;
     }
 
-    /**
-     * @return string
-     */
-    public function getAction()
+    public function getAction(): string
     {
         return $this->action;
     }
 
-    /**
-     * @param string $action
-     */
-    public function setAction($action)
+    public function setAction(string $action): void
     {
         $this->action = $action;
     }
 
-    /**
-     * @return string
-     */
-    public function getIconKey()
+    public function getIconKey(): string
     {
         return $this->iconKey;
     }
 
-    /**
-     * @param string $iconKey
-     */
-    public function setIconKey($iconKey)
+    public function setIconKey(string $iconKey): void
     {
         $this->iconKey = $iconKey;
     }
 
-    /**
-     * @return string
-     */
-    public function getIconSize()
+    public function getIconSize(): string
     {
         return $this->iconSize;
     }
 
-    /**
-     * @param string $iconSize
-     */
-    public function setIconSize($iconSize)
+    public function setIconSize(string $iconSize): void
     {
         $this->iconSize = $iconSize;
     }
 
-    /**
-     * @return string
-     */
-    public function getOverlay()
+    public function getOverlay(): string
     {
         return $this->overlay;
     }
 
-    /**
-     * @param string $overlay
-     */
-    public function setOverlay($overlay)
+    public function setOverlay(string $overlay): void
     {
         $this->overlay = $overlay;
     }

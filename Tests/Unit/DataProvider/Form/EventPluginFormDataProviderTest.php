@@ -35,15 +35,18 @@ class EventPluginFormDataProviderTest extends UnitTestCase
     /**
      * set up subject
      */
-    protected function setUp(): void
+    public function setUp(): void
     {
+        parent::setUp();
         if (!interface_exists(FormDataProviderInterface::class)) {
             $this->markTestSkipped();
         }
         $this->subject = $this->getMockBuilder(EventPluginFormDataProvider::class)
-            ->setMethods(['dummy'])->getMock();
+            ->disableOriginalConstructor()
+            ->onlyMethods([])
+            ->getMock();
         $this->backendUtility = $this->getMockBuilder(BackendUtility::class)
-            ->setMethods(['getFlexFormDS_postProcessDS'])->getMock();
+            ->onlyMethods(['getFlexFormDS_postProcessDS'])->getMock();
         $this->subject->__construct($this->backendUtility);
     }
 
@@ -77,7 +80,7 @@ class EventPluginFormDataProviderTest extends UnitTestCase
      * as passed from form engine
      * @return array
      */
-    public function validResultDataProvider()
+    public static function validResultDataProvider()
     {
         $result = [
             'tableName' => 'tt_content',

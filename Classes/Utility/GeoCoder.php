@@ -27,14 +27,12 @@ class GeoCoder
      *
      * @var string Base Url for geo coding service.
      */
-    protected $serviceUrl = 'http://maps.google.com/maps/api/geocode/json?sensor=false&address=';
+    protected string $serviceUrl = 'http://maps.google.com/maps/api/geocode/json?sensor=false&address=';
 
     /**
      * Returns the base url of the geo coding service
-     *
-     * @return string
      */
-    public function getServiceUrl()
+    public function getServiceUrl(): string
     {
         return $this->serviceUrl;
     }
@@ -43,19 +41,19 @@ class GeoCoder
      * Get geo location encoded from Google Maps geocode service.
      *
      * @param string $address An address to encode.
-     * @return array|false Array containing geo location information
+     * @return array<string, float>|false Array containing geo location information
      */
-    public function getLocation($address)
+    public function getLocation(string $address): array|false
     {
         $url = $this->serviceUrl . urlencode($address);
 
+        // @extensionScannerIgnoreLine false positive: own wrapper method, not a deprecated TYPO3 method
         $response_json = $this->getUrl($url);
-        $response = json_decode($response_json, true);
+        $response = json_decode((string) $response_json, true);
         if ($response['status'] == 'OK') {
             return $response['results'][0]['geometry']['location'];
-        } else {
-            return false;
         }
+        return false;
     }
 
     /**
@@ -66,7 +64,7 @@ class GeoCoder
      * @return mixed Response
      * @codeCoverageIgnore
      */
-    public function getUrl($url)
+    public function getUrl(string $url): mixed
     {
         return GeneralUtility::getUrl($url);
     }
@@ -76,15 +74,14 @@ class GeoCoder
      *
      * @param float $lat Latitude
      * @param float $lng Longitude
-     * @param $bearing
-     * @param integer $distance Distance
+     * @param float $distance Distance
      * @param string $units Units: default km. Any other value will result in computing with mile based constants.
-     * @return array An array with lat and lng values
+     * @return array<string, float> An array with lat and lng values
      * @codeCoverageIgnore
      */
-    public function destination($lat, $lng, $bearing, $distance, $units = 'km')
+    public function destination(float $lat, float $lng, float $bearing, float $distance, string $units = 'km'): array
     {
-        $radius = strcasecmp($units, 'km') ? 3963.19 : 6378.137;
+        $radius = strcasecmp($units, 'km') !== 0 ? 3963.19 : 6378.137;
         $rLat = deg2rad($lat);
         $rLon = deg2rad($lng);
         $rBearing = deg2rad($bearing);
@@ -96,7 +93,7 @@ class GeoCoder
         $rLonB = $rLon + atan2(sin($rBearing) * sin($rAngDist) * cos($rLat),
                 cos($rAngDist) - sin($rLat) * sin($rLatB));
 
-        return array('lat' => rad2deg($rLatB), 'lng' => rad2deg($rLonB));
+        return ['lat' => rad2deg($rLatB), 'lng' => rad2deg($rLonB)];
     }
 
     /**
@@ -106,15 +103,12 @@ class GeoCoder
      * @param float $lng Longitude of location
      * @param float $distance Distance around location
      * @param string $units Unit: default km. Any other value will result in computing with mile based constants.
-     * @return array An array describing a bounding box
+     * @return array<string, array<string, float>> An array describing a bounding box
      * @codeCoverageIgnore
      */
-    public function getBoundsByRadius($lat, $lng, $distance, $units = 'km')
+    public function getBoundsByRadius(float $lat, float $lng, float $distance, string $units = 'km'): array
     {
-        return array('N' => $this->destination($lat, $lng, 0, $distance, $units),
-            'E' => $this->destination($lat, $lng, 90, $distance, $units),
-            'S' => $this->destination($lat, $lng, 180, $distance, $units),
-            'W' => $this->destination($lat, $lng, 270, $distance, $units));
+        return ['N' => $this->destination($lat, $lng, 0, $distance, $units), 'E' => $this->destination($lat, $lng, 90, $distance, $units), 'S' => $this->destination($lat, $lng, 180, $distance, $units), 'W' => $this->destination($lat, $lng, 270, $distance, $units)];
     }
 
     /**
@@ -125,19 +119,18 @@ class GeoCoder
      * @param float $latB Latitude of location B
      * @param float $lonB Longitude of location B
      * @param string $units Units: default km. Any other value will result in computing with mile based constants.
-     * @return float
      * @codeCoverageIgnore
      */
-    public function distance($latA, $lonA, $latB, $lonB, $units = 'km')
+    public function distance(float $latA, float $lonA, float $latB, float $lonB, string $units = 'km'): float
     {
-        $radius = strcasecmp($units, 'km') ? 3963.19 : 6378.137;
+        $radius = strcasecmp($units, 'km') !== 0 ? 3963.19 : 6378.137;
         $rLatA = deg2rad($latA);
         $rLatB = deg2rad($latB);
         $rHalfDeltaLat = deg2rad(($latB - $latA) / 2);
         $rHalfDeltaLon = deg2rad(($lonB - $lonA) / 2);
 
-        return 2 * $radius * asin(sqrt(pow(sin($rHalfDeltaLat), 2) +
-            cos($rLatA) * cos($rLatB) * pow(sin($rHalfDeltaLon), 2)));
+        return 2 * $radius * asin(sqrt(sin($rHalfDeltaLat) ** 2 +
+            cos($rLatA) * cos($rLatB) * sin($rHalfDeltaLon) ** 2));
     }
 
     /**
@@ -147,16 +140,14 @@ class GeoCoder
      * Will first read city and zip attributes then tries to
      * get geo location values and if succeeds update the latitude and
      * longitude values of the object.
-     *
-     * @var \DWenzel\T3events\Domain\Model\GeoCodingInterface $object
      */
-    public function updateGeoLocation(GeoCodingInterface &$object)
+    public function updateGeoLocation(GeoCodingInterface &$object): void
     {
         $city = $object->getPlace();
-        if (!empty($city)) {
+        if ($city !== null && $city !== '' && $city !== '0') {
             $address = '';
             $zip = $object->getZip();
-            $address .= (!empty($zip)) ? $zip . ' ' : null;
+            $address .= ($zip === null || $zip === '' || $zip === '0') ? null : $zip . ' ';
             $address .= $city;
             $geoLocation = $this->getLocation($address);
             if ($geoLocation) {

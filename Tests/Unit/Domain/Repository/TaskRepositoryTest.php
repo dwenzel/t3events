@@ -5,7 +5,7 @@ namespace DWenzel\T3events\Tests\Unit\Domain\Repository;
 use DWenzel\T3events\Domain\Repository\TaskRepository;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
-use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 
 /**
@@ -28,26 +28,15 @@ class TaskRepositoryTest extends UnitTestCase
     protected $subject;
 
     /**
-     * @var ObjectManagerInterface |MockObject
-     */
-    protected $objectManager;
-
-    /**
      * set up subject
      */
-    protected function setUp(): void
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getMockBuilder(TaskRepository::class)
             ->disableOriginalConstructor()
-            ->setMethods(['dummy', 'setDefaultQuerySettings'])
+            ->onlyMethods(['setDefaultQuerySettings'])
             ->getMock();
-        $this->objectManager = $this->getMockBuilder(ObjectManagerInterface::class)
-            ->getMockForAbstractClass();
-        $this->inject(
-            $this->subject,
-            'objectManager',
-            $this->objectManager
-        );
     }
 
     /**
@@ -56,11 +45,9 @@ class TaskRepositoryTest extends UnitTestCase
     public function initializeObjectsSetsDefaultQuerySettings()
     {
         $mockQuerySettings = $this->getMockBuilder(Typo3QuerySettings::class)
-            ->setMethods(['setRespectStoragePage'])->getMock();
-        $this->objectManager->expects($this->once())
-            ->method('get')
-            ->with(Typo3QuerySettings::class)
-            ->will($this->returnValue($mockQuerySettings));
+            ->disableOriginalConstructor()
+            ->onlyMethods(['setRespectStoragePage'])->getMock();
+        GeneralUtility::addInstance(Typo3QuerySettings::class, $mockQuerySettings);
         $mockQuerySettings->expects($this->once())
             ->method('setRespectStoragePage')
             ->with(false);

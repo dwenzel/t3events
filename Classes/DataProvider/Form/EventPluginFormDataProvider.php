@@ -22,16 +22,12 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class EventPluginFormDataProvider implements FormDataProviderInterface
 {
-    /**
-     * @var BackendUtility
-     */
-    protected $backendUtility;
+    protected BackendUtility $backendUtility;
 
     /**
      * injects the backend utility
-     * @param BackendUtility|null $backendUtility
      */
-    public function __construct($backendUtility = null)
+    public function __construct(?BackendUtility $backendUtility = null)
     {
         if (!$backendUtility instanceof BackendUtility) {
             $backendUtility = GeneralUtility::makeInstance(BackendUtility::class);
@@ -43,16 +39,16 @@ class EventPluginFormDataProvider implements FormDataProviderInterface
      * Remove fields depending on switchable controller action in tt_content
      * Restrict category selection based on configuration in tt_content
      *
-     * @param array $result
-     * @return array
+     * @param array<string, mixed> $result
+     * @return array<string, mixed>
      */
-    public function addData(array $result)
+    public function addData(array $result): array
     {
         if (isset($result['tableName'])
             && $result['tableName'] === 'tt_content'
             && $result['databaseRow']['CType'] === 'list'
             && $result['databaseRow']['list_type'] === 't3events_events'
-            && is_array($result['processedTca']['columns']['pi_flexform'][SI::CONFIG]['ds'])
+            && is_array($result['processedTca']['columns']['pi_flexform'][SI::CONFIG]['ds']??null)
         ) {
             $dataStructure = $result['processedTca']['columns']['pi_flexform'][SI::CONFIG]['ds'];
             $conf = [];

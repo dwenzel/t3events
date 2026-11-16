@@ -1,25 +1,12 @@
 <?php
 namespace DWenzel\T3events\ViewHelpers\Event;
 
-/**
- * This file is part of the TYPO3 CMS project.
- *
- * It is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License, either version 2
- * of the License, or any later version.
- *
- * For the full copyright and license information, please read the
- * LICENSE.txt file that was distributed with this source code.
- *
- * The TYPO3 project - inspiring people to share!
- */
-
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use DWenzel\T3events\Configuration\ConfigurationManagerTrait;
 use DWenzel\T3events\Domain\Model\Event;
 use DWenzel\T3events\Domain\Model\Performance;
 use DWenzel\T3events\Domain\Repository\EventRepository;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
-use DWenzel\T3events\Utility\SettingsInterface as SI;
 
 /**
  * Render a list of performances of a given event
@@ -28,35 +15,27 @@ use DWenzel\T3events\Utility\SettingsInterface as SI;
  */
 class PerformancesViewHelper extends AbstractTagBasedViewHelper
 {
+    public mixed $tagNameChildren = null;
+    public mixed $classChildren = null;
+    public mixed $class = null;
     use ConfigurationManagerTrait;
 
     /**
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\DWenzel\T3events\Domain\Model\Performance>
+     * @var ObjectStorage<Performance>
      */
-    protected $performances;
-
+    protected ObjectStorage $performances;
     /**
-     * eventRepository
-     *
-     * @var EventRepository
+     * Constructor
      */
-    protected $eventRepository;
-
-    /**
-     * injectEventRepository
-     *
-     * @param EventRepository $eventRepository
-     * @return void
-     */
-    public function injectEventRepository(EventRepository $eventRepository)
+    public function __construct(protected EventRepository $eventRepository)
     {
-        $this->eventRepository = $eventRepository;
+        parent::__construct();
     }
 
     /**
      * Initialize Arguments
      */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::registerArgument('event', Event::class, 'Event whose performances should be rendered.', true);
         parent::registerArgument('tagName', 'string', 'Tag name to use for enclosing container', false, 'div');
@@ -72,10 +51,8 @@ class PerformancesViewHelper extends AbstractTagBasedViewHelper
 
     /**
      * Render method
-     *
-     * @return string
      */
-    public function render()
+    public function render(): string
     {
         $this->performances = $this->arguments['event']->getPerformances();
         $this->tagName = $this->arguments['tagName'];
@@ -91,7 +68,8 @@ class PerformancesViewHelper extends AbstractTagBasedViewHelper
                 $content = $this->getDateRange();
                 break;
             case 'crucialStatus':
-                if ($status = $this->getCrucialStatus()) {
+                $status = $this->getCrucialStatus();
+                if (is_array($status)) {
                     $title = $status['title'];
                     $this->class .= ' ' . $status['cssClass'];
                     if ($this->renderChildren() === null) {
@@ -108,36 +86,39 @@ class PerformancesViewHelper extends AbstractTagBasedViewHelper
         $this->tag->forceClosingTag(true);
         $this->renderChildren();
         $content = $this->tag->render();
-        $content .= $this->renderChildren();
 
-        return $content;
+        return $content . $this->renderChildren();
     }
 
     /**
      * Get date range of performances
-     *
-     * @return array
      */
-    public function getDateRange()
+    public function getDateRange(): string
     {
         $format = $this->arguments['dateFormat'];
         if ($format === '') {
             $format = $GLOBALS['TYPO3_CONF_VARS']['SYS']['ddmmyy'] ?: 'Y-m-d';
         }
 
-        $timestamps = array();
+        $timestamps = [];
         $dateRange = '';
         /** @var Performance $performance */
         foreach ($this->performances as $performance) {
-            $timestamps[] = $performance->getDate()->getTimestamp();
+            $date = $performance->getDate();
+            if ($date !== null) {
+                $timestamps[] = $date->getTimestamp();
+            }
         }
         sort($timestamps);
-        if (strpos($format, '%') !== false) {
-            $dateRange = strftime($format, $timestamps[0]);
-            $dateRange .= ' - ' . strftime($format, end($timestamps));
+        $lastTimestamp = end($timestamps);
+        $firstTimestamp = $timestamps[0] ?? 0;
+        $resolvedLastTimestamp = $lastTimestamp !== false ? $lastTimestamp : $firstTimestamp;
+        if (str_contains((string) $format, '%')) {
+            $dateRange = strftime($format, $firstTimestamp);
+            $dateRange .= ' - ' . strftime($format, $resolvedLastTimestamp);
         } else {
-            $dateRange = date($format, $timestamps[0]);
-            $dateRange .= ' - ' . date($format, end($timestamps));
+            $dateRange = date($format, $firstTimestamp);
+            $dateRange .= ' - ' . date($format, $resolvedLastTimestamp);
         }
 
         return $dateRange;
@@ -146,85 +127,23 @@ class PerformancesViewHelper extends AbstractTagBasedViewHelper
     /**
      * Get crucial status over all performances. Returns the status with the highest priority.
      *
-     * @return string
+     * @return array{title: string, cssClass: string, priority: int}|string
      */
-    public function getCrucialStatus()
+    public function getCrucialStatus(): array|string
     {
-        $states = array();
+        $states = [];
         foreach ($this->performances as $performance) {
             $status = $performance->getStatus();
             if ($status) {
-                array_push($states,
-                    array(
-                        'title' => $status->getTitle(),
-                        'priority' => $status->getPriority(),
-                        'cssClass' => $status->getCssClass()
-                    )
-                );
+                // @extensionScannerIgnoreLine false positive: own PerformanceStatus::getPriority(), not a deprecated TYPO3 method
+                $states[] = ['title' => $status->getTitle(), 'priority' => $status->getPriority(), 'cssClass' => $status->getCssClass()];
             }
         }
-        if (count($states)) {
-            usort($states, function ($a, $b) {
-                return $a['priority'] - $b['priority'];
-            });
+        if ($states !== []) {
+            usort($states, fn($a, $b): int => $a['priority'] - $b['priority']);
 
             return $states[0];
-        } else {
-            return '';
         }
-    }
-
-    /**
-     * Get lowest price over all performances and ticket classes.
-     *
-     * @return float
-     */
-    private function getLowestPrice()
-    {
-        $prices = array();
-        foreach ($this->performances as $performance) {
-            $ticketClasses = $performance->getTicketClass();
-            foreach ($ticketClasses as $ticketClass) {
-                $prices[] = ($ticketClass->getPrice()) ? $ticketClass->getPrice() : 0;
-            }
-        }
-        sort($prices);
-
-        return (float)$prices[0];
-    }
-
-    /**
-     * Injects the Configuration Manager and is initializing the framework settings
-     *
-     * @param \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager An instance of the Configuration Manager
-     * @return void
-     */
-    public function injectConfigurationManager(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager)
-    {
-        $this->configurationManager = $configurationManager;
-
-        $tsSettings = $this->configurationManager->getConfiguration(
-            \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
-            't3events',
-            't3events_events'
-        );
-        $originalSettings = $this->configurationManager->getConfiguration(
-            \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS
-        );
-
-        // start override
-        if (isset($tsSettings[SI::SETTINGS]['overrideFlexformSettingsIfEmpty'])) {
-            $overrideIfEmpty = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $tsSettings[SI::SETTINGS]['overrideFlexformSettingsIfEmpty'], true);
-            foreach ($overrideIfEmpty as $key) {
-                // if flexform setting is empty and value is available in TS
-                if ((!isset($originalSettings[$key]) || empty($originalSettings[$key]))
-                    && isset($tsSettings[SI::SETTINGS][$key])
-                ) {
-                    $originalSettings[$key] = $tsSettings[SI::SETTINGS][$key];
-                }
-            }
-        }
-
-        $this->settings = $originalSettings;
+        return '';
     }
 }

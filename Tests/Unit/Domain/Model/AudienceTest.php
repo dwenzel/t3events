@@ -41,10 +41,11 @@ class AudienceTest extends UnitTestCase
      */
     protected $fixture;
 
-    protected function setUp(): void
+    public function setUp(): void
     {
+        parent::setUp();
         $this->fixture = $this->getAccessibleMock(
-            Audience::class, ['dummy']
+            Audience::class, []
         );
     }
 
@@ -53,7 +54,8 @@ class AudienceTest extends UnitTestCase
      */
     public function getTitleReturnsInitialValueForString()
     {
-        $this->assertNull(
+        $this->assertSame(
+            '',
             $this->fixture->getTitle()
         );
     }
@@ -76,7 +78,8 @@ class AudienceTest extends UnitTestCase
      */
     public function getDescriptionReturnsInitialValueForString()
     {
-        $this->assertNull(
+        $this->assertSame(
+            '',
             $this->fixture->getDescription()
         );
     }
@@ -99,7 +102,8 @@ class AudienceTest extends UnitTestCase
      */
     public function getLinkReturnsInitiallyNull()
     {
-        $this->assertNull(
+        $this->assertSame(
+            '',
             $this->fixture->getLink()
         );
     }

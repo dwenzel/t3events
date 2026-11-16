@@ -8,7 +8,7 @@
     "events"
   ],
   "license": [
-    "GPL-2.0+"
+    "GPL-2.0-or-later"
   ],
   "authors": [
     {
@@ -17,15 +17,21 @@
     }
   ],
   "require": {
-    "typo3/cms-core": "^11.5",
-    "typo3/cms-fluid": "^11.5",
-    "dwenzel/t3extension-tools": "^2.0"
+    "php": "^8.1",
+    "ext-dom": "*",
+    "dwenzel/t3extension-tools": "^4.0",
+    "typo3/cms-backend": "^12.4",
+    "typo3/cms-core": "^12.4",
+    "typo3/cms-extbase": "^12.4",
+    "typo3/cms-fluid": "^12.4",
+    "typo3/cms-frontend": "^12.4",
+    "typo3/cms-install": "^12.4"
   },
   "require-dev": {
-    "roave/security-advisories": "dev-latest",
-    "nimut/testing-framework": "^6.0",
-    "phpunit/phpunit": " ^7.0",
-    "codeclimate/php-test-reporter": "dev-master"
+    "a9f/typo3-fractor": "^0.5",
+    "phpunit/phpunit": "^10.5.62",
+    "ssch/typo3-rector": "^2.0",
+    "typo3/testing-framework": "^8.0"
   },
   "autoload": {
     "psr-4": {
@@ -34,24 +40,41 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "DWenzel\\T3events\\Tests\\": "Tests"
+      "DWenzel\\T3events\\Tests\\": "Tests",
+      "Nimut\\TestingFramework\\TestCase\\": "Tests/Compatibility/TestCase/",
+      "Nimut\\TestingFramework\\MockObject\\": "Tests/Compatibility/MockObject/",
+      "TYPO3\\CMS\\Extbase\\Object\\": "Tests/Compatibility/Extbase/Object/",
+      "TYPO3\\CMS\\Extbase\\Mvc\\View\\": "Tests/Compatibility/Extbase/Mvc/View/",
+      "TYPO3\\CMS\\Extbase\\Mvc\\Web\\": "Tests/Compatibility/Extbase/Mvc/Web/",
+      "TYPO3\\CMS\\Lang\\": "Tests/Compatibility/Lang/"
     }
   },
   "config": {
     "vendor-dir": ".Build/vendor",
     "bin-dir": ".Build/bin",
+    "allow-plugins": {
+      "typo3/cms-composer-installers": true,
+      "typo3/class-alias-loader": true,
+      "a9f/fractor-extension-installer": true
+    },
     "preferred-install": {
       "typo3/cms": "source",
       "typo3/cms-core": "source",
       "*": "dist"
-    }
+    },
+    "sort-packages": true
   },
   "scripts": {
     "post-autoload-dump": [
       "mkdir -p .Build/Web/typo3conf/ext/",
       "mkdir -p .Build/log/coverage/",
       "[ -L .Build/Web/typo3conf/ext/t3events ] || ln -snvf ../../../../. .Build/Web/typo3conf/ext/t3events"
-    ]
+    ],
+    "test:unit": "phpunit -c phpunit.xml",
+    "rector:check": "rector process --dry-run",
+    "rector:fix": "rector process",
+    "fractor:check": "fractor process --dry-run",
+    "fractor:fix": "fractor process"
   },
   "extra": {
     "typo3/cms": {
@@ -59,5 +82,12 @@
       "cms-package-dir": "{$vendor-dir}/typo3/cms",
       "web-dir": ".Build/Web"
     }
+  },
+  "scripts-descriptions": {
+    "test:unit": "Run the unit tests",
+    "rector:check": "Show changes Rector would make (PHP)",
+    "rector:fix": "Apply Rector changes (PHP)",
+    "fractor:check": "Show changes Fractor would make (TypoScript, FlexForms, Fluid, YAML)",
+    "fractor:fix": "Apply Fractor changes"
   }
 }

@@ -24,6 +24,8 @@ use Iterator;
 
 /**
  * Class FilterCollection
+ *
+ * @implements Iterator<string, FilterInterface>
  */
 class FilterCollection implements Iterator, Countable
 {
@@ -35,26 +37,24 @@ class FilterCollection implements Iterator, Countable
      *   spl_object_hash => $filter
      * ]
      *
-     * @var array
+     * @var array<string, FilterInterface>
      */
-    protected $storage = [];
+    protected array $storage = [];
 
     /**
      * Returns the current storage entry
      *
      * @return FilterInterface|false
      */
-    public function current(): FilterInterface
+    public function current(): FilterInterface|false
     {
         return current($this->storage);
     }
 
     /**
      * Moves to the next storage entry.
-     * @todo: Set return type to void in v12 as breaking patch and drop #[\ReturnTypeWillChange]
      */
-    #[\ReturnTypeWillChange]
-    public function next()
+    public function next(): void
     {
         next($this->storage);
     }
@@ -63,52 +63,38 @@ class FilterCollection implements Iterator, Countable
      * Returns the index at which the iterator currently is.
      *
      * The key is an object hash
-     *
-     * @return int
-     * @todo: Set return type to mixed in v12 as breaking patch and drop #[\ReturnTypeWillChange]
      */
-    #[\ReturnTypeWillChange]
-    public function key()
+    public function key(): string|int|null
     {
         return key($this->storage);
     }
 
     /**
      * Checks if the pointer of the storage points to a valid position
-     * @return bool
-     * @todo: Set return type to bool in v12 as breaking patch and drop #[\ReturnTypeWillChange]
      */
-    #[\ReturnTypeWillChange]
-    public function valid()
+    public function valid(): bool
     {
         return current($this->storage) !== false;
     }
 
     /**
      * Rewinds to the first storage element
-     * @todo: Set return type to void in v12 as breaking patch and drop #[\ReturnTypeWillChange]
      */
-    #[\ReturnTypeWillChange]
-    public function rewind()
+    public function rewind(): void
     {
         reset($this->storage);
     }
 
     /**
      * Attaches the filter
-     *
-     * @param FilterInterface $filter
      */
-    public function attach(FilterInterface $filter)
+    public function attach(FilterInterface $filter): void
     {
         $this->storage[spl_object_hash($filter)] = $filter;
     }
 
     /**
      * Checks whether a filter is contained in collection
-     *
-     * @param FilterInterface $filter
-     * @return bool
      */
     public function contains(FilterInterface $filter): bool
     {
@@ -117,18 +103,14 @@ class FilterCollection implements Iterator, Countable
 
     /**
      * Removes a filter from the collection
-     *
-     * @param FilterInterface $filter
      */
-    public function detach(FilterInterface $filter)
+    public function detach(FilterInterface $filter): void
     {
         unset($this->storage[spl_object_hash($filter)]);
     }
 
     /**
      * Count elements of collection
-     *
-     * @return int
      */
     public function count(): int
     {

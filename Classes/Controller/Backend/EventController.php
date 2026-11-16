@@ -14,7 +14,13 @@ namespace DWenzel\T3events\Controller\Backend;
  *
  * The TYPO3 project - inspiring people to share!
  */
-
+use TYPO3\CMS\Backend\Routing\UriBuilder;
+use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
+use TYPO3\CMS\Backend\Template\Components\ButtonBar;
+use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
+use TYPO3\CMS\Core\Imaging\IconFactory;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use Psr\Http\Message\ResponseInterface;
 use DWenzel\T3events\CallStaticTrait;
 use DWenzel\T3events\Controller\AbstractBackendController;
 use DWenzel\T3events\Controller\AudienceRepositoryTrait;
@@ -37,15 +43,12 @@ use DWenzel\T3events\Controller\SignalTrait;
 use DWenzel\T3events\Controller\TranslateTrait;
 use DWenzel\T3events\Controller\VenueRepositoryTrait;
 use DWenzel\T3events\Domain\Model\Dto\ButtonDemand;
-use DWenzel\T3events\Pagination\NumberedPagination;
+use DWenzel\T3events\Domain\Model\Dto\SearchFactory;
+use DWenzel\T3events\Service\ModuleDataStorageService;
 use DWenzel\T3events\Utility\SettingsInterface as SI;
-use TYPO3\CMS\Backend\View\BackendTemplateView;
+use DWenzel\T3events\Utility\SettingsUtility;
 use TYPO3\CMS\Core\Imaging\Icon;
-use TYPO3\CMS\Core\Messaging\FlashMessage;
-use TYPO3\CMS\Core\Pagination\SimplePagination;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-use TYPO3\CMS\Extbase\Pagination\QueryResultPaginator;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
 /**
@@ -65,7 +68,8 @@ class EventController extends AbstractBackendController implements FilterableCon
     const LIST_ACTION = 'listAction';
     const EXTENSION_KEY = 't3events';
 
-    protected $buttonConfiguration = [
+    /** @var array<int, array<string, mixed>> */
+    protected array $buttonConfiguration = [
         [
             ButtonDemand::TABLE_KEY => SI::TABLE_EVENTS,
             ButtonDemand::LABEL_KEY => 'button.newAction.event',
@@ -76,34 +80,36 @@ class EventController extends AbstractBackendController implements FilterableCon
         ]
     ];
 
-    protected $defaultViewObjectName = BackendTemplateView::class;
+    public function __construct(SettingsUtility $settingsUtility, ModuleDataStorageService $moduleDataStorageService, private readonly ModuleTemplateFactory $moduleTemplateFactory, SearchFactory $searchFactory)
+    {
+        $this->moduleDataStorageService = $moduleDataStorageService;
+        $this->settingsUtility = $settingsUtility;
+        $this->searchFactory = $searchFactory;
+    }
 
-    /**
-     * @return void
-     */
-    public function initializeNewAction()
+    public function initializeNewAction(): void
     {
 
         $configuration = $this->configurationManager->getConfiguration(
             ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
         );
-        if (!empty($configuration[SI::PERSISTENCE][SI::STORAGE_PID])) {
-            $this->pageUid = $configuration[SI::PERSISTENCE][SI::STORAGE_PID];
+        $persistence = $configuration[SI::PERSISTENCE] ?? [];
+        if (is_array($persistence) && !empty($persistence[SI::STORAGE_PID])) {
+            $this->pageUid = (int)$persistence[SI::STORAGE_PID];
         }
-        if (!empty($configuration[SI::SETTINGS][SI::PERSISTENCE][SI::STORAGE_PID])) {
-            $this->pageUid = $configuration[SI::SETTINGS][SI::PERSISTENCE][SI::STORAGE_PID];
+        $configSettings = $configuration[SI::SETTINGS] ?? [];
+        $settingsPersistence = is_array($configSettings) ? ($configSettings[SI::PERSISTENCE] ?? []) : [];
+        if (is_array($settingsPersistence) && !empty($settingsPersistence[SI::STORAGE_PID])) {
+            $this->pageUid = (int)$settingsPersistence[SI::STORAGE_PID];
         }
     }
 
     /**
      * action list
      *
-     * @param array $overwriteDemand
-     * @return void
-     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException
-     * @throws \TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException
+     * @param array<string, mixed>|null $overwriteDemand
      */
-    public function listAction($overwriteDemand = null)
+    public function listAction(?array $overwriteDemand = null): ResponseInterface
     {
         $demand = $this->eventDemandFactory->createFromSettings($this->settings);
 
@@ -124,75 +130,69 @@ class EventController extends AbstractBackendController implements FilterableCon
             $this->addFlashMessage(
                 $this->translate('message.noEventFound.text'),
                 $this->translate('message.noEventFound.title'),
-                FlashMessage::WARNING
+                ContextualFeedbackSeverity::WARNING
             );
         }
         $configuration = $this->configurationManager->getConfiguration(
             ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
         );
-
-        // pagination
-        $paginationConfiguration = $this->settings['event']['list']['paginate'] ?? [];
-        $itemsPerPage = (int)(($paginationConfiguration['itemsPerPage'] ?? '') ?: 10);
-        $maximumNumberOfLinks = (int)($paginationConfiguration['maximumNumberOfLinks'] ?? 0);
-        
-        $currentPage = max(1, $this->request->hasArgument('currentPage') ? (int)$this->request->getArgument('currentPage') : 1);
-        #$paginator = new ArrayPaginator($contacts->toArray(), $currentPage, $itemsPerPage);
-        $paginator = GeneralUtility::makeInstance(QueryResultPaginator::class, $events, $currentPage, $itemsPerPage, (int)($this->settings['limit'] ?? 0), (int)($this->settings['offset'] ?? 0));
-        $paginationClass = $paginationConfiguration['class'] ?? NumberedPagination::class;
-        #$pagination = new SimplePagination($paginator);
-        $pagination = $this->getPagination($paginationClass, $maximumNumberOfLinks, $paginator);
-
-
+        $persistenceConfig = $configuration[SI::PERSISTENCE] ?? [];
         $templateVariables = [
-            'paginator' => $paginator,
-            'pagination' => $pagination,
             SI::EVENTS => $events,
             SI::DEMAND => $demand,
             SI::OVERWRITE_DEMAND => $overwriteDemand,
-            'filterOptions' => $this->getFilterOptions($this->settings[SI::FILTER]),
-            SI::STORAGE_PID => $configuration[SI::PERSISTENCE][SI::STORAGE_PID],
+            'filterOptions' => $this->getFilterOptions($this->settings[SI::FILTER] ?? []),
+            SI::STORAGE_PID => is_array($persistenceConfig) ? ($persistenceConfig[SI::STORAGE_PID] ?? null) : null,
             SI::SETTINGS => $this->settings,
             SI::MODULE => SI::ROUTE_EVENT_MODULE
         ];
 
-        $this->emitSignal(__CLASS__, self::LIST_ACTION, $templateVariables);
-        $this->view->assignMultiple($templateVariables);
+        $this->emitSignal(self::class, self::LIST_ACTION, $templateVariables);
+        return $this->renderWithModuleTemplate($templateVariables);
+    }
+
+    /**
+     * @param array<string, mixed> $templateVariables
+     */
+    protected function renderWithModuleTemplate(array $templateVariables): ResponseInterface
+    {
+        $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
+
+        // Add "New Event" button to doc header
+        $backendUriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
+        $returnUrl = (string)$backendUriBuilder->buildUriFromRoute(SI::ROUTE_EVENT_MODULE);
+        $newUrl = (string)$backendUriBuilder->buildUriFromRoute(SI::ROUTE_EDIT_RECORD_MODULE, [
+            SI::EDIT => [SI::TABLE_EVENTS => [$this->pageUid => 'new']],
+            SI::RETURN_URL => $returnUrl,
+        ]);
+        $iconFactory = GeneralUtility::makeInstance(IconFactory::class);
+        $buttonBar = $moduleTemplate->getDocHeaderComponent()->getButtonBar();
+        $newButton = $buttonBar->makeLinkButton()
+            ->setHref($newUrl)
+            ->setTitle($this->translate('button.newAction.event'))
+            ->setIcon($iconFactory->getIcon('ext-t3events-event', Icon::SIZE_SMALL, 'overlay-new'));
+        $buttonBar->addButton($newButton, ButtonBar::BUTTON_POSITION_LEFT, 1);
+
+        $this->patchModuleTemplateView($moduleTemplate);
+        $moduleTemplate->assignMultiple($templateVariables);
+        return $moduleTemplate->renderResponse();
     }
 
     /**
      * Redirect to new record form
      */
-    public function newAction()
+    public function newAction(): ResponseInterface
     {
-        $this->redirectToCreateNewRecord(SI::TABLE_EVENTS);
+        return $this->redirectToCreateNewRecord(SI::TABLE_EVENTS);
     }
 
-    /**
-     * @return ConfigurationManagerInterface
-     */
-    public function getConfigurationManager()
+    public function getModuleKey(): string
+    {
+        return 'events_m1';
+    }
+
+    public function getConfigurationManager(): ConfigurationManagerInterface
     {
         return $this->configurationManager;
-    }
-
-    
-
-    /**
-     * @param $paginationClass
-     * @param int $maximumNumberOfLinks
-     * @param $paginator
-     * @return \#o#Э#A#M#C\GeorgRinger\News\Controller\NewsController.getPagination.0|NumberedPagination|mixed|\Psr\Log\LoggerAwareInterface|string|SimplePagination|\TYPO3\CMS\Core\SingletonInterface
-     */
-    protected function getPagination($paginationClass, int $maximumNumberOfLinks, $paginator)
-    {
-        if (class_exists(NumberedPagination::class) && $paginationClass === NumberedPagination::class && $maximumNumberOfLinks) {
-            $pagination = GeneralUtility::makeInstance(NumberedPagination::class, $paginator, $maximumNumberOfLinks);
-        } elseif (class_exists($paginationClass)) {
-            $pagination = GeneralUtility::makeInstance($paginationClass, $paginator);
-        } else {
-            $pagination = GeneralUtility::makeInstance(SimplePagination::class, $paginator);
-        }
-        return $pagination;
     }
 }

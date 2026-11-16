@@ -66,15 +66,12 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 class DateViewHelper extends AbstractViewHelper
 {
 
-    /**
-     * @var boolean
-     */
-    protected $escapingInterceptorEnabled = false;
+    protected bool $escapingInterceptorEnabled = false;
 
     /**
      * Initialize arguments
      */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         $this->registerArgument('date', 'mixed', 'either a DateTime object or a string that is accepted by DateTime constructor', false);
         $this->registerArgument('format', 'string', 'Format String which is taken to format the Date/Time', false, '');
@@ -88,7 +85,7 @@ class DateViewHelper extends AbstractViewHelper
      *
      * @throws \TYPO3Fluid\Fluid\Core\ViewHelper\Exception
      */
-    public function render()
+    public function render(): string|false
     {
         $date = $this->arguments['date'];
         $format = $this->arguments['format'];
@@ -116,11 +113,13 @@ class DateViewHelper extends AbstractViewHelper
 
         if (!$date instanceof \DateTime) {
             try {
-                $base = $base instanceof \DateTime ? $base->format('U') : strtotime((MathUtility::canBeInterpretedAsInteger($base) ? '@' : '') . $base);
-                $dateTimestamp = strtotime((MathUtility::canBeInterpretedAsInteger($date) ? '@' : '') . $date, $base);
-                $modifiedDate = new \DateTime('@' . $dateTimestamp);
+                $baseTimestamp = $base instanceof \DateTime ? (int)$base->format('U') : (strtotime((MathUtility::canBeInterpretedAsInteger($base) ? '@' : '') . $base) ?: null);
+                $dateTimestamp = $baseTimestamp !== null
+                    ? strtotime((MathUtility::canBeInterpretedAsInteger($date) ? '@' : '') . $date, $baseTimestamp)
+                    : strtotime((MathUtility::canBeInterpretedAsInteger($date) ? '@' : '') . $date);
+                $modifiedDate = new \DateTime('@' . ($dateTimestamp !== false ? $dateTimestamp : 0));
                 $modifiedDate->setTimezone(new \DateTimeZone(date_default_timezone_get()));
-            } catch (\Exception $exception) {
+            } catch (\Exception) {
                 throw new \TYPO3Fluid\Fluid\Core\ViewHelper\Exception('"' . $date . '" could not be parsed by \DateTime constructor.', 1241722579);
             }
         } else {
@@ -131,10 +130,9 @@ class DateViewHelper extends AbstractViewHelper
             $modifiedDate->setTimestamp($modifiedDate->getTimestamp() + $time);
         }
 
-        if (strpos($format, '%') !== false) {
-            return strftime($format, $modifiedDate->format('U'));
-        } else {
-            return $modifiedDate->format($format);
+        if (str_contains((string) $format, '%')) {
+            return strftime($format, (int)$modifiedDate->format('U'));
         }
+        return $modifiedDate->format($format);
     }
 }

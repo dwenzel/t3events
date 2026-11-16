@@ -7,6 +7,7 @@ use DWenzel\T3events\Update\LegacyFileFieldsUpdateWizard;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Output\OutputInterface;
+use TYPO3\CMS\Core\Database\ConnectionPool;
 
 /***************************************************************
  *  Copyright notice
@@ -36,9 +37,12 @@ class LegacyFileFieldsUpdateWizardTest extends TestCase
      */
     protected $output;
 
-    protected function setUp(): void
+    public function setUp(): void
     {
-        $this->subject = new LegacyFileFieldsUpdateWizard();
+        parent::setUp();
+        $mockConnectionPool = $this->getMockBuilder(ConnectionPool::class)
+            ->disableOriginalConstructor()->getMock();
+        $this->subject = new LegacyFileFieldsUpdateWizard($mockConnectionPool);
         $this->output = $this->getMockForAbstractClass(OutputInterface::class);
     }
 
@@ -53,6 +57,7 @@ class LegacyFileFieldsUpdateWizardTest extends TestCase
 
     public function testOutputCanBeSet(): void
     {
+        // @extensionScannerIgnoreLine false positive: ChattyInterface::setOutput() still exists in v12
         $this->subject->setOutput($this->output);
         self::assertSame(
             $this->output,
@@ -86,6 +91,7 @@ class LegacyFileFieldsUpdateWizardTest extends TestCase
     {
         self::assertSame(
             LegacyFileFieldsUpdateWizard::PREREQUISITES,
+            // @extensionScannerIgnoreLine false positive: UpgradeWizardInterface::getPrerequisites() is not deprecated
             $this->subject->getPrerequisites()
         );
     }

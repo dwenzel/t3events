@@ -26,7 +26,7 @@ use DWenzel\T3events\Utility\SettingsInterface as SI;
 abstract class DefaultRegistration implements SI
 {
     protected static string $extensionName = EC::EXTENSION_KEY;
+    protected static string $vendorExtensionName = EC::VENDOR . '.' . EC::EXTENSION_KEY;
     protected static string $mainModuleName = SI::MAIN_MODULE_EVENTS;
     protected static string $position = 'bottom';
-    static protected string $vendorExtensionName = EC::VENDOR . '.' . EC::EXTENSION_KEY;
 }

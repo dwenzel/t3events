@@ -41,12 +41,13 @@ class PerformanceStatusTest extends UnitTestCase
      */
     protected $fixture;
 
-    protected function setUp(): void
+    public function setUp(): void
     {
+        parent::setUp();
         $this->fixture = new \DWenzel\T3events\Domain\Model\PerformanceStatus();
     }
 
-    protected function tearDown(): void
+    public function tearDown(): void
     {
         unset($this->fixture);
     }
@@ -56,7 +57,7 @@ class PerformanceStatusTest extends UnitTestCase
      */
     public function getTitleReturnsInitialValueForString()
     {
-        $this->assertNull($this->fixture->getTitle());
+        $this->assertSame('', $this->fixture->getTitle());
     }
 
     /**
@@ -77,7 +78,7 @@ class PerformanceStatusTest extends UnitTestCase
      */
     public function getCssClassReturnsInitialValueForString()
     {
-        $this->assertNull($this->fixture->getCssClass());
+        $this->assertSame('', $this->fixture->getCssClass());
     }
 
     /**
@@ -100,6 +101,7 @@ class PerformanceStatusTest extends UnitTestCase
     {
         $this->assertSame(
             2147483647,
+            // @extensionScannerIgnoreLine false positive: own PerformanceStatus::getPriority(), not a deprecated TYPO3 method
             $this->fixture->getPriority()
         );
     }
@@ -113,6 +115,7 @@ class PerformanceStatusTest extends UnitTestCase
 
         $this->assertSame(
             12,
+            // @extensionScannerIgnoreLine false positive: own PerformanceStatus::getPriority(), not a deprecated TYPO3 method
             $this->fixture->getPriority()
         );
     }

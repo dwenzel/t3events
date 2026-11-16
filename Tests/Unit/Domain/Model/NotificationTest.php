@@ -21,6 +21,7 @@ namespace DWenzel\T3events\Tests\Unit\Domain\Model;
      ***************************************************************/
 use DWenzel\T3events\Domain\Model\Notification;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /**
  * Test case for class \DWenzel\T3events\Domain\Model\Notification.
@@ -41,10 +42,11 @@ class NotificationTest extends UnitTestCase
      */
     protected $subject;
 
-    protected function setUp(): void
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getAccessibleMock(
-            Notification::class, ['dummy']
+            Notification::class, []
         );
     }
 
@@ -99,9 +101,7 @@ class NotificationTest extends UnitTestCase
      */
     public function getSubjectReturnsInitialValueForString()
     {
-        $this->assertNull(
-            $this->subject->getSubject()
-        );
+        $this->assertSame('', $this->subject->getSubject());
     }
 
     /**
@@ -122,9 +122,7 @@ class NotificationTest extends UnitTestCase
      */
     public function getBodytextReturnsInitialValueForString()
     {
-        $this->assertNull(
-            $this->subject->getBodytext()
-        );
+        $this->assertSame('', $this->subject->getBodytext());
     }
 
     /**
@@ -244,5 +242,27 @@ class NotificationTest extends UnitTestCase
             $name,
             $this->subject->getSenderName()
         );
+    }
+
+    /**
+     * @test
+     */
+    public function getAttachmentsInitiallyReturnsEmptyObjectStorage()
+    {
+        $subject = new Notification();
+        self::assertInstanceOf(ObjectStorage::class, $subject->getAttachments());
+        self::assertCount(0, $subject->getAttachments());
+    }
+
+    /**
+     * @test
+     */
+    public function initializeObjectInitializesAttachments()
+    {
+        $reflection = new \ReflectionClass(Notification::class);
+        /** @var Notification $subject */
+        $subject = $reflection->newInstanceWithoutConstructor();
+        $subject->initializeObject();
+        self::assertCount(0, $subject->getAttachments());
     }
 }
