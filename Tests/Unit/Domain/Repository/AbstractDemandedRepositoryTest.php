@@ -141,6 +141,22 @@ class AbstractDemandedRepositoryTest extends UnitTestCase
     }
 
     /**
+     * Value of the FlexForm option "manual sorting"
+     *
+     * @test
+     */
+    public function createOrderingsFromDemandReturnsOrderingForManualSorting()
+    {
+        $mockDemand = $this->getMockDemand(['getOrder']);
+        $mockDemand->method('getOrder')->willReturn('sorting|asc');
+
+        $this->assertEquals(
+            ['sorting' => QueryInterface::ORDER_ASCENDING],
+            $this->fixture->createOrderingsFromDemand($mockDemand)
+        );
+    }
+
+    /**
      * @test
      */
     public function createOrderingsFromDemandReturnsOrderingsForMultipleFieldsWithDifferentOrder()

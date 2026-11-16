@@ -101,6 +101,10 @@
                                     <label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.title</label>
                                     <value>event.headline|asc</value>
                                 </numIndex>
+                                <numIndex index="3" type="array">
+                                    <label>LLL:EXT:t3events/Resources/Private/Language/locallang_be.xml:flexforms_general.manualSorting</label>
+                                    <value>sorting|asc</value>
+                                </numIndex>
                             </items>
                         </config>
                     </settings.order>

@@ -70,6 +70,7 @@
             <label index="flexforms_general.template">Template</label>
             <label index="flexforms_general.templateLayout">Template Layout</label>
             <label index="flexforms_general.title">Title</label>
+            <label index="flexforms_general.manualSorting">Manual sorting (order of the records in the backend)</label>
             <label index="flexforms_general.venues">Venues</label>
             <label index="flexforms_general.viewMode">View Mode</label>
             <label index="flexforms_general.viewModeComboPane">Combo View</label>
@@ -153,6 +154,7 @@
             <label index="flexforms_general.template">Vorlage</label>
             <label index="flexforms_general.templateLayout">Vorlagenlayout</label>
             <label index="flexforms_general.title">Titel</label>
+            <label index="flexforms_general.manualSorting">Manuelle Sortierung (Reihenfolge der Datensätze im Backend)</label>
             <label index="flexforms_general.venues">Einrichtungen</label>
             <label index="flexforms_general.viewMode">Ansicht</label>
             <label index="flexforms_general.viewModeComboPane">kombiniert</label>
