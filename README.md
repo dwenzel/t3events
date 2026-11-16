@@ -1,12 +1,28 @@
-[![code coverage](https://codecov.io/gh/dwenzel/t3events/branch/master/graph/badge.svg)](https://codecov.io/gh/dwenzel/t3events)
-[![Build Status](https://travis-ci.org/dwenzel/t3events.svg?branch=master)](https://travis-ci.org/dwenzel/t3events)  
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/f4e261c4-eccf-4f0d-ae19-c3a0b5aec361/small.png)](https://insight.sensiolabs.com/projects/f4e261c4-eccf-4f0d-ae19-c3a0b5aec361)
+[![CI](https://github.com/dwenzel/t3events/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/dwenzel/t3events/actions/workflows/ci.yml)
 
 Events
 ======
 
-Manage events,show them in teasers, list and single views in TYPO3.  
-This is an extension for the TYPO3 CMS. 
+Manage events, show them in teasers, list and single views in TYPO3.
+This is an extension for the TYPO3 CMS.
+
+## Support matrix
+
+| TYPO3       | PHP (composer) | Branch              | Version line | Latest release |
+|-------------|----------------|---------------------|--------------|----------------|
+| 13.4 / 14.3 | `^8.3`         | `main`              | 4.x          | none yet       |
+| 12.4        | `^8.1`         | `support/typo3-v12` | 3.x          | none yet       |
+| 11.5        | not declared   | `support/typo3-v11` | 2.x          | 2.0.0          |
+| 9.5 / 10.4  |                | -                   | 1.x          | 1.1.0 (not maintained) |
+
+Releases are published to [Packagist](https://packagist.org/packages/dwenzel/t3events)
+and the [TYPO3 Extension Repository](https://extensions.typo3.org/extension/t3events).
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the branching model and the release
+process. A development environment with one TYPO3 instance per supported version
+is available in [t3events-bundle](https://github.com/dwenzel/t3events-bundle).
 
 ## Table of Contents
 

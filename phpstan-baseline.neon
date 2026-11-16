@@ -1,0 +1,103 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Cannot call method getVisibleLayerIds\(\) on DWenzel\\T3events\\DataProvider\\Legend\\LayeredLegendDataProviderInterface\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: Classes/Configuration/PeriodConstraintLegend.php
+
+		-
+			message: '#^Property TYPO3\\CMS\\Extbase\\Mvc\\Controller\\ActionController\:\:\$settings type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 3
+			path: Classes/Controller/Backend/EventController.php
+
+		-
+			message: '#^Property TYPO3\\CMS\\Extbase\\Mvc\\Controller\\ActionController\:\:\$settings type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 2
+			path: Classes/Controller/Backend/ScheduleController.php
+
+		-
+			message: '#^Property TYPO3\\CMS\\Extbase\\Mvc\\Controller\\ActionController\:\:\$settings type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 2
+			path: Classes/Controller/EventController.php
+
+		-
+			message: '#^Property TYPO3\\CMS\\Extbase\\Mvc\\Controller\\ActionController\:\:\$settings type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 2
+			path: Classes/Controller/PerformanceController.php
+
+		-
+			message: '#^Call to an undefined static method TYPO3\\CMS\\Extbase\\Persistence\\Repository\<TYPO3\\CMS\\Extbase\\DomainObject\\DomainObjectInterface\>\:\:__call\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: Classes/Domain/Repository/AbstractDemandedRepository.php
+
+		-
+			message: '#^Call to an undefined static method TYPO3\\CMS\\Extbase\\Persistence\\Repository\<TYPO3\\CMS\\Extbase\\DomainObject\\DomainObjectInterface\>\:\:__call\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: Classes/Domain/Repository/CategoryRepository.php
+
+		-
+			message: '#^Call to an undefined static method TYPO3\\CMS\\Extbase\\Persistence\\Repository\<TYPO3\\CMS\\Extbase\\DomainObject\\DomainObjectInterface\>\:\:__call\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: Classes/Domain/Repository/ContentRepository.php
+
+		-
+			message: '#^Call to an undefined static method TYPO3\\CMS\\Extbase\\Persistence\\Repository\<TYPO3\\CMS\\Extbase\\DomainObject\\DomainObjectInterface\>\:\:__call\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: Classes/Domain/Repository/PerformanceRepository.php
+
+		-
+			message: '#^Call to an undefined static method TYPO3\\CMS\\Extbase\\Persistence\\Repository\<TYPO3\\CMS\\Extbase\\DomainObject\\DomainObjectInterface\>\:\:__call\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: Classes/Domain/Repository/PerformanceStatusRepository.php
+
+		-
+			message: '#^Method DWenzel\\T3events\\Service\\NotificationService\:\:duplicate\(\) should return DWenzel\\T3events\\Domain\\Model\\Notification but returns array\|object\.$#'
+			identifier: return.type
+			count: 1
+			path: Classes/Service/NotificationService.php
+
+		-
+			message: '#^Parameter \#1 \$addresses of method TYPO3\\CMS\\Core\\Mail\\MailMessage\:\:setFrom\(\) expects array\|string, string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: Classes/Service/NotificationService.php
+
+		-
+			message: '#^Parameter \#1 \$propertyName of method TYPO3\\CMS\\Extbase\\DomainObject\\AbstractDomainObject\:\:_getProperty\(\) expects non\-empty\-string, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: Classes/Service/NotificationService.php
+
+		-
+			message: '#^Cannot call method error\(\) on Psr\\Log\\LoggerInterface\|null\.$#'
+			identifier: method.nonObject
+			count: 2
+			path: Classes/Update/LegacyFileFieldsUpdateWizard.php
+
+		-
+			message: '#^Cannot call method add\(\) on TYPO3Fluid\\Fluid\\Core\\Variables\\VariableProviderInterface\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: Classes/ViewHelpers/FindEventsViewHelper.php
+
+		-
+			message: '#^Cannot call method remove\(\) on TYPO3Fluid\\Fluid\\Core\\Variables\\VariableProviderInterface\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: Classes/ViewHelpers/FindEventsViewHelper.php
+
+		-
+			message: '#^Cannot call method getAttribute\(\) on TYPO3Fluid\\Fluid\\Core\\Rendering\\RenderingContextInterface\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: Classes/ViewHelpers/MetaTagViewHelper.php

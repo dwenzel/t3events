@@ -156,12 +156,21 @@ class Event extends AbstractEntity
      */
     public function __construct()
     {
-        //Do not remove the next line: It would break the functionality
         $this->initStorageObjects();
         // allow additional initialization in proxy classes
-        if (method_exists($this, 'initializeObject')) {
-            $this->initializeObject();
-        }
+        $this->initializeObject();
+    }
+
+    /**
+     * Called by Extbase after creating an object from the database, where the
+     * constructor is not called. No return type: subclasses may override it
+     * without one; they must call parent::initializeObject().
+     *
+     * @return void
+     */
+    public function initializeObject()
+    {
+        $this->initStorageObjects();
     }
 
     /**

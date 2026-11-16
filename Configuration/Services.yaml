@@ -32,3 +32,9 @@ services:
     tags:
       - name: upgradeWizard
         identifier: 't3eventsSwitchableControllerActionsPluginUpdater'
+  DWenzel\T3events\Command\SeedFixturesCommand:
+    tags:
+      - name: console.command
+        command: 't3events:seed-fixtures'
+        description: 'Seeds (or, with --purge, removes) the t3events showcase fixtures'
+        schedulable: false
