@@ -207,10 +207,10 @@ class DemandTraitTest extends UnitTestCase
         $demand = $this->getMockForAbstractClass(
             AbstractDemand::class, [], '', true, true, true, ['setOrder']
         );
-        $overwriteDemand = array(
+        $overwriteDemand = [
             'sortBy' => 'foo',
             SI::SORT_DIRECTION => 'bar'
-        );
+        ];
 
         $demand->expects($this->once())->method('setOrder')
             ->with('foo|bar');
@@ -226,9 +226,9 @@ class DemandTraitTest extends UnitTestCase
         $demand = $this->getMockForAbstractClass(
             AbstractDemand::class, [], '', true, true, true, ['setSortDirection']
         );
-        $overwriteDemand = array(
+        $overwriteDemand = [
             SI::SORT_DIRECTION => 'foo'
-        );
+        ];
 
         $demand->expects($this->once())->method('setSortDirection')
             ->with('asc');
@@ -244,9 +244,9 @@ class DemandTraitTest extends UnitTestCase
         $demand = $this->getMockForAbstractClass(
             AbstractDemand::class, [], '', true, true, true, ['setSortDirection']
         );
-        $overwriteDemand = array(
+        $overwriteDemand = [
             SI::SORT_DIRECTION => 'desc'
-        );
+        ];
 
         $demand->expects($this->once())->method('setSortDirection')
             ->with('desc');

@@ -38,9 +38,7 @@ trait RoutingTrait
      */
     public function dispatch(?array $arguments = null, ?string $identifier = null): void
     {
-        if (is_null($identifier)) {
-            $identifier = $this->getOrigin();
-        }
+        $identifier ??= $this->getOrigin();
         $route = $this->router->getRoute($identifier);
 
         $method = $route->getMethod();

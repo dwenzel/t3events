@@ -68,7 +68,6 @@ class ModuleDataTraitTest extends UnitTestCase
         $this->inject($this->subject, 'moduleDataStorageService', $mockService);
 
         $prop = new \ReflectionProperty($this->subject, 'moduleDataStorageService');
-        $prop->setAccessible(true);
         $this->assertSame($mockService, $prop->getValue($this->subject));
     }
 
@@ -113,7 +112,6 @@ class ModuleDataTraitTest extends UnitTestCase
         $this->subject->initializeAction();
 
         $prop = new \ReflectionProperty($this->subject, 'settings');
-        $prop->setAccessible(true);
         $this->assertSame($expectedSettings, $prop->getValue($this->subject));
     }
 

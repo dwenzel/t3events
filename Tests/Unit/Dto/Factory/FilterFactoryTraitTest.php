@@ -54,7 +54,6 @@ class FilterFactoryTraitTest extends UnitTestCase
     {
         $this->subject->injectFilterFactory($this->filterFactory);
         $prop = new \ReflectionProperty($this->subject, 'filterFactory');
-        $prop->setAccessible(true);
         $this->assertSame($this->filterFactory, $prop->getValue($this->subject));
     }
 }

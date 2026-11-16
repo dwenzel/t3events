@@ -21,9 +21,7 @@ trait LocationConstraintRepositoryTrait
 
     private function getGeoCoder(): GeoCoder
     {
-        if ($this->geoCoder === null) {
-            $this->geoCoder = GeneralUtility::makeInstance(GeoCoder::class);
-        }
+        $this->geoCoder ??= GeneralUtility::makeInstance(GeoCoder::class);
         return $this->geoCoder;
     }
 
