@@ -1,35 +1,15 @@
-﻿.. include:: Images.txt
+﻿..  _credits:
 
-.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
-
-.. ==================================================
-.. DEFINE SOME TEXTROLES
-.. --------------------------------------------------
-.. role::   underline
-.. role::   typoscript(code)
-.. role::   ts(typoscript)
-
-	:class:  typoscript
-.. role::   php(code)
-
-
+=======
 Credits
--------
+=======
 
-Icon set: `http://www.famfamfam.com/lab/icons/silk/
-<http://www.famfamfam.com/lab/icons/silk/>`_
+t3events was created by Dirk Wenzel and Michael Kasten and is maintained by
+Dirk Wenzel with contributions from the colleagues listed in the
+`repository <https://github.com/dwenzel/t3events/graphs/contributors>`__.
 
-Performance Icon: `http://www.softicons.com/free-icons/object-icons
-/the-passed-day-icons-by-jj-maxer/stage-icon <http://www.softicons.com
-/free-icons/object-icons/the-passed-day-icons-by-jj-maxer/stage-
-icon>`_
+Icons:
 
-Ticket Icon: `http://findicons.com/icon/178211/ticket
-<http://findicons.com/icon/178211/ticket>`_
-
-|img-2|
-
-
+*   Silk icon set by Mark James, http://www.famfamfam.com/lab/icons/silk/
+*   Performance icon from "The passed day" icons by JJ Maxer
+*   Ticket icon from findicons.com
