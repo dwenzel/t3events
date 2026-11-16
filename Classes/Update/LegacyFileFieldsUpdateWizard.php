@@ -19,6 +19,7 @@ namespace DWenzel\T3events\Update;
  * GNU General Public License for more details.
  * This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+use TYPO3\CMS\Install\Attribute\UpgradeWizard;
 use TYPO3\CMS\Core\Resource\ResourceStorage;
 use TYPO3\CMS\Core\Database\Connection;
 use Doctrine\DBAL\Exception;
@@ -41,6 +42,7 @@ use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
  * Creates sys_file_records and sys_file_reference records and sets
  * the value of the field accordingly
  */
+#[UpgradeWizard(LegacyFileFieldsUpdateWizard::IDENTIFIER)]
 class LegacyFileFieldsUpdateWizard implements UpgradeWizardInterface, ChattyInterface, LoggerAwareInterface
 {
     public ?ResourceStorage $storage = null;
