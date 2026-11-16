@@ -1,0 +1,65 @@
+# Readable URLs for the t3events plugins.
+#
+# Optional. Import it in the site configuration (config/sites/<site>/config.yaml):
+#
+#   imports:
+#     - { resource: 'EXT:t3events/Configuration/Routes/Default.yaml' }
+#
+# Resulting URLs (page slugs from the page tree):
+#   event detail:        /<detail page>/<event slug>
+#   event list page 2:   /<list page>/page-2
+#   performance detail:  /<detail page>/performance-<uid>
+#   performance list:    /<list page>/page-2
+#
+# The event slug is the field "URL segment" of the event record, generated
+# from the headline. Run the upgrade wizard "Generate URL segments of events"
+# for existing events.
+routeEnhancers:
+  T3eventsEventList:
+    type: Extbase
+    extension: T3events
+    plugin: EventList
+    routes:
+      - routePath: '/{event}'
+        _controller: 'Event::show'
+        _arguments:
+          event: event
+      - routePath: '/page-{page}'
+        _controller: 'Event::list'
+        _arguments:
+          page: currentPage
+    defaultController: 'Event::list'
+    aspects:
+      event:
+        type: PersistedAliasMapper
+        tableName: tx_t3events_domain_model_event
+        routeFieldName: slug
+      page:
+        type: StaticRangeMapper
+        start: '1'
+        end: '1000'
+
+  T3eventsPerformanceList:
+    type: Extbase
+    extension: T3events
+    plugin: PerformanceList
+    routes:
+      - routePath: '/performance-{performance}'
+        _controller: 'Performance::show'
+        _arguments:
+          performance: performance
+      - routePath: '/page-{page}'
+        _controller: 'Performance::list'
+        _arguments:
+          page: currentPage
+    defaultController: 'Performance::list'
+    aspects:
+      performance:
+        type: PersistedPatternMapper
+        tableName: tx_t3events_domain_model_performance
+        routeFieldPattern: '^(?P<uid>\d+)$'
+        routeFieldResult: '{uid}'
+      page:
+        type: StaticRangeMapper
+        start: '1'
+        end: '1000'

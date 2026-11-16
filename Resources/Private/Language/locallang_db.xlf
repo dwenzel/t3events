@@ -84,6 +84,12 @@
 		<trans-unit id="tx_t3events_domain_model_event.genre">
 			<source>Genre</source>
 		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_event.slug">
+			<source>URL segment</source>
+		</trans-unit>
+		<trans-unit id="tx_t3events_domain_model_event.slug.description">
+			<source>Part of the URL of the detail view (requires the route configuration of t3events in the site configuration). Generated from the headline.</source>
+		</trans-unit>
 		<trans-unit id="tx_t3events_domain_model_event.headline">
 			<source>Headline</source>
 		</trans-unit>

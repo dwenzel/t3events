@@ -7,6 +7,7 @@ CREATE TABLE tx_t3events_domain_model_event (
   pid int(11) DEFAULT '0' NOT NULL,
 
   headline varchar(255) DEFAULT '' NOT NULL,
+  slug varchar(2048) DEFAULT '' NOT NULL,
   subtitle varchar(255) DEFAULT '' NOT NULL,
   teaser text,
   description text,

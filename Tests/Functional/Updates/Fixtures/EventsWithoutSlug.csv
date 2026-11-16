@@ -1,0 +1,13 @@
+"pages"
+,"uid","pid","title","doktype"
+,1,0,"Root",1
+,2,1,"Events A",254
+,3,1,"Events B",254
+"tx_t3events_domain_model_event"
+,"uid","pid","headline","slug","deleted"
+,1,2,"Jazz evening","",0
+,2,2,"Jazz evening","",0
+,3,3,"Jazz evening","",0
+,4,2,"Children's Théâtre / Matinée 2026","",0
+,5,2,"Kept","existing-slug",0
+,6,2,"Deleted event","",1
