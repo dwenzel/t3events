@@ -22,20 +22,15 @@ use DWenzel\T3events\Domain\Repository\EventLocationRepository;
  *
  * @package DWenzel\T3events\Controller
  */
+// @phpstan-ignore-next-line trait.unused (trait consumed in Tests/Unit/ — outside PHPStan scan scope)
 trait EventLocationRepositoryTrait
 {
-    /**
-     * EventLocation repository
-     *
-     * @var \DWenzel\T3events\Domain\Repository\EventLocationRepository
-     */
-    protected $eventLocationRepository;
+    protected EventLocationRepository $eventLocationRepository;
 
     /**
      * Injects the eventLocation repository
-     * @param EventLocationRepository $eventLocationRepository
      */
-    public function injectEventLocationRepository(EventLocationRepository $eventLocationRepository)
+    public function injectEventLocationRepository(EventLocationRepository $eventLocationRepository): void
     {
         $this->eventLocationRepository = $eventLocationRepository;
     }

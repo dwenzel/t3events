@@ -1,10 +1,8 @@
 <?php
-
 namespace DWenzel\T3events\Tests\Unit\Configuration;
 
 use DWenzel\T3events\Configuration\ConfigurationManagerTrait;
-use PHPUnit\Framework\MockObject\MockObject;
-use PHPUnit\Framework\TestCase;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 
 /***************************************************************
@@ -24,35 +22,38 @@ use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
  *  GNU General Public License for more details.
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-class DummyClassWithConfigurationManagerTrait
+class ConfigurationManagerTraitTest extends UnitTestCase
 {
-    use ConfigurationManagerTrait;
+    /**
+     * @var \DWenzel\T3events\Configuration\ConfigurationManagerTrait
+     */
+    protected $subject;
 
-    public function getConfigurationManager(): ConfigurationManagerInterface
+    /**
+     * set up
+     */
+    public function setUp(): void
     {
-        return $this->configurationManager;
-    }
-}
-
-class ConfigurationManagerTraitTest extends TestCase
-{
-    protected DummyClassWithConfigurationManagerTrait|MockObject $subject;
-    protected ConfigurationManagerInterface $configurationManager;
-
-    protected function setUp(): void
-    {
-        /** @var ConfigurationManagerInterface|MockObject $configurationManager */
-        $this->configurationManager = $this->getMockBuilder(ConfigurationManagerInterface::class)->getMock();
-        $this->subject = new DummyClassWithConfigurationManagerTrait();
+        parent::setUp();
+        $this->subject = $this->getMockForTrait(
+            ConfigurationManagerTrait::class
+        );
     }
 
-    public function testConfigurationManagerCanBeInjected(): void
+    /**
+     * @test
+     */
+    public function configurationManagerCanBeInjected()
     {
-        $this->subject->injectConfigurationManager($this->configurationManager);
+        /** @var ConfigurationManagerInterface|\PHPUnit_Framework_MockObject_MockObject $configurationManager */
+        $configurationManager = $this->getMockBuilder(ConfigurationManagerInterface::class)->getMock();
 
-        $this->assertSame(
-            $this->configurationManager,
-            $this->subject->getConfigurationManager()
+        $this->subject->injectConfigurationManager($configurationManager);
+
+        $this->assertAttributeSame(
+            $configurationManager,
+            'configurationManager',
+            $this->subject
         );
     }
 }

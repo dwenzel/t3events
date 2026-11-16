@@ -1,5 +1,5 @@
 <?php
-namespace DWenzel\T3events\Tests\Unit\Controller;
+namespace DWenzel\T3events\Tests\Controller;
 
 /**
  * This file is part of the TYPO3 CMS project.
@@ -21,7 +21,7 @@ use TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface;
 /**
  * Class PersistenceManagerTraitTest
  *
- * @package DWenzel\T3events\Tests\Unit\Controller
+ * @package DWenzel\T3events\Tests\Controller
  */
 class PersistenceManagerTraitTest extends UnitTestCase
 {
@@ -33,8 +33,9 @@ class PersistenceManagerTraitTest extends UnitTestCase
     /**
      * set up
      */
-    protected function setUp(): void
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getMockForTrait(
             PersistenceManagerTrait::class
         );

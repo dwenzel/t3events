@@ -1,5 +1,5 @@
 <?php
-namespace DWenzel\T3events\Tests\Unit\Controller\Routing;
+namespace DWenzel\T3events\Tests\Controller\Routing;
 
 use DWenzel\T3events\Controller\Routing\Route;
 use DWenzel\T3events\Utility\SettingsInterface as SI;
@@ -35,10 +35,11 @@ class RouteTest extends UnitTestCase
     /**
      * set up
      */
-    protected function setUp(): void
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getAccessibleMock(
-            Route::class, ['dummy'], [self::DUMMY_ORIGIN]
+            Route::class, [], [self::DUMMY_ORIGIN]
         );
     }
 
@@ -69,7 +70,7 @@ class RouteTest extends UnitTestCase
      *
      * @return array
      */
-    public function setMethodDataProvider()
+    public static function setMethodDataProvider()
     {
         return [
             [Route::METHOD_FORWARD, Route::METHOD_FORWARD],
@@ -119,10 +120,9 @@ class RouteTest extends UnitTestCase
             'uri' => null
         ];
 
-        $this->assertSame(
-            $expectedOptions,
-            $this->subject->getOptions()
-        );
+        // @extensionScannerIgnoreLine false positive: own Route::getOptions(), not a deprecated TYPO3 method
+        $actualOptions = $this->subject->getOptions();
+        $this->assertSame($expectedOptions, $actualOptions);
     }
 
     /**
@@ -169,11 +169,11 @@ class RouteTest extends UnitTestCase
             'foo' => 'bar'
         ];
 
+        // @extensionScannerIgnoreLine false positive: own Route::setOptions(), not a deprecated TYPO3 method
         $this->subject->setOptions($options);
-        $this->assertSame(
-            $options,
-            $this->subject->getOptions()
-        );
+        // @extensionScannerIgnoreLine false positive: own Route::getOptions(), not a deprecated TYPO3 method
+        $actualOptions = $this->subject->getOptions();
+        $this->assertSame($options, $actualOptions);
     }
 
     /**
@@ -181,10 +181,9 @@ class RouteTest extends UnitTestCase
      */
     public function setOptionsReturnsObject()
     {
-        $this->assertSame(
-            $this->subject,
-            $this->subject->setOptions([])
-        );
+        // @extensionScannerIgnoreLine false positive: own Route::setOptions(), not a deprecated TYPO3 method
+        $result = $this->subject->setOptions([]);
+        $this->assertSame($this->subject, $result);
     }
 
     /**

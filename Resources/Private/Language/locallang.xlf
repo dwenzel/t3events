@@ -88,6 +88,15 @@
 		<trans-unit id="label.search.field.subject" xml:space="preserve">
 			<source>Subject</source>
 		</trans-unit>
+		<trans-unit id="label.title" xml:space="preserve">
+			<source>Title</source>
+		</trans-unit>
+		<trans-unit id="label.date" xml:space="preserve">
+			<source>Date</source>
+		</trans-unit>
+		<trans-unit id="label.endDate" xml:space="preserve">
+			<source>End Date</source>
+		</trans-unit>
 		<trans-unit id="label.venue" xml:space="preserve">
 			<source>Venue</source>
 		</trans-unit>

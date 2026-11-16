@@ -28,8 +28,9 @@ class OrderAwareDemandTraitTest extends UnitTestCase
      */
     protected $subject;
 
-    protected function setUp(): void
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getMockForTrait(
             OrderAwareDemandTrait::class
         );

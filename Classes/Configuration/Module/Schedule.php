@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DWenzel\T3events\Configuration\Module;
 
 /***************************************************************
@@ -20,24 +22,21 @@ namespace DWenzel\T3events\Configuration\Module;
  ***************************************************************/
 
 use DWenzel\T3events\Controller\Backend\ScheduleController;
-use DWenzel\T3extensionTools\Configuration\ModuleRegistrationInterface;
-use DWenzel\T3extensionTools\Configuration\ModuleRegistrationTrait;
 
 /**
  * Class Schedule
  */
-abstract class Schedule extends DefaultRegistration implements ModuleRegistrationInterface
+abstract class Schedule extends DefaultRegistration
 {
-    use ModuleRegistrationTrait;
-
     static protected string $subModuleName = 'm2';
+    /** @var array<string, string> */
     static protected array $controllerActions = [
         ScheduleController::class => 'list, show, edit, delete, reset',
     ];
+    /** @var array<string, string> */
     static protected array $moduleConfiguration = [
         'access' => 'user,group',
         'icon' => 'EXT:t3events/Resources/Public/Icons/calendar-blue.svg',
         'labels' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_m2.xlf',
     ];
-
 }

@@ -1,9 +1,8 @@
 <?php
 
-namespace DWenzel\T3events\Configuration\Module;
+declare(strict_types=1);
 
-use DWenzel\T3extensionTools\Configuration\ModuleRegistrationInterface;
-use DWenzel\T3extensionTools\Configuration\ModuleRegistrationTrait;
+namespace DWenzel\T3events\Configuration\Module;
 
 /***************************************************************
  *  Copyright notice
@@ -21,17 +20,16 @@ use DWenzel\T3extensionTools\Configuration\ModuleRegistrationTrait;
  * GNU General Public License for more details.
  * This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-class Main extends DefaultRegistration implements ModuleRegistrationInterface
+class Main extends DefaultRegistration
 {
-    use ModuleRegistrationTrait;
-
-    static protected $subModuleName = '';
+    static protected string $subModuleName = '';
     static protected string $mainModuleName = 'events';
-    static protected $controllerActions = [];
-    static protected $moduleConfiguration = [
+    /** @var array<string, string> */
+    static protected array $controllerActions = [];
+    /** @var array<string, string> */
+    static protected array $moduleConfiguration = [
         'access' => 'user,group',
         'icon' => 'EXT:t3events/Resources/Public/Icons/event-calendar.svg',
         'labels' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_mod_main.xlf',
     ];
-
 }

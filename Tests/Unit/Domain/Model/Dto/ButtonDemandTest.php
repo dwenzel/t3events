@@ -3,7 +3,7 @@
 namespace DWenzel\T3events\Tests;
 use DWenzel\T3events\Domain\Model\Dto\ButtonDemand;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
-use TYPO3\CMS\Core\Imaging\Icon;
+use TYPO3\CMS\Core\Imaging\IconSize;
 
 /***************************************************************
  *  Copyright notice
@@ -32,8 +32,9 @@ class ButtonDemandTest extends  UnitTestCase
     /**
      * set up
      */
-    protected function setUp(): void
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = new ButtonDemand();
     }
 
@@ -41,9 +42,7 @@ class ButtonDemandTest extends  UnitTestCase
      * @test
      */
     public function getTableInitiallyReturnsNull() {
-        $this->assertNull(
-            $this->subject->getTable()
-        );
+        $this->assertSame('', $this->subject->getTable());
     }
 
     /**
@@ -62,9 +61,7 @@ class ButtonDemandTest extends  UnitTestCase
      * @test
      */
     public function getActionInitiallyReturnsNull() {
-        $this->assertNull(
-            $this->subject->getAction()
-        );
+        $this->assertSame('', $this->subject->getAction());
     }
 
     /**
@@ -83,9 +80,7 @@ class ButtonDemandTest extends  UnitTestCase
      * @test
      */
     public function getOverlayInitiallyReturnsNull() {
-        $this->assertNull(
-            $this->subject->getOverlay()
-        );
+        $this->assertSame('', $this->subject->getOverlay());
     }
 
     /**
@@ -105,9 +100,7 @@ class ButtonDemandTest extends  UnitTestCase
      */
     public function getLabelKeyInitiallyReturnsNull()
     {
-        $this->assertNull(
-            $this->subject->getLabelKey()
-        );
+        $this->assertSame('', $this->subject->getLabelKey());
     }
 
     /**
@@ -128,9 +121,7 @@ class ButtonDemandTest extends  UnitTestCase
      */
     public function getIconKeyInitiallyReturnsNull()
     {
-        $this->assertNull(
-            $this->subject->getIconKey()
-        );
+        $this->assertSame('', $this->subject->getIconKey());
     }
 
     /**
@@ -152,7 +143,7 @@ class ButtonDemandTest extends  UnitTestCase
     public function getIconSizeInitiallyDefaultValue()
     {
         $this->assertSame(
-            Icon::SIZE_DEFAULT,
+            IconSize::DEFAULT,
             $this->subject->getIconSize()
         );
     }
@@ -162,7 +153,7 @@ class ButtonDemandTest extends  UnitTestCase
      */
     public function setIconSizeForStringSetsIconSize()
     {
-        $iconSize = 'foo';
+        $iconSize = IconSize::SMALL;
         $this->subject->setIconSize($iconSize);
         $this->assertSame(
             $iconSize,

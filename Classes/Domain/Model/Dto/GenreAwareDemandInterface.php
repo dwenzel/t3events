@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace DWenzel\T3events\Domain\Model\Dto;
 
 /**
@@ -8,19 +11,9 @@ namespace DWenzel\T3events\Domain\Model\Dto;
  */
 interface GenreAwareDemandInterface
 {
-    /**
-     * @return string
-     */
-    public function getGenres();
+    public function getGenres(): ?string;
 
-    /**
-     * @param string $genres
-     * @return void
-     */
-    public function setGenres($genres);
+    public function setGenres(?string $genres): void;
 
-    /**
-     * @return string
-     */
-    public function getGenreField();
+    public function getGenreField(): string;
 }

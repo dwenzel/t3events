@@ -28,19 +28,24 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class FindEventsViewHelper extends AbstractViewHelper
 {
-
-    /**
-     * @param int $timestamp
-     * @param array $events
-     * @param string $as
-     * @return string
-     */
-    public function render($timestamp, $events, $as)
+    public function initializeArguments(): void
     {
-        $filteredEvents = array();
+        $this->registerArgument('timestamp', 'int', 'Unix timestamp to filter by', true);
+        $this->registerArgument('events', 'array', 'Array of events to filter', true);
+        $this->registerArgument('as', 'string', 'Template variable name for filtered events', true);
+    }
+
+    public function render(): mixed
+    {
+        $timestamp = $this->arguments['timestamp'];
+        $events = $this->arguments['events'];
+        $as = $this->arguments['as'];
+
+        $filteredEvents = [];
         foreach ($events as $event) {
             foreach ($event->getPerformances() as $performance) {
-                if (date('d.m.Y', $timestamp) === $performance->getDate()->format('d.m.Y')) {
+                $date = $performance->getDate();
+                if ($date !== null && date('d.m.Y', $timestamp) === $date->format('d.m.Y')) {
                     $filteredEvents[] = $event;
                     break;
                 }
@@ -50,7 +55,6 @@ class FindEventsViewHelper extends AbstractViewHelper
         $this->templateVariableContainer->add($as, $filteredEvents);
         $content = $this->renderChildren();
         $this->templateVariableContainer->remove($as);
-
 
         return $content;
     }

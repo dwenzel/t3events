@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace DWenzel\T3events\Session;
 
 /**
@@ -10,8 +13,6 @@ interface NamespaceAwareInterface
 {
     /**
      * Sets the namespace
-     *
-     * @param string $namespace
      */
-    public function setNamespace($namespace);
+    public function setNamespace(string $namespace): void;
 }

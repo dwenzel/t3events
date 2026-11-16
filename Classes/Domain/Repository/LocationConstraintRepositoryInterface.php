@@ -1,7 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DWenzel\T3events\Domain\Repository;
 
+use TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface;
+use TYPO3\CMS\Extbase\Persistence\Generic\Qom\ConstraintInterface;
 use DWenzel\T3events\Domain\Model\Dto\SearchAwareDemandInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 
@@ -14,9 +18,8 @@ interface LocationConstraintRepositoryInterface
     /**
      * Create location constraints from demand
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\QueryInterface $query
-     * @param \DWenzel\T3events\Domain\Model\Dto\SearchAwareDemandInterface $demand
-     * @return array<\TYPO3\CMS\Extbase\Persistence\QOM\Constraint>
+     * @param QueryInterface<DomainObjectInterface> $query
+     * @return array<ConstraintInterface>
      */
-    public function createLocationConstraints(QueryInterface $query, SearchAwareDemandInterface $demand);
+    public function createLocationConstraints(QueryInterface $query, SearchAwareDemandInterface $demand): array;
 }

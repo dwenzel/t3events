@@ -34,13 +34,14 @@ trait CallStaticTrait
      *
      * @param string $className Name of the class
      * @param string $methodName Name of the method
-     * @return mixed
      */
-    protected function callStatic($className, $methodName)
+    protected function callStatic(string $className, string $methodName): mixed
     {
         $parameters = func_get_args();
         $parameters = array_slice($parameters, 2); // Remove $className and $methodName
 
-        return call_user_func_array($className . '::' . $methodName, $parameters);
+        $callback = $className . '::' . $methodName;
+        // @phpstan-ignore-next-line argument.type (string in "Class::method" format is a valid callable at runtime)
+        return call_user_func_array($callback, $parameters);
     }
 }

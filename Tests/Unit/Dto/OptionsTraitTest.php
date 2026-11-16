@@ -48,13 +48,14 @@ class OptionsTraitTest extends UnitTestCase
      */
     protected $queryResult;
 
-    protected function setUp(): void
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getMockBuilder(OptionsTrait::class)
-            ->setMethods(['getOptionRepository'])
+            ->onlyMethods(['getOptionRepository'])
             ->getMockForTrait();
         $this->repository = $this->getMockBuilder(DemandedRepositoryInterface::class)
-            ->setMethods(['findAll', 'findMultipleByUid'])
+            ->onlyMethods(['findAll', 'findMultipleByUid'])
             ->getMockForAbstractClass();
         $this->subject->method('getOptionRepository')
             ->willReturn($this->repository);
@@ -66,7 +67,8 @@ class OptionsTraitTest extends UnitTestCase
     public function testGetOptionsInitiallyReturnsIterable()
     {
         $this->assertTrue(
-            is_iterable($this->subject->getOptions())
+            is_iterable(// @extensionScannerIgnoreLine false positive: own OptionsTrait::getOptions(), not a deprecated TYPO3 method
+$this->subject->getOptions())
         );
     }
 
@@ -88,7 +90,8 @@ class OptionsTraitTest extends UnitTestCase
         $this->subject->configure($config);
         $this->assertSame(
             $this->queryResult,
-            $this->subject->getOptions()
+            // @extensionScannerIgnoreLine false positive: own OptionsTrait::getOptions(), not a deprecated TYPO3 method
+$this->subject->getOptions()
         );
     }
 
@@ -103,7 +106,8 @@ class OptionsTraitTest extends UnitTestCase
         $this->subject->configure($config);
         $this->assertSame(
             $this->queryResult,
-            $this->subject->getOptions()
+            // @extensionScannerIgnoreLine false positive: own OptionsTrait::getOptions(), not a deprecated TYPO3 method
+$this->subject->getOptions()
         );
     }
 }

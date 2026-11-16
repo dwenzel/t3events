@@ -1,6 +1,6 @@
 <?php
 
-namespace DWenzel\T3events\Tests\Unit\Controller;
+namespace DWenzel\T3events\Tests\Controller;
 
 use DWenzel\T3events\Controller\PerformanceRepositoryTrait;
 use DWenzel\T3events\Domain\Repository\PerformanceRepository;
@@ -33,8 +33,9 @@ class PerformanceRepositoryTraitTest extends UnitTestCase
     /**
      * set up
      */
-    protected function setUp(): void
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getMockForTrait(
             PerformanceRepositoryTrait::class
         );
@@ -49,7 +50,7 @@ class PerformanceRepositoryTraitTest extends UnitTestCase
         $performanceRepository = $this->getMockBuilder(PerformanceRepository::class)
             ->disableOriginalConstructor()->getMock();
 
-        $this->subject->injectPerformanceRepository($performanceRepository);
+        $this->inject($this->subject, "performanceRepository", $performanceRepository);
 
         $this->assertAttributeSame(
             $performanceRepository,

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace DWenzel\T3events\DataProvider\Legend;
 
 /***************************************************************
@@ -23,14 +26,14 @@ interface LayeredLegendDataProviderInterface
     /**
      * Gets an array of all layer ids
      *
-     * @return array
+     * @return list<string>
      */
-    public function getAllLayerIds();
+    public function getAllLayerIds(): array;
 
     /**
      * Gets an array of visible layers ids
      *
-     * @return array
+     * @return list<string>
      */
-    public function getVisibleLayerIds();
+    public function getVisibleLayerIds(): array;
 }

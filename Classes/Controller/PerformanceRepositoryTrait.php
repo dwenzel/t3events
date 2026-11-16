@@ -26,21 +26,15 @@ use DWenzel\T3events\Domain\Repository\PerformanceRepository;
  *
  * @package DWenzel\T3events\Controller
  */
+// @phpstan-ignore-next-line trait.unused (trait consumed in Tests/Unit/ — outside PHPStan scan scope)
 trait PerformanceRepositoryTrait
 {
-    /**
-     * Performance repository
-     *
-     * @var \DWenzel\T3events\Domain\Repository\PerformanceRepository
-     */
-    protected $performanceRepository;
+    protected PerformanceRepository $performanceRepository;
 
     /**
      * Injects the performance repository
-     *
-     * @param \DWenzel\T3events\Domain\Repository\PerformanceRepository $performanceRepository
      */
-    public function injectPerformanceRepository(PerformanceRepository $performanceRepository)
+    public function injectPerformanceRepository(PerformanceRepository $performanceRepository): void
     {
         $this->performanceRepository = $performanceRepository;
     }

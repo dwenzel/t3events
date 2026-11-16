@@ -39,12 +39,13 @@ class GenreTest extends \Nimut\TestingFramework\TestCase\UnitTestCase
      */
     protected $fixture;
 
-    protected function setUp(): void
+    public function setUp(): void
     {
+        parent::setUp();
         $this->fixture = new \DWenzel\T3events\Domain\Model\Genre();
     }
 
-    protected function tearDown(): void
+    public function tearDown(): void
     {
         unset($this->fixture);
     }
@@ -54,7 +55,8 @@ class GenreTest extends \Nimut\TestingFramework\TestCase\UnitTestCase
      */
     public function getTitleReturnsInitialValueForString()
     {
-        $this->assertNull(
+        $this->assertSame(
+            '',
             $this->fixture->getTitle()
         );
     }
@@ -100,7 +102,8 @@ class GenreTest extends \Nimut\TestingFramework\TestCase\UnitTestCase
      */
     public function getLinkReturnsInitiallyNull()
     {
-        $this->assertNull(
+        $this->assertSame(
+            '',
             $this->fixture->getLink()
         );
     }

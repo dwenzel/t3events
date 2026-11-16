@@ -27,20 +27,12 @@ use DWenzel\T3events\Domain\Repository\VenueRepository;
  */
 trait VenueRepositoryTrait
 {
-    /**
-     * Venue Repository
-     *
-     * @var \DWenzel\T3events\Domain\Repository\VenueRepository
-     */
-    protected $venueRepository;
+    protected VenueRepository $venueRepository;
 
     /**
      * injectVenueRepository
-     *
-     * @param \DWenzel\T3events\Domain\Repository\VenueRepository $venueRepository
-     * @return void
      */
-    public function injectVenueRepository(VenueRepository $venueRepository)
+    public function injectVenueRepository(VenueRepository $venueRepository): void
     {
         $this->venueRepository = $venueRepository;
     }

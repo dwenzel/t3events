@@ -37,15 +37,16 @@ class CategoryConstraintRepositoryTraitTest extends UnitTestCase
     /**
      * set up
      */
-    protected function setUp(): void
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getMockForTrait(
             CategoryConstraintRepositoryTrait::class
         );
         $this->query = $this->getMockBuilder(QueryInterface::class)
             ->getMockForAbstractClass();
         $this->demand = $this->getMockBuilder(CategoryAwareDemandInterface::class)
-            ->setMethods(
+            ->onlyMethods(
                 [
                     'getCategories', 'setCategories', 'getCategoryField'
                 ]
@@ -79,7 +80,7 @@ class CategoryConstraintRepositoryTraitTest extends UnitTestCase
         $categoryList = '1,2';
         /** @var QueryInterface|MockObject $query */
         $query = $this->getMockBuilder(Query::class)
-            ->setMethods(['contains'])
+            ->onlyMethods(['contains'])
             ->disableOriginalConstructor()
             ->getMock();
         $mockConstraint = 'fooConstraint';
@@ -87,17 +88,19 @@ class CategoryConstraintRepositoryTraitTest extends UnitTestCase
 
         $this->demand->expects($this->any())
             ->method('getCategoryField')
-            ->will($this->returnValue(self::CATEGORY_FIELD));
+            ->willReturn(self::CATEGORY_FIELD);
         $this->demand->expects($this->any())
             ->method('getCategories')
-            ->will($this->returnValue($categoryList));
+            ->willReturn($categoryList);
+        $expectedArgs = [[self::CATEGORY_FIELD, 1], [self::CATEGORY_FIELD, 2]];
+        $callIndex = 0;
         $query->expects($this->exactly(2))
             ->method('contains')
-            ->withConsecutive(
-                [self::CATEGORY_FIELD, 1],
-                [self::CATEGORY_FIELD, 2]
-            )
-            ->will($this->returnValue($mockConstraint));
+            ->willReturnCallback(function() use (&$callIndex, $expectedArgs, $mockConstraint) {
+                $this->assertSame($expectedArgs[$callIndex], func_get_args());
+                $callIndex++;
+                return $mockConstraint;
+            });
         $this->assertSame(
             [$mockConstraint, $mockConstraint],
             $this->subject->createCategoryConstraints($query, $this->demand)

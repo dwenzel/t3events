@@ -34,8 +34,9 @@ class AbstractPeriodDataProviderTest extends UnitTestCase
     /**
      * set up
      */
-    protected function setUp(): void
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getAccessibleMockForAbstractClass(AbstractPeriodDataProvider::class);
     }
 
@@ -101,13 +102,13 @@ class AbstractPeriodDataProviderTest extends UnitTestCase
 
         /** @var AbstractPeriodDataProvider|MockObject subject */
         $this->subject = $this->getMockBuilder(AbstractPeriodDataProvider::class)
-            ->setMethods(['getLayerIds'])->getMockForAbstractClass();
+            ->onlyMethods(['getLayerIds'])->getMockForAbstractClass();
 
         /** @noinspection ImplicitMagicMethodCallInspection */
         $this->subject->__construct(true);
         $this->subject->expects($this->exactly(3))
             ->method('getLayerIds')
-            ->will($this->onConsecutiveCalls($allLayers, $layersToHide, $layersToShow));
+            ->willReturnOnConsecutiveCalls($allLayers, $layersToHide, $layersToShow);
         $this->assertEquals(
             $expectedLayers,
             $this->subject->getVisibleLayerIds()

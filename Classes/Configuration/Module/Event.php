@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DWenzel\T3events\Configuration\Module;
 
 /***************************************************************
@@ -20,20 +22,18 @@ namespace DWenzel\T3events\Configuration\Module;
  ***************************************************************/
 
 use DWenzel\T3events\Controller\Backend\EventController;
-use DWenzel\T3extensionTools\Configuration\ModuleRegistrationInterface;
-use DWenzel\T3extensionTools\Configuration\ModuleRegistrationTrait;
 
 /**
  * Class Event
  */
-abstract class Event extends DefaultRegistration implements ModuleRegistrationInterface
+abstract class Event extends DefaultRegistration
 {
-    use ModuleRegistrationTrait;
-
     static protected string $subModuleName = 'm1';
+    /** @var array<string, string> */
     static protected array $controllerActions = [
         EventController::class => 'list, show, reset, new',
     ];
+    /** @var array<string, string> */
     static protected array $moduleConfiguration = [
         'access' => 'user,group',
         'icon' => 'EXT:t3events/Resources/Public/Icons/calendar.svg',

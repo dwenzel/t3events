@@ -26,6 +26,7 @@ use TYPO3\CMS\Lang\LanguageService;
  */
 class ItemsProcFuncTest extends UnitTestCase
 {
+    protected bool $resetSingletonInstances = true;
 
     /**
      * @var ItemsProcFunc | \PHPUnit_Framework_MockObject_MockObject
@@ -40,14 +41,15 @@ class ItemsProcFuncTest extends UnitTestCase
     /**
      *  set up
      */
-    protected function setUp(): void
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getAccessibleMock(
-            ItemsProcFunc::class, ['dummy', 'getLanguageService'], [], '', false
+            ItemsProcFunc::class, ['getLanguageService'], [], '', false
         );
 
         $this->templateLayoutUtility = $this->getMockBuilder(TemplateLayoutUtility::class)
-            ->setMethods(['getLayouts'])->getMock();
+            ->onlyMethods(['getLayouts'])->getMock();
         $this->inject(
             $this->subject,
             'templateLayoutUtility',
@@ -82,7 +84,7 @@ class ItemsProcFuncTest extends UnitTestCase
         $this->templateLayoutUtility->expects($this->once())
             ->method('getLayouts')
             ->with($extensionKey)
-            ->will($this->returnValue([]));
+            ->willReturn([]);
         $this->subject->user_templateLayout($config);
     }
 
@@ -102,7 +104,7 @@ class ItemsProcFuncTest extends UnitTestCase
         $this->templateLayoutUtility->expects($this->once())
             ->method('getLayouts')
             ->with($extensionKey, $pageId)
-            ->will($this->returnValue([]));
+            ->willReturn([]);
         $this->subject->user_templateLayout($config);
     }
 
@@ -122,7 +124,7 @@ class ItemsProcFuncTest extends UnitTestCase
         $this->templateLayoutUtility->expects($this->once())
             ->method('getLayouts')
             ->with($extensionKey, $pageId)
-            ->will($this->returnValue([]));
+            ->willReturn([]);
         $this->subject->user_templateLayout($config);
     }
 
@@ -133,7 +135,7 @@ class ItemsProcFuncTest extends UnitTestCase
     {
         $mockLanguageService = $this->getMockBuilder(LanguageService::class)
             ->disableOriginalConstructor()
-            ->setMethods(['sL'])->getMock();
+            ->onlyMethods(['sL'])->getMock();
         $extensionKey = ItemsProcFunc::EXTENSION_KEY;
         $title = 'foo';
         $templateName = 'bar';
@@ -146,14 +148,14 @@ class ItemsProcFuncTest extends UnitTestCase
         $this->templateLayoutUtility->expects($this->once())
             ->method('getLayouts')
             ->with($extensionKey)
-            ->will($this->returnValue($additionalLayouts));
+            ->willReturn($additionalLayouts);
         $this->subject->expects($this->once())
             ->method('getLanguageService')
-            ->will($this->returnValue($mockLanguageService));
+            ->willReturn($mockLanguageService);
         $mockLanguageService->expects($this->once())
             ->method('sL')
             ->with($title)
-            ->will($this->returnValue($title));
+            ->willReturn($title);
 
         $this->subject->user_templateLayout($config);
         $expectedConfig = [

@@ -28,23 +28,14 @@ namespace DWenzel\T3events\Domain\Model\Dto;
 trait EventTypeAwareDemandTrait
 {
 
-    /**
-     * @var string
-     */
-    protected $eventTypes;
+    protected ?string $eventTypes = null;
 
-    /**
-     * @return string
-     */
-    public function getEventTypes()
+    public function getEventTypes(): ?string
     {
         return $this->eventTypes;
     }
 
-    /**
-     * @param string $eventTypes
-     */
-    public function setEventTypes($eventTypes)
+    public function setEventTypes(?string $eventTypes): void
     {
         $this->eventTypes = $eventTypes;
     }

@@ -34,168 +34,126 @@ class EventDemand extends AbstractDemand implements
 
     /**
      * Genre
-     *
-     * @var string Genre
      */
-    protected $genre;
+    protected ?string $genre = null;
 
     /**
      * Venue
-     *
-     * @var string Venue
      */
-    protected $venue;
+    protected ?string $venue = null;
 
     /**
      * Event Type
-     *
-     * @var string
      */
-    protected $eventType;
+    protected ?string $eventType = null;
 
     /**
      * Categories
-     *
-     * @var string
      */
-    protected $categories;
+    protected ?string $categories = null;
 
     /**
      * Category Conjunction
-     *
-     * @var string
      */
-    protected $categoryConjunction;
+    protected ?string $categoryConjunction = null;
 
     /**
      * Returns the genre
-     *
-     * @return string $genre
      */
-    public function getGenre()
+    public function getGenre(): ?string
     {
         return $this->genre;
     }
 
     /**
      * Sets the genre
-     *
-     * @param string $genre
-     * @return void
      */
-    public function setGenre($genre)
+    public function setGenre(?string $genre): void
     {
         $this->genre = $genre;
     }
 
     /**
      * Returns the venue
-     *
-     * @return string $venue
      */
-    public function getVenue()
+    public function getVenue(): ?string
     {
         return $this->venue;
     }
 
     /**
      * Sets the venue
-     *
-     * @param string $venue
-     * @return void
      */
-    public function setVenue($venue)
+    public function setVenue(?string $venue): void
     {
         $this->venue = $venue;
     }
 
     /**
      * Returns the Event Type
-     *
-     * @return string $eventType
      */
-    public function getEventType()
+    public function getEventType(): ?string
     {
         return $this->eventType;
     }
 
     /**
      * Set event type
-     *
-     * @param string $eventType
-     * @return void
      */
-    public function setEventType($eventType)
+    public function setEventType(?string $eventType): void
     {
         $this->eventType = $eventType;
     }
 
     /**
      * Returns the Category Conjunction
-     *
-     * @return string
      */
-    public function getCategoryConjunction()
+    public function getCategoryConjunction(): ?string
     {
         return $this->categoryConjunction;
     }
 
     /**
      * Set Category Conjunction
-     *
-     * @param string $categoryConjunction
-     * @return void
      */
-    public function setCategoryConjunction($categoryConjunction)
+    public function setCategoryConjunction(?string $categoryConjunction): void
     {
         $this->categoryConjunction = $categoryConjunction;
     }
 
     /**
      * Gets the start date field
-     *
-     * @return string
      */
-    public function getStartDateField()
+    public function getStartDateField(): string
     {
         return static::START_DATE_FIELD;
     }
 
     /**
      * Gets the endDate field
-     *
-     * @return string
      */
-    public function getEndDateField()
+    public function getEndDateField(): string
     {
         return static::END_DATE_FIELD;
     }
 
     /**
      * Returns the categories
-     *
-     * @return string $categories
      */
-    public function getCategories()
+    public function getCategories(): ?string
     {
         return $this->categories;
     }
 
     /**
      * Sets the categories
-     *
-     * @param string $categories
-     * @return void
      */
-    public function setCategories($categories)
+    public function setCategories(?string $categories): void
     {
         $this->categories = $categories;
     }
 
-    /**
-     * @return string
-     */
-    public function getAudienceField()
+    public function getAudienceField(): string
     {
         return static::AUDIENCE_FIELD;
     }

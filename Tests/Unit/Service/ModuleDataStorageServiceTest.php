@@ -8,6 +8,7 @@ use DWenzel\T3events\Tests\Unit\Object\MockObjectManagerTrait;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 /***************************************************************
@@ -43,11 +44,12 @@ class ModuleDataStorageServiceTest extends UnitTestCase
      */
     protected $subject;
 
-    protected function setUp(): void
+    public function setUp(): void
     {
+        parent::setUp();
         $GLOBALS['BE_USER'] = $this->mockBackendUserAuthentication();
         $this->subject = $this->getAccessibleMock(
-            ModuleDataStorageService::class, ['dummy']
+            ModuleDataStorageService::class, []
         );
     }
 
@@ -55,7 +57,7 @@ class ModuleDataStorageServiceTest extends UnitTestCase
     {
         return $this->getMockBuilder(BackendUserAuthentication::class)
             ->disableOriginalConstructor()
-            ->setMethods(['getModuleData', 'pushModuleData'])
+            ->onlyMethods(['getModuleData', 'pushModuleData'])
             ->getMock();
     }
 
@@ -98,14 +100,8 @@ class ModuleDataStorageServiceTest extends UnitTestCase
     public function loadModuleDataInitiallyReturnsNewModuleDataObject()
     {
         $key = 'foo';
-        /** @var ObjectManager|MockObject $mockObjectManager */
-        $mockObjectManager = $this->getMockObjectManager();
-        $this->subject->injectObjectManager($mockObjectManager);
         $mockModuleData = $this->getMockModuleData();
-        $mockObjectManager->expects(self::once())
-            ->method('get')
-            ->with(ModuleData::class)
-            ->will(self::returnValue($mockModuleData));
+        GeneralUtility::addInstance(ModuleData::class, $mockModuleData);
 
         self::assertSame(
             $mockModuleData,
@@ -127,13 +123,13 @@ class ModuleDataStorageServiceTest extends UnitTestCase
             ->method('getBackendUserAuthentication')
             ->will(self::returnValue($mockBackendUserAuthentication));
 
-        $mockModuleData = $this->getMockModuleData();
+        $moduleData = new ModuleData();
         $mockBackendUserAuthentication->expects(self::once())
             ->method('getModuleData')
-            ->will(self::returnValue(serialize($mockModuleData)));
+            ->will(self::returnValue(serialize($moduleData)));
 
         self::assertEquals(
-            $mockModuleData,
+            $moduleData,
             $this->subject->loadModuleData($key)
         );
     }

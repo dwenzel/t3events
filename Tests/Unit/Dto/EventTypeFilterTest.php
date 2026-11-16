@@ -39,8 +39,9 @@ class EventTypeFilterTest extends UnitTestCase
      */
     protected $eventTypeRepository;
 
-    protected function setUp(): void
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = new EventTypeFilter();
         $this->eventTypeRepository = $this->getMockBuilder(EventTypeRepository::class)
             ->disableOriginalConstructor()

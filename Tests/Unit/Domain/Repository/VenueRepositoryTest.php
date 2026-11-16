@@ -37,11 +37,12 @@ class VenueRepositoryTest extends UnitTestCase
      */
     protected $fixture;
 
-    protected function setUp(): void
+    public function setUp(): void
     {
+        parent::setUp();
         $this->fixture = $this->getAccessibleMock(
             VenueRepository::class,
-            ['dummy'], [], '', false);
+            [], [], '', false);
     }
 
     /**

@@ -27,16 +27,13 @@ trait ConfigurationManagerTrait
 {
     /**
      * Object Manager
-     *
-     * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
      */
-    protected $configurationManager;
+    protected ConfigurationManagerInterface $configurationManager;
 
     /**
      * Injects the object manager
-     * @var ConfigurationManagerInterface $configurationManager
      */
-    public function injectConfigurationManager(ConfigurationManagerInterface $configurationManager)
+    public function injectConfigurationManager(ConfigurationManagerInterface $configurationManager): void
     {
         $this->configurationManager = $configurationManager;
     }

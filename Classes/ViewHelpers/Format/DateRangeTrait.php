@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DWenzel\T3events\ViewHelpers\Format;
 
 /***************************************************************
@@ -24,41 +26,32 @@ trait DateRangeTrait
     /**
      * Get date range from timestamps
      *
-     * @param array $timestamps An ordered array of timestamps
-     * @return array
+     * @param array<int, int> $timestamps An ordered array of timestamps
      */
-    protected function getDateRange(array $timestamps)
+    protected function getDateRange(array $timestamps): string
     {
         $format = static::DEFAULT_DATE_FORMAT;
 
-        $endFormat = $this->arguments['endFormat'];
-        $startFormat = $this->arguments['startFormat'];
-        $glue = $this->arguments['glue'];
+        $endFormat = $this->arguments['endFormat'] ?? null;
+        $startFormat = $this->arguments['startFormat'] ?? null;
+        $glue = $this->arguments['glue'] ?? null;
 
         if (!empty($this->arguments['format'])) {
             $format = $this->arguments['format'];
         }
-        if (empty($startFormat)) {
+        if ($startFormat === null) {
             $startFormat = $format;
         }
-        if (empty($endFormat)) {
+        if ($endFormat === null) {
             $endFormat = $format;
         }
-        if (empty($glue)) {
+        if ($glue === null) {
             $glue = static::DEFAULT_GLUE;
         }
-        $functionName = 'date';
-
-        if (strpos($startFormat, '%') !== false
-            && strpos($endFormat, '%' ) !== false
-        ) {
-            $functionName = 'strftime';
-        }
-
-        $dateRange = call_user_func($functionName, $startFormat, $timestamps[0]);
+        $dateRange = date((string) $startFormat, $timestamps[0]);
 
         if (count($timestamps) > 1) {
-            $dateRange .= $glue . call_user_func($functionName, $endFormat, end($timestamps));
+            $dateRange .= $glue . date((string) $endFormat, end($timestamps));
         }
 
         return $dateRange;

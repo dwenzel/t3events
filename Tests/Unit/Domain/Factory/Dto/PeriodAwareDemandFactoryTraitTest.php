@@ -35,8 +35,9 @@ class PeriodAwareDemandFactoryTraitTest extends UnitTestCase
     /**
      * set up
      */
-    protected function setUp(): void
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getMockForTrait(
             PeriodAwareDemandFactoryTrait::class
         );
@@ -47,7 +48,7 @@ class PeriodAwareDemandFactoryTraitTest extends UnitTestCase
      *
      * @return array
      */
-    public function startDateDataProvider(): array
+    public static function startDateDataProvider(): array
     {
         $timeZone = new \DateTimeZone(date_default_timezone_get());
         $defaultDate = new \DateTime('midnight', $timeZone);
@@ -73,7 +74,7 @@ class PeriodAwareDemandFactoryTraitTest extends UnitTestCase
      *
      * @return array
      */
-    public function dateDataProvider(): array
+    public static function dateDataProvider(): array
     {
         $timeZone = new \DateTimeZone(date_default_timezone_get());
         $startDate = new \DateTime('midnight', $timeZone);

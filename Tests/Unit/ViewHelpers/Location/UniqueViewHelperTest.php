@@ -1,6 +1,6 @@
 <?php
 
-namespace DWenzel\T3events\Tests\Unit\ViewHelpers\Location;
+namespace DWenzel\T3events\Tests\ViewHelpers\Location;
 
 /**
  * This file is part of the TYPO3 CMS project.
@@ -38,17 +38,18 @@ class UniqueViewHelperTest extends UnitTestCase
     /**
      * set up
      */
-    protected function setUp(): void
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getAccessibleMock(
-            UniqueViewHelper::class, ['dummy', 'registerArgument']
+            UniqueViewHelper::class, ['registerArgument']
         );
     }
 
     /**
      * data provider for events with different unique location count
      */
-    public function eventDataProvider()
+    public static function eventDataProvider()
     {
         $locationA = new EventLocation();
         $locationA->setName('foo');
@@ -72,8 +73,7 @@ class UniqueViewHelperTest extends UnitTestCase
         foreach ($cases as $case) {
             $uniqueIds = array_unique($case);
             $uniqueCount = \count($uniqueIds);
-            $event = $this->getMockBuilder(Event::class)
-                ->setMethods(['getPerformances'])->getMock();
+            $event = self::createStub(Event::class);
             $performanceStorage = new ObjectStorage();
 
             foreach ($case as $location) {
@@ -83,9 +83,7 @@ class UniqueViewHelperTest extends UnitTestCase
                 }
                 $performanceStorage->attach($performance);
             }
-            $event->expects($this->atLeastOnce())
-                ->method('getPerformances')
-                ->will($this->returnValue($performanceStorage));
+            $event->method('getPerformances')->willReturn($performanceStorage);
             $dataSets[] = [$event, $uniqueCount];
         }
 

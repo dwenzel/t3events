@@ -283,6 +283,14 @@
 				<source><![CDATA[Events]]></source>
 				<target><![CDATA[Veranstaltung]]></target>
 			</trans-unit>
+			<trans-unit id="plugin.eventlist.title" approved="yes">
+				<source><![CDATA[Event list]]></source>
+				<target><![CDATA[Veranstaltungsliste]]></target>
+			</trans-unit>
+			<trans-unit id="plugin.performancelist.title" approved="yes">
+				<source><![CDATA[Performance list]]></source>
+				<target><![CDATA[Terminliste]]></target>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

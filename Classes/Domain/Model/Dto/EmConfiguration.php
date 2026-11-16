@@ -27,36 +27,28 @@ namespace DWenzel\T3events\Domain\Model\Dto;
  ***************************************************************/
 class EmConfiguration
 {
-    /**
-     * @var bool
-     */
-    protected $respectPerformanceStoragePage = false;
+    protected bool $respectPerformanceStoragePage = false;
 
     /**
      * Constructor
-     * @param array $configuration
+     *
+     * @param array<string, mixed> $configuration
      */
     public function __construct(array $configuration)
     {
         foreach ($configuration as $key => $value) {
-            if (property_exists(__CLASS__, $key)) {
+            if (property_exists(self::class, $key)) {
                 $this->$key = $value;
             }
         }
     }
 
-    /**
-     * @return boolean
-     */
-    public function isRespectPerformanceStoragePage()
+    public function isRespectPerformanceStoragePage(): bool
     {
         return $this->respectPerformanceStoragePage;
     }
 
-    /**
-     * @param boolean $respectPerformanceStoragePage
-     */
-    public function setRespectPerformanceStoragePage($respectPerformanceStoragePage)
+    public function setRespectPerformanceStoragePage(bool $respectPerformanceStoragePage): void
     {
         $this->respectPerformanceStoragePage = $respectPerformanceStoragePage;
     }

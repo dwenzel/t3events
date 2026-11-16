@@ -16,21 +16,15 @@ use DWenzel\T3events\Domain\Repository\TaskRepositoryInterface;
  * Class TaskRepositoryTrait
  * Provides a TaskRepository
  */
+// @phpstan-ignore-next-line trait.unused (trait consumed in Tests/Unit/ — outside PHPStan scan scope)
 trait TaskRepositoryTrait
 {
-    /**
-     * Task repository
-     *
-     * @var \DWenzel\T3events\Domain\Repository\TaskRepositoryInterface
-     */
-    protected $taskRepository;
+    protected TaskRepositoryInterface $taskRepository;
 
     /**
      * Injects the task repository
-     *
-     * @param \DWenzel\T3events\Domain\Repository\TaskRepositoryInterface $taskRepository
      */
-    public function injectTaskRepository(TaskRepositoryInterface $taskRepository)
+    public function injectTaskRepository(TaskRepositoryInterface $taskRepository): void
     {
         $this->taskRepository = $taskRepository;
     }

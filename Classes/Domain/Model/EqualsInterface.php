@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DWenzel\T3events\Domain\Model;
 
 /***************************************************************
@@ -27,9 +29,6 @@ interface EqualsInterface
 {
     /**
      * Tells if an object equals this
-     *
-     * @param AbstractDomainObject $object
-     * @return bool
      */
-    public function equals(AbstractDomainObject $object);
+    public function equals(AbstractDomainObject $object): bool;
 }

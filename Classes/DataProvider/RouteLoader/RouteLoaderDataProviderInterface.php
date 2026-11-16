@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace DWenzel\T3events\DataProvider\RouteLoader;
 
 /**
@@ -21,8 +24,8 @@ interface RouteLoaderDataProviderInterface
     /**
      * Gets the configuration options for registration
      *
-     * @return array An array of configuration options (Arguments for RouteLoader->register method)
+     * @return array<string, mixed> An array of configuration options (Arguments for RouteLoader->register method)
      * @see
      */
-    public function getConfiguration();
+    public function getConfiguration(): array;
 }

@@ -42,12 +42,13 @@ class EventDemandTest extends UnitTestCase
      */
     protected $fixture;
 
-    protected function setUp(): void
+    public function setUp(): void
     {
+        parent::setUp();
         $this->fixture = new EventDemand();
     }
 
-    protected function tearDown(): void
+    public function tearDown(): void
     {
         unset($this->fixture);
     }

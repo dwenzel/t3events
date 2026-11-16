@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace DWenzel\T3events\Session;
 
 /**
@@ -9,34 +12,16 @@ namespace DWenzel\T3events\Session;
 interface SessionInterface
 {
 
-    /**
-     * @param string $identifier
-     * @param mixed $value
-     * @return void
-     */
-    public function set($identifier, $value);
+    public function set(string $identifier, mixed $value): void;
 
-    /**
-     * @param string $identifier
-     * @return mixed
-     */
-    public function get($identifier);
+    public function get(string $identifier): mixed;
 
-    /**
-     * @param string $identifier
-     * @return mixed
-     */
-    public function has($identifier);
+    public function has(string $identifier): bool;
 
-    /**
-     * @return void
-     */
-    public function clean();
+    public function clean(): void;
 
     /**
      * Sets the namespace
-     *
-     * @param string $namespace
      */
-    public function setNamespace($namespace);
+    public function setNamespace(string $namespace): void;
 }

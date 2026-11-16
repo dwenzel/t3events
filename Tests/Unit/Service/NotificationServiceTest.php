@@ -1,11 +1,11 @@
 <?php
 namespace DWenzel\T3events\Tests\Unit\Service;
 
-use DWenzel\T3events\Tests\Unit\Object\MockObjectManagerTrait;
 use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Core\Mail\MailMessage;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
-use TYPO3\CMS\Fluid\View\StandaloneView;
+use TYPO3\CMS\Core\View\ViewInterface;
 use DWenzel\T3events\Domain\Model\Notification;
 use DWenzel\T3events\Service\NotificationService;
 
@@ -28,8 +28,6 @@ use DWenzel\T3events\Service\NotificationService;
  ***************************************************************/
 class NotificationServiceTest extends UnitTestCase
 {
-    use MockObjectManagerTrait;
-
     /**
      * @var NotificationService
      */
@@ -38,13 +36,12 @@ class NotificationServiceTest extends UnitTestCase
     /**
      * set up subject
      */
-    protected function setUp(): void
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getAccessibleMock(
-            NotificationService::class, ['dummy']
+            NotificationService::class, [], [], '', false
         );
-        $this->objectManager = $this->getMockObjectManager();
-        $this->subject->injectObjectManager($this->objectManager);
     }
 
     /**
@@ -52,7 +49,7 @@ class NotificationServiceTest extends UnitTestCase
      *
      * @return array
      */
-    public function recipientDataProvider()
+    public static function recipientDataProvider()
     {
         return [
             [ 'foo@bar.baz', ['foo@bar.baz']],
@@ -68,12 +65,11 @@ class NotificationServiceTest extends UnitTestCase
     public function sendSetsRecipients($recipientArgument, $expectedRecipients)
     {
         $notification = new Notification();
+        $notification->initializeObject();
         $notification->setRecipient($recipientArgument);
 
         $mockMessage = $this->getMockMailMessage();
-        $this->objectManager->expects(self::once())
-            ->method('get')
-            ->willReturn($mockMessage);
+        GeneralUtility::addInstance(MailMessage::class, $mockMessage);
 
         $mockMessage->expects(self::once())
             ->method('setTo')
@@ -91,23 +87,18 @@ class NotificationServiceTest extends UnitTestCase
     public function notifySetsRecipients($recipient, $expectedRecipients)
     {
         $this->subject = $this->getAccessibleMock(
-            NotificationService::class, ['dummy', 'buildTemplateView']
+            NotificationService::class, ['buildTemplateView'], [], '', false
         );
-        $this->subject->injectObjectManager($this->objectManager);
 
-        $mockTemplateView = $this->getMockBuilder(StandaloneView::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $mockTemplateView = $this->getMockBuilder(ViewInterface::class)
+            ->getMockForAbstractClass();
 
         $this->subject->expects(self::once())
             ->method('buildTemplateView')
             ->will(self::returnValue($mockTemplateView));
 
         $mockMessage = $this->getMockMailMessage();
-        $this->objectManager->expects(self::once())
-            ->method('get')
-            ->with(MailMessage::class)
-            ->willReturn($mockMessage);
+        GeneralUtility::addInstance(MailMessage::class, $mockMessage);
 
         $mockMessage->expects(self::once())
             ->method('setTo')
@@ -117,8 +108,7 @@ class NotificationServiceTest extends UnitTestCase
             'bar@baz.foo',
             'foo',
             'bar',
-            'baz',
-            [], null, null
+            'baz'
         );
     }
 
@@ -129,19 +119,25 @@ class NotificationServiceTest extends UnitTestCase
     {
         $message = $this->getMockBuilder(MailMessage::class)
             ->disableOriginalConstructor()
-            ->setMethods(
+            ->onlyMethods(
                 [
                     'setTo',
                     'setBody',
                     'send',
                     'setFrom',
-                    'setSubject'
+                    'setSubject',
+                    'html',
+                    'text',
+                    'isSent',
                 ]
             )->getMock();
         $message->method('setTo')->willReturn($message);
         $message->method('send')->willReturn(true);
         $message->method('setFrom')->willReturn($message);
         $message->method('setSubject')->willReturn($message);
+        $message->method('html')->willReturn($message);
+        $message->method('text')->willReturn($message);
+        $message->method('isSent')->willReturn(true);
 
         return $message;
     }

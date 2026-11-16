@@ -1,11 +1,10 @@
 <?php
 
-namespace DWenzel\T3events\Tests\Unit\Controller;
+namespace DWenzel\T3events\Tests\Controller;
 
 use DWenzel\T3events\Controller\AudienceRepositoryTrait;
 use DWenzel\T3events\Domain\Repository\AudienceRepository;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
-use PHPUnit\Framework\MockObject\MockObject;
 
 /***************************************************************
  *  Copyright notice
@@ -24,14 +23,6 @@ use PHPUnit\Framework\MockObject\MockObject;
  *  GNU General Public License for more details.
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-class DummyWithAudienceRepository {
-    use AudienceRepositoryTrait;
-
-    public function getAudienceRepository(): AudienceRepository
-    {
-        return $this->audienceRepository;
-    }
-}
 class AudienceRepositoryTraitTest extends UnitTestCase
 {
     /**
@@ -42,9 +33,12 @@ class AudienceRepositoryTraitTest extends UnitTestCase
     /**
      * set up
      */
-    protected function setUp(): void
+    public function setUp(): void
     {
-        $this->subject = new DummyWithAudienceRepository();
+        parent::setUp();
+        $this->subject = $this->getMockForTrait(
+            AudienceRepositoryTrait::class
+        );
     }
 
     /**
@@ -52,15 +46,16 @@ class AudienceRepositoryTraitTest extends UnitTestCase
      */
     public function audienceRepositoryCanBeInjected()
     {
-        /** @var AudienceRepository|MockObject $audienceRepository */
+        /** @var AudienceRepository|\PHPUnit_Framework_MockObject_MockObject $audienceRepository */
         $audienceRepository = $this->getMockBuilder(AudienceRepository::class)
             ->disableOriginalConstructor()->getMock();
 
         $this->subject->injectAudienceRepository($audienceRepository);
 
-        $this->assertSame(
+        $this->assertAttributeSame(
             $audienceRepository,
-            $this->subject->getAudienceRepository()
+            'audienceRepository',
+            $this->subject
         );
     }
 }

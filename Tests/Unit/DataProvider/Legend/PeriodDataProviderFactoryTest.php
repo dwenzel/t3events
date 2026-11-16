@@ -39,10 +39,11 @@ class PeriodDataProviderFactoryTest extends UnitTestCase
     /**
      * set up
      */
-    protected function setUp(): void
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getAccessibleMock(
-            PeriodDataProviderFactory::class, ['dummy']
+            PeriodDataProviderFactory::class, []
         );
     }
 
@@ -60,7 +61,7 @@ class PeriodDataProviderFactoryTest extends UnitTestCase
     /**
      * @return array
      */
-    public function getValidParamsDataProvider()
+    public static function getValidParamsDataProvider()
     {
         $validClasses = [
             SI::FUTURE_ONLY => PeriodFutureDataProvider::class,

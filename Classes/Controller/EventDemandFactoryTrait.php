@@ -28,18 +28,12 @@ use DWenzel\T3events\Domain\Factory\Dto\EventDemandFactory;
  */
 trait EventDemandFactoryTrait
 {
-    /**
-     * @var \DWenzel\T3events\Domain\Factory\Dto\EventDemandFactory
-     */
-    protected $eventDemandFactory;
+    protected EventDemandFactory $eventDemandFactory;
 
     /**
      * Injects the eventDemandFactory
-     *
-     * @param \DWenzel\T3events\Domain\Factory\Dto\EventDemandFactory $eventDemandFactory
-     * @return void
      */
-    public function injectEventDemandFactory(EventDemandFactory $eventDemandFactory)
+    public function injectEventDemandFactory(EventDemandFactory $eventDemandFactory): void
     {
         $this->eventDemandFactory = $eventDemandFactory;
     }

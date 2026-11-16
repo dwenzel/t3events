@@ -3,18 +3,15 @@ namespace DWenzel\T3events\Service;
 
 use DWenzel\T3events\Configuration\ConfigurationManagerTrait;
 use DWenzel\T3events\Domain\Model\Notification;
-use DWenzel\T3events\Object\ObjectManagerTrait;
-use TYPO3\CMS\Core\Core\Environment;
-use TYPO3\CMS\Core\Mail\FluidEmail;
+use TYPO3\CMS\Core\Mail\Mailer;
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\View\ViewFactoryData;
+use TYPO3\CMS\Core\View\ViewFactoryInterface;
+use TYPO3\CMS\Core\View\ViewInterface;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
-use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
-use TYPO3\CMS\Fluid\Core\Rendering\RenderingContextFactory;
-use TYPO3\CMS\Fluid\View\StandaloneView;
-use TYPO3\CMS\Fluid\View\TemplatePaths;
 
 /**
  * Class NotificationService
@@ -23,30 +20,29 @@ use TYPO3\CMS\Fluid\View\TemplatePaths;
  */
 class NotificationService
 {
-    use ConfigurationManagerTrait, ObjectManagerTrait;
+    use ConfigurationManagerTrait;
+
+    public function __construct(
+        private readonly ViewFactoryInterface $viewFactory,
+        private readonly Mailer $mailer,
+    ) {
+    }
 
     /**
      * Notify using the given data
      *
-     * @param string $recipient
-     * @param string $sender
-     * @param string $subject
-     * @param string $templateName
-     * @param $folderName
-     * @param array $variables
-     * @param array $attachments
-     * @param null|string $format
-     * @return bool
+     * @param array<mixed> $variables
+     * @param array<mixed>|null $attachments
      */
-    public function notify($recipient, $sender, $subject, $templateName, $folderName, $variables = [], $attachments = null, $format = null)
+    public function notify(string $recipient, string $sender, string $subject, string $templateName, ?string $folderName, ?string $format = null, array $variables = [], ?array $attachments = null): bool
     {
         $templateView = $this->buildTemplateView($templateName, $format, $folderName);
         $templateView->assignMultiple($variables);
         $body = $templateView->render();
         $recipient = GeneralUtility::trimExplode(',', $recipient, true);
 
-        /** @var $message MailMessage */
-        $message = $this->objectManager->get(MailMessage::class);
+        /** @var MailMessage $message */
+        $message = GeneralUtility::makeInstance(MailMessage::class);
         $message->setTo($recipient)
             ->setFrom($sender)
             ->setSubject($subject);
@@ -62,7 +58,7 @@ class NotificationService
                 $this->buildAttachmentFromTemplate($attachment, $message);
             }
         }
-        $message->send();
+        $this->mailer->send($message);
 
         return $message->isSent();
     }
@@ -70,15 +66,11 @@ class NotificationService
     /**
      * Renders the body of a notification using a given template
      *
-     * @param string $templateName
-     * @param string|null $format
-     * @param string $folderName
-     * @param array $variables
-     * @return string
+     * @param array<mixed> $variables
      */
-    public function render($templateName, string $format = null, $folderName, $variables = [])
+    public function render(string $templateName, ?string $folderName = null, ?string $format = null, array $variables = []): string
     {
-        $templateView = $this->buildTemplateView($templateName, $format, $folderName);
+        $templateView = $this->buildTemplateView($templateName, $folderName, $format);
         $templateView->assignMultiple($variables);
 
         return $templateView->render();
@@ -87,14 +79,11 @@ class NotificationService
     /**
      * Sends a prepared notification
      * Returns true on success and false on failure.
-     *
-     * @param \DWenzel\T3events\Domain\Model\Notification $notification
-     * @return bool
      */
-    public function send(Notification $notification)
+    public function send(Notification $notification): bool
     {
-        /** @var $message MailMessage */
-        $message = $this->objectManager->get(MailMessage::class);
+        /** @var MailMessage $message */
+        $message = GeneralUtility::makeInstance(MailMessage::class);
         $recipients = GeneralUtility::trimExplode(',', $notification->getRecipient(), true);
 
         $message->setTo($recipients)
@@ -107,13 +96,17 @@ class NotificationService
             $message->html($notification->getBodytext());
         }
 
-        if ($files = $notification->getAttachments()) {
+        $files = $notification->getAttachments();
+        if ($files->count() > 0) {
             /** @var FileReference $file */
             foreach ($files as $file) {
-                $message->attachFromPath(Environment::getPublicPath() . $file->getOriginalResource()->getPublicUrl(true));
+                $publicUrl = $file->getOriginalResource()->getPublicUrl();
+                if ($publicUrl !== null) {
+                    $message->attachFromPath($publicUrl);
+                }
             }
         }
-        $message->send();
+        $this->mailer->send($message);
         if ($message->isSent()) {
             $notification->setSentAt(new \DateTime());
         }
@@ -125,65 +118,23 @@ class NotificationService
      * Get a template view
      * Uses the given template name
      *
-     * @param string $templateName
-     * @param null|string $format
-     * @param null|string $folderName
-     * @return \TYPO3\CMS\Fluid\View\StandaloneView
-     * @internal param string $templateName
-     * @internal param string $format Format for content. Default is html
+     * @param null|string $format Format for content. Default is html
      */
-    protected function buildTemplateView($templateName, $format = null, $folderName = null)
+    protected function buildTemplateView(string $templateName, ?string $format = null, ?string $folderName = null): ViewInterface
     {
-        /*$templatePaths = $this->getMailTemplatePaths();
-        $emailView = GeneralUtility::makeInstance(StandaloneView::class);
-        $emailView->getRenderingContext()->setTemplatePaths($templatePaths);
-        $emailView->setTemplate( $format . '/' . $templateName);
-        if ($format === 'plain') {
-            $emailView->setFormat('txt');
-        }*/
-
-        /** @var \TYPO3\CMS\Fluid\View\StandaloneView $emailView */
-        $emailView = $this->objectManager->get(StandaloneView::class);
-        $emailView->setTemplatePathAndFilename(
-            $this->getTemplatePathAndFileName($templateName, $folderName)
-        );
-        $emailView->setTemplateRootPaths($this->getTemplateRootPaths());
-        $emailView->setPartialRootPaths($this->getPartialRootPaths());
-        $emailView->setLayoutRootPaths($this->getLayoutRootPaths());
-        if ($format === 'plain') {
-            $emailView->setFormat('txt');
-        }
-
-        return $emailView;
+        return $this->viewFactory->create(new ViewFactoryData(
+            templateRootPaths: $this->getTemplateRootPaths(),
+            partialRootPaths: $this->getPartialRootPaths(),
+            layoutRootPaths: $this->getLayoutRootPaths(),
+            templatePathAndFilename: $this->getTemplatePathAndFileName($templateName, $folderName),
+            format: $format === 'plain' ? 'txt' : null,
+        ));
     }
 
     /**
-     * Returns an instance of TemplatePaths with paths configured in felogin TypoScript and
-     * paths configured in $GLOBALS['TYPO3_CONF_VARS']['MAIL'].
+     * @param array<mixed> $data An array containing data for attachment generation
      */
-    public function getMailTemplatePaths(): TemplatePaths
-    {
-        $pathArray = array_replace_recursive(
-            [
-                'layoutRootPaths'   => $GLOBALS['TYPO3_CONF_VARS']['MAIL']['layoutRootPaths'],
-                'templateRootPaths' => $GLOBALS['TYPO3_CONF_VARS']['MAIL']['templateRootPaths'],
-                'partialRootPaths'  => $GLOBALS['TYPO3_CONF_VARS']['MAIL']['partialRootPaths'],
-            ],
-            [
-                'layoutRootPaths'   => $this->getLayoutRootPaths(),
-                'templateRootPaths' => $this->getTemplateRootPaths(),
-                'partialRootPaths'  => $this->getPartialRootPaths(),
-            ]
-        );
-
-        return new TemplatePaths($pathArray);
-    }
-
-    /**
-     * @var array $data An array containing data for attachement generation
-     * @var MailMessage $message
-     */
-    protected function buildAttachmentFromTemplate($data, MailMessage $message): void
+    protected function buildAttachmentFromTemplate(array $data, MailMessage $message): void
     {
         $attachmentView = $this->buildTemplateView(
             $data['templateName'],
@@ -202,62 +153,60 @@ class NotificationService
     /**
      * Get template path and file name
      *
-     * @var string $templateName File name (without extension)
-     * @var string $folderName Optional folder name, default 'Email'
-     * @return string
+     * @param string $templateName File name (without extension)
+     * @param string $folderName Optional folder name, default 'Email'
      */
-    protected function getTemplatePathAndFileName($templateName, $folderName = 'Email')
+    protected function getTemplatePathAndFileName(string $templateName, string $folderName = 'Email'): string
     {
         $extbaseFrameworkConfiguration = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
-        $templateRootPath = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($extbaseFrameworkConfiguration['view']['templateRootPath']);
-        $templatePathAndFilename = $templateRootPath . $folderName . '/' . $templateName . '.html';
+        $templateRootPath = GeneralUtility::getFileAbsFileName((string)($extbaseFrameworkConfiguration['view']['templateRootPath'] ?? ''));
 
-        return $templatePathAndFilename;
+        return $templateRootPath . $folderName . '/' . $templateName . '.html';
     }
 
     /**
      * Get the layout root paths from framework configuration
      *
-     * @return array
+     * @return array<mixed>
      */
-    protected function getLayoutRootPaths()
+    protected function getLayoutRootPaths(): array
     {
         $extbaseFrameworkConfiguration = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
-        return is_array($extbaseFrameworkConfiguration['view']['layoutRootPaths']) ? $extbaseFrameworkConfiguration['view']['layoutRootPaths'] : [];
+        $viewConfig = $extbaseFrameworkConfiguration['view'] ?? [];
+        return is_array($viewConfig) ? ($viewConfig['layoutRootPaths'] ?? []) : [];
     }
 
     /**
      * Get the template root paths from framework configuration
      *
-     * @return array
+     * @return array<mixed>
      */
-    protected function getTemplateRootPaths()
+    protected function getTemplateRootPaths(): array
     {
         $extbaseFrameworkConfiguration = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
-        return is_array($extbaseFrameworkConfiguration['view']['templateRootPaths']) ? $extbaseFrameworkConfiguration['view']['templateRootPaths'] : [];
+        $viewConfig = $extbaseFrameworkConfiguration['view'] ?? [];
+        return is_array($viewConfig) ? ($viewConfig['templateRootPaths'] ?? []) : [];
     }
 
     /**
      * Get the partial root paths from framework configuration
      *
-     * @return array
+     * @return array<mixed>
      */
-    protected function getPartialRootPaths()
+    protected function getPartialRootPaths(): array
     {
         $extbaseFrameworkConfiguration = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
-        return is_array($extbaseFrameworkConfiguration['view']['partialRootPaths'])? $extbaseFrameworkConfiguration['view']['partialRootPaths'] : [];
+        $viewConfig = $extbaseFrameworkConfiguration['view'] ?? [];
+        return is_array($viewConfig) ? ($viewConfig['partialRootPaths'] ?? []) : [];
     }
 
     /**
      * Clones a given notification
-     *
-     * @param \DWenzel\T3events\Domain\Model\Notification $oldNotification
-     * @return \DWenzel\T3events\Domain\Model\Notification
      */
-    public function duplicate(Notification $oldNotification)
+    public function duplicate(Notification $oldNotification): Notification
     {
         /** @var Notification $notification */
-        $notification = $this->objectManager->get(Notification::class);
+        $notification = GeneralUtility::makeInstance(Notification::class);
         $accessibleProperties = ObjectAccess::getSettablePropertyNames($notification);
         foreach ($accessibleProperties as $property) {
             ObjectAccess::setProperty(

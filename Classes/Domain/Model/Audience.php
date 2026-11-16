@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace DWenzel\T3events\Domain\Model;
 
 /***************************************************************
@@ -27,44 +30,23 @@ class Audience extends AbstractEntity
 {
     use EqualsTrait;
 
-    /**
-     * title
-     *
-     * @var string
-     */
-    protected $title;
+    protected string $title = '';
 
-    /**
-     * Link
-     *
-     * @var string
-     */
-    protected $link;
+    protected string $link = '';
 
-    /**
-     * description
-     *
-     * @var string
-     */
-    protected $description;
+    protected string $description = '';
 
     /**
      * Returns the title
      *
      * @return string $title
      */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }
 
-    /**
-     * Sets the title
-     *
-     * @param string $title
-     * @return void
-     */
-    public function setTitle($title)
+    public function setTitle(string $title): void
     {
         $this->title = $title;
     }
@@ -74,38 +56,25 @@ class Audience extends AbstractEntity
      *
      * @return string $description
      */
-    public function getDescription()
+    public function getDescription(): string
     {
         return $this->description;
     }
 
-    /**
-     * Sets the description
-     *
-     * @param string $description
-     * @return void
-     */
-    public function setDescription($description)
+    public function setDescription(string $description): void
     {
         $this->description = $description;
     }
 
     /**
      * Gets the link
-     *
-     * @return string
      */
-    public function getLink()
+    public function getLink(): string
     {
         return $this->link;
     }
 
-    /**
-     * Sets the link
-     *
-     * @param string $link
-     */
-    public function setLink($link)
+    public function setLink(string $link): void
     {
         $this->link = $link;
     }

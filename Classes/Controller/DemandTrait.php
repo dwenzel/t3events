@@ -2,6 +2,7 @@
 
 namespace DWenzel\T3events\Controller;
 
+use DWenzel\T3events\Domain\Model\Dto\Search;
 use DWenzel\T3events\Domain\Model\Dto\DemandInterface;
 use DWenzel\T3events\Domain\Model\Dto\EventDemand;
 use DWenzel\T3events\Domain\Model\Dto\EventLocationAwareDemandInterface;
@@ -20,32 +21,21 @@ use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
  */
 trait DemandTrait
 {
-    /**
-     * @var \DWenzel\T3events\Utility\SettingsUtility
-     */
-    protected $settingsUtility;
-
-    /**
-     * Settings
-     *
-     * @var array
-     */
-    protected $settings;
+    /** @var array<string, mixed> */
+    protected array $settings;
 
     /**
      * Creates a search object from given settings
      *
-     * @param array $searchRequest An array with the search request
-     * @param array $settings Settings for search
-     * @return \DWenzel\T3events\Domain\Model\Dto\Search $search
+     * @param array<string, mixed> $searchRequest An array with the search request
+     * @param array<string, mixed> $settings Settings for search
      */
-    abstract public function createSearchObject($searchRequest, $settings);
+    abstract public function createSearchObject(array $searchRequest, array $settings): Search;
 
     /**
-     * @param DemandInterface $demand
-     * @param array $overwriteDemand
+     * @param array<string, mixed>|null $overwriteDemand
      */
-    public function overwriteDemandObject(&$demand, $overwriteDemand)
+    public function overwriteDemandObject(DemandInterface &$demand, ?array $overwriteDemand): void
     {
         if (!(bool)$overwriteDemand) {
             return;
@@ -62,13 +52,9 @@ trait DemandTrait
 
     /**
      * Overwrites a single property according to the setting in overwriteDemand
-     * @param $demand
-     * @param $overwriteDemand
-     * @param $propertyName
-     * @param $propertyValue
-     * @param $timeZone
+     * @param array<string, mixed> $overwriteDemand
      */
-    protected function overwriteProperty(&$demand, $overwriteDemand, $propertyName, $propertyValue, $timeZone)
+    protected function overwriteProperty(mixed &$demand, array $overwriteDemand, string $propertyName, mixed $propertyValue, \DateTimeZone $timeZone): void
     {
         switch ($propertyName) {
             case 'sortBy':

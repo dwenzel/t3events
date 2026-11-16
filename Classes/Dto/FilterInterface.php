@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DWenzel\T3events\Dto;
 
 /***************************************************************
@@ -28,13 +30,13 @@ interface FilterInterface
 
     /**
      * Returns the filter options
-     * @return iterable
+     *
+     * @return iterable<mixed>
      */
     public function getOptions(): iterable;
 
     /**
      * Returns the number of options
-     * @return int
      */
     public function count(): int;
 
@@ -44,7 +46,7 @@ interface FilterInterface
      * This method is supposed to be called after creation of
      * the filter object and should provide the options
      *
-     * @param array $configuration
+     * @param array<mixed> $configuration
      */
     public function configure(array $configuration): void;
 }

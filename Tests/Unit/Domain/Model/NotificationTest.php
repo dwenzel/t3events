@@ -41,10 +41,11 @@ class NotificationTest extends UnitTestCase
      */
     protected $subject;
 
-    protected function setUp(): void
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getAccessibleMock(
-            Notification::class, ['dummy']
+            Notification::class, []
         );
     }
 
@@ -99,9 +100,7 @@ class NotificationTest extends UnitTestCase
      */
     public function getSubjectReturnsInitialValueForString()
     {
-        $this->assertNull(
-            $this->subject->getSubject()
-        );
+        $this->assertSame('', $this->subject->getSubject());
     }
 
     /**
@@ -122,9 +121,7 @@ class NotificationTest extends UnitTestCase
      */
     public function getBodytextReturnsInitialValueForString()
     {
-        $this->assertNull(
-            $this->subject->getBodytext()
-        );
+        $this->assertSame('', $this->subject->getBodytext());
     }
 
     /**

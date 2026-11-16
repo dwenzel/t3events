@@ -1,6 +1,6 @@
 <?php
 
-namespace DWenzel\T3events\Tests\Unit\ViewHelpers\Location;
+namespace DWenzel\T3events\Tests\ViewHelpers\Location;
 
 /**
  * This file is part of the TYPO3 CMS project.
@@ -27,7 +27,7 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /**
  * Class CountTest
- * @package DWenzel\T3events\Tests\Unit\ViewHelpers\Location
+ * @package DWenzel\T3events\Tests\ViewHelpers\Location
  */
 class CountViewHelperTest extends UnitTestCase
 {
@@ -39,17 +39,18 @@ class CountViewHelperTest extends UnitTestCase
     /**
      * set up
      */
-    protected function setUp(): void
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getAccessibleMock(
-            CountViewHelper::class, ['dummy', 'registerArgument']
+            CountViewHelper::class, ['registerArgument']
         );
     }
 
     /**
      * data provider for events with different unique location count
      */
-    public function eventDataProvider()
+    public static function eventDataProvider()
     {
         $dataSets = [];
         $cases = [
@@ -77,26 +78,16 @@ class CountViewHelperTest extends UnitTestCase
         foreach ($cases as $case) {
             $locationCount = \count($case['uids']);
             /** @var EventLocation|MockObject $eventLocation */
-            $eventLocation = $this->getMockBuilder(EventLocation::class)
-                ->setMethods(['getUid'])->getMock();
-            $eventLocation->expects($this->exactly($locationCount))
-                ->method('getUid')
-                ->will(new ConsecutiveCalls($case['uids']));
-            $event = $this->getMockBuilder(Event::class)
-                ->setMethods(['getPerformances'])->getMock();
+            $eventLocation = self::createStub(EventLocation::class);
+            $eventLocation->method('getUid')->willReturnOnConsecutiveCalls(...$case['uids']);
+            $event = self::createStub(Event::class);
             $objectStorage = new ObjectStorage();
             foreach ($case['uids'] as $uid) {
-                /** @var Performance|MockObject $performance */
-                $performance = $this->getMockBuilder(Performance::class)
-                    ->setMethods(['getEventLocation'])->getMock();
-                $performance->expects($this->once())
-                    ->method('getEventLocation')
-                    ->will($this->returnValue($eventLocation));
+                $performance = self::createStub(Performance::class);
+                $performance->method('getEventLocation')->willReturn($eventLocation);
                 $objectStorage->attach($performance);
             }
-            $event->expects($this->once())
-                ->method('getPerformances')
-                ->will($this->returnValue($objectStorage));
+            $event->method('getPerformances')->willReturn($objectStorage);
             $expectedResult = $case['uniqueCount'];
             $dataSets[] = [$event, $expectedResult];
         }

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace DWenzel\T3events\Domain\Model\Dto;
 
 /**
@@ -8,19 +11,9 @@ namespace DWenzel\T3events\Domain\Model\Dto;
  */
 interface EventTypeAwareDemandInterface
 {
-    /**
-     * @return string
-     */
-    public function getEventTypes();
+    public function getEventTypes(): ?string;
 
-    /**
-     * @param string $eventTypes
-     * @return void
-     */
-    public function setEventTypes($eventTypes);
+    public function setEventTypes(?string $eventTypes): void;
 
-    /**
-     * @return string
-     */
-    public function getEventTypeField();
+    public function getEventTypeField(): string;
 }

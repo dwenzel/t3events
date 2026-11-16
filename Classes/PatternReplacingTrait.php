@@ -31,21 +31,19 @@ trait PatternReplacingTrait
      *  'second pattern to find' => "other string to replace with"
      * ]
      *
-     * @return array An array of pattern (regular expressions) and replacements
+     * @return array<string, string> An array of pattern (regular expressions) and replacements
      */
-    abstract protected function getReplacePatterns();
+    abstract protected function getReplacePatterns(): array;
 
     /**
      * Replaces
-     * @param string $content
-     * @return string
      */
-    public function replacePatterns($content)
+    public function replacePatterns(string $content): string
     {
         $patterns = $this->getReplacePatterns();
         foreach ($patterns as $pattern=>$replacement)
         {
-            $content = preg_replace($pattern, $replacement, $content);
+            $content = (string) preg_replace($pattern, (string) $replacement, $content);
         }
 
         return $content;

@@ -8,9 +8,11 @@
 	<p>
 		<f:link.action
 			action="show"
-			arguments="{performance: performance}"
+			controller="Event"
+			pluginName="EventList"
+			arguments="{event: performance.event}"
 			pageUid="{settings.detailPid}">
-			{performance.course.headline}
+			{f:if(condition: performance.event.headline, then: performance.event.headline, else: performance.event.title)}
 		</f:link.action>
 	</p>
 </div>

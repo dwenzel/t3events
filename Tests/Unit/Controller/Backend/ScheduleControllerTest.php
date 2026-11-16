@@ -11,7 +11,8 @@ use DWenzel\T3events\Domain\Repository\PerformanceRepository;
 use DWenzel\T3events\Utility\SettingsInterface as SI;
 use Nimut\TestingFramework\MockObject\AccessibleMockObjectInterface;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
-use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
+use Psr\Http\Message\ResponseInterface;
+use TYPO3Fluid\Fluid\View\ViewInterface;
 
 /**
  * This file is part of the TYPO3 CMS project.
@@ -56,18 +57,22 @@ class ScheduleControllerTest extends UnitTestCase
     /**
      * set up
      */
-    protected function setUp(): void
+    public function setUp(): void
     {
+        parent::setUp();
+        $mockResponse = $this->getMockBuilder(ResponseInterface::class)->getMockForAbstractClass();
         $this->subject = $this->getMockBuilder(ScheduleController::class)
-            ->setMethods(
+            ->onlyMethods(
                 [
                     'createDemandFromSettings',
                     'emitSignal',
                     'getFilterOptions',
-                    'overwriteDemandObject'
+                    'overwriteDemandObject',
+                    'renderWithModuleTemplate',
                 ])
             ->disableOriginalConstructor()
             ->getMock();
+        $this->subject->method('renderWithModuleTemplate')->willReturn($mockResponse);
         $this->view = $this->getMockForAbstractClass(
             ViewInterface::class
         );
@@ -85,14 +90,14 @@ class ScheduleControllerTest extends UnitTestCase
             'moduleData',
             $this->moduleData
         );
-        $this->subject->injectPerformanceRepository($mockPerformanceRepository);
+        $this->inject($this->subject, "performanceRepository", $mockPerformanceRepository);
         /** @var PerformanceDemandFactory|\PHPUnit_Framework_MockObject_MockObject performanceDemandFactory */
         $this->performanceDemandFactory = $this->getMockBuilder(PerformanceDemandFactory::class)
-            ->setMethods(['createFromSettings'])->getMock();
+            ->onlyMethods(['createFromSettings'])->getMock();
         /** @var PerformanceDemand|\PHPUnit_Framework_MockObject_MockObject $mockDemand */
         $mockDemand = $this->getMockBuilder(PerformanceDemand::class)->getMock();
-        $this->performanceDemandFactory->method('createFromSettings')->will($this->returnValue($mockDemand));
-        $this->subject->injectPerformanceDemandFactory($this->performanceDemandFactory);
+        $this->performanceDemandFactory->method('createFromSettings')->willReturn($mockDemand);
+        $this->inject($this->subject, "performanceDemandFactory", $this->performanceDemandFactory);
         $this->inject($this->subject, SI::SETTINGS, $this->settings);
     }
 
@@ -138,7 +143,7 @@ class ScheduleControllerTest extends UnitTestCase
 
         $this->performanceDemandFactory->expects($this->once())
             ->method('createFromSettings')
-            ->will($this->returnValue($mockDemand));
+            ->willReturn($mockDemand);
 
         return $mockDemand;
     }
@@ -188,11 +193,11 @@ class ScheduleControllerTest extends UnitTestCase
     /**
      * @test
      */
-    public function listActionAssignsVariablesToView()
+    public function listActionRendersModuleTemplate()
     {
-        // can not match expectedTemplateVariables as soon as method 'emitSignal' is called.
-        $this->view->expects($this->once())
-            ->method('assignMultiple');
+        $this->mockCreateDemandFromSettings();
+        $this->subject->expects($this->once())
+            ->method('renderWithModuleTemplate');
         $this->subject->listAction();
     }
 }

@@ -1,19 +1,11 @@
 <?php
 namespace DWenzel\T3events\Controller;
 
-/**
- * This file is part of the TYPO3 CMS project.
- * It is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License, either version 2
- * of the License, or any later version.
- * For the full copyright and license information, please read the
- * LICENSE.txt file that was distributed with this source code.
- * The TYPO3 project - inspiring people to share!
- */
+use TYPO3\CMS\Extbase\Mvc\Exception\NoSuchControllerException;
 use DWenzel\T3events\Controller\Routing\Route;
 use DWenzel\T3events\Controller\Routing\RouterInterface;
-use TYPO3\CMS\Extbase\Mvc\Web\Request;
 use DWenzel\T3events\Utility\SettingsInterface as SI;
+use TYPO3\CMS\Extbase\Mvc\RequestInterface;
 
 /**
  * Class RoutingTrait
@@ -21,24 +13,17 @@ use DWenzel\T3events\Utility\SettingsInterface as SI;
  *
  * @package DWenzel\T3events\Controller
  */
+// @phpstan-ignore-next-line trait.unused (trait consumed in Tests/Unit/ — outside PHPStan scan scope)
 trait RoutingTrait
 {
-    /**
-     * @var RouterInterface
-     */
-    protected $router;
+    protected RouterInterface $router;
 
-    /**
-     * @var Request
-     */
-    protected $request;
+    protected RequestInterface $request;
 
     /**
      * Injects the router
-     *
-     * @param RouterInterface $router
      */
-    public function injectRouter(RouterInterface $router)
+    public function injectRouter(RouterInterface $router): void
     {
         $this->router = $router;
     }
@@ -50,9 +35,8 @@ trait RoutingTrait
      * @see Route
      * @param array|null $arguments Optional arguments for routing method
      * @param string|null $identifier An identifier for the route. If empty a default identifier for controller class and action name will be used.
-     * @return mixed|void
      */
-    public function dispatch(array $arguments = null, $identifier = null)
+    public function dispatch(?array $arguments = null, ?string $identifier = null): void
     {
         if (is_null($identifier)) {
             $identifier = $this->getOrigin();
@@ -60,6 +44,7 @@ trait RoutingTrait
         $route = $this->router->getRoute($identifier);
 
         $method = $route->getMethod();
+        // @extensionScannerIgnoreLine false positive: own Route class, not a deprecated TYPO3 method
         $options = $route->getOptions();
 
         if ($this instanceof SignalInterface) {
@@ -68,7 +53,7 @@ trait RoutingTrait
                 'identifier' => $identifier,
                 'route' => $route
             ];
-            $this->emitSignal(__CLASS__, 'dispatchBegin', $signalArguments);
+            $this->emitSignal(self::class, 'dispatchBegin', $signalArguments);
         }
         $targetArguments = [];
         if (!is_null($arguments)) {
@@ -91,8 +76,6 @@ trait RoutingTrait
                 $options
             );
         }
-
-        return;
     }
 
     /**
@@ -100,10 +83,9 @@ trait RoutingTrait
      * Returns a string concatenated from controller object name  and action name
      * separated by Route::ORIGIN_SEPARATOR
      *
-     * @return string
-     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\NoSuchControllerException
+     * @throws NoSuchControllerException
      */
-    protected function getOrigin()
+    protected function getOrigin(): string
     {
         $actionName = $this->request->getControllerActionName();
         $controllerObjectName = $this->request->getControllerObjectName();

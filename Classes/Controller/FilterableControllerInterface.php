@@ -1,7 +1,8 @@
 <?php
-namespace DWenzel\T3events\Controller;
 
-use DWenzel\T3events\Dto\FilterCollection;
+declare(strict_types=1);
+
+namespace DWenzel\T3events\Controller;
 
 /***************************************************************
  *
@@ -37,8 +38,8 @@ interface FilterableControllerInterface
     /**
      * Gets filter options for view template
      *
-     * @param array $settings
-     * @return array|FilterCollection
+     * @param array<string, mixed> $settings
+     * @return array<string, mixed>
      */
-    public function getFilterOptions($settings);
+    public function getFilterOptions(array $settings): array;
 }

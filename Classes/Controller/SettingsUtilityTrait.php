@@ -11,38 +11,20 @@ use TYPO3\CMS\Core\Utility\ArrayUtility;
  */
 trait SettingsUtilityTrait
 {
-    /**
-     * @var \DWenzel\T3events\Utility\SettingsUtility
-     */
-    protected $settingsUtility;
+    protected SettingsUtility $settingsUtility;
 
-    /**
-     * @var array
-     */
-    protected $settings;
+    /** @var array<string, mixed> */
+    protected array $settings;
 
-    /**
-     * @var string
-     */
-    protected $actionMethodName = 'indexAction';
-
-    /**
-     * injects the settings utility
-     *
-     * @param \DWenzel\T3events\Utility\SettingsUtility $settingsUtility
-     */
-    public function injectSettingsUtility(SettingsUtility $settingsUtility)
-    {
-        $this->settingsUtility = $settingsUtility;
-    }
+    protected string $actionMethodName = 'indexAction';
 
     /**
      * Merges TypoScript settings for action an controller into one array
-     * @return array
+     * @return array<string, mixed>
      */
-    public function mergeSettings()
+    public function mergeSettings(): array
     {
-        $actionName = preg_replace('/Action$/', '', $this->actionMethodName);
+        $actionName = (string) preg_replace('/Action$/', '', $this->actionMethodName);
         $controllerKey = $this->settingsUtility->getControllerKey($this);
         $controllerSettings = [];
         $actionSettings = [];
@@ -50,7 +32,7 @@ trait SettingsUtilityTrait
             $controllerSettings = $this->settings[$controllerKey];
         }
         $allowedControllerSettingKeys = ['search', 'notify'];
-        foreach ($controllerSettings as $key => $value) {
+        foreach (array_keys($controllerSettings) as $key) {
             if (!in_array($key, $allowedControllerSettingKeys)) {
                 unset($controllerSettings[$key]);
             }

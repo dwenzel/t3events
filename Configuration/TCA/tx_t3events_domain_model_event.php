@@ -1,9 +1,15 @@
 <?php
-if (!defined('TYPO3_MODE')) {
+declare(strict_types=1);
+
+use TYPO3\CMS\Core\Resource\FileType;
+
+use DWenzel\T3events\Utility\TableConfiguration;
+
+if (!defined('TYPO3')) {
     die('Access denied.');
 }
 $ll = 'LLL:EXT:t3events/Resources/Private/Language/locallang_db.xlf';
-$cll = \DWenzel\T3events\Utility\TableConfiguration::getLanguageFilePath() . 'locallang_general.xlf:';
+$cll = TableConfiguration::getLanguageFilePath() . 'locallang_general.xlf:';
 
 return [
     'ctrl' => [
@@ -11,7 +17,6 @@ return [
         'label' => 'headline',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
-        'cruser_id' => 'cruser_id',
         'dividers2tabs' => true,
         'sortby' => 'sorting',
         'versioningWS' => true,
@@ -26,7 +31,6 @@ return [
             'endtime' => 'endtime',
             'fe_group' => 'fe_group',
         ],
-        'searchFields' => 'headline,subtitle,teaser,description,keywords,genre,venue,event_type,performances,organizer,',
         'iconfile' => 'EXT:t3events/Resources/Public/Icons/tx_t3events_domain_model_event.gif'
     ],
     'types' => [
@@ -62,14 +66,7 @@ return [
             'exclude' => 1,
             'label' => $cll . 'LGL.language',
             'config' => [
-                'type' => 'select',
-                'renderType' => 'selectSingle',
-                'foreign_table' => 'sys_language',
-                'foreign_table_where' => 'ORDER BY sys_language.title',
-                'items' => [
-                    [$cll . 'LGL.allLanguages', -1],
-                    [$cll . 'LGL.default_value', 0]
-                ]
+                'type' => 'language'
             ],
         ],
         'l10n_parent' => [
@@ -79,7 +76,7 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
-                    ['', 0],
+                    ['label' => '', 'value' => 0],
                 ],
                 'foreign_table' => 'tx_t3events_domain_model_event',
                 'foreign_table_where' => 'AND tx_t3events_domain_model_event.pid=###CURRENT_PID### AND tx_t3events_domain_model_event.sys_language_uid IN (-1,0)',
@@ -102,10 +99,8 @@ return [
             'exclude' => 1,
             'label' => $cll . 'LGL.starttime',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'inputDateTime',
+                'type' => 'datetime',
                 'size' => 10,
-                'eval' => 'datetime',
                 'checkbox' => 0,
                 'default' => 0,
                 'behaviour' => [
@@ -117,10 +112,8 @@ return [
             'exclude' => 1,
             'label' => $cll . 'LGL.endtime',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'inputDateTime',
+                'type' => 'datetime',
                 'size' => 10,
-                'eval' => 'datetime',
                 'checkbox' => 0,
                 'default' => 0,
                 'behaviour' => [
@@ -138,16 +131,16 @@ return [
                 'maxitems' => 20,
                 'items' => [
                     [
-                        $cll . 'LGL.hide_at_login',
-                        -1,
+                        'label' => $cll . 'LGL.hide_at_login',
+                        'value' => -1,
                     ],
                     [
-                        $cll . 'LGL.any_login',
-                        -2,
+                        'label' => $cll . 'LGL.any_login',
+                        'value' => -2,
                     ],
                     [
-                        $cll . 'LGL.usergroups',
-                        '--div--',
+                        'label' => $cll . 'LGL.usergroups',
+                        'value' => '--div--',
                     ],
                 ],
                 'exclusiveKeys' => '-1,-2',
@@ -161,7 +154,8 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'trim,required'
+                'eval' => 'trim',
+                'required' => true
             ],
         ],
         'subtitle' => [
@@ -207,7 +201,10 @@ return [
         'images' => [
             'exclude' => 1,
             'label' => $ll . ':tx_t3events_domain_model_event.images',
-            'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig('images', [
+            'config' => [
+                ### !!! Watch out for fieldName different from columnName
+                'type' => 'file',
+                'allowed' => $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'],
                 'appearance' => [
                     'createNewRelationLinkTitle' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:images.addFileReference'
                 ],
@@ -220,39 +217,42 @@ return [
                             --palette--;;imageoverlayPalette,
                             --palette--;;filePalette'
                         ],
-                        \TYPO3\CMS\Core\Resource\File::FILETYPE_TEXT => [
+                        FileType::TEXT->value => [
                             'showitem' => '
                             --palette--;;imageoverlayPalette,
                             --palette--;;filePalette'
                         ],
-                        \TYPO3\CMS\Core\Resource\File::FILETYPE_IMAGE => [
+                        FileType::IMAGE->value => [
                             'showitem' => '
                             --palette--;;imageoverlayPalette,
                             --palette--;;filePalette'
                         ],
-                        \TYPO3\CMS\Core\Resource\File::FILETYPE_AUDIO => [
+                        FileType::AUDIO->value => [
                             'showitem' => '
                             --palette--;;audioOverlayPalette,
                             --palette--;;filePalette'
                         ],
-                        \TYPO3\CMS\Core\Resource\File::FILETYPE_VIDEO => [
+                        FileType::VIDEO->value => [
                             'showitem' => '
                             --palette--;;videoOverlayPalette,
                             --palette--;;filePalette'
                         ],
-                        \TYPO3\CMS\Core\Resource\File::FILETYPE_APPLICATION => [
+                        FileType::APPLICATION->value => [
                             'showitem' => '
                             --palette--;;imageoverlayPalette,
                             --palette--;;filePalette'
                         ]
                     ]
                 ],
-            ], $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'])
+            ]
         ],
         'files' => [
             'exclude' => 1,
             'label' => $ll . ':tx_t3events_domain_model_event.files',
-            'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig('files', [
+            'config' => [
+                ### !!! Watch out for fieldName different from columnName
+                'type' => 'file',
+                'allowed' => $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'],
                 'appearance' => [
                     'createNewRelationLinkTitle' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:images.addFileReference'
                 ],
@@ -265,34 +265,34 @@ return [
                             --palette--;;imageoverlayPalette,
                             --palette--;;filePalette'
                         ],
-                        \TYPO3\CMS\Core\Resource\File::FILETYPE_TEXT => [
+                        FileType::TEXT->value => [
                             'showitem' => '
                             --palette--;;imageoverlayPalette,
                             --palette--;;filePalette'
                         ],
-                        \TYPO3\CMS\Core\Resource\File::FILETYPE_IMAGE => [
+                        FileType::IMAGE->value => [
                             'showitem' => '
                             --palette--;;imageoverlayPalette,
                             --palette--;;filePalette'
                         ],
-                        \TYPO3\CMS\Core\Resource\File::FILETYPE_AUDIO => [
+                        FileType::AUDIO->value => [
                             'showitem' => '
                             --palette--;;audioOverlayPalette,
                             --palette--;;filePalette'
                         ],
-                        \TYPO3\CMS\Core\Resource\File::FILETYPE_VIDEO => [
+                        FileType::VIDEO->value => [
                             'showitem' => '
                             --palette--;;videoOverlayPalette,
                             --palette--;;filePalette'
                         ],
-                        \TYPO3\CMS\Core\Resource\File::FILETYPE_APPLICATION => [
+                        FileType::APPLICATION->value => [
                             'showitem' => '
                             --palette--;;imageoverlayPalette,
                             --palette--;;filePalette'
                         ]
                     ]
                 ],
-            ], $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'])
+            ]
         ],
         'related' => [
             'exclude' => 1,
@@ -303,8 +303,8 @@ return [
                 'foreign_table' => 'tx_t3events_domain_model_event',
                 'foreign_table_where' => 'AND tx_t3events_domain_model_event.deleted != 1 AND tx_t3events_domain_model_event.sys_language_uid=###REC_FIELD_sys_language_uid### AND tx_t3events_domain_model_event.uid != ###THIS_UID###',
                 'MM' => 'tx_t3events_event_event_mm',
-                'MM_match_fields' => array('foreign_field' => 'related'),
-                'MM_insertfields' => array('foreign_field' => 'related'),
+                'MM_match_fields' => ['foreign_field' => 'related'],
+                'MM_insertfields' => ['foreign_field' => 'related'],
                 'size' => 30,
                 'maxitems' => 100,
                 'multiple' => 0,
@@ -320,8 +320,8 @@ return [
                 'foreign_table_where' => 'AND tx_t3events_domain_model_performance.deleted != 1 
                           AND tx_t3events_domain_model_performance.sys_language_uid=###REC_FIELD_sys_language_uid### ',
                 'MM' => 'tx_t3events_event_performance_mm',
-                'MM_match_fields' => array('foreign_field' => 'related_schedules'),
-                'MM_insertfields' => array('foreign_field' => 'related_schedules'),
+                'MM_match_fields' => ['foreign_field' => 'related_schedules'],
+                'MM_insertfields' => ['foreign_field' => 'related_schedules'],
                 'size' => 30,
                 'maxitems' => 10,
                 'multiple' => 0,
@@ -406,7 +406,6 @@ return [
             'label' => $ll . ':tx_t3events_domain_model_event.organizer',
             'config' => [
                 'type' => 'group',
-                'internal_type' => 'db',
                 'allowed' => 'tx_t3events_domain_model_organizer',
                 'foreign_table' => 'tx_t3events_domain_model_organizer',
                 'l10nmode' => 'mergeIfNotBlank',
@@ -451,22 +450,19 @@ return [
             'exclude' => 1,
             'label' => $ll . ':tx_t3events_domain_model_event.new_until',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'inputDateTime',
+                'type' => 'datetime',
                 'size' => 10,
-                'eval' => 'datetime',
-                'default' => '0'
+                'default' => 0
             ]
         ],
         'archive_date' => [
             'exclude' => 1,
             'label' => $ll . ':tx_t3events_domain_model_event.archive_date',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'inputDateTime',
+                'type' => 'datetime',
                 'size' => 10,
-                'eval' => 'date',
-                'default' => '0'
+                'default' => 0,
+                'format' => 'date'
             ]
         ],
         'content_elements' => [

@@ -43,12 +43,13 @@ class VenueTest extends UnitTestCase
      */
     protected $fixture;
 
-    protected function setUp(): void
+    public function setUp(): void
     {
+        parent::setUp();
         $this->fixture = new Venue();
     }
 
-    protected function tearDown(): void
+    public function tearDown(): void
     {
         unset($this->fixture);
     }
@@ -58,7 +59,8 @@ class VenueTest extends UnitTestCase
      */
     public function getTitleReturnsInitialValueForString()
     {
-        $this->assertNull(
+        $this->assertSame(
+            '',
             $this->fixture->getTitle()
         );
     }
@@ -81,7 +83,8 @@ class VenueTest extends UnitTestCase
      */
     public function getLinkReturnsInitiallyNull()
     {
-        $this->assertNull(
+        $this->assertSame(
+            '',
             $this->fixture->getLink()
         );
     }

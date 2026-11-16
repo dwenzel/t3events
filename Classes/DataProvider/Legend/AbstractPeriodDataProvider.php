@@ -29,32 +29,22 @@ class AbstractPeriodDataProvider
     const LAYERS_TO_SHOW = '';
 
     /**
-     * @var bool
-     */
-    protected $respectEndDate;
-
-    /**
      * AbstractPeriodDataProvider constructor.
-     *
-     * @param bool $respectEndDate
      */
-    public function __construct($respectEndDate = false)
+    public function __construct(protected bool $respectEndDate = false)
     {
-        $this->respectEndDate = $respectEndDate;
     }
 
-    /**
-     * @return array
-     */
-    public function getAllLayerIds()
+    /** @return list<string> */
+    public function getAllLayerIds(): array
     {
         return $this->getLayerIds(self::ALL_LAYERS);
     }
 
     /**
-     * @return mixed
+     * @return list<string>
      */
-    public function getVisibleLayerIds()
+    public function getVisibleLayerIds(): array
     {
         $visibleLayers = $this->getLayerIds(static::VISIBLE_LAYERS);
 
@@ -71,10 +61,9 @@ class AbstractPeriodDataProvider
     /**
      * Gets an array of layer ids from comma separated string
      *
-     * @param string $layerList
-     * @return array
+     * @return list<string>
      */
-    protected function getLayerIds($layerList)
+    protected function getLayerIds(string $layerList): array
     {
         return GeneralUtility::trimExplode(',', $layerList, true);
     }

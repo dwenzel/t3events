@@ -33,10 +33,7 @@ class ItemsProcFunc
      */
     const EXTENSION_KEY = 't3events';
 
-    /**
-     * @var TemplateLayoutUtility
-     */
-    protected $templateLayoutUtility;
+    protected TemplateLayoutUtility $templateLayoutUtility;
 
     public function __construct()
     {
@@ -46,19 +43,11 @@ class ItemsProcFunc
     /**
      * Items process function to extend the selection of templateLayouts in the plugin
      *
-     * @param array &$config configuration array
-     * @return void
+     * @param array<mixed> &$config configuration array
      */
-    public function user_templateLayout(array &$config)
+    public function user_templateLayout(array &$config): void
     {
-        $pageId = null;
-        if (!empty($config['row']['pid']) && is_numeric($config['row']['pid'])) {
-            $pageId = $config['row']['pid'];
-        }
-        if (!empty($config['flexParentDatabaseRow']['pid']) && is_numeric($config['flexParentDatabaseRow']['pid'])) {
-            $pageId = $config['flexParentDatabaseRow']['pid'];
-        }
-
+        $pageId = (int)($config['row']['pid'] ?? $config['flexParentDatabaseRow']['pid'] ?? 0);
         $templateLayouts = $this->templateLayoutUtility->getLayouts(static::EXTENSION_KEY, $pageId);
 
         foreach ($templateLayouts as $layout) {
@@ -66,18 +55,19 @@ class ItemsProcFunc
                 htmlspecialchars($this->getLanguageService()->sL($layout[0])),
                 $layout[1]
             ];
-            array_push($config['items'], $additionalLayout);
+            $config['items'][] = $additionalLayout;
         }
     }
 
     /**
      * Returns Language Service
      *
-     * @return LanguageService
      * @codeCoverageIgnore
      */
-    protected function getLanguageService()
+    protected function getLanguageService(): LanguageService
     {
-        return $GLOBALS['LANG'];
+        /** @var LanguageService $lang */
+        $lang = $GLOBALS['LANG'];
+        return $lang;
     }
 }

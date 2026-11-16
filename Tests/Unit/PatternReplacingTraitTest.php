@@ -29,10 +29,11 @@ class PatternReplacingTraitTest extends UnitTestCase
     /**
      * set up the subject
      */
-    protected function setUp(): void
+    public function setUp(): void
     {
+        parent::setUp();
         $this->subject = $this->getMockBuilder(PatternReplacingTrait::class)
-            ->setMethods(['getReplacePatterns'])
+            ->onlyMethods(['getReplacePatterns'])
             ->getMockForTrait();
     }
 
@@ -47,7 +48,7 @@ class PatternReplacingTraitTest extends UnitTestCase
         $initialContent = "\n";
         $expected = "\r\n";
         $this->subject->expects($this->once())->method('getReplacePatterns')
-            ->will($this->returnValue($replacePatterns));
+            ->willReturn($replacePatterns);
 
         $this->assertSame(
             $expected,
