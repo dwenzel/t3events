@@ -10,6 +10,7 @@ namespace DWenzel\T3events\ViewHelpers\Format;
  *                                                                        *
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
+use TYPO3\CMS\Core\Localization\DateFormatter;
 use TYPO3\CMS\Core\Utility\MathUtility;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
@@ -131,7 +132,7 @@ class DateViewHelper extends AbstractViewHelper
         }
 
         if (str_contains((string) $format, '%')) {
-            return strftime($format, (int)$modifiedDate->format('U'));
+            return (new DateFormatter())->strftime($format, (int)$modifiedDate->format('U'));
         }
         return $modifiedDate->format($format);
     }

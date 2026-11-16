@@ -95,6 +95,18 @@ class DateRangeViewHelperTest extends UnitTestCase
                 date($customFormat, $yesterdaysDate->getTimestamp())
                 . $customGlue
                 . date($customFormat, $todaysDate->getTimestamp())
+            ],// performance with different start and end date, strftime formats (TYPO3 DateFormatter)
+            [
+                // arguments
+                [
+                    'performance' => $performanceWithDifferentStartAndEndDate,
+                    'startFormat' => '%d.%m.',
+                    'endFormat' => '%d.%m.%Y',
+                ],
+                // expected
+                $yesterdaysDate->format('d.m.')
+                . DateRangeViewHelper::DEFAULT_GLUE
+                . $todaysDate->format('d.m.Y')
             ],// performance with same start and end date, default date format and glue
             [
                 // arguments
