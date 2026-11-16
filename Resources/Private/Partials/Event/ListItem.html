@@ -1,6 +1,6 @@
 {namespace ts=DWenzel\T3events\ViewHelpers}
 
-<div class="eventWrap">
+<div class="eventWrap" data-t3events-event="{event.uid}">
 	<div class="eventImg">
 		<f:link.action action="show" arguments="{event: event}" pageUid="{settings.detailPid}">
 			<f:if condition="{event.images}">
