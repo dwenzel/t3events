@@ -12,7 +12,7 @@ use DWenzel\T3events\Controller\Backend\ScheduleController;
 return [
     'events' => [
         'position' => ['after' => 'system_reports'],
-        'access' => 'user,group',
+        'access' => 'user',
         'workspaceSupport' => false,
         'labels' => 'LLL:EXT:t3events/Resources/Private/Language/locallang_mod_main.xlf',
         'iconIdentifier' => 'ext-t3events-main',
@@ -20,7 +20,7 @@ return [
     'events_m1' => [
         'parent' => 'events',
         'position' => ['after' => 'system_reports'],
-        'access' => 'user,group',
+        'access' => 'user',
         'workspaceSupport' => false,
         'path' => '/module/events/event',
         'extensionName' => 'T3events',
@@ -33,7 +33,7 @@ return [
     'events_m2' => [
         'parent' => 'events',
         'position' => ['after' => 'system_reports'],
-        'access' => 'user,group',
+        'access' => 'user',
         'workspaceSupport' => false,
         'path' => '/module/events/schedule',
         'extensionName' => 'T3events',
