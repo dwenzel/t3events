@@ -11,8 +11,8 @@ This is an extension for the TYPO3 CMS.
 | TYPO3       | PHP (composer) | Branch              | Version line | Latest release |
 |-------------|----------------|---------------------|--------------|----------------|
 | 13.4 / 14.3 | `^8.3`         | `main`              | 4.x          | 4.0.0          |
-| 12.4        | `^8.1`         | `support/typo3-v12` | 3.x          | 3.0.0          |
-| 11.5        | not declared   | `support/typo3-v11` | 2.x          | 2.0.1          |
+| 12.4        | `^8.1`         | `support/typo3-v12` | 3.x          | 3.0.1          |
+| 11.5        | not declared   | `support/typo3-v11` | 2.x          | 2.0.2          |
 | 9.5 / 10.4  |                | -                   | 1.x          | 1.1.0 (not maintained) |
 
 Releases are published to [Packagist](https://packagist.org/packages/dwenzel/t3events)
