@@ -11,7 +11,7 @@ ask for one.
 
 ..  note::
 
-    In t3events 4.0.0 and 4.0.1 the modules do not work in TYPO3 14 (see
+    In t3events 4.0.0 the modules do not work in TYPO3 14 (see
     :ref:`known-problems`). Use the *Records* module on the storage folder
     instead.
 

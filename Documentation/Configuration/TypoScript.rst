@@ -218,5 +218,5 @@ The modules read ``module.tx_t3events``:
         -   Template paths of the modules. Default:
             ``EXT:t3events/Resources/Private/Templates/Backend/``.
 
-In 4.0.0 and 4.0.1 the modules do not work in TYPO3 14 (see
+In 4.0.0 the modules do not work in TYPO3 14 (see
 :ref:`known-problems`).

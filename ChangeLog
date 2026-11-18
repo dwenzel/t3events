@@ -1,4 +1,6 @@
 2026-11-18         [RELEASE] Release of t3events 4.0.1 (Dirk Wenzel)
+2026-11-18 ae7b1f6 [TASK] Remove the unused ext_typoscript_*.txt files (Dirk Wenzel)
+2026-11-18 2d37fea [BUGFIX] Backend modules: page tree and global TypoScript for TYPO3 14 (Dirk Wenzel)
 2026-11-16 fa716d6 [DOC] Documentation for docs.typo3.org: plugin logic, references, screenshots (Dirk Wenzel)
 2026-11-16 24d143b [BUGFIX] Backend modules: access 'user' instead of 'user,group' (Dirk Wenzel)
 2026-11-16 38812c1 [DOC] Support matrix: releases 4.0.0, 3.0.0 and 2.0.1 (Dirk Wenzel)
