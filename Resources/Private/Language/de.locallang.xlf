@@ -562,6 +562,14 @@
             <target>Titel</target>
         </trans-unit>
 
+        <trans-unit id="message.selectPage.title" xml:space="preserve">
+            <source>No page selected</source>
+            <target>Keine Seite ausgewählt</target>
+        </trans-unit>
+        <trans-unit id="message.selectPage.text" xml:space="preserve">
+            <source>Select the page with the records or a page above it in the page tree.</source>
+            <target>Wählen Sie im Seitenbaum die Seite mit den Datensätzen oder eine Seite darüber aus.</target>
+        </trans-unit>
         <trans-unit id="message.noEventFound.title" xml:space="preserve">
             <source>No event found</source>
             <target>Keine Veranstaltungen</target>

@@ -41,4 +41,21 @@ class BackendModulesTest extends TestCase
             'Module ' . $identifier
         );
     }
+
+    /**
+     * TYPO3 14 passes the selected page to backend modules with a page tree
+     * only; without it, the modules have no storage page (Breaking #105728).
+     */
+    #[Test]
+    public function submodulesShowThePageTree(): void
+    {
+        $modules = require __DIR__ . '/../../../Configuration/Backend/Modules.php';
+        foreach (['events_m1', 'events_m2'] as $identifier) {
+            self::assertSame(
+                '@typo3/backend/tree/page-tree-element',
+                $modules[$identifier]['navigationComponent'] ?? null,
+                'Module ' . $identifier
+            );
+        }
+    }
 }

@@ -22,6 +22,29 @@ use TYPO3\CMS\Fluid\View\TemplatePaths;
 trait BackendModuleViewTrait
 {
     /**
+     * Storage pages of the module as comma separated list: the page selected
+     * in the page tree and its subpages (module.tx_t3events.persistence.recursive),
+     * or the storagePid configured in TypoScript.
+     * Returns an empty string if no page is selected and none is configured.
+     */
+    protected function getStoragePages(): string
+    {
+        $configuration = $this->configurationManager->getConfiguration(
+            ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
+        );
+        $storagePid = $configuration['persistence']['storagePid'] ?? '';
+        if (!is_scalar($storagePid)) {
+            return '';
+        }
+        $storagePages = array_filter(
+            GeneralUtility::intExplode(',', (string)$storagePid, true),
+            static fn(int $pid): bool => $pid > 0
+        );
+
+        return implode(',', $storagePages);
+    }
+
+    /**
      * Applies the module.tx_t3events.view TypoScript path configuration to the
      * BackendViewFactory view that ModuleTemplate uses internally for renderResponse().
      */

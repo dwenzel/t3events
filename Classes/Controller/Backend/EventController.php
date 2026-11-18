@@ -48,7 +48,6 @@ use DWenzel\T3events\Service\ModuleDataStorageService;
 use DWenzel\T3events\Utility\SettingsInterface as SI;
 use DWenzel\T3events\Utility\SettingsUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
 /**
  * Class EventController
@@ -121,17 +120,23 @@ class EventController extends AbstractBackendController implements FilterableCon
         $this->overwriteDemandObject($demand, $overwriteDemand);
         $this->moduleData->setDemand($demand);
 
-        $events = $this->eventRepository->findDemanded($demand);
-
-        // @phpstan-ignore-next-line instanceof.alwaysTrue (findDemanded returns QueryResultInterface; guard retained for runtime safety)
-        if (($events instanceof QueryResultInterface && !$events->count())
-            || !count($events)
-        ) {
+        // The query is restricted to the storage pages by the Extbase query settings
+        if ($this->getStoragePages() === '') {
+            $events = [];
             $this->addFlashMessage(
-                $this->translate('message.noEventFound.text'),
-                $this->translate('message.noEventFound.title'),
-                ContextualFeedbackSeverity::WARNING
+                $this->translate('message.selectPage.text'),
+                $this->translate('message.selectPage.title'),
+                ContextualFeedbackSeverity::INFO
             );
+        } else {
+            $events = $this->eventRepository->findDemanded($demand);
+            if ($events->count() === 0) {
+                $this->addFlashMessage(
+                    $this->translate('message.noEventFound.text'),
+                    $this->translate('message.noEventFound.title'),
+                    ContextualFeedbackSeverity::WARNING
+                );
+            }
         }
         $configuration = $this->configurationManager->getConfiguration(
             ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK

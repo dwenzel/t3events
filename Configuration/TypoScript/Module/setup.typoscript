@@ -1,0 +1,48 @@
+# Configuration of the backend modules of t3events.
+#
+# Registered as global TypoScript in ext_localconf.php: since TYPO3 14,
+# Extbase backend modules without a selected page only read global
+# TypoScript (Breaking #105728). Can be overridden on a page with a
+# TypoScript record, which applies when that page is selected in the tree.
+
+module.tx_t3events {
+    persistence {
+        # Records on the selected page and its subpages
+        recursive = 99
+    }
+
+    view {
+        templateRootPaths.0 = EXT:t3events/Resources/Private/Templates/Backend/
+        partialRootPaths.0 = EXT:t3events/Resources/Private/Partials/
+        layoutRootPaths.0 = EXT:t3events/Resources/Private/Layouts/
+    }
+
+    settings {
+        event {
+            list {
+                filter {
+                    genre = all
+                    audience = all
+                    venue = all
+                    eventType = all
+                    periods = futureOnly,pastOnly,all
+                }
+                search {
+                    fields = headline,subtitle
+                    showSubjectField = 1
+                }
+            }
+        }
+        schedule {
+            list {
+                filter {
+                    periods = futureOnly,pastOnly,all
+                }
+                search {
+                    fields = event.headline,event.subtitle
+                    showSubjectField = 1
+                }
+            }
+        }
+    }
+}

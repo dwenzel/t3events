@@ -22,6 +22,7 @@ use DWenzel\T3events\Domain\Model\Dto\EventDemand;
 use DWenzel\T3events\Domain\Model\Dto\ModuleData;
 use DWenzel\T3events\Domain\Repository\EventRepository;
 use DWenzel\T3events\Utility\SettingsInterface as SI;
+use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use Nimut\TestingFramework\MockObject\AccessibleMockObjectInterface;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -222,6 +223,41 @@ class EventControllerTest extends UnitTestCase
         // can not match expectedTemplateVariables - always got an array containing all arguments as third argument.
         $this->subject->expects($this->once())
             ->method('emitSignal');
+
+        $this->subject->listAction();
+    }
+
+    /**
+     * @test
+     */
+    public function listActionFindsEventsOnStoragePages()
+    {
+        $this->configurationManager->method('getConfiguration')
+            ->willReturn(['persistence' => ['storagePid' => '3']]);
+        $this->eventDemandFactory->method('createFromSettings')
+            ->willReturn($this->eventDemand);
+        $this->subject->_get('eventRepository')->expects($this->once())
+            ->method('findDemanded')
+            ->with($this->eventDemand);
+
+        $this->subject->listAction();
+    }
+
+    /**
+     * @test
+     */
+    public function listActionAsksForPageSelectionWithoutStoragePages()
+    {
+        $this->configurationManager->method('getConfiguration')
+            ->willReturn(['persistence' => ['storagePid' => 0]]);
+        $this->eventDemandFactory->method('createFromSettings')
+            ->willReturn($this->eventDemand);
+        $this->subject->_get('eventRepository')->expects($this->never())
+            ->method('findDemanded');
+        $this->subject->method('translate')->willReturnArgument(0);
+        $this->subject->expects($this->once())
+            ->method('addFlashMessage')
+            ->with('message.selectPage.text', 'message.selectPage.title', ContextualFeedbackSeverity::INFO);
 
         $this->subject->listAction();
     }
