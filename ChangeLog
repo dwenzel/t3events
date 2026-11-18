@@ -1,3 +1,7 @@
+2026-11-18         [RELEASE] Release of t3events 4.0.1 (Dirk Wenzel)
+2026-11-16 fa716d6 [DOC] Documentation for docs.typo3.org: plugin logic, references, screenshots (Dirk Wenzel)
+2026-11-16 24d143b [BUGFIX] Backend modules: access 'user' instead of 'user,group' (Dirk Wenzel)
+2026-11-16 38812c1 [DOC] Support matrix: releases 4.0.0, 3.0.0 and 2.0.1 (Dirk Wenzel)
 2026-11-16         [RELEASE] Release of t3events 4.0.0 (Dirk Wenzel)
 2026-11-16 c0728c8 [BUGFIX] e2e: redirect status of a hidden event only on TYPO3 14 (Dirk Wenzel)
 2026-11-14 b4bef2f [FEATURE] Plugin option for manual sorting of events (Dirk Wenzel)
