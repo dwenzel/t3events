@@ -1,3 +1,5 @@
+2026-11-18         [RELEASE] Release of t3events 3.0.1 (Dirk Wenzel)
+2026-11-16 33063f3 [BUGFIX] Backend modules: access 'user' instead of 'user,group' (Dirk Wenzel)
 2026-11-16         [RELEASE] Release of t3events 3.0.0 (Dirk Wenzel)
 2026-11-15 6ed138f [BUGFIX] Register upgrade wizards by attribute (Dirk Wenzel)
 2026-11-14 ae49243 [BUGFIX] Render strftime formats with the TYPO3 DateFormatter (Dirk Wenzel)
