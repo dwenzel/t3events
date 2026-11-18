@@ -1,3 +1,5 @@
+2026-11-18         [RELEASE] Release of t3events 2.0.2 (Dirk Wenzel)
+2026-11-14 0894285 [BUGFIX] Use minutes in the date prefix of download file names (Dirk Wenzel)
 2026-11-14         [RELEASE] Release of t3events 2.0.1 (Dirk Wenzel)
 2026-11-14 6d9ccb5 [BUGFIX] PHP 8.1 deprecations in controllers and TCA labels (Dirk Wenzel)
 2026-11-14 6f7208b [BUGFIX] Upgrade wizard fails on missing legacy files (Dirk Wenzel)
