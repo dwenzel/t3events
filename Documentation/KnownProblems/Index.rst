@@ -14,10 +14,11 @@ Known problems of 4.0 and their issues on GitHub:
         -   Issue
     *   -   Backend modules: not shown in TYPO3 14 and not grantable to
             backend groups.
-        -   Pull request `#152 <https://github.com/dwenzel/t3events/pull/152>`__
+        -   Fixed in 4.0.1, pull request
+            `#152 <https://github.com/dwenzel/t3events/pull/152>`__
     *   -   Backend modules: frontend template rendered or exception in the
             module *Schedules*, no records listed (TYPO3 14).
-        -   Fixed after 4.0.1, see
+        -   Fixed in 4.0.1, see
             `#154 <https://github.com/dwenzel/t3events/issues/154>`__
     *   -   Backend modules: filter fields never shown, schedule limit
             constant missing.
