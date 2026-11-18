@@ -21,6 +21,18 @@ jobs:
           coverage: none
       - run: composer validate --strict --no-check-lock
 
+  documentation:
+    name: Documentation (render-guides)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Render the documentation, fail on warnings
+        run: >
+          docker run --rm --user "$(id -u):$(id -g)"
+          -v "${{ github.workspace }}:/project"
+          ghcr.io/typo3-documentation/render-guides:latest
+          --config=Documentation --no-progress --fail-on-log
+
   php-lint:
     name: PHP lint ${{ matrix.php }}
     runs-on: ubuntu-latest

@@ -1,5 +1,6 @@
 *.iml
 Documentation/_build/
+Documentation-GENERATED-temp/
 .scannerwork
 .Build/
 composer.lock

@@ -24,25 +24,16 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the branching model and the release
 process. A development environment with one TYPO3 instance per supported version
 is available in [t3events-bundle](https://github.com/dwenzel/t3events-bundle).
 
-## Table of Contents
+## Documentation
 
-* [Introduction](./Documentation/Introduction/WhatDoesItDo/Index.rst)
-* Configuration
-    * [Overview](./Documentation/Configuration/Overview/Index.rst)
-    * [Templates](./Documentation/Configuration/Templates.md)
-    * [Backend](./Documentation/Configuration/Backend.md)
-* [ViewHelpers](./Documentation/ViewHelpers/ViewHelpers.md)
-    * Format
-        * [ArrayToCsv](./Documentation/ViewHelpers/Format/ArrayToCsv.md)
-    * Location
-        * [Count](./Documentation/ViewHelpers/Location/CountViewHelper.md)
-        * [Unique](./Documentation/ViewHelpers/Location/UniqueViewHelper.md)
-* Users Manual
-    * [Auxiliary Records](./Documentation/UsersManual/AuxiliaryRecords/Index.rst)
-    * [Events](./Documentation/UsersManual/Events/Index.rst)
-    * [Plugins](./Documentation/UsersManual/InsertPlugins/Index.rst)
-* [How To](./Documentation/HowTo/HowTo.md)
-* [Releases](./Documentation/Releases/Notes.md)
+The documentation is published on
+[docs.typo3.org](https://docs.typo3.org/p/dwenzel/t3events/main/en-us/).
+Its sources are in [Documentation/](./Documentation/Index.rst); render them locally with
+
+```bash
+docker run --rm --pull always -v $(pwd):/project ghcr.io/typo3-documentation/render-guides:latest --config=Documentation
+```
+
 ## Credits 
 Thanks for contribution and feedback
 * Michael Kasten

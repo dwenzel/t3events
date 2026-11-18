@@ -98,5 +98,10 @@
     "fractor:check": "Show changes Fractor would make (TypoScript, FlexForms, Fluid, YAML)",
     "fractor:fix": "Apply Fractor changes",
     "phpstan": "Static analysis (level and baseline in phpstan.neon)"
+  },
+  "support": {
+    "docs": "https://docs.typo3.org/p/dwenzel/t3events/main/en-us/",
+    "issues": "https://github.com/dwenzel/t3events/issues",
+    "source": "https://github.com/dwenzel/t3events"
   }
 }

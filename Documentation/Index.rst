@@ -1,59 +1,100 @@
-.. include:: Images.txt
+..  _start:
 
-.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
+======
+Events
+======
 
-.. ==================================================
-.. DEFINE SOME TEXTROLES
-.. --------------------------------------------------
-.. role::   underline
-.. role::   typoscript(code)
-.. role::   ts(typoscript)
+:Extension key:
+    t3events
 
-	:class:  typoscript
-.. role::   php(code)
+:Package name:
+    dwenzel/t3events
 
-===========
-EXT: Events
-===========
 :Version:
-  |release|
-
-:Classification:
-	      t3events
-
-:Description:
-	t3events manages events. It provides integrators with the option to display event items in a list or a single view. Each event can contain one or more performances. For each performance, integrators have the option to list as many ticket classes as needed as well as various other information about the events. Performance locations can be accorded the following meta information: address, link, image etc. A quick menu allows users to filter the list view by genre. The extension was built from scratch with extbase and fluid. Originally designed to fulfill the specific requirements of a client project, this extension remains under development. We appreciate any feedback or suggestions for improvement.
-
-:Keywords:
-	event, performance, ticket, forEditors, forIntermediates
-
-:Author:
-	Dirk Wenzel, Michael Kasten
-
-:Email:
-	t3events@gmx.de
+    |release|
 
 :Language:
     en
 
-:Copyright: 2013-2016, Dirk Wenzel and Michael Kasten
+:Author:
+    Dirk Wenzel, Michael Kasten and contributors
 
-	This document is published under the Open Content License
+:License:
+    This document is published under the
+    `Creative Commons BY 4.0 <https://creativecommons.org/licenses/by/4.0/>`__
+    license.
 
-	available from http://www.opencontent.org/opl.shtml
+:Rendered:
+    |today|
 
-The content of this document is related to TYPO3 \- a GNU/GPL CMS/Framework available from www.typo3.org
+----
 
-.. toctree::
-		:maxdepth: 5
-		:titlesonly:
-		:glob:
+t3events manages events and their dates (performances) and displays them
+with list and detail views. Editors maintain events in storage folders,
+integrators place list plugins with predefined filters and sorting on pages.
 
-		Introduction/Index
-		UsersManual/Index
-		Configuration/Index
-		To-doList/Index
-		Credits/Index
+----
+
+..  card-grid::
+    :columns: 1
+    :columns-md: 2
+    :gap: 4
+    :class: pb-4
+    :card-height: 100
+
+    ..  card:: Introduction
+
+        What t3events does, the records it manages and how lists are built.
+
+        ..  card-footer:: :ref:`Introduction <introduction>`
+            :button-style: btn btn-secondary stretched-link
+
+    ..  card:: Installation
+
+        Requirements per version line, installation and a first setup.
+
+        ..  card-footer:: :ref:`Installation <installation>`
+            :button-style: btn btn-secondary stretched-link
+
+    ..  card:: For editors
+
+        Records, the plugin form and the backend modules.
+
+        ..  card-footer:: :ref:`For editors <editors>`
+            :button-style: btn btn-secondary stretched-link
+
+    ..  card:: Configuration
+
+        How the plugins select, filter and sort, settings and TypoScript
+        reference, templates and readable URLs.
+
+        ..  card-footer:: :ref:`Configuration <configuration>`
+            :button-style: btn btn-secondary stretched-link
+
+    ..  card:: Upgrade
+
+        Upgrade wizards and changes when coming from 2.x or 3.x.
+
+        ..  card-footer:: :ref:`Upgrade <upgrade>`
+            :button-style: btn btn-secondary stretched-link
+
+    ..  card:: For developers
+
+        PSR-14 events, ViewHelpers, notifications and the showcase fixtures.
+
+        ..  card-footer:: :ref:`For developers <developer>`
+            :button-style: btn btn-secondary stretched-link
+
+..  toctree::
+    :maxdepth: 2
+    :titlesonly:
+    :hidden:
+
+    Introduction/Index
+    Installation/Index
+    Editors/Index
+    Configuration/Index
+    Upgrade/Index
+    Developer/Index
+    KnownProblems/Index
+    Credits/Index

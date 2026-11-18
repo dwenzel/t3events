@@ -1,27 +1,15 @@
-﻿.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
+..  _configuration:
 
-.. ==================================================
-.. DEFINE SOME TEXTROLES
-.. --------------------------------------------------
-.. role::   underline
-.. role::   typoscript(code)
-.. role::   ts(typoscript)
-
-   :class:  typoscript
-.. role::   php(code)
-
-
+=============
 Configuration
--------------
+=============
 
+..  toctree::
+    :maxdepth: 2
+    :titlesonly:
 
-.. toctree::
-	   :maxdepth: 5
-	   :titlesonly:
-	   :glob:
-
-	   Overview/Index
-
+    PluginLogic
+    FlexFormReference
+    TypoScript
+    Templates
+    ReadableUrls

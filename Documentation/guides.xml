@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<guides
+    xmlns="https://www.phpdoc.org/guides"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="https://www.phpdoc.org/guides ../vendor/phpdocumentor/guides-cli/resources/schema/guides.xsd"
+    links-are-relative="true"
+>
+    <extension
+        class="\T3Docs\Typo3DocsTheme\DependencyInjection\Typo3DocsThemeExtension"
+        project-home="https://extensions.typo3.org/extension/t3events"
+        project-repository="https://github.com/dwenzel/t3events"
+        project-issues="https://github.com/dwenzel/t3events/issues"
+        edit-on-github="dwenzel/t3events"
+        edit-on-github-branch="main"
+        interlink-shortcode="dwenzel/t3events"
+        typo3-core-preferred="13.4"
+    />
+    <project
+        title="Events"
+        release="4.0"
+        version="4.0"
+        copyright="since 2013 by Dirk Wenzel and contributors"
+    />
+    <inventory id="t3tsref" url="https://docs.typo3.org/m/typo3/reference-typoscript/main/en-us/"/>
+</guides>
