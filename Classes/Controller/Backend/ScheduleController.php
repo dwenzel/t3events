@@ -5,6 +5,7 @@ namespace DWenzel\T3events\Controller\Backend;
 use DWenzel\T3events\Controller\ModuleDataTrait;
 use DWenzel\T3events\Controller\PerformanceController;
 use DWenzel\T3events\Controller\SettingsUtilityTrait;
+use DWenzel\T3events\Domain\Model\Dto\AbstractDemand;
 use DWenzel\T3events\Domain\Model\Dto\SearchFactory;
 use DWenzel\T3events\Domain\Repository\CategoryRepository;
 use DWenzel\T3events\Domain\Repository\EventTypeRepository;
@@ -16,6 +17,7 @@ use DWenzel\T3events\Utility\SettingsInterface as SI;
 use DWenzel\T3events\Utility\SettingsUtility;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
+use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Extbase\Mvc\RequestInterface;
 
 /**
@@ -66,9 +68,25 @@ class ScheduleController extends PerformanceController
         }
 
         $this->overwriteDemandObject($demand, $overwriteDemand);
+        $storagePages = $this->getStoragePages();
+        // Performances ignore the storage page by default (extension configuration)
+        if ($demand instanceof AbstractDemand) {
+            $demand->setStoragePages($storagePages);
+        }
+
+        if ($storagePages === '') {
+            $performances = [];
+            $this->addFlashMessage(
+                $this->translate('message.selectPage.text'),
+                $this->translate('message.selectPage.title'),
+                ContextualFeedbackSeverity::INFO
+            );
+        } else {
+            $performances = $this->performanceRepository->findDemanded($demand);
+        }
 
         $templateVariables = [
-            'performances' => $this->performanceRepository->findDemanded($demand),
+            'performances' => $performances,
             SI::OVERWRITE_DEMAND => $overwriteDemand,
             'demand' => $demand,
             SI::SETTINGS => $this->settings,

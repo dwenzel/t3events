@@ -12,6 +12,7 @@ use DWenzel\T3events\Utility\SettingsInterface as SI;
 use Nimut\TestingFramework\MockObject\AccessibleMockObjectInterface;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use Psr\Http\Message\ResponseInterface;
+use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Core\View\ViewInterface;
 
 /**
@@ -55,6 +56,16 @@ class ScheduleControllerTest extends UnitTestCase
     protected $settings = [];
 
     /**
+     * @var PerformanceRepository|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $performanceRepository;
+
+    /**
+     * @var PerformanceDemand|\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $demand;
+
+    /**
      * set up
      */
     public function setUp(): void
@@ -69,6 +80,9 @@ class ScheduleControllerTest extends UnitTestCase
                     'getFilterOptions',
                     'overwriteDemandObject',
                     'renderWithModuleTemplate',
+                    'getStoragePages',
+                    'addFlashMessage',
+                    'translate',
                 ])
             ->disableOriginalConstructor()
             ->getMock();
@@ -90,12 +104,14 @@ class ScheduleControllerTest extends UnitTestCase
             'moduleData',
             $this->moduleData
         );
+        $this->performanceRepository = $mockPerformanceRepository;
         $this->inject($this->subject, "performanceRepository", $mockPerformanceRepository);
         /** @var PerformanceDemandFactory|\PHPUnit_Framework_MockObject_MockObject performanceDemandFactory */
         $this->performanceDemandFactory = $this->getMockBuilder(PerformanceDemandFactory::class)
             ->onlyMethods(['createFromSettings'])->getMock();
         /** @var PerformanceDemand|\PHPUnit_Framework_MockObject_MockObject $mockDemand */
         $mockDemand = $this->getMockBuilder(PerformanceDemand::class)->getMock();
+        $this->demand = $mockDemand;
         $this->performanceDemandFactory->method('createFromSettings')->willReturn($mockDemand);
         $this->inject($this->subject, "performanceDemandFactory", $this->performanceDemandFactory);
         $this->inject($this->subject, SI::SETTINGS, $this->settings);
@@ -198,6 +214,50 @@ class ScheduleControllerTest extends UnitTestCase
         $this->mockCreateDemandFromSettings();
         $this->subject->expects($this->once())
             ->method('renderWithModuleTemplate');
+        $this->subject->listAction();
+    }
+
+    /**
+     * @test
+     */
+    public function listActionSetsStoragePagesOnDemand()
+    {
+        $mockDemand = $this->demand;
+        $this->subject->method('getStoragePages')->willReturn('3,5');
+        $mockDemand->expects($this->once())
+            ->method('setStoragePages')
+            ->with('3,5');
+
+        $this->subject->listAction();
+    }
+
+    /**
+     * @test
+     */
+    public function listActionFindsPerformancesOnStoragePages()
+    {
+        $mockDemand = $this->demand;
+        $this->subject->method('getStoragePages')->willReturn('3');
+        $this->performanceRepository->expects($this->once())
+            ->method('findDemanded')
+            ->with($mockDemand);
+
+        $this->subject->listAction();
+    }
+
+    /**
+     * @test
+     */
+    public function listActionAsksForPageSelectionWithoutStoragePages()
+    {
+        $this->subject->method('getStoragePages')->willReturn('');
+        $this->performanceRepository->expects($this->never())
+            ->method('findDemanded');
+        $this->subject->method('translate')->willReturnArgument(0);
+        $this->subject->expects($this->once())
+            ->method('addFlashMessage')
+            ->with('message.selectPage.text', 'message.selectPage.title', ContextualFeedbackSeverity::INFO);
+
         $this->subject->listAction();
     }
 }

@@ -6,8 +6,9 @@ TypoScript (reference)
 
 The static template *Events (t3events)* contains the frontend configuration
 (``Configuration/TypoScript/constants.typoscript`` and ``setup.typoscript``).
-The backend modules are configured globally in ``ext_typoscript_setup.txt``
-and ``ext_typoscript_constants.txt`` (no include needed).
+The backend modules are configured in
+``Configuration/TypoScript/Module/setup.typoscript``, which ``ext_localconf.php``
+registers as global TypoScript (no include needed).
 
 ..  contents::
     :local:
@@ -180,6 +181,10 @@ TSconfig. On case-sensitive file systems this file is not found in 4.0 (see
 Backend modules
 ===============
 
+Both modules show the page tree. They list the records of the page selected
+in the tree and of its subpages. The TypoScript of the selected page applies,
+so the configuration can be overridden on a page with a TypoScript record.
+
 The modules read ``module.tx_t3events``:
 
 ..  list-table::
@@ -188,26 +193,30 @@ The modules read ``module.tx_t3events``:
 
     *   -   Path
         -   Meaning
-    *   -   Constant ``module.tx_t3events.persistence.storagePid``
-        -   Storage folder of the records (default ``0``). Used as
-            ``settings.storagePages`` and as the folder for new events.
+    *   -   ``persistence.recursive``
+        -   ``99``. Levels of subpages below the selected page whose records
+            are listed.
+    *   -   ``persistence.storagePid``
+        -   Not set. If set, the modules list the records of this folder,
+            independent of the page selected in the tree. New events are
+            created in this folder.
     *   -   ``settings.event.list.maxItems``,
             ``settings.schedule.list.maxItems``
-        -   Maximum number of rows. The constant for the schedule list is
-            missing in 4.0; define
-            ``module.tx_t3events.settings.schedule.list.maxItems``.
+        -   Maximum number of rows (not set by default).
     *   -   ``settings.event.list.filter.*``,
             ``settings.schedule.list.filter.*``
         -   Options of the filter form: ``genre``, ``venue``, ``audience``,
             ``eventType`` (empty: all records, or a list of uids) and
             ``periods`` (``futureOnly,pastOnly,all``). The default ``all``
             hides the field in 4.0.
-    *   -   ``settings.event.search.fields``,
+    *   -   ``settings.event.list.search.fields``,
             ``settings.schedule.list.search.fields``
         -   Fields searched by the search term.
     *   -   ``settings.schedule.list.order``
-        -   ``date|asc,begin|asc``
+        -   Order of the schedule list, for example ``date|asc,begin|asc``.
     *   -   ``view.templateRootPaths`` etc.
-        -   Template paths of the modules.
+        -   Template paths of the modules. Default:
+            ``EXT:t3events/Resources/Private/Templates/Backend/``.
 
-See :ref:`known-problems`: the modules do not work in 4.0.
+In 4.0.0 and 4.0.1 the modules do not work in TYPO3 14 (see
+:ref:`known-problems`).

@@ -6,10 +6,17 @@ use DWenzel\T3events\Controller\PerformanceController;
 use DWenzel\T3events\DataProvider\Form\EventPluginFormDataProvider;
 use TYPO3\CMS\Backend\Form\FormDataProvider\TcaFlexPrepare;
 use TYPO3\CMS\Backend\Form\FormDataProvider\TcaFlexProcess;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 use DWenzel\T3events\Configuration\PeriodConstraintLegendFormElement;
 
 defined('TYPO3') || die();
+
+// Configuration of the backend modules as global TypoScript: TYPO3 14 no longer
+// reads the TypoScript of "the first" page for backend modules (Breaking #105728)
+ExtensionManagementUtility::addTypoScriptSetup(
+    "@import 'EXT:t3events/Configuration/TypoScript/Module/setup.typoscript'"
+);
 
 // Register combined plugin (replaces ExtensionConfiguration::configurePlugins() from t3extension-tools v3)
 ExtensionUtility::configurePlugin(
