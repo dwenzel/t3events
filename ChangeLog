@@ -1,3 +1,5 @@
+2026-11-25         [RELEASE] Release of t3events 2.0.3 (Dirk Wenzel)
+2026-11-25 7984dfe [BUGFIX] Use group fields for l10n_parent in TCA (Dirk Wenzel)
 2026-11-18         [RELEASE] Release of t3events 2.0.2 (Dirk Wenzel)
 2026-11-14 0894285 [BUGFIX] Use minutes in the date prefix of download file names (Dirk Wenzel)
 2026-11-14         [RELEASE] Release of t3events 2.0.1 (Dirk Wenzel)
