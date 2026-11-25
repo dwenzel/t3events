@@ -63,18 +63,12 @@ return [
             'displayCond' => 'FIELD:sys_language_uid:>:0',
             'label' => $cll . 'LGL.l18n_parent',
             'config' => [
-                'type' => 'select',
-                'renderType' => 'selectSingle',
-                'items' => [
-                    ['', 0],
-                ],
-                'foreign_table' => 'tx_t3events_domain_model_person',
-                'foreign_table_where' => 'AND tx_t3events_domain_model_person . pid = -1 AND tx_t3events_domain_model_person . sys_language_uid IN(-1, 0)',
-                'fieldWizard' => [
-                    'selectIcons' => [
-                        'disabled' => false
-                    ]
-                ]
+                'type' => 'group',
+                'allowed' => 'tx_t3events_domain_model_person',
+                'size' => 1,
+                'maxitems' => 1,
+                'minitems' => 0,
+                'default' => 0,
             ],
         ],
         'l10n_diffsource' => [
