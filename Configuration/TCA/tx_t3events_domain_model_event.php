@@ -76,13 +76,12 @@ return [
             'displayCond' => 'FIELD:sys_language_uid:>:0',
             'label' => $cll . 'LGL.l18n_parent',
             'config' => [
-                'type' => 'select',
-                'renderType' => 'selectSingle',
-                'items' => [
-                    ['', 0],
-                ],
-                'foreign_table' => 'tx_t3events_domain_model_event',
-                'foreign_table_where' => 'AND tx_t3events_domain_model_event.pid=###CURRENT_PID### AND tx_t3events_domain_model_event.sys_language_uid IN (-1,0)',
+                'type' => 'group',
+                'allowed' => 'tx_t3events_domain_model_event',
+                'size' => 1,
+                'maxitems' => 1,
+                'minitems' => 0,
+                'default' => 0,
             ],
         ],
         'l10n_diffsource' => [
