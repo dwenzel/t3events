@@ -80,13 +80,12 @@ return [
             'displayCond' => 'FIELD:sys_language_uid:>:0',
             'label' => $cll . 'LGL.l18n_parent',
             'config' => [
-                'type' => 'select',
-                'renderType' => 'selectSingle',
-                'items' => [
-                    ['label' => '', 'value' => 0],
-                ],
-                'foreign_table' => 'tx_t3events_domain_model_performance',
-                'foreign_table_where' => 'AND tx_t3events_domain_model_performance.pid=###CURRENT_PID### AND tx_t3events_domain_model_performance.sys_language_uid IN (-1,0)'
+                'type' => 'group',
+                'allowed' => 'tx_t3events_domain_model_performance',
+                'size' => 1,
+                'maxitems' => 1,
+                'minitems' => 0,
+                'default' => 0,
             ],
         ],
         'l10n_diffsource' => [
