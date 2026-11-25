@@ -61,13 +61,12 @@ return [
             'displayCond' => 'FIELD:sys_language_uid:>:0',
             'label' => $cll . 'LGL.l18n_parent',
             'config' => [
-                'type' => 'select',
-                'renderType' => 'selectSingle',
-                'items' => [
-                    ['label' => '', 'value' => 0],
-                ],
-                'foreign_table' => 'tx_t3events_domain_model_ticketclass',
-                'foreign_table_where' => 'AND tx_t3events_domain_model_ticketclass.pid=###CURRENT_PID### AND tx_t3events_domain_model_ticketclass.sys_language_uid IN (-1,0)',
+                'type' => 'group',
+                'allowed' => 'tx_t3events_domain_model_ticketclass',
+                'size' => 1,
+                'maxitems' => 1,
+                'minitems' => 0,
+                'default' => 0,
             ],
         ],
         'l10n_diffsource' => [

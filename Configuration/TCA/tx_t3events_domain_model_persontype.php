@@ -52,18 +52,12 @@ return [
             'displayCond' => 'FIELD:sys_language_uid:>:0',
             'label' => $cll . 'LGL.l18n_parent',
             'config' => [
-                'type' => 'select',
-                'renderType' => 'selectSingle',
-                'items' => [
-                    ['label' => '', 'value' => 0],
-                ],
-                'foreign_table' => 'tx_t3events_domain_model_persontype',
-                'foreign_table_where' => 'AND tx_t3events_domain_model_persontype.pid=###CURRENT_PID### AND tx_t3events_domain_model_persontype.sys_language_uid IN (-1,0)',
-                'fieldWizard' => [
-                    'selectIcons' => [
-                        'disabled' => false
-                    ]
-                ]
+                'type' => 'group',
+                'allowed' => 'tx_t3events_domain_model_persontype',
+                'size' => 1,
+                'maxitems' => 1,
+                'minitems' => 0,
+                'default' => 0,
             ],
         ],
         'l10n_diffsource' => [
